@@ -1,0 +1,137 @@
+<div id="recommend-header">
+    <div ng-switch="headerState">
+        <div ng-switch-default>
+            <button type="submit" class="btn btn-default"
+                    ng-click="addRecommendation()">Empfehlung hinzufügen...
+            </button>
+            <div ng-repeat="recommendation in user.recommendations">
+                <div class="col-sm-2">
+                    <label>{{ recommendation.title}}</label>
+                </div>
+                <div class="col-sm-2"
+                     ng-if="recommendation.author !== undefined && recommendation.author !== ''">
+                    <label>{{ recommendation.author}}</label>
+                </div>
+                <div class="col-sm-2"
+                     ng-if="recommendation.link !== undefined && recommendation.link !== ''">
+                    <label>{{ recommendation.link}}</label>
+                </div>
+                <div class="col-sm-2">
+                    <label>{{ recommendation.ratingPositiv}}</label>
+                </div>
+                <div class="col-sm-2">
+                    <label>{{ recommendation.comment}}</label>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default"
+                            ng-click="updateRecommendation(recommendation)">Ändern
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default"
+                            ng-click="deleteRecommendation(recommendation)">Löschen
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="newRecommendation">
+            <form class="form-horizontal" name="modifyRecommendationForm" role="form" novalidate>
+                <div class="form-group form-group-sm">
+                    <label for="selectCategory" class="col-sm-2 control-label">Kategorie</label>
+
+                    <div class="col-sm-4">
+                        <select name="inputCategory" ng-model="recommendation.selectedCategory"
+                                ng-options="category.name for category in recommendation.categories"
+                                class="form-control"
+                                id="selectCategory"></select><br/>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm"
+                     ng-show="recommendation.selectedCategory.property !== 'book'">
+                    <label for="inputTitle" class="col-sm-2 control-label">Titel</label>
+
+                    <div class="col-sm-4">
+                        <input name="inputTitle" ng-model="linkRecommendation.title"
+                               class="form-control"
+                               id="inputTitle">
+                    </div>
+                    <label for="inputLink" class="col-sm-2 control-label">Link</label>
+
+                    <div class="col-sm-4">
+                        <input name="inputLink" ng-model="linkRecommendation.link"
+                               class="form-control"
+                               id="inputLink">
+                    </div>
+                </div>
+                <div class="form-group form-group-sm"
+                     ng-show="recommendation.selectedCategory.property === 'book'">
+                    <label for="inputTitleBook" class="col-sm-2 control-label">Titel</label>
+
+                    <div class="col-sm-4">
+                        <input name="inputTitle" ng-model="bookRecommendation.title"
+                               class="form-control"
+                               id="inputTitleBook">
+                    </div>
+                    <label for="inputAuthor" class="col-sm-2 control-label">Autor</label>
+
+                    <div class="col-sm-4">
+                        <input name="inputAuthor" ng-model="bookRecommendation.author"
+                               class="form-control"
+                               id="inputAuthor">
+                    </div>
+
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="inputRating" class="col-sm-2 control-label">Bewertung</label>
+
+                    <div class="col-sm-10">
+                        <div class="btn-group" id="inputRating">
+                            <label class="btn btn-default"
+                                   ng-click="recommendation.ratingPositive = true; profileForm.$setDirty()"
+                                   ng-class="{'active': recommendation.ratingPositive === true}">Gut</label>
+                            <label class="btn btn-default"
+                                   ng-click="recommendation.ratingPositive = false; profileForm.$setDirty()"
+                                   ng-class="{'active': recommendation.ratingPositive === false}">Schlecht</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="col-sm-12 form-control" rows="3" placeholder="Kommentar"
+                              ng-model="recommendation.comment" maxlength="500"
+                              ng-maxlength="500"></textarea>
+                    <label id="comment-length">Es verbleiben {{500 - recommendation.comment.length}}
+                        Zeichen</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <div>
+                            <button type="submit" class="btn btn-default"
+                                    ng-click="submitRecommendation()">
+                                {{recommendation.textSubmitButton}}
+                            </button>
+                        </div>
+                        <div class="alert-input alert-danger"
+                             ng-show="modifyRecommendationForm.$invalid && submitFailed">
+                            <span>Bitte füllen Sie alle Werte korrekt aus</span>
+                        </div>
+                        <div class="alert-input alert-danger"
+                             ng-show="modifyRecommendationForm.$invalid == false && submitFailedToServer">
+                            <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div>
+                            <button type="submit" class="btn btn-default"
+                                    ng-click="abort()">
+                                Abbrechen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="recommend-body">
+
+</div>

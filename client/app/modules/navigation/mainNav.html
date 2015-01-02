@@ -1,0 +1,36 @@
+<div ng-show="$state.includes('public') == false">
+    <div class="navigation">
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="home" class="navigation-link"><img ng-src="app/img/home.png"/></a>
+        </div>
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="connection" class="navigation-link"><img
+                    ng-src="app/img/connection.png"/></a>
+        </div>
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="email" class="navigation-link"><img ng-src="app/img/email.png"/></a>
+        </div>
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="meet" class="navigation-link"><img ng-src="app/img/meeting.png"/></a>
+        </div>
+        <div class="navigation-element" ng-class="{active: $state.includes('profile')}">
+            <a ui-sref="profile.default"><img ng-src="app/img/profile.png"/></a>
+        </div>
+        <div class="navigation-element">
+            <a ui-sref="public.logout" class="navigation-link"><img
+                    ng-src="app/img/logout.png"/></a>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="navigation-second" ng-show="$state.includes('profile')">
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="profile.default" class="navigation-link"><img
+                    ng-src="app/img/defaultProfile.png"></a>
+        </div>
+        <div class="navigation-element" ui-sref-active="active">
+            <a ui-sref="profile.recommendation" class="navigation-link"><img
+                    ng-src="app/img/recommend.png"></a>
+        </div>
+    </div>
+</div>

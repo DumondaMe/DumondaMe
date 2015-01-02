@@ -1,0 +1,48 @@
+{
+  "name": "elyoos-client-test",
+  "version": "0.0.1",
+  "description": "elyoos",
+  "repository": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "browserify": "8.0.2",
+    "phantomjs": "~1.9.7-12",
+    "mocha": "~1.21.4",
+    "karma": "~0.12.24",
+    "karma-browserify": "2.0.0",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-mocha": "~0.1.9",
+    "karma-chai": "~0.1.0",
+    "karma-sinon": "~1.0.3",
+    "karma-junit-reporter": "~0.2.2",
+    "karma-coverage": "~0.2.6",
+    "karma-ng-html2js-preprocessor": "~0.1.2",
+    "browserify-istanbul": "0.1.2",
+    "protractor": "~1.3.1",
+    "selenium": "~2.20.0",
+    "chromedriver": "~2.10.0",
+    "underscore": "~1.7.0",
+    "matchdep": "~0.3.0",
+    "grunt": "~0.4.5",
+    "grunt-browserify": "~3.1.0",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-karma": "~0.9.0",
+    "grunt-sonar-runner": "~2.3.1",
+    "grunt-angular-templates": "~0.5.7",
+    "grunt-contrib-cssmin": "~0.10.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-sass": "~0.8.1",
+    "grunt-contrib-concat": "~0.5.0"
+  },
+  "browser": {
+    "angular": "./app/lib/angular/angular-index.js",
+    "angular-animate": "./app/lib/angular/angular-animate.min.js",
+    "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",
+    "angular-cookies": "./app/lib/angular/angular-cookies.min.js",
+    "angular-strap": "./app/lib/bootstrap/angular-strap.min.js",
+    "angular-strap-tpl": "./app/lib/bootstrap/angular-strap.tpl.min.js",
+    "underscore": "./app/lib/underscore/underscore.js",
+    "templates": "./app/dist/templates.js"
+  }
+}

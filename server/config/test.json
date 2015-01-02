@@ -1,0 +1,21 @@
+{
+  "express": {
+    "view engine": null
+  },
+  "view engines": null,
+  "databaseConfig": {
+    "host": "http://localhost:7476"
+  },
+  "bcrypt": {
+    "difficulty": 8
+  },
+  "middleware": {
+    "appsec": {
+      "enabled": false,
+      "priority": 90,
+      "module": {
+        "name": "lusca"
+      }
+    }
+  }
+}

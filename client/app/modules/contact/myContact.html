@@ -1,0 +1,69 @@
+<div id="content-page">
+    <div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>
+    <div id="centerCol">
+        <div class="contact-preview"
+             ng-repeat="contact in contacts | filter:query"
+             ng-controller="ContactPreviewCtrl">
+            <img ng-src="{{contact.profileUrl}}">
+
+            <div class="contact-preview-content">
+                <div class="contact-preview-name">
+                    <div>
+                        {{contact.name}}
+                    </div>
+                    <div class="description" trigger="click" data-auto-close="true"
+                         data-placement="bottom"
+                         data-template="app/modules/contact/popoverDescription.html"
+                         bs-popover><!--ng-show="{{!contact.blocked}}"-->
+                        ({{contact.type}})
+                    </div>
+                    <div class="blocked-description" ng-show="{{contact.blocked}}">
+                        BLOCKIERT
+                    </div>
+                </div>
+                <div class="command-icons">
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle left"
+                            data-toggle="dropdown" aria-expanded="false"
+                            bs-dropdown="contact.actions">
+                        Aktionen <span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="select">
+                <div class="s2">
+                    <input type="checkbox" ng-model="contact.selected">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="leftCol">
+        <div id="inner-leftCol">
+            <form>
+                <ely-search-box description="Suche nach Kontakt..." query="query"></ely-search-box>
+                <!--<ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
+                    <li class="list-group-item">
+                        <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
+                             data-placement="bottom">
+                            <img src="app/img/settings.png">
+                            <span class="caret"></span>
+                        </div>
+                        <span class="badge">{{contacts.data.length}}</span>
+                        Alle Kontakte
+                    </li>
+                    <li class="list-group-item" ng-repeat="descCount in contacts.count_desc">
+                        <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
+                             data-placement="bottom">
+                            <img src="app/img/settings.png">
+                            <span class="caret"></span>
+                        </div>
+                        <span class="badge">{{descCount.doc_count}}</span>
+                        <div class="contact-description-count">
+                            {{descCount.key}}
+                        </div>
+                    </li>
+                </ul>-->
+            </form>
+        </div>
+    </div>
+</div>

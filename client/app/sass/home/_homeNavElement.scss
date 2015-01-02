@@ -1,0 +1,37 @@
+.navigation-element {
+
+  float: left;
+  margin: 10px;
+  height: 150px;
+  width: 250px;
+  border: 1px solid #6F9833;
+
+  .navigation-element-content {
+    height: 100%;
+    width: 100%;
+    &:hover {
+      background-color: #8ECD84;
+    }
+  }
+
+  .navigation-element-description {
+    text-align: center;
+  }
+
+  img {
+    height: 60px;
+    margin: 2px 95px 0px 95px;
+    width: 60px;
+    padding: 1em;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+  }
+}
+
+.navigation .active, .navigation-second .active {
+  background-color: #8ECD84;
+}

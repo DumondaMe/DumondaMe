@@ -1,0 +1,178 @@
+//include all partial scss files
+@import 'bootstrap/bootstrap';
+@import 'directives/searchBox';
+@import 'navigation/rightColNav';
+@import 'page/page';
+@import 'home/homeNavElement';
+@import 'contact/contact';
+
+html, body {
+  height: 100%;
+  min-height: 600px;
+  min-width: 1000px;
+  margin: 0;
+  font-family: Helvetica;
+}
+
+#viewport {
+  width: 100%;
+  min-height: 600px;
+  min-width: 1000px;
+  height: 100%;
+  position: relative;
+}
+
+#public-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 35px;
+  width: 100%;
+  background-color: #4EB144;
+  z-index: 999;
+}
+
+.rightNavActive {
+  padding-right: 120px;
+}
+
+.leftHeaderNavElement {
+  float: left;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 35px !important;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.leftHeaderNavElement:hover {
+  color: #449d44;
+  text-decoration: none;
+}
+
+.rightHeaderNavElement {
+  float: right;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 35px !important;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.rightHeaderNavElement:hover {
+  color: #449d44;
+  text-decoration: none;
+}
+
+#content {
+  float: left;
+  width: 100%;
+  margin-top: 60px;
+}
+
+#userinfo {
+  float: left;
+}
+
+#nav-content {
+  position: fixed;
+  margin-top: 80px;
+  top: 0px;
+  left: 0px;
+}
+
+.navigation {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-left: -405px;
+  width: 810px;
+}
+
+#navigation-connections {
+  background-color: #FFBABA;
+}
+
+.navigation-second {
+  float: left;
+}
+
+#default-nav {
+  float: right;
+  min-width: 60px;
+  height: 60px;
+}
+
+#profileImage {
+  height: 60px;
+}
+
+#loginform {
+  position: absolute;
+  width: 400px;
+  top: 100px;
+  left: 50%;
+  margin-left: -200px;
+}
+
+#change-profile-image {
+  margin-top: 10px;
+}
+
+.alert-input {
+  padding: 5px;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.control-label em {
+  font-weight: normal;
+}
+
+.innerCol {
+  margin-top: 10px;
+  padding-right: 10px;
+  height: 100%;
+}
+
+#centerCol {
+  float: left;
+  width: 750px;
+  margin: 0 0 0 300px;
+  padding: 0 0 0 10px;
+}
+
+#leftCol {
+  position: fixed;
+  left: 0px;
+  width: 300px;
+  height: 100%;
+  top: 0px;
+  padding-top: 60px;
+  z-index: 999;
+}
+
+#inner-leftCol {
+  border-right: 1px solid #ccc;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.sortable-header {
+  cursor: pointer;
+}
+
+.img-table-preview {
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+}

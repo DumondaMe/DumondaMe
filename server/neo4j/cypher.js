@@ -1,0 +1,151 @@
+'use strict';
+
+var request = require('request');
+var promise = require('bluebird');
+var logger = requireLogger.getLogger(__filename);
+
+var createJson = function (result) {
+    var json = [], row, i, j;
+
+    for (i = 0; i < result.data.length; i = i + 1) {
+        row = {};
+        for (j = 0; j < result.data[i].row.length; j = j + 1) {
+            if (result.data[i].row[j]) {
+                row[result.columns[j]] = result.data[i].row[j];
+            }
+        }
+        json.push(row);
+    }
+
+    return json;
+};
+
+var Cypher = function (connectionUrl) {
+    var chainedQuery = '';
+
+    this.chainingQuery = function (condition, command) {
+        chainedQuery = chainedQuery + command + condition;
+        return this;
+    };
+
+    this.match = function (condition) {
+        return this.chainingQuery(condition, ' MATCH ');
+    };
+
+    this.where = function (condition) {
+        return this.chainingQuery(condition, ' WHERE ');
+    };
+
+    this.with = function (condition) {
+        return this.chainingQuery(condition, ' WITH ');
+    };
+
+    this.create = function (condition) {
+        return this.chainingQuery(condition, ' CREATE ');
+    };
+
+    this.createUnique = function (condition) {
+        return this.chainingQuery(condition, ' CREATE UNIQUE ');
+    };
+
+    this.merge = function (condition) {
+        return this.chainingQuery(condition, ' MERGE ');
+    };
+
+    this.case = function (condition) {
+        return this.chainingQuery(condition, ' CASE ');
+    };
+
+    this.when = function (condition) {
+        return this.chainingQuery(condition, ' WHEN ');
+    };
+
+    this.then = function (condition) {
+        return this.chainingQuery(condition, ' THEN ');
+    };
+
+    this.delete = function (condition) {
+        return this.chainingQuery(condition, ' DELETE ');
+    };
+
+    this.orderBy = function (condition) {
+        return this.chainingQuery(condition, ' ORDER BY ');
+    };
+
+    this.limit = function (condition) {
+        return this.chainingQuery(condition, ' LIMIT ');
+    };
+
+    this.union = function () {
+        chainedQuery = chainedQuery + ' UNION ';
+        return this;
+    };
+
+    this.nextLine = function (nextCondition) {
+        chainedQuery = chainedQuery + nextCondition;
+        return this;
+    };
+
+    this.set = function (ref, objectToSet) {
+
+        var setCondition = '', key, propertyAdded = false;
+        for (key in objectToSet) {
+            if (objectToSet.hasOwnProperty(key)) {
+                if (objectToSet[key]) {
+                    setCondition = setCondition.concat(ref, '.', key, ' = {', key, '},');
+                    propertyAdded = true;
+                }
+            }
+        }
+        if (propertyAdded) {
+            setCondition = setCondition.slice(0, -1);
+            chainedQuery = chainedQuery + ' SET ' + setCondition;
+        } else {
+            logger.error('Empty object for set condition');
+        }
+        return this;
+    };
+
+    this.return = function (returnCondition) {
+        chainedQuery = chainedQuery + ' RETURN ' + returnCondition;
+        return this;
+    };
+
+    this.send = function (params) {
+        if (!params) {
+            params = {};
+        }
+        return new promise.Promise(function (resolve, reject) {
+            request({
+                method: 'POST',
+                uri: connectionUrl,
+                json: {
+                    statements: [{statement: chainedQuery, parameters: params}]
+                },
+                headers: {
+                    'X-Stream': true,
+                    Accept: 'application/json'
+                }
+            }, function (err, res) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                if (res.body.errors.length > 0) {
+                    reject(res.body.errors);
+                    return;
+                }
+                if (res.statusCode === 200 && res.body.results.length === 1) {
+
+                    resolve(createJson(res.body.results[0]));
+                    return;
+                }
+                reject({statusCode: res.statusCode});
+            });
+        });
+    };
+};
+
+module.exports = {
+    Cypher: Cypher
+};

@@ -1,0 +1,39 @@
+#rightCol {
+  position: fixed;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  top: 0px;
+  padding-top: 50px;
+  z-index: 1;
+  background: white;
+}
+
+.button-rightCol {
+  cursor: pointer;
+  float: left;
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  margin: 2px 10px 2px 10px;
+  border: 1px solid #CCC !important;
+  &:hover {
+    background-color: #CCF1C8;
+  }
+}
+
+.button-rightCol a:link, .button-rightCol a:visited, .button-rightCol a:hover, .button-rightCol a:active {
+  text-decoration: none;
+}
+
+.button-rightCol-active {
+  background-color: #4EB144;
+}
+
+.button-rightCol-text {
+  color: #000000;
+  font-size: small;
+  text-align: center;
+  padding: 5px;
+  margin-top: 15px;
+}

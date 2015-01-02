@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="de" ng-app="elyoosApp">
+<head>
+    <base href="/"/>
+    <meta charset="utf-8">
+    <title>Elyoos</title>
+    <link rel="stylesheet" href="app/sass/app.css"/>
+    <link rel="shortcut icon" href="app/img/favicon.ico" type="image/x-icon"/>
+</head>
+<body ng-controller="UserCtrl">
+<div id="viewport" ng-cloak>
+    <div ui-view="header"></div>
+    <div id="content">
+        <div ui-view="content"></div>
+    </div>
+</div>
+
+<script src="app/dist/app.js"></script>
+
+</body>
+</html>
