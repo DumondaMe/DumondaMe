@@ -12,65 +12,65 @@ describe('Integration Tests for finding other users', function () {
         var createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
-                .send({
+                .end({
                     email: 'user@irgendwo.ch',
                     password: '1234',
                     name: 'user Meier',
                     userId: '1'
-                })
+                }).send()
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo2.ch',
                             password: '1234',
                             name: 'user2 Meier2',
                             userId: '2'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo3.ch',
                             password: '1234',
                             name: 'user2 Meier3',
                             userId: '3'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo4.ch',
                             password: '1234',
                             name: 'user Meier4',
                             userId: '4'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo5.ch',
                             password: '1234',
                             name: 'user Meier5',
                             userId: '5'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo6.ch',
                             password: '1234',
                             name: 'user Meier6',
                             userId: '6'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
-                        .send({
+                        .end({
                             email: 'user@irgendwo7.ch',
                             password: '1234',
                             name: 'etwasganzanderes nochwas anderes',
                             userId: '7'
-                        });
+                        }).send();
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'2'})")

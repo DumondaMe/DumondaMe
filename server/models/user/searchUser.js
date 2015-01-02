@@ -17,7 +17,8 @@ module.exports = {
             .where("noContacts.name =~ {userQueryRegEx} AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
             .return('noContacts.name AS name, null AS type, noContacts.userId AS id')
             .orderBy('name LIMIT {maxItems}')
-            .send({userId: userId, userQueryRegEx: userQueryRegEx, maxItems: maxItems})
+            .end({userId: userId, userQueryRegEx: userQueryRegEx, maxItems: maxItems})
+            .send()
             .then(function (resp) {
                 if (resp.length <= maxItems) {
                     return resp;

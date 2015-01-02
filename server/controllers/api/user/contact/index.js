@@ -45,9 +45,11 @@ var schemaDeleteContact = {
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
-
+        var data = {};
         return contact.getContacts(req.user.id).then(function (contacts) {
-            res.status(200).json(contacts);
+            data.contacts = contacts[0];
+            data.statistic = contacts[1];
+            res.status(200).json(data);
         }).catch(function (err) {
             logger.error('Error when searching for a user', {error: err}, req);
             res.status(500).end();

@@ -17,16 +17,20 @@ describe('Integration Tests User Profile Data', function () {
         return db.clearDatabase().then(function () {
 
             return db.cypher().create("(:User {email: {email}, password: {password}, forename: {forename}, surname: {surname}, userId: {userId}})")
-                .send({
+                .end({
                     email: 'user@irgendwo.ch',
                     password: '1234',
                     forename: 'user',
                     surname: 'Meier',
                     userId: '0'
-                })
+                }).send()
                 .then(function () {
                     return db.cypher().create("(:User {email: {email}, password: {password}, userId: {userId}})")
-                        .send({email: 'userchange@irgendwo.ch', password: '1234', userId: '1'});
+                        .end({
+                            email: 'userchange@irgendwo.ch',
+                            password: '1234',
+                            userId: '1'
+                        }).send();
                 });
         });
     });

@@ -10,7 +10,7 @@ describe('Integration Tests Login', function () {
     before(function () {
         return db.clearDatabase().then(function () {
             return db.cypher().create("(:User {email: {email}, password: {password}})")
-                .send({email: 'user@irgendwo.ch', password: '1234'});
+                .end({email: 'user@irgendwo.ch', password: '1234'}).send();
         });
     });
 

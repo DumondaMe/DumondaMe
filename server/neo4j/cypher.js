@@ -2,6 +2,7 @@
 
 var request = require('request');
 var promise = require('bluebird');
+var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
 var createJson = function (result) {
@@ -21,7 +22,7 @@ var createJson = function (result) {
 };
 
 var Cypher = function (connectionUrl) {
-    var chainedQuery = '';
+    var chainedQuery = '', paramsToSend = {};
 
     this.chainingQuery = function (condition, command) {
         chainedQuery = chainedQuery + command + condition;
@@ -111,16 +112,29 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
-    this.send = function (params) {
-        if (!params) {
-            params = {};
+    this.end = function (params) {
+        if (params) {
+            paramsToSend = params;
         }
+        return this;
+    };
+
+    this.getCommand = function () {
+        return {statement: chainedQuery, parameters: paramsToSend};
+    };
+
+    this.send = function (statementsToSend) {
+        var multiDataResponse = [];
+        if (!statementsToSend || !(statementsToSend instanceof Array)) {
+            statementsToSend = [];
+        }
+        statementsToSend.push(this.getCommand());
         return new promise.Promise(function (resolve, reject) {
             request({
                 method: 'POST',
                 uri: connectionUrl,
                 json: {
-                    statements: [{statement: chainedQuery, parameters: params}]
+                    statements: statementsToSend
                 },
                 headers: {
                     'X-Stream': true,
@@ -138,6 +152,13 @@ var Cypher = function (connectionUrl) {
                 if (res.statusCode === 200 && res.body.results.length === 1) {
 
                     resolve(createJson(res.body.results[0]));
+                    return;
+                }
+                if (res.statusCode === 200 && res.body.results.length > 1) {
+                    underscore.each(res.body.results, function (result) {
+                        multiDataResponse.push(createJson(result));
+                    });
+                    resolve(multiDataResponse);
                     return;
                 }
                 reject({statusCode: res.statusCode});
