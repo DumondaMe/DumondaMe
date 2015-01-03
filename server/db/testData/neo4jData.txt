@@ -2,7 +2,7 @@ MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 CREATE CONSTRAINT ON (u:User) ASSERT u.userId IS UNIQUE;
 CREATE CONSTRAINT ON (u:User) ASSERT u.email IS UNIQUE;
 
-CREATE (n:User {userId:'0', email:'climberwoodi@gmx.ch', password:'1', forename:'Roger', surname:'Waldvogel'})-[:IS_CONTACT {type:'Familie'}]->(u:User {userId:'1', email:'1@gmx.ch', password:'1', forename:'Monika', surname:'Wildhaber'});
+CREATE (n:User {userId:'0', email:'climberwoodi@gmx.ch', password:'1', forename:'Roger', surname:'Waldvogel', name:'Roger Waldvogel'})-[:IS_CONTACT {type:'Familie'}]->(u:User {userId:'1', email:'1@gmx.ch', password:'1', forename:'Monika', name:'Monika Wildhaber', surname:'Wildhaber'});
 
-CREATE (n:User {userId:'2', email:'2@gmx.ch', password:'1', forename:'Michael', surname:'Fricker'});
+CREATE (n:User {userId:'2', email:'2@gmx.ch', password:'1', forename:'Michael', surname:'Fricker', name:'Michael Fricker'});
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='2' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);

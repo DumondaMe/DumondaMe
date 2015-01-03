@@ -49,6 +49,7 @@ module.exports = function (router) {
         return contact.getContacts(req.user.id).then(function (contacts) {
             data.contacts = contacts[0];
             data.statistic = contacts[1];
+            data.numberOfContacts = contacts[2][0].numberOfContacts;
             res.status(200).json(data);
         }).catch(function (err) {
             logger.error('Error when searching for a user', {error: err}, req);

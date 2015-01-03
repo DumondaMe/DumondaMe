@@ -10,22 +10,23 @@ describe('Tests of My Contact Controller', function () {
         inject(function ($rootScope, $injector, $http) {
 
             var response = {
-                data: [{
+                contacts: [{
                     id: '1',
-                    desc: 'Freund',
+                    type: 'Freund',
                     name: 'Hans Muster'
                 }, {
                     id: '2',
-                    desc: 'Bekannter',
+                    type: 'Bekannter',
                     name: 'Hans2 Muster2'
                 }],
-                count_desc: [{
-                    key: 'Freund',
-                    doc_count: 1
+                statistics: [{
+                    type: 'Bekannter',
+                    count: 1
                 }, {
-                    key: 'Bekannter',
-                    doc_count: 1
-                }]
+                    type: 'Freund',
+                    count: 1
+                }],
+                numberOfContacts: 2
             };
 
             http = $http;
@@ -42,8 +43,8 @@ describe('Tests of My Contact Controller', function () {
         myContactCtrl(scope, http, underscore);
         httpBackend.flush();
 
-        expect(scope.contacts.desc.length).to.equal(2);
-        expect(scope.contacts.desc[0]).to.equal('Freund');
-        expect(scope.contacts.desc[1]).to.equal('Bekannter');
+        expect(scope.contacts.length).to.equal(2);
+        expect(scope.contacts[0].type).to.equal('Freund');
+        expect(scope.contacts[1].type).to.equal('Bekannter');
     });
 });

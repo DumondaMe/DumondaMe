@@ -107,6 +107,9 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[0].count.should.equal(3);
             res.body.statistic[1].type.should.equal("Familie");
             res.body.statistic[1].count.should.equal(1);
+
+            //
+            res.body.numberOfContacts.should.equal(4);
         });
     });
 

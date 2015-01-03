@@ -71,8 +71,17 @@ var getContacts = function (userId) {
 
     commands.push(command);
 
-    return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
+    command = db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
         .return('r.type AS type, count(*) AS count')
+        .end({
+            userId: userId
+        })
+        .getCommand();
+
+    commands.push(command);
+
+    return db.cypher().match('(u:User {userId: {userId}})-[:IS_CONTACT]->(:User)')
+        .return('count(*) AS numberOfContacts')
         .end({
             userId: userId
         })

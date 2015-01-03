@@ -6,12 +6,12 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
 
     $http({method: 'GET', url: '/api/user/contact'})
         .then(function (data) {
-            $scope.contacts = data.data;
-            if ($scope.contacts) {
-                $scope.contacts.desc = [];
-                _.each($scope.contacts.count_desc, function (count_desc) {
-                    $scope.contacts.desc.push(count_desc.key);
-                });
-            }
+            $scope.contacts = data.data.contacts;
+            $scope.statistics = data.data.statistic;
+            $scope.types = [];
+            _.each(data.data.statistic, function (stat) {
+                $scope.types.push(stat.type);
+            });
+            $scope.numberOfContacts = data.data.numberOfContacts;
         });
 }];

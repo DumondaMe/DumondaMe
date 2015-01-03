@@ -4,13 +4,13 @@
         <form name="popoverForm">
             <div class="row">
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" ng-model="contact.descNew"
-                           ng-options="description for description in contacts.desc"
+                    <input type="text" class="form-control" ng-model="contact.typeNew"
+                           ng-options="type for type in types"
                            bs-typeahead>
                 </div>
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-default"
-                            ng-class="{'disabled': contact.typeNew === contact.desc || contact.typeNew.trim() === ''}"
+                            ng-class="{'disabled': contact.typeNew === contact.type || contact.typeNew.trim() === ''}"
                             ng-click="sendNewDescription()">Ändern
                     </button>
                 </div>

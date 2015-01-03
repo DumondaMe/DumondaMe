@@ -14,7 +14,7 @@
                     <div class="description" trigger="click" data-auto-close="true"
                          data-placement="bottom"
                          data-template="app/modules/contact/popoverDescription.html"
-                         bs-popover><!--ng-show="{{!contact.blocked}}"-->
+                         bs-popover ng-show="{{!contact.blocked}}">
                         ({{contact.type}})
                     </div>
                     <div class="blocked-description" ng-show="{{contact.blocked}}">
@@ -41,28 +41,28 @@
         <div id="inner-leftCol">
             <form>
                 <ely-search-box description="Suche nach Kontakt..." query="query"></ely-search-box>
-                <!--<ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
+                <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
                     <li class="list-group-item">
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
                              data-placement="bottom">
                             <img src="app/img/settings.png">
                             <span class="caret"></span>
                         </div>
-                        <span class="badge">{{contacts.data.length}}</span>
+                        <span class="badge">{{numberOfContacts}}</span>
                         Alle Kontakte
                     </li>
-                    <li class="list-group-item" ng-repeat="descCount in contacts.count_desc">
+                    <li class="list-group-item" ng-repeat="statistic in statistics">
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
                              data-placement="bottom">
                             <img src="app/img/settings.png">
                             <span class="caret"></span>
                         </div>
-                        <span class="badge">{{descCount.doc_count}}</span>
+                        <span class="badge">{{statistic.count}}</span>
                         <div class="contact-description-count">
-                            {{descCount.key}}
+                            {{statistic.type}}
                         </div>
                     </li>
-                </ul>-->
+                </ul>
             </form>
         </div>
     </div>
