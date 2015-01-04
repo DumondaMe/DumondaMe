@@ -98,19 +98,27 @@ describe('Integration Tests for finding other users', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/search', {
                 search: 'user',
-                maxItems: 4
+                maxItems: 4,
+                isSuggestion: false
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(4);
+            res.body[0].id.should.equal('6');
             res.body[0].name.should.equal('user Meier6');
             res.body[0].type.should.equal('Freund');
+            should.exist(res.body[0].profileUrl);
+            res.body[1].id.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
             res.body[1].type.should.equal('Familie');
+            should.exist(res.body[1].profileUrl);
+            res.body[2].id.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
+            should.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
             should.not.exist(res.body[3].type);
+            should.exist(res.body[3].profileUrl);
         });
     });
 
@@ -122,15 +130,82 @@ describe('Integration Tests for finding other users', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/search', {
                 search: 'user2 Meier',
-                maxItems: 10
+                maxItems: 2,
+                isSuggestion: false
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(2);
+            res.body[0].id.should.equal('2');
             res.body[0].name.should.equal('user2 Meier2');
             res.body[0].type.should.equal('Familie');
+            should.exist(res.body[0].profileUrl);
+            res.body[1].id.should.equal('3');
             res.body[1].name.should.equal('user2 Meier3');
             should.not.exist(res.body[1].type);
+            should.exist(res.body[1].profileUrl);
+        });
+    });
+
+    it('Request with only surname - Return correct sorted list', function () {
+
+        var requestAgent;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/contact/search', {
+                search: 'Meier',
+                maxItems: 3,
+                isSuggestion: false
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(3);
+            res.body[0].id.should.equal('6');
+            res.body[0].name.should.equal('user Meier6');
+            res.body[0].type.should.equal('Freund');
+            should.exist(res.body[0].profileUrl);
+            res.body[1].id.should.equal('2');
+            res.body[1].name.should.equal('user2 Meier2');
+            res.body[1].type.should.equal('Familie');
+            should.exist(res.body[1].profileUrl);
+            res.body[2].id.should.equal('4');
+            res.body[2].name.should.equal('user Meier4');
+            should.not.exist(res.body[2].type);
+            should.exist(res.body[2].profileUrl);
+        });
+    });
+
+    it('Request only with forename - Return correct sorted list in suggestion mode (Contacts first)', function () {
+
+        var requestAgent;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/contact/search', {
+                search: 'user',
+                maxItems: 4,
+                isSuggestion: true
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(4);
+            res.body[0].name.should.equal('user Meier6');
+            should.not.exist(res.body[0].type);
+            should.not.exist(res.body[0].id);
+            should.not.exist(res.body[0].profileUrl);
+            res.body[1].name.should.equal('user2 Meier2');
+            should.not.exist(res.body[1].type);
+            should.not.exist(res.body[1].id);
+            should.not.exist(res.body[1].profileUrl);
+            res.body[2].name.should.equal('user Meier4');
+            should.not.exist(res.body[2].type);
+            should.not.exist(res.body[2].id);
+            should.not.exist(res.body[2].profileUrl);
+            res.body[3].name.should.equal('user Meier5');
+            should.not.exist(res.body[3].type);
+            should.not.exist(res.body[3].id);
+            should.not.exist(res.body[3].profileUrl);
         });
     });
 });

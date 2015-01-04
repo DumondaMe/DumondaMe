@@ -11,10 +11,11 @@ var schemaRequestSearchUser = {
     name: 'requestSearchUser',
     type: 'object',
     additionalProperties: false,
-    required: ['search', 'maxItems'],
+    required: ['search', 'maxItems', 'isSuggestion'],
     properties: {
         search: {type: 'string', format: 'notEmptyString', maxLength: 300},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50}
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        isSuggestion: {type: 'boolean'}
     }
 };
 
@@ -23,7 +24,7 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
         return validation.validateRequest(req, schemaRequestSearchUser, logger).then(function (request) {
-            return search.searchUsers(req.user.id, request.search, request.maxItems);
+            return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
         }).then(function (users) {
             res.status(200).json(users);
         }).catch(exceptions.InvalidJsonRequest, function () {
