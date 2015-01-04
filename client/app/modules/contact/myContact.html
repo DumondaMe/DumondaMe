@@ -14,7 +14,7 @@
                     <div class="description" trigger="click" data-auto-close="true"
                          data-placement="bottom"
                          data-template="app/modules/contact/popoverDescription.html"
-                         bs-popover ng-show="{{!contact.blocked}}">
+                         bs-popover ng-show="!contact.blocked && contact.type">
                         ({{contact.type}})
                     </div>
                     <div class="blocked-description" ng-show="{{contact.blocked}}">
@@ -24,8 +24,14 @@
                 <div class="command-icons">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle left"
                             data-toggle="dropdown" aria-expanded="false"
-                            bs-dropdown="contact.actions">
+                            bs-dropdown="contact.actions"
+                            ng-show="!contact.blocked && contact.type">
                         Aktionen <span class="caret"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs left"
+                            aria-expanded="false"
+                            ng-show="!contact.blocked && !contact.type" ng-click="addNewContact()">
+                        Als Kontakt hinzufügen
                     </button>
                 </div>
             </div>
@@ -60,6 +66,7 @@
                             <span class="caret"></span>
                         </div>
                         <span class="badge">{{statistic.count}}</span>
+
                         <div class="contact-description-count">
                             {{statistic.type}}
                         </div>

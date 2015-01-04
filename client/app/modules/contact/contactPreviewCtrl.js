@@ -43,4 +43,14 @@ module.exports = ['$scope', '$http', function ($scope, $http) {
             });
         }
     };
+
+    $scope.addNewContact = function () {
+        $http.post('/api/user/contact', {
+            contactIds: [$scope.contact.id],
+            mode: 'addContact',
+            description: 'Freund'
+        }).then(function () {
+            $scope.contact.type = 'Freund';
+        });
+    };
 }];
