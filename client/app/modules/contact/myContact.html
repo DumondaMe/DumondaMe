@@ -2,7 +2,7 @@
     <div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>
     <div id="centerCol">
         <div class="contact-preview"
-             ng-repeat="contact in contacts | filter:query"
+             ng-repeat="contact in contacts"
              ng-controller="ContactPreviewCtrl">
             <img ng-src="{{contact.profileUrl}}">
 
@@ -40,7 +40,9 @@
     <div id="leftCol">
         <div id="inner-leftCol">
             <form>
-                <ely-search-box description="Suche nach Kontakt..." query="query"></ely-search-box>
+                <ely-search-box description="Suche nach Kontakt..." query="query"
+                                get-user-suggestion="getUserSuggestion"
+                                get-user="getUser"></ely-search-box>
                 <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
                     <li class="list-group-item">
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"

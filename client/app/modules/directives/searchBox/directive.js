@@ -7,9 +7,18 @@ module.exports = {
             replace: true,
             scope: {
                 description: '@',
-                query: '='
+                query: '=',
+                getUserSuggestion: '=',
+                getUser: '='
             },
-            templateUrl: 'app/modules/directives/searchBox/template.html'
+            templateUrl: 'app/modules/directives/searchBox/template.html',
+            controller: function ($scope) {
+                $scope.sendGetUser = function ($event) {
+                    if ($event.keyCode === 13) {
+                        $scope.getUser($scope.query);
+                    }
+                };
+            }
         };
     }],
     name: 'elySearchBox'

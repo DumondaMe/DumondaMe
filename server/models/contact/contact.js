@@ -66,6 +66,7 @@ var getContacts = function (userId) {
 
     command = db.cypher().match("(:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)")
         .return("r.type AS type, contact.name AS name, contact.userId AS id")
+        .orderBy('contact.surname')
         .end({userId: userId})
         .getCommand();
 

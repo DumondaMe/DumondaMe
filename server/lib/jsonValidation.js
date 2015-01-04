@@ -14,24 +14,22 @@ tv4.addFormat('notEmptyString', function (data) {
     return 'String is empty';
 });
 
+var validate = function (req, data, requestSchema, logger) {
+    var errors = tv4.validateMultiple(data, requestSchema),
+        invalidJsonException;
+    if (errors.valid) {
+        return Promise.resolve(data);
+    }
+    invalidJsonException = new exceptions.InvalidJsonRequest('Wrong input data');
+    logger.warn(invalidJsonException.message, {error: errors}, req);
+    return Promise.reject(invalidJsonException);
+};
+
 module.exports = {
     validateRequest: function (req, requestSchema, logger) {
-        var errors = tv4.validateMultiple(req.body, requestSchema),
-            invalidJsonException;
-        if (errors.valid) {
-            return Promise.resolve(req.body);
-        }
-        invalidJsonException = new exceptions.InvalidJsonRequest('Wrong input data');
-        logger.warn(invalidJsonException.message, {error: errors}, req);
-        return Promise.reject(invalidJsonException);
+        return validate(req, req.body, requestSchema, logger);
     },
-    sendValidateResponse: function (res, responseSchema, logger, dataToSend) {
-        var errors = tv4.validateMultiple(dataToSend, responseSchema);
-        if (errors.valid) {
-            res.json(dataToSend);
-        } else {
-            logger.warn('Wrong response data', {error: errors}, res);
-            res.status(500).end();
-        }
+    validateGetRequest: function (req, requestSchema, logger) {
+        return validate(req, req.query, requestSchema, logger);
     }
 };

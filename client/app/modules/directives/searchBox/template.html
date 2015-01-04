@@ -1,6 +1,9 @@
 <div class="searchBoxForm">
     <div class="inner-searchBoxForm">
-        <input class="searchBoxText" placeholder="{{description}}" ng-model="query">
-        <button class="searchBoxSubmit" type="submit"></button>
+        <input class="searchBoxText" placeholder="{{description}}" ng-model="query"
+               ng-keypress="sendGetUser($event)"
+               ng-options="user.name as user.name for user in getUserSuggestion($viewValue)"
+               data-trigger="focus" bs-typeahead>
+        <button class="searchBoxSubmit" type="submit" ng-click="getUser(query)"></button>
     </div>
 </div>
