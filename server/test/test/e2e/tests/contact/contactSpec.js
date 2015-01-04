@@ -306,4 +306,30 @@ describe('Integration Tests for handling contacts', function () {
             rel.length.should.equals(1);
         });
     });
+
+    it('Delete two contact relationships- Return 200', function () {
+
+        return db.cypher().match("(a:User {userId:'1'}), (b:User)")
+            .where('b.userId IN {contactIds}')
+            .create("(a)-[r:IS_CONTACT {type: 'Familie'}]->(b)")
+            .end({contactIds: ['2', '3', '5']})
+            .send()
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            })
+            .then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.del('/api/user/contact', {
+                    contactIds: ['2', '3']
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                return db.cypher().match("(u:User {userId: '1'})-[:IS_CONTACT]->(u2:User)")
+                    .return('u2.userId AS id')
+                    .send();
+            }).then(function (user) {
+                user.length.should.equals(1);
+                user[0].id.should.equals('5');
+            });
+    });
 });

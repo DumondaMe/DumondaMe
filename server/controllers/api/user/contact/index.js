@@ -28,17 +28,14 @@ var schemaDeleteContact = {
     name: 'deleteContact',
     type: 'object',
     additionalProperties: false,
-    required: ['contactId', 'mode'],
+    required: ['contactIds'],
     properties: {
-        contactId: {
+        contactIds: {
             type: 'array',
-            items: {type: 'string', maxLength: 30},
-            format: 'notEmptyString',
+            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
             minItems: 1,
             uniqueItems: true
-        },
-        mode: {enum: ['blockContact', 'addContact', 'changeState']},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        }
     }
 };
 
@@ -89,7 +86,14 @@ module.exports = function (router) {
     router.delete('/', auth.isAuthenticated(), function (req, res) {
 
         return validation.validateRequest(req, schemaDeleteContact, logger).then(function (request) {
-
+            return contact.deleteContact(req.user.id, request.contactIds);
+        }).then(function () {
+            res.status(200).end();
+        }).catch(exceptions.InvalidJsonRequest, function () {
+            res.status(400).end();
+        }).catch(function (err) {
+            logger.error('Error occurs while deleting contact relationship', {error: err}, req);
+            res.status(500).end();
         });
     });
 };

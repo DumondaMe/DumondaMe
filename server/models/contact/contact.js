@@ -22,6 +22,18 @@ var addContact = function (userId, contactIds, type) {
         .send();
 };
 
+var deleteContact = function (userId, contactIds) {
+
+    return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User)')
+        .where('u2.userId IN {contactIds}')
+        .delete('r')
+        .end({
+            userId: userId,
+            contactIds: contactIds
+        })
+        .send();
+};
+
 var blockContact = function (userId, blockedUserIds) {
 
 
@@ -98,6 +110,7 @@ var getContacts = function (userId) {
 
 module.exports = {
     addContact: addContact,
+    deleteContact: deleteContact,
     blockContact: blockContact,
     changeContactState: changeContactState,
     getContacts: getContacts
