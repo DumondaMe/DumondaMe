@@ -50,7 +50,7 @@ module.exports = {
         return req;
     },
     getWithData: function (api, data, agent) {
-        var req = request(app).get(api), key;
+        var req = request(app).get(api);
         if (agent) {
             agent.attachCookies(req);
         }

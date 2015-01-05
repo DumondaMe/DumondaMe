@@ -7,6 +7,17 @@ var validation = require('./../../../../lib/jsonValidation'),
     exceptions = require('./../../../../lib/error/exceptions'),
     logger = requireLogger.getLogger(__filename);
 
+var schemaRequestGetContact = {
+    name: 'getContacts',
+    type: 'object',
+    additionalProperties: false,
+    required: ['itemsPerPage', 'skip'],
+    properties: {
+        itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
+        skip: {type: 'integer', minimum: 0}
+    }
+};
+
 var schemaRequestContact = {
     name: 'contactHandling',
     type: 'object',
@@ -40,18 +51,26 @@ var schemaDeleteContact = {
 };
 
 module.exports = function (router) {
-
     router.get('/', auth.isAuthenticated(), function (req, res) {
-        var data = {};
-        return contact.getContacts(req.user.id).then(function (contacts) {
-            data.contacts = contacts[0];
-            data.statistic = contacts[1];
-            data.numberOfContacts = contacts[2][0].numberOfContacts;
-            res.status(200).json(data);
-        }).catch(function (err) {
-            logger.error('Error when searching for a user', {error: err}, req);
-            res.status(500).end();
-        });
+
+        if (req.query.itemsPerPage && req.query.skip) {
+            req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
+            req.query.skip = parseInt(req.query.skip, 10);
+        }
+        return validation.validateQueryRequest(req, schemaRequestGetContact, logger)
+            .then(function (request) {
+                return contact.getContacts(req.user.id, request.itemsPerPage, request.skip);
+            })
+            .then(function (contacts) {
+                var data = {};
+                data.contacts = contacts[0];
+                data.statistic = contacts[1];
+                data.numberOfContacts = contacts[2][0].numberOfContacts;
+                res.status(200).json(data);
+            }).catch(function (err) {
+                logger.error('Error when searching for a user', {error: err}, req);
+                res.status(500).end();
+            });
     });
 
     router.post('/', auth.isAuthenticated(), function (req, res) {

@@ -73,6 +73,10 @@ var Cypher = function (connectionUrl) {
         return this.chainingQuery(condition, ' ORDER BY ');
     };
 
+    this.skip = function (condition) {
+        return this.chainingQuery(condition, ' SKIP ');
+    };
+
     this.limit = function (condition) {
         return this.chainingQuery(condition, ' LIMIT ');
     };

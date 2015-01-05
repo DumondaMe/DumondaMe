@@ -2,6 +2,7 @@
 // Navbars
 // --------------------------------------------------
 
+
 // Wrapper and base class
 //
 // Provide a static navbar from which we expand to create full-width, fixed, and
@@ -21,6 +22,7 @@
   }
 }
 
+
 // Navbar heading
 //
 // Groups `.navbar-brand` and `.navbar-toggle` into a single component for easy
@@ -33,6 +35,7 @@
     float: left;
   }
 }
+
 
 // Navbar collapse (body)
 //
@@ -96,6 +99,7 @@
   }
 }
 
+
 // Both navbar header and collapse
 //
 // When a container is present, change the behavior of the header and collapse.
@@ -143,12 +147,10 @@
     border-radius: 0;
   }
 }
-
 .navbar-fixed-top {
   top: 0;
   border-width: 0 0 1px;
 }
-
 .navbar-fixed-bottom {
   bottom: 0;
   margin-bottom: 0; // override .navbar defaults
@@ -321,7 +323,6 @@
   margin-top: 0;
   @include border-top-radius(0);
 }
-
 // Menu position and menu caret support for dropups via extra dropup class
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
   @include border-top-radius($navbar-border-radius);

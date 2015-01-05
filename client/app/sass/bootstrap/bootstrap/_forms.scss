@@ -2,6 +2,7 @@
 // Forms
 // --------------------------------------------------
 
+
 // Normalize non-controls
 //
 // Restyle and baseline non-control form elements.
@@ -34,6 +35,7 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
 }
+
 
 // Normalize form controls
 //
@@ -86,6 +88,7 @@ output {
   line-height: $line-height-base;
   color: $input-color;
 }
+
 
 // Common form controls
 //
@@ -218,7 +221,6 @@ input[type="search"] {
     cursor: pointer;
   }
 }
-
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
@@ -243,7 +245,6 @@ input[type="search"] {
   font-weight: normal;
   cursor: pointer;
 }
-
 .radio-inline + .radio-inline,
 .checkbox-inline + .checkbox-inline {
   margin-top: 0;
@@ -262,7 +263,6 @@ input[type="checkbox"] {
     cursor: $cursor-disabled;
   }
 }
-
 // These classes are used directly on <label>s
 .radio-inline,
 .checkbox-inline {
@@ -271,7 +271,6 @@ input[type="checkbox"] {
     cursor: $cursor-disabled;
   }
 }
-
 // These classes are used on elements with <label> descendants
 .radio,
 .checkbox {
@@ -324,7 +323,6 @@ input[type="checkbox"] {
     padding-right: ($input-height-base * 1.25);
   }
 }
-
 // Feedback icon (requires .glyphicon classes)
 .form-control-feedback {
   position: absolute;
@@ -338,13 +336,11 @@ input[type="checkbox"] {
   text-align: center;
   pointer-events: none;
 }
-
 .input-lg + .form-control-feedback {
   width: $input-height-large;
   height: $input-height-large;
   line-height: $input-height-large;
 }
-
 .input-sm + .form-control-feedback {
   width: $input-height-small;
   height: $input-height-small;
@@ -355,11 +351,9 @@ input[type="checkbox"] {
 .has-success {
   @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
 }
-
 .has-warning {
   @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
 }
-
 .has-error {
   @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
 }
@@ -469,7 +463,6 @@ input[type="checkbox"] {
     }
   }
 }
-
 // [converter] extracted as `@mixin form-inline` for libsass compatibility
 .form-inline {
   @include form-inline;

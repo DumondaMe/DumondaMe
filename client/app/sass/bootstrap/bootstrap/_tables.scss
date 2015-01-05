@@ -5,14 +5,12 @@
 table {
   background-color: $table-bg;
 }
-
 caption {
   padding-top: $table-cell-padding;
   padding-bottom: $table-cell-padding;
   color: $text-muted;
   text-align: left;
 }
-
 th {
   text-align: left;
 }
@@ -132,7 +130,6 @@ table col[class*="col-"] {
   float: none;
   display: table-column;
 }
-
 table {
   td,
   th {

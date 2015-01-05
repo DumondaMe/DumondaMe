@@ -1,0 +1,20 @@
+<div class="pagination">
+    <nav>
+        <ul class="pagination">
+            <li ng-class="{disabled: currentPagination === 1}" ng-click="clickPrevious()">
+                <a href="#"
+                   aria-label="Previous"><span
+                        aria-hidden="true">&laquo;</span></a></li>
+            <li ng-class="{active: currentPagination === n}"
+                ng-repeat="n in currentPaginationItems"
+                ng-click="clickPagination(n)">
+                <a href="#">{{n}} <span class="sr-only"></span></a>
+            </li>
+            <li ng-class="{disabled: currentPagination === currentPaginationMaxRange}"
+                ng-click="clickNext()">
+                <a href="#"
+                   aria-label="Previous"><span
+                        aria-hidden="true">&raquo;</span></a></li>
+        </ul>
+    </nav>
+</div>

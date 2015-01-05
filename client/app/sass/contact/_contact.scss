@@ -99,6 +99,15 @@
   }
 }
 
+.pagination {
+  position: static;
+  width: 100%;
+
+  nav {
+    padding-left: 200px;
+  }
+}
+
 #inner-leftCol {
 
   background: white;

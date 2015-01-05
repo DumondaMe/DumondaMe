@@ -2,6 +2,7 @@
 // Dropdown menus
 // --------------------------------------------------
 
+
 // Dropdown arrow/caret
 .caret {
   display: inline-block;
@@ -135,7 +136,6 @@
   left: auto; // Reset the default from `.dropdown-menu`
   right: 0;
 }
-
 // With v3, we enabled auto-flipping if you have a dropdown within a right
 // aligned nav component. To enable the undoing of that, we provide an override
 // to restore the default dropdown menu alignment.
@@ -193,6 +193,7 @@
     margin-bottom: 1px;
   }
 }
+
 
 // Component alignment
 //

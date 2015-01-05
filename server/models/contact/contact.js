@@ -116,13 +116,15 @@ var changeContactState = function (userId, contactIds, type) {
         });
 };
 
-var getContacts = function (userId) {
+var getContacts = function (userId, itemsPerPage, skip) {
 
     var commands = [];
 
     commands.push(db.cypher().match("(:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)")
         .return("r.type AS type, contact.name AS name, contact.userId AS id")
         .orderBy('contact.surname')
+        .skip(skip)
+        .limit(itemsPerPage)
         .end({userId: userId})
         .getCommand());
 

@@ -4,10 +4,16 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
 
     $scope.query = "";
     $scope.users = {};
+    $scope.itemsPerPage = 10;
 
-    $scope.getContacts = function () {
+    $scope.getContacts = function (paginationNumber) {
 
-        $http({method: 'GET', url: '/api/user/contact'})
+        var skip = (paginationNumber - 1) * $scope.itemsPerPage;
+        $http({
+            method: 'GET',
+            url: '/api/user/contact',
+            params: {itemsPerPage: $scope.itemsPerPage, skip: skip}
+        })
             .then(function (data) {
                 $scope.users.contacts = data.data.contacts;
                 $scope.users.statistics = data.data.statistic;
@@ -18,7 +24,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                 $scope.users.numberOfContacts = data.data.numberOfContacts;
             });
     };
-    $scope.getContacts();
+    $scope.getContacts(1);
 
     $scope.getUserSuggestion = function (searchValue) {
         if (searchValue && searchValue.length > 0) {
@@ -31,7 +37,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                     return res.data;
                 });
         }
-        $scope.getContacts();
+        $scope.getContacts(1);
     };
 
     $scope.getUser = function (searchValue) {
@@ -45,7 +51,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                     $scope.users.contacts = res.data;
                 });
         } else {
-            $scope.getContacts();
+            $scope.getContacts(1);
         }
     };
 }];

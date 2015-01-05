@@ -75,7 +75,7 @@ describe('Integration Tests for handling contacts', function () {
         requestHandler.logout(done);
     });
 
-    it('Adding multible contacts and get all contacts of the user - Return 200', function () {
+    it('Adding multiple contacts and get all contacts of the user - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -103,7 +103,10 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[1].count.should.equals(1);
             res.body.numberOfContacts.should.equals(4);
             res.status.should.equal(200);
-            return requestHandler.get('/api/user/contact', requestAgent);
+            return requestHandler.getWithData('/api/user/contact', {
+                itemsPerPage: 5,
+                skip: 0
+            }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(4);
@@ -119,6 +122,38 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[1].count.should.equal(1);
 
             //
+            res.body.numberOfContacts.should.equal(4);
+        });
+    });
+
+    it('Adding multiple contacts and get only subset of the contacts back - Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2', '3', '4', '5'],
+                mode: 'addContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.getWithData('/api/user/contact', {
+                itemsPerPage: 2,
+                skip: 2
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.contacts.length.should.equal(2);
+            res.body.contacts[0].id.should.equal("4");
+            res.body.contacts[0].type.should.equal("Freund");
+            res.body.contacts[0].name.should.equal("user4 Meier4");
+
+            //statistic
+            res.body.statistic.length.should.equal(1);
+            res.body.statistic[0].type.should.equal("Freund");
+            res.body.statistic[0].count.should.equal(4);
+
+            //number of contacts
             res.body.numberOfContacts.should.equal(4);
         });
     });

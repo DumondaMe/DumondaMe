@@ -2,6 +2,7 @@
 // Scaffolding
 // --------------------------------------------------
 
+
 // Reset the box-sizing
 //
 // Heads up! This reset may cause conflicts with some third-party widgets.
@@ -10,11 +11,11 @@
 * {
   @include box-sizing(border-box);
 }
-
 *:before,
 *:after {
   @include box-sizing(border-box);
 }
+
 
 // Body reset
 

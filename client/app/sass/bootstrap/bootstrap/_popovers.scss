@@ -2,6 +2,7 @@
 // Popovers
 // --------------------------------------------------
 
+
 .popover {
   position: absolute;
   top: 0;
@@ -69,11 +70,9 @@
     border-style: solid;
   }
 }
-
 .popover > .arrow {
   border-width: $popover-arrow-outer-width;
 }
-
 .popover > .arrow:after {
   border-width: $popover-arrow-width;
   content: "";
