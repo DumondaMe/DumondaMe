@@ -19,7 +19,7 @@ CREATE (n:User {userId:'7', email:'7@gmx.ch', password:'1', forename:'Andy', sur
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='7' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
 CREATE (n:User {userId:'8', email:'8@gmx.ch', password:'1', forename:'Sabine', surname:'Wolter', name:'Sabine Wolter'});
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='8' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-CREATE (n:User {userId:'9', email:'9@gmx.ch', password:'1', forename:'Nadine', surname:'Fricker', name:'Nadine Fricker'});
+CREATE (n:User {userId:'9', email:'9@gmx.ch', password:'1', forename:'Nadine', surname:'Jaeckle', name:'Nadine Jaeckle'});
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='9' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
 CREATE (n:User {userId:'10', email:'10@gmx.ch', password:'1', forename:'Dorothea', surname:'König', name:'Dorothea König'});
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='10' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);

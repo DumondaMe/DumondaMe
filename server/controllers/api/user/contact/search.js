@@ -27,7 +27,7 @@ module.exports = function (router) {
             req.query.maxItems = parseInt(req.query.maxItems, 10);
             req.query.isSuggestion = req.query.isSuggestion === 'true';
         }
-        return validation.validateGetRequest(req, schemaRequestSearchUser, logger).then(function (request) {
+        return validation.validateQueryRequest(req, schemaRequestSearchUser, logger).then(function (request) {
             return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
         }).then(function (users) {
             res.status(200).json(users);

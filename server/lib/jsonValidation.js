@@ -29,7 +29,7 @@ module.exports = {
     validateRequest: function (req, requestSchema, logger) {
         return validate(req, req.body, requestSchema, logger);
     },
-    validateGetRequest: function (req, requestSchema, logger) {
+    validateQueryRequest: function (req, requestSchema, logger) {
         return validate(req, req.query, requestSchema, logger);
     }
 };

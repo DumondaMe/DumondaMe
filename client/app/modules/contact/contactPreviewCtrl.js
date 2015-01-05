@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$http', function ($scope, $http) {
+module.exports = ['$scope', '$http', 'HttpService', function ($scope, $http, HttpService) {
 
     $scope.contact.typeNew = $scope.contact.type;
 
@@ -14,7 +14,7 @@ module.exports = ['$scope', '$http', function ($scope, $http) {
         },
         {
             text: "Kontakt löschen",
-            href: "#"
+            click: "deleteContact()"
         }
     ];
 
@@ -52,5 +52,12 @@ module.exports = ['$scope', '$http', function ($scope, $http) {
         }).then(function () {
             $scope.contact.type = 'Freund';
         });
+    };
+
+    $scope.deleteContact = function () {
+        HttpService.sendDeleteRequest({contactIds: [$scope.contact.id]}, '/api/user/contact')
+            .then(function () {
+                delete $scope.contact.type;
+            });
     };
 }];
