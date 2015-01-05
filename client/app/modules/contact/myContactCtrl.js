@@ -3,18 +3,19 @@
 module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
 
     $scope.query = "";
+    $scope.users = {};
 
     $scope.getContacts = function () {
 
         $http({method: 'GET', url: '/api/user/contact'})
             .then(function (data) {
-                $scope.contacts = data.data.contacts;
-                $scope.statistics = data.data.statistic;
-                $scope.types = [];
+                $scope.users.contacts = data.data.contacts;
+                $scope.users.statistics = data.data.statistic;
+                $scope.users.types = [];
                 _.each(data.data.statistic, function (stat) {
-                    $scope.types.push(stat.type);
+                    $scope.users.types.push(stat.type);
                 });
-                $scope.numberOfContacts = data.data.numberOfContacts;
+                $scope.users.numberOfContacts = data.data.numberOfContacts;
             });
     };
     $scope.getContacts();
@@ -41,7 +42,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                 params: {search: searchValue, maxItems: 20, isSuggestion: false}
             })
                 .then(function (res) {
-                    $scope.contacts = res.data;
+                    $scope.users.contacts = res.data;
                 });
         } else {
             $scope.getContacts();

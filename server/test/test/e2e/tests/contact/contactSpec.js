@@ -85,6 +85,10 @@ describe('Integration Tests for handling contacts', function () {
                 description: 'Freund'
             }, requestAgent);
         }).then(function (res) {
+            res.body.statistic.length.should.equals(1);
+            res.body.statistic[0].type.should.equals('Freund');
+            res.body.statistic[0].count.should.equals(3);
+            res.body.numberOfContacts.should.equals(3);
             res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['4'],
@@ -92,6 +96,12 @@ describe('Integration Tests for handling contacts', function () {
                 description: 'Familie'
             }, requestAgent);
         }).then(function (res) {
+            res.body.statistic.length.should.equals(2);
+            res.body.statistic[0].type.should.equals('Freund');
+            res.body.statistic[0].count.should.equals(3);
+            res.body.statistic[1].type.should.equals('Familie');
+            res.body.statistic[1].count.should.equals(1);
+            res.body.numberOfContacts.should.equals(4);
             res.status.should.equal(200);
             return requestHandler.get('/api/user/contact', requestAgent);
         }).then(function (res) {
@@ -324,6 +334,10 @@ describe('Integration Tests for handling contacts', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
+                res.body.statistic.length.should.equals(1);
+                res.body.statistic[0].type.should.equals('Familie');
+                res.body.statistic[0].count.should.equals(1);
+                res.body.numberOfContacts.should.equals(1);
                 return db.cypher().match("(u:User {userId: '1'})-[:IS_CONTACT]->(u2:User)")
                     .return('u2.userId AS id')
                     .send();

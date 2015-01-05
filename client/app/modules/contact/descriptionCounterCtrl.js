@@ -11,15 +11,7 @@ module.exports = ['$scope', function ($scope) {
             divider: true
         },
         {
-            text: "Kontakte blockieren",
-            href: "#"
-        },
-        {
             text: "Kontaktgruppe umbenennen",
-            href: "#"
-        },
-        {
-            text: "Kontakte löschen",
             href: "#"
         }
     ];

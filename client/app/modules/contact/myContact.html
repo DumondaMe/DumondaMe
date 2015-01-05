@@ -2,7 +2,7 @@
     <div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>
     <div id="centerCol">
         <div class="contact-preview"
-             ng-repeat="contact in contacts"
+             ng-repeat="contact in users.contacts"
              ng-controller="ContactPreviewCtrl">
             <img ng-src="{{contact.profileUrl}}">
 
@@ -56,10 +56,10 @@
                             <img src="app/img/settings.png">
                             <span class="caret"></span>
                         </div>
-                        <span class="badge">{{numberOfContacts}}</span>
+                        <span class="badge">{{users.numberOfContacts}}</span>
                         Alle Kontakte
                     </li>
-                    <li class="list-group-item" ng-repeat="statistic in statistics">
+                    <li class="list-group-item" ng-repeat="statistic in users.statistics">
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
                              data-placement="bottom">
                             <img src="app/img/settings.png">

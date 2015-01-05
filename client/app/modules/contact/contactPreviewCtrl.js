@@ -49,15 +49,19 @@ module.exports = ['$scope', '$http', 'HttpService', function ($scope, $http, Htt
             contactIds: [$scope.contact.id],
             mode: 'addContact',
             description: 'Freund'
-        }).then(function () {
+        }).then(function (statistic) {
+            $scope.users.statistics = statistic.data.statistic;
+            $scope.users.numberOfContacts = statistic.data.numberOfContacts;
             $scope.contact.type = 'Freund';
         });
     };
 
     $scope.deleteContact = function () {
         HttpService.sendDeleteRequest({contactIds: [$scope.contact.id]}, '/api/user/contact')
-            .then(function () {
+            .then(function (statistic) {
                 delete $scope.contact.type;
+                $scope.users.statistics = statistic.statistic;
+                $scope.users.numberOfContacts = statistic.numberOfContacts;
             });
     };
 }];

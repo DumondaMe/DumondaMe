@@ -71,8 +71,12 @@ module.exports = function (router) {
             }
             logger.error('Unknown mode: ' + request.mode);
             res.status(500).end();
-        }).then(function () {
-            res.status(200).end();
+        }).then(function (data) {
+            if (data) {
+                res.status(200).json(data);
+            } else {
+                res.status(200).end();
+            }
         }).catch(exceptions.InvalidJsonRequest, function () {
             res.status(400).end();
         }).catch(exceptions.invalidOperation, function () {
@@ -87,8 +91,8 @@ module.exports = function (router) {
 
         return validation.validateRequest(req, schemaDeleteContact, logger).then(function (request) {
             return contact.deleteContact(req.user.id, request.contactIds);
-        }).then(function () {
-            res.status(200).end();
+        }).then(function (statistic) {
+            res.status(200).json(statistic);
         }).catch(exceptions.InvalidJsonRequest, function () {
             res.status(400).end();
         }).catch(function (err) {
