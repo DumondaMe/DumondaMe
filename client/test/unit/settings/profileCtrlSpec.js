@@ -1,6 +1,6 @@
 'use strict';
 
-var ProfileDefaultCtrl = require('../../../app/modules/profile/profileDefaultCtrl')[3];
+var ProfileDefaultCtrl = require('../../../app/modules/settings/profileCtrl')[3];
 
 describe('Tests of Profile Default Controller', function () {
     var testee, scope, q, HttpService, timeout;

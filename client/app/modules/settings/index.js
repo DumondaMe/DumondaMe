@@ -2,16 +2,14 @@
 
 var app = require('angular').module('elyoosApp');
 
-app.controller('ProfileRecommendationCtrl', require('./profileRecommendationCtrl'));
-
-app.service('ProfileRecommendationCtrl', require('./sendRecommendation'));
+app.controller('ProfileCtrl', require('./../settings/profileCtrl'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
-        .state('profile', {
+        .state('settings', {
             abstract: true,
-            url: '/profile',
+            url: '/settings',
             views: {
                 header: {
                     templateUrl: 'app/modules/navigation/loggedInHeader.html',
@@ -19,12 +17,12 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             }
         })
-        .state('profile.recommendation', {
-            url: '/recommendation',
+        .state('settings.profile', {
+            url: '/profile',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/profile/profileRecommendations.html',
-                    controller: 'ProfileRecommendationCtrl'
+                    templateUrl: 'app/modules/settings/profile.html',
+                    controller: 'ProfileCtrl'
                 }
             }
         });
