@@ -1,5 +1,16 @@
-<div id="public-header" ng-class="{rightNavActive: rightNavActive}">
-    <a class="rightHeaderNavElement" ng-click="logout()">
-        Logout
-    </a>
+<div id="public-header" ng-controller="LoggedInHeaderCtrl">
+    <div ng-controller="LogoutCtrl">
+        <div class="rightHeaderNavElement">
+            <ul>
+                <li>
+                    <img src="app/img/settingsNav.png">
+                    <ul>
+                        <li class="first"></li>
+                        <li><a href="#">Settings</a></li>
+                        <li ng-click="logout()"><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

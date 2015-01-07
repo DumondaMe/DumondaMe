@@ -1,73 +1,23 @@
 //include all partial scss files
 @import 'bootstrap/bootstrap';
-@import 'directives/searchBox';
-@import 'navigation/rightColNav';
-@import 'page/page';
-@import 'home/homeNavElement';
-@import 'contact/contact';
+@import 'mixins/_screen';
+@import 'elyoos/_searchBox';
+@import 'elyoos/_header';
+@import 'elyoos/_rightColNav';
+@import 'elyoos/_page';
+@import 'elyoos/_homeNavElement';
+@import 'elyoos/_contact';
 
 html, body {
   height: 100%;
-  min-height: 600px;
-  min-width: 1000px;
   margin: 0;
   font-family: Helvetica;
 }
 
 #viewport {
   width: 100%;
-  min-height: 600px;
-  min-width: 1000px;
   height: 100%;
   position: relative;
-}
-
-#public-header {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 35px;
-  width: 100%;
-  background-color: #4EB144;
-  z-index: 999;
-}
-
-.rightNavActive {
-  padding-right: 120px;
-}
-
-.leftHeaderNavElement {
-  float: left;
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 35px !important;
-  margin-left: 15px;
-  margin-right: 15px;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.leftHeaderNavElement:hover {
-  color: #449d44;
-  text-decoration: none;
-}
-
-.rightHeaderNavElement {
-  float: right;
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 35px !important;
-  margin-left: 15px;
-  margin-right: 15px;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.rightHeaderNavElement:hover {
-  color: #449d44;
-  text-decoration: none;
 }
 
 #content {
@@ -140,30 +90,6 @@ html, body {
   margin-top: 10px;
   padding-right: 10px;
   height: 100%;
-}
-
-#centerCol {
-  float: left;
-  width: 750px;
-  margin: 0 0 0 300px;
-  padding: 0 0 0 10px;
-}
-
-#leftCol {
-  position: fixed;
-  left: 0px;
-  width: 300px;
-  height: 100%;
-  top: 0px;
-  padding-top: 60px;
-  z-index: 999;
-}
-
-#inner-leftCol {
-  border-right: 1px solid #ccc;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
 }
 
 .sortable-header {

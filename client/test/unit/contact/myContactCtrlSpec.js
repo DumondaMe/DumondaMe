@@ -33,7 +33,7 @@ describe('Tests of My Contact Controller', function () {
             httpBackend = $injector.get('$httpBackend');
             scope = $rootScope.$new();
 
-            httpBackend.when('GET', '/api/user/contact')
+            httpBackend.when('GET', '/api/user/contact?itemsPerPage=10&skip=0')
                 .respond(response);
             done();
         });
@@ -43,8 +43,8 @@ describe('Tests of My Contact Controller', function () {
         myContactCtrl(scope, http, underscore);
         httpBackend.flush();
 
-        expect(scope.contacts.length).to.equal(2);
-        expect(scope.contacts[0].type).to.equal('Freund');
-        expect(scope.contacts[1].type).to.equal('Bekannter');
+        expect(scope.users.contacts.length).to.equal(2);
+        expect(scope.users.contacts[0].type).to.equal('Freund');
+        expect(scope.users.contacts[1].type).to.equal('Bekannter');
     });
 });

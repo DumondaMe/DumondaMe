@@ -1,6 +1,6 @@
 'use strict';
 
-var contactPreviewCtrl = require('../../../app/modules/contact/contactPreviewCtrl')[2];
+var contactPreviewCtrl = require('../../../app/modules/contact/contactPreviewCtrl')[3];
 var underscore = require('../../../app/lib/underscore/underscore');
 
 describe('Tests of Contact Preview Controller', function () {
@@ -25,7 +25,8 @@ describe('Tests of Contact Preview Controller', function () {
             types: ['Freund', 'Bekannter', 'Kollege'],
             desc_count: [{key: 'Freund', doc_count: '10'}]
         };
-        scope.contacts = contacts;
+        scope.users = {};
+        scope.users.contacts = contacts;
         scope.contact = {id: 1, name: 'Hans Muster', type: 'Kollege'};
 
         scope.$hide = function () {

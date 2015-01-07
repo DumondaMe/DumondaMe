@@ -5,6 +5,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
     $scope.query = "";
     $scope.users = {};
     $scope.itemsPerPage = 10;
+    $scope.isUserSearch = false;
 
     $scope.getContacts = function (paginationNumber) {
 
@@ -21,7 +22,12 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                 _.each(data.data.statistic, function (stat) {
                     $scope.users.types.push(stat.type);
                 });
-                $scope.users.numberOfContacts = data.data.numberOfContacts;
+                if (data.data.numberOfContacts) {
+                    $scope.users.numberOfContacts = data.data.numberOfContacts;
+                } else {
+                    $scope.users.numberOfContacts = 0;
+                }
+                $scope.isUserSearch = false;
             });
     };
     $scope.getContacts(1);
@@ -49,6 +55,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
             })
                 .then(function (res) {
                     $scope.users.contacts = res.data;
+                    $scope.isUserSearch = true;
                 });
         } else {
             $scope.getContacts(1);

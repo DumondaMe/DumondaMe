@@ -1,51 +1,61 @@
-<div id="content-page">
+<div id="content-page-my-contacts">
     <div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>
-    <div id="centerCol">
-        <div class="contact-preview"
-             ng-repeat="contact in users.contacts"
-             ng-controller="ContactPreviewCtrl">
-            <img ng-src="{{contact.profileUrl}}">
+    <div id="centerCol" class="container-fluid">
+        <div class="row">
+            <div class="contact-preview col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                 ng-repeat="contact in users.contacts"
+                 ng-controller="ContactPreviewCtrl">
+                <img ng-src="{{contact.profileUrl}}">
 
-            <div class="contact-preview-content">
-                <div class="contact-preview-name">
-                    <div>
-                        {{contact.name}}
+                <div class="contact-preview-content">
+                    <div class="contact-preview-name">
+                        <div>
+                            {{contact.name}}
+                        </div>
+                        <div class="description" trigger="click" data-auto-close="true"
+                             data-placement="bottom"
+                             data-template="app/modules/contact/popoverDescription.html"
+                             bs-popover ng-show="!contact.blocked && contact.type">
+                            ({{contact.type}})
+                        </div>
+                        <div class="blocked-description" ng-show="contact.blocked">
+                            BLOCKIERT
+                        </div>
                     </div>
-                    <div class="description" trigger="click" data-auto-close="true"
-                         data-placement="bottom"
-                         data-template="app/modules/contact/popoverDescription.html"
-                         bs-popover ng-show="!contact.blocked && contact.type">
-                        ({{contact.type}})
+                    <div class="command-icons">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle left"
+                                data-toggle="dropdown" aria-expanded="false"
+                                bs-dropdown="contact.actions"
+                                ng-show="!contact.blocked && contact.type">
+                            Aktionen <span class="caret"></span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs left"
+                                aria-expanded="false"
+                                ng-show="!contact.blocked && !contact.type"
+                                ng-click="addNewContact()">
+                            Als Kontakt hinzufügen
+                        </button>
                     </div>
-                    <div class="blocked-description" ng-show="contact.blocked">
-                        BLOCKIERT
+                    <div class="select">
+                        <div class="s2">
+                            <input type="checkbox" ng-model="contact.selected">
+                        </div>
                     </div>
-                </div>
-                <div class="command-icons">
-                    <button type="button" class="btn btn-default btn-xs dropdown-toggle left"
-                            data-toggle="dropdown" aria-expanded="false"
-                            bs-dropdown="contact.actions"
-                            ng-show="!contact.blocked && contact.type">
-                        Aktionen <span class="caret"></span>
-                    </button>
-                    <button type="button" class="btn btn-default btn-xs left"
-                            aria-expanded="false"
-                            ng-show="!contact.blocked && !contact.type" ng-click="addNewContact()">
-                        Als Kontakt hinzufügen
-                    </button>
                 </div>
             </div>
-            <div class="select">
-                <div class="s2">
-                    <input type="checkbox" ng-model="contact.selected">
-                </div>
-            </div>
-
         </div>
-        <ely-pagination total-items="users.numberOfContacts" items-per-page="{{itemsPerPage}}"
-                        get-pagination-set="getContacts" pagination-elements="5"></ely-pagination>
+        <div class="row" ng-show="!isUserSearch && users.numberOfContacts > itemsPerPage">
+            <ely-pagination total-items="users.numberOfContacts" items-per-page="{{itemsPerPage}}"
+                            get-pagination-set="getContacts"
+                            pagination-elements="5"></ely-pagination>
+        </div>
+        <div class="row" ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
+            <div class="no-contact-description">
+                <h3>Sie haben noch keine Kontakte</h3>
+            </div>
+        </div>
     </div>
-    <div id="leftCol">
+    <div id="leftCol" class="hidden-xs hidden-sm">
         <div id="inner-leftCol">
             <form>
                 <ely-search-box description="Suche nach Kontakt..." query="query"
@@ -56,7 +66,6 @@
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
                              data-placement="bottom">
                             <img src="app/img/settings.png">
-                            <span class="caret"></span>
                         </div>
                         <span class="badge">{{users.numberOfContacts}}</span>
                         Alle Kontakte
@@ -65,7 +74,6 @@
                         <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
                              data-placement="bottom">
                             <img src="app/img/settings.png">
-                            <span class="caret"></span>
                         </div>
                         <span class="badge">{{statistic.count}}</span>
 

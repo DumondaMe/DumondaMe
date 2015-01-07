@@ -130,6 +130,11 @@ describe('Unit Test controllers/api/user/profile/contact/index', function () {
     it('Error occurred while getting all contacts - Return a 500', function () {
 
         var stubResponse = sandbox.stub(request.res, 'status');
+
+        request.req.query = {
+            itemsPerPage: '10',
+            skip: '0'
+        };
         stubResponse.returns({
             end: function () {
             }

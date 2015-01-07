@@ -19,6 +19,7 @@ app.constant('VERSION', require('../../package.json').version);
 require('templates');
 require('./util');
 require('./home');
+require('./navigation');
 require('./user');
 require('./profile');
 require('./auth');
