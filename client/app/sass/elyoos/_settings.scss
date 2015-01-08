@@ -1,0 +1,25 @@
+#content-settings-profile {
+  @include centerColumn(200px) {
+
+    width: 800px;
+
+    #manage-profile-photo-container {
+      float: left;
+      margin: 0 10px 0 20px;
+
+      img {
+        width: 250px;
+        height: 250px;
+      }
+    }
+
+    #manage-profile {
+      float: left;
+      width: 500px;
+    }
+  }
+
+  @include leftFixedColumn(200px) {
+
+  }
+}

@@ -17,15 +17,18 @@ var app = angular.module('elyoosApp', [
 app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
-require('./util');
-require('./home');
-require('./navigation');
-require('./user');
-require('./profile');
+
 require('./auth');
 require('./contact');
 require('./directives');
 require('./filters');
+require('./home');
+require('./navigation');
+require('./page');
+require('./profile');
+require('./settings');
+require('./user');
+require('./util');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
