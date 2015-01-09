@@ -24,19 +24,16 @@ describe('Tests of Login Controller', function () {
 
     it('Successful Login', function () {
 
-        var stubAuth = sinon.stub(AuthMock, 'login'),
-            spyUpdateUser;
+        var stubAuth = sinon.stub(AuthMock, 'login');
         stubAuth.returns(q.when(200));
         scope.loginuser = {email: "aha@irgend.ch", password: "1234"};
         scope.updateUser = function () {
         };
-        spyUpdateUser = sinon.spy(scope, 'updateUser');
 
         scope.login();
 
         expect(stubAuth.calledOnce).to.be.true;
         timeout.flush();
-        expect(spyUpdateUser.calledOnce).to.be.true;
 
     });
 

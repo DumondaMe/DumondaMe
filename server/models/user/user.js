@@ -22,7 +22,7 @@ module.exports = {
                 }
             });
     },
-    searchUserWithId: function (id) {
+    getUserProfile: function (id) {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
@@ -31,6 +31,7 @@ module.exports = {
             .send()
             .then(function (resp) {
                 if (resp.length === 1) {
+                    resp[0].profileImage = 'cms/' + id + '/profile/thumbnail.jpg';
                     return resp[0];
                 }
                 if (resp.length > 1) {
@@ -55,6 +56,7 @@ module.exports = {
                 birthday: userData.birthday,
                 place: userData.place,
                 country: userData.country,
+                street: userData.street,
                 female: userData.female
             })
             .end({
@@ -65,6 +67,7 @@ module.exports = {
                 birthday: userData.birthday,
                 place: userData.place,
                 country: userData.country,
+                street: userData.street,
                 female: userData.female
             })
             .send();

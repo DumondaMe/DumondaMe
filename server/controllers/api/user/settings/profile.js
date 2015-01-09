@@ -28,7 +28,7 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return user.searchUserWithId(req.user.id).then(function (user) {
+        return user.getUserProfile(req.user.id).then(function (user) {
             res.status(200).json(user);
         }).catch(function (err) {
             logger.error('Getting profile data failed', {error: err.errors}, req);

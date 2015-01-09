@@ -1,6 +1,6 @@
 'use strict';
 
-var ProfileDefaultCtrl = require('../../../app/modules/settings/profileCtrl')[3];
+var ProfileCtrl = require('../../../app/modules/settings/profileCtrl')[3];
 
 describe('Tests of Profile Default Controller', function () {
     var testee, scope, q, HttpService, timeout;
@@ -14,10 +14,13 @@ describe('Tests of Profile Default Controller', function () {
 
             HttpService = {
                 sendPostRequest: function () {
+                },
+                sendGetRequest: function () {
+                    return q.defer().promise;
                 }
             };
             scope.user = {};
-            testee = new ProfileDefaultCtrl(scope, $filter, HttpService);
+            testee = new ProfileCtrl(scope, $filter, HttpService);
             done();
         });
     });
@@ -28,16 +31,6 @@ describe('Tests of Profile Default Controller', function () {
             $invalid: false,
             $setPristine: function () {
             }
-        };
-
-        scope.user = {
-            forename: 'Hans',
-            surname: 'Wurst',
-            birthday: '2002-02-02',
-            street: 'hansdampf',
-            place: 'irgendwo',
-            country: 'nirgendwo',
-            female: false
         };
 
         scope.userDataToChange = {
@@ -60,14 +53,6 @@ describe('Tests of Profile Default Controller', function () {
         expect(scope.submitFailed).to.be.false;
         expect(scope.successUserDataChange).to.be.true;
         expect(scope.submitFailedToServer).to.be.false;
-
-        expect(scope.user.forename).to.equal(scope.userDataToChange.forename);
-        expect(scope.user.surname).to.equal(scope.userDataToChange.surname);
-        expect(scope.user.birthday).to.equal(scope.userDataToChange.birthday);
-        expect(scope.user.street).to.equal(scope.userDataToChange.street);
-        expect(scope.user.place).to.equal(scope.userDataToChange.place);
-        expect(scope.user.country).to.equal(scope.userDataToChange.country);
-        expect(scope.user.female).to.equal(scope.userDataToChange.female);
     });
 
     it('Invalid form data. Data not sent to server', function () {
@@ -93,7 +78,7 @@ describe('Tests of Profile Default Controller', function () {
         };
         scope.submitFailed = false;
 
-        scope.user = {
+        scope.userDataToChange = {
             forename: 'Hans',
             surname: 'Wurst',
             birthday: '2002-02-02',
@@ -101,16 +86,6 @@ describe('Tests of Profile Default Controller', function () {
             place: 'irgendwo',
             country: 'nirgendwo',
             female: false
-        };
-
-        scope.userDataToChange = {
-            forename: 'Hans2',
-            surname: 'Wurst2',
-            birthday: '2002-02-03',
-            street: 'hansdampf2',
-            place: 'irgendwo2',
-            country: 'nirgendwo2',
-            female: true
         };
 
         var stubHttpService = sinon.stub(HttpService, 'sendPostRequest');
@@ -123,17 +98,5 @@ describe('Tests of Profile Default Controller', function () {
         expect(scope.submitFailed).to.be.false;
         expect(scope.successUserDataChange).to.be.false;
         expect(scope.submitFailedToServer).to.be.true;
-
-        expect(scope.user.forename).to.equal('Hans');
-        expect(scope.user.surname).to.equal('Wurst');
-        expect(scope.user.birthday).to.equal('2002-02-02');
-        expect(scope.user.street).to.equal('hansdampf');
-        expect(scope.user.place).to.equal('irgendwo');
-        expect(scope.user.country).to.equal('nirgendwo');
-        expect(scope.user.female).to.equal(false);
-    });
-
-    it('Setting userDataToChange.female when user is not defined set to default value false', function () {
-        expect(scope.userDataToChange.female).to.be.true;
     });
 });

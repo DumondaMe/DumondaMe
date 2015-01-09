@@ -11,7 +11,7 @@ var createJson = function (result) {
     for (i = 0; i < result.data.length; i = i + 1) {
         row = {};
         for (j = 0; j < result.data[i].row.length; j = j + 1) {
-            if (result.data[i].row[j]) {
+            if (result.data[i].row[j] !== undefined && result.data[i].row[j] !== null) {
                 row[result.columns[j]] = result.data[i].row[j];
             }
         }
@@ -96,7 +96,7 @@ var Cypher = function (connectionUrl) {
         var setCondition = '', key, propertyAdded = false;
         for (key in objectToSet) {
             if (objectToSet.hasOwnProperty(key)) {
-                if (objectToSet[key]) {
+                if (objectToSet[key] !== undefined && objectToSet[key] !== null) {
                     setCondition = setCondition.concat(ref, '.', key, ' = {', key, '},');
                     propertyAdded = true;
                 }

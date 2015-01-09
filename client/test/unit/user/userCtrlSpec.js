@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 var UserCtrl = require('../../../app/modules/user/userCtrl')[3];
@@ -43,3 +44,4 @@ describe('Tests of User Controller', function () {
         expect(rootScope.user.forename).to.equal('SteelmanUpdate');
     });
 });
+ */

@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 var UserDataService = require('../../../app/modules/user/userData')[2];
@@ -25,3 +26,4 @@ describe('Test of UserData Service', function () {
         expect(result.userName).to.equal('Steelman');
     });
 });
+ */

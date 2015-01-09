@@ -8,14 +8,19 @@ module.exports = ['$scope', '$filter', 'HttpService', function ($scope, $filter,
         $scope.opened = true;
     };
 
-    $scope.userDataToChange = angular.copy($scope.user);
+    $scope.userDataToChange = {};
     $scope.submitFailed = false;
     $scope.submitFailedToServer = false;
     $scope.successUserDataChange = false;
 
-    if ($scope.userDataToChange && $scope.userDataToChange.female === undefined) {
-        $scope.userDataToChange.female = true;
-    }
+    $scope.getUserData = function () {
+        HttpService.sendGetRequest('api/user/settings/profile').then(function (data) {
+            $scope.userDataToChange = data;
+        }, function () {
+            //TODO: Error Handling
+        });
+    };
+    $scope.getUserData();
 
     $scope.submitProfileData = function () {
         if (!$scope.profileForm.$invalid) {
@@ -30,17 +35,10 @@ module.exports = ['$scope', '$filter', 'HttpService', function ($scope, $filter,
                 country: $scope.userDataToChange.country,
                 female: $scope.userDataToChange.female
             };
-            HttpService.sendPostRequest(submittedUser, '/api/user/profile').then(function () {
+            HttpService.sendPostRequest(submittedUser, '/api/user/settings/profile').then(function () {
                 $scope.profileForm.$setPristine();
                 $scope.successUserDataChange = true;
                 $scope.submitFailedToServer = false;
-                $scope.user.forename = $scope.userDataToChange.forename;
-                $scope.user.surname = $scope.userDataToChange.surname;
-                $scope.user.birthday = $scope.userDataToChange.birthday;
-                $scope.user.street = $scope.userDataToChange.street;
-                $scope.user.place = $scope.userDataToChange.place;
-                $scope.user.country = $scope.userDataToChange.country;
-                $scope.user.female = $scope.userDataToChange.female;
             }, function () {
                 $scope.submitFailedToServer = true;
                 $scope.successUserDataChange = false;

@@ -3,7 +3,7 @@
         <div id="manage-profile-photo-container">
             <div>
                 <img class="img-rounded img-responsive"
-                     ng-src="{{userDataToChange.profilePath}}"/>
+                     ng-src="{{userDataToChange.profileImage}}"/>
             </div>
             <button id="change-profile-image" type="submit" class="btn btn-default">Foto ändern..
             </button>
@@ -49,7 +49,7 @@
                         <input name="inputSurename" ng-model="userDataToChange.surname"
                                class="form-control"
                                id="inputSurename" ng-blur="visitedSurename = true"
-                               placeholder="Vorname" required ng-maxlength="50">
+                               placeholder="Nachname" required ng-maxlength="50">
 
                         <div class="alert-input alert-danger"
                              ng-show="profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)">

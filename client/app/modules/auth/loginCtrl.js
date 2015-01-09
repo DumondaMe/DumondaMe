@@ -7,7 +7,6 @@ module.exports = ['$scope', '$location', 'Auth', function ($scope, $location, Au
             password: $scope.loginuser.password
         }).then(function () {
             $location.path('/');
-            $scope.updateUser();
         }, function () {
             $scope.error = "Failed to login";
         });

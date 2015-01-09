@@ -1,9 +1,9 @@
 'use strict';
 
-var testee = require('../../../../../../../controllers/api/user/profile/index');
-var user = require('../../../../../../../models/user/user');
-var recommendation = require('../../../../../../../models/recommendation/recommendation');
-var request = require('../../util/request');
+var testee = require('../../../../../../../../controllers/api/user/settings/profile');
+var user = require('../../../../../../../../models/user/user');
+var recommendation = require('../../../../../../../../models/recommendation/recommendation');
+var request = require('../../../util/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');
@@ -44,7 +44,7 @@ describe('Unit Test controllers/api/user/profile/index', function () {
         }, spyResponse = sandbox.spy(request.res.status(), 'json');
         spyResponse.withArgs(userProfile);
 
-        sandbox.stub(user, 'searchUserWithId').returns(Promise.resolve(userProfile));
+        sandbox.stub(user, 'getUserProfile').returns(Promise.resolve(userProfile));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(spyResponse.withArgs(userProfile).calledOnce).to.be.true;
@@ -58,7 +58,7 @@ describe('Unit Test controllers/api/user/profile/index', function () {
             end: function () {
             }
         });
-        sandbox.stub(user, 'searchUserWithId').returns(Promise.reject({}));
+        sandbox.stub(user, 'getUserProfile').returns(Promise.reject({}));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;
