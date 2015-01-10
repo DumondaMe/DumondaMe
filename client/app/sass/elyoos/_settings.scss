@@ -1,5 +1,9 @@
 #content-settings-profile {
-  @include centerColumn(200px) {
+
+  width: 976px;
+  margin: 0 auto;
+
+  @include centerColumn(0px) {
 
     width: 800px;
 
@@ -19,7 +23,7 @@
     }
   }
 
-  @include leftFixedColumn(200px) {
+  @include leftColumn(176px) {
 
   }
 }

@@ -5,6 +5,7 @@ var request = require('supertest');
 var requestHandler = require('../util/request');
 var users = require('../util/user');
 var db = require('../util/db');
+var libUser = require('../../../../../lib/user')();
 
 describe('Integration Tests if user is authenticated', function () {
 
@@ -12,19 +13,25 @@ describe('Integration Tests if user is authenticated', function () {
 
     before(function () {
         return db.clearDatabase().then(function () {
-            return db.cypher().create("(:User {email: {email}, password: {password}})")
+            return db.cypher().create("(:User {email: {email}, password: {password}, userId: 1})")
                 .end({email: 'user@irgendwo.ch', password: '1234'}).send();
         });
     });
 
-    it('Login and check if user is authenticated - Return a 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
+    afterEach(function () {
+        libUser.removeFromCache('user@irgendwo.ch');
+    });
+
+    it('Login and check if user is authenticated - Return a 200', function (done) {
+        requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.get('/api/auth', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            requestHandler.logout(done);
         });
     });
+
     it('User is not authenticated  - Return a 401', function (done) {
         request(app).get('/api/auth').send().expect(401).end(done);
     });

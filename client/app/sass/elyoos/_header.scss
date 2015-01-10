@@ -58,15 +58,19 @@
             padding-left: 15px;
             height: 25px;
 
+            vertical-align: middle;
+            text-decoration: none;
+            color: #000;
+
             &:hover {
               background-color: lightgrey;
             }
 
-            a {
+            /*a {
               vertical-align: middle;
               text-decoration: none;
               color: #000;
-            }
+            }*/
           }
         }
       }

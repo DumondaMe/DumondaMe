@@ -25,6 +25,6 @@ describe('Tests of Directive ely-search-bar', function () {
     it('Generate ely-search-box', function () {
 
         var textInput = element.find('input');
-        expect(textInput.eq(0).hasClass('searchBoxText')).to.be.true;
+        expect(textInput.eq(0).hasClass('form-control')).to.be.true;
     });
 });

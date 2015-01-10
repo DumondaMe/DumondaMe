@@ -1,5 +1,6 @@
 //include all partial scss files
 @import 'bootstrap/bootstrap';
+@import 'directives/_searchBox';
 
 @import 'mixins/_screen';
 @import 'elyoos/_contact';
@@ -7,7 +8,6 @@
 @import 'elyoos/_homeNavElement';
 @import 'elyoos/_page';
 @import 'elyoos/_rightColNav';
-@import 'elyoos/_searchBox';
 @import 'elyoos/_settings';
 @import 'elyoos/_variables';
 

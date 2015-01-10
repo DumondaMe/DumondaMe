@@ -36,10 +36,10 @@
                             Als Kontakt hinzufügen
                         </button>
                     </div>
-                    <div class="select">
-                        <div class="s2">
-                            <input type="checkbox" ng-model="contact.selected">
-                        </div>
+                </div>
+                <div class="select">
+                    <div class="s2">
+                        <input type="checkbox" ng-model="contact.selected">
                     </div>
                 </div>
             </div>
@@ -57,32 +57,30 @@
     </div>
     <div id="leftCol" class="hidden-xs hidden-sm">
         <div id="inner-leftCol">
-            <form>
-                <ely-search-box description="Suche nach Personen..." query="query"
-                                get-user-suggestion="getUserSuggestion"
-                                get-user="getUser"></ely-search-box>
-                <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
-                    <li class="list-group-item">
-                        <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
-                             data-placement="bottom">
-                            <img src="app/img/settings.png">
-                        </div>
-                        <span class="badge">{{users.numberOfContacts}}</span>
-                        Alle Kontakte
-                    </li>
-                    <li class="list-group-item" ng-repeat="statistic in users.statistics">
-                        <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
-                             data-placement="bottom">
-                            <img src="app/img/settings.png">
-                        </div>
-                        <span class="badge">{{statistic.count}}</span>
+            <ely-search-box description="Suche nach Personen..." query="query"
+                            get-user-suggestion="getUserSuggestion"
+                            get-user="getUser"></ely-search-box>
+            <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
+                <li class="list-group-item">
+                    <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
+                         data-placement="bottom">
+                        <img src="app/img/settings.png">
+                    </div>
+                    <span class="badge">{{users.numberOfContacts}}</span>
+                    Alle Kontakte
+                </li>
+                <li class="list-group-item" ng-repeat="statistic in users.statistics">
+                    <div class="setting-icon" bs-dropdown="dropdownGroupSettings"
+                         data-placement="bottom">
+                        <img src="app/img/settings.png">
+                    </div>
+                    <span class="badge">{{statistic.count}}</span>
 
-                        <div class="contact-description-count">
-                            {{statistic.type}}
-                        </div>
-                    </li>
-                </ul>
-            </form>
+                    <div class="contact-description-count">
+                        {{statistic.type}}
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

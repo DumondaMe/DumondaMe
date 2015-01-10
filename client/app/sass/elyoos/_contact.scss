@@ -1,10 +1,13 @@
 #content-page-my-contacts {
+  max-width: 1600px;
+
   .contact-preview {
     float: left;
     width: 350px;
     height: 100px;
     border: 1px solid #CCC !important;
     margin: 5px 10px 5px 10px;
+    padding: 0;
     -webkit-user-select: none;
 
     .contact-preview-content {
@@ -116,10 +119,6 @@
           color: #fff;
         }
       }
-
-      /*margin-left: auto;
-      margin-right: auto;
-      width: 140px;*/
     }
   }
 
@@ -132,6 +131,7 @@
 
   @include leftFixedColumn(300px) {
     #contact-counter {
+      padding: 5px 10px;
       .list-group-item {
 
         .setting-icon {
