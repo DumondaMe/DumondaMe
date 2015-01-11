@@ -1,5 +1,4 @@
 <div id="content-page-my-contacts">
-    <!--<div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>-->
     <div id="centerCol">
         <div id="inner-centerCol">
             <div class="contact-preview"
@@ -85,18 +84,5 @@
             </ul>
         </div>
     </div>
-    <div id="leftColNav" class="hidden-xs hidden-sm">
-        <div class="nav-placeholder-top">
-
-        </div>
-        <div class="nav-sub-element" ui-sref="contact.myContacts">
-            <div ui-sref-active="button-leftNavCol-active" ui-sref="contact.myContacts"></div>
-            <img src="app/img/address-book.png">
-        </div>
-        <div class="nav-sub-element-last" ui-sref-active="button-leftNavCol-active">
-            <a ui-sref="home">
-                <img src="app/img/home.png">
-            </a>
-        </div>
-    </div>
+    <div id="leftColNav" ng-include="'app/modules/contact/leftNavCol.html'"></div>
 </div>

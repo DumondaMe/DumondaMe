@@ -25,5 +25,14 @@ app.config(['$stateProvider', function ($stateProvider) {
                     controller: 'ProfileCtrl'
                 }
             }
+        })
+        .state('settings.security', {
+            url: '/security',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/settings/security.html',
+                    controller: 'ProfileCtrl'
+                }
+            }
         });
 }]);

@@ -1,29 +1,29 @@
 #content-settings-profile {
 
-  width: 976px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 
-  @include centerColumn(0px) {
+  @include centerColumn(80px) {
 
-    width: 800px;
+    #inner-centerCol {
+      position: relative;
+      width: 800px;
+      margin: 0 auto;
 
-    #manage-profile-photo-container {
-      float: left;
-      margin: 0 10px 0 20px;
+      #manage-profile-photo-container {
+        float: left;
+        margin: 0 10px 0 20px;
 
-      img {
-        width: 250px;
-        height: 250px;
+        img {
+          width: 250px;
+          height: 250px;
+        }
+      }
+
+      #manage-profile {
+        float: left;
+        width: 500px;
       }
     }
-
-    #manage-profile {
-      float: left;
-      width: 500px;
-    }
-  }
-
-  @include leftColumn(176px) {
-
   }
 }
