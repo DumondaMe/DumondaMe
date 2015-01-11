@@ -1,8 +1,8 @@
 <div id="content-page-my-contacts">
-    <div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>
-    <div id="centerCol" class="container-fluid">
-        <div class="row">
-            <div class="contact-preview col-xs-12 col-sm-6 col-md-4 col-lg-3"
+    <!--<div id="rightCol" ng-include="'app/modules/contact/navRightCol.html'"></div>-->
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div class="contact-preview"
                  ng-repeat="contact in users.contacts"
                  ng-controller="ContactPreviewCtrl">
                 <img ng-src="{{contact.profileUrl}}">
@@ -23,7 +23,8 @@
                         </div>
                     </div>
                     <div class="command-icons">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle left"
+                        <button type="button"
+                                class="btn btn-default btn-xs dropdown-toggle left"
                                 data-toggle="dropdown" aria-expanded="false"
                                 bs-dropdown="contact.actions"
                                 ng-show="!contact.blocked && contact.type">
@@ -43,15 +44,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row" ng-show="!isUserSearch && users.numberOfContacts > itemsPerPage">
-            <ely-pagination total-items="users.numberOfContacts" items-per-page="{{itemsPerPage}}"
-                            get-pagination-set="getContacts"
-                            pagination-elements="5"></ely-pagination>
-        </div>
-        <div class="row" ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
-            <div class="no-contact-description">
-                <h3>Sie haben noch keine Kontakte</h3>
+            <div ng-show="!isUserSearch && users.numberOfContacts > itemsPerPage">
+                <ely-pagination total-items="users.numberOfContacts"
+                                items-per-page="{{itemsPerPage}}"
+                                get-pagination-set="getContacts"
+                                pagination-elements="5"></ely-pagination>
+            </div>
+            <div ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
+                <div class="no-contact-description">
+                    <h3>Sie haben noch keine Kontakte</h3>
+                </div>
             </div>
         </div>
     </div>
@@ -81,6 +83,20 @@
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div id="leftColNav" class="hidden-xs hidden-sm">
+        <div class="nav-placeholder-top">
+
+        </div>
+        <div class="nav-sub-element" ui-sref="contact.myContacts">
+            <div ui-sref-active="button-leftNavCol-active" ui-sref="contact.myContacts"></div>
+            <img src="app/img/address-book.png">
+        </div>
+        <div class="nav-sub-element-last" ui-sref-active="button-leftNavCol-active">
+            <a ui-sref="home">
+                <img src="app/img/home.png">
+            </a>
         </div>
     </div>
 </div>

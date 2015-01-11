@@ -1,6 +1,6 @@
 @mixin breakpoint($point) {
   @if $point == largeDesktop {
-    @media (min-width: 1200px) {
+    @media (min-width: 1400px) {
       @content;
     }
   } @else if $point == mediumDesktop {
@@ -18,25 +18,24 @@
   }
 }
 
-@mixin leftFixedColumn($width) {
+@mixin leftFixedColumn($width, $left) {
   #leftCol {
     position: fixed;
     display: inline-block;
-    left: 0px;
+    left: $left;
     width: $width;
     height: 100%;
     top: 0px;
-    padding-top: 60px;
+    padding-top: 35px;
     z-index: 999;
 
     #inner-leftCol {
 
-      border-right: 1px solid #ccc;
+      //border-right: 1px solid #ccc;
       width: 100%;
       height: 100%;
+      padding-top: 24px;
       margin-bottom: 20px;
-
-      background: white;
 
       @content;
     }
@@ -68,7 +67,9 @@
 @mixin centerColumn($marginLeft) {
   #centerCol {
     float: left;
+    display: inline-block;
     margin: 0 0 0 $marginLeft;
+
     @include breakpoint(tablets) {
       margin: 0 0 0 0;
     }

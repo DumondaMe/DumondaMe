@@ -4,8 +4,8 @@
   left: 0px;
   height: 35px;
   width: 100%;
-  background-color: #4EB144;
-  z-index: 999;
+  background-color: $primary-color-darker;
+  z-index: 998;
 
   .headerNavElement {
 
@@ -80,6 +80,25 @@
   .leftHeaderNavElement {
     @extend .headerNavElement;
     float: left;
+
+    img {
+      float: left;
+      height: 35px;
+      width: 35px;
+      padding: 5px;
+      margin-left: 20px;
+    }
+
+    #header-user-name {
+      float: left;
+      font-weight: bold;
+      color: #FFFFFF;
+      height: 35px;
+      padding-top: 8px;
+      margin-left: 5px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
   }
 
   .leftHeaderNavElement:hover {

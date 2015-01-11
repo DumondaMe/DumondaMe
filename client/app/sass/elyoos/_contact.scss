@@ -1,156 +1,158 @@
-#content-page-my-contacts {
-  max-width: 1600px;
+#content {
 
-  .contact-preview {
-    float: left;
-    width: 350px;
-    height: 100px;
-    border: 1px solid #CCC !important;
-    margin: 5px 10px 5px 10px;
-    padding: 0;
-    -webkit-user-select: none;
+  width: 100%;
+  height: 100%;
 
-    .contact-preview-content {
-      overflow: hidden;
+  #content-page-my-contacts {
+
+    width: 100%;
+    height: 100%;
+
+    .contact-preview {
       float: left;
+      width: 350px;
       height: 100px;
-      width: 200px;
-      word-wrap: break-word;
+      border: 1px solid #CCC !important;
+      margin: 5px 10px 5px 10px;
+      padding: 0;
+      -webkit-user-select: none;
 
-      .contact-preview-name {
-        padding: 5px 0px 0px 5px;
-        font-size: 14px;
-        font-weight: bold;
-        height: 70px;
-        width: 100%;
-        color: #3b5998;
+      .contact-preview-content {
+        overflow: hidden;
+        float: left;
+        height: 100px;
+        width: 200px;
+        word-wrap: break-word;
 
-        .description {
-          font-size: 12px;
-          color: #9197a3;
-          font-weight: normal;
+        .contact-preview-name {
+          padding: 5px 0px 0px 5px;
+          font-size: 14px;
+          font-weight: bold;
+          height: 70px;
+          width: 100%;
+          color: $primary-color;
 
-          &:hover {
-            text-decoration: underline;
-            cursor: pointer;
+          .description {
+            font-size: 12px;
+            color: #9197a3;
+            font-weight: normal;
+
+            &:hover {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+
+          .blocked-description {
+            font-size: 12px;
+            color: red;
+            font-weight: bold;
           }
         }
+      }
 
-        .blocked-description {
-          font-size: 12px;
-          color: red;
-          font-weight: bold;
+      .select {
+        float: left;
+        height: 100px;
+
+        .s1 {
+          height: 100px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .s2 {
+          display: inline-block;
+          vertical-align: middle;
+          margin-top: 5px;
+          margin-left: 15px;
         }
       }
 
       .command-icons {
-        height: 30px;
-        width: 100%;
-
-        img {
-          margin-left: 5px;
-          padding: 1px;
-          width: 25px;
-          height: 25px;
-          border: none;
-        }
-        .left {
-          float: left;
-        }
-        .right {
-          float: right;
-        }
+        float: left;
+        height: 25px;
+        width: 190px;
       }
-    }
 
-    .select {
-      float: left;
-      height: 100px;
-
-      .s1 {
+      img {
+        float: left;
+        position: relative;
+        display: block;
+        width: 100px;
         height: 100px;
-        display: inline-block;
-        vertical-align: middle;
+        border: 1px solid rgba(0, 0, 0, .1);
+        margin: -1px 10px 0px -1px;
       }
-      .s2 {
-        display: inline-block;
-        vertical-align: middle;
-        margin-top: 5px;
-        margin-left: 15px;
-      }
-    }
 
-    .command-icons {
-      float: left;
-      height: 25px;
-      width: 190px;
-    }
-
-    img {
-      float: left;
-      position: relative;
-      display: block;
-      width: 100px;
-      height: 100px;
-      border: 1px solid rgba(0, 0, 0, .1);
-      margin: -1px 10px 0px -1px;
-    }
-
-    .popover {
-      .popover-content {
-        padding: 9px 14px;
-      }
-    }
-  }
-
-  .pagination {
-    width: 100%;
-    margin-left: 5px;
-    nav {
-      li {
-        a {
-          color: black;
-        }
-      }
-      .active {
-        a {
-          background-color: #449d44;
-          border-color: #449d44;
-          color: #fff;
+      .popover {
+        .popover-content {
+          padding: 9px 14px;
         }
       }
     }
-  }
 
-  .no-contact-description {
-    margin: 0 0 0 50px;
-  }
-
-  @include centerColumn(300px) {
-  }
-
-  @include leftFixedColumn(300px) {
-    #contact-counter {
-      padding: 5px 10px;
-      .list-group-item {
-
-        .setting-icon {
-          display: inline-block;
-          float: right;
-          cursor: pointer;
-
-          img {
-            border: none;
-            display: inline-block;
-            height: 19px;
-            width: 19px;
-            margin-left: 5px;
+    .pagination {
+      width: 100%;
+      margin-left: 5px;
+      nav {
+        li {
+          a {
+            color: black;
           }
         }
+        .active {
+          a {
+            background-color: #449d44;
+            border-color: #449d44;
+            color: #fff;
+          }
+        }
+      }
+    }
 
-        .contact-description-count {
-          width: 155px;
-          overflow: hidden;
+    .no-contact-description {
+      margin: 0 0 0 50px;
+    }
+
+    #centerCol {
+      width: 100%;
+      height: 100%;
+      padding-left: 340px;
+      #inner-centerCol {
+        position: relative;
+        width: 740px;
+        margin: 0 auto;
+
+        @include breakpoint(largeDesktop) {
+          width: 1110px;
+        }
+      }
+    }
+
+    @include leftFixedColumn(260px, 80px) {
+      background-color: $background-left-column;
+      #contact-counter {
+        padding: 5px 10px;
+        .list-group-item {
+
+          .setting-icon {
+            display: inline-block;
+            float: right;
+            cursor: pointer;
+
+            img {
+              border: none;
+              display: inline-block;
+              height: 19px;
+              width: 19px;
+              margin-left: 5px;
+            }
+          }
+
+          .contact-description-count {
+            width: 155px;
+            overflow: hidden;
+          }
         }
       }
     }
