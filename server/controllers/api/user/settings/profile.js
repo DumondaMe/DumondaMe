@@ -1,8 +1,6 @@
 'use strict';
 
-var passport = require('passport'),
-    user = require('./../../../../models/user/user'),
-    recommendation = require('./../../../../models/recommendation/recommendation'),
+var user = require('./../../../../models/user/user'),
     auth = require('./../../../../lib/auth'),
     logger = requireLogger.getLogger(__filename),
     exceptions = require('./../../../../lib/error/exceptions'),

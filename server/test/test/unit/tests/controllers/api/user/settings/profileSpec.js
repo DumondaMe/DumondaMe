@@ -2,7 +2,6 @@
 
 var testee = require('../../../../../../../../controllers/api/user/settings/profile');
 var user = require('../../../../../../../../models/user/user');
-var recommendation = require('../../../../../../../../models/recommendation/recommendation');
 var request = require('../../../util/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
