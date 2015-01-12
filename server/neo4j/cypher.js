@@ -29,6 +29,10 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
+    this.optionalMatch = function (condition) {
+        return this.chainingQuery(condition, ' OPTIONAL MATCH ');
+    };
+
     this.match = function (condition) {
         return this.chainingQuery(condition, ' MATCH ');
     };

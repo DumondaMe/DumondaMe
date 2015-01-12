@@ -120,11 +120,17 @@ var getContacts = function (userId, itemsPerPage, skip) {
 
     var commands = [];
 
-    commands.push(db.cypher().match("(:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)")
-        .return("r.type AS type, contact.name AS name, contact.userId AS id")
-        .orderBy('contact.surname')
+    commands.push(db.cypher().match("(user:User)-[r:IS_CONTACT]->(contact:User)")
+        .where("user.userId = {userId}")
+        .with("contact, user, r")
+        .orderBy("contact.surname")
         .skip(skip)
         .limit(itemsPerPage)
+        .match("(contact)-[vr:IS_VISIBLE|IS_VISIBLE_NO_CONTACT]->(v:Visibility)")
+        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
+        .with("contact, rContact, user, r, v, vr")
+        .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
+        .return("r.type AS type, contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
         .end({userId: userId})
         .getCommand());
 
@@ -134,7 +140,13 @@ var getContacts = function (userId, itemsPerPage, skip) {
         .send(commands)
         .then(function (resp) {
             underscore.each(resp[0], function (contact) {
-                contact.profileUrl = 'cms/' + contact.id + '/profile/thumbnail.jpg';
+                if (contact.profileVisible === true && contact.imageVisible === true) {
+                    contact.profileUrl = 'cms/' + contact.id + '/profile/thumbnail.jpg';
+                } else {
+                    contact.profileUrl = 'cms/default/profile/thumbnail.jpg';
+                }
+                delete contact.profileVisible;
+                delete contact.imageVisible;
             });
             return resp;
         });
