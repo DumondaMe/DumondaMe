@@ -132,18 +132,9 @@
         padding: 5px 10px;
         .list-group-item {
 
-          .setting-icon {
-            display: inline-block;
-            float: right;
+          .badge {
             cursor: pointer;
-
-            img {
-              border: none;
-              display: inline-block;
-              height: 19px;
-              width: 19px;
-              margin-left: 5px;
-            }
+            background-color: $primary-color;
           }
 
           .contact-description-count {

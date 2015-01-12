@@ -1,4 +1,4 @@
-#content-settings-profile {
+#content-settings {
 
   width: 100%;
   height: 100%;
@@ -23,6 +23,25 @@
       #manage-profile {
         float: left;
         width: 500px;
+      }
+    }
+  }
+
+  @include leftFixedColumn(260px, 80px) {
+    background-color: $background-left-column;
+
+    ul {
+      width: 100%;
+      padding: 0 10px;
+
+      .active {
+        a {
+          color: #FFFFFF;
+        }
+      }
+
+      a {
+        color: #000000;
       }
     }
   }

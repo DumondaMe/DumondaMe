@@ -1,4 +1,4 @@
-<div id="content-settings-profile">
+<div id="content-settings">
     <div id="centerCol">
         <div id="inner-centerCol">
             <div id="manage-profile-photo-container">
@@ -68,17 +68,11 @@
                         <label for="inputBirthday" class="col-sm-4 control-label">Geburtstag</label>
 
                         <div class="col-sm-8">
-                            <p class="input-group">
-                                <input name="inputBirthday" ng-model="userDataToChange.birthday"
-                                       class="form-control"
-                                       id="inputBirthday" ng-blur="visitedBirthday = true"
-                                       placeholder="yyyy-MM-dd" is-open="opened"
-                                       datepicker-popup="yyyy-MM-dd" required/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i
-                                    class="glyphicon glyphicon-calendar"></i>
-                            </button>
-                        </span>
+                            <input name="inputBirthday" ng-model="userDataToChange.birthday"
+                                   class="form-control"
+                                   id="inputBirthday" ng-blur="visitedBirthday = true"
+                                   placeholder="z.B 26.03.1982" required/>
+
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)">
                                 <span>Bitte geben Sie ihren Geburtstag an</span>
@@ -87,7 +81,6 @@
                                  ng-show="profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)">
                                 <span>Geben sie ein gültigen Geburtstag ein (z.B. 1982-03-26)</span>
                             </div>
-                            </p>
                         </div>
                     </div>
                     <div class="form-group">
