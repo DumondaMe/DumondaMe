@@ -64,7 +64,7 @@ describe('Integration Tests for handling the profile visibility when returning t
                         .then(function () {
                             return db.cypher().match("(u:User), (u2:User)")
                                 .where("u.userId = '1' AND u2.userId = '3'")
-                                .create("(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
+                                .create("(u2)-[:IS_CONTACT {type: 'Familie'}]->(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
                                 .end().send();
                         })
                         .then(function () {
@@ -74,7 +74,7 @@ describe('Integration Tests for handling the profile visibility when returning t
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '3'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
                                 .end().send();
                         });
                 })
@@ -91,7 +91,7 @@ describe('Integration Tests for handling the profile visibility when returning t
                         .then(function () {
                             return db.cypher().match("(u:User), (u2:User)")
                                 .where("u.userId = '1' AND u2.userId = '4'")
-                                .create("(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
+                                .create("(u2)-[:IS_CONTACT {type: 'Familie'}]->(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
                                 .end().send();
                         })
                         .then(function () {
@@ -101,7 +101,34 @@ describe('Integration Tests for handling the profile visibility when returning t
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '4'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        });
+                })
+                .then(function () {
+                    return db.cypher().create(createUser)
+                        .end({
+                            email: 'user@irgendwo5.ch',
+                            password: '1234',
+                            name: 'user5 Meier5',
+                            forename: 'user5',
+                            surname: 'Meier5',
+                            userId: '5'
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User), (u2:User)")
+                                .where("u.userId = '1' AND u2.userId = '5'")
+                                .create("(u)-[:IS_CONTACT {type: 'Familie'}]->(u2)")
+                                .end().send();
+                        })
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE {type: 'Familie'}]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        })
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: false, image: false})")
                                 .end().send();
                         });
                 });
@@ -122,7 +149,7 @@ describe('Integration Tests for handling the profile visibility when returning t
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.contacts.length.should.equal(3);
+            res.body.contacts.length.should.equal(4);
             res.body.contacts[0].id.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
@@ -134,8 +161,10 @@ describe('Integration Tests for handling the profile visibility when returning t
             res.body.contacts[2].id.should.equal("4");
             res.body.contacts[2].profileUrl.should.equal("cms/default/profile/thumbnail.jpg");
 
-            //
-            res.body.numberOfContacts.should.equal(3);
+            res.body.contacts[3].id.should.equal("5");
+            res.body.contacts[3].profileUrl.should.equal("cms/default/profile/thumbnail.jpg");
+
+            res.body.numberOfContacts.should.equal(4);
         });
     });
 });

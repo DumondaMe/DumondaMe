@@ -33,7 +33,12 @@ describe('Integration Tests for handling contacts', function () {
                             forename: 'user2',
                             surname: 'Meier2',
                             userId: '2'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '2'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -44,7 +49,12 @@ describe('Integration Tests for handling contacts', function () {
                             forename: 'user3',
                             surname: 'Meier3',
                             userId: '3'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '3'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -55,7 +65,12 @@ describe('Integration Tests for handling contacts', function () {
                             forename: 'user4',
                             surname: 'Meier4',
                             userId: '4'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '4'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -66,7 +81,12 @@ describe('Integration Tests for handling contacts', function () {
                             forename: 'user5',
                             surname: 'Meier5',
                             userId: '5'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        });
                 });
         });
     });
