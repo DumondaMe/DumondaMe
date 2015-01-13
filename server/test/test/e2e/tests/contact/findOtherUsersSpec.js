@@ -25,7 +25,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'user2 Meier2',
                             userId: '2'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '2'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -34,7 +39,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'user2 Meier3',
                             userId: '3'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '3'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -43,7 +53,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'user Meier4',
                             userId: '4'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '4'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -52,7 +67,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'user Meier5',
                             userId: '5'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -61,7 +81,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'user Meier6',
                             userId: '6'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '6'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().create(createUser)
@@ -70,7 +95,12 @@ describe('Integration Tests for finding other users', function () {
                             password: '1234',
                             name: 'etwasganzanderes nochwas anderes',
                             userId: '7'
-                        }).send();
+                        }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '7'})")
+                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .end().send();
+                        });
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'2'})")
