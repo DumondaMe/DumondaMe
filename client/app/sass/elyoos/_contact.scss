@@ -15,7 +15,7 @@
       border: 1px solid #CCC !important;
       margin: 5px 10px 5px 10px;
       padding: 0;
-      -webkit-user-select: none;
+      @include noneSelect();
 
       .contact-preview-content {
         overflow: hidden;
@@ -129,9 +129,9 @@
     @include leftFixedColumn(260px, 80px) {
       background-color: $background-left-column;
       #contact-counter {
+        @include noneSelect();
         padding: 5px 10px;
         .list-group-item {
-
           .badge {
             cursor: pointer;
             background-color: $primary-color;
@@ -140,7 +140,11 @@
           .contact-description-count {
             width: 155px;
             overflow: hidden;
+            cursor: pointer;
           }
+        }
+        .list-group-item.group-selected {
+          background-color: $primary-color-light;
         }
       }
     }

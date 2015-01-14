@@ -146,6 +146,54 @@ describe('Integration Tests for handling contacts', function () {
         });
     });
 
+    it('Getting only the user of a category back - Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2', '3', '5'],
+                mode: 'addContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['4'],
+                mode: 'addContact',
+                description: 'Familie'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.getWithData('/api/user/contact', {
+                itemsPerPage: 5,
+                skip: 0,
+                types: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.contacts.length.should.equal(3);
+            res.body.contactsForPagination.should.equal(3);
+            return requestHandler.getWithData('/api/user/contact', {
+                itemsPerPage: 5,
+                skip: 0,
+                types: 'Familie'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.contacts.length.should.equal(1);
+            res.body.contactsForPagination.should.equal(1);
+            return requestHandler.getWithData('/api/user/contact', {
+                itemsPerPage: 5,
+                skip: 0,
+                types: 'Freund,Familie'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.contacts.length.should.equal(4);
+            res.body.contactsForPagination.should.equal(4);
+        });
+    });
+
     it('Adding multiple contacts and get only subset of the contacts back - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -401,4 +449,5 @@ describe('Integration Tests for handling contacts', function () {
                 user[0].id.should.equals('5');
             });
     });
-});
+})
+;

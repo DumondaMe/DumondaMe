@@ -14,7 +14,14 @@ var schemaRequestGetContact = {
     required: ['itemsPerPage', 'skip'],
     properties: {
         itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
-        skip: {type: 'integer', minimum: 0}
+        skip: {type: 'integer', minimum: 0},
+        types: {
+            type: 'array',
+            items: {type: 'string', format: 'notEmptyString', maxLength: 30},
+            minItems: 1,
+            maxItems: 10,
+            uniqueItems: true
+        }
     }
 };
 
@@ -28,6 +35,7 @@ var schemaRequestContact = {
             type: 'array',
             items: {type: 'string', format: 'notEmptyString', maxLength: 30},
             minItems: 1,
+            maxItems: 50,
             uniqueItems: true
         },
         mode: {enum: ['blockContact', 'addContact', 'changeState']},
@@ -45,6 +53,7 @@ var schemaDeleteContact = {
             type: 'array',
             items: {type: 'string', format: 'notEmptyString', maxLength: 30},
             minItems: 1,
+            maxItems: 50,
             uniqueItems: true
         }
     }
@@ -57,16 +66,32 @@ module.exports = function (router) {
             req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
             req.query.skip = parseInt(req.query.skip, 10);
         }
+        if (req.query.types && typeof req.query.types === 'string') {
+            req.query.types = req.query.types.split(',');
+        }
+
         return validation.validateQueryRequest(req, schemaRequestGetContact, logger)
             .then(function (request) {
-                return contact.getContacts(req.user.id, request.itemsPerPage, request.skip);
-            })
-            .then(function (contacts) {
-                var data = {};
-                data.contacts = contacts[0];
-                data.statistic = contacts[1];
-                data.numberOfContacts = contacts[2][0].numberOfContacts;
-                res.status(200).json(data);
+                if (!req.query.types) {
+                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
+                        .then(function (contacts) {
+                            var data = {};
+                            data.contacts = contacts[0];
+                            data.statistic = contacts[1];
+                            data.numberOfContacts = contacts[2][0].numberOfContacts;
+                            data.contactsForPagination = data.numberOfContacts;
+
+                            res.status(200).json(data);
+                        });
+                }
+                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
+                    .then(function (contacts) {
+                        var data = {};
+                        data.contacts = contacts[0];
+                        data.contactsForPagination = contacts[1][0].contactsForPagination;
+
+                        res.status(200).json(data);
+                    });
             }).catch(function (err) {
                 logger.error('Error when searching for a user', {error: err}, req);
                 res.status(500).end();

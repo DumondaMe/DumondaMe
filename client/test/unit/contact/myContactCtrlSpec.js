@@ -41,6 +41,7 @@ describe('Tests of My Contact Controller', function () {
 
     it('Successful submit Data to the server', function () {
         myContactCtrl(scope, http, underscore);
+        scope.getContacts(1);
         httpBackend.flush();
 
         expect(scope.users.contacts.length).to.equal(2);
