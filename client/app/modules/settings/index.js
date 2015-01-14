@@ -12,8 +12,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/settings',
             views: {
                 header: {
-                    templateUrl: 'app/modules/navigation/loggedInHeader.html',
-                    controller: 'PagesHeaderCtrl'
+                    templateUrl: 'app/modules/navigation/loggedInHeader.html'
                 }
             }
         })

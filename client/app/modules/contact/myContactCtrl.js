@@ -30,7 +30,6 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                 $scope.isUserSearch = false;
             });
     };
-    $scope.getContacts(1);
 
     $scope.getUserSuggestion = function (searchValue) {
         if (searchValue && searchValue.length > 0) {

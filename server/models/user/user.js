@@ -71,5 +71,23 @@ module.exports = {
                 female: userData.female
             })
             .send();
+    },
+    getUserName: function (id) {
+        return db.cypher().match('(u:User {userId: {id}})')
+            .return('u.name AS name')
+            .end({id: id})
+            .send()
+            .then(function (resp) {
+                if (resp.length === 1) {
+                    resp[0].profileImage = 'cms/' + id + '/profile/thumbnail.jpg';
+                    return resp[0];
+                }
+                if (resp.length > 1) {
+                    logger.error('More then one user with id ' + id);
+                }
+                if (resp.length === 0) {
+                    logger.error('User with id ' + id + ' not found');
+                }
+            });
     }
 };

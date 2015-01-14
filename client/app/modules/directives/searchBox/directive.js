@@ -18,6 +18,10 @@ module.exports = {
                         $scope.getUser($scope.query);
                     }
                 };
+
+                $scope.$on('$typeahead.select', function (value, index) {
+                    $scope.getUser(index);
+                });
             }
         };
     }],
