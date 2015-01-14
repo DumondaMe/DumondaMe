@@ -7,6 +7,13 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        env: {
+            dev: {
+                NODE_ENV: 'testing',
+                PORT: '8081'
+            }
+        },
+
         sonarRunner: {
             analysis: {
                 options: {
@@ -49,5 +56,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('coverage', ['mocha_istanbul:coverage', 'sonarRunner:analysis']);
+    grunt.registerTask('coverage', ['env:dev', 'mocha_istanbul:coverage', 'sonarRunner:analysis']);
 };

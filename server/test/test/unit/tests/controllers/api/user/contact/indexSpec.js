@@ -139,7 +139,27 @@ describe('Unit Test controllers/api/user/profile/contact/index', function () {
             end: function () {
             }
         });
-        sandbox.stub(contact, 'getContacts').returns(Promise.reject({}));
+        sandbox.stub(contact, 'getContactsNormal').returns(Promise.reject({}));
+
+        return request.executeGetRequest(request.req, request.res).then(function () {
+            expect(stubResponse.withArgs(500).calledOnce).to.be.true;
+        });
+    });
+
+    it('Error occurred while getting all contacts with type request- Return a 500', function () {
+
+        var stubResponse = sandbox.stub(request.res, 'status');
+
+        request.req.query = {
+            itemsPerPage: '10',
+            skip: '0',
+            types: 'Familie,Sonstwas'
+        };
+        stubResponse.returns({
+            end: function () {
+            }
+        });
+        sandbox.stub(contact, 'getContactForTypes').returns(Promise.reject({}));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;
