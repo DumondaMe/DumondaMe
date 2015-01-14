@@ -24,8 +24,6 @@ require('./directives');
 require('./filters');
 require('./home');
 require('./navigation');
-require('./page');
-require('./profile');
 require('./settings');
 require('./util');
 
