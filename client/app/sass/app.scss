@@ -1,11 +1,11 @@
 //include all partial scss files
 @import 'elyoos/_variables';
+@import 'mixins/_screen';
+@import 'mixins/_util';
 
 @import 'directives/_searchBox';
 @import 'directives/_paginationNextPrevious';
 
-@import 'mixins/_screen';
-@import 'mixins/_util';
 @import 'elyoos/_contact';
 @import 'elyoos/_header';
 @import 'elyoos/_homeNavElement';

@@ -5,6 +5,7 @@
     width: 108px;
     margin: 0 auto;
     display: block;
+    @include noneSelect();
 
     .paginationElement {
       margin: 5px 2px;
