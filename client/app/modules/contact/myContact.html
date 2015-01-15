@@ -43,11 +43,12 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage">
-                <ely-pagination total-items="users.contactsForPagination"
-                                items-per-page="{{itemsPerPage}}"
-                                get-pagination-set="paginationChanged"
-                                pagination-elements="5"></ely-pagination>
+            <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage"
+                 class="pagination">
+                <ely-pagination-next-previous total-items="users.contactsForPagination"
+                                              items-per-page="{{itemsPerPage}}"
+                                              get-pagination-set="paginationChanged"
+                                              reset-counter="users.resetCounter"></ely-pagination-next-previous>
             </div>
             <div ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
                 <div class="no-contact-description">

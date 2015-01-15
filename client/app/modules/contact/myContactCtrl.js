@@ -33,6 +33,7 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
 
     $scope.query = "";
     $scope.users = {};
+    $scope.users.resetCounter = 1;
     $scope.itemsPerPage = 10;
     $scope.isUserSearch = false;
     $scope.allContactsSelected = true;
@@ -72,6 +73,9 @@ module.exports = ['$scope', '$http', '_', function ($scope, $http, _) {
                     stat.selected = false;
                     $scope.users.types.push(stat.type);
                 });
+                if (paginationNumber === 1) {
+                    $scope.users.resetCounter = $scope.users.resetCounter + 1;
+                }
                 $scope.users.numberOfContacts = data.data.numberOfContacts;
                 $scope.users.contactsForPagination = data.data.contactsForPagination;
                 $scope.isUserSearch = false;

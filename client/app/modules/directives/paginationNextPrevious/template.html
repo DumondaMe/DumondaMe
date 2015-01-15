@@ -1,0 +1,13 @@
+<div class="paginationNextPrevious">
+    <div class="paginationNextPrevious-wrapper">
+        <div class="paginationElement" ng-class="{disabled: currentPagination === 1}"
+             ng-click="clickPrevious()">
+            <img src="app/img/arrow-previous.png">
+        </div>
+        <div class="paginationElement"
+             ng-class="{disabled: currentPagination === currentPaginationRange}"
+             ng-click="clickNext()">
+            <img src="app/img/arrow-next.png">
+        </div>
+    </div>
+</div>
