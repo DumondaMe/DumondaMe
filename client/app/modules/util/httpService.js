@@ -8,7 +8,7 @@ module.exports = ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer(),
             config = {};
 
-        config.data = data;
+        config.params = data;
         $http.get(url, config).success(function (receivedData) {
             deferred.resolve(receivedData);
         }).error(deferred.reject);
