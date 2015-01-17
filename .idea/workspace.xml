@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8724e428-c09d-49ac-a0bb-770fce9bfa0e" name="Default" comment="Include idea settings" />
+    <ignored path="Elyoos.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Elyoos$Client_Unittest.coverage" NAME="Client Unittest Coverage Results" MODIFIED="1404412487250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="KarmaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Elyoos" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="myContactCtrlSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/test/unit/contact/myContactCtrlSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2511" max-vertical-offset="3349">
+              <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.092391305" vertical-offset="0" max-vertical-offset="736">
+              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myContactCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="546" max-vertical-offset="1819">
+              <caret line="84" column="37" selection-start-line="84" selection-start-column="32" selection-end-line="84" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contactPreviewCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreviewCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1394">
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contactPreviewCtrlSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/test/unit/contact/contactPreviewCtrlSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="918">
+              <caret line="44" column="59" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/test/unit/auth/authSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="969">
+              <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="karma.coverage.conf.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/test/config/karma.coverage.conf.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="607" max-vertical-offset="1343">
+              <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/node_modules/browserify/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="12801">
+              <caret line="153" column="12" selection-start-line="153" selection-start-column="12" selection-end-line="153" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/node_modules/browserify/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="20.923077" vertical-offset="544" max-vertical-offset="1904">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginCtrlSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/test/unit/auth/loginCtrlSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myContact.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContact.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.5" vertical-offset="871" max-vertical-offset="1581">
+              <caret line="52" column="87" selection-start-line="52" selection-start-column="87" selection-end-line="52" selection-end-column="87" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="httpService.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/util/httpService.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="63" max-vertical-offset="799">
+              <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+              <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Roger Waldvogel" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/server/test/test/unit/tests/controllers/api/user/settings/profileSpec.js" />
+        <option value="$PROJECT_DIR$/client/test/unit/profile/profileRecommendationCtrlSpec.js" />
+        <option value="$PROJECT_DIR$/client/test/unit/profile/sendRecommendationSpec.js" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/settings/security/visibility.js" />
+        <option value="$PROJECT_DIR$/server/neo4j/cypher.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactVisibilitySpec.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersVisibilitySpec.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersSpec.js" />
+        <option value="$PROJECT_DIR$/server/models/user/searchUser.js" />
+        <option value="$PROJECT_DIR$/server/db/testData/neo4jData.txt" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/settings/userName.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/user/settings/userNameSpec.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/settings/index.js" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/settings/userInfo.js" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/userInfo.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/user/userNameSpec.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/user/userInfoSpec.js" />
+        <option value="$PROJECT_DIR$/server/models/user/user.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/navigation/loggedInHeaderCtrl.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/navigation/loggedInHeader.html" />
+        <option value="$PROJECT_DIR$/client/app/modules/directives/searchBox/directive.js" />
+        <option value="$PROJECT_DIR$/client/app/sass/directives/_searchBox.scss" />
+        <option value="$PROJECT_DIR$/client/app/sass/mixins/_util.scss" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/contact/index.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js" />
+        <option value="$PROJECT_DIR$/server/models/contact/contact.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/user/settings/security/visibilitySpec.js" />
+        <option value="$PROJECT_DIR$/server/test/test/unit/tests/controllers/api/user/contact/indexSpec.js" />
+        <option value="$PROJECT_DIR$/server/package.json" />
+        <option value="$PROJECT_DIR$/server/gruntfile.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/template.html" />
+        <option value="$PROJECT_DIR$/client/app/sass/elyoos/_contact.scss" />
+        <option value="$PROJECT_DIR$/client/app/modules/directives/pagination/directive.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/directive.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/auth/login.html" />
+        <option value="$PROJECT_DIR$/client/app/sass/directives/_paginationNextPrevious.scss" />
+        <option value="$PROJECT_DIR$/client/app/sass/app.scss" />
+        <option value="$PROJECT_DIR$/client/app/modules/util/httpService.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/app.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/myContact.html" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/searchContact.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/index.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/contact.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/contactPreviewCtrl.js" />
+        <option value="$PROJECT_DIR$/client/test/unit/contact/contactPreviewCtrlSpec.js" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js" />
+        <option value="$PROJECT_DIR$/client/node_modules/karma-browserify/node_modules/browserify/index.js" />
+        <option value="$PROJECT_DIR$/client/test/config/karma.coverage.conf.js" />
+        <option value="$PROJECT_DIR$/client/test/unit/contact/myContactCtrlSpec.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <exe-path>/usr/bin/bower</exe-path>
+    <config-path />
+  </component>
+  <component name="JsGruntFileManager">
+    <gruntfiles>
+      <GruntfileState>
+        <alias-tasks>
+          <alias-task value="build" />
+          <alias-task value="buildDebug" />
+          <alias-task value="coverage" />
+        </alias-tasks>
+        <multi-tasks>
+          <GruntMultiTaskState>
+            <name>browserify</name>
+            <targets>
+              <target value="client" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>clean</name>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>cssmin</name>
+            <targets>
+              <target value="combine" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>karma</name>
+            <targets>
+              <target value="unit" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>ngtemplates</name>
+            <targets>
+              <target value="elyoosApp" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>sonarRunner</name>
+            <targets>
+              <target value="analysis" />
+            </targets>
+          </GruntMultiTaskState>
+          <GruntMultiTaskState>
+            <name>uglify</name>
+            <targets>
+              <target value="dist" />
+            </targets>
+          </GruntMultiTaskState>
+        </multi-tasks>
+        <gruntfile-path>$PROJECT_DIR$/client/gruntfile.js</gruntfile-path>
+      </GruntfileState>
+    </gruntfiles>
+    <initial>false</initial>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="JsKarmaPackageDirSetting">
+    <data>C:\Programmieren\Elyoos\client\node_modules\karma</data>
+  </component>
+  <component name="NodeJsMochaPackageDirSetting">
+    <data>$PROJECT_DIR$/client/node_modules/mocha</data>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1174" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Unit testingJavaScript</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource ProjectPane="true" />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="Settings.JavaScript" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="FullScreen" value="false" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="219" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="252" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="260" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1137" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="227" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="246" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="256" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1139" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
+    <property name="JavaScriptLanguageLevel" value="ES5" />
+    <property name="JavaScriptPreferStrict" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Programmieren\Elyoos\client\app\modules\contact" />
+      <recent name="C:\Programmieren\Elyoos\client\app\sass\directives" />
+      <recent name="C:\Programmieren\Elyoos\client\app\modules\directives" />
+      <recent name="C:\Programmieren\Elyoos\client\app\modules\directives\pagination" />
+      <recent name="C:\Programmieren\Elyoos\client\app\sass\mixins" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Programmieren\Elyoos\server\test\test\e2e\tests\user" />
+      <recent name="C:\Programmieren\Elyoos\server\controllers\api\user" />
+      <recent name="C:\Programmieren\Elyoos\client\app\sass\directives" />
+      <recent name="C:\Programmieren\Elyoos\server\test\test\e2e\tests\user\settings" />
+      <recent name="C:\Programmieren\Elyoos\server\test\test\unit\tests\controllers\api\user\settings" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Karma.Client Unittest">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeunitConfigurationType" factoryName="Nodeunit">
+      <setting name="nodePath" value="/usr/bin/node" />
+      <envs />
+      <setting name="passParentEnvVars" value="true" />
+      <setting name="nodeunitModuleDir" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="testType" value="JS_FILE" />
+      <setting name="jsFile" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>BDD</ui>
+      <extra-mocha-options />
+      <test-directory>$PROJECT_DIR$/server/test</test-directory>
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/bin/node" path-to-js-file="scripts/web-server.js" working-dir="$PROJECT_DIR$">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Client Unittest" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="$PROJECT_DIR$/client/test/config/karma.coverage.conf.js">
+      <envs />
+      <RunnerSettings RunnerId="KarmaCoverageProgramRunner" />
+      <RunnerSettings RunnerId="KarmaJavaScriptTestRunnerDebug" />
+      <RunnerSettings RunnerId="KarmaJavaScriptTestRunnerRun" />
+      <ConfigurationWrapper RunnerId="KarmaCoverageProgramRunner" />
+      <ConfigurationWrapper RunnerId="KarmaJavaScriptTestRunnerDebug" />
+      <ConfigurationWrapper RunnerId="KarmaJavaScriptTestRunnerRun" />
+      <method />
+    </configuration>
+    <configuration default="false" name="All Tests Servers" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-options />
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs>
+        <env name="PORT" value="8081" />
+        <env name="NODE_ENV" value="testing" />
+      </envs>
+      <ui>BDD</ui>
+      <extra-mocha-options />
+      <test-directory>$PROJECT_DIR$/server/test/test</test-directory>
+      <recursive>true</recursive>
+      <RunnerSettings RunnerId="MochaDebugRunner" />
+      <RunnerSettings RunnerId="RunnerForMochaJavaScript" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="MochaDebugRunner" />
+      <ConfigurationWrapper RunnerId="RunnerForMochaJavaScript" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unit Tests Server" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-options />
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs>
+        <env name="NODE_ENV" value="testing" />
+      </envs>
+      <ui>BDD</ui>
+      <extra-mocha-options />
+      <test-directory>$PROJECT_DIR$/server/test/test/unit</test-directory>
+      <recursive>true</recursive>
+      <RunnerSettings RunnerId="MochaDebugRunner" />
+      <RunnerSettings RunnerId="RunnerForMochaJavaScript" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="MochaDebugRunner" />
+      <ConfigurationWrapper RunnerId="RunnerForMochaJavaScript" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Server" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="server/server.js" working-dir="$PROJECT_DIR$">
+      <envs>
+        <env name="NODE_ENV" value="development" />
+      </envs>
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="NodeJS.debug" />
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="NodeJS.debug" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method>
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="Grunt Client build Task Debug" run_configuration_type="NodeJSConfigurationType" />
+      </method>
+    </configuration>
+    <configuration default="false" name="Server Integration Tests" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/bin/node" path-to-js-file="server/server.js" working-dir="$PROJECT_DIR$">
+      <envs>
+        <env name="PORT" value="8082" />
+        <env name="NODE_ENV" value="testing" />
+      </envs>
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Integration Tests" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/bin/node" path-to-js-file="node_modules/protractor/lib/cli.js" application-parameters="test/config/protractor-conf.js" working-dir="$PROJECT_DIR$/client">
+      <RunnerSettings RunnerId="NodeJS.debug" />
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.debug" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Grunt Client build Task" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="$USER_HOME$/AppData/Roaming/npm/node_modules/grunt-cli/bin/grunt" application-parameters="build" working-dir="$PROJECT_DIR$/client">
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Grunt Client build Task Debug" type="NodeJSConfigurationType" factoryName="Node.js" singleton="false" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="$USER_HOME$/AppData/Roaming/npm/node_modules/grunt-cli/bin/grunt" application-parameters="buildDebug" working-dir="$PROJECT_DIR$/client">
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method />
+    </configuration>
+    <list size="8">
+      <item index="0" class="java.lang.String" itemvalue="Karma.Client Unittest" />
+      <item index="1" class="java.lang.String" itemvalue="Mocha.All Tests Servers" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.Unit Tests Server" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.Server" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.Server Integration Tests" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.Integration Tests" />
+      <item index="6" class="java.lang.String" itemvalue="Node.js.Grunt Client build Task" />
+      <item index="7" class="java.lang.String" itemvalue="Node.js.Grunt Client build Task Debug" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8724e428-c09d-49ac-a0bb-770fce9bfa0e" name="Default" comment="" />
+      <created>1394631100589</created>
+      <option name="number" value="Default" />
+      <updated>1394631100589</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Connection auf contact geändert.">
+      <created>1416339781807</created>
+      <option name="number" value="00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1416339781808</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Kontakte auf user hinzugefügt.">
+      <created>1416419309318</created>
+      <option name="number" value="00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1416419309318</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Zurückgeben von Kontakten implementiert.">
+      <created>1416991966337</created>
+      <option name="number" value="00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1416991966337</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Unit tests an contact angepasst,.">
+      <created>1417006595395</created>
+      <option name="number" value="00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1417006595395</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Tests so umgebaut das direktiven richtig getestet werden.">
+      <created>1417173114734</created>
+      <option name="number" value="00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1417173114734</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Jquery wird für die directive tests benötigt">
+      <created>1417271910609</created>
+      <option name="number" value="00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1417271910609</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Directive home initial entworfen">
+      <created>1417272064187</created>
+      <option name="number" value="00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1417272064187</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Anzeigen von eigenen Kontakten mit erster Filter Funktion implementiert. Filter um begrenzen von Anzahl anzuzeigender Elementen implementiert.">
+      <created>1417622885549</created>
+      <option name="number" value="00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1417622885549</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Optimierung damit nur noch der Name bei der Vorschau für die Kontakte zurückgegeben wird. Beschreibung des Kontakts wird zurückgegeben.">
+      <created>1418036527466</created>
+      <option name="number" value="00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1418036527466</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Bootstrap als sass hinzugefügt.">
+      <created>1418063158028</created>
+      <option name="number" value="00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1418063158028</updated>
+    </task>
+    <task id="LOCAL-00099" summary="AngularJS 1.3.5 Version hinzugefügt. Angular-Strap 2.1.4 Version hinzugefügt. Erster Prototyp um im Contact Preview mit einem Popover die Bezeichung zu verändern.">
+      <created>1418120049061</created>
+      <option name="number" value="00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1418120049061</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Aufzählung der Descriptions für Kontakte implementiert.">
+      <created>1418138871768</created>
+      <option name="number" value="00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1418138871768</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Elasticsearch Konfiguration mit scripts is nun unter dem db folder zu finden. Scripts werden nicht mehr dynamisch versendet.">
+      <created>1418210411968</created>
+      <option name="number" value="00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1418210411968</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Ändern der Description eines Kontaktes implementiert.">
+      <created>1418638352483</created>
+      <option name="number" value="00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1418638352484</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Initial checkin of neo4j Version">
+      <created>1420206897786</created>
+      <option name="number" value="00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1420206897787</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Sending of multiple commands in one request implemented. Statistics added to getting all contacts.">
+      <created>1420218299470</created>
+      <option name="number" value="00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1420218299470</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Initial checkin of neo4j config">
+      <created>1420218916753</created>
+      <option name="number" value="00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1420218916753</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Changing contact type fixed. Sending contact statistic implemented.">
+      <created>1420306399275</created>
+      <option name="number" value="00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1420306399276</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Added more Friends and other users">
+      <created>1420310299337</created>
+      <option name="number" value="00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1420310299337</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Implemented a suggestion mode for searching other users. Search does now accept only surname as input">
+      <created>1420375517567</created>
+      <option name="number" value="00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1420375517568</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Searching for User on client implemented.">
+      <created>1420390218091</created>
+      <option name="number" value="00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1420390218092</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Deleting contact relationship implemented">
+      <created>1420393819526</created>
+      <option name="number" value="00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1420393819526</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Adding Contact implemented">
+      <created>1420393847143</created>
+      <option name="number" value="00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1420393847143</updated>
+    </task>
+    <task id="LOCAL-00112" summary="DB data fix. Renamed get to Query Request">
+      <created>1420447238828</created>
+      <option name="number" value="00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1420447238830</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Getting statistic after adding and deleting a contact relationship">
+      <created>1420459846159</created>
+      <option name="number" value="00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1420459846159</updated>
+    </task>
+    <task id="LOCAL-00114" summary="pagination implemented for viewing contacts. Bootstrap version 3.3.1 added.">
+      <created>1420479457414</created>
+      <option name="number" value="00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1420479457414</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Tests fixed. Contact user interface enhancements.">
+      <created>1420660300410</created>
+      <option name="number" value="00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1420660300410</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Profile modification moved to settings. Removed Profile from home screen.">
+      <created>1420663086921</created>
+      <option name="number" value="00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1420663086921</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Profile Settings new formatted">
+      <created>1420709058339</created>
+      <option name="number" value="00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1420709058339</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Setting user profile moved to settings. Removed loading user profile on home screen to the root scope.">
+      <created>1420793038421</created>
+      <option name="number" value="00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1420793038422</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Client asks at startup for authentication.">
+      <created>1420798373733</created>
+      <option name="number" value="00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1420798373733</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Tests fixed. Gui enhancements.">
+      <created>1420882605720</created>
+      <option name="number" value="00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1420882605720</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Gui enhancements to final Layout.">
+      <created>1420988878999</created>
+      <option name="number" value="00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1420988878999</updated>
+    </task>
+    <task id="LOCAL-00122" summary="Settings adopted to general Layout">
+      <created>1420994327350</created>
+      <option name="number" value="00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1420994327350</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Sketch for security settings. Added Bootstrap as css.">
+      <created>1421054476092</created>
+      <option name="number" value="00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1421054476092</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Removed old code.">
+      <created>1421055467724</created>
+      <option name="number" value="00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1421055467724</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Returns only the the profile image when allowed.">
+      <created>1421082653385</created>
+      <option name="number" value="00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1421082653385</updated>
+    </task>
+    <task id="LOCAL-00126" summary="Tests for visibility settings">
+      <created>1421136959411</created>
+      <option name="number" value="00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1421136959411</updated>
+    </task>
+    <task id="LOCAL-00127" summary="When searching other users visibility settings are used to display contact details.">
+      <created>1421150153633</created>
+      <option name="number" value="00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1421150153633</updated>
+    </task>
+    <task id="LOCAL-00128" summary="Divided suggestion and normal mode when searching for users. Added  visibility to the test data.">
+      <created>1421229101555</created>
+      <option name="number" value="00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1421229101556</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Show user name and profile in Header. Search Users when selected.">
+      <created>1421236875393</created>
+      <option name="number" value="00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1421236875393</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Bugfix for selecting contact types.">
+      <created>1421255482687</created>
+      <option name="number" value="00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1421255482687</updated>
+    </task>
+    <task id="LOCAL-00131" summary="Bugfix for test to use the integration test database.">
+      <created>1421256897394</created>
+      <option name="number" value="00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1421256897395</updated>
+    </task>
+    <task id="LOCAL-00132" summary="Pagination with only next and previous implemented.">
+      <created>1421326229837</created>
+      <option name="number" value="00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1421326229837</updated>
+    </task>
+    <task id="LOCAL-00133" summary="Small bugfixes.">
+      <created>1421328203578</created>
+      <option name="number" value="00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1421328203578</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Update to AngularJs 1.3.9. Ng Resources added.">
+      <created>1421406077513</created>
+      <option name="number" value="00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1421406077514</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Using $resources for making request to the server.">
+      <created>1421511832978</created>
+      <option name="number" value="00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1421511832980</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Deprecated tests.">
+      <created>1421511872011</created>
+      <option name="number" value="00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1421511872011</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Include idea settings">
+      <created>1421512013739</created>
+      <option name="number" value="00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1421512013739</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1174" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24831569" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916266" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916266" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31280077" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282002" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21232876" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30798846" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2906641" sideWeight="0.8303477" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24831569" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282002" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32723773" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962963" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.330765" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" x="1818" y="384" width="601" height="566" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.gitignore" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.rb" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.groovy" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.properties" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
+    <MESSAGE value="Getting statistic after adding and deleting a contact relationship" />
+    <MESSAGE value="pagination implemented for viewing contacts. Bootstrap version 3.3.1 added." />
+    <MESSAGE value="Tests fixed. Contact user interface enhancements." />
+    <MESSAGE value="Profile modification moved to settings. Removed Profile from home screen." />
+    <MESSAGE value="Profile Settings new formatted" />
+    <MESSAGE value="Setting user profile moved to settings. Removed loading user profile on home screen to the root scope." />
+    <MESSAGE value="Client asks at startup for authentication." />
+    <MESSAGE value="Tests fixed. Gui enhancements." />
+    <MESSAGE value="Gui enhancements to final Layout." />
+    <MESSAGE value="Settings adopted to general Layout" />
+    <MESSAGE value="Sketch for security settings. Added Bootstrap as css." />
+    <MESSAGE value="Removed old code." />
+    <MESSAGE value="Returns only the the profile image when allowed." />
+    <MESSAGE value="Tests for visibility settings" />
+    <MESSAGE value="When searching other users visibility settings are used to display contact details." />
+    <MESSAGE value="Divided suggestion and normal mode when searching for users. Added  visibility to the test data." />
+    <MESSAGE value="Show user name and profile in Header. Search Users when selected." />
+    <MESSAGE value="Bugfix for selecting contact types." />
+    <MESSAGE value="Bugfix for test to use the integration test database." />
+    <MESSAGE value="Pagination with only next and previous implemented." />
+    <MESSAGE value="Small bugfixes." />
+    <MESSAGE value="Update to AngularJs 1.3.9. Ng Resources added." />
+    <MESSAGE value="Using $resources for making request to the server." />
+    <MESSAGE value="Deprecated tests." />
+    <MESSAGE value="Include idea settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Include idea settings" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js</url>
+          <line>101</line>
+          <option name="timeStamp" value="1513" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <default-breakpoints>
+        <breakpoint suspend="NONE" type="javascript-exception">
+          <properties />
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="1560" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Elyoos" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Elyoos" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+    </PATH>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/server/test/test/unit/tests/controllers/api/user/contact/indexSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7218453" vertical-offset="2205" max-vertical-offset="3298">
+          <caret line="161" column="49" selection-start-line="161" selection-start-column="49" selection-end-line="161" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sonar-runner.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8129395" vertical-offset="102" max-vertical-offset="833">
+          <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2252375" vertical-offset="83" max-vertical-offset="1122">
+          <caret line="58" column="47" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/pagination/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="737">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/home/homeNavElement/homeNavElementSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/directives/_searchBox.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="221">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_variables.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.023943663" vertical-offset="0" max-vertical-offset="710">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/pagination/directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="827" max-vertical-offset="1615">
+          <caret line="79" column="32" selection-start-line="79" selection-start-column="32" selection-end-line="79" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="737">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2633803" vertical-offset="0" max-vertical-offset="710">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1139">
+          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/mixins/_util.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="170">
+          <caret line="0" column="7" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_contact.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8380282" vertical-offset="1411" max-vertical-offset="2465">
+          <caret line="118" column="8" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/directives/_paginationNextPrevious.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16760564" vertical-offset="0" max-vertical-offset="765">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/sass/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14366198" vertical-offset="0" max-vertical-offset="2057">
+          <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/auth/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16760564" vertical-offset="0" max-vertical-offset="710">
+          <caret line="7" column="81" selection-start-line="7" selection-start-column="81" selection-end-line="7" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/profile/profileRecommendationCtrlSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2720">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/lib/angular/angular-resource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11441">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/lib/angular/angular-ui-router.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22576">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/lib/angular/angular-resource.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/lib/angular/angular.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105842">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/lib/angular/angular.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="443088">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/descriptionCounterCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18478261" vertical-offset="0" max-vertical-offset="736">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/user/searchUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32472825" vertical-offset="101" max-vertical-offset="1394">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73913044" vertical-offset="0" max-vertical-offset="799">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8152174" vertical-offset="1865" max-vertical-offset="2601">
+          <caret line="145" column="7" selection-start-line="145" selection-start-column="7" selection-end-line="145" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/directives/searchBox/template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="272">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/searchUsers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.092391305" vertical-offset="0" max-vertical-offset="736">
+          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/auth/authSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/util/httpService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="81" max-vertical-offset="799">
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/settings/profileCtrlSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47211415" vertical-offset="44" max-vertical-offset="1836">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5" vertical-offset="871" max-vertical-offset="1581">
+          <caret line="52" column="87" selection-start-line="52" selection-start-column="87" selection-end-line="52" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/karma-bro/node_modules/browserify/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2091" max-vertical-offset="11237">
+          <caret line="139" column="2" selection-start-line="139" selection-start-column="2" selection-end-line="141" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1632">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/node_modules/browserify/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="20.923077" vertical-offset="544" max-vertical-offset="1904">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/node_modules/karma-browserify/node_modules/browserify/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="12801">
+          <caret line="153" column="12" selection-start-line="153" selection-start-column="12" selection-end-line="153" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/config/karma.coverage.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="607" max-vertical-offset="1343">
+          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="969">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/contact/contactPreviewCtrlSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="918">
+          <caret line="44" column="59" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreviewCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="546" max-vertical-offset="1819">
+          <caret line="84" column="37" selection-start-line="84" selection-start-column="32" selection-end-line="84" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/auth/loginCtrlSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/test/unit/contact/myContactCtrlSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2511" max-vertical-offset="3349">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.092391305" vertical-offset="0" max-vertical-offset="736">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
