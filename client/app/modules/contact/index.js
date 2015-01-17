@@ -6,6 +6,10 @@ app.controller('MyContactCtrl', require('./myContactCtrl'));
 app.controller('ContactPreviewCtrl', require('./contactPreviewCtrl'));
 app.controller('DescriptionCounterCtrl', require('./descriptionCounterCtrl'));
 
+
+app.factory('Contact', require('./contact'));
+app.factory('SearchUsers', require('./searchUsers'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider

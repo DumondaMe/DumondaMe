@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$http', 'HttpService', function ($scope, $http, HttpService) {
+module.exports = ['$scope', 'Contact', function ($scope, Contact) {
 
     $scope.contact.typeNew = $scope.contact.type;
 
@@ -31,7 +31,8 @@ module.exports = ['$scope', '$http', 'HttpService', function ($scope, $http, Htt
     }
 
     $scope.sendNewDescription = function () {
-        var hide = this.$hide;
+        //TODO Needs other implementation
+        /*var hide = this.$hide;
         if ($scope.contact.typeNew !== $scope.contact.type) {
             $http.post('/api/user/contact', {
                 contactIds: [$scope.contact.id],
@@ -41,27 +42,35 @@ module.exports = ['$scope', '$http', 'HttpService', function ($scope, $http, Htt
                 $scope.contact.type = $scope.contact.typeNew;
                 hide();
             });
-        }
+         }*/
     };
 
     $scope.addNewContact = function () {
-        $http.post('/api/user/contact', {
+        var contact = Contact.save({
             contactIds: [$scope.contact.id],
             mode: 'addContact',
             description: 'Freund'
-        }).then(function (statistic) {
-            $scope.users.statistics = statistic.data.statistic;
-            $scope.users.numberOfContacts = statistic.data.numberOfContacts;
+        }, function () {
+            $scope.users.statistic = contact.statistic;
+            $scope.users.numberOfContacts = contact.numberOfContacts;
             $scope.contact.type = 'Freund';
         });
     };
 
     $scope.deleteContact = function () {
-        HttpService.sendDeleteRequest({contactIds: [$scope.contact.id]}, '/api/user/contact')
+        var contact = Contact.delete({
+            contactIds: [$scope.contact.id]
+        }, function () {
+            $scope.users.statistic = contact.statistic;
+            $scope.users.numberOfContacts = contact.numberOfContacts;
+            delete $scope.contact.type;
+        });
+        /*HttpService.sendDeleteRequest({contactIds: [$scope.contact.id]}, '/api/user/contact')
             .then(function (statistic) {
                 delete $scope.contact.type;
-                $scope.users.statistics = statistic.statistic;
+         $scope.users.statistic = statistic.statistic;
                 $scope.users.numberOfContacts = statistic.numberOfContacts;
-            });
+         });*/
     };
-}];
+}]
+;

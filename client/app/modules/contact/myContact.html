@@ -48,7 +48,7 @@
                 <ely-pagination-next-previous total-items="users.contactsForPagination"
                                               items-per-page="{{itemsPerPage}}"
                                               get-pagination-set="paginationChanged"
-                                              reset-counter="users.resetCounter"></ely-pagination-next-previous>
+                                              reset-counter="resetCounter"></ely-pagination-next-previous>
             </div>
             <div ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
                 <div class="no-contact-description">
@@ -71,7 +71,7 @@
                         Kontakte
                     </div>
                 </li>
-                <div ng-repeat="statistic in users.statistics">
+                <div ng-repeat="statistic in users.statistic">
                     <li class="list-group-item" ng-class="{'group-selected': statistic.selected}">
                     <span class="badge" bs-dropdown="dropdownGroupSettings"
                           data-placement="bottom">{{statistic.count}}</span>
