@@ -3,7 +3,6 @@ logs/*
 node_modules/
 tmp
 .DS_Store
-.idea
 .log
 .sonar
 test_out
