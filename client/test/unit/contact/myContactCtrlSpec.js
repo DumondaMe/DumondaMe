@@ -40,7 +40,7 @@ describe('Tests of My Contact Controller', function () {
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getContacts(1);
-        stubContactGet.callsArg(1);
+        stubContactGet.callArg(1);
 
         expect(scope.users.contacts.length).to.equal(2);
         expect(scope.allContactsSelected).to.be.true;
@@ -115,7 +115,7 @@ describe('Tests of My Contact Controller', function () {
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getUserSuggestion();
-        stubContactGet.callsArg(1);
+        stubContactGet.callArg(1);
 
         expect(scope.users.contacts.length).to.equal(2);
         expect(scope.allContactsSelected).to.be.true;
@@ -146,7 +146,7 @@ describe('Tests of My Contact Controller', function () {
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getUserSuggestion('   ');
-        stubContactGet.callsArg(1);
+        stubContactGet.callArg(1);
 
         mockSearchUser.verify();
         expect(scope.users.contacts.length).to.equal(2);
@@ -181,7 +181,7 @@ describe('Tests of My Contact Controller', function () {
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getUser(search);
-        stubSearchUser.callsArg(1);
+        stubSearchUser.callArg(1);
 
         expect(scope.users.contacts.length).to.equal(1);
         expect(scope.users.contacts[0].id).to.equal('1');
