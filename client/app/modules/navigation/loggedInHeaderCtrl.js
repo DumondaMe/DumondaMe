@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$rootScope', 'HttpService', function ($scope, $rootScope, HttpService) {
+module.exports = ['$scope', '$rootScope', 'UserInfo', function ($scope, $rootScope, UserInfo) {
 
     $scope.dropdownSettings = [
         {
@@ -17,8 +17,6 @@ module.exports = ['$scope', '$rootScope', 'HttpService', function ($scope, $root
     ];
 
     if ($rootScope.userHeaderInfo === undefined) {
-        HttpService.sendGetRequest('api/user/userInfo').then(function (data) {
-            $rootScope.userHeaderInfo = data;
-        });
+        $rootScope.userHeaderInfo = UserInfo.get();
     }
 }];

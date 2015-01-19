@@ -2,7 +2,9 @@
 
 var app = require('angular').module('elyoosApp');
 
-app.controller('ProfileCtrl', require('./../settings/profileCtrl'));
+app.controller('ProfileCtrl', require('./profileCtrl'));
+
+app.factory('Profile', require('./profile'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

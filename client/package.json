@@ -45,7 +45,6 @@
     "angular-resource": "./app/lib/angular/angular-resource.min.js",
     "angular-strap": "./app/lib/bootstrap/angular-strap.min.js",
     "angular-strap-tpl": "./app/lib/bootstrap/angular-strap.tpl.min.js",
-    "underscore": "./app/lib/underscore/underscore.js",
     "templates": "./app/dist/templates.js"
   }
 }

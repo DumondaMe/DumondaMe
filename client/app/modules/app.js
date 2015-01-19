@@ -27,7 +27,6 @@ require('./filters');
 require('./home');
 require('./navigation');
 require('./settings');
-require('./util');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {

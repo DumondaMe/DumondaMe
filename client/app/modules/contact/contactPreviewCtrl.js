@@ -32,17 +32,6 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
 
     $scope.sendNewDescription = function () {
         //TODO Needs other implementation
-        /*var hide = this.$hide;
-        if ($scope.contact.typeNew !== $scope.contact.type) {
-            $http.post('/api/user/contact', {
-                contactIds: [$scope.contact.id],
-                mode: 'changeState',
-                description: $scope.contact.typeNew
-            }).then(function () {
-                $scope.contact.type = $scope.contact.typeNew;
-                hide();
-            });
-         }*/
     };
 
     $scope.addNewContact = function () {
@@ -65,12 +54,5 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
             $scope.users.numberOfContacts = contact.numberOfContacts;
             delete $scope.contact.type;
         });
-        /*HttpService.sendDeleteRequest({contactIds: [$scope.contact.id]}, '/api/user/contact')
-            .then(function (statistic) {
-                delete $scope.contact.type;
-         $scope.users.statistic = statistic.statistic;
-                $scope.users.numberOfContacts = statistic.numberOfContacts;
-         });*/
     };
-}]
-;
+}];

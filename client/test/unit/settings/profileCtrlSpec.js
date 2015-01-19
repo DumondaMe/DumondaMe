@@ -1,32 +1,29 @@
 'use strict';
 
-var ProfileCtrl = require('../../../app/modules/settings/profileCtrl')[3];
+var profileCtrl = require('../../../app/modules/settings/profileCtrl')[3];
 
 describe('Tests of Profile Default Controller', function () {
-    var testee, scope, q, HttpService, timeout;
+    var scope, filter, Profile;
 
     beforeEach(function (done) {
-        inject(function ($rootScope, $filter, $q, $timeout) {
+        inject(function ($rootScope, $filter) {
 
             scope = $rootScope.$new();
-            q = $q;
-            timeout = $timeout;
 
-            HttpService = {
-                sendPostRequest: function () {
-                },
-                sendGetRequest: function () {
-                    return q.defer().promise;
-                }
+            Profile = {};
+            Profile.get = function () {
+            };
+            Profile.save = function () {
             };
             scope.user = {};
-            testee = new ProfileCtrl(scope, $filter, HttpService);
+            filter = $filter;
             done();
         });
     });
 
     it('Successful submit Data to the server', function () {
 
+        profileCtrl(scope, filter, Profile);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -43,12 +40,11 @@ describe('Tests of Profile Default Controller', function () {
             female: true
         };
 
-        var stubHttpService = sinon.stub(HttpService, 'sendPostRequest');
-        stubHttpService.returns(q.when());
+        var stubHttpService = sinon.stub(Profile, 'save');
+        //stubHttpService.returns(q.when());
 
         scope.submitProfileData();
-
-        timeout.flush();
+        stubHttpService.callArg(1);
 
         expect(scope.submitFailed).to.be.false;
         expect(scope.successUserDataChange).to.be.true;
@@ -57,6 +53,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Invalid form data. Data not sent to server', function () {
 
+        profileCtrl(scope, filter, Profile);
         scope.profileForm = {
             $invalid: true,
             $setPristine: function () {
@@ -71,6 +68,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Error occurred while sending data. User data are not updated', function () {
 
+        profileCtrl(scope, filter, Profile);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -88,15 +86,22 @@ describe('Tests of Profile Default Controller', function () {
             female: false
         };
 
-        var stubHttpService = sinon.stub(HttpService, 'sendPostRequest');
-        stubHttpService.returns(q.reject());
+        var stubHttpService = sinon.stub(Profile, 'save');
 
         scope.submitProfileData();
-
-        timeout.flush();
+        stubHttpService.callArg(2);
 
         expect(scope.submitFailed).to.be.false;
         expect(scope.successUserDataChange).to.be.false;
         expect(scope.submitFailedToServer).to.be.true;
+    });
+
+    it('Getting the user Profile Data back at initialization', function () {
+
+        var stubHttpService = sinon.stub(Profile, 'get');
+        stubHttpService.returns('test');
+        profileCtrl(scope, filter, Profile);
+
+        expect(scope.userDataToChange).to.equals('test');
     });
 });

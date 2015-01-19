@@ -1,12 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$filter', 'HttpService', function ($scope, $filter, HttpService) {
-    $scope.open = function ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened = true;
-    };
+module.exports = ['$scope', '$filter', 'Profile', function ($scope, $filter, Profile) {
 
     $scope.userDataToChange = {};
     $scope.submitFailed = false;
@@ -14,11 +8,7 @@ module.exports = ['$scope', '$filter', 'HttpService', function ($scope, $filter,
     $scope.successUserDataChange = false;
 
     $scope.getUserData = function () {
-        HttpService.sendGetRequest('api/user/settings/profile').then(function (data) {
-            $scope.userDataToChange = data;
-        }, function () {
-            //TODO: Error Handling
-        });
+        $scope.userDataToChange = Profile.get();
     };
     $scope.getUserData();
 
@@ -35,7 +25,7 @@ module.exports = ['$scope', '$filter', 'HttpService', function ($scope, $filter,
                 country: $scope.userDataToChange.country,
                 female: $scope.userDataToChange.female
             };
-            HttpService.sendPostRequest(submittedUser, '/api/user/settings/profile').then(function () {
+            Profile.save(submittedUser, function () {
                 $scope.profileForm.$setPristine();
                 $scope.successUserDataChange = true;
                 $scope.submitFailedToServer = false;
