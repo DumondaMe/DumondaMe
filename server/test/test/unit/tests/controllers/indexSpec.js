@@ -25,12 +25,12 @@ describe('Unit Test controllers/index', function () {
 
         testee(request.requestMock);
         var stubCookie = sandbox.stub(request.res, 'cookie'),
-            stubSendfile = sandbox.stub(request.res, 'sendfile');
+            stubSendfile = sandbox.stub(request.res, 'sendFile');
 
         request.executeGetRequest(request.req, request.res);
 
         expect(stubCookie.withArgs('user', '{"username":""}').calledOnce).to.be.true;
-        expect(stubSendfile.withArgs('./client/app/index.html').calledOnce).to.be.true;
+        expect(stubSendfile.calledOnce).to.be.true;
         done();
     });
 
@@ -38,13 +38,13 @@ describe('Unit Test controllers/index', function () {
 
         testee(request.requestMock);
         var stubCookie = sandbox.stub(request.res, 'cookie'),
-            stubSendfile = sandbox.stub(request.res, 'sendfile');
+            stubSendfile = sandbox.stub(request.res, 'sendFile');
         request.req = {session: {}};
 
         request.executeGetRequest(request.req, request.res);
 
         expect(stubCookie.withArgs('user', '{"username":""}').calledOnce).to.be.true;
-        expect(stubSendfile.withArgs('./client/app/index.html').calledOnce).to.be.true;
+        expect(stubSendfile.calledOnce).to.be.true;
         done();
     });
 
@@ -52,13 +52,13 @@ describe('Unit Test controllers/index', function () {
 
         testee(request.requestMock);
         var stubCookie = sandbox.stub(request.res, 'cookie'),
-            stubSendfile = sandbox.stub(request.res, 'sendfile');
+            stubSendfile = sandbox.stub(request.res, 'sendFile');
         request.req = {session: {passport: {}}};
 
         request.executeGetRequest(request.req, request.res);
 
         expect(stubCookie.withArgs('user', '{"username":""}').calledOnce).to.be.true;
-        expect(stubSendfile.withArgs('./client/app/index.html').calledOnce).to.be.true;
+        expect(stubSendfile.calledOnce).to.be.true;
         done();
     });
 
@@ -66,13 +66,13 @@ describe('Unit Test controllers/index', function () {
 
         testee(request.requestMock);
         var stubCookie = sandbox.stub(request.res, 'cookie'),
-            stubSendfile = sandbox.stub(request.res, 'sendfile');
+            stubSendfile = sandbox.stub(request.res, 'sendFile');
         request.req = {session: {passport: {user: 'user'}}};
 
         request.executeGetRequest(request.req, request.res);
 
         expect(stubCookie.withArgs('user', '{"username":"user"}').calledOnce).to.be.true;
-        expect(stubSendfile.withArgs('./client/app/index.html').calledOnce).to.be.true;
+        expect(stubSendfile.calledOnce).to.be.true;
         done();
     });
 });

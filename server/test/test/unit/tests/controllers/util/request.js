@@ -39,7 +39,7 @@ var res = {
     }, setHeader: function () {
     }, end: function () {
     }, cookie: function () {
-    }, sendfile: function () {
+    }, sendFile: function () {
     }, status: function (args) {
         return statusResponse;
     }
