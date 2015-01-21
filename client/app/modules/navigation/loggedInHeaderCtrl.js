@@ -2,6 +2,7 @@
 
 module.exports = ['$scope', '$rootScope', 'UserInfo', function ($scope, $rootScope, UserInfo) {
 
+    var userHeaderInfo;
     $scope.dropdownSettings = [
         {
             text: "Settings",
@@ -17,6 +18,8 @@ module.exports = ['$scope', '$rootScope', 'UserInfo', function ($scope, $rootSco
     ];
 
     if ($rootScope.userHeaderInfo === undefined) {
-        $rootScope.userHeaderInfo = UserInfo.get();
+        userHeaderInfo = UserInfo.get(null, function () {
+            $rootScope.userHeaderInfo = userHeaderInfo;
+        });
     }
 }];
