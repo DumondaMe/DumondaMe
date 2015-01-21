@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = function (router) {
 
     router.get('/*', function (req, res) {
@@ -10,7 +12,7 @@ module.exports = function (router) {
         res.cookie('user', JSON.stringify({
             'username': username
         }));
-        res.sendfile('./client/app/index.html');
+        res.sendFile(path.join(process.env.BASE_DIR, '../client/app/', 'index.html'));
     });
 
 };

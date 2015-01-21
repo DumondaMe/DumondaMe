@@ -1,7 +1,6 @@
 'use strict';
 
 var winston = require('winston');
-var MongoDB = require('winston-mongodb').MongoDB;
 
 var customLevels = {
     levels: {
@@ -37,32 +36,13 @@ var log = function (module, level, message, metadata, request) {
     }
 };
 
-var mongoDbOptions;
 if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development')) {
     logger.add(winston.transports.Console, {level: 'debug'});
     logger.transports.console.colorize = true;
-    mongoDbOptions = {
-        db: 'elyoosLog',
-        host: 'localhost',
-        level: 'debug'
-    };
 } else if (process.env.NODE_ENV === 'testing') {
     logger.add(winston.transports.Console, {level: 'debug'});
     logger.transports.console.colorize = true;
-    mongoDbOptions = {
-        db: 'elyoosTestLog',
-        host: 'localhost',
-        level: 'debug'
-    };
 } else if (process.env.NODE_ENV === 'production') {
-    mongoDbOptions = {
-        db: 'elyoosLog',
-        host: 'localhost',
-        level: 'warn'
-    };
-}
-if (mongoDbOptions) {
-    logger.add(winston.transports.MongoDB, mongoDbOptions);
 }
 
 module.exports = {

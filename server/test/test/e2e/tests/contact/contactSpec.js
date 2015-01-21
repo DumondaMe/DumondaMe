@@ -112,13 +112,9 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[0].count.should.equals(1);
             res.body.numberOfContacts.should.equals(1);
             res.status.should.equal(200);
-            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
+            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '2'})")
                 .return('r.type as type, r.contactAdded as contactAdded')
-                .end({
-                    userId: '1',
-                    contact: '2'
-                })
-                .send();
+                .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
             user[0].type.should.equals('Freund');
@@ -480,5 +476,4 @@ describe('Integration Tests for handling contacts', function () {
                 user[0].id.should.equals('5');
             });
     });
-})
-;
+});
