@@ -23,7 +23,8 @@
     "elasticsearch": "~2.4.0",
     "lru-cache": "~2.5.0",
     "cuid": "1.2.4",
-    "request": "2.51.0"
+    "request": "2.51.0",
+    "moment": "2.9.0"
   },
   "devDependencies": {
     "mocha": "~1.21.4",

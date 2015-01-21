@@ -5,6 +5,7 @@ var exceptions = require('./../../lib/error/exceptions');
 var underscore = require('underscore');
 var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
+var moment = require('moment');
 
 var getContactStatistics = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
@@ -55,17 +56,18 @@ var addImageForContactPreview = function (contacts) {
 
 var addContact = function (userId, contactIds, type) {
 
-    var commands = [];
+    var commands = [], timeAddedContact = moment.utc().valueOf();
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
         .where('u2.userId IN {contactIds} AND NOT (u)-[:IS_CONTACT]->(u2)')
-        .createUnique('(u)-[:IS_CONTACT {type: {type}}]->(u2)')
+        .createUnique('(u)-[:IS_CONTACT {type: {type}, contactAdded: {contactAdded}}]->(u2)')
         .with('u, u2')
         .match('(u)-[r:IS_BLOCKED]->(u2)')
         .delete('r')
         .end({
             userId: userId,
             contactIds: contactIds,
-            type: type
+            type: type,
+            contactAdded: timeAddedContact
         })
         .getCommand());
 

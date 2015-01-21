@@ -5,6 +5,7 @@ var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var should = require('chai').should();
+var moment = require('moment');
 
 describe('Integration Tests for handling contacts', function () {
 
@@ -93,6 +94,36 @@ describe('Integration Tests for handling contacts', function () {
 
     afterEach(function (done) {
         requestHandler.logout(done);
+    });
+
+    it('Adding a contact - Return 200', function () {
+
+        var startTime = moment.utc().valueOf();
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2'],
+                mode: 'addContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.body.statistic.length.should.equals(1);
+            res.body.statistic[0].type.should.equals('Freund');
+            res.body.statistic[0].count.should.equals(1);
+            res.body.numberOfContacts.should.equals(1);
+            res.status.should.equal(200);
+            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
+                .return('r.type as type, r.contactAdded as contactAdded')
+                .end({
+                    userId: '1',
+                    contact: '2'
+                })
+                .send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            user[0].type.should.equals('Freund');
+            user[0].contactAdded.should.least(startTime);
+        });
     });
 
     it('Adding multiple contacts and get all contacts of the user - Return 200', function () {
