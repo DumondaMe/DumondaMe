@@ -7,13 +7,17 @@ var resetPagination = function ($scope, totalItems) {
 };
 
 var controller = function ($scope) {
+    var lastValidTotalItems;
     $scope.currentPagination = 1;
     $scope.currentPaginationRange = 1;
 
     $scope.$watch($scope.totalItems, function (newTotalItems) {
         if (newTotalItems && $scope.itemsPerPage) {
             newTotalItems = parseInt(newTotalItems, 10);
-            resetPagination($scope, newTotalItems);
+            if (!lastValidTotalItems || newTotalItems !== lastValidTotalItems) {
+                lastValidTotalItems = newTotalItems;
+                resetPagination($scope, newTotalItems);
+            }
         }
     });
 
@@ -23,10 +27,6 @@ var controller = function ($scope) {
         }
     });
 
-    $scope.clickPagination = function (itemNumber) {
-        $scope.currentPagination = itemNumber;
-        $scope.getPaginationSet($scope.currentPagination);
-    };
     $scope.clickPrevious = function () {
         if ($scope.currentPagination > 1) {
             $scope.currentPagination = $scope.currentPagination - 1;
