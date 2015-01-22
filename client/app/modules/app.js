@@ -64,14 +64,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             };
         }]);
     }]).run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
-    return Auth.checkIsAuthorizedOnServer().then(function () {
-        $rootScope.$state = $state;
-        $rootScope.$on('$stateChangeStart', function (event, toState) {
-            if (!Auth.authorize(toState.isPublic)) {
-                event.preventDefault();
-                $state.go('login');
-            }
-        });
+    $rootScope.$state = $state;
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+        if (!Auth.authorize(toState.isPublic)) {
+            event.preventDefault();
+            $state.go('login');
+        }
     });
-
 }]);

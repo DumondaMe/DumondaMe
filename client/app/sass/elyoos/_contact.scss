@@ -72,6 +72,23 @@
         float: left;
         height: 25px;
         width: 190px;
+
+        button {
+          float: left;
+        }
+
+        .command-connection-state {
+          float: left;
+          height: 25px;
+          width: 25px;
+          margin-left: 5px;
+
+          img {
+            height: 100%;
+            width: 100%;
+            border: none;
+          }
+        }
       }
 
       img {

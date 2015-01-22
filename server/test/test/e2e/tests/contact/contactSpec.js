@@ -87,6 +87,17 @@ describe('Integration Tests for handling contacts', function () {
                             return db.cypher().match("(u:User {userId: '5'})")
                                 .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
                                 .end().send();
+                        })
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE {type: 'Familie'}]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        })
+                        .then(function () {
+                            return db.cypher().match("(u:User), (u2:User)")
+                                .where("u.userId = '1' AND u2.userId = '5'")
+                                .create("(u2)-[:IS_CONTACT {type: 'Familie'}]->(u)")
+                                .end().send();
                         });
                 });
         });
@@ -102,7 +113,7 @@ describe('Integration Tests for handling contacts', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/contact', {
-                contactIds: ['2'],
+                contactIds: ['5'],
                 mode: 'addContact',
                 description: 'Freund'
             }, requestAgent);
@@ -112,7 +123,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.statistic[0].count.should.equals(1);
             res.body.numberOfContacts.should.equals(1);
             res.status.should.equal(200);
-            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '2'})")
+            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
                 .return('r.type as type, r.contactAdded as contactAdded')
                 .end().send();
         }).then(function (user) {
@@ -160,6 +171,11 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts[0].id.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
+            res.body.contacts[1].connected.should.equal("userToContact");
+            res.body.contacts[3].id.should.equal("5");
+            res.body.contacts[3].type.should.equal("Freund");
+            res.body.contacts[3].name.should.equal("user5 Meier5");
+            res.body.contacts[3].connected.should.equal("both");
 
             //statistic
             res.body.statistic.length.should.equal(2);
@@ -199,6 +215,9 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(3);
+            res.body.contacts[0].connected.should.equal('userToContact');
+            res.body.contacts[1].connected.should.equal('userToContact');
+            res.body.contacts[2].connected.should.equal('both');
             res.body.contactsForPagination.should.equal(3);
             return requestHandler.getWithData('/api/user/contact', {
                 itemsPerPage: 5,

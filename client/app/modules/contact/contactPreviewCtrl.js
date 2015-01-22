@@ -55,4 +55,24 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
             delete $scope.contact.type;
         });
     };
+
+    $scope.showConnectionState = function () {
+        if ($scope.contact.connected === 'none') {
+            return false;
+        }
+        return true;
+    };
+
+    $scope.getConnectionState = function () {
+        if ($scope.contact.connected === 'userToContact') {
+            return 'app/img/userToContact.png';
+        }
+        if ($scope.contact.connected === 'contactToUser') {
+            return 'app/img/contactToUser.png';
+        }
+        if ($scope.contact.connected === 'both') {
+            return 'app/img/bothContact.png';
+        }
+        return '#';
+    };
 }];

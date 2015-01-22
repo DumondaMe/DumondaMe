@@ -76,4 +76,62 @@ describe('Tests of Contact Preview Controller', function () {
 
         expect(scope.contact.actions[3].text).to.equal("Blockierung aufheben");
     });
+
+    it('Get connection state image url when user and contact have connections to each other', function () {
+
+        scope.contact = {connected: 'both'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.getConnectionState()).to.equal("app/img/bothContact.png");
+    });
+
+    it('Get connection state image url when only user has connection to contact', function () {
+
+        scope.contact = {connected: 'userToContact'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.getConnectionState()).to.equal("app/img/userToContact.png");
+    });
+
+    it('Get connection state image url when only contact has connection to user', function () {
+
+        scope.contact = {connected: 'contactToUser'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.getConnectionState()).to.equal("app/img/contactToUser.png");
+    });
+
+    it('Get no connection state iImage url when no connection has been made', function () {
+
+        scope.contact = {connected: 'none'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.getConnectionState()).to.equal("#");
+    });
+
+    it('Connection state image is not shown when no connection has been made', function () {
+
+        scope.contact = {connected: 'none'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.showConnectionState()).to.be.false;
+    });
+
+    it('Connection state image is shown when a connection has been made', function () {
+
+        scope.contact = {connected: 'contactToUser'};
+
+        contactPreviewCtrl(scope, Contact);
+
+        expect(scope.showConnectionState()).to.be.true;
+        scope.contact.connected = 'userToContact';
+        expect(scope.showConnectionState()).to.be.true;
+        scope.contact.connected = 'both';
+        expect(scope.showConnectionState()).to.be.true;
+    });
 });

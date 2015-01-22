@@ -35,6 +35,9 @@
                                 ng-click="addNewContact()">
                             Als Kontakt hinzufügen
                         </button>
+                        <div class="command-connection-state" ng-show="showConnectionState()">
+                            <img ng-src="{{getConnectionState()}}">
+                        </div>
                     </div>
                 </div>
                 <div class="select">

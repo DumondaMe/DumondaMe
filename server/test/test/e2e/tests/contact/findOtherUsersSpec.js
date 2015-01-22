@@ -70,6 +70,11 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '5'})")
+                                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        })
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '5'})")
                                 .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
                                 .end().send();
                         });
@@ -82,6 +87,11 @@ describe('Integration Tests for finding other users', function () {
                             name: 'user Meier6',
                             userId: '6'
                         }).send()
+                        .then(function () {
+                            return db.cypher().match("(u:User {userId: '6'})")
+                                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                                .end().send();
+                        })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '6'})")
                                 .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
@@ -111,6 +121,16 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'6'})")
                         .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
                         .send();
+                })
+                .then(function () {
+                    return db.cypher().match("(a:User {userId:'6'}), (b:User {userId:'1'})")
+                        .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
+                        .send();
+                })
+                .then(function () {
+                    return db.cypher().match("(a:User {userId:'5'}), (b:User {userId:'1'})")
+                        .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
+                        .send();
                 });
         });
     });
@@ -137,16 +157,20 @@ describe('Integration Tests for finding other users', function () {
             res.body[0].id.should.equal('6');
             res.body[0].name.should.equal('user Meier6');
             res.body[0].type.should.equal('Freund');
+            res.body[0].connected.should.equal('both');
             should.exist(res.body[0].profileUrl);
             res.body[1].id.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
             res.body[1].type.should.equal('Familie');
+            res.body[1].connected.should.equal('userToContact');
             should.exist(res.body[1].profileUrl);
             res.body[2].id.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
+            res.body[2].connected.should.equal('none');
             should.not.exist(res.body[2].type);
             should.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
+            res.body[3].connected.should.equal('contactToUser');
             should.not.exist(res.body[3].type);
             should.exist(res.body[3].profileUrl);
         });

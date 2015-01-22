@@ -6,6 +6,7 @@ var underscore = require('underscore');
 var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');
+var userInfo = require('./../user/userInfo');
 
 var getContactStatistics = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
@@ -41,18 +42,6 @@ var returnStatistics = function (result, errorDescription) {
     logger.warn(invalidOperationException.message, {error: ''});
     return Promise.reject(invalidOperationException);
 };
-
-var addImageForContactPreview = function (contacts) {
-    underscore.each(contacts, function (contact) {
-        if (contact.profileVisible === true && contact.imageVisible === true) {
-            contact.profileUrl = 'cms/' + contact.id + '/profile/thumbnail.jpg';
-        } else {
-            contact.profileUrl = 'cms/default/profile/thumbnail.jpg';
-        }
-        delete contact.profileVisible;
-        delete contact.imageVisible;
-    });
-}
 
 var addContact = function (userId, contactIds, type) {
 
@@ -151,7 +140,7 @@ var getContact = function (params, where) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
-        .return("r.type AS type, contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
+        .return("r.type AS type, rContact.type AS contactType, contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 
@@ -170,8 +159,7 @@ var getContactsNormal = function (userId, itemsPerPage, skip) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (resp) {
-            addImageForContactPreview(resp[0]);
-
+            userInfo.addContactPreviewInfos(resp[0]);
             return resp;
         });
 };
@@ -189,8 +177,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types) {
     return getTotalNumberOfContactsPerType(userId, types)
         .send(commands)
         .then(function (resp) {
-            addImageForContactPreview(resp[0]);
-
+            userInfo.addContactPreviewInfos(resp[0]);
             return resp;
         });
 };
