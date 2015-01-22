@@ -3,7 +3,7 @@
 module.exports = ['$scope', '$rootScope', '$state', 'Auth', function ($scope, $rootScope, $state, Auth) {
     $rootScope.logout = function () {
         Auth.logout().then(function () {
-            $rootScope.user = undefined;
+            delete $rootScope.userHeaderInfo;
             $scope.logoutMessage = "Sie haben sich erfolgreich abgemeldet.";
             $state.go('public.logout');
         }, function () {

@@ -8,7 +8,7 @@ var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');
 var userInfo = require('./../user/userInfo');
 
-var getContactStatistics = function (userId) {
+var getContactingStatistics = function (userId) {
     var now = Math.floor(moment.utc().valueOf() / 1000);
     return db.cypher().match('(:User {userId: {userId}})<-[r:IS_CONTACT]-(:User)')
         .where('r.contactAdded > {day}')
@@ -55,7 +55,7 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
         skip: skip
     }, "user.userId = {userId}").getCommand());
 
-    return getContactStatistics(userId)
+    return getContactingStatistics(userId)
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0]);

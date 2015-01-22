@@ -60,7 +60,7 @@ describe('Integration Tests for handling contacting information', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/contacting', {
-                maxItems: 5,
+                itemsPerPage: 5,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
@@ -93,7 +93,7 @@ describe('Integration Tests for handling contacting information', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/contacting', {
-                maxItems: 1,
+                itemsPerPage: 1,
                 skip: 1
             }, requestAgent);
         }).then(function (res) {

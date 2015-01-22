@@ -1,13 +1,35 @@
-<div id="content-page-my-contacts">
+<div id="content-page-contact">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <ely-contact-preview contacts="users.contacts"></ely-contact-preview>
+            <ely-contact-preview contacts="users.contactingUsers"></ely-contact-preview>
 
         </div>
     </div>
     <div id="leftCol">
         <div id="inner-leftCol">
+            <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>
+            <ul id="contact-counter" class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{users.numberOfContactingLastDay}}</span>
 
+                    <div class="contact-description-count">An diesem Tag</div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{users.numberOfContactingLastWeek}}</span>
+
+                    <div class="contact-description-count">In der letzten Woche</div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{users.numberOfContactingLastMonth}}</span>
+
+                    <div class="contact-description-count">Im letzten Monat</div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{users.numberOfAllContactings}}</span>
+
+                    <div class="contact-description-count">Gesamt</div>
+                </li>
+            </ul>
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/contact/leftNavCol.html'"></div>

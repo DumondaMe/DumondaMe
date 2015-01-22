@@ -9,8 +9,9 @@ app.controller('ContactingCtrl', require('./contactingCtrl'));
 app.controller('DescriptionCounterCtrl', require('./descriptionCounterCtrl'));
 
 
-app.factory('Contact', require('./contact'));
-app.factory('SearchUsers', require('./searchUsers'));
+app.factory('Contact', require('./services/contact'));
+app.factory('SearchUsers', require('./services/searchUsers'));
+app.factory('Contacting', require('./services/contacting'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

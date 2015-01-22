@@ -10,9 +10,9 @@ var schemaRequestConnecting = {
     name: 'requestContacting',
     type: 'object',
     additionalProperties: false,
-    required: ['maxItems', 'skip'],
+    required: ['itemsPerPage', 'skip'],
     properties: {
-        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0}
     }
 };
@@ -21,12 +21,12 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.maxItems && req.query.skip) {
-            req.query.maxItems = parseInt(req.query.maxItems, 10);
+        if (req.query.itemsPerPage && req.query.skip) {
+            req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
             req.query.skip = parseInt(req.query.skip, 10);
         }
         return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
-            return contacting.getContacting(req.user.id, request.maxItems, req.query.skip);
+            return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip);
         }).then(function (users) {
             var data = {};
             data.contactingUsers = users[0];
