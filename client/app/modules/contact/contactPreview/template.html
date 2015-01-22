@@ -1,0 +1,45 @@
+<div class="contact-preview"
+     ng-repeat="contact in contacts"
+     ng-controller="ContactPreviewCtrl">
+    <img ng-src="{{contact.profileUrl}}">
+
+    <div class="contact-preview-content">
+        <div class="contact-preview-name">
+            <div>
+                {{contact.name}}
+            </div>
+            <div class="description" trigger="click" data-auto-close="true"
+                 data-placement="bottom"
+                 data-template="app/modules/contact/popoverDescription.html"
+                 bs-popover ng-show="!contact.blocked && contact.type">
+                ({{contact.type}})
+            </div>
+            <div class="blocked-description" ng-show="contact.blocked">
+                BLOCKIERT
+            </div>
+        </div>
+        <div class="command-icons">
+            <button type="button"
+                    class="btn btn-default btn-xs dropdown-toggle left"
+                    data-toggle="dropdown" aria-expanded="false"
+                    bs-dropdown="contact.actions"
+                    ng-show="!contact.blocked && contact.type">
+                Aktionen <span class="caret"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-xs left"
+                    aria-expanded="false"
+                    ng-show="!contact.blocked && !contact.type"
+                    ng-click="addNewContact()">
+                Als Kontakt hinzufügen
+            </button>
+            <div class="command-connection-state" ng-show="showConnectionState()">
+                <img ng-src="{{getConnectionState()}}">
+            </div>
+        </div>
+    </div>
+    <div class="select">
+        <div class="s2">
+            <input type="checkbox" ng-model="contact.selected">
+        </div>
+    </div>
+</div>
