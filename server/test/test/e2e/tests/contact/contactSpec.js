@@ -109,7 +109,7 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding a contact - Return 200', function () {
 
-        var startTime = moment.utc().valueOf();
+        var startTime = Math.floor(moment.utc().valueOf() / 1000);
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/contact', {

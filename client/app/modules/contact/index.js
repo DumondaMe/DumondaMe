@@ -5,6 +5,7 @@ var app = require('angular').module('elyoosApp');
 require('./contactPreview');
 
 app.controller('MyContactCtrl', require('./myContactCtrl'));
+app.controller('ContactingCtrl', require('./contactingCtrl'));
 app.controller('DescriptionCounterCtrl', require('./descriptionCounterCtrl'));
 
 
@@ -32,12 +33,12 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             }
         })
-        .state('contact.followMe', {
-            url: '/followMe',
+        .state('contact.contacting', {
+            url: '/contacting',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/contact/myContact.html',
-                    controller: 'MyContactCtrl'
+                    templateUrl: 'app/modules/contact/contacting.html',
+                    controller: 'ContactingCtrl'
                 }
             }
         });

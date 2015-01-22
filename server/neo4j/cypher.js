@@ -90,6 +90,11 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
+    this.unionAll = function () {
+        chainedQuery = chainedQuery + ' UNION ALL ';
+        return this;
+    };
+
     this.nextLine = function (nextCondition) {
         chainedQuery = chainedQuery + nextCondition;
         return this;

@@ -45,7 +45,7 @@ var returnStatistics = function (result, errorDescription) {
 
 var addContact = function (userId, contactIds, type) {
 
-    var commands = [], timeAddedContact = moment.utc().valueOf();
+    var commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
         .where('u2.userId IN {contactIds} AND NOT (u)-[:IS_CONTACT]->(u2)')
         .createUnique('(u)-[:IS_CONTACT {type: {type}, contactAdded: {contactAdded}}]->(u2)')

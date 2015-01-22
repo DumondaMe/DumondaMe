@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8724e428-c09d-49ac-a0bb-770fce9bfa0e" name="Default" comment="Removed auth. In the Preview of a user is the connection state shown.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/img/bothContact.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/img/contactToUser.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/img/userToContact.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/modules/contact/contactPreview/directive.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/modules/contact/contactPreview/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/modules/contact/contactPreview/template.html" />
-      <change type="MOVED" beforePath="C:\Programmieren\Elyoos\client\app\modules\contact\contactPreviewCtrl.js" afterPath="$PROJECT_DIR$/client/app/modules/contact/contactPreview/contactPreviewCtrl.js" />
-      <change type="MOVED" beforePath="C:\Programmieren\Elyoos\client\test\unit\contact\contactPreviewCtrlSpec.js" afterPath="$PROJECT_DIR$/client/test/unit/contact/contactPreview/contactPreviewCtrlSpec.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/img/followMe.png" afterPath="$PROJECT_DIR$/client/app/img/followMe.png" />
+    <list default="true" id="8724e428-c09d-49ac-a0bb-770fce9bfa0e" name="Default" comment="Moved contact preview to separate directive.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/modules/contact/contacting.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/api/user/contact/contacting.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/models/contact/contacting.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app/modules/contact/contactingCtrl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/contact/contact.js" afterPath="$PROJECT_DIR$/server/models/contact/contact.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js" afterPath="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/neo4j/cypher.js" afterPath="$PROJECT_DIR$/server/neo4j/cypher.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/modules/contact/index.js" afterPath="$PROJECT_DIR$/client/app/modules/contact/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/modules/contact/leftNavCol.html" afterPath="$PROJECT_DIR$/client/app/modules/contact/leftNavCol.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/modules/contact/myContact.html" afterPath="$PROJECT_DIR$/client/app/modules/contact/myContact.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Elyoos.iws" />
@@ -41,61 +38,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="contactPreviewCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/contactPreviewCtrl.js">
+      <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1428">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="descriptionCounterCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/descriptionCounterCtrl.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
+              <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userInfo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/models/user/userInfo.js">
+      <file leaf-file-name="contactSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
-              <caret line="33" column="26" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="8568">
+              <caret line="111" column="65" selection-start-line="111" selection-start-column="65" selection-end-line="111" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="searchUser.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/models/user/searchUser.js">
+      <file leaf-file-name="contactVisibilitySpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactVisibilitySpec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
-              <caret line="50" column="50" selection-start-line="50" selection-start-column="50" selection-end-line="50" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2067" max-vertical-offset="2992">
+              <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="41" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contactPreviewCtrlSpec.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/test/unit/contact/contactPreview/contactPreviewCtrlSpec.js">
+      <file leaf-file-name="findOtherUsersSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersSpec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7842605" vertical-offset="0" max-vertical-offset="2431">
-              <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2346" max-vertical-offset="4607">
+              <caret line="148" column="47" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="authSpec.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/test/unit/auth/authSpec.js">
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/util/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1904">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="initSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/initSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cypher.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/neo4j/cypher.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1324" max-vertical-offset="3247">
+              <caret line="92" column="9" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myContactCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1819">
+              <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contactingCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactingCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -105,117 +142,27 @@
         <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContact.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="1.9615384" vertical-offset="102" max-vertical-offset="884">
-              <caret line="3" column="58" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+              <caret line="3" column="59" selection-start-line="3" selection-start-column="59" selection-end-line="3" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myContactCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
+      <file leaf-file-name="contacting.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contacting.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1819">
-              <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_variables.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_variables.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="221">
-              <caret line="4" column="25" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_contact.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_contact.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.461538" vertical-offset="802" max-vertical-offset="2754">
-              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="leftNavCol.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/leftNavCol.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="374">
-              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+            <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="323">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
+        <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
-              <caret line="6" column="60" selection-start-line="6" selection-start-column="60" selection-end-line="6" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="directive.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/home/homeNavElement/directive.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="directive.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/directive.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1139">
-              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="directive.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/directive.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
-              <caret line="5" column="70" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/template.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="850">
-              <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/modules/home/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2601">
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -224,8 +171,48 @@
       <file leaf-file-name="contact.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/models/contact/contact.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2295" max-vertical-offset="3383">
-              <caret line="161" column="53" selection-start-line="161" selection-start-column="53" selection-end-line="161" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="3383">
+              <caret line="47" column="83" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contacting.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/contacting.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="867">
+              <caret line="28" column="89" selection-start-line="28" selection-start-column="89" selection-end-line="28" selection-end-column="89" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contacting.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/models/contact/contacting.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.69199455" vertical-offset="408" max-vertical-offset="1292">
+              <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contactingSpec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1302" max-vertical-offset="2057">
+              <caret line="91" column="4" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/util/request.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="368" max-vertical-offset="1105">
+              <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -276,7 +263,6 @@
         <option value="$PROJECT_DIR$/client/app/modules/app.js" />
         <option value="$PROJECT_DIR$/server/models/userInfo.js" />
         <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersSpec.js" />
-        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js" />
         <option value="$PROJECT_DIR$/client/app/sass/elyoos/_variables.scss" />
         <option value="$PROJECT_DIR$/client/app/sass/elyoos/_contact.scss" />
         <option value="$PROJECT_DIR$/client/test/unit/contact/contactPreviewCtrlSpec.js" />
@@ -284,15 +270,22 @@
         <option value="$PROJECT_DIR$/server/db/testData/neo4jData.txt" />
         <option value="$PROJECT_DIR$/server/models/user/userInfo.js" />
         <option value="$PROJECT_DIR$/server/models/user/searchUser.js" />
-        <option value="$PROJECT_DIR$/server/models/contact/contact.js" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/leftNavCol.html" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/contactPreview/controller.js" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/myContact.html" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/contactPreview/directive.js" />
-        <option value="$PROJECT_DIR$/client/app/modules/contact/index.js" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/contactPreview/index.js" />
         <option value="$PROJECT_DIR$/client/app/modules/contact/contactPreview/template.html" />
         <option value="$PROJECT_DIR$/client/test/unit/contact/contactPreview/contactPreviewCtrlSpec.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/followContactCtrl.js" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/followContact.html" />
+        <option value="$PROJECT_DIR$/client/app/modules/contact/index.js" />
+        <option value="$PROJECT_DIR$/server/neo4j/cypher.js" />
+        <option value="$PROJECT_DIR$/server/models/contact/contact.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js" />
+        <option value="$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js" />
+        <option value="$PROJECT_DIR$/server/controllers/api/user/contact/contacting.js" />
+        <option value="$PROJECT_DIR$/server/models/contact/contacting.js" />
       </list>
     </option>
   </component>
@@ -536,6 +529,40 @@
               <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="e2e" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -568,6 +595,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elyoos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="neo4j" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -779,128 +824,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contactPreview" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -997,149 +920,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="home" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="home" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeNavElement" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="directives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paginationNextPrevious" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elyoos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contactPreview" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1184,11 +965,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Programmieren\Elyoos\client\app\modules\contact\contactPreview" />
-      <recent name="C:\Programmieren\Elyoos\client\app\modules\settings" />
-      <recent name="C:\Programmieren\Elyoos\client\app\modules\navigation" />
-      <recent name="C:\Programmieren\Elyoos\client\test\config" />
+      <recent name="C:\Programmieren\Elyoos\server\models\contact" />
+      <recent name="C:\Programmieren\Elyoos\server\test\test\e2e\tests\contact" />
+      <recent name="C:\Programmieren\Elyoos\server\controllers\api\user\contact" />
       <recent name="C:\Programmieren\Elyoos\client\app\modules\contact" />
+      <recent name="C:\Programmieren\Elyoos\client\app\modules\contact\contactPreview" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Programmieren\Elyoos\client\test\unit\contact\contactPreview" />
@@ -1198,7 +979,7 @@
       <recent name="C:\Programmieren\Elyoos\client\app\sass\directives" />
     </key>
   </component>
-  <component name="RunManager" selected="Karma.Client Unittest">
+  <component name="RunManager" selected="Mocha.All Tests Servers">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -1288,7 +1069,7 @@
         <env name="NODE_ENV" value="testing" />
       </envs>
       <ui>BDD</ui>
-      <extra-mocha-options />
+      <extra-mocha-options>--grep &quot;Integration Tests for handling contacting information|Initialize Server for all integration tests&quot;</extra-mocha-options>
       <test-directory>$PROJECT_DIR$/server/test/test</test-directory>
       <recursive>true</recursive>
       <RunnerSettings RunnerId="MochaDebugRunner" />
@@ -1385,12 +1166,6 @@
       <created>1394631100589</created>
       <option name="number" value="Default" />
       <updated>1394631100589</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Bootstrap als sass hinzugefügt.">
-      <created>1418063158028</created>
-      <option name="number" value="00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1418063158028</updated>
     </task>
     <task id="LOCAL-00099" summary="AngularJS 1.3.5 Version hinzugefügt. Angular-Strap 2.1.4 Version hinzugefügt. Erster Prototyp um im Contact Preview mit einem Popover die Bezeichung zu verändern.">
       <created>1418120049061</created>
@@ -1680,7 +1455,13 @@
       <option name="project" value="LOCAL" />
       <updated>1421924150555</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="Moved contact preview to separate directive.">
+      <created>1421930587911</created>
+      <option name="number" value="00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1421930587911</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1715,7 +1496,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21443625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30576923" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30510107" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28970164" sideWeight="0.8303477" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24831569" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -1757,7 +1538,6 @@
       <TodoPanelSettings />
     </option>
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
-    <MESSAGE value="Sketch for security settings. Added Bootstrap as css." />
     <MESSAGE value="Removed old code." />
     <MESSAGE value="Returns only the the profile image when allowed." />
     <MESSAGE value="Tests for visibility settings" />
@@ -1782,36 +1562,52 @@
     <MESSAGE value="Update of js express. Using new file send method to get rid of the deprecated message." />
     <MESSAGE value="Tests fixed" />
     <MESSAGE value="Removed auth. In the Preview of a user is the connection state shown." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed auth. In the Preview of a user is the connection state shown." />
+    <MESSAGE value="Moved contact preview to separate directive." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved contact preview to separate directive." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js</url>
           <line>139</line>
           <option name="timeStamp" value="1513" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/client/node_modules/karma-bro/lib/bro.js</url>
           <line>285</line>
           <option name="timeStamp" value="1560" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/client/test/unit/auth/authSpec.js</url>
           <line>29</line>
           <option name="timeStamp" value="1561" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/client/test/unit/settings/profileCtrlSpec.js</url>
           <line>26</line>
           <option name="timeStamp" value="1562" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/client/test/unit/contact/myContactCtrlSpec.js</url>
           <line>160</line>
           <option name="timeStamp" value="1563" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js</url>
+          <line>69</line>
+          <option name="timeStamp" value="1571" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/controllers/api/user/contact/contacting.js</url>
+          <line>32</line>
+          <option name="timeStamp" value="1572" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js</url>
+          <line>19</line>
+          <option name="timeStamp" value="1573" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1822,7 +1618,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1565" />
+      <option name="time" value="1574" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1839,64 +1635,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/app/modules/navigation/loggedInHeader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/navigation/userInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
-          <caret line="2" column="53" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="737">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/test/unit/contact/myContactCtrlSpec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="7310">
-          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/test/unit/settings/profileCtrlSpec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="1921">
-          <caret line="98" column="4" selection-start-line="98" selection-start-column="4" selection-end-line="105" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="282" max-vertical-offset="952">
-          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/settings/security.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="736">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/settings/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
-          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/settings/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1100" max-vertical-offset="3179">
@@ -2012,22 +1750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactVisibilitySpec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4843962" vertical-offset="255" max-vertical-offset="2992">
-          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="41" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2601">
-          <caret line="107" column="37" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/models/user/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1683">
@@ -2036,25 +1758,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersSpec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.724559" vertical-offset="2322" max-vertical-offset="4607">
-          <caret line="168" column="22" selection-start-line="168" selection-start-column="22" selection-end-line="168" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83989143" vertical-offset="3104" max-vertical-offset="8568">
-          <caret line="219" column="50" selection-start-line="219" selection-start-column="50" selection-end-line="219" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/test/unit/auth/authSpec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
+        <state vertical-scroll-proportion="-0.25373134" vertical-offset="255" max-vertical-offset="1904">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
@@ -2062,7 +1768,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_variables.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="221">
+        <state vertical-scroll-proportion="0.095639944" vertical-offset="0" max-vertical-offset="711">
           <caret line="4" column="25" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="25" />
           <folding />
         </state>
@@ -2070,7 +1776,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/sass/elyoos/_contact.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.461538" vertical-offset="802" max-vertical-offset="2754">
+        <state vertical-scroll-proportion="0.7848101" vertical-offset="802" max-vertical-offset="2754">
           <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding />
         </state>
@@ -2100,33 +1806,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/contact/contact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2295" max-vertical-offset="3383">
-          <caret line="161" column="53" selection-start-line="161" selection-start-column="53" selection-end-line="161" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/contact/leftNavCol.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="374">
+        <state vertical-scroll-proportion="0.28691983" vertical-offset="0" max-vertical-offset="711">
           <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1819">
-          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/home/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+        <state vertical-scroll-proportion="0.09226594" vertical-offset="0" max-vertical-offset="737">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="28" />
           <folding />
         </state>
@@ -2142,16 +1832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/directives/paginationNextPrevious/directive.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1139">
+        <state vertical-scroll-proportion="0.20759837" vertical-offset="0" max-vertical-offset="1139">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
-          <caret line="6" column="60" selection-start-line="6" selection-start-column="60" selection-end-line="6" selection-end-column="60" />
           <folding />
         </state>
       </provider>
@@ -2174,7 +1856,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/directive.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+        <state vertical-scroll-proportion="0.04613297" vertical-offset="0" max-vertical-offset="737">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
@@ -2182,7 +1864,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
+        <state vertical-scroll-proportion="0.11533243" vertical-offset="0" max-vertical-offset="737">
           <caret line="5" column="70" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
           <folding />
         </state>
@@ -2190,16 +1872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactPreview/template.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="850">
+        <state vertical-scroll-proportion="0.047819972" vertical-offset="0" max-vertical-offset="850">
           <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9615384" vertical-offset="102" max-vertical-offset="884">
-          <caret line="3" column="58" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -2208,6 +1882,150 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7842605" vertical-offset="0" max-vertical-offset="2431">
           <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.9615384" vertical-offset="102" max-vertical-offset="884">
+          <caret line="3" column="59" selection-start-line="3" selection-start-column="59" selection-end-line="3" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/myContactCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1819">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/initSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/util/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/findOtherUsersSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2346" max-vertical-offset="4607">
+          <caret line="148" column="47" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactVisibilitySpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2067" max-vertical-offset="2992">
+          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="41" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/util/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="368" max-vertical-offset="1105">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contacting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="323">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/contactingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2601">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/modules/contact/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
+          <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/neo4j/cypher.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1324" max-vertical-offset="3247">
+          <caret line="92" column="9" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/contact/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="3383">
+          <caret line="47" column="83" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="8568">
+          <caret line="111" column="65" selection-start-line="111" selection-start-column="65" selection-end-line="111" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controllers/api/user/contact/contacting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="867">
+          <caret line="28" column="89" selection-start-line="28" selection-start-column="89" selection-end-line="28" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test/e2e/tests/contact/contactingSpec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1302" max-vertical-offset="2057">
+          <caret line="91" column="4" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/contact/contacting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.69199455" vertical-offset="408" max-vertical-offset="1292">
+          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
           <folding />
         </state>
       </provider>
