@@ -70,17 +70,17 @@ describe('Integration Tests for handling contacting information', function () {
             res.body.contactingUsers[0].id.should.equal("3");
             res.body.contactingUsers[0].name.should.equal("user3 Meier3");
             res.body.contactingUsers[0].connected.should.equal("contactToUser");
-            res.body.contactingUsers[0].contactAdded.should.equal(startTime - 1000);
+            res.body.contactingUsers[0].userAdded.should.equal(startTime - 1000);
 
             res.body.contactingUsers[1].id.should.equal("2");
             res.body.contactingUsers[1].name.should.equal("user2 Meier2");
             res.body.contactingUsers[1].connected.should.equal("contactToUser");
-            res.body.contactingUsers[1].contactAdded.should.equal(startTime - 86401);
+            res.body.contactingUsers[1].userAdded.should.equal(startTime - 86401);
 
             res.body.contactingUsers[2].id.should.equal("4");
             res.body.contactingUsers[2].name.should.equal("user4 Meier4");
             res.body.contactingUsers[2].connected.should.equal("contactToUser");
-            res.body.contactingUsers[2].contactAdded.should.equal(startTime - 2591000);
+            res.body.contactingUsers[2].userAdded.should.equal(startTime - 2591000);
 
             res.body.numberOfContactingLastDay.should.equal(1);
             res.body.numberOfContactingLastWeek.should.equal(2);
@@ -103,7 +103,7 @@ describe('Integration Tests for handling contacting information', function () {
             res.body.contactingUsers[0].id.should.equal("2");
             res.body.contactingUsers[0].name.should.equal("user2 Meier2");
             res.body.contactingUsers[0].connected.should.equal("contactToUser");
-            res.body.contactingUsers[0].contactAdded.should.equal(startTime - 86401);
+            res.body.contactingUsers[0].userAdded.should.equal(startTime - 86401);
 
             res.body.numberOfContactingLastDay.should.equal(1);
             res.body.numberOfContactingLastWeek.should.equal(2);
