@@ -5,9 +5,6 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                contacts: '='
-            },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };
     }],

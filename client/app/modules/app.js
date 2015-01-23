@@ -7,6 +7,7 @@ require('angular-animate');
 require('angular-resource');
 require('angular-strap');
 require('angular-strap-tpl');
+require('moment');
 
 var app = angular.module('elyoosApp', [
     'ui.router',

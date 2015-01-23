@@ -1,7 +1,10 @@
 <div id="content-page-contact">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <ely-contact-preview contacts="users.contacts"></ely-contact-preview>
+            <div ng-repeat="contact in users.contacts"
+                 ng-controller="ContactPreviewCtrl">
+                <ely-contact-preview></ely-contact-preview>
+            </div>
             <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage"
                  class="pagination">
                 <ely-pagination-next-previous total-items="users.contactsForPagination"

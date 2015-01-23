@@ -1,8 +1,27 @@
 <div id="content-page-contact">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <ely-contact-preview contacts="users.contactingUsers"></ely-contact-preview>
-
+            <div ng-repeat="contact in users.contactingUsers"
+                 ng-controller="ContactPreviewCtrl">
+                <div ng-if="showContactingInfo($index)" class="contacting-info">
+                    <div class="contacting-inner-info">
+                        {{getContactingInfo($index)}}
+                    </div>
+                </div>
+                <ely-contact-preview></ely-contact-preview>
+            </div>
+            <div ng-show="users.numberOfAllContactings > itemsPerPage"
+                 class="pagination">
+                <ely-pagination-next-previous total-items="users.numberOfAllContactings"
+                                              items-per-page="{{itemsPerPage}}"
+                                              get-pagination-set="getContacting"
+                                              reset-counter="resetCounter"></ely-pagination-next-previous>
+            </div>
+            <div ng-show="users.numberOfAllContactings === 0 && users.contactingUsers.length === 0">
+                <div class="no-contact-description">
+                    <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>
+                </div>
+            </div>
         </div>
     </div>
     <div id="leftCol">
@@ -12,7 +31,7 @@
                 <li class="list-group-item">
                     <span class="badge">{{users.numberOfContactingLastDay}}</span>
 
-                    <div class="contact-description-count">An diesem Tag</div>
+                    <div class="contact-description-count">In den letzten 24h</div>
                 </li>
                 <li class="list-group-item">
                     <span class="badge">{{users.numberOfContactingLastWeek}}</span>

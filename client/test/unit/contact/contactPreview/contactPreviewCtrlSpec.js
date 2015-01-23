@@ -1,7 +1,6 @@
 'use strict';
 
 var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl')[2];
-var underscore = require('../../../../app/lib/underscore/underscore');
 
 describe('Tests of Contact Preview Controller', function () {
     var scope, Contact;
