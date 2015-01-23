@@ -1,11 +1,20 @@
 'use strict';
 
+var controller = require('./contactPreviewCtrl');
+
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'app/modules/contact/contactPreview/template.html'
+            scope: {
+                enableSelect: '@',
+                contact: '=',
+                statistic: '=',
+                numberOfContacts: '='
+            },
+            templateUrl: 'app/modules/contact/contactPreview/template.html',
+            controller: controller
         };
     }],
     name: 'elyContactPreview'

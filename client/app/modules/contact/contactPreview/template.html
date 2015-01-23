@@ -30,12 +30,12 @@
                     ng-click="addNewContact()">
                 Als Kontakt hinzufügen
             </button>
-            <div class="command-connection-state" ng-show="showConnectionState()">
-                <img ng-src="{{getConnectionState()}}">
+            <div class="command-connection-state" ng-hide="contact.connected === 'none'">
+                <img ng-src="{{contact.connectionImage}}">
             </div>
         </div>
     </div>
-    <div class="select">
+    <div class="select" ng-show="enableSelect !== 'false'">
         <div class="s2">
             <input type="checkbox" ng-model="contact.selected">
         </div>

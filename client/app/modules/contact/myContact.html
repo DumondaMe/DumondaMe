@@ -1,9 +1,9 @@
 <div id="content-page-contact">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="contact in users.contacts"
-                 ng-controller="ContactPreviewCtrl">
-                <ely-contact-preview></ely-contact-preview>
+            <div ng-repeat="contact in users.contacts">
+                <ely-contact-preview contact="contact" statistic="users.statistic"
+                                     number-of-contacts="users.numberOfContacts"></ely-contact-preview>
             </div>
             <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage"
                  class="pagination">

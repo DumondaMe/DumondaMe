@@ -1,14 +1,13 @@
 <div id="content-page-contact">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="contact in users.contactingUsers"
-                 ng-controller="ContactPreviewCtrl">
+            <div ng-repeat="contact in users.contactingUsers">
                 <div ng-if="showContactingInfo($index)" class="contacting-info">
                     <div class="contacting-inner-info">
                         {{getContactingInfo($index)}}
                     </div>
                 </div>
-                <ely-contact-preview></ely-contact-preview>
+                <ely-contact-preview enable-select="false" contact="contact"></ely-contact-preview>
             </div>
             <div ng-show="users.numberOfAllContactings > itemsPerPage"
                  class="pagination">

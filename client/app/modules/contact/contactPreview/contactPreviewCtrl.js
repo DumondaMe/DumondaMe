@@ -1,5 +1,23 @@
 'use strict';
 
+var updateConnectionStateWhenAddingContact = function ($scope) {
+    if ($scope.contact.connected === 'contactToUser') {
+        $scope.contact.connected = 'both';
+    } else {
+        $scope.contact.connected = 'userToContact';
+    }
+    $scope.setConnectionState();
+};
+
+var updateConnectionStateWhenDeletingContact = function ($scope) {
+    if ($scope.contact.connected === 'both') {
+        $scope.contact.connected = 'contactToUser';
+    } else {
+        $scope.contact.connected = 'none';
+    }
+    $scope.setConnectionState();
+};
+
 module.exports = ['$scope', 'Contact', function ($scope, Contact) {
 
     $scope.contact.typeNew = $scope.contact.type;
@@ -40,9 +58,14 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
             mode: 'addContact',
             description: 'Freund'
         }, function () {
-            $scope.users.statistic = contact.statistic;
-            $scope.users.numberOfContacts = contact.numberOfContacts;
+            if (angular.isDefined($scope.statistic)) {
+                $scope.statistic = contact.statistic;
+            }
+            if (angular.isDefined($scope.numberOfContacts)) {
+                $scope.numberOfContacts = contact.numberOfContacts;
+            }
             $scope.contact.type = 'Freund';
+            updateConnectionStateWhenAddingContact($scope);
         });
     };
 
@@ -50,29 +73,28 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
         var contact = Contact.delete({
             contactIds: [$scope.contact.id]
         }, function () {
-            $scope.users.statistic = contact.statistic;
-            $scope.users.numberOfContacts = contact.numberOfContacts;
+            if (angular.isDefined($scope.statistic)) {
+                $scope.statistic = contact.statistic;
+            }
+            if (angular.isDefined($scope.numberOfContacts)) {
+                $scope.numberOfContacts = contact.numberOfContacts;
+            }
             delete $scope.contact.type;
+            updateConnectionStateWhenDeletingContact($scope);
         });
     };
 
-    $scope.showConnectionState = function () {
-        if ($scope.contact.connected === 'none') {
-            return false;
-        }
-        return true;
-    };
-
-    $scope.getConnectionState = function () {
+    $scope.setConnectionState = function () {
         if ($scope.contact.connected === 'userToContact') {
-            return 'app/img/userToContact.png';
+            $scope.contact.connectionImage = 'app/img/userToContact.png';
+        } else if ($scope.contact.connected === 'contactToUser') {
+            $scope.contact.connectionImage = 'app/img/contactToUser.png';
+        } else if ($scope.contact.connected === 'both') {
+            $scope.contact.connectionImage = 'app/img/bothContact.png';
+        } else {
+            $scope.contact.connected = 'none';
+            $scope.contact.connectionImage = '#';
         }
-        if ($scope.contact.connected === 'contactToUser') {
-            return 'app/img/contactToUser.png';
-        }
-        if ($scope.contact.connected === 'both') {
-            return 'app/img/bothContact.png';
-        }
-        return '#';
     };
+    $scope.setConnectionState();
 }];
