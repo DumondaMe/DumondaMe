@@ -8,76 +8,76 @@ MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:V
 MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:IS_VISIBLE_NO_CONTACT ]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'1', email:'mw4@gmx.ch', password:'1', forename:'Monika', surname:'Wildhaber', name:'Monika Wildhaber'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='1' CREATE (a)-[:IS_CONTACT {type:'Familie'}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='1' CREATE (a)-[:IS_CONTACT {type:'Familie', contactAdded: 1422258025 - 8000}]->(b);
 MATCH (a:User) WHERE a.userId ='1' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: false});
 MATCH (a:User) WHERE a.userId ='1' CREATE (a)-[:IS_VISIBLE_NO_CONTACT ]->(:Visibility {profile: false, image: false});
 
 CREATE (n:User {userId:'2', email:'2@gmx.ch', password:'1', forename:'Michael', surname:'Fricker', name:'Michael Fricker'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='2' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='2' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 1000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='2' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 9000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='2' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 1000}]->(b);
 MATCH (a:User) WHERE a.userId ='2' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: false});
 MATCH (a:User) WHERE a.userId ='2' CREATE (a)-[:IS_VISIBLE_NO_CONTACT ]->(:Visibility {profile: false, image: false});
 
 CREATE (n:User {userId:'3', email:'3@gmx.ch', password:'1', forename:'Remo', surname:'Burkhard', name:'Remo Burkhard'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='3' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='3' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 86401}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='3' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 6500}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='3' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 86401}]->(b);
 MATCH (a:User) WHERE a.userId ='3' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='3' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: false, image: false});
 
 CREATE (n:User {userId:'4', email:'4@gmx.ch', password:'1', forename:'Marina', surname:'Kuster', name:'Marina Kuster'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='4' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='4' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 90000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='4' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 -87566}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='4' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 90000}]->(b);
 MATCH (a:User) WHERE a.userId ='4' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='4' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'5', email:'5@gmx.ch', password:'1', forename:'Jean Michel', surname:'Plattner', name:'Jean Michel Plattner'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='5' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='5' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 100000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='5' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 875556}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='5' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 100000}]->(b);
 MATCH (a:User) WHERE a.userId ='5' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='5' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'6', email:'6@gmx.ch', password:'1', forename:'Denyse', surname:'Hug', name:'Denyse Hug'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='6' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='6' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 604900}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='6' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 -89774}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='6' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 604900}]->(b);
 MATCH (a:User) WHERE a.userId ='6' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='6' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'7', email:'7@gmx.ch', password:'1', forename:'Andy', surname:'Schwab', name:'Andy Schwab'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='7' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='7' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 804900}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='7' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 988745}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='7' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 804900}]->(b);
 MATCH (a:User) WHERE a.userId ='7' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='7' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'8', email:'8@gmx.ch', password:'1', forename:'Sabine', surname:'Wolter', name:'Sabine Wolter'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='8' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='8' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 1004900}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='8' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 -578845}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='8' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 1004900}]->(b);
 MATCH (a:User) WHERE a.userId ='8' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='8' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'9', email:'9@gmx.ch', password:'1', forename:'Nadine', surname:'Jaeckle', name:'Nadine Jaeckle'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='9' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='9' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 2595000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='9' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 -897441}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='9' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 2595000}]->(b);
 MATCH (a:User) WHERE a.userId ='9' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='9' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'10', email:'10@gmx.ch', password:'1', forename:'Dorothea', surname:'König', name:'Dorothea König'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='10' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
-MATCH (a:User), (b:User) WHERE a.userId ='10' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 2585000}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='10' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 5698544}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='10' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 2585000}]->(b);
 MATCH (a:User) WHERE a.userId ='10' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='10' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'11', email:'11@gmx.ch', password:'1', forename:'Franziska', surname:'Schenk', name:'Franziska Schenk'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='11' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='11' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 -897744}]->(b);
 MATCH (a:User) WHERE a.userId ='11' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='11' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'12', email:'12@gmx.ch', password:'1', forename:'Maggie', surname:'Passalacqua-Castiglia', name:'Maggie Passalacqua-Castiglia'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='12' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='12' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 66987}]->(b);
 MATCH (a:User) WHERE a.userId ='12' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='12' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'13', email:'13@gmx.ch', password:'1', forename:'Vivieane', surname:'Sacher-Briner', name:'Vivieane Sacher-Briner'});
-MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='13' CREATE (a)-[:IS_CONTACT {type:'Freund'}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='13' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 88741}]->(b);
 MATCH (a:User) WHERE a.userId ='13' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='13' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
@@ -98,12 +98,12 @@ MATCH (a:User) WHERE a.userId ='17' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:
 MATCH (a:User) WHERE a.userId ='17' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'18', email:'18@gmx.ch', password:'1', forename:'Isa', surname:'Chambovey', name:'Isa Chambovey'});
-MATCH (a:User), (b:User) WHERE a.userId ='18' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 500}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='18' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025}]->(b);
 MATCH (a:User) WHERE a.userId ='18' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='18' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 
 CREATE (n:User {userId:'19', email:'19@gmx.ch', password:'1', forename:'Bahar', surname:'Yilmaz', name:'Bahar Yilmaz'});
-MATCH (a:User), (b:User) WHERE a.userId ='19' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1421948403 - 700}]->(b);
+MATCH (a:User), (b:User) WHERE a.userId ='19' AND b.userId='0' CREATE (a)-[:IS_CONTACT {type:'Freund', contactAdded: 1422258025 - 700}]->(b);
 MATCH (a:User) WHERE a.userId ='19' CREATE (a)-[:IS_VISIBLE {type:'Freund'}]->(:Visibility {profile: true, image: true});
 MATCH (a:User) WHERE a.userId ='19' CREATE (a)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true});
 

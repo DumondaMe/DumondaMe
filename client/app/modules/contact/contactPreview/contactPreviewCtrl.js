@@ -18,7 +18,7 @@ var updateConnectionStateWhenDeletingContact = function ($scope) {
     $scope.setConnectionState();
 };
 
-module.exports = ['$scope', 'Contact', function ($scope, Contact) {
+module.exports = ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
 
     $scope.contact.typeNew = $scope.contact.type;
 
@@ -47,6 +47,11 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
             href: "#"
         });
     }
+
+    $scope.tooltipConnectionState = {
+        title: "",
+        checked: false
+    };
 
     $scope.sendNewDescription = function () {
         //TODO Needs other implementation
@@ -87,10 +92,13 @@ module.exports = ['$scope', 'Contact', function ($scope, Contact) {
     $scope.setConnectionState = function () {
         if ($scope.contact.connected === 'userToContact') {
             $scope.contact.connectionImage = 'app/img/userToContact.png';
+            $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am " + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgefügt";
         } else if ($scope.contact.connected === 'contactToUser') {
             $scope.contact.connectionImage = 'app/img/contactToUser.png';
+            $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
         } else if ($scope.contact.connected === 'both') {
             $scope.contact.connectionImage = 'app/img/bothContact.png';
+            $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
         } else {
             $scope.contact.connected = 'none';
             $scope.contact.connectionImage = '#';

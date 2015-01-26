@@ -30,7 +30,8 @@
                     ng-click="addNewContact()">
                 Als Kontakt hinzufügen
             </button>
-            <div class="command-connection-state" ng-hide="contact.connected === 'none'">
+            <div class="command-connection-state" ng-hide="contact.connected === 'none'"
+                 data-trigger="hover" data-delay="600" data-title="{{tooltipConnectionState.title}}" bs-tooltip>
                 <img ng-src="{{contact.connectionImage}}">
             </div>
         </div>

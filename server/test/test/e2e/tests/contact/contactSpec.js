@@ -9,11 +9,12 @@ var moment = require('moment');
 
 describe('Integration Tests for handling contacts', function () {
 
-    var requestAgent;
+    var requestAgent, startTime;
 
     beforeEach(function () {
 
         var createUser = "(:User {email: {email}, password: {password}, forename: {forename}, surname: {surname}, name: {name}, userId: {userId}})";
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
@@ -96,8 +97,8 @@ describe('Integration Tests for handling contacts', function () {
                         .then(function () {
                             return db.cypher().match("(u:User), (u2:User)")
                                 .where("u.userId = '1' AND u2.userId = '5'")
-                                .create("(u2)-[:IS_CONTACT {type: 'Familie'}]->(u)")
-                                .end().send();
+                                .create("(u2)-[:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(u)")
+                                .end({contactAdded: startTime}).send();
                         });
                 });
         });
@@ -109,7 +110,6 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding a contact - Return 200', function () {
 
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/contact', {
@@ -135,6 +135,7 @@ describe('Integration Tests for handling contacts', function () {
 
     it('Adding multiple contacts and get all contacts of the user - Return 200', function () {
 
+        var now = Math.floor(moment.utc().valueOf() / 1000) - 1;
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/contact', {
@@ -171,10 +172,13 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts[0].id.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
+            res.body.contacts[0].contactAdded.should.least(now);
             res.body.contacts[1].connected.should.equal("userToContact");
             res.body.contacts[3].id.should.equal("5");
             res.body.contacts[3].type.should.equal("Freund");
             res.body.contacts[3].name.should.equal("user5 Meier5");
+            res.body.contacts[3].contactAdded.should.least(now);
+            res.body.contacts[3].userAdded.should.least(now);
             res.body.contacts[3].connected.should.equal("both");
 
             //statistic

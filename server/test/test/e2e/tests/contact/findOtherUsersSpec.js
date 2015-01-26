@@ -5,11 +5,15 @@ var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var should = require('chai').should();
+var moment = require('moment');
 
 describe('Integration Tests for finding other users', function () {
 
+    var requestAgent, startTime;
+
     before(function () {
         var createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
                 .end({
@@ -114,22 +118,26 @@ describe('Integration Tests for finding other users', function () {
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'2'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Familie'}]->(b)")
+                        .create("(a)-[r:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(b)")
+                        .end({contactAdded: startTime})
                         .send();
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'6'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
+                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
+                        .end({contactAdded: startTime})
                         .send();
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'6'}), (b:User {userId:'1'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
+                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
+                        .end({contactAdded: startTime})
                         .send();
                 })
                 .then(function () {
                     return db.cypher().match("(a:User {userId:'5'}), (b:User {userId:'1'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund'}]->(b)")
+                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
+                        .end({contactAdded: startTime})
                         .send();
                 });
         });
@@ -141,8 +149,6 @@ describe('Integration Tests for finding other users', function () {
 
 
     it('Request only with forename - Return correct sorted list (Contacts first)', function () {
-
-        var requestAgent;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -157,11 +163,15 @@ describe('Integration Tests for finding other users', function () {
             res.body[0].id.should.equal('6');
             res.body[0].name.should.equal('user Meier6');
             res.body[0].type.should.equal('Freund');
+            res.body[0].contactAdded.should.least(startTime);
+            res.body[0].userAdded.should.least(startTime);
             res.body[0].connected.should.equal('both');
             should.exist(res.body[0].profileUrl);
             res.body[1].id.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
             res.body[1].type.should.equal('Familie');
+            should.not.exist(res.body[1].userAdded);
+            res.body[1].contactAdded.should.least(startTime);
             res.body[1].connected.should.equal('userToContact');
             should.exist(res.body[1].profileUrl);
             res.body[2].id.should.equal('4');
@@ -170,6 +180,8 @@ describe('Integration Tests for finding other users', function () {
             should.not.exist(res.body[2].type);
             should.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
+            should.not.exist(res.body[3].contactAdded);
+            res.body[3].userAdded.should.least(startTime);
             res.body[3].connected.should.equal('contactToUser');
             should.not.exist(res.body[3].type);
             should.exist(res.body[3].profileUrl);
@@ -177,8 +189,6 @@ describe('Integration Tests for finding other users', function () {
     });
 
     it('Request with forename and surename - Return correct sorted list', function () {
-
-        var requestAgent;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -202,8 +212,6 @@ describe('Integration Tests for finding other users', function () {
     });
 
     it('Request with only surname - Return correct sorted list', function () {
-
-        var requestAgent;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -231,8 +239,6 @@ describe('Integration Tests for finding other users', function () {
     });
 
     it('Request only with forename - Return correct sorted list in suggestion mode (Contacts first)', function () {
-
-        var requestAgent;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

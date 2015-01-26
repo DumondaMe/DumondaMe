@@ -7,7 +7,6 @@ require('angular-animate');
 require('angular-resource');
 require('angular-strap');
 require('angular-strap-tpl');
-require('moment');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
@@ -28,6 +27,7 @@ require('./filters');
 require('./home');
 require('./navigation');
 require('./settings');
+require('./util');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {

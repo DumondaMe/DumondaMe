@@ -33,7 +33,8 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
-        .return('contact.name AS name, r.type AS type, rContact AS contactType, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible')
+        .return('contact.name AS name, r.type AS type, r.contactAdded AS contactAdded, rContact AS contactType, rContact.contactAdded AS userAdded, ' +
+            'contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible')
         .orderBy('name LIMIT {maxItems}')
         .union().match('(u2:User {userId: {userId}}), (noContacts:User)')
         .where("noContacts.name =~ {userQueryRegEx} AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
@@ -42,7 +43,8 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
         .optionalMatch("(u2)<-[rContact:IS_CONTACT]-(noContacts)")
         .with("noContacts, rContact, u2, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
-        .return('noContacts.name AS name, null AS type, rContact AS contactType, noContacts.userId AS id, v.profile AS profileVisible, v.image AS imageVisible')
+        .return('noContacts.name AS name, null AS type, null AS contactAdded, rContact AS contactType, rContact.contactAdded AS userAdded, ' +
+            'noContacts.userId AS id, v.profile AS profileVisible, v.image AS imageVisible')
         .orderBy('name LIMIT {maxItems}')
         .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems})
         .send()

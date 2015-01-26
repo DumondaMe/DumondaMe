@@ -140,7 +140,8 @@ var getContact = function (params, where) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
-        .return("r.type AS type, rContact.type AS contactType, contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
+        .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, contact.name AS name, " +
+            "contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 
