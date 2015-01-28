@@ -1207,7 +1207,7 @@ function getNgAttribute(element, ngAttr) {
 }
 
 /**
- * @ngdoc directive
+ * @ngdoc fileModel
  * @name ngApp
  * @module ng
  *
@@ -1243,94 +1243,94 @@ function getNgAttribute(element, ngAttr) {
  * `ngApp` is the easiest, and most common way to bootstrap an application.
  *
  <example module="ngAppDemo">
-   <file name="index.html">
-   <div ng-controller="ngAppDemoController">
-     I can add: {{a}} + {{b}} =  {{ a+b }}
-   </div>
-   </file>
-   <file name="script.js">
-   angular.module('ngAppDemo', []).controller('ngAppDemoController', function($scope) {
+ <file name="index.html">
+ <div ng-controller="ngAppDemoController">
+ I can add: {{a}} + {{b}} =  {{ a+b }}
+ </div>
+ </file>
+ <file name="script.js">
+ angular.module('ngAppDemo', []).controller('ngAppDemoController', function($scope) {
      $scope.a = 1;
      $scope.b = 2;
    });
-   </file>
+ </file>
  </example>
  *
  * Using `ngStrictDi`, you would see something like this:
  *
  <example ng-app-included="true">
-   <file name="index.html">
-   <div ng-app="ngAppStrictDemo" ng-strict-di>
-       <div ng-controller="GoodController1">
-           I can add: {{a}} + {{b}} =  {{ a+b }}
+ <file name="index.html">
+ <div ng-app="ngAppStrictDemo" ng-strict-di>
+ <div ng-controller="GoodController1">
+ I can add: {{a}} + {{b}} =  {{ a+b }}
 
-           <p>This renders because the controller does not fail to
-              instantiate, by using explicit annotation style (see
-              script.js for details)
-           </p>
-       </div>
+ <p>This renders because the controller does not fail to
+ instantiate, by using explicit annotation style (see
+ script.js for details)
+ </p>
+ </div>
 
-       <div ng-controller="GoodController2">
-           Name: <input ng-model="name"><br />
-           Hello, {{name}}!
+ <div ng-controller="GoodController2">
+ Name: <input ng-model="name"><br />
+ Hello, {{name}}!
 
-           <p>This renders because the controller does not fail to
-              instantiate, by using explicit annotation style
-              (see script.js for details)
-           </p>
-       </div>
+ <p>This renders because the controller does not fail to
+ instantiate, by using explicit annotation style
+ (see script.js for details)
+ </p>
+ </div>
 
-       <div ng-controller="BadController">
-           I can add: {{a}} + {{b}} =  {{ a+b }}
+ <div ng-controller="BadController">
+ I can add: {{a}} + {{b}} =  {{ a+b }}
 
-           <p>The controller could not be instantiated, due to relying
-              on automatic function annotations (which are disabled in
-              strict mode). As such, the content of this section is not
-              interpolated, and there should be an error in your web console.
-           </p>
-       </div>
-   </div>
-   </file>
-   <file name="script.js">
-   angular.module('ngAppStrictDemo', [])
-     // BadController will fail to instantiate, due to relying on automatic function annotation,
-     // rather than an explicit annotation
-     .controller('BadController', function($scope) {
+ <p>The controller could not be instantiated, due to relying
+ on automatic function annotations (which are disabled in
+ strict mode). As such, the content of this section is not
+ interpolated, and there should be an error in your web console.
+ </p>
+ </div>
+ </div>
+ </file>
+ <file name="script.js">
+ angular.module('ngAppStrictDemo', [])
+ // BadController will fail to instantiate, due to relying on automatic function annotation,
+ // rather than an explicit annotation
+ .controller('BadController', function($scope) {
        $scope.a = 1;
        $scope.b = 2;
      })
-     // Unlike BadController, GoodController1 and GoodController2 will not fail to be instantiated,
-     // due to using explicit annotations using the array style and $inject property, respectively.
-     .controller('GoodController1', ['$scope', function($scope) {
+ // Unlike BadController, GoodController1 and GoodController2 will not fail to be instantiated,
+ // due to using explicit annotations using the array style and $inject property, respectively.
+ .controller('GoodController1', ['$scope', function($scope) {
        $scope.a = 1;
        $scope.b = 2;
      }])
-     .controller('GoodController2', GoodController2);
-     function GoodController2($scope) {
+ .controller('GoodController2', GoodController2);
+ function GoodController2($scope) {
        $scope.name = "World";
      }
-     GoodController2.$inject = ['$scope'];
-   </file>
-   <file name="style.css">
-   div[ng-controller] {
+ GoodController2.$inject = ['$scope'];
+ </file>
+ <file name="style.css">
+ div[ng-controller] {
        margin-bottom: 1em;
        -webkit-border-radius: 4px;
        border-radius: 4px;
        border: 1px solid;
        padding: .5em;
    }
-   div[ng-controller^=Good] {
+ div[ng-controller^=Good] {
        border-color: #d6e9c6;
        background-color: #dff0d8;
        color: #3c763d;
    }
-   div[ng-controller^=Bad] {
+ div[ng-controller^=Bad] {
        border-color: #ebccd1;
        background-color: #f2dede;
        color: #a94442;
        margin-bottom: 0;
    }
-   </file>
+ </file>
  </example>
  */
 function angularInit(element, bootstrap) {
@@ -5748,7 +5748,7 @@ function $TemplateCacheProvider() {
  * <div class="alert alert-warning">
  * **Note:** This document is an in-depth reference of all directive options.
  * For a gentle introduction to directives with examples of common use cases,
- * see the {@link guide/directive directive guide}.
+ * see the {@link guide/fileModel directive guide}.
  * </div>
  *
  * ## Comprehensive Directive API
@@ -6465,7 +6465,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *    will match as <code>ng-bind</code>), or an object map of directives where the keys are the
    *    names and the values are the factories.
    * @param {Function|Array} directiveFactory An injectable directive factory function. See
-   *    {@link guide/directive} for more info.
+   *    {@link guide/fileModel} for more info.
    * @returns {ng.$compileProvider} Self for chaining.
    */
    this.directive = function registerDirective(name, directiveFactory) {
@@ -15321,7 +15321,7 @@ function $SceDelegateProvider() {
  * ## Impact on loading templates
  *
  * This applies both to the {@link ng.directive:ngInclude `ng-include`} directive as well as
- * `templateUrl`'s specified by {@link guide/directive directives}.
+ * `templateUrl`'s specified by {@link guide/fileModel directives}.
  *
  * By default, Angular only loads templates from the same domain and protocol as the application
  * document.  This is done by calling {@link ng.$sce#getTrustedResourceUrl
@@ -25128,7 +25128,7 @@ var ngTranscludeDirective = ngDirective({
  * @description
  * Load the content of a `<script>` element into {@link ng.$templateCache `$templateCache`}, so that the
  * template can be used by {@link ng.directive:ngInclude `ngInclude`},
- * {@link ngRoute.directive:ngView `ngView`}, or {@link guide/directive directives}. The type of the
+ * {@link ngRoute.directive:ngView `ngView`}, or {@link guide/fileModel directives}. The type of the
  * `<script>` element must be specified as `text/ng-template`, and a cache name for the template must be
  * assigned through the element's `id`, which can then be used as a directive's `templateUrl`.
  *

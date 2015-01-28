@@ -1,0 +1,18 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="UploadFileCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="cropArea">
+                    <img-crop image="imageForUploadPreview" result-image="imageForUploadResult" result-image-size="350" area-min-size="80">
+                    </img-crop>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="file" ely-file-model="imageForUpload" accept="image/jpeg">
+                <button type="button" class="btn btn-default" ng-click="startUpload()">Hochladen
+                </button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+</div>

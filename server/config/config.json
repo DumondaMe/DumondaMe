@@ -43,6 +43,12 @@
         ]
       }
     },
+    "formidable": {
+      "priority": 50,
+      "module": {
+        "name": "formidable"
+      }
+    },
     "session": {
       "priority": 60,
       "module": {

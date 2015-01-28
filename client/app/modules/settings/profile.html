@@ -6,8 +6,10 @@
                     <img class="img-rounded img-responsive"
                          ng-src="{{userDataToChange.profileImage}}"/>
                 </div>
-                <button id="change-profile-image" type="submit" class="btn btn-default">Foto
-                    ändern..
+                <button id="change-profile-image" type="button" class="btn btn-default"
+                        data-animation="am-fade-and-scale" data-placement="center"
+                        data-template="app/modules/settings/uploadFile.html" bs-modal="modal">
+                    Foto ändern..
                 </button>
             </div>
             <div id="manage-profile">

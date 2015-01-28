@@ -6,6 +6,8 @@ if (!process.env.BASE_DIR) {
 global.requireLogger = require(__dirname + '/lib/logging');
 
 require('./lib/jsonValidation');
+var Promise = require('bluebird');
+Promise.promisifyAll(require('gm').prototype);
 
 var kraken = require('kraken-js'),
     app = require('express')(),

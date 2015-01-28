@@ -7,13 +7,15 @@ require('angular-animate');
 require('angular-resource');
 require('angular-strap');
 require('angular-strap-tpl');
+require('ng-img-crop');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
     'ngCookies',
     'ngAnimate',
     'ngResource',
-    'mgcrea.ngStrap'
+    'mgcrea.ngStrap',
+    'ngImgCrop'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);
@@ -29,8 +31,8 @@ require('./navigation');
 require('./settings');
 require('./util');
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider) {
 
         $urlRouterProvider.otherwise('/home');
 
@@ -64,6 +66,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 }
             };
         }]);
+
+        angular.extend($modalProvider.defaults, {
+            html: true
+        });
+
     }]).run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function (event, toState) {

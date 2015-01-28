@@ -5,6 +5,9 @@ var db = require('../../../neo4j');
 var dbConfig = require('../../../lib/database');
 var request = require('supertest');
 
+var Promise = require('bluebird');
+Promise.promisifyAll(require('gm').prototype);
+
 
 describe('Initialize Server for all integration tests', function () {
 
