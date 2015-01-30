@@ -12,14 +12,17 @@ function dataURItoBlob(dataURI) {
 module.exports = ['$scope', '$timeout', 'fileUpload', function ($scope, $timeout, fileUpload) {
 
     $scope.imageForUploadPreview = '';
-    $scope.imageForUploadResult = '';
+
+    $scope.imageResultData = function (data) {
+        fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage');
+    };
 
     $scope.$watch('imageForUpload', function (newImage) {
         var fileReader = new FileReader();
         if (newImage) {
-            fileReader.onload = function (reader) {
+            fileReader.onloadend = function () {
                 $scope.$apply(function ($scope) {
-                    $scope.imageForUploadPreview = reader.target.result;
+                    $scope.imageForUploadPreview = fileReader.result;
                 });
             };
             fileReader.readAsDataURL(newImage);
@@ -27,6 +30,10 @@ module.exports = ['$scope', '$timeout', 'fileUpload', function ($scope, $timeout
     });
 
     $scope.startUpload = function () {
-        fileUpload.uploadFileToUrl(dataURItoBlob($scope.imageForUploadResult), '/api/user/settings/uploadProfileImage');
+        if ($scope.updateImageResult) {
+            $scope.updateImageResult += 1;
+        } else {
+            $scope.updateImageResult = 1;
+        }
     };
 }];

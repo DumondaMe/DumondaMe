@@ -10,8 +10,7 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        gm(req.files.file.path)
-            .thumbAsync(100, 100, 'c:\\temp\\test.jpg', 90)
+        return gm(req.files.file.path).thumbAsync(100, 100, 'c:\\temp\\test.jpg', 90)
             .then(function () {
                 return gm(req.files.file.path).thumbAsync(35, 35, 'c:\\temp\\test2.jpg', 95);
             })

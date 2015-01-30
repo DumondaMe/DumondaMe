@@ -1,6 +1,7 @@
 'use strict';
 
-var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl')[2];
+var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl')[3];
+var moment = require('../../../../app/lib/moment/moment');
 
 describe('Tests of Contact Preview Controller', function () {
     var scope, Contact;
@@ -38,7 +39,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Freund'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -64,7 +65,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Freund'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -89,7 +90,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Freund'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -112,7 +113,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -135,7 +136,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -157,7 +158,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -169,7 +170,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {blocked: true};
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
 
         expect(scope.contact.actions[3].text).to.equal("Blockierung aufheben");
     });
@@ -178,7 +179,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'both'};
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/bothContact.png");
@@ -188,7 +189,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'userToContact'};
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/userToContact.png");
@@ -198,7 +199,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'contactToUser'};
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/contactToUser.png");
@@ -208,7 +209,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'none'};
 
-        contactPreviewCtrl(scope, Contact);
+        contactPreviewCtrl(scope, Contact, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("#");

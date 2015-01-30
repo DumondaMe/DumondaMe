@@ -1,5 +1,9 @@
 'use strict';
 
+/*//Jquery dependencies
+require('jquery');
+require('cropper');*/
+
 var angular = require('angular');
 require('angular-ui-route');
 require('angular-cookies');
@@ -7,15 +11,13 @@ require('angular-animate');
 require('angular-resource');
 require('angular-strap');
 require('angular-strap-tpl');
-require('ng-img-crop');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
     'ngCookies',
     'ngAnimate',
     'ngResource',
-    'mgcrea.ngStrap',
-    'ngImgCrop'
+    'mgcrea.ngStrap'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);

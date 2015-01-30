@@ -6,4 +6,6 @@ var fileModel = require('./fileModel.js');
 
 app.directive(fileModel.name, fileModel.directive);
 
+app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
+
 app.service('fileUpload', require('./fileUpload'));

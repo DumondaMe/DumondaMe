@@ -3,7 +3,6 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
-app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.factory('Profile', require('./profile'));
 
