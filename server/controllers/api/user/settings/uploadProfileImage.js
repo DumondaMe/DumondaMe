@@ -4,19 +4,14 @@ var user = require('./../../../../models/user/user'),
     auth = require('./../../../../lib/auth'),
     logger = requireLogger.getLogger(__filename),
     exceptions = require('./../../../../lib/error/exceptions'),
+    saveProfileImage = require('./../../../../models/image/generateProfileImages'),
     gm = require('gm');
 
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return gm(req.files.file.path).thumbAsync(100, 100, 'c:\\temp\\test.jpg', 90)
-            .then(function () {
-                return gm(req.files.file.path).thumbAsync(35, 35, 'c:\\temp\\test2.jpg', 95);
-            })
-            .then(function () {
-                return gm(req.files.file.path).thumbAsync(350, 350, 'c:\\temp\\test3.jpg', 92);
-            })
+        return saveProfileImage.generateProfileImage(req.files.file.path, req.user.id)
             .then(function () {
                 res.status(200).end();
             })

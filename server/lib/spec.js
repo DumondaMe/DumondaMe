@@ -5,7 +5,8 @@ var express = require('express'),
     methodOverride = require('method-override'),
     auth = require('./auth'),
     userLib = require('./user')(),
-    db = require('./database');
+    db = require('./database'),
+    cdn = require('./cdn');
 
 module.exports = function (app) {
     app.on('middleware:before:router', function () {
@@ -25,8 +26,10 @@ module.exports = function (app) {
     return {
         onconfig: function (config, next) {
 
-            var dbConfig = config.get('databaseConfig');
+            var dbConfig = config.get('databaseConfig'),
+                cdnConfig = config.get('cdnStore');
 
+            cdn.config(cdnConfig);
             db.config(dbConfig);
             next(null, config);
         }
