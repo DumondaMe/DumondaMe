@@ -1,0 +1,63 @@
+{
+  "express": {
+    "view engine": null
+  },
+  "view engines": null,
+  "cdnStore": {
+    "path": "C:\\Programmieren\\Elyoos\\cdn\\data"
+  },
+  "middleware": {
+    "compress": {
+      "enabled": true
+    },
+    "json": {
+      "priority": 30,
+      "module": {
+        "name": "body-parser",
+        "method": "json",
+        "arguments": [
+          {
+            "type": "application/json"
+          }
+        ]
+      }
+    },
+    "urlEncoded": {
+      "priority": 40,
+      "module": {
+        "name": "body-parser",
+        "method": "urlencoded",
+        "arguments": [
+          {
+            "extended": true
+          }
+        ]
+      }
+    },
+    "formidable": {
+      "priority": 50,
+      "module": {
+        "name": "formidable"
+      }
+    },
+    "router": {
+      "priority": 100,
+      "module": {
+        "name": "express-enrouten",
+        "arguments": [
+          {
+            "directory": "path:./controllers"
+          }
+        ]
+      }
+    },
+    "errorHandling": {
+      "enabled": true,
+      "priority": 1000,
+      "module": {
+        "name": "path:./lib/error/errors",
+        "method": "handlingError"
+      }
+    }
+  }
+}

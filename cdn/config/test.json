@@ -1,0 +1,15 @@
+{
+  "express": {
+    "view engine": null
+  },
+  "view engines": null,
+  "middleware": {
+    "appsec": {
+      "enabled": false,
+      "priority": 90,
+      "module": {
+        "name": "lusca"
+      }
+    }
+  }
+}
