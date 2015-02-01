@@ -23,9 +23,9 @@ module.exports = function (router) {
     router.get('/', function (req, res) {
 
         return validation.validateQueryRequest(req, schemaRequestImage, logger).then(function (request) {
-            var now = moment.utc();
-            if (now.isBefore(request.expires)) {
-                res.sendFile(cdnPath, request.path);
+            var now = moment.utc().valueOf();
+            if (now < parseInt(request.expires, 10)) {
+                res.sendFile(path.join(cdnPath, request.path));
             } else {
                 logger.warn('Image request is expired', {}, req);
                 res.status(401).end();

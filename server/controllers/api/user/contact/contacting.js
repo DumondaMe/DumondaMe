@@ -26,7 +26,7 @@ module.exports = function (router) {
             req.query.skip = parseInt(req.query.skip, 10);
         }
         return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
-            return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip);
+            return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip, req.session.cookie._expires);
         }).then(function (users) {
             var data = {};
             data.contactingUsers = users[0];

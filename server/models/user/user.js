@@ -5,7 +5,8 @@
 
 var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
-
+var cdn = require('../util/cdn');
+var moment = require('moment');
 
 module.exports = {
     searchUserWithEmail: function (email) {
@@ -22,16 +23,16 @@ module.exports = {
                 }
             });
     },
-    getUserProfile: function (id) {
+    getUserProfile: function (id, expires) {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
-            'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
+                'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
             .end({id: id})
             .send()
             .then(function (resp) {
                 if (resp.length === 1) {
-                    resp[0].profileImage = 'cms/' + id + '/profile/thumbnail.jpg';
+                    resp[0].profileImage = cdn.getUrl(id + '/profile/profile.jpg', moment(expires).valueOf());
                     return resp[0];
                 }
                 if (resp.length > 1) {
@@ -72,14 +73,14 @@ module.exports = {
             })
             .send();
     },
-    getUserName: function (id) {
+    getUserName: function (id, expires) {
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.name AS name')
             .end({id: id})
             .send()
             .then(function (resp) {
                 if (resp.length === 1) {
-                    resp[0].profileImage = 'cms/' + id + '/profile/thumbnail.jpg';
+                    resp[0].profileImage = cdn.getUrl(id + '/profile/thumbnail.jpg', moment(expires).valueOf());
                     return resp[0];
                 }
                 if (resp.length > 1) {

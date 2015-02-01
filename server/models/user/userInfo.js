@@ -2,13 +2,16 @@
 
 var logger = requireLogger.getLogger(__filename);
 var underscore = require('underscore');
+var cdn = require('../util/cdn');
+var moment = require('moment');
 
-var addImageForContactPreview = function (contacts) {
+var addImageForContactPreview = function (contacts, expires) {
     underscore.each(contacts, function (contact) {
+        var expiresWrapper = moment(expires).valueOf();
         if (contact.profileVisible === true && contact.imageVisible === true) {
-            contact.profileUrl = 'cms/' + contact.id + '/profile/thumbnail.jpg';
+            contact.profileUrl = cdn.getUrl(contact.id + '/profile/profilePreview.jpg', expiresWrapper);
         } else {
-            contact.profileUrl = 'cms/default/profile/thumbnail.jpg';
+            contact.profileUrl = cdn.getUrl('default/profile/profilePreview.jpg', expiresWrapper);
         }
         delete contact.profileVisible;
         delete contact.imageVisible;
@@ -31,8 +34,8 @@ var addConnectionInfo = function (contacts) {
 };
 
 module.exports = {
-    addContactPreviewInfos: function (contacts) {
-        addImageForContactPreview(contacts);
+    addContactPreviewInfos: function (contacts, expires) {
+        addImageForContactPreview(contacts, expires);
         addConnectionInfo(contacts);
     }
 };

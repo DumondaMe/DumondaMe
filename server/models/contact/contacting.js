@@ -45,7 +45,7 @@ var getContacting = function (params, where) {
         .end(params);
 };
 
-var getContactingNormal = function (userId, itemsPerPage, skip) {
+var getContactingNormal = function (userId, itemsPerPage, skip, expires) {
 
     var commands = [];
 
@@ -58,7 +58,7 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
     return getContactingStatistics(userId)
         .send(commands)
         .then(function (resp) {
-            userInfo.addContactPreviewInfos(resp[0]);
+            userInfo.addContactPreviewInfos(resp[0], expires);
             return resp;
         });
 };

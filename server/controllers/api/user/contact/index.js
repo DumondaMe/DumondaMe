@@ -73,7 +73,7 @@ module.exports = function (router) {
         return validation.validateQueryRequest(req, schemaRequestGetContact, logger)
             .then(function (request) {
                 if (!req.query.types) {
-                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
+                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip, req.session.cookie._expires)
                         .then(function (contacts) {
                             var data = {};
                             data.contacts = contacts[0];
@@ -84,7 +84,7 @@ module.exports = function (router) {
                             res.status(200).json(data);
                         });
                 }
-                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
+                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types, req.session.cookie._expires)
                     .then(function (contacts) {
                         var data = {};
                         data.contacts = contacts[0];

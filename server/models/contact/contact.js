@@ -145,7 +145,7 @@ var getContact = function (params, where) {
         .end(params);
 };
 
-var getContactsNormal = function (userId, itemsPerPage, skip) {
+var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
 
     var commands = [];
 
@@ -160,12 +160,12 @@ var getContactsNormal = function (userId, itemsPerPage, skip) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (resp) {
-            userInfo.addContactPreviewInfos(resp[0]);
+            userInfo.addContactPreviewInfos(resp[0], expires);
             return resp;
         });
 };
 
-var getContactForTypes = function (userId, itemsPerPage, skip, types) {
+var getContactForTypes = function (userId, itemsPerPage, skip, types, expires) {
     var commands = [];
 
     commands.push(getContact({
@@ -178,7 +178,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types) {
     return getTotalNumberOfContactsPerType(userId, types)
         .send(commands)
         .then(function (resp) {
-            userInfo.addContactPreviewInfos(resp[0]);
+            userInfo.addContactPreviewInfos(resp[0], expires);
             return resp;
         });
 };

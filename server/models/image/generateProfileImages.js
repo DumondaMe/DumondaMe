@@ -10,9 +10,9 @@ var mkdirp = require('mkdirp');
 
 module.exports = {
     generateProfileImage: function (originalFilePath, userId) {
-        var path = cdnPath + '/' + userId + '/profileImage/';
+        var path = cdnPath + '/' + userId + '/profile/';
         mkdirp.sync(path);
-        return gm(originalFilePath).thumbAsync(100, 100, path + 'profilePreview.jpg', 90)
+        return gm(originalFilePath).thumbAsync(100, 100, path + 'profilePreview.jpg', 93)
             .then(function () {
                 return gm(originalFilePath).thumbAsync(35, 35, path + 'thumbnail.jpg', 95);
             })

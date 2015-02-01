@@ -28,7 +28,7 @@ module.exports = function (router) {
             req.query.isSuggestion = req.query.isSuggestion === 'true';
         }
         return validation.validateQueryRequest(req, schemaRequestSearchUser, logger).then(function (request) {
-            return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
+            return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion, req.session.cookie._expires);
         }).then(function (users) {
             res.status(200).json(users);
         }).catch(exceptions.InvalidJsonRequest, function () {
