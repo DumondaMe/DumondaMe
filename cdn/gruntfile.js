@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         env: {
             dev: {
                 NODE_ENV: 'testing',
-                PORT: '8081'
+                PORT: '8083'
             }
         },
 
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
                         exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,data/**/*,.sonar/**/*,config/**/*,gruntfile.js',
 
-                        projectKey: 'javascript-sonar-runner-elyoos-server',
+                        projectKey: 'javascript-sonar-runner-elyoos-server-cdn',
                         projectName: 'Elyoos CDN',
                         projectVersion: '0.1',
                         sources: '../server',

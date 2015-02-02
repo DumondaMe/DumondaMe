@@ -8,6 +8,19 @@ var logger = requireLogger.getLogger(__filename);
 var cdn = require('../util/cdn');
 var moment = require('moment');
 
+var getUser = function (resp, id, expires, profileUrl) {
+    if (resp.length === 1) {
+        resp[0].profileImage = cdn.getUrl(id + profileUrl, moment(expires).valueOf());
+        return resp[0];
+    }
+    if (resp.length > 1) {
+        logger.error('More then one user with id ' + id);
+    }
+    if (resp.length === 0) {
+        logger.error('User with id ' + id + ' not found');
+    }
+};
+
 module.exports = {
     searchUserWithEmail: function (email) {
         return db.cypher().match('(u:User {email: {email}})')
@@ -31,16 +44,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                if (resp.length === 1) {
-                    resp[0].profileImage = cdn.getUrl(id + '/profile/profile.jpg', moment(expires).valueOf());
-                    return resp[0];
-                }
-                if (resp.length > 1) {
-                    logger.error('More then one user with id ' + id);
-                }
-                if (resp.length === 0) {
-                    logger.error('User with id ' + id + ' not found');
-                }
+                return getUser(resp, id, expires, '/profile/profile.jpg');
             });
     },
     updateUserProfile: function (userId, userData) {
@@ -79,16 +83,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                if (resp.length === 1) {
-                    resp[0].profileImage = cdn.getUrl(id + '/profile/thumbnail.jpg', moment(expires).valueOf());
-                    return resp[0];
-                }
-                if (resp.length > 1) {
-                    logger.error('More then one user with id ' + id);
-                }
-                if (resp.length === 0) {
-                    logger.error('User with id ' + id + ' not found');
-                }
+                return getUser(resp, id, expires, '/profile/thumbnail.jpg');
             });
     }
 };
