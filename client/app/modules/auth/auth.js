@@ -18,9 +18,9 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
     };
     this.login = function (user) {
         var deferred = $q.defer();
-        $http.post('/api/login', user).success(function (user) {
-            changeUser(user);
-            deferred.resolve(user);
+        $http.post('/api/login', user).success(function (loggedinUser) {
+            changeUser(loggedinUser);
+            deferred.resolve(loggedinUser);
         }).error(deferred.reject);
         return deferred.promise;
     };

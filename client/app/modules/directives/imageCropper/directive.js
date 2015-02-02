@@ -17,9 +17,7 @@ module.exports = {
                     aspectRatio: 1,
                     dashed: false,
                     zoomable: false,
-                    rotatable: false,
-                    done: function (data) {
-                    }
+                    rotatable: false
                 });
 
                 scope.$watch('getDataToUpload', function (newCommand) {

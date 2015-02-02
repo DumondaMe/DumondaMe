@@ -3,7 +3,7 @@
 var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
     var types = '', skip, users;
     angular.forEach($scope.users.statistic, function (stat) {
-        if (stat.selected === true) {
+        if (stat.selected) {
             if (types.length === 0) {
                 types = types.concat(stat.type);
             } else {

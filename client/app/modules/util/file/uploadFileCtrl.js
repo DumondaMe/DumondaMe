@@ -21,7 +21,7 @@ module.exports = ['$scope', '$timeout', 'fileUpload', function ($scope, $timeout
         var fileReader = new FileReader();
         if (newImage) {
             fileReader.onloadend = function () {
-                $scope.$apply(function ($scope) {
+                $scope.$apply(function () {
                     $scope.imageForUploadPreview = fileReader.result;
                 });
             };

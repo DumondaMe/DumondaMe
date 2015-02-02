@@ -60,7 +60,8 @@ var controller = function ($scope) {
             $scope.currentPagination = $scope.currentPagination + 1;
             if ($scope.currentPagination > $scope.currentPaginationRange) {
                 $scope.currentPaginationItems = [];
-                for (i = $scope.currentPagination; (i <= $scope.currentPaginationMaxRange) && (i < $scope.currentPagination + parseInt($scope.paginationElements, 10)); i = i + 1) {
+                for (i = $scope.currentPagination; (i <= $scope.currentPaginationMaxRange) &&
+                        (i < $scope.currentPagination + parseInt($scope.paginationElements, 10)); i = i + 1) {
                     $scope.currentPaginationItems.push(i);
                 }
                 $scope.currentPaginationRange = i - 1;
