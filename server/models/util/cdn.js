@@ -3,7 +3,6 @@
 var logger = requireLogger.getLogger(__filename);
 var underscore = require('underscore');
 var cdnhost = require('./../../lib/cdn');
-var path = require('path');
 var crypto = require('crypto');
 
 var algorithm = 'aes-256-ctr';

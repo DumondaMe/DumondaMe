@@ -21,9 +21,9 @@ module.exports = function (router) {
                 return res.status(400).end();
             }
 
-            req.logIn(user, function (err) {
-                if (err) {
-                    logger.error('Login of User failed', {error: err}, req);
+            req.logIn(user, function (errLogin) {
+                if (errLogin) {
+                    logger.error('Login of User failed', {error: errLogin}, req);
                     return res.status(500).end();
                 }
                 req.session.cookie.maxAge = 1000 * 60 * 60 * 24;

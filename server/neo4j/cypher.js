@@ -95,11 +95,6 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
-    this.nextLine = function (nextCondition) {
-        chainedQuery = chainedQuery + nextCondition;
-        return this;
-    };
-
     this.set = function (ref, objectToSet) {
 
         var setCondition = '', key, propertyAdded = false;

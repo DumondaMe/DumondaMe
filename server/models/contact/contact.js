@@ -38,7 +38,8 @@ var returnStatistics = function (result, errorDescription) {
     if (result.length === 3) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
-    var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription + ' result not as expected [' + result.length + ']');
+    var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription +
+        ' result not as expected [' + result.length + ']');
     logger.warn(invalidOperationException.message, {error: ''});
     return Promise.reject(invalidOperationException);
 };
@@ -140,8 +141,8 @@ var getContact = function (params, where) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'IS_VISIBLE_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'IS_VISIBLE')")
-        .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, contact.name AS name, " +
-            "contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
+        .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, " +
+            "contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 

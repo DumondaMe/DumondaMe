@@ -8,7 +8,7 @@ var moment = require('moment');
 var addImageForContactPreview = function (contacts, expires) {
     underscore.each(contacts, function (contact) {
         var expiresWrapper = moment(expires).valueOf();
-        if (contact.profileVisible === true && contact.imageVisible === true) {
+        if (contact.profileVisible && contact.imageVisible) {
             contact.profileUrl = cdn.getUrl(contact.id + '/profile/profilePreview.jpg', expiresWrapper);
         } else {
             contact.profileUrl = cdn.getUrl('default/profile/profilePreview.jpg', expiresWrapper);
