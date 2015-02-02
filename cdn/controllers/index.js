@@ -6,6 +6,7 @@ var logger = requireLogger.getLogger(__filename);
 var exceptions = require('./../lib/error/exceptions');
 var moment = require('moment');
 var cdnPath = require('./../lib/cdn').getConfig().path;
+var crypto = require('./../lib/crypto');
 
 var schemaRequestImage = {
     name: 'requestImage',
@@ -24,6 +25,8 @@ module.exports = function (router) {
 
         return validation.validateQueryRequest(req, schemaRequestImage, logger).then(function (request) {
             var now = moment.utc().valueOf();
+            request.expires = crypto.decrypt(request.expires);
+            request.path = crypto.decrypt(request.path);
             if (now < parseInt(request.expires, 10)) {
                 res.sendFile(path.join(cdnPath, request.path));
             } else {
