@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server-cdn',
                         projectName: 'Elyoos CDN',
                         projectVersion: '0.1',
-                        sources: '../server',
+                        sources: '../cdn',
                         language: 'js',
                         sourceEncoding: 'UTF-8'
                     }

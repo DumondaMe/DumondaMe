@@ -17,9 +17,14 @@ module.exports = function (grunt) {
         sonarRunner: {
             analysis: {
                 options: {
-                    debug: true,
                     separator: '\n',
                     sonar: {
+                        projectKey: 'javascript-sonar-runner-elyoos-server',
+                        projectName: 'Elyoos Server',
+                        projectVersion: '0.1',
+                        sources: '../server',
+                        sourceEncoding: 'UTF-8',
+
                         jdbc: {
                             url: 'jdbc:postgresql://localhost/sonarqube',
                             username: 'postgres',
@@ -32,14 +37,11 @@ module.exports = function (grunt) {
                             }
                         },
 
-                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,.sonar/**/*,db/**/*,config/**/*,gruntfile.js',
+                        analysis: {
+                            mode: 'analysis'
+                        },
 
-                        projectKey: 'javascript-sonar-runner-elyoos-server',
-                        projectName: 'Elyoos Server',
-                        projectVersion: '0.1',
-                        sources: '../server',
-                        language: 'js',
-                        sourceEncoding: 'UTF-8'
+                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,db/**/*,config/**/*,gruntfile.js'
                     }
                 }
             }
