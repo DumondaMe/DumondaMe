@@ -121,22 +121,26 @@ describe('Integration Tests for finding other users and applying the correct vis
             res.body[0].id.should.equal('2');
             res.body[0].name.should.equal('user2 Meier2');
             res.body[0].type.should.equal('Freund');
-            res.body[0].profileUrl.should.equal('cms/default/profile/thumbnail.jpg');
+            //cms/default/profile/thumbnail.jpg
+            res.body[0].profileUrl.should.contain('?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires');
 
             res.body[1].id.should.equal('3');
             res.body[1].name.should.equal('user2 Meier3');
             res.body[1].type.should.equal('Freund');
-            res.body[1].profileUrl.should.equal('cms/3/profile/thumbnail.jpg');
+            //cms/3/profile/thumbnail.jpg
+            res.body[1].profileUrl.should.contain('?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires');
 
             res.body[2].id.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
-            res.body[2].profileUrl.should.equal('cms/4/profile/thumbnail.jpg');
+            //cms/4/profile/thumbnail.jpg
+            res.body[2].profileUrl.should.contain('?path=50c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires=');
 
             res.body[3].id.should.equal('5');
             res.body[3].name.should.equal('user Meier5');
             should.not.exist(res.body[3].type);
-            res.body[3].profileUrl.should.equal('cms/default/profile/thumbnail.jpg');
+            //cms/default/profile/thumbnail.jpg
+            res.body[3].profileUrl.should.contain('?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires');
         });
     });
 

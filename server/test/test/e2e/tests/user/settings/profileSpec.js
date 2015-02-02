@@ -59,7 +59,7 @@ describe('Integration Tests User Profile Data', function () {
             res.body.place.should.equal('Urdorf');
             res.body.female.should.equal(false);
             should.not.exist(res.body.password);
-            res.body.profileImage.should.equal('cms/0/profile/thumbnail.jpg');
+            res.body.profileImage.should.contain('?path=54c1c4822e77717c3506f41ffde51597b6018ea4d7&expires=');
         });
     });
 

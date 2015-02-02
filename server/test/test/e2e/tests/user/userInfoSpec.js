@@ -30,7 +30,8 @@ describe('Integration Tests User Name', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Meier');
-            res.body.profileImage.should.equal('cms/1/profile/thumbnail.jpg');
+            //cms/1/profile/profilePreview.jpg
+            res.body.profileImage.should.contain('?path=55c1c4822e77717c3506f005e7ee1e95b24688fadaf7da&expires=');
         });
     });
 });

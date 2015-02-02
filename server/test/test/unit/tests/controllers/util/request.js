@@ -1,5 +1,6 @@
 'use strict';
 
+var moment = require('moment');
 var requestGetFunction;
 var executeGetRequest = function (req, res) {
     return requestGetFunction(req, res);
@@ -44,7 +45,10 @@ var res = {
         return statusResponse;
     }
 };
-var req = {user: {id: 1}};
+var req = {
+    user: {id: 1},
+    session: {cookie: {_expires: moment().valueOf() + 999999}}
+};
 req.body = function () {
 };
 

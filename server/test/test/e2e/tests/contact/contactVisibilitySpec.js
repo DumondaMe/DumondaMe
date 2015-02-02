@@ -153,16 +153,17 @@ describe('Integration Tests for handling the profile visibility when returning t
             res.body.contacts[0].id.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
-            res.body.contacts[0].profileUrl.should.equal("cms/2/profile/thumbnail.jpg");
+            res.body.contacts[0].profileUrl.should.contain("path=56c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571");
 
+            //path is to default profile image
             res.body.contacts[1].id.should.equal("3");
-            res.body.contacts[1].profileUrl.should.equal("cms/default/profile/thumbnail.jpg");
+            res.body.contacts[1].profileUrl.should.contain("path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f");
 
             res.body.contacts[2].id.should.equal("4");
-            res.body.contacts[2].profileUrl.should.equal("cms/default/profile/thumbnail.jpg");
+            res.body.contacts[2].profileUrl.should.contain("path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f");
 
             res.body.contacts[3].id.should.equal("5");
-            res.body.contacts[3].profileUrl.should.equal("cms/default/profile/thumbnail.jpg");
+            res.body.contacts[3].profileUrl.should.contain("path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f");
 
             res.body.numberOfContacts.should.equal(4);
         });
