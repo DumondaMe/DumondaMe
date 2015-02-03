@@ -2,13 +2,13 @@
 
 var testee = require('../../../../../../../../controllers/api/user/settings/profile');
 var user = require('../../../../../../../../models/user/user');
-var request = require('../../../util/request');
+var request = require('../../../../../../../../../common/test/unit/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/profile/index', function () {
+describe('Unit Test controllers/api/user/settings/profile', function () {
 
     var sandbox,
         checkInvalidPostRequest = function (request) {

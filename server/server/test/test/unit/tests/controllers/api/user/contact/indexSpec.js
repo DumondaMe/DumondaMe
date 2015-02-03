@@ -3,13 +3,13 @@
 var testee = require('../../../../../../../../controllers/api/user/contact/index');
 var contact = require('./../../../../../../../../models/contact/contact');
 var validation = require('./../../../../../../../../../common/src/lib/jsonValidation');
-var request = require('../../../util/request');
+var request = require('../../../../../../../../../common/test/unit/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/profile/contact/index', function () {
+describe('Unit Test controllers/api/user/contact/index', function () {
 
     var sandbox,
         checkInvalidPostRequest = function (request) {
@@ -23,7 +23,19 @@ describe('Unit Test controllers/api/user/profile/contact/index', function () {
                 expect(stubResponse.withArgs(400).calledOnce).to.be.true;
                 expect(stubResponse.calledOnce).to.be.true;
             });
-        }
+        },
+        checkInvalidDeleteRequest = function (request) {
+            var stubResponse = sandbox.stub(request.res, 'status');
+            stubResponse.returns({
+                end: function () {
+                }
+            });
+            sandbox.stub(contact, 'deleteContact').returns(Promise.reject({}));
+            return request.executeDeleteRequest(request.req, request.res).then(function () {
+                expect(stubResponse.withArgs(400).calledOnce).to.be.true;
+                expect(stubResponse.calledOnce).to.be.true;
+            });
+        };
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -185,4 +197,53 @@ describe('Unit Test controllers/api/user/profile/contact/index', function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;
         });
     });
+
+    it('Contact IDs are missing for deleting contacts- Return a 400', function () {
+
+        request.req.body = {};
+
+        return checkInvalidDeleteRequest(request);
+    });
+
+    it('A contact ID is to long when deleting contacts- Return a 400', function () {
+
+        request.req.body = {
+            contactIds: ['12ewfrtjki12ewfrtjki12ewfrtjki1']
+        };
+
+        return checkInvalidDeleteRequest(request);
+    });
+
+    it('To many contacts to delete- Return a 400', function () {
+
+        var i;
+        request.req.body = {
+            contactIds: []
+        };
+        for (i = 0; i < 31; i = i + 1) {
+            request.req.body.contactIds.push(i.toString());
+        }
+
+        return checkInvalidDeleteRequest(request);
+    });
+
+    it('Error occurred while deleting contacts - Return a 500', function () {
+
+        var stubResponse = sandbox.stub(request.res, 'status');
+
+        request.req.query = {
+            contactIds: ['10']
+        };
+        stubResponse.returns({
+            end: function () {
+            }
+        });
+        sandbox.stub(contact, 'deleteContact').returns(Promise.reject({}));
+        sandbox.stub(validation, 'validateRequest').returns(Promise.resolve(request));
+
+        return request.executeDeleteRequest(request.req, request.res).then(function () {
+            expect(stubResponse.withArgs(500).calledOnce).to.be.true;
+        });
+    });
+
 });

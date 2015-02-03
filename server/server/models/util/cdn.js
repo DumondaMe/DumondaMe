@@ -3,22 +3,14 @@
 var logger = requireLogger.getLogger(__filename);
 var underscore = require('underscore');
 var cdnhost = require('./../../../common/src/lib/cdn');
-var crypto = require('crypto');
+var crypto = require('./../../../common/src/lib/crypto');
 
-var algorithm = 'aes-256-ctr';
 var password = 'd6F3Efeq';
-
-function encrypt(text) {
-    var cipher = crypto.createCipher(algorithm, password),
-        crypted = cipher.update(text, 'utf8', 'hex');
-    crypted += cipher.final('hex');
-    return crypted;
-}
 
 module.exports = {
     getUrl: function (path, expires) {
-        path = encrypt(path);
-        expires = encrypt(expires.toString());
+        path = crypto.encrypt(path, password);
+        expires = crypto.encrypt(expires.toString(), password);
         return cdnhost.getConfig().host + '?path=' + path + '&expires=' + expires;
     }
 };

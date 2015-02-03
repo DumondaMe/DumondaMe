@@ -2,7 +2,7 @@
 
 var testee = require('../../../../../controllers/index');
 var user = require('../../../../../models/user/user');
-var request = require('./util/request');
+var request = require('./../../../../../../common/test/unit/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');

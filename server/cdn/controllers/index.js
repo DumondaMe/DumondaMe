@@ -5,8 +5,9 @@ var validation = require('./../../common/src/lib/jsonValidation');
 var logger = requireLogger.getLogger(__filename);
 var exceptions = require('./../../common/src/lib/error/exceptions');
 var moment = require('moment');
-var cdnPath = require('./../../common/src/lib/cdn').getConfig().path;
+var cdn = require('./../../common/src/lib/cdn');
 var crypto = require('./../../common/src/lib/crypto');
+var password = 'd6F3Efeq';
 
 var schemaRequestImage = {
     name: 'requestImage',
@@ -25,10 +26,10 @@ module.exports = function (router) {
 
         return validation.validateQueryRequest(req, schemaRequestImage, logger).then(function (request) {
             var now = moment.utc().valueOf();
-            request.expires = crypto.decrypt(request.expires);
-            request.path = crypto.decrypt(request.path);
+            request.expires = crypto.decrypt(request.expires, password);
+            request.path = crypto.decrypt(request.path, password);
             if (now < parseInt(request.expires, 10)) {
-                res.sendFile(path.join(cdnPath, request.path));
+                res.sendFile(path.join(cdn.getConfig().path, request.path));
             } else {
                 logger.warn('Image request is expired', {}, req);
                 res.status(401).end();

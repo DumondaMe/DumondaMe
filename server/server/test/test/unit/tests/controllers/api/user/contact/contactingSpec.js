@@ -1,15 +1,15 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/contact/search');
-var searchUser = require('./../../../../../../../../models/user/searchUser');
-var user = require('../../../../../../../../models/user/user');
+var testee = require('../../../../../../../../controllers/api/user/contact/contacting');
+var contacting = require('./../../../../../../../../models/contact/contacting');
+var validation = require('./../../../../../../../../../common/src/lib/jsonValidation');
 var request = require('../../../../../../../../../common/test/unit/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
-describe('Unit Test controllers/api/user/contact/search', function () {
+describe('Unit Test controllers/api/user/contact/contacting', function () {
 
     var sandbox,
         checkInvalidGetRequest = function (request) {
@@ -18,8 +18,7 @@ describe('Unit Test controllers/api/user/contact/search', function () {
                 end: function () {
                 }
             });
-            sandbox.stub(searchUser, 'searchUsers').returns(Promise.reject({}));
-
+            sandbox.stub(contacting, 'getContacting').returns(Promise.reject({}));
             return request.executeGetRequest(request.req, request.res).then(function () {
                 expect(stubResponse.withArgs(400).calledOnce).to.be.true;
                 expect(stubResponse.calledOnce).to.be.true;
@@ -38,77 +37,69 @@ describe('Unit Test controllers/api/user/contact/search', function () {
         sandbox.restore();
     });
 
-    it('Search is missing - Return a 400', function () {
+    it('itemsPerPage is missing - Return a 400', function () {
 
         request.req.query = {
-            maxItems: 5,
-            isSuggestion: false
+            skip: '0'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-
-    it('Search is only empty string - Return a 400', function () {
+    it('skip is missing - Return a 400', function () {
 
         request.req.query = {
-            search: ' ',
-            maxItems: 5,
-            isSuggestion: false
+            itemsPerPage: '5'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-    it('Search is to long- Return a 400', function () {
+    it('skip is to small - Return a 400', function () {
 
         request.req.query = {
-            search: '12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh12seefegbh1',
-            maxItems: 5,
-            isSuggestion: false
+            itemsPerPage: '5',
+            skip: '-1'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-    it('Max Items is missing- Return a 400', function () {
+    it('itemsPerPage is to small - Return a 400', function () {
 
         request.req.query = {
-            search: '12seefegbh12seefegbh12seefegbh',
-            isSuggestion: false
+            itemsPerPage: '-1',
+            skip: '1'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-    it('Max Items has to small number- Return a 400', function () {
+    it('itemsPerPage is to big - Return a 400', function () {
 
         request.req.query = {
-            search: '12seefegbh12seefegbh12seefegbh',
-            maxItems: 0,
-            isSuggestion: false
+            itemsPerPage: '51',
+            skip: '1'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-    it('Max Items has to big number- Return a 400', function () {
+    it('itemsPerPage is not a number - Return a 400', function () {
 
         request.req.query = {
-            search: '12seefegbh12seefegbh12seefegbh',
-            maxItems: 51,
-            isSuggestion: false
+            itemsPerPage: 'asb',
+            skip: '1'
         };
 
         return checkInvalidGetRequest(request);
     });
 
-    it('Error occurred while searching users - Return a 500', function () {
+    it('Error occurred while getting contacting- Return a 500', function () {
 
         request.req.query = {
-            search: '12seefegbh12seefegbh12seefegbh',
-            maxItems: 5,
-            isSuggestion: false
+            itemsPerPage: '5',
+            skip: '0'
         };
 
         var stubResponse = sandbox.stub(request.res, 'status');
@@ -116,7 +107,7 @@ describe('Unit Test controllers/api/user/contact/search', function () {
             end: function () {
             }
         });
-        sandbox.stub(searchUser, 'searchUsers').returns(Promise.reject({}));
+        sandbox.stub(contacting, 'getContacting').returns(Promise.reject({}));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;

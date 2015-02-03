@@ -14,14 +14,7 @@ function invalidOperation(message) {
 }
 invalidOperation.prototype = Object.create(Error.prototype);
 
-function notAllowedRequest(message) {
-    this.message = message;
-    this.name = "notAllowedRequest";
-}
-notAllowedRequest.prototype = Object.create(Error.prototype);
-
 module.exports = {
     InvalidJsonRequest: invalidJsonRequest,
-    invalidOperation: invalidOperation,
-    notAllowedRequest: notAllowedRequest
+    invalidOperation: invalidOperation
 };

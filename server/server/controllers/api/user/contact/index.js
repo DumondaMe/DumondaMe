@@ -52,7 +52,7 @@ var schemaDeleteContact = {
             type: 'array',
             items: {type: 'string', format: 'notEmptyString', maxLength: 30},
             minItems: 1,
-            maxItems: 50,
+            maxItems: 30,
             uniqueItems: true
         }
     }
