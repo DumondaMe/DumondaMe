@@ -34,12 +34,4 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
         }).error(deferred.reject);
         return deferred.promise;
     };
-
-    this.checkIsAuthorizedOnServer = function () {
-        var deferred = $q.defer();
-        $http.get('/api/auth').success(function () {
-            deferred.resolve();
-        }).error(deferred.reject);
-        return deferred.promise;
-    };
 }];

@@ -9,6 +9,7 @@ module.exports = function (config) {
             'app/lib/angular/angular.js',
             'app/lib/angular/angular-cookies.js',
             'app/lib/angular/angular-mocks.js',
+            'app/lib/angular/angular-resource.js',
             'app/modules/**/*.js',
             'app/modules/**/*.html',
             'test/unit/init.js',

@@ -1,6 +1,6 @@
 'use strict';
 
-var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl')[3];
+var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl').directiveCtrl()[3];
 var moment = require('../../../../app/lib/moment/moment');
 
 describe('Tests of Contact Preview Controller', function () {

@@ -2,14 +2,15 @@
 
 function dataURItoBlob(dataURI) {
     var binary = atob(dataURI.split(',')[1]),
-        array = [], i;
+        array = [],
+        i;
     for (i = 0; i < binary.length; i = i + 1) {
         array.push(binary.charCodeAt(i));
     }
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 }
 
-module.exports = ['$scope', '$timeout', 'fileUpload', function ($scope, $timeout, fileUpload) {
+module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
 
     $scope.imageForUploadPreview = '';
 
@@ -18,14 +19,13 @@ module.exports = ['$scope', '$timeout', 'fileUpload', function ($scope, $timeout
     };
 
     $scope.$watch('imageForUpload', function (newImage) {
-        var fileReader = new FileReader();
         if (newImage) {
-            fileReader.onloadend = function () {
+            FileReader.onloadend = function () {
                 $scope.$apply(function () {
-                    $scope.imageForUploadPreview = fileReader.result;
+                    $scope.imageForUploadPreview = FileReader.result;
                 });
             };
-            fileReader.readAsDataURL(newImage);
+            FileReader.readAsDataURL(newImage);
         }
     });
 

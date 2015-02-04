@@ -14,7 +14,7 @@ module.exports = {
                 numberOfContacts: '='
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html',
-            controller: controller
+            controller: controller.directiveCtrl()
         };
     }],
     name: 'elyContactPreview'
