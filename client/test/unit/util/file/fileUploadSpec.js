@@ -1,6 +1,6 @@
 'use strict';
 
-var fileUpload = require('../../../../app/modules/util/file/fileUpload')[2];
+var fileUpload = require('../../../../app/modules/util/file/fileUpload')[1];
 
 describe('Test of Uploading a file to the server', function () {
     var http, scope;
@@ -18,15 +18,10 @@ describe('Test of Uploading a file to the server', function () {
 
     it('Send Data', function () {
 
-        var stubHttp = sinon.stub(http, 'post'),
-            spyCall;
+        var stubHttp = sinon.stub(http, 'post');
 
-        fileUpload(http, scope);
+        new fileUpload(http).uploadFileToUrl({}, '/api/sendFile');
 
-        scope.uploadFileToUrl({}, '/api/sendFile');
-
-        spyCall = stubHttp.getCall(0);
-
-        expect(spyCall.args[0]).to.equal('/api/sendFile');
+        expect(stubHttp.getCall(0).args[0]).to.equal('/api/sendFile');
     });
 });

@@ -1,5 +1,7 @@
 'use strict';
 
+var controller = require('./controller.js');
+
 module.exports = {
     directive: [function () {
         return {
@@ -12,17 +14,7 @@ module.exports = {
                 getUser: '='
             },
             templateUrl: 'app/modules/directives/searchBox/template.html',
-            controller: function ($scope) {
-                $scope.sendGetUser = function ($event) {
-                    if ($event.keyCode === 13) {
-                        $scope.getUser($scope.query);
-                    }
-                };
-
-                $scope.$on('$typeahead.select', function (value, index) {
-                    $scope.getUser(index);
-                });
-            }
+            controller: controller.directiveCtrl()
         };
     }],
     name: 'elySearchBox'

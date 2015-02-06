@@ -1,6 +1,7 @@
 'use strict';
 
 var directive = require('../../../../app/modules/directives/searchBox/directive.js');
+var controller = require('../../../../app/modules/directives/searchBox/controller');
 elyoosAppModule.directive(directive.name, directive.directive);
 
 describe('Tests of Directive ely-search-bar', function () {
@@ -14,6 +15,7 @@ describe('Tests of Directive ely-search-bar', function () {
 
         compile = $compile;
         rootScope = $rootScope;
+        sinon.stub(controller, 'directiveCtrl');
 
         element = angular.element("<ely-search-box></ely-search-box>");
 

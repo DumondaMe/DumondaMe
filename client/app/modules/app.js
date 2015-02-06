@@ -1,9 +1,5 @@
 'use strict';
 
-/*//Jquery dependencies
-require('jquery');
-require('cropper');*/
-
 var angular = require('angular');
 require('angular-ui-route');
 require('angular-cookies');
