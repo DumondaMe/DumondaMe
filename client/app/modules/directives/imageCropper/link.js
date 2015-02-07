@@ -6,6 +6,8 @@ module.exports = {
             var $image = $(element.find('img')[0]);
             $image.cropper({
                 aspectRatio: 1,
+                minWidth: 200,
+                minHeight: 200,
                 dashed: false,
                 zoomable: false,
                 rotatable: false
@@ -20,6 +22,12 @@ module.exports = {
             $scope.$watch('image', function (newImage) {
                 if (newImage) {
                     $image.cropper('reset', true).cropper('replace', newImage);
+                }
+            });
+
+            $scope.$watch('reset', function (reset) {
+                if (reset) {
+                    $image.cropper('reset', true);
                 }
             });
         };

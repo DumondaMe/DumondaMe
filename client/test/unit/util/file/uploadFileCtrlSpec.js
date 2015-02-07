@@ -74,6 +74,14 @@ describe('Tests of the upload file controller', function () {
         var data = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQAB',
             stubUploadFile = sinon.stub(fileUpload, 'uploadFileToUrl'),
             spyCall;
+        stubUploadFile.returns({
+            success: function () {
+                return {
+                    error: function () {
+                    }
+                };
+            }
+        });
         uploadFileCtrl(scope, fileUpload, FileReader);
         scope.imageResultData(data);
 

@@ -7,6 +7,7 @@ module.exports = function (config) {
         files: [
             'app/lib/jquery/jquery.min.js',
             'app/lib/imageCrop/cropper.min.js',
+            'app/lib/spin/spin.min.js',
             'app/lib/angular/angular.js',
             'app/lib/angular/angular-cookies.js',
             'app/lib/angular/angular-mocks.js',

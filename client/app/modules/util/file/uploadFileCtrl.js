@@ -12,10 +12,22 @@ function dataURItoBlob(dataURI) {
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
 
-    $scope.imageForUploadPreview = '';
+    $scope.imageForUploadPreview = null;
+    $scope.imageForUploadPreviewTemp = null;
+    $scope.uploadRunning = false;
 
     $scope.imageResultData = function (data) {
-        fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage');
+        $scope.uploadRunning = true;
+        $scope.resetImage = 1;
+        fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
+            success(function () {
+                $scope.uploadRunning = false;
+                $scope.$hide();
+            }).
+            error(function () {
+                $scope.imageForUploadPreview = $scope.imageForUploadPreviewTemp;
+                $scope.uploadRunning = false;
+            });
     };
 
     $scope.$watch('imageForUpload', function (newImage) {

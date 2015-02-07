@@ -46,6 +46,7 @@
     "angular-strap": "./app/lib/bootstrap/angular-strap.min.js",
     "angular-strap-tpl": "./app/lib/bootstrap/angular-strap.tpl.min.js",
     "moment": "./app/lib/moment/moment.js",
+    "spin": "./app/lib/spin/spin.min.js",
     "templates": "./app/dist/templates.js"
   }
 }

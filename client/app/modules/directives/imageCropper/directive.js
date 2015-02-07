@@ -9,6 +9,7 @@ module.exports = {
             replace: true,
             templateUrl: 'app/modules/directives/imageCropper/template.html',
             scope: {
+                reset: '=',
                 image: '=',
                 getDataToUpload: '=',
                 imageResultData: '='

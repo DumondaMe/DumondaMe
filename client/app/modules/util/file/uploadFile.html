@@ -3,14 +3,26 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="cropArea">
-                    <ely-image-upload image="imageForUploadPreview" image-result-data="imageResultData" get-data-to-upload="updateImageResult"></ely-image-upload>
+                    <ely-image-upload reset="resetImage"
+                                      image="imageForUploadPreview"
+                                      image-result-data="imageResultData"
+                                      get-data-to-upload="updateImageResult"></ely-image-upload>
                 </div>
+                <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
             <div class="modal-footer">
-                <input type="file" ely-file-model="imageForUpload" accept="image/jpeg">
-                <button type="button" class="btn btn-default" ng-click="startUpload()">Hochladen
+                <span class="btn btn-default btn-file" ng-class="{disabled: uploadRunning}">
+                    Bild auswählen...<input type="file" ely-file-model="imageForUpload"
+                                            accept="image/jpeg">
+                </span>
+                <button type="button" class="btn btn-default"
+                        ng-class="{disabled: !imageForUploadPreview || uploadRunning}"
+                        ng-click="startUpload()">
+                    Hochladen
                 </button>
-                <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
+                <button type="button" class="btn btn-default"
+                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
+                </button>
             </div>
         </div>
     </div>
