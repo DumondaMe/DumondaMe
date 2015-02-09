@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$rootScope', 'UserInfo', function ($scope, $rootScope, UserInfo) {
+module.exports = ['$scope', '$rootScope', 'UserInfo', 'profileImage', function ($scope, $rootScope, UserInfo, profileImage) {
 
     var userHeaderInfo;
     $scope.dropdownSettings = [
@@ -16,6 +16,8 @@ module.exports = ['$scope', '$rootScope', 'UserInfo', function ($scope, $rootSco
             click: "logout()"
         }
     ];
+
+    profileImage.addProfileImageChangedEvent($rootScope, 'userHeaderInfo');
 
     if ($rootScope.userHeaderInfo === undefined) {
         userHeaderInfo = UserInfo.get(null, function () {

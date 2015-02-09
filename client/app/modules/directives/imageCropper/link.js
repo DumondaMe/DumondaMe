@@ -24,12 +24,6 @@ module.exports = {
                     $image.cropper('reset', true).cropper('replace', newImage);
                 }
             });
-
-            $scope.$watch('reset', function (reset) {
-                if (reset) {
-                    $image.cropper('reset', true);
-                }
-            });
         };
     }
 };

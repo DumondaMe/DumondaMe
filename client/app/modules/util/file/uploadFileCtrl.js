@@ -1,7 +1,8 @@
 'use strict';
 
 function dataURItoBlob(dataURI) {
-    var binary = atob(dataURI.split(',')[1]),
+    var binary = window.atob(dataURI.split(',')[1]),
+        test = dataURI.split(',')[1],
         array = [],
         i;
     for (i = 0; i < binary.length; i = i + 1) {
@@ -13,19 +14,17 @@ function dataURItoBlob(dataURI) {
 module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
 
     $scope.imageForUploadPreview = null;
-    $scope.imageForUploadPreviewTemp = null;
     $scope.uploadRunning = false;
 
     $scope.imageResultData = function (data) {
         $scope.uploadRunning = true;
-        $scope.resetImage = 1;
         fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
             success(function () {
                 $scope.uploadRunning = false;
+                $scope.$emit('elyoos.profileImage.change');
                 $scope.$hide();
             }).
             error(function () {
-                $scope.imageForUploadPreview = $scope.imageForUploadPreviewTemp;
                 $scope.uploadRunning = false;
             });
     };

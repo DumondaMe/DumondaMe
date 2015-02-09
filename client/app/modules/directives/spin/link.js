@@ -13,7 +13,7 @@ module.exports = {
                 corners: 1,
                 rotate: 11,
                 direction: 1,
-                color: '#000',
+                color: '#00796B',
                 speed: 1.2,
                 trail: 60,
                 shadow: false,

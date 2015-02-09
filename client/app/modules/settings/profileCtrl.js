@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$filter', 'Profile', function ($scope, $filter, Profile) {
+module.exports = ['$scope', '$filter', 'Profile', 'profileImage', function ($scope, $filter, Profile, profileImage) {
 
     $scope.userDataToChange = {};
     $scope.submitFailed = false;
@@ -11,6 +11,8 @@ module.exports = ['$scope', '$filter', 'Profile', function ($scope, $filter, Pro
         $scope.userDataToChange = Profile.get();
     };
     $scope.getUserData();
+
+    profileImage.addProfileImageChangedEvent($scope, 'userDataToChange');
 
     $scope.submitProfileData = function () {
         if (!$scope.profileForm.$invalid) {

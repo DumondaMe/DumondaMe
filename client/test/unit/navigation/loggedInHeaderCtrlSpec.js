@@ -1,15 +1,19 @@
 'use strict';
 
-var loggedInHeaderCtrl = require('../../../app/modules/navigation/loggedInHeaderCtrl')[3];
+var loggedInHeaderCtrl = require('../../../app/modules/navigation/loggedInHeaderCtrl')[4];
 
 describe('Tests of loggedIn Header controller', function () {
-    var scope, rootScope, UserInfo;
+    var scope, rootScope, UserInfo, profileImage;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             UserInfo = {};
             UserInfo.get = function () {
+            };
+
+            profileImage = {};
+            profileImage.addProfileImageChangedEvent = function () {
             };
 
             rootScope = $rootScope;
@@ -25,7 +29,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         stubUserInfoGet.returns(response);
 
-        loggedInHeaderCtrl(scope, rootScope, UserInfo);
+        loggedInHeaderCtrl(scope, rootScope, UserInfo, profileImage);
         stubUserInfoGet.callArg(1);
 
         expect(rootScope.userHeaderInfo).to.equal(response);
@@ -39,7 +43,7 @@ describe('Tests of loggedIn Header controller', function () {
         rootScope.userHeaderInfo = response;
         mockUserInfoGet.never();
 
-        loggedInHeaderCtrl(scope, rootScope, UserInfo);
+        loggedInHeaderCtrl(scope, rootScope, UserInfo, profileImage);
 
         mockUserInfoGet.verify();
     });

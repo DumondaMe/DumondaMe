@@ -1,9 +1,9 @@
 'use strict';
 
-var profileCtrl = require('../../../app/modules/settings/profileCtrl')[3];
+var profileCtrl = require('../../../app/modules/settings/profileCtrl')[4];
 
 describe('Tests of Profile Default Controller', function () {
-    var scope, filter, Profile;
+    var scope, filter, Profile, profileImage;
 
     beforeEach(function (done) {
         inject(function ($rootScope, $filter) {
@@ -16,6 +16,9 @@ describe('Tests of Profile Default Controller', function () {
             Profile.save = function () {
             };
             scope.user = {};
+            profileImage = {};
+            profileImage.addProfileImageChangedEvent = function () {
+            };
             filter = $filter;
             done();
         });
@@ -23,7 +26,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Successful submit Data to the server', function () {
 
-        profileCtrl(scope, filter, Profile);
+        profileCtrl(scope, filter, Profile, profileImage);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -41,7 +44,6 @@ describe('Tests of Profile Default Controller', function () {
         };
 
         var stubHttpService = sinon.stub(Profile, 'save');
-        //stubHttpService.returns(q.when());
 
         scope.submitProfileData();
         stubHttpService.callArg(1);
@@ -53,7 +55,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Invalid form data. Data not sent to server', function () {
 
-        profileCtrl(scope, filter, Profile);
+        profileCtrl(scope, filter, Profile, profileImage);
         scope.profileForm = {
             $invalid: true,
             $setPristine: function () {
@@ -68,7 +70,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Error occurred while sending data. User data are not updated', function () {
 
-        profileCtrl(scope, filter, Profile);
+        profileCtrl(scope, filter, Profile, profileImage);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -100,7 +102,7 @@ describe('Tests of Profile Default Controller', function () {
 
         var stubHttpService = sinon.stub(Profile, 'get');
         stubHttpService.returns('test');
-        profileCtrl(scope, filter, Profile);
+        profileCtrl(scope, filter, Profile, profileImage);
 
         expect(scope.userDataToChange).to.equals('test');
     });

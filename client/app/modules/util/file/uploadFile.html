@@ -3,7 +3,8 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="cropArea">
-                    <ely-image-upload reset="resetImage"
+                    <ely-image-upload ng-if="!uploadRunning"
+                                      reset="resetImage"
                                       image="imageForUploadPreview"
                                       image-result-data="imageResultData"
                                       get-data-to-upload="updateImageResult"></ely-image-upload>
