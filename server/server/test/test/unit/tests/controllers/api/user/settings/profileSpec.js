@@ -70,7 +70,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: '',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -81,7 +81,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
     it('Post missing forename - Return a 400', function () {
         request.req.body = {
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -93,7 +93,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'asdfgghjklöqqwertiopmasdflkjadf',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -105,7 +105,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: '',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -116,7 +116,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
     it('Post missing surname - Return a 400', function () {
         request.req.body = {
             forename: 'user',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -128,7 +128,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'asdfgghjklöqqwertiopmasdflkjadfpoihtzruztredertghzq',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };
@@ -140,7 +140,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-28-28',
+            birthday: '123546A',
             country: 'Schweiz',
             female: true
         };
@@ -163,7 +163,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: '',
             female: true
         };
@@ -175,7 +175,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             female: true
         };
 
@@ -186,7 +186,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'asdfgghjklöqqwertiopmasdflkjadfpoihtzruztredertghzq',
             female: true
         };
@@ -198,7 +198,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: 'efk'
         };
@@ -210,7 +210,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz'
         };
 
@@ -221,7 +221,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true,
             street: 'asdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzh2'
@@ -234,7 +234,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true,
             place: 'asdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzh2'
@@ -248,7 +248,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true,
             street: 'Main Street',
@@ -272,7 +272,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true,
             street: 'Main Street',

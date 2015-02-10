@@ -14,7 +14,7 @@ var schemaPostNewProfileData = {
     properties: {
         forename: {type: 'string', minLength: 1, maxLength: 30},
         surname: {type: 'string', minLength: 1, maxLength: 50},
-        birthday: {type: 'string', format: 'date'},
+        birthday: {type: 'integer'},
         country: {type: 'string', minLength: 1, maxLength: 50},
         female: {type: 'boolean'},
         street: {type: 'string', maxLength: 80},

@@ -74,7 +74,7 @@
                             <input name="inputBirthday" ng-model="userDataToChange.birthday"
                                    class="form-control"
                                    id="inputBirthday" ng-blur="visitedBirthday = true"
-                                   placeholder="z.B 26.03.1982" required/>
+                                   placeholder="z.B {{getDateExample()}}" required/>
 
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)">
-                                <span>Geben sie ein gültigen Geburtstag ein (z.B. 1982-03-26)</span>
+                                <span>Geben sie ein gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>
                             </div>
                         </div>
                     </div>

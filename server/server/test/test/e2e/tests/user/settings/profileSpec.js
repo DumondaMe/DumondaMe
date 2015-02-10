@@ -87,7 +87,7 @@ describe('Integration Tests User Profile Data', function () {
         var user = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: false
         };
@@ -104,7 +104,7 @@ describe('Integration Tests User Profile Data', function () {
             user.length.should.equals(1);
             user[0].user.forename.should.equals('user');
             user[0].user.surname.should.equals('surname');
-            user[0].user.birthday.should.equals('1982-06-06');
+            user[0].user.birthday.should.equals(123546);
             user[0].user.country.should.equals('Schweiz');
             user[0].user.female.should.equals(false);
         });
@@ -114,7 +114,7 @@ describe('Integration Tests User Profile Data', function () {
         var user = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             female: true,
             country: 'Schweiz',
             street: 'Main Street',
@@ -133,7 +133,7 @@ describe('Integration Tests User Profile Data', function () {
             user.length.should.equals(1);
             user[0].user.forename.should.equals('user');
             user[0].user.surname.should.equals('surname');
-            user[0].user.birthday.should.equals('1982-06-06');
+            user[0].user.birthday.should.equals(123546);
             user[0].user.country.should.equals('Schweiz');
             user[0].user.female.should.equals(true);
             user[0].user.street.should.equals('Main Street');
