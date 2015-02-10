@@ -53,7 +53,7 @@ module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
         };
 
         $scope.$watch('userDataToChange.birthday', function (newBirthday) {
-            if (newBirthday) {
+            if (newBirthday && $scope.profileForm && $scope.profileForm.inputBirthday) {
                 $scope.profileForm.inputBirthday.$setValidity('date', isDateValid(newBirthday));
             }
         });
