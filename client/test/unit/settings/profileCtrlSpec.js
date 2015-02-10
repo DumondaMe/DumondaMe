@@ -27,6 +27,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Successful submit Data to the server', function () {
 
+        moment.locale('de');
         profileCtrl(scope, filter, Profile, profileImage, moment);
         scope.profileForm = {
             $invalid: false,
@@ -37,21 +38,23 @@ describe('Tests of Profile Default Controller', function () {
         scope.userDataToChange = {
             forename: 'Hans2',
             surname: 'Wurst2',
-            birthday: '2002-02-03',
+            birthday: '26.03.1982',
             street: 'hansdampf2',
             place: 'irgendwo2',
             country: 'nirgendwo2',
             female: true
         };
 
-        var stubHttpService = sinon.stub(Profile, 'save');
+        var stubHttpService = sinon.stub(Profile, 'save'), submitedData;
 
         scope.submitProfileData();
+        submitedData = stubHttpService.firstCall.args[0];
         stubHttpService.callArg(1);
 
         expect(scope.submitFailed).to.be.false;
         expect(scope.successUserDataChange).to.be.true;
         expect(scope.submitFailedToServer).to.be.false;
+        expect(submitedData.birthday).to.equals(385948800);
     });
 
     it('Invalid form data. Data not sent to server', function () {
@@ -101,11 +104,13 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Getting the user Profile Data back at initialization', function () {
 
-        var stubHttpService = sinon.stub(Profile, 'get');
-        stubHttpService.returns('test');
+        var stubProfile = sinon.stub(Profile, 'get');
+        moment.locale('de');
+        stubProfile.returns({birthday: 385948800});
         profileCtrl(scope, filter, Profile, profileImage, moment);
+        stubProfile.callArg(1);
 
-        expect(scope.userDataToChange).to.equals('test');
+        expect(scope.userDataToChange).to.eql({birthday: '26.3.1982'});
     });
 
     it('Getting a date example for german local format', function () {

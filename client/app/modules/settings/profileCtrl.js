@@ -28,7 +28,7 @@ module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
                 var submittedUser = {
                     forename: $scope.userDataToChange.forename,
                     surname: $scope.userDataToChange.surname,
-                    birthday: moment($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
+                    birthday: moment.utc($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
                     street: $scope.userDataToChange.street,
                     place: $scope.userDataToChange.place,
                     country: $scope.userDataToChange.country,
