@@ -9,3 +9,4 @@ test_out
 coverage
 npm-debug.log
 .sass-cache
+.idea
