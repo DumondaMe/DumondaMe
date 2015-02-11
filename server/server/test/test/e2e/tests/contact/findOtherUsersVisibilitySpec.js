@@ -34,12 +34,12 @@ describe('Integration Tests for finding other users and applying the correct vis
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '2'})")
-                                .create("(u)-[:IS_VISIBLE {type: 'Familie'}]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '2'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
                                 .end().send();
                         });
                 })
@@ -59,12 +59,12 @@ describe('Integration Tests for finding other users and applying the correct vis
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '3'})")
-                                .create("(u)-[:IS_VISIBLE {type: 'Familie'}]->(:Visibility {profile: true, image: true})")
+                                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: true})")
                                 .end().send();
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '3'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -78,7 +78,7 @@ describe('Integration Tests for finding other users and applying the correct vis
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '4'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
                                 .end().send();
                         });
                 })
@@ -92,7 +92,7 @@ describe('Integration Tests for finding other users and applying the correct vis
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '5'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 });

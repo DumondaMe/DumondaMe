@@ -22,7 +22,7 @@ describe('Integration Tests for handling contacting information', function () {
             // User 2
             commands.push(db.cypher().create("(:User {name: 'user2 Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
                 .create("(u2)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u)")
@@ -30,7 +30,7 @@ describe('Integration Tests for handling contacting information', function () {
             // User 3
             commands.push(db.cypher().create("(:User {name: 'user3 Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '3'})")
-                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
                 .create("(u2)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u)")
@@ -38,7 +38,7 @@ describe('Integration Tests for handling contacting information', function () {
             // User 4
             commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '4'})")
-                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '4'})")
                 .create("(u2)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u)")
@@ -46,7 +46,7 @@ describe('Integration Tests for handling contacting information', function () {
             // User 4
             commands.push(db.cypher().create("(:User {name: 'user5 Meier5', userId: '5'})").end().getCommand());
             return db.cypher().match("(u:User {userId: '5'})")
-                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
                 .end().send(commands);
 
         });

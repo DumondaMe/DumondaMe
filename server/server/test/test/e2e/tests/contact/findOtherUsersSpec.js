@@ -32,7 +32,7 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '2'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -46,7 +46,7 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '3'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -60,7 +60,7 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '4'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -74,12 +74,12 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '5'})")
-                                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                                 .end().send();
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '5'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -93,12 +93,12 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '6'})")
-                                .create("(u)-[:IS_VISIBLE {type: 'Freund'}]->(:Visibility {profile: true, image: true})")
+                                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                                 .end().send();
                         })
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '6'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })
@@ -112,7 +112,7 @@ describe('Integration Tests for finding other users', function () {
                         }).send()
                         .then(function () {
                             return db.cypher().match("(u:User {userId: '7'})")
-                                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: true, image: false})")
+                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
                                 .end().send();
                         });
                 })

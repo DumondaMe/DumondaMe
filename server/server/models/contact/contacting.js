@@ -36,10 +36,10 @@ var getContacting = function (params, where) {
         .orderBy("rContact.contactAdded DESC")
         .skip("{skip}")
         .limit("{itemsPerPage}")
-        .match("(contact)-[vr:IS_VISIBLE|IS_VISIBLE_NO_CONTACT]->(v:Visibility)")
+        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)-[r:IS_CONTACT]->(contact)")
         .with("contact, rContact, user, r, v, vr")
-        .where("rContact.type = vr.type AND type(vr) = 'IS_VISIBLE'")
+        .where("rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY'")
         .return("r.type AS type, rContact.type AS contactType, rContact.contactAdded AS userAdded, contact.name AS name, contact.userId AS id, " +
         "v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);

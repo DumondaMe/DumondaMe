@@ -1,10 +1,10 @@
 'use strict';
 
-var libUser = require('../../../../../../../lib/user')();
-var requestHandler = require('../../../util/request');
-var users = require('../../../util/user');
+var libUser = require('../../../../../../lib/user')();
+var requestHandler = require('../../util/request');
+var users = require('../../util/user');
 var should = require('chai').should();
-var db = require('../../../util/db');
+var db = require('../../util/db');
 
 describe('Integration Tests for the security visibility settings', function () {
 
@@ -15,16 +15,16 @@ describe('Integration Tests for the security visibility settings', function () {
             var commands = [];
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_VISIBLE_STANDARD {type: 'Freund'}]->(:Visibility {profile: true, profileData: true, contacts: false, image: true})")
+                .create("(u)-[:HAS_PRIVACY_STANDARD {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_VISIBLE {type: 'Familie'}]->(:Visibility {profile: true, profileData: true, contacts: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_VISIBLE {type: 'Bekannter'}]->(:Visibility {profile: true, profileData: false, contacts: false, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, profileData: false, contacts: false, image: true})")
                 .end().getCommand());
             return db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_VISIBLE_NO_CONTACT]->(:Visibility {profile: false, profileData: false, contacts: false, image: false})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: false, contacts: false, image: false})")
                 .end().send(commands);
         });
     });
@@ -35,7 +35,7 @@ describe('Integration Tests for the security visibility settings', function () {
 
     it('Get the visibility security settings of the user- Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            return requestHandler.get('/api/user/settings/security/visibility', agent);
+            return requestHandler.get('/api/user/settings/privacy', agent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.normal.length.should.equal(2);

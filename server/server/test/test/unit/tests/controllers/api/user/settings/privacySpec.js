@@ -1,8 +1,8 @@
 'use strict';
 
-var testee = require('../../../../../../../../../controllers/api/user/settings/security/visibility');
-var visibility = require('../../../../../../../../../models/user/visibility');
-var request = require('../../../../../../../../../../common/test/unit/request');
+var testee = require('../../../../../../../../controllers/api/user/settings/privacy');
+var privacy = require('../../../../../../../../models/user/privacy');
+var request = require('../../../../../../../../../common/test/unit/request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');
@@ -25,15 +25,15 @@ describe('Unit Test controllers/api/user/settings/security/visibility', function
 
     it('Request the user visibility settings data- Return 200', function () {
 
-        var visibilitySettings = {
+        var privacySettings = {
             test: 'Test'
         }, spyResponse = sandbox.spy(request.res.status(), 'json');
-        spyResponse.withArgs(visibilitySettings);
+        spyResponse.withArgs(privacySettings);
 
-        sandbox.stub(visibility, 'getVisibilitySettings').returns(Promise.resolve(visibilitySettings));
+        sandbox.stub(privacy, 'getPrivacySettings').returns(Promise.resolve(privacySettings));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
-            expect(spyResponse.withArgs(visibilitySettings).calledOnce).to.be.true;
+            expect(spyResponse.withArgs(privacySettings).calledOnce).to.be.true;
         });
     });
 
@@ -44,7 +44,7 @@ describe('Unit Test controllers/api/user/settings/security/visibility', function
             end: function () {
             }
         });
-        sandbox.stub(visibility, 'getVisibilitySettings').returns(Promise.reject({}));
+        sandbox.stub(privacy, 'getPrivacySettings').returns(Promise.reject({}));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;

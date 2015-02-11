@@ -4,23 +4,23 @@ var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
 
 module.exports = {
-    getVisibilitySettings: function (id) {
+    getPrivacySettings: function (id) {
         var commands = [], returnCommand;
 
         returnCommand = "visibility.profile AS profileVisible, visibility.profileData AS profileDataVisible, " +
             "visibility.image AS imageVisible, visibility.contacts AS contactsVisible, r.type AS type";
 
-        commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:IS_VISIBLE_STANDARD]->(visibility:Visibility)")
+        commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_STANDARD]->(visibility:Privacy)")
             .return(returnCommand)
             .end({
                 userId: id
             }).getCommand());
-        commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:IS_VISIBLE]->(visibility:Visibility)")
+        commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(visibility:Privacy)")
             .return(returnCommand)
             .end({
                 userId: id
             }).getCommand());
-        return db.cypher().match("(user:User {userId: {userId}})-[r:IS_VISIBLE_NO_CONTACT]->(visibility:Visibility)")
+        return db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_NO_CONTACT]->(visibility:Privacy)")
             .return(returnCommand)
             .end({
                 userId: id
