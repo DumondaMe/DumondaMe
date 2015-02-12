@@ -1,0 +1,73 @@
+<div id="content-settings-security">
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div class="header-privacy">
+                <div class="row">
+                    <div class="header-privacy-title">
+                        <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="content-privacy">
+                <div class="row">
+                    <div class="select-privacy-settings">
+                        <input type="checkbox" ng-model="selectedType.profileVisible">
+
+                        <div class="select-privacy-settings-text">
+                            Mein Profil ist sichtbar
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="select-privacy-settings">
+                        <input type="checkbox" ng-model="selectedType.contactsVisible">
+
+                        <div class="select-privacy-settings-text">
+                            Meine Kontakte sind sichtbar
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="select-privacy-settings">
+                        <input type="checkbox" ng-model="selectedType.imageVisible">
+
+                        <div class="select-privacy-settings-text">
+                            Mein Profilbild ist sichtbar
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="select-privacy-settings">
+                        <input type="checkbox" ng-model="selectedType.profileDataVisible">
+
+                        <div class="select-privacy-settings-text">
+                            Meine Profildaten sind sichtbar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="leftCol">
+        <div id="inner-leftCol">
+            <ul class="list-group">
+                <div>
+                    <li class="list-group-item" ng-click="setPrivacyTypeNoContact()" ng-class="{'group-selected': privacySettings.noContactSelected}">
+
+                        <div class="privacy-type-description">Kein Kontakt</div>
+                    </li>
+                </div>
+                <div ng-repeat="privacy in privacySettings.normal">
+                    <li class="list-group-item" ng-class="{'group-selected': selectedType.type === privacy.type}">
+                        <img ng-if="privacySettings.normal.length > 1" class="list-group-item-icons" src="app/img/delete.png"/>
+                        <img class="list-group-item-icons" src="app/img/edit.png"/>
+
+                        <div class="privacy-type-description" ng-click="setPrivacyType(privacy.type)">{{privacy.type}}
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div id="leftColNav" ng-include="'app/modules/settings/leftNavCol.html'"></div>
+</div>

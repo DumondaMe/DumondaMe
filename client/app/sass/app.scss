@@ -2,7 +2,6 @@
 @import 'elyoos/_variables';
 @import 'mixins/_screen';
 @import 'mixins/_util';
-//@import 'mixins/_angularStrap';
 
 @import 'directives/_cropper';
 @import 'directives/_searchBox';
@@ -14,7 +13,8 @@
 @import 'elyoos/_leftColNav';
 @import 'elyoos/_modal';
 @import 'elyoos/_page';
-@import 'elyoos/_settings';
+@import 'elyoos/_settingsProfile';
+@import 'elyoos/_settingsSecurity';
 
 
 html, body {

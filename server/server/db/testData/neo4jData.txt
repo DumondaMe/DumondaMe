@@ -3,9 +3,9 @@ CREATE CONSTRAINT ON (u:User) ASSERT u.userId IS UNIQUE;
 CREATE CONSTRAINT ON (u:User) ASSERT u.email IS UNIQUE;
 
 CREATE (n:User {userId:'0', email:'climberwoodi@gmx.ch', password:'1', forename:'Roger', surname:'Waldvogel', name:'Roger Waldvogel'});
-MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY {type:'Familie'}]->(:Privacy {profile: true, image: true});
-MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY {type:'Freund'}]->(:Privacy {profile: true, image: true});
-MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY_NO_CONTACT ]->(:Privacy {profile: true, image: true});
+MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY {type:'Familie'}]->(:Privacy {profile: true, image: true, contacts: true, profileData: true});
+MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY {type:'Freund'}]->(:Privacy {profile: true, image: true, contacts: true, profileData: true});
+MATCH (a:User) WHERE a.userId ='0' CREATE (a)-[:HAS_PRIVACY_NO_CONTACT ]->(:Privacy {profile: true, image: true, contacts: true, profileData: true});
 
 CREATE (n:User {userId:'1', email:'mw4@gmx.ch', password:'1', forename:'Monika', surname:'Wildhaber', name:'Monika Wildhaber'});
 MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='1' CREATE (a)-[:IS_CONTACT {type:'Familie', contactAdded: 1422258025 - 8000}]->(b);

@@ -1,0 +1,90 @@
+#content-settings-security {
+
+  width: 100%;
+  height: 100%;
+
+  @include centerColumn(340px) {
+
+    #inner-centerCol {
+      position: relative;
+      width: 800px;
+      margin: 0 auto;
+
+      .header-privacy {
+        height: 50px;
+        .header-privacy-title {
+          height: 40px;
+          border-bottom: 1px solid $divider;
+          margin: 0 0 10px 0;
+          h2 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            padding: 10px 0 0 0;
+          }
+        }
+      }
+      .content-privacy {
+        .select-privacy-type {
+          button {
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 20px;
+          }
+        }
+        .select-privacy-settings {
+          margin-top: 15px;
+          margin-bottom: 10px;
+          .select-privacy-settings-text {
+            float: left;
+            margin-left: 10px;
+            font-size: 14px;
+          }
+          input {
+            float: left;
+          }
+        }
+      }
+    }
+  }
+
+  @include leftFixedColumn(260px, 80px) {
+    background-color: $background-left-column;
+
+    ul {
+      width: 100%;
+      padding: 0 10px;
+
+      .list-group-item {
+
+        .list-group-item-icons {
+          float: right;
+          height: 20px;
+          width: 20px;
+          margin-left: 10px;
+          cursor: pointer;
+        }
+
+        .privacy-type-description {
+          width: 140px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+      }
+
+      .list-group-item.group-selected {
+        background-color: $primary-color-light;
+      }
+
+      .active {
+        a {
+          color: #FFFFFF;
+        }
+      }
+
+      a {
+        color: #000000;
+      }
+    }
+  }
+}

@@ -3,8 +3,10 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
+app.controller('PrivacyCtrl', require('./privacyCtrl'));
 
 app.factory('Profile', require('./profile'));
+app.factory('Privacy', require('./privacy'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -27,12 +29,12 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             }
         })
-        .state('settings.security', {
-            url: '/security',
+        .state('settings.privacy', {
+            url: '/privacy',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/settings/security.html',
-                    controller: 'ProfileCtrl'
+                    templateUrl: 'app/modules/settings/privacy.html',
+                    controller: 'PrivacyCtrl'
                 }
             }
         });
