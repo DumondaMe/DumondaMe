@@ -15,7 +15,7 @@ describe('Integration Tests for the security visibility settings', function () {
             var commands = [];
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY_STANDARD {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true})")
@@ -38,23 +38,22 @@ describe('Integration Tests for the security visibility settings', function () {
             return requestHandler.get('/api/user/settings/privacy', agent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.normal.length.should.equal(2);
-            res.body.normal[0].type.should.equal('Familie');
+            res.body.normal.length.should.equal(3);
+            res.body.normal[0].type.should.equal('Freund');
             res.body.normal[0].profileVisible.should.be.true;
             res.body.normal[0].profileDataVisible.should.be.true;
             res.body.normal[0].imageVisible.should.be.true;
-            res.body.normal[0].contactsVisible.should.be.true;
-            res.body.normal[1].type.should.equal('Bekannter');
+            res.body.normal[0].contactsVisible.should.be.false;
+            res.body.normal[1].type.should.equal('Familie');
             res.body.normal[1].profileVisible.should.be.true;
-            res.body.normal[1].profileDataVisible.should.be.false;
+            res.body.normal[1].profileDataVisible.should.be.true;
             res.body.normal[1].imageVisible.should.be.true;
-            res.body.normal[1].contactsVisible.should.be.false;
-
-            res.body.standard.type.should.equal('Freund');
-            res.body.standard.profileVisible.should.be.true;
-            res.body.standard.profileDataVisible.should.be.true;
-            res.body.standard.imageVisible.should.be.true;
-            res.body.standard.contactsVisible.should.be.false;
+            res.body.normal[1].contactsVisible.should.be.true;
+            res.body.normal[2].type.should.equal('Bekannter');
+            res.body.normal[2].profileVisible.should.be.true;
+            res.body.normal[2].profileDataVisible.should.be.false;
+            res.body.normal[2].imageVisible.should.be.true;
+            res.body.normal[2].contactsVisible.should.be.false;
 
             res.body.noContact.profileVisible.should.be.false;
             res.body.noContact.profileDataVisible.should.be.false;

@@ -10,11 +10,6 @@ module.exports = {
         returnCommand = "visibility.profile AS profileVisible, visibility.profileData AS profileDataVisible, " +
             "visibility.image AS imageVisible, visibility.contacts AS contactsVisible, r.type AS type";
 
-        commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_STANDARD]->(visibility:Privacy)")
-            .return(returnCommand)
-            .end({
-                userId: id
-            }).getCommand());
         commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(visibility:Privacy)")
             .return(returnCommand)
             .end({
@@ -26,7 +21,7 @@ module.exports = {
                 userId: id
             }).send(commands)
             .then(function (result) {
-                return {standard: result[0][0], normal: result[1], noContact: result[2][0]};
+                return {normal: result[0], noContact: result[1][0]};
             });
     }
 };
