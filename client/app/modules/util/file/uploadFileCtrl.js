@@ -2,7 +2,6 @@
 
 function dataURItoBlob(dataURI) {
     var binary = window.atob(dataURI.split(',')[1]),
-        test = dataURI.split(',')[1],
         array = [],
         i;
     for (i = 0; i < binary.length; i = i + 1) {

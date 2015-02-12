@@ -40,9 +40,13 @@ describe('Tests of Privacy Controller', function () {
 
         var privacySettings = {
                 normal: [{
-                    type: 'Familie',
-                    test: 'SomeValue'
-                }],
+                    type: 'Freund',
+                    test: 'SomeValue2'
+                },
+                    {
+                        type: 'Familie',
+                        test: 'SomeValue'
+                    }],
                 noContact: {}
             },
             stubPrivacy = sinon.stub(Privacy, 'get');
@@ -54,7 +58,7 @@ describe('Tests of Privacy Controller', function () {
         scope.setPrivacyType('Familie');
 
         expect(scope.privacySettings.noContactSelected).to.be.false;
-        expect(scope.selectedType.type).to.equals(privacySettings.normal[0].type);
-        expect(scope.selectedType.test).to.equals(privacySettings.normal[0].test);
+        expect(scope.selectedType.type).to.equals(privacySettings.normal[1].type);
+        expect(scope.selectedType.test).to.equals(privacySettings.normal[1].test);
     });
 });
