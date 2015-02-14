@@ -12,13 +12,13 @@ var schemaPostNewProfileData = {
     additionalProperties: false,
     required: ['forename', 'surname', 'birthday', 'country', 'female'],
     properties: {
-        forename: {type: 'string', minLength: 1, maxLength: 30},
-        surname: {type: 'string', minLength: 1, maxLength: 50},
+        forename: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
+        surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
         birthday: {type: 'integer'},
-        country: {type: 'string', minLength: 1, maxLength: 50},
+        country: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
         female: {type: 'boolean'},
-        street: {type: 'string', maxLength: 80},
-        place: {type: 'string', maxLength: 80}
+        street: {type: 'string', format: 'notEmptyString', maxLength: 80},
+        place: {type: 'string', format: 'notEmptyString', maxLength: 80}
     }
 };
 
