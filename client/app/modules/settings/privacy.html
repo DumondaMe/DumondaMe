@@ -89,7 +89,7 @@
                     </li>
                 </div>
                 <div>
-                    <div class="privacy-adding" ng-if="!showNewPrivacySettingInput">
+                    <div class="privacy-adding" ng-if="!showNewPrivacySettingInput && privacySettings.normal.length < 10">
                         <a href="#" ng-click="showAddingNewPrivacySetting()">Neuer Privatsphären Typ
                             hinzufügen...</a>
                     </div>

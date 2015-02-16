@@ -24,6 +24,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
                     $scope.privacySettings.normal.splice(index, 1);
                 }
             });
+            $scope.setPrivacyTypeNoContact();
         });
     };
 }];
