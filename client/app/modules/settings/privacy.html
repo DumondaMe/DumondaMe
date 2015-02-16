@@ -88,6 +88,22 @@
                         </div>
                     </li>
                 </div>
+                <div>
+                    <div class="privacy-adding" ng-if="!showNewPrivacySettingInput">
+                        <a href="#" ng-click="showAddingNewPrivacySetting()">Neuer Privatsphären Typ
+                            hinzufügen...</a>
+                    </div>
+                    <div class="privacy-adding-input" ng-if="showNewPrivacySettingInput">
+                        <input class="form-control" placeholder="Privatsphären Typ" ng-maxlength="30"
+                               ng-model="addingPrivacy.newPrivacyName">
+                        <button class="btn btn-default" type="button" ng-click="addPrivacySetting()" ng-class="{disabled: addingPrivacy.newPrivacyName.trim() === ''}">
+                            Hinzufügen
+                        </button>
+                        <button class="btn btn-default" type="button"
+                                ng-click="abortAddingNewPrivacy()">Abbrechen
+                        </button>
+                    </div>
+                </div>
             </ul>
         </div>
     </div>

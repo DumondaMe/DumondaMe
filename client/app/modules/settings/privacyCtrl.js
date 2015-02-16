@@ -26,6 +26,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 
     $scope.allowedToChangePrivacy = false;
     $scope.selectedType = {};
+    $scope.addingPrivacy = {};
     $scope.originalSelectedType = {};
     $scope.privacySettings = Privacy.get({}, function () {
         $scope.setPrivacyTypeNoContact();
@@ -79,6 +80,43 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
             }
 
             sendUpdatePrivacySetting(Privacy, $scope, updatePrivacySetting, privacySettings.privacySettings);
+        }
+    };
+
+    $scope.showAddingNewPrivacySetting = function () {
+        $scope.showNewPrivacySettingInput = true;
+        $scope.addingPrivacy.newPrivacyName = "";
+    };
+
+    $scope.abortAddingNewPrivacy = function () {
+        $scope.showNewPrivacySettingInput = false;
+    };
+
+    $scope.addPrivacySetting = function () {
+        if ($scope.addingPrivacy.newPrivacyName.trim() !== '') {
+            var newPrivacyData = {
+                addNewPrivacy: {
+                    privacySettings: {
+                        profileVisible: true,
+                        profileDataVisible: false,
+                        imageVisible: false,
+                        contactsVisible: false
+                    },
+                    privacyDescription: $scope.addingPrivacy.newPrivacyName
+                }
+            };
+
+            Privacy.save(newPrivacyData, function () {
+                $scope.showNewPrivacySettingInput = false;
+                $scope.privacySettings.normal.push({
+                    profileVisible: true,
+                    profileDataVisible: false,
+                    imageVisible: false,
+                    contactsVisible: false,
+                    type: $scope.addingPrivacy.newPrivacyName
+                });
+                $scope.setPrivacyType($scope.addingPrivacy.newPrivacyName);
+            });
         }
     };
 }];

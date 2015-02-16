@@ -53,6 +53,12 @@
 
       .list-group-item {
 
+        .privacy-type-description {
+          width: 140px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
         .list-group-item-container {
           width: 30px;
           padding-left: 10px;
@@ -60,12 +66,6 @@
           .list-group-item-icons {
             height: 20px;
             width: 20px;
-            cursor: pointer;
-          }
-
-          .privacy-type-description {
-            width: 140px;
-            overflow: hidden;
             cursor: pointer;
           }
 
@@ -115,6 +115,22 @@
 
       a {
         color: #000000;
+      }
+
+      .privacy-adding {
+        margin-top: 10px;
+        padding-left: 15px;
+      }
+
+      .privacy-adding-input {
+        input {
+          margin: 15px 0 10px 0;
+        }
+
+        button {
+          float: right;
+          margin-left: 10px;
+        }
       }
     }
   }
