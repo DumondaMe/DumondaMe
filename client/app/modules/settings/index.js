@@ -4,6 +4,7 @@ var app = require('angular').module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
 app.controller('PrivacyCtrl', require('./privacyCtrl'));
+app.controller('RenamePrivacyCtrl', require('./renamePrivacyCtrl'));
 
 app.factory('Profile', require('./profile'));
 app.factory('Privacy', require('./privacy'));

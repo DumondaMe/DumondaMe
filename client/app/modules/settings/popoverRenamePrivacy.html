@@ -1,0 +1,24 @@
+<div class="popover" ng-controller="RenamePrivacyCtrl">
+    <div class="arrow"></div>
+    <div class="popover-content">
+        <form name="popoverForm">
+            <div class="popover-element">
+                <input type="text" class="form-control" ng-model="renameType"
+                       ng-options="type for type in types"
+                       bs-typeahead>
+            </div>
+            <div class="popover-element">
+                <button type="submit" class="btn btn-default"
+                        ng-class="{'disabled': renameType === privacy.type || renameType.trim() === '' || renameExists}"
+                        ng-click="renamePrivacySetting()">Ändern
+                </button>
+            </div>
+            <div class="popover-element">
+                <div class="alert-input alert-danger"
+                     ng-if="renameExists && renameType !== privacy.type">
+                    <span>Diese Privatspähren Einstellung existiert bereits.</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

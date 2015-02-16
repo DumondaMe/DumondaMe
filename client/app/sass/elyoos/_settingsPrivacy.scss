@@ -66,6 +66,21 @@
           overflow: hidden;
           cursor: pointer;
         }
+
+        .popover {
+          width: 276px;
+          .popover-content {
+            padding: 9px 14px;
+
+            .popover-element {
+              float: left;
+
+              input {
+                width: 130px;
+              }
+            }
+          }
+        }
       }
 
       .list-group-item.group-selected {

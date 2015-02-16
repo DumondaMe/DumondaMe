@@ -46,7 +46,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}" type="submit">Änderung übernehmen</button>
+                    <button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
+                            type="submit" ng-click="updatePrivacyType()">Änderung übernehmen
+                    </button>
                 </div>
             </div>
         </div>
@@ -66,7 +68,11 @@
                         ng-class="{'group-selected': selectedType.type === privacy.type}">
                         <img ng-if="privacySettings.normal.length > 1" class="list-group-item-icons"
                              src="app/img/delete.png"/>
-                        <img class="list-group-item-icons" src="app/img/edit.png"/>
+                        <img class="list-group-item-icons" src="app/img/edit.png" trigger="click"
+                             data-auto-close="true"
+                             data-placement="bottom"
+                             data-template="app/modules/settings/popoverRenamePrivacy.html"
+                             bs-popover/>
 
                         <div class="privacy-type-description"
                              ng-click="setPrivacyType(privacy.type)">{{privacy.type}}

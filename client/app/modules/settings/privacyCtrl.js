@@ -1,5 +1,27 @@
 'use strict';
 
+var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
+
+    Privacy.save(updatePrivacySetting, function () {
+        if (updatePrivacySetting.changePrivacyNoContactSetting) {
+            angular.copy($scope.selectedType, $scope.privacySettings.noContact);
+        } else {
+            angular.forEach($scope.privacySettings.normal, function (privacy) {
+                if (privacy.type === $scope.selectedType.type) {
+                    privacy.profileVisible = privacySettings.profileVisible;
+                    privacy.profileDataVisible = privacySettings.profileDataVisible;
+                    privacy.imageVisible = privacySettings.imageVisible;
+                    privacy.contactsVisible = privacySettings.contactsVisible;
+                }
+            });
+        }
+        angular.copy($scope.selectedType, $scope.originalSelectedType);
+        $scope.disableChangePrivacy = true;
+    }, function () {
+
+    });
+};
+
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 
     $scope.allowedToChangePrivacy = false;
@@ -33,4 +55,30 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
             $scope.disableChangePrivacy = angular.equals($scope.selectedType, $scope.originalSelectedType);
         }
     }, true);
+
+    $scope.updatePrivacyType = function () {
+        if (!$scope.disableChangePrivacy) {
+            var updatePrivacySetting, privacySettings;
+
+            privacySettings = {
+                privacySettings: {
+                    profileVisible: $scope.selectedType.profileVisible,
+                    profileDataVisible: $scope.selectedType.profileDataVisible,
+                    imageVisible: $scope.selectedType.imageVisible,
+                    contactsVisible: $scope.selectedType.contactsVisible
+                }
+            };
+
+            if ($scope.privacySettings.noContactSelected) {
+                updatePrivacySetting = {};
+                updatePrivacySetting.changePrivacyNoContactSetting = privacySettings;
+            } else {
+                updatePrivacySetting = {};
+                updatePrivacySetting.changePrivacySetting = privacySettings;
+                updatePrivacySetting.changePrivacySetting.privacyDescription = $scope.selectedType.type;
+            }
+
+            sendUpdatePrivacySetting(Privacy, $scope, updatePrivacySetting, privacySettings.privacySettings);
+        }
+    };
 }];

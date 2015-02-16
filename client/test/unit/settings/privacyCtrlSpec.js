@@ -13,6 +13,8 @@ describe('Tests of Privacy Controller', function () {
             Privacy = {};
             Privacy.get = function () {
             };
+            Privacy.save = function () {
+            };
             done();
         });
     });
@@ -89,5 +91,79 @@ describe('Tests of Privacy Controller', function () {
         scope.$digest();
 
         expect(scope.disableChangePrivacy).to.be.false;
+    });
+
+    it('Update the privacy settings for no contact', function () {
+
+        var stubSavePrivacy = sinon.stub(Privacy, 'save'),
+            stubGetPrivacy = sinon.stub(Privacy, 'get');
+        stubGetPrivacy.returns({});
+
+        privacyCtrl(scope, Privacy);
+
+        scope.privacySettings.noContact = {};
+        scope.privacySettings.noContact.profileVisible = true;
+        scope.privacySettings.noContact.profileDataVisible = true;
+        scope.privacySettings.noContact.imageVisible = true;
+        scope.privacySettings.noContact.contactsVisible = true;
+
+        scope.setPrivacyTypeNoContact();
+        scope.selectedType.profileVisible = false;
+        scope.selectedType.profileDataVisible = false;
+        scope.selectedType.imageVisible = false;
+        scope.selectedType.contactsVisible = false;
+
+        scope.$digest();
+        scope.updatePrivacyType();
+
+        stubSavePrivacy.callArg(1);
+
+        expect(scope.privacySettings.noContact.profileVisible).to.be.false;
+        expect(scope.privacySettings.noContact.profileDataVisible).to.be.false;
+        expect(scope.privacySettings.noContact.imageVisible).to.be.false;
+        expect(scope.privacySettings.noContact.contactsVisible).to.be.false;
+        expect(scope.disableChangePrivacy).to.be.true;
+    });
+
+    it('Update the privacy settings for a contact type', function () {
+
+        var stubSavePrivacy = sinon.stub(Privacy, 'save'),
+            stubGetPrivacy = sinon.stub(Privacy, 'get');
+        stubGetPrivacy.returns({});
+
+        privacyCtrl(scope, Privacy);
+
+        scope.privacySettings.normal = [];
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Freund'
+        });
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Familie'
+        });
+
+        scope.setPrivacyType('Familie');
+        scope.selectedType.profileVisible = false;
+        scope.selectedType.profileDataVisible = false;
+        scope.selectedType.imageVisible = false;
+        scope.selectedType.contactsVisible = false;
+
+        scope.$digest();
+        scope.updatePrivacyType();
+
+        stubSavePrivacy.callArg(1);
+
+        expect(scope.privacySettings.normal[1].profileVisible).to.be.false;
+        expect(scope.privacySettings.normal[1].profileDataVisible).to.be.false;
+        expect(scope.privacySettings.normal[1].imageVisible).to.be.false;
+        expect(scope.privacySettings.normal[1].contactsVisible).to.be.false;
+        expect(scope.disableChangePrivacy).to.be.true;
     });
 });
