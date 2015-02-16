@@ -23,6 +23,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
                 }
             });
             $scope.privacy.type = $scope.renameType;
+            $scope.$hide();
         }, function () {
 
         });

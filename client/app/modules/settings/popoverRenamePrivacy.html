@@ -2,6 +2,9 @@
     <div class="arrow"></div>
     <div class="popover-content">
         <form name="popoverForm">
+            <div class="popover-element-description">
+                Privatsphären Einstellung <b>{{privacy.type}}</b> umbennen in:
+            </div>
             <div class="popover-element">
                 <input type="text" class="form-control" ng-model="renameType"
                        ng-options="type for type in types"

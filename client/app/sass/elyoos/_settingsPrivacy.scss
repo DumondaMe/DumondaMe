@@ -53,30 +53,50 @@
 
       .list-group-item {
 
-        .list-group-item-icons {
+        .list-group-item-container {
+          width: 30px;
+          padding-left: 10px;
           float: right;
-          height: 20px;
-          width: 20px;
-          margin-left: 10px;
-          cursor: pointer;
-        }
+          .list-group-item-icons {
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+          }
 
-        .privacy-type-description {
-          width: 140px;
-          overflow: hidden;
-          cursor: pointer;
-        }
+          .privacy-type-description {
+            width: 140px;
+            overflow: hidden;
+            cursor: pointer;
+          }
 
-        .popover {
-          width: 276px;
-          .popover-content {
-            padding: 9px 14px;
+          .popover {
+            width: 276px;
+            .popover-content {
+              padding: 9px 14px;
 
-            .popover-element {
-              float: left;
+              .popover-element-description {
+                margin: 5px 10px;
+              }
 
-              input {
-                width: 130px;
+              .popover-element-divider {
+                clear: both;
+                width: 100%;
+                border-bottom: 1px solid $divider;
+                margin: 5px 0 0 0;
+              }
+
+              .popover-element-right {
+                float: right;
+                margin: 8px 10px;
+              }
+
+              .popover-element {
+                float: left;
+                margin: 8px 10px;
+
+                input {
+                  width: 130px;
+                }
               }
             }
           }
