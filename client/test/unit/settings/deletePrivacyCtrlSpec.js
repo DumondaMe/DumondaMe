@@ -1,58 +1,29 @@
 'use strict';
 
-var privacyCtrl = require('../../../app/modules/settings/renamePrivacyCtrl')[2];
+var deletePrivacyCtrl = require('../../../app/modules/settings/deletePrivacyCtrl')[2];
 
-describe('Tests of rename privacy controller', function () {
+describe('Tests of delete privacy controller', function () {
     var scope, Privacy;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             scope = $rootScope.$new();
-            scope.$hide = function () {
+            scope.setPrivacyTypeNoContact = function () {
             };
 
             Privacy = {};
-            Privacy.save = function () {
+            Privacy.delete = function () {
             };
             done();
         });
     });
 
-    it('Check if the privacy already exists returns no equal privacy setting', function () {
-
-        scope.privacySettings = {};
-        scope.privacy = {};
-        scope.privacy.type = 'Irgendwas';
-        privacyCtrl(scope, Privacy);
-
-        scope.privacySettings.normal = [];
-        scope.privacySettings.normal.push({
-            profileVisible: true,
-            profileDataVisible: true,
-            imageVisible: true,
-            contactsVisible: true,
-            type: 'Freund'
-        });
-        scope.privacySettings.normal.push({
-            profileVisible: true,
-            profileDataVisible: true,
-            imageVisible: true,
-            contactsVisible: true,
-            type: 'Familie'
-        });
-
-        scope.$digest();
-
-        expect(scope.renameExists).to.be.false;
-    });
-
-    it('Check if the privacy already exists returns equal privacy setting', function () {
+    it('Only privacy settings other then the setting do delete are listed for moving the contacts to', function () {
 
         scope.privacySettings = {};
         scope.privacy = {};
         scope.privacy.type = 'Familie';
-        privacyCtrl(scope, Privacy);
 
         scope.privacySettings.normal = [];
         scope.privacySettings.normal.push({
@@ -69,22 +40,28 @@ describe('Tests of rename privacy controller', function () {
             contactsVisible: true,
             type: 'Familie'
         });
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Bekannter'
+        });
 
-        scope.$digest();
+        deletePrivacyCtrl(scope, Privacy);
 
-        expect(scope.renameExists).to.be.true;
+        expect(scope.otherPrivacySettingTypes.length).to.equals(2);
+        expect(scope.otherPrivacySettingTypes[0]).to.equals('Freund');
+        expect(scope.otherPrivacySettingTypes[1]).to.equals('Bekannter');
+        expect(scope.otherPrivacySettingType).to.equals('Freund');
     });
 
-    it('Rename a privacy setting', function () {
+    it('Delete a privacy setting', function () {
 
-        var stubSavePrivacy = sinon.stub(Privacy, 'save');
+        var stubDeletePrivacy = sinon.stub(Privacy, 'delete');
         scope.privacySettings = {};
         scope.privacy = {};
         scope.privacy.type = 'Familie';
-        scope.selectedType = {};
-        scope.selectedType.type = 'Familie';
-
-        privacyCtrl(scope, Privacy);
 
         scope.privacySettings.normal = [];
         scope.privacySettings.normal.push({
@@ -101,14 +78,24 @@ describe('Tests of rename privacy controller', function () {
             contactsVisible: true,
             type: 'Familie'
         });
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Bekannter'
+        });
 
-        scope.renameType = 'Fami';
-        scope.renamePrivacySetting();
+        deletePrivacyCtrl(scope, Privacy);
 
-        stubSavePrivacy.callArg(1);
+        scope.deletePrivacySetting();
 
-        expect(scope.privacySettings.normal[1].type).to.equals('Fami');
-        expect(scope.selectedType.type).to.equals('Fami');
-        expect(scope.privacy.type).to.equals('Fami');
+        stubDeletePrivacy.callArg(1);
+
+        expect(scope.privacySettings.normal.length).to.equals(2);
+        expect(scope.privacySettings.normal[0].type).to.equals('Freund');
+        expect(scope.privacySettings.normal[1].type).to.equals('Bekannter');
     });
+
+
 });

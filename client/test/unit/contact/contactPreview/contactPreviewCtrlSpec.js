@@ -98,6 +98,58 @@ describe('Tests of Contact Preview Controller', function () {
         expect(scope.contact.connected).to.equal('both');
     });
 
+    it('Add a new contact and update the connected state to both', function () {
+
+        var stubContactSave = sinon.stub(Contact, 'save'),
+            response = {
+                statistic: ['test'],
+                numberOfContacts: 5
+            };
+
+        scope.users = {};
+        scope.contact = {id: '5', connected: 'contactToUser'};
+
+        stubContactSave.withArgs({
+            contactIds: ['5'],
+            mode: 'addContact',
+            description: 'Freund'
+        }).returns(response);
+
+        contactPreviewCtrl(scope, Contact, moment);
+        scope.addNewContact();
+        stubContactSave.callArg(1);
+
+        expect(scope.contact.type).to.equal('Freund');
+        expect(scope.contact.connected).to.equal('both');
+    });
+
+    it('Update the connection type', function () {
+
+        var stubContactSave = sinon.stub(Contact, 'save'),
+            response = {
+                statistic: ['test']
+            };
+
+        scope.users = {};
+        scope.contact = {id: '5', connected: 'contactToUser'};
+
+        stubContactSave.withArgs({
+            contactIds: ['5'],
+            mode: 'changeState',
+            description: 'Familie'
+        }).returns(response);
+
+        contactPreviewCtrl(scope, Contact, moment);
+        scope.contact.selectedPrivacySetting = 'Familie';
+        scope.statistic = {};
+        scope.sendNewDescription();
+        stubContactSave.callArg(1);
+
+        expect(scope.contact.type).to.equal('Familie');
+        expect(scope.statistic).to.eql(response.statistic);
+        expect(scope.contact.connected).to.equal('contactToUser');
+    });
+
     it('Delete a new contact form contact list', function () {
 
         var stubContactDelete = sinon.stub(Contact, 'delete'),

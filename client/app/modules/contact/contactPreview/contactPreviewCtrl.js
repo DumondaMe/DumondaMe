@@ -69,7 +69,6 @@ module.exports = {
                             $scope.statistic = contact.statistic;
                         }
                         $scope.contact.type = $scope.contact.selectedPrivacySetting;
-                        updateConnectionStateWhenModifiyContact($scope);
                     });
                 }
             };

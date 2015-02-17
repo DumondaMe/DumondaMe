@@ -166,4 +166,63 @@ describe('Tests of Privacy Controller', function () {
         expect(scope.privacySettings.normal[1].contactsVisible).to.be.false;
         expect(scope.disableChangePrivacy).to.be.true;
     });
+
+    it('Adding a new privacy setting', function () {
+
+        var stubSavePrivacy = sinon.stub(Privacy, 'save'),
+            stubGetPrivacy = sinon.stub(Privacy, 'get');
+        stubGetPrivacy.returns({});
+
+        privacyCtrl(scope, Privacy);
+
+        scope.privacySettings.normal = [];
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Freund'
+        });
+        scope.privacySettings.normal.push({
+            profileVisible: true,
+            profileDataVisible: true,
+            imageVisible: true,
+            contactsVisible: true,
+            type: 'Familie'
+        });
+
+        scope.showAddingNewPrivacySetting();
+
+        scope.addingPrivacy.newPrivacyName = 'Bekannter';
+
+        scope.addPrivacySetting();
+
+        stubSavePrivacy.callArg(1);
+
+        expect(scope.privacySettings.normal.length).to.equals(3);
+        expect(scope.privacySettings.normal[2].profileVisible).to.be.true;
+        expect(scope.privacySettings.normal[2].profileDataVisible).to.be.false;
+        expect(scope.privacySettings.normal[2].imageVisible).to.be.false;
+        expect(scope.privacySettings.normal[2].contactsVisible).to.be.false;
+        expect(scope.showNewPrivacySettingInput).to.be.false;
+
+        expect(scope.selectedType.profileVisible).to.be.true;
+        expect(scope.selectedType.profileDataVisible).to.be.false;
+        expect(scope.selectedType.imageVisible).to.be.false;
+        expect(scope.selectedType.contactsVisible).to.be.false;
+        expect(scope.selectedType.type).to.equals('Bekannter');
+    });
+
+    it('Aborting adding a new privacy setting', function () {
+
+        var stubGetPrivacy = sinon.stub(Privacy, 'get');
+        stubGetPrivacy.returns({});
+
+        privacyCtrl(scope, Privacy);
+
+        scope.showAddingNewPrivacySetting();
+        scope.abortAddingNewPrivacy();
+
+        expect(scope.showNewPrivacySettingInput).to.be.false;
+    });
 });
