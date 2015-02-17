@@ -18,14 +18,16 @@ var updateConnectionStateWhenDeletingContact = function ($scope) {
     $scope.setConnectionState();
 };
 
+var setPrivacySettings = function ($scope) {
+    $scope.contact.selectedPrivacySetting = $scope.contact.type;
+    $scope.contact.privacySettings = $scope.privacySettings;
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
 
-            $scope.contact.typeNew = $scope.contact.type;
-
-            $scope.contact.selectedPrivacySetting = $scope.contact.type;
-            $scope.contact.privacySettings = $scope.privacySettings;
+            setPrivacySettings($scope);
 
             $scope.contact.actions = [
                 {
@@ -65,9 +67,7 @@ module.exports = {
                         mode: 'changeState',
                         description: $scope.contact.selectedPrivacySetting
                     }, function () {
-                        if (angular.isDefined($scope.statistic)) {
-                            $scope.statistic = contact.statistic;
-                        }
+                        $scope.statistic = contact.statistic;
                         $scope.contact.type = $scope.contact.selectedPrivacySetting;
                     });
                 }
@@ -79,14 +79,11 @@ module.exports = {
                     mode: 'addContact',
                     description: 'Freund'
                 }, function () {
-                    if (angular.isDefined($scope.statistic)) {
-                        $scope.statistic = contact.statistic;
-                    }
-                    if (angular.isDefined($scope.numberOfContacts)) {
-                        $scope.numberOfContacts = contact.numberOfContacts;
-                    }
+                    $scope.statistic = contact.statistic;
+                    $scope.numberOfContacts = contact.numberOfContacts;
                     $scope.contact.type = 'Freund';
                     updateConnectionStateWhenModifiyContact($scope);
+                    setPrivacySettings($scope);
                 });
             };
 
