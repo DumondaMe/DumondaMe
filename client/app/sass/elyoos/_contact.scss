@@ -32,14 +32,17 @@
           width: 100%;
           color: $primary-color;
 
-          .description {
-            font-size: 12px;
-            color: #9197a3;
-            font-weight: normal;
+          .description-container {
+            .description {
+              display: inline-block;
+              font-size: 12px;
+              color: #9197a3;
+              font-weight: normal;
 
-            &:hover {
-              text-decoration: underline;
-              cursor: pointer;
+              &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+              }
             }
           }
 
@@ -51,7 +54,7 @@
         }
       }
 
-      .select {
+      .select-user {
         float: left;
         height: 100px;
 
@@ -104,6 +107,10 @@
       .popover {
         .popover-content {
           padding: 9px 14px;
+          .popover-select-privacy {
+            max-width: 150px;
+            margin-right: 10px;
+          }
         }
       }
     }

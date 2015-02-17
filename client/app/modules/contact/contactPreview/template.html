@@ -6,11 +6,13 @@
             <div>
                 {{contact.name}}
             </div>
-            <div class="description" trigger="click" data-auto-close="true"
-                 data-placement="bottom"
-                 data-template="app/modules/contact/popoverDescription.html"
-                 bs-popover ng-show="!contact.blocked && contact.type">
-                ({{contact.type}})
+            <div class="description-container">
+                <div class="description" trigger="click" data-auto-close="true"
+                     data-placement="bottom"
+                     data-template="app/modules/contact/contactPreview/popoverDescription.html"
+                     bs-popover ng-show="!contact.blocked && contact.type">
+                    ({{contact.type}})
+                </div>
             </div>
             <div class="blocked-description" ng-show="contact.blocked">
                 BLOCKIERT
@@ -31,14 +33,15 @@
                 Als Kontakt hinzufügen
             </button>
             <div class="command-connection-state" ng-hide="contact.connected === 'none'"
-                 data-trigger="hover" data-delay="600" data-title="{{tooltipConnectionState.title}}" bs-tooltip>
+                 data-trigger="hover" data-delay="600" data-title="{{tooltipConnectionState.title}}"
+                 bs-tooltip>
                 <img ng-src="{{contact.connectionImage}}">
             </div>
         </div>
     </div>
-    <div class="select" ng-show="enableSelect !== 'false'">
+    <!--<div class="select-user" ng-show="enableSelect !== 'false'">
         <div class="s2">
             <input type="checkbox" ng-model="contact.selected">
         </div>
-    </div>
+    </div>-->
 </div>

@@ -77,7 +77,8 @@ module.exports = function (router) {
                             var data = {};
                             data.contacts = contacts[0];
                             data.statistic = contacts[1];
-                            data.numberOfContacts = contacts[2][0].numberOfContacts;
+                            data.privacySettings = contacts[2];
+                            data.numberOfContacts = contacts[3][0].numberOfContacts;
                             data.contactsForPagination = data.numberOfContacts;
 
                             res.status(200).json(data);

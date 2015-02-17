@@ -16,6 +16,14 @@ var getContactStatistics = function (userId) {
         });
 };
 
+var getPrivacySettings = function (userId) {
+    return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY]->(:Privacy)')
+        .return('r.type AS type')
+        .end({
+            userId: userId
+        });
+};
+
 var getTotalNumberOfContacts = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[:IS_CONTACT]->(:User)')
         .return('count(*) AS numberOfContacts')
@@ -39,7 +47,7 @@ var returnStatistics = function (result, errorDescription) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
     var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription +
-        ' result not as expected [' + result.length + ']');
+    ' result not as expected [' + result.length + ']');
     logger.warn(invalidOperationException.message, {error: ''});
     return Promise.reject(invalidOperationException);
 };
@@ -110,7 +118,9 @@ var blockContact = function (userId, blockedUserIds) {
 
 var changeContactState = function (userId, contactIds, type) {
 
-    return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User)')
+    var commands = [];
+
+    commands.push(db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User)')
         .where('u2.userId IN {contactIds}')
         .set('r', {type: type})
         .return('r')
@@ -118,11 +128,13 @@ var changeContactState = function (userId, contactIds, type) {
             userId: userId,
             contactIds: contactIds,
             type: type
-        })
-        .send()
+        }).getCommand());
+
+    return getContactStatistics(userId)
+        .send(commands)
         .then(function (rel) {
-            if (rel.length === contactIds.length) {
-                return;
+            if (rel[0].length === contactIds.length) {
+                return {statistic: rel[1]};
             }
             var invalidOperationException = new exceptions.invalidOperation('Not all contact connections are updated');
             logger.warn(invalidOperationException.message, {error: ''});
@@ -142,7 +154,7 @@ var getContact = function (params, where) {
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, " +
-            "contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
+        "contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 
@@ -157,6 +169,7 @@ var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
     }, "user.userId = {userId}").getCommand());
 
     commands.push(getContactStatistics(userId).getCommand());
+    commands.push(getPrivacySettings(userId).getCommand());
 
     return getTotalNumberOfContacts(userId)
         .send(commands)

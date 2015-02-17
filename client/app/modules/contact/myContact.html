@@ -2,7 +2,7 @@
     <div id="centerCol">
         <div id="inner-centerCol">
             <div ng-repeat="contact in users.contacts">
-                <ely-contact-preview contact="contact" statistic="users.statistic"
+                <ely-contact-preview contact="contact" statistic="users.statistic" privacy-settings="users.privacySettings"
                                      number-of-contacts="users.numberOfContacts"></ely-contact-preview>
             </div>
             <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage"

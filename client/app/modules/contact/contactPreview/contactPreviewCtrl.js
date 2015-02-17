@@ -1,6 +1,6 @@
 'use strict';
 
-var updateConnectionStateWhenAddingContact = function ($scope) {
+var updateConnectionStateWhenModifiyContact = function ($scope) {
     if ($scope.contact.connected === 'contactToUser') {
         $scope.contact.connected = 'both';
     } else {
@@ -23,6 +23,9 @@ module.exports = {
         return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
 
             $scope.contact.typeNew = $scope.contact.type;
+
+            $scope.contact.selectedPrivacySetting = $scope.contact.type;
+            $scope.contact.privacySettings = $scope.privacySettings;
 
             $scope.contact.actions = [
                 {
@@ -56,7 +59,19 @@ module.exports = {
             };
 
             $scope.sendNewDescription = function () {
-                //TODO Needs other implementation
+                if ($scope.contact.selectedPrivacySetting) {
+                    var contact = Contact.save({
+                        contactIds: [$scope.contact.id],
+                        mode: 'changeState',
+                        description: $scope.contact.selectedPrivacySetting
+                    }, function () {
+                        if (angular.isDefined($scope.statistic)) {
+                            $scope.statistic = contact.statistic;
+                        }
+                        $scope.contact.type = $scope.contact.selectedPrivacySetting;
+                        updateConnectionStateWhenModifiyContact($scope);
+                    });
+                }
             };
 
             $scope.addNewContact = function () {
@@ -72,7 +87,7 @@ module.exports = {
                         $scope.numberOfContacts = contact.numberOfContacts;
                     }
                     $scope.contact.type = 'Freund';
-                    updateConnectionStateWhenAddingContact($scope);
+                    updateConnectionStateWhenModifiyContact($scope);
                 });
             };
 

@@ -11,6 +11,7 @@ module.exports = {
                 enableSelect: '@',
                 contact: '=',
                 statistic: '=',
+                privacySettings: '=',
                 numberOfContacts: '='
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html',
