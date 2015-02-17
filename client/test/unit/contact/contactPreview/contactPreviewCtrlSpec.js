@@ -29,9 +29,9 @@ describe('Tests of Contact Preview Controller', function () {
             };
 
         scope.users = {};
-        scope.statistic = {};
         scope.numberOfContacts = 1;
         scope.contact = {id: '5'};
+        scope.privacySettings = [{type: 'Freund'}, {type: 'Familie'}];
 
         stubContactSave.withArgs({
             contactIds: ['5'],
@@ -57,19 +57,26 @@ describe('Tests of Contact Preview Controller', function () {
             };
 
         scope.users = {};
+        scope.statistic = [{
+            type: 'Freund',
+            count: 2
+        }, {
+            type: 'Familie',
+            count: 3
+        }];
         scope.contact = {id: '5', connected: 'none'};
 
         stubContactSave.withArgs({
             contactIds: ['5'],
             mode: 'addContact',
-            description: 'Freund'
+            description: 'Familie'
         }).returns(response);
 
         contactPreviewCtrl(scope, Contact, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
-        expect(scope.contact.type).to.equal('Freund');
+        expect(scope.contact.type).to.equal('Familie');
         expect(scope.contact.connected).to.equal('userToContact');
     });
 
@@ -82,31 +89,13 @@ describe('Tests of Contact Preview Controller', function () {
             };
 
         scope.users = {};
-        scope.contact = {id: '5', connected: 'contactToUser'};
-
-        stubContactSave.withArgs({
-            contactIds: ['5'],
-            mode: 'addContact',
-            description: 'Freund'
-        }).returns(response);
-
-        contactPreviewCtrl(scope, Contact, moment);
-        scope.addNewContact();
-        stubContactSave.callArg(1);
-
-        expect(scope.contact.type).to.equal('Freund');
-        expect(scope.contact.connected).to.equal('both');
-    });
-
-    it('Add a new contact and update the connected state to both', function () {
-
-        var stubContactSave = sinon.stub(Contact, 'save'),
-            response = {
-                statistic: ['test'],
-                numberOfContacts: 5
-            };
-
-        scope.users = {};
+        scope.statistic = [{
+            type: 'Freund',
+            count: 3
+        }, {
+            type: 'Familie',
+            count: 2
+        }];
         scope.contact = {id: '5', connected: 'contactToUser'};
 
         stubContactSave.withArgs({

@@ -23,6 +23,19 @@ var setPrivacySettings = function ($scope) {
     $scope.contact.privacySettings = $scope.privacySettings;
 };
 
+var getPrivacyType = function (statistics, privacyTypes) {
+    var setting = null;
+    if (statistics && statistics.length > 0) {
+        angular.forEach(statistics, function (statistic) {
+            if (!setting || setting.count < statistic.count) {
+                setting = statistic;
+            }
+        });
+        return setting.type;
+    }
+    return privacyTypes[0].type;
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
@@ -74,14 +87,16 @@ module.exports = {
             };
 
             $scope.addNewContact = function () {
-                var contact = Contact.save({
+                var contact, privacyTyp;
+                privacyTyp = getPrivacyType($scope.statistic, $scope.contact.privacySettings);
+                contact = Contact.save({
                     contactIds: [$scope.contact.id],
                     mode: 'addContact',
-                    description: 'Freund'
+                    description: privacyTyp
                 }, function () {
                     $scope.statistic = contact.statistic;
                     $scope.numberOfContacts = contact.numberOfContacts;
-                    $scope.contact.type = 'Freund';
+                    $scope.contact.type = privacyTyp;
                     updateConnectionStateWhenModifiyContact($scope);
                     setPrivacySettings($scope);
                 });
