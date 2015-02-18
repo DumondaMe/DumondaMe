@@ -1,9 +1,9 @@
 'use strict';
 
-var app = require('../../../../../server');
-var users = require('../util/user');
-var db = require('../util/db');
-var requestHandler = require('../util/request');
+var app = require('../../../../../../server');
+var users = require('../../util/user');
+var db = require('../../util/db');
+var requestHandler = require('../../util/request');
 var should = require('chai').should();
 
 describe('Integration Tests for finding other users and applying the correct visibility', function () {
