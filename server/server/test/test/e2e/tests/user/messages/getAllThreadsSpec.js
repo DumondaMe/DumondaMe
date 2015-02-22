@@ -64,7 +64,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             // User 4
             commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'}), (u4:User {userId: '4'})")
-                .create("(u)-[:IS_ADMIN]->(groupThread:GroupThread {threadId: '1', description: 'TestChat'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)," +
+                .create("(u)-[:IS_ADMIN]->(groupThread:GroupThread {threadId: '3', description: 'TestChat'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)," +
                 "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(groupThread)," +
                 "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited3}}]->(groupThread)," +
                 "(u4)-[:ACTIVE {lastTimeVisited: {lastTimeVisited4}}]->(groupThread)")
@@ -74,7 +74,7 @@ describe('Integration Tests for getting all threads of a user', function () {
                     lastTimeVisited3: startTime - 401,
                     lastTimeVisited4: startTime - 402
                 }).getCommand());
-            commands.push(db.cypher().match("(thread:GroupThread {threadId: '1'}), (u:User {userId: '1'}), (u3:User {userId: '3'}), (u4:User {userId: '4'})")
+            return db.cypher().match("(thread:GroupThread {threadId: '3'}), (u:User {userId: '1'}), (u3:User {userId: '3'}), (u4:User {userId: '4'})")
                 .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
@@ -88,14 +88,7 @@ describe('Integration Tests for getting all threads of a user', function () {
                     messageAdded2: startTime - 400,
                     messageAdded3: startTime - 600,
                     messageAdded4: startTime - 700
-                }).getCommand());
-            return db.cypher().match("(u:User {userId: '5'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
-                .end().send(commands)
-                .catch(function (err) {
-                    var test = 1;
-                });
-
+                }).send(commands);
         });
     });
 
@@ -103,7 +96,7 @@ describe('Integration Tests for getting all threads of a user', function () {
         requestHandler.logout(done);
     });
 
-    it('Getting the contacting information for the user - Return 200', function () {
+    it('Getting all threads for the user - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages', {
@@ -117,22 +110,25 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].description.should.equal("user2 Meier2");
             res.body.threads[0].previewText.should.equal("message1");
             res.body.threads[0].lastUpdate.should.equal(startTime - 299);
+            res.body.threads[0].threadId.should.equal('1');
 
             res.body.threads[1].hasNotReadMessages.should.be.true;
             res.body.threads[1].description.should.equal("TestChat");
             res.body.threads[1].previewText.should.equal("message1");
             res.body.threads[1].lastUpdate.should.equal(startTime - 300);
+            res.body.threads[1].threadId.should.equal('3');
 
             res.body.threads[2].hasNotReadMessages.should.be.false;
             res.body.threads[2].description.should.equal("user3 Meier3");
             res.body.threads[2].previewText.should.equal("message1");
             res.body.threads[2].lastUpdate.should.equal(startTime - 301);
+            res.body.threads[2].threadId.should.equal('2');
 
             res.body.numberOfUnreadMessages.should.equal(5);
         });
     });
 
-    it('Getting the contacting information for the user and limit and skip correctly - Return 200', function () {
+    it('Getting threads for the user and limit and skip correctly - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages', {
@@ -147,11 +143,13 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].description.should.equal("TestChat");
             res.body.threads[0].previewText.should.equal("message1");
             res.body.threads[0].lastUpdate.should.equal(startTime - 300);
+            res.body.threads[0].threadId.should.equal('3');
 
             res.body.threads[1].hasNotReadMessages.should.be.false;
             res.body.threads[1].description.should.equal("user3 Meier3");
             res.body.threads[1].previewText.should.equal("message1");
             res.body.threads[1].lastUpdate.should.equal(startTime - 301);
+            res.body.threads[1].threadId.should.equal('2');
 
             res.body.numberOfUnreadMessages.should.equal(5);
         });

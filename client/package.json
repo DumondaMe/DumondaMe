@@ -10,7 +10,7 @@
     "phantomjs": "~1.9.13",
     "mocha": "~1.21.4",
     "karma": "~0.12.31",
-    "karma-browserify": "2.0.0",
+    "karma-browserify": "3.0.2",
     "karma-chrome-launcher": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-firefox-launcher": "^0.1.4",
