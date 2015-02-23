@@ -1,15 +1,19 @@
 'use strict';
 
-var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[2];
+var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[3];
 
 describe('Tests of threads controller', function () {
-    var scope, Message;
+    var scope, Message, dateFormatter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             Message = {};
             Message.get = function () {
+            };
+
+            dateFormatter = {};
+            dateFormatter.format = function () {
             };
 
             scope = $rootScope.$new();

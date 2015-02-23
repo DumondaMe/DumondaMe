@@ -11,12 +11,19 @@
       margin: 0 auto;
 
       .thread-preview {
+        cursor: pointer;
         display: inline-block;
         width: 90%;
         height: 50px;
         margin: 0 auto;
         padding: 5px 0;
         border-bottom: 1px solid $divider-light;
+
+        @include noneSelect();
+
+        &:hover {
+          background-color: $primary-color-light;
+        }
         .thread-preview-image {
           float: left;
           margin-left: 10px;
@@ -36,12 +43,21 @@
             font-size: 12px;
             font-style: italic;
           }
+          .thread-preview-previewTextBold {
+            @extend .thread-preview-previewText;
+            font-weight: bold;
+          }
         }
         .thread-preview-date {
           padding-top: 11px;
           margin-right: 20px;
           float: right;
           font-size: 14px;
+        }
+
+        .thread-preview-dateBold {
+          @extend .thread-preview-date;
+          font-weight: bold;
         }
       }
     }

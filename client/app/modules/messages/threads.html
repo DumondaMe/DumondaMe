@@ -9,12 +9,12 @@
                     <div class="thread-preview-description">
                         {{thread.description}}
                     </div>
-                    <div class="thread-preview-previewText">
+                    <div ng-class="{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}">
                         {{thread.previewText}}
                     </div>
                 </div>
-                <div class="thread-preview-date">
-                    {{thread.lastUpdate}}
+                <div ng-class="{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}">
+                    {{getFormattedDate(thread.lastUpdate)}}
                 </div>
             </div>
         </div>
