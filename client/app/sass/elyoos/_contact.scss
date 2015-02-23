@@ -157,7 +157,9 @@
       }
       #contact-counter {
         @include noneSelect();
-        padding: 5px 10px;
+        padding: 0px 10px;
+        margin-bottom: 0;
+        margin-top: 10px;
         .list-group-item {
           .badge {
             cursor: pointer;
@@ -172,6 +174,13 @@
         }
         .list-group-item.group-selected {
           background-color: $primary-color-light;
+        }
+      }
+
+      #privacy-link {
+        padding: 5px 25px;
+        a {
+          color: #000000;
         }
       }
     }

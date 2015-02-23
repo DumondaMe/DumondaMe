@@ -4,3 +4,10 @@ CREATE (thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: 1422258025 - 20
 -[:NEXT_MESSAGE]->(message2:Message {messageAdded: 1422258025 - 600, text: 'Hallo Remo'})
 ,(message)-[:WRITTEN]->(b)
 ,(message2)-[:WRITTEN]->(a);
+
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='4' CREATE (a)-[:ACTIVE {lastTimeVisited: 1422258025 - 500}]->(:Thread {threadId: '2'})<-[:ACTIVE {lastTimeVisited: 1422258025 - 500}]-(b);
+MATCH (thread:Thread), (a:User), (b:User) WHERE thread.threadId ='2' AND a.userId ='0' AND b.userId='4'
+CREATE (thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: 1422258025 - 600, text: 'Ich bin gerade zu Hause angekommen'})
+-[:NEXT_MESSAGE]->(message2:Message {messageAdded: 1422258025 - 600, text: 'Wo bist Du?'})
+,(message)-[:WRITTEN]->(b)
+,(message2)-[:WRITTEN]->(a);
