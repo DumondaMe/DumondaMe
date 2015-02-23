@@ -75,7 +75,7 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
         .then(function (resp) {
             resp[2] = resp[2].slice(skip, skip + itemsPerPage);
             addHasNotReadMessages(resp[2]);
-            userInfo.addImageForContactPreview(resp[2], expires);
+            userInfo.addImageForPreview(resp[2], expires);
             return {
                 threads: resp[2].sort(compare),
                 numberOfUnreadMessages: resp[0][0].unreadMessage + resp[1][0].unreadMessage

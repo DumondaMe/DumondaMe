@@ -5,7 +5,7 @@ var underscore = require('underscore');
 var cdn = require('../util/cdn');
 var moment = require('moment');
 
-var addImageForContactPreview = function (contacts, expires) {
+var addImageForPreview = function (contacts, expires) {
     underscore.each(contacts, function (contact) {
         var expiresWrapper = moment(expires).valueOf();
         if (contact.profileVisible && contact.imageVisible) {
@@ -34,9 +34,9 @@ var addConnectionInfo = function (contacts) {
 };
 
 module.exports = {
-    addImageForContactPreview: addImageForContactPreview,
+    addImageForPreview: addImageForPreview,
     addContactPreviewInfos: function (contacts, expires) {
-        addImageForContactPreview(contacts, expires);
+        addImageForPreview(contacts, expires);
         addConnectionInfo(contacts);
     }
 };

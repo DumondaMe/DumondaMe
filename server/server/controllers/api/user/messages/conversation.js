@@ -1,12 +1,12 @@
 'use strict';
 var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var singleMessageThread = require('./../../../../models/messages/messageSingleThread');
+var conversation = require('./../../../../models/messages/conversation');
 var exceptions = require('./../../../../../common/src/lib/error/exceptions');
 var validation = require('./../../../../../common/src/lib/jsonValidation');
 
 var schemaRequestGetMessages = {
-    name: 'getSingleMessages',
+    name: 'getConversationMessages',
     type: 'object',
     additionalProperties: false,
     required: ['itemsPerPage', 'skip', 'threadId'],
@@ -29,7 +29,7 @@ module.exports = function (router) {
 
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
-                return singleMessageThread.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip);
+                return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, req.session.cookie._expires);
             }).then(function (threads) {
                 res.status(200).json(threads);
             }).catch(exceptions.InvalidJsonRequest, function () {

@@ -1,9 +1,9 @@
 'use strict';
 
-var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[3];
+var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[4];
 
 describe('Tests of threads controller', function () {
-    var scope, Message, dateFormatter;
+    var scope, state, Message, dateFormatter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -14,6 +14,10 @@ describe('Tests of threads controller', function () {
 
             dateFormatter = {};
             dateFormatter.format = function () {
+            };
+
+            state = {};
+            state.go = function () {
             };
 
             scope = $rootScope.$new();
@@ -28,7 +32,7 @@ describe('Tests of threads controller', function () {
 
         stubMessageGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
 
-        threadsCtrl(scope, Message);
+        threadsCtrl(scope, state, Message, dateFormatter);
 
         expect(scope.threads).to.equal('test');
     });

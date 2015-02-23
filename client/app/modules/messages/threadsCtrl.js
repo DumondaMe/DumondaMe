@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', 'Message', 'dateFormatter', function ($scope, Message, dateFormatter) {
+module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($scope, $state, Message, dateFormatter) {
 
     $scope.itemsPerPage = 10;
 
@@ -8,5 +8,9 @@ module.exports = ['$scope', 'Message', 'dateFormatter', function ($scope, Messag
 
     $scope.getFormattedDate = function (dateValue) {
         return dateFormatter.format(dateValue);
+    };
+
+    $scope.openThread = function (threadId) {
+        $state.go('message.threads.detail', {threadId: threadId});
     };
 }];
