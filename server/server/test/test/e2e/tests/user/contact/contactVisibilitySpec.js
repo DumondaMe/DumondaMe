@@ -6,7 +6,7 @@ var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();
 
-describe('Integration Tests for handling the profile visibility when returning the user contacts', function () {
+describe('Integration Tests for handling the profile privacy setting when returning the user contacts', function () {
 
     var requestAgent;
 
@@ -139,7 +139,7 @@ describe('Integration Tests for handling the profile visibility when returning t
         requestHandler.logout(done);
     });
 
-    it('Get all contacts of the user with the correct visibility- Return 200', function () {
+    it('Get all contacts of the user with the correct privacy- Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

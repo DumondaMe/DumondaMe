@@ -40,6 +40,16 @@ describe('Integration Tests for getting all threads of a user', function () {
                     messageAdded2: startTime - 400,
                     messageAdded3: startTime - 600
                 }).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '2'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
+                .end({}).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '2'})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: false, image: false})")
+                .end({}).getCommand());
+            commands.push(db.cypher().match("(u:User), (u2:User)")
+                .where("u.userId = '1' AND u2.userId = '2'")
+                .create("(u2)-[:IS_CONTACT {type: 'Familie'}]->(u)")
+                .end({}).getCommand());
             // User 3
             commands.push(db.cypher().create("(:User {name: 'user3 Meier3', userId: '3'})").end().getCommand());
             //Create Thread with messages between user 1 + 3
@@ -61,6 +71,9 @@ describe('Integration Tests for getting all threads of a user', function () {
                     messageAdded2: startTime - 400,
                     messageAdded3: startTime - 600
                 }).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '3'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
+                .end({}).getCommand());
             // User 4
             commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'}), (u4:User {userId: '4'})")
@@ -74,6 +87,9 @@ describe('Integration Tests for getting all threads of a user', function () {
                     lastTimeVisited3: startTime - 401,
                     lastTimeVisited4: startTime - 402
                 }).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '4'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false})")
+                .end({}).getCommand());
             return db.cypher().match("(thread:GroupThread {threadId: '3'}), (u:User {userId: '1'}), (u3:User {userId: '3'}), (u4:User {userId: '4'})")
                 .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
@@ -110,18 +126,24 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].description.should.equal("user2 Meier2");
             res.body.threads[0].previewText.should.equal("message1");
             res.body.threads[0].lastUpdate.should.equal(startTime - 299);
+            //cms/default/profile/thumbnail.jpg
+            res.body.threads[0].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[0].threadId.should.equal('1');
 
             res.body.threads[1].hasNotReadMessages.should.be.true;
             res.body.threads[1].description.should.equal("TestChat");
             res.body.threads[1].previewText.should.equal("message1");
             res.body.threads[1].lastUpdate.should.equal(startTime - 300);
+            //cms/default/profile/thumbnail.jpg
+            res.body.threads[1].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[1].threadId.should.equal('3');
 
             res.body.threads[2].hasNotReadMessages.should.be.false;
             res.body.threads[2].description.should.equal("user3 Meier3");
             res.body.threads[2].previewText.should.equal("message1");
             res.body.threads[2].lastUpdate.should.equal(startTime - 301);
+            //cms/3/profile/thumbnail.jpg
+            res.body.threads[2].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires");
             res.body.threads[2].threadId.should.equal('2');
 
             res.body.numberOfUnreadMessages.should.equal(5);

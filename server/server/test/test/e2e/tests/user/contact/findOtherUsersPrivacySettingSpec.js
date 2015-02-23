@@ -6,7 +6,7 @@ var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();
 
-describe('Integration Tests for finding other users and applying the correct visibility', function () {
+describe('Integration Tests for finding other users and applying the correct privacySetting', function () {
 
     before(function () {
         var createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
@@ -104,7 +104,7 @@ describe('Integration Tests for finding other users and applying the correct vis
     });
 
 
-    it('Request only with forename - Return correct sorted list with correct visibility (Contacts first)', function () {
+    it('Request only with forename - Return correct sorted list with correct privacy setting (Contacts first)', function () {
 
         var requestAgent;
 

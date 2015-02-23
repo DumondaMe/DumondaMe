@@ -34,6 +34,7 @@ var addConnectionInfo = function (contacts) {
 };
 
 module.exports = {
+    addImageForContactPreview: addImageForContactPreview,
     addContactPreviewInfos: function (contacts, expires) {
         addImageForContactPreview(contacts, expires);
         addConnectionInfo(contacts);
