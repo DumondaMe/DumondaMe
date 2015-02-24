@@ -33,13 +33,13 @@ describe('Integration Tests for getting messages of a conversation for a user', 
                 }).getCommand());
             commands.push(db.cypher().match("(thread:Thread {threadId: '1'}), (u:User {userId: '1'}), (u2:User {userId: '2'})")
                 .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-                    "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-                    "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
-                    "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                    "(message)-[:WRITTEN]->(u)," +
-                    "(message2)-[:WRITTEN]->(u)," +
-                    "(message3)-[:WRITTEN]->(u2)," +
-                    "(message4)-[:WRITTEN]->(u)")
+                "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
+                "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
+                "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
+                "(message)-[:WRITTEN]->(u)," +
+                "(message2)-[:WRITTEN]->(u)," +
+                "(message3)-[:WRITTEN]->(u2)," +
+                "(message4)-[:WRITTEN]->(u)")
                 .end({
                     messageAdded: startTime - 299,
                     messageAdded2: startTime - 400,
@@ -76,7 +76,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             //Create GroupThread with messages between user 1 + 2 + 3
             return db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'})")
-                .create("(thread:GroupThread {threadId: '3'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
+                .create("(thread:GroupThread {threadId: '3', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                 "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
@@ -84,9 +84,9 @@ describe('Integration Tests for getting messages of a conversation for a user', 
                 "(message2)-[:WRITTEN]->(u2)," +
                 "(message3)-[:WRITTEN]->(u3)," +
                 "(message4)-[:WRITTEN]->(u3)," +
-                "(u)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->thread," +
-                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->thread," +
-                "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->thread")
+                "(u)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
+                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
+                "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)")
                 .end({
                     messageAdded: startTime - 300,
                     messageAdded2: startTime - 400,
@@ -132,7 +132,56 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             //cms/0/profile/thumbnail.jpg
             res.body.messages[3].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
 
-            res.body.contactName.should.equal('user2 Meier2');
+            res.body.threadDescription.should.equal('user2 Meier2');
+            res.body.isGroupThread.should.be.false;
+            return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})")
+                .return('active.lastTimeVisited AS lastTimeVisited')
+                .end().send();
+        }).then(function (thread) {
+            thread.length.should.equals(1);
+            thread[0].lastTimeVisited.should.be.at.least(startTime);
+        });
+    });
+
+    it('Getting the messages of a group thread for the user - Return 200', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/messages/conversation', {
+                itemsPerPage: 10,
+                skip: 0,
+                threadId: '3'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.messages.length.should.equal(4);
+            res.body.messages[0].text.should.equal("message1");
+            res.body.messages[0].timestamp.should.equal(startTime - 300);
+            //cms/0/profile/thumbnail.jpg
+            res.body.messages[0].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
+
+            res.body.messages[1].text.should.equal("message2");
+            res.body.messages[1].timestamp.should.equal(startTime - 400);
+            //cms/default/profile/thumbnail.jpg
+            res.body.messages[1].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
+
+            res.body.messages[2].text.should.equal("message3");
+            res.body.messages[2].timestamp.should.equal(startTime - 600);
+            //cms/3/profile/thumbnail.jpg
+            res.body.messages[2].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires=");
+
+            res.body.messages[3].text.should.equal("message4");
+            res.body.messages[3].timestamp.should.equal(startTime - 700);
+            //cms/3/profile/thumbnail.jpg
+            res.body.messages[3].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires=");
+
+            res.body.threadDescription.should.equal('TestChat');
+            res.body.isGroupThread.should.be.true;
+            return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '3'})")
+                .return('active.lastTimeVisited AS lastTimeVisited')
+                .end().send();
+        }).then(function (thread) {
+            thread.length.should.equals(1);
+            thread[0].lastTimeVisited.should.be.at.least(startTime);
         });
     });
 
@@ -158,7 +207,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             //cms/default/profile/thumbnail.jpg
             res.body.messages[1].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
 
-            res.body.contactName.should.equal('user2 Meier2');
+            res.body.threadDescription.should.equal('user2 Meier2');
+            res.body.isGroupThread.should.be.false;
         });
     });
 
