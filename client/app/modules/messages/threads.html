@@ -1,7 +1,7 @@
 <div id="content-threads">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="thread in threads.threads" class="thread-preview" ng-click="openThread(thread.threadId)">
+            <div ng-repeat="thread in threads.threads" class="thread-preview" ng-click="openThread(thread.threadId, thread.isGroupThread)">
                 <div class="thread-preview-image">
                     <img ng-src="{{thread.profileUrl}}" class="img-circle">
                 </div>

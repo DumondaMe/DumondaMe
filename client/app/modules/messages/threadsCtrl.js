@@ -10,7 +10,7 @@ module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($sco
         return dateFormatter.format(dateValue);
     };
 
-    $scope.openThread = function (threadId) {
-        $state.go('message.threads.detail', {threadId: threadId});
+    $scope.openThread = function (threadId, isGroupThread) {
+        $state.go('message.threads.detail', {threadId: threadId, isGroupThread: isGroupThread});
     };
 }];

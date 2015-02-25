@@ -30,7 +30,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         })
         .state('message.threads.detail', {
-            url: '/conversation/{threadId}',
+            url: '/conversation/{isGroupThread}/{threadId}',
             views: {
                 'content@': {
                     templateUrl: 'app/modules/messages/conversation.html',
