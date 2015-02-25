@@ -1,8 +1,8 @@
 <div class="searchBoxForm">
     <div class="input-group">
         <input class="form-control" placeholder="{{description}}" ng-model="query"
-               ng-keypress="sendGetUser($event)"
-               ng-options="user.name as user.name for user in getUserSuggestion($viewValue)"
+               ng-keypress="sendGetQuery($event)"
+               ng-options="querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)"
                data-trigger="focus" bs-typeahead>
         <span class="input-group-btn">
             <button class="btn btn-default" type="button" ng-click="getUser(query)">Suchen</button>

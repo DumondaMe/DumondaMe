@@ -130,6 +130,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[0].threadId.should.equal('1');
             res.body.threads[0].isGroupThread.should.be.false;
+            res.body.threads[0].numberOfUnreadMessages.should.equal(2);
 
             res.body.threads[1].hasNotReadMessages.should.be.true;
             res.body.threads[1].description.should.equal("TestChat");
@@ -139,6 +140,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[1].threadId.should.equal('3');
             res.body.threads[1].isGroupThread.should.be.true;
+            res.body.threads[1].numberOfUnreadMessages.should.equal(3);
 
             res.body.threads[2].hasNotReadMessages.should.be.false;
             res.body.threads[2].description.should.equal("user3 Meier3");
@@ -170,6 +172,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].lastUpdate.should.equal(startTime - 300);
             res.body.threads[0].threadId.should.equal('3');
             res.body.threads[0].isGroupThread.should.be.true;
+            res.body.threads[0].numberOfUnreadMessages.should.equal(3);
 
             res.body.threads[1].hasNotReadMessages.should.be.false;
             res.body.threads[1].description.should.equal("user3 Meier3");

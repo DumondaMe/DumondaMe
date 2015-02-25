@@ -149,7 +149,7 @@
       }
     }
 
-    @include leftFixedColumn(260px, 80px, $background-left-column) {
+    @include leftFixedColumn(260px, 80px, $background-left-column, visible) {
       h5 {
         padding-left: 10px;
         font-weight: bold;
@@ -166,8 +166,10 @@
           }
 
           .contact-description-count {
+            white-space: nowrap;
             width: 155px;
             overflow: hidden;
+            text-overflow: ellipsis;
             cursor: pointer;
           }
         }

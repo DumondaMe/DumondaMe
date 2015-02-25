@@ -1,7 +1,8 @@
 <div id="content-threads">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="thread in threads.threads" class="thread-preview" ng-click="openThread(thread.threadId, thread.isGroupThread)">
+            <div ng-repeat="thread in threads.threads" class="thread-preview"
+                 ng-click="openThread(thread.threadId, thread.isGroupThread)">
                 <div class="thread-preview-image">
                     <img ng-src="{{thread.profileUrl}}" class="img-circle">
                 </div>
@@ -21,7 +22,19 @@
     </div>
     <div id="leftCol">
         <div id="inner-leftCol">
+            <ely-search-box description="Nachricht an..." query="query"
+                            get-query-suggestion="getUserSuggestion"
+                            get-query="getUser"></ely-search-box>
+            <ul id="message-index" class="list-group">
+                <div ng-repeat="thread in threads.threads">
+                    <li class="list-group-item">
+                        <span class="badge" ng-if="thread.hasNotReadMessages">{{thread.numberOfUnreadMessages}}</span>
 
+                        <div class="message-unread-count" data-trigger="hover" data-delay="1000" data-title="{{thread.description}}"
+                             bs-tooltip>{{thread.description}}</div>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/messages/leftNavCol.html'"></div>

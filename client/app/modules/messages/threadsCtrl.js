@@ -4,7 +4,9 @@ module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($sco
 
     $scope.itemsPerPage = 10;
 
-    $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: 0});
+    $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: 0}, function () {
+        angular.forEach()
+    });
 
     $scope.getFormattedDate = function (dateValue) {
         return dateFormatter.format(dateValue);

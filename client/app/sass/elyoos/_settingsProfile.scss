@@ -27,7 +27,7 @@
     }
   }
 
-  @include leftFixedColumn(260px, 80px, $background-left-column) {
+  @include leftFixedColumn(260px, 80px, $background-left-column, visible) {
 
     ul {
       width: 100%;

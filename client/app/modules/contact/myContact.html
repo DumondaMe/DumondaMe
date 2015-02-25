@@ -2,7 +2,8 @@
     <div id="centerCol">
         <div id="inner-centerCol">
             <div ng-repeat="contact in users.contacts">
-                <ely-contact-preview contact="contact" statistic="users.statistic" privacy-settings="users.privacySettings"
+                <ely-contact-preview contact="contact" statistic="users.statistic"
+                                     privacy-settings="users.privacySettings"
                                      number-of-contacts="users.numberOfContacts"></ely-contact-preview>
             </div>
             <div ng-show="!isUserSearch && users.contactsForPagination > itemsPerPage"
@@ -22,21 +23,24 @@
     <div id="leftCol">
         <div id="inner-leftCol">
             <ely-search-box description="Suche nach Personen..." query="query"
-                            get-user-suggestion="getUserSuggestion"
-                            get-user="getUser"></ely-search-box>
+                            get-query-suggestion="getUserSuggestion"
+                            get-query="getUser"></ely-search-box>
             <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
                 <div>
-                    <li class="list-group-item" ng-class="{'group-selected': allContactsSelected}">
+                    <li class="list-group-item"
+                        ng-class="{'group-selected': allContactsSelected}">
                     <span class="badge" bs-dropdown="dropdownGroupSettings"
                           data-placement="bottom">{{users.numberOfContacts}}</span>
 
-                        <div class="contact-description-count" ng-click="selectedAllContacts()">Alle
+                        <div class="contact-description-count" ng-click="selectedAllContacts()">
+                            Alle
                             Kontakte
                         </div>
                     </li>
                 </div>
                 <div ng-repeat="statistic in users.statistic">
-                    <li class="list-group-item" ng-class="{'group-selected': statistic.selected}">
+                    <li class="list-group-item"
+                        ng-class="{'group-selected': statistic.selected}">
                     <span class="badge" bs-dropdown="dropdownGroupSettings"
                           data-placement="bottom">{{statistic.count}}</span>
 

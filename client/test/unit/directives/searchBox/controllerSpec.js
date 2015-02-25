@@ -9,43 +9,43 @@ describe('Tests of controller of the search-box directive', function () {
         inject(function ($rootScope) {
 
             scope = $rootScope.$new();
-            scope.getUser = function () {
+            scope.getQuery = function () {
             };
             done();
         });
     });
 
-    it('Get the user when enter was pressed', function () {
+    it('Send the query request when enter was pressed', function () {
 
-        var stubGetUser = sinon.stub(scope, 'getUser');
+        var stubGetQuery = sinon.stub(scope, 'getQuery');
         scope.query = 'Hans Muster';
 
         controller(scope);
-        scope.sendGetUser({keyCode: 13});
+        scope.sendGetQuery({keyCode: 13});
 
-        expect(stubGetUser.getCall(0).args[0]).to.equal(scope.query);
+        expect(stubGetQuery.getCall(0).args[0]).to.equal(scope.query);
     });
 
-    it('Get not the user when other key than enter was pressed', function () {
+    it('Send not the query request when other key than enter was pressed', function () {
 
-        var mockGetUser = sinon.mock(scope).expects('getUser');
+        var mockGetQuery = sinon.mock(scope).expects('getQuery');
         scope.query = 'Hans Muster';
-        mockGetUser.never();
+        mockGetQuery.never();
 
         controller(scope);
-        scope.sendGetUser({keyCode: 14});
+        scope.sendGetQuery({keyCode: 14});
 
-        mockGetUser.verify();
+        mockGetQuery.verify();
     });
 
-    it('Get the user when typeahead selected a user', function () {
+    it('Send the query request when typeahead selected a element', function () {
 
-        var stubGetUser = sinon.stub(scope, 'getUser');
+        var stubGetQuery = sinon.stub(scope, 'getQuery');
 
         controller(scope);
         scope.$broadcast('$typeahead.select', 'Hans');
 
-        expect(stubGetUser.getCall(0).args[0]).to.equal('Hans');
+        expect(stubGetQuery.getCall(0).args[0]).to.equal('Hans');
     });
 
 });

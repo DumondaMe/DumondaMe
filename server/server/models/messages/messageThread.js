@@ -10,11 +10,31 @@ function compare(a, b) {
     return b.lastUpdate - a.lastUpdate;
 }
 
-var addHasNotReadMessages = function (threads) {
+var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
+
+    function addNumberOfUnreadMessages(thread) {
+        var unreadMessages = underscore.findWhere(unreadMessagesPerType, {
+            threadId: thread.threadId,
+            isGroupThread: thread.isGroupThread
+        });
+        if (unreadMessages) {
+            thread.numberOfUnreadMessages = unreadMessages.unreadMessage;
+        }
+    }
+
     underscore.forEach(threads, function (thread) {
         thread.hasNotReadMessages = thread.lastTimeVisited < thread.lastUpdate;
         delete thread.lastTimeVisited;
+        addNumberOfUnreadMessages(thread);
     });
+};
+
+var totalUnreadMessages = function (messageInfos) {
+    var total = 0;
+    underscore.forEach(messageInfos, function (messageInfo) {
+        total += messageInfo.unreadMessage;
+    });
+    return total;
 };
 
 var getThreads = function (cypher) {
@@ -38,19 +58,11 @@ var getGroupThreads = function (cypher) {
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, null AS imageVisible, null AS id, true AS isGroupThread");
 };
 
-var getNumberOfUnreadGroupMessages = function (userId) {
-    return db.cypher()
-        .match("p=(user:User {userId: {userId}})-[active:ACTIVE]->(thread:GroupThread)-[:NEXT_MESSAGE*0..100]->(message:Message)")
-        .where("active.lastTimeVisited < message.messageAdded")
-        .return("COUNT(p) AS unreadMessage")
-        .end({userId: userId});
-};
-
 var getNumberOfUnreadMessages = function (userId) {
     return db.cypher()
-        .match("p=(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)-[:NEXT_MESSAGE*0..100]->(message:Message)")
-        .where("active.lastTimeVisited < message.messageAdded")
-        .return("COUNT(p) AS unreadMessage")
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)-[:NEXT_MESSAGE*0..100]->(message:Message)")
+        .where("active.lastTimeVisited < message.messageAdded AND (thread:Thread OR thread:GroupThread)")
+        .return("COUNT(thread.threadId) AS unreadMessage, thread.threadId AS threadId, EXISTS((user)-[active]->(thread:GroupThread)) AS isGroupThread")
         .end({userId: userId});
 };
 
@@ -66,19 +78,18 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
     var commands = [];
 
     commands.push(getNumberOfUnreadMessages(userId).getCommand());
-    commands.push(getNumberOfUnreadGroupMessages(userId).getCommand());
 
     return getAllThreads({
         userId: userId
     })
         .send(commands)
         .then(function (resp) {
-            resp[2] = resp[2].slice(skip, skip + itemsPerPage);
-            addHasNotReadMessages(resp[2]);
-            userInfo.addImageForPreview(resp[2], expires);
+            resp[1] = resp[1].slice(skip, skip + itemsPerPage);
+            addHasNotReadMessages(resp[1], resp[0]);
+            userInfo.addImageForPreview(resp[1], expires);
             return {
-                threads: resp[2].sort(compare),
-                numberOfUnreadMessages: resp[0][0].unreadMessage + resp[1][0].unreadMessage
+                threads: resp[1].sort(compare),
+                numberOfUnreadMessages: totalUnreadMessages(resp[0])
             };
         });
 };

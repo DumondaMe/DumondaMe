@@ -10,8 +10,8 @@ module.exports = {
             scope: {
                 description: '@',
                 query: '=',
-                getUserSuggestion: '=',
-                getUser: '='
+                getQuerySuggestion: '=',
+                getQuery: '='
             },
             templateUrl: 'app/modules/directives/searchBox/template.html',
             controller: controller.directiveCtrl()

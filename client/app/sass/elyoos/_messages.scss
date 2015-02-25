@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
 
-  @include centerColumn(80px) {
+  @include centerColumn(340px) {
 
     #inner-centerCol {
       position: relative;
@@ -61,6 +61,25 @@
         .thread-preview-dateBold {
           @extend .thread-preview-date;
           font-weight: bold;
+        }
+      }
+    }
+  }
+  @include leftFixedColumn(260px, 80px, $background-left-column, auto) {
+    #message-index {
+      margin: 5px 10px;
+
+      .list-group-item {
+        padding: 5px 15px;
+        .badge {
+          background-color: $primary-color;
+        }
+        .message-unread-count {
+          white-space: nowrap;
+          width: 155px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
         }
       }
     }

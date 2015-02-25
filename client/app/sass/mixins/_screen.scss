@@ -18,7 +18,7 @@
   }
 }
 
-@mixin leftFixedColumn($width, $left, $background) {
+@mixin leftFixedColumn($width, $left, $background, $overflow) {
   #leftCol {
     position: fixed;
     display: inline-block;
@@ -29,11 +29,9 @@
     padding-top: 35px;
     z-index: 98;
     background-color: $background;
-    overflow-y: auto;
+    overflow: $overflow;
 
     #inner-leftCol {
-
-      position: relative;
       padding-top: 24px;
       margin-bottom: 20px;
 
