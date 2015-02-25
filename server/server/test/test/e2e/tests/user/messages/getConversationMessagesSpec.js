@@ -112,21 +112,25 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equal(4);
+            res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message1");
             res.body.messages[0].timestamp.should.equal(startTime - 299);
             //cms/0/profile/thumbnail.jpg
             res.body.messages[0].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
 
+            res.body.messages[1].name.should.equal("user Meier");
             res.body.messages[1].text.should.equal("message2");
             res.body.messages[1].timestamp.should.equal(startTime - 400);
             //cms/0/profile/thumbnail.jpg
             res.body.messages[1].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
 
+            res.body.messages[2].name.should.equal("user2 Meier2");
             res.body.messages[2].text.should.equal("message3");
             res.body.messages[2].timestamp.should.equal(startTime - 600);
             //cms/default/profile/thumbnail.jpg
             res.body.messages[2].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
 
+            res.body.messages[3].name.should.equal("user Meier");
             res.body.messages[3].text.should.equal("message4");
             res.body.messages[3].timestamp.should.equal(startTime - 700);
             //cms/0/profile/thumbnail.jpg
@@ -154,21 +158,25 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.messages.length.should.equal(4);
+            res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message1");
             res.body.messages[0].timestamp.should.equal(startTime - 300);
             //cms/0/profile/thumbnail.jpg
             res.body.messages[0].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
 
+            res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message2");
             res.body.messages[1].timestamp.should.equal(startTime - 400);
             //cms/default/profile/thumbnail.jpg
             res.body.messages[1].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
 
+            res.body.messages[2].name.should.equal("user3 Meier3");
             res.body.messages[2].text.should.equal("message3");
             res.body.messages[2].timestamp.should.equal(startTime - 600);
             //cms/3/profile/thumbnail.jpg
             res.body.messages[2].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires=");
 
+            res.body.messages[3].name.should.equal("user3 Meier3");
             res.body.messages[3].text.should.equal("message4");
             res.body.messages[3].timestamp.should.equal(startTime - 700);
             //cms/3/profile/thumbnail.jpg
@@ -197,11 +205,13 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.status.should.equal(200);
             res.body.messages.length.should.equal(2);
 
+            res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message2");
             res.body.messages[0].timestamp.should.equal(startTime - 400);
             //cms/0/profile/thumbnail.jpg
             res.body.messages[0].profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
 
+            res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message3");
             res.body.messages[1].timestamp.should.equal(startTime - 600);
             //cms/default/profile/thumbnail.jpg

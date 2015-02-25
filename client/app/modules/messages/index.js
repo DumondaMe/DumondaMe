@@ -3,10 +3,10 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('ThreadsCtrl', require('./threadsCtrl'));
-app.controller('DetailThreadsCtrl', require('./detailThreadsCtrl'));
+app.controller('ConversationCtrl', require('./conversationCtrl'));
 
 app.factory('Message', require('./services/message'));
-app.factory('SingleThread', require('./services/singleThread'));
+app.factory('Conversation', require('./services/conversation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -33,8 +33,8 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/conversation/{threadId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/messages/detailThreads.html',
-                    controller: 'DetailThreadsCtrl'
+                    templateUrl: 'app/modules/messages/conversation.html',
+                    controller: 'ConversationCtrl'
                 }
             }
         });

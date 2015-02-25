@@ -11,3 +11,31 @@ CREATE (thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: 1424692757 - 86
 -[:NEXT_MESSAGE]->(message2:Message {messageAdded: 1424692757 - 86500, text: 'Wo bist Du?'})
 ,(message)-[:WRITTEN]->(b)
 ,(message2)-[:WRITTEN]->(a);
+
+MATCH (a:User), (b:User) WHERE a.userId ='0' AND b.userId='5' CREATE (a)-[:ACTIVE {lastTimeVisited: 1424692757 - 20000}]->(:Thread {threadId: '3'})<-[:ACTIVE {lastTimeVisited: 1424692757 - 500}]-(b);
+MATCH (thread:Thread), (a:User), (b:User) WHERE thread.threadId ='3' AND a.userId ='0' AND b.userId='5'
+CREATE (thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: 1424692757 - 10000, text: 'Im Winter schicken wir unsere Gedanken auf die Reise,
+                                                                                            träumen von der weiten Welt,
+                                                                                            von Wärme und Geborgenheit.
+
+                                                                                            Sich in Geduld üben, kleine Augenblicke teilen,
+                                                                                            innehalten, jedes auf seine Weise
+                                                                                            nicht immer müssen, öfter weilen
+                                                                                            darin liegt die Poesie der Winterreise.'})
+-[:NEXT_MESSAGE]->(message2:Message {messageAdded: 1424692757 - 20000, text: 'Schreib mir ein Gedicht'})
+,(message)-[:WRITTEN]->(b)
+,(message2)-[:WRITTEN]->(a);
+
+
+CREATE (:GroupThread {threadId: '4', description:'Das ist ein Gruppen Chat'});
+MATCH (a:User), (b:User), (c:User), (thread:GroupThread) WHERE a.userId ='0' AND b.userId='1' AND c.userId='3' AND thread.threadId='4'
+CREATE (a)-[:ACTIVE {lastTimeVisited: 1424692757 - 20000}]->(thread),
+(b)-[:ACTIVE {lastTimeVisited: 1424692757 - 20000}]->(thread),
+(c)-[:ACTIVE {lastTimeVisited: 1424692757 - 20000}]->(thread);
+MATCH (thread:GroupThread), (a:User), (b:User), (c:User) WHERE thread.threadId ='4' AND a.userId ='0' AND b.userId='1' AND c.userId='3'
+CREATE (thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: 1424692757 - 10000, text: 'Auch dir einen guten Morgen!!'})
+-[:NEXT_MESSAGE]->(message2:Message {messageAdded: 1424692757 - 20000, text: 'Morgen'})
+-[:NEXT_MESSAGE]->(message3:Message {messageAdded: 1424692757 - 30000, text: 'Hallo wie gehts'})
+,(message)-[:WRITTEN]->(b)
+,(message2)-[:WRITTEN]->(a)
+,(message3)-[:WRITTEN]->(c);

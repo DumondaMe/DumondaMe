@@ -1,0 +1,30 @@
+<div id="content-messages">
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div ng-repeat="message in thread.messages" class="message-view">
+                <div class="message-inner-view">
+                    <div class="message-view-image">
+                        <img ng-src="{{message.profileUrl}}" class="img-rounded">
+                    </div>
+                    <div class="message-view-content">
+                        <div class="message-view-title">
+                            <div class="message-view-name">
+                                {{message.name}}
+                            </div>
+                            <div class="message-view-timestamp">
+                                {{getFormattedDate(message.timestamp)}}
+                            </div>
+                        </div>
+                        <div class="message-view-text">{{message.text}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="leftCol">
+        <div id="inner-leftCol">
+
+        </div>
+    </div>
+    <div id="leftColNav" ng-include="'app/modules/messages/leftNavCol.html'"></div>
+</div>

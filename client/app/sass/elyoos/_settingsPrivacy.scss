@@ -44,8 +44,7 @@
     }
   }
 
-  @include leftFixedColumn(260px, 80px) {
-    background-color: $background-left-column;
+  @include leftFixedColumn(260px, 80px, $background-left-column) {
 
     ul {
       width: 100%;

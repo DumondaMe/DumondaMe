@@ -149,8 +149,7 @@
       }
     }
 
-    @include leftFixedColumn(260px, 80px) {
-      background-color: $background-left-column;
+    @include leftFixedColumn(260px, 80px, $background-left-column) {
       h5 {
         padding-left: 10px;
         font-weight: bold;

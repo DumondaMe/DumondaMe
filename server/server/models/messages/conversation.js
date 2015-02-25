@@ -42,7 +42,7 @@ var getMessagesOfThreads = function (params, setTime) {
         .with("user, message, writer, vr, v, rContact")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY') OR " +
         "writer.userId = user.userId")
-        .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS id, " +
+        .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS id, writer.name AS name," +
         "v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("message.messageAdded DESC")
         .skip("{skip}")
