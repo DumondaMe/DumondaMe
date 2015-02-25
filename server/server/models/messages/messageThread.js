@@ -28,14 +28,14 @@ var getThreads = function (cypher) {
         .where("(rContact IS NULL AND type(privacyR) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
         .return("message.text AS previewText, contact.name AS description, message.messageAdded AS lastUpdate, " +
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, privacy.profile AS profileVisible, " +
-        "privacy.image AS imageVisible, contact.userId AS id");
+        "privacy.image AS imageVisible, contact.userId AS id, false AS isGroupThread");
 };
 
 var getGroupThreads = function (cypher) {
     return cypher.match("(:User {userId: {userId}})-[active:ACTIVE]->(thread:GroupThread)")
         .optionalMatch("(thread)-[:NEXT_MESSAGE]->(message:Message)")
         .return("message.text AS previewText, thread.description AS description, message.messageAdded AS lastUpdate, " +
-        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, null AS imageVisible, null AS id");
+        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, null AS imageVisible, null AS id, true AS isGroupThread");
 };
 
 var getNumberOfUnreadGroupMessages = function (userId) {

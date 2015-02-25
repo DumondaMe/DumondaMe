@@ -76,7 +76,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             //Create GroupThread with messages between user 1 + 2 + 3
             return db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'})")
-                .create("(thread:GroupThread {threadId: '3', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
+                .create("(thread:GroupThread {threadId: '1', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                 "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
@@ -107,7 +107,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             return requestHandler.getWithData('/api/user/messages/conversation', {
                 itemsPerPage: 10,
                 skip: 0,
-                threadId: '1'
+                threadId: '1',
+                isGroupThread: false
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -153,7 +154,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             return requestHandler.getWithData('/api/user/messages/conversation', {
                 itemsPerPage: 10,
                 skip: 0,
-                threadId: '3'
+                threadId: '1',
+                isGroupThread: true
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -184,7 +186,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('TestChat');
             res.body.isGroupThread.should.be.true;
-            return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '3'})")
+            return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '1'})")
                 .return('active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
         }).then(function (thread) {
@@ -199,7 +201,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             return requestHandler.getWithData('/api/user/messages/conversation', {
                 itemsPerPage: 2,
                 skip: 1,
-                threadId: '1'
+                threadId: '1',
+                isGroupThread: false
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -228,7 +231,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             return requestHandler.getWithData('/api/user/messages/conversation', {
                 itemsPerPage: 10,
                 skip: 0,
-                threadId: '2'
+                threadId: '2',
+                isGroupThread: false
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);

@@ -17,21 +17,30 @@ var addWriterInfo = function (userId, messages) {
     });
 };
 
-var getThreadInfos = function (params) {
-    return db.cypher()
-        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
-        .return("contact.name AS description, HEAD(LABELS(thread)) AS threadType")
-        .union()
-        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread {threadId: {threadId}})")
-        .return("thread.description AS description, HEAD(LABELS(thread)) AS threadType")
-        .end(params);
+var getThreadInfos = function (params, isGroupThread) {
+    var threadInfo;
+    if (isGroupThread) {
+        threadInfo = db.cypher()
+            .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread {threadId: {threadId}})")
+            .return("thread.description AS description, HEAD(LABELS(thread)) AS threadType");
+    } else {
+        threadInfo = db.cypher()
+            .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
+            .return("contact.name AS description, HEAD(LABELS(thread)) AS threadType");
+    }
+    return threadInfo.end(params);
 };
 
-var getMessagesOfThreads = function (params, setTime) {
+var getMessagesOfThreads = function (params, setTime, isGroupThread) {
+    var threadTyp;
+    if (isGroupThread) {
+        threadTyp = 'thread:GroupThread';
+    } else {
+        threadTyp = 'thread:Thread';
+    }
     return db.cypher()
-        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread {threadId: {threadId}})" +
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadTyp + " {threadId: {threadId}})" +
         "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
-        .where("thread:Thread OR thread:GroupThread")
         .set('active', setTime)
         .with("user, message, writer")
         .optionalMatch("(writer)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
@@ -50,14 +59,14 @@ var getMessagesOfThreads = function (params, setTime) {
         .end(params);
 };
 
-var getMessages = function (userId, threadId, itemsPerPage, skip, expires) {
+var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, expires) {
 
     var commands = [], now = Math.floor(moment.utc().valueOf() / 1000);
 
     commands.push(getThreadInfos({
         userId: userId,
         threadId: threadId
-    }).getCommand());
+    }, isGroupThread).getCommand());
 
     return getMessagesOfThreads({
         userId: userId,
@@ -65,7 +74,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, expires) {
         skip: skip,
         limit: itemsPerPage,
         lastTimeVisited: now
-    }, {lastTimeVisited: now})
+    }, {lastTimeVisited: now}, isGroupThread)
         .send(commands)
         .then(function (resp) {
             if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
