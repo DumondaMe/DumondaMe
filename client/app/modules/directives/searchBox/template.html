@@ -5,7 +5,8 @@
                ng-options="querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)"
                data-trigger="focus" bs-typeahead>
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="getUser(query)">Suchen</button>
+            <button class="btn btn-default" type="button" ng-click="getQuery(query)"><span
+                    class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
         </span>
     </div>
 </div>

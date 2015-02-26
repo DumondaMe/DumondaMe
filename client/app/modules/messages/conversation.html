@@ -1,6 +1,15 @@
 <div id="content-messages">
     <div id="centerCol">
         <div id="inner-centerCol">
+            <div class="add-message">
+                <div class="input-group">
+                    <textarea class="form-control" placeholder="Nachricht"
+                              ng-model="newMessage"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="sendMessage()">Senden</button>
+                    </span>
+                </div>
+            </div>
             <div ng-repeat="message in thread.messages" class="message-view">
                 <div class="message-inner-view">
                     <div class="message-view-image">
@@ -23,7 +32,20 @@
     </div>
     <div id="leftCol">
         <div id="inner-leftCol">
+            <ul id="message-index" class="list-group">
+                <div ng-repeat="thread in threads.threads">
+                    <li class="list-group-item"
+                        ng-click="openThread(thread.threadId, thread.isGroupThread)"
+                        ng-class="{'selected-thread': thread.threadId === selectedThreadId}">
+                        <span class="badge" ng-if="thread.hasNotReadMessages">{{thread.numberOfUnreadMessages}}</span>
 
+                        <div class="message-unread-count" data-trigger="hover" data-delay="1000"
+                             data-title="{{thread.description}}"
+                             bs-tooltip>{{thread.description}}
+                        </div>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/messages/leftNavCol.html'"></div>
