@@ -36,4 +36,19 @@ describe('Tests of threads controller', function () {
 
         expect(scope.threads).to.equal('test');
     });
+
+    it('Open a thread', function () {
+
+        var mockStateGo = sinon.mock(state);
+
+        threadsCtrl(scope, state, Message, dateFormatter);
+
+        mockStateGo.expects('go').withArgs('message.threads.detail', {
+            threadId: '1',
+            isGroupThread: true
+        });
+        scope.openThread('1', true);
+
+        mockStateGo.verify();
+    });
 });

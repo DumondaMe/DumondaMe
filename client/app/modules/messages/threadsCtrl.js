@@ -6,9 +6,7 @@ module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($sco
 
     $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: 0});
 
-    $scope.getFormattedDate = function (dateValue) {
-        return dateFormatter.format(dateValue);
-    };
+    $scope.getFormattedDate = dateFormatter.format;
 
     $scope.openThread = function (threadId, isGroupThread) {
         $state.go('message.threads.detail', {threadId: threadId, isGroupThread: isGroupThread});
