@@ -6,7 +6,7 @@
                     <textarea class="form-control" placeholder="Nachricht"
                               ng-model="newMessage"></textarea>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-click="sendMessage()">Senden</button>
+                        <button class="btn btn-default" type="button" ng-click="sendMessage()" ng-class="{'disabled': newMessage.trim() === ''}">Senden</button>
                     </span>
                 </div>
             </div>

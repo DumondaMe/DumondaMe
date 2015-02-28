@@ -139,6 +139,10 @@ describe('Integration Tests for sending messages to a conversation and adding th
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.message.name.should.equal("user Meier");
+            res.body.message.text.should.equal("messageAdded");
+            res.body.message.timestamp.should.be.at.least(startTime);
+            res.body.message.profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
             return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
                 .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId')
                 .end().send();

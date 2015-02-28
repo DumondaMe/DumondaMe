@@ -105,14 +105,14 @@ module.exports = function (router) {
         return validation.validateRequest(req, schemaRequestAddMessages, logger).then(function (request) {
             if (request.addMessage) {
                 return conversation.addMessage(req.user.id, request.addMessage.threadId,
-                    request.addMessage.text, false);
+                    request.addMessage.text, false, req.session.cookie._expires);
             }
             if (request.addGroupMessage) {
                 return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
-                    request.addGroupMessage.text, true);
+                    request.addGroupMessage.text, true, req.session.cookie._expires);
             }
-        }).then(function () {
-            res.status(200).end();
+        }).then(function (resp) {
+            res.status(200).json(resp);
         }).catch(exceptions.InvalidJsonRequest, function () {
             res.status(400).end();
         }).catch(exceptions.invalidOperation, function () {

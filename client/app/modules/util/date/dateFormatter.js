@@ -17,5 +17,15 @@ module.exports = ['moment', function (moment) {
         return dateValue.format('l');
     };
 
+    this.formatExact = function (dateValue) {
+        var endYesterday = moment().subtract(1, 'days').endOf('day');
+        dateValue = moment.unix(dateValue);
+
+        if (dateValue.isAfter(endYesterday)) {
+            return dateValue.format('H:mm');
+        }
+        return dateValue.format('H:mm l');
+    };
+
     return this;
 }];
