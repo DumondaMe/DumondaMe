@@ -158,14 +158,17 @@ var addMessage = function (userId, threadId, text, isGroupThread, expires) {
 
     return checkAllowedToAddMessage(userId, threadId, isGroupThread)
         .then(function () {
+            var now = time.getNowUtcTimestamp();
             return db.cypher()
                 .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + getThreadCondition(isGroupThread) + "{threadId: {threadId}})" +
                 "-[:NEXT_MESSAGE]->(messagePrevious:Message)")
                 .create("(thread)-[:NEXT_MESSAGE]->(newMessage:Message {messageAdded: {now}, text: {text}})-[:NEXT_MESSAGE]->(messagePrevious)," +
                 "(newMessage)-[:WRITTEN]->(user)")
-                .with("thread, messagePrevious, user, newMessage")
+                .with("thread, messagePrevious, user, newMessage, active")
                 .match('(thread)-[r:NEXT_MESSAGE]->(messagePrevious)')
                 .delete('r')
+                .with("thread, messagePrevious, user, newMessage, active")
+                .set('active', {lastTimeVisited: now})
                 .with("thread, messagePrevious, user, newMessage")
                 .return("user.userId AS id, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp, " +
                 "true AS profileVisible, true AS imageVisible")
@@ -173,7 +176,8 @@ var addMessage = function (userId, threadId, text, isGroupThread, expires) {
                     userId: userId,
                     threadId: threadId,
                     text: text,
-                    now: time.getNowUtcTimestamp()
+                    now: now,
+                    lastTimeVisited: now
                 }).send()
                 .then(function (resp) {
                     userInfo.addImageForPreview(resp, expires);

@@ -144,11 +144,12 @@ describe('Integration Tests for sending messages to a conversation and adding th
             res.body.message.timestamp.should.be.at.least(startTime);
             res.body.message.profileUrl.should.contain("?path=55c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expire");
             return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
-                .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId')
+                .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
         }).then(function (thread) {
             thread.length.should.equals(1);
             thread[0].messageAdded.should.be.at.least(startTime);
+            thread[0].lastTimeVisited.should.be.at.least(startTime);
             thread[0].text.should.be.equals("messageAdded");
             thread[0].userId.should.be.equals("1");
         });
@@ -194,11 +195,12 @@ describe('Integration Tests for sending messages to a conversation and adding th
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
-                .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId')
+                .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
         }).then(function (thread) {
             thread.length.should.equals(1);
             thread[0].messageAdded.should.be.at.least(startTime);
+            thread[0].lastTimeVisited.should.be.at.least(startTime);
             thread[0].text.should.be.equals("messageAdded");
             thread[0].userId.should.be.equals("1");
         });

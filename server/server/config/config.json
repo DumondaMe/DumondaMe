@@ -8,7 +8,7 @@
   },
   "cdnStore": {
     "path": "C:/Programmieren/Elyoos/server/cdn/data",
-    "host": "http://192.168.1.100:8082"
+    "host": "http://192.168.1.101:8082"
   },
   "bcrypt": {
     "difficulty": 8
@@ -53,27 +53,16 @@
         "name": "formidable"
       }
     },
-    "session": {
-      "priority": 60,
-      "module": {
-        "name": "express-session"
-      }
-    },
     "cookieParser": {
-      "priority": 70,
+      "priority": 60,
       "module": {
         "name": "cookie-parser"
       }
     },
-    "cookieSession": {
-      "priority": 80,
+    "session": {
+      "priority": 70,
       "module": {
-        "name": "cookie-session",
-        "arguments": [
-          {
-            "keys": ["Elyooscookie"]
-          }
-        ]
+        "name": "express-session"
       }
     },
     "appsec": {
