@@ -1,8 +1,11 @@
 'use strict';
 
+var bluebird = require('bluebird');
+var Promise = bluebird.Promise;
 var testee = require('../../../../../../../controllers/api/login/index');
 var request = require('../../../../../../../../common/test/unit/request');
 var passport = require('passport');
+var modification = require('../../../../../../../models/modification/modification')
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
@@ -23,7 +26,8 @@ describe('Unit Test controllers/api/login/index', function () {
         testee(request.requestMock);
         var stubResponse = sandbox.stub(request.res, 'status'),
             stubPassport = sandbox.stub(passport, 'authenticate'),
-            stubLogin = sandbox.stub(request.req, 'logIn');
+            stubLogin = sandbox.stub(request.req, 'logIn'),
+            stubModification = sandbox.stub(modification, 'initModificationOnSession');
 
         stubPassport.returns(function () {
         });
@@ -35,6 +39,7 @@ describe('Unit Test controllers/api/login/index', function () {
         request.executePostRequest(request.req, request.res);
         stubPassport.callArgWith(1, undefined, {});
         stubLogin.callArgWith(1, undefined);
+        stubModification.callArgWith(2, undefined);
         expect(stubResponse.withArgs(200).calledOnce).to.be.true;
     });
 

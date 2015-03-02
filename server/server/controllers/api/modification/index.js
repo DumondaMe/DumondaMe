@@ -17,7 +17,7 @@ module.exports = function (router) {
                 res.status(200).end();
             }
         }).catch(function (err) {
-            logger.error('Getting profile data failed', {error: err.errors}, req);
+            logger.error('Getting modification failed', {error: err.errors}, req);
             res.status(500).end();
         });
     });

@@ -87,7 +87,7 @@ module.exports = function (router) {
 
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
-                return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session.cookie._expires);
+                return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session);
             }).then(function (threads) {
                 res.status(200).json(threads);
             }).catch(exceptions.InvalidJsonRequest, function () {
@@ -105,11 +105,11 @@ module.exports = function (router) {
         return validation.validateRequest(req, schemaRequestAddMessages, logger).then(function (request) {
             if (request.addMessage) {
                 return conversation.addMessage(req.user.id, request.addMessage.threadId,
-                    request.addMessage.text, false, req.session.cookie._expires);
+                    request.addMessage.text, false, req.session);
             }
             if (request.addGroupMessage) {
                 return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
-                    request.addGroupMessage.text, true, req.session.cookie._expires);
+                    request.addGroupMessage.text, true, req.session);
             }
         }).then(function (resp) {
             res.status(200).json(resp);

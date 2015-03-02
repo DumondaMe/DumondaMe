@@ -106,4 +106,46 @@ describe('Integration Tests for getting modification info', function () {
             should.not.exist(res.body.hasChanged);
         });
     });
+
+    it('If the user sends a message then modification returns false - Return 200', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.get('/api/modification', requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            should.not.exist(res.body.hasChanged);
+            return requestHandler.post('/api/user/messages/conversation', {
+                addMessage: {
+                    threadId: '1',
+                    text: 'messageAdded'
+                }
+            }, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/modification', requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            should.not.exist(res.body.hasChanged);
+        });
+    });
+
+    it('If the user opens a thread then modification returns false - Return 200', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.get('/api/modification', requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            should.not.exist(res.body.hasChanged);
+            return requestHandler.getWithData('/api/user/messages/conversation', {
+                itemsPerPage: 10,
+                skip: 0,
+                threadId: '1',
+                isGroupThread: 'true'
+            }, requestAgent);
+        }).then(function () {
+            return requestHandler.get('/api/modification', requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            should.not.exist(res.body.hasChanged);
+        });
+    });
 });

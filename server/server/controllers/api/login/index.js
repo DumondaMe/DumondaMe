@@ -28,7 +28,7 @@ module.exports = function (router) {
                     return res.status(500).end();
                 }
 
-                modification.initModificationOnSession(req.user.id, req.session).then(function () {
+                modification.initModificationOnSession(req.user.id, req.session, function () {
                     req.session.cookie.maxAge = 1000 * 60 * 60 * 24;
                     res.status(200).json({"username": user.email});
                     logger.info('Successful login of User ', {}, req);

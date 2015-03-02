@@ -5,6 +5,7 @@ var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
 var userInfo = require('./../user/userInfo');
+var modification = require('./../modification/modification');
 var time = require('./../../../common/src/lib/time');
 var logger = requireLogger.getLogger(__filename);
 
@@ -63,7 +64,7 @@ var getMessagesOfThreads = function (params, setTime, isGroupThread) {
         .end(params);
 };
 
-var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, expires) {
+var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, session) {
 
     var commands = [], now = time.getNowUtcTimestamp();
 
@@ -83,7 +84,8 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         .then(function (resp) {
             if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
                 addWriterInfo(userId, resp[1]);
-                userInfo.addImageForPreview(resp[1], expires);
+                userInfo.addImageForPreview(resp[1], session.cookie._expires);
+                modification.resetModificationForThread(resp[0].threadId, isGroupThread, session);
                 return {
                     messages: resp[1],
                     threadDescription: resp[0][0].description,
@@ -154,7 +156,7 @@ var checkAllowedToAddMessage = function (userId, threadId, isGroupThread) {
         });
 };
 
-var addMessage = function (userId, threadId, text, isGroupThread, expires) {
+var addMessage = function (userId, threadId, text, isGroupThread, session) {
 
     return checkAllowedToAddMessage(userId, threadId, isGroupThread)
         .then(function () {
@@ -180,7 +182,8 @@ var addMessage = function (userId, threadId, text, isGroupThread, expires) {
                     lastTimeVisited: now
                 }).send()
                 .then(function (resp) {
-                    userInfo.addImageForPreview(resp, expires);
+                    userInfo.addImageForPreview(resp, session.cookie._expires);
+                    modification.resetModificationForThread(resp[0].threadId, isGroupThread, session);
                     return {message: resp[0]};
                 });
         });

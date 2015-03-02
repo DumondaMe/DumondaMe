@@ -9,8 +9,8 @@ describe('Integration Tests Login', function () {
 
     before(function () {
         return db.clearDatabase().then(function () {
-            return db.cypher().create("(:User {email: {email}, password: {password}})")
-                .end({email: 'user@irgendwo.ch', password: '1234'}).send();
+            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', userId:'1' })")
+                .end().send();
         });
     });
 

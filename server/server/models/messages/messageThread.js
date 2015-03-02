@@ -63,13 +63,14 @@ var getNumberOfUnreadMessages = function (userId) {
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)-[:NEXT_MESSAGE*0..100]->(message:Message)")
         .where("active.lastTimeVisited < message.messageAdded AND (thread:Thread OR thread:GroupThread)")
         .return("COUNT(thread.threadId) AS unreadMessage, thread.threadId AS threadId, EXISTS((user)-[active]->(thread:GroupThread)) AS isGroupThread")
+        .orderBy("unreadMessage DESC")
         .end({userId: userId});
 };
 
-var getNumberOfUnreadMessagesSend = function (userId) {
+var hasUnreadMessages = function (userId) {
     return getNumberOfUnreadMessages(userId).send()
         .then(function (resp) {
-            return totalUnreadMessages(resp);
+            return resp;
         });
 };
 
@@ -104,5 +105,5 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
 
 module.exports = {
     getMessageThreads: getMessageThreads,
-    getNumberOfUnreadMessages: getNumberOfUnreadMessagesSend
+    hasUnreadMessages: hasUnreadMessages
 };
