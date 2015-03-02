@@ -1,15 +1,23 @@
 'use strict';
 
-var loggedInHeaderCtrl = require('../../../app/modules/navigation/loggedInHeaderCtrl')[4];
+var loggedInHeaderCtrl = require('../../../app/modules/navigation/loggedInHeaderCtrl')[6];
 
 describe('Tests of loggedIn Header controller', function () {
-    var scope, rootScope, UserInfo, profileImage;
+    var scope, interval, intervalFunction, rootScope, UserInfo, Modification, profileImage;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
+            interval = function (parm) {
+                intervalFunction = parm;
+            };
+
             UserInfo = {};
             UserInfo.get = function () {
+            };
+
+            Modification = {};
+            Modification.get = function () {
             };
 
             profileImage = {};
@@ -29,7 +37,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         stubUserInfoGet.returns(response);
 
-        loggedInHeaderCtrl(scope, rootScope, UserInfo, profileImage);
+        loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
         stubUserInfoGet.callArg(1);
 
         expect(rootScope.userHeaderInfo).to.equal(response);
@@ -43,7 +51,7 @@ describe('Tests of loggedIn Header controller', function () {
         rootScope.userHeaderInfo = response;
         mockUserInfoGet.never();
 
-        loggedInHeaderCtrl(scope, rootScope, UserInfo, profileImage);
+        loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
 
         mockUserInfoGet.verify();
     });

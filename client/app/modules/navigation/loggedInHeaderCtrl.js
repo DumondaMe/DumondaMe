@@ -1,27 +1,40 @@
 'use strict';
 
-module.exports = ['$scope', '$rootScope', 'UserInfo', 'profileImage', function ($scope, $rootScope, UserInfo, profileImage) {
+module.exports = ['$scope', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage',
+    function ($scope, $interval, $rootScope, UserInfo, Modification, profileImage) {
 
-    var userHeaderInfo;
-    $scope.dropdownSettings = [
-        {
-            text: "Settings",
-            href: "#"
-        },
-        {
-            divider: true
-        },
-        {
-            text: "Logout",
-            click: "logout()"
-        }
-    ];
+        var userHeaderInfo, modificationInfo;
+        $scope.dropdownSettings = [
+            {
+                text: "Settings",
+                href: "#"
+            },
+            {
+                divider: true
+            },
+            {
+                text: "Logout",
+                click: "logout()"
+            }
+        ];
 
-    profileImage.addProfileImageChangedEvent($rootScope, 'userHeaderInfo');
+        modificationInfo = $interval(function () {
+            var modification = Modification.get(null, function () {
+                if (modification.hasChanged) {
+                    $rootScope.$broadcast('message.changed');
+                }
+            });
+        }, 30000);
 
-    if ($rootScope.userHeaderInfo === undefined) {
-        userHeaderInfo = UserInfo.get(null, function () {
-            $rootScope.userHeaderInfo = userHeaderInfo;
+        profileImage.addProfileImageChangedEvent($rootScope, 'userHeaderInfo');
+
+        $scope.$on('$destroy', function () {
+            $interval.cancel(modificationInfo);
         });
-    }
-}];
+
+        if ($rootScope.userHeaderInfo === undefined) {
+            userHeaderInfo = UserInfo.get(null, function () {
+                $rootScope.userHeaderInfo = userHeaderInfo;
+            });
+        }
+    }];

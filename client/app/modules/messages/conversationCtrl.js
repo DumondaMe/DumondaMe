@@ -3,16 +3,23 @@
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
     function ($scope, $state, $stateParams, Conversation, Message, dateFormatter) {
 
-        var isGroupThread = $stateParams.isGroupThread === 'true';
+        var isGroupThread = $stateParams.isGroupThread === 'true', getThread;
         $scope.newMessage = '';
         $scope.selectedThreadId = $stateParams.threadId;
-        $scope.thread = Conversation.get({
-            itemsPerPage: 10,
-            skip: 0,
-            threadId: $stateParams.threadId,
-            isGroupThread: $stateParams.isGroupThread
-        }, function () {
-            $scope.threads = Message.get({itemsPerPage: 10, skip: 0});
+        getThread = function () {
+            $scope.thread = Conversation.get({
+                itemsPerPage: 10,
+                skip: 0,
+                threadId: $stateParams.threadId,
+                isGroupThread: $stateParams.isGroupThread
+            }, function () {
+                $scope.threads = Message.get({itemsPerPage: 10, skip: 0});
+            });
+        };
+        getThread();
+
+        $scope.$on('message.changed', function () {
+            getThread();
         });
 
         $scope.getFormattedDate = dateFormatter.formatExact;
