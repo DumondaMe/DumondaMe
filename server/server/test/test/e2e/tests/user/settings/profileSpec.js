@@ -41,8 +41,8 @@ describe('Integration Tests User Profile Data', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Get User Data when logged in - Return a 200', function () {

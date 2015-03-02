@@ -2,29 +2,26 @@
 
 var app = require('../../../../../server');
 var request = require('supertest-as-promised');
-var agent = require('supertest').agent(app);
+var agent = require('supertest');
 
-var lastUser;
+var lastUser = [];
 
 module.exports = {
     login: function (user) {
-        lastUser = user;
+        lastUser.push(user);
         return request(app).post('/api/login').
             send(user).
             then(function (res) {
-                agent.saveCookies(res);
-                return agent;
+                var loginAgent = agent.agent(app);
+                loginAgent.saveCookies(res);
+                return loginAgent;
             });
     },
-    logout: function (done) {
-        if (lastUser) {
-            request(app).post('/api/logout').
-                send(lastUser)
-                .then(function () {
-                    done();
-                });
-        } else {
-            done();
+    logout: function () {
+        var user = lastUser.pop();
+        if (user) {
+            return request(app).post('/api/logout').
+                send(user);
         }
     },
     post: function (api, data, agent) {

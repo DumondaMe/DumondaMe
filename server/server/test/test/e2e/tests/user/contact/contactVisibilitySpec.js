@@ -135,8 +135,8 @@ describe('Integration Tests for handling the profile privacy setting when return
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Get all contacts of the user with the correct privacy- Return 200', function () {

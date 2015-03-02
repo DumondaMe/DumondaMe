@@ -108,8 +108,8 @@ describe('Integration Tests for getting all threads of a user', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Getting all threads for the user - Return 200', function () {

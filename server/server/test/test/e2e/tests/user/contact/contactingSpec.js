@@ -52,8 +52,8 @@ describe('Integration Tests for handling contacting information', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Getting the contacting information for the user - Return 200', function () {

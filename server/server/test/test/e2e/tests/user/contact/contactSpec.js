@@ -46,8 +46,8 @@ describe('Integration Tests for handling contacts', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Adding a contact - Return 200', function () {

@@ -124,8 +124,8 @@ describe('Integration Tests for sending messages to a conversation and adding th
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Sending a new message to a single thread - Return 200', function () {

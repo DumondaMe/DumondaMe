@@ -143,8 +143,8 @@ describe('Integration Tests for finding other users', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
 

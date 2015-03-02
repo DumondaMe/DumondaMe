@@ -97,8 +97,8 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Getting the messages of a thread for the user - Return 200', function () {

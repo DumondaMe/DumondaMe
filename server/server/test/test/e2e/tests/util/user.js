@@ -3,6 +3,10 @@ module.exports = {
         'username': 'user@irgendwo.ch',
         'password': '1234'
     },
+    validUser2: {
+        'username': 'user2@irgendwo.ch',
+        'password': '1234'
+    },
     invalidUsername: {
         'username': 'usergibtesnicht@irgendwo.ch',
         'password': '1234'

@@ -99,8 +99,8 @@ describe('Integration Tests for finding other users and applying the correct pri
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
 

@@ -66,6 +66,13 @@ var getNumberOfUnreadMessages = function (userId) {
         .end({userId: userId});
 };
 
+var getNumberOfUnreadMessagesSend = function (userId) {
+    return getNumberOfUnreadMessages(userId).send()
+        .then(function (resp) {
+            return totalUnreadMessages(resp);
+        });
+};
+
 var getAllThreads = function (params) {
     var cypher = db.cypher();
     cypher = getThreads(cypher).unionAll();
@@ -96,5 +103,6 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
 
 
 module.exports = {
-    getMessageThreads: getMessageThreads
+    getMessageThreads: getMessageThreads,
+    getNumberOfUnreadMessages: getNumberOfUnreadMessagesSend
 };

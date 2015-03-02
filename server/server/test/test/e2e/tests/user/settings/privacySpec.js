@@ -44,8 +44,8 @@ describe('Integration Tests for the privacy settings', function () {
         });
     });
 
-    afterEach(function (done) {
-        requestHandler.logout(done);
+    afterEach(function () {
+        return requestHandler.logout();
     });
 
     it('Get the privacy settings of the user- Return a 200', function () {
