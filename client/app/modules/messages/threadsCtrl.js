@@ -2,9 +2,15 @@
 
 module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($scope, $state, Message, dateFormatter) {
 
-    $scope.itemsPerPage = 10;
+    var currentPagination = 1;
+    $scope.itemsPerPage = 30;
 
-    $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: 0});
+    $scope.getThreads = function (paginationNumber) {
+        currentPagination = paginationNumber;
+        var skip = (paginationNumber - 1) * $scope.itemsPerPage;
+        $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: skip});
+    };
+    $scope.getThreads(currentPagination);
 
     $scope.getFormattedDate = dateFormatter.format;
 
@@ -13,6 +19,6 @@ module.exports = ['$scope', '$state', 'Message', 'dateFormatter', function ($sco
     };
 
     $scope.$on('message.changed', function () {
-        $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: 0});
+        $scope.getThreads(currentPagination);
     });
 }];

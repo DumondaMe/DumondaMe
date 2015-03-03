@@ -3,7 +3,7 @@
 var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[4];
 
 describe('Tests of threads controller', function () {
-    var scope, state, Message, dateFormatter;
+    var scope, rootScope, state, Message, dateFormatter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -20,6 +20,7 @@ describe('Tests of threads controller', function () {
             state.go = function () {
             };
 
+            rootScope = $rootScope;
             scope = $rootScope.$new();
             done();
         });
@@ -30,7 +31,7 @@ describe('Tests of threads controller', function () {
         var stubMessageGet = sinon.stub(Message, 'get'),
             response = 'test';
 
-        stubMessageGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         threadsCtrl(scope, state, Message, dateFormatter);
 
@@ -50,5 +51,17 @@ describe('Tests of threads controller', function () {
         scope.openThread('1', true);
 
         mockStateGo.verify();
+    });
+
+    it('Refresh the thread', function () {
+
+        var mockMessageGet = sinon.mock(Message);
+
+        mockMessageGet.expects('get').withArgs({itemsPerPage: 30, skip: 0}).twice();
+
+        threadsCtrl(scope, state, Message, dateFormatter);
+        rootScope.$broadcast('message.changed');
+
+        mockMessageGet.verify();
     });
 });

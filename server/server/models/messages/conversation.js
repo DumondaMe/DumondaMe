@@ -42,6 +42,13 @@ var getThreadCondition = function (isGroupThread) {
     return threadTyp;
 };
 
+var getNumberOfMessages = function (params, isGroupThread) {
+    return db.cypher()
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + getThreadCondition(isGroupThread) + " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
+        .return("COUNT(message) AS numberOfMessages")
+        .end(params);
+};
+
 var getMessagesOfThreads = function (params, setTime, isGroupThread) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + getThreadCondition(isGroupThread) + " {threadId: {threadId}})" +
@@ -72,6 +79,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         userId: userId,
         threadId: threadId
     }, isGroupThread).getCommand());
+    commands.push(getNumberOfMessages({userId: userId, threadId: threadId}, isGroupThread).getCommand());
 
     return getMessagesOfThreads({
         userId: userId,
@@ -83,13 +91,14 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         .send(commands)
         .then(function (resp) {
             if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
-                addWriterInfo(userId, resp[1]);
-                userInfo.addImageForPreview(resp[1], session.cookie._expires);
+                addWriterInfo(userId, resp[2]);
+                userInfo.addImageForPreview(resp[2], session.cookie._expires);
                 modification.resetModificationForThread(resp[0].threadId, isGroupThread, session);
                 return {
-                    messages: resp[1],
+                    messages: resp[2],
                     threadDescription: resp[0][0].description,
-                    isGroupThread: resp[0][0].threadType === 'GroupThread'
+                    isGroupThread: resp[0][0].threadType === 'GroupThread',
+                    numberOfMessages: resp[1][0].numberOfMessages
                 };
             }
             return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger);

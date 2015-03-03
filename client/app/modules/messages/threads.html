@@ -18,6 +18,12 @@
                     {{getFormattedDate(thread.lastUpdate)}}
                 </div>
             </div>
+            <div ng-show="threads.numberOfThreads > itemsPerPage"
+                 class="pagination">
+                <ely-pagination-next-previous total-items="threads.numberOfThreads"
+                                              items-per-page="{{itemsPerPage}}"
+                                              get-pagination-set="getThreads"></ely-pagination-next-previous>
+            </div>
         </div>
     </div>
     <div id="leftCol">
@@ -27,15 +33,20 @@
                             get-query="getUser"></ely-search-box>
             <div id="add-new-group-button">
                 <button class="btn btn-default" type="button" ng-click="sendMessage()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Neuer Gruppenchat</button>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neuer
+                    Gruppenchat
+                </button>
             </div>
             <ul id="message-index" class="list-group">
                 <div ng-repeat="thread in threads.threads">
-                    <li class="list-group-item" ng-click="openThread(thread.threadId, thread.isGroupThread)">
+                    <li class="list-group-item"
+                        ng-click="openThread(thread.threadId, thread.isGroupThread)">
                         <span class="badge" ng-if="thread.hasNotReadMessages">{{thread.numberOfUnreadMessages}}</span>
 
-                        <div class="message-unread-count" data-trigger="hover" data-delay="1000" data-title="{{thread.description}}"
-                             bs-tooltip>{{thread.description}}</div>
+                        <div class="message-unread-count" data-trigger="hover" data-delay="1000"
+                             data-title="{{thread.description}}"
+                             bs-tooltip>{{thread.description}}
+                        </div>
                     </li>
                 </div>
             </ul>

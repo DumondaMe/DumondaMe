@@ -3,11 +3,12 @@
 var controller = require('../../../../app/modules/directives/paginationNextPrevious/controller').directiveCtrl()[1];
 
 describe('Tests of controller of the ely-pagination-next-previous directive', function () {
-    var scope;
+    var scope, rootScope;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
+            rootScope = $rootScope;
             scope = $rootScope.$new();
             scope.getPaginationSet = function () {
             };
@@ -30,12 +31,11 @@ describe('Tests of controller of the ely-pagination-next-previous directive', fu
 
     it('Reset pagination from outside with resetCounter', function () {
 
-        scope.resetCounter = '5';
         scope.itemsPerPage = '20';
 
         controller(scope);
         scope.currentPagination = 3;
-        scope.$digest();
+        rootScope.$broadcast('pagination.next.previous.reset');
 
         expect(scope.currentPagination).to.equal(1);
     });

@@ -28,15 +28,21 @@
                     </div>
                 </div>
             </div>
+            <div ng-show="thread.numberOfMessages > itemsPerPage"
+                 class="pagination">
+                <ely-pagination-next-previous total-items="thread.numberOfMessages"
+                                              items-per-page="{{itemsPerPage}}"
+                                              get-pagination-set="getThread"></ely-pagination-next-previous>
+            </div>
         </div>
     </div>
     <div id="leftCol">
         <div id="inner-leftCol">
+            <div id="thread-description">{{thread.threadDescription}}</div>
             <ul id="message-index" class="list-group">
-                <div ng-repeat="thread in threads.threads">
+                <div ng-repeat="thread in threads.threads" ng-if="thread.threadId !== selectedThreadId">
                     <li class="list-group-item"
-                        ng-click="openThread(thread.threadId, thread.isGroupThread)"
-                        ng-class="{'selected-thread': thread.threadId === selectedThreadId}">
+                        ng-click="openThread(thread.threadId, thread.isGroupThread)">
                         <span class="badge" ng-if="thread.hasNotReadMessages">{{thread.numberOfUnreadMessages}}</span>
 
                         <div class="message-unread-count" data-trigger="hover" data-delay="1000"

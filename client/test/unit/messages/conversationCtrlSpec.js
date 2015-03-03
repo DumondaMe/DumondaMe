@@ -3,7 +3,7 @@
 var conversationCtrl = require('../../../app/modules/messages/conversationCtrl')[6];
 
 describe('Tests of conversation controller', function () {
-    var scope, state, stateParams, Conversation, Message, dateFormatter;
+    var scope, rootScope, state, stateParams, Conversation, Message, dateFormatter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -28,6 +28,7 @@ describe('Tests of conversation controller', function () {
 
             stateParams = {};
 
+            rootScope = $rootScope;
             scope = $rootScope.$new();
             done();
         });
@@ -38,9 +39,9 @@ describe('Tests of conversation controller', function () {
         var stubMessageGet = sinon.stub(Message, 'get'),
             stubConversationGet = sinon.stub(Conversation, 'get');
 
-        stubMessageGet.withArgs({itemsPerPage: 10, skip: 0}).returns('test2');
+        stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns('test2');
         stubConversationGet.withArgs({
-            itemsPerPage: 10,
+            itemsPerPage: 30,
             skip: 0,
             threadId: '1',
             isGroupThread: 'false'
@@ -53,6 +54,55 @@ describe('Tests of conversation controller', function () {
         stubConversationGet.callArg(1);
 
         expect(scope.thread).to.equal('test');
+        expect(scope.threads).to.equal('test2');
+    });
+
+    it('Event refresh of message received and pagination is 1', function () {
+
+        var stubMessageGet = sinon.stub(Message, 'get'),
+            stubConversationGet = sinon.stub(Conversation, 'get');
+
+        stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns('test2');
+        stubConversationGet.withArgs({
+            itemsPerPage: 30,
+            skip: 0,
+            threadId: '1',
+            isGroupThread: 'false'
+        }).returns('test');
+        stateParams.threadId = '1';
+        stateParams.isGroupThread = 'false';
+
+        conversationCtrl(scope, state, stateParams, Conversation, Message, dateFormatter);
+        stubConversationGet.callArg(1);
+        delete scope.thread;
+        delete scope.threads;
+
+        rootScope.$broadcast('message.changed');
+        stubConversationGet.callArg(1);
+
+        expect(scope.thread).to.equal('test');
+        expect(scope.threads).to.equal('test2');
+    });
+
+    it('Event refresh of message received and pagination is 2. Only refresh threads', function () {
+
+        var stubMessageGet = sinon.stub(Message, 'get'),
+            stubConversationGet = sinon.stub(Conversation, 'get');
+
+        stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns('test2');
+        stubConversationGet.returns('test');
+        stateParams.threadId = '1';
+        stateParams.isGroupThread = 'false';
+
+        conversationCtrl(scope, state, stateParams, Conversation, Message, dateFormatter);
+        scope.getThread(2);
+        stubConversationGet.callArg(1);
+        delete scope.thread;
+        delete scope.threads;
+
+        rootScope.$broadcast('message.changed');
+
+        expect(scope.thread).to.be.undefined;
         expect(scope.threads).to.equal('test2');
     });
 
@@ -70,6 +120,21 @@ describe('Tests of conversation controller', function () {
             isGroupThread: true
         });
         scope.openThread('2', true);
+
+        mockStateGo.verify();
+    });
+
+    it('Stay in the thread when to open thread is the current thread', function () {
+
+        var mockStateGo = sinon.mock(state);
+
+        stateParams.threadId = '1';
+        stateParams.isGroupThread = 'false';
+
+        conversationCtrl(scope, state, stateParams, Conversation, Message, dateFormatter);
+
+        mockStateGo.expects('go').never();
+        scope.openThread('1', false);
 
         mockStateGo.verify();
     });

@@ -93,6 +93,10 @@
           font-weight: bold;
         }
       }
+      .pagination {
+        width: 100%;
+        clear: both;
+      }
     }
   }
   @include leftFixedColumnMessages() {
@@ -158,9 +162,17 @@
           }
         }
       }
+      .pagination {
+        width: 100%;
+        clear: both;
+      }
     }
   }
   @include leftFixedColumnMessages() {
-
+    #thread-description {
+      margin: 0px 27px 10px 27px;
+      font-weight: bold;
+      font-size: 16px;
+    }
   }
 }

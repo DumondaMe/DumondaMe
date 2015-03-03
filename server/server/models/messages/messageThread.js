@@ -67,6 +67,14 @@ var getNumberOfUnreadMessages = function (userId) {
         .end({userId: userId});
 };
 
+var getNumberOfThreads = function (userId) {
+    return db.cypher()
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)")
+        .where("thread:Thread OR thread:GroupThread")
+        .return("COUNT(thread.threadId) AS numberOfThreads")
+        .end({userId: userId});
+};
+
 var hasUnreadMessages = function (userId) {
     return getNumberOfUnreadMessages(userId).send()
         .then(function (resp) {
@@ -86,17 +94,19 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
     var commands = [];
 
     commands.push(getNumberOfUnreadMessages(userId).getCommand());
+    commands.push(getNumberOfThreads(userId).getCommand());
 
     return getAllThreads({
         userId: userId
     })
         .send(commands)
         .then(function (resp) {
-            resp[1] = resp[1].slice(skip, skip + itemsPerPage);
-            addHasNotReadMessages(resp[1], resp[0]);
-            userInfo.addImageForPreview(resp[1], expires);
+            resp[2] = resp[2].slice(skip, skip + itemsPerPage);
+            addHasNotReadMessages(resp[2], resp[0]);
+            userInfo.addImageForPreview(resp[2], expires);
             return {
-                threads: resp[1].sort(compare),
+                threads: resp[2].sort(compare),
+                numberOfThreads: resp[1][0].numberOfThreads,
                 numberOfUnreadMessages: totalUnreadMessages(resp[0])
             };
         });

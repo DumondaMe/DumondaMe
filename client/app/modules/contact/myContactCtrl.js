@@ -32,7 +32,6 @@ var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
 module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUsers, Contact) {
 
     $scope.query = "";
-    $scope.resetCounter = 1;
     $scope.itemsPerPage = 10;
     $scope.isUserSearch = false;
     $scope.allContactsSelected = true;
@@ -62,7 +61,7 @@ module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUs
         $scope.users = Contact.get({itemsPerPage: $scope.itemsPerPage, skip: skip}, function () {
             $scope.allContactsSelected = true;
             if (paginationNumber === 1) {
-                $scope.resetCounter = $scope.resetCounter + 1;
+                $scope.$broadcast('pagination.next.previous.reset');
             }
             $scope.isUserSearch = false;
         });

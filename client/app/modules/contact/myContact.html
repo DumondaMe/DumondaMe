@@ -10,8 +10,7 @@
                  class="pagination">
                 <ely-pagination-next-previous total-items="users.contactsForPagination"
                                               items-per-page="{{itemsPerPage}}"
-                                              get-pagination-set="paginationChanged"
-                                              reset-counter="resetCounter"></ely-pagination-next-previous>
+                                              get-pagination-set="paginationChanged"></ely-pagination-next-previous>
             </div>
             <div ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
                 <div class="no-contact-description">

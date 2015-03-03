@@ -11,6 +11,8 @@ describe('Tests of loggedIn Header controller', function () {
             interval = function (parm) {
                 intervalFunction = parm;
             };
+            interval.cancel = function () {
+            };
 
             UserInfo = {};
             UserInfo.get = function () {
@@ -54,5 +56,44 @@ describe('Tests of loggedIn Header controller', function () {
         loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
 
         mockUserInfoGet.verify();
+    });
+
+    it('Modification does not send broadcast when no change on server is detected.', function () {
+
+        var sypBroadcast = sinon.spy(rootScope, '$broadcast'),
+            stubModificationGet = sinon.stub(Modification, 'get');
+
+        stubModificationGet.returns({});
+
+        loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
+        intervalFunction();
+        stubModificationGet.callArg(1);
+
+        expect(sypBroadcast.callCount).to.equal(0);
+    });
+
+    it('Modification does send broadcast when change on server is detected.', function () {
+
+        var sypBroadcast = sinon.spy(rootScope, '$broadcast'),
+            stubModificationGet = sinon.stub(Modification, 'get');
+
+        stubModificationGet.returns({hasChanged: true});
+
+        loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
+        intervalFunction();
+        stubModificationGet.callArg(1);
+
+        expect(sypBroadcast.callCount).to.equal(1);
+    });
+
+    it('if scope is destroyed then stop interval of checking update.', function () {
+
+        var sypIntervalCancel = sinon.spy(interval, 'cancel');
+
+        loggedInHeaderCtrl(scope, interval, rootScope, UserInfo, Modification, profileImage);
+
+        rootScope.$broadcast('$destroy');
+
+        expect(sypIntervalCancel.callCount).to.equal(1);
     });
 });

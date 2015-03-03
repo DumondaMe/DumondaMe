@@ -139,6 +139,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.isGroupThread.should.be.false;
+            res.body.numberOfMessages.should.equal(4);
             return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})")
                 .return('active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
@@ -186,6 +187,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('TestChat');
             res.body.isGroupThread.should.be.true;
+            res.body.numberOfMessages.should.equal(4);
             return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '1'})")
                 .return('active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
@@ -222,6 +224,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.isGroupThread.should.be.false;
+            res.body.numberOfMessages.should.equal(4);
         });
     });
 

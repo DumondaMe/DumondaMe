@@ -22,10 +22,8 @@ module.exports = {
                 }
             });
 
-            $scope.$watch($scope.resetCounter, function (newTotalItems) {
-                if (newTotalItems && $scope.itemsPerPage) {
-                    $scope.currentPagination = 1;
-                }
+            $scope.$on('pagination.next.previous.reset', function () {
+                $scope.currentPagination = 1;
             });
 
             $scope.clickPrevious = function () {

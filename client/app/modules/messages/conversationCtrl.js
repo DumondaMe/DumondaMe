@@ -3,29 +3,46 @@
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
     function ($scope, $state, $stateParams, Conversation, Message, dateFormatter) {
 
-        var isGroupThread = $stateParams.isGroupThread === 'true', getThread;
+        var isGroupThread = $stateParams.isGroupThread === 'true', currentPagination;
+        $scope.itemsPerPage = 30;
         $scope.newMessage = '';
         $scope.selectedThreadId = $stateParams.threadId;
-        getThread = function () {
+        currentPagination = 1;
+
+        $scope.getThread = function (paginationNumber) {
+            var skip = (paginationNumber - 1) * $scope.itemsPerPage;
+            currentPagination = paginationNumber;
             $scope.thread = Conversation.get({
-                itemsPerPage: 10,
-                skip: 0,
+                itemsPerPage: $scope.itemsPerPage,
+                skip: skip,
                 threadId: $stateParams.threadId,
                 isGroupThread: $stateParams.isGroupThread
             }, function () {
-                $scope.threads = Message.get({itemsPerPage: 10, skip: 0});
+                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
             });
         };
-        getThread();
+        $scope.getThread(currentPagination);
 
         $scope.$on('message.changed', function () {
-            getThread();
+            if (currentPagination === 1) {
+                $scope.getThread(currentPagination);
+            } else {
+                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
+            }
         });
 
         $scope.getFormattedDate = dateFormatter.formatExact;
 
         $scope.openThread = function (threadId, isGroupThread) {
-            $state.go('message.threads.detail', {threadId: threadId, isGroupThread: isGroupThread});
+            var isGroupThreadParam = $stateParams.isGroupThread === 'true';
+            if (isGroupThreadParam === isGroupThread && threadId === $stateParams.threadId) {
+                $scope.getThread(1);
+            } else {
+                $state.go('message.threads.detail', {
+                    threadId: threadId,
+                    isGroupThread: isGroupThread
+                });
+            }
         };
 
         $scope.sendMessage = function () {

@@ -9,8 +9,7 @@ module.exports = {
             scope: {
                 totalItems: '&',
                 itemsPerPage: '@',
-                getPaginationSet: '=',
-                resetCounter: '&'
+                getPaginationSet: '='
             },
             templateUrl: 'app/modules/directives/paginationNextPrevious/template.html',
             controller: controller.directiveCtrl()
