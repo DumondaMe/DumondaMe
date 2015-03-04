@@ -1,15 +1,21 @@
 'use strict';
 
-var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[4];
+var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[5];
 
 describe('Tests of threads controller', function () {
-    var scope, rootScope, state, Message, dateFormatter;
+    var scope, rootScope, state, Message, SearchUserToSendMessage, dateFormatter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             Message = {};
             Message.get = function () {
+            };
+
+            SearchUserToSendMessage = {};
+            SearchUserToSendMessage.get = function () {
+            };
+            SearchUserToSendMessage.query = function () {
             };
 
             dateFormatter = {};
@@ -33,7 +39,7 @@ describe('Tests of threads controller', function () {
 
         stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        threadsCtrl(scope, state, Message, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
 
         expect(scope.threads).to.equal('test');
     });
@@ -42,7 +48,7 @@ describe('Tests of threads controller', function () {
 
         var mockStateGo = sinon.mock(state);
 
-        threadsCtrl(scope, state, Message, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
 
         mockStateGo.expects('go').withArgs('message.threads.detail', {
             threadId: '1',
@@ -59,9 +65,69 @@ describe('Tests of threads controller', function () {
 
         mockMessageGet.expects('get').withArgs({itemsPerPage: 30, skip: 0}).twice();
 
-        threadsCtrl(scope, state, Message, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
         rootScope.$broadcast('message.changed');
 
         mockMessageGet.verify();
+    });
+
+    it('Getting thread suggestion', function () {
+
+        var mockSearchUser = sinon.mock(SearchUserToSendMessage),
+            searchQuery = 'R';
+
+        mockSearchUser.expects('query').withArgs({
+            search: searchQuery,
+            maxItems: 7,
+            isSuggestion: true
+        }).returns({$promise: 1});
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        scope.getSuggestion(searchQuery);
+
+        mockSearchUser.verify();
+    });
+
+    it('If the suggestion string is empty then delete the search thread', function () {
+
+        var mockSearchUser = sinon.mock(SearchUserToSendMessage),
+            searchQuery = ' ';
+
+        mockSearchUser.expects('query').never();
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        scope.getSuggestion(searchQuery);
+
+        mockSearchUser.verify();
+    });
+
+    it('Search for threads and contacts', function () {
+
+        var mockSearchUser = sinon.mock(SearchUserToSendMessage),
+            searchQuery = 'R';
+
+        mockSearchUser.expects('get').withArgs({
+            search: searchQuery,
+            maxItems: 20,
+            isSuggestion: false
+        }).returns({});
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        scope.getThreadsOrContacts(searchQuery);
+
+        mockSearchUser.verify();
+    });
+
+    it('Search is not started for threads and contacts with empty string', function () {
+
+        var mockSearchUser = sinon.mock(SearchUserToSendMessage),
+            searchQuery = '  ';
+
+        mockSearchUser.expects('get').never();
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        scope.getThreadsOrContacts(searchQuery);
+
+        mockSearchUser.verify();
     });
 });

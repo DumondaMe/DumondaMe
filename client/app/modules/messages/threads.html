@@ -1,36 +1,60 @@
 <div id="content-threads">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="thread in threads.threads" class="thread-preview"
-                 ng-click="openThread(thread.threadId, thread.isGroupThread)">
-                <div class="thread-preview-image">
-                    <img ng-src="{{thread.profileUrl}}" class="img-circle">
-                </div>
-                <div class="thread-preview-text">
-                    <div class="thread-preview-description">
-                        {{thread.description}}
+            <div ng-if="!search">
+                <div ng-repeat="thread in threads.threads" class="thread-preview"
+                     ng-click="openThread(thread.threadId, thread.isGroupThread)">
+                    <div class="thread-preview-image">
+                        <img ng-src="{{thread.profileUrl}}" class="img-circle">
                     </div>
-                    <div ng-class="{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}">
-                        {{thread.previewText}}
+                    <div class="thread-preview-text">
+                        <div class="thread-preview-description">
+                            {{thread.description}}
+                        </div>
+                        <div ng-class="{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}">
+                            {{thread.previewText}}
+                        </div>
+                    </div>
+                    <div ng-class="{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}">
+                        {{getFormattedDate(thread.lastUpdate)}}
                     </div>
                 </div>
-                <div ng-class="{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}">
-                    {{getFormattedDate(thread.lastUpdate)}}
+                <div ng-show="threads.numberOfThreads > itemsPerPage"
+                     class="pagination">
+                    <ely-pagination-next-previous total-items="threads.numberOfThreads"
+                                                  items-per-page="{{itemsPerPage}}"
+                                                  get-pagination-set="getThreads"></ely-pagination-next-previous>
                 </div>
             </div>
-            <div ng-show="threads.numberOfThreads > itemsPerPage"
-                 class="pagination">
-                <ely-pagination-next-previous total-items="threads.numberOfThreads"
-                                              items-per-page="{{itemsPerPage}}"
-                                              get-pagination-set="getThreads"></ely-pagination-next-previous>
+            <div ng-if="search.threads.length > 0">
+                <div ng-repeat="thread in search.threads" class="thread-preview"
+                     ng-class="{'thread-preview-add-thread': !thread.previewText, 'thread-preview': thread.previewText}"
+                     ng-click="openThread(thread.threadId, thread.isGroupThread)">
+                    <div class="thread-preview-image">
+                        <img ng-src="{{thread.profileUrl}}" class="img-circle">
+                    </div>
+                    <div class="thread-preview-text">
+                        <div ng-class="{'thread-preview-description': thread.previewText, 'thread-preview-description-center': !thread.previewText}">
+                            {{thread.description}}
+                        </div>
+                        <div class="thread-preview-previewText" ng-if="thread.previewText">
+                            {{thread.previewText}}
+                        </div>
+                    </div>
+                    <div id="add-new-single-thread" ng-if="!thread.previewText">
+                        <button class="btn btn-default" type="button" ng-click="addNewSingleThread()">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Konversation starten
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div id="leftCol">
         <div id="inner-leftCol">
             <ely-search-box description="Nachricht an..." query="query"
-                            get-query-suggestion="getUserSuggestion"
-                            get-query="getUser"></ely-search-box>
+                            get-query-suggestion="getSuggestion"
+                            get-query="getThreadsOrContacts"></ely-search-box>
             <div id="add-new-group-button">
                 <button class="btn btn-default" type="button" ng-click="sendMessage()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neuer

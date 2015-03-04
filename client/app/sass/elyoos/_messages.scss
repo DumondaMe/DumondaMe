@@ -68,6 +68,14 @@
             font-size: 14px;
             font-weight: bold;
           }
+
+          .thread-preview-description-center {
+            @extend .thread-preview-description;
+            margin-top: 10px;
+            width: 300px;
+            overflow: hidden;
+          }
+
           .thread-preview-previewText {
             font-size: 12px;
             font-style: italic;
@@ -96,6 +104,12 @@
       .pagination {
         width: 100%;
         clear: both;
+      }
+      .thread-preview-add-thread {
+        @extend .thread-preview;
+        &:hover {
+          background-color: white;
+        }
       }
     }
   }

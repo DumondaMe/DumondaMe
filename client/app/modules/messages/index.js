@@ -7,6 +7,7 @@ app.controller('ConversationCtrl', require('./conversationCtrl'));
 
 app.factory('Message', require('./services/message'));
 app.factory('Conversation', require('./services/conversation'));
+app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

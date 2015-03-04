@@ -4,13 +4,13 @@
   margin: 10px;
   height: 150px;
   width: 250px;
-  border: 1px solid #6F9833;
+  border: 1px solid $primary-color-darker;
 
   .navigation-element-content {
     height: 100%;
     width: 100%;
     &:hover {
-      background-color: #8ECD84;
+      background-color: $primary-color-light;
     }
   }
 

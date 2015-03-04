@@ -21,25 +21,25 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
 
     if (!isSuggestion) {
         returnThread = "thread.threadId AS threadId, false AS isGroupThread, user2.name AS description, null AS userId, " +
-        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible";
+        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
         returnGroupThread = "thread.threadId AS threadId, true AS isGroupThread, thread.description AS description, null AS userId, " +
-        "null AS id, false AS profileVisible, false AS imageVisible";
+        "null AS id, false AS profileVisible, false AS imageVisible, message.text AS previewText";
         returnContact = "null AS threadId, null AS isGroupThread, user2.name AS description, user2.userId AS userId," +
-        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible";
+        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
     } else {
-        returnThread = "user2.name AS description";
-        returnGroupThread = "thread.description AS description";
+        returnThread = "user2.name AS name";
+        returnGroupThread = "thread.description AS name";
         returnContact = returnThread;
     }
 
     return db.cypher()
-        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(user2:User)")
+        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(user2:User), (thread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("user2.name =~ {queryRegEx}")
-        .addCommand(getPrivacyString(',thread'))
+        .addCommand(getPrivacyString(',thread, message'))
         .return(returnThread)
         .limit("{maxItems}")
         .unionAll()
-        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread)")
+        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("thread.description =~ {queryRegEx}")
         .return(returnGroupThread)
         .limit("{maxItems}")
@@ -61,8 +61,9 @@ var searchThreads = function (userId, search, maxItems, isSuggestion, expires) {
         .then(function (resp) {
             if (!isSuggestion) {
                 userInfo.addImageForPreview(resp, expires);
+                return {threads: resp};
             }
-            return {threads: resp};
+            return resp;
         });
 };
 

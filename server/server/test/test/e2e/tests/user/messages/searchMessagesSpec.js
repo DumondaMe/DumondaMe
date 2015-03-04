@@ -160,22 +160,26 @@ describe('Integration Tests for searching messages or user contacts', function (
             res.body.threads[0].description.should.equal("user2 Meier2");
             res.body.threads[0].threadId.should.equal("1");
             res.body.threads[0].isGroupThread.should.be.false;
+            res.body.threads[0].previewText.should.equal("message1");
             //cms/default/profile/thumbnail.jpg
             res.body.threads[0].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[1].description.should.equal("user3 Meier3");
             res.body.threads[1].threadId.should.equal("2");
             res.body.threads[1].isGroupThread.should.be.false;
+            res.body.threads[1].previewText.should.equal("message1");
             //cms/3/profile/thumbnail.jpg
             res.body.threads[1].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires");
             res.body.threads[2].description.should.equal("Meier Chat");
             res.body.threads[2].threadId.should.equal("1");
             res.body.threads[2].isGroupThread.should.be.true;
+            res.body.threads[2].previewText.should.equal("message1");
             //cms/default/profile/thumbnail.jpg
             res.body.threads[2].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
             res.body.threads[3].description.should.equal("user5 Meier5");
             res.body.threads[3].userId.should.equal("5");
             //cms/5/profile/thumbnail.jpg
             res.body.threads[3].profileUrl.should.contain("?path=51c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires");
+            should.not.exist(res.body.threads[3].previewText);
         });
     });
 
@@ -189,22 +193,22 @@ describe('Integration Tests for searching messages or user contacts', function (
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.threads.length.should.equal(4);
-            res.body.threads[0].description.should.equal("user2 Meier2");
-            should.not.exist(res.body.threads[0].threadId);
-            should.not.exist(res.body.threads[0].isGroupThread);
-            should.not.exist(res.body.threads[0].profileUrl);
-            res.body.threads[1].description.should.equal("user3 Meier3");
-            should.not.exist(res.body.threads[1].threadId);
-            should.not.exist(res.body.threads[1].isGroupThread);
-            should.not.exist(res.body.threads[1].profileUrl);
-            res.body.threads[2].description.should.equal("Meier Chat");
-            should.not.exist(res.body.threads[2].threadId);
-            should.not.exist(res.body.threads[2].isGroupThread);
-            should.not.exist(res.body.threads[2].profileUrl);
-            res.body.threads[3].description.should.equal("user5 Meier5");
-            should.not.exist(res.body.threads[3].userId);
-            should.not.exist(res.body.threads[3].profileUrl);
+            res.body.length.should.equal(4);
+            res.body[0].name.should.equal("user2 Meier2");
+            should.not.exist(res.body[0].threadId);
+            should.not.exist(res.body[0].isGroupThread);
+            should.not.exist(res.body[0].profileUrl);
+            res.body[1].name.should.equal("user3 Meier3");
+            should.not.exist(res.body[1].threadId);
+            should.not.exist(res.body[1].isGroupThread);
+            should.not.exist(res.body[1].profileUrl);
+            res.body[2].name.should.equal("Meier Chat");
+            should.not.exist(res.body[2].threadId);
+            should.not.exist(res.body[2].isGroupThread);
+            should.not.exist(res.body[2].profileUrl);
+            res.body[3].name.should.equal("user5 Meier5");
+            should.not.exist(res.body[3].userId);
+            should.not.exist(res.body[3].profileUrl);
         });
     });
 });
