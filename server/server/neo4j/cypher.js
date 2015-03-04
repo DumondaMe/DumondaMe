@@ -115,6 +115,11 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
+    this.addCommand = function (command) {
+        chainedQuery = chainedQuery + command;
+        return this;
+    };
+
     this.return = function (returnCondition) {
         chainedQuery = chainedQuery + ' RETURN ' + returnCondition;
         return this;
@@ -129,6 +134,10 @@ var Cypher = function (connectionUrl) {
 
     this.getCommand = function () {
         return {statement: chainedQuery, parameters: paramsToSend};
+    };
+
+    this.getCommandString = function () {
+        return chainedQuery;
     };
 
     this.send = function (statementsToSend) {
