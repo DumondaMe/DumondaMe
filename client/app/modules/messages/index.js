@@ -4,6 +4,7 @@ var app = require('angular').module('elyoosApp');
 
 app.controller('ThreadsCtrl', require('./threadsCtrl'));
 app.controller('ConversationCtrl', require('./conversationCtrl'));
+app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
 
 app.factory('Message', require('./services/message'));
 app.factory('Conversation', require('./services/conversation'));
@@ -36,6 +37,15 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/messages/conversation.html',
                     controller: 'ConversationCtrl'
+                }
+            }
+        })
+        .state('message.threads.create', {
+            url: '/single/create/{userId}',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/messages/conversation.html',
+                    controller: 'CreateConversationCtrl'
                 }
             }
         });

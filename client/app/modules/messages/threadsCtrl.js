@@ -16,7 +16,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         $scope.getFormattedDate = dateFormatter.format;
 
         $scope.openThread = function (threadId, isGroupThread) {
-            if (threadId && isGroupThread) {
+            if (threadId) {
                 $state.go('message.threads.detail', {
                     threadId: threadId,
                     isGroupThread: isGroupThread
@@ -48,6 +48,14 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
                 });
             } else {
                 delete $scope.search;
+            }
+        };
+
+        $scope.addNewSingleThread = function (userId) {
+            if (userId) {
+                $state.go('message.threads.create', {
+                    userId: userId
+                });
             }
         };
     }];

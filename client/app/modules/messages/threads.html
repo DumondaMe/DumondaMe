@@ -42,11 +42,14 @@
                         </div>
                     </div>
                     <div id="add-new-single-thread" ng-if="!thread.previewText">
-                        <button class="btn btn-default" type="button" ng-click="addNewSingleThread()">
+                        <button class="btn btn-default" type="button" ng-click="addNewSingleThread(thread.userId)">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Konversation starten
                         </button>
                     </div>
                 </div>
+            </div>
+            <div ng-if="search.threads.length === 0">
+                Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche du als Kontakt hinzugefügt hast.
             </div>
         </div>
     </div>
