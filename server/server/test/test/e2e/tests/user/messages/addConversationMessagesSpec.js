@@ -62,7 +62,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
                 .end({
                     messageAdded: startTime - 299
                 }).getCommand());
-            // User 3
+            // User 4
             commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
             //Create Thread with messages between user 1 + 4 but user 1 is blocked by user 4
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '4'})")

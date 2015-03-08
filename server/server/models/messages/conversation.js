@@ -4,8 +4,10 @@ var db = require('./../../neo4j');
 var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
-var userInfo = require('./../user/userInfo');
 var modification = require('./../modification/modification');
+var userInfo = require('./../user/userInfo');
+var threadCondition = require('./util/threadCondition');
+var security = require('./util/security');
 var time = require('./../../../common/src/lib/time');
 var logger = requireLogger.getLogger(__filename);
 
@@ -32,26 +34,16 @@ var getThreadInfos = function (params, isGroupThread) {
     return threadInfo.end(params);
 };
 
-var getThreadCondition = function (isGroupThread) {
-    var threadTyp;
-    if (isGroupThread) {
-        threadTyp = 'thread:GroupThread';
-    } else {
-        threadTyp = 'thread:Thread';
-    }
-    return threadTyp;
-};
-
 var getNumberOfMessages = function (params, isGroupThread) {
     return db.cypher()
-        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + getThreadCondition(isGroupThread) + " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
         .return("COUNT(message) AS numberOfMessages")
         .end(params);
 };
 
 var getMessagesOfThreads = function (params, setTime, isGroupThread) {
     return db.cypher()
-        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + getThreadCondition(isGroupThread) + " {threadId: {threadId}})" +
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + " {threadId: {threadId}})" +
         "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
         .set('active', setTime)
         .with("user, message, writer")
@@ -105,73 +97,13 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         });
 };
 
-var checkAllowedToAddMessage = function (userId, threadId, isGroupThread) {
-
-    function checkNumberOfAllowedMessagesPerHour(resp) {
-        return resp[0][0].count > 1000;
-    }
-
-    function checkUserHasAccessToThread(resp, isGroupThread) {
-        if (isGroupThread) {
-            return !resp[1][0];
-        }
-        return !resp[2][0];
-    }
-
-    function checkUserIsBlocked(resp, isGroupThread) {
-        if (isGroupThread) {
-            return false;
-        }
-        return resp[1][0];
-    }
-
-    var commands = [], params = {
-        userId: userId,
-        threadId: threadId
-    };
-
-    commands.push(db.cypher()
-        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread)-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(user)")
-        .where("(thread:Thread OR thread:GroupThread) AND message.messageAdded > {timeFrame}")
-        .return("count(*) AS numberOfMessage")
-        .end({
-            userId: userId,
-            timeFrame: time.getNowUtcTimestamp() - 3600
-        }).getCommand());
-
-    if (!isGroupThread) {
-        commands.push(db.cypher()
-            .match("(user:User {userId: {userId}})-[:ACTIVE]->(:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
-            .with("user, contact")
-            .match("(user)<-[:IS_BLOCKED]-(contact)")
-            .return("true AS blocked")
-            .end(params).getCommand());
-    }
-
-    return db.cypher()
-        .match("(user:User {userId: {userId}})-[:ACTIVE]->(" + getThreadCondition(isGroupThread) + " {threadId: {threadId}})")
-        .return("user.userId AS userId")
-        .end(params).send(commands)
-        .then(function (resp) {
-            if (checkNumberOfAllowedMessagesPerHour(resp)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' has send more than 1000 messages per hour', logger);
-            }
-            if (checkUserHasAccessToThread(resp, isGroupThread)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger);
-            }
-            if (checkUserIsBlocked(resp, isGroupThread)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' is blocked for thread ' + threadId, logger);
-            }
-        });
-};
-
 var addMessage = function (userId, threadId, text, isGroupThread, session) {
 
-    return checkAllowedToAddMessage(userId, threadId, isGroupThread)
+    return security.checkAllowedToAddMessage(userId, threadId, isGroupThread)
         .then(function () {
             var now = time.getNowUtcTimestamp();
             return db.cypher()
-                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + getThreadCondition(isGroupThread) + "{threadId: {threadId}})" +
+                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + "{threadId: {threadId}})" +
                 "-[:NEXT_MESSAGE]->(messagePrevious:Message)")
                 .create("(thread)-[:NEXT_MESSAGE]->(newMessage:Message {messageAdded: {now}, text: {text}})-[:NEXT_MESSAGE]->(messagePrevious)," +
                 "(newMessage)-[:WRITTEN]->(user)")

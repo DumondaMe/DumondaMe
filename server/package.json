@@ -23,7 +23,9 @@
     "request": "2.51.0",
     "moment": "2.9.0",
     "gm": "1.17.0",
-    "mkdirp": "0.5.0"
+    "mkdirp": "0.5.0",
+    "biguint-format": "1.0.0",
+    "flake-idgen": "1.0.0"
   },
   "devDependencies": {
     "mocha": "~1.21.4",

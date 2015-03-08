@@ -1,10 +1,15 @@
 'use strict';
 
 var db = require('./../../neo4j');
+var uuid = require('./../../../common/src/lib/uuid');
 var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 var userInfo = require('./../user/userInfo');
+var unreadMessages = require('./util/unreadMessages');
+var time = require('./../../../common/src/lib/time');
+var security = require('./util/security');
+var conversation = require('./conversation');
 
 function compare(a, b) {
     return b.lastUpdate - a.lastUpdate;
@@ -58,28 +63,12 @@ var getGroupThreads = function (cypher) {
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, null AS imageVisible, null AS id, true AS isGroupThread");
 };
 
-var getNumberOfUnreadMessages = function (userId) {
-    return db.cypher()
-        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)-[:NEXT_MESSAGE*0..100]->(message:Message)")
-        .where("active.lastTimeVisited < message.messageAdded AND (thread:Thread OR thread:GroupThread)")
-        .return("COUNT(thread.threadId) AS unreadMessage, thread.threadId AS threadId, EXISTS((user)-[active]->(thread:GroupThread)) AS isGroupThread")
-        .orderBy("unreadMessage DESC")
-        .end({userId: userId});
-};
-
 var getNumberOfThreads = function (userId) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)")
         .where("thread:Thread OR thread:GroupThread")
         .return("COUNT(thread.threadId) AS numberOfThreads")
         .end({userId: userId});
-};
-
-var hasUnreadMessages = function (userId) {
-    return getNumberOfUnreadMessages(userId).send()
-        .then(function (resp) {
-            return resp;
-        });
 };
 
 var getAllThreads = function (params) {
@@ -93,7 +82,7 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
 
     var commands = [];
 
-    commands.push(getNumberOfUnreadMessages(userId).getCommand());
+    commands.push(unreadMessages.getNumberOfUnreadMessages(userId).getCommand());
     commands.push(getNumberOfThreads(userId).getCommand());
 
     return getAllThreads({
@@ -112,8 +101,53 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
         });
 };
 
+var messageThreadExists = function (userId, contactId) {
+    return db.cypher()
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(:User {userId: {contactId}})")
+        .return("thread.threadId AS threadId")
+        .end({userId: userId, contactId: contactId}).send()
+        .then(function (resp) {
+            if (resp.length > 0) {
+                return resp[0].threadId;
+            }
+        });
+};
+
+var createSingleThread = function (userId, contactId, text, session) {
+    return messageThreadExists(userId, contactId)
+        .then(function (threadId) {
+            if (threadId) {
+                return conversation.addMessage(userId, threadId, text, false, session)
+                    .then(function () {
+                        return {threadId: threadId};
+                    });
+            }
+            return security.checkAllowedToCreateThread(userId, contactId)
+                .then(function () {
+                    var now = time.getNowUtcTimestamp();
+                    return db.cypher()
+                        .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
+                        .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +
+                        "<-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]-(contact)")
+                        .with("user, thread, contact")
+                        .createUnique("(thread)-[:NEXT_MESSAGE]->(:Message {text: {text}, messageAdded: {lastTimeVisited}})-[:WRITTEN]->(user)")
+                        .return("thread.threadId AS threadId")
+                        .end({
+                            userId: userId,
+                            contactId: contactId,
+                            lastTimeVisited: now,
+                            lastTimeVisited2: now - 1,
+                            text: text,
+                            threadId: uuid.generateUUID()
+                        }).send()
+                        .then(function (resp) {
+                            return resp[0];
+                        });
+                });
+        });
+};
 
 module.exports = {
     getMessageThreads: getMessageThreads,
-    hasUnreadMessages: hasUnreadMessages
+    createSingleThread: createSingleThread
 };

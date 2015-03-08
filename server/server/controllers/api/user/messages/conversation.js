@@ -2,6 +2,7 @@
 var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var conversation = require('./../../../../models/messages/conversation');
+var messageThread = require('./../../../../models/messages/messageThread');
 var exceptions = require('./../../../../../common/src/lib/error/exceptions');
 var validation = require('./../../../../../common/src/lib/jsonValidation');
 
@@ -110,6 +111,10 @@ module.exports = function (router) {
             if (request.addGroupMessage) {
                 return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
                     request.addGroupMessage.text, true, req.session);
+            }
+            if (request.newSingleThread) {
+                return messageThread.createSingleThread(req.user.id, request.newSingleThread.contactId,
+                    request.newSingleThread.text, req.session);
             }
         }).then(function (resp) {
             res.status(200).json(resp);
