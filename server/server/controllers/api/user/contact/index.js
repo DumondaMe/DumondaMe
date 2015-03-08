@@ -74,23 +74,12 @@ module.exports = function (router) {
                 if (!req.query.types) {
                     return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip, req.session.cookie._expires)
                         .then(function (contacts) {
-                            var data = {};
-                            data.contacts = contacts[0];
-                            data.statistic = contacts[1];
-                            data.privacySettings = contacts[2];
-                            data.numberOfContacts = contacts[3][0].numberOfContacts;
-                            data.contactsForPagination = data.numberOfContacts;
-
-                            res.status(200).json(data);
+                            res.status(200).json(contacts);
                         });
                 }
                 return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types, req.session.cookie._expires)
                     .then(function (contacts) {
-                        var data = {};
-                        data.contacts = contacts[0];
-                        data.contactsForPagination = contacts[1][0].contactsForPagination;
-
-                        res.status(200).json(data);
+                        res.status(200).json(contacts);
                     });
             }).catch(function (err) {
                 logger.error('Error when searching for a user', {error: err}, req);

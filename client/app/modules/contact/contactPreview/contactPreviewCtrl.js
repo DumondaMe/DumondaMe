@@ -73,7 +73,7 @@ module.exports = {
                 checked: false
             };
 
-            $scope.sendNewDescription = function () {
+            $scope.sendNewDescription = function (hide) {
                 if ($scope.contact.selectedPrivacySetting) {
                     var contact = Contact.save({
                         contactIds: [$scope.contact.id],
@@ -82,6 +82,7 @@ module.exports = {
                     }, function () {
                         $scope.statistic = contact.statistic;
                         $scope.contact.type = $scope.contact.selectedPrivacySetting;
+                        hide();
                     });
                 }
             };
@@ -95,7 +96,9 @@ module.exports = {
                     description: privacyTyp
                 }, function () {
                     $scope.statistic = contact.statistic;
-                    $scope.numberOfContacts = contact.numberOfContacts;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
                     $scope.contact.type = privacyTyp;
                     updateConnectionStateWhenModifiyContact($scope);
                     setPrivacySettings($scope);
@@ -106,9 +109,7 @@ module.exports = {
                 var contact = Contact.delete({
                     contactIds: [$scope.contact.id]
                 }, function () {
-                    if (angular.isDefined($scope.statistic)) {
-                        $scope.statistic = contact.statistic;
-                    }
+                    $scope.statistic = contact.statistic;
                     if (angular.isDefined($scope.numberOfContacts)) {
                         $scope.numberOfContacts = contact.numberOfContacts;
                     }

@@ -7,6 +7,8 @@ var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');
 var userInfo = require('./../user/userInfo');
+var contactStatistic = require('./contactStatistic');
+var privacySettings = require('./privacySettings');
 
 var getContactingStatistics = function (userId) {
     var now = Math.floor(moment.utc().valueOf() / 1000);
@@ -55,11 +57,22 @@ var getContactingNormal = function (userId, itemsPerPage, skip, expires) {
         skip: skip
     }, "user.userId = {userId}").getCommand());
 
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(privacySettings.getPrivacySettings(userId).getCommand());
+
     return getContactingStatistics(userId)
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0], expires);
-            return resp;
+            var data = {};
+            data.contactingUsers = resp[0];
+            data.statistic = resp[1];
+            data.privacySettings = resp[2];
+            data.numberOfContactingLastDay = resp[3][0].count;
+            data.numberOfContactingLastWeek = resp[3][1].count;
+            data.numberOfContactingLastMonth = resp[3][2].count;
+            data.numberOfAllContactings = resp[3][3].count;
+            return data;
         });
 };
 

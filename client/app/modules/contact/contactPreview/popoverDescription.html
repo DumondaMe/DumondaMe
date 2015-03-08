@@ -14,7 +14,7 @@
                     ng-model="selectedPrivacySetting"></select>-->
             <button type="submit" class="btn btn-default"
                     ng-class="{'disabled': contact.selectedPrivacySetting === contact.type}"
-                    ng-click="sendNewDescription()">Ändern
+                    ng-click="sendNewDescription($hide)">Ändern
             </button>
         </form>
     </div>

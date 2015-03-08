@@ -28,13 +28,7 @@ module.exports = function (router) {
         return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
             return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip, req.session.cookie._expires);
         }).then(function (users) {
-            var data = {};
-            data.contactingUsers = users[0];
-            data.numberOfContactingLastDay = users[1][0].count;
-            data.numberOfContactingLastWeek = users[1][1].count;
-            data.numberOfContactingLastMonth = users[1][2].count;
-            data.numberOfAllContactings = users[1][3].count;
-            res.status(200).json(data);
+            res.status(200).json(users);
         }).catch(exceptions.InvalidJsonRequest, function () {
             res.status(400).end();
         }).catch(function (err) {

@@ -7,7 +7,9 @@
                         {{getContactingInfo($index)}}
                     </div>
                 </div>
-                <ely-contact-preview enable-select="false" contact="contact"></ely-contact-preview>
+                <ely-contact-preview enable-select="false" contact="contact"
+                                     privacy-settings="users.privacySettings"
+                                     statistic="users.statistic"></ely-contact-preview>
             </div>
             <div ng-show="users.numberOfAllContactings > itemsPerPage"
                  class="pagination">

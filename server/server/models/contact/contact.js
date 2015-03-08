@@ -2,27 +2,13 @@
 
 var db = require('./../../neo4j');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
+var contactStatistic = require('./contactStatistic');
+var privacySettings = require('./privacySettings');
 var underscore = require('underscore');
 var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');
 var userInfo = require('./../user/userInfo');
-
-var getContactStatistics = function (userId) {
-    return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
-        .return('r.type AS type, count(*) AS count')
-        .end({
-            userId: userId
-        });
-};
-
-var getPrivacySettings = function (userId) {
-    return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY]->(:Privacy)')
-        .return('r.type AS type')
-        .end({
-            userId: userId
-        });
-};
 
 var getTotalNumberOfContacts = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[:IS_CONTACT]->(:User)')
@@ -69,7 +55,7 @@ var addContact = function (userId, contactIds, type) {
         })
         .getCommand());
 
-    commands.push(getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
 
     return getTotalNumberOfContacts(userId)
         .send(commands)
@@ -91,7 +77,7 @@ var deleteContact = function (userId, contactIds) {
         })
         .getCommand());
 
-    commands.push(getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
 
     return getTotalNumberOfContacts(userId)
         .send(commands)
@@ -130,7 +116,7 @@ var changeContactState = function (userId, contactIds, type) {
             type: type
         }).getCommand());
 
-    return getContactStatistics(userId)
+    return contactStatistic.getContactStatistics(userId)
         .send(commands)
         .then(function (rel) {
             if (rel[0].length === contactIds.length) {
@@ -168,14 +154,20 @@ var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
         skip: skip
     }, "user.userId = {userId}").getCommand());
 
-    commands.push(getContactStatistics(userId).getCommand());
-    commands.push(getPrivacySettings(userId).getCommand());
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(privacySettings.getPrivacySettings(userId).getCommand());
 
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0], expires);
-            return resp;
+            var data = {};
+            data.contacts = resp[0];
+            data.statistic = resp[1];
+            data.privacySettings = resp[2];
+            data.numberOfContacts = resp[3][0].numberOfContacts;
+            data.contactsForPagination = data.numberOfContacts;
+            return data;
         });
 };
 
@@ -192,8 +184,11 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types, expires) {
     return getTotalNumberOfContactsPerType(userId, types)
         .send(commands)
         .then(function (resp) {
+            var data = {};
             userInfo.addContactPreviewInfos(resp[0], expires);
-            return resp;
+            data.contacts = resp[0];
+            data.contactsForPagination = resp[1][0].contactsForPagination;
+            return data;
         });
 };
 
