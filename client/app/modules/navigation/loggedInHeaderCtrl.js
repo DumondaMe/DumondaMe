@@ -1,22 +1,9 @@
 'use strict';
 
-module.exports = ['$scope', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage',
-    function ($scope, $interval, $rootScope, UserInfo, Modification, profileImage) {
+module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
+    function ($scope, $state, $interval, $rootScope, UserInfo, Modification, profileImage, Auth) {
 
         var userHeaderInfo, modificationInfo;
-        $scope.dropdownSettings = [
-            {
-                text: "Settings",
-                href: "#"
-            },
-            {
-                divider: true
-            },
-            {
-                text: "Logout",
-                click: "logout()"
-            }
-        ];
 
         modificationInfo = $interval(function () {
             var modification = Modification.get(null, function () {
@@ -37,4 +24,13 @@ module.exports = ['$scope', '$interval', '$rootScope', 'UserInfo', 'Modification
                 $rootScope.userHeaderInfo = userHeaderInfo;
             });
         }
+
+        $rootScope.logout = function () {
+            Auth.logout().then(function () {
+                delete $rootScope.userHeaderInfo;
+                $state.go('public.login');
+            }, function () {
+                $scope.error = "Fehler beim Abmelden";
+            });
+        };
     }];

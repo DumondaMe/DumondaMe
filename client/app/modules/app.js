@@ -44,7 +44,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                     },
                     header: {
                         templateUrl: 'app/modules/navigation/loggedInHeader.html',
-                        controller: 'LogoutCtrl'
+                        controller: 'LoggedInHeaderCtrl'
                     }
                 }
             })
