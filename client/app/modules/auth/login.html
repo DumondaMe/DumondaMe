@@ -1,4 +1,7 @@
 <div id="loginform">
+    <div id="error-message" class="alert alert-danger" role="alert" ng-if="error">
+        {{error}}
+    </div>
     <form class="form-horizontal" name="loginForm" role="form" novalidate="novalidate">
         <div class="form-group">
             <label for="id_username" class="col-sm-2 control-label">Email</label>

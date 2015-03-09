@@ -2,13 +2,14 @@
 
 module.exports = ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
     $scope.login = function () {
+        delete $scope.error;
         Auth.login({
             username: $scope.loginuser.email,
             password: $scope.loginuser.password
         }).then(function () {
             $location.path('/');
         }, function () {
-            $scope.error = "Failed to login";
+            $scope.error = "Passwort oder Kennwort stimmen nicht.";
         });
     };
 }];
