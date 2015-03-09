@@ -130,4 +130,30 @@ describe('Tests of threads controller', function () {
 
         mockSearchUser.verify();
     });
+
+    it('Go to creating a new single thread', function () {
+
+        var mockStateGo = sinon.mock(state);
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+
+        mockStateGo.expects('go').withArgs('message.threads.create', {
+            userId: '1'
+        });
+        scope.addNewSingleThread('1');
+
+        mockStateGo.verify();
+    });
+
+    it('Do not creating a new single thread when no ID is provided', function () {
+
+        var mockStateGo = sinon.mock(state);
+
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+
+        mockStateGo.expects('go').never();
+        scope.addNewSingleThread();
+
+        mockStateGo.verify();
+    });
 });

@@ -2,13 +2,21 @@
 
 module.exports = ['$scope', 'Modification', function ($scope, Modification) {
 
-    var modification = Modification.get({forceShowModification: true}, function () {
-        if (modification.numberOfMessages > 0) {
-            $scope.messageText = modification.numberOfMessages + ' neue Meldungen';
+    function setMessageText(modification, scope) {
+        if (modification.numberOfMessages === 1) {
+            scope.messageText = modification.numberOfMessages + ' neue Meldung';
+        } else if (modification.numberOfMessages > 1) {
+            scope.messageText = modification.numberOfMessages + ' neue Meldungen';
+        } else {
+            scope.messageText = '';
         }
+    }
+
+    var modification = Modification.get({forceShowModification: true}, function () {
+        setMessageText(modification, $scope);
     });
 
     $scope.$on('message.changed', function (event, numberOfMessages) {
-        $scope.messageText = numberOfMessages + ' neue Meldungen';
+        setMessageText({numberOfMessages: numberOfMessages}, $scope);
     });
 }];

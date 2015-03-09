@@ -131,7 +131,8 @@ describe('Tests of Contact Preview Controller', function () {
         contactPreviewCtrl(scope, Contact, moment);
         scope.contact.selectedPrivacySetting = 'Familie';
         scope.statistic = {};
-        scope.sendNewDescription();
+        scope.sendNewDescription(function () {
+        });
         stubContactSave.callArg(1);
 
         expect(scope.contact.type).to.equal('Familie');
