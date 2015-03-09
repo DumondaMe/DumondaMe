@@ -8,7 +8,8 @@ module.exports = {
             scope: {
                 description: '@',
                 navTo: '@',
-                imageUrl: '@'
+                imageUrl: '@',
+                eventDescription: '='
             },
             templateUrl: 'app/modules/home/homeNavElement/template.html'
         };

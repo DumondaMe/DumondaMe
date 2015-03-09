@@ -6,13 +6,27 @@ var modification = require('./../../../models/modification/modification'),
     exceptions = require('./../../../../common/src/lib/error/exceptions'),
     validation = require('./../../../../common/src/lib/jsonValidation');
 
+var schemaRequestModification = {
+    name: 'requestModification',
+    type: 'object',
+    additionalProperties: false,
+    required: [],
+    properties: {
+        forceShowModification: {type: 'boolean'}
+    }
+};
+
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return modification.hasModification(req.user.id, req.session).then(function (hasChanged) {
-            if (hasChanged) {
-                res.status(200).json({hasChanged: true});
+        req.query.forceShowModification = req.query.forceShowModification === 'true';
+
+        return validation.validateQueryRequest(req, schemaRequestModification, logger).then(function () {
+            return modification.hasModification(req.user.id, req.session);
+        }).then(function (hasChanged) {
+            if (hasChanged.hasChanged || req.query.forceShowModification) {
+                res.status(200).json(hasChanged);
             } else {
                 res.status(200).end();
             }

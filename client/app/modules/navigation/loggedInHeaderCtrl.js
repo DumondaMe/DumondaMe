@@ -21,7 +21,7 @@ module.exports = ['$scope', '$interval', '$rootScope', 'UserInfo', 'Modification
         modificationInfo = $interval(function () {
             var modification = Modification.get(null, function () {
                 if (modification.hasChanged) {
-                    $rootScope.$broadcast('message.changed');
+                    $rootScope.$broadcast('message.changed', modification.numberOfMessages);
                 }
             });
         }, 30000);

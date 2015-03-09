@@ -38,7 +38,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             .state('home', {
                 url: '/home',
                 views: {
-                    content: {templateUrl: 'app/modules/home/home.html'},
+                    content: {
+                        templateUrl: 'app/modules/home/home.html',
+                        controller: 'HomeCtrl'
+                    },
                     header: {
                         templateUrl: 'app/modules/navigation/loggedInHeader.html',
                         controller: 'LogoutCtrl'

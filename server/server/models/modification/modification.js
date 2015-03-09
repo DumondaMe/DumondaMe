@@ -6,9 +6,18 @@ var underscore = require('underscore');
 var unread = require('../messages/util/unreadMessages');
 var logger = requireLogger.getLogger(__filename);
 
+var getNumberOfUnreadMessages = function (unreadMessages) {
+    var total = 0;
+    underscore.forEach(unreadMessages, function (unreadMessage) {
+        total += unreadMessage.unreadMessage;
+    });
+    return total;
+};
+
 var hasModification = function (userId, session) {
     return unread.hasUnreadMessages(userId).then(function (unreadMessages) {
-        var hasChanged = false, sessionUnreadMessage;
+        var hasChanged = false, sessionUnreadMessage, numberOfUnreadMessages;
+        numberOfUnreadMessages = getNumberOfUnreadMessages(unreadMessages);
         if (unreadMessages.length !== session.userData.unreadMessages.length) {
             session.userData.unreadMessages = unreadMessages;
             hasChanged = true;
@@ -21,7 +30,7 @@ var hasModification = function (userId, session) {
                 }
             });
         }
-        return hasChanged;
+        return {hasChanged: hasChanged, numberOfMessages: numberOfUnreadMessages};
     });
 };
 

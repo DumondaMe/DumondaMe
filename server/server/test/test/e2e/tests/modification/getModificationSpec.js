@@ -100,10 +100,21 @@ describe('Integration Tests for getting modification info', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.hasChanged.should.be.true;
+            res.body.numberOfMessages.should.equals(4);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
+        });
+    });
+
+    it('When forcing is true then return for every request the value - Return 200', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/modification', {forceShowModification: true}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.numberOfMessages.should.equals(3);
         });
     });
 
