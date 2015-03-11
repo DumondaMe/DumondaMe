@@ -3,9 +3,10 @@
  */
 'use strict';
 
-var UserModel = require('../models/user/user'),
-    LocalStrategy = require('passport-local').Strategy,
-    logger = requireLogger.getLogger(__filename);
+var UserModel = require('../models/user/user');
+var LocalStrategy = require('passport-local').Strategy;
+var passwordEncryption = require('./passwordEncryption');
+var logger = requireLogger.getLogger(__filename);
 
 /**
  * A helper method to retrieve a user from a local DB and ensure that the provided password matches.
@@ -17,6 +18,7 @@ exports.localStrategy = function () {
 
     return new LocalStrategy(function (username, password, done) {
 
+        var dbUser;
         //Retrieve the user from the database by login
         UserModel.searchUserWithEmail(username).then(function (user) {
 
@@ -27,17 +29,16 @@ exports.localStrategy = function () {
                     message: 'Login not found'
                 });
             }
-
-            //Make sure that the provided password matches what's in the DB.
-            if (user.password !== password) {
+            dbUser = user;
+            return passwordEncryption.comparePassword(password, user.password);
+        }).then(function (samePassword) {
+            if (!samePassword) {
                 logger.warn('Wrong password for user ' + username);
                 return done(null, false, {
                     message: 'Incorrect Password'
                 });
             }
-            //If everything passes, return the retrieved user object.
-            done(null, user);
-
+            done(null, dbUser);
         }).catch(function (err) {
             logger.error('Database error when looking for user on database ' + username, {error: err});
             return done(err);

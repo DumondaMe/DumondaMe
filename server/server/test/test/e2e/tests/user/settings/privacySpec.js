@@ -14,10 +14,10 @@ describe('Integration Tests for the privacy settings', function () {
         libUser.removeFromCache('user@irgendwo.ch');
         return db.clearDatabase().then(function () {
             var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', name: 'user Meier', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '1234', name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', password: '1234', name: 'user Meier4', userId: '4'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier2', userId: '2'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier3', userId: '3'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier4', userId: '4'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
                 .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")

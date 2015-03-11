@@ -15,7 +15,7 @@ describe('Integration Tests User Name', function () {
 
         return db.clearDatabase().then(function () {
 
-            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', name: 'user Meier', userId:'1'})")
+            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId:'1'})")
                 .end().send();
         });
     });

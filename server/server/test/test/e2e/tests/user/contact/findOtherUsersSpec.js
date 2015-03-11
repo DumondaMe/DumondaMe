@@ -18,7 +18,7 @@ describe('Integration Tests for finding other users', function () {
             return db.cypher().create(createUser)
                 .end({
                     email: 'user@irgendwo.ch',
-                    password: '1234',
+                    password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     name: 'user Meier',
                     userId: '1'
                 }).send()
@@ -26,7 +26,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo2.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier2',
                             userId: '2'
                         }).send()
@@ -40,7 +40,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo3.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier3',
                             userId: '3'
                         }).send()
@@ -54,7 +54,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo4.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user Meier4',
                             userId: '4'
                         }).send()
@@ -68,7 +68,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo5.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user Meier5',
                             userId: '5'
                         }).send()
@@ -87,7 +87,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo6.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user Meier6',
                             userId: '6'
                         }).send()
@@ -106,7 +106,7 @@ describe('Integration Tests for finding other users', function () {
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo7.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'etwasganzanderes nochwas anderes',
                             userId: '7'
                         }).send()

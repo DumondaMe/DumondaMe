@@ -1,22 +1,22 @@
 module.exports = {
     validUser: {
         'username': 'user@irgendwo.ch',
-        'password': '1234'
+        'password': '1'
     },
     validUser2: {
         'username': 'user2@irgendwo.ch',
-        'password': '1234'
+        'password': '1'
     },
     invalidUsername: {
         'username': 'usergibtesnicht@irgendwo.ch',
-        'password': '1234'
+        'password': '1'
     },
     invalidPassword: {
         'username': 'user@irgendwo.ch',
-        'password': '1235'
+        'password': '2'
     },
     changeUserData: {
         'username': 'userchange@irgendwo.ch',
-        'password': '1234'
+        'password': '1'
     }
 };

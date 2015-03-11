@@ -18,7 +18,7 @@ describe('Integration Tests for handling the profile privacy setting when return
             return db.cypher().create(createUser)
                 .end({
                     email: 'user@irgendwo.ch',
-                    password: '1234',
+                    password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     name: 'user Meier',
                     forename: 'user',
                     surname: 'Meier',
@@ -28,7 +28,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo2.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user2 Meier2',
                             forename: 'user2',
                             surname: 'Meier2',
@@ -55,7 +55,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo3.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user3 Meier3',
                             forename: 'user3',
                             surname: 'Meier3',
@@ -82,7 +82,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo4.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user4 Meier4',
                             forename: 'user4',
                             surname: 'Meier4',
@@ -109,7 +109,7 @@ describe('Integration Tests for handling the profile privacy setting when return
                     return db.cypher().create(createUser)
                         .end({
                             email: 'user@irgendwo5.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             name: 'user5 Meier5',
                             forename: 'user5',
                             surname: 'Meier5',

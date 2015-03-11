@@ -20,7 +20,7 @@ describe('Integration Tests User Profile Data', function () {
             "female: {female},street: {street},place: {place}, userId: {userId}})")
                 .end({
                     email: 'user@irgendwo.ch',
-                    password: '1234',
+                    password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                     forename: 'user',
                     surname: 'Meier',
                     birthday: '1982-03-26',
@@ -34,7 +34,7 @@ describe('Integration Tests User Profile Data', function () {
                     return db.cypher().create("(:User {email: {email}, password: {password}, userId: {userId}})")
                         .end({
                             email: 'userchange@irgendwo.ch',
-                            password: '1234',
+                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
                             userId: '1'
                         }).send();
                 });

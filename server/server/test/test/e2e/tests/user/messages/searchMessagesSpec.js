@@ -17,7 +17,7 @@ describe('Integration Tests for searching messages or user contacts', function (
             var commands = [];
             startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '1234', name: 'user Meier', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false})")
                 .end({}).getCommand());
