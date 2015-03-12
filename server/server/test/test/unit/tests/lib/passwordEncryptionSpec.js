@@ -37,4 +37,13 @@ describe('Unit Test lib/passwordEncryption', function () {
         });
     });
 
+    it('Generate a password hash and compare', function () {
+
+        return testee.generatePasswordHash('1').then(function (hash) {
+            return testee.comparePassword('1', hash);
+        }).then(function (isSamePassword) {
+            expect(isSamePassword).to.be.true;
+        });
+    });
+
 });
