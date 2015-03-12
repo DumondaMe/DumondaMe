@@ -3,6 +3,9 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('LoginCtrl', require('./loginCtrl'));
+app.controller('RegisterCtrl', require('./registerCtrl'));
+
+app.factory('Register', require('./register'));
 
 app.service('Auth', require('./auth'));
 
@@ -18,5 +21,14 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             isPublic: true
+        })
+        .state('register', {
+            url: '/register',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/auth/register.html',
+                    controller: 'RegisterCtrl'
+                }
+            }
         });
 }]);

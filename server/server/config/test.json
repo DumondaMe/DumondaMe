@@ -6,6 +6,10 @@
   "databaseConfig": {
     "host": "http://localhost:7476"
   },
+  "cdnStore": {
+    "path": "C:/Programmieren/Elyoos/server/cdn/data2",
+    "host": "http://192.168.1.100:8082"
+  },
   "bcrypt": {
     "difficulty": 8
   },

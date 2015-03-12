@@ -7,8 +7,8 @@ module.exports = [function () {
             var profileImageObject = scope[imageObjectName];
             if (profileImageObject) {
                 profileImageVersion = profileImageVersion + 1;
-                profileImageObject.profileImage = profileImageObject.profileImage.split('?version=', 2)[0];
-                profileImageObject.profileImage += '?version=' + profileImageVersion.toString();
+                profileImageObject.profileImage = profileImageObject.profileImage.split('&version=', 2)[0];
+                profileImageObject.profileImage += '&version=' + profileImageVersion.toString();
             }
         });
     };

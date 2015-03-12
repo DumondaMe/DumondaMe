@@ -17,6 +17,7 @@ module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Mo
 
         $scope.$on('$destroy', function () {
             $interval.cancel(modificationInfo);
+            delete $rootScope.userHeaderInfo;
         });
 
         if ($rootScope.userHeaderInfo === undefined) {
@@ -27,7 +28,6 @@ module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Mo
 
         $rootScope.logout = function () {
             Auth.logout().then(function () {
-                delete $rootScope.userHeaderInfo;
                 $state.go('public.login');
             }, function () {
                 $scope.error = "Fehler beim Abmelden";
