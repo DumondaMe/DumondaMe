@@ -12,7 +12,7 @@ var password = 'd6F3Efeq';
 var schemaRequestImage = {
     name: 'requestImage',
     type: 'object',
-    additionalProperties: false,
+    additionalProperties: true,
     required: ['path', 'expires'],
     properties: {
         path: {type: 'string', format: 'notEmptyString', maxLength: 500},
