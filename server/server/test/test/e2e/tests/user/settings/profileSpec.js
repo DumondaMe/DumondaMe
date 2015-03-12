@@ -73,7 +73,7 @@ describe('Integration Tests User Profile Data', function () {
         var user = {
             forename: 'user',
             surname: 'surname',
-            birthday: '1982-06-06',
+            birthday: 123546,
             country: 'Schweiz',
             female: true
         };

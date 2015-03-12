@@ -9,14 +9,15 @@ function invalidJsonRequest(message) {
 }
 invalidJsonRequest.prototype = Object.create(Error.prototype);
 
-function invalidOperation(message) {
+function invalidOperation(message, errorCode) {
     this.message = message;
     this.name = "invalidOperation";
+    this.elyoosErrorCode = errorCode;
 }
 invalidOperation.prototype = Object.create(Error.prototype);
 
-function getInvalidOperation(message, logger) {
-    var invalidOperationException = new invalidOperation(message);
+function getInvalidOperation(message, logger, errorCode) {
+    var invalidOperationException = new invalidOperation(message, errorCode);
     logger.warn(invalidOperationException.message, {error: ''});
     return Promise.reject(invalidOperationException);
 }
