@@ -1,6 +1,7 @@
 'use strict';
 
 var app = require('../../../../../server');
+var libUser = require('../../../../../lib/user')();
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
@@ -12,6 +13,8 @@ describe('Integration Tests for register a new user', function () {
     var requestAgent;
 
     beforeEach(function () {
+
+        libUser.removeFromCache('user@irgendwo.ch');
 
         return db.clearDatabase().then(function () {
             var commands = [];
