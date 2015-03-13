@@ -27,7 +27,8 @@
     "mkdirp": "0.5.0",
     "biguint-format": "1.0.0",
     "flake-idgen": "1.0.0",
-    "ncp": "2.0.0"
+    "ncp": "2.0.0",
+    "csurf": "1.7.0"
   },
   "devDependencies": {
     "mocha": "~1.21.4",
