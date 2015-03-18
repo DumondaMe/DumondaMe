@@ -5,19 +5,34 @@
 
 var logger = requireLogger.getLogger(__filename);
 var gm = require('./../util/gm');
-var cdnPath = require('./../../../common/src/lib/cdn').getConfig().path;
-var mkdirp = require('mkdirp');
+var cdn = require('./../util/cdn');
+var tmp = require('tmp');
 
 module.exports = {
     generateProfileImage: function (originalFilePath, userId) {
-        var path = cdnPath + '/' + userId + '/profile/';
-        mkdirp.sync(path);
-        return gm.gm(originalFilePath).thumbAsync(100, 100, path + 'profilePreview.jpg', 93)
+        var preview = tmp.fileSync({postfix: '.jpg'}),
+            thumbnail = tmp.fileSync({postfix: '.jpg'}),
+            profile = tmp.fileSync({postfix: '.jpg'});
+        return gm.gm(originalFilePath).thumbAsync(100, 100, preview.name, 93)
             .then(function () {
-                return gm.gm(originalFilePath).thumbAsync(35, 35, path + 'thumbnail.jpg', 95);
+                return gm.gm(originalFilePath).thumbAsync(35, 35, thumbnail.name, 95);
             })
             .then(function () {
-                return gm.gm(originalFilePath).thumbAsync(350, 350, path + 'profile.jpg', 92);
+                return gm.gm(originalFilePath).thumbAsync(350, 350, profile.name, 92);
+            })
+            .then(function () {
+                return cdn.uploadProfilePicture(preview.name, userId + '/profilePreview.jpg');
+            })
+            .then(function () {
+                return cdn.uploadProfilePicture(thumbnail.name, userId + '/thumbnail.jpg');
+            })
+            .then(function () {
+                return cdn.uploadProfilePicture(profile.name, userId + '/profile.jpg');
+            })
+            .then(function () {
+                preview.removeCallback();
+                thumbnail.removeCallback();
+                profile.removeCallback();
             });
     }
 };

@@ -44,7 +44,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, expires, '/profile/profile.jpg');
+                return getUser(resp, id, expires, '/profile.jpg');
             });
     },
     updateUserProfile: function (userId, userData) {
@@ -83,7 +83,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, expires, '/profile/thumbnail.jpg');
+                return getUser(resp, id, expires, '/thumbnail.jpg');
             });
     }
 };
