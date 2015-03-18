@@ -19,7 +19,11 @@ module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
         };
         $scope.getUserData();
 
-        profileImage.addProfileImageChangedEvent($scope, 'userDataToChange');
+        profileImage.addProfileImageChangedEvent($scope, function () {
+            var profileData = Profile.get({}, function () {
+                $scope.userDataToChange.profileImage = profileData.profileImage;
+            });
+        });
 
         $scope.submitProfileData = function () {
             if (!$scope.profileForm.$invalid) {

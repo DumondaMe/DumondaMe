@@ -13,7 +13,11 @@ module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Mo
             });
         }, 30000);
 
-        profileImage.addProfileImageChangedEvent($rootScope, 'userHeaderInfo');
+        profileImage.addProfileImageChangedEvent($rootScope, function () {
+            userHeaderInfo = UserInfo.get(null, function () {
+                $rootScope.userHeaderInfo = userHeaderInfo;
+            });
+        });
 
         $scope.$on('$destroy', function () {
             $interval.cancel(modificationInfo);
