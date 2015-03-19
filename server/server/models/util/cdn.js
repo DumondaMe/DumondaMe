@@ -9,6 +9,23 @@ var fs = require('fs');
 
 AWS.config.region = 'eu-central-1';
 
+var copyFile = function (source, destination, s3) {
+    var params = {
+        Bucket: cdnConfig.getConfig().bucket,
+        CopySource: cdnConfig.getConfig().bucket + '/' + source,
+        Key: destination
+    };
+    return new Promise(function (resolve, reject) {
+        s3.copyObject(params, function (err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+};
+
 module.exports = {
     getUrl: function (path) {
         var s3 = new AWS.S3(),
@@ -31,6 +48,14 @@ module.exports = {
                         resolve(data);
                     }
                 });
+        });
+    },
+    createFolderRegisterUser: function (userId) {
+        var s3 = new AWS.S3();
+        return copyFile('default/profile.jpg', userId + '/profile.jpg', s3).then(function () {
+            return copyFile('default/profilePreview.jpg', userId + '/profilePreview.jpg', s3);
+        }).then(function () {
+            return copyFile('default/thumbnail.jpg', userId + '/thumbnail.jpg', s3);
         });
     }
 };

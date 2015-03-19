@@ -2,10 +2,9 @@
 
 var db = require('./../../neo4j');
 var uuid = require('./../../../common/src/lib/uuid');
+var cdn = require('./../util/cdn');
 var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
-var cdnPath = require('./../../../common/src/lib/cdn').getConfig().path;
-var mkdirp = require('mkdirp');
 var Promise = require('bluebird').Promise;
 var ncp = Promise.promisify(require('ncp').ncp);
 var logger = requireLogger.getLogger(__filename);
@@ -23,18 +22,11 @@ var checkEmailExists = function (email) {
         });
 };
 
-var createCdnProfileFolders = function (userId) {
-    var path = cdnPath + '/' + userId + '/profile/',
-        defaultPath = cdnPath + '/default/profile';
-    mkdirp.sync(path);
-    return ncp(defaultPath, path);
-};
-
 var registerUser = function (params) {
 
     var userId;
     return checkEmailExists(params.email).then(function () {
-        userId = uuid.generateUUID()
+        userId = uuid.generateUUID();
         return passwordEncryption.generatePasswordHash(params.password);
     }).then(function (hash) {
         var paramsCypher = {
@@ -61,7 +53,7 @@ var registerUser = function (params) {
             .end(paramsCypher)
             .send();
     }).then(function () {
-        return createCdnProfileFolders(userId);
+        return cdn.createFolderRegisterUser(userId);
     });
 };
 

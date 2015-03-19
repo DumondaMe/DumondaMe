@@ -15,24 +15,15 @@ describe('Tests of the profile image events', function () {
         });
     });
 
-    it('When event to change image is called then add version', function () {
+    it('When event to change image is called then callback function is called', function () {
 
-        profileImage.addProfileImageChangedEvent(scope, 'userData');
-        scope.userData.profileImage = 'www.irgendwas.ch/blabla';
-
-        childScope.$emit('elyoos.profileImage.change');
-        childScope.$emit('elyoos.profileImage.change');
-
-        expect(scope.userData.profileImage).to.equal('www.irgendwas.ch/blabla?version=3');
-    });
-
-    it('When object not available then change nothing', function () {
-
-        profileImage.addProfileImageChangedEvent(scope, 'userData1');
-        scope.userData.profileImage = 'www.irgendwas.ch/blabla';
+        var callbackCalled = false;
+        profileImage.addProfileImageChangedEvent(scope, function () {
+            callbackCalled = true;
+        });
 
         childScope.$emit('elyoos.profileImage.change');
 
-        expect(scope.userData.profileImage).to.equal('www.irgendwas.ch/blabla');
+        expect(callbackCalled).to.be.true;
     });
 });

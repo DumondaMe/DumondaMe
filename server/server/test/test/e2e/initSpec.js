@@ -4,10 +4,15 @@ var app = require('../../../server');
 var db = require('../../../neo4j/index');
 var dbConfig = require('../../../lib/database');
 var request = require('supertest');
+var cdn = require('../../../models/util/cdn');
+var sinon = require('sinon');
 
 var Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
+sinon.stub(cdn, 'getUrl').returnsArg(0);
+sinon.stub(cdn, 'uploadProfilePicture').returns(Promise.resolve());
+sinon.stub(cdn, 'createFolderRegisterUser').returns(Promise.resolve());
 
 describe('Initialize Server for all integration tests', function () {
 

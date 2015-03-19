@@ -161,24 +161,20 @@ describe('Integration Tests for searching messages or user contacts', function (
             res.body.threads[0].threadId.should.equal("1");
             res.body.threads[0].isGroupThread.should.be.false;
             res.body.threads[0].previewText.should.equal("message1");
-            //cms/default/profile/thumbnail.jpg
-            res.body.threads[0].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
+            res.body.threads[0].profileUrl.should.equal("default/profilePreview.jpg");
             res.body.threads[1].description.should.equal("user3 Meier3");
             res.body.threads[1].threadId.should.equal("2");
             res.body.threads[1].isGroupThread.should.be.false;
             res.body.threads[1].previewText.should.equal("message1");
-            //cms/3/profile/thumbnail.jpg
-            res.body.threads[1].profileUrl.should.contain("?path=57c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires");
+            res.body.threads[1].profileUrl.should.equal('3/profilePreview.jpg');
             res.body.threads[2].description.should.equal("Meier Chat");
             res.body.threads[2].threadId.should.equal("1");
             res.body.threads[2].isGroupThread.should.be.true;
             res.body.threads[2].previewText.should.equal("message1");
-            //cms/default/profile/thumbnail.jpg
-            res.body.threads[2].profileUrl.should.contain("?path=008bd291347d6c3f205beb0bfbef19d4a35d8bb2d9ebd85466ac437f9b9e37698e5f&expires");
+            res.body.threads[2].profileUrl.should.equal("default/profilePreview.jpg");
             res.body.threads[3].description.should.equal("user5 Meier5");
             res.body.threads[3].userId.should.equal("5");
-            //cms/5/profile/thumbnail.jpg
-            res.body.threads[3].profileUrl.should.contain("?path=51c1c4822e77717c3506f41ffde51597b67f96b1c6eed8733aa34571&expires");
+            res.body.threads[3].profileUrl.should.equal("5/profilePreview.jpg");
             should.not.exist(res.body.threads[3].previewText);
         });
     });
