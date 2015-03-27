@@ -2,10 +2,30 @@
 
 var db = require('./../../neo4j');
 var passwordEncryption = require('./../../lib/passwordEncryption');
+var exceptions = require('./../../../common/src/lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
-var changePassword = function (userId, newPassword) {
-    return passwordEncryption.generatePasswordHash(newPassword)
+var checkActualPassword = function (userId, actualPassword) {
+
+    return db.cypher().match('(u:User {userId: {userId}})')
+        .return('u.password AS password')
+        .end({userId: userId})
+        .send()
+        .then(function (user) {
+            return passwordEncryption.comparePassword(actualPassword, user[0].password);
+        })
+        .then(function (samePassword) {
+            if (!samePassword) {
+                return exceptions.getInvalidOperation('Wrong actual password for changing password', logger);
+            }
+        });
+};
+
+var changePassword = function (userId, newPassword, actualPassword) {
+    return checkActualPassword(userId, actualPassword)
+        .then(function () {
+            return passwordEncryption.generatePasswordHash(newPassword);
+        })
         .then(function (hash) {
             return db.cypher().match('(u:User {userId: {userId}})')
                 .set('u', {password: hash})

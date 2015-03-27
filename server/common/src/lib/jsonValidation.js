@@ -15,10 +15,19 @@ tv4.addFormat('notEmptyString', function (data) {
 });
 
 tv4.addFormat('passwordString', function (data) {
-    if (typeof data === 'string' && /([^\s])(?=.*[A-Z])(?=.*[0-9])/.test(data)) {
-        return null;
+    if (typeof data === 'string') {
+        if (/([^\s])/.test(data)) {
+            if (/(?=.*[A-Z])/.test(data)) {
+                if (/(?=.*[0-9])/.test(data)) {
+                    return null;
+                }
+                return 'Password contains no numbers';
+            }
+            return 'Password contains no capital letters';
+        }
+        return 'Password contains only empty strings';
     }
-    return 'Not a valid password';
+    return 'Password has not type string';
 });
 
 var validate = function (req, data, requestSchema, logger) {

@@ -1052,6 +1052,159 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/changePassword.html',
+    "<div id=\"content-settings-password\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div id=\"manage-profile\">\r" +
+    "\n" +
+    "                <form class=\"form-horizontal\" name=\"profileForm\" role=\"form\" novalidate>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"inputPasswordActual\" class=\"col-sm-4 control-label\">Aktuelles\r" +
+    "\n" +
+    "                            Passwort\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPassword\" ng-model=\"password.actualPassword\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPasswordActual\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"inputPassword\" class=\"col-sm-4 control-label\">Neu\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPassword\" ng-model=\"password.newPassword\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPassword\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label  id=\"label-password-confirm\" for=\"inputPasswordConfirm\" class=\"col-sm-4 control-label\">Neues\r" +
+    "\n" +
+    "                            Passwort erneut eingeben\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPasswordConfirm\"\r" +
+    "\n" +
+    "                                   ng-model=\"password.newPasswordConfirm\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPasswordConfirm\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-offset-4 col-sm-8\">\r" +
+    "\n" +
+    "                            <div>\r" +
+    "\n" +
+    "                                <button id=\"submit-change-profile\" type=\"submit\"\r" +
+    "\n" +
+    "                                        class=\"btn btn-default\"\r" +
+    "\n" +
+    "                                        ng-click=\"submitNewPassword()\">\r" +
+    "\n" +
+    "                                    Passwort ändern\r" +
+    "\n" +
+    "                                </button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
+    "\n" +
+    "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\r" +
+    "\n" +
+    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-success\"\r" +
+    "\n" +
+    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\r" +
+    "\n" +
+    "                                <span>Passwort erfolgreich geändert</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </form>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/settings/leftNavCol.html',
     "<div class=\"nav-placeholder-top\"></div>\n" +
     "\n" +
@@ -1327,6 +1480,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
+    "                <!--<button id=\"change-profile-password\" type=\"button\" class=\"btn btn-default\">\r" +
+    "\n" +
+    "                    Passwort ändern..\r" +
+    "\n" +
+    "                </button>-->\r" +
+    "\n" +
     "            </div>\r" +
     "\n" +
     "            <div id=\"manage-profile\">\r" +
@@ -1348,6 +1507,28 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                   id=\"inputEmail\"\r" +
     "\n" +
     "                                   ng-disabled=\"true\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\"></div>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-5\">\r" +
+    "\n" +
+    "                            <a ui-sref=\"settings.profile.changePassword\">\r" +
+    "\n" +
+    "                                <button id=\"change-profile-password\" type=\"button\"\r" +
+    "\n" +
+    "                                        class=\"btn btn-default\">\r" +
+    "\n" +
+    "                                    Passwort ändern..\r" +
+    "\n" +
+    "                                </button>\r" +
+    "\n" +
+    "                            </a>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -3498,7 +3679,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":76,"./auth":14,"./contact":23,"./directives":31,"./filters":42,"./home":46,"./navigation":54,"./settings":59,"./util":74,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-strap":8,"angular-strap-tpl":9,"angular-ui-route":6,"templates":1}],13:[function(require,module,exports){
+},{"../../package.json":78,"./auth":14,"./contact":23,"./directives":31,"./filters":42,"./home":46,"./navigation":54,"./settings":59,"./util":76,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-strap":8,"angular-strap-tpl":9,"angular-ui-route":6,"templates":1}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -4762,12 +4943,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 var app = require('angular').module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
+app.controller('PasswordCtrl', require('./passwordCtrl'));
 app.controller('PrivacyCtrl', require('./privacyCtrl'));
 app.controller('RenamePrivacyCtrl', require('./renamePrivacyCtrl'));
 app.controller('DeletePrivacyCtrl', require('./deletePrivacyCtrl'));
 
 app.factory('Profile', require('./profile'));
 app.factory('Privacy', require('./privacy'));
+app.factory('Password', require('./password'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -4790,6 +4973,15 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             }
         })
+        .state('settings.profile.changePassword', {
+            url: '/newPassword',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/settings/changePassword.html',
+                    controller: 'PasswordCtrl'
+                }
+            }
+        })
         .state('settings.privacy', {
             url: '/privacy',
             views: {
@@ -4800,7 +4992,45 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":58,"./privacy":60,"./privacyCtrl":61,"./profile":62,"./profileCtrl":63,"./renamePrivacyCtrl":64,"angular":4}],60:[function(require,module,exports){
+},{"./deletePrivacyCtrl":58,"./password":60,"./passwordCtrl":61,"./privacy":62,"./privacyCtrl":63,"./profile":64,"./profileCtrl":65,"./renamePrivacyCtrl":66,"angular":4}],60:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/user/password');
+}];
+
+},{}],61:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', 'Password', function ($scope, Password) {
+
+    $scope.password = {};
+    $scope.submitFailed = false;
+    $scope.submitFailedToServer = false;
+    $scope.successUserDataChange = false;
+
+    $scope.submitNewPassword = function () {
+        if (!$scope.profileForm.$invalid) {
+            $scope.submitFailed = false;
+
+            Password.save({
+                newPassword: $scope.password.newPassword,
+                actualPassword: $scope.password.actualPassword
+            }, function () {
+                $scope.profileForm.$setPristine();
+                $scope.successUserDataChange = true;
+                $scope.submitFailedToServer = false;
+            }, function () {
+                $scope.submitFailedToServer = true;
+                $scope.successUserDataChange = false;
+            });
+        } else {
+            $scope.submitFailed = true;
+        }
+    };
+}];
+
+},{}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4809,7 +5039,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],61:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -4933,14 +5163,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],63:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
@@ -5006,7 +5236,7 @@ module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
         });
     }];
 
-},{}],64:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5050,7 +5280,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],65:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5083,19 +5313,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],66:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":65,"angular":4}],67:[function(require,module,exports){
+},{"./dateFormatter":67,"angular":4}],69:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":68,"angular":4}],68:[function(require,module,exports){
+},{"./profileImage":70,"angular":4}],70:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5107,7 +5337,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],69:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5129,14 +5359,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],70:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],71:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5150,7 +5380,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],72:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5163,7 +5393,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":69,"./fileReader":70,"./fileUpload":71,"./uploadFileCtrl":73,"angular":4}],73:[function(require,module,exports){
+},{"./fileModel.js":71,"./fileReader":72,"./fileUpload":73,"./uploadFileCtrl":75,"angular":4}],75:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -5214,7 +5444,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],74:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5222,7 +5452,7 @@ var app = require('angular').module('elyoosApp');
 require('./file');
 
 app.service('moment', require('./moment'));
-},{"./file":72,"./moment":75,"angular":4}],75:[function(require,module,exports){
+},{"./file":74,"./moment":77,"angular":4}],77:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5232,7 +5462,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":10}],76:[function(require,module,exports){
+},{"moment":10}],78:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5286,4 +5516,4 @@ module.exports={
   }
 }
 
-},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]);
+},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77]);

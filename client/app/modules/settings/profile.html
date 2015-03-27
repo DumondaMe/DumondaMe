@@ -12,6 +12,9 @@
                         data-template="app/modules/util/file/uploadFile.html" bs-modal="modal">
                     Foto ändern..
                 </button>
+                <!--<button id="change-profile-password" type="button" class="btn btn-default">
+                    Passwort ändern..
+                </button>-->
             </div>
             <div id="manage-profile">
                 <form class="form-horizontal" name="profileForm" role="form" novalidate>
@@ -23,6 +26,17 @@
                                    class="form-control"
                                    id="inputEmail"
                                    ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-5">
+                            <a ui-sref="settings.profile.changePassword">
+                                <button id="change-profile-password" type="button"
+                                        class="btn btn-default">
+                                    Passwort ändern..
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <div class="form-group"

@@ -33,7 +33,8 @@ describe('Integration Tests for changing password of a user', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/password', {
-                newPassword: 'abz1Bzae'
+                actualPassword: '1',
+                newPassword: 'abzBzae1'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -41,7 +42,7 @@ describe('Integration Tests for changing password of a user', function () {
         }).then(function () {
             return requestHandler.login({
                 'username': 'user@irgendwo.ch',
-                'password': 'abz1Bzae'
+                'password': 'abzBzae1'
             });
         }).then(function (agent) {
             requestAgent = agent;
@@ -52,20 +53,35 @@ describe('Integration Tests for changing password of a user', function () {
         });
     });
 
+    it('Change the password fails because actual password is wrong - Return 400', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/password', {
+                actualPassword: '2',
+                newPassword: 'abz1Bzae'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+        });
+    });
+
     it('Change the password fails because capital letter is missing - Return 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/password', {
+                actualPassword: '1',
                 newPassword: 'abz1bzae'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
+
     it('Change the password fails because number letter is missing - Return 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/password', {
+                actualPassword: '1',
                 newPassword: 'abzvBzae'
             }, requestAgent);
         }).then(function (res) {

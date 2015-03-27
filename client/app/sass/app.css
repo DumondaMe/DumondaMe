@@ -802,6 +802,21 @@
   width: 500px;
   margin-left: 20px; }
 
+#content-settings-password {
+  width: 100%;
+  height: 100%; }
+  #content-settings-password #centerCol {
+    width: 100%;
+    height: 100%;
+    padding-left: 80px; }
+    #content-settings-password #centerCol #inner-centerCol {
+      position: relative;
+      width: 500px;
+      margin-left: 50px;
+      padding-top: 50px; }
+      #content-settings-password #centerCol #inner-centerCol #label-password-confirm {
+        padding-top: 0px; }
+
 #content-settings-profile {
   width: 100%;
   height: 100%; }
@@ -819,9 +834,14 @@
         #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container img {
           width: 250px;
           height: 250px; }
+        #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container #change-profile-image {
+          margin-top: 10px;
+          display: block; }
       #content-settings-profile #centerCol #inner-centerCol #manage-profile {
         float: left;
         width: 500px; }
+      #content-settings-profile #centerCol #inner-centerCol #change-profile-password {
+        margin-bottom: 20px; }
   #content-settings-profile #leftCol {
     position: fixed;
     display: inline-block;
@@ -1014,9 +1034,6 @@ html, body {
   top: 100px;
   left: 50%;
   margin-left: -200px; }
-
-#change-profile-image {
-  margin-top: 10px; }
 
 .alert-input {
   padding: 5px;

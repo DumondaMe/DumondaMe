@@ -3,12 +3,14 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
+app.controller('PasswordCtrl', require('./passwordCtrl'));
 app.controller('PrivacyCtrl', require('./privacyCtrl'));
 app.controller('RenamePrivacyCtrl', require('./renamePrivacyCtrl'));
 app.controller('DeletePrivacyCtrl', require('./deletePrivacyCtrl'));
 
 app.factory('Profile', require('./profile'));
 app.factory('Privacy', require('./privacy'));
+app.factory('Password', require('./password'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -28,6 +30,15 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/settings/profile.html',
                     controller: 'ProfileCtrl'
+                }
+            }
+        })
+        .state('settings.profile.changePassword', {
+            url: '/newPassword',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/settings/changePassword.html',
+                    controller: 'PasswordCtrl'
                 }
             }
         })

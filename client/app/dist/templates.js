@@ -1051,6 +1051,159 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/changePassword.html',
+    "<div id=\"content-settings-password\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div id=\"manage-profile\">\r" +
+    "\n" +
+    "                <form class=\"form-horizontal\" name=\"profileForm\" role=\"form\" novalidate>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"inputPasswordActual\" class=\"col-sm-4 control-label\">Aktuelles\r" +
+    "\n" +
+    "                            Passwort\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPassword\" ng-model=\"password.actualPassword\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPasswordActual\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"inputPassword\" class=\"col-sm-4 control-label\">Neu\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPassword\" ng-model=\"password.newPassword\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPassword\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label  id=\"label-password-confirm\" for=\"inputPasswordConfirm\" class=\"col-sm-4 control-label\">Neues\r" +
+    "\n" +
+    "                            Passwort erneut eingeben\r" +
+    "\n" +
+    "                        </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input name=\"inputPasswordConfirm\"\r" +
+    "\n" +
+    "                                   ng-model=\"password.newPasswordConfirm\"\r" +
+    "\n" +
+    "                                   class=\"form-control\"\r" +
+    "\n" +
+    "                                   type=\"password\"\r" +
+    "\n" +
+    "                                   id=\"inputPasswordConfirm\"\r" +
+    "\n" +
+    "                                   required ng-maxlength=\"30\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-offset-4 col-sm-8\">\r" +
+    "\n" +
+    "                            <div>\r" +
+    "\n" +
+    "                                <button id=\"submit-change-profile\" type=\"submit\"\r" +
+    "\n" +
+    "                                        class=\"btn btn-default\"\r" +
+    "\n" +
+    "                                        ng-click=\"submitNewPassword()\">\r" +
+    "\n" +
+    "                                    Passwort ändern\r" +
+    "\n" +
+    "                                </button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
+    "\n" +
+    "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\r" +
+    "\n" +
+    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-success\"\r" +
+    "\n" +
+    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\r" +
+    "\n" +
+    "                                <span>Passwort erfolgreich geändert</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </form>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/settings/leftNavCol.html',
     "<div class=\"nav-placeholder-top\"></div>\n" +
     "\n" +
@@ -1326,6 +1479,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
+    "                <!--<button id=\"change-profile-password\" type=\"button\" class=\"btn btn-default\">\r" +
+    "\n" +
+    "                    Passwort ändern..\r" +
+    "\n" +
+    "                </button>-->\r" +
+    "\n" +
     "            </div>\r" +
     "\n" +
     "            <div id=\"manage-profile\">\r" +
@@ -1347,6 +1506,28 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                   id=\"inputEmail\"\r" +
     "\n" +
     "                                   ng-disabled=\"true\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\"></div>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-5\">\r" +
+    "\n" +
+    "                            <a ui-sref=\"settings.profile.changePassword\">\r" +
+    "\n" +
+    "                                <button id=\"change-profile-password\" type=\"button\"\r" +
+    "\n" +
+    "                                        class=\"btn btn-default\">\r" +
+    "\n" +
+    "                                    Passwort ändern..\r" +
+    "\n" +
+    "                                </button>\r" +
+    "\n" +
+    "                            </a>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
