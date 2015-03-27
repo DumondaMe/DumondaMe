@@ -14,6 +14,13 @@ tv4.addFormat('notEmptyString', function (data) {
     return 'String is empty';
 });
 
+tv4.addFormat('passwordString', function (data) {
+    if (typeof data === 'string' && /([^\s])(?=.*[A-Z])(?=.*[0-9])/.test(data)) {
+        return null;
+    }
+    return 'Not a valid password';
+});
+
 var validate = function (req, data, requestSchema, logger) {
     var errors = tv4.validateMultiple(data, requestSchema),
         invalidJsonException;

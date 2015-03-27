@@ -12,7 +12,7 @@ var schemaChangePasword = {
     additionalProperties: false,
     required: ['newPassword'],
     properties: {
-        newPassword: {type: 'string', format: 'notEmptyString', maxLength: 55, minLength: 8}
+        newPassword: {type: 'string', format: 'passwordString', maxLength: 55, minLength: 8}
     }
 };
 

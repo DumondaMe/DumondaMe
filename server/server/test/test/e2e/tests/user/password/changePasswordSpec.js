@@ -33,7 +33,7 @@ describe('Integration Tests for changing password of a user', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/password', {
-                newPassword: '12345678'
+                newPassword: 'abz1Bzae'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -41,7 +41,7 @@ describe('Integration Tests for changing password of a user', function () {
         }).then(function () {
             return requestHandler.login({
                 'username': 'user@irgendwo.ch',
-                'password': '12345678'
+                'password': 'abz1Bzae'
             });
         }).then(function (agent) {
             requestAgent = agent;
@@ -49,6 +49,27 @@ describe('Integration Tests for changing password of a user', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Meier');
+        });
+    });
+
+    it('Change the password fails because capital letter is missing - Return 400', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/password', {
+                newPassword: 'abz1bzae'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+        });
+    });
+    it('Change the password fails because number letter is missing - Return 400', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/password', {
+                newPassword: 'abzvBzae'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
         });
     });
 });
