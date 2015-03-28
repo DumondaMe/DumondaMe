@@ -25,8 +25,8 @@ cp ../config.json $DEPLOY_DIR/server/server/config
 
 #Copy client files
 cp client/app/dist/app.js $DEPLOY_DIR/client/app/dist
-cp -r client/app/fonts $DEPLOY_DIR/client/app/fonts
-cp -r client/app/img $DEPLOY_DIR/client/app/img
+cp -r client/app/fonts $DEPLOY_DIR/client/app
+cp -r client/app/img $DEPLOY_DIR/client/app
 cp client/app/lib/jquery/jquery.min.js $DEPLOY_DIR/client/app/lib/jquery
 cp client/app/lib/imageCrop/cropper.min.js $DEPLOY_DIR/client/app/lib/imageCrop
 cp client/app/sass/app.css $DEPLOY_DIR/client/app/sass
