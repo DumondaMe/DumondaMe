@@ -268,4 +268,29 @@ describe('Integration Tests for finding other users', function () {
             should.not.exist(res.body[3].profileUrl);
         });
     });
+
+    it('Block a user and afterwards search the user - Return blocked user', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2'],
+                mode: 'blockContact'
+            }, requestAgent);
+        }).then(function () {
+            return requestHandler.getWithData('/api/user/contact/search', {
+                search: 'user2 Meier2',
+                maxItems: 3,
+                isSuggestion: false
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(1);
+            res.body[0].id.should.equal('2');
+            res.body[0].name.should.equal('user2 Meier2');
+            should.not.exist(res.body[0].type);
+            res.body[0].blocked.should.be.true;
+            should.exist(res.body[0].profileUrl);
+        });
+    });
 });

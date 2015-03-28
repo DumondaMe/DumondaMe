@@ -349,6 +349,50 @@ describe('Integration Tests for handling contacts', function () {
         });
     });
 
+    it('Contact is blocked and afterwards unblocked - Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2'],
+                mode: 'addContact',
+                description: 'Freund'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2'],
+                mode: 'blockContact'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
+                .return('r')
+                .end({
+                    userId: '1',
+                    contact: '2'
+                })
+                .send();
+        }).then(function (rel) {
+            rel.length.should.equals(1);
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['2'],
+                mode: 'unblockContact'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
+                .return('r')
+                .end({
+                    userId: '1',
+                    contact: '2'
+                })
+                .send();
+        }).then(function (rel) {
+            rel.length.should.equals(0);
+        });
+    });
+
     it('Change State after adding contact - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {

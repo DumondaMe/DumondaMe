@@ -37,7 +37,7 @@ var schemaRequestContact = {
             maxItems: 50,
             uniqueItems: true
         },
-        mode: {enum: ['blockContact', 'addContact', 'changeState']},
+        mode: {enum: ['blockContact', 'unblockContact', 'addContact', 'changeState']},
         description: {type: 'string', format: 'notEmptyString', maxLength: 30}
     }
 };
@@ -98,6 +98,9 @@ module.exports = function (router) {
             }
             if (request.mode === 'blockContact') {
                 return contact.blockContact(req.user.id, request.contactIds);
+            }
+            if (request.mode === 'unblockContact') {
+                return contact.unblockContact(req.user.id, request.contactIds);
             }
             if (request.mode === 'changeState') {
                 return contact.changeContactState(req.user.id, request.contactIds, request.description);

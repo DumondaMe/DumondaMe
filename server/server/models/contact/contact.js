@@ -88,13 +88,24 @@ var deleteContact = function (userId, contactIds) {
 
 var blockContact = function (userId, blockedUserIds) {
 
-
     return db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
         .where('u2.userId IN {blockedUserIds}')
         .createUnique('(u)-[:IS_BLOCKED]->(u2)')
         .with('u, u2')
         .match('(u)-[r:IS_CONTACT]->(u2)')
         .delete('r')
+        .end({
+            userId: userId,
+            blockedUserIds: blockedUserIds
+        })
+        .send();
+};
+
+var unblockContact = function (userId, blockedUserIds) {
+
+    return db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
+        .where('u2.userId IN {blockedUserIds}')
+        .delete('blocked')
         .end({
             userId: userId,
             blockedUserIds: blockedUserIds
@@ -197,6 +208,7 @@ module.exports = {
     addContact: addContact,
     deleteContact: deleteContact,
     blockContact: blockContact,
+    unblockContact: unblockContact,
     changeContactState: changeContactState,
     getContactsNormal: getContactsNormal,
     getContactForTypes: getContactForTypes
