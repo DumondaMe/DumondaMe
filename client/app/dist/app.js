@@ -1075,7 +1075,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"col-sm-8\">\r" +
     "\n" +
-    "                            <input name=\"inputPassword\" ng-model=\"password.actualPassword\"\r" +
+    "                            <input name=\"inputPasswordActual\" ng-model=\"password.actualPassword\"\r" +
     "\n" +
     "                                   class=\"form-control\"\r" +
     "\n" +
@@ -1083,9 +1083,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                   id=\"inputPasswordActual\"\r" +
     "\n" +
-    "                                   required ng-maxlength=\"30\">\r" +
+    "                                   required ng-maxlength=\"55\" ng-minlength=\"1\">\r" +
     "\n" +
-    "\r" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.inputPasswordActual.$error.minlength\">\r" +
+    "\n" +
+    "                                <span>Das Passwort muss mindestens 1 Zeichen lang sein</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.inputPasswordActual.$error.maxlength\">\r" +
+    "\n" +
+    "                                <span>Das Passwort darf nicht länger als 55 Zeichen sein</span>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1109,9 +1123,31 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                   id=\"inputPassword\"\r" +
     "\n" +
-    "                                   required ng-maxlength=\"30\">\r" +
+    "                                   required ng-maxlength=\"55\" ng-pattern=\"/^(?=.*[A-Z])(?=.*\\d)/\">\r" +
     "\n" +
-    "\r" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.inputPassword.$error.pattern\">\r" +
+    "\n" +
+    "                                <span>Das Passwort muss mindestens eine Zahl und einen Grossbuchstaben beinhalten</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.inputPassword.$error.minlength\">\r" +
+    "\n" +
+    "                                <span>Das Passwort muss mindestens 8 Zeichen lang sein</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"profileForm.inputPassword.$error.maxlength\">\r" +
+    "\n" +
+    "                                <span>Das Passwort darf nicht länger als 55 Zeichen sein</span>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1139,7 +1175,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                   id=\"inputPasswordConfirm\"\r" +
     "\n" +
-    "                                   required ng-maxlength=\"30\">\r" +
+    "                                   required ng-maxlength=\"55\">\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1168,6 +1204,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
     "\n" +
     "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"newPasswordNotEqual\">\r" +
+    "\n" +
+    "                                <span>Das neue Passwort stimmt nicht überein</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1815,6 +1859,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
     "\n" +
     "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"alert-input alert-danger\"\r" +
+    "\n" +
+    "                                 ng-show=\"newPasswordNotEqual\">\r" +
+    "\n" +
+    "                                <span>Die beiden Passwörter stimmen nicht überein</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -5006,26 +5058,48 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
 
     $scope.password = {};
     $scope.submitFailed = false;
+    $scope.newPasswordNotEqual = false;
     $scope.submitFailedToServer = false;
     $scope.successUserDataChange = false;
 
     $scope.submitNewPassword = function () {
-        if (!$scope.profileForm.$invalid) {
-            $scope.submitFailed = false;
+        function checkMinPasswordLength() {
+            return $scope.password.newPassword.trim().length > 7;
+        }
 
-            Password.save({
-                newPassword: $scope.password.newPassword,
-                actualPassword: $scope.password.actualPassword
-            }, function () {
-                $scope.profileForm.$setPristine();
-                $scope.successUserDataChange = true;
-                $scope.submitFailedToServer = false;
-            }, function () {
-                $scope.submitFailedToServer = true;
-                $scope.successUserDataChange = false;
-            });
+        function checkPasswordEqual() {
+            return $scope.password.newPassword === $scope.password.newPasswordConfirm;
+        }
+
+        $scope.submitFailed = false;
+        $scope.newPasswordNotEqual = false;
+        $scope.profileForm.inputPassword.$error.minlength = false;
+
+        if (!$scope.profileForm.$invalid) {
+            if (checkMinPasswordLength()) {
+                if (checkPasswordEqual()) {
+                    Password.save({
+                        newPassword: $scope.password.newPassword,
+                        actualPassword: $scope.password.actualPassword
+                    }, function () {
+                        $scope.profileForm.$setPristine();
+                        $scope.successUserDataChange = true;
+                        $scope.submitFailedToServer = false;
+                    }, function () {
+                        $scope.submitFailedToServer = true;
+                        $scope.successUserDataChange = false;
+                    });
+                } else {
+                    $scope.newPasswordNotEqual = true;
+                    $scope.password.newPasswordConfirm = '';
+                }
+            } else {
+                $scope.profileForm.inputPassword.$error.minlength = true;
+                $scope.password.newPasswordConfirm = '';
+            }
         } else {
             $scope.submitFailed = true;
+            $scope.password.newPasswordConfirm = '';
         }
     };
 }];

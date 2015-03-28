@@ -182,6 +182,10 @@
                                 <span>Bitte füllen Sie alle Werte korrekt aus</span>
                             </div>
                             <div class="alert-input alert-danger"
+                                 ng-show="newPasswordNotEqual">
+                                <span>Die beiden Passwörter stimmen nicht überein</span>
+                            </div>
+                            <div class="alert-input alert-danger"
                                  ng-show="profileForm.$invalid == false && submitFailedToServer">
                                 <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>
                             </div>
