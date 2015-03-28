@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
-    function ($scope, $state, $interval, $rootScope, UserInfo, Modification, profileImage, Auth) {
+module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
+    function ($scope, $window, $interval, $rootScope, UserInfo, Modification, profileImage, Auth) {
 
         var userHeaderInfo, modificationInfo;
 
@@ -32,7 +32,7 @@ module.exports = ['$scope', '$state', '$interval', '$rootScope', 'UserInfo', 'Mo
 
         $rootScope.logout = function () {
             Auth.logout().then(function () {
-                $state.go('public.login');
+                $window.location.href = '/login';
             }, function () {
                 $scope.error = "Fehler beim Abmelden";
             });

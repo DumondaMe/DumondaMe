@@ -3,7 +3,7 @@
 var loggedInHeaderCtrl = require('../../../app/modules/navigation/loggedInHeaderCtrl')[8];
 
 describe('Tests of loggedIn Header controller', function () {
-    var scope, state, interval, intervalFunction, rootScope, UserInfo, Modification, profileImage, AuthMock, q, timeout;
+    var scope, window, interval, intervalFunction, rootScope, UserInfo, Modification, profileImage, AuthMock, q, timeout;
 
     beforeEach(function (done) {
         inject(function ($rootScope, $timeout, $q) {
@@ -26,9 +26,8 @@ describe('Tests of loggedIn Header controller', function () {
             profileImage.addProfileImageChangedEvent = function () {
             };
 
-            state = {
-                go: function () {
-                }
+            window = {
+                location: {href: ''}
             };
             AuthMock = {
                 logout: function () {
@@ -50,7 +49,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         stubUserInfoGet.returns(response);
 
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
         stubUserInfoGet.callArg(1);
 
         expect(rootScope.userHeaderInfo).to.equal(response);
@@ -64,7 +63,7 @@ describe('Tests of loggedIn Header controller', function () {
         rootScope.userHeaderInfo = response;
         mockUserInfoGet.never();
 
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
 
         mockUserInfoGet.verify();
     });
@@ -76,7 +75,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         stubModificationGet.returns({});
 
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
         intervalFunction();
         stubModificationGet.callArg(1);
 
@@ -90,7 +89,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         stubModificationGet.returns({hasChanged: true});
 
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
         intervalFunction();
         stubModificationGet.callArg(1);
 
@@ -101,7 +100,7 @@ describe('Tests of loggedIn Header controller', function () {
 
         var sypIntervalCancel = sinon.spy(interval, 'cancel');
 
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
 
         rootScope.$broadcast('$destroy');
 
@@ -110,31 +109,29 @@ describe('Tests of loggedIn Header controller', function () {
 
     it('Successful Logout', function () {
 
-        var stubAuth = sinon.stub(AuthMock, 'logout'), mockState = sinon.mock(state);
+        var stubAuth = sinon.stub(AuthMock, 'logout');
         stubAuth.returns(q.when(200));
 
-        mockState.expects('go').once();
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
         scope.logout();
 
         timeout.flush();
-        mockState.verify();
+        expect(window.location.href).to.equals('/login');
 
     });
 
     it('Failed Logout', function () {
 
-        var stubAuth = sinon.stub(AuthMock, 'logout'), mockState = sinon.mock(state);
+        var stubAuth = sinon.stub(AuthMock, 'logout');
         stubAuth.returns(q.reject());
         rootScope.user = 'Einfach irgendwas';
 
-        mockState.expects('go').never();
-        loggedInHeaderCtrl(scope, state, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
+        loggedInHeaderCtrl(scope, window, interval, rootScope, UserInfo, Modification, profileImage, AuthMock);
         scope.logout();
 
         timeout.flush();
         expect(scope.error).to.not.be.undefined;
-        mockState.verify();
+        expect(window.location.href).to.equals('');
 
     });
 });
