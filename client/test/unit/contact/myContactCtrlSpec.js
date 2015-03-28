@@ -36,7 +36,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getContacts(1);
@@ -64,7 +64,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 10}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 30}).returns(response);
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.getContacts(2);
@@ -110,7 +110,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
         myContactCtrl(scope, SearchUsers, Contact);
@@ -141,7 +141,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
         myContactCtrl(scope, SearchUsers, Contact);
@@ -206,7 +206,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
         myContactCtrl(scope, SearchUsers, Contact);
@@ -236,7 +236,7 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         myContactCtrl(scope, SearchUsers, Contact);
         scope.selectedAllContacts();
@@ -272,7 +272,7 @@ describe('Tests of My Contact Controller', function () {
         ];
 
         stubContactGet.withArgs({
-            itemsPerPage: 10,
+            itemsPerPage: 30,
             skip: 0,
             types: 'Freund,Bekannter'
         }).returns(response);
@@ -307,7 +307,7 @@ describe('Tests of My Contact Controller', function () {
         ];
 
         stubContactGet.withArgs({
-            itemsPerPage: 10,
+            itemsPerPage: 30,
             skip: 0,
             types: 'Bekannter'
         }).returns(response);
@@ -340,7 +340,7 @@ describe('Tests of My Contact Controller', function () {
         ];
 
         stubContactGet.withArgs({
-            itemsPerPage: 10,
+            itemsPerPage: 30,
             skip: 0
         }).returns(response);
 
@@ -373,8 +373,8 @@ describe('Tests of My Contact Controller', function () {
         ];
 
         stubContactGet.withArgs({
-            itemsPerPage: 10,
-            skip: 10
+            itemsPerPage: 30,
+            skip: 30
         }).returns(response);
 
         myContactCtrl(scope, SearchUsers, Contact);
@@ -406,8 +406,8 @@ describe('Tests of My Contact Controller', function () {
         ];
 
         stubContactGet.withArgs({
-            itemsPerPage: 10,
-            skip: 10,
+            itemsPerPage: 30,
+            skip: 30,
             types: 'Freund'
         }).returns(response);
 

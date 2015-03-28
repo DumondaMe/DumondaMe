@@ -33,7 +33,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);
@@ -65,7 +65,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);
@@ -92,7 +92,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);
@@ -114,7 +114,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);
@@ -136,7 +136,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);
@@ -168,7 +168,7 @@ describe('Tests of contacting controller', function () {
                 }]
             };
 
-        stubContactGet.withArgs({itemsPerPage: 10, skip: 0}).returns(response);
+        stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
         contactingCtrl(scope, Contacting);
         stubContactGet.callArg(1);

@@ -48,7 +48,7 @@ var isTransition = function ($scope, index, now) {
 module.exports = ['$scope', 'Contacting', function ($scope, Contacting) {
 
     $scope.resetCounter = 1;
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 30;
 
     $scope.getContacting = function (paginationNumber) {
 

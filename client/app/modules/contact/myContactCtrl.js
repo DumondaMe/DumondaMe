@@ -32,7 +32,7 @@ var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
 module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUsers, Contact) {
 
     $scope.query = "";
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 30;
     $scope.isUserSearch = false;
     $scope.allContactsSelected = true;
 
