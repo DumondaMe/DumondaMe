@@ -61,7 +61,25 @@
     "session": {
       "priority": 70,
       "module": {
-        "name": "express-session"
+        "name": "path:./lib/redisSession",
+        "arguments": [
+          {
+            "key": "abc123",
+            "secret": "keyboard cat",
+            "cookie": {
+              "path": "/",
+              "httpOnly": true,
+              "maxAge": 43200000
+            },
+            "proxy": null,
+            "resave": true,
+            "saveUninitialized": true
+          },
+          {
+            "host": "localhost",
+            "port": 6379
+          }
+        ]
       }
     },
     "appsec": {

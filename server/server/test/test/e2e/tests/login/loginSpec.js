@@ -26,6 +26,6 @@ describe('Integration Tests Login', function () {
     });
 
     it('Logout - Return a 200', function (done) {
-        request(app).post('/api/logout').expect(200, done);
+        request(app).post('/api/logout').send({}).expect(200).end(done);
     });
 });

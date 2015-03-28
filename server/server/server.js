@@ -9,11 +9,11 @@ require('../common/src/lib/jsonValidation');
 var Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
-var kraken = require('kraken-js'),
-    app = require('express')(),
-    options = require('./lib/spec')(app),
-    logger = requireLogger.getLogger(__filename),
-    port = process.env.PORT || 8080;
+var kraken = require('kraken-js');
+var app = require('express')();
+var options = require('./lib/spec')(app);
+var logger = requireLogger.getLogger(__filename);
+var port = process.env.PORT || 8080;
 
 app.use(kraken(options));
 

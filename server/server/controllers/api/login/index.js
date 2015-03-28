@@ -29,7 +29,7 @@ module.exports = function (router) {
                 }
 
                 modification.initModificationOnSession(req.user.id, req.session, function () {
-                    req.session.cookie.maxAge = 1000 * 60 * 60 * 24;
+                    req.session.cookie.maxAge = 1000 * 60 * 60 * 12;
                     res.status(200).json({"username": user.email});
                     logger.info('Successful login of User ', {}, req);
                 });
