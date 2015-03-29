@@ -88,7 +88,8 @@ var deleteContact = function (userId, contactIds) {
 
 var blockContact = function (userId, blockedUserIds) {
 
-    return db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
+    var commands = [];
+    commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
         .where('u2.userId IN {blockedUserIds}')
         .createUnique('(u)-[:IS_BLOCKED]->(u2)')
         .with('u, u2')
@@ -98,19 +99,36 @@ var blockContact = function (userId, blockedUserIds) {
             userId: userId,
             blockedUserIds: blockedUserIds
         })
-        .send();
+        .getCommand());
+
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+
+    return getTotalNumberOfContacts(userId)
+        .send(commands)
+        .then(function (result) {
+            return returnStatistics(result, 'delete');
+        });
 };
 
 var unblockContact = function (userId, blockedUserIds) {
 
-    return db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
+    var commands = [];
+    commands.push(db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
         .where('u2.userId IN {blockedUserIds}')
         .delete('blocked')
         .end({
             userId: userId,
             blockedUserIds: blockedUserIds
         })
-        .send();
+        .getCommand());
+
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+
+    return getTotalNumberOfContacts(userId)
+        .send(commands)
+        .then(function (result) {
+            return returnStatistics(result, 'delete');
+        });
 };
 
 var changeContactState = function (userId, contactIds, type) {

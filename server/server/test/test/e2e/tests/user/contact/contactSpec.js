@@ -37,7 +37,7 @@ describe('Integration Tests for handling contacts', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo5.ch', password: '1234', name: 'user5 Meier5', forename: 'user5', surname: 'Meier5', userId: '5'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '5'})")
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true}), " +
-                    "(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, image: true})")
                 .end().getCommand());
             return db.cypher().match("(u:User), (u2:User)")
                 .where("u.userId = '1' AND u2.userId = '5'")
@@ -349,48 +349,57 @@ describe('Integration Tests for handling contacts', function () {
         });
     });
 
-    it('Contact is blocked and afterwards unblocked - Return 200', function () {
+    it('Contact are unblocked - Return 200', function () {
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/contact', {
-                contactIds: ['2'],
-                mode: 'addContact',
-                description: 'Freund'
-            }, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return requestHandler.post('/api/user/contact', {
-                contactIds: ['2'],
-                mode: 'blockContact'
-            }, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
-                .return('r')
-                .end({
-                    userId: '1',
-                    contact: '2'
-                })
-                .send();
-        }).then(function (rel) {
-            rel.length.should.equals(1);
-            return requestHandler.post('/api/user/contact', {
-                contactIds: ['2'],
-                mode: 'unblockContact'
-            }, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
-                .return('r')
-                .end({
-                    userId: '1',
-                    contact: '2'
-                })
-                .send();
-        }).then(function (rel) {
-            rel.length.should.equals(0);
-        });
+        return db.cypher().match("(a:User {userId:'1'}), (b:User)")
+            .where('b.userId IN {contactIds}')
+            .create("(a)-[r:IS_CONTACT {type: 'Familie'}]->(b)")
+            .end({contactIds: ['2', '3', '5']})
+            .send()
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            })
+            .then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.post('/api/user/contact', {
+                    contactIds: ['2'],
+                    mode: 'blockContact'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.statistic.length.should.equals(1);
+                res.body.statistic[0].type.should.equals('Familie');
+                res.body.statistic[0].count.should.equals(2);
+                res.body.numberOfContacts.should.equals(2);
+                return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
+                    .return('r')
+                    .end({
+                        userId: '1',
+                        contact: '2'
+                    })
+                    .send();
+            }).then(function (rel) {
+                rel.length.should.equals(1);
+                return requestHandler.post('/api/user/contact', {
+                    contactIds: ['2'],
+                    mode: 'unblockContact'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.statistic.length.should.equals(1);
+                res.body.statistic[0].type.should.equals('Familie');
+                res.body.statistic[0].count.should.equals(2);
+                res.body.numberOfContacts.should.equals(2);
+                return db.cypher().match('(u:User {userId: {userId}})-[r:IS_BLOCKED]->(u2:User {userId: {contact}})')
+                    .return('r')
+                    .end({
+                        userId: '1',
+                        contact: '2'
+                    })
+                    .send();
+            }).then(function (rel) {
+                rel.length.should.equals(0);
+            });
     });
 
     it('Change State after adding contact - Return 200', function () {
