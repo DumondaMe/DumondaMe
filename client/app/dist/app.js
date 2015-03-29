@@ -302,9 +302,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"addNewContact()\">\r" +
     "\n" +
+    "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "\n" +
     "                Als Kontakt hinzufügen\r" +
     "\n" +
     "            </button>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
+    "\n" +
+    "                    aria-expanded=\"false\"\r" +
+    "\n" +
+    "                    ng-show=\"contact.blocked\"\r" +
+    "\n" +
+    "                    ng-click=\"unblockContact()\">\r" +
+    "\n" +
+    "                Blockierung aufheben\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "<!--            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
+    "\n" +
+    "                    aria-expanded=\"false\"\r" +
+    "\n" +
+    "                    ng-show=\"!contact.blocked && contact.connected === 'none'\"\r" +
+    "\n" +
+    "                    ng-click=\"blockContact()\">\r" +
+    "\n" +
+    "                Blockieren\r" +
+    "\n" +
+    "            </button>-->\r" +
     "\n" +
     "            <div class=\"command-connection-state\" ng-hide=\"contact.connected === 'none'\"\r" +
     "\n" +
@@ -313,6 +339,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                 bs-tooltip>\r" +
     "\n" +
     "                <img ng-src=\"{{contact.connectionImage}}\">\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"command-connection-block\"\r" +
+    "\n" +
+    "                 ng-show=\"!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')\"\r" +
+    "\n" +
+    "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"User blockieren\"\r" +
+    "\n" +
+    "                 bs-tooltip ng-click=\"blockContact()\">\r" +
+    "\n" +
+    "                <img src=\"/app/img/block.png\">\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -3921,37 +3959,33 @@ var getPrivacyType = function (statistics, privacyTypes) {
     return privacyTypes[0].type;
 };
 
+var setContactActions = function ($scope) {
+    $scope.contact.actions = [
+        {
+            text: "Nachricht senden",
+            href: "#"
+        },
+        {
+            divider: true
+        },
+        {
+            text: "Kontakt löschen",
+            click: "deleteContact()"
+        },
+        {
+            text: "Kontakt blockieren",
+            click: "blockContact()"
+        }
+    ];
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
 
             setPrivacySettings($scope);
 
-            $scope.contact.actions = [
-                {
-                    text: "Nachricht senden",
-                    href: "#"
-                },
-                {
-                    divider: true
-                },
-                {
-                    text: "Kontakt löschen",
-                    click: "deleteContact()"
-                }
-            ];
-
-            if ($scope.contact.blocked) {
-                $scope.contact.actions.push({
-                    text: "Blockierung aufheben",
-                    href: "#"
-                });
-            } else {
-                $scope.contact.actions.push({
-                    text: "Kontakt blockieren",
-                    href: "#"
-                });
-            }
+            setContactActions($scope);
 
             $scope.tooltipConnectionState = {
                 title: "",
@@ -4000,6 +4034,35 @@ module.exports = {
                     }
                     delete $scope.contact.type;
                     updateConnectionStateWhenDeletingContact($scope);
+                });
+            };
+
+            $scope.blockContact = function () {
+                var contact = Contact.save({
+                    mode: 'blockContact',
+                    contactIds: [$scope.contact.id]
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
+                    delete $scope.contact.type;
+                    $scope.contact.blocked = true;
+                    updateConnectionStateWhenDeletingContact($scope);
+                });
+            };
+
+            $scope.unblockContact = function () {
+                var contact = Contact.save({
+                    mode: 'unblockContact',
+                    contactIds: [$scope.contact.id]
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
+                    delete $scope.contact.type;
+                    $scope.contact.blocked = false;
                 });
             };
 
@@ -4108,7 +4171,7 @@ var isTransition = function ($scope, index, now) {
 module.exports = ['$scope', 'Contacting', function ($scope, Contacting) {
 
     $scope.resetCounter = 1;
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 30;
 
     $scope.getContacting = function (paginationNumber) {
 
@@ -4246,7 +4309,7 @@ var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
 module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUsers, Contact) {
 
     $scope.query = "";
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 30;
     $scope.isUserSearch = false;
     $scope.allContactsSelected = true;
 

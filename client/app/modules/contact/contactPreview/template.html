@@ -30,12 +30,31 @@
                     aria-expanded="false"
                     ng-show="!contact.blocked && !contact.type"
                     ng-click="addNewContact()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Als Kontakt hinzufügen
             </button>
+            <button type="button" class="btn btn-default btn-xs left"
+                    aria-expanded="false"
+                    ng-show="contact.blocked"
+                    ng-click="unblockContact()">
+                Blockierung aufheben
+            </button>
+<!--            <button type="button" class="btn btn-default btn-xs left"
+                    aria-expanded="false"
+                    ng-show="!contact.blocked && contact.connected === 'none'"
+                    ng-click="blockContact()">
+                Blockieren
+            </button>-->
             <div class="command-connection-state" ng-hide="contact.connected === 'none'"
                  data-trigger="hover" data-delay="600" data-title="{{tooltipConnectionState.title}}"
                  bs-tooltip>
                 <img ng-src="{{contact.connectionImage}}">
+            </div>
+            <div class="command-connection-block"
+                 ng-show="!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')"
+                 data-trigger="hover" data-delay="600" data-title="User blockieren"
+                 bs-tooltip ng-click="blockContact()">
+                <img src="/app/img/block.png">
             </div>
         </div>
     </div>

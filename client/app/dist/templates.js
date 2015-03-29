@@ -301,9 +301,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"addNewContact()\">\r" +
     "\n" +
+    "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "\n" +
     "                Als Kontakt hinzufügen\r" +
     "\n" +
     "            </button>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
+    "\n" +
+    "                    aria-expanded=\"false\"\r" +
+    "\n" +
+    "                    ng-show=\"contact.blocked\"\r" +
+    "\n" +
+    "                    ng-click=\"unblockContact()\">\r" +
+    "\n" +
+    "                Blockierung aufheben\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "<!--            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
+    "\n" +
+    "                    aria-expanded=\"false\"\r" +
+    "\n" +
+    "                    ng-show=\"!contact.blocked && contact.connected === 'none'\"\r" +
+    "\n" +
+    "                    ng-click=\"blockContact()\">\r" +
+    "\n" +
+    "                Blockieren\r" +
+    "\n" +
+    "            </button>-->\r" +
     "\n" +
     "            <div class=\"command-connection-state\" ng-hide=\"contact.connected === 'none'\"\r" +
     "\n" +
@@ -312,6 +338,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                 bs-tooltip>\r" +
     "\n" +
     "                <img ng-src=\"{{contact.connectionImage}}\">\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"command-connection-block\"\r" +
+    "\n" +
+    "                 ng-show=\"!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')\"\r" +
+    "\n" +
+    "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"User blockieren\"\r" +
+    "\n" +
+    "                 bs-tooltip ng-click=\"blockContact()\">\r" +
+    "\n" +
+    "                <img src=\"/app/img/block.png\">\r" +
     "\n" +
     "            </div>\r" +
     "\n" +

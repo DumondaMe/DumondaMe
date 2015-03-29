@@ -36,37 +36,33 @@ var getPrivacyType = function (statistics, privacyTypes) {
     return privacyTypes[0].type;
 };
 
+var setContactActions = function ($scope) {
+    $scope.contact.actions = [
+        {
+            text: "Nachricht senden",
+            href: "#"
+        },
+        {
+            divider: true
+        },
+        {
+            text: "Kontakt löschen",
+            click: "deleteContact()"
+        },
+        {
+            text: "Kontakt blockieren",
+            click: "blockContact()"
+        }
+    ];
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
 
             setPrivacySettings($scope);
 
-            $scope.contact.actions = [
-                {
-                    text: "Nachricht senden",
-                    href: "#"
-                },
-                {
-                    divider: true
-                },
-                {
-                    text: "Kontakt löschen",
-                    click: "deleteContact()"
-                }
-            ];
-
-            if ($scope.contact.blocked) {
-                $scope.contact.actions.push({
-                    text: "Blockierung aufheben",
-                    href: "#"
-                });
-            } else {
-                $scope.contact.actions.push({
-                    text: "Kontakt blockieren",
-                    href: "#"
-                });
-            }
+            setContactActions($scope);
 
             $scope.tooltipConnectionState = {
                 title: "",
@@ -115,6 +111,35 @@ module.exports = {
                     }
                     delete $scope.contact.type;
                     updateConnectionStateWhenDeletingContact($scope);
+                });
+            };
+
+            $scope.blockContact = function () {
+                var contact = Contact.save({
+                    mode: 'blockContact',
+                    contactIds: [$scope.contact.id]
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
+                    delete $scope.contact.type;
+                    $scope.contact.blocked = true;
+                    updateConnectionStateWhenDeletingContact($scope);
+                });
+            };
+
+            $scope.unblockContact = function () {
+                var contact = Contact.save({
+                    mode: 'unblockContact',
+                    contactIds: [$scope.contact.id]
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
+                    delete $scope.contact.type;
+                    $scope.contact.blocked = false;
                 });
             };
 
