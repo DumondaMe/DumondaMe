@@ -3769,7 +3769,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":78,"./auth":14,"./contact":23,"./directives":31,"./filters":42,"./home":46,"./navigation":54,"./settings":59,"./util":76,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-strap":8,"angular-strap-tpl":9,"angular-ui-route":6,"templates":1}],13:[function(require,module,exports){
+},{"../../package.json":79,"./auth":14,"./contact":23,"./directives":31,"./filters":42,"./home":46,"./navigation":55,"./settings":60,"./util":77,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-strap":8,"angular-strap-tpl":9,"angular-ui-route":6,"templates":1}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -3963,7 +3963,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            href: "#"
+            click: "sendMessage()"
         },
         {
             divider: true
@@ -3981,7 +3981,7 @@ var setContactActions = function ($scope) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
+        return ['$scope', '$state', 'Contact', 'SearchThread', 'moment', function ($scope, $state, Contact, SearchThread, moment) {
 
             setPrivacySettings($scope);
 
@@ -4063,6 +4063,23 @@ module.exports = {
                     }
                     delete $scope.contact.type;
                     $scope.contact.blocked = false;
+                });
+            };
+
+            $scope.sendMessage = function () {
+                var search = SearchThread.get({
+                    userId: $scope.contact.id
+                }, function () {
+                    if (search.hasExistingThread) {
+                        $state.go('message.threads.detail', {
+                            threadId: search.threadId,
+                            isGroupThread: false
+                        });
+                    } else {
+                        $state.go('message.threads.create', {
+                            userId: $scope.contact.id
+                        });
+                    }
                 });
             };
 
@@ -4827,6 +4844,7 @@ app.controller('ConversationCtrl', require('./conversationCtrl'));
 app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
 
 app.factory('Message', require('./services/message'));
+app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
 
@@ -4870,7 +4888,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./conversationCtrl":47,"./createConversationCtrl":48,"./services/conversation":50,"./services/message":51,"./services/searchUserToSendMessage":52,"./threadsCtrl":53,"angular":4}],50:[function(require,module,exports){
+},{"./conversationCtrl":47,"./createConversationCtrl":48,"./services/conversation":50,"./services/message":51,"./services/searchThread":52,"./services/searchUserToSendMessage":53,"./threadsCtrl":54,"angular":4}],50:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4888,10 +4906,17 @@ module.exports = ['$resource', function ($resource) {
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/messages/search');
+    return $resource('/api/user/messages/singleThread');
 }];
 
 },{}],53:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/user/messages/search');
+}];
+
+},{}],54:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter',
@@ -4954,7 +4979,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         };
     }];
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -4964,7 +4989,7 @@ app.controller('LoggedInHeaderCtrl', require('./loggedInHeaderCtrl'));
 app.factory('UserInfo', require('./userInfo'));
 app.factory('Modification', require('./modification'));
 
-},{"./loggedInHeaderCtrl":55,"./modification":56,"./userInfo":57,"angular":4}],55:[function(require,module,exports){
+},{"./loggedInHeaderCtrl":56,"./modification":57,"./userInfo":58,"angular":4}],56:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
@@ -5006,21 +5031,21 @@ module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'M
         };
     }];
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5052,7 +5077,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5107,14 +5132,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":58,"./password":60,"./passwordCtrl":61,"./privacy":62,"./privacyCtrl":63,"./profile":64,"./profileCtrl":65,"./renamePrivacyCtrl":66,"angular":4}],60:[function(require,module,exports){
+},{"./deletePrivacyCtrl":59,"./password":61,"./passwordCtrl":62,"./privacy":63,"./privacyCtrl":64,"./profile":65,"./profileCtrl":66,"./renamePrivacyCtrl":67,"angular":4}],61:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -5167,7 +5192,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5176,7 +5201,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -5300,14 +5325,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
@@ -5373,7 +5398,7 @@ module.exports = ['$scope', '$filter', 'Profile', 'profileImage', 'moment',
         });
     }];
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5417,7 +5442,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5450,19 +5475,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":67,"angular":4}],69:[function(require,module,exports){
+},{"./dateFormatter":68,"angular":4}],70:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":70,"angular":4}],70:[function(require,module,exports){
+},{"./profileImage":71,"angular":4}],71:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5474,7 +5499,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5496,14 +5521,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5517,7 +5542,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5530,7 +5555,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":71,"./fileReader":72,"./fileUpload":73,"./uploadFileCtrl":75,"angular":4}],75:[function(require,module,exports){
+},{"./fileModel.js":72,"./fileReader":73,"./fileUpload":74,"./uploadFileCtrl":76,"angular":4}],76:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -5581,7 +5606,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5589,7 +5614,7 @@ var app = require('angular').module('elyoosApp');
 require('./file');
 
 app.service('moment', require('./moment'));
-},{"./file":74,"./moment":77,"angular":4}],77:[function(require,module,exports){
+},{"./file":75,"./moment":78,"angular":4}],78:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5599,7 +5624,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":10}],78:[function(require,module,exports){
+},{"moment":10}],79:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5653,4 +5678,4 @@ module.exports={
   }
 }
 
-},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77]);
+},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78]);

@@ -23,8 +23,8 @@ module.exports = function (router) {
         return validation.validateQueryRequest(req, schemaGetSingleThread, logger)
             .then(function (request) {
                 return search.searchSingleThread(req.user.id, request.userId);
-            }).then(function (threads) {
-                res.status(200).json(threads);
+            }).then(function (thread) {
+                res.status(200).json(thread);
             }).catch(exceptions.InvalidJsonRequest, function () {
                 res.status(400).end();
             }).catch(function (err) {

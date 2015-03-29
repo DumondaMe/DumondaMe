@@ -7,6 +7,7 @@ app.controller('ConversationCtrl', require('./conversationCtrl'));
 app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
 
 app.factory('Message', require('./services/message'));
+app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
 

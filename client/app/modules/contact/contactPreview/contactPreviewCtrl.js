@@ -40,7 +40,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            href: "#"
+            click: "sendMessage()"
         },
         {
             divider: true
@@ -58,7 +58,7 @@ var setContactActions = function ($scope) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Contact', 'moment', function ($scope, Contact, moment) {
+        return ['$scope', '$state', 'Contact', 'SearchThread', 'moment', function ($scope, $state, Contact, SearchThread, moment) {
 
             setPrivacySettings($scope);
 
@@ -140,6 +140,23 @@ module.exports = {
                     }
                     delete $scope.contact.type;
                     $scope.contact.blocked = false;
+                });
+            };
+
+            $scope.sendMessage = function () {
+                var search = SearchThread.get({
+                    userId: $scope.contact.id
+                }, function () {
+                    if (search.hasExistingThread) {
+                        $state.go('message.threads.detail', {
+                            threadId: search.threadId,
+                            isGroupThread: false
+                        });
+                    } else {
+                        $state.go('message.threads.create', {
+                            userId: $scope.contact.id
+                        });
+                    }
                 });
             };
 

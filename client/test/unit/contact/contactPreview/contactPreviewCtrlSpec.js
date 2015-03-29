@@ -1,10 +1,10 @@
 'use strict';
 
-var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl').directiveCtrl()[3];
+var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl').directiveCtrl()[5];
 var moment = require('../../../../app/lib/moment/moment');
 
 describe('Tests of Contact Preview Controller', function () {
-    var scope, Contact;
+    var scope, state, Contact, SearchThread;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -14,6 +14,15 @@ describe('Tests of Contact Preview Controller', function () {
             };
             Contact.delete = function () {
             };
+
+            SearchThread = {};
+            SearchThread.get = function () {
+            };
+
+            state = {};
+            state.go = function () {
+            };
+
 
             scope = $rootScope.$new();
             done();
@@ -39,7 +48,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Freund'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -72,7 +81,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Familie'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -104,7 +113,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Freund'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.addNewContact();
         stubContactSave.callArg(1);
 
@@ -128,7 +137,7 @@ describe('Tests of Contact Preview Controller', function () {
             description: 'Familie'
         }).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.contact.selectedPrivacySetting = 'Familie';
         scope.statistic = {};
         scope.sendNewDescription(function () {
@@ -155,7 +164,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -178,7 +187,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -200,7 +209,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.deleteContact();
         stubContactDelete.callArg(1);
 
@@ -223,7 +232,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactBlock.withArgs({mode: 'blockContact', contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.blockContact();
         stubContactBlock.callArg(1);
 
@@ -248,7 +257,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         stubContactBlock.withArgs({mode: 'unblockContact', contactIds: ['5']}).returns(response);
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.unblockContact();
         stubContactBlock.callArg(1);
 
@@ -258,11 +267,58 @@ describe('Tests of Contact Preview Controller', function () {
         expect(scope.numberOfContacts).to.equal(5);
     });
 
+    it('Go to state to send a message to an existing thread', function () {
+
+        var stubSearchThread = sinon.stub(SearchThread, 'get'),
+            mockStateGo = sinon.mock(state).expects('go'),
+            response = {
+                hasExistingThread: true,
+                threadId: '1'
+            };
+
+        scope.users = {};
+        scope.statistic = {};
+        scope.numberOfContacts = 1;
+        scope.contact = {id: '5', type: 'Freund', blocked: false};
+
+        stubSearchThread.withArgs({ userId: '5'}).returns(response);
+        mockStateGo.withArgs('message.threads.detail');
+
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
+        scope.sendMessage();
+        stubSearchThread.callArg(1);
+
+        mockStateGo.verify();
+    });
+
+    it('Go to state to create a message thread and send a message', function () {
+
+        var stubSearchThread = sinon.stub(SearchThread, 'get'),
+            mockStateGo = sinon.mock(state).expects('go'),
+            response = {
+                hasExistingThread: false
+            };
+
+        scope.users = {};
+        scope.statistic = {};
+        scope.numberOfContacts = 1;
+        scope.contact = {id: '5', type: 'Freund', blocked: false};
+
+        stubSearchThread.withArgs({ userId: '5'}).returns(response);
+        mockStateGo.withArgs('message.threads.create');
+
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
+        scope.sendMessage();
+        stubSearchThread.callArg(1);
+
+        mockStateGo.verify();
+    });
+
     it('Get connection state image url when user and contact have connections to each other', function () {
 
         scope.contact = {connected: 'both'};
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/bothContact.png");
@@ -272,7 +328,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'userToContact'};
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/userToContact.png");
@@ -282,7 +338,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'contactToUser'};
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("app/img/contactToUser.png");
@@ -292,7 +348,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {connected: 'none'};
 
-        contactPreviewCtrl(scope, Contact, moment);
+        contactPreviewCtrl(scope, state, Contact, SearchThread, moment);
         scope.setConnectionState();
 
         expect(scope.contact.connectionImage).to.equal("#");
