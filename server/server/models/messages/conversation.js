@@ -124,7 +124,7 @@ var addMessage = function (userId, threadId, text, isGroupThread, session) {
                 }).send()
                 .then(function (resp) {
                     userInfo.addImageForPreview(resp, session.cookie._expires);
-                    modification.resetModificationForThread(resp[0].threadId, isGroupThread, session);
+                    modification.resetModificationForThread(threadId, isGroupThread, session);
                     return {message: resp[0]};
                 });
         });
