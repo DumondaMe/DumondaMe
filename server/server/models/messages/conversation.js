@@ -85,7 +85,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
             if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
                 addWriterInfo(userId, resp[2]);
                 userInfo.addImageForPreview(resp[2], session.cookie._expires);
-                modification.resetModificationForThread(resp[0].threadId, isGroupThread, session);
+                modification.resetModificationForThread(threadId, isGroupThread, session);
                 return {
                     messages: resp[2],
                     threadDescription: resp[0][0].description,
