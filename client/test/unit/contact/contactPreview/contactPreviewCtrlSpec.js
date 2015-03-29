@@ -208,13 +208,54 @@ describe('Tests of Contact Preview Controller', function () {
         expect(scope.contact.connected).to.equal('none');
     });
 
-    it('If Contact blocked mark as blocked', function () {
+    it('Block a contact', function () {
 
-        scope.contact = {blocked: true};
+        var stubContactBlock = sinon.stub(Contact, 'save'),
+            response = {
+                statistic: ['test'],
+                numberOfContacts: 5
+            };
+
+        scope.users = {};
+        scope.statistic = {};
+        scope.numberOfContacts = 1;
+        scope.contact = {id: '5', type: 'Freund'};
+
+        stubContactBlock.withArgs({mode: 'blockContact', contactIds: ['5']}).returns(response);
 
         contactPreviewCtrl(scope, Contact, moment);
+        scope.blockContact();
+        stubContactBlock.callArg(1);
 
-        expect(scope.contact.actions[3].text).to.equal("Blockierung aufheben");
+        expect(scope.contact.type).to.be.undefined;
+        expect(scope.contact.blocked).to.be.true;
+        expect(scope.statistic[0]).to.equal('test');
+        expect(scope.numberOfContacts).to.equal(5);
+    });
+
+    it('Unblock a contact', function () {
+
+        var stubContactBlock = sinon.stub(Contact, 'save'),
+            response = {
+                statistic: ['test'],
+                numberOfContacts: 5
+            };
+
+        scope.users = {};
+        scope.statistic = {};
+        scope.numberOfContacts = 1;
+        scope.contact = {id: '5', type: 'Freund', blocked: true};
+
+        stubContactBlock.withArgs({mode: 'unblockContact', contactIds: ['5']}).returns(response);
+
+        contactPreviewCtrl(scope, Contact, moment);
+        scope.unblockContact();
+        stubContactBlock.callArg(1);
+
+        expect(scope.contact.type).to.be.undefined;
+        expect(scope.contact.blocked).to.be.false;
+        expect(scope.statistic[0]).to.equal('test');
+        expect(scope.numberOfContacts).to.equal(5);
     });
 
     it('Get connection state image url when user and contact have connections to each other', function () {
