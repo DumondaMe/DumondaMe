@@ -54,10 +54,8 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
 
 var searchThreads = function (userId, search, maxItems, isSuggestion, expires) {
 
-    var commands = [];
-
     return searchQuery(userId, search, maxItems, isSuggestion)
-        .send(commands)
+        .send()
         .then(function (resp) {
             if (!isSuggestion) {
                 userInfo.addImageForPreview(resp, expires);
@@ -67,7 +65,23 @@ var searchThreads = function (userId, search, maxItems, isSuggestion, expires) {
         });
 };
 
+var searchSingleThread = function (userId, conversationUserId) {
+
+    return db.cypher()
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(:User {userId: {conversationUserId}})")
+        .return("thread.threadId as threadId")
+        .end({userId: userId, conversationUserId: conversationUserId})
+        .send()
+        .then(function (resp) {
+            if (resp.length > 0) {
+                return {hasExistingThread: true, threadId: resp[0].threadId};
+            }
+            return {hasExistingThread: false};
+        });
+};
+
 
 module.exports = {
-    searchThreads: searchThreads
+    searchThreads: searchThreads,
+    searchSingleThread: searchSingleThread
 };
