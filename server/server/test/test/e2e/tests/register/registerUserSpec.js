@@ -42,7 +42,7 @@ describe('Integration Tests for register a new user', function () {
             country: 'Schweiz',
             female: true,
             password: '12345678'
-        };
+        }, startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -52,7 +52,8 @@ describe('Integration Tests for register a new user', function () {
             return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'climberwoodi@gmx.ch'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
                 .return('user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, user.country AS country, user.female AS female,' +
                 'friendPrivacy.profile AS friendProfile, friendPrivacy.image AS friendImage, friendPrivacy.contacts AS friendContacts, friendPrivacy.profileData AS friendProfileData,' +
-                'noContactPrivacy.profile AS noContactProfile, noContactPrivacy.image AS noContactImage, noContactPrivacy.contacts AS noContactContacts, noContactPrivacy.profileData AS noContactProfileData')
+                'noContactPrivacy.profile AS noContactProfile, noContactPrivacy.image AS noContactImage, noContactPrivacy.contacts AS noContactContacts, noContactPrivacy.profileData AS noContactProfileData, ' +
+                'user.registerDate AS registerDate')
                 .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
@@ -62,6 +63,7 @@ describe('Integration Tests for register a new user', function () {
             user[0].birthday.should.equals(newUser.birthday);
             user[0].country.should.equals(newUser.country);
             user[0].female.should.equals(newUser.female);
+            user[0].registerDate.should.be.at.least(startTime);
             user[0].friendProfile.should.be.true;
             user[0].friendImage.should.be.true;
             user[0].friendContacts.should.be.true;

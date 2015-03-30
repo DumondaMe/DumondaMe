@@ -6,6 +6,7 @@ var cdn = require('./../util/cdn');
 var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
 var Promise = require('bluebird').Promise;
+var time = require('./../../../common/src/lib/time');
 var logger = requireLogger.getLogger(__filename);
 
 var ERROR_CODE_EMAIL_EXISTS = 1;
@@ -38,7 +39,8 @@ var registerUser = function (params) {
                 birthday: params.birthday,
                 country: params.country,
                 female: params.female,
-                userId: userId
+                userId: userId,
+                registerDate: time.getNowUtcTimestamp()
             },
             privacy: {
                 profile: true,
