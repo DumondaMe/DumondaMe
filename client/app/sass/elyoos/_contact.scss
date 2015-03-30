@@ -194,9 +194,21 @@
       }
 
       #privacy-link {
-        padding: 5px 25px;
+        display: inline-block;
+        width: 190px;
+        margin: 5px 5px 5px 25px;
         a {
           color: #000000;
+        }
+      }
+
+      #help-my-contact {
+        display: inline-block;
+        img {
+          margin-bottom: 25px;
+          height: 24px;
+          width: 24px;
+          cursor: pointer;
         }
       }
     }

@@ -14,7 +14,8 @@
             </div>
             <div ng-show="users.numberOfContacts === 0 && users.contacts.length === 0">
                 <div class="no-contact-description">
-                    <h3>Sie haben noch keine Kontakte</h3>
+                    <h3>Du hast noch keine Kontakte</h3>
+                    {{help.content}}
                 </div>
             </div>
         </div>
@@ -28,8 +29,7 @@
                 <div>
                     <li class="list-group-item"
                         ng-class="{'group-selected': allContactsSelected}">
-                    <span class="badge" bs-dropdown="dropdownGroupSettings"
-                          data-placement="bottom">{{users.numberOfContacts}}</span>
+                        <span class="badge">{{users.numberOfContacts}}</span>
 
                         <div class="contact-description-count" ng-click="selectedAllContacts()">
                             Alle
@@ -40,8 +40,7 @@
                 <div ng-repeat="statistic in users.statistic">
                     <li class="list-group-item"
                         ng-class="{'group-selected': statistic.selected}">
-                    <span class="badge" bs-dropdown="dropdownGroupSettings"
-                          data-placement="bottom">{{statistic.count}}</span>
+                        <span class="badge">{{statistic.count}}</span>
 
                         <div class="contact-description-count"
                              ng-click="selectedStatisticType(statistic)">{{statistic.type}}
@@ -51,6 +50,10 @@
             </ul>
             <div id="privacy-link">
                 <a ui-sref="settings.privacy">Privatsphären Einstellungen verwalten...</a>
+            </div>
+            <div id="help-my-contact" data-animation="am-fade-and-scale" data-placement="center" data-backdrop="false"
+                 bs-modal="help">
+                <img src="/app/img/help.png">
             </div>
         </div>
     </div>

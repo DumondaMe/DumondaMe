@@ -118,11 +118,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <div class=\"alert-input alert-danger\"\n" +
     "                                 ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\">\n" +
-    "                                <span>Bitte geben Sie ihren Geburtstag an</span>\n" +
+    "                                <span>Bitte gib deinen Geburtstag an</span>\n" +
     "                            </div>\n" +
     "                            <div class=\"alert-input alert-danger\"\n" +
     "                                 ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\">\n" +
-    "                                <span>Geben sie ein gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\n" +
+    "                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\n" +
     "                            </div>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
@@ -134,7 +134,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            <button type=\"button\" class=\"btn btn-default\" ng-model=\"selectedCountryCode\"\n" +
     "                                    name=\"inputCountry\"\n" +
     "                                    id=\"inputCountryId\"\n" +
-    "                                    ng-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\n" +
+    "                                    bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\n" +
     "                                    data-placeholder=\"Land\"\n" +
     "                                    bs-select>\n" +
     "                                Action <span class=\"caret\"></span>\n" +
@@ -166,7 +166,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            </div>\n" +
     "                            <div class=\"alert-input alert-danger\"\n" +
     "                                 ng-show=\"profileForm.$invalid && submitFailed\">\n" +
-    "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\n" +
+    "                                <span>Bitte fülle alle Werte korrekt aus</span>\n" +
     "                            </div>\n" +
     "                            <div class=\"alert-input alert-danger\"\n" +
     "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\n" +
@@ -199,7 +199,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
     "\n" +
-    "                    ng-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
+    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
     "\n" +
     "                    data-placeholder=\"\"\r" +
     "\n" +
@@ -211,7 +211,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <!--<select class=\"btn btn-default\"\r" +
     "\n" +
-    "                    ng-options=\"privacySetting.type for privacySetting in privacySettings\"\r" +
+    "                    bs-options=\"privacySetting.type for privacySetting in privacySettings\"\r" +
     "\n" +
     "                    ng-model=\"selectedPrivacySetting\"></select>-->\r" +
     "\n" +
@@ -313,18 +313,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                Blockierung aufheben\r" +
     "\n" +
     "            </button>\r" +
-    "\n" +
-    "<!--            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
-    "\n" +
-    "                    aria-expanded=\"false\"\r" +
-    "\n" +
-    "                    ng-show=\"!contact.blocked && contact.connected === 'none'\"\r" +
-    "\n" +
-    "                    ng-click=\"blockContact()\">\r" +
-    "\n" +
-    "                Blockieren\r" +
-    "\n" +
-    "            </button>-->\r" +
     "\n" +
     "            <div class=\"command-connection-state\" ng-hide=\"contact.connected === 'none'\"\r" +
     "\n" +
@@ -535,7 +523,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"no-contact-description\">\r" +
     "\n" +
-    "                    <h3>Sie haben noch keine Kontakte</h3>\r" +
+    "                    <h3>Du hast noch keine Kontakte</h3>\r" +
+    "\n" +
+    "                    {{help.content}}\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -563,9 +553,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        ng-class=\"{'group-selected': allContactsSelected}\">\r" +
     "\n" +
-    "                    <span class=\"badge\" bs-dropdown=\"dropdownGroupSettings\"\r" +
-    "\n" +
-    "                          data-placement=\"bottom\">{{users.numberOfContacts}}</span>\r" +
+    "                        <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -587,9 +575,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        ng-class=\"{'group-selected': statistic.selected}\">\r" +
     "\n" +
-    "                    <span class=\"badge\" bs-dropdown=\"dropdownGroupSettings\"\r" +
-    "\n" +
-    "                          data-placement=\"bottom\">{{statistic.count}}</span>\r" +
+    "                        <span class=\"badge\">{{statistic.count}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -608,6 +594,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "            <div id=\"privacy-link\">\r" +
     "\n" +
     "                <a ui-sref=\"settings.privacy\">Privatsphären Einstellungen verwalten...</a>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"help-my-contact\" data-animation=\"am-fade-and-scale\" data-placement=\"center\" data-backdrop=\"false\"\r" +
+    "\n" +
+    "                 bs-modal=\"help\">\r" +
+    "\n" +
+    "                <img src=\"/app/img/help.png\">\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -668,7 +662,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "               ng-keypress=\"sendGetQuery($event)\"\r" +
     "\n" +
-    "               ng-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\"\r" +
+    "               bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\"\r" +
     "\n" +
     "               data-trigger=\"focus\" bs-typeahead>\r" +
     "\n" +
@@ -1235,7 +1229,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
     "\n" +
-    "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "                                <span>Bitte fülle alle Werte korrekt aus</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1319,7 +1313,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <button type=\"button\" class=\"btn btn-default popover-element-right\" ng-model=\"otherPrivacySettingType\"\r" +
     "\n" +
-    "                    ng-options=\"privacyType for privacyType in otherPrivacySettingTypes\" bs-select>\r" +
+    "                    bs-options=\"privacyType for privacyType in otherPrivacySettingTypes\" bs-select>\r" +
     "\n" +
     "                Action <span class=\"caret\"></span>\r" +
     "\n" +
@@ -1374,7 +1368,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <input type=\"text\" class=\"form-control\" ng-model=\"renameType\"\r" +
     "\n" +
-    "                       ng-options=\"type for type in types\"\r" +
+    "                       bs-options=\"type for type in types\"\r" +
     "\n" +
     "                       bs-typeahead>\r" +
     "\n" +
@@ -1728,7 +1722,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                 ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\">\r" +
     "\n" +
-    "                                <span>Bitte geben Sie ihren Geburtstag an</span>\r" +
+    "                                <span>Bitte gib deinen Geburtstag an</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1736,7 +1730,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                 ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\">\r" +
     "\n" +
-    "                                <span>Geben sie ein gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\r" +
+    "                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1828,7 +1822,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                    id=\"inputCountryId\"\r" +
     "\n" +
-    "                                    ng-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\r" +
+    "                                    bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\r" +
     "\n" +
     "                                    data-placeholder=\"Land\"\r" +
     "\n" +
@@ -1892,7 +1886,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
     "\n" +
-    "                                <span>Bitte füllen Sie alle Werte korrekt aus</span>\r" +
+    "                                <span>Bitte fülle alle Werte korrekt aus</span>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +

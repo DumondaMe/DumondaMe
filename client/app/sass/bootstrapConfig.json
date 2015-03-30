@@ -94,6 +94,7 @@
     "@input-height-base": "(@line-height-computed + (@padding-base-vertical * 2) + 2)",
     "@input-height-large": "(ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2)",
     "@input-height-small": "(floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2)",
+    "@form-group-margin-bottom": "15px",
     "@legend-color": "@gray-dark",
     "@legend-border-color": "#e5e5e5",
     "@input-group-addon-bg": "@gray-lighter",
@@ -384,6 +385,7 @@
     "forms.less",
     "buttons.less",
     "responsive-utilities.less",
+    "glyphicons.less",
     "button-groups.less",
     "input-groups.less",
     "navs.less",
@@ -410,7 +412,6 @@
     "modals.less",
     "carousel.less"
   ],
-  "js": [
-  ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=a8bf95a7824fcea24518"
+  "js": [],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=011a257303cfc8b98ae7"
 }

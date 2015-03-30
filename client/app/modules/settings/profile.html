@@ -92,11 +92,11 @@
 
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)">
-                                <span>Bitte geben Sie ihren Geburtstag an</span>
+                                <span>Bitte gib deinen Geburtstag an</span>
                             </div>
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)">
-                                <span>Geben sie ein gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>
+                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                             <button type="button" class="btn btn-default" ng-model="selectedCountryCode"
                                     name="inputCountry"
                                     id="inputCountryId"
-                                    ng-options="countryCode.country as countryCode.country for countryCode in countryCodes"
+                                    bs-options="countryCode.country as countryCode.country for countryCode in countryCodes"
                                     data-placeholder="Land"
                                     bs-select>
                                 Action <span class="caret"></span>
@@ -174,7 +174,7 @@
                             </div>
                             <div class="alert-input alert-danger"
                                  ng-show="profileForm.$invalid && submitFailed">
-                                <span>Bitte füllen Sie alle Werte korrekt aus</span>
+                                <span>Bitte fülle alle Werte korrekt aus</span>
                             </div>
                             <div class="alert-input alert-danger"
                                  ng-show="newPasswordNotEqual">

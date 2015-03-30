@@ -31,6 +31,15 @@ var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
 
 module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUsers, Contact) {
 
+    $scope.help = {
+        title: 'Hilfe',
+        content: 'Du kannst beliebige Personen die bei Elyoos registriert sind als Kontakt ' +
+        'hinzufügen. Personen welche Du als Kontakt hinzugefügt hast werden nun bei deinen ' +
+        'Kontakten aufgelistet, ohne das der neue Kontakt dies bestätigen muss. Um die Sichtbarkeit ' +
+        'deines Profils für die Kontakte zu definieren, werden deine Kontakte einer Privatsphären Gruppe zugeordnet. ' +
+        'Mit diesen Einstellungen kannst Du festlegen, wer was von deinem Profil sehen kann.'
+    };
+
     $scope.query = "";
     $scope.itemsPerPage = 30;
     $scope.isUserSearch = false;

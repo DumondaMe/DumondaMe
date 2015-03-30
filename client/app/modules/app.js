@@ -3,6 +3,7 @@
 var angular = require('angular');
 require('angular-ui-route');
 require('angular-cookies');
+require('angular-sanitize');
 require('angular-animate');
 require('angular-resource');
 require('angular-strap');
@@ -10,6 +11,7 @@ require('angular-strap-tpl');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
+    'ngSanitize',
     'ngCookies',
     'ngAnimate',
     'ngResource',

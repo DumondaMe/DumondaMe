@@ -2,7 +2,7 @@
     <div class="input-group">
         <input class="form-control" placeholder="{{description}}" ng-model="query"
                ng-keypress="sendGetQuery($event)"
-               ng-options="querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)"
+               bs-options="querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)"
                data-trigger="focus" bs-typeahead>
         <span class="input-group-btn">
             <button class="btn btn-default" type="button" ng-click="getQuery(query)"><span
