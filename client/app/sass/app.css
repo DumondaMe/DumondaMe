@@ -1097,4 +1097,12 @@ html, body {
   height: 48px;
   margin-right: 10px; }
 
+#no-javascript {
+  position: fixed;
+  top: 20px;
+  left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff0000; }
+
 /*# sourceMappingURL=app.css.map */
