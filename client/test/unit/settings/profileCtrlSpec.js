@@ -33,6 +33,7 @@ describe('Tests of Profile Default Controller', function () {
             $setPristine: function () {
             }
         };
+        scope.selectedCountryCode = 'Schweiz';
 
         scope.userDataToChange = {
             forename: 'Hans2',
@@ -40,7 +41,7 @@ describe('Tests of Profile Default Controller', function () {
             birthday: '26.03.1982',
             street: 'hansdampf2',
             place: 'irgendwo2',
-            country: 'nirgendwo2',
+            country: 'CH',
             female: true
         };
 
@@ -80,6 +81,7 @@ describe('Tests of Profile Default Controller', function () {
             }
         };
         scope.submitFailed = false;
+        scope.selectedCountryCode = 'Schweiz';
 
         scope.userDataToChange = {
             forename: 'Hans',
@@ -87,7 +89,7 @@ describe('Tests of Profile Default Controller', function () {
             birthday: '2002-02-02',
             street: 'hansdampf',
             place: 'irgendwo',
-            country: 'nirgendwo',
+            country: 'CH',
             female: false
         };
 

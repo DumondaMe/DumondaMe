@@ -202,4 +202,26 @@ describe('Tests of conversation controller', function () {
 
         mockConversation.verify();
     });
+
+    it('Raise the input height when scroll height has changed and is below 74px', function () {
+
+        var event = {target: {offsetHeight: 73, scrollHeight: 73}};
+        conversationCtrl(scope, state, stateParams, Conversation, Message, dateFormatter);
+        scope.checkHeightOfInput(event);
+
+
+        expect(scope.textInputStyle.height).to.equal('75px');
+        expect(scope.textInputWrapperStyle.height).to.equal('91px');
+    });
+
+    it('Do not raise input size when offsetHeight over 73px', function () {
+
+        var event = {target: {offsetHeight: 74, scrollHeight: 73}};
+        conversationCtrl(scope, state, stateParams, Conversation, Message, dateFormatter);
+        scope.checkHeightOfInput(event);
+
+
+        expect(scope.textInputStyle.height).to.be.undefined;
+        expect(scope.textInputWrapperStyle.height).to.be.undefined;
+    });
 });

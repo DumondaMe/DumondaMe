@@ -17,7 +17,7 @@ function getCountryCode(country) {
 }
 
 function getCountry(code) {
-    var result = countryCodes[0].country
+    var result = countryCodes[0].country;
     angular.forEach(countryCodes, function (countryCode) {
         if (countryCode.code === code) {
             result = countryCode.country;
