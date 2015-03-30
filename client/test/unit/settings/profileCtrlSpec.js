@@ -1,13 +1,13 @@
 'use strict';
 
-var profileCtrl = require('../../../app/modules/settings/profileCtrl')[5];
+var profileCtrl = require('../../../app/modules/settings/profileCtrl')[4];
 var moment = require('../../../app/lib/moment/moment');
 
 describe('Tests of Profile Default Controller', function () {
-    var scope, filter, Profile, profileImage;
+    var scope, Profile, profileImage;
 
     beforeEach(function (done) {
-        inject(function ($rootScope, $filter) {
+        inject(function ($rootScope) {
 
             scope = $rootScope.$new();
 
@@ -20,7 +20,6 @@ describe('Tests of Profile Default Controller', function () {
             profileImage = {};
             profileImage.addProfileImageChangedEvent = function () {
             };
-            filter = $filter;
             done();
         });
     });
@@ -28,7 +27,7 @@ describe('Tests of Profile Default Controller', function () {
     it('Successful submit Data to the server', function () {
 
         moment.locale('de');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -59,7 +58,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Invalid form data. Data not sent to server', function () {
 
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
         scope.profileForm = {
             $invalid: true,
             $setPristine: function () {
@@ -74,7 +73,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Error occurred while sending data. User data are not updated', function () {
 
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -107,7 +106,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubProfile = sinon.stub(Profile, 'get');
         moment.locale('de');
         stubProfile.returns({birthday: 385948800});
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
         stubProfile.callArg(1);
 
         expect(scope.userDataToChange).to.eql({birthday: '26.3.1982'});
@@ -118,7 +117,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubHttpService = sinon.stub(Profile, 'get');
         stubHttpService.returns('test');
         moment.locale('de');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         expect(scope.getDateExample()).to.equals('26.3.1982');
     });
@@ -128,7 +127,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubHttpService = sinon.stub(Profile, 'get');
         stubHttpService.returns('test');
         moment.locale('en');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         expect(scope.getDateExample()).to.equals('3/26/1982');
     });
@@ -144,7 +143,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('de');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         scope.userDataToChange = {
             birthday: '26.3.1982'
@@ -165,7 +164,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('de');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         scope.userDataToChange = {
             birthday: '3.26.1982'
@@ -186,7 +185,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('en');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         scope.userDataToChange = {
             birthday: '3/26/1982'
@@ -207,7 +206,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('en');
-        profileCtrl(scope, filter, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment);
 
         scope.userDataToChange = {
             birthday: '26/3/1982'

@@ -28,16 +28,40 @@
         button {
           margin-top: 20px;
         }
-        .select-privacy-settings {
-          margin-top: 15px;
-          margin-bottom: 10px;
-          .select-privacy-settings-text {
-            float: left;
-            margin-left: 10px;
-            font-size: 14px;
-          }
-          input {
-            float: left;
+
+        .privacy-setting-button-row {
+          margin-left: 20px;
+        }
+
+        .privacy-setting-row {
+          width: 100%;
+          height: 60px;
+          .select-privacy-settings {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            .select-privacy-settings-description {
+              margin-left: 20px;
+              margin-top: 2px;
+              font-size: 14px;
+              font-style: italic;
+              display: block;
+              word-wrap: normal;
+            }
+
+            .select-privacy-settings-text {
+              margin-left: 20px;
+              font-size: 14px;
+              font-weight: bold;
+              display: block;
+            }
+            .select-privacy-settings-text-disabled {
+              @extend .select-privacy-settings-text;
+              color: $disabled-text;
+              font-weight: normal;
+            }
+            input {
+              float: left;
+            }
           }
         }
       }

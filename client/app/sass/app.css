@@ -853,6 +853,9 @@
         width: 500px; }
       #content-settings-profile #centerCol #inner-centerCol #change-profile-password {
         margin-bottom: 20px; }
+      #content-settings-profile #centerCol #inner-centerCol .select.dropdown-menu {
+        max-height: 200px;
+        overflow: auto; }
   #content-settings-profile #leftCol {
     position: fixed;
     display: inline-block;
@@ -919,15 +922,31 @@
             padding: 10px 0 0 0; }
       #content-settings-security #centerCol #inner-centerCol .content-privacy button {
         margin-top: 20px; }
-      #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings {
-        margin-top: 15px;
-        margin-bottom: 10px; }
-        #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings .select-privacy-settings-text {
-          float: left;
-          margin-left: 10px;
-          font-size: 14px; }
-        #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings input {
-          float: left; }
+      #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-button-row {
+        margin-left: 20px; }
+      #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row {
+        width: 100%;
+        height: 60px; }
+        #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings {
+          margin-top: 15px;
+          margin-bottom: 10px; }
+          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-description {
+            margin-left: 20px;
+            margin-top: 2px;
+            font-size: 14px;
+            font-style: italic;
+            display: block;
+            word-wrap: normal; }
+          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text, #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text-disabled {
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: block; }
+          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text-disabled {
+            color: #999999;
+            font-weight: normal; }
+          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings input {
+            float: left; }
   #content-settings-security #leftCol {
     position: fixed;
     display: inline-block;

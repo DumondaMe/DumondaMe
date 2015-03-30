@@ -6,7 +6,6 @@ var cdn = require('./../util/cdn');
 var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../../common/src/lib/error/exceptions');
 var Promise = require('bluebird').Promise;
-var ncp = Promise.promisify(require('ncp').ncp);
 var logger = requireLogger.getLogger(__filename);
 
 var ERROR_CODE_EMAIL_EXISTS = 1;

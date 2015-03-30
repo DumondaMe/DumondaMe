@@ -131,19 +131,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                        <label for=\"inputCountryId\" class=\"col-sm-4 control-label\">Land</label>\n" +
     "\n" +
     "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputCountry\" class=\"form-control\" id=\"inputCountryId\"\n" +
-    "                                   ng-model=\"userDataToChange.country\"\n" +
-    "                                   placeholder=\"Land\" ng-blur=\"visitedCountry = true\" required\n" +
-    "                                   ng-maxlength=\"50\">\n" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputCountry.$error.required && (visitedCountry || submitFailed)\">\n" +
-    "                                <span>Bitte geben Sie das Land an wo sie wohnen</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputCountry.$error.maxlength && (visitedCountry || submitFailed)\">\n" +
-    "                                <span>Der Name des Landes darf nicht länger als 50 Zeichen sein</span>\n" +
-    "                            </div>\n" +
+    "                            <button type=\"button\" class=\"btn btn-default\" ng-model=\"selectedCountryCode\"\n" +
+    "                                    name=\"inputCountry\"\n" +
+    "                                    id=\"inputCountryId\"\n" +
+    "                                    ng-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\n" +
+    "                                    data-placeholder=\"Land\"\n" +
+    "                                    bs-select>\n" +
+    "                                Action <span class=\"caret\"></span>\n" +
+    "                            </button>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                    <div class=\"form-group\">\n" +
@@ -989,7 +984,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            get-query=\"getThreadsOrContacts\"></ely-search-box>\r" +
     "\n" +
-    "            <div id=\"add-new-group-button\">\r" +
+    "            <!--<div id=\"add-new-group-button\">\r" +
     "\n" +
     "                <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\">\r" +
     "\n" +
@@ -999,7 +994,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
-    "            </div>\r" +
+    "            </div>-->\r" +
     "\n" +
     "            <ul id=\"message-index\" class=\"list-group\">\r" +
     "\n" +
@@ -1429,43 +1424,55 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"content-privacy\">\n" +
-    "                <div class=\"row\">\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.profileVisible\">\n" +
     "\n" +
     "                        <div class=\"select-privacy-settings-text\">\n" +
     "                            Mein Profil ist sichtbar\n" +
     "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div class=\"row\">\n" +
+    " <!--               <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.contactsVisible\">\n" +
+    "                        <input type=\"checkbox\" ng-model=\"selectedType.contactsVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
-    "                        <div class=\"select-privacy-settings-text\">\n" +
+    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Kontakte sind sichtbar\n" +
     "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"row\">\n" +
+    "                </div>-->\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.imageVisible\">\n" +
+    "                        <input type=\"checkbox\" ng-model=\"selectedType.imageVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
-    "                        <div class=\"select-privacy-settings-text\">\n" +
+    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Mein Profilbild ist sichtbar\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast dein Profilbild sehen können.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast dein Profilbild sehen können.\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div class=\"row\">\n" +
+    "<!--                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.profileDataVisible\">\n" +
+    "                        <input type=\"checkbox\" ng-model=\"selectedType.profileDataVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
-    "                        <div class=\"select-privacy-settings-text\">\n" +
+    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Profildaten sind sichtbar\n" +
     "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"row\">\n" +
+    "                </div>-->\n" +
+    "                <div class=\"privacy-setting-button-row\">\n" +
     "                    <button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
     "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +
     "                    </button>\n" +
@@ -1815,31 +1822,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"col-sm-8\">\r" +
     "\n" +
-    "                            <input name=\"inputCountry\" class=\"form-control\" id=\"inputCountryId\"\r" +
+    "                            <button type=\"button\" class=\"btn btn-default\" ng-model=\"selectedCountryCode\"\r" +
     "\n" +
-    "                                   ng-model=\"userDataToChange.country\"\r" +
+    "                                    name=\"inputCountry\"\r" +
     "\n" +
-    "                                   placeholder=\"Land\" ng-blur=\"visitedCountry = true\" required\r" +
+    "                                    id=\"inputCountryId\"\r" +
     "\n" +
-    "                                   ng-maxlength=\"50\">\r" +
+    "                                    ng-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\r" +
     "\n" +
-    "\r" +
+    "                                    data-placeholder=\"Land\"\r" +
     "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
+    "                                    bs-select>\r" +
     "\n" +
-    "                                 ng-show=\"profileForm.inputCountry.$error.required && (visitedCountry || submitFailed)\">\r" +
+    "                                Action <span class=\"caret\"></span>\r" +
     "\n" +
-    "                                <span>Bitte geben Sie das Land an wo sie wohnen</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputCountry.$error.maxlength && (visitedCountry || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Name des Landes darf nicht länger als 50 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            </button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

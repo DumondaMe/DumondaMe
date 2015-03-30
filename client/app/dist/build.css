@@ -308,7 +308,7 @@
         overflow: hidden;
         float: left;
         height: 100px;
-        width: 200px;
+        width: 239px;
         word-wrap: break-word; }
         #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name {
           padding: 5px 0px 0px 5px;
@@ -317,25 +317,26 @@
           height: 70px;
           width: 100%;
           color: #009688; }
-          #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description {
+          #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description-container .description {
+            display: inline-block;
             font-size: 12px;
             color: #9197a3;
             font-weight: normal; }
-            #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description:hover {
+            #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description-container .description:hover {
               text-decoration: underline;
               cursor: pointer; }
           #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .blocked-description {
             font-size: 12px;
             color: red;
             font-weight: bold; }
-      #content #content-page-contact .contact-preview .select {
+      #content #content-page-contact .contact-preview .select-user {
         float: left;
         height: 100px; }
-        #content #content-page-contact .contact-preview .select .s1 {
+        #content #content-page-contact .contact-preview .select-user .s1 {
           height: 100px;
           display: inline-block;
           vertical-align: middle; }
-        #content #content-page-contact .contact-preview .select .s2 {
+        #content #content-page-contact .contact-preview .select-user .s2 {
           display: inline-block;
           vertical-align: middle;
           margin-top: 5px;
@@ -343,7 +344,7 @@
       #content #content-page-contact .contact-preview .command-icons {
         float: left;
         height: 25px;
-        width: 190px; }
+        width: 230px; }
         #content #content-page-contact .contact-preview .command-icons button {
           float: left; }
         #content #content-page-contact .contact-preview .command-icons .command-connection-state {
@@ -352,6 +353,17 @@
           width: 25px;
           margin-left: 5px; }
           #content #content-page-contact .contact-preview .command-icons .command-connection-state img {
+            height: 100%;
+            width: 100%;
+            border: none; }
+        #content #content-page-contact .contact-preview .command-icons .command-connection-block {
+          float: left;
+          height: 20px;
+          width: 20px;
+          margin-top: 2px;
+          margin-left: 5px;
+          cursor: pointer; }
+          #content #content-page-contact .contact-preview .command-icons .command-connection-block img {
             height: 100%;
             width: 100%;
             border: none; }
@@ -365,6 +377,9 @@
         margin: -1px 10px 0px -1px; }
       #content #content-page-contact .contact-preview .popover .popover-content {
         padding: 9px 14px; }
+        #content #content-page-contact .contact-preview .popover .popover-content .popover-select-privacy {
+          max-width: 150px;
+          margin-right: 10px; }
     #content #content-page-contact .contacting-info {
       width: 100%;
       height: 40px;
@@ -399,13 +414,12 @@
       height: 100%;
       top: 0px;
       padding-top: 35px;
-      z-index: 999; }
+      z-index: 98;
+      background-color: #E0E0E0;
+      overflow: visible; }
       #content #content-page-contact #leftCol #inner-leftCol {
-        width: 100%;
-        height: 100%;
         padding-top: 24px;
-        margin-bottom: 20px;
-        background-color: #E0E0E0; }
+        margin-bottom: 20px; }
         #content #content-page-contact #leftCol #inner-leftCol h5 {
           padding-left: 10px;
           font-weight: bold; }
@@ -413,16 +427,24 @@
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
-          padding: 5px 10px; }
+          padding: 0px 10px;
+          margin-bottom: 0;
+          margin-top: 10px; }
           #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item .badge {
             cursor: pointer;
             background-color: #009688; }
           #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item .contact-description-count {
+            white-space: nowrap;
             width: 155px;
             overflow: hidden;
+            text-overflow: ellipsis;
             cursor: pointer; }
           #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item.group-selected {
             background-color: #B2DFDB; }
+        #content #content-page-contact #leftCol #inner-leftCol #privacy-link {
+          padding: 5px 25px; }
+          #content #content-page-contact #leftCol #inner-leftCol #privacy-link a {
+            color: #000000; }
 
 #public-header {
   position: fixed;
@@ -431,7 +453,7 @@
   height: 35px;
   width: 100%;
   background-color: #00796B;
-  z-index: 998; }
+  z-index: 99; }
   #public-header .headerNavElement ul li, #public-header .leftHeaderNavElement ul li, #public-header .rightHeaderNavElement ul li {
     display: inline-block;
     position: relative;
@@ -512,14 +534,20 @@
   margin: 10px;
   height: 150px;
   width: 250px;
-  border: 1px solid #6F9833; }
+  border: 1px solid #00796B; }
   .navigation-element .navigation-element-content {
     height: 100%;
     width: 100%; }
     .navigation-element .navigation-element-content:hover {
-      background-color: #8ECD84; }
+      background-color: #B2DFDB; }
   .navigation-element .navigation-element-description {
-    text-align: center; }
+    text-align: center;
+    font-size: 16px; }
+  .navigation-element .navigation-element-info {
+    margin-top: 10px;
+    text-align: center;
+    color: #009688;
+    font-size: 14px; }
   .navigation-element img {
     height: 60px;
     margin: 2px 95px 0px 95px;
@@ -540,7 +568,7 @@
   width: 80px;
   height: 100%;
   background-color: #009688;
-  z-index: 999; }
+  z-index: 100; }
   #leftColNav .nav-placeholder-top {
     width: 100%;
     height: 25px; }
@@ -572,6 +600,201 @@
   #leftColNav .nav-sub-element-last {
     border-bottom: solid 2px #ffffff; }
 
+#content-threads {
+  width: 100%;
+  height: 100%; }
+  #content-threads #centerCol {
+    width: 100%;
+    height: 100%;
+    padding-left: 340px; }
+    #content-threads #centerCol #inner-centerCol {
+      position: relative;
+      width: 800px;
+      margin: 0 auto; }
+      #content-threads #centerCol #inner-centerCol .thread-preview, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread {
+        cursor: pointer;
+        display: inline-block;
+        width: 90%;
+        height: 50px;
+        margin: 0 auto;
+        padding: 5px 0;
+        border-bottom: 1px solid #e7e7e7;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none; }
+        #content-threads #centerCol #inner-centerCol .thread-preview:hover, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
+          background-color: #B2DFDB; }
+        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image {
+          float: left;
+          margin-left: 10px;
+          margin-right: 20px; }
+          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image img, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image img {
+            width: 40px;
+            height: 40px; }
+        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text {
+          float: left; }
+          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description-center, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description-center {
+            font-size: 14px;
+            font-weight: bold; }
+          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description-center, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description-center {
+            margin-top: 10px;
+            width: 300px;
+            overflow: hidden; }
+          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewText, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewText, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewTextBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewTextBold {
+            font-size: 12px;
+            font-style: italic;
+            max-width: 300px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; }
+          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewTextBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewTextBold {
+            font-weight: bold; }
+        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-date, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-date, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-dateBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-dateBold {
+          padding-top: 11px;
+          margin-right: 20px;
+          float: right;
+          font-size: 14px; }
+        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-dateBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-dateBold {
+          font-weight: bold; }
+      #content-threads #centerCol #inner-centerCol .pagination {
+        width: 100%;
+        clear: both; }
+      #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
+        background-color: white; }
+  #content-threads #leftCol {
+    position: fixed;
+    display: inline-block;
+    left: 80px;
+    width: 260px;
+    height: 100%;
+    top: 0px;
+    padding-top: 35px;
+    z-index: 98;
+    background-color: #E0E0E0;
+    overflow: auto; }
+    #content-threads #leftCol #inner-leftCol {
+      padding-top: 24px;
+      margin-bottom: 20px; }
+      #content-threads #leftCol #inner-leftCol #message-index {
+        margin: 5px 10px; }
+        #content-threads #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
+          background-color: #B2DFDB; }
+        #content-threads #leftCol #inner-leftCol #message-index .list-group-item {
+          padding: 5px 15px; }
+          #content-threads #leftCol #inner-leftCol #message-index .list-group-item .badge {
+            background-color: #009688; }
+          #content-threads #leftCol #inner-leftCol #message-index .list-group-item .message-unread-count {
+            white-space: nowrap;
+            width: 155px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer; }
+      #content-threads #leftCol #inner-leftCol #add-new-group-button {
+        margin: 0 10px 10px 10px; }
+
+#content-messages {
+  width: 100%;
+  height: 100%; }
+  #content-messages #centerCol {
+    width: 100%;
+    height: 100%;
+    padding-left: 340px; }
+    #content-messages #centerCol #inner-centerCol {
+      position: relative;
+      margin: 0 40px; }
+      #content-messages #centerCol #inner-centerCol .add-message {
+        height: 50px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e7e7e7; }
+        #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
+          height: 34px; }
+      #content-messages #centerCol #inner-centerCol .message-view {
+        margin-bottom: 15px; }
+        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image {
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 10px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image img {
+            height: 40px;
+            width: 40px; }
+        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content {
+          display: inline-block;
+          max-width: 80%; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-name {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 14px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-timestamp {
+            display: inline-block;
+            font-style: italic;
+            font-size: 12px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-text {
+            white-space: pre-line; }
+      #content-messages #centerCol #inner-centerCol .pagination {
+        width: 100%;
+        clear: both; }
+  #content-messages #leftCol {
+    position: fixed;
+    display: inline-block;
+    left: 80px;
+    width: 260px;
+    height: 100%;
+    top: 0px;
+    padding-top: 35px;
+    z-index: 98;
+    background-color: #E0E0E0;
+    overflow: auto; }
+    #content-messages #leftCol #inner-leftCol {
+      padding-top: 24px;
+      margin-bottom: 20px; }
+      #content-messages #leftCol #inner-leftCol #message-index {
+        margin: 5px 10px; }
+        #content-messages #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
+          background-color: #B2DFDB; }
+        #content-messages #leftCol #inner-leftCol #message-index .list-group-item {
+          padding: 5px 15px; }
+          #content-messages #leftCol #inner-leftCol #message-index .list-group-item .badge {
+            background-color: #009688; }
+          #content-messages #leftCol #inner-leftCol #message-index .list-group-item .message-unread-count {
+            white-space: nowrap;
+            width: 155px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer; }
+      #content-messages #leftCol #inner-leftCol #thread-description {
+        margin: 0px 27px 10px 27px;
+        font-weight: bold;
+        font-size: 16px; }
+
+.modal.center .modal-dialog {
+  z-index: 101;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  min-width: 320px;
+  max-width: 630px;
+  width: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%); }
+
+.modal-backdrop.am-fade {
+  opacity: .5;
+  transition: opacity .3s linear;
+  z-index: 101; }
+
+.modal-backdrop.am-fade.ng-enter {
+  opacity: 0; }
+
+.modal-backdrop.am-fade.ng-enter.ng-enter-active {
+  opacity: .5; }
+
+.modal-backdrop.am-fade.ng-leave {
+  opacity: .5; }
+
+.modal-backdrop.am-fade.ng-leave.ng-leave-active {
+  opacity: 0; }
+
 #inner-leftCol form > * {
   margin: 5px 10px 15px 10px; }
 
@@ -590,27 +813,47 @@
   width: 500px;
   margin-left: 20px; }
 
-#content-settings {
+#content-settings-password {
   width: 100%;
   height: 100%; }
-  #content-settings #centerCol {
+  #content-settings-password #centerCol {
     width: 100%;
     height: 100%;
     padding-left: 80px; }
-    #content-settings #centerCol #inner-centerCol {
+    #content-settings-password #centerCol #inner-centerCol {
+      position: relative;
+      width: 500px;
+      margin-left: 50px;
+      padding-top: 50px; }
+      #content-settings-password #centerCol #inner-centerCol #label-password-confirm {
+        padding-top: 0px; }
+
+#content-settings-profile {
+  width: 100%;
+  height: 100%; }
+  #content-settings-profile #centerCol {
+    width: 100%;
+    height: 100%;
+    padding-left: 80px; }
+    #content-settings-profile #centerCol #inner-centerCol {
       position: relative;
       width: 800px;
       margin: 0 auto; }
-      #content-settings #centerCol #inner-centerCol #manage-profile-photo-container {
+      #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container {
         float: left;
         margin: 0 10px 0 20px; }
-        #content-settings #centerCol #inner-centerCol #manage-profile-photo-container img {
+        #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container img {
           width: 250px;
           height: 250px; }
-      #content-settings #centerCol #inner-centerCol #manage-profile {
+        #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container #change-profile-image {
+          margin-top: 10px;
+          display: block; }
+      #content-settings-profile #centerCol #inner-centerCol #manage-profile {
         float: left;
         width: 500px; }
-  #content-settings #leftCol {
+      #content-settings-profile #centerCol #inner-centerCol #change-profile-password {
+        margin-bottom: 20px; }
+  #content-settings-profile #leftCol {
     position: fixed;
     display: inline-block;
     left: 80px;
@@ -618,30 +861,137 @@
     height: 100%;
     top: 0px;
     padding-top: 35px;
-    z-index: 999; }
-    #content-settings #leftCol #inner-leftCol {
-      width: 100%;
-      height: 100%;
+    z-index: 98;
+    background-color: #E0E0E0;
+    overflow: visible; }
+    #content-settings-profile #leftCol #inner-leftCol {
       padding-top: 24px;
-      margin-bottom: 20px;
-      background-color: #E0E0E0; }
-      #content-settings #leftCol #inner-leftCol ul {
+      margin-bottom: 20px; }
+      #content-settings-profile #leftCol #inner-leftCol ul {
         width: 100%;
         padding: 0 10px; }
-        #content-settings #leftCol #inner-leftCol ul .active a {
+        #content-settings-profile #leftCol #inner-leftCol ul .active a {
           color: #FFFFFF; }
-        #content-settings #leftCol #inner-leftCol ul a {
+        #content-settings-profile #leftCol #inner-leftCol ul a {
           color: #000000; }
 
-.modal.center .modal-dialog {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  min-width: 320px;
-  max-width: 630px;
-  width: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%); }
+.btn-file {
+  float: left;
+  position: relative;
+  overflow: hidden; }
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block; }
+
+#content-settings-security {
+  width: 100%;
+  height: 100%; }
+  #content-settings-security #centerCol {
+    width: 100%;
+    height: 100%;
+    padding-left: 360px; }
+    #content-settings-security #centerCol #inner-centerCol {
+      position: relative;
+      width: 800px;
+      margin: 0 auto; }
+      #content-settings-security #centerCol #inner-centerCol .header-privacy {
+        height: 50px; }
+        #content-settings-security #centerCol #inner-centerCol .header-privacy .header-privacy-title {
+          height: 40px;
+          border-bottom: 1px solid #141823;
+          margin: 0 0 10px 0; }
+          #content-settings-security #centerCol #inner-centerCol .header-privacy .header-privacy-title h2 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            padding: 10px 0 0 0; }
+      #content-settings-security #centerCol #inner-centerCol .content-privacy button {
+        margin-top: 20px; }
+      #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings {
+        margin-top: 15px;
+        margin-bottom: 10px; }
+        #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings .select-privacy-settings-text, #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings .select-privacy-settings-text-disabled {
+          float: left;
+          margin-left: 10px;
+          font-size: 14px; }
+        #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings .select-privacy-settings-text-disabled {
+          color: #eeeeee; }
+        #content-settings-security #centerCol #inner-centerCol .content-privacy .select-privacy-settings input {
+          float: left; }
+  #content-settings-security #leftCol {
+    position: fixed;
+    display: inline-block;
+    left: 80px;
+    width: 260px;
+    height: 100%;
+    top: 0px;
+    padding-top: 35px;
+    z-index: 98;
+    background-color: #E0E0E0;
+    overflow: visible; }
+    #content-settings-security #leftCol #inner-leftCol {
+      padding-top: 24px;
+      margin-bottom: 20px; }
+      #content-settings-security #leftCol #inner-leftCol ul {
+        width: 100%;
+        padding: 0 10px; }
+        #content-settings-security #leftCol #inner-leftCol ul .list-group-item .privacy-type-description {
+          width: 140px;
+          overflow: hidden;
+          cursor: pointer; }
+        #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container {
+          width: 30px;
+          padding-left: 10px;
+          float: right; }
+          #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .list-group-item-icons {
+            height: 20px;
+            width: 20px;
+            cursor: pointer; }
+          #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover {
+            width: 276px; }
+            #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content {
+              padding: 9px 14px; }
+              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-description {
+                margin: 5px 10px; }
+              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-divider {
+                clear: both;
+                width: 100%;
+                border-bottom: 1px solid #141823;
+                margin: 5px 0 0 0; }
+              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-right {
+                float: right;
+                margin: 8px 10px; }
+              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element {
+                float: left;
+                margin: 8px 10px; }
+                #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element input {
+                  width: 130px; }
+        #content-settings-security #leftCol #inner-leftCol ul .list-group-item.group-selected {
+          background-color: #B2DFDB; }
+        #content-settings-security #leftCol #inner-leftCol ul .active a {
+          color: #FFFFFF; }
+        #content-settings-security #leftCol #inner-leftCol ul a {
+          color: #000000; }
+        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding {
+          margin-top: 10px;
+          padding-left: 15px; }
+        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding-input input {
+          margin: 15px 0 10px 0; }
+        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding-input button {
+          float: right;
+          margin-left: 10px; }
 
 html, body {
   height: 100%;
@@ -697,9 +1047,6 @@ html, body {
   top: 100px;
   left: 50%;
   margin-left: -200px; }
-
-#change-profile-image {
-  margin-top: 10px; }
 
 .alert-input {
   padding: 5px;

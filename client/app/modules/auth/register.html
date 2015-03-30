@@ -88,19 +88,14 @@
                         <label for="inputCountryId" class="col-sm-4 control-label">Land</label>
 
                         <div class="col-sm-8">
-                            <input name="inputCountry" class="form-control" id="inputCountryId"
-                                   ng-model="userDataToChange.country"
-                                   placeholder="Land" ng-blur="visitedCountry = true" required
-                                   ng-maxlength="50">
-
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputCountry.$error.required && (visitedCountry || submitFailed)">
-                                <span>Bitte geben Sie das Land an wo sie wohnen</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputCountry.$error.maxlength && (visitedCountry || submitFailed)">
-                                <span>Der Name des Landes darf nicht länger als 50 Zeichen sein</span>
-                            </div>
+                            <button type="button" class="btn btn-default" ng-model="selectedCountryCode"
+                                    name="inputCountry"
+                                    id="inputCountryId"
+                                    ng-options="countryCode.country as countryCode.country for countryCode in countryCodes"
+                                    data-placeholder="Land"
+                                    bs-select>
+                                Action <span class="caret"></span>
+                            </button>
                         </div>
                     </div>
                     <div class="form-group">
