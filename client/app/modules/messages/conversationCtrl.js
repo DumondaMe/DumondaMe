@@ -66,7 +66,23 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
                 Conversation.save(message, function (resp) {
                     $scope.thread.messages.unshift(resp.message);
                     $scope.newMessage = '';
+                    $scope.textInputStyle = {};
+                    $scope.textInputWrapperStyle = {};
                 });
             }
+        };
+
+        $scope.textInputStyle = {};
+        $scope.textInputWrapperStyle = {};
+        $scope.checkHeightOfInput = function ($event) {
+            if ($event.target.offsetHeight < 74) {
+                $scope.textInputStyle = {'height': $event.target.scrollHeight + 2 + 'px'};
+                $scope.textInputWrapperStyle = {'height': $event.target.scrollHeight + 18 + 'px'};
+            }
+            /*if ($event.target.offsetHeight < $event.target.scrollHeight) {
+             $scope.textInputStyle = {'height': '34px'};
+             } else if ($event.target.rows === 2) {
+             $scope.textInputStyle = {'height': '52px'};
+             }*/
         };
     }];

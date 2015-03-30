@@ -730,17 +730,29 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"add-message\">\r" +
+    "            <div class=\"add-message\" ng-style=\"textInputWrapperStyle\">\r" +
     "\n" +
     "                <div class=\"input-group\">\r" +
     "\n" +
     "                    <textarea class=\"form-control\" placeholder=\"Nachricht\"\r" +
     "\n" +
+    "                              ng-style=\"textInputStyle\"\r" +
+    "\n" +
+    "                              ng-keyup=\"checkHeightOfInput($event)\"\r" +
+    "\n" +
+    "                              ng-maxlength=\"1000\"\r" +
+    "\n" +
     "                              ng-model=\"newMessage\"></textarea>\r" +
     "\n" +
     "                    <span class=\"input-group-btn\">\r" +
     "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\" ng-class=\"{'disabled': newMessage.trim() === ''}\">Senden</button>\r" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\"\r" +
+    "\n" +
+    "                                ng-style=\"textInputStyle\"\r" +
+    "\n" +
+    "                                ng-class=\"{'disabled': newMessage.trim() === ''}\">Senden\r" +
+    "\n" +
+    "                        </button>\r" +
     "\n" +
     "                    </span>\r" +
     "\n" +
@@ -808,7 +820,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ul id=\"message-index\" class=\"list-group\">\r" +
     "\n" +
-    "                <div ng-repeat=\"thread in threads.threads\" ng-if=\"thread.threadId !== selectedThreadId\">\r" +
+    "                <div ng-repeat=\"thread in threads.threads\"\r" +
+    "\n" +
+    "                     ng-if=\"thread.threadId !== selectedThreadId\">\r" +
     "\n" +
     "                    <li class=\"list-group-item\"\r" +
     "\n" +

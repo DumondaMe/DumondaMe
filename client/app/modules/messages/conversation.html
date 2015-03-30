@@ -1,12 +1,18 @@
 <div id="content-messages">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="add-message">
+            <div class="add-message" ng-style="textInputWrapperStyle">
                 <div class="input-group">
                     <textarea class="form-control" placeholder="Nachricht"
+                              ng-style="textInputStyle"
+                              ng-keyup="checkHeightOfInput($event)"
+                              ng-maxlength="1000"
                               ng-model="newMessage"></textarea>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-click="sendMessage()" ng-class="{'disabled': newMessage.trim() === ''}">Senden</button>
+                        <button class="btn btn-default" type="button" ng-click="sendMessage()"
+                                ng-style="textInputStyle"
+                                ng-class="{'disabled': newMessage.trim() === ''}">Senden
+                        </button>
                     </span>
                 </div>
             </div>
@@ -40,7 +46,8 @@
         <div id="inner-leftCol">
             <div id="thread-description">{{thread.threadDescription}}</div>
             <ul id="message-index" class="list-group">
-                <div ng-repeat="thread in threads.threads" ng-if="thread.threadId !== selectedThreadId">
+                <div ng-repeat="thread in threads.threads"
+                     ng-if="thread.threadId !== selectedThreadId">
                     <li class="list-group-item"
                         ng-click="openThread(thread.threadId, thread.isGroupThread)">
                         <span class="badge" ng-if="thread.hasNotReadMessages">{{thread.numberOfUnreadMessages}}</span>
