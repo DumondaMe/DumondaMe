@@ -72,12 +72,12 @@ module.exports = function (router) {
         return validation.validateQueryRequest(req, schemaRequestGetContact, logger)
             .then(function (request) {
                 if (!req.query.types) {
-                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip, req.session.cookie._expires)
+                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
                         .then(function (contacts) {
                             res.status(200).json(contacts);
                         });
                 }
-                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types, req.session.cookie._expires)
+                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
                     .then(function (contacts) {
                         res.status(200).json(contacts);
                     });

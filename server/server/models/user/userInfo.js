@@ -5,13 +5,12 @@ var underscore = require('underscore');
 var cdn = require('../util/cdn');
 var moment = require('moment');
 
-var addImageForPreview = function (contacts, expires) {
+var addImageForPreview = function (contacts) {
     underscore.each(contacts, function (contact) {
-        var expiresWrapper = moment(expires).valueOf();
         if (contact.profileVisible && contact.imageVisible) {
-            contact.profileUrl = cdn.getUrl(contact.id + '/profilePreview.jpg', expiresWrapper);
+            contact.profileUrl = cdn.getUrl(contact.id + '/profilePreview.jpg');
         } else {
-            contact.profileUrl = cdn.getUrl('default/profilePreview.jpg', expiresWrapper);
+            contact.profileUrl = cdn.getUrl('default/profilePreview.jpg');
         }
         delete contact.profileVisible;
         delete contact.imageVisible;
@@ -35,8 +34,8 @@ var addConnectionInfo = function (contacts) {
 
 module.exports = {
     addImageForPreview: addImageForPreview,
-    addContactPreviewInfos: function (contacts, expires) {
-        addImageForPreview(contacts, expires);
+    addContactPreviewInfos: function (contacts) {
+        addImageForPreview(contacts);
         addConnectionInfo(contacts);
     }
 };

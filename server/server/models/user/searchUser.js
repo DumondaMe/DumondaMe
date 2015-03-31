@@ -25,7 +25,7 @@ var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
         });
 };
 
-var searchUsersInNormalMode = function (userId, userQuery, maxItems, expires) {
+var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
         .where('contact.name =~ {userQueryRegEx}')
         .with('contact, r, user')
@@ -50,7 +50,7 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems, expires) {
         .send()
         .then(function (resp) {
 
-            userInfo.addContactPreviewInfos(resp, expires);
+            userInfo.addContactPreviewInfos(resp);
 
             if (resp.length <= maxItems) {
                 return resp;
@@ -60,14 +60,14 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems, expires) {
 };
 
 module.exports = {
-    searchUsers: function (userId, userQuery, maxItems, isSuggestion, expires) {
+    searchUsers: function (userId, userQuery, maxItems, isSuggestion) {
 
         var userQueryRegEx = '(?i).*'.concat(userQuery, '.*');
 
         if (isSuggestion) {
             return searchUsersInSuggestionMode(userId, userQueryRegEx, maxItems);
         }
-        return searchUsersInNormalMode(userId, userQueryRegEx, maxItems, expires);
+        return searchUsersInNormalMode(userId, userQueryRegEx, maxItems);
 
 
     }

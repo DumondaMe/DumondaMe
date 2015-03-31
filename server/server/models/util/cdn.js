@@ -3,7 +3,7 @@
 var logger = requireLogger.getLogger(__filename);
 var AWS = require('aws-sdk');
 var cdnConfig = require('./../../../common/src/lib/cdn');
-var expiresAfterADay = 60 * 60 * 24;
+var expiresAfterADay = 60 * 60 * 12;
 var Promise = require('bluebird');
 var fs = require('fs');
 

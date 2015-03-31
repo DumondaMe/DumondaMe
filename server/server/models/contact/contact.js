@@ -173,7 +173,7 @@ var getContact = function (params, where) {
         .end(params);
 };
 
-var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
+var getContactsNormal = function (userId, itemsPerPage, skip) {
 
     var commands = [];
 
@@ -189,7 +189,7 @@ var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (resp) {
-            userInfo.addContactPreviewInfos(resp[0], expires);
+            userInfo.addContactPreviewInfos(resp[0]);
             var data = {};
             data.contacts = resp[0];
             data.statistic = resp[1];
@@ -200,7 +200,7 @@ var getContactsNormal = function (userId, itemsPerPage, skip, expires) {
         });
 };
 
-var getContactForTypes = function (userId, itemsPerPage, skip, types, expires) {
+var getContactForTypes = function (userId, itemsPerPage, skip, types) {
     var commands = [];
 
     commands.push(getContact({
@@ -214,7 +214,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types, expires) {
         .send(commands)
         .then(function (resp) {
             var data = {};
-            userInfo.addContactPreviewInfos(resp[0], expires);
+            userInfo.addContactPreviewInfos(resp[0]);
             data.contacts = resp[0];
             data.contactsForPagination = resp[1][0].contactsForPagination;
             return data;

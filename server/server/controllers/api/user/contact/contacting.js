@@ -26,7 +26,7 @@ module.exports = function (router) {
             req.query.skip = parseInt(req.query.skip, 10);
         }
         return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
-            return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip, req.session.cookie._expires);
+            return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip);
         }).then(function (users) {
             res.status(200).json(users);
         }).catch(exceptions.InvalidJsonRequest, function () {

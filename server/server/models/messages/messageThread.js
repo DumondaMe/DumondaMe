@@ -78,7 +78,7 @@ var getAllThreads = function (params) {
         .end(params);
 };
 
-var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
+var getMessageThreads = function (userId, itemsPerPage, skip) {
 
     var commands = [];
 
@@ -92,7 +92,7 @@ var getMessageThreads = function (userId, itemsPerPage, skip, expires) {
         .then(function (resp) {
             resp[2] = resp[2].slice(skip, skip + itemsPerPage);
             addHasNotReadMessages(resp[2], resp[0]);
-            userInfo.addImageForPreview(resp[2], expires);
+            userInfo.addImageForPreview(resp[2]);
             return {
                 threads: resp[2].sort(compare),
                 numberOfThreads: resp[1][0].numberOfThreads,

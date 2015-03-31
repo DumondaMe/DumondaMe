@@ -29,7 +29,7 @@ module.exports = function (router) {
 
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
-                return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion, req.session.cookie._expires);
+                return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion);
             }).then(function (threads) {
                 res.status(200).json(threads);
             }).catch(exceptions.InvalidJsonRequest, function () {

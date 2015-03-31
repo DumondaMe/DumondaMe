@@ -52,13 +52,13 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
         .end({userId: userId, queryRegEx: queryRegEx, maxItems: maxItems});
 };
 
-var searchThreads = function (userId, search, maxItems, isSuggestion, expires) {
+var searchThreads = function (userId, search, maxItems, isSuggestion) {
 
     return searchQuery(userId, search, maxItems, isSuggestion)
         .send()
         .then(function (resp) {
             if (!isSuggestion) {
-                userInfo.addImageForPreview(resp, expires);
+                userInfo.addImageForPreview(resp);
                 return {threads: resp};
             }
             return resp;

@@ -8,9 +8,9 @@ var logger = requireLogger.getLogger(__filename);
 var cdn = require('../util/cdn');
 var moment = require('moment');
 
-var getUser = function (resp, id, expires, profileUrl) {
+var getUser = function (resp, id, profileUrl) {
     if (resp.length === 1) {
-        resp[0].profileImage = cdn.getUrl(id + profileUrl, moment(expires).valueOf());
+        resp[0].profileImage = cdn.getUrl(id + profileUrl);
         return resp[0];
     }
     if (resp.length > 1) {
@@ -36,7 +36,7 @@ module.exports = {
                 }
             });
     },
-    getUserProfile: function (id, expires) {
+    getUserProfile: function (id) {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
@@ -44,7 +44,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, expires, '/profile.jpg');
+                return getUser(resp, id, '/profile.jpg');
             });
     },
     updateUserProfile: function (userId, userData) {
@@ -77,13 +77,13 @@ module.exports = {
             })
             .send();
     },
-    getUserName: function (id, expires) {
+    getUserName: function (id) {
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.name AS name')
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, expires, '/thumbnail.jpg');
+                return getUser(resp, id, '/thumbnail.jpg');
             });
     }
 };

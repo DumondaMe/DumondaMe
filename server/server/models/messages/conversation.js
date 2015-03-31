@@ -84,7 +84,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         .then(function (resp) {
             if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
                 addWriterInfo(userId, resp[2]);
-                userInfo.addImageForPreview(resp[2], session.cookie._expires);
+                userInfo.addImageForPreview(resp[2]);
                 modification.resetModificationForThread(threadId, isGroupThread, session);
                 return {
                     messages: resp[2],
@@ -123,7 +123,7 @@ var addMessage = function (userId, threadId, text, isGroupThread, session) {
                     lastTimeVisited: now
                 }).send()
                 .then(function (resp) {
-                    userInfo.addImageForPreview(resp, session.cookie._expires);
+                    userInfo.addImageForPreview(resp);
                     modification.resetModificationForThread(threadId, isGroupThread, session);
                     return {message: resp[0]};
                 });
