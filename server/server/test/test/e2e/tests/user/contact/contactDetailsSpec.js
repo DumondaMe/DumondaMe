@@ -226,6 +226,16 @@ describe('Integration Tests for getting the contact details', function () {
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
 
+        //create Contact Connections for User 1
+        commands.push(db.cypher().match("(u:User), (u2:User)")
+            .where("u.userId = '1' AND u2.userId = '4'")
+            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(u:User), (u2:User)")
+            .where("u.userId = '1' AND u2.userId = '6'")
+            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
+            .end({contactAdded: startTime}).getCommand());
+
         return db.cypher().match("(u:User {userId: '7'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
@@ -264,6 +274,9 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contacts[4].name.should.equals('user7 Meier7');
                 res.body.contacts[4].profileUrl.should.equals('default/profilePreview.jpg');
                 res.body.contacts[4].id.should.equals('7');
+
+                res.body.numberOfContacts.should.equals(6);
+                res.body.numberOfSameContacts.should.equals(2);
             });
     });
 

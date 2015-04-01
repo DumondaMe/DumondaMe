@@ -12,7 +12,24 @@ var deletePrivacyProperties = function (privacy) {
     delete privacy.imageProfileNoContact;
 };
 
+var numberOfContacts = function (contactId) {
+    return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)')
+        .return('count(*) AS numberOfContacts')
+        .end({contactId: contactId});
+};
+
+var numberOfSameContacts = function (userId, contactId) {
+    return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})')
+        .return('count(*) AS numberOfSameContacts')
+        .end({contactId: contactId, userId: userId});
+};
+
 var getContacts = function (userId, contactId, details) {
+    var commands = [];
+
+    commands.push(numberOfContacts(contactId).getCommand());
+    commands.push(numberOfSameContacts(userId, contactId).getCommand());
+
     return db.cypher().match('(contact:User {userId: {contactId}})-[:IS_CONTACT]->(contactOfContact:User), (user:User {userId: {userId}})')
         .optionalMatch('(contactOfContact)-[isContact:IS_CONTACT]->(user)')
         .with('contact, contactOfContact, isContact')
@@ -27,9 +44,9 @@ var getContacts = function (userId, contactId, details) {
         'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact')
         .limit('6')
         .end({contactId: contactId, userId: userId})
-        .send()
+        .send(commands)
         .then(function (resp) {
-            underscore.each(resp, function (contact) {
+            underscore.each(resp[2], function (contact) {
                 if ((contact.profile || contact.profileNoContact) && (contact.imageProfile || contact.imageProfileNoContact)) {
                     contact.profileUrl = cdn.getUrl(contact.id + '/profilePreview.jpg');
                 } else {
@@ -37,7 +54,12 @@ var getContacts = function (userId, contactId, details) {
                 }
                 deletePrivacyProperties(contact);
             });
-            return {details: details, contacts: resp};
+            return {
+                details: details,
+                numberOfContacts: resp[0][0].numberOfContacts,
+                numberOfSameContacts: resp[1][0].numberOfSameContacts,
+                contacts: resp[2]
+            };
         });
 };
 
@@ -78,7 +100,8 @@ var getContactDetails = function (userId, contactId) {
         .return('contact.name AS name, contact.birthday AS birthday, contact.country AS country, contact.place AS place, ' +
         'contact.street AS street, isContact.type AS contactType, privacy.profile AS profile, privacy.image AS imageProfile,' +
         'privacy.profileData AS profileData, privacy.contacts AS contacts, noContactPrivacy.profile AS profileNoContact, ' +
-        'noContactPrivacy.image AS imageProfileNoContact, noContactPrivacy.profileData AS profileDataNoContact, noContactPrivacy.contacts AS contactsNoContact')
+        'noContactPrivacy.image AS imageProfileNoContact, noContactPrivacy.profileData AS profileDataNoContact, ' +
+        'noContactPrivacy.contacts AS contactsNoContact')
         .end({userId: userId, contactId: contactId})
         .send()
         .then(function (resp) {
