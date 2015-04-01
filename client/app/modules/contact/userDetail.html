@@ -2,21 +2,21 @@
     <div id="centerCol">
         <div id="inner-centerCol">
             <div id="profile-image">
-                <img class="img-rounded img-responsive" ng-src="{{contactDetails.details.profileUrl}}"/>
+                <img class="img-rounded img-responsive" ng-src="{{contact.profileUrl}}"/>
             </div>
             <div id="profile-data">
                 <div id="profile-data-overview">
-                    <div id="profile-data-name">{{contactDetails.details.name}}</div>
-                    <div class="profile-data-description">{{contactDetails.details.country}}</div>
-                    <div class="profile-data-description">{{contactDetails.details.birthday}}</div>
-                    <div class="profile-data-description">{{contactDetails.details.street}}</div>
-                    <div class="profile-data-description">{{contactDetails.details.place}}</div>
+                    <div id="profile-data-name">{{contact.name}}</div>
+                    <div class="profile-data-description">{{contact.country}}</div>
+                    <div class="profile-data-description">{{contact.birthday}}</div>
+                    <div class="profile-data-description">{{contact.street}}</div>
+                    <div class="profile-data-description">{{contact.place}}</div>
                 </div>
                 <div id="profile-command">
                     <button type="button" class="btn btn-default"
                             aria-expanded="false"
-                            ng-show="!contactDetails.details.contactType"
-                            ng-click="addNewContact()">
+                            ng-show="!contact.type"
+                            ng-click="openModalAddNewContact($scope)">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         Als Kontakt hinzufügen
                     </button>

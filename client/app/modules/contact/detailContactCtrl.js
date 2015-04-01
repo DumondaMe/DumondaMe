@@ -3,15 +3,24 @@
 module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
     function ($scope, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
 
-        $scope.userId = $stateParams.userId;
-        $scope.contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
-            if ($scope.contactDetails.details.country) {
-                $scope.contactDetails.details.country = CountryCodeConverter.getCountry($scope.contactDetails.details.country);
-            }
-            if ($scope.contactDetails.details.birthday) {
-                $scope.contactDetails.details.birthday = 'Geb. ' + moment.unix($scope.contactDetails.details.birthday).format('l');
-            }
-        });
+        var contactDetails;
+        $scope.$scope = $scope;
+        angular.extend($scope, ContactUserActions);
 
-        $scope.sendMessage = ContactUserActions.sendMessage;
+        $scope.userId = $stateParams.userId;
+        contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
+
+            $scope.contact = contactDetails.contact;
+            $scope.contact.id = $stateParams.userId;
+            $scope.statistic = contactDetails.statistic;
+            $scope.privacySettings = contactDetails.privacySettings;
+            if ($scope.contact.country) {
+                $scope.contact.country = CountryCodeConverter.getCountry($scope.contact.country);
+            }
+            if ($scope.contact.birthday) {
+                $scope.contact.birthday = 'Geb. ' + moment.unix($scope.contact.birthday).format('l');
+            }
+            ContactUserActions.setPrivacySettings($scope);
+            ContactUserActions.setConnectionState($scope);
+        });
     }];

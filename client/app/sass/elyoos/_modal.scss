@@ -27,3 +27,17 @@
 .modal-backdrop.am-fade.ng-leave.ng-leave-active {
   opacity: 0;
 }
+
+#modal-dialog-set-privacy {
+  width: 350px;
+  .privacy-selection {
+    margin-bottom: 22px;
+    margin-right: 10px;
+    max-width: 120px;
+  }
+  .privacy-description {
+    display: inline-block;
+    max-width: 180px;
+    word-wrap: normal;
+  }
+}

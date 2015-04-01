@@ -187,51 +187,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/contactPreview/popoverDescription.html',
-    "<div class=\"popover\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
-    "\n" +
-    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
-    "\n" +
-    "                    data-placeholder=\"\"\r" +
-    "\n" +
-    "                    bs-select>\r" +
-    "\n" +
-    "                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <!--<select class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type for privacySetting in privacySettings\"\r" +
-    "\n" +
-    "                    ng-model=\"selectedPrivacySetting\"></select>-->\r" +
-    "\n" +
-    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
-    "\n" +
-    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/contact/contactPreview/template.html',
     "<div class=\"contact-preview\">\r" +
     "\n" +
@@ -251,13 +206,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"description-container\">\r" +
     "\n" +
-    "                <div class=\"description\" trigger=\"click\" data-auto-close=\"true\"\r" +
-    "\n" +
-    "                     data-placement=\"bottom\"\r" +
-    "\n" +
-    "                     data-template=\"app/modules/contact/contactPreview/popoverDescription.html\"\r" +
-    "\n" +
-    "                     bs-popover ng-show=\"!contact.blocked && contact.type\">\r" +
+    "                <div class=\"description\" ng-click=\"openModalUpdateType($scope)\" ng-show=\"!contact.blocked && contact.type\">\r" +
     "\n" +
     "                    ({{contact.type}})\r" +
     "\n" +
@@ -295,7 +244,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-show=\"!contact.blocked && !contact.type\"\r" +
     "\n" +
-    "                    ng-click=\"addNewContact()\">\r" +
+    "                    ng-click=\"openModalAddNewContact($scope)\">\r" +
     "\n" +
     "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
     "\n" +
@@ -309,7 +258,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-show=\"contact.blocked\"\r" +
     "\n" +
-    "                    ng-click=\"unblockContact()\">\r" +
+    "                    ng-click=\"unblockContact($scope)\">\r" +
     "\n" +
     "                Blockierung aufheben\r" +
     "\n" +
@@ -331,7 +280,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"User blockieren\"\r" +
     "\n" +
-    "                 bs-tooltip ng-click=\"blockContact()\">\r" +
+    "                 bs-tooltip ng-click=\"blockContact($scope)\">\r" +
     "\n" +
     "                <img src=\"/app/img/block.png\">\r" +
     "\n" +
@@ -616,6 +565,94 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/contact/services/userActionsModalDescription.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-dialog-set-privacy\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default privacy-selection\"\r" +
+    "\n" +
+    "                        ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
+    "\n" +
+    "                        bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
+    "\n" +
+    "                        data-placeholder=\"\"\r" +
+    "\n" +
+    "                        bs-select>\r" +
+    "\n" +
+    "                    Action <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                </button>\r" +
+    "\n" +
+    "                <div class=\"privacy-description\">\r" +
+    "\n" +
+    "                    Wähle eine Privatsphären Einstellung\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"send($scope, $hide)\">{{actionDescription}}</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<!--\r" +
+    "\n" +
+    "<div class=\"popover\">\r" +
+    "\n" +
+    "    <div class=\"arrow\"></div>\r" +
+    "\n" +
+    "    <div class=\"popover-content\">\r" +
+    "\n" +
+    "        <form name=\"popoverForm\">\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
+    "\n" +
+    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
+    "\n" +
+    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
+    "\n" +
+    "                    data-placeholder=\"\"\r" +
+    "\n" +
+    "                    bs-select>\r" +
+    "\n" +
+    "                Action <span class=\"caret\"></span>\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
+    "\n" +
+    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </form>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>-->\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/contact/userDetail.html',
     "<div id=\"content-page-contact-details\">\r" +
     "\n" +
@@ -625,7 +662,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"profile-image\">\r" +
     "\n" +
-    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contactDetails.details.profileUrl}}\"/>\r" +
+    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"/>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -633,15 +670,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div id=\"profile-data-overview\">\r" +
     "\n" +
-    "                    <div id=\"profile-data-name\">{{contactDetails.details.name}}</div>\r" +
+    "                    <div id=\"profile-data-name\">{{contact.name}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.country}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.country}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.birthday}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.birthday}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.street}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.street}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.place}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.place}}</div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -651,9 +688,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            aria-expanded=\"false\"\r" +
     "\n" +
-    "                            ng-show=\"!contactDetails.details.contactType\"\r" +
+    "                            ng-show=\"!contact.type\"\r" +
     "\n" +
-    "                            ng-click=\"addNewContact()\">\r" +
+    "                            ng-click=\"openModalAddNewContact($scope)\">\r" +
     "\n" +
     "                        <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
     "\n" +
@@ -4037,42 +4074,6 @@ module.exports = ['$scope', 'Register', 'moment', 'CountryCodeConverter',
 },{}],19:[function(require,module,exports){
 'use strict';
 
-var updateConnectionStateWhenModifiyContact = function ($scope) {
-    if ($scope.contact.connected === 'contactToUser') {
-        $scope.contact.connected = 'both';
-    } else {
-        $scope.contact.connected = 'userToContact';
-    }
-    $scope.setConnectionState();
-};
-
-var updateConnectionStateWhenDeletingContact = function ($scope) {
-    if ($scope.contact.connected === 'both') {
-        $scope.contact.connected = 'contactToUser';
-    } else {
-        $scope.contact.connected = 'none';
-    }
-    $scope.setConnectionState();
-};
-
-var setPrivacySettings = function ($scope) {
-    $scope.contact.selectedPrivacySetting = $scope.contact.type;
-    $scope.contact.privacySettings = $scope.privacySettings;
-};
-
-var getPrivacyType = function (statistics, privacyTypes) {
-    var setting = null;
-    if (statistics && statistics.length > 0) {
-        angular.forEach(statistics, function (statistic) {
-            if (!setting || setting.count < statistic.count) {
-                setting = statistic;
-            }
-        });
-        return setting.type;
-    }
-    return privacyTypes[0].type;
-};
-
 var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
@@ -4084,124 +4085,29 @@ var setContactActions = function ($scope) {
         },
         {
             text: "Kontakt löschen",
-            click: "deleteContact()"
+            click: "deleteContact($scope)"
         },
         {
             text: "Kontakt blockieren",
-            click: "blockContact()"
+            click: "blockContact($scope)"
         }
     ];
 };
 
+
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Contact', 'moment', 'ContactUserActions',
-            function ($scope, $state, Contact, moment, ContactUserActions) {
+        return ['$scope', '$state', 'ContactUserActions',
+            function ($scope, $state, ContactUserActions) {
 
-                setPrivacySettings($scope);
+                $scope.$scope = $scope;
+                ContactUserActions.setPrivacySettings($scope);
 
                 setContactActions($scope);
 
-                $scope.tooltipConnectionState = {
-                    title: "",
-                    checked: false
-                };
+                angular.extend($scope, ContactUserActions);
 
-                $scope.sendNewDescription = function (hide) {
-                    if ($scope.contact.selectedPrivacySetting) {
-                        var contact = Contact.save({
-                            contactIds: [$scope.contact.id],
-                            mode: 'changeState',
-                            description: $scope.contact.selectedPrivacySetting
-                        }, function () {
-                            $scope.statistic = contact.statistic;
-                            $scope.contact.type = $scope.contact.selectedPrivacySetting;
-                            hide();
-                        });
-                    }
-                };
-
-                $scope.addNewContact = function () {
-                    var contact, privacyTyp;
-                    privacyTyp = getPrivacyType($scope.statistic, $scope.contact.privacySettings);
-                    contact = Contact.save({
-                        contactIds: [$scope.contact.id],
-                        mode: 'addContact',
-                        description: privacyTyp
-                    }, function () {
-                        $scope.statistic = contact.statistic;
-                        if (angular.isDefined($scope.numberOfContacts)) {
-                            $scope.numberOfContacts = contact.numberOfContacts;
-                        }
-                        $scope.contact.type = privacyTyp;
-                        updateConnectionStateWhenModifiyContact($scope);
-                        setPrivacySettings($scope);
-                    });
-                };
-
-                $scope.deleteContact = function () {
-                    var contact = Contact.delete({
-                        contactIds: [$scope.contact.id]
-                    }, function () {
-                        $scope.statistic = contact.statistic;
-                        if (angular.isDefined($scope.numberOfContacts)) {
-                            $scope.numberOfContacts = contact.numberOfContacts;
-                        }
-                        delete $scope.contact.type;
-                        updateConnectionStateWhenDeletingContact($scope);
-                    });
-                };
-
-                $scope.blockContact = function () {
-                    var contact = Contact.save({
-                        mode: 'blockContact',
-                        contactIds: [$scope.contact.id]
-                    }, function () {
-                        $scope.statistic = contact.statistic;
-                        if (angular.isDefined($scope.numberOfContacts)) {
-                            $scope.numberOfContacts = contact.numberOfContacts;
-                        }
-                        delete $scope.contact.type;
-                        $scope.contact.blocked = true;
-                        updateConnectionStateWhenDeletingContact($scope);
-                    });
-                };
-
-                $scope.unblockContact = function () {
-                    var contact = Contact.save({
-                        mode: 'unblockContact',
-                        contactIds: [$scope.contact.id]
-                    }, function () {
-                        $scope.statistic = contact.statistic;
-                        if (angular.isDefined($scope.numberOfContacts)) {
-                            $scope.numberOfContacts = contact.numberOfContacts;
-                        }
-                        delete $scope.contact.type;
-                        $scope.contact.blocked = false;
-                    });
-                };
-
-                $scope.sendMessage = ContactUserActions.sendMessage;
-
-                $scope.setConnectionState = function () {
-                    if ($scope.contact.connected === 'userToContact') {
-                        $scope.contact.connectionImage = 'app/img/userToContact.png';
-                        $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
-                        + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgefügt";
-                    } else if ($scope.contact.connected === 'contactToUser') {
-                        $scope.contact.connectionImage = 'app/img/contactToUser.png';
-                        $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
-                        " als Kontakt hinzgefügt";
-                    } else if ($scope.contact.connected === 'both') {
-                        $scope.contact.connectionImage = 'app/img/bothContact.png';
-                        $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
-                        + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
-                    } else {
-                        $scope.contact.connected = 'none';
-                        $scope.contact.connectionImage = '#';
-                    }
-                };
-                $scope.setConnectionState();
+                ContactUserActions.setConnectionState($scope);
 
                 $scope.openUserDetails = function () {
                     $state.go('contact.detail', {
@@ -4357,17 +4263,26 @@ module.exports = ['$scope', function ($scope) {
 module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
     function ($scope, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
 
-        $scope.userId = $stateParams.userId;
-        $scope.contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
-            if ($scope.contactDetails.details.country) {
-                $scope.contactDetails.details.country = CountryCodeConverter.getCountry($scope.contactDetails.details.country);
-            }
-            if ($scope.contactDetails.details.birthday) {
-                $scope.contactDetails.details.birthday = 'Geb. ' + moment.unix($scope.contactDetails.details.birthday).format('l');
-            }
-        });
+        var contactDetails;
+        $scope.$scope = $scope;
+        angular.extend($scope, ContactUserActions);
 
-        $scope.sendMessage = ContactUserActions.sendMessage;
+        $scope.userId = $stateParams.userId;
+        contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
+
+            $scope.contact = contactDetails.contact;
+            $scope.contact.id = $stateParams.userId;
+            $scope.statistic = contactDetails.statistic;
+            $scope.privacySettings = contactDetails.privacySettings;
+            if ($scope.contact.country) {
+                $scope.contact.country = CountryCodeConverter.getCountry($scope.contact.country);
+            }
+            if ($scope.contact.birthday) {
+                $scope.contact.birthday = 'Geb. ' + moment.unix($scope.contact.birthday).format('l');
+            }
+            ContactUserActions.setPrivacySettings($scope);
+            ContactUserActions.setConnectionState($scope);
+        });
     }];
 
 },{}],25:[function(require,module,exports){
@@ -4577,26 +4492,188 @@ module.exports = ['$resource', function ($resource) {
 
 },{}],31:[function(require,module,exports){
 'use strict';
+var updateConnectionStateWhenModifiyContact = function ($scope) {
+    if ($scope.contact.connected === 'contactToUser') {
+        $scope.contact.connected = 'both';
+    } else {
+        $scope.contact.connected = 'userToContact';
+    }
+    $scope.setConnectionState($scope);
+};
 
-module.exports = ['$state', 'SearchThread', function ($state, SearchThread) {
+var updateConnectionStateWhenDeletingContact = function ($scope) {
+    if ($scope.contact.connected === 'both') {
+        $scope.contact.connected = 'contactToUser';
+    } else {
+        $scope.contact.connected = 'none';
+    }
+    $scope.setConnectionState($scope);
+};
 
-    this.sendMessage = function (id) {
-        var search = SearchThread.get({
-            userId: id
-        }, function () {
-            if (search.hasExistingThread) {
-                $state.go('message.threads.detail', {
-                    threadId: search.threadId,
-                    isGroupThread: false
-                });
-            } else {
-                $state.go('message.threads.create', {
-                    userId: id
-                });
+var getPrivacyType = function (statistics, privacyTypes) {
+    var setting = null;
+    if (statistics && statistics.length > 0) {
+        angular.forEach(statistics, function (statistic) {
+            if (!setting || setting.count < statistic.count) {
+                setting = statistic;
             }
         });
+        return setting.type;
+    }
+    return privacyTypes[0].type;
+};
+
+var setPrivacySettings = function ($scope) {
+    $scope.tooltipConnectionState = {
+        title: "",
+        checked: false
     };
-}];
+    $scope.contact.selectedPrivacySetting = $scope.contact.type;
+    $scope.contact.privacySettings = $scope.privacySettings;
+};
+
+module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
+    function ($state, $modal, SearchThread, Contact, moment) {
+
+        this.setPrivacySettings = setPrivacySettings;
+
+        this.openModalUpdateType = function ($scope) {
+            $scope.send = $scope.updateType;
+            $scope.actionDescription = '\u00c4ndern';
+            $modal({
+                scope: $scope,
+                title: '\u00c4nderung der Privatsph\u00e4ren Einstellung f\u00fcr ' + $scope.contact.name,
+                template: 'app/modules/contact/services/userActionsModalDescription.html',
+                show: true,
+                placement: 'center'
+            });
+        };
+
+        this.updateType = function ($scope, hide) {
+            if ($scope.contact.selectedPrivacySetting) {
+                var contact = Contact.save({
+                    contactIds: [$scope.contact.id],
+                    mode: 'changeState',
+                    description: $scope.contact.selectedPrivacySetting
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    $scope.contact.type = $scope.contact.selectedPrivacySetting;
+                    hide();
+                });
+            }
+        };
+
+        this.openModalAddNewContact = function ($scope) {
+            $scope.send = $scope.addNewContact;
+            $scope.actionDescription = 'Hinzuf\u00fcgen';
+            $scope.contact.selectedPrivacySetting = getPrivacyType($scope.statistic, $scope.contact.privacySettings);
+            $modal({
+                scope: $scope,
+                title: 'Kontakt hinzuf\u00fcgen',
+                template: 'app/modules/contact/services/userActionsModalDescription.html',
+                show: true,
+                placement: 'center'
+            });
+        };
+
+        this.addNewContact = function ($scope, hide) {
+            var contact;
+            if ($scope.contact.selectedPrivacySetting) {
+                contact = Contact.save({
+                    contactIds: [$scope.contact.id],
+                    mode: 'addContact',
+                    description: $scope.contact.selectedPrivacySetting
+                }, function () {
+                    $scope.statistic = contact.statistic;
+                    if (angular.isDefined($scope.numberOfContacts)) {
+                        $scope.numberOfContacts = contact.numberOfContacts;
+                    }
+                    $scope.contact.type = $scope.contact.selectedPrivacySetting;
+                    updateConnectionStateWhenModifiyContact($scope);
+                    setPrivacySettings($scope);
+                    hide();
+                });
+            }
+        };
+
+        this.deleteContact = function ($scope) {
+            var contact = Contact.delete({
+                contactIds: [$scope.contact.id]
+            }, function () {
+                $scope.statistic = contact.statistic;
+                if (angular.isDefined($scope.numberOfContacts)) {
+                    $scope.numberOfContacts = contact.numberOfContacts;
+                }
+                delete $scope.contact.type;
+                updateConnectionStateWhenDeletingContact($scope);
+            });
+        };
+
+        this.blockContact = function ($scope) {
+            var contact = Contact.save({
+                mode: 'blockContact',
+                contactIds: [$scope.contact.id]
+            }, function () {
+                $scope.statistic = contact.statistic;
+                if (angular.isDefined($scope.numberOfContacts)) {
+                    $scope.numberOfContacts = contact.numberOfContacts;
+                }
+                delete $scope.contact.type;
+                $scope.contact.blocked = true;
+                updateConnectionStateWhenDeletingContact($scope);
+            });
+        };
+
+        this.unblockContact = function ($scope) {
+            var contact = Contact.save({
+                mode: 'unblockContact',
+                contactIds: [$scope.contact.id]
+            }, function () {
+                $scope.statistic = contact.statistic;
+                if (angular.isDefined($scope.numberOfContacts)) {
+                    $scope.numberOfContacts = contact.numberOfContacts;
+                }
+                delete $scope.contact.type;
+                $scope.contact.blocked = false;
+            });
+        };
+
+        this.setConnectionState = function ($scope) {
+            if ($scope.contact.connected === 'userToContact') {
+                $scope.contact.connectionImage = 'app/img/userToContact.png';
+                $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
+                + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
+            } else if ($scope.contact.connected === 'contactToUser') {
+                $scope.contact.connectionImage = 'app/img/contactToUser.png';
+                $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
+                " als Kontakt hinzgef�gt";
+            } else if ($scope.contact.connected === 'both') {
+                $scope.contact.connectionImage = 'app/img/bothContact.png';
+                $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
+                + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
+            } else {
+                $scope.contact.connected = 'none';
+                $scope.contact.connectionImage = '#';
+            }
+        };
+
+        this.sendMessage = function (id) {
+            var search = SearchThread.get({
+                userId: id
+            }, function () {
+                if (search.hasExistingThread) {
+                    $state.go('message.threads.detail', {
+                        threadId: search.threadId,
+                        isGroupThread: false
+                    });
+                } else {
+                    $state.go('message.threads.create', {
+                        userId: id
+                    });
+                }
+            });
+        };
+    }];
 
 },{}],32:[function(require,module,exports){
 'use strict';

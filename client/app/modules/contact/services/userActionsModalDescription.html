@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-dialog-set-privacy" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" ng-show="title"><h4 class="modal-title" ng-bind="title"></h4></div>
+            <div class="modal-body">
+                <button type="button" class="btn btn-default privacy-selection"
+                        ng-model="contact.selectedPrivacySetting" trigger="click"
+                        bs-options="privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings"
+                        data-placeholder=""
+                        bs-select>
+                    Action <span class="caret"></span>
+                </button>
+                <div class="privacy-description">
+                    Wähle eine Privatsphären Einstellung
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
+                <button type="button" class="btn btn-default" ng-click="send($scope, $hide)">{{actionDescription}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="popover">
+    <div class="arrow"></div>
+    <div class="popover-content">
+        <form name="popoverForm">
+            <button type="button" class="btn btn-default popover-select-privacy"
+                    ng-model="contact.selectedPrivacySetting" trigger="click"
+                    bs-options="privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings"
+                    data-placeholder=""
+                    bs-select>
+                Action <span class="caret"></span>
+            </button>
+            <button type="submit" class="btn btn-default"
+                    ng-class="{'disabled': contact.selectedPrivacySetting === contact.type}"
+                    ng-click="sendNewDescription($hide)">Ändern
+            </button>
+        </form>
+    </div>
+</div>-->

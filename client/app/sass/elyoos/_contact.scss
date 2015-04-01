@@ -31,11 +31,7 @@
           height: 70px;
           width: 100%;
           color: $primary-color;
-
-          &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-          }
+          cursor: pointer;
 
           .description-container {
             .description {

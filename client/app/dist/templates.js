@@ -186,51 +186,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/contactPreview/popoverDescription.html',
-    "<div class=\"popover\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
-    "\n" +
-    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
-    "\n" +
-    "                    data-placeholder=\"\"\r" +
-    "\n" +
-    "                    bs-select>\r" +
-    "\n" +
-    "                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <!--<select class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type for privacySetting in privacySettings\"\r" +
-    "\n" +
-    "                    ng-model=\"selectedPrivacySetting\"></select>-->\r" +
-    "\n" +
-    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
-    "\n" +
-    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/contact/contactPreview/template.html',
     "<div class=\"contact-preview\">\r" +
     "\n" +
@@ -250,13 +205,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"description-container\">\r" +
     "\n" +
-    "                <div class=\"description\" trigger=\"click\" data-auto-close=\"true\"\r" +
-    "\n" +
-    "                     data-placement=\"bottom\"\r" +
-    "\n" +
-    "                     data-template=\"app/modules/contact/contactPreview/popoverDescription.html\"\r" +
-    "\n" +
-    "                     bs-popover ng-show=\"!contact.blocked && contact.type\">\r" +
+    "                <div class=\"description\" ng-click=\"openModalUpdateType($scope)\" ng-show=\"!contact.blocked && contact.type\">\r" +
     "\n" +
     "                    ({{contact.type}})\r" +
     "\n" +
@@ -294,7 +243,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-show=\"!contact.blocked && !contact.type\"\r" +
     "\n" +
-    "                    ng-click=\"addNewContact()\">\r" +
+    "                    ng-click=\"openModalAddNewContact($scope)\">\r" +
     "\n" +
     "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
     "\n" +
@@ -308,7 +257,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-show=\"contact.blocked\"\r" +
     "\n" +
-    "                    ng-click=\"unblockContact()\">\r" +
+    "                    ng-click=\"unblockContact($scope)\">\r" +
     "\n" +
     "                Blockierung aufheben\r" +
     "\n" +
@@ -330,7 +279,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"User blockieren\"\r" +
     "\n" +
-    "                 bs-tooltip ng-click=\"blockContact()\">\r" +
+    "                 bs-tooltip ng-click=\"blockContact($scope)\">\r" +
     "\n" +
     "                <img src=\"/app/img/block.png\">\r" +
     "\n" +
@@ -615,6 +564,94 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/contact/services/userActionsModalDescription.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-dialog-set-privacy\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default privacy-selection\"\r" +
+    "\n" +
+    "                        ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
+    "\n" +
+    "                        bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
+    "\n" +
+    "                        data-placeholder=\"\"\r" +
+    "\n" +
+    "                        bs-select>\r" +
+    "\n" +
+    "                    Action <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                </button>\r" +
+    "\n" +
+    "                <div class=\"privacy-description\">\r" +
+    "\n" +
+    "                    Wähle eine Privatsphären Einstellung\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"send($scope, $hide)\">{{actionDescription}}</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<!--\r" +
+    "\n" +
+    "<div class=\"popover\">\r" +
+    "\n" +
+    "    <div class=\"arrow\"></div>\r" +
+    "\n" +
+    "    <div class=\"popover-content\">\r" +
+    "\n" +
+    "        <form name=\"popoverForm\">\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
+    "\n" +
+    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
+    "\n" +
+    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
+    "\n" +
+    "                    data-placeholder=\"\"\r" +
+    "\n" +
+    "                    bs-select>\r" +
+    "\n" +
+    "                Action <span class=\"caret\"></span>\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
+    "\n" +
+    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </form>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>-->\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/contact/userDetail.html',
     "<div id=\"content-page-contact-details\">\r" +
     "\n" +
@@ -624,7 +661,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"profile-image\">\r" +
     "\n" +
-    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contactDetails.details.profileUrl}}\"/>\r" +
+    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"/>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -632,15 +669,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div id=\"profile-data-overview\">\r" +
     "\n" +
-    "                    <div id=\"profile-data-name\">{{contactDetails.details.name}}</div>\r" +
+    "                    <div id=\"profile-data-name\">{{contact.name}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.country}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.country}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.birthday}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.birthday}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.street}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.street}}</div>\r" +
     "\n" +
-    "                    <div class=\"profile-data-description\">{{contactDetails.details.place}}</div>\r" +
+    "                    <div class=\"profile-data-description\">{{contact.place}}</div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -650,9 +687,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            aria-expanded=\"false\"\r" +
     "\n" +
-    "                            ng-show=\"!contactDetails.details.contactType\"\r" +
+    "                            ng-show=\"!contact.type\"\r" +
     "\n" +
-    "                            ng-click=\"addNewContact()\">\r" +
+    "                            ng-click=\"openModalAddNewContact($scope)\">\r" +
     "\n" +
     "                        <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
     "\n" +

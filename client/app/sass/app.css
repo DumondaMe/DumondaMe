@@ -316,6 +316,17 @@
 .modal-backdrop.am-fade.ng-leave.ng-leave-active {
   opacity: 0; }
 
+#modal-dialog-set-privacy {
+  width: 350px; }
+  #modal-dialog-set-privacy .privacy-selection {
+    margin-bottom: 22px;
+    margin-right: 10px;
+    max-width: 120px; }
+  #modal-dialog-set-privacy .privacy-description {
+    display: inline-block;
+    max-width: 180px;
+    word-wrap: normal; }
+
 #content {
   width: 100%;
   height: 100%; }
@@ -344,10 +355,8 @@
           font-weight: bold;
           height: 70px;
           width: 100%;
-          color: #009688; }
-          #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name:hover {
-            text-decoration: underline;
-            cursor: pointer; }
+          color: #009688;
+          cursor: pointer; }
           #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description-container .description {
             display: inline-block;
             font-size: 12px;
