@@ -234,7 +234,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/contact/contactPreview/template.html',
     "<div class=\"contact-preview\">\r" +
     "\n" +
-    "    <img ng-src=\"{{contact.profileUrl}}\">\r" +
+    "    <img ng-src=\"{{contact.profileUrl}}\" ng-click=\"openUserDetails()\">\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -242,7 +242,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div class=\"contact-preview-name\">\r" +
     "\n" +
-    "            <div>\r" +
+    "            <div ng-click=\"openUserDetails()\">\r" +
     "\n" +
     "                {{contact.name}}\r" +
     "\n" +
@@ -608,6 +608,77 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/contact/userDetail.html',
+    "<div id=\"content-page-contact-details\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div id=\"profile-image\">\r" +
+    "\n" +
+    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contactDetails.details.profileUrl}}\"/>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"profile-data\">\r" +
+    "\n" +
+    "                <div id=\"profile-data-overview\">\r" +
+    "\n" +
+    "                    <div id=\"profile-data-name\">{{contactDetails.details.name}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.country}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.birthday}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.street}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.place}}</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"profile-command\">\r" +
+    "\n" +
+    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                            aria-expanded=\"false\"\r" +
+    "\n" +
+    "                            ng-show=\"!contactDetails.details.contactType\"\r" +
+    "\n" +
+    "                            ng-click=\"addNewContact()\">\r" +
+    "\n" +
+    "                        <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "\n" +
+    "                        Als Kontakt hinzufügen\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                            aria-expanded=\"false\"\r" +
+    "\n" +
+    "                            ng-click=\"sendMessage(userId)\">\r" +
+    "\n" +
+    "                        Nachricht senden\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
     "\n" +
@@ -1447,15 +1518,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    " <!--               <div class=\"privacy-setting-row\">\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.contactsVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
     "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Kontakte sind sichtbar\n" +
     "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Kontakte sehen können.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Kontake sehen können.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>-->\n" +
+    "                </div>\n" +
     "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.imageVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
@@ -1471,15 +1548,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "<!--                <div class=\"privacy-setting-row\">\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.profileDataVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
     "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Profildaten sind sichtbar\n" +
     "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>-->\n" +
+    "                </div>\n" +
     "                <div class=\"privacy-setting-button-row\">\n" +
     "                    <button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
     "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +

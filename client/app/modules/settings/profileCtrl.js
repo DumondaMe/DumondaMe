@@ -1,39 +1,13 @@
 'use strict';
 
-var countryCodes = [{country: 'Schweiz', code: 'CH'},
-    {country: 'Deutschland', code: 'DE'},
-    {country: 'Österreich', code: 'AT'},
-    {country: 'Frankreich', code: 'FR'},
-    {country: 'Italien', code: 'IT'}];
-
-function getCountryCode(country) {
-    var result = false;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.country === country) {
-            result = countryCode.code;
-        }
-    });
-    return result;
-}
-
-function getCountry(code) {
-    var result = countryCodes[0].country;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.code === code) {
-            result = countryCode.country;
-        }
-    });
-    return result;
-}
-
-module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
-    function ($scope, Profile, profileImage, moment) {
+module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
+    function ($scope, Profile, profileImage, moment, CountryCodeConverter) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
-        $scope.countryCodes = countryCodes;
+        $scope.countryCodes = CountryCodeConverter.countryCodes;
         $scope.selectedCountryCode = '';
         $scope.userDataToChange = {};
         $scope.submitFailed = false;
@@ -43,7 +17,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
         $scope.getUserData = function () {
             $scope.userDataToChange = Profile.get({}, function () {
                 $scope.userDataToChange.birthday = moment.unix($scope.userDataToChange.birthday).format('l');
-                $scope.selectedCountryCode = getCountry($scope.userDataToChange.country);
+                $scope.selectedCountryCode = CountryCodeConverter.getCountry($scope.userDataToChange.country);
             });
         };
         $scope.getUserData();
@@ -64,7 +38,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
                     birthday: moment.utc($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
                     street: $scope.userDataToChange.street,
                     place: $scope.userDataToChange.place,
-                    country: getCountryCode($scope.selectedCountryCode),
+                    country: CountryCodeConverter.getCountryCode($scope.selectedCountryCode),
                     female: $scope.userDataToChange.female
                 };
                 if (submittedUser.country) {

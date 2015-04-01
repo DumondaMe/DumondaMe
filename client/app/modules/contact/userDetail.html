@@ -1,0 +1,34 @@
+<div id="content-page-contact-details">
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div id="profile-image">
+                <img class="img-rounded img-responsive" ng-src="{{contactDetails.details.profileUrl}}"/>
+            </div>
+            <div id="profile-data">
+                <div id="profile-data-overview">
+                    <div id="profile-data-name">{{contactDetails.details.name}}</div>
+                    <div class="profile-data-description">{{contactDetails.details.country}}</div>
+                    <div class="profile-data-description">{{contactDetails.details.birthday}}</div>
+                    <div class="profile-data-description">{{contactDetails.details.street}}</div>
+                    <div class="profile-data-description">{{contactDetails.details.place}}</div>
+                </div>
+                <div id="profile-command">
+                    <button type="button" class="btn btn-default"
+                            aria-expanded="false"
+                            ng-show="!contactDetails.details.contactType"
+                            ng-click="addNewContact()">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Als Kontakt hinzufügen
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            aria-expanded="false"
+                            ng-click="sendMessage(userId)">
+                        Nachricht senden
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="leftColNav" ng-include="'app/modules/contact/leftNavCol.html'"></div>
+</div>

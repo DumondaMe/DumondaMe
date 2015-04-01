@@ -32,6 +32,11 @@
           width: 100%;
           color: $primary-color;
 
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+
           .description-container {
             .description {
               display: inline-block;
@@ -117,6 +122,7 @@
         height: 100px;
         border: 1px solid rgba(0, 0, 0, .1);
         margin: -1px 10px 0px -1px;
+        cursor: pointer;
       }
 
       .popover {
@@ -209,6 +215,50 @@
           height: 24px;
           width: 24px;
           cursor: pointer;
+        }
+      }
+    }
+  }
+  // Contact Details
+  #content-page-contact-details {
+    width: 100%;
+    height: 100%;
+
+    @include centerColumn(80px) {
+      #inner-centerCol {
+        position: relative;
+        width: 800px;
+        height: 100%;
+        margin: 0 auto;
+
+        #profile-image {
+          float: left;
+          img {
+            width: 250px;
+            height: 250px;
+          }
+        }
+
+        #profile-data {
+          float: left;
+          margin-left: 60px;
+          height: 250px;
+          #profile-data-overview {
+            height: 216px;
+            max-height: 216px;
+            #profile-data-name {
+              font-weight: bold;
+              font-size: 18px;
+              margin-bottom: 10px;
+              color: $primary-color;
+            }
+            .profile-data-description {
+              font-size: 16px;
+              margin-bottom: 4px;
+            }
+          }
+          #profile-command {
+          }
         }
       }
     }

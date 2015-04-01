@@ -5,13 +5,17 @@ var app = require('angular').module('elyoosApp');
 require('./contactPreview');
 
 app.controller('MyContactCtrl', require('./myContactCtrl'));
+app.controller('DetailContactCtrl', require('./detailContactCtrl'));
 app.controller('ContactingCtrl', require('./contactingCtrl'));
 app.controller('DescriptionCounterCtrl', require('./descriptionCounterCtrl'));
 
 
 app.factory('Contact', require('./services/contact'));
+app.factory('ContactDetail', require('./services/contactDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
+
+app.service('ContactUserActions', require('./services/userActions'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -40,6 +44,15 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/contact/contacting.html',
                     controller: 'ContactingCtrl'
+                }
+            }
+        })
+        .state('contact.detail', {
+            url: '/details/{userId}',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/contact/userDetail.html',
+                    controller: 'DetailContactCtrl'
                 }
             }
         });

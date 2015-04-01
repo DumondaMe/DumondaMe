@@ -235,7 +235,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/contact/contactPreview/template.html',
     "<div class=\"contact-preview\">\r" +
     "\n" +
-    "    <img ng-src=\"{{contact.profileUrl}}\">\r" +
+    "    <img ng-src=\"{{contact.profileUrl}}\" ng-click=\"openUserDetails()\">\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -243,7 +243,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div class=\"contact-preview-name\">\r" +
     "\n" +
-    "            <div>\r" +
+    "            <div ng-click=\"openUserDetails()\">\r" +
     "\n" +
     "                {{contact.name}}\r" +
     "\n" +
@@ -609,6 +609,77 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/contact/userDetail.html',
+    "<div id=\"content-page-contact-details\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div id=\"profile-image\">\r" +
+    "\n" +
+    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contactDetails.details.profileUrl}}\"/>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"profile-data\">\r" +
+    "\n" +
+    "                <div id=\"profile-data-overview\">\r" +
+    "\n" +
+    "                    <div id=\"profile-data-name\">{{contactDetails.details.name}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.country}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.birthday}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.street}}</div>\r" +
+    "\n" +
+    "                    <div class=\"profile-data-description\">{{contactDetails.details.place}}</div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"profile-command\">\r" +
+    "\n" +
+    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                            aria-expanded=\"false\"\r" +
+    "\n" +
+    "                            ng-show=\"!contactDetails.details.contactType\"\r" +
+    "\n" +
+    "                            ng-click=\"addNewContact()\">\r" +
+    "\n" +
+    "                        <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "\n" +
+    "                        Als Kontakt hinzufügen\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                            aria-expanded=\"false\"\r" +
+    "\n" +
+    "                            ng-click=\"sendMessage(userId)\">\r" +
+    "\n" +
+    "                        Nachricht senden\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
     "\n" +
@@ -1448,15 +1519,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    " <!--               <div class=\"privacy-setting-row\">\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.contactsVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
     "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Kontakte sind sichtbar\n" +
     "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Kontakte sehen können.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Kontake sehen können.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>-->\n" +
+    "                </div>\n" +
     "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.imageVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
@@ -1472,15 +1549,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "<!--                <div class=\"privacy-setting-row\">\n" +
+    "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
     "                        <input type=\"checkbox\" ng-model=\"selectedType.profileDataVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
     "\n" +
     "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
     "                            Meine Profildaten sind sichtbar\n" +
     "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
+    "                        </div>\n" +
+    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
+    "                        </div>\n" +
     "                    </div>\n" +
-    "                </div>-->\n" +
+    "                </div>\n" +
     "                <div class=\"privacy-setting-button-row\">\n" +
     "                    <button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
     "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +
@@ -3794,7 +3877,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":80,"./auth":15,"./contact":24,"./directives":32,"./filters":43,"./home":47,"./navigation":56,"./settings":61,"./util":78,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":84,"./auth":15,"./contact":25,"./directives":35,"./filters":46,"./home":50,"./navigation":59,"./settings":64,"./util":82,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -3895,31 +3978,15 @@ module.exports = ['$resource', function ($resource) {
 },{}],18:[function(require,module,exports){
 'use strict';
 
-var countryCodes = [{country: 'Schweiz', code: 'CH'},
-    {country: 'Deutschland', code: 'DE'},
-    {country: 'Österreich', code: 'AT'},
-    {country: 'Frankreich', code: 'FR'},
-    {country: 'Italien', code: 'IT'}];
-
-function getCountryCode(country) {
-    var result = false;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.country === country) {
-            result = countryCode.code;
-        }
-    });
-    return result;
-}
-
-module.exports = ['$scope', 'Register', 'moment',
-    function ($scope, Register, moment) {
+module.exports = ['$scope', 'Register', 'moment', 'CountryCodeConverter',
+    function ($scope, Register, moment, CountryCodeConverter) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
         $scope.userDataToChange = {};
-        $scope.countryCodes = countryCodes;
+        $scope.countryCodes = CountryCodeConverter.countryCodes;
         $scope.selectedCountryCode = '';
         $scope.submitFailed = false;
         $scope.submitFailedToServer = false;
@@ -3935,7 +4002,7 @@ module.exports = ['$scope', 'Register', 'moment',
                     forename: $scope.userDataToChange.forename,
                     surname: $scope.userDataToChange.surname,
                     birthday: moment.utc($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
-                    country: getCountryCode($scope.selectedCountryCode),
+                    country: CountryCodeConverter.getCountryCode($scope.selectedCountryCode),
                     female: $scope.userDataToChange.female
                 };
                 if (submittedUser.country) {
@@ -4010,7 +4077,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            click: "sendMessage()"
+            click: "sendMessage(contact.id)"
         },
         {
             divider: true
@@ -4028,127 +4095,120 @@ var setContactActions = function ($scope) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Contact', 'SearchThread', 'moment', function ($scope, $state, Contact, SearchThread, moment) {
+        return ['$scope', '$state', 'Contact', 'moment', 'ContactUserActions',
+            function ($scope, $state, Contact, moment, ContactUserActions) {
 
-            setPrivacySettings($scope);
+                setPrivacySettings($scope);
 
-            setContactActions($scope);
+                setContactActions($scope);
 
-            $scope.tooltipConnectionState = {
-                title: "",
-                checked: false
-            };
+                $scope.tooltipConnectionState = {
+                    title: "",
+                    checked: false
+                };
 
-            $scope.sendNewDescription = function (hide) {
-                if ($scope.contact.selectedPrivacySetting) {
-                    var contact = Contact.save({
+                $scope.sendNewDescription = function (hide) {
+                    if ($scope.contact.selectedPrivacySetting) {
+                        var contact = Contact.save({
+                            contactIds: [$scope.contact.id],
+                            mode: 'changeState',
+                            description: $scope.contact.selectedPrivacySetting
+                        }, function () {
+                            $scope.statistic = contact.statistic;
+                            $scope.contact.type = $scope.contact.selectedPrivacySetting;
+                            hide();
+                        });
+                    }
+                };
+
+                $scope.addNewContact = function () {
+                    var contact, privacyTyp;
+                    privacyTyp = getPrivacyType($scope.statistic, $scope.contact.privacySettings);
+                    contact = Contact.save({
                         contactIds: [$scope.contact.id],
-                        mode: 'changeState',
-                        description: $scope.contact.selectedPrivacySetting
+                        mode: 'addContact',
+                        description: privacyTyp
                     }, function () {
                         $scope.statistic = contact.statistic;
-                        $scope.contact.type = $scope.contact.selectedPrivacySetting;
-                        hide();
+                        if (angular.isDefined($scope.numberOfContacts)) {
+                            $scope.numberOfContacts = contact.numberOfContacts;
+                        }
+                        $scope.contact.type = privacyTyp;
+                        updateConnectionStateWhenModifiyContact($scope);
+                        setPrivacySettings($scope);
                     });
-                }
-            };
+                };
 
-            $scope.addNewContact = function () {
-                var contact, privacyTyp;
-                privacyTyp = getPrivacyType($scope.statistic, $scope.contact.privacySettings);
-                contact = Contact.save({
-                    contactIds: [$scope.contact.id],
-                    mode: 'addContact',
-                    description: privacyTyp
-                }, function () {
-                    $scope.statistic = contact.statistic;
-                    if (angular.isDefined($scope.numberOfContacts)) {
-                        $scope.numberOfContacts = contact.numberOfContacts;
-                    }
-                    $scope.contact.type = privacyTyp;
-                    updateConnectionStateWhenModifiyContact($scope);
-                    setPrivacySettings($scope);
-                });
-            };
+                $scope.deleteContact = function () {
+                    var contact = Contact.delete({
+                        contactIds: [$scope.contact.id]
+                    }, function () {
+                        $scope.statistic = contact.statistic;
+                        if (angular.isDefined($scope.numberOfContacts)) {
+                            $scope.numberOfContacts = contact.numberOfContacts;
+                        }
+                        delete $scope.contact.type;
+                        updateConnectionStateWhenDeletingContact($scope);
+                    });
+                };
 
-            $scope.deleteContact = function () {
-                var contact = Contact.delete({
-                    contactIds: [$scope.contact.id]
-                }, function () {
-                    $scope.statistic = contact.statistic;
-                    if (angular.isDefined($scope.numberOfContacts)) {
-                        $scope.numberOfContacts = contact.numberOfContacts;
-                    }
-                    delete $scope.contact.type;
-                    updateConnectionStateWhenDeletingContact($scope);
-                });
-            };
+                $scope.blockContact = function () {
+                    var contact = Contact.save({
+                        mode: 'blockContact',
+                        contactIds: [$scope.contact.id]
+                    }, function () {
+                        $scope.statistic = contact.statistic;
+                        if (angular.isDefined($scope.numberOfContacts)) {
+                            $scope.numberOfContacts = contact.numberOfContacts;
+                        }
+                        delete $scope.contact.type;
+                        $scope.contact.blocked = true;
+                        updateConnectionStateWhenDeletingContact($scope);
+                    });
+                };
 
-            $scope.blockContact = function () {
-                var contact = Contact.save({
-                    mode: 'blockContact',
-                    contactIds: [$scope.contact.id]
-                }, function () {
-                    $scope.statistic = contact.statistic;
-                    if (angular.isDefined($scope.numberOfContacts)) {
-                        $scope.numberOfContacts = contact.numberOfContacts;
-                    }
-                    delete $scope.contact.type;
-                    $scope.contact.blocked = true;
-                    updateConnectionStateWhenDeletingContact($scope);
-                });
-            };
+                $scope.unblockContact = function () {
+                    var contact = Contact.save({
+                        mode: 'unblockContact',
+                        contactIds: [$scope.contact.id]
+                    }, function () {
+                        $scope.statistic = contact.statistic;
+                        if (angular.isDefined($scope.numberOfContacts)) {
+                            $scope.numberOfContacts = contact.numberOfContacts;
+                        }
+                        delete $scope.contact.type;
+                        $scope.contact.blocked = false;
+                    });
+                };
 
-            $scope.unblockContact = function () {
-                var contact = Contact.save({
-                    mode: 'unblockContact',
-                    contactIds: [$scope.contact.id]
-                }, function () {
-                    $scope.statistic = contact.statistic;
-                    if (angular.isDefined($scope.numberOfContacts)) {
-                        $scope.numberOfContacts = contact.numberOfContacts;
-                    }
-                    delete $scope.contact.type;
-                    $scope.contact.blocked = false;
-                });
-            };
+                $scope.sendMessage = ContactUserActions.sendMessage;
 
-            $scope.sendMessage = function () {
-                var search = SearchThread.get({
-                    userId: $scope.contact.id
-                }, function () {
-                    if (search.hasExistingThread) {
-                        $state.go('message.threads.detail', {
-                            threadId: search.threadId,
-                            isGroupThread: false
-                        });
+                $scope.setConnectionState = function () {
+                    if ($scope.contact.connected === 'userToContact') {
+                        $scope.contact.connectionImage = 'app/img/userToContact.png';
+                        $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
+                        + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgefügt";
+                    } else if ($scope.contact.connected === 'contactToUser') {
+                        $scope.contact.connectionImage = 'app/img/contactToUser.png';
+                        $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
+                        " als Kontakt hinzgefügt";
+                    } else if ($scope.contact.connected === 'both') {
+                        $scope.contact.connectionImage = 'app/img/bothContact.png';
+                        $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
+                        + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
                     } else {
-                        $state.go('message.threads.create', {
-                            userId: $scope.contact.id
-                        });
+                        $scope.contact.connected = 'none';
+                        $scope.contact.connectionImage = '#';
                     }
-                });
-            };
+                };
+                $scope.setConnectionState();
 
-            $scope.setConnectionState = function () {
-                if ($scope.contact.connected === 'userToContact') {
-                    $scope.contact.connectionImage = 'app/img/userToContact.png';
-                    $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
-                    + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgefügt";
-                } else if ($scope.contact.connected === 'contactToUser') {
-                    $scope.contact.connectionImage = 'app/img/contactToUser.png';
-                    $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
-                } else if ($scope.contact.connected === 'both') {
-                    $scope.contact.connectionImage = 'app/img/bothContact.png';
-                    $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
-                    + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgefügt";
-                } else {
-                    $scope.contact.connected = 'none';
-                    $scope.contact.connectionImage = '#';
-                }
-            };
-            $scope.setConnectionState();
-        }];
+                $scope.openUserDetails = function () {
+                    $state.go('contact.detail', {
+                        userId: $scope.contact.id
+                    });
+                };
+            }];
     }
 };
 
@@ -4294,18 +4354,41 @@ module.exports = ['$scope', function ($scope) {
 },{}],24:[function(require,module,exports){
 'use strict';
 
+module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
+    function ($scope, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
+
+        $scope.userId = $stateParams.userId;
+        $scope.contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
+            if ($scope.contactDetails.details.country) {
+                $scope.contactDetails.details.country = CountryCodeConverter.getCountry($scope.contactDetails.details.country);
+            }
+            if ($scope.contactDetails.details.birthday) {
+                $scope.contactDetails.details.birthday = 'Geb. ' + moment.unix($scope.contactDetails.details.birthday).format('l');
+            }
+        });
+
+        $scope.sendMessage = ContactUserActions.sendMessage;
+    }];
+
+},{}],25:[function(require,module,exports){
+'use strict';
+
 var app = require('angular').module('elyoosApp');
 
 require('./contactPreview');
 
 app.controller('MyContactCtrl', require('./myContactCtrl'));
+app.controller('DetailContactCtrl', require('./detailContactCtrl'));
 app.controller('ContactingCtrl', require('./contactingCtrl'));
 app.controller('DescriptionCounterCtrl', require('./descriptionCounterCtrl'));
 
 
 app.factory('Contact', require('./services/contact'));
+app.factory('ContactDetail', require('./services/contactDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
+
+app.service('ContactUserActions', require('./services/userActions'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -4336,9 +4419,18 @@ app.config(['$stateProvider', function ($stateProvider) {
                     controller: 'ContactingCtrl'
                 }
             }
+        })
+        .state('contact.detail', {
+            url: '/details/{userId}',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/contact/userDetail.html',
+                    controller: 'DetailContactCtrl'
+                }
+            }
         });
 }]);
-},{"./contactPreview":21,"./contactingCtrl":22,"./descriptionCounterCtrl":23,"./myContactCtrl":25,"./services/contact":26,"./services/contacting":27,"./services/searchUsers":28,"angular":4}],25:[function(require,module,exports){
+},{"./contactPreview":21,"./contactingCtrl":22,"./descriptionCounterCtrl":23,"./detailContactCtrl":24,"./myContactCtrl":26,"./services/contact":27,"./services/contactDetail":28,"./services/contacting":29,"./services/searchUsers":30,"./services/userActions":31,"angular":4}],26:[function(require,module,exports){
 'use strict';
 
 var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
@@ -4449,7 +4541,7 @@ module.exports = ['$scope', 'SearchUsers', 'Contact', function ($scope, SearchUs
     };
 }];
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4459,7 +4551,15 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+
+    return $resource('/api/user/contact/detail', null, {});
+}];
+
+},{}],29:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4467,7 +4567,7 @@ module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/contact/contacting', null, {});
 }];
 
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4475,7 +4575,30 @@ module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/contact/search');
 }];
 
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$state', 'SearchThread', function ($state, SearchThread) {
+
+    this.sendMessage = function (id) {
+        var search = SearchThread.get({
+            userId: id
+        }, function () {
+            if (search.hasExistingThread) {
+                $state.go('message.threads.detail', {
+                    threadId: search.threadId,
+                    isGroupThread: false
+                });
+            } else {
+                $state.go('message.threads.create', {
+                    userId: id
+                });
+            }
+        });
+    };
+}];
+
+},{}],32:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -4498,7 +4621,7 @@ module.exports = {
     name: 'elyImageUpload'
 };
 
-},{"./link":31}],30:[function(require,module,exports){
+},{"./link":34}],33:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -4506,7 +4629,7 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-},{"./directive.js":29,"angular":4}],31:[function(require,module,exports){
+},{"./directive.js":32,"angular":4}],34:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4537,10 +4660,10 @@ module.exports = {
     }
 };
 
-},{}],32:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 
 
-},{}],33:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 var resetPagination = function ($scope, totalItems) {
@@ -4586,7 +4709,7 @@ module.exports = {
     }
 };
 
-},{}],34:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 'use strict';
 var controller = require('./controller.js');
 
@@ -4607,9 +4730,9 @@ module.exports = {
     name: 'elyPaginationNextPrevious'
 };
 
-},{"./controller.js":33}],35:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":34,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":30}],36:[function(require,module,exports){
+},{"./controller.js":36}],38:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./directive.js":37,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],39:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4628,7 +4751,7 @@ module.exports = {
     }
 };
 
-},{}],37:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4651,9 +4774,9 @@ module.exports = {
     name: 'elySearchBox'
 };
 
-},{"./controller.js":36}],38:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":37,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":30}],39:[function(require,module,exports){
+},{"./controller.js":39}],41:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./directive.js":40,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],42:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -4670,9 +4793,9 @@ module.exports = {
     name: 'elySpin'
 };
 
-},{"./link":41}],40:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":39,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":30}],41:[function(require,module,exports){
+},{"./link":44}],43:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./directive.js":42,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],44:[function(require,module,exports){
 'use strict';
 
 var Spinner = require('spin');
@@ -4706,7 +4829,7 @@ module.exports = {
     }
 };
 
-},{"spin":12}],42:[function(require,module,exports){
+},{"spin":12}],45:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -4721,14 +4844,14 @@ module.exports = function () {
     };
 };
 
-},{}],43:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 
 app.filter('fromTo', require('./fromToFilter'));
-},{"./fromToFilter":42,"angular":4}],44:[function(require,module,exports){
+},{"./fromToFilter":45,"angular":4}],47:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Modification', function ($scope, Modification) {
@@ -4752,7 +4875,7 @@ module.exports = ['$scope', 'Modification', function ($scope, Modification) {
     });
 }];
 
-},{}],45:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4772,7 +4895,7 @@ module.exports = {
     name: 'elyHomeNavElement'
 };
 
-},{}],46:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -4780,7 +4903,7 @@ var elyHomeNavDirective = require('./directive.js');
 
 app.directive(elyHomeNavDirective.name, elyHomeNavDirective.directive);
 
-},{"./directive.js":45,"angular":4}],47:[function(require,module,exports){
+},{"./directive.js":48,"angular":4}],50:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -4789,7 +4912,7 @@ app.controller('HomeCtrl', require('./homeCtrl'));
 
 require('./homeNavElement');
 
-},{"./homeCtrl":44,"./homeNavElement":46,"angular":4}],48:[function(require,module,exports){
+},{"./homeCtrl":47,"./homeNavElement":49,"angular":4}],51:[function(require,module,exports){
 'use strict';
 
 function resetTextInputStyle($scope) {
@@ -4877,7 +5000,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],49:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
@@ -4904,7 +5027,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],50:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -4958,35 +5081,35 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./conversationCtrl":48,"./createConversationCtrl":49,"./services/conversation":51,"./services/message":52,"./services/searchThread":53,"./services/searchUserToSendMessage":54,"./threadsCtrl":55,"angular":4}],51:[function(require,module,exports){
+},{"./conversationCtrl":51,"./createConversationCtrl":52,"./services/conversation":54,"./services/message":55,"./services/searchThread":56,"./services/searchUserToSendMessage":57,"./threadsCtrl":58,"angular":4}],54:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/conversation');
 }];
 
-},{}],52:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages');
 }];
 
-},{}],53:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/messages/singleThread');
 }];
 
-},{}],54:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/search');
 }];
 
-},{}],55:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter',
@@ -5049,7 +5172,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         };
     }];
 
-},{}],56:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5059,7 +5182,7 @@ app.controller('LoggedInHeaderCtrl', require('./loggedInHeaderCtrl'));
 app.factory('UserInfo', require('./userInfo'));
 app.factory('Modification', require('./modification'));
 
-},{"./loggedInHeaderCtrl":57,"./modification":58,"./userInfo":59,"angular":4}],57:[function(require,module,exports){
+},{"./loggedInHeaderCtrl":60,"./modification":61,"./userInfo":62,"angular":4}],60:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
@@ -5101,21 +5224,21 @@ module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'M
         };
     }];
 
-},{}],58:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],59:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],60:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5147,7 +5270,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],61:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5202,14 +5325,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":60,"./password":62,"./passwordCtrl":63,"./privacy":64,"./privacyCtrl":65,"./profile":66,"./profileCtrl":67,"./renamePrivacyCtrl":68,"angular":4}],62:[function(require,module,exports){
+},{"./deletePrivacyCtrl":63,"./password":65,"./passwordCtrl":66,"./privacy":67,"./privacyCtrl":68,"./profile":69,"./profileCtrl":70,"./renamePrivacyCtrl":71,"angular":4}],65:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],63:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -5262,7 +5385,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],64:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5271,7 +5394,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],65:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -5395,50 +5518,24 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],66:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],67:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 'use strict';
 
-var countryCodes = [{country: 'Schweiz', code: 'CH'},
-    {country: 'Deutschland', code: 'DE'},
-    {country: 'Österreich', code: 'AT'},
-    {country: 'Frankreich', code: 'FR'},
-    {country: 'Italien', code: 'IT'}];
-
-function getCountryCode(country) {
-    var result = false;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.country === country) {
-            result = countryCode.code;
-        }
-    });
-    return result;
-}
-
-function getCountry(code) {
-    var result = countryCodes[0].country;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.code === code) {
-            result = countryCode.country;
-        }
-    });
-    return result;
-}
-
-module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
-    function ($scope, Profile, profileImage, moment) {
+module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
+    function ($scope, Profile, profileImage, moment, CountryCodeConverter) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
-        $scope.countryCodes = countryCodes;
+        $scope.countryCodes = CountryCodeConverter.countryCodes;
         $scope.selectedCountryCode = '';
         $scope.userDataToChange = {};
         $scope.submitFailed = false;
@@ -5448,7 +5545,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
         $scope.getUserData = function () {
             $scope.userDataToChange = Profile.get({}, function () {
                 $scope.userDataToChange.birthday = moment.unix($scope.userDataToChange.birthday).format('l');
-                $scope.selectedCountryCode = getCountry($scope.userDataToChange.country);
+                $scope.selectedCountryCode = CountryCodeConverter.getCountry($scope.userDataToChange.country);
             });
         };
         $scope.getUserData();
@@ -5469,7 +5566,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
                     birthday: moment.utc($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
                     street: $scope.userDataToChange.street,
                     place: $scope.userDataToChange.place,
-                    country: getCountryCode($scope.selectedCountryCode),
+                    country: CountryCodeConverter.getCountryCode($scope.selectedCountryCode),
                     female: $scope.userDataToChange.female
                 };
                 if (submittedUser.country) {
@@ -5501,7 +5598,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment',
         });
     }];
 
-},{}],68:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5545,7 +5642,41 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],69:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
+'use strict';
+
+var countryCodes = [{country: 'Schweiz', code: 'CH'},
+    {country: 'Deutschland', code: 'DE'},
+    {country: '\u00d6sterreich', code: 'AT'},
+    {country: 'Frankreich', code: 'FR'},
+    {country: 'Italien', code: 'IT'}];
+
+module.exports = function () {
+
+    this.countryCodes = countryCodes;
+
+    this.getCountryCode = function (country) {
+        var result = false;
+        angular.forEach(countryCodes, function (countryCode) {
+            if (countryCode.country === country) {
+                result = countryCode.code;
+            }
+        });
+        return result;
+    };
+
+    this.getCountry = function (code) {
+        var result = countryCodes[0].country;
+        angular.forEach(countryCodes, function (countryCode) {
+            if (countryCode.code === code) {
+                result = countryCode.country;
+            }
+        });
+        return result;
+    };
+};
+
+},{}],73:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5578,19 +5709,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],70:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":69,"angular":4}],71:[function(require,module,exports){
+},{"./dateFormatter":73,"angular":4}],75:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":72,"angular":4}],72:[function(require,module,exports){
+},{"./profileImage":76,"angular":4}],76:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5602,7 +5733,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],73:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5624,14 +5755,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],74:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],75:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5645,7 +5776,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],76:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5658,7 +5789,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":73,"./fileReader":74,"./fileUpload":75,"./uploadFileCtrl":77,"angular":4}],77:[function(require,module,exports){
+},{"./fileModel.js":77,"./fileReader":78,"./fileUpload":79,"./uploadFileCtrl":81,"angular":4}],81:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -5709,7 +5840,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],78:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5717,7 +5848,8 @@ var app = require('angular').module('elyoosApp');
 require('./file');
 
 app.service('moment', require('./moment'));
-},{"./file":76,"./moment":79,"angular":4}],79:[function(require,module,exports){
+app.service('CountryCodeConverter', require('./countryCodeConverter'));
+},{"./countryCodeConverter":72,"./file":80,"./moment":83,"angular":4}],83:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5727,7 +5859,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],80:[function(require,module,exports){
+},{"moment":11}],84:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5782,4 +5914,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83]);

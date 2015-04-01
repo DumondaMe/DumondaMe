@@ -1,30 +1,14 @@
 'use strict';
 
-var countryCodes = [{country: 'Schweiz', code: 'CH'},
-    {country: 'Deutschland', code: 'DE'},
-    {country: 'Österreich', code: 'AT'},
-    {country: 'Frankreich', code: 'FR'},
-    {country: 'Italien', code: 'IT'}];
-
-function getCountryCode(country) {
-    var result = false;
-    angular.forEach(countryCodes, function (countryCode) {
-        if (countryCode.country === country) {
-            result = countryCode.code;
-        }
-    });
-    return result;
-}
-
-module.exports = ['$scope', 'Register', 'moment',
-    function ($scope, Register, moment) {
+module.exports = ['$scope', 'Register', 'moment', 'CountryCodeConverter',
+    function ($scope, Register, moment, CountryCodeConverter) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
         $scope.userDataToChange = {};
-        $scope.countryCodes = countryCodes;
+        $scope.countryCodes = CountryCodeConverter.countryCodes;
         $scope.selectedCountryCode = '';
         $scope.submitFailed = false;
         $scope.submitFailedToServer = false;
@@ -40,7 +24,7 @@ module.exports = ['$scope', 'Register', 'moment',
                     forename: $scope.userDataToChange.forename,
                     surname: $scope.userDataToChange.surname,
                     birthday: moment.utc($scope.userDataToChange.birthday, 'l', moment.locale(), true).valueOf() / 1000,
-                    country: getCountryCode($scope.selectedCountryCode),
+                    country: CountryCodeConverter.getCountryCode($scope.selectedCountryCode),
                     female: $scope.userDataToChange.female
                 };
                 if (submittedUser.country) {
