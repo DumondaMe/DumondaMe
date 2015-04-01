@@ -24,15 +24,21 @@
                         </div>
                     </div>
                 </div>
- <!--               <div class="privacy-setting-row">
+                <div class="privacy-setting-row">
                     <div class="select-privacy-settings">
                         <input type="checkbox" ng-model="selectedType.contactsVisible" ng-disabled="!selectedType.profileVisible">
 
                         <div ng-class="{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}">
                             Meine Kontakte sind sichtbar
                         </div>
+                        <div class="select-privacy-settings-description" ng-show="privacySettings.noContactSelected">
+                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Kontakte sehen können.
+                        </div>
+                        <div class="select-privacy-settings-description" ng-show="!privacySettings.noContactSelected">
+                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Kontake sehen können.
+                        </div>
                     </div>
-                </div>-->
+                </div>
                 <div class="privacy-setting-row">
                     <div class="select-privacy-settings">
                         <input type="checkbox" ng-model="selectedType.imageVisible" ng-disabled="!selectedType.profileVisible">
@@ -48,15 +54,21 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="privacy-setting-row">
+                <div class="privacy-setting-row">
                     <div class="select-privacy-settings">
                         <input type="checkbox" ng-model="selectedType.profileDataVisible" ng-disabled="!selectedType.profileVisible">
 
                         <div ng-class="{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}">
                             Meine Profildaten sind sichtbar
                         </div>
+                        <div class="select-privacy-settings-description" ng-show="privacySettings.noContactSelected">
+                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.
+                        </div>
+                        <div class="select-privacy-settings-description" ng-show="!privacySettings.noContactSelected">
+                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.
+                        </div>
                     </div>
-                </div>-->
+                </div>
                 <div class="privacy-setting-button-row">
                     <button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
                             type="submit" ng-click="updatePrivacyType()">Änderung übernehmen
