@@ -48,13 +48,17 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                res.body.details.birthday.should.equals(1000);
-                res.body.details.country.should.equals('CH');
-                res.body.details.street.should.equals('irgendwo');
-                res.body.details.place.should.equals('sonstwo');
-                res.body.details.profileUrl.should.equals('2/profile.jpg');
-                should.not.exist(res.body.details.contactType);
+                res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.birthday.should.equals(1000);
+                res.body.contact.country.should.equals('CH');
+                res.body.contact.street.should.equals('irgendwo');
+                res.body.contact.place.should.equals('sonstwo');
+                res.body.contact.connected.should.equals('none');
+                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                should.not.exist(res.body.contact.type);
+
+                res.body.statistic.length.should.equals(0);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -77,13 +81,17 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                should.not.exist(res.body.details.birthday);
-                should.not.exist(res.body.details.country);
-                should.not.exist(res.body.details.street);
-                should.not.exist(res.body.details.place);
-                res.body.details.profileUrl.should.equals('default/profile.jpg');
-                should.not.exist(res.body.details.contactType);
+                res.body.contact.name.should.equals('user2 Meier2');
+                should.not.exist(res.body.contact.birthday);
+                should.not.exist(res.body.contact.country);
+                should.not.exist(res.body.contact.street);
+                should.not.exist(res.body.contact.place);
+                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                should.not.exist(res.body.contact.type);
+                res.body.contact.connected.should.equals('none');
+
+                res.body.statistic.length.should.equals(0);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -110,13 +118,17 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                res.body.details.birthday.should.equals(1000);
-                res.body.details.country.should.equals('CH');
-                res.body.details.street.should.equals('irgendwo');
-                res.body.details.place.should.equals('sonstwo');
-                res.body.details.contactType.should.equals('Bekannter');
-                res.body.details.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.birthday.should.equals(1000);
+                res.body.contact.country.should.equals('CH');
+                res.body.contact.street.should.equals('irgendwo');
+                res.body.contact.place.should.equals('sonstwo');
+                res.body.contact.type.should.equals('Bekannter');
+                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.connected.should.equals('userToContact');
+
+                res.body.statistic.length.should.equals(1);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -143,16 +155,20 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                should.not.exist(res.body.details.birthday);
-                should.not.exist(res.body.details.country);
-                should.not.exist(res.body.details.street);
-                should.not.exist(res.body.details.place);
-                res.body.details.contactType.should.equals('Bekannter');
-                res.body.details.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.name.should.equals('user2 Meier2');
+                should.not.exist(res.body.contact.birthday);
+                should.not.exist(res.body.contact.country);
+                should.not.exist(res.body.contact.street);
+                should.not.exist(res.body.contact.place);
+                res.body.contact.type.should.equals('Bekannter');
+                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.connected.should.equals('userToContact');
 
                 //Contacts
                 res.body.contacts.length.should.equals(0);
+
+                res.body.statistic.length.should.equals(1);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -250,13 +266,14 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                res.body.details.birthday.should.equals(1000);
-                res.body.details.country.should.equals('CH');
-                res.body.details.street.should.equals('irgendwo');
-                res.body.details.place.should.equals('sonstwo');
-                res.body.details.profileUrl.should.equals('2/profile.jpg');
-                should.not.exist(res.body.details.contactType);
+                res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.birthday.should.equals(1000);
+                res.body.contact.country.should.equals('CH');
+                res.body.contact.street.should.equals('irgendwo');
+                res.body.contact.place.should.equals('sonstwo');
+                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.connected.should.equals('contactToUser');
+                should.not.exist(res.body.contact.type);
                 //Contacts
                 res.body.contacts.length.should.equals(5);
                 res.body.contacts[0].name.should.equals('user3 Meier3');
@@ -277,6 +294,9 @@ describe('Integration Tests for getting the contact details', function () {
 
                 res.body.numberOfContacts.should.equals(6);
                 res.body.numberOfSameContacts.should.equals(2);
+
+                res.body.statistic.length.should.equals(1);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -303,13 +323,17 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                should.not.exist(res.body.details.birthday);
-                should.not.exist(res.body.details.country);
-                should.not.exist(res.body.details.street);
-                should.not.exist(res.body.details.place);
-                res.body.details.profileUrl.should.equals('default/profile.jpg');
-                should.not.exist(res.body.details.contactType);
+                res.body.contact.name.should.equals('user2 Meier2');
+                should.not.exist(res.body.contact.birthday);
+                should.not.exist(res.body.contact.country);
+                should.not.exist(res.body.contact.street);
+                should.not.exist(res.body.contact.place);
+                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                should.not.exist(res.body.contact.type);
+                res.body.contact.connected.should.equals('contactToUser');
+
+                res.body.statistic.length.should.equals(0);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 
@@ -336,14 +360,18 @@ describe('Integration Tests for getting the contact details', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.details.name.should.equals('user2 Meier2');
-                should.not.exist(res.body.details.birthday);
-                should.not.exist(res.body.details.country);
-                should.not.exist(res.body.details.street);
-                should.not.exist(res.body.details.place);
-                res.body.details.profileUrl.should.equals('default/profile.jpg');
-                should.not.exist(res.body.details.contactType);
+                res.body.contact.name.should.equals('user2 Meier2');
+                should.not.exist(res.body.contact.birthday);
+                should.not.exist(res.body.contact.country);
+                should.not.exist(res.body.contact.street);
+                should.not.exist(res.body.contact.place);
+                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                should.not.exist(res.body.contact.type);
                 res.body.contacts.length.should.equals(0);
+                res.body.contact.connected.should.equals('contactToUser');
+
+                res.body.statistic.length.should.equals(0);
+                res.body.privacySettings.length.should.equals(2);
             });
     });
 });

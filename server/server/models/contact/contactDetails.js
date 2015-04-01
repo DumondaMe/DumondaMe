@@ -2,6 +2,9 @@
 
 var db = require('./../../neo4j');
 var cdn = require('../util/cdn');
+var contactStatistic = require('./contactStatistic');
+var privacySettings = require('./privacySettings');
+var userInfo = require('../user/userInfo');
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
@@ -24,7 +27,7 @@ var numberOfSameContacts = function (userId, contactId) {
         .end({contactId: contactId, userId: userId});
 };
 
-var getContacts = function (userId, contactId, details) {
+var getContacts = function (userId, contactId, contact, statistic, privacySettings) {
     var commands = [];
 
     commands.push(numberOfContacts(contactId).getCommand());
@@ -55,38 +58,50 @@ var getContacts = function (userId, contactId, details) {
                 deletePrivacyProperties(contact);
             });
             return {
-                details: details,
+                contact: contact,
                 numberOfContacts: resp[0][0].numberOfContacts,
                 numberOfSameContacts: resp[1][0].numberOfSameContacts,
+                statistic: statistic,
+                privacySettings: privacySettings,
                 contacts: resp[2]
             };
         });
 };
 
 var returnContactDetails = function (resp, userId, contactId) {
-    var details = {name: resp[0].name, contactType: resp[0].contactType};
-    if (resp[0].profile || resp[0].profileNoContact) {
-        if (resp[0].imageProfile || resp[0].imageProfileNoContact) {
-            details.profileUrl = cdn.getUrl(contactId + '/profile.jpg');
+    var contact = {name: resp[2][0].name, type: resp[2][0].type};
+
+    userInfo.addConnectionInfo(resp[2][0]);
+    contact.connected = resp[2][0].connected;
+
+    if (resp[2][0].profile || resp[2][0].profileNoContact) {
+        if (resp[2][0].imageProfile || resp[2][0].imageProfileNoContact) {
+            contact.profileUrl = cdn.getUrl(contactId + '/profile.jpg');
         } else {
-            details.profileUrl = cdn.getUrl('default/profile.jpg');
+            contact.profileUrl = cdn.getUrl('default/profile.jpg');
         }
-        if (resp[0].profileData || resp[0].profileDataNoContact) {
-            details.birthday = resp[0].birthday;
-            details.country = resp[0].country;
-            details.place = resp[0].place;
-            details.street = resp[0].street;
+        if (resp[2][0].profileData || resp[2][0].profileDataNoContact) {
+            contact.birthday = resp[2][0].birthday;
+            contact.country = resp[2][0].country;
+            contact.place = resp[2][0].place;
+            contact.street = resp[2][0].street;
         }
-        if (resp[0].contacts || resp[0].contactsNoContact) {
-            return getContacts(userId, contactId, details);
+        if (resp[2][0].contacts || resp[2][0].contactsNoContact) {
+            return getContacts(userId, contactId, contact, resp[0], resp[1]);
         }
     } else {
-        details.profileUrl = cdn.getUrl('default/profile.jpg');
+        contact.profileUrl = cdn.getUrl('default/profile.jpg');
     }
-    return {details: details, contacts: []};
+    return {contact: contact, contacts: [], statistic: resp[0], privacySettings: resp[1]};
 };
 
 var getContactDetails = function (userId, contactId) {
+
+    var commands = [];
+
+    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(privacySettings.getPrivacySettings(userId).getCommand());
+
     return db.cypher().match('(contact:User {userId: {contactId}}), (user:User {userId: {userId}})')
         .optionalMatch('(user)-[isContact:IS_CONTACT]->(contact)')
         .with('user, contact, isContact')
@@ -98,12 +113,12 @@ var getContactDetails = function (userId, contactId) {
         .optionalMatch('(contact)-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)')
         .where('contactHasUserContacted IS NULL')
         .return('contact.name AS name, contact.birthday AS birthday, contact.country AS country, contact.place AS place, ' +
-        'contact.street AS street, isContact.type AS contactType, privacy.profile AS profile, privacy.image AS imageProfile,' +
-        'privacy.profileData AS profileData, privacy.contacts AS contacts, noContactPrivacy.profile AS profileNoContact, ' +
-        'noContactPrivacy.image AS imageProfileNoContact, noContactPrivacy.profileData AS profileDataNoContact, ' +
-        'noContactPrivacy.contacts AS contactsNoContact')
+        'contact.street AS street, isContact.type AS type, contactHasUserContacted.type AS contactType, privacy.profile AS profile, ' +
+        'privacy.image AS imageProfile, privacy.profileData AS profileData, privacy.contacts AS contacts, ' +
+        'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact, ' +
+        'noContactPrivacy.profileData AS profileDataNoContact, noContactPrivacy.contacts AS contactsNoContact')
         .end({userId: userId, contactId: contactId})
-        .send()
+        .send(commands)
         .then(function (resp) {
             return returnContactDetails(resp, userId, contactId);
         });

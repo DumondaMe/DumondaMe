@@ -17,25 +17,30 @@ var addImageForPreview = function (contacts) {
     });
 };
 
-var addConnectionInfo = function (contacts) {
+var addConnectionInfo = function (contact) {
+    if (contact.contactType && contact.type) {
+        contact.connected = 'both';
+    } else if (!contact.contactType && contact.type) {
+        contact.connected = 'userToContact';
+    } else if (contact.contactType && !contact.type) {
+        contact.connected = 'contactToUser';
+    } else {
+        contact.connected = 'none';
+    }
+    delete contact.contactType;
+};
+
+var addConnectionInfos = function (contacts) {
     underscore.each(contacts, function (contact) {
-        if (contact.contactType && contact.type) {
-            contact.connected = 'both';
-        } else if (!contact.contactType && contact.type) {
-            contact.connected = 'userToContact';
-        } else if (contact.contactType && !contact.type) {
-            contact.connected = 'contactToUser';
-        } else {
-            contact.connected = 'none';
-        }
-        delete contact.contactType;
+        addConnectionInfo(contact);
     });
 };
 
 module.exports = {
     addImageForPreview: addImageForPreview,
+    addConnectionInfo: addConnectionInfo,
     addContactPreviewInfos: function (contacts) {
         addImageForPreview(contacts);
-        addConnectionInfo(contacts);
+        addConnectionInfos(contacts);
     }
 };
