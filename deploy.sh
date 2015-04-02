@@ -9,19 +9,16 @@ cp -r $DEPLOY_DIR ../backup/$BACKUP_DIR
 rm -r $DEPLOY_DIR
 mkdir -p $DEPLOY_DIR/client/app/{dist,fonts,img,lib,sass}
 mkdir -p $DEPLOY_DIR/client/app/lib/{jquery,imageCrop}
-mkdir -p $DEPLOY_DIR/server/server/config
-mkdir -p $DEPLOY_DIR/server/common/src
+mkdir -p $DEPLOY_DIR/server/config
 
 #Copy server files
-cp -r server/common/src $DEPLOY_DIR/server/common
 cp server/package.json $DEPLOY_DIR/server
-cp -r server/server/controllers $DEPLOY_DIR/server/server
-cp -r server/server/lib $DEPLOY_DIR/server/server
-cp -r server/server/models $DEPLOY_DIR/server/server
-cp -r server/server/neo4j $DEPLOY_DIR/server/server
-cp server/server/package.json $DEPLOY_DIR/server/server
-cp server/server/server.js $DEPLOY_DIR/server/server
-cp ../config.json $DEPLOY_DIR/server/server/config
+cp -r server/controllers $DEPLOY_DIR/server
+cp -r server/lib $DEPLOY_DIR/server
+cp -r server/models $DEPLOY_DIR/server
+cp -r server/neo4j $DEPLOY_DIR/server
+cp server/server.js $DEPLOY_DIR/server
+cp ../config.json $DEPLOY_DIR/server/config
 
 #Copy client files
 cp client/app/dist/app.js $DEPLOY_DIR/client/app/dist
@@ -36,8 +33,6 @@ cp client/app/index.html $DEPLOY_DIR/client/app
 #Install npm dependencies
 
 cd ../../elyoos/server
-npm install --production
-cd server
 npm install --production
 cd ../../../deploy/elyoos
 
