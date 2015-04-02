@@ -1,10 +1,10 @@
 'use strict';
 
-var profileCtrl = require('../../../app/modules/settings/profileCtrl')[4];
+var profileCtrl = require('../../../app/modules/settings/profileCtrl')[5];
 var moment = require('../../../app/lib/moment/moment');
 
 describe('Tests of Profile Default Controller', function () {
-    var scope, Profile, profileImage;
+    var scope, Profile, profileImage, CountryCodeConverter;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -20,14 +20,28 @@ describe('Tests of Profile Default Controller', function () {
             profileImage = {};
             profileImage.addProfileImageChangedEvent = function () {
             };
+
+            CountryCodeConverter = {};
+            CountryCodeConverter.countryCodes = [{country: 'Schweiz', code: 'CH'},
+                {country: 'Deutschland', code: 'DE'},
+                {country: 'Frankreich', code: 'FR'}];
+
+            CountryCodeConverter.getCountryCode = function () {
+            };
+            CountryCodeConverter.getCountry = function () {
+            };
+
             done();
         });
     });
 
     it('Successful submit Data to the server', function () {
 
+        var stubHttpService = sinon.stub(Profile, 'save'),
+            stubGetCountryCode = sinon.stub(CountryCodeConverter, 'getCountryCode'),
+            submitedData;
         moment.locale('de');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -44,8 +58,7 @@ describe('Tests of Profile Default Controller', function () {
             country: 'CH',
             female: true
         };
-
-        var stubHttpService = sinon.stub(Profile, 'save'), submitedData;
+        stubGetCountryCode.returns('DE');
 
         scope.submitProfileData();
         submitedData = stubHttpService.firstCall.args[0];
@@ -59,7 +72,7 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Invalid form data. Data not sent to server', function () {
 
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
         scope.profileForm = {
             $invalid: true,
             $setPristine: function () {
@@ -74,7 +87,9 @@ describe('Tests of Profile Default Controller', function () {
 
     it('Error occurred while sending data. User data are not updated', function () {
 
-        profileCtrl(scope, Profile, profileImage, moment);
+        var stubHttpService = sinon.stub(Profile, 'save'),
+            stubGetCountryCode = sinon.stub(CountryCodeConverter, 'getCountryCode');
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
         scope.profileForm = {
             $invalid: false,
             $setPristine: function () {
@@ -92,8 +107,7 @@ describe('Tests of Profile Default Controller', function () {
             country: 'CH',
             female: false
         };
-
-        var stubHttpService = sinon.stub(Profile, 'save');
+        stubGetCountryCode.returns('DE');
 
         scope.submitProfileData();
         stubHttpService.callArg(2);
@@ -108,7 +122,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubProfile = sinon.stub(Profile, 'get');
         moment.locale('de');
         stubProfile.returns({birthday: 385948800});
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
         stubProfile.callArg(1);
 
         expect(scope.userDataToChange).to.eql({birthday: '26.3.1982'});
@@ -119,7 +133,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubHttpService = sinon.stub(Profile, 'get');
         stubHttpService.returns('test');
         moment.locale('de');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         expect(scope.getDateExample()).to.equals('26.3.1982');
     });
@@ -129,7 +143,7 @@ describe('Tests of Profile Default Controller', function () {
         var stubHttpService = sinon.stub(Profile, 'get');
         stubHttpService.returns('test');
         moment.locale('en');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         expect(scope.getDateExample()).to.equals('3/26/1982');
     });
@@ -145,7 +159,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('de');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         scope.userDataToChange = {
             birthday: '26.3.1982'
@@ -166,7 +180,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('de');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         scope.userDataToChange = {
             birthday: '3.26.1982'
@@ -187,7 +201,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('en');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         scope.userDataToChange = {
             birthday: '3/26/1982'
@@ -208,7 +222,7 @@ describe('Tests of Profile Default Controller', function () {
         sypSetValidity = sinon.spy(scope.profileForm.inputBirthday, '$setValidity');
 
         moment.locale('en');
-        profileCtrl(scope, Profile, profileImage, moment);
+        profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
 
         scope.userDataToChange = {
             birthday: '26/3/1982'

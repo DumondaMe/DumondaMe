@@ -4492,22 +4492,42 @@ module.exports = ['$resource', function ($resource) {
 
 },{}],31:[function(require,module,exports){
 'use strict';
-var updateConnectionStateWhenModifiyContact = function ($scope) {
+
+var setConnectionState = function ($scope, moment) {
+    if ($scope.contact.connected === 'userToContact') {
+        $scope.contact.connectionImage = 'app/img/userToContact.png';
+        $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
+        + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
+    } else if ($scope.contact.connected === 'contactToUser') {
+        $scope.contact.connectionImage = 'app/img/contactToUser.png';
+        $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
+        " als Kontakt hinzgef�gt";
+    } else if ($scope.contact.connected === 'both') {
+        $scope.contact.connectionImage = 'app/img/bothContact.png';
+        $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
+        + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
+    } else {
+        $scope.contact.connected = 'none';
+        $scope.contact.connectionImage = '#';
+    }
+};
+
+var updateConnectionStateWhenModifiyContact = function ($scope, moment) {
     if ($scope.contact.connected === 'contactToUser') {
         $scope.contact.connected = 'both';
     } else {
         $scope.contact.connected = 'userToContact';
     }
-    $scope.setConnectionState($scope);
+    setConnectionState($scope, moment);
 };
 
-var updateConnectionStateWhenDeletingContact = function ($scope) {
+var updateConnectionStateWhenDeletingContact = function ($scope, moment) {
     if ($scope.contact.connected === 'both') {
         $scope.contact.connected = 'contactToUser';
     } else {
         $scope.contact.connected = 'none';
     }
-    $scope.setConnectionState($scope);
+    setConnectionState($scope, moment);
 };
 
 var getPrivacyType = function (statistics, privacyTypes) {
@@ -4536,6 +4556,9 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
     function ($state, $modal, SearchThread, Contact, moment) {
 
         this.setPrivacySettings = setPrivacySettings;
+        this.setConnectionState = function (scope) {
+            setConnectionState(scope, moment);
+        };
 
         this.openModalUpdateType = function ($scope) {
             $scope.send = $scope.updateType;
@@ -4589,7 +4612,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                         $scope.numberOfContacts = contact.numberOfContacts;
                     }
                     $scope.contact.type = $scope.contact.selectedPrivacySetting;
-                    updateConnectionStateWhenModifiyContact($scope);
+                    updateConnectionStateWhenModifiyContact($scope, moment);
                     setPrivacySettings($scope);
                     hide();
                 });
@@ -4605,7 +4628,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                     $scope.numberOfContacts = contact.numberOfContacts;
                 }
                 delete $scope.contact.type;
-                updateConnectionStateWhenDeletingContact($scope);
+                updateConnectionStateWhenDeletingContact($scope, moment);
             });
         };
 
@@ -4620,7 +4643,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                 }
                 delete $scope.contact.type;
                 $scope.contact.blocked = true;
-                updateConnectionStateWhenDeletingContact($scope);
+                updateConnectionStateWhenDeletingContact($scope, moment);
             });
         };
 
@@ -4636,25 +4659,6 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                 delete $scope.contact.type;
                 $scope.contact.blocked = false;
             });
-        };
-
-        this.setConnectionState = function ($scope) {
-            if ($scope.contact.connected === 'userToContact') {
-                $scope.contact.connectionImage = 'app/img/userToContact.png';
-                $scope.tooltipConnectionState.title = "Du hast " + $scope.contact.name + " am "
-                + moment.unix($scope.contact.contactAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
-            } else if ($scope.contact.connected === 'contactToUser') {
-                $scope.contact.connectionImage = 'app/img/contactToUser.png';
-                $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
-                " als Kontakt hinzgef�gt";
-            } else if ($scope.contact.connected === 'both') {
-                $scope.contact.connectionImage = 'app/img/bothContact.png';
-                $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "
-                + moment.unix($scope.contact.userAdded).format('lll') + " als Kontakt hinzgef\u00fcgt";
-            } else {
-                $scope.contact.connected = 'none';
-                $scope.contact.connectionImage = '#';
-            }
         };
 
         this.sendMessage = function (id) {
