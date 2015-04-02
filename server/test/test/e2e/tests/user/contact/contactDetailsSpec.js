@@ -16,7 +16,7 @@ describe('Integration Tests for getting the contact details', function () {
         var commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1', female: true})").end().getCommand());
             return db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
                 "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
@@ -33,7 +33,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
@@ -49,6 +49,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.false;
                 res.body.contact.birthday.should.equals(1000);
                 res.body.contact.country.should.equals('CH');
                 res.body.contact.street.should.equals('irgendwo');
@@ -66,7 +67,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: false, contacts: false}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
@@ -82,6 +83,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.false;
                 should.not.exist(res.body.contact.birthday);
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
@@ -99,7 +101,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '1' AND u2.userId = '2'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -119,6 +121,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.true;
                 res.body.contact.birthday.should.equals(1000);
                 res.body.contact.country.should.equals('CH');
                 res.body.contact.street.should.equals('irgendwo');
@@ -136,7 +139,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '1' AND u2.userId = '2'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -156,6 +159,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.false;
                 should.not.exist(res.body.contact.birthday);
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
@@ -177,7 +181,7 @@ describe('Integration Tests for getting the contact details', function () {
         var commands = [];
         //User2
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
@@ -267,6 +271,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.true;
                 res.body.contact.birthday.should.equals(1000);
                 res.body.contact.country.should.equals('CH');
                 res.body.contact.street.should.equals('irgendwo');
@@ -304,7 +309,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '2' AND u2.userId = '1'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -324,6 +329,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.true;
                 should.not.exist(res.body.contact.birthday);
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
@@ -341,7 +347,7 @@ describe('Integration Tests for getting the contact details', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2'})").end().getCommand());
+        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '2' AND u2.userId = '1'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -361,6 +367,7 @@ describe('Integration Tests for getting the contact details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.contact.name.should.equals('user2 Meier2');
+                res.body.contact.female.should.be.true;
                 should.not.exist(res.body.contact.birthday);
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);

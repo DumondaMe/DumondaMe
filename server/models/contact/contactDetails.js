@@ -69,7 +69,13 @@ var getContacts = function (userId, contactId, contact, statistic, privacySettin
 };
 
 var returnContactDetails = function (resp, userId, contactId) {
-    var contact = {name: resp[2][0].name, type: resp[2][0].type};
+    var contact = {
+        name: resp[2][0].name,
+        female: resp[2][0].female,
+        type: resp[2][0].type,
+        contactAdded: resp[2][0].contactAdded,
+        userAdded: resp[2][0].userAdded
+    };
 
     userInfo.addConnectionInfo(resp[2][0]);
     contact.connected = resp[2][0].connected;
@@ -113,7 +119,8 @@ var getContactDetails = function (userId, contactId) {
         .optionalMatch('(contact)-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)')
         .where('contactHasUserContacted IS NULL')
         .return('contact.name AS name, contact.birthday AS birthday, contact.country AS country, contact.place AS place, ' +
-        'contact.street AS street, isContact.type AS type, contactHasUserContacted.type AS contactType, privacy.profile AS profile, ' +
+        'contact.street AS street, contact.female AS female, isContact.type AS type, contactHasUserContacted.type AS contactType, ' +
+        'isContact.contactAdded AS contactAdded, contactHasUserContacted.contactAdded AS userAdded, privacy.profile AS profile, ' +
         'privacy.image AS imageProfile, privacy.profileData AS profileData, privacy.contacts AS contacts, ' +
         'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact, ' +
         'noContactPrivacy.profileData AS profileDataNoContact, noContactPrivacy.contacts AS contactsNoContact')
