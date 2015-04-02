@@ -767,6 +767,10 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
+    "                <div class=\"profile-contact-expander\" ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=\"appendContacts()\"><img\r" +
+    "\n" +
+    "                        src=\"app/img/expand-down.png\"/></div>\r" +
+    "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +

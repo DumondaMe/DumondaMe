@@ -27,7 +27,7 @@ var numberOfSameContacts = function (userId, contactId) {
         .end({contactId: contactId, userId: userId});
 };
 
-var getContacts = function (userId, contactId, contact, statistic, privacySettings) {
+var getContacts = function (userId, contactId, contactsPerPage, skipContacts, contactDetails, statistic, privacySettings) {
     var commands = [];
 
     commands.push(numberOfContacts(contactId).getCommand());
@@ -45,8 +45,9 @@ var getContacts = function (userId, contactId, contact, statistic, privacySettin
         .where('isContact IS NULL')
         .return('contactOfContact.name AS name, contactOfContact.userId AS id, privacy.profile AS profile, privacy.image AS imageProfile,' +
         'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact')
-        .limit('7')
-        .end({contactId: contactId, userId: userId})
+        .skip('{skipContacts}')
+        .limit('{contactsPerPage}')
+        .end({contactId: contactId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts})
         .send(commands)
         .then(function (resp) {
             underscore.each(resp[2], function (contact) {
@@ -58,7 +59,7 @@ var getContacts = function (userId, contactId, contact, statistic, privacySettin
                 deletePrivacyProperties(contact);
             });
             return {
-                contact: contact,
+                contact: contactDetails,
                 numberOfContacts: resp[0][0].numberOfContacts,
                 numberOfSameContacts: resp[1][0].numberOfSameContacts,
                 statistic: statistic,
@@ -68,7 +69,7 @@ var getContacts = function (userId, contactId, contact, statistic, privacySettin
         });
 };
 
-var returnContactDetails = function (resp, userId, contactId) {
+var returnContactDetails = function (resp, userId, contactId, contactsPerPage, skipContacts) {
     var contact = {
         name: resp[2][0].name,
         female: resp[2][0].female,
@@ -93,7 +94,7 @@ var returnContactDetails = function (resp, userId, contactId) {
             contact.street = resp[2][0].street;
         }
         if (resp[2][0].contacts || resp[2][0].contactsNoContact) {
-            return getContacts(userId, contactId, contact, resp[0], resp[1]);
+            return getContacts(userId, contactId, contactsPerPage, skipContacts, contact, resp[0], resp[1]);
         }
     } else {
         contact.profileUrl = cdn.getUrl('default/profile.jpg');
@@ -101,7 +102,7 @@ var returnContactDetails = function (resp, userId, contactId) {
     return {contact: contact, contacts: [], statistic: resp[0], privacySettings: resp[1]};
 };
 
-var getContactDetails = function (userId, contactId) {
+var getContactDetails = function (userId, contactId, contactsPerPage, skipContacts) {
 
     var commands = [];
 
@@ -127,11 +128,14 @@ var getContactDetails = function (userId, contactId) {
         .end({userId: userId, contactId: contactId})
         .send(commands)
         .then(function (resp) {
-            return returnContactDetails(resp, userId, contactId);
+            return returnContactDetails(resp, userId, contactId, contactsPerPage, skipContacts);
         });
 };
 
 
 module.exports = {
-    getContactDetails: getContactDetails
+    getContactDetails: getContactDetails,
+    getContacts: function (userId, contactId, contactsPerPage, skipContacts) {
+        return getContacts(userId, contactId, contactsPerPage, skipContacts);
+    }
 };

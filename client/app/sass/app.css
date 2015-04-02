@@ -561,7 +561,8 @@
       #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview {
         display: inline-block;
         position: relative;
-        margin-right: 5px; }
+        margin-right: 5px;
+        margin-bottom: 5px; }
         #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content {
           display: inline-block;
           width: 100px;
@@ -584,6 +585,14 @@
             #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content .profile-contacts-preview-name .name {
               margin: 5px;
               font-size: 12px; }
+      #content #content-page-contact-details #centerCol #inner-centerCol .profile-contact-expander {
+        width: 28px;
+        height: 28px;
+        margin: 10px auto 0 auto;
+        cursor: pointer; }
+        #content #content-page-contact-details #centerCol #inner-centerCol .profile-contact-expander img {
+          width: 100%;
+          height: 100%; }
 
 #public-header {
   position: fixed;

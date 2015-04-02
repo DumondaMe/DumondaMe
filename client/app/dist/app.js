@@ -768,6 +768,10 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
+    "                <div class=\"profile-contact-expander\" ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=\"appendContacts()\"><img\r" +
+    "\n" +
+    "                        src=\"app/img/expand-down.png\"/></div>\r" +
+    "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
@@ -4321,12 +4325,17 @@ module.exports = ['$scope', function ($scope) {
 module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
     function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
 
-        var contactDetails;
+        var contactDetails, numberOfExpand = 0, skipContacts = 7, contactsToAdd = 28;
         $scope.$scope = $scope;
         angular.extend($scope, ContactUserActions);
 
         $scope.userId = $stateParams.userId;
-        contactDetails = ContactDetail.get({userId: $stateParams.userId}, function () {
+        contactDetails = ContactDetail.get({
+            userId: $stateParams.userId,
+            skipContacts: 0,
+            contactsPerPage: 7,
+            mode: 'detailOfUser'
+        }, function () {
 
             $scope.contact = contactDetails.contact;
             $scope.contact.id = $stateParams.userId;
@@ -4344,6 +4353,25 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
             ContactUserActions.setPrivacySettings($scope);
             ContactUserActions.setConnectionState($scope);
         });
+
+        $scope.appendContacts = function () {
+            var contactOfUser = ContactDetail.get({
+                userId: $stateParams.userId,
+                skipContacts: skipContacts,
+                contactsPerPage: contactsToAdd,
+                mode: 'onlyContacts'
+            }, function () {
+                if ($scope.contacts) {
+                    numberOfExpand = numberOfExpand + 1;
+                    $scope.contacts = $scope.contacts.concat(contactOfUser.contacts);
+                    if (numberOfExpand === 1) {
+                        skipContacts = 35;
+                    } else {
+                        skipContacts += contactsToAdd;
+                    }
+                }
+            });
+        };
 
         $scope.openUserDetails = function (userId) {
             $state.go('contact.detail', {
