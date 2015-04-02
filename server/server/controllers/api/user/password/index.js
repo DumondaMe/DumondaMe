@@ -1,9 +1,9 @@
 'use strict';
 
-var validation = require('./../../../../../common/src/lib/jsonValidation'),
+var validation = require('./../../../../lib/jsonValidation'),
     password = require('./../../../../models/user/password'),
     auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../../common/src/lib/error/exceptions'),
+    exceptions = require('./../../../../lib/error/exceptions'),
     logger = requireLogger.getLogger(__filename);
 
 var schemaChangePasword = {

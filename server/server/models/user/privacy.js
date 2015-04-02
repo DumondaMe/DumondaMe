@@ -2,7 +2,7 @@
 
 var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
-var exceptions = require('./../../../common/src/lib/error/exceptions');
+var exceptions = require('./../../lib/error/exceptions');
 
 var privacySettingCheck = function (id, privacySettingType, failCondition) {
     return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->(:Privacy)")

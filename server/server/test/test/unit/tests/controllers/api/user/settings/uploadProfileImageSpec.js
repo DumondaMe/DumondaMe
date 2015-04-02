@@ -2,7 +2,7 @@
 
 var testee = require('../../../../../../../../controllers/api/user/settings/uploadProfileImage');
 var saveProfileImage  = require('../../../../../../../../models/image/generateProfileImages');
-var request = require('../../../../../../../../../common/test/unit/request');
+var request = require('../../../../request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');

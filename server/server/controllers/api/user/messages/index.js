@@ -2,8 +2,8 @@
 var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var messageThread = require('./../../../../models/messages/messageThread');
-var exceptions = require('./../../../../../common/src/lib/error/exceptions');
-var validation = require('./../../../../../common/src/lib/jsonValidation');
+var exceptions = require('./../../../../lib/error/exceptions');
+var validation = require('./../../../../lib/jsonValidation');
 
 var schemaRequestGetMessages = {
     name: 'getMessages',

@@ -2,8 +2,8 @@
 
 var testee = require('../../../../../../../../controllers/api/user/contact/contacting');
 var contacting = require('./../../../../../../../../models/contact/contacting');
-var validation = require('./../../../../../../../../../common/src/lib/jsonValidation');
-var request = require('../../../../../../../../../common/test/unit/request');
+var validation = require('./../../../../../../../../lib/jsonValidation');
+var request = require('../../../../request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');

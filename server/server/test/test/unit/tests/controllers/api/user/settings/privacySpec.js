@@ -2,7 +2,7 @@
 
 var testee = require('../../../../../../../../controllers/api/user/settings/privacy');
 var privacy = require('../../../../../../../../models/user/privacy');
-var request = require('../../../../../../../../../common/test/unit/request');
+var request = require('../../../../request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;
 var sinon = require('sinon');

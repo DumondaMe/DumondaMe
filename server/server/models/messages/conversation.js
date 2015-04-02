@@ -3,12 +3,12 @@
 var db = require('./../../neo4j');
 var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
-var exceptions = require('./../../../common/src/lib/error/exceptions');
+var exceptions = require('./../../lib/error/exceptions');
 var modification = require('./../modification/modification');
 var userInfo = require('./../user/userInfo');
 var threadCondition = require('./util/threadCondition');
 var security = require('./util/security');
-var time = require('./../../../common/src/lib/time');
+var time = require('./../../lib/time');
 var logger = requireLogger.getLogger(__filename);
 
 var addWriterInfo = function (userId, messages) {

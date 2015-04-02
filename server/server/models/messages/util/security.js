@@ -1,8 +1,8 @@
 'use strict';
 
 var db = require('./../../../neo4j/index');
-var exceptions = require('./../../../../common/src/lib/error/exceptions');
-var time = require('./../../../../common/src/lib/time');
+var exceptions = require('./../../../lib/error/exceptions');
+var time = require('./../../../lib/time');
 var threadCondition = require('./threadCondition');
 var logger = requireLogger.getLogger(__filename);
 

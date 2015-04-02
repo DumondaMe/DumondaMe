@@ -1,12 +1,12 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var uuid = require('./../../../common/src/lib/uuid');
+var uuid = require('./../../lib/uuid');
 var cdn = require('./../util/cdn');
 var passwordEncryption = require('./../../lib/passwordEncryption');
-var exceptions = require('./../../../common/src/lib/error/exceptions');
+var exceptions = require('./../../lib/error/exceptions');
 var Promise = require('bluebird').Promise;
-var time = require('./../../../common/src/lib/time');
+var time = require('./../../lib/time');
 var logger = requireLogger.getLogger(__filename);
 
 var ERROR_CODE_EMAIL_EXISTS = 1;

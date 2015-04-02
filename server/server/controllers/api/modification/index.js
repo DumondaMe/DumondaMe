@@ -3,8 +3,8 @@
 var modification = require('./../../../models/modification/modification'),
     auth = require('./../../../lib/auth'),
     logger = requireLogger.getLogger(__filename),
-    exceptions = require('./../../../../common/src/lib/error/exceptions'),
-    validation = require('./../../../../common/src/lib/jsonValidation');
+    exceptions = require('./../../../lib/error/exceptions'),
+    validation = require('./../../../lib/jsonValidation');
 
 var schemaRequestModification = {
     name: 'requestModification',

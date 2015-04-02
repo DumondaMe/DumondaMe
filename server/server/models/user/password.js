@@ -2,7 +2,7 @@
 
 var db = require('./../../neo4j');
 var passwordEncryption = require('./../../lib/passwordEncryption');
-var exceptions = require('./../../../common/src/lib/error/exceptions');
+var exceptions = require('./../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
 var checkActualPassword = function (userId, actualPassword) {

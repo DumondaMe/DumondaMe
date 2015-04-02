@@ -1,13 +1,13 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var uuid = require('./../../../common/src/lib/uuid');
+var uuid = require('./../../lib/uuid');
 var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 var userInfo = require('./../user/userInfo');
 var unreadMessages = require('./util/unreadMessages');
-var time = require('./../../../common/src/lib/time');
+var time = require('./../../lib/time');
 var security = require('./util/security');
 var conversation = require('./conversation');
 
