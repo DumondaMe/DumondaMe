@@ -45,7 +45,7 @@ var getContacts = function (userId, contactId, contact, statistic, privacySettin
         .where('isContact IS NULL')
         .return('contactOfContact.name AS name, contactOfContact.userId AS id, privacy.profile AS profile, privacy.image AS imageProfile,' +
         'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact')
-        .limit('6')
+        .limit('7')
         .end({contactId: contactId, userId: userId})
         .send(commands)
         .then(function (resp) {

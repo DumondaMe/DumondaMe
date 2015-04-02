@@ -659,53 +659,111 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div id=\"profile-image\">\r" +
+    "            <div class=\"profile-detail-content-group\">\r" +
     "\n" +
-    "                <img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"/>\r" +
+    "                <div id=\"profile-image\">\r" +
     "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"profile-data\">\r" +
-    "\n" +
-    "                <div id=\"profile-data-overview\">\r" +
-    "\n" +
-    "                    <div id=\"profile-data-name\">{{contact.name}}</div>\r" +
-    "\n" +
-    "                    <div class=\"profile-data-description\">{{contact.country}}</div>\r" +
-    "\n" +
-    "                    <div class=\"profile-data-description\">{{contact.birthday}}</div>\r" +
-    "\n" +
-    "                    <div class=\"profile-data-description\">{{contact.street}}</div>\r" +
-    "\n" +
-    "                    <div class=\"profile-data-description\">{{contact.place}}</div>\r" +
+    "                    <img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"/>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div id=\"profile-command\">\r" +
+    "                <div id=\"profile-data\">\r" +
     "\n" +
-    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "                    <div id=\"profile-data-overview\">\r" +
     "\n" +
-    "                            aria-expanded=\"false\"\r" +
+    "                        <div id=\"profile-data-name\">{{contact.name}}</div>\r" +
     "\n" +
-    "                            ng-show=\"!contact.type\"\r" +
+    "                        <div id=\"profile-connection-state\" ng-hide=\"contact.connected === 'none'\" data-trigger=\"hover\" data-delay=\"600\"\r" +
     "\n" +
-    "                            ng-click=\"openModalAddNewContact($scope)\">\r" +
+    "                             data-title=\"{{tooltipConnectionState.title}}\"\r" +
     "\n" +
-    "                        <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "                             bs-tooltip>\r" +
     "\n" +
-    "                        Als Kontakt hinzufügen\r" +
+    "                            <img ng-src=\"{{contact.connectionImage}}\">\r" +
     "\n" +
-    "                    </button>\r" +
+    "                        </div>\r" +
     "\n" +
-    "                    <button type=\"button\" class=\"btn btn-default\"\r" +
+    "                        <div id=\"profile-connection-type\">\r" +
     "\n" +
-    "                            aria-expanded=\"false\"\r" +
+    "                            <div class=\"profile-inner-connection-type\" ng-click=\"openModalUpdateType($scope)\" ng-show=\"contact.type\">\r" +
     "\n" +
-    "                            ng-click=\"sendMessage(userId)\">\r" +
+    "                                ({{contact.type}})\r" +
     "\n" +
-    "                        Nachricht senden\r" +
+    "                            </div>\r" +
     "\n" +
-    "                    </button>\r" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"profile-data-description\">{{contact.country}}</div>\r" +
+    "\n" +
+    "                        <div class=\"profile-data-description\">{{contact.birthday}}</div>\r" +
+    "\n" +
+    "                        <div class=\"profile-data-description\">{{contact.street}}</div>\r" +
+    "\n" +
+    "                        <div class=\"profile-data-description\">{{contact.place}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div id=\"profile-command\">\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                                aria-expanded=\"false\"\r" +
+    "\n" +
+    "                                ng-show=\"!contact.type\"\r" +
+    "\n" +
+    "                                ng-click=\"openModalAddNewContact($scope)\">\r" +
+    "\n" +
+    "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
+    "\n" +
+    "                            Als Kontakt hinzufügen\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                                aria-expanded=\"false\"\r" +
+    "\n" +
+    "                                ng-click=\"sendMessage(userId)\">\r" +
+    "\n" +
+    "                            Nachricht senden\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"profile-detail-content-group\" ng-show=\"contacts.length > 0\">\r" +
+    "\n" +
+    "                <div id=\"profile-contacts-title-female\" ng-show=\"contact.female\">\r" +
+    "\n" +
+    "                    Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"profile-contacts-title-male\" ng-show=\"!contact.female\">\r" +
+    "\n" +
+    "                    Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"profile-contacts-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.id)\">\r" +
+    "\n" +
+    "                    <div class=\"profile-contacts-preview-content\">\r" +
+    "\n" +
+    "                        <img ng-src=\"{{user.profileUrl}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"profile-contacts-preview-name\">\r" +
+    "\n" +
+    "                            <div class=\"name\">{{user.name}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

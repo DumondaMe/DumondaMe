@@ -8,7 +8,7 @@ var setConnectionState = function ($scope, moment) {
     } else if ($scope.contact.connected === 'contactToUser') {
         $scope.contact.connectionImage = 'app/img/contactToUser.png';
         $scope.tooltipConnectionState.title = "Hat Dich am " + moment.unix($scope.contact.userAdded).format('lll') +
-        " als Kontakt hinzgefügt";
+        " als Kontakt hinzgef\u00fcgt";
     } else if ($scope.contact.connected === 'both') {
         $scope.contact.connectionImage = 'app/img/bothContact.png';
         $scope.tooltipConnectionState.title = "Ihr habt Euch beide als Kontakte. Hat Dich am "

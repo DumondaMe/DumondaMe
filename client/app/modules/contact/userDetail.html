@@ -1,30 +1,59 @@
 <div id="content-page-contact-details">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div id="profile-image">
-                <img class="img-rounded img-responsive" ng-src="{{contact.profileUrl}}"/>
-            </div>
-            <div id="profile-data">
-                <div id="profile-data-overview">
-                    <div id="profile-data-name">{{contact.name}}</div>
-                    <div class="profile-data-description">{{contact.country}}</div>
-                    <div class="profile-data-description">{{contact.birthday}}</div>
-                    <div class="profile-data-description">{{contact.street}}</div>
-                    <div class="profile-data-description">{{contact.place}}</div>
+            <div class="profile-detail-content-group">
+                <div id="profile-image">
+                    <img class="img-rounded img-responsive" ng-src="{{contact.profileUrl}}"/>
                 </div>
-                <div id="profile-command">
-                    <button type="button" class="btn btn-default"
-                            aria-expanded="false"
-                            ng-show="!contact.type"
-                            ng-click="openModalAddNewContact($scope)">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        Als Kontakt hinzufügen
-                    </button>
-                    <button type="button" class="btn btn-default"
-                            aria-expanded="false"
-                            ng-click="sendMessage(userId)">
-                        Nachricht senden
-                    </button>
+                <div id="profile-data">
+                    <div id="profile-data-overview">
+                        <div id="profile-data-name">{{contact.name}}</div>
+                        <div id="profile-connection-state" ng-hide="contact.connected === 'none'" data-trigger="hover" data-delay="600"
+                             data-title="{{tooltipConnectionState.title}}"
+                             bs-tooltip>
+                            <img ng-src="{{contact.connectionImage}}">
+                        </div>
+                        <div id="profile-connection-type">
+                            <div class="profile-inner-connection-type" ng-click="openModalUpdateType($scope)" ng-show="contact.type">
+                                ({{contact.type}})
+                            </div>
+                        </div>
+                        <div class="profile-data-description">{{contact.country}}</div>
+                        <div class="profile-data-description">{{contact.birthday}}</div>
+                        <div class="profile-data-description">{{contact.street}}</div>
+                        <div class="profile-data-description">{{contact.place}}</div>
+                    </div>
+                    <div id="profile-command">
+                        <button type="button" class="btn btn-default"
+                                aria-expanded="false"
+                                ng-show="!contact.type"
+                                ng-click="openModalAddNewContact($scope)">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Als Kontakt hinzufügen
+                        </button>
+                        <button type="button" class="btn btn-default"
+                                aria-expanded="false"
+                                ng-click="sendMessage(userId)">
+                            Nachricht senden
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-detail-content-group" ng-show="contacts.length > 0">
+                <div id="profile-contacts-title-female" ng-show="contact.female">
+                    Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)
+                </div>
+                <div id="profile-contacts-title-male" ng-show="!contact.female">
+                    Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)
+                </div>
+                <div class="profile-contacts-preview" ng-repeat="user in contacts" ng-click="openUserDetails(user.id)">
+                    <div class="profile-contacts-preview-content">
+                        <img ng-src="{{user.profileUrl}}">
+
+                        <div class="profile-contacts-preview-name">
+                            <div class="name">{{user.name}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
-    function ($scope, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
+module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
+    function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
 
         var contactDetails;
         $scope.$scope = $scope;
@@ -14,6 +14,9 @@ module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryC
             $scope.contact.id = $stateParams.userId;
             $scope.statistic = contactDetails.statistic;
             $scope.privacySettings = contactDetails.privacySettings;
+            $scope.numberOfContacts = contactDetails.numberOfContacts;
+            $scope.numberOfSameContacts = contactDetails.numberOfSameContacts;
+            $scope.contacts = contactDetails.contacts;
             if ($scope.contact.country) {
                 $scope.contact.country = CountryCodeConverter.getCountry($scope.contact.country);
             }
@@ -23,4 +26,10 @@ module.exports = ['$scope', '$stateParams', 'ContactDetail', 'moment', 'CountryC
             ContactUserActions.setPrivacySettings($scope);
             ContactUserActions.setConnectionState($scope);
         });
+
+        $scope.openUserDetails = function (userId) {
+            $state.go('contact.detail', {
+                userId: userId
+            });
+        };
     }];
