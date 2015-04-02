@@ -19,7 +19,7 @@
     "static": {
       "priority": 20,
       "module": {
-        "arguments": ["path:./../../client"]
+        "arguments": ["path:./../client"]
       }
     },
     "json": {
