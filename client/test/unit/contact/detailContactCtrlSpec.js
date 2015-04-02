@@ -68,4 +68,33 @@ describe('Tests of the detail contact controller', function () {
         expect(scope.statistic).to.equals('statistic');
         expect(scope.privacySettings).to.equals('privacySettings');
     });
+
+    it('Open the contact detail page with missing country and birthday', function () {
+
+        var getContactDetail = sinon.stub(ContactDetail, 'get'),
+            getCountry = sinon.stub(CountryCodeConverter, 'getCountry'),
+            response = {
+                contact: {
+                    name: 'Hans Muster'
+                },
+                statistic: 'statistic',
+                privacySettings: 'privacySettings'
+            };
+
+        moment.locale('de');
+        stateParams.userId = '2';
+
+        getContactDetail.withArgs({userId: '2'}).returns(response);
+        getCountry.withArgs('CH').returns('Schweiz');
+
+        detailContactCtrl(scope, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions);
+        getContactDetail.callArg(1);
+
+
+        expect(scope.contact.country).to.be.undefined;
+        expect(scope.contact.birthday).to.be.undefined;
+        expect(scope.contact.id).to.equals('2');
+        expect(scope.statistic).to.equals('statistic');
+        expect(scope.privacySettings).to.equals('privacySettings');
+    });
 });
