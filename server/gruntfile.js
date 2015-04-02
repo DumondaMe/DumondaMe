@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                             }
                         },
 
-                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,gruntfile.js'
+                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js'
                     }
                 }
             }
