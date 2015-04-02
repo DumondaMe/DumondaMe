@@ -7,7 +7,7 @@ var express = require('express'),
     auth = require('./auth'),
     userLib = require('./user')(),
     db = require('./database'),
-    cdn = require('./../lib/cdn');
+    cdn = require('./cdn');
 
 module.exports = function (app) {
     app.on('middleware:before:router', function () {

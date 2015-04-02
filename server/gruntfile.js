@@ -22,8 +22,7 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server',
                         projectName: 'Elyoos Server',
                         projectVersion: '0.1',
-                        projectBaseDir: '../',
-                        sources: 'server,common/src',
+                        sources: '../server',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
 
@@ -35,11 +34,11 @@ module.exports = function (grunt) {
 
                         javascript: {
                             lcov: {
-                                reportPath: 'server/coverage/lcov.info'
+                                reportPath: 'coverage/lcov.info'
                             }
                         },
 
-                        exclusions: 'cdn/**/*,server/node_modules/**/*,server/test/**/*,server/coverage/**/*,coverage/**/*,server/db/**/*,server/config/**/*,server/gruntfile.js'
+                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,gruntfile.js'
                     }
                 }
             }
@@ -49,7 +48,6 @@ module.exports = function (grunt) {
                 src: ['test/test/**/*.js'],
                 options: {
                     coverage: true,
-                    root: './../',
                     coverageFolder: 'coverage',
                     reportFormats: ['lcovonly']
                 }
