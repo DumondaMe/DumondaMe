@@ -273,7 +273,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div class=\"command-connection-block\"\r" +
+    "            <!--<div class=\"command-connection-block\"\r" +
     "\n" +
     "                 ng-show=\"!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')\"\r" +
     "\n" +
@@ -283,7 +283,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <img src=\"/app/img/block.png\">\r" +
     "\n" +
-    "            </div>\r" +
+    "            </div>-->\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
