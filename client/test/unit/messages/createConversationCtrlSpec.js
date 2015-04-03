@@ -37,7 +37,7 @@ describe('Tests of create conversation controller', function () {
         stateParams.userId = '1';
 
         conversationCtrl(scope, state, stateParams, Conversation, Message);
-        scope.newMessage = 'test';
+        scope.settings.newMessage = 'test';
 
         expectation = mockConversation.expects('save');
         expectation.withArgs({newSingleThread: {contactId: '1', text: 'test'}});
@@ -54,7 +54,7 @@ describe('Tests of create conversation controller', function () {
         stateParams.userId = '1';
 
         conversationCtrl(scope, state, stateParams, Conversation, Message);
-        scope.newMessage = '  ';
+        scope.settings.newMessage = '  ';
 
         expectation = mockConversation.expects('save');
         expectation.never();

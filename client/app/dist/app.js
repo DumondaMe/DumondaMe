@@ -5146,7 +5146,7 @@ module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateForm
     function ($scope, $stateParams, Conversation, Message, dateFormatter) {
 
         $scope.settings = {};
-        $scope.settings.itemsPerPage = 30;
+        $scope.settings.itemsPerPage = 5;
         $scope.settings.selectedThreadId = $stateParams.threadId;
         $scope.settings.selectedIsGroupThread = $stateParams.isGroupThread === 'true';
         $scope.settings.currentPagination = 1;

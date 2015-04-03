@@ -138,9 +138,10 @@ describe('Tests of threads controller', function () {
         threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
 
         mockStateGo.expects('go').withArgs('message.threads.create', {
-            userId: '1'
+            userId: '1',
+            name: 'Roger'
         });
-        scope.addNewSingleThread('1');
+        scope.addNewSingleThread('1', 'Roger');
 
         mockStateGo.verify();
     });
