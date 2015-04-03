@@ -1,86 +1,49 @@
 'use strict';
 
-function resetTextInputStyle($scope) {
-    $scope.textInputStyle = {};
-    $scope.textInputWrapperStyle = {};
-}
+module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
+    function ($scope, $stateParams, Conversation, Message, dateFormatter) {
 
-module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
-    function ($scope, $state, $stateParams, Conversation, Message, dateFormatter) {
-
-        var isGroupThread = $stateParams.isGroupThread === 'true', currentPagination;
-        $scope.itemsPerPage = 30;
-        $scope.newMessage = '';
-        $scope.selectedThreadId = $stateParams.threadId;
-        currentPagination = 1;
-
-        $scope.getThread = function (paginationNumber) {
-            var skip = (paginationNumber - 1) * $scope.itemsPerPage;
-            currentPagination = paginationNumber;
-            $scope.thread = Conversation.get({
-                itemsPerPage: $scope.itemsPerPage,
-                skip: skip,
-                threadId: $stateParams.threadId,
-                isGroupThread: $stateParams.isGroupThread
-            }, function () {
-                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
-            });
-        };
-        $scope.getThread(currentPagination);
+        $scope.settings = {};
+        $scope.settings.itemsPerPage = 30;
+        $scope.settings.selectedThreadId = $stateParams.threadId;
+        $scope.settings.selectedIsGroupThread = $stateParams.isGroupThread === 'true';
+        $scope.settings.currentPagination = 1;
+        $scope.settings.getThreadAtInit = true;
+        $scope.settings.newMessage = '';
 
         $scope.$on('message.changed', function () {
-            if (currentPagination === 1) {
-                $scope.getThread(currentPagination);
+            if ($scope.settings.currentPagination === 1) {
+                $scope.settings.getThread($scope.settings.currentPagination);
             } else {
-                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
+                $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
             }
         });
 
         $scope.getFormattedDate = dateFormatter.formatExact;
 
-        $scope.openThread = function (threadId, isGroupThread) {
-            var isGroupThreadParam = $stateParams.isGroupThread === 'true';
-            if (isGroupThreadParam === isGroupThread && threadId === $stateParams.threadId) {
-                $scope.getThread(1);
-            } else {
-                $state.go('message.threads.detail', {
-                    threadId: threadId,
-                    isGroupThread: isGroupThread
-                });
-            }
-        };
-
         $scope.sendMessage = function () {
             var message;
-            if ($scope.newMessage.trim() !== '') {
-                if (isGroupThread) {
+            if ($scope.settings.newMessage.trim() !== '') {
+                if ($scope.settings.selectedIsGroupThread) {
                     message = {
                         addGroupMessage: {
-                            threadId: $stateParams.threadId,
-                            text: $scope.newMessage
+                            threadId: $scope.settings.selectedThreadId,
+                            text: $scope.settings.newMessage
                         }
                     };
                 } else {
                     message = {
                         addMessage: {
-                            threadId: $stateParams.threadId,
-                            text: $scope.newMessage
+                            threadId: $scope.settings.selectedThreadId,
+                            text: $scope.settings.newMessage
                         }
                     };
                 }
                 Conversation.save(message, function (resp) {
-                    $scope.thread.messages.unshift(resp.message);
-                    $scope.newMessage = '';
-                    resetTextInputStyle($scope);
+                    $scope.settings.thread.messages.unshift(resp.message);
+                    $scope.settings.newMessage = '';
+                    $scope.settings.resetTextInputStyle($scope);
                 });
-            }
-        };
-
-        resetTextInputStyle($scope);
-        $scope.checkHeightOfInput = function ($event) {
-            if ($event.target.offsetHeight < 74) {
-                $scope.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
-                $scope.textInputWrapperStyle = {height: $event.target.scrollHeight + 18 + 'px'};
             }
         };
     }];

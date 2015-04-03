@@ -51,10 +51,11 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
             }
         };
 
-        $scope.addNewSingleThread = function (userId) {
+        $scope.addNewSingleThread = function (userId, name) {
             if (userId) {
                 $state.go('message.threads.create', {
-                    userId: userId
+                    userId: userId,
+                    name: name
                 });
             }
         };

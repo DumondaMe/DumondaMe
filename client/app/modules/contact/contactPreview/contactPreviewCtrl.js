@@ -4,7 +4,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            click: "sendMessage(contact.id)"
+            click: "sendMessage(contact.id, contact.name)"
         },
         {
             divider: true

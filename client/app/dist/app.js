@@ -724,7 +724,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                aria-expanded=\"false\"\r" +
     "\n" +
-    "                                ng-click=\"sendMessage(userId)\">\r" +
+    "                                ng-click=\"sendMessage(userId, contact.name)\">\r" +
     "\n" +
     "                            Nachricht senden\r" +
     "\n" +
@@ -897,125 +897,129 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/messages/conversation.html',
     "<div id=\"content-messages\">\r" +
     "\n" +
-    "    <div id=\"centerCol\">\r" +
+    "    <div ng-controller=\"ConversationActionsCtrl\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"centerCol\">\r" +
     "\n" +
-    "            <div class=\"add-message\" ng-style=\"textInputWrapperStyle\">\r" +
+    "            <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "                <div class=\"input-group\">\r" +
+    "                <div class=\"add-message\" ng-style=\"settings.textInputWrapperStyle\">\r" +
+    "\n" +
+    "                    <div class=\"input-group\">\r" +
     "\n" +
     "                    <textarea class=\"form-control\" placeholder=\"Nachricht\"\r" +
     "\n" +
-    "                              ng-style=\"textInputStyle\"\r" +
+    "                              ng-style=\"settings.textInputStyle\"\r" +
     "\n" +
-    "                              ng-keyup=\"checkHeightOfInput($event)\"\r" +
+    "                              ng-keyup=\"settings.checkHeightOfInput($event)\"\r" +
     "\n" +
     "                              ng-maxlength=\"1000\"\r" +
     "\n" +
-    "                              ng-model=\"newMessage\"></textarea>\r" +
+    "                              ng-model=\"settings.newMessage\"></textarea>\r" +
     "\n" +
     "                    <span class=\"input-group-btn\">\r" +
     "\n" +
     "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\"\r" +
     "\n" +
-    "                                ng-style=\"textInputStyle\"\r" +
+    "                                ng-style=\"settings.textInputStyle\"\r" +
     "\n" +
-    "                                ng-class=\"{'disabled': newMessage.trim() === ''}\">Senden\r" +
+    "                                ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden\r" +
     "\n" +
     "                        </button>\r" +
     "\n" +
     "                    </span>\r" +
     "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-repeat=\"message in thread.messages\" class=\"message-view\">\r" +
-    "\n" +
-    "                <div class=\"message-inner-view\">\r" +
-    "\n" +
-    "                    <div class=\"message-view-image\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{message.profileUrl}}\" class=\"img-rounded\">\r" +
-    "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"message-view-content\">\r" +
+    "                </div>\r" +
     "\n" +
-    "                        <div class=\"message-view-title\">\r" +
+    "                <div ng-repeat=\"message in settings.thread.messages\" class=\"message-view\">\r" +
     "\n" +
-    "                            <div class=\"message-view-name\">\r" +
+    "                    <div class=\"message-inner-view\">\r" +
     "\n" +
-    "                                {{message.name}}\r" +
+    "                        <div class=\"message-view-image\">\r" +
     "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"message-view-timestamp\">\r" +
-    "\n" +
-    "                                {{getFormattedDate(message.timestamp)}}\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            <img ng-src=\"{{message.profileUrl}}\" class=\"img-rounded\">\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"message-view-text\">{{message.text}}</div>\r" +
+    "                        <div class=\"message-view-content\">\r" +
+    "\n" +
+    "                            <div class=\"message-view-title\">\r" +
+    "\n" +
+    "                                <div class=\"message-view-name\">\r" +
+    "\n" +
+    "                                    {{message.name}}\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"message-view-timestamp\">\r" +
+    "\n" +
+    "                                    {{getFormattedDate(message.timestamp)}}\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"message-view-text\">{{message.text}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "            </div>\r" +
+    "                <div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\"\r" +
     "\n" +
-    "            <div ng-show=\"thread.numberOfMessages > itemsPerPage\"\r" +
+    "                     class=\"pagination\">\r" +
     "\n" +
-    "                 class=\"pagination\">\r" +
+    "                    <ely-pagination-next-previous total-items=\"settings.thread.numberOfMessages\"\r" +
     "\n" +
-    "                <ely-pagination-next-previous total-items=\"thread.numberOfMessages\"\r" +
+    "                                                  items-per-page=\"{{settings.itemsPerPage}}\"\r" +
     "\n" +
-    "                                              items-per-page=\"{{itemsPerPage}}\"\r" +
+    "                                                  get-pagination-set=\"settings.getThread\"></ely-pagination-next-previous>\r" +
     "\n" +
-    "                                              get-pagination-set=\"getThread\"></ely-pagination-next-previous>\r" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
+    "        <div id=\"leftCol\">\r" +
     "\n" +
-    "    <div id=\"leftCol\">\r" +
+    "            <div id=\"inner-leftCol\">\r" +
     "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
+    "                <div id=\"thread-description\">{{settings.thread.threadDescription}}</div>\r" +
     "\n" +
-    "            <div id=\"thread-description\">{{thread.threadDescription}}</div>\r" +
+    "                <ul id=\"message-index\" class=\"list-group\">\r" +
     "\n" +
-    "            <ul id=\"message-index\" class=\"list-group\">\r" +
+    "                    <div ng-repeat=\"thread in settings.threads.threads\"\r" +
     "\n" +
-    "                <div ng-repeat=\"thread in threads.threads\"\r" +
+    "                         ng-if=\"thread.threadId !== settings.selectedThreadId\">\r" +
     "\n" +
-    "                     ng-if=\"thread.threadId !== selectedThreadId\">\r" +
+    "                        <li class=\"list-group-item\"\r" +
     "\n" +
-    "                    <li class=\"list-group-item\"\r" +
+    "                            ng-click=\"settings.openThread(thread.threadId, thread.isGroupThread)\">\r" +
     "\n" +
-    "                        ng-click=\"openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                        <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
+    "                            <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
+    "                            <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
     "\n" +
-    "                             data-title=\"{{thread.description}}\"\r" +
+    "                                 data-title=\"{{thread.description}}\"\r" +
     "\n" +
-    "                             bs-tooltip>{{thread.description}}\r" +
+    "                                 bs-tooltip>{{thread.description}}\r" +
     "\n" +
-    "                        </div>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                    </li>\r" +
+    "                        </li>\r" +
     "\n" +
-    "                </div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "            </ul>\r" +
+    "                </ul>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1131,7 +1135,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <div id=\"add-new-single-thread\" ng-if=\"!thread.previewText\">\r" +
     "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewSingleThread(thread.userId)\">\r" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewSingleThread(thread.userId, thread.description)\">\r" +
     "\n" +
     "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Konversation starten\r" +
     "\n" +
@@ -3976,7 +3980,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":84,"./auth":15,"./contact":25,"./directives":35,"./filters":46,"./home":50,"./navigation":59,"./settings":64,"./util":82,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":85,"./auth":15,"./contact":25,"./directives":35,"./filters":46,"./home":50,"./navigation":60,"./settings":65,"./util":83,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -4140,7 +4144,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            click: "sendMessage(contact.id)"
+            click: "sendMessage(contact.id, contact.name)"
         },
         {
             divider: true
@@ -4756,7 +4760,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
             });
         };
 
-        this.sendMessage = function (id) {
+        this.sendMessage = function (id, name) {
             var search = SearchThread.get({
                 userId: id
             }, function () {
@@ -4767,7 +4771,8 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                     });
                 } else {
                     $state.go('message.threads.create', {
-                        userId: id
+                        userId: id,
+                        name: name
                     });
                 }
             });
@@ -5091,48 +5096,28 @@ require('./homeNavElement');
 },{"./homeCtrl":47,"./homeNavElement":49,"angular":4}],51:[function(require,module,exports){
 'use strict';
 
-function resetTextInputStyle($scope) {
-    $scope.textInputStyle = {};
-    $scope.textInputWrapperStyle = {};
-}
+module.exports = ['$scope', '$state', 'Message', 'Conversation',
+    function ($scope, $state, Message, Conversation) {
 
-module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
-    function ($scope, $state, $stateParams, Conversation, Message, dateFormatter) {
-
-        var isGroupThread = $stateParams.isGroupThread === 'true', currentPagination;
-        $scope.itemsPerPage = 30;
-        $scope.newMessage = '';
-        $scope.selectedThreadId = $stateParams.threadId;
-        currentPagination = 1;
-
-        $scope.getThread = function (paginationNumber) {
-            var skip = (paginationNumber - 1) * $scope.itemsPerPage;
-            currentPagination = paginationNumber;
-            $scope.thread = Conversation.get({
-                itemsPerPage: $scope.itemsPerPage,
+        $scope.settings.getThread = function (paginationNumber) {
+            var skip = (paginationNumber - 1) * $scope.settings.itemsPerPage;
+            $scope.settings.currentPagination = paginationNumber;
+            $scope.settings.thread = Conversation.get({
+                itemsPerPage: $scope.settings.itemsPerPage,
                 skip: skip,
-                threadId: $stateParams.threadId,
-                isGroupThread: $stateParams.isGroupThread
+                threadId: $scope.settings.selectedThreadId,
+                isGroupThread: $scope.settings.selectedIsGroupThread
             }, function () {
-                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
+                $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
             });
         };
-        $scope.getThread(currentPagination);
+        if ($scope.settings.getThreadAtInit) {
+            $scope.settings.getThread($scope.settings.currentPagination);
+        }
 
-        $scope.$on('message.changed', function () {
-            if (currentPagination === 1) {
-                $scope.getThread(currentPagination);
-            } else {
-                $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
-            }
-        });
-
-        $scope.getFormattedDate = dateFormatter.formatExact;
-
-        $scope.openThread = function (threadId, isGroupThread) {
-            var isGroupThreadParam = $stateParams.isGroupThread === 'true';
-            if (isGroupThreadParam === isGroupThread && threadId === $stateParams.threadId) {
-                $scope.getThread(1);
+        $scope.settings.openThread = function (threadId, isGroupThread) {
+            if ($scope.settings.selectedIsGroupThread === isGroupThread && threadId === $scope.settings.selectedThreadId) {
+                $scope.settings.getThread(1);
             } else {
                 $state.go('message.threads.detail', {
                     threadId: threadId,
@@ -5141,56 +5126,89 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
             }
         };
 
-        $scope.sendMessage = function () {
-            var message;
-            if ($scope.newMessage.trim() !== '') {
-                if (isGroupThread) {
-                    message = {
-                        addGroupMessage: {
-                            threadId: $stateParams.threadId,
-                            text: $scope.newMessage
-                        }
-                    };
-                } else {
-                    message = {
-                        addMessage: {
-                            threadId: $stateParams.threadId,
-                            text: $scope.newMessage
-                        }
-                    };
-                }
-                Conversation.save(message, function (resp) {
-                    $scope.thread.messages.unshift(resp.message);
-                    $scope.newMessage = '';
-                    resetTextInputStyle($scope);
-                });
+        $scope.settings.checkHeightOfInput = function ($event) {
+            if ($event.target.offsetHeight < 74) {
+                $scope.settings.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
+                $scope.settings.textInputWrapperStyle = {height: $event.target.scrollHeight + 18 + 'px'};
             }
         };
 
-        resetTextInputStyle($scope);
-        $scope.checkHeightOfInput = function ($event) {
-            if ($event.target.offsetHeight < 74) {
-                $scope.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
-                $scope.textInputWrapperStyle = {height: $event.target.scrollHeight + 18 + 'px'};
-            }
+        $scope.settings.resetTextInputStyle = function () {
+            $scope.settings.textInputStyle = {};
+            $scope.settings.textInputWrapperStyle = {};
         };
     }];
 
 },{}],52:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
-    function ($scope, $state, $stateParams, Conversation, Message) {
+module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
+    function ($scope, $stateParams, Conversation, Message, dateFormatter) {
 
-        $scope.threads = Message.get({itemsPerPage: 30, skip: 0});
+        $scope.settings = {};
+        $scope.settings.itemsPerPage = 30;
+        $scope.settings.selectedThreadId = $stateParams.threadId;
+        $scope.settings.selectedIsGroupThread = $stateParams.isGroupThread === 'true';
+        $scope.settings.currentPagination = 1;
+        $scope.settings.getThreadAtInit = true;
+        $scope.settings.newMessage = '';
+
+        $scope.$on('message.changed', function () {
+            if ($scope.settings.currentPagination === 1) {
+                $scope.settings.getThread($scope.settings.currentPagination);
+            } else {
+                $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
+            }
+        });
+
+        $scope.getFormattedDate = dateFormatter.formatExact;
 
         $scope.sendMessage = function () {
             var message;
-            if ($scope.newMessage.trim() !== '') {
+            if ($scope.settings.newMessage.trim() !== '') {
+                if ($scope.settings.selectedIsGroupThread) {
+                    message = {
+                        addGroupMessage: {
+                            threadId: $scope.settings.selectedThreadId,
+                            text: $scope.settings.newMessage
+                        }
+                    };
+                } else {
+                    message = {
+                        addMessage: {
+                            threadId: $scope.settings.selectedThreadId,
+                            text: $scope.settings.newMessage
+                        }
+                    };
+                }
+                Conversation.save(message, function (resp) {
+                    $scope.settings.thread.messages.unshift(resp.message);
+                    $scope.settings.newMessage = '';
+                    $scope.settings.resetTextInputStyle($scope);
+                });
+            }
+        };
+    }];
+
+},{}],53:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
+    function ($scope, $state, $stateParams, Conversation, Message) {
+
+        $scope.settings = {};
+        $scope.settings.getThreadAtInit = false;
+        $scope.settings.thread = {threadDescription: $stateParams.name};
+
+        $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
+
+        $scope.sendMessage = function () {
+            var message;
+            if ($scope.settings.newMessage.trim() !== '') {
                 message = {
                     newSingleThread: {
                         contactId: $stateParams.userId,
-                        text: $scope.newMessage
+                        text: $scope.settings.newMessage
                     }
                 };
                 Conversation.save(message, function (resp) {
@@ -5203,7 +5221,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5211,6 +5229,7 @@ var app = require('angular').module('elyoosApp');
 app.controller('ThreadsCtrl', require('./threadsCtrl'));
 app.controller('ConversationCtrl', require('./conversationCtrl'));
 app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
+app.controller('ConversationActionsCtrl', require('./conversationActionsCtrl'));
 
 app.factory('Message', require('./services/message'));
 app.factory('SearchThread', require('./services/searchThread'));
@@ -5248,7 +5267,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         })
         .state('message.threads.create', {
-            url: '/single/create/{userId}',
+            url: '/single/create/{userId}/{name}',
             views: {
                 'content@': {
                     templateUrl: 'app/modules/messages/conversation.html',
@@ -5257,35 +5276,35 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./conversationCtrl":51,"./createConversationCtrl":52,"./services/conversation":54,"./services/message":55,"./services/searchThread":56,"./services/searchUserToSendMessage":57,"./threadsCtrl":58,"angular":4}],54:[function(require,module,exports){
+},{"./conversationActionsCtrl":51,"./conversationCtrl":52,"./createConversationCtrl":53,"./services/conversation":55,"./services/message":56,"./services/searchThread":57,"./services/searchUserToSendMessage":58,"./threadsCtrl":59,"angular":4}],55:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/conversation');
 }];
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages');
 }];
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/messages/singleThread');
 }];
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/search');
 }];
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter',
@@ -5339,16 +5358,17 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
             }
         };
 
-        $scope.addNewSingleThread = function (userId) {
+        $scope.addNewSingleThread = function (userId, name) {
             if (userId) {
                 $state.go('message.threads.create', {
-                    userId: userId
+                    userId: userId,
+                    name: name
                 });
             }
         };
     }];
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5358,7 +5378,7 @@ app.controller('LoggedInHeaderCtrl', require('./loggedInHeaderCtrl'));
 app.factory('UserInfo', require('./userInfo'));
 app.factory('Modification', require('./modification'));
 
-},{"./loggedInHeaderCtrl":60,"./modification":61,"./userInfo":62,"angular":4}],60:[function(require,module,exports){
+},{"./loggedInHeaderCtrl":61,"./modification":62,"./userInfo":63,"angular":4}],61:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
@@ -5400,21 +5420,21 @@ module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'M
         };
     }];
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5446,7 +5466,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5501,14 +5521,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":63,"./password":65,"./passwordCtrl":66,"./privacy":67,"./privacyCtrl":68,"./profile":69,"./profileCtrl":70,"./renamePrivacyCtrl":71,"angular":4}],65:[function(require,module,exports){
+},{"./deletePrivacyCtrl":64,"./password":66,"./passwordCtrl":67,"./privacy":68,"./privacyCtrl":69,"./profile":70,"./profileCtrl":71,"./renamePrivacyCtrl":72,"angular":4}],66:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -5561,7 +5581,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5570,7 +5590,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -5694,14 +5714,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
@@ -5774,7 +5794,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5818,7 +5838,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -5852,7 +5872,7 @@ module.exports = function () {
     };
 };
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5885,19 +5905,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":73,"angular":4}],75:[function(require,module,exports){
+},{"./dateFormatter":74,"angular":4}],76:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":76,"angular":4}],76:[function(require,module,exports){
+},{"./profileImage":77,"angular":4}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5909,7 +5929,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],77:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5931,14 +5951,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],78:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5952,7 +5972,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5965,7 +5985,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":77,"./fileReader":78,"./fileUpload":79,"./uploadFileCtrl":81,"angular":4}],81:[function(require,module,exports){
+},{"./fileModel.js":78,"./fileReader":79,"./fileUpload":80,"./uploadFileCtrl":82,"angular":4}],82:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -6016,7 +6036,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6025,7 +6045,7 @@ require('./file');
 
 app.service('moment', require('./moment'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":72,"./file":80,"./moment":83,"angular":4}],83:[function(require,module,exports){
+},{"./countryCodeConverter":73,"./file":81,"./moment":84,"angular":4}],84:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6035,7 +6055,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],84:[function(require,module,exports){
+},{"moment":11}],85:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -6090,4 +6110,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84]);

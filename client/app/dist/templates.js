@@ -723,7 +723,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                aria-expanded=\"false\"\r" +
     "\n" +
-    "                                ng-click=\"sendMessage(userId)\">\r" +
+    "                                ng-click=\"sendMessage(userId, contact.name)\">\r" +
     "\n" +
     "                            Nachricht senden\r" +
     "\n" +
@@ -896,125 +896,129 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/messages/conversation.html',
     "<div id=\"content-messages\">\r" +
     "\n" +
-    "    <div id=\"centerCol\">\r" +
+    "    <div ng-controller=\"ConversationActionsCtrl\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"centerCol\">\r" +
     "\n" +
-    "            <div class=\"add-message\" ng-style=\"textInputWrapperStyle\">\r" +
+    "            <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "                <div class=\"input-group\">\r" +
+    "                <div class=\"add-message\" ng-style=\"settings.textInputWrapperStyle\">\r" +
+    "\n" +
+    "                    <div class=\"input-group\">\r" +
     "\n" +
     "                    <textarea class=\"form-control\" placeholder=\"Nachricht\"\r" +
     "\n" +
-    "                              ng-style=\"textInputStyle\"\r" +
+    "                              ng-style=\"settings.textInputStyle\"\r" +
     "\n" +
-    "                              ng-keyup=\"checkHeightOfInput($event)\"\r" +
+    "                              ng-keyup=\"settings.checkHeightOfInput($event)\"\r" +
     "\n" +
     "                              ng-maxlength=\"1000\"\r" +
     "\n" +
-    "                              ng-model=\"newMessage\"></textarea>\r" +
+    "                              ng-model=\"settings.newMessage\"></textarea>\r" +
     "\n" +
     "                    <span class=\"input-group-btn\">\r" +
     "\n" +
     "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\"\r" +
     "\n" +
-    "                                ng-style=\"textInputStyle\"\r" +
+    "                                ng-style=\"settings.textInputStyle\"\r" +
     "\n" +
-    "                                ng-class=\"{'disabled': newMessage.trim() === ''}\">Senden\r" +
+    "                                ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden\r" +
     "\n" +
     "                        </button>\r" +
     "\n" +
     "                    </span>\r" +
     "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-repeat=\"message in thread.messages\" class=\"message-view\">\r" +
-    "\n" +
-    "                <div class=\"message-inner-view\">\r" +
-    "\n" +
-    "                    <div class=\"message-view-image\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{message.profileUrl}}\" class=\"img-rounded\">\r" +
-    "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"message-view-content\">\r" +
+    "                </div>\r" +
     "\n" +
-    "                        <div class=\"message-view-title\">\r" +
+    "                <div ng-repeat=\"message in settings.thread.messages\" class=\"message-view\">\r" +
     "\n" +
-    "                            <div class=\"message-view-name\">\r" +
+    "                    <div class=\"message-inner-view\">\r" +
     "\n" +
-    "                                {{message.name}}\r" +
+    "                        <div class=\"message-view-image\">\r" +
     "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"message-view-timestamp\">\r" +
-    "\n" +
-    "                                {{getFormattedDate(message.timestamp)}}\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            <img ng-src=\"{{message.profileUrl}}\" class=\"img-rounded\">\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"message-view-text\">{{message.text}}</div>\r" +
+    "                        <div class=\"message-view-content\">\r" +
+    "\n" +
+    "                            <div class=\"message-view-title\">\r" +
+    "\n" +
+    "                                <div class=\"message-view-name\">\r" +
+    "\n" +
+    "                                    {{message.name}}\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"message-view-timestamp\">\r" +
+    "\n" +
+    "                                    {{getFormattedDate(message.timestamp)}}\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"message-view-text\">{{message.text}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "            </div>\r" +
+    "                <div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\"\r" +
     "\n" +
-    "            <div ng-show=\"thread.numberOfMessages > itemsPerPage\"\r" +
+    "                     class=\"pagination\">\r" +
     "\n" +
-    "                 class=\"pagination\">\r" +
+    "                    <ely-pagination-next-previous total-items=\"settings.thread.numberOfMessages\"\r" +
     "\n" +
-    "                <ely-pagination-next-previous total-items=\"thread.numberOfMessages\"\r" +
+    "                                                  items-per-page=\"{{settings.itemsPerPage}}\"\r" +
     "\n" +
-    "                                              items-per-page=\"{{itemsPerPage}}\"\r" +
+    "                                                  get-pagination-set=\"settings.getThread\"></ely-pagination-next-previous>\r" +
     "\n" +
-    "                                              get-pagination-set=\"getThread\"></ely-pagination-next-previous>\r" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
+    "        <div id=\"leftCol\">\r" +
     "\n" +
-    "    <div id=\"leftCol\">\r" +
+    "            <div id=\"inner-leftCol\">\r" +
     "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
+    "                <div id=\"thread-description\">{{settings.thread.threadDescription}}</div>\r" +
     "\n" +
-    "            <div id=\"thread-description\">{{thread.threadDescription}}</div>\r" +
+    "                <ul id=\"message-index\" class=\"list-group\">\r" +
     "\n" +
-    "            <ul id=\"message-index\" class=\"list-group\">\r" +
+    "                    <div ng-repeat=\"thread in settings.threads.threads\"\r" +
     "\n" +
-    "                <div ng-repeat=\"thread in threads.threads\"\r" +
+    "                         ng-if=\"thread.threadId !== settings.selectedThreadId\">\r" +
     "\n" +
-    "                     ng-if=\"thread.threadId !== selectedThreadId\">\r" +
+    "                        <li class=\"list-group-item\"\r" +
     "\n" +
-    "                    <li class=\"list-group-item\"\r" +
+    "                            ng-click=\"settings.openThread(thread.threadId, thread.isGroupThread)\">\r" +
     "\n" +
-    "                        ng-click=\"openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                        <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
+    "                            <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
+    "                            <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
     "\n" +
-    "                             data-title=\"{{thread.description}}\"\r" +
+    "                                 data-title=\"{{thread.description}}\"\r" +
     "\n" +
-    "                             bs-tooltip>{{thread.description}}\r" +
+    "                                 bs-tooltip>{{thread.description}}\r" +
     "\n" +
-    "                        </div>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                    </li>\r" +
+    "                        </li>\r" +
     "\n" +
-    "                </div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "            </ul>\r" +
+    "                </ul>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1130,7 +1134,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <div id=\"add-new-single-thread\" ng-if=\"!thread.previewText\">\r" +
     "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewSingleThread(thread.userId)\">\r" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewSingleThread(thread.userId, thread.description)\">\r" +
     "\n" +
     "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Konversation starten\r" +
     "\n" +

@@ -168,7 +168,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
             });
         };
 
-        this.sendMessage = function (id) {
+        this.sendMessage = function (id, name) {
             var search = SearchThread.get({
                 userId: id
             }, function () {
@@ -179,7 +179,8 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
                     });
                 } else {
                     $state.go('message.threads.create', {
-                        userId: id
+                        userId: id,
+                        name: name
                     });
                 }
             });
