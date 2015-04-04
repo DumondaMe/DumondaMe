@@ -10,6 +10,20 @@ var express = require('express'),
     cdn = require('./cdn');
 
 module.exports = function (app) {
+
+    var env = process.env.NODE_ENV || 'development';
+    app.on('middleware:before:json', function () {
+        if ('testing' !== env) {
+            app.use(function redirectHTTP(req, res, next) {
+
+                if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http') {
+                    return res.redirect('https://' + req.headers.host + req.url);
+                }
+                next();
+            });
+        }
+    });
+
     app.on('middleware:before:router', function () {
         app.use(passport.initialize());
         app.use(passport.session());
@@ -25,7 +39,6 @@ module.exports = function (app) {
     });
 
     app.on('middleware:after:appsec', function () {
-        var env = process.env.NODE_ENV || 'development';
         if ('testing' !== env) {
             app.use(csrf());
             app.use(function (req, res, next) {
