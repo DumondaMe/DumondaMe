@@ -20,7 +20,6 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        logger.info('Modification request of user ' + req.user.id);
         return validation.validateQueryRequest(req, schemaRequestModification, logger).then(function () {
             return modification.hasModification(req.user.id, req.session);
         }).then(function (hasChanged) {

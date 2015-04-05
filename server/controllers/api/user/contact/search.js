@@ -26,7 +26,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error when searching for a user', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestSearchUser, logger).then(function (request) {
-                logger.info("User " + req.user.id + " searches user " + request.search);
+                logger.info("User " + req.user.id + " searches user " + request.search + " suggestion mode is " + request.isSuggestion);
                 return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
             }).then(function (users) {
                 res.status(200).json(users);

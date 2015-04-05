@@ -2,7 +2,7 @@
 
 var winston = require('winston');
 
-require('winston-logstash');
+require('winston-logstash-udp');
 
 var customLevels = {
     levels: {
@@ -45,7 +45,7 @@ if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development')) {
 }
 
 if (process.env.NODE_ENV !== 'testing') {
-    logger.add(winston.transports.Logstash, {
+    logger.add(winston.transports.LogstashUDP, {
         port: 28777,
         node_name: 'ElyoosWebserver',
         host: '127.0.0.1'
