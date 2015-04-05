@@ -1,10 +1,11 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    password = require('./../../../../models/user/password'),
-    auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var password = require('./../../../../models/user/password');
+var auth = require('./../../../../lib/auth');
+var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaChangePasword = {
     name: 'changePassword',
@@ -21,17 +22,12 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateRequest(req, schemaChangePasword, logger).then(function (request) {
-            return password.changePassword(req.user.id, request.newPassword, request.actualPassword);
-        }).then(function () {
-            res.status(200).end();
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(exceptions.invalidOperation, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Error occurs when changing the password', {error: err}, req);
-            res.status(500).end();
+        return controllerErrors('Error occurs when changing the password', req, res, logger, function () {
+            return validation.validateRequest(req, schemaChangePasword, logger).then(function (request) {
+                return password.changePassword(req.user.id, request.newPassword, request.actualPassword);
+            }).then(function () {
+                res.status(200).end();
+            });
         });
     });
 

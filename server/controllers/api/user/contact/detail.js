@@ -4,6 +4,7 @@ var validation = require('./../../../../lib/jsonValidation'),
     contactDetails = require('./../../../../models/contact/contactDetails'),
     auth = require('./../../../../lib/auth'),
     exceptions = require('./../../../../lib/error/exceptions'),
+    controllerErrors = require('./../../../../lib/error/controllerErrors'),
     logger = requireLogger.getLogger(__filename);
 
 var schemaRequestGetContactDetails = {
@@ -22,24 +23,21 @@ var schemaRequestGetContactDetails = {
 module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateQueryRequest(req, schemaRequestGetContactDetails, logger)
-            .then(function (request) {
-                if (request.mode === 'detailOfUser') {
-                    return contactDetails.getContactDetails(req.user.id,
-                        request.userId, request.contactsPerPage, request.skipContacts);
-                }
-                if (request.mode === 'onlyContacts') {
-                    return contactDetails.getContacts(req.user.id,
-                        request.userId, request.contactsPerPage, request.skipContacts);
-                }
-            })
-            .then(function (userDetails) {
-                res.status(200).json(userDetails);
-            }).catch(exceptions.InvalidJsonRequest, function () {
-                res.status(400).end();
-            }).catch(function (err) {
-                logger.error('Error when searching for a user', {error: err}, req);
-                res.status(500).end();
-            });
+        return controllerErrors('Error when getting detail of a user', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaRequestGetContactDetails, logger)
+                .then(function (request) {
+                    if (request.mode === 'detailOfUser') {
+                        return contactDetails.getContactDetails(req.user.id,
+                            request.userId, request.contactsPerPage, request.skipContacts);
+                    }
+                    if (request.mode === 'onlyContacts') {
+                        return contactDetails.getContacts(req.user.id,
+                            request.userId, request.contactsPerPage, request.skipContacts);
+                    }
+                })
+                .then(function (userDetails) {
+                    res.status(200).json(userDetails);
+                });
+        });
     });
 };

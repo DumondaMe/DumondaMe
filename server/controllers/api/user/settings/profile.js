@@ -1,10 +1,11 @@
 'use strict';
 
-var user = require('./../../../../models/user/user'),
-    auth = require('./../../../../lib/auth'),
-    logger = requireLogger.getLogger(__filename),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    validation = require('./../../../../lib/jsonValidation');
+var user = require('./../../../../models/user/user');
+var auth = require('./../../../../lib/auth');
+var logger = requireLogger.getLogger(__filename);
+var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var validation = require('./../../../../lib/jsonValidation');
 
 var schemaPostNewProfileData = {
     name: 'newProfileData',
@@ -36,17 +37,13 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-
-        return validation.validateRequest(req, schemaPostNewProfileData, logger).then(function () {
-            return user.updateUserProfile(req.user.id, req.body);
-        }).then(function () {
-            logger.info('Successfully updated user profile', {}, req);
-            res.status(200).end();
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Update of profile data failed', {error: err.errors}, req);
-            res.status(500).end();
+        return controllerErrors('Update of profile data failed', req, res, logger, function () {
+            return validation.validateRequest(req, schemaPostNewProfileData, logger).then(function () {
+                return user.updateUserProfile(req.user.id, req.body);
+            }).then(function () {
+                logger.info('Successfully updated user profile', {}, req);
+                res.status(200).end();
+            });
         });
     });
 };

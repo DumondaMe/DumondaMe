@@ -5,6 +5,7 @@ var validation = require('./../../../../lib/jsonValidation'),
     contact = require('./../../../../models/contact/contact'),
     auth = require('./../../../../lib/auth'),
     exceptions = require('./../../../../lib/error/exceptions'),
+    controllerErrors = require('./../../../../lib/error/controllerErrors'),
     logger = requireLogger.getLogger(__filename);
 
 var schemaRequestSearchUser = {
@@ -23,15 +24,12 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateQueryRequest(req, schemaRequestSearchUser, logger).then(function (request) {
-            return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
-        }).then(function (users) {
-            res.status(200).json(users);
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Error when searching for a user', {error: err}, req);
-            res.status(500).end();
+        return controllerErrors('Error when searching for a user', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaRequestSearchUser, logger).then(function (request) {
+                return search.searchUsers(req.user.id, request.search, request.maxItems, request.isSuggestion);
+            }).then(function (users) {
+                res.status(200).json(users);
+            });
         });
     });
 };

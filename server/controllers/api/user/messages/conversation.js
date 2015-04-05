@@ -4,6 +4,7 @@ var logger = requireLogger.getLogger(__filename);
 var conversation = require('./../../../../models/messages/conversation');
 var messageThread = require('./../../../../models/messages/messageThread');
 var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 
 var schemaRequestGetMessages = {
@@ -80,45 +81,35 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
-            .then(function (request) {
-                return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session);
-            }).then(function (threads) {
-                res.status(200).json(threads);
-            }).catch(exceptions.InvalidJsonRequest, function () {
-                res.status(400).end();
-            }).catch(exceptions.invalidOperation, function () {
-                res.status(400).end();
-            }).catch(function (err) {
-                logger.error('Getting user messages failed', {error: err}, req);
-                res.status(500).end();
-            });
+        return controllerErrors('Getting user messages failed', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
+                .then(function (request) {
+                    return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session);
+                }).then(function (threads) {
+                    res.status(200).json(threads);
+                });
+        });
     });
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateRequest(req, schemaRequestAddMessages, logger).then(function (request) {
-            if (request.addMessage) {
-                return conversation.addMessage(req.user.id, request.addMessage.threadId,
-                    request.addMessage.text, false, req.session);
-            }
-            if (request.addGroupMessage) {
-                return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
-                    request.addGroupMessage.text, true, req.session);
-            }
-            if (request.newSingleThread) {
-                return messageThread.createSingleThread(req.user.id, request.newSingleThread.contactId,
-                    request.newSingleThread.text, req.session);
-            }
-        }).then(function (resp) {
-            res.status(200).json(resp);
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(exceptions.invalidOperation, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Adding a new message has failed', {error: err.errors}, req);
-            res.status(500).end();
+        return controllerErrors('Adding a new message has failed', req, res, logger, function () {
+            return validation.validateRequest(req, schemaRequestAddMessages, logger).then(function (request) {
+                if (request.addMessage) {
+                    return conversation.addMessage(req.user.id, request.addMessage.threadId,
+                        request.addMessage.text, false, req.session);
+                }
+                if (request.addGroupMessage) {
+                    return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
+                        request.addGroupMessage.text, true, req.session);
+                }
+                if (request.newSingleThread) {
+                    return messageThread.createSingleThread(req.user.id, request.newSingleThread.contactId,
+                        request.newSingleThread.text, req.session);
+                }
+            }).then(function (resp) {
+                res.status(200).json(resp);
+            });
         });
     });
 };

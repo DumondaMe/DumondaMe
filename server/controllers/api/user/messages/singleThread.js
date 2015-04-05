@@ -3,6 +3,7 @@ var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var search = require('./../../../../models/messages/searchThread');
 var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 
 var schemaGetSingleThread = {
@@ -20,16 +21,13 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateQueryRequest(req, schemaGetSingleThread, logger)
-            .then(function (request) {
-                return search.searchSingleThread(req.user.id, request.userId);
-            }).then(function (thread) {
-                res.status(200).json(thread);
-            }).catch(exceptions.InvalidJsonRequest, function () {
-                res.status(400).end();
-            }).catch(function (err) {
-                logger.error('Searching single thread failed', {error: err}, req);
-                res.status(500).end();
-            });
+        return controllerErrors('Searching single thread failed', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaGetSingleThread, logger)
+                .then(function (request) {
+                    return search.searchSingleThread(req.user.id, request.userId);
+                }).then(function (thread) {
+                    res.status(200).json(thread);
+                });
+        });
     });
 };

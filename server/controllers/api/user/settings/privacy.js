@@ -3,6 +3,7 @@ var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var privacy = require('./../../../../models/user/privacy');
 var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 
 var schemaPostNewPrivacy = {
@@ -88,47 +89,37 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateRequest(req, schemaPostNewPrivacy, logger).then(function (request) {
-            if (request.changePrivacySetting) {
-                return privacy.changePrivacySettings(req.user.id, request.changePrivacySetting.privacyDescription,
-                    request.changePrivacySetting.privacySettings);
-            }
-            if (request.changePrivacyNoContactSetting) {
-                return privacy.changePrivacySettingsNoContact(req.user.id, request.changePrivacyNoContactSetting.privacySettings);
-            }
-            if (request.renamePrivacy) {
-                return privacy.renamePrivacySetting(req.user.id, request.renamePrivacy.privacyDescription,
-                    request.renamePrivacy.newPrivacyDescription);
-            }
-            if (request.addNewPrivacy) {
-                return privacy.addNewPrivacySetting(req.user.id, request.addNewPrivacy.privacyDescription,
-                    request.addNewPrivacy.privacySettings);
-            }
-        }).then(function () {
-            res.status(200).end();
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(exceptions.invalidOperation, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Setting user privacy settings failed', {error: err.errors}, req);
-            res.status(500).end();
+        return controllerErrors('Setting user privacy settings failed', req, res, logger, function () {
+            return validation.validateRequest(req, schemaPostNewPrivacy, logger).then(function (request) {
+                if (request.changePrivacySetting) {
+                    return privacy.changePrivacySettings(req.user.id, request.changePrivacySetting.privacyDescription,
+                        request.changePrivacySetting.privacySettings);
+                }
+                if (request.changePrivacyNoContactSetting) {
+                    return privacy.changePrivacySettingsNoContact(req.user.id, request.changePrivacyNoContactSetting.privacySettings);
+                }
+                if (request.renamePrivacy) {
+                    return privacy.renamePrivacySetting(req.user.id, request.renamePrivacy.privacyDescription,
+                        request.renamePrivacy.newPrivacyDescription);
+                }
+                if (request.addNewPrivacy) {
+                    return privacy.addNewPrivacySetting(req.user.id, request.addNewPrivacy.privacyDescription,
+                        request.addNewPrivacy.privacySettings);
+                }
+            }).then(function () {
+                res.status(200).end();
+            });
         });
     });
 
     router.delete('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateRequest(req, schemaDeletePrivacySetting, logger).then(function (request) {
-            return privacy.deletePrivacySetting(req.user.id, request.privacyDescription, request.newPrivacyDescription);
-        }).then(function () {
-            res.status(200).end();
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(exceptions.invalidOperation, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Error occurs while deleting privacy settings', {error: err}, req);
-            res.status(500).end();
+        return controllerErrors('Error occurs while deleting privacy settings', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeletePrivacySetting, logger).then(function (request) {
+                return privacy.deletePrivacySetting(req.user.id, request.privacyDescription, request.newPrivacyDescription);
+            }).then(function () {
+                res.status(200).end();
+            });
         });
     });
 };

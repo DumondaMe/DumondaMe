@@ -3,6 +3,7 @@ var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var search = require('./../../../../models/messages/searchThread');
 var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 
 var schemaRequestGetMessages = {
@@ -22,16 +23,13 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
-            .then(function (request) {
-                return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion);
-            }).then(function (threads) {
-                res.status(200).json(threads);
-            }).catch(exceptions.InvalidJsonRequest, function () {
-                res.status(400).end();
-            }).catch(function (err) {
-                logger.error('Searching messages failed', {error: err}, req);
-                res.status(500).end();
-            });
+        return controllerErrors('Searching messages failed', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
+                .then(function (request) {
+                    return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion);
+                }).then(function (threads) {
+                    res.status(200).json(threads);
+                });
+        });
     });
 };

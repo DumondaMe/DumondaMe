@@ -4,6 +4,7 @@ var validation = require('./../../../../lib/jsonValidation'),
     contact = require('./../../../../models/contact/contact'),
     auth = require('./../../../../lib/auth'),
     exceptions = require('./../../../../lib/error/exceptions'),
+    controllerErrors = require('./../../../../lib/error/controllerErrors'),
     logger = requireLogger.getLogger(__filename);
 
 var schemaRequestGetContact = {
@@ -85,51 +86,42 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return validation.validateRequest(req, schemaRequestContact, logger).then(function (request) {
-            if (request.mode === 'addContact') {
-                if (!request.description) {
-                    request.description = '';
+        return controllerErrors('Error occurs', req, res, logger, function () {
+            return validation.validateRequest(req, schemaRequestContact, logger).then(function (request) {
+                if (request.mode === 'addContact') {
+                    if (!request.description) {
+                        request.description = '';
+                    }
+                    return contact.addContact(req.user.id, request.contactIds, request.description);
                 }
-                return contact.addContact(req.user.id, request.contactIds, request.description);
-            }
-            if (request.mode === 'blockContact') {
-                return contact.blockContact(req.user.id, request.contactIds);
-            }
-            if (request.mode === 'unblockContact') {
-                return contact.unblockContact(req.user.id, request.contactIds);
-            }
-            if (request.mode === 'changeState') {
-                return contact.changeContactState(req.user.id, request.contactIds, request.description);
-            }
-            logger.error('Unknown mode: ' + request.mode);
-            res.status(500).end();
-        }).then(function (data) {
-            if (data) {
-                res.status(200).json(data);
-            } else {
-                res.status(200).end();
-            }
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(exceptions.invalidOperation, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Error occurs', {error: err}, req);
-            res.status(500).end();
+                if (request.mode === 'blockContact') {
+                    return contact.blockContact(req.user.id, request.contactIds);
+                }
+                if (request.mode === 'unblockContact') {
+                    return contact.unblockContact(req.user.id, request.contactIds);
+                }
+                if (request.mode === 'changeState') {
+                    return contact.changeContactState(req.user.id, request.contactIds, request.description);
+                }
+                logger.error('Unknown mode: ' + request.mode);
+                res.status(500).end();
+            }).then(function (data) {
+                if (data) {
+                    res.status(200).json(data);
+                } else {
+                    res.status(200).end();
+                }
+            });
         });
     });
 
     router.delete('/', auth.isAuthenticated(), function (req, res) {
-
-        return validation.validateRequest(req, schemaDeleteContact, logger).then(function (request) {
-            return contact.deleteContact(req.user.id, request.contactIds);
-        }).then(function (statistic) {
-            res.status(200).json(statistic);
-        }).catch(exceptions.InvalidJsonRequest, function () {
-            res.status(400).end();
-        }).catch(function (err) {
-            logger.error('Error occurs while deleting contact relationship', {error: err}, req);
-            res.status(500).end();
+        return controllerErrors('Error occurs while deleting contact relationship', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteContact, logger).then(function (request) {
+                return contact.deleteContact(req.user.id, request.contactIds);
+            }).then(function (statistic) {
+                res.status(200).json(statistic);
+            });
         });
     });
 };
