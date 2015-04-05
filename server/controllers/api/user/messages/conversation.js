@@ -80,12 +80,6 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.itemsPerPage && req.query.skip && req.query.isGroupThread) {
-            req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
-            req.query.skip = parseInt(req.query.skip, 10);
-            req.query.isGroupThread = req.query.isGroupThread === 'true';
-        }
-
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
                 return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session);

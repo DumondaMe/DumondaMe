@@ -22,11 +22,6 @@ var schemaRequestGetContactDetails = {
 module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.contactsPerPage && req.query.skipContacts) {
-            req.query.contactsPerPage = parseInt(req.query.contactsPerPage, 10);
-            req.query.skipContacts = parseInt(req.query.skipContacts, 10);
-        }
-
         return validation.validateQueryRequest(req, schemaRequestGetContactDetails, logger)
             .then(function (request) {
                 if (request.mode === 'detailOfUser') {

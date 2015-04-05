@@ -41,11 +41,25 @@ var validate = function (req, data, requestSchema, logger) {
     return Promise.reject(invalidJsonException);
 };
 
+var convertValues = function (data, requestSchema) {
+    var key;
+    for (key in requestSchema.properties) {
+        if (requestSchema.properties.hasOwnProperty(key) && requestSchema.properties[key].type && data[key]) {
+            if (requestSchema.properties[key].type === 'integer') {
+                data[key] = parseInt(data[key], 10);
+            } else if (requestSchema.properties[key].type === 'boolean') {
+                data[key] = data[key] === 'true';
+            }
+        }
+    }
+};
+
 module.exports = {
     validateRequest: function (req, requestSchema, logger) {
         return validate(req, req.body, requestSchema, logger);
     },
     validateQueryRequest: function (req, requestSchema, logger) {
+        convertValues(req.query, requestSchema);
         return validate(req, req.query, requestSchema, logger);
     }
 };

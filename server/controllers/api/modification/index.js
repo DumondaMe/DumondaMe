@@ -20,8 +20,6 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        req.query.forceShowModification = req.query.forceShowModification === 'true';
-
         return validation.validateQueryRequest(req, schemaRequestModification, logger).then(function () {
             return modification.hasModification(req.user.id, req.session);
         }).then(function (hasChanged) {

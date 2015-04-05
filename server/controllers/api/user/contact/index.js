@@ -61,10 +61,6 @@ var schemaDeleteContact = {
 module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.itemsPerPage && req.query.skip) {
-            req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
-            req.query.skip = parseInt(req.query.skip, 10);
-        }
         if (req.query.types && typeof req.query.types === 'string') {
             req.query.types = req.query.types.split(',');
         }

@@ -21,11 +21,6 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.itemsPerPage && req.query.skip) {
-            req.query.itemsPerPage = parseInt(req.query.itemsPerPage, 10);
-            req.query.skip = parseInt(req.query.skip, 10);
-        }
-
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
                 return messageThread.getMessageThreads(req.user.id, request.itemsPerPage, request.skip);

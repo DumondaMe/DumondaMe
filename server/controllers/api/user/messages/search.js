@@ -22,11 +22,6 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.maxItems && req.query.isSuggestion) {
-            req.query.maxItems = parseInt(req.query.maxItems, 10);
-            req.query.isSuggestion = req.query.isSuggestion === 'true';
-        }
-
         return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
             .then(function (request) {
                 return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion);
