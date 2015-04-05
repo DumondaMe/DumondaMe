@@ -24,6 +24,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs when changing the password', req, res, logger, function () {
             return validation.validateRequest(req, schemaChangePasword, logger).then(function (request) {
+                logger.info("User " + req.user.id + " changes password");
                 return password.changePassword(req.user.id, request.newPassword, request.actualPassword);
             }).then(function () {
                 res.status(200).end();

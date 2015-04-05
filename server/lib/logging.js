@@ -2,6 +2,8 @@
 
 var winston = require('winston');
 
+require('winston-logstash');
+
 var customLevels = {
     levels: {
         fatal: 4,
@@ -40,6 +42,14 @@ if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development')) {
 } else if (process.env.NODE_ENV === 'testing') {
     logger.add(winston.transports.Console, {level: 'debug'});
     logger.transports.console.colorize = true;
+}
+
+if (process.env.NODE_ENV !== 'testing') {
+    logger.add(winston.transports.Logstash, {
+        port: 28777,
+        node_name: 'ElyoosWebserver',
+        host: '127.0.0.1'
+    });
 }
 
 

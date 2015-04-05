@@ -28,6 +28,7 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
         return user.getUserProfile(req.user.id).then(function (userProfile) {
+            logger.info("User " + req.user.id + " requests the user profile");
             res.status(200).json(userProfile);
         }).catch(function (err) {
             logger.error('Getting profile data failed', {error: err.errors}, req);
@@ -41,7 +42,7 @@ module.exports = function (router) {
             return validation.validateRequest(req, schemaPostNewProfileData, logger).then(function () {
                 return user.updateUserProfile(req.user.id, req.body);
             }).then(function () {
-                logger.info('Successfully updated user profile', {}, req);
+                logger.info("User " + req.user.id + " Successfully updated user profile", {}, req);
                 res.status(200).end();
             });
         });

@@ -24,6 +24,7 @@ module.exports = function (router) {
         return controllerErrors('Searching single thread failed', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetSingleThread, logger)
                 .then(function (request) {
+                    logger.info("User " + req.user.id + " searches single threads to user " + request.userId);
                     return search.searchSingleThread(req.user.id, request.userId);
                 }).then(function (thread) {
                     res.status(200).json(thread);

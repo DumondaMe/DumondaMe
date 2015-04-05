@@ -84,6 +84,7 @@ module.exports = function (router) {
         return controllerErrors('Getting user messages failed', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
                 .then(function (request) {
+                    logger.info("User " + req.user.id + " requests thread " + request.threadId + " [skip] " + request.skip);
                     return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip, request.isGroupThread, req.session);
                 }).then(function (threads) {
                     res.status(200).json(threads);
@@ -96,14 +97,18 @@ module.exports = function (router) {
         return controllerErrors('Adding a new message has failed', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestAddMessages, logger).then(function (request) {
                 if (request.addMessage) {
+                    logger.info("User " + req.user.id + " add a message to single thread " + request.addMessage.threadId);
                     return conversation.addMessage(req.user.id, request.addMessage.threadId,
                         request.addMessage.text, false, req.session);
                 }
                 if (request.addGroupMessage) {
+                    logger.info("User " + req.user.id + " add a message to group thread " + request.addGroupMessage.threadId);
                     return conversation.addMessage(req.user.id, request.addGroupMessage.threadId,
                         request.addGroupMessage.text, true, req.session);
                 }
                 if (request.newSingleThread) {
+                    logger.info("User " + req.user.id + " create a new single thread for communication with user " +
+                    request.newSingleThread.contactId);
                     return messageThread.createSingleThread(req.user.id, request.newSingleThread.contactId,
                         request.newSingleThread.text, req.session);
                 }

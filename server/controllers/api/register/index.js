@@ -30,6 +30,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when register a new user', req, res, logger, function () {
             return validation.validateRequest(req, schemaRegisterUser, logger).then(function (request) {
                 if (req.user.id === '0') {
+                    logger.info('Register new user with email ' + request.email);
                     return registerUser.registerUser(request);
                 }
                 return exceptions.getInvalidOperation('Only user id 0 can register new user at the moment ' + req.user.id, logger);

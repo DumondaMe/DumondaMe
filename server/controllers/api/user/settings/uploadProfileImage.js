@@ -13,6 +13,7 @@ module.exports = function (router) {
 
         return saveProfileImage.generateProfileImage(req.files.file.path, req.user.id)
             .then(function () {
+                logger.info("User " + req.user.id + " uploaded new profile image");
                 res.status(200).end();
             })
             .catch(function (err) {

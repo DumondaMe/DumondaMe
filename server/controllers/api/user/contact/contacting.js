@@ -24,6 +24,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error when getting contacting information', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
+                logger.info("User " + req.user.id + " requests contacting information");
                 return contacting.getContacting(req.user.id, request.itemsPerPage, req.query.skip);
             }).then(function (users) {
                 res.status(200).json(users);

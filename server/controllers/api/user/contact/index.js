@@ -71,11 +71,13 @@ module.exports = function (router) {
                 if (!req.query.types) {
                     return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
                         .then(function (contacts) {
+                            logger.info("Get contacts for user " + req.user.id + " in normal mode");
                             res.status(200).json(contacts);
                         });
                 }
                 return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
                     .then(function (contacts) {
+                        logger.info("Get contacts for user " + req.user.id + " in types mode");
                         res.status(200).json(contacts);
                     });
             }).catch(function (err) {
@@ -92,15 +94,19 @@ module.exports = function (router) {
                     if (!request.description) {
                         request.description = '';
                     }
+                    logger.info("User " + req.user.id + " has added " + request.contactIds + " as " + request.description + " to the contact list");
                     return contact.addContact(req.user.id, request.contactIds, request.description);
                 }
                 if (request.mode === 'blockContact') {
+                    logger.info("User " + req.user.id + " has blocked " + request.contactIds + " users");
                     return contact.blockContact(req.user.id, request.contactIds);
                 }
                 if (request.mode === 'unblockContact') {
+                    logger.info("User " + req.user.id + " has unblocked " + request.contactIds + " users");
                     return contact.unblockContact(req.user.id, request.contactIds);
                 }
                 if (request.mode === 'changeState') {
+                    logger.info("User " + req.user.id + " has changed state of " + request.contactIds + " to " + request.description);
                     return contact.changeContactState(req.user.id, request.contactIds, request.description);
                 }
                 logger.error('Unknown mode: ' + request.mode);
