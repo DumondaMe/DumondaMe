@@ -14,7 +14,7 @@ module.exports = function (app) {
     var env = process.env.NODE_ENV || 'development';
     app.on('middleware:before:json', function () {
         if ('testing' !== env) {
-            app.use(function redirectHTTP(req, res, next) {
+            app.use(function (req, res, next) {
 
                 if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].toLowerCase() === 'http') {
                     return res.redirect('https://' + req.headers.host + req.url);

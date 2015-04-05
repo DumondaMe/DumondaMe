@@ -18,12 +18,12 @@ function compare(a, b) {
 var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
 
     function addNumberOfUnreadMessages(thread) {
-        var unreadMessages = underscore.findWhere(unreadMessagesPerType, {
+        var unreadMessagesOfThread = underscore.findWhere(unreadMessagesPerType, {
             threadId: thread.threadId,
             isGroupThread: thread.isGroupThread
         });
-        if (unreadMessages) {
-            thread.numberOfUnreadMessages = unreadMessages.unreadMessage;
+        if (unreadMessagesOfThread) {
+            thread.numberOfUnreadMessages = unreadMessagesOfThread.unreadMessage;
         }
     }
 
@@ -50,7 +50,8 @@ var getThreads = function (cypher) {
         .match("(contact)-[privacyR:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("user, contact, active, thread, message, rContact, privacyR, privacy")
-        .where("(rContact IS NULL AND type(privacyR) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
+        .where("(rContact IS NULL AND type(privacyR) = 'HAS_PRIVACY_NO_CONTACT') OR " +
+        "(rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
         .return("message.text AS previewText, contact.name AS description, message.messageAdded AS lastUpdate, " +
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, privacy.profile AS profileVisible, " +
         "privacy.image AS imageVisible, contact.userId AS id, false AS isGroupThread");
@@ -60,7 +61,8 @@ var getGroupThreads = function (cypher) {
     return cypher.match("(:User {userId: {userId}})-[active:ACTIVE]->(thread:GroupThread)")
         .optionalMatch("(thread)-[:NEXT_MESSAGE]->(message:Message)")
         .return("message.text AS previewText, thread.description AS description, message.messageAdded AS lastUpdate, " +
-        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, null AS imageVisible, null AS id, true AS isGroupThread");
+        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, " +
+        "null AS imageVisible, null AS id, true AS isGroupThread");
 };
 
 var getNumberOfThreads = function (userId) {

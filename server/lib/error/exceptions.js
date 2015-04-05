@@ -1,6 +1,5 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
 var Promise = require('bluebird').Promise;
 
 function invalidJsonRequest(message) {

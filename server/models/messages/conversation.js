@@ -36,7 +36,8 @@ var getThreadInfos = function (params, isGroupThread) {
 
 var getNumberOfMessages = function (params, isGroupThread) {
     return db.cypher()
-        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) +
+        " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
         .return("COUNT(message) AS numberOfMessages")
         .end(params);
 };
@@ -103,8 +104,8 @@ var addMessage = function (userId, threadId, text, isGroupThread, session) {
         .then(function () {
             var now = time.getNowUtcTimestamp();
             return db.cypher()
-                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + "{threadId: {threadId}})" +
-                "-[:NEXT_MESSAGE]->(messagePrevious:Message)")
+                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) +
+                "{threadId: {threadId}})-[:NEXT_MESSAGE]->(messagePrevious:Message)")
                 .create("(thread)-[:NEXT_MESSAGE]->(newMessage:Message {messageAdded: {now}, text: {text}})-[:NEXT_MESSAGE]->(messagePrevious)," +
                 "(newMessage)-[:WRITTEN]->(user)")
                 .with("thread, messagePrevious, user, newMessage, active")

@@ -27,7 +27,7 @@ var numberOfSameContacts = function (userId, contactId) {
         .end({contactId: contactId, userId: userId});
 };
 
-var getContacts = function (userId, contactId, contactsPerPage, skipContacts, contactDetails, statistic, privacySettings) {
+var getContacts = function (userId, contactId, contactsPerPage, skipContacts, contactDetails, statistic, privacySettingsOfUser) {
     var commands = [];
 
     commands.push(numberOfContacts(contactId).getCommand());
@@ -63,7 +63,7 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
                 numberOfContacts: resp[0][0].numberOfContacts,
                 numberOfSameContacts: resp[1][0].numberOfSameContacts,
                 statistic: statistic,
-                privacySettings: privacySettings,
+                privacySettings: privacySettingsOfUser,
                 contacts: resp[2]
             };
         });
