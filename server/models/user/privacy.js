@@ -4,7 +4,7 @@ var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
 var exceptions = require('./../../lib/error/exceptions');
 
-var privacySettingCheck = function (id, privacySettingType, failCondition) {
+var privacySettingCheck = function (id, privacySettingType, req, failCondition) {
     return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->(:Privacy)")
         .return('r.type AS type')
         .end({
@@ -15,20 +15,20 @@ var privacySettingCheck = function (id, privacySettingType, failCondition) {
             if (failCondition(result.length)) {
                 var invalidJsonException = new exceptions.invalidOperation('For user ' + id + 'is privacy setting '
                 + privacySettingType + ' operation failed');
-                logger.warn(invalidJsonException.message, {});
+                logger.warn(invalidJsonException.message, req, {});
                 return Promise.reject(invalidJsonException);
             }
         });
 };
 
-var privacySettingsIsExisting = function (id, privacySettingType) {
-    return privacySettingCheck(id, privacySettingType, function (check) {
+var privacySettingsIsExisting = function (id, privacySettingType, req) {
+    return privacySettingCheck(id, privacySettingType, req, function (check) {
         return check === 0;
     });
 };
 
-var privacySettingsIsNotExisting = function (id, privacySettingType) {
-    return privacySettingCheck(id, privacySettingType, function (check) {
+var privacySettingsIsNotExisting = function (id, privacySettingType, req) {
+    return privacySettingCheck(id, privacySettingType, req, function (check) {
         return check > 0;
     });
 };
@@ -54,8 +54,8 @@ module.exports = {
                 return {normal: result[0], noContact: result[1][0]};
             });
     },
-    changePrivacySettings: function (id, privacySettingType, privacySettings) {
-        return privacySettingsIsExisting(id, privacySettingType)
+    changePrivacySettings: function (id, privacySettingType, privacySettings, req) {
+        return privacySettingsIsExisting(id, privacySettingType, req)
             .then(function () {
                 return db.cypher().match("(:User {userId: {userId}})-[:HAS_PRIVACY {type: {type}}]->(privacy:Privacy)")
                     .set('privacy', {
@@ -91,9 +91,9 @@ module.exports = {
                 contacts: privacySettings.contactsVisible
             }).send();
     },
-    renamePrivacySetting: function (id, privacySettingType, newPrivacySettingType) {
+    renamePrivacySetting: function (id, privacySettingType, newPrivacySettingType, req) {
 
-        return privacySettingsIsNotExisting(id, newPrivacySettingType)
+        return privacySettingsIsNotExisting(id, newPrivacySettingType, req)
             .then(function () {
                 var commands = [];
                 commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:IS_CONTACT {type: {typeOld}}]->(:User)")

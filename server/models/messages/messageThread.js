@@ -115,7 +115,7 @@ var messageThreadExists = function (userId, contactId) {
         });
 };
 
-var createSingleThread = function (userId, contactId, text, session) {
+var createSingleThread = function (userId, contactId, text, session, req) {
     return messageThreadExists(userId, contactId)
         .then(function (threadId) {
             if (threadId) {
@@ -124,7 +124,7 @@ var createSingleThread = function (userId, contactId, text, session) {
                         return {threadId: threadId};
                     });
             }
-            return security.checkAllowedToCreateThread(userId, contactId)
+            return security.checkAllowedToCreateThread(userId, contactId, req)
                 .then(function () {
                     var now = time.getNowUtcTimestamp();
                     return db.cypher()

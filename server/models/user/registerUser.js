@@ -11,21 +11,21 @@ var logger = requireLogger.getLogger(__filename);
 
 var ERROR_CODE_EMAIL_EXISTS = 1;
 
-var checkEmailExists = function (email) {
+var checkEmailExists = function (email, req) {
     return db.cypher().match("(user:User {email: {email}})")
         .return("user.userId")
         .end({email: email})
         .send().then(function (resp) {
             if (resp.length > 0) {
-                return exceptions.getInvalidOperation('User with email address ' + email + ' already exists', logger, ERROR_CODE_EMAIL_EXISTS);
+                return exceptions.getInvalidOperation('User with email address ' + email + ' already exists', logger, req, ERROR_CODE_EMAIL_EXISTS);
             }
         });
 };
 
-var registerUser = function (params) {
+var registerUser = function (params, req) {
 
     var userId;
-    return checkEmailExists(params.email).then(function () {
+    return checkEmailExists(params.email, req).then(function () {
         userId = uuid.generateUUID();
         return passwordEncryption.generatePasswordHash(params.password);
     }).then(function (hash) {

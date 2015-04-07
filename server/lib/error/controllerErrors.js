@@ -13,7 +13,7 @@ var getErrorHandling = function (description, req, res, logger, controllerCode) 
             res.status(400).end();
         }
     }).catch(function (err) {
-        logger.error(description, {error: err}, req);
+        logger.error(description, req, {error: err});
         res.status(500).end();
     });
 };

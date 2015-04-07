@@ -15,9 +15,9 @@ function invalidOperation(message, errorCode) {
 }
 invalidOperation.prototype = Object.create(Error.prototype);
 
-function getInvalidOperation(message, logger, errorCode) {
+function getInvalidOperation(message, logger, req, errorCode) {
     var invalidOperationException = new invalidOperation(message, errorCode);
-    logger.warn(invalidOperationException.message, {error: ''});
+    logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
 }
 

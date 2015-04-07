@@ -10,7 +10,7 @@ module.exports = function (router) {
 
     router.post('/', function (req, res) {
         var env = process.env.NODE_ENV || 'development';
-        logger.info('logout of user', {}, req);
+        logger.info('logout of user', req, {});
         req.logout();
         user.removeFromCache(req.email);
         if ('testing' !== env) {

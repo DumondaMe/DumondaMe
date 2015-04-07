@@ -5,7 +5,7 @@ var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
-var checkActualPassword = function (userId, actualPassword) {
+var checkActualPassword = function (userId, actualPassword, req) {
 
     return db.cypher().match('(u:User {userId: {userId}})')
         .return('u.password AS password')
@@ -16,13 +16,13 @@ var checkActualPassword = function (userId, actualPassword) {
         })
         .then(function (samePassword) {
             if (!samePassword) {
-                return exceptions.getInvalidOperation('Wrong actual password for changing password', logger);
+                return exceptions.getInvalidOperation('Wrong actual password for changing password', logger, req);
             }
         });
 };
 
-var changePassword = function (userId, newPassword, actualPassword) {
-    return checkActualPassword(userId, actualPassword)
+var changePassword = function (userId, newPassword, actualPassword, req) {
+    return checkActualPassword(userId, actualPassword, req)
         .then(function () {
             return passwordEncryption.generatePasswordHash(newPassword);
         })

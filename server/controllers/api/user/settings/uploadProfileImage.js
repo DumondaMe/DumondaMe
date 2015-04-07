@@ -13,11 +13,11 @@ module.exports = function (router) {
 
         return saveProfileImage.generateProfileImage(req.files.file.path, req.user.id)
             .then(function () {
-                logger.info("User " + req.user.id + " uploaded new profile image");
+                logger.info("User uploaded new profile image", req);
                 res.status(200).end();
             })
             .catch(function (err) {
-                logger.error('Update of profile Image failed', {error: err.errors}, req);
+                logger.error('Update of profile Image failed', req, {error: err.errors});
                 res.status(500).end();
             });
     });

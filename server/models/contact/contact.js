@@ -28,17 +28,17 @@ var getTotalNumberOfContactsPerType = function (userId, types) {
         });
 };
 
-var returnStatistics = function (result, errorDescription) {
+var returnStatistics = function (result, errorDescription, req) {
     if (result.length === 3) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
     var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription +
     ' result not as expected [' + result.length + ']');
-    logger.warn(invalidOperationException.message, {error: ''});
+    logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
 };
 
-var addContact = function (userId, contactIds, type) {
+var addContact = function (userId, contactIds, type, req) {
 
     var commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
@@ -60,11 +60,11 @@ var addContact = function (userId, contactIds, type) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'adding');
+            return returnStatistics(result, 'adding', req);
         });
 };
 
-var deleteContact = function (userId, contactIds) {
+var deleteContact = function (userId, contactIds, req) {
 
     var commands = [];
 
@@ -82,11 +82,11 @@ var deleteContact = function (userId, contactIds) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'delete');
+            return returnStatistics(result, 'delete', req);
         });
 };
 
-var blockContact = function (userId, blockedUserIds) {
+var blockContact = function (userId, blockedUserIds, req) {
 
     var commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
@@ -106,11 +106,11 @@ var blockContact = function (userId, blockedUserIds) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'delete');
+            return returnStatistics(result, 'block', req);
         });
 };
 
-var unblockContact = function (userId, blockedUserIds) {
+var unblockContact = function (userId, blockedUserIds, req) {
 
     var commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
@@ -127,11 +127,11 @@ var unblockContact = function (userId, blockedUserIds) {
     return getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
-            return returnStatistics(result, 'delete');
+            return returnStatistics(result, 'unblock', req);
         });
 };
 
-var changeContactState = function (userId, contactIds, type) {
+var changeContactState = function (userId, contactIds, type, req) {
 
     var commands = [];
 
@@ -152,7 +152,7 @@ var changeContactState = function (userId, contactIds, type) {
                 return {statistic: rel[1]};
             }
             var invalidOperationException = new exceptions.invalidOperation('Not all contact connections are updated');
-            logger.warn(invalidOperationException.message, {error: ''});
+            logger.warn(invalidOperationException.message, req, {error: ''});
             return Promise.reject(invalidOperationException);
         });
 };

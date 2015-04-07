@@ -6,7 +6,7 @@ var time = require('./../../../lib/time');
 var threadCondition = require('./threadCondition');
 var logger = requireLogger.getLogger(__filename);
 
-var checkAllowedToAddMessage = function (userId, threadId, isGroupThread) {
+var checkAllowedToAddMessage = function (userId, threadId, isGroupThread, req) {
 
     function checkNumberOfAllowedMessagesPerHour(resp) {
         return resp[0][0].count > 1000;
@@ -55,18 +55,18 @@ var checkAllowedToAddMessage = function (userId, threadId, isGroupThread) {
         .end(params).send(commands)
         .then(function (resp) {
             if (checkNumberOfAllowedMessagesPerHour(resp)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' has send more than 1000 messages per hour', logger);
+                return exceptions.getInvalidOperation('User has send more than 1000 messages per hour', logger, req);
             }
             if (checkUserHasAccessToThread(resp, isGroupThread)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger);
+                return exceptions.getInvalidOperation('User tried to access not participating thread ' + threadId, logger, req);
             }
             if (checkUserIsBlocked(resp, isGroupThread)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' is blocked for thread ' + threadId, logger);
+                return exceptions.getInvalidOperation('User is blocked for thread ' + threadId, logger, req);
             }
         });
 };
 
-var checkAllowedToCreateThread = function (userId, contactId) {
+var checkAllowedToCreateThread = function (userId, contactId, req) {
 
     function checkUserIsBlocked(resp) {
         return resp.length > 0;
@@ -80,7 +80,7 @@ var checkAllowedToCreateThread = function (userId, contactId) {
         .end({userId: userId, contactId: contactId}).send()
         .then(function (resp) {
             if (checkUserIsBlocked(resp)) {
-                return exceptions.getInvalidOperation('User ' + userId + ' is blocked to create Message Chat with ' + contactId, logger);
+                return exceptions.getInvalidOperation('User is blocked to create Message Chat with ' + contactId, logger, req);
             }
         });
 };

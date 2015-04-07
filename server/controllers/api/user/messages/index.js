@@ -25,7 +25,7 @@ module.exports = function (router) {
         return controllerErrors('Getting user message threads failed', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
                 .then(function (request) {
-                    logger.info("User " + req.user.id + " requests thread overview");
+                    logger.info("User requests thread overview", req);
                     return messageThread.getMessageThreads(req.user.id, request.itemsPerPage, request.skip);
                 }).then(function (threads) {
                     res.status(200).json(threads);

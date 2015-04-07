@@ -27,12 +27,12 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaRequestGetContactDetails, logger)
                 .then(function (request) {
                     if (request.mode === 'detailOfUser') {
-                        logger.info("User " + req.user.id + " requests detail contact information of user " + request.userId);
+                        logger.info("User  requests detail contact information of user " + request.userId, req);
                         return contactDetails.getContactDetails(req.user.id,
-                            request.userId, request.contactsPerPage, request.skipContacts);
+                            request.userId, request.contactsPerPage, request.skipContacts, req);
                     }
                     if (request.mode === 'onlyContacts') {
-                        logger.info("User " + req.user.id + " requests only contact information of user " + request.userId);
+                        logger.info("User requests only contact information of user " + request.userId, req);
                         return contactDetails.getContacts(req.user.id,
                             request.userId, request.contactsPerPage, request.skipContacts);
                     }

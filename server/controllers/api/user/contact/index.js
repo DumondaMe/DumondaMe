@@ -71,17 +71,17 @@ module.exports = function (router) {
                 if (!req.query.types) {
                     return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
                         .then(function (contacts) {
-                            logger.info("Get contacts for user " + req.user.id + " in normal mode");
+                            logger.info("Get contacts for user in normal mode", req);
                             res.status(200).json(contacts);
                         });
                 }
                 return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
                     .then(function (contacts) {
-                        logger.info("Get contacts for user " + req.user.id + " in types mode");
+                        logger.info("Get contacts for user in types mode", req);
                         res.status(200).json(contacts);
                     });
             }).catch(function (err) {
-                logger.error('Error when searching for a user', {error: err}, req);
+                logger.error('Error when searching for a user', req, {error: err});
                 res.status(500).end();
             });
     });
@@ -94,20 +94,20 @@ module.exports = function (router) {
                     if (!request.description) {
                         request.description = '';
                     }
-                    logger.info("User " + req.user.id + " has added " + request.contactIds + " as " + request.description + " to the contact list");
-                    return contact.addContact(req.user.id, request.contactIds, request.description);
+                    logger.info("User has added " + request.contactIds + " as " + request.description + " to the contact list", req);
+                    return contact.addContact(req.user.id, request.contactIds, request.description, req);
                 }
                 if (request.mode === 'blockContact') {
-                    logger.info("User " + req.user.id + " has blocked " + request.contactIds + " users");
-                    return contact.blockContact(req.user.id, request.contactIds);
+                    logger.info("User has blocked " + request.contactIds + " users", req);
+                    return contact.blockContact(req.user.id, request.contactIds, req);
                 }
                 if (request.mode === 'unblockContact') {
-                    logger.info("User " + req.user.id + " has unblocked " + request.contactIds + " users");
-                    return contact.unblockContact(req.user.id, request.contactIds);
+                    logger.info("User has unblocked " + request.contactIds + " users", req);
+                    return contact.unblockContact(req.user.id, request.contactIds, req);
                 }
                 if (request.mode === 'changeState') {
-                    logger.info("User " + req.user.id + " has changed state of " + request.contactIds + " to " + request.description);
-                    return contact.changeContactState(req.user.id, request.contactIds, request.description);
+                    logger.info("User has changed state of " + request.contactIds + " to " + request.description, req);
+                    return contact.changeContactState(req.user.id, request.contactIds, request.description, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();
@@ -124,7 +124,7 @@ module.exports = function (router) {
     router.delete('/', auth.isAuthenticated(), function (req, res) {
         return controllerErrors('Error occurs while deleting contact relationship', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeleteContact, logger).then(function (request) {
-                return contact.deleteContact(req.user.id, request.contactIds);
+                return contact.deleteContact(req.user.id, request.contactIds, req);
             }).then(function (statistic) {
                 res.status(200).json(statistic);
             });

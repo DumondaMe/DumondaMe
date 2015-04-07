@@ -36,7 +36,7 @@ module.exports = {
                 }
             });
     },
-    getUserProfile: function (id) {
+    getUserProfile: function (id, req) {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
@@ -44,7 +44,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, '/profile.jpg');
+                return getUser(resp, id, '/profile.jpg', req);
             });
     },
     updateUserProfile: function (userId, userData) {
@@ -77,13 +77,13 @@ module.exports = {
             })
             .send();
     },
-    getUserName: function (id) {
+    getUserName: function (id, req) {
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.name AS name')
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, '/thumbnail.jpg');
+                return getUser(resp, id, '/thumbnail.jpg', req);
             });
     }
 };

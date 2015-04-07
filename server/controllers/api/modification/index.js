@@ -24,14 +24,13 @@ module.exports = function (router) {
             return modification.hasModification(req.user.id, req.session);
         }).then(function (hasChanged) {
             if (hasChanged.hasChanged || req.query.forceShowModification) {
-                logger.info('Profile of user ' + req.user.id + ' has changed');
+                logger.info('Profile of user has changed', req);
                 res.status(200).json(hasChanged);
             } else {
-                logger.debug('Profile of user ' + req.user.id + ' has not changed');
                 res.status(200).end();
             }
         }).catch(function (err) {
-            logger.error('Getting modification failed', {error: err.errors}, req);
+            logger.error('Getting modification failed', req, {error: err.errors});
             res.status(500).end();
         });
     });

@@ -26,14 +26,20 @@ var logger = new winston.Logger({
 });
 
 var log = function (module, level, message, metadata, request) {
-    if (metadata) {
-        if (request && request.user && request.user.id) {
-            metadata.userId = request.user.id;
-        }
-        logger.log(level, '[' + module + '] ' + message, metadata);
-    } else {
-        logger.log(level, '[' + module + '] ' + message);
+
+    if (!metadata) {
+        metadata = {};
     }
+
+    if (request && request.headers && request.headers['user-agent']) {
+        metadata.browser = request.headers['user-agent'];
+    }
+
+    if (request && request.user && request.user.id) {
+        metadata.userId = request.user.id;
+    }
+    logger.log(level, '[' + module + '] ' + message, metadata);
+
 };
 
 if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development')) {
@@ -57,19 +63,19 @@ module.exports = {
     getLogger: function (module) {
         module = module.replace(process.env.BASE_DIR, '');
         return {
-            fatal: function (message, metadata, request) {
+            fatal: function (message, request, metadata) {
                 log(module, 'fatal', message, metadata, request);
             },
-            error: function (message, metadata, request) {
+            error: function (message, request, metadata) {
                 log(module, 'error', message, metadata, request);
             },
-            info: function (message, metadata, request) {
+            info: function (message, request, metadata) {
                 log(module, 'info', message, metadata, request);
             },
-            warn: function (message, metadata, request) {
+            warn: function (message, request, metadata) {
                 log(module, 'warn', message, metadata, request);
             },
-            debug: function (message, metadata, request) {
+            debug: function (message, request, metadata) {
                 log(module, 'debug', message, metadata, request);
             }
         };

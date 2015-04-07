@@ -26,7 +26,7 @@ module.exports = function (router) {
         return controllerErrors('Searching messages failed', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
                 .then(function (request) {
-                    logger.info("User " + req.user.id + " searches threads with " + request.search);
+                    logger.info("User searches threads with " + request.search, req);
                     return search.searchThreads(req.user.id, request.search, request.maxItems, request.isSuggestion);
                 }).then(function (threads) {
                     res.status(200).json(threads);

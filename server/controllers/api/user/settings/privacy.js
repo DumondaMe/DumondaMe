@@ -80,10 +80,10 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
         return privacy.getPrivacySettings(req.user.id).then(function (userPrivacy) {
-            logger.info("User " + req.user.id + " requests privacy settings");
+            logger.info("User requests privacy settings", req);
             res.status(200).json(userPrivacy);
         }).catch(function (err) {
-            logger.error('Getting user privacy settings failed', {error: err.errors}, req);
+            logger.error('Getting user privacy settings failed', req, {error: err.errors});
             res.status(500).end();
         });
     });
@@ -93,23 +93,22 @@ module.exports = function (router) {
         return controllerErrors('Setting user privacy settings failed', req, res, logger, function () {
             return validation.validateRequest(req, schemaPostNewPrivacy, logger).then(function (request) {
                 if (request.changePrivacySetting) {
-                    logger.info("User " + req.user.id + " changes privacy setting " + request.changePrivacySetting.privacyDescription);
+                    logger.info("User changes privacy setting " + request.changePrivacySetting.privacyDescription, req);
                     return privacy.changePrivacySettings(req.user.id, request.changePrivacySetting.privacyDescription,
-                        request.changePrivacySetting.privacySettings);
+                        request.changePrivacySetting.privacySettings, req);
                 }
                 if (request.changePrivacyNoContactSetting) {
-                    logger.info("User " + req.user.id + " changes privacy no contact setting " +
-                    request.changePrivacyNoContactSetting.privacyDescription);
+                    logger.info("User changes privacy no contact setting " + request.changePrivacyNoContactSetting.privacyDescription, req);
                     return privacy.changePrivacySettingsNoContact(req.user.id, request.changePrivacyNoContactSetting.privacySettings);
                 }
                 if (request.renamePrivacy) {
-                    logger.info("User " + req.user.id + " renames privacy setting " +
-                    request.renamePrivacy.privacyDescription + " to " + request.renamePrivacy.newPrivacyDescription);
+                    logger.info("User renames privacy setting " +
+                    request.renamePrivacy.privacyDescription + " to " + request.renamePrivacy.newPrivacyDescription, req);
                     return privacy.renamePrivacySetting(req.user.id, request.renamePrivacy.privacyDescription,
-                        request.renamePrivacy.newPrivacyDescription);
+                        request.renamePrivacy.newPrivacyDescription, req);
                 }
                 if (request.addNewPrivacy) {
-                    logger.info("User " + req.user.id + " add new privacy setting " + request.addNewPrivacy.privacyDescription);
+                    logger.info("User add new privacy setting " + request.addNewPrivacy.privacyDescription, req);
                     return privacy.addNewPrivacySetting(req.user.id, request.addNewPrivacy.privacyDescription,
                         request.addNewPrivacy.privacySettings);
                 }
@@ -123,8 +122,8 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs while deleting privacy settings', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeletePrivacySetting, logger).then(function (request) {
-                logger.info("User " + req.user.id + " deletes privacy setting " + request.privacyDescription +
-                " and moves contacts to privacy setting " + request.newPrivacyDescription);
+                logger.info("User deletes privacy setting " + request.privacyDescription +
+                " and moves contacts to privacy setting " + request.newPrivacyDescription, req);
                 return privacy.deletePrivacySetting(req.user.id, request.privacyDescription, request.newPrivacyDescription);
             }).then(function () {
                 res.status(200).end();

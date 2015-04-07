@@ -4,7 +4,6 @@ var db = require('./../../neo4j');
 var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var unread = require('../messages/util/unreadMessages');
-var logger = requireLogger.getLogger(__filename);
 
 var getNumberOfUnreadMessages = function (unreadMessages) {
     var total = 0;

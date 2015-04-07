@@ -9,11 +9,11 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return user.getUserName(req.user.id).then(function (userInfo) {
-            logger.info("User " + req.user.id + " requested user name");
+        return user.getUserName(req.user.id, req).then(function (userInfo) {
+            logger.info("User requested user name", req);
             res.status(200).json(userInfo);
         }).catch(function (err) {
-            logger.error('Getting user info failed', {error: err.errors}, req);
+            logger.error('Getting user info failed', req, {error: err.errors});
             res.status(500).end();
         });
     });

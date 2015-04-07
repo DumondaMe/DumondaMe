@@ -64,7 +64,7 @@ var getMessagesOfThreads = function (params, setTime, isGroupThread) {
         .end(params);
 };
 
-var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, session) {
+var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, session, req) {
 
     var commands = [], now = time.getNowUtcTimestamp();
 
@@ -94,13 +94,13 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
                     numberOfMessages: resp[1][0].numberOfMessages
                 };
             }
-            return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger);
+            return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger, req);
         });
 };
 
-var addMessage = function (userId, threadId, text, isGroupThread, session) {
+var addMessage = function (userId, threadId, text, isGroupThread, session, req) {
 
-    return security.checkAllowedToAddMessage(userId, threadId, isGroupThread)
+    return security.checkAllowedToAddMessage(userId, threadId, isGroupThread, req)
         .then(function () {
             var now = time.getNowUtcTimestamp();
             return db.cypher()

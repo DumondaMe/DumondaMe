@@ -37,7 +37,7 @@ var validate = function (req, data, requestSchema, logger) {
         return Promise.resolve(data);
     }
     invalidJsonException = new exceptions.InvalidJsonRequest('Wrong input data');
-    logger.warn(invalidJsonException.message, {error: errors}, req);
+    logger.warn(invalidJsonException.message, req, {error: errors}, req);
     return Promise.reject(invalidJsonException);
 };
 

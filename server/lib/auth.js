@@ -40,7 +40,7 @@ exports.localStrategy = function () {
             }
             done(null, dbUser);
         }).catch(function (err) {
-            logger.error('Database error when looking for user on database ' + username, {error: err});
+            logger.error('Database error when looking for user on database ' + username, {}, {error: err});
             return done(err);
         });
     });
