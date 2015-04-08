@@ -46,14 +46,18 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
                         $scope.profileForm.$setPristine();
                         $scope.successUserDataChange = true;
                         $scope.submitFailedToServer = false;
+                        $scope.$broadcast('ely.send.button.success');
                     }, function () {
+                        $scope.$broadcast('ely.send.button.error', 'Fehler auf dem Server. Die Werte konnten nicht gespeichert werden');
                         $scope.submitFailedToServer = true;
                         $scope.successUserDataChange = false;
                     });
                 } else {
                     $scope.submitFailed = true;
+                    $scope.$broadcast('ely.send.button.error', 'Bitte ein Land ausw\u00e4hlen');
                 }
             } else {
+                $scope.$broadcast('ely.send.button.error', 'Bitte f\u00fclle alle Felder korrekt aus');
                 $scope.submitFailed = true;
             }
         };
@@ -63,9 +67,15 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
             return moment.unix(unixTimestamp).format('l');
         };
 
+        $scope.$watch('selectedCountryCode', function (newCountryCode) {
+            if (newCountryCode) {
+                $scope.userDataToChange.country = CountryCodeConverter.getCountryCode(newCountryCode);
+            }
+        });
+
         $scope.$watch('userDataToChange.birthday', function (newBirthday) {
             if (newBirthday && $scope.profileForm && $scope.profileForm.inputBirthday) {
-                $scope.profileForm.inputBirthday.$setValidity('date', isDateValid(newBirthday));
+                $scope.profileForm.inputBirthday.$setValidity('custom', isDateValid(newBirthday));
             }
         });
     }];

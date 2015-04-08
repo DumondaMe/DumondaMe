@@ -9403,7 +9403,7 @@ function $HttpProvider() {
         promise = promise.then(thenFn, rejectFn);
       }
 
-      promise.success = function(fn) {
+      promise.showSuccess = function(fn) {
         promise.then(function(response) {
           fn(response.data, response.status, response.headers, config);
         });

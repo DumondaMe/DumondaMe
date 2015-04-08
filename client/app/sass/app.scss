@@ -2,12 +2,12 @@
 @import 'elyoos/_variables';
 @import 'mixins/_screen';
 @import 'mixins/_util';
-
 @import 'directives/_cropper';
+@import 'directives/_formTextInput';
 @import 'directives/_searchBox';
 @import 'directives/_paginationNextPrevious';
+@import 'directives/_sendButton';
 @import 'elyoos/_modal';
-
 @import 'elyoos/_contact';
 @import 'elyoos/_contactDetails';
 @import 'elyoos/_header';
@@ -18,7 +18,6 @@
 @import 'elyoos/_settingsPassword';
 @import 'elyoos/_settingsProfile';
 @import 'elyoos/_settingsPrivacy';
-
 
 html, body {
   height: 100%;
@@ -40,7 +39,6 @@ html, body {
     width: 100%;
     height: 100%;
   }
-
 
 }
 
@@ -119,10 +117,26 @@ html, body {
 }
 
 #no-javascript {
-  position:fixed;
+  position: fixed;
   top: 20px;
   left: 10px;
   font-size: 16px;
   font-weight: bold;
   color: #ff0000;
+}
+
+//tooltips
+.ely-tooltip-error {
+  .tooltip-inner {
+    background-color: $tooltip-error-background;
+    color: $tooltip-error;
+    font-weight: bold;
+    opacity: 1;
+  }
+}
+
+.tooltip.ely-tooltip-error {
+  .tooltip-arrow {
+    border-right-color: $tooltip-error-background;
+  }
 }

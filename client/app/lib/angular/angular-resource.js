@@ -524,28 +524,28 @@ angular.module('ngResource', ['ng']).
             switch (arguments.length) {
               case 4:
                 error = a4;
-                success = a3;
+                showSuccess = a3;
               //fallthrough
               case 3:
               case 2:
                 if (isFunction(a2)) {
                   if (isFunction(a1)) {
-                    success = a1;
+                    showSuccess = a1;
                     error = a2;
                     break;
                   }
 
-                  success = a2;
+                  showSuccess = a2;
                   error = a3;
                   //fallthrough
                 } else {
                   params = a1;
                   data = a2;
-                  success = a3;
+                  showSuccess = a3;
                   break;
                 }
               case 1:
-                if (isFunction(a1)) success = a1;
+                if (isFunction(a1)) showSuccess = a1;
                 else if (hasBody) data = a1;
                 else params = a1;
                 break;
@@ -624,7 +624,7 @@ angular.module('ngResource', ['ng']).
             promise = promise.then(
               function(response) {
                 var value = responseInterceptor(response);
-                (success || noop)(value, response.headers);
+                (showSuccess || noop)(value, response.headers);
                 return value;
               },
               responseErrorInterceptor);
@@ -646,9 +646,9 @@ angular.module('ngResource', ['ng']).
 
           Resource.prototype['$' + name] = function(params, success, error) {
             if (isFunction(params)) {
-              error = success; success = params; params = {};
+              error = showSuccess; showSuccess = params; params = {};
             }
-            var result = Resource[name].call(this, params, this, success, error);
+            var result = Resource[name].call(this, params, this, showSuccess, error);
             return result.$promise || result;
           };
         });

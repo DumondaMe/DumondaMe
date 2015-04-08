@@ -12,9 +12,6 @@
                         data-template="app/modules/util/file/uploadFile.html" bs-modal="modal">
                     Foto ändern..
                 </button>
-                <!--<button id="change-profile-password" type="button" class="btn btn-default">
-                    Passwort ändern..
-                </button>-->
             </div>
             <div id="manage-profile">
                 <form class="form-horizontal" name="profileForm" role="form" novalidate>
@@ -39,101 +36,26 @@
                             </a>
                         </div>
                     </div>
-                    <div class="form-group"
-                         ng-class="{'has-error': profileForm.inputForename.$invalid && (visitedForename || submitFailed)}">
-                        <label for="inputForenameId" class="col-sm-4 control-label">Vorname
-                        </label>
+                    <ely-form-text-input label="Vorname" input-name="inputForename" input-placeholder="Vorname"
+                                         profile-form="profileForm" submit-model="userDataToChange.forename"
+                                         max-length="30" required="true"></ely-form-text-input>
 
-                        <div class="col-sm-8">
-                            <input name="inputForename" ng-model="userDataToChange.forename"
-                                   class="form-control"
-                                   id="inputForenameId" ng-blur="visitedForename = true"
-                                   placeholder="Vorname" required ng-maxlength="30">
+                    <ely-form-text-input label="Nachname" input-name="inputSurename" input-placeholder="Nachname"
+                                         profile-form="profileForm" submit-model="userDataToChange.surname"
+                                         max-length="50" required="true"></ely-form-text-input>
 
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputForename.$error.required && (visitedForename || submitFailed)">
-                                <span>Es wird ein Vorname benötigt</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputForename.$error.maxlength && (visitedForename || submitFailed)">
-                                <span>Der Vorname darf nicht länger als 30 Zeichen sein</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group"
-                         ng-class="{'has-error': profileForm.inputSurename.$invalid && (visitedSurename || submitFailed)}">
-                        <label for="inputSurename" class="col-sm-4 control-label">Nachname</label>
+                    <ely-form-text-input label="Geburtstag" input-name="inputBirthday" input-placeholder="z.B {{getDateExample()}}"
+                                         profile-form="profileForm" submit-model="userDataToChange.birthday"
+                                         required="true"
+                                         custom-error-description="Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})">
 
-                        <div class="col-sm-8">
-                            <input name="inputSurename" ng-model="userDataToChange.surname"
-                                   class="form-control"
-                                   id="inputSurename" ng-blur="visitedSurename = true"
-                                   placeholder="Nachname" required ng-maxlength="50">
-
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)">
-                                <span>Es wird ein Nachname benötigt</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputSurename.$error.maxlength && (visitedSurename || submitFailed)">
-                                <span>Der Nachname darf nicht länger als 50 Zeichen sein</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group"
-                         ng-class="{'has-error': profileForm.inputBirthday.$invalid && (visitedBirthday || submitFailed)}">
-                        <label for="inputBirthday" class="col-sm-4 control-label">Geburtstag</label>
-
-                        <div class="col-sm-8">
-                            <input name="inputBirthday" ng-model="userDataToChange.birthday"
-                                   class="form-control"
-                                   id="inputBirthday" ng-blur="visitedBirthday = true"
-                                   placeholder="z.B {{getDateExample()}}" required/>
-
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)">
-                                <span>Bitte gib deinen Geburtstag an</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)">
-                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputStreet" class="col-sm-4 control-label">Strasse
-                            <em>(optional)</em>
-                        </label>
-
-                        <div class="col-sm-8">
-                            <input name="inputStreet" ng-model="userDataToChange.street"
-                                   class="form-control" id="inputStreet"
-                                   placeholder="Strasse" ng-blur="visitedStreet= true"
-                                   ng-maxlength="80">
-
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputStreet.$error.maxlength && (visitedStreet || submitFailed)">
-                                <span>Die Strasse darf nicht mehr als 80 Zeichen haben</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPlace" class="col-sm-4 control-label">Ort
-                            <em>(optional)</em>
-                        </label>
-
-                        <div class="col-sm-8">
-                            <input name="inputPlace" ng-model="userDataToChange.place"
-                                   class="form-control"
-                                   id="inputPlace"
-                                   placeholder="Ort" ng-blur="visitedPlace= true" ng-maxlength="80">
-
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.inputPlace.$error.maxlength && (visitedPlace || submitFailed)">
-                                <span>Der Ort darf nicht mehr als 80 Zeichen haben</span>
-                            </div>
-                        </div>
-                    </div>
+                    </ely-form-text-input>
+                    <ely-form-text-input label="Strasse" input-name="inputStreet" input-placeholder="Strasse"
+                                         profile-form="profileForm" submit-model="userDataToChange.street"
+                                         max-length="80"></ely-form-text-input>
+                    <ely-form-text-input label="Ort" input-name="inputPlace" input-placeholder="Ort"
+                                         profile-form="profileForm" submit-model="userDataToChange.place"
+                                         max-length="80"></ely-form-text-input>
                     <div class="form-group"
                          ng-class="{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}">
                         <label for="inputCountryId" class="col-sm-4 control-label">Land</label>
@@ -166,27 +88,8 @@
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-8">
                             <div>
-                                <button id="submit-change-profile" type="submit"
-                                        class="btn btn-default"
-                                        ng-click="submitProfileData()">
-                                    Profil ändern
-                                </button>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.$invalid && submitFailed">
-                                <span>Bitte fülle alle Werte korrekt aus</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="newPasswordNotEqual">
-                                <span>Die beiden Passwörter stimmen nicht überein</span>
-                            </div>
-                            <div class="alert-input alert-danger"
-                                 ng-show="profileForm.$invalid == false && submitFailedToServer">
-                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>
-                            </div>
-                            <div class="alert-input alert-success"
-                                 ng-show="successUserDataChange && profileForm.$pristine">
-                                <span>Profil erfolgreich geändert</span>
+                                <ely-send-button button-description="Profil ändern" send-data="submitProfileData"
+                                                 error-placement="right" model="userDataToChange" ></ely-send-button>
                             </div>
                         </div>
                     </div>

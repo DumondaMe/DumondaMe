@@ -785,6 +785,53 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/directives/formTextInput/template.html',
+    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
+    "\n" +
+    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\">{{label}}\r" +
+    "\n" +
+    "        <em ng-show=\"required !== 'true'\">(optional)</em>\r" +
+    "\n" +
+    "    </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "        <input name=\"{{inputName}}\" ng-model=\"submitModel\"\r" +
+    "\n" +
+    "               class=\"form-control\" id=\"{{inputName}}\"\r" +
+    "\n" +
+    "               placeholder=\"{{inputPlaceholder}}\" ng-blur=\"visited = true\"\r" +
+    "\n" +
+    "               ng-maxlength=\"{{maxLength}}\" ng-required=\"{{required === 'true'}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"ely-input-error-wrapper\">\r" +
+    "\n" +
+    "            <div class=\"ely-input-image-error\" ng-show=\"showError && (visited || submitFailed)\"\r" +
+    "\n" +
+    "                 data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "\n" +
+    "                 data-placement=\"left\"\r" +
+    "\n" +
+    "                 data-container=\"body\"\r" +
+    "\n" +
+    "                 bs-tooltip=\"errorDescription\">\r" +
+    "\n" +
+    "                <img src=\"app/img/error.png\"/>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/directives/imageCropper/template.html',
     "<div class=\"cropper-outer-container\">\r" +
     "\n" +
@@ -843,6 +890,39 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                    class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span></button>\r" +
     "\n" +
     "        </span>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/directives/sendButton/template.html',
+    "<div class=\"ely-submit-button\">\r" +
+    "\n" +
+    "    <button type=\"submit\"\r" +
+    "\n" +
+    "            class=\"btn btn-default\"\r" +
+    "\n" +
+    "            ng-click=\"sendAllData()\"\r" +
+    "\n" +
+    "            ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "\n" +
+    "        {{buttonDescription}}\r" +
+    "\n" +
+    "    </button>\r" +
+    "\n" +
+    "    <div class=\"ely-submit-button-error\" ng-show=\"showError\">\r" +
+    "\n" +
+    "        <img src=\"app/img/error.png\" ng-show=\"showError\" data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "\n" +
+    "             data-placement=\"{{errorPlacement}}\" bs-tooltip=\"errorDescription\"/>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"ely-submit-button-success\" ng-show=\"showSuccess\">\r" +
+    "\n" +
+    "        <img src=\"app/img/success.png\" ng-show=\"showSuccess\"/>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -1762,12 +1842,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
-    "                <!--<button id=\"change-profile-password\" type=\"button\" class=\"btn btn-default\">\r" +
-    "\n" +
-    "                    Passwort ändern..\r" +
-    "\n" +
-    "                </button>-->\r" +
-    "\n" +
     "            </div>\r" +
     "\n" +
     "            <div id=\"manage-profile\">\r" +
@@ -1816,195 +1890,45 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"form-group\"\r" +
+    "                    <ely-form-text-input label=\"Vorname\" input-name=\"inputForename\" input-placeholder=\"Vorname\"\r" +
     "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputForename.$invalid && (visitedForename || submitFailed)}\">\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.forename\"\r" +
     "\n" +
-    "                        <label for=\"inputForenameId\" class=\"col-sm-4 control-label\">Vorname\r" +
-    "\n" +
-    "                        </label>\r" +
+    "                                         max-length=\"30\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
+    "                    <ely-form-text-input label=\"Nachname\" input-name=\"inputSurename\" input-placeholder=\"Nachname\"\r" +
     "\n" +
-    "                            <input name=\"inputForename\" ng-model=\"userDataToChange.forename\"\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.surname\"\r" +
     "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputForenameId\" ng-blur=\"visitedForename = true\"\r" +
-    "\n" +
-    "                                   placeholder=\"Vorname\" required ng-maxlength=\"30\">\r" +
+    "                                         max-length=\"50\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
+    "                    <ely-form-text-input label=\"Geburtstag\" input-name=\"inputBirthday\" input-placeholder=\"z.B {{getDateExample()}}\"\r" +
     "\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.required && (visitedForename || submitFailed)\">\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.birthday\"\r" +
     "\n" +
-    "                                <span>Es wird ein Vorname benötigt</span>\r" +
+    "                                         required=\"true\"\r" +
     "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.maxlength && (visitedForename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Vorname darf nicht länger als 30 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\"\r" +
-    "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputSurename.$invalid && (visitedSurename || submitFailed)}\">\r" +
-    "\n" +
-    "                        <label for=\"inputSurename\" class=\"col-sm-4 control-label\">Nachname</label>\r" +
+    "                                         custom-error-description=\"Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
+    "                    </ely-form-text-input>\r" +
     "\n" +
-    "                            <input name=\"inputSurename\" ng-model=\"userDataToChange.surname\"\r" +
+    "                    <ely-form-text-input label=\"Strasse\" input-name=\"inputStreet\" input-placeholder=\"Strasse\"\r" +
     "\n" +
-    "                                   class=\"form-control\"\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.street\"\r" +
     "\n" +
-    "                                   id=\"inputSurename\" ng-blur=\"visitedSurename = true\"\r" +
+    "                                         max-length=\"80\"></ely-form-text-input>\r" +
     "\n" +
-    "                                   placeholder=\"Nachname\" required ng-maxlength=\"50\">\r" +
+    "                    <ely-form-text-input label=\"Ort\" input-name=\"inputPlace\" input-placeholder=\"Ort\"\r" +
     "\n" +
-    "\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.place\"\r" +
     "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Es wird ein Nachname benötigt</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.maxlength && (visitedSurename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Nachname darf nicht länger als 50 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\"\r" +
-    "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputBirthday.$invalid && (visitedBirthday || submitFailed)}\">\r" +
-    "\n" +
-    "                        <label for=\"inputBirthday\" class=\"col-sm-4 control-label\">Geburtstag</label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputBirthday\" ng-model=\"userDataToChange.birthday\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputBirthday\" ng-blur=\"visitedBirthday = true\"\r" +
-    "\n" +
-    "                                   placeholder=\"z.B {{getDateExample()}}\" required/>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Bitte gib deinen Geburtstag an</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputStreet\" class=\"col-sm-4 control-label\">Strasse\r" +
-    "\n" +
-    "                            <em>(optional)</em>\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputStreet\" ng-model=\"userDataToChange.street\"\r" +
-    "\n" +
-    "                                   class=\"form-control\" id=\"inputStreet\"\r" +
-    "\n" +
-    "                                   placeholder=\"Strasse\" ng-blur=\"visitedStreet= true\"\r" +
-    "\n" +
-    "                                   ng-maxlength=\"80\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputStreet.$error.maxlength && (visitedStreet || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Die Strasse darf nicht mehr als 80 Zeichen haben</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputPlace\" class=\"col-sm-4 control-label\">Ort\r" +
-    "\n" +
-    "                            <em>(optional)</em>\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputPlace\" ng-model=\"userDataToChange.place\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputPlace\"\r" +
-    "\n" +
-    "                                   placeholder=\"Ort\" ng-blur=\"visitedPlace= true\" ng-maxlength=\"80\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPlace.$error.maxlength && (visitedPlace || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Ort darf nicht mehr als 80 Zeichen haben</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                                         max-length=\"80\"></ely-form-text-input>\r" +
     "\n" +
     "                    <div class=\"form-group\"\r" +
     "\n" +
@@ -2070,47 +1994,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <div>\r" +
     "\n" +
-    "                                <button id=\"submit-change-profile\" type=\"submit\"\r" +
+    "                                <ely-send-button button-description=\"Profil ändern\" send-data=\"submitProfileData\"\r" +
     "\n" +
-    "                                        class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                        ng-click=\"submitProfileData()\">\r" +
-    "\n" +
-    "                                    Profil ändern\r" +
-    "\n" +
-    "                                </button>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
-    "\n" +
-    "                                <span>Bitte fülle alle Werte korrekt aus</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"newPasswordNotEqual\">\r" +
-    "\n" +
-    "                                <span>Die beiden Passwörter stimmen nicht überein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\r" +
-    "\n" +
-    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-success\"\r" +
-    "\n" +
-    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\r" +
-    "\n" +
-    "                                <span>Profil erfolgreich geändert</span>\r" +
+    "                                                 error-placement=\"right\" model=\"userDataToChange\" ></ely-send-button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -2190,6 +2076,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/util/tooltip/tooltipError.html',
+    "<div class=\"tooltip in ely-tooltip-error\" ng-show=\"title\">\r" +
+    "\n" +
+    "    <div class=\"tooltip-arrow\"></div>\r" +
+    "\n" +
+    "    <div class=\"tooltip-inner\" ng-bind=\"title\"></div>\r" +
     "\n" +
     "</div>"
   );

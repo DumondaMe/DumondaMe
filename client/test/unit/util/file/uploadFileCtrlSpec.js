@@ -75,7 +75,7 @@ describe('Tests of the upload file controller', function () {
             stubUploadFile = sinon.stub(fileUpload, 'uploadFileToUrl'),
             spyCall;
         stubUploadFile.returns({
-            success: function () {
+            showSuccess: function () {
                 return {
                     error: function () {
                     }

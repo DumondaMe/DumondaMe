@@ -251,6 +251,24 @@
 .cropper-disabled .cropper-point {
   cursor: not-allowed; }
 
+.ely-form-text-input .ely-input-error-wrapper {
+  position: relative; }
+  .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin-right: -45px;
+    margin-top: -34px; }
+    .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error img {
+      cursor: pointer;
+      width: 34px;
+      height: 34px;
+      padding: 2px;
+      -webkit-transition: all linear 0.5s;
+      transition: all linear 0.5s; }
+      .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error img .ng-hide {
+        opacity: 0; }
+
 .searchBoxForm {
   width: 100%;
   padding: 5px 10px; }
@@ -287,6 +305,22 @@
       background-color: #E0E0E0; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement.disabled:hover {
         background-color: #E0E0E0; }
+
+.ely-submit-button button {
+  display: inline-block; }
+.ely-submit-button .ely-submit-button-success, .ely-submit-button .ely-submit-button-error {
+  display: inline-block;
+  margin-left: 5px; }
+  .ely-submit-button .ely-submit-button-success img, .ely-submit-button .ely-submit-button-error img {
+    width: 34px;
+    height: 34px;
+    padding: 2px;
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s; }
+    .ely-submit-button .ely-submit-button-success img .ng-hide, .ely-submit-button .ely-submit-button-error img .ng-hide {
+      opacity: 0; }
+.ely-submit-button .ely-submit-button-error {
+  cursor: pointer; }
 
 .modal.center .modal-dialog {
   z-index: 101;
@@ -1215,5 +1249,14 @@ html, body {
   font-size: 16px;
   font-weight: bold;
   color: #ff0000; }
+
+.ely-tooltip-error .tooltip-inner {
+  background-color: #f2dede;
+  color: #a94442;
+  font-weight: bold;
+  opacity: 1; }
+
+.tooltip.ely-tooltip-error .tooltip-arrow {
+  border-right-color: #f2dede; }
 
 /*# sourceMappingURL=app.css.map */

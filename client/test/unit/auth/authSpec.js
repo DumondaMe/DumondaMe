@@ -48,7 +48,7 @@ describe('Test of Auth Services', function () {
         httpBackend.when('POST', '/api/login').respond(user);
 
         testee.login(user).then(function (success) {
-            resultSuccess = success;
+            resultSuccess = showSuccess;
         }, function (error) {
             resultError = error;
         });
@@ -64,7 +64,7 @@ describe('Test of Auth Services', function () {
         httpBackend.when('POST', '/api/login').respond(500, 'Ein Fehler');
 
         testee.login(user).then(function (success) {
-            resultSuccess = success;
+            resultSuccess = showSuccess;
         }, function (error) {
             resultError = error;
         });

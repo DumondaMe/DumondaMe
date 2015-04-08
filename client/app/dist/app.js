@@ -786,6 +786,53 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/directives/formTextInput/template.html',
+    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
+    "\n" +
+    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\">{{label}}\r" +
+    "\n" +
+    "        <em ng-show=\"required !== 'true'\">(optional)</em>\r" +
+    "\n" +
+    "    </label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "        <input name=\"{{inputName}}\" ng-model=\"submitModel\"\r" +
+    "\n" +
+    "               class=\"form-control\" id=\"{{inputName}}\"\r" +
+    "\n" +
+    "               placeholder=\"{{inputPlaceholder}}\" ng-blur=\"visited = true\"\r" +
+    "\n" +
+    "               ng-maxlength=\"{{maxLength}}\" ng-required=\"{{required === 'true'}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"ely-input-error-wrapper\">\r" +
+    "\n" +
+    "            <div class=\"ely-input-image-error\" ng-show=\"showError && (visited || submitFailed)\"\r" +
+    "\n" +
+    "                 data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "\n" +
+    "                 data-placement=\"left\"\r" +
+    "\n" +
+    "                 data-container=\"body\"\r" +
+    "\n" +
+    "                 bs-tooltip=\"errorDescription\">\r" +
+    "\n" +
+    "                <img src=\"app/img/error.png\"/>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/directives/imageCropper/template.html',
     "<div class=\"cropper-outer-container\">\r" +
     "\n" +
@@ -844,6 +891,39 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                    class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span></button>\r" +
     "\n" +
     "        </span>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/directives/sendButton/template.html',
+    "<div class=\"ely-submit-button\">\r" +
+    "\n" +
+    "    <button type=\"submit\"\r" +
+    "\n" +
+    "            class=\"btn btn-default\"\r" +
+    "\n" +
+    "            ng-click=\"sendAllData()\"\r" +
+    "\n" +
+    "            ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "\n" +
+    "        {{buttonDescription}}\r" +
+    "\n" +
+    "    </button>\r" +
+    "\n" +
+    "    <div class=\"ely-submit-button-error\" ng-show=\"showError\">\r" +
+    "\n" +
+    "        <img src=\"app/img/error.png\" ng-show=\"showError\" data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "\n" +
+    "             data-placement=\"{{errorPlacement}}\" bs-tooltip=\"errorDescription\"/>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"ely-submit-button-success\" ng-show=\"showSuccess\">\r" +
+    "\n" +
+    "        <img src=\"app/img/success.png\" ng-show=\"showSuccess\"/>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -1763,12 +1843,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
-    "                <!--<button id=\"change-profile-password\" type=\"button\" class=\"btn btn-default\">\r" +
-    "\n" +
-    "                    Passwort ändern..\r" +
-    "\n" +
-    "                </button>-->\r" +
-    "\n" +
     "            </div>\r" +
     "\n" +
     "            <div id=\"manage-profile\">\r" +
@@ -1817,195 +1891,45 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"form-group\"\r" +
+    "                    <ely-form-text-input label=\"Vorname\" input-name=\"inputForename\" input-placeholder=\"Vorname\"\r" +
     "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputForename.$invalid && (visitedForename || submitFailed)}\">\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.forename\"\r" +
     "\n" +
-    "                        <label for=\"inputForenameId\" class=\"col-sm-4 control-label\">Vorname\r" +
-    "\n" +
-    "                        </label>\r" +
+    "                                         max-length=\"30\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
+    "                    <ely-form-text-input label=\"Nachname\" input-name=\"inputSurename\" input-placeholder=\"Nachname\"\r" +
     "\n" +
-    "                            <input name=\"inputForename\" ng-model=\"userDataToChange.forename\"\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.surname\"\r" +
     "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputForenameId\" ng-blur=\"visitedForename = true\"\r" +
-    "\n" +
-    "                                   placeholder=\"Vorname\" required ng-maxlength=\"30\">\r" +
+    "                                         max-length=\"50\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
+    "                    <ely-form-text-input label=\"Geburtstag\" input-name=\"inputBirthday\" input-placeholder=\"z.B {{getDateExample()}}\"\r" +
     "\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.required && (visitedForename || submitFailed)\">\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.birthday\"\r" +
     "\n" +
-    "                                <span>Es wird ein Vorname benötigt</span>\r" +
+    "                                         required=\"true\"\r" +
     "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.maxlength && (visitedForename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Vorname darf nicht länger als 30 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\"\r" +
-    "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputSurename.$invalid && (visitedSurename || submitFailed)}\">\r" +
-    "\n" +
-    "                        <label for=\"inputSurename\" class=\"col-sm-4 control-label\">Nachname</label>\r" +
+    "                                         custom-error-description=\"Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
+    "                    </ely-form-text-input>\r" +
     "\n" +
-    "                            <input name=\"inputSurename\" ng-model=\"userDataToChange.surname\"\r" +
+    "                    <ely-form-text-input label=\"Strasse\" input-name=\"inputStreet\" input-placeholder=\"Strasse\"\r" +
     "\n" +
-    "                                   class=\"form-control\"\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.street\"\r" +
     "\n" +
-    "                                   id=\"inputSurename\" ng-blur=\"visitedSurename = true\"\r" +
+    "                                         max-length=\"80\"></ely-form-text-input>\r" +
     "\n" +
-    "                                   placeholder=\"Nachname\" required ng-maxlength=\"50\">\r" +
+    "                    <ely-form-text-input label=\"Ort\" input-name=\"inputPlace\" input-placeholder=\"Ort\"\r" +
     "\n" +
-    "\r" +
+    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.place\"\r" +
     "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Es wird ein Nachname benötigt</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.maxlength && (visitedSurename || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Nachname darf nicht länger als 50 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\"\r" +
-    "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputBirthday.$invalid && (visitedBirthday || submitFailed)}\">\r" +
-    "\n" +
-    "                        <label for=\"inputBirthday\" class=\"col-sm-4 control-label\">Geburtstag</label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputBirthday\" ng-model=\"userDataToChange.birthday\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputBirthday\" ng-blur=\"visitedBirthday = true\"\r" +
-    "\n" +
-    "                                   placeholder=\"z.B {{getDateExample()}}\" required/>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Bitte gib deinen Geburtstag an</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputStreet\" class=\"col-sm-4 control-label\">Strasse\r" +
-    "\n" +
-    "                            <em>(optional)</em>\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputStreet\" ng-model=\"userDataToChange.street\"\r" +
-    "\n" +
-    "                                   class=\"form-control\" id=\"inputStreet\"\r" +
-    "\n" +
-    "                                   placeholder=\"Strasse\" ng-blur=\"visitedStreet= true\"\r" +
-    "\n" +
-    "                                   ng-maxlength=\"80\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputStreet.$error.maxlength && (visitedStreet || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Die Strasse darf nicht mehr als 80 Zeichen haben</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputPlace\" class=\"col-sm-4 control-label\">Ort\r" +
-    "\n" +
-    "                            <em>(optional)</em>\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputPlace\" ng-model=\"userDataToChange.place\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputPlace\"\r" +
-    "\n" +
-    "                                   placeholder=\"Ort\" ng-blur=\"visitedPlace= true\" ng-maxlength=\"80\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPlace.$error.maxlength && (visitedPlace || submitFailed)\">\r" +
-    "\n" +
-    "                                <span>Der Ort darf nicht mehr als 80 Zeichen haben</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                                         max-length=\"80\"></ely-form-text-input>\r" +
     "\n" +
     "                    <div class=\"form-group\"\r" +
     "\n" +
@@ -2071,47 +1995,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <div>\r" +
     "\n" +
-    "                                <button id=\"submit-change-profile\" type=\"submit\"\r" +
+    "                                <ely-send-button button-description=\"Profil ändern\" send-data=\"submitProfileData\"\r" +
     "\n" +
-    "                                        class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                        ng-click=\"submitProfileData()\">\r" +
-    "\n" +
-    "                                    Profil ändern\r" +
-    "\n" +
-    "                                </button>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
-    "\n" +
-    "                                <span>Bitte fülle alle Werte korrekt aus</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"newPasswordNotEqual\">\r" +
-    "\n" +
-    "                                <span>Die beiden Passwörter stimmen nicht überein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\r" +
-    "\n" +
-    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-success\"\r" +
-    "\n" +
-    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\r" +
-    "\n" +
-    "                                <span>Profil erfolgreich geändert</span>\r" +
+    "                                                 error-placement=\"right\" model=\"userDataToChange\" ></ely-send-button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -2191,6 +2077,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/util/tooltip/tooltipError.html',
+    "<div class=\"tooltip in ely-tooltip-error\" ng-show=\"title\">\r" +
+    "\n" +
+    "    <div class=\"tooltip-arrow\"></div>\r" +
+    "\n" +
+    "    <div class=\"tooltip-inner\" ng-bind=\"title\"></div>\r" +
     "\n" +
     "</div>"
   );
@@ -3684,7 +3581,7 @@ n,h,p);return n},{instance:n,identifier:q});n=d.instantiate(g,h,p);q&&f(h,q,n,p|
 function(b){e=b.indexOf(":");c=z(N(b.substr(0,e)));d=N(b.substr(e+1));c&&(a[c]=a[c]?a[c]+", "+d:d)});return a}function Yc(b){var a=J(b)?b:t;return function(c){a||(a=Xc(b));return c?(c=a[z(c)],void 0===c&&(c=null),c):a}}function Zc(b,a,c,d){if(G(d))return d(b,a,c);r(d,function(d){b=d(b,a,c)});return b}function Ke(){var b=this.defaults={transformResponse:[Zb],transformRequest:[function(a){return J(a)&&"[object File]"!==Ca.call(a)&&"[object Blob]"!==Ca.call(a)&&"[object FormData]"!==Ca.call(a)?$a(a):
 a}],headers:{common:{Accept:"application/json, text/plain, */*"},post:sa($b),put:sa($b),patch:sa($b)},xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN"},a=!1;this.useApplyAsync=function(b){return y(b)?(a=!!b,this):a};var c=this.interceptors=[];this.$get=["$httpBackend","$browser","$cacheFactory","$rootScope","$q","$injector",function(d,e,f,g,h,l){function k(a){function c(a){var b=w({},a);b.data=a.data?Zc(a.data,a.headers,a.status,e.transformResponse):a.data;a=a.status;return 200<=a&&300>a?
 b:h.reject(b)}function d(a){var b,c={};r(a,function(a,d){G(a)?(b=a(),null!=b&&(c[d]=b)):c[d]=a});return c}if(!ca.isObject(a))throw R("$http")("badreq",a);var e=w({method:"get",transformRequest:b.transformRequest,transformResponse:b.transformResponse},a);e.headers=function(a){var c=b.headers,e=w({},a.headers),f,g,c=w({},c.common,c[z(a.method)]);a:for(f in c){a=z(f);for(g in e)if(z(g)===a)continue a;e[f]=c[f]}return d(e)}(a);e.method=ub(e.method);var f=[function(a){var d=a.headers,e=Zc(a.data,Yc(d),
-t,a.transformRequest);x(e)&&r(d,function(a,b){"content-type"===z(b)&&delete d[b]});x(a.withCredentials)&&!x(b.withCredentials)&&(a.withCredentials=b.withCredentials);return n(a,e).then(c,c)},t],g=h.when(e);for(r(u,function(a){(a.request||a.requestError)&&f.unshift(a.request,a.requestError);(a.response||a.responseError)&&f.push(a.response,a.responseError)});f.length;){a=f.shift();var k=f.shift(),g=g.then(a,k)}g.success=function(a){g.then(function(b){a(b.data,b.status,b.headers,e)});return g};g.error=
+t,a.transformRequest);x(e)&&r(d,function(a,b){"content-type"===z(b)&&delete d[b]});x(a.withCredentials)&&!x(b.withCredentials)&&(a.withCredentials=b.withCredentials);return n(a,e).then(c,c)},t],g=h.when(e);for(r(u,function(a){(a.request||a.requestError)&&f.unshift(a.request,a.requestError);(a.response||a.responseError)&&f.push(a.response,a.responseError)});f.length;){a=f.shift();var k=f.shift(),g=g.then(a,k)}g.showSuccess=function(a){g.then(function(b){a(b.data,b.status,b.headers,e)});return g};g.error=
 function(a){g.then(null,function(b){a(b.data,b.status,b.headers,e)});return g};return g}function n(c,f){function l(b,c,d,e){function f(){m(c,b,d,e)}I&&(200<=b&&300>b?I.put(P,[b,c,Xc(d),e]):I.remove(P));a?g.$applyAsync(f):(f(),g.$$phase||g.$apply())}function m(a,b,d,e){b=Math.max(b,0);(200<=b&&300>b?L.resolve:L.reject)({data:a,status:b,headers:Yc(d),config:c,statusText:e})}function n(a){m(a.data,a.status,sa(a.headers()),a.statusText)}function u(){var a=k.pendingRequests.indexOf(c);-1!==a&&k.pendingRequests.splice(a,
 1)}var L=h.defer(),B=L.promise,I,D,S=c.headers,P=p(c.url,c.params);k.pendingRequests.push(c);B.then(u,u);!c.cache&&!b.cache||!1===c.cache||"GET"!==c.method&&"JSONP"!==c.method||(I=J(c.cache)?c.cache:J(b.cache)?b.cache:q);I&&(D=I.get(P),y(D)?D&&G(D.then)?D.then(n,n):H(D)?m(D[1],D[0],sa(D[2]),D[3]):m(D,200,{},"OK"):I.put(P,B));x(D)&&((D=$c(c.url)?e.cookies()[c.xsrfCookieName||b.xsrfCookieName]:t)&&(S[c.xsrfHeaderName||b.xsrfHeaderName]=D),d(c.method,P,f,l,S,c.timeout,c.withCredentials,c.responseType));
 return B}function p(a,b){if(!b)return a;var c=[];Ed(b,function(a,b){null===a||x(a)||(H(a)||(a=[a]),r(a,function(a){J(a)&&(a=ga(a)?a.toISOString():$a(a));c.push(Ea(b)+"="+Ea(a))}))});0<c.length&&(a+=(-1==a.indexOf("?")?"?":"&")+c.join("&"));return a}var q=f("$http"),u=[];r(c,function(a){u.unshift(C(a)?l.get(a):l.invoke(a))});k.pendingRequests=[];(function(a){r(arguments,function(a){k[a]=function(b,c){return k(w(c||{},{method:a,url:b}))}})})("get","delete","head","jsonp");(function(a){r(arguments,function(a){k[a]=
@@ -3980,7 +3877,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":85,"./auth":15,"./contact":25,"./directives":35,"./filters":46,"./home":50,"./navigation":60,"./settings":65,"./util":83,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":91,"./auth":15,"./contact":25,"./directives":38,"./filters":52,"./home":56,"./navigation":66,"./settings":71,"./util":89,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -4001,7 +3898,7 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
     };
     this.login = function (user) {
         var deferred = $q.defer();
-        $http.post('/api/login', user).success(function (loggedinUser) {
+        $http.post('/api/login', user).showSuccess(function (loggedinUser) {
             changeUser(loggedinUser);
             deferred.resolve(loggedinUser);
         }).error(deferred.reject);
@@ -4009,7 +3906,7 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
     };
     this.logout = function () {
         var deferred = $q.defer();
-        $http.post('/api/logout').success(function () {
+        $http.post('/api/logout').showSuccess(function () {
             changeUser({
                 username: undefined
             });
@@ -4782,6 +4679,97 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
 },{}],32:[function(require,module,exports){
 'use strict';
 
+var setShowError = function ($scope) {
+    if ($scope.showErrorMaxLength || $scope.showErrorRequired || $scope.showErrorCustom) {
+        $scope.showError = true;
+    } else {
+        $scope.showError = false;
+    }
+};
+
+var setError = function ($scope, newValue, errorName, errorDescription) {
+    if (newValue) {
+        $scope[errorName] = true;
+        $scope.lastErrorDescription.unshift({title: errorDescription});
+        $scope.errorDescription = $scope.lastErrorDescription[0];
+    } else {
+        $scope.lastErrorDescription.shift();
+        if ($scope.lastErrorDescription.length > 0) {
+            $scope.errorDescription = $scope.lastErrorDescription[0];
+        }
+
+        $scope[errorName] = false;
+    }
+    setShowError($scope);
+};
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['$scope', function ($scope) {
+
+            $scope.lastErrorDescription = [];
+            $scope.showErrorCounter = 0;
+
+            $scope.$watch(function () {
+                return $scope.profileForm[$scope.inputName].$error.maxlength;
+            }, function (newValue) {
+                setError($scope, newValue, 'showErrorMaxLength', 'Darf maximal ' + $scope.maxLength + ' Zeichen haben');
+            });
+
+            $scope.$watch(function () {
+                return $scope.profileForm[$scope.inputName].$error.required;
+            }, function (newValue) {
+                setError($scope, newValue, 'showErrorRequired', $scope.label + ' wird ben\u00f6tigt');
+            });
+
+            $scope.$watch(function () {
+                return $scope.profileForm[$scope.inputName].$error.custom;
+            }, function (newValue) {
+                setError($scope, newValue, 'showErrorCustom', $scope.customErrorDescription);
+            });
+        }];
+    }
+};
+
+},{}],33:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                label: '@',
+                inputName: '@',
+                inputPlaceholder: '@',
+                profileForm: '=',
+                submitModel: '=',
+                maxLength: '@',
+                minLength: '@',
+                required: '@',
+                customErrorDescription: '@'
+            },
+            templateUrl: 'app/modules/directives/formTextInput/template.html',
+            controller: controller.directiveCtrl()
+        };
+    }],
+    name: 'elyFormTextInput'
+};
+
+},{"./controller.js":32}],34:[function(require,module,exports){
+'use strict';
+
+var app = require('angular').module('elyoosApp');
+var directive = require('./directive.js');
+
+app.directive(directive.name, directive.directive);
+
+},{"./directive.js":33,"angular":4}],35:[function(require,module,exports){
+'use strict';
+
 var link = require('./link');
 
 module.exports = {
@@ -4802,15 +4790,9 @@ module.exports = {
     name: 'elyImageUpload'
 };
 
-},{"./link":34}],33:[function(require,module,exports){
-'use strict';
-
-var app = require('angular').module('elyoosApp');
-var directive = require('./directive.js');
-
-app.directive(directive.name, directive.directive);
-
-},{"./directive.js":32,"angular":4}],34:[function(require,module,exports){
+},{"./link":37}],36:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./directive.js":35,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],37:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4841,10 +4823,10 @@ module.exports = {
     }
 };
 
-},{}],35:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 
 
-},{}],36:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 var resetPagination = function ($scope, totalItems) {
@@ -4890,7 +4872,7 @@ module.exports = {
     }
 };
 
-},{}],37:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 var controller = require('./controller.js');
 
@@ -4911,9 +4893,9 @@ module.exports = {
     name: 'elyPaginationNextPrevious'
 };
 
-},{"./controller.js":36}],38:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./directive.js":37,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],39:[function(require,module,exports){
+},{"./controller.js":39}],41:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./directive.js":40,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],42:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4932,7 +4914,7 @@ module.exports = {
     }
 };
 
-},{}],40:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4955,9 +4937,90 @@ module.exports = {
     name: 'elySearchBox'
 };
 
-},{"./controller.js":39}],41:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./directive.js":40,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],42:[function(require,module,exports){
+},{"./controller.js":42}],44:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./directive.js":43,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],45:[function(require,module,exports){
+'use strict';
+
+var resetMessageNotification = function ($scope) {
+    $scope.showError = false;
+    $scope.showSuccess = false;
+};
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['$scope', function ($scope) {
+
+            var originalModel, lastModel;
+
+            $scope.sendButtonDisabled = true;
+
+            resetMessageNotification($scope);
+
+            $scope.$watchCollection('model', function (newValue) {
+
+                if (newValue.$resolved && !originalModel) {
+                    originalModel = {};
+                    angular.copy($scope.model, originalModel);
+                }
+                if (originalModel && newValue) {
+                    lastModel = newValue;
+                    if (angular.equals(originalModel, newValue)) {
+                        $scope.sendButtonDisabled = true;
+                    } else {
+                        $scope.sendButtonDisabled = false;
+                        $scope.showSuccess = false;
+                    }
+                }
+            });
+
+            $scope.sendAllData = function () {
+                resetMessageNotification($scope);
+                $scope.sendData();
+            };
+
+            $scope.$on('ely.send.button.error', function (event, errorDescription) {
+                $scope.errorDescription = {title: errorDescription};
+                $scope.showError = true;
+                $scope.showSuccess = false;
+            });
+
+            $scope.$on('ely.send.button.success', function () {
+                angular.copy($scope.model, originalModel);
+                $scope.sendButtonDisabled = true;
+                $scope.showError = false;
+                $scope.showSuccess = true;
+            });
+        }];
+    }
+};
+
+},{}],46:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                buttonDescription: '@',
+                errorPlacement: '@',
+                sendData: '=',
+                model: '='
+            },
+            templateUrl: 'app/modules/directives/sendButton/template.html',
+            controller: controller.directiveCtrl()
+        };
+    }],
+    name: 'elySendButton'
+};
+
+},{"./controller.js":45}],47:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./directive.js":46,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],48:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -4974,9 +5037,9 @@ module.exports = {
     name: 'elySpin'
 };
 
-},{"./link":44}],43:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./directive.js":42,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\imageCropper\\index.js":33}],44:[function(require,module,exports){
+},{"./link":50}],49:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./directive.js":48,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],50:[function(require,module,exports){
 'use strict';
 
 var Spinner = require('spin');
@@ -5010,7 +5073,7 @@ module.exports = {
     }
 };
 
-},{"spin":12}],45:[function(require,module,exports){
+},{"spin":12}],51:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -5025,14 +5088,14 @@ module.exports = function () {
     };
 };
 
-},{}],46:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 
 app.filter('fromTo', require('./fromToFilter'));
-},{"./fromToFilter":45,"angular":4}],47:[function(require,module,exports){
+},{"./fromToFilter":51,"angular":4}],53:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Modification', function ($scope, Modification) {
@@ -5056,7 +5119,7 @@ module.exports = ['$scope', 'Modification', function ($scope, Modification) {
     });
 }];
 
-},{}],48:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5076,7 +5139,7 @@ module.exports = {
     name: 'elyHomeNavElement'
 };
 
-},{}],49:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5084,7 +5147,7 @@ var elyHomeNavDirective = require('./directive.js');
 
 app.directive(elyHomeNavDirective.name, elyHomeNavDirective.directive);
 
-},{"./directive.js":48,"angular":4}],50:[function(require,module,exports){
+},{"./directive.js":54,"angular":4}],56:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5093,7 +5156,7 @@ app.controller('HomeCtrl', require('./homeCtrl'));
 
 require('./homeNavElement');
 
-},{"./homeCtrl":47,"./homeNavElement":49,"angular":4}],51:[function(require,module,exports){
+},{"./homeCtrl":53,"./homeNavElement":55,"angular":4}],57:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'Conversation',
@@ -5139,7 +5202,7 @@ module.exports = ['$scope', '$state', 'Message', 'Conversation',
         };
     }];
 
-},{}],52:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
@@ -5190,7 +5253,7 @@ module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateForm
         };
     }];
 
-},{}],53:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
@@ -5221,7 +5284,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],54:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5276,35 +5339,35 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./conversationActionsCtrl":51,"./conversationCtrl":52,"./createConversationCtrl":53,"./services/conversation":55,"./services/message":56,"./services/searchThread":57,"./services/searchUserToSendMessage":58,"./threadsCtrl":59,"angular":4}],55:[function(require,module,exports){
+},{"./conversationActionsCtrl":57,"./conversationCtrl":58,"./createConversationCtrl":59,"./services/conversation":61,"./services/message":62,"./services/searchThread":63,"./services/searchUserToSendMessage":64,"./threadsCtrl":65,"angular":4}],61:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/conversation');
 }];
 
-},{}],56:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages');
 }];
 
-},{}],57:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/messages/singleThread');
 }];
 
-},{}],58:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/search');
 }];
 
-},{}],59:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter',
@@ -5368,7 +5431,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         };
     }];
 
-},{}],60:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5378,7 +5441,7 @@ app.controller('LoggedInHeaderCtrl', require('./loggedInHeaderCtrl'));
 app.factory('UserInfo', require('./userInfo'));
 app.factory('Modification', require('./modification'));
 
-},{"./loggedInHeaderCtrl":61,"./modification":62,"./userInfo":63,"angular":4}],61:[function(require,module,exports){
+},{"./loggedInHeaderCtrl":67,"./modification":68,"./userInfo":69,"angular":4}],67:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
@@ -5420,21 +5483,21 @@ module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'M
         };
     }];
 
-},{}],62:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],63:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],64:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5466,7 +5529,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],65:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5521,14 +5584,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":64,"./password":66,"./passwordCtrl":67,"./privacy":68,"./privacyCtrl":69,"./profile":70,"./profileCtrl":71,"./renamePrivacyCtrl":72,"angular":4}],66:[function(require,module,exports){
+},{"./deletePrivacyCtrl":70,"./password":72,"./passwordCtrl":73,"./privacy":74,"./privacyCtrl":75,"./profile":76,"./profileCtrl":77,"./renamePrivacyCtrl":78,"angular":4}],72:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],67:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -5581,7 +5644,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],68:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5590,7 +5653,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],69:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -5714,14 +5777,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],70:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],71:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
@@ -5770,14 +5833,18 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
                         $scope.profileForm.$setPristine();
                         $scope.successUserDataChange = true;
                         $scope.submitFailedToServer = false;
+                        $scope.$broadcast('ely.send.button.success');
                     }, function () {
+                        $scope.$broadcast('ely.send.button.error', 'Fehler auf dem Server. Die Werte konnten nicht gespeichert werden');
                         $scope.submitFailedToServer = true;
                         $scope.successUserDataChange = false;
                     });
                 } else {
                     $scope.submitFailed = true;
+                    $scope.$broadcast('ely.send.button.error', 'Bitte ein Land ausw\u00e4hlen');
                 }
             } else {
+                $scope.$broadcast('ely.send.button.error', 'Bitte f\u00fclle alle Felder korrekt aus');
                 $scope.submitFailed = true;
             }
         };
@@ -5787,14 +5854,20 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
             return moment.unix(unixTimestamp).format('l');
         };
 
+        $scope.$watch('selectedCountryCode', function (newCountryCode) {
+            if (newCountryCode) {
+                $scope.userDataToChange.country = CountryCodeConverter.getCountryCode(newCountryCode);
+            }
+        });
+
         $scope.$watch('userDataToChange.birthday', function (newBirthday) {
             if (newBirthday && $scope.profileForm && $scope.profileForm.inputBirthday) {
-                $scope.profileForm.inputBirthday.$setValidity('date', isDateValid(newBirthday));
+                $scope.profileForm.inputBirthday.$setValidity('custom', isDateValid(newBirthday));
             }
         });
     }];
 
-},{}],72:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5838,7 +5911,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],73:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -5872,7 +5945,7 @@ module.exports = function () {
     };
 };
 
-},{}],74:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5905,19 +5978,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],75:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":74,"angular":4}],76:[function(require,module,exports){
+},{"./dateFormatter":80,"angular":4}],82:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":77,"angular":4}],77:[function(require,module,exports){
+},{"./profileImage":83,"angular":4}],83:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5929,7 +6002,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],78:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5951,14 +6024,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],79:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],80:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5972,7 +6045,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],81:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -5985,7 +6058,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":78,"./fileReader":79,"./fileUpload":80,"./uploadFileCtrl":82,"angular":4}],82:[function(require,module,exports){
+},{"./fileModel.js":84,"./fileReader":85,"./fileUpload":86,"./uploadFileCtrl":88,"angular":4}],88:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -6006,7 +6079,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.imageResultData = function (data) {
         $scope.uploadRunning = true;
         fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
-            success(function () {
+            showSuccess(function () {
                 $scope.uploadRunning = false;
                 $scope.$emit('elyoos.profileImage.change');
                 $scope.$hide();
@@ -6036,7 +6109,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],83:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6045,7 +6118,7 @@ require('./file');
 
 app.service('moment', require('./moment'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":73,"./file":81,"./moment":84,"angular":4}],84:[function(require,module,exports){
+},{"./countryCodeConverter":79,"./file":87,"./moment":90,"angular":4}],90:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6055,7 +6128,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],85:[function(require,module,exports){
+},{"moment":11}],91:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -6110,4 +6183,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]);
