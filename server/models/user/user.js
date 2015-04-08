@@ -40,7 +40,7 @@ module.exports = {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
-                'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
+            'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
             .end({id: id})
             .send()
             .then(function (resp) {
@@ -52,6 +52,12 @@ module.exports = {
         var name;
         if (userData.forename && userData.surname) {
             name = userData.forename + ' ' + userData.surname;
+        }
+        if (!userData.place) {
+            userData.place = "";
+        }
+        if (!userData.street) {
+            userData.street = "";
         }
         return db.cypher().match('(u:User {userId: {id}})')
             .set('u', {

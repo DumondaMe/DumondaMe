@@ -18,8 +18,8 @@ var schemaPostNewProfileData = {
         birthday: {type: 'integer'},
         country: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
         female: {type: 'boolean'},
-        street: {type: 'string', format: 'notEmptyString', maxLength: 80},
-        place: {type: 'string', format: 'notEmptyString', maxLength: 80}
+        street: {type: 'string', maxLength: 80},
+        place: {type: 'string', maxLength: 80}
     }
 };
 
