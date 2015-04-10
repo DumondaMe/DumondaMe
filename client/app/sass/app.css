@@ -1074,11 +1074,10 @@
             font-weight: bold;
             margin: 0;
             padding: 10px 0 0 0; }
-      #content-settings-security #centerCol #inner-centerCol .content-privacy button {
-        margin-top: 20px; }
       #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-button-row {
         margin-left: 20px;
-        height: 34px; }
+        padding-top: 20px;
+        height: 54px; }
       #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row {
         width: 100%;
         height: 60px; }
