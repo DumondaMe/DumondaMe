@@ -70,9 +70,11 @@
                     </div>
                 </div>
                 <div class="privacy-setting-button-row">
-                    <button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
+                    <ely-send-button button-description="Änderung übernehmen" send-data="updatePrivacyType"
+                                     error-placement="right" model="selectedType" ></ely-send-button>
+                    <!--<button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
                             type="submit" ng-click="updatePrivacyType()">Änderung übernehmen
-                    </button>
+                    </button>-->
                 </div>
             </div>
         </div>

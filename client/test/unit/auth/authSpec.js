@@ -48,7 +48,7 @@ describe('Test of Auth Services', function () {
         httpBackend.when('POST', '/api/login').respond(user);
 
         testee.login(user).then(function (success) {
-            resultSuccess = showSuccess;
+            resultSuccess = success;
         }, function (error) {
             resultError = error;
         });

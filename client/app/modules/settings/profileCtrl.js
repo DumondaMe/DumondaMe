@@ -18,6 +18,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
             $scope.userDataToChange = Profile.get({}, function () {
                 $scope.userDataToChange.birthday = moment.unix($scope.userDataToChange.birthday).format('l');
                 $scope.selectedCountryCode = CountryCodeConverter.getCountry($scope.userDataToChange.country);
+                $scope.userDataToChange.isInit = true;
             });
         };
         $scope.getUserData();

@@ -125,7 +125,7 @@ describe('Tests of Profile Default Controller', function () {
         profileCtrl(scope, Profile, profileImage, moment, CountryCodeConverter);
         stubProfile.callArg(1);
 
-        expect(scope.userDataToChange).to.eql({birthday: '26.3.1982'});
+        expect(scope.userDataToChange).to.eql({birthday: '26.3.1982', isInit: true});
     });
 
     it('Getting a date example for german local format', function () {

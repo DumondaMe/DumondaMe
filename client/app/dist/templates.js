@@ -1747,9 +1747,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                    </div>\n" +
     "                </div>\n" +
     "                <div class=\"privacy-setting-button-row\">\n" +
-    "                    <button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
+    "                    <ely-send-button button-description=\"Änderung übernehmen\" send-data=\"updatePrivacyType\"\n" +
+    "                                     error-placement=\"right\" model=\"selectedType\" ></ely-send-button>\n" +
+    "                    <!--<button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
     "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +
-    "                    </button>\n" +
+    "                    </button>-->\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +

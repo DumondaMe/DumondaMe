@@ -17,7 +17,7 @@ module.exports = {
 
             $scope.$watchCollection('model', function (newValue) {
 
-                if (newValue.$resolved && !originalModel) {
+                if (newValue.isInit && !originalModel) {
                     originalModel = {};
                     angular.copy($scope.model, originalModel);
                 }
@@ -48,6 +48,13 @@ module.exports = {
                 $scope.sendButtonDisabled = true;
                 $scope.showError = false;
                 $scope.showSuccess = true;
+            });
+
+            $scope.$on('ely.send.button.model.changed', function (event, newModel) {
+                angular.copy(newModel, originalModel);
+                $scope.sendButtonDisabled = true;
+                $scope.showError = false;
+                $scope.showSuccess = false;
             });
         }];
     }

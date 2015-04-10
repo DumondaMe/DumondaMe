@@ -15,8 +15,7 @@ var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, 
                 }
             });
         }
-        angular.copy($scope.selectedType, $scope.originalSelectedType);
-        $scope.disableChangePrivacy = true;
+        $scope.$broadcast('ely.send.button.success');
     }, function () {
 
     });
@@ -27,7 +26,6 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     $scope.allowedToChangePrivacy = false;
     $scope.selectedType = {};
     $scope.addingPrivacy = {};
-    $scope.originalSelectedType = {};
     $scope.privacySettings = Privacy.get({}, function () {
         $scope.setPrivacyTypeNoContact();
     });
@@ -39,7 +37,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
         angular.forEach($scope.privacySettings.normal, function (privacySetting) {
             if (privacySetting.type === type) {
                 angular.copy(privacySetting, $scope.selectedType);
-                angular.copy($scope.selectedType, $scope.originalSelectedType);
+                $scope.$broadcast('ely.send.button.model.changed', $scope.selectedType);
             }
         });
     };
@@ -47,40 +45,34 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     $scope.setPrivacyTypeNoContact = function () {
         $scope.privacySettings.noContactSelected = true;
         angular.copy($scope.privacySettings.noContact, $scope.selectedType);
+        $scope.selectedType.isInit = true;
+        $scope.$broadcast('ely.send.button.model.changed', $scope.selectedType);
         $scope.selectedType.type = 'kein Kontakt';
-        angular.copy($scope.selectedType, $scope.originalSelectedType);
     };
 
-    $scope.$watch('selectedType', function (newSelectedType) {
-        if (newSelectedType) {
-            $scope.disableChangePrivacy = angular.equals($scope.selectedType, $scope.originalSelectedType);
-        }
-    }, true);
 
     $scope.updatePrivacyType = function () {
-        if (!$scope.disableChangePrivacy) {
-            var updatePrivacySetting, privacySettings;
+        var updatePrivacySetting, privacySettings;
 
-            privacySettings = {
-                privacySettings: {
-                    profileVisible: $scope.selectedType.profileVisible,
-                    profileDataVisible: $scope.selectedType.profileDataVisible,
-                    imageVisible: $scope.selectedType.imageVisible,
-                    contactsVisible: $scope.selectedType.contactsVisible
-                }
-            };
-
-            if ($scope.privacySettings.noContactSelected) {
-                updatePrivacySetting = {};
-                updatePrivacySetting.changePrivacyNoContactSetting = privacySettings;
-            } else {
-                updatePrivacySetting = {};
-                updatePrivacySetting.changePrivacySetting = privacySettings;
-                updatePrivacySetting.changePrivacySetting.privacyDescription = $scope.selectedType.type;
+        privacySettings = {
+            privacySettings: {
+                profileVisible: $scope.selectedType.profileVisible,
+                profileDataVisible: $scope.selectedType.profileDataVisible,
+                imageVisible: $scope.selectedType.imageVisible,
+                contactsVisible: $scope.selectedType.contactsVisible
             }
+        };
 
-            sendUpdatePrivacySetting(Privacy, $scope, updatePrivacySetting, privacySettings.privacySettings);
+        if ($scope.privacySettings.noContactSelected) {
+            updatePrivacySetting = {};
+            updatePrivacySetting.changePrivacyNoContactSetting = privacySettings;
+        } else {
+            updatePrivacySetting = {};
+            updatePrivacySetting.changePrivacySetting = privacySettings;
+            updatePrivacySetting.changePrivacySetting.privacyDescription = $scope.selectedType.type;
         }
+
+        sendUpdatePrivacySetting(Privacy, $scope, updatePrivacySetting, privacySettings.privacySettings);
     };
 
     $scope.showAddingNewPrivacySetting = function () {
@@ -116,6 +108,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
                     type: $scope.addingPrivacy.newPrivacyName
                 });
                 $scope.setPrivacyType($scope.addingPrivacy.newPrivacyName);
+                $scope.$broadcast('ely.send.button.success');
             });
         }
     };
