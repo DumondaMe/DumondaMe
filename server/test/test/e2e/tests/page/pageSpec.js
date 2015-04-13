@@ -14,7 +14,6 @@ describe('Integration Tests for getting pages', function () {
     beforeEach(function () {
 
         var commands = [];
-        startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -67,38 +66,47 @@ describe('Integration Tests for getting pages', function () {
             res.body.pages[0].description.should.equals('page2');
             res.body.pages[0].title.should.equals('page2Title');
             res.body.pages[0].pageId.should.equals('1');
+            res.body.pages[0].label.should.equals('VideoPage');
             res.body.pages[0].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[1].description.should.equals('page1');
             res.body.pages[1].title.should.equals('page1Title');
             res.body.pages[1].pageId.should.equals('0');
+            res.body.pages[1].label.should.equals('BookPage');
             res.body.pages[1].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[2].description.should.equals('page3');
             res.body.pages[2].title.should.equals('page3Title');
             res.body.pages[2].pageId.should.equals('2');
+            res.body.pages[2].label.should.equals('SchoolPage');
             res.body.pages[2].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[3].description.should.equals('page4');
             res.body.pages[3].title.should.equals('page4Title');
             res.body.pages[3].pageId.should.equals('3');
+            res.body.pages[3].label.should.equals('CoursePage');
             res.body.pages[3].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[4].description.should.equals('page5');
             res.body.pages[4].title.should.equals('page5Title');
             res.body.pages[4].pageId.should.equals('4');
+            res.body.pages[4].label.should.equals('CoursePage');
             res.body.pages[4].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[5].description.should.equals('page6');
             res.body.pages[5].title.should.equals('page6Title');
             res.body.pages[5].pageId.should.equals('5');
+            res.body.pages[5].label.should.equals('PracticePage');
             res.body.pages[5].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[6].description.should.equals('page7');
             res.body.pages[6].title.should.equals('page7Title');
             res.body.pages[6].pageId.should.equals('6');
+            res.body.pages[6].label.should.equals('EventPage');
             res.body.pages[6].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[7].description.should.equals('page8');
             res.body.pages[7].title.should.equals('page8Title');
             res.body.pages[7].pageId.should.equals('7');
+            res.body.pages[7].label.should.equals('BlogPage');
             res.body.pages[7].url.should.equals('app/img/page/default/pagePreview.png');
             res.body.pages[8].description.should.equals('page9');
             res.body.pages[8].title.should.equals('page9Title');
             res.body.pages[8].pageId.should.equals('8');
+            res.body.pages[8].label.should.equals('StorePage');
             res.body.pages[8].url.should.equals('app/img/page/default/pagePreview.png');
         });
     });

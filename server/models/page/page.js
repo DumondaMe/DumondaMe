@@ -11,6 +11,13 @@ var addImageUrl = function (previews) {
     });
 };
 
+var addLabel = function (previews) {
+    underscore.forEach(previews, function (preview) {
+        preview.label = preview.types[0];
+        delete preview.types;
+    });
+};
+
 
 var getAllPages = function (skip, limit, isSuggestion) {
 
@@ -27,6 +34,7 @@ var getAllPages = function (skip, limit, isSuggestion) {
         .send(commands)
         .then(function (resp) {
             addImageUrl(resp);
+            addLabel(resp);
             return {pages: resp};
         });
 };
