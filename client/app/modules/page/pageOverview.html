@@ -1,0 +1,47 @@
+<div id="content-page-overview">
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div ng-repeat="pagePreview in page.pages" class="page-preview"
+                 ng-click="openDetailPage(pagePreview.pageId)">
+                <div class="page-preview-image">
+                    <img ng-src="{{pagePreview.url}}" class="img-rounded">
+                </div>
+                <div class="page-preview-text">
+                    <div class="page-preview-title">
+                        {{pagePreview.title}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="leftCol">
+        <div id="inner-leftCol">
+            <ely-search-box description="Suche nach Seite..." query="query"
+                            get-query-suggestion="getUserSuggestion"
+                            get-query="getUser"></ely-search-box>
+            <div>Filtern nach</div>
+            <ul id="contact-counter" class="list-group">
+                <div>
+                    <li class="list-group-item"
+                        ng-class="{'group-selected': allFilterEnabled}">
+                        <span class="badge">{{users.numberOfContacts}}</span>
+
+                        <div class="contact-description-count" ng-click="selectedAllContacts()">{{}}
+                        </div>
+                    </li>
+                </div>
+                <div ng-repeat="statistic in users.statistic">
+                    <li class="list-group-item"
+                        ng-class="{'group-selected': statistic.selected}">
+                        <span class="badge">{{statistic.count}}</span>
+
+                        <div class="contact-description-count"
+                             ng-click="selectedStatisticType(statistic)">{{statistic.type}}
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div id="leftColNav" ng-include="'app/modules/page/leftNavCol.html'"></div>
+</div>

@@ -949,23 +949,60 @@
         font-weight: bold;
         font-size: 16px; }
 
-#inner-leftCol form > * {
-  margin: 5px 10px 15px 10px; }
-
-#newPage-photo-container {
-  width: 320px;
+#content {
+  width: 100%;
   height: 100%; }
-  #newPage-photo-container .page-picture {
-    margin: 5px 10px 15px 10px;
-    width: 300px;
-    height: 300px; }
-  #newPage-photo-container button {
-    float: right;
-    margin-right: 10px; }
-
-#newPage-data-container {
-  width: 500px;
-  margin-left: 20px; }
+  #content #content-page-overview {
+    width: 100%;
+    height: 100%; }
+    #content #content-page-overview #centerCol {
+      width: 100%;
+      height: 100%;
+      padding-left: 340px; }
+      #content #content-page-overview #centerCol #inner-centerCol {
+        position: relative;
+        width: 800px;
+        height: 100%;
+        margin: 0 auto; }
+        @media (min-width: 1400px) {
+          #content #content-page-overview #centerCol #inner-centerCol {
+            width: 1110px; } }
+        #content #content-page-overview #centerCol #inner-centerCol .page-preview {
+          border-bottom: 1px solid #e7e7e7;
+          display: block;
+          height: 100px;
+          width: 100%; }
+          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-image {
+            height: 100px;
+            width: 100px;
+            float: left;
+            cursor: pointer; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-image img {
+              height: 100px;
+              width: 100px;
+              padding: 20px; }
+          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text {
+            float: left;
+            margin-top: 20px; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-title {
+              font-size: 14px;
+              font-weight: bold;
+              color: #009688;
+              cursor: pointer; }
+    #content #content-page-overview #leftCol {
+      position: fixed;
+      display: inline-block;
+      left: 80px;
+      width: 260px;
+      height: 100%;
+      top: 0px;
+      padding-top: 35px;
+      z-index: 98;
+      background-color: #E0E0E0;
+      overflow: visible; }
+      #content #content-page-overview #leftCol #inner-leftCol {
+        padding-top: 24px;
+        margin-bottom: 20px; }
 
 #content-settings-password {
   width: 100%;
@@ -1031,6 +1068,11 @@
           color: #FFFFFF; }
         #content-settings-profile #leftCol #inner-leftCol ul a {
           color: #000000; }
+
+.upload-file-error {
+  display: inline-block;
+  margin-right: 5px;
+  color: red; }
 
 .btn-file {
   float: left;

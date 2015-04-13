@@ -28,6 +28,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting the page overview', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 if (!request.search && !request.filter) {
+                    logger.info('Request all pages without filter', req);
                     return page.getAllPages(request.skip, request.maxItems, request.isSuggestion);
                 }
             }).then(function (page) {

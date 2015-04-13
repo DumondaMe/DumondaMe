@@ -14,8 +14,11 @@
             <div class="modal-footer">
                 <span class="btn btn-default btn-file" ng-class="{disabled: uploadRunning}">
                     Bild auswählen...<input type="file" ely-file-model="imageForUpload"
-                                            accept="image/jpeg">
+                                            accept=".jpg, .png, jpeg">
                 </span>
+                <div class="upload-file-error" ng-show="uploadError">
+                    {{uploadError}}
+                </div>
                 <button type="button" class="btn btn-default"
                         ng-class="{disabled: !imageForUploadPreview || uploadRunning}"
                         ng-click="startUpload()">

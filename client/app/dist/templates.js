@@ -945,6 +945,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                          nav-to=\"contact.myContacts\"></ely-home-nav-element>\n" +
     "    <ely-home-nav-element description=\"Nachrichten\" image-url=\"app/img/home/email.png\"\n" +
     "                          nav-to=\"message.threads\" event-description=\"messageText\"></ely-home-nav-element>\n" +
+    "    <ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
+    "                          nav-to=\"page.overview\"></ely-home-nav-element>\n" +
     "</div>"
   );
 
@@ -1341,6 +1343,118 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/navigation/publicHeader.html',
     "<div id=\"public-header\">\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/leftNavCol.html',
+    "<div class=\"nav-placeholder-top\"></div>\n" +
+    "\n" +
+    "<div class=\"nav-sub-element\" ui-sref=\"page.overview\">\n" +
+    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"page.overview\"></div>\n" +
+    "    </div>\n" +
+    "    <img src=\"app/img/page/overview.png\">\n" +
+    "</div>\n" +
+    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
+    "    <img src=\"app/img/home.png\">\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/pageOverview.html',
+    "<div id=\"content-page-overview\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div ng-repeat=\"pagePreview in page.pages\" class=\"page-preview\"\r" +
+    "\n" +
+    "                 ng-click=\"openDetailPage(pagePreview.pageId)\">\r" +
+    "\n" +
+    "                <div class=\"page-preview-image\">\r" +
+    "\n" +
+    "                    <img ng-src=\"{{pagePreview.url}}\" class=\"img-rounded\">\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-preview-text\">\r" +
+    "\n" +
+    "                    <div class=\"page-preview-title\">\r" +
+    "\n" +
+    "                        {{pagePreview.title}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-leftCol\">\r" +
+    "\n" +
+    "            <ely-search-box description=\"Suche nach Seite...\" query=\"query\"\r" +
+    "\n" +
+    "                            get-query-suggestion=\"getUserSuggestion\"\r" +
+    "\n" +
+    "                            get-query=\"getUser\"></ely-search-box>\r" +
+    "\n" +
+    "            <div>Filtern nach</div>\r" +
+    "\n" +
+    "            <ul id=\"contact-counter\" class=\"list-group\">\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    <li class=\"list-group-item\"\r" +
+    "\n" +
+    "                        ng-class=\"{'group-selected': allFilterEnabled}\">\r" +
+    "\n" +
+    "                        <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"contact-description-count\" ng-click=\"selectedAllContacts()\">{{}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div ng-repeat=\"statistic in users.statistic\">\r" +
+    "\n" +
+    "                    <li class=\"list-group-item\"\r" +
+    "\n" +
+    "                        ng-class=\"{'group-selected': statistic.selected}\">\r" +
+    "\n" +
+    "                        <span class=\"badge\">{{statistic.count}}</span>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"contact-description-count\"\r" +
+    "\n" +
+    "                             ng-click=\"selectedStatisticType(statistic)\">{{statistic.type}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </ul>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
   );
@@ -2053,9 +2167,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    Bild auswählen...<input type=\"file\" ely-file-model=\"imageForUpload\"\r" +
     "\n" +
-    "                                            accept=\"image/jpeg\">\r" +
+    "                                            accept=\".jpg, .png, jpeg\">\r" +
     "\n" +
     "                </span>\r" +
+    "\n" +
+    "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
+    "\n" +
+    "                    {{uploadError}}\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\"\r" +
     "\n" +

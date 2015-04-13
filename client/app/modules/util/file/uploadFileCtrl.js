@@ -16,16 +16,21 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.uploadRunning = false;
 
     $scope.imageResultData = function (data) {
-        $scope.uploadRunning = true;
-        fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
-            showSuccess(function () {
-                $scope.uploadRunning = false;
-                $scope.$emit('elyoos.profileImage.change');
-                $scope.$hide();
-            }).
-            error(function () {
-                $scope.uploadRunning = false;
-            });
+        if (data.trim() !== '') {
+            delete $scope.uploadError;
+            $scope.uploadRunning = true;
+            fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
+                showSuccess(function () {
+                    $scope.uploadRunning = false;
+                    $scope.$emit('elyoos.profileImage.change');
+                    $scope.$hide();
+                }).
+                error(function () {
+                    $scope.uploadRunning = false;
+                });
+        } else {
+            $scope.uploadError = 'File kann nicht hochgeladen werden';
+        }
     };
 
     $scope.$watch('imageForUpload', function (newImage) {
