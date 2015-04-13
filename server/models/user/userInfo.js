@@ -8,9 +8,9 @@ var moment = require('moment');
 var addImageForPreview = function (contacts) {
     underscore.each(contacts, function (contact) {
         if (contact.profileVisible && contact.imageVisible) {
-            contact.profileUrl = cdn.getUrl(contact.id + '/profilePreview.jpg');
+            contact.profileUrl = cdn.getUrl('profileImage/' + contact.id + '/profilePreview.jpg');
         } else {
-            contact.profileUrl = cdn.getUrl('default/profilePreview.jpg');
+            contact.profileUrl = cdn.getUrl('profileImage/default/profilePreview.jpg');
         }
         delete contact.profileVisible;
         delete contact.imageVisible;

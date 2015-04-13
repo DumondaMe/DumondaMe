@@ -7,7 +7,7 @@
     "host": "http://localhost:7474"
   },
   "cdnStore": {
-    "bucket": "testprofileimage2"
+    "bucket": "elyoos.test"
   },
   "bcrypt": {
     "difficulty": 8

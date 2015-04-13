@@ -142,7 +142,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
             res.body.message.name.should.equal("user Meier");
             res.body.message.text.should.equal("messageAdded");
             res.body.message.timestamp.should.be.at.least(startTime);
-            res.body.message.profileUrl.should.equal("1/profilePreview.jpg");
+            res.body.message.profileUrl.should.equal("profileImage/1/profilePreview.jpg");
             return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
                 .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
                 .end().send();

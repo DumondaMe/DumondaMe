@@ -58,7 +58,7 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contact.street.should.equals('irgendwo');
                 res.body.contact.place.should.equals('sonstwo');
                 res.body.contact.connected.should.equals('none');
-                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.contact.type);
 
                 res.body.statistic.length.should.equals(0);
@@ -94,7 +94,7 @@ describe('Integration Tests for getting the contact details', function () {
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
                 should.not.exist(res.body.contact.place);
-                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.contact.type);
                 res.body.contact.connected.should.equals('none');
 
@@ -136,7 +136,7 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contact.street.should.equals('irgendwo');
                 res.body.contact.place.should.equals('sonstwo');
                 res.body.contact.type.should.equals('Bekannter');
-                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.contact.connected.should.equals('userToContact');
 
                 res.body.statistic.length.should.equals(1);
@@ -177,7 +177,7 @@ describe('Integration Tests for getting the contact details', function () {
                 should.not.exist(res.body.contact.street);
                 should.not.exist(res.body.contact.place);
                 res.body.contact.type.should.equals('Bekannter');
-                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/default/profile.jpg');
                 res.body.contact.connected.should.equals('userToContact');
 
                 //Contacts
@@ -291,25 +291,25 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contact.country.should.equals('CH');
                 res.body.contact.street.should.equals('irgendwo');
                 res.body.contact.place.should.equals('sonstwo');
-                res.body.contact.profileUrl.should.equals('2/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.contact.connected.should.equals('contactToUser');
                 should.not.exist(res.body.contact.type);
                 //Contacts
                 res.body.contacts.length.should.equals(5);
                 res.body.contacts[0].name.should.equals('user3 Meier3');
-                res.body.contacts[0].profileUrl.should.equals('default/profilePreview.jpg');
+                res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.contacts[0].id.should.equals('3');
                 res.body.contacts[1].name.should.equals('user4 Meier4');
-                res.body.contacts[1].profileUrl.should.equals('default/profilePreview.jpg');
+                res.body.contacts[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.contacts[1].id.should.equals('4');
                 res.body.contacts[2].name.should.equals('user5 Meier5');
-                res.body.contacts[2].profileUrl.should.equals('5/profilePreview.jpg');
+                res.body.contacts[2].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
                 res.body.contacts[2].id.should.equals('5');
                 res.body.contacts[3].name.should.equals('user6 Meier6');
-                res.body.contacts[3].profileUrl.should.equals('6/profilePreview.jpg');
+                res.body.contacts[3].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
                 res.body.contacts[3].id.should.equals('6');
                 res.body.contacts[4].name.should.equals('user7 Meier7');
-                res.body.contacts[4].profileUrl.should.equals('default/profilePreview.jpg');
+                res.body.contacts[4].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.contacts[4].id.should.equals('7');
 
                 res.body.numberOfContacts.should.equals(6);
@@ -328,13 +328,13 @@ describe('Integration Tests for getting the contact details', function () {
 
                 res.body.contacts.length.should.equals(3);
                 res.body.contacts[0].name.should.equals('user4 Meier4');
-                res.body.contacts[0].profileUrl.should.equals('default/profilePreview.jpg');
+                res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.contacts[0].id.should.equals('4');
                 res.body.contacts[1].name.should.equals('user5 Meier5');
-                res.body.contacts[1].profileUrl.should.equals('5/profilePreview.jpg');
+                res.body.contacts[1].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
                 res.body.contacts[1].id.should.equals('5');
                 res.body.contacts[2].name.should.equals('user6 Meier6');
-                res.body.contacts[2].profileUrl.should.equals('6/profilePreview.jpg');
+                res.body.contacts[2].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
                 res.body.contacts[2].id.should.equals('6');
             });
     });
@@ -371,7 +371,7 @@ describe('Integration Tests for getting the contact details', function () {
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
                 should.not.exist(res.body.contact.place);
-                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.contact.type);
                 res.body.contact.connected.should.equals('contactToUser');
 
@@ -480,13 +480,13 @@ describe('Integration Tests for getting the contact details', function () {
 
                 res.body.contacts.length.should.equals(3);
                 res.body.contacts[0].name.should.equals('user4 Meier4');
-                res.body.contacts[0].profileUrl.should.equals('default/profilePreview.jpg');
+                res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.contacts[0].id.should.equals('4');
                 res.body.contacts[1].name.should.equals('user5 Meier5');
-                res.body.contacts[1].profileUrl.should.equals('5/profilePreview.jpg');
+                res.body.contacts[1].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
                 res.body.contacts[1].id.should.equals('5');
                 res.body.contacts[2].name.should.equals('user6 Meier6');
-                res.body.contacts[2].profileUrl.should.equals('6/profilePreview.jpg');
+                res.body.contacts[2].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
                 res.body.contacts[2].id.should.equals('6');
             });
     });
@@ -523,7 +523,7 @@ describe('Integration Tests for getting the contact details', function () {
                 should.not.exist(res.body.contact.country);
                 should.not.exist(res.body.contact.street);
                 should.not.exist(res.body.contact.place);
-                res.body.contact.profileUrl.should.equals('default/profile.jpg');
+                res.body.contact.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.contact.type);
                 res.body.contacts.length.should.equals(0);
                 res.body.contact.connected.should.equals('contactToUser');

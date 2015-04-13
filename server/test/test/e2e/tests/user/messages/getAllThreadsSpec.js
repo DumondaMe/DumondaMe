@@ -126,7 +126,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].description.should.equal("user2 Meier2");
             res.body.threads[0].previewText.should.equal("message1");
             res.body.threads[0].lastUpdate.should.equal(startTime - 299);
-            res.body.threads[0].profileUrl.should.equal('default/profilePreview.jpg');
+            res.body.threads[0].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
             res.body.threads[0].threadId.should.equal('1');
             res.body.threads[0].isGroupThread.should.be.false;
             res.body.threads[0].numberOfUnreadMessages.should.equal(2);
@@ -135,7 +135,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].description.should.equal("TestChat");
             res.body.threads[1].previewText.should.equal("message1");
             res.body.threads[1].lastUpdate.should.equal(startTime - 300);
-            res.body.threads[1].profileUrl.should.equal('default/profilePreview.jpg');
+            res.body.threads[1].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
             res.body.threads[1].threadId.should.equal('3');
             res.body.threads[1].isGroupThread.should.be.true;
             res.body.threads[1].numberOfUnreadMessages.should.equal(3);
@@ -144,7 +144,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[2].description.should.equal("user3 Meier3");
             res.body.threads[2].previewText.should.equal("message1");
             res.body.threads[2].lastUpdate.should.equal(startTime - 301);
-            res.body.threads[2].profileUrl.should.equal('3/profilePreview.jpg');
+            res.body.threads[2].profileUrl.should.equal('profileImage/3/profilePreview.jpg');
             res.body.threads[2].threadId.should.equal('2');
             res.body.threads[2].isGroupThread.should.be.false;
 

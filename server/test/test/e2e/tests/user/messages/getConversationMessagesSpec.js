@@ -116,22 +116,22 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message1");
             res.body.messages[0].timestamp.should.equal(startTime - 299);
-            res.body.messages[0].profileUrl.should.equal('1/profilePreview.jpg');
+            res.body.messages[0].profileUrl.should.equal('profileImage/1/profilePreview.jpg');
 
             res.body.messages[1].name.should.equal("user Meier");
             res.body.messages[1].text.should.equal("message2");
             res.body.messages[1].timestamp.should.equal(startTime - 400);
-            res.body.messages[1].profileUrl.should.equal('1/profilePreview.jpg');
+            res.body.messages[1].profileUrl.should.equal('profileImage/1/profilePreview.jpg');
 
             res.body.messages[2].name.should.equal("user2 Meier2");
             res.body.messages[2].text.should.equal("message3");
             res.body.messages[2].timestamp.should.equal(startTime - 600);
-            res.body.messages[2].profileUrl.should.equal('default/profilePreview.jpg');
+            res.body.messages[2].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
 
             res.body.messages[3].name.should.equal("user Meier");
             res.body.messages[3].text.should.equal("message4");
             res.body.messages[3].timestamp.should.equal(startTime - 700);
-            res.body.messages[3].profileUrl.should.equal('1/profilePreview.jpg');
+            res.body.messages[3].profileUrl.should.equal('profileImage/1/profilePreview.jpg');
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.isGroupThread.should.be.false;
@@ -160,22 +160,22 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message1");
             res.body.messages[0].timestamp.should.equal(startTime - 300);
-            res.body.messages[0].profileUrl.should.equal('1/profilePreview.jpg');
+            res.body.messages[0].profileUrl.should.equal('profileImage/1/profilePreview.jpg');
 
             res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message2");
             res.body.messages[1].timestamp.should.equal(startTime - 400);
-            res.body.messages[1].profileUrl.should.equal('default/profilePreview.jpg');
+            res.body.messages[1].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
 
             res.body.messages[2].name.should.equal("user3 Meier3");
             res.body.messages[2].text.should.equal("message3");
             res.body.messages[2].timestamp.should.equal(startTime - 600);
-            res.body.messages[2].profileUrl.should.equal('3/profilePreview.jpg');
+            res.body.messages[2].profileUrl.should.equal('profileImage/3/profilePreview.jpg');
 
             res.body.messages[3].name.should.equal("user3 Meier3");
             res.body.messages[3].text.should.equal("message4");
             res.body.messages[3].timestamp.should.equal(startTime - 700);
-            res.body.messages[3].profileUrl.should.equal('3/profilePreview.jpg');
+            res.body.messages[3].profileUrl.should.equal('profileImage/3/profilePreview.jpg');
 
             res.body.threadDescription.should.equal('TestChat');
             res.body.isGroupThread.should.be.true;
@@ -205,12 +205,12 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[0].name.should.equal("user Meier");
             res.body.messages[0].text.should.equal("message2");
             res.body.messages[0].timestamp.should.equal(startTime - 400);
-            res.body.messages[0].profileUrl.should.equal('1/profilePreview.jpg');
+            res.body.messages[0].profileUrl.should.equal('profileImage/1/profilePreview.jpg');
 
             res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message3");
             res.body.messages[1].timestamp.should.equal(startTime - 600);
-            res.body.messages[1].profileUrl.should.equal('default/profilePreview.jpg');
+            res.body.messages[1].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.isGroupThread.should.be.false;

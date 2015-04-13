@@ -30,7 +30,7 @@ describe('Integration Tests User Name', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.name.should.equal('user Meier');
-            res.body.profileImage.should.equal('1/thumbnail.jpg');
+            res.body.profileImage.should.equal('profileImage/1/thumbnail.jpg');
         });
     });
 });

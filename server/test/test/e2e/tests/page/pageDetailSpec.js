@@ -19,7 +19,7 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
-            "author: 'Hans Muster'})").end().getCommand());
+            "author: 'Hans Muster', hasPicture: true})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', created: 500, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 502, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 503, pageId: '0'})").end().getCommand());

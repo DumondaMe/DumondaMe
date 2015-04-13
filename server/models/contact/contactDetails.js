@@ -52,9 +52,9 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
         .then(function (resp) {
             underscore.each(resp[2], function (contact) {
                 if ((contact.profile || contact.profileNoContact) && (contact.imageProfile || contact.imageProfileNoContact)) {
-                    contact.profileUrl = cdn.getUrl(contact.id + '/profilePreview.jpg');
+                    contact.profileUrl = cdn.getUrl('profileImage/' + contact.id + '/profilePreview.jpg');
                 } else {
-                    contact.profileUrl = cdn.getUrl('default/profilePreview.jpg');
+                    contact.profileUrl = cdn.getUrl('profileImage/default/profilePreview.jpg');
                 }
                 deletePrivacyProperties(contact);
             });
@@ -83,9 +83,9 @@ var returnContactDetails = function (resp, userId, contactId, contactsPerPage, s
 
     if (resp[2][0].profile || resp[2][0].profileNoContact) {
         if (resp[2][0].imageProfile || resp[2][0].imageProfileNoContact) {
-            contact.profileUrl = cdn.getUrl(contactId + '/profile.jpg');
+            contact.profileUrl = cdn.getUrl('profileImage/' + contactId + '/profile.jpg');
         } else {
-            contact.profileUrl = cdn.getUrl('default/profile.jpg');
+            contact.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
         }
         if (resp[2][0].profileData || resp[2][0].profileDataNoContact) {
             contact.birthday = resp[2][0].birthday;
@@ -98,7 +98,7 @@ var returnContactDetails = function (resp, userId, contactId, contactsPerPage, s
             return getContacts(userId, contactId, contactsPerPage, skipContacts, contact, resp[0], resp[1]);
         }
     } else {
-        contact.profileUrl = cdn.getUrl('default/profile.jpg');
+        contact.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
     }
     logger.debug('Get detail of user ' + contactId + ' without contacts', req);
     return {contact: contact, contacts: [], statistic: resp[0], privacySettings: resp[1]};

@@ -10,7 +10,7 @@ var moment = require('moment');
 
 var getUser = function (resp, id, profileUrl) {
     if (resp.length === 1) {
-        resp[0].profileImage = cdn.getUrl(id + profileUrl);
+        resp[0].profileImage = cdn.getUrl('profileImage/' + id + profileUrl);
         return resp[0];
     }
     if (resp.length > 1) {

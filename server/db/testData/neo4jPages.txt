@@ -7,7 +7,9 @@ MATCH (n:EventPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:BlogPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:StorePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 
-CREATE (:BookPage {title: 'Der Pfad des friedvollen Kriegers', created: 1424692757, pageId: '0'});
+CREATE (:BookPage {title: 'Der Pfad des friedvollen Kriegers', author: 'Dan Millman', created: 1424692757, pageId: '0'});
+MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);
+
 CREATE (:VideoPage {title: 'Im Zeichen der Libelle', created: 1424692757 - 100, pageId: '1'});
 CREATE (:SchoolPage {title: 'Kaleidoskop', created: 1424692757 - 101, pageId: '0'});
 CREATE (:CoursePage {title: 'Medialität', created: 1424692757 - 102, pageId: '0'});
