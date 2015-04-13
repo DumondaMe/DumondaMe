@@ -1363,6 +1363,39 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/pageDetail.html',
+    "<div id=\"content-page-detail\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div class=\"page-header\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-leftCol\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/page/pageOverview.html',
     "<div id=\"content-page-overview\">\r" +
     "\n" +
@@ -1374,7 +1407,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                 ng-click=\"openDetailPage(pagePreview.pageId)\">\r" +
     "\n" +
-    "                <div class=\"page-preview-image\">\r" +
+    "                <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "                    <img ng-src=\"{{pagePreview.url}}\" class=\"img-rounded\">\r" +
     "\n" +

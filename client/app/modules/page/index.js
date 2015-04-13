@@ -3,8 +3,10 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
+app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
 
 app.service('Page', require('./services/page'));
+app.service('PageDetail', require('./services/pageDetail'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -24,6 +26,15 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/page/pageOverview.html',
                     controller: 'PageOverviewCtrl'
+                }
+            }
+        })
+        .state('page.detail', {
+            url: '/detail/{label}/{pageId}',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/page/pageDetail.html',
+                    controller: 'PageDetailCtrl'
                 }
             }
         });

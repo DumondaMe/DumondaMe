@@ -3,7 +3,7 @@
         <div id="inner-centerCol">
             <div ng-repeat="pagePreview in page.pages" class="page-preview"
                  ng-click="openDetailPage(pagePreview.pageId)">
-                <div class="page-preview-image">
+                <div class="page-preview-image" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
                     <img ng-src="{{pagePreview.url}}" class="img-rounded">
                 </div>
                 <div class="page-preview-text">
