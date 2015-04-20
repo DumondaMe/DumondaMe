@@ -21,8 +21,8 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
             "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
-            commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 502, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 503, pageId: '0'})").end().getCommand());
+            commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', link: 'www.link.com', created: 502, pageId: '0'})").end().getCommand());
+            commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', link: 'www.link.com', created: 503, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 505, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:EventPage {title: 'page7Title', description: 'page7', created: 506, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:BlogPage {title: 'page8Title', description: 'page8', created: 507, pageId: '0'})").end().getCommand());
@@ -152,6 +152,100 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators[1].name.should.equals('user Meier2');
                 res.body.administrators[1].userId.should.equals('2');
                 res.body.administrators[1].isLoggedInUser.should.be.false;
+            });
+    });
+
+    it('Getting the detail of the page for a course', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:INSTRUCTOR]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:INSTRUCTOR]->(a)")
+            .end().getCommand());
+
+        return db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/page/detail', {
+                    pageId: '0',
+                    label: 'CoursePage'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.page.title.should.equals('page4Title');
+                res.body.page.description.should.equals('page4');
+                res.body.page.link.should.equals('www.link.com');
+                res.body.page.created.should.equals(503);
+                res.body.page.titleUrl.should.equals('pages/CoursePage/0/pageTitlePicture.jpg');
+                res.body.page.instructor.length.should.equals(2);
+                res.body.page.instructor[0].name.should.equals('user Meier');
+                res.body.page.instructor[0].userId.should.equals('1');
+                res.body.page.instructor[0].isLoggedInUser.should.be.true;
+                res.body.page.instructor[1].name.should.equals('user Meier2');
+                res.body.page.instructor[1].userId.should.equals('2');
+                res.body.page.instructor[1].isLoggedInUser.should.be.false;
+                res.body.administrators.length.should.equals(1);
+                res.body.administrators[0].name.should.equals('user Meier2');
+                res.body.administrators[0].userId.should.equals('2');
+                res.body.administrators[0].isLoggedInUser.should.be.false;
+            });
+    });
+
+    it('Getting the detail of the page for a school', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:PRINCIPAL]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:PRINCIPAL]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:SchoolPage {pageId: '0'})")
+            .create("(b)-[:OFFER]->(a)")
+            .end().getCommand());
+
+        return db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/page/detail', {
+                    pageId: '0',
+                    label: 'SchoolPage'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.page.title.should.equals('page3Title');
+                res.body.page.description.should.equals('page3');
+                res.body.page.link.should.equals('www.link.com');
+                res.body.page.created.should.equals(502);
+                res.body.page.titleUrl.should.equals('pages/SchoolPage/0/pageTitlePicture.jpg');
+                res.body.page.principal.length.should.equals(2);
+                res.body.page.principal[0].name.should.equals('user Meier');
+                res.body.page.principal[0].userId.should.equals('1');
+                res.body.page.principal[0].isLoggedInUser.should.be.true;
+                res.body.page.principal[1].name.should.equals('user Meier2');
+                res.body.page.principal[1].userId.should.equals('2');
+                res.body.page.principal[1].isLoggedInUser.should.be.false;
+                res.body.page.courses.length.should.equals(1);
+                res.body.page.courses[0].title.should.equals('page4Title');
+                res.body.page.courses[0].previewUrl.should.equals('pages/CoursePage/0/pageTitlePicturePreview.jpg');
+                res.body.administrators.length.should.equals(1);
+                res.body.administrators[0].name.should.equals('user Meier2');
+                res.body.administrators[0].userId.should.equals('2');
+                res.body.administrators[0].isLoggedInUser.should.be.false;
             });
     });
 });

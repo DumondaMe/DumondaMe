@@ -3,6 +3,8 @@
 var validation = require('./../../../lib/jsonValidation'),
     bookDetail = require('./../../../models/page/detail/bookDetail'),
     videoDetail = require('./../../../models/page/detail/videoDetail'),
+    courseDetail = require('./../../../models/page/detail/courseDetail'),
+    schoolDetail = require('./../../../models/page/detail/schoolDetail'),
     auth = require('./../../../lib/auth'),
     exceptions = require('./../../../lib/error/exceptions'),
     controllerErrors = require('./../../../lib/error/controllerErrors'),
@@ -15,7 +17,7 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['BookPage', 'VideoPage']}
+        label: {enum: ['BookPage', 'VideoPage', 'CoursePage', 'SchoolPage']}
     }
 };
 
@@ -30,6 +32,12 @@ module.exports = function (router) {
                 }
                 if (request.label === 'VideoPage') {
                     return videoDetail.getVideoDetail(request.pageId, req.user.id);
+                }
+                if (request.label === 'CoursePage') {
+                    return courseDetail.getCourseDetail(request.pageId, req.user.id);
+                }
+                if (request.label === 'SchoolPage') {
+                    return schoolDetail.getSchoolDetail(request.pageId, req.user.id);
                 }
             }).then(function (page) {
                 res.status(200).json(page);
