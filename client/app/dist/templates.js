@@ -1406,9 +1406,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-authors-with-Profile\" ng-repeat=\"author in authorsWithProfile\"\r" +
     "\n" +
-    "                             ng-click=\"openUserDetail(author.userId)\">\r" +
+    "                             ng-click=\"openUserDetail(author.userId, author.isLoggedInUser)\">\r" +
     "\n" +
-    "                            {{author.name}}\r" +
+    "                            <div ng-if=\"author.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                            <div ng-if=\"!author.isLoggedInUser\">{{author.name}}</div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1430,11 +1432,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-admins\" ng-repeat=\"administrator in pageDetail.administrators\"\r" +
     "\n" +
-    "                             ng-click=\"openUserDetail(administrator.userId)\">\r" +
+    "                             ng-click=\"openUserDetail(administrator.userId, administrator.isLoggedInUser)\">\r" +
     "\n" +
-    "                            <div ng-if=\"!$last\">{{administrator.name}},</div>\r" +
+    "                            <div ng-if=\"!$last\">\r" +
     "\n" +
-    "                            <div ng-if=\"$last\">{{administrator.name}}</div>\r" +
+    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich,</div>\r" +
+    "\n" +
+    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}},</div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div ng-if=\"$last\">\r" +
+    "\n" +
+    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}}</div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

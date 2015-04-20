@@ -20,11 +20,17 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($s
 
     $scope.category = categories[$stateParams.label];
 
-    $scope.openUserDetail = function (userId) {
+    $scope.openUserDetail = function (userId, isLoggedInUser) {
         if (userId) {
-            $state.go('contact.detail', {
-                userId: userId
-            });
+            if (isLoggedInUser) {
+                $state.go('settings.profile', {
+                    userId: userId
+                });
+            } else {
+                $state.go('contact.detail', {
+                    userId: userId
+                });
+            }
         }
     };
 }];

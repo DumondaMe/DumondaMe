@@ -19,8 +19,9 @@
                             von
                         </div>
                         <div class="page-detail-header-authors-with-Profile" ng-repeat="author in authorsWithProfile"
-                             ng-click="openUserDetail(author.userId)">
-                            {{author.name}}
+                             ng-click="openUserDetail(author.userId, author.isLoggedInUser)">
+                            <div ng-if="author.isLoggedInUser">Ich</div>
+                            <div ng-if="!author.isLoggedInUser">{{author.name}}</div>
                         </div>
                         <div class="page-detail-header-authors" ng-repeat="author in authors">
                             {{author.name}}
@@ -31,9 +32,15 @@
                             Administratoren der Seite
                         </div>
                         <div class="page-detail-header-admins" ng-repeat="administrator in pageDetail.administrators"
-                             ng-click="openUserDetail(administrator.userId)">
-                            <div ng-if="!$last">{{administrator.name}},</div>
-                            <div ng-if="$last">{{administrator.name}}</div>
+                             ng-click="openUserDetail(administrator.userId, administrator.isLoggedInUser)">
+                            <div ng-if="!$last">
+                                <div ng-if="administrator.isLoggedInUser">Ich,</div>
+                                <div ng-if="!administrator.isLoggedInUser">{{administrator.name}},</div>
+                            </div>
+                            <div ng-if="$last">
+                                <div ng-if="administrator.isLoggedInUser">Ich</div>
+                                <div ng-if="!administrator.isLoggedInUser">{{administrator.name}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
