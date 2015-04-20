@@ -946,8 +946,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                          nav-to=\"contact.myContacts\"></ely-home-nav-element>\n" +
     "    <ely-home-nav-element description=\"Nachrichten\" image-url=\"app/img/home/email.png\"\n" +
     "                          nav-to=\"message.threads\" event-description=\"messageText\"></ely-home-nav-element>\n" +
-    "    <!--<ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
-    "                          nav-to=\"page.overview\"></ely-home-nav-element>-->\n" +
+    "    <ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
+    "                          nav-to=\"page.overview\"></ely-home-nav-element>\n" +
     "</div>"
   );
 
@@ -1371,9 +1371,83 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"page-header\">\r" +
+    "            <div class=\"page-detail-header\">\r" +
     "\n" +
-    "\r" +
+    "                <div class=\"page-detail-header-image\">\r" +
+    "\n" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-header-list\">\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-title\">\r" +
+    "\n" +
+    "                            {{pageDetail.page.title}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-category\">\r" +
+    "\n" +
+    "                            ({{category}})\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\" ng-show=\"authorsWithProfile.length > 0 || authors.length > 0\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-author-title\">\r" +
+    "\n" +
+    "                            von\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-authors-with-Profile\" ng-repeat=\"author in authorsWithProfile\"\r" +
+    "\n" +
+    "                             ng-click=\"openUserDetail(author.userId)\">\r" +
+    "\n" +
+    "                            {{author.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-authors\" ng-repeat=\"author in authors\">\r" +
+    "\n" +
+    "                            {{author.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-admin-title\">\r" +
+    "\n" +
+    "                            Administratoren der Seite\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-admins\" ng-repeat=\"administrator in pageDetail.administrators\"\r" +
+    "\n" +
+    "                             ng-click=\"openUserDetail(administrator.userId)\">\r" +
+    "\n" +
+    "                            <div ng-if=\"!$last\">{{administrator.name}},</div>\r" +
+    "\n" +
+    "                            <div ng-if=\"$last\">{{administrator.name}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-detail-description\">\r" +
+    "\n" +
+    "                {{pageDetail.page.description}}\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1410,13 +1484,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pagePreview.url}}\" class=\"img-rounded\">\r" +
+    "                    <img ng-src=\"{{pagePreview.titleUrl}}\" class=\"img-rounded\">\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
     "                <div class=\"page-preview-text\">\r" +
     "\n" +
-    "                    <div class=\"page-preview-title\">\r" +
+    "                    <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "                        {{pagePreview.title}}\r" +
     "\n" +
@@ -5704,9 +5778,33 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./pageDetailCtrl":71,"./pageOverviewCtrl":72,"./services/page":73,"./services/pageDetail":74,"angular":4}],71:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$stateParams', 'PageDetail', function ($scope, $stateParams, PageDetail) {
+var categories = {
+    BookPage: 'Buch'
+};
 
-    $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label});
+module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($scope, $state, $stateParams, PageDetail) {
+
+    $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
+        $scope.authorsWithProfile = [];
+        $scope.authors = [];
+        angular.forEach($scope.pageDetail.page.author, function (author) {
+            if (author.userId) {
+                $scope.authorsWithProfile.push(author);
+            } else {
+                $scope.authors.push(author);
+            }
+        });
+    });
+
+    $scope.category = categories[$stateParams.label];
+
+    $scope.openUserDetail = function (userId) {
+        if (userId) {
+            $state.go('contact.detail', {
+                userId: userId
+            });
+        }
+    };
 }];
 
 },{}],72:[function(require,module,exports){

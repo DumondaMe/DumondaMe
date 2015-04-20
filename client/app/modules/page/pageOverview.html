@@ -4,10 +4,10 @@
             <div ng-repeat="pagePreview in page.pages" class="page-preview"
                  ng-click="openDetailPage(pagePreview.pageId)">
                 <div class="page-preview-image" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                    <img ng-src="{{pagePreview.url}}" class="img-rounded">
+                    <img ng-src="{{pagePreview.titleUrl}}" class="img-rounded">
                 </div>
                 <div class="page-preview-text">
-                    <div class="page-preview-title">
+                    <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
                         {{pagePreview.title}}
                     </div>
                 </div>

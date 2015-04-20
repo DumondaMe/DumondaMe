@@ -2,6 +2,7 @@
 
 var db = require('./../../../neo4j');
 var administrator = require('./administrator');
+var detailTitlePicture = require('./detailTitlePicture');
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
@@ -39,6 +40,7 @@ var getBookDetail = function (pageId) {
         .send(commands)
         .then(function (resp) {
             addAuthors(resp[2][0], resp[1]);
+            detailTitlePicture.addTitlePicture(pageId, resp[2][0]);
             return {page: resp[2][0], administrators: resp[0]};
         });
 };

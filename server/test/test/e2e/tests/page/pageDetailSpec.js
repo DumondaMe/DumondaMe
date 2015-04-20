@@ -77,6 +77,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.title.should.equals('bookPage1Title');
                 res.body.page.description.should.equals('bookPage1');
                 res.body.page.created.should.equals(501);
+                res.body.page.titleUrl.should.equals('pages/BookPage/0/pageTitlePicture.jpg');
                 res.body.page.author.length.should.equals(3);
                 res.body.page.author[0].name.should.equals('Hans Muster');
                 should.not.exist(res.body.page.author[0].userId);

@@ -1,23 +1,79 @@
-#content {
+#content-page-detail {
 
   width: 100%;
   height: 100%;
 
-  #content-page-detail{
+  @include centerColumn(80px) {
+    #inner-centerCol {
+      width: 800px;
+      height: 100%;
+      margin: 0 auto;
 
-    width: 100%;
-    height: 100%;
+      @include breakpoint(largeDesktop) {
+        width: 1110px;
+      }
 
-    @include centerColumn(80px) {
-      #inner-centerCol {
-        position: relative;
-        width: 800px;
-        height: 100%;
-        margin: 0 auto;
-
-        @include breakpoint(largeDesktop) {
-          width: 1110px;
+      .page-detail-header {
+        .page-detail-header-image {
+          float: left;
+          img {
+            max-height: 346px;
+            max-width: 219px;
+          }
         }
+        .page-detail-header-list {
+          margin-left: 40px;
+          float: left;
+          .page-detail-header-title {
+            float: left;
+            font-weight: bold;
+            font-size: 18px;
+            color: $primary-color;
+          }
+          .page-detail-header-category {
+            float: left;
+            margin-left: 5px;
+            font-size: 14px;
+            height: 25px;
+            line-height: 25px;
+          }
+          .page-detail-header-author-title {
+            float: left;
+            margin-top: 10px;
+            margin-right: 5px;
+            font-size: 14px;
+          }
+          .page-detail-header-authors {
+            float: left;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-size: 14px;
+          }
+          .page-detail-header-authors-with-Profile {
+            @extend .page-detail-header-authors;
+            color: $link;
+            cursor: pointer;
+          }
+
+          .page-detail-header-admin-title {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+          }
+          .page-detail-header-admins {
+            float: left;
+            margin-right: 5px;
+            font-size: 14px;
+            color: $link;
+            cursor: pointer;
+          }
+        }
+      }
+      .page-detail-description {
+        width: 100%;
+        clear: both;
+        padding-top: 20px;
       }
     }
   }
