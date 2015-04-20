@@ -2,6 +2,7 @@
 
 var validation = require('./../../../lib/jsonValidation'),
     bookDetail = require('./../../../models/page/detail/bookDetail'),
+    videoDetail = require('./../../../models/page/detail/videoDetail'),
     auth = require('./../../../lib/auth'),
     exceptions = require('./../../../lib/error/exceptions'),
     controllerErrors = require('./../../../lib/error/controllerErrors'),
@@ -14,7 +15,7 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['BookPage']}
+        label: {enum: ['BookPage', 'VideoPage']}
     }
 };
 
@@ -26,6 +27,9 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 if (request.label === 'BookPage') {
                     return bookDetail.getBookDetail(request.pageId, req.user.id);
+                }
+                if (request.label === 'VideoPage') {
+                    return videoDetail.getVideoDetail(request.pageId, req.user.id);
                 }
             }).then(function (page) {
                 res.status(200).json(page);

@@ -1,19 +1,28 @@
 'use strict';
 
 var categories = {
-    BookPage: 'Buch'
+    BookPage: 'Buch',
+    VideoPage: 'Video'
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($scope, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', function ($scope, $window, $state, $stateParams, PageDetail) {
 
     $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-        $scope.authorsWithProfile = [];
-        $scope.authors = [];
-        angular.forEach($scope.pageDetail.page.author, function (author) {
+        var collection;
+        $scope.contributorsWithProfile = [];
+        $scope.contributors = [];
+        if ($stateParams.label === 'BookPage') {
+            collection = $scope.pageDetail.page.author;
+            $scope.contributorPrefix = 'von';
+        } else {
+            collection = $scope.pageDetail.page.actor;
+            $scope.contributorPrefix = 'mit';
+        }
+        angular.forEach(collection, function (author) {
             if (author.userId) {
-                $scope.authorsWithProfile.push(author);
+                $scope.contributorsWithProfile.push(author);
             } else {
-                $scope.authors.push(author);
+                $scope.contributors.push(author);
             }
         });
     });
@@ -31,6 +40,12 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($s
                     userId: userId
                 });
             }
+        }
+    };
+
+    $scope.openLink = function (link) {
+        if (link) {
+            $window.open(link, '_blank');
         }
     };
 }];

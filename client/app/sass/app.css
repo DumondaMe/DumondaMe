@@ -982,17 +982,23 @@
           font-size: 14px;
           height: 25px;
           line-height: 25px; }
-        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-author-title {
+        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-contributor-title {
           float: left;
           margin-top: 10px;
           margin-right: 5px;
           font-size: 14px; }
-        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-authors, #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-authors-with-Profile {
+        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-contributor, #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
           float: left;
           margin-top: 10px;
           margin-right: 10px;
           font-size: 14px; }
-        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-authors-with-Profile {
+        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
+          color: #0066c0;
+          cursor: pointer; }
+        #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-link {
+          float: left;
+          margin-top: 10px;
+          font-size: 14px;
           color: #0066c0;
           cursor: pointer; }
         #content-page-detail #centerCol #inner-centerCol .page-detail-header .page-detail-header-list .page-detail-header-admin-title {

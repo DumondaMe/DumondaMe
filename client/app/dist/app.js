@@ -1397,27 +1397,37 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"row\" ng-show=\"authorsWithProfile.length > 0 || authors.length > 0\">\r" +
+    "                    <div class=\"row\" ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-author-title\">\r" +
+    "                        <div class=\"page-detail-contributor-title\">\r" +
     "\n" +
-    "                            von\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-authors-with-Profile\" ng-repeat=\"author in authorsWithProfile\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(author.userId, author.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"author.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                            <div ng-if=\"!author.isLoggedInUser\">{{author.name}}</div>\r" +
+    "                            {{contributorPrefix}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-authors\" ng-repeat=\"author in authors\">\r" +
+    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
     "\n" +
-    "                            {{author.name}}\r" +
+    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
+    "\n" +
+    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "                            {{contributor.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\" ng-show=\"pageDetail.page.link\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-link\" ng-click=\"openLink(pageDetail.page.link)\">\r" +
+    "\n" +
+    "                            {{pageDetail.page.link}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5793,19 +5803,28 @@ app.config(['$stateProvider', function ($stateProvider) {
 'use strict';
 
 var categories = {
-    BookPage: 'Buch'
+    BookPage: 'Buch',
+    VideoPage: 'Video'
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($scope, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', function ($scope, $window, $state, $stateParams, PageDetail) {
 
     $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-        $scope.authorsWithProfile = [];
-        $scope.authors = [];
-        angular.forEach($scope.pageDetail.page.author, function (author) {
+        var collection;
+        $scope.contributorsWithProfile = [];
+        $scope.contributors = [];
+        if ($stateParams.label === 'BookPage') {
+            collection = $scope.pageDetail.page.author;
+            $scope.contributorPrefix = 'von';
+        } else {
+            collection = $scope.pageDetail.page.actor;
+            $scope.contributorPrefix = 'mit';
+        }
+        angular.forEach(collection, function (author) {
             if (author.userId) {
-                $scope.authorsWithProfile.push(author);
+                $scope.contributorsWithProfile.push(author);
             } else {
-                $scope.authors.push(author);
+                $scope.contributors.push(author);
             }
         });
     });
@@ -5823,6 +5842,12 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageDetail', function ($s
                     userId: userId
                 });
             }
+        }
+    };
+
+    $scope.openLink = function (link) {
+        if (link) {
+            $window.open(link, '_blank');
         }
     };
 }];

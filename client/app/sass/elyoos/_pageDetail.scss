@@ -37,20 +37,28 @@
             height: 25px;
             line-height: 25px;
           }
-          .page-detail-header-author-title {
+          .page-detail-contributor-title{
             float: left;
             margin-top: 10px;
             margin-right: 5px;
             font-size: 14px;
           }
-          .page-detail-header-authors {
+          .page-detail-header-contributor {
             float: left;
             margin-top: 10px;
             margin-right: 10px;
             font-size: 14px;
           }
-          .page-detail-header-authors-with-Profile {
-            @extend .page-detail-header-authors;
+          .page-detail-header-contributor-with-Profile {
+            @extend .page-detail-header-contributor;
+            color: $link;
+            cursor: pointer;
+          }
+
+          .page-detail-header-link{
+            float: left;
+            margin-top: 10px;
+            font-size: 14px;
             color: $link;
             cursor: pointer;
           }

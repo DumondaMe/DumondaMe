@@ -19,8 +19,8 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
-            "author: 'Hans Muster', hasPicture: true})").end().getCommand());
-            commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', created: 500, pageId: '0'})").end().getCommand());
+            "author: 'Hans Muster'})").end().getCommand());
+            commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 502, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 503, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 505, pageId: '0'})").end().getCommand());
@@ -49,7 +49,7 @@ describe('Integration Tests for getting page detail', function () {
         return requestHandler.logout();
     });
 
-    it('Getting the detail of the page for a book store with linked authors in elyoos', function () {
+    it('Getting the detail of the page for a book with linked authors in elyoos', function () {
 
         var commands = [];
 
@@ -91,6 +91,60 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.author[2].name.should.equals('user Meier2');
                 res.body.page.author[2].userId.should.equals('2');
                 res.body.page.author[2].isLoggedInUser.should.be.false;
+                res.body.administrators.length.should.equals(2);
+                res.body.administrators[0].name.should.equals('user Meier');
+                res.body.administrators[0].userId.should.equals('1');
+                res.body.administrators[0].isLoggedInUser.should.be.true;
+                res.body.administrators[1].name.should.equals('user Meier2');
+                res.body.administrators[1].userId.should.equals('2');
+                res.body.administrators[1].isLoggedInUser.should.be.false;
+            });
+    });
+
+    it('Getting the detail of the page for a video with linked actors in elyoos', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_ACTOR]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ACTOR]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().getCommand());
+
+        return db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/page/detail', {
+                    pageId: '0',
+                    label: 'VideoPage'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.page.title.should.equals('page2Title');
+                res.body.page.description.should.equals('page2');
+                res.body.page.link.should.equals('www.link.com');
+                res.body.page.duration.should.equals(10);
+                res.body.page.created.should.equals(500);
+                res.body.page.titleUrl.should.equals('pages/VideoPage/0/pageTitlePicture.jpg');
+                res.body.page.actor.length.should.equals(3);
+                res.body.page.actor[0].name.should.equals('Hans Muster');
+                res.body.page.actor[0].isLoggedInUser.should.be.false;
+                should.not.exist(res.body.page.actor[0].userId);
+                res.body.page.actor[1].name.should.equals('user Meier');
+                res.body.page.actor[1].userId.should.equals('1');
+                res.body.page.actor[1].isLoggedInUser.should.be.true;
+                res.body.page.actor[2].name.should.equals('user Meier2');
+                res.body.page.actor[2].userId.should.equals('2');
+                res.body.page.actor[2].isLoggedInUser.should.be.false;
                 res.body.administrators.length.should.equals(2);
                 res.body.administrators[0].name.should.equals('user Meier');
                 res.body.administrators[0].userId.should.equals('1');

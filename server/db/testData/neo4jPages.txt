@@ -19,7 +19,9 @@ Dieses Buch lässt das Bewusstsein in die höchsten Höhen des Wunderbaren aufst
 MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);
 MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
 
-CREATE (:VideoPage {title: 'Im Zeichen der Libelle', created: 1424692757 - 100, pageId: '1'});
+CREATE (:VideoPage {title: 'Im Zeichen der Libelle', created: 1424692757 - 100, duration: 6240, description: 'Mysteriöse Zeichen treiben Dr. Joe Darrow nach dem tragischen Tod seiner Frau Emily im Dschungel von Venezuela an den Rand der Verzweiflung. Emily war Zeit ihres Lebens fasziniert von Libellen und plötzlich ereignen sich merkwürdige Dinge, für die es einfach keine logische Erklärung gibt. Joe ist überzeugt, dass Emily Kontakt mit ihm aufnehmen will. Die Ereignisse überstürzen sich und führen ihn schließlich nach Venezuela, wo er eine unglaubliche Entdeckung macht...', actor: 'Kevin Costner', link: 'http://de.wikipedia.org/wiki/Im_Zeichen_der_Libelle', pageId: '1'});
+MATCH (page:VideoPage {pageId: '1'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);
+
 CREATE (:SchoolPage {title: 'Kaleidoskop', created: 1424692757 - 101, pageId: '0'});
 CREATE (:CoursePage {title: 'Medialität', created: 1424692757 - 102, pageId: '0'});
 CREATE (:CoursePage {title: 'Spirituelles Heilen', created: 1424692757 - 103, pageId: '0'});

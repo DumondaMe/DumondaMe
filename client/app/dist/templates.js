@@ -1396,27 +1396,37 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"row\" ng-show=\"authorsWithProfile.length > 0 || authors.length > 0\">\r" +
+    "                    <div class=\"row\" ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-author-title\">\r" +
+    "                        <div class=\"page-detail-contributor-title\">\r" +
     "\n" +
-    "                            von\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-authors-with-Profile\" ng-repeat=\"author in authorsWithProfile\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(author.userId, author.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"author.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                            <div ng-if=\"!author.isLoggedInUser\">{{author.name}}</div>\r" +
+    "                            {{contributorPrefix}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-authors\" ng-repeat=\"author in authors\">\r" +
+    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
     "\n" +
-    "                            {{author.name}}\r" +
+    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
+    "\n" +
+    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "                            {{contributor.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\" ng-show=\"pageDetail.page.link\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-link\" ng-click=\"openLink(pageDetail.page.link)\">\r" +
+    "\n" +
+    "                            {{pageDetail.page.link}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

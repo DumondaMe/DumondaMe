@@ -40,7 +40,7 @@ var getBookDetail = function (pageId, userId) {
         .send(commands)
         .then(function (resp) {
             addAuthors(resp[2][0], resp[1]);
-            detailTitlePicture.addTitlePicture(pageId, resp[2][0]);
+            detailTitlePicture.addTitlePicture(pageId, resp[2][0], 'BookPage');
             return {page: resp[2][0], administrators: resp[0]};
         });
 };
