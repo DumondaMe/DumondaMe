@@ -5,11 +5,11 @@ var exceptions = require('./../../../lib/error/exceptions');
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
-var getAdministrator = function (pageId, pageLabel) {
+var getAdministrator = function (pageId, pageLabel, userId) {
 
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:IS_ADMIN]-(u:User)")
-        .return("u.name AS name, u.userId AS userId")
-        .end({pageId: pageId})
+        .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
+        .end({pageId: pageId, userId: userId})
         .getCommand();
 };
 

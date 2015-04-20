@@ -59,6 +59,9 @@ describe('Integration Tests for getting page detail', function () {
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().getCommand());
 
         return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
@@ -80,14 +83,21 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.titleUrl.should.equals('pages/BookPage/0/pageTitlePicture.jpg');
                 res.body.page.author.length.should.equals(3);
                 res.body.page.author[0].name.should.equals('Hans Muster');
+                res.body.page.author[0].isLoggedInUser.should.be.false;
                 should.not.exist(res.body.page.author[0].userId);
                 res.body.page.author[1].name.should.equals('user Meier');
                 res.body.page.author[1].userId.should.equals('1');
+                res.body.page.author[1].isLoggedInUser.should.be.true;
                 res.body.page.author[2].name.should.equals('user Meier2');
                 res.body.page.author[2].userId.should.equals('2');
-                res.body.administrators.length.should.equals(1);
-                res.body.administrators[0].name.should.equals('user Meier2');
-                res.body.administrators[0].userId.should.equals('2');
+                res.body.page.author[2].isLoggedInUser.should.be.false;
+                res.body.administrators.length.should.equals(2);
+                res.body.administrators[0].name.should.equals('user Meier');
+                res.body.administrators[0].userId.should.equals('1');
+                res.body.administrators[0].isLoggedInUser.should.be.true;
+                res.body.administrators[1].name.should.equals('user Meier2');
+                res.body.administrators[1].userId.should.equals('2');
+                res.body.administrators[1].isLoggedInUser.should.be.false;
             });
     });
 });

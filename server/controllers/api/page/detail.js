@@ -25,7 +25,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting the page detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 if (request.label === 'BookPage') {
-                    return bookDetail.getBookDetail(request.pageId);
+                    return bookDetail.getBookDetail(request.pageId, req.user.id);
                 }
             }).then(function (page) {
                 res.status(200).json(page);
