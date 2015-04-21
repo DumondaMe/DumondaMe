@@ -1,11 +1,10 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var Promise = require('bluebird').Promise;
 var uuid = require('./../../lib/uuid');
 var time = require('./../../lib/time');
 var exceptions = require('./../../lib/error/exceptions');
-var logger = requireLogger.getLogger(__filename)
+var logger = requireLogger.getLogger(__filename);
 
 var checkDeleteRecommendationAllowed = function (userId, recommendationId, req) {
     return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(rec:Recommendation {recommendationId: {recommendationId}})")

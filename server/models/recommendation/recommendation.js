@@ -3,7 +3,6 @@
 var db = require('./../../neo4j');
 var exceptions = require('./../../lib/error/exceptions');
 var underscore = require('underscore');
-var Promise = require('bluebird').Promise;
 var cdn = require('../util/cdn');
 var logger = requireLogger.getLogger(__filename);
 
