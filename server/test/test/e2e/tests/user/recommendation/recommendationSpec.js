@@ -19,11 +19,6 @@ describe('Integration Tests for getting user recommendations', function () {
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
             "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
-            commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', link: 'www.link.com', created: 502, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', link: 'www.link.com', created: 503, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 505, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:EventPage {title: 'page7Title', description: 'page7', created: 506, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:BlogPage {title: 'page8Title', description: 'page8', created: 507, pageId: '0'})").end().getCommand());
 
 
             commands.push(db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 508, pageId: '0', " +
