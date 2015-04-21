@@ -1474,6 +1474,34 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
+    "            <div class=\"page-detail-reference-pages\">\r" +
+    "\n" +
+    "                <div class=\"page-detail-reference-title\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-reference-preview\" ng-repeat=\"pagePreview in pageDetail.page.pageReference\">\r" +
+    "\n" +
+    "                    <div class=\"page-detail-reference-preview-content\">\r" +
+    "\n" +
+    "                        <img ng-src=\"{{pagePreview.previewUrl}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"profile-contacts-preview-name\">\r" +
+    "\n" +
+    "                            <div class=\"name\">{{pagePreview.title}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
     "        </div>\r" +
     "\n" +
     "    </div>\r" +

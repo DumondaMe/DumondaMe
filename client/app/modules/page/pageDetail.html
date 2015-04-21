@@ -53,6 +53,20 @@
             <div class="page-detail-description">
                 {{pageDetail.page.description}}
             </div>
+            <div class="page-detail-reference-pages">
+                <div class="page-detail-reference-title">
+
+                </div>
+                <div class="page-detail-reference-preview" ng-repeat="pagePreview in pageDetail.page.pageReference">
+                    <div class="page-detail-reference-preview-content">
+                        <img ng-src="{{pagePreview.previewUrl}}">
+
+                        <div class="profile-contacts-preview-name">
+                            <div class="name">{{pagePreview.title}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="leftCol">

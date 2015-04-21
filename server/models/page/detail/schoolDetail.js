@@ -29,7 +29,7 @@ var addPreviewToCourse = function (schoolPage, courses) {
         course.previewUrl = cdn.getUrl('pages/CoursePage/' + course.pageId + '/pageTitlePicturePreview.jpg');
     });
 
-    schoolPage.courses = courses;
+    schoolPage.pageReference = courses;
 };
 
 var getSchoolDetail = function (pageId, userId) {

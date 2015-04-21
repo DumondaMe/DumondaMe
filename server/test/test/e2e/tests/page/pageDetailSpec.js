@@ -9,7 +9,7 @@ var moment = require('moment');
 
 describe('Integration Tests for getting page detail', function () {
 
-    var requestAgent, startTime;
+    var requestAgent;
 
     beforeEach(function () {
 
@@ -239,9 +239,9 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.principal[1].name.should.equals('user Meier2');
                 res.body.page.principal[1].userId.should.equals('2');
                 res.body.page.principal[1].isLoggedInUser.should.be.false;
-                res.body.page.courses.length.should.equals(1);
-                res.body.page.courses[0].title.should.equals('page4Title');
-                res.body.page.courses[0].previewUrl.should.equals('pages/CoursePage/0/pageTitlePicturePreview.jpg');
+                res.body.page.pageReference.length.should.equals(1);
+                res.body.page.pageReference[0].title.should.equals('page4Title');
+                res.body.page.pageReference[0].previewUrl.should.equals('pages/CoursePage/0/pageTitlePicturePreview.jpg');
                 res.body.administrators.length.should.equals(1);
                 res.body.administrators[0].name.should.equals('user Meier2');
                 res.body.administrators[0].userId.should.equals('2');

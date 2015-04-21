@@ -2,7 +2,9 @@
 
 var categories = {
     BookPage: 'Buch',
-    VideoPage: 'Video'
+    VideoPage: 'Video',
+    CoursePage: 'Kurs',
+    SchoolPage: 'Schule'
 };
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', function ($scope, $window, $state, $stateParams, PageDetail) {
@@ -14,9 +16,15 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', f
         if ($stateParams.label === 'BookPage') {
             collection = $scope.pageDetail.page.author;
             $scope.contributorPrefix = 'von';
-        } else {
+        } else if ($stateParams.label === 'VideoPage') {
             collection = $scope.pageDetail.page.actor;
             $scope.contributorPrefix = 'mit';
+        } else if ($stateParams.label === 'SchoolPage') {
+            collection = $scope.pageDetail.page.principal;
+            $scope.contributorPrefix = 'wird geleited von';
+        } else if ($stateParams.label === 'CoursePage') {
+            collection = $scope.pageDetail.page.instructor;
+            $scope.contributorPrefix = 'wird geleited von';
         }
         angular.forEach(collection, function (author) {
             if (author.userId) {
