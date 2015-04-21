@@ -37,10 +37,7 @@ describe('Integration Tests for getting page detail', function () {
 
             return db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 508, pageId: '0', " +
             "webLink: 'www.irgenwas.com', street: 'Strasse', houseNumber: 50, place: 'Zürich', postalCode: '8008'})")
-                .end().send(commands)
-                .catch(function (err) {
-                    var error = err;
-                });
+                .end().send(commands);
 
         });
     });
