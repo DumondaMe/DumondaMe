@@ -947,6 +947,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                          nav-to=\"message.threads\" event-description=\"messageText\"></ely-home-nav-element>\n" +
     "    <ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
     "                          nav-to=\"page.overview\"></ely-home-nav-element>\n" +
+    "    <ely-home-nav-element description=\"Empfehlung\" image-url=\"app/img/home/recommend.png\"\n" +
+    "                          nav-to=\"recommendation.home\"></ely-home-nav-element>\n" +
     "</div>"
   );
 
@@ -1615,6 +1617,48 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
     "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/recommendation/home.html',
+    "<div id=\"content-page-overview\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-leftCol\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/recommendation/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/recommendation/leftNavCol.html',
+    "<div class=\"nav-placeholder-top\"></div>\n" +
+    "\n" +
+    "<div class=\"nav-sub-element\" ui-sref=\"recommendation.home\">\n" +
+    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"recommendation.home\"></div>\n" +
+    "    </div>\n" +
+    "    <img src=\"app/img/recommendation/home.png\">\n" +
+    "</div>\n" +
+    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
+    "    <img src=\"app/img/home.png\">\n" +
     "</div>"
   );
 
