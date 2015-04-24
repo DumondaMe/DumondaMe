@@ -3,8 +3,10 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('RecommendationHomeCtrl', require('./recommendationHomeCtrl'));
+app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('Recommendation', require('./services/recommendation'));
+app.service('PageRecommendation', require('./services/pageRecommendation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

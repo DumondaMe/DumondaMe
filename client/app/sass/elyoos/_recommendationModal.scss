@@ -1,0 +1,30 @@
+#modal-dialog-add-recommendation {
+
+  .modal-header{
+    .modal-dialog-add-recommendation-title {
+      font-weight: bold;
+      display: inline;
+    }
+  }
+
+  .modal-body {
+    .modal-dialog-add-recommendation-description {
+      textarea {
+        height: 300px;
+      }
+    }
+  }
+  .modal-footer {
+    .modal-dialog-add-recommendation-error {
+      float: left;
+      text-align: left;
+      max-width: 200px;
+      margin-left: 10px;
+      color: red;
+    }
+    .ely-star-rating {
+      float: left;
+      margin-left: 5px;
+    }
+  }
+}

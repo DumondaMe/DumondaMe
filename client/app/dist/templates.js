@@ -901,6 +901,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/directives/starRating/template.html',
+    "<div class=\"ely-star-rating\" ng-mouseleave=\"resetToSelected()\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(0)\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(1)\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(2)\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(3)\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(4)\">\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/home/home.html',
     "<div class=\"navigation\">\n" +
     "    <ely-home-nav-element description=\"Kontakte\" image-url=\"app/img/home/contact.png\"\n" +
@@ -1606,25 +1623,45 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\" ng-controller=\"ModalAddRecommendationCtrl\">\r" +
     "\n" +
     "    <div id=\"modal-dialog-add-recommendation\" class=\"modal-dialog\">\r" +
     "\n" +
     "        <div class=\"modal-content\">\r" +
     "\n" +
-    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\">Bewertung hinzufügen</h4></div>\r" +
+    "            <div class=\"modal-header\">\r" +
+    "\n" +
+    "                <h4 class=\"modal-title\">Deine Bewertung für\r" +
+    "\n" +
+    "                    <div class=\"modal-dialog-add-recommendation-title\">{{title}}</div>\r" +
+    "\n" +
+    "                </h4>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "            <div class=\"modal-body\">\r" +
     "\n" +
-    "                <div id=\"modal-dialog-add-recommendation-description\">Bewertung für {{content}}</div>\r" +
+    "                <div class=\"modal-dialog-add-recommendation-description\">\r" +
+    "\n" +
+    "                    <textarea class=\"form-control\" ng-model=\"recommendationDescription\"></textarea>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"modal-footer\">\r" +
     "\n" +
+    "                <ely-star-rating is-readonly=\"false\" number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
+    "\n" +
+    "                <div class=\"modal-dialog-add-recommendation-error\" ng-show=\"error\">{{error}}</div>\r" +
+    "\n" +
     "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
     "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\">Hinzufügen</button>\r" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
+    "\n" +
+    "                    Hinzufügen\r" +
+    "\n" +
+    "                </button>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +

@@ -53,8 +53,14 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
         };
 
         $scope.addNewRecommendation = function () {
+            var modalScope = $scope.$new(false);
+            modalScope.recommendation = {
+                pageId: $stateParams.pageId,
+                label: $stateParams.label
+            };
             $modal({
-                content: $scope.pageDetail.page.title,
+                scope: modalScope,
+                title: $scope.pageDetail.page.title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
                 show: true,
                 placement: 'center'

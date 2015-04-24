@@ -1,13 +1,23 @@
-<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ModalAddRecommendationCtrl">
     <div id="modal-dialog-add-recommendation" class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" ng-show="title"><h4 class="modal-title">Bewertung hinzufügen</h4></div>
+            <div class="modal-header">
+                <h4 class="modal-title">Deine Bewertung für
+                    <div class="modal-dialog-add-recommendation-title">{{title}}</div>
+                </h4>
+            </div>
             <div class="modal-body">
-                <div id="modal-dialog-add-recommendation-description">Bewertung für {{content}}</div>
+                <div class="modal-dialog-add-recommendation-description">
+                    <textarea class="form-control" ng-model="recommendationDescription"></textarea>
+                </div>
             </div>
             <div class="modal-footer">
+                <ely-star-rating is-readonly="false" number-of-selected-stars="numberOfSelectedStars"></ely-star-rating>
+                <div class="modal-dialog-add-recommendation-error" ng-show="error">{{error}}</div>
                 <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
-                <button type="button" class="btn btn-default" ng-click="addRecommendation($hide)">Hinzufügen</button>
+                <button type="button" class="btn btn-default" ng-click="addRecommendation($hide)" ng-class="{disabled: numberOfSelectedStars === -1}">
+                    Hinzufügen
+                </button>
             </div>
         </div>
     </div>

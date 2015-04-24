@@ -322,6 +322,10 @@
 .ely-submit-button .ely-submit-button-error {
   cursor: pointer; }
 
+.ely-star-rating {
+  cursor: pointer;
+  display: inline-block; }
+
 .modal.center .modal-dialog {
   z-index: 101;
   position: fixed;
@@ -1096,6 +1100,21 @@
       min-width: 800px;
       height: 100%;
       margin-left: 60px; }
+
+#modal-dialog-add-recommendation .modal-header .modal-dialog-add-recommendation-title {
+  font-weight: bold;
+  display: inline; }
+#modal-dialog-add-recommendation .modal-body .modal-dialog-add-recommendation-description textarea {
+  height: 300px; }
+#modal-dialog-add-recommendation .modal-footer .modal-dialog-add-recommendation-error {
+  float: left;
+  text-align: left;
+  max-width: 200px;
+  margin-left: 10px;
+  color: red; }
+#modal-dialog-add-recommendation .modal-footer .ely-star-rating {
+  float: left;
+  margin-left: 5px; }
 
 #content-settings-password {
   width: 100%;
