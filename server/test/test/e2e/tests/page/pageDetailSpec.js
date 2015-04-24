@@ -19,7 +19,7 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
-            "author: 'Hans Muster'})").end().getCommand());
+                "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', link: 'www.link.com', created: 502, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', link: 'www.link.com', created: 503, pageId: '0'})").end().getCommand());
@@ -36,7 +36,7 @@ describe('Integration Tests for getting page detail', function () {
                 .end().getCommand());
 
             return db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 508, pageId: '0', " +
-            "webLink: 'www.irgenwas.com', street: 'Strasse', houseNumber: 50, place: 'Zürich', postalCode: '8008'})")
+                "webLink: 'www.irgenwas.com', street: 'Strasse', houseNumber: 50, place: 'Zürich', postalCode: '8008'})")
                 .end().send(commands);
 
         });
@@ -58,6 +58,12 @@ describe('Integration Tests for getting page detail', function () {
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 3, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
@@ -95,6 +101,19 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators[1].name.should.equals('user Meier2');
                 res.body.administrators[1].userId.should.equals('2');
                 res.body.administrators[1].isLoggedInUser.should.be.false;
+
+                res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.recommendation.user.rating.should.equals(5);
+                res.body.recommendation.user.comment.should.equals('irgendwas');
+                res.body.recommendation.user.recommendationId.should.equals('0');
+
+                res.body.recommendation.users.length.should.equals(1);
+                res.body.recommendation.users[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+                res.body.recommendation.users[0].name.should.equals('user Meier3');
+                res.body.recommendation.users[0].userId.should.equals('3');
+                res.body.recommendation.users[0].rating.should.equals(3);
+                res.body.recommendation.users[0].comment.should.equals('irgendwas2');
+                res.body.recommendation.users[0].recommendationId.should.equals('1');
             });
     });
 
