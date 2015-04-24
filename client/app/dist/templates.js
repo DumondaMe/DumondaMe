@@ -610,44 +610,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    </div>\r" +
     "\n" +
     "</div>\r" +
-    "\n" +
-    "<!--\r" +
-    "\n" +
-    "<div class=\"popover\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
-    "\n" +
-    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
-    "\n" +
-    "                    data-placeholder=\"\"\r" +
-    "\n" +
-    "                    bs-select>\r" +
-    "\n" +
-    "                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
-    "\n" +
-    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>-->\r" +
     "\n"
   );
 
@@ -1372,17 +1334,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"page-detail-header\">\r" +
+    "            <div id=\"page-detail-rightCol\">\r" +
     "\n" +
-    "                <div class=\"page-detail-header-image\">\r" +
+    "                <div class=\"page-detail-select-contact-visible\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "                    <input type=\"checkbox\" ng-model=\"contact\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-detail-select-contact-visible-description\">\r" +
+    "\n" +
+    "                        Nur Kontakte\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"page-detail-header-list\">\r" +
+    "            </div>\r" +
     "\n" +
-    "                    <div class=\"row\">\r" +
+    "            <div id=\"page-detail-header\">\r" +
+    "\n" +
+    "                <div id=\"page-detail-inner-header\">\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-image\">\r" +
+    "\n" +
+    "                        <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-list\">\r" +
     "\n" +
     "                        <div class=\"page-detail-header-title\">\r" +
     "\n" +
@@ -1392,75 +1372,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-category\">\r" +
     "\n" +
-    "                            ({{category}})\r" +
+    "                            Kategorie: {{category}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                    </div>\r" +
+    "                        <div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
     "\n" +
-    "                    <div class=\"row\" ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
+    "                            <div class=\"page-detail-contributor-title\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-contributor-title\">\r" +
-    "\n" +
-    "                            {{contributorPrefix}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
-    "\n" +
-    "                            {{contributor.name}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\" ng-show=\"pageDetail.page.link\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-link\" ng-click=\"openLink(pageDetail.page.link)\">\r" +
-    "\n" +
-    "                            {{pageDetail.page.link}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-admin-title\">\r" +
-    "\n" +
-    "                            Administratoren der Seite\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-admins\" ng-repeat=\"administrator in pageDetail.administrators\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(administrator.userId, administrator.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"!$last\">\r" +
-    "\n" +
-    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich,</div>\r" +
-    "\n" +
-    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}},</div>\r" +
+    "                                {{contributorPrefix}}\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <div ng-if=\"$last\">\r" +
+    "                            <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
     "\n" +
-    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich</div>\r" +
+    "                                 ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
     "\n" +
-    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}}</div>\r" +
+    "                                <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                                <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
     "\n" +
     "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "                                {{contributor.name}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-commands\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\">\r" +
+    "\n" +
+    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
+    "\n" +
+    "                            </button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1470,9 +1418,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div class=\"page-detail-description\">\r" +
+    "            <div class=\"page-detail-section-separator\"></div>\r" +
     "\n" +
-    "                {{pageDetail.page.description}}\r" +
+    "            <div id=\"page-detail-description\">\r" +
+    "\n" +
+    "                <div class=\"page-detail-section-title\">Beschreibung</div>\r" +
+    "\n" +
+    "                <div id=\"page-detail-description-text\" style=\"height: 100px\">{{pageDetail.page.description}}</div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1503,16 +1455,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1622,7 +1564,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/recommendation/home.html',
-    "<div id=\"content-page-overview\">\r" +
+    "<div id=\"content-recommendation-home\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
@@ -1660,6 +1602,38 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
     "    <img src=\"app/img/home.png\">\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-dialog-add-recommendation\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\">Bewertung hinzufügen</h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <div id=\"modal-dialog-add-recommendation-description\">Bewertung für {{content}}</div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\">Hinzufügen</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 

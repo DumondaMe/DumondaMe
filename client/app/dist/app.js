@@ -611,44 +611,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    </div>\r" +
     "\n" +
     "</div>\r" +
-    "\n" +
-    "<!--\r" +
-    "\n" +
-    "<div class=\"popover\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default popover-select-privacy\"\r" +
-    "\n" +
-    "                    ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
-    "\n" +
-    "                    bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
-    "\n" +
-    "                    data-placeholder=\"\"\r" +
-    "\n" +
-    "                    bs-select>\r" +
-    "\n" +
-    "                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                    ng-class=\"{'disabled': contact.selectedPrivacySetting === contact.type}\"\r" +
-    "\n" +
-    "                    ng-click=\"sendNewDescription($hide)\">Ändern\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>-->\r" +
     "\n"
   );
 
@@ -1373,17 +1335,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"page-detail-header\">\r" +
+    "            <div id=\"page-detail-rightCol\">\r" +
     "\n" +
-    "                <div class=\"page-detail-header-image\">\r" +
+    "                <div class=\"page-detail-select-contact-visible\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "                    <input type=\"checkbox\" ng-model=\"contact\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-detail-select-contact-visible-description\">\r" +
+    "\n" +
+    "                        Nur Kontakte\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"page-detail-header-list\">\r" +
+    "            </div>\r" +
     "\n" +
-    "                    <div class=\"row\">\r" +
+    "            <div id=\"page-detail-header\">\r" +
+    "\n" +
+    "                <div id=\"page-detail-inner-header\">\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-image\">\r" +
+    "\n" +
+    "                        <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-list\">\r" +
     "\n" +
     "                        <div class=\"page-detail-header-title\">\r" +
     "\n" +
@@ -1393,75 +1373,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-category\">\r" +
     "\n" +
-    "                            ({{category}})\r" +
+    "                            Kategorie: {{category}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                    </div>\r" +
+    "                        <div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
     "\n" +
-    "                    <div class=\"row\" ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
+    "                            <div class=\"page-detail-contributor-title\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-contributor-title\">\r" +
-    "\n" +
-    "                            {{contributorPrefix}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
-    "\n" +
-    "                            {{contributor.name}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\" ng-show=\"pageDetail.page.link\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-link\" ng-click=\"openLink(pageDetail.page.link)\">\r" +
-    "\n" +
-    "                            {{pageDetail.page.link}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-admin-title\">\r" +
-    "\n" +
-    "                            Administratoren der Seite\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-admins\" ng-repeat=\"administrator in pageDetail.administrators\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(administrator.userId, administrator.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"!$last\">\r" +
-    "\n" +
-    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich,</div>\r" +
-    "\n" +
-    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}},</div>\r" +
+    "                                {{contributorPrefix}}\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <div ng-if=\"$last\">\r" +
+    "                            <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
     "\n" +
-    "                                <div ng-if=\"administrator.isLoggedInUser\">Ich</div>\r" +
+    "                                 ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
     "\n" +
-    "                                <div ng-if=\"!administrator.isLoggedInUser\">{{administrator.name}}</div>\r" +
+    "                                <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                                <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
     "\n" +
     "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "                                {{contributor.name}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-commands\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\">\r" +
+    "\n" +
+    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
+    "\n" +
+    "                            </button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1471,9 +1419,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div class=\"page-detail-description\">\r" +
+    "            <div class=\"page-detail-section-separator\"></div>\r" +
     "\n" +
-    "                {{pageDetail.page.description}}\r" +
+    "            <div id=\"page-detail-description\">\r" +
+    "\n" +
+    "                <div class=\"page-detail-section-title\">Beschreibung</div>\r" +
+    "\n" +
+    "                <div id=\"page-detail-description-text\" style=\"height: 100px\">{{pageDetail.page.description}}</div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1504,16 +1456,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1623,7 +1565,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/recommendation/home.html',
-    "<div id=\"content-page-overview\">\r" +
+    "<div id=\"content-recommendation-home\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
@@ -1661,6 +1603,38 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
     "    <img src=\"app/img/home.png\">\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-dialog-add-recommendation\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\">Bewertung hinzufügen</h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <div id=\"modal-dialog-add-recommendation-description\">Bewertung für {{content}}</div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\">Hinzufügen</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 
@@ -4202,7 +4176,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":100,"./auth":15,"./contact":25,"./directives":38,"./filters":52,"./home":56,"./navigation":66,"./settings":80,"./util":98,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":99,"./auth":15,"./contact":25,"./directives":38,"./filters":52,"./home":56,"./navigation":66,"./settings":79,"./util":97,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -5881,56 +5855,66 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', function ($scope, $window, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail',
+    function ($scope, $window, $modal, $state, $stateParams, PageDetail) {
 
-    $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-        var collection;
-        $scope.contributorsWithProfile = [];
-        $scope.contributors = [];
-        if ($stateParams.label === 'BookPage') {
-            collection = $scope.pageDetail.page.author;
-            $scope.contributorPrefix = 'von';
-        } else if ($stateParams.label === 'VideoPage') {
-            collection = $scope.pageDetail.page.actor;
-            $scope.contributorPrefix = 'mit';
-        } else if ($stateParams.label === 'SchoolPage') {
-            collection = $scope.pageDetail.page.principal;
-            $scope.contributorPrefix = 'wird geleited von';
-        } else if ($stateParams.label === 'CoursePage') {
-            collection = $scope.pageDetail.page.instructor;
-            $scope.contributorPrefix = 'wird geleited von';
-        }
-        angular.forEach(collection, function (author) {
-            if (author.userId) {
-                $scope.contributorsWithProfile.push(author);
-            } else {
-                $scope.contributors.push(author);
+        $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
+            var collection;
+            $scope.contributorsWithProfile = [];
+            $scope.contributors = [];
+            if ($stateParams.label === 'BookPage') {
+                collection = $scope.pageDetail.page.author;
+                $scope.contributorPrefix = 'von';
+            } else if ($stateParams.label === 'VideoPage') {
+                collection = $scope.pageDetail.page.actor;
+                $scope.contributorPrefix = 'mit';
+            } else if ($stateParams.label === 'SchoolPage') {
+                collection = $scope.pageDetail.page.principal;
+                $scope.contributorPrefix = 'wird geleited von';
+            } else if ($stateParams.label === 'CoursePage') {
+                collection = $scope.pageDetail.page.instructor;
+                $scope.contributorPrefix = 'wird geleited von';
             }
+            angular.forEach(collection, function (author) {
+                if (author.userId) {
+                    $scope.contributorsWithProfile.push(author);
+                } else {
+                    $scope.contributors.push(author);
+                }
+            });
         });
-    });
 
-    $scope.category = categories[$stateParams.label];
+        $scope.category = categories[$stateParams.label];
 
-    $scope.openUserDetail = function (userId, isLoggedInUser) {
-        if (userId) {
-            if (isLoggedInUser) {
-                $state.go('settings.profile', {
-                    userId: userId
-                });
-            } else {
-                $state.go('contact.detail', {
-                    userId: userId
-                });
+        $scope.openUserDetail = function (userId, isLoggedInUser) {
+            if (userId) {
+                if (isLoggedInUser) {
+                    $state.go('settings.profile', {
+                        userId: userId
+                    });
+                } else {
+                    $state.go('contact.detail', {
+                        userId: userId
+                    });
+                }
             }
-        }
-    };
+        };
 
-    $scope.openLink = function (link) {
-        if (link) {
-            $window.open(link, '_blank');
-        }
-    };
-}];
+        $scope.addNewRecommendation = function () {
+            $modal({
+                content: $scope.pageDetail.page.title,
+                template: 'app/modules/recommendation/modalAddRecommendation.html',
+                show: true,
+                placement: 'center'
+            });
+        };
+
+        $scope.openLink = function (link) {
+            if (link) {
+                $window.open(link, '_blank');
+            }
+        };
+    }];
 
 },{}],72:[function(require,module,exports){
 'use strict';
@@ -5966,14 +5950,6 @@ module.exports = ['$resource', function ($resource) {
 },{}],75:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'Recommendation', function ($scope, $state, Recommendation) {
-
-
-}];
-
-},{}],76:[function(require,module,exports){
-'use strict';
-
 var app = require('angular').module('elyoosApp');
 
 app.controller('RecommendationHomeCtrl', require('./recommendationHomeCtrl'));
@@ -6002,16 +5978,21 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./recommendationHomeCtrl":77,"./services/recommendation":78,"angular":4}],77:[function(require,module,exports){
-module.exports=require(75)
-},{"c:\\Programmieren\\Elyoos\\client\\app\\modules\\recommendation\\RecommendationHomeCtrl.js":75}],78:[function(require,module,exports){
+},{"./recommendationHomeCtrl":76,"./services/recommendation":77,"angular":4}],76:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', 'Recommendation', function ($scope, Recommendation) {
+
+}];
+
+},{}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/recommendation');
 }];
 
-},{}],79:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -6043,7 +6024,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],80:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6098,14 +6079,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":79,"./password":81,"./passwordCtrl":82,"./privacy":83,"./privacyCtrl":84,"./profile":85,"./profileCtrl":86,"./renamePrivacyCtrl":87,"angular":4}],81:[function(require,module,exports){
+},{"./deletePrivacyCtrl":78,"./password":80,"./passwordCtrl":81,"./privacy":82,"./privacyCtrl":83,"./profile":84,"./profileCtrl":85,"./renamePrivacyCtrl":86,"angular":4}],80:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],82:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -6158,7 +6139,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],83:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -6167,7 +6148,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],84:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -6284,14 +6265,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],85:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],86:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
@@ -6375,7 +6356,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],87:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -6419,7 +6400,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],88:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -6453,7 +6434,7 @@ module.exports = function () {
     };
 };
 
-},{}],89:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -6486,19 +6467,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],90:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":89,"angular":4}],91:[function(require,module,exports){
+},{"./dateFormatter":88,"angular":4}],90:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":92,"angular":4}],92:[function(require,module,exports){
+},{"./profileImage":91,"angular":4}],91:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6510,7 +6491,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],93:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6532,14 +6513,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],94:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],95:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -6553,7 +6534,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],96:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6566,7 +6547,7 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":93,"./fileReader":94,"./fileUpload":95,"./uploadFileCtrl":97,"angular":4}],97:[function(require,module,exports){
+},{"./fileModel.js":92,"./fileReader":93,"./fileUpload":94,"./uploadFileCtrl":96,"angular":4}],96:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -6622,7 +6603,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],98:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6631,7 +6612,7 @@ require('./file');
 
 app.service('moment', require('./moment'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":88,"./file":96,"./moment":99,"angular":4}],99:[function(require,module,exports){
+},{"./countryCodeConverter":87,"./file":95,"./moment":98,"angular":4}],98:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6641,7 +6622,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],100:[function(require,module,exports){
+},{"moment":11}],99:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -6696,4 +6677,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98]);

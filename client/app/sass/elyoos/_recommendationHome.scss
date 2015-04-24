@@ -1,0 +1,24 @@
+
+#content-recommendation-home {
+
+  width: 100%;
+  height: 100%;
+
+  @include centerColumn(80px) {
+    #inner-centerCol {
+      min-width: 800px;
+      height: 100%;
+      margin-left: 60px;
+
+
+    }
+  }
+}
+
+
+//Modals
+#modal-dialog-add-recommendation {
+  #modal-dialog-add-recommendation-description {
+
+  }
+}

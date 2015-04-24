@@ -1,0 +1,14 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-dialog-add-recommendation" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" ng-show="title"><h4 class="modal-title">Bewertung hinzufügen</h4></div>
+            <div class="modal-body">
+                <div id="modal-dialog-add-recommendation-description">Bewertung für {{content}}</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
+                <button type="button" class="btn btn-default" ng-click="addRecommendation($hide)">Hinzufügen</button>
+            </div>
+        </div>
+    </div>
+</div>

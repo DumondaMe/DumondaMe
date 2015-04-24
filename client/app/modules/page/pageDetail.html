@@ -1,57 +1,52 @@
 <div id="content-page-detail">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="page-detail-header">
-                <div class="page-detail-header-image">
-                    <img ng-src="{{pageDetail.page.titleUrl}}">
+            <div id="page-detail-rightCol">
+                <div class="page-detail-select-contact-visible">
+                    <input type="checkbox" ng-model="contact">
+
+                    <div class="page-detail-select-contact-visible-description">
+                        Nur Kontakte
+                    </div>
                 </div>
-                <div class="page-detail-header-list">
-                    <div class="row">
+            </div>
+            <div id="page-detail-header">
+                <div id="page-detail-inner-header">
+                    <div class="page-detail-header-image">
+                        <img ng-src="{{pageDetail.page.titleUrl}}">
+                    </div>
+                    <div class="page-detail-header-list">
                         <div class="page-detail-header-title">
                             {{pageDetail.page.title}}
                         </div>
                         <div class="page-detail-header-category">
-                            ({{category}})
+                            Kategorie: {{category}}
                         </div>
-                    </div>
-                    <div class="row" ng-show="contributorsWithProfile.length > 0 || contributors.length > 0">
-                        <div class="page-detail-contributor-title">
-                            {{contributorPrefix}}
-                        </div>
-                        <div class="page-detail-header-contributor-with-Profile" ng-repeat="contributor in contributorsWithProfile"
-                             ng-click="openUserDetail(contributor.userId, contributor.isLoggedInUser)">
-                            <div ng-if="contributor.isLoggedInUser">Ich</div>
-                            <div ng-if="!contributor.isLoggedInUser">{{contributor.name}}</div>
-                        </div>
-                        <div class="page-detail-header-contributor" ng-repeat="contributor in contributors">
-                            {{contributor.name}}
-                        </div>
-                    </div>
-                    <div class="row" ng-show="pageDetail.page.link">
-                        <div class="page-detail-header-link" ng-click="openLink(pageDetail.page.link)">
-                            {{pageDetail.page.link}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="page-detail-header-admin-title">
-                            Administratoren der Seite
-                        </div>
-                        <div class="page-detail-header-admins" ng-repeat="administrator in pageDetail.administrators"
-                             ng-click="openUserDetail(administrator.userId, administrator.isLoggedInUser)">
-                            <div ng-if="!$last">
-                                <div ng-if="administrator.isLoggedInUser">Ich,</div>
-                                <div ng-if="!administrator.isLoggedInUser">{{administrator.name}},</div>
+                        <div ng-show="contributorsWithProfile.length > 0 || contributors.length > 0">
+                            <div class="page-detail-contributor-title">
+                                {{contributorPrefix}}
                             </div>
-                            <div ng-if="$last">
-                                <div ng-if="administrator.isLoggedInUser">Ich</div>
-                                <div ng-if="!administrator.isLoggedInUser">{{administrator.name}}</div>
+                            <div class="page-detail-header-contributor-with-Profile" ng-repeat="contributor in contributorsWithProfile"
+                                 ng-click="openUserDetail(contributor.userId, contributor.isLoggedInUser)">
+                                <div ng-if="contributor.isLoggedInUser">Ich</div>
+                                <div ng-if="!contributor.isLoggedInUser">{{contributor.name}}</div>
                             </div>
+                            <div class="page-detail-header-contributor" ng-repeat="contributor in contributors">
+                                {{contributor.name}}
+                            </div>
+                        </div>
+                        <div class="page-detail-header-commands">
+                            <button class="btn btn-default" type="button" ng-click="addNewRecommendation()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="page-detail-description">
-                {{pageDetail.page.description}}
+            <div class="page-detail-section-separator"></div>
+            <div id="page-detail-description">
+                <div class="page-detail-section-title">Beschreibung</div>
+                <div id="page-detail-description-text" style="height: 100px">{{pageDetail.page.description}}</div>
             </div>
             <div class="page-detail-reference-pages">
                 <div class="page-detail-reference-title">
@@ -67,11 +62,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id="leftCol">
-        <div id="inner-leftCol">
-
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/page/leftNavCol.html'"></div>
