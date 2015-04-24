@@ -74,6 +74,37 @@ describe('Integration Tests for adding and deleting user page recommendations', 
         });
     });
 
+    it('Page can only be rated once by a user - Return 400', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/recommendation/page', {
+                pageId: '0',
+                label: 'CoursePage',
+                comment: 'irgendwas',
+                rating: 5
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.post('/api/user/recommendation/page', {
+                pageId: '0',
+                label: 'CoursePage',
+                comment: 'irgendwa',
+                rating: 4
+            }, requestAgent);
+        }).then(function (resp) {
+            resp.status.should.equal(400);
+            return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(course:CoursePage {pageId: '0'})")
+                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .end().send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].created.should.be.at.least(startTime);
+            resp[0].rating.should.equals(5);
+            resp[0].comment.should.equals('irgendwas');
+        });
+    });
+
     it('Deleting a page recommendation - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {

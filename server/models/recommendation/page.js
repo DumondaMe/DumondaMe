@@ -20,10 +20,25 @@ var checkDeleteRecommendationAllowed = function (userId, recommendationId, req) 
         });
 };
 
+var checkAddingRecommendationAllowed = function (userId, pageId, label, req) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:" + label + " {pageId: {pageId}})")
+        .return("user.userId AS userId")
+        .end({
+            userId: userId,
+            pageId: pageId
+        }).send()
+        .then(function (resp) {
+            if (resp.length > 0) {
+                return exceptions.getInvalidOperation('User tries to add recommendation for page ' + pageId + ' with label ' +
+                    pageId + ' twice', logger, req);
+            }
+        });
+};
+
 var deleteRecommendation = function (userId, recommendationId, req) {
     return checkDeleteRecommendationAllowed(userId, recommendationId, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})-[rel:RECOMMENDS]->" +
-        "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2:RECOMMENDS]->(page)")
+            "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2:RECOMMENDS]->(page)")
             .delete("rel, rec, rel2")
             .end({
                 userId: userId,
@@ -32,18 +47,23 @@ var deleteRecommendation = function (userId, recommendationId, req) {
     });
 };
 
-var addRecommendation = function (userId, pageId, label, comment, rating) {
-    return db.cypher().match("(user:User {userId: {userId}}), (page:" + label + " {pageId: {pageId}})")
-        .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
-        "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
-        .end({
-            userId: userId,
-            pageId: pageId,
-            recommendationId: uuid.generateUUID(),
-            comment: comment,
-            rating: rating,
-            created: time.getNowUtcTimestamp()
-        }).send();
+var addRecommendation = function (userId, pageId, label, comment, rating, req) {
+    if (!comment) {
+        comment = '';
+    }
+    return checkAddingRecommendationAllowed(userId, pageId, label, req).then(function () {
+        return db.cypher().match("(user:User {userId: {userId}}), (page:" + label + " {pageId: {pageId}})")
+            .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
+            "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
+            .end({
+                userId: userId,
+                pageId: pageId,
+                recommendationId: uuid.generateUUID(),
+                comment: comment,
+                rating: rating,
+                created: time.getNowUtcTimestamp()
+            }).send();
+    });
 };
 
 module.exports = {

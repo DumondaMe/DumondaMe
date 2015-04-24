@@ -11,7 +11,7 @@ var schemaAddPageRecommendation = {
     name: 'addPageRecommendation',
     type: 'object',
     additionalProperties: false,
-    required: ['rating', 'comment', 'pageId', 'label'],
+    required: ['rating', 'pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', maxLength: 50},
         label: {enum: ['BookPage', 'VideoPage', 'CoursePage', 'SchoolPage', 'PracticePage', 'EventPage', 'BlogPage']},
@@ -36,7 +36,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddPageRecommendation, logger).then(function (request) {
-                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.label, request.comment, request.rating);
+                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.label, request.comment, request.rating, req);
             }).then(function () {
                 res.status(200).end();
             });
