@@ -3,6 +3,7 @@
 var db = require('./../../neo4j');
 var uuid = require('./../../lib/uuid');
 var time = require('./../../lib/time');
+var cdn = require('../util/cdn');
 var exceptions = require('./../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
@@ -62,7 +63,10 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
                 comment: comment,
                 rating: rating,
                 created: time.getNowUtcTimestamp()
-            }).send();
+            }).send()
+            .then(function () {
+                return {profileUrl: cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg')};
+            });
     });
 };
 

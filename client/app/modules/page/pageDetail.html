@@ -8,6 +8,40 @@
                     <div class="page-detail-select-contact-visible-description">
                         Nur Kontakte
                     </div>
+                    <div class="page-detail-user-recommendation-preview" ng-show="pageDetail.recommendation.user">
+                        <div class="page-detail-recommendation-preview-thumbnail">
+                            <img ng-src="{{pageDetail.recommendation.user.profileUrl}}" class="img-circle">
+                        </div>
+                        <div class="page-detail-recommendation-preview-list">
+                            <div class="page-detail-recommendation-preview-name">
+                                Meine Bewertung
+                            </div>
+                            <div class="page-detail-recommendation-preview-rating">
+                                <ely-star-rating is-readonly="true" is-small="true"
+                                                 number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
+                            </div>
+                        </div>
+                        <div class="page-detail-recommendation-preview-comment">
+                            {{pageDetail.recommendation.user.comment}}
+                        </div>
+                    </div>
+                    <div class="page-detail-users-recommendation-preview" ng-repeat="user in pageDetail.recommendation.users">
+                        <div class="page-detail-recommendation-preview-thumbnail">
+                            <img ng-src="{{user.profileUrl}}" class="img-circle">
+                        </div>
+                        <div class="page-detail-recommendation-preview-list">
+                            <div class="page-detail-recommendation-preview-name">
+                                {{user.name}}
+                            </div>
+                            <div class="page-detail-recommendation-preview-rating">
+                                <ely-star-rating is-readonly="true" is-small="true"
+                                                 number-of-selected-stars-readonly="user.rating"></ely-star-rating>
+                            </div>
+                        </div>
+                        <div class="page-detail-recommendation-preview-comment">
+                            {{user.comment}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="page-detail-header">
@@ -36,8 +70,13 @@
                             </div>
                         </div>
                         <div class="page-detail-header-commands">
-                            <button class="btn btn-default" type="button" ng-click="addNewRecommendation()">
+                            <button class="btn btn-default" type="button" ng-click="addNewRecommendation()"
+                                    ng-hide="pageDetail.recommendation.user">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
+                            </button>
+                            <button class="btn btn-default" type="button" ng-click="removeRecommendation()"
+                                    ng-hide="!pageDetail.recommendation.user && pageDetail.recommendation.users">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewertung entfernen
                             </button>
                         </div>
                     </div>

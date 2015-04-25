@@ -3,15 +3,18 @@
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
     $scope.numberOfSelectedStars = -1;
 
-    $scope.addRecommendation = function ($hide) {
-        delete $scope.error;
-        PageRecommendation.save({
+    $scope.addRecommendation = function () {
+        var data = {
             pageId: $scope.recommendation.pageId,
             label: $scope.recommendation.label,
             comment: $scope.recommendationDescription,
             rating: $scope.numberOfSelectedStars
-        }, function () {
-            $hide();
+        };
+
+        delete $scope.error;
+        PageRecommendation.save(data, function (res) {
+            data.profileUrl = res.profileUrl;
+            $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';
         });

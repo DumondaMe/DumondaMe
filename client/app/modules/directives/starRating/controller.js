@@ -21,6 +21,9 @@ module.exports = {
             $scope.star3 = 'app/img/starRating/starEmpty.png';
             $scope.star4 = 'app/img/starRating/starEmpty.png';
 
+            $scope.isReadonly = $scope.isReadonly === 'true';
+            $scope.isSmall = $scope.isSmall === 'true';
+
             $scope.mouseOverStar = function (star) {
                 if (!$scope.isReadonly) {
                     setStars(star, $scope);
@@ -29,13 +32,22 @@ module.exports = {
 
             $scope.resetToSelected = function () {
                 if (!$scope.isReadonly) {
-                    setStars($scope.numberOfSelectedStars, $scope);
+                    setStars($scope.numberOfSelectedStars - 1, $scope);
                 }
             };
 
             $scope.starSelected = function (star) {
-                $scope.numberOfSelectedStars = star;
+                if (!$scope.isReadonly) {
+                    $scope.numberOfSelectedStars = star;
+                }
             };
+
+            $scope.$watch($scope.numberOfSelectedStarsReadonly, function (newValue) {
+                if (newValue && newValue > 0) {
+                    setStars(newValue - 1, $scope);
+                }
+            });
+
         }];
     }
 };

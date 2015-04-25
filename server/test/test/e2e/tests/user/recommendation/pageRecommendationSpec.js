@@ -63,6 +63,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(course:CoursePage {pageId: '0'})")
                 .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
                 .end().send();

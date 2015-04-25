@@ -905,15 +905,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/starRating/template.html',
     "<div class=\"ely-star-rating\" ng-mouseleave=\"resetToSelected()\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(0)\">\r" +
+    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(1)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(1)\">\r" +
+    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(2)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(2)\">\r" +
+    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(3)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(3)\">\r" +
+    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(4)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(4)\">\r" +
+    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(5)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
     "</div>"
   );
@@ -1366,6 +1366,74 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
+    "                    <div class=\"page-detail-user-recommendation-preview\" ng-show=\"pageDetail.recommendation.user\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "\n" +
+    "                            <img ng-src=\"{{pageDetail.recommendation.user.profileUrl}}\" class=\"img-circle\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
+    "\n" +
+    "                                Meine Bewertung\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "\n" +
+    "                            {{pageDetail.recommendation.user.comment}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-users-recommendation-preview\" ng-repeat=\"user in pageDetail.recommendation.users\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "\n" +
+    "                            <img ng-src=\"{{user.profileUrl}}\" class=\"img-circle\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
+    "\n" +
+    "                                {{user.name}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "\n" +
+    "                            {{user.comment}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
@@ -1422,9 +1490,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-commands\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\">\r" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\"\r" +
+    "\n" +
+    "                                    ng-hide=\"pageDetail.recommendation.user\">\r" +
     "\n" +
     "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation()\"\r" +
+    "\n" +
+    "                                    ng-hide=\"!pageDetail.recommendation.user && pageDetail.recommendation.users\">\r" +
+    "\n" +
+    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewertung entfernen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -1652,13 +1730,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"modal-footer\">\r" +
     "\n" +
-    "                <ely-star-rating is-readonly=\"false\" number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
+    "                <ely-star-rating number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
     "\n" +
     "                <div class=\"modal-dialog-add-recommendation-error\" ng-show=\"error\">{{error}}</div>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
     "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation()\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
     "\n" +
     "                    Hinzufügen\r" +
     "\n" +
@@ -4213,7 +4291,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":104,"./auth":15,"./contact":25,"./directives":38,"./filters":55,"./home":59,"./navigation":69,"./settings":84,"./util":102,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":105,"./auth":15,"./contact":25,"./directives":38,"./filters":55,"./home":59,"./navigation":69,"./settings":84,"./util":102,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -5440,6 +5518,9 @@ module.exports = {
             $scope.star3 = 'app/img/starRating/starEmpty.png';
             $scope.star4 = 'app/img/starRating/starEmpty.png';
 
+            $scope.isReadonly = $scope.isReadonly === 'true';
+            $scope.isSmall = $scope.isSmall === 'true';
+
             $scope.mouseOverStar = function (star) {
                 if (!$scope.isReadonly) {
                     setStars(star, $scope);
@@ -5448,13 +5529,22 @@ module.exports = {
 
             $scope.resetToSelected = function () {
                 if (!$scope.isReadonly) {
-                    setStars($scope.numberOfSelectedStars, $scope);
+                    setStars($scope.numberOfSelectedStars - 1, $scope);
                 }
             };
 
             $scope.starSelected = function (star) {
-                $scope.numberOfSelectedStars = star;
+                if (!$scope.isReadonly) {
+                    $scope.numberOfSelectedStars = star;
+                }
             };
+
+            $scope.$watch($scope.numberOfSelectedStarsReadonly, function (newValue) {
+                if (newValue && newValue > 0) {
+                    setStars(newValue - 1, $scope);
+                }
+            });
+
         }];
     }
 };
@@ -5470,8 +5560,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                isReadonly: '=',
-                numberOfSelectedStars: '='
+                isReadonly: '@',
+                isSmall: '@',
+                numberOfSelectedStars: '=',
+                numberOfSelectedStarsReadonly: '&'
             },
             templateUrl: 'app/modules/directives/starRating/template.html',
             controller: controller.directiveCtrl()
@@ -5958,8 +6050,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail',
-    function ($scope, $window, $modal, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal',
+    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal) {
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;
@@ -6009,13 +6101,22 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 pageId: $stateParams.pageId,
                 label: $stateParams.label
             };
-            $modal({
+            PromiseModal.getModal({
                 scope: modalScope,
                 title: $scope.pageDetail.page.title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
-                show: true,
                 placement: 'center'
+            }).show().then(function (res) {
+                $scope.pageDetail.recommendation.user = {
+                    rating: res.rating,
+                    comment: res.comment,
+                    profileUrl: res.profileUrl
+                };
             });
+        };
+
+        $scope.removeRecommendation = function () {
+
         };
 
         $scope.openLink = function (link) {
@@ -6095,15 +6196,18 @@ app.config(['$stateProvider', function ($stateProvider) {
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
     $scope.numberOfSelectedStars = -1;
 
-    $scope.addRecommendation = function ($hide) {
-        delete $scope.error;
-        PageRecommendation.save({
+    $scope.addRecommendation = function () {
+        var data = {
             pageId: $scope.recommendation.pageId,
             label: $scope.recommendation.label,
             comment: $scope.recommendationDescription,
             rating: $scope.numberOfSelectedStars
-        }, function () {
-            $hide();
+        };
+
+        delete $scope.error;
+        PageRecommendation.save(data, function (res) {
+            data.profileUrl = res.profileUrl;
+            $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';
         });
@@ -6751,7 +6855,8 @@ require('./file');
 
 app.service('moment', require('./moment'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":92,"./file":100,"./moment":103,"angular":4}],103:[function(require,module,exports){
+app.service('PromiseModal', require('./promiseModal'));
+},{"./countryCodeConverter":92,"./file":100,"./moment":103,"./promiseModal":104,"angular":4}],103:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6762,6 +6867,35 @@ module.exports = function () {
 };
 
 },{"moment":11}],104:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$modal', '$q', function ($modal, $q) {
+
+    this.getModal = function (modalParams) {
+        var confirm, deferred, parentShow;
+        if (modalParams.scope) {
+            modalParams.scope.confirm = function (res) {
+                deferred.resolve(res);
+                confirm.hide();
+            };
+        }
+
+        modalParams.show = false;
+        modalParams.html = true;
+        confirm = $modal(modalParams);
+        parentShow = confirm.show;
+
+        confirm.show = function () {
+            deferred = $q.defer();
+            confirm.$promise.then(parentShow);
+            return deferred.promise;
+        };
+
+        return confirm;
+    };
+}];
+
+},{}],105:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -6816,4 +6950,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104]);

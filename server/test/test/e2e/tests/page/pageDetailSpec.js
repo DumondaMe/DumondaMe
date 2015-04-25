@@ -117,6 +117,27 @@ describe('Integration Tests for getting page detail', function () {
             });
     });
 
+    it('Getting the detail of the page for a book without user recommendation', function () {
+
+        var commands = [];
+
+        return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/page/detail', {
+                    pageId: '0',
+                    label: 'BookPage'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+            });
+    });
+
     it('Getting the detail of the page for a video with linked actors in elyoos', function () {
 
         var commands = [];

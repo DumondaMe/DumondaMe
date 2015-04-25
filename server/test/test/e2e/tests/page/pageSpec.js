@@ -9,7 +9,7 @@ var moment = require('moment');
 
 describe('Integration Tests for getting pages', function () {
 
-    var requestAgent, startTime;
+    var requestAgent;
 
     beforeEach(function () {
 

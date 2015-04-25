@@ -63,7 +63,7 @@ $margin-right-col: 290px;
         }
       }
 
-      // Left Column
+      // Right Column
       #page-detail-rightCol {
         float: right;
         width: 250px;
@@ -78,13 +78,53 @@ $margin-right-col: 290px;
         .page-detail-select-contact-visible {
           margin-top: 5px;
           input {
-            margin-left: 15px;
+            margin-left: 5px;
             float: left;
           }
           .page-detail-select-contact-visible-description {
             display: block;
-            margin-left: 35px;
+            margin-left: 25px;
+            margin-bottom: 20px;
           }
+        }
+
+        .page-detail-user-recommendation-preview {
+          margin-left: 5px;
+        }
+
+        .page-detail-recommendation-preview-thumbnail {
+          display: inline-block;
+          margin-right: 5px;
+          width: 35px;
+          height: 35px;
+          img {
+            vertical-align: baseline;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .page-detail-recommendation-preview-list {
+          display: inline-block;
+
+          .page-detail-recommendation-preview-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: $primary-color;
+          }
+          .page-detail-recommendation-preview-rating {
+
+          }
+        }
+        .page-detail-recommendation-preview-comment {
+          max-width: 220px;
+          max-height: 80px;
+          font-size: 14px;
+          font-style: italic;
+          overflow: hidden;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
+          margin-bottom: 15px;
+          margin-top: 5px;
         }
       }
 

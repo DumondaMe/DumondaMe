@@ -7,8 +7,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail',
-    function ($scope, $window, $modal, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal',
+    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal) {
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;
@@ -58,13 +58,22 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 pageId: $stateParams.pageId,
                 label: $stateParams.label
             };
-            $modal({
+            PromiseModal.getModal({
                 scope: modalScope,
                 title: $scope.pageDetail.page.title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
-                show: true,
                 placement: 'center'
+            }).show().then(function (res) {
+                $scope.pageDetail.recommendation.user = {
+                    rating: res.rating,
+                    comment: res.comment,
+                    profileUrl: res.profileUrl
+                };
             });
+        };
+
+        $scope.removeRecommendation = function () {
+
         };
 
         $scope.openLink = function (link) {

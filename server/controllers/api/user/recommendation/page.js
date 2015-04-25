@@ -37,8 +37,8 @@ module.exports = function (router) {
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddPageRecommendation, logger).then(function (request) {
                 return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.label, request.comment, request.rating, req);
-            }).then(function () {
-                res.status(200).end();
+            }).then(function (recommendation) {
+                res.status(200).json(recommendation);
             });
         });
     });
@@ -47,8 +47,8 @@ module.exports = function (router) {
         return controllerErrors('Error occurs while deleting a user recommendation', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeletePageRecommendation, logger).then(function (request) {
                 return pageRecommendation.deleteRecommendation(req.user.id, request.recommendationId, req);
-            }).then(function (statistic) {
-                res.status(200).json(statistic);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });

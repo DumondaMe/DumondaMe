@@ -8,8 +8,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                isReadonly: '=',
-                numberOfSelectedStars: '='
+                isReadonly: '@',
+                isSmall: '@',
+                numberOfSelectedStars: '=',
+                numberOfSelectedStarsReadonly: '&'
             },
             templateUrl: 'app/modules/directives/starRating/template.html',
             controller: controller.directiveCtrl()

@@ -904,15 +904,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/starRating/template.html',
     "<div class=\"ely-star-rating\" ng-mouseleave=\"resetToSelected()\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(0)\">\r" +
+    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(1)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(1)\">\r" +
+    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(2)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(2)\">\r" +
+    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(3)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(3)\">\r" +
+    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(4)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
-    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(4)\">\r" +
+    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(5)\" ng-class=\"{'ely-star-rating-small': isSmall}\">\r" +
     "\n" +
     "</div>"
   );
@@ -1365,6 +1365,74 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
+    "                    <div class=\"page-detail-user-recommendation-preview\" ng-show=\"pageDetail.recommendation.user\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "\n" +
+    "                            <img ng-src=\"{{pageDetail.recommendation.user.profileUrl}}\" class=\"img-circle\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
+    "\n" +
+    "                                Meine Bewertung\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "\n" +
+    "                            {{pageDetail.recommendation.user.comment}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-users-recommendation-preview\" ng-repeat=\"user in pageDetail.recommendation.users\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "\n" +
+    "                            <img ng-src=\"{{user.profileUrl}}\" class=\"img-circle\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
+    "\n" +
+    "                                {{user.name}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "\n" +
+    "                            {{user.comment}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
@@ -1421,9 +1489,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <div class=\"page-detail-header-commands\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\">\r" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewRecommendation()\"\r" +
+    "\n" +
+    "                                    ng-hide=\"pageDetail.recommendation.user\">\r" +
     "\n" +
     "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation()\"\r" +
+    "\n" +
+    "                                    ng-hide=\"!pageDetail.recommendation.user && pageDetail.recommendation.users\">\r" +
+    "\n" +
+    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewertung entfernen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -1651,13 +1729,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"modal-footer\">\r" +
     "\n" +
-    "                <ely-star-rating is-readonly=\"false\" number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
+    "                <ely-star-rating number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
     "\n" +
     "                <div class=\"modal-dialog-add-recommendation-error\" ng-show=\"error\">{{error}}</div>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
     "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation($hide)\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation()\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
     "\n" +
     "                    Hinzufügen\r" +
     "\n" +

@@ -12,10 +12,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <ely-star-rating is-readonly="false" number-of-selected-stars="numberOfSelectedStars"></ely-star-rating>
+                <ely-star-rating number-of-selected-stars="numberOfSelectedStars"></ely-star-rating>
                 <div class="modal-dialog-add-recommendation-error" ng-show="error">{{error}}</div>
                 <button type="button" class="btn btn-default" ng-click="$hide()">Abbrechen</button>
-                <button type="button" class="btn btn-default" ng-click="addRecommendation($hide)" ng-class="{disabled: numberOfSelectedStars === -1}">
+                <button type="button" class="btn btn-default" ng-click="addRecommendation()" ng-class="{disabled: numberOfSelectedStars === -1}">
                     Hinzufügen
                 </button>
             </div>

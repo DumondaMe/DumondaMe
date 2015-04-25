@@ -42,18 +42,22 @@ var getBookDetail = function (pageId, userId) {
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
+            var returnValue;
             addAuthors(resp[4][0], resp[1]);
-            recommendation.addProfileThumbnail(resp[2][0], userId);
             recommendation.addProfileThumbnails(resp[3]);
             detailTitlePicture.addTitlePicture(pageId, resp[4][0], 'BookPage');
-            return {
+            returnValue = {
                 page: resp[4][0],
                 administrators: resp[0],
                 recommendation: {
-                    user: resp[2][0],
                     users: resp[3]
                 }
             };
+            if (resp[2] && resp[2][0]) {
+                recommendation.addProfileThumbnail(resp[2][0], userId);
+                returnValue.recommendation.user = resp[2][0]
+            }
+            return returnValue;
         });
 };
 

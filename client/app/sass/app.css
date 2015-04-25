@@ -325,6 +325,9 @@
 .ely-star-rating {
   cursor: pointer;
   display: inline-block; }
+  .ely-star-rating .ely-star-rating-small {
+    width: 16px;
+    height: 16px; }
 
 .modal.center .modal-dialog {
   z-index: 101;
@@ -1014,11 +1017,39 @@
         #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible {
           margin-top: 5px; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible input {
-            margin-left: 15px;
+            margin-left: 5px;
             float: left; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible .page-detail-select-contact-visible-description {
             display: block;
-            margin-left: 35px; }
+            margin-left: 25px;
+            margin-bottom: 20px; }
+        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-user-recommendation-preview {
+          margin-left: 5px; }
+        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-thumbnail {
+          display: inline-block;
+          margin-right: 5px;
+          width: 35px;
+          height: 35px; }
+          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-thumbnail img {
+            vertical-align: baseline;
+            width: 100%;
+            height: 100%; }
+        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-list {
+          display: inline-block; }
+          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-list .page-detail-recommendation-preview-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #009688; }
+        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-comment {
+          max-width: 220px;
+          max-height: 80px;
+          font-size: 14px;
+          font-style: italic;
+          overflow: hidden;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
+          margin-bottom: 15px;
+          margin-top: 5px; }
       #content-page-detail #centerCol #inner-centerCol .page-detail-section-title {
         font-size: 16px;
         margin-bottom: 10px;
