@@ -977,9 +977,10 @@
           width: 100%;
           position: relative; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
-            float: left; }
+            float: left;
+            height: 200px; }
             #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
-              max-height: 200px;
+              height: 100%;
               max-width: 300px; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
             margin-left: 250px;

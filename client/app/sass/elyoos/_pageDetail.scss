@@ -19,8 +19,9 @@ $margin-right-col: 290px;
           position: relative;
           .page-detail-header-image {
             float: left;
+            height: 200px;
             img {
-              max-height: 200px;
+              height: 100%;
               max-width: 300px;
             }
           }

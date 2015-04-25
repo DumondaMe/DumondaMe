@@ -75,8 +75,8 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
 
         $scope.removeRecommendation = function () {
             PromiseModal.getModal({
-                title: 'Empfehlung l\u00f6schen',
-                content: 'Willst Du die Empfehlung wirklich l\u00f6schen?',
+                title: 'Bewertung l\u00f6schen',
+                content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
                 template: 'app/modules/util/dialog/yesNoDialog.html',
                 placement: 'center'
             }).show().then(function () {
