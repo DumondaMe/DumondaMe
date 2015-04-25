@@ -53,19 +53,21 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
         comment = '';
     }
     return checkAddingRecommendationAllowed(userId, pageId, label, req).then(function () {
+
+        var recommendationId = uuid.generateUUID();
         return db.cypher().match("(user:User {userId: {userId}}), (page:" + label + " {pageId: {pageId}})")
             .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
             "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
             .end({
                 userId: userId,
                 pageId: pageId,
-                recommendationId: uuid.generateUUID(),
+                recommendationId: recommendationId,
                 comment: comment,
                 rating: rating,
                 created: time.getNowUtcTimestamp()
             }).send()
             .then(function () {
-                return {profileUrl: cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg')};
+                return {profileUrl: cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg'), recommendationId: recommendationId};
             });
     });
 };
