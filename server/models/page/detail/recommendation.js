@@ -18,7 +18,7 @@ var getOtherUserRecommendation = function (pageId, pageLabel, userId, limit, ski
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User)")
         .where("u.userId <> {userId}")
         .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating, u.userId AS userId, u.name AS name")
-        .orderBy("rec.created")
+        .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end({pageId: pageId, userId: userId, limit: limit, skip: skip})
