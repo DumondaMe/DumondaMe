@@ -7,8 +7,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal',
-    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal) {
+module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal', 'PageRecommendation',
+    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal, PageRecommendation) {
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;
@@ -67,13 +67,24 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 $scope.pageDetail.recommendation.user = {
                     rating: res.rating,
                     comment: res.comment,
-                    profileUrl: res.profileUrl
+                    profileUrl: res.profileUrl,
+                    recommendationId: res.recommendationId
                 };
             });
         };
 
         $scope.removeRecommendation = function () {
-
+            PromiseModal.getModal({
+                title: 'Empfehlung l\u00f6schen',
+                content: 'Willst Du die Empfehlung wirklich l\u00f6schen?',
+                template: 'app/modules/util/dialog/yesNoDialog.html',
+                placement: 'center'
+            }).show().then(function () {
+                PageRecommendation.delete({recommendationId: $scope.pageDetail.recommendation.user.recommendationId},
+                    function () {
+                        delete $scope.pageDetail.recommendation.user;
+                    });
+            });
         };
 
         $scope.openLink = function (link) {

@@ -1500,9 +1500,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation()\"\r" +
     "\n" +
-    "                                    ng-hide=\"!pageDetail.recommendation.user && pageDetail.recommendation.users\">\r" +
-    "\n" +
-    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewertung entfernen\r" +
+    "                                    ng-show=\"pageDetail.recommendation.user && pageDetail.recommendation.users\">Bewertung entfernen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -2424,6 +2422,34 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-yes-no-dialog\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\" ng-bind=\"content\"></div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"abort()\">Nein</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"confirm()\">Ja</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 
@@ -6050,8 +6076,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal',
-    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal) {
+module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal', 'PageRecommendation',
+    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal, PageRecommendation) {
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;
@@ -6110,13 +6136,24 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 $scope.pageDetail.recommendation.user = {
                     rating: res.rating,
                     comment: res.comment,
-                    profileUrl: res.profileUrl
+                    profileUrl: res.profileUrl,
+                    recommendationId: res.recommendationId
                 };
             });
         };
 
         $scope.removeRecommendation = function () {
-
+            PromiseModal.getModal({
+                title: 'Empfehlung l\u00f6schen',
+                content: 'Willst Du die Empfehlung wirklich l\u00f6schen?',
+                template: 'app/modules/util/dialog/yesNoDialog.html',
+                placement: 'center'
+            }).show().then(function () {
+                PageRecommendation.delete({recommendationId: $scope.pageDetail.recommendation.user.recommendationId},
+                    function () {
+                        delete $scope.pageDetail.recommendation.user;
+                    });
+            });
         };
 
         $scope.openLink = function (link) {
@@ -6207,6 +6244,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
         delete $scope.error;
         PageRecommendation.save(data, function (res) {
             data.profileUrl = res.profileUrl;
+            data.recommendationId = res.recommendationId;
             $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';
@@ -6225,7 +6263,9 @@ module.exports = ['$scope', 'Recommendation', function ($scope, Recommendation) 
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/recommendation/page');
+    return $resource('api/user/recommendation/page', null, {
+        'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}
+    });
 }];
 
 },{}],82:[function(require,module,exports){

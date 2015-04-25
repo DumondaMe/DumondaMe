@@ -1499,9 +1499,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation()\"\r" +
     "\n" +
-    "                                    ng-hide=\"!pageDetail.recommendation.user && pageDetail.recommendation.users\">\r" +
-    "\n" +
-    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewertung entfernen\r" +
+    "                                    ng-show=\"pageDetail.recommendation.user && pageDetail.recommendation.users\">Bewertung entfernen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -2423,6 +2421,34 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-yes-no-dialog\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\" ng-bind=\"content\"></div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"abort()\">Nein</button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"confirm()\">Ja</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 

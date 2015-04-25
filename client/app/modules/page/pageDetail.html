@@ -75,8 +75,7 @@
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
                             </button>
                             <button class="btn btn-default" type="button" ng-click="removeRecommendation()"
-                                    ng-hide="!pageDetail.recommendation.user && pageDetail.recommendation.users">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewertung entfernen
+                                    ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
                             </button>
                         </div>
                     </div>
