@@ -13,6 +13,23 @@ var getUserRecommendation = function (pageId, pageLabel, userId) {
         .getCommand();
 };
 
+var getRecommendationSummaryAll = function (pageId, pageLabel) {
+
+    return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
+        .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
+        .end({pageId: pageId})
+        .getCommand();
+};
+
+var getRecommendationSummaryContacts = function (pageId, pageLabel, userId) {
+
+    return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)" +
+        "<-[:IS_CONTACT]-(:User {userId: {userId}})")
+        .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
+        .end({pageId: pageId, userId: userId})
+        .getCommand();
+};
+
 var getOtherUserRecommendation = function (pageId, pageLabel, userId, limit, skip) {
 
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User)")
@@ -38,6 +55,8 @@ var addProfileThumbnails = function (recommendations) {
 module.exports = {
     getUserRecommendation: getUserRecommendation,
     getOtherUserRecommendation: getOtherUserRecommendation,
+    getRecommendationSummaryAll: getRecommendationSummaryAll,
+    getRecommendationSummaryContacts: getRecommendationSummaryContacts,
     addProfileThumbnail: addProfileThumbnail,
     addProfileThumbnails: addProfileThumbnails
 };

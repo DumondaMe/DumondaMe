@@ -50,6 +50,9 @@ describe('Integration Tests for getting page detail', function () {
 
         var commands = [];
 
+        commands.push(db.cypher().match("(a:User {userId: '3'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT]->(a)")
+            .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
             .end().getCommand());
@@ -63,7 +66,7 @@ describe('Integration Tests for getting page detail', function () {
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 3, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
@@ -111,9 +114,14 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.recommendation.users[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 res.body.recommendation.users[0].name.should.equals('user Meier3');
                 res.body.recommendation.users[0].userId.should.equals('3');
-                res.body.recommendation.users[0].rating.should.equals(3);
+                res.body.recommendation.users[0].rating.should.equals(4);
                 res.body.recommendation.users[0].comment.should.equals('irgendwas2');
                 res.body.recommendation.users[0].recommendationId.should.equals('1');
+
+                res.body.recommendation.summary.contact.rating.should.equals(4);
+                res.body.recommendation.summary.contact.numberOfRatings.should.equals(1);
+                res.body.recommendation.summary.all.rating.should.equals(4.5);
+                res.body.recommendation.summary.all.numberOfRatings.should.equals(2);
             });
     });
 

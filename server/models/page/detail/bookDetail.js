@@ -36,6 +36,8 @@ var getBookDetail = function (pageId, userId) {
     commands.push(getBookAuthors(pageId, userId));
     commands.push(recommendation.getUserRecommendation(pageId, ':BookPage', userId));
     commands.push(recommendation.getOtherUserRecommendation(pageId, ':BookPage', userId, 10, 0));
+    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':BookPage'));
+    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId));
 
     return db.cypher().match("(page:BookPage {pageId: {pageId}})")
         .return("page.title AS title, page.description AS description, page.created AS created, page.author AS author")
@@ -43,19 +45,23 @@ var getBookDetail = function (pageId, userId) {
         .send(commands)
         .then(function (resp) {
             var returnValue;
-            addAuthors(resp[4][0], resp[1]);
+            addAuthors(resp[6][0], resp[1]);
             recommendation.addProfileThumbnails(resp[3]);
-            detailTitlePicture.addTitlePicture(pageId, resp[4][0], 'BookPage');
+            detailTitlePicture.addTitlePicture(pageId, resp[6][0], 'BookPage');
             returnValue = {
-                page: resp[4][0],
+                page: resp[6][0],
                 administrators: resp[0],
                 recommendation: {
-                    users: resp[3]
+                    users: resp[3],
+                    summary: {
+                        all: resp[4][0],
+                        contact: resp[5][0]
+                    }
                 }
             };
             if (resp[2] && resp[2][0]) {
                 recommendation.addProfileThumbnail(resp[2][0], userId);
-                returnValue.recommendation.user = resp[2][0]
+                returnValue.recommendation.user = resp[2][0];
             }
             return returnValue;
         });
