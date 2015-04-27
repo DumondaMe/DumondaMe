@@ -21,13 +21,13 @@ module.exports = {
                 return gm.gm(originalFilePath).thumbAsync(350, 350, profile.name, 92);
             })
             .then(function () {
-                return cdn.uploadProfilePicture(preview.name, userId + '/profilePreview.jpg');
+                return cdn.uploadProfilePicture(preview.name, 'profileImage/' + userId + '/profilePreview.jpg');
             })
             .then(function () {
-                return cdn.uploadProfilePicture(thumbnail.name, userId + '/thumbnail.jpg');
+                return cdn.uploadProfilePicture(thumbnail.name, 'profileImage/' + userId + '/thumbnail.jpg');
             })
             .then(function () {
-                return cdn.uploadProfilePicture(profile.name, userId + '/profile.jpg');
+                return cdn.uploadProfilePicture(profile.name, 'profileImage/' + userId + '/profile.jpg');
             })
             .then(function () {
                 preview.removeCallback();

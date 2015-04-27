@@ -16,7 +16,6 @@ $margin-right-col: 290px;
         #page-detail-inner-header {
           display: inline-block;
           width: 100%;
-          position: relative;
           .page-detail-header-image {
             float: left;
             height: 200px;
@@ -26,12 +25,13 @@ $margin-right-col: 290px;
             }
           }
           .page-detail-header-list {
-            margin-left: 250px;
-            height: 100%;
+            margin-left: 40px;
+            height: 200px;
+            float: left;
+            position: relative;
             box-sizing: border-box;
             .page-detail-header-title {
               display: inline-block;
-              //font-weight: bold;
               font-size: 28px;
               color: $primary-color;
             }

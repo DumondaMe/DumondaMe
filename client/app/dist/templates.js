@@ -924,10 +924,10 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                          nav-to=\"contact.myContacts\"></ely-home-nav-element>\n" +
     "    <ely-home-nav-element description=\"Nachrichten\" image-url=\"app/img/home/email.png\"\n" +
     "                          nav-to=\"message.threads\" event-description=\"messageText\"></ely-home-nav-element>\n" +
-    "    <ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
+    "    <!--<ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
     "                          nav-to=\"page.overview\"></ely-home-nav-element>\n" +
     "    <ely-home-nav-element description=\"Empfehlung\" image-url=\"app/img/home/recommend.png\"\n" +
-    "                          nav-to=\"recommendation.home\"></ely-home-nav-element>\n" +
+    "                          nav-to=\"recommendation.home\"></ely-home-nav-element>-->\n" +
     "</div>"
   );
 

@@ -974,8 +974,7 @@
         margin-right: 290px; }
         #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header {
           display: inline-block;
-          width: 100%;
-          position: relative; }
+          width: 100%; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
             float: left;
             height: 200px; }
@@ -983,8 +982,10 @@
               height: 100%;
               max-width: 300px; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
-            margin-left: 250px;
-            height: 100%;
+            margin-left: 40px;
+            height: 200px;
+            float: left;
+            position: relative;
             box-sizing: border-box; }
             #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
               display: inline-block;
