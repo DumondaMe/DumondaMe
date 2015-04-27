@@ -38,6 +38,15 @@ describe('Integration Tests for adding and deleting user page recommendations', 
                 .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a)")
                 .end().getCommand());
 
+            commands.push(db.cypher().create("(:Recommendation {created: 500, rating: 3, comment: 'irgendwas', recommendationId: '2'})")
+                .end().getCommand());
+            commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:Recommendation {recommendationId: '2'}), (c:User {userId: '2'})")
+                .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+                .create("(a)-[:IS_CONTACT]->(b)")
+                .end().getCommand());
+
             commands.push(db.cypher().create("(:Recommendation {created: 499, rating: 4, comment: 'irgendwas2', recommendationId: '1'})")
                 .end().getCommand());
             return db.cypher().match("(a:VideoPage {pageId: '0'}), (b:Recommendation {recommendationId: '1'}), (c:User {userId: '1'})")
@@ -65,6 +74,10 @@ describe('Integration Tests for adding and deleting user page recommendations', 
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+            res.body.recommendation.contact.numberOfRatings.should.equals(1);
+            res.body.recommendation.contact.rating.should.equals(3);
+            res.body.recommendation.all.numberOfRatings.should.equals(2);
+            res.body.recommendation.all.rating.should.equals(4);
             recommendationId = res.body.recommendationId;
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(course:CoursePage {pageId: '0'})")
                 .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment, recommendation.recommendationId AS recommendationId')
@@ -114,10 +127,14 @@ describe('Integration Tests for adding and deleting user page recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.del('/api/user/recommendation/page', {
-                recommendationId: '1'
+                recommendationId: '1',
+                label: 'VideoPage',
+                pageId: '0'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.recommendation.contact.numberOfRatings.should.equals(0);
+            res.body.recommendation.all.numberOfRatings.should.equals(0);
             return db.cypher().match("(recommendation:Recommendation {recommendationId: '1'})")
                 .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
                 .end().send();
@@ -131,7 +148,9 @@ describe('Integration Tests for adding and deleting user page recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.del('/api/user/recommendation/page', {
-                recommendationId: '0'
+                recommendationId: '0',
+                label: 'VideoPage',
+                pageId: '0'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);

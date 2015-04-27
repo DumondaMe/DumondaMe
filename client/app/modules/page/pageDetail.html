@@ -78,6 +78,22 @@
                                     ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
                             </button>
                         </div>
+                        <div class="page-detail-header-rating-overviews">
+                            <div class="page-detail-header-rating-overview">
+                                <ely-star-rating is-readonly="true" is-small="true"
+                                                 number-of-selected-stars-readonly="pageDetail.recommendation.summary.contact.rating"></ely-star-rating>
+                                <div class="page-detail-header-rating-overview-description">
+                                    (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})
+                                </div>
+                            </div>
+                            <div class="page-detail-header-rating-overview">
+                                <ely-star-rating is-readonly="true" is-small="true"
+                                                 number-of-selected-stars-readonly="pageDetail.recommendation.summary.all.rating"></ely-star-rating>
+                                <div class="page-detail-header-rating-overview-description">
+                                    (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

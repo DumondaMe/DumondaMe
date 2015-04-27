@@ -36,8 +36,8 @@ var getBookDetail = function (pageId, userId) {
     commands.push(getBookAuthors(pageId, userId));
     commands.push(recommendation.getUserRecommendation(pageId, ':BookPage', userId));
     commands.push(recommendation.getOtherUserRecommendation(pageId, ':BookPage', userId, 10, 0));
-    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':BookPage'));
-    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId));
+    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':BookPage').getCommand());
+    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId).getCommand());
 
     return db.cypher().match("(page:BookPage {pageId: {pageId}})")
         .return("page.title AS title, page.description AS description, page.created AS created, page.author AS author")

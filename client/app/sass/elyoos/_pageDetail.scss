@@ -58,7 +58,21 @@ $margin-right-col: 290px;
 
             .page-detail-header-commands {
               position: absolute;
+              bottom: 55px;
+              width: 100%;
+            }
+
+            .page-detail-header-rating-overviews {
+              position: absolute;
               bottom: 0px;
+              .page-detail-header-rating-overview {
+                margin-top: 5px;
+                .page-detail-header-rating-overview-description {
+                  display: inline-block;
+                  font-size: 14px;
+                  margin-left: 5px;
+                }
+              }
             }
           }
         }

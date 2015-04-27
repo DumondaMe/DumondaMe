@@ -5,6 +5,8 @@ var setStars = function (starValue, $scope) {
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
             $scope['star' + i] = 'app/img/starRating/starFull.png';
+        } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
+            $scope['star' + i] = 'app/img/starRating/starHalf.png';
         } else {
             $scope['star' + i] = 'app/img/starRating/starEmpty.png';
         }

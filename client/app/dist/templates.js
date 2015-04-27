@@ -1505,6 +1505,38 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </div>\r" +
     "\n" +
+    "                        <div class=\"page-detail-header-rating-overviews\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                    (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.all.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                    (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +

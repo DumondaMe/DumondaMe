@@ -1506,6 +1506,38 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </div>\r" +
     "\n" +
+    "                        <div class=\"page-detail-header-rating-overviews\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                    (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.all.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                    (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
@@ -5528,6 +5560,8 @@ var setStars = function (starValue, $scope) {
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
             $scope['star' + i] = 'app/img/starRating/starFull.png';
+        } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
+            $scope['star' + i] = 'app/img/starRating/starHalf.png';
         } else {
             $scope['star' + i] = 'app/img/starRating/starEmpty.png';
         }
@@ -6132,26 +6166,34 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 title: $scope.pageDetail.page.title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
                 placement: 'center'
-            }).show().then(function (res) {
+            }).show().then(function (resp) {
                 $scope.pageDetail.recommendation.user = {
-                    rating: res.rating,
-                    comment: res.comment,
-                    profileUrl: res.profileUrl,
-                    recommendationId: res.recommendationId
+                    rating: resp.rating,
+                    comment: resp.comment,
+                    profileUrl: resp.profileUrl,
+                    recommendationId: resp.recommendationId
                 };
+                $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
+                $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
             });
         };
 
         $scope.removeRecommendation = function () {
             PromiseModal.getModal({
-                title: 'Empfehlung l\u00f6schen',
-                content: 'Willst Du die Empfehlung wirklich l\u00f6schen?',
+                title: 'Bewertung l\u00f6schen',
+                content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
                 template: 'app/modules/util/dialog/yesNoDialog.html',
                 placement: 'center'
             }).show().then(function () {
-                PageRecommendation.delete({recommendationId: $scope.pageDetail.recommendation.user.recommendationId},
-                    function () {
+                PageRecommendation.delete({
+                        recommendationId: $scope.pageDetail.recommendation.user.recommendationId,
+                        pageId: $stateParams.pageId,
+                        label: $stateParams.label
+                    },
+                    function (resp) {
                         delete $scope.pageDetail.recommendation.user;
+                        $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
+                        $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
                     });
             });
         };
@@ -6245,6 +6287,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
         PageRecommendation.save(data, function (res) {
             data.profileUrl = res.profileUrl;
             data.recommendationId = res.recommendationId;
+            data.recommendation = res.recommendation;
             $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';

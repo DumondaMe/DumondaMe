@@ -63,13 +63,15 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 title: $scope.pageDetail.page.title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
                 placement: 'center'
-            }).show().then(function (res) {
+            }).show().then(function (resp) {
                 $scope.pageDetail.recommendation.user = {
-                    rating: res.rating,
-                    comment: res.comment,
-                    profileUrl: res.profileUrl,
-                    recommendationId: res.recommendationId
+                    rating: resp.rating,
+                    comment: resp.comment,
+                    profileUrl: resp.profileUrl,
+                    recommendationId: resp.recommendationId
                 };
+                $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
+                $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
             });
         };
 
@@ -80,9 +82,15 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                 template: 'app/modules/util/dialog/yesNoDialog.html',
                 placement: 'center'
             }).show().then(function () {
-                PageRecommendation.delete({recommendationId: $scope.pageDetail.recommendation.user.recommendationId},
-                    function () {
+                PageRecommendation.delete({
+                        recommendationId: $scope.pageDetail.recommendation.user.recommendationId,
+                        pageId: $stateParams.pageId,
+                        label: $stateParams.label
+                    },
+                    function (resp) {
                         delete $scope.pageDetail.recommendation.user;
+                        $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
+                        $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
                     });
             });
         };

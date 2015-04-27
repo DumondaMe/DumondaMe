@@ -15,6 +15,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
         PageRecommendation.save(data, function (res) {
             data.profileUrl = res.profileUrl;
             data.recommendationId = res.recommendationId;
+            data.recommendation = res.recommendation;
             $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';

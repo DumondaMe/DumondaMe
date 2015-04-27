@@ -1007,7 +1007,17 @@
               cursor: pointer; }
             #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-commands {
               position: absolute;
+              bottom: 55px;
+              width: 100%; }
+            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews {
+              position: absolute;
               bottom: 0px; }
+              #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview {
+                margin-top: 5px; }
+                #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description {
+                  display: inline-block;
+                  font-size: 14px;
+                  margin-left: 5px; }
       #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol {
         float: right;
         width: 250px;

@@ -17,8 +17,7 @@ var getRecommendationSummaryAll = function (pageId, pageLabel) {
 
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
         .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
-        .end({pageId: pageId})
-        .getCommand();
+        .end({pageId: pageId});
 };
 
 var getRecommendationSummaryContacts = function (pageId, pageLabel, userId) {
@@ -26,8 +25,7 @@ var getRecommendationSummaryContacts = function (pageId, pageLabel, userId) {
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)" +
         "<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
-        .end({pageId: pageId, userId: userId})
-        .getCommand();
+        .end({pageId: pageId, userId: userId});
 };
 
 var getOtherUserRecommendation = function (pageId, pageLabel, userId, limit, skip) {
