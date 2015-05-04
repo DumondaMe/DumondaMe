@@ -5,14 +5,6 @@ var underscore = require('underscore');
 var cdn = require('../../util/cdn');
 var logger = requireLogger.getLogger(__filename);
 
-var getUserRecommendation = function (pageId, pageLabel, userId) {
-
-    return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating")
-        .end({pageId: pageId, userId: userId})
-        .getCommand();
-};
-
 var getRecommendationSummaryAll = function (pageId, pageLabel) {
 
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
@@ -26,6 +18,14 @@ var getRecommendationSummaryContacts = function (pageId, pageLabel, userId) {
         "<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
         .end({pageId: pageId, userId: userId});
+};
+
+var getUserRecommendation = function (pageId, pageLabel, userId) {
+
+    return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
+        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating")
+        .end({pageId: pageId, userId: userId})
+        .getCommand();
 };
 
 var getOtherUserRecommendation = function (pageId, pageLabel, userId, limit, skip) {

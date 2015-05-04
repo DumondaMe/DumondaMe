@@ -29,7 +29,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 if (!request.search && !request.filter) {
                     logger.info('Request all pages without filter', req);
-                    return page.getAllPages(request.skip, request.maxItems, request.isSuggestion);
+                    return page.getAllPages(req.user.id, request.skip, request.maxItems, request.isSuggestion);
                 }
             }).then(function (page) {
                 res.status(200).json(page);
