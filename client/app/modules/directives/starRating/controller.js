@@ -25,6 +25,7 @@ module.exports = {
 
             $scope.isReadonly = $scope.isReadonly === 'true';
             $scope.isSmall = $scope.isSmall === 'true';
+            $scope.isXSmall = $scope.isXSmall === 'true';
 
             $scope.mouseOverStar = function (star) {
                 if (!$scope.isReadonly) {

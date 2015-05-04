@@ -4,6 +4,7 @@ var app = require('angular').module('elyoosApp');
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
+app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
 app.service('Page', require('./services/page'));
 app.service('PageDetail', require('./services/pageDetail'));

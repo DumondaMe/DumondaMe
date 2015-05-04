@@ -7,8 +7,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'PageDetail', 'PromiseModal', 'PageRecommendation',
-    function ($scope, $window, $modal, $state, $stateParams, PageDetail, PromiseModal, PageRecommendation) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail',
+    function ($scope, $window, $state, $stateParams, PageDetail) {
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;
@@ -37,6 +37,8 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
         });
 
         $scope.category = categories[$stateParams.label];
+        $scope.pageId = $stateParams.pageId;
+        $scope.label = $stateParams.label;
 
         $scope.openUserDetail = function (userId, isLoggedInUser) {
             if (userId) {
@@ -50,49 +52,6 @@ module.exports = ['$scope', '$window', '$modal', '$state', '$stateParams', 'Page
                     });
                 }
             }
-        };
-
-        $scope.addNewRecommendation = function () {
-            var modalScope = $scope.$new(false);
-            modalScope.recommendation = {
-                pageId: $stateParams.pageId,
-                label: $stateParams.label
-            };
-            PromiseModal.getModal({
-                scope: modalScope,
-                title: $scope.pageDetail.page.title,
-                template: 'app/modules/recommendation/modalAddRecommendation.html',
-                placement: 'center'
-            }).show().then(function (resp) {
-                $scope.pageDetail.recommendation.user = {
-                    rating: resp.rating,
-                    comment: resp.comment,
-                    profileUrl: resp.profileUrl,
-                    recommendationId: resp.recommendationId
-                };
-                $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
-                $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
-            });
-        };
-
-        $scope.removeRecommendation = function () {
-            PromiseModal.getModal({
-                title: 'Bewertung l\u00f6schen',
-                content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
-                template: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
-                PageRecommendation.delete({
-                        recommendationId: $scope.pageDetail.recommendation.user.recommendationId,
-                        pageId: $stateParams.pageId,
-                        label: $stateParams.label
-                    },
-                    function (resp) {
-                        delete $scope.pageDetail.recommendation.user;
-                        $scope.pageDetail.recommendation.summary.contact = resp.recommendation.contact;
-                        $scope.pageDetail.recommendation.summary.all = resp.recommendation.all;
-                    });
-            });
         };
 
         $scope.openLink = function (link) {

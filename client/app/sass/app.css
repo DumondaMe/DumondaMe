@@ -328,6 +328,9 @@
   .ely-star-rating .ely-star-rating-small {
     width: 16px;
     height: 16px; }
+  .ely-star-rating .ely-star-rating-x-small {
+    width: 14px;
+    height: 14px; }
 
 .modal.center .modal-dialog {
   z-index: 101;
@@ -1107,19 +1110,50 @@
             height: 100px;
             width: 100px;
             float: left;
-            cursor: pointer; }
+            cursor: pointer;
+            height: 100px;
+            width: 150px; }
             #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-image img {
-              height: 100px;
-              width: 100px;
-              padding: 20px; }
+              max-height: 90px;
+              padding-top: 10px; }
           #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text {
             float: left;
-            margin-top: 20px; }
+            margin-top: 10px;
+            width: 300px;
+            white-space: nowrap; }
+            @media (min-width: 1400px) {
+              #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text {
+                width: 450px; } }
             #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-title {
-              font-size: 14px;
+              font-size: 16px;
               font-weight: bold;
               color: #009688;
-              cursor: pointer; }
+              cursor: pointer;
+              overflow: hidden;
+              text-overflow: ellipsis; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-category {
+              font-size: 12px; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
+              font-style: italic; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
+              margin-left: 5px;
+              display: inline-block; }
+          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation {
+            display: inline-block;
+            padding-top: 10px;
+            margin-left: 10px; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
+              margin-top: 3px; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
+              margin-top: 16px; }
+            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
+              font-size: 13px;
+              font-style: italic;
+              word-wrap: break-word;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 150px;
+              height: 33px; }
     #content #content-page-overview #leftCol {
       position: fixed;
       display: inline-block;

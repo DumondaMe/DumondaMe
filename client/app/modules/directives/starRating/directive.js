@@ -10,6 +10,7 @@ module.exports = {
             scope: {
                 isReadonly: '@',
                 isSmall: '@',
+                isXSmall: '@',
                 numberOfSelectedStars: '=',
                 numberOfSelectedStarsReadonly: '&'
             },
