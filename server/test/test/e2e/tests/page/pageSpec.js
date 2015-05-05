@@ -20,16 +20,6 @@ describe('Integration Tests for getting the page overview', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
 
-            /*            commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:VideoPage {pageId: '1'})")
-             .create("(a)-[:HAS_FILM_VERSION]->(b)")
-             .end().getCommand());
-             commands.push(db.cypher().match("(a:User {userId: '2'}), (b:VideoPage {pageId: '1'})")
-             .create("(a)-[:IS_ADMIN]->(b)")
-             .end().getCommand());
-
-             commands.push(db.cypher().match("(a:SchoolPage {pageId: '2'}), (b:CoursePage {pageId: '3'})")
-             .create("(a)-[:HAS_COURSE]->(b)")
-             .end().getCommand());*/
             return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
                 .end().send(commands)
                 .catch(function (err) {
@@ -110,7 +100,7 @@ describe('Integration Tests for getting the page overview', function () {
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(a)-[:IS_CONTACT]->(b)")
@@ -143,6 +133,7 @@ describe('Integration Tests for getting the page overview', function () {
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
+                    res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
                     res.body.pages[0].lastModified.should.equals(501);
 

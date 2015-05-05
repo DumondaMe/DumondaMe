@@ -7,7 +7,7 @@ MATCH (n:EventPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:BlogPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:StorePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 
-CREATE (:BookPage {title: 'Der Pfad des friedvollen Kriegers', description: 'Atemberaubende Erfahrungen und berührende Erlebnisse erwarten Sie auf dem Pfad des friedvollen Kriegers
+CREATE (:BookPage {title: 'Der Pfad des friedvollen Kriegers', language: 'de', description: 'Atemberaubende Erfahrungen und berührende Erlebnisse erwarten Sie auf dem Pfad des friedvollen Kriegers
 
 Ein absolutes Kultbuch – immer wieder als das beste Einstiegsbuch in die Welt der echten Spiritualität empfohlen. Folgen Sie dem Autor auf seinem Weg, der ebenso atemberaubende wie berührende Erlebnisse auch für Sie bereit hält. Seite für Seite werden Sie zu einer neuen, faszinierenden Bewusstheit heranwachsen.
 
@@ -20,22 +20,5 @@ MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '0'}) CREATE (user)-[:I
 MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
 MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_AUTHOR]->(page);
 
-CREATE (:VideoPage {title: 'Im Zeichen der Libelle', created: 1424692757 - 100, duration: 6240, description: 'Mysteriöse Zeichen treiben Dr. Joe Darrow nach dem tragischen Tod seiner Frau Emily im Dschungel von Venezuela an den Rand der Verzweiflung. Emily war Zeit ihres Lebens fasziniert von Libellen und plötzlich ereignen sich merkwürdige Dinge, für die es einfach keine logische Erklärung gibt. Joe ist überzeugt, dass Emily Kontakt mit ihm aufnehmen will. Die Ereignisse überstürzen sich und führen ihn schließlich nach Venezuela, wo er eine unglaubliche Entdeckung macht...', actor: 'Kevin Costner', link: 'http://de.wikipedia.org/wiki/Im_Zeichen_der_Libelle', pageId: '1'});
+CREATE (:VideoPage {title: 'Im Zeichen der Libelle', language: 'de', created: 1424692757 - 100, duration: 6240, description: 'Mysteriöse Zeichen treiben Dr. Joe Darrow nach dem tragischen Tod seiner Frau Emily im Dschungel von Venezuela an den Rand der Verzweiflung. Emily war Zeit ihres Lebens fasziniert von Libellen und plötzlich ereignen sich merkwürdige Dinge, für die es einfach keine logische Erklärung gibt. Joe ist überzeugt, dass Emily Kontakt mit ihm aufnehmen will. Die Ereignisse überstürzen sich und führen ihn schließlich nach Venezuela, wo er eine unglaubliche Entdeckung macht...', actor: 'Kevin Costner', link: 'http://de.wikipedia.org/wiki/Im_Zeichen_der_Libelle', pageId: '1'});
 MATCH (page:VideoPage {pageId: '1'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);
-
-CREATE (:SchoolPage {title: 'Kaleidoskop', created: 1424692757 - 101, link: 'http://www.kaleidoskop.org/de/Home.23.html', description: 'Zusammen mit der geistigen Welt haben wir 1998 das Kaleidoskop Zentrum eröffnet. Hand in Hand leiten wir das Zentrum und unterrichten in der ganzen Schweiz und im Ausland. Das Kaleidoskop Zentrum ist ein Schulungszentrum und eine Praxis für Angebote aus den Bereichen Medialität und Sensitivität, Spirituelles Heilen, Trance und Tranceheilen sowie persönliche und spirituelle Entwicklung und Ausbildungen in allen Bereichen (mediale Ausbildung, Heilerausbildung, Tranceausbildung und Yogalehrerausbildung).',pageId: '0'});
-MATCH (page:SchoolPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
-MATCH (page:SchoolPage {pageId: '0'}), (user:User {userId: '7'}) CREATE (user)-[:PRINCIPAL]->(page);
-MATCH (page:SchoolPage {pageId: '0'}), (user:User {userId: '8'}) CREATE (user)-[:PRINCIPAL]->(page);
-
-CREATE (:CoursePage {title: 'Medialität', created: 1424692757 - 102, pageId: '0'});
-MATCH (page:CoursePage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
-MATCH (course:CoursePage {pageId: '0'}), (school:SchoolPage {pageId: '0'}) CREATE (school)-[:OFFER]->(course);
-CREATE (:CoursePage {title: 'Spirituelles Heilen', created: 1424692757 - 103, pageId: '1'});
-MATCH (page:CoursePage {pageId: '1'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
-MATCH (course:CoursePage {pageId: '1'}), (school:SchoolPage {pageId: '0'}) CREATE (school)-[:OFFER]->(course);
-
-CREATE (:PracticePage {title: 'Goldentrails', created: 1424692757 - 104, pageId: '0'});
-CREATE (:EventPage {title: 'PSI Tage Basel', created: 1424692757 - 105, pageId: '0'});
-CREATE (:BlogPage {title: 'Blog Bahar Yilmaz', created: 1424692757 - 106, pageId: '0'});
-CREATE (:StorePage {title: 'Im Licht', created: 1424692757 - 107, pageId: '0'});

@@ -73,7 +73,7 @@ var getAllPages = function (userId, skip, limit, isSuggestion) {
         .optionalMatch("(page)<-[:RECOMMENDS]-(userRec:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})")
         .with("page, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating, userRec")
         .return("page.pageId AS pageId, page.description AS description, page.title AS title, LABELS(page) AS types, page.created AS lastModified, " +
-        "allNumberOfRatings, allRating, contactNumberOfRatings, contactRating," +
+        "page.language AS language, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating," +
         "userRec.comment AS userRecComment, userRec.recommendationId AS userRecRecommendationId, userRec.rating AS userRecRating")
         .end({skip: skip, limit: limit, userId: userId})
         .send(commands)
