@@ -1732,7 +1732,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            get-query-suggestion=\"getUserSuggestion\"\r" +
     "\n" +
-    "                            get-query=\"getUser\"></ely-search-box>\r" +
+    "                            get-query=\"searchPage\"></ely-search-box>\r" +
     "\n" +
     "            <div>Filtern nach</div>\r" +
     "\n" +

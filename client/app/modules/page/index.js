@@ -8,6 +8,7 @@ app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendation
 
 app.service('Page', require('./services/page'));
 app.service('PageDetail', require('./services/pageDetail'));
+app.service('SearchPage', require('./services/searchPage'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

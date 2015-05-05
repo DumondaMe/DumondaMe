@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    recommendation = require('./../../../../models/recommendation/recommendation'),
-    auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    controllerErrors = require('./../../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var recommendation = require('./../../../../models/recommendation/recommendation');
+var auth = require('./../../../../lib/auth');
+var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestGetRecommendations = {
     name: 'getRecommendations',

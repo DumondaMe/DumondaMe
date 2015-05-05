@@ -32,27 +32,61 @@ describe('Integration Tests for getting the page overview', function () {
         return requestHandler.logout();
     });
 
-    it('Getting all pages unfiltered sorted by creation date - Return 200', function () {
+    // Sorted by when the recommendation was added
+    it('Getting all pages contacts has recommended - Return 200', function () {
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', created: 507, pageId: '0'})").end().getCommand());
-        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', created: 508, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 506, pageId: '2'})").end().getCommand());
-        commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 505, pageId: '3'})").end().getCommand());
-        commands.push(db.cypher().create("(:CoursePage {title: 'page5Title', description: 'page5', created: 504, pageId: '4'})").end().getCommand());
-        commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 503, pageId: '5'})").end().getCommand());
-        commands.push(db.cypher().create("(:EventPage {title: 'page7Title', description: 'page7', created: 502, pageId: '6'})").end().getCommand());
-        commands.push(db.cypher().create("(:BlogPage {title: 'page8Title', description: 'page8', created: 501, pageId: '7'})").end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(a)-[:IS_CONTACT]->(b)")
+            .end().getCommand());
 
-        return db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 500, pageId: '8'})")
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', created: 5070, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', created: 5080, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 506, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 5050, pageId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page5Title', description: 'page5', created: 5040, pageId: '4'})").end().getCommand());
+        commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 503, pageId: '5'})").end().getCommand());
+        commands.push(db.cypher().create("(:EventPage {title: 'page7Title', description: 'page7', created: 5020, pageId: '6'})").end().getCommand());
+        commands.push(db.cypher().create("(:BlogPage {title: 'page8Title', description: 'page8', created: 5010, pageId: '7'})").end().getCommand());
+        commands.push(db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 5000, pageId: '8'})").end().getCommand());
+
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:SchoolPage {pageId: '2'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '3'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '4'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:PracticePage {pageId: '5'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 503, recommendationId: '6'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:EventPage {pageId: '6'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, recommendationId: '7'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:BlogPage {pageId: '7'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, recommendationId: '8'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:StorePage {pageId: '8'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, recommendationId: '9'})-[:RECOMMENDS]->(a)").end().getCommand());
+
+        //Not returned Pages because no contact recommendation or not created by a contact
+        commands.push(db.cypher().create("(:BookPage {title: 'page10Title', description: 'page10', created: 5070, pageId: '10'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page20Title', description: 'page20', created: 5080, pageId: '11'})").end().getCommand());
+        commands.push(db.cypher().create("(:SchoolPage {title: 'page30Title', description: 'page30', created: 5060, pageId: '12'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page40Title', description: 'page40', created: 5050, pageId: '13'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page50Title', description: 'page50', created: 5040, pageId: '14'})").end().getCommand());
+        commands.push(db.cypher().create("(:PracticePage {title: 'page60Title', description: 'page60', created: 5030, pageId: '15'})").end().getCommand());
+        commands.push(db.cypher().create("(:EventPage {title: 'page70Title', description: 'page70', created: 5020, pageId: '16'})").end().getCommand());
+        commands.push(db.cypher().create("(:BlogPage {title: 'page80Title', description: 'page80', created: 5010, pageId: '17'})").end().getCommand());
+
+        return db.cypher().create("(:StorePage {title: 'page90Title', description: 'page90', created: 5011, pageId: '18'})")
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
                     return requestHandler.getWithData('/api/page', {
                         skip: '0',
-                        maxItems: 50,
-                        isSuggestion: false
+                        maxItems: 50
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -96,7 +130,7 @@ describe('Integration Tests for getting the page overview', function () {
             });
     });
 
-    it('Getting a book page in the overview - Return 200', function () {
+    it('Getting a book page in the overview because contact has made a recommendation- Return 200', function () {
 
         var commands = [];
 
@@ -109,7 +143,7 @@ describe('Integration Tests for getting the page overview', function () {
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 2, recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, recommendationId: '1'})-[:RECOMMENDS]->(a)")
@@ -122,8 +156,7 @@ describe('Integration Tests for getting the page overview', function () {
                     requestAgent = agent;
                     return requestHandler.getWithData('/api/page', {
                         skip: '0',
-                        maxItems: 50,
-                        isSuggestion: false
+                        maxItems: 50
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -144,6 +177,8 @@ describe('Integration Tests for getting the page overview', function () {
                     res.body.pages[0].recommendation.user.recommendationId.should.equals('0');
                     res.body.pages[0].recommendation.user.comment.should.equals('irgendwas');
                     res.body.pages[0].recommendation.user.rating.should.equals(5);
+                    res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
+                    res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
                 });
             });

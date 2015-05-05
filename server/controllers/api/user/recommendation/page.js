@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    pageRecommendation = require('./../../../../models/recommendation/page'),
-    auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    controllerErrors = require('./../../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var pageRecommendation = require('./../../../../models/recommendation/page');
+var auth = require('./../../../../lib/auth');
+var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaAddPageRecommendation = {
     name: 'addPageRecommendation',
@@ -28,7 +28,7 @@ var schemaDeletePageRecommendation = {
     properties: {
         recommendationId: {type: 'string', format: 'notEmptyString', maxLength: 50},
         pageId: {type: 'string', format: 'notEmptyString', maxLength: 50},
-        label: {enum: ['BookPage', 'VideoPage', 'CoursePage', 'SchoolPage', 'PracticePage', 'EventPage', 'BlogPage']},
+        label: {enum: ['BookPage', 'VideoPage', 'CoursePage', 'SchoolPage', 'PracticePage', 'EventPage', 'BlogPage']}
     }
 };
 
@@ -48,7 +48,7 @@ module.exports = function (router) {
     router.delete('/', auth.isAuthenticated(), function (req, res) {
         return controllerErrors('Error occurs while deleting a user recommendation', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeletePageRecommendation, logger).then(function (request) {
-                return pageRecommendation.deleteRecommendation(req.user.id, request.recommendationId, request.pageId, request.label,req);
+                return pageRecommendation.deleteRecommendation(req.user.id, request.recommendationId, request.pageId, request.label, req);
             }).then(function (recommendation) {
                 res.status(200).json(recommendation);
             });

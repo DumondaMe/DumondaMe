@@ -1,14 +1,14 @@
 'use strict';
 
-var validation = require('./../../../lib/jsonValidation'),
-    bookDetail = require('./../../../models/page/detail/bookDetail'),
-    videoDetail = require('./../../../models/page/detail/videoDetail'),
-    courseDetail = require('./../../../models/page/detail/courseDetail'),
-    schoolDetail = require('./../../../models/page/detail/schoolDetail'),
-    auth = require('./../../../lib/auth'),
-    exceptions = require('./../../../lib/error/exceptions'),
-    controllerErrors = require('./../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../lib/jsonValidation');
+var bookDetail = require('./../../../models/page/detail/bookDetail');
+var videoDetail = require('./../../../models/page/detail/videoDetail');
+var courseDetail = require('./../../../models/page/detail/courseDetail');
+var schoolDetail = require('./../../../models/page/detail/schoolDetail');
+var auth = require('./../../../lib/auth');
+var exceptions = require('./../../../lib/error/exceptions');
+var controllerErrors = require('./../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaGetPage = {
     name: 'getPage',
