@@ -7,6 +7,12 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
+var setCategories = function (pages) {
+    angular.forEach(pages, function (page) {
+        page.category = categories[page.label];
+    });
+};
+
 module.exports = ['$scope', '$state', 'Page', 'SearchPage',
     function ($scope, $state, Page, SearchPage) {
 
@@ -14,9 +20,7 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage',
 
         $scope.getPages = function (skip) {
             $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip * $scope.itemsPerPage}, function () {
-                angular.forEach($scope.page.pages, function (page) {
-                    page.category = categories[page.label];
-                });
+                setCategories($scope.page.pages);
             });
         };
         $scope.getPages(0);
@@ -29,15 +33,14 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage',
         };
 
         $scope.searchPage = function (searchValue) {
-            var pages;
             if (searchValue && searchValue.trim().length > 0) {
-                pages = SearchPage.get({
+                $scope.page = SearchPage.get({
                     search: searchValue,
                     filterType: 'NoFilter',
                     filterLanguage: 'NoFilter',
                     isSuggestion: false
                 }, function () {
-                    $scope.page = pages;
+                    setCategories($scope.page.pages);
                 });
             } else {
                 $scope.getPages(0);
