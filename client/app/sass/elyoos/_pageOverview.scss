@@ -98,6 +98,9 @@
 
     @include leftFixedColumn(260px, 80px, $background-left-column, visible) {
 
+      .page-preview-add-page {
+        margin: 10px 0px 10px 10px;
+      }
     }
   }
 }

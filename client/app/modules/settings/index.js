@@ -8,9 +8,9 @@ app.controller('PrivacyCtrl', require('./privacyCtrl'));
 app.controller('RenamePrivacyCtrl', require('./renamePrivacyCtrl'));
 app.controller('DeletePrivacyCtrl', require('./deletePrivacyCtrl'));
 
-app.factory('Profile', require('./profile'));
-app.factory('Privacy', require('./privacy'));
-app.factory('Password', require('./password'));
+app.factory('Profile', require('./services/profile'));
+app.factory('Privacy', require('./services/privacy'));
+app.factory('Password', require('./services/password'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

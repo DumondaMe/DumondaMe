@@ -1,0 +1,33 @@
+#content {
+
+  width: 100%;
+  height: 100%;
+
+  #content-page-create {
+
+    width: 100%;
+    height: 100%;
+
+    @include centerColumn(80px) {
+      #inner-centerCol {
+        position: relative;
+        width: 800px;
+        margin: 0 auto;
+
+        #content-create-category {
+          margin-top: 10px;
+          margin-left: 15px;
+          #inputTitleId {
+            width: 800px;
+          }
+          #category-select-finished {
+            margin-top: 10px;
+          }
+          .content-create-category-element {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}

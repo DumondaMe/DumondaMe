@@ -1,26 +1,20 @@
 'use strict';
 
-var categories = {
-    BookPage: 'Buch',
-    VideoPage: 'Video',
-    CoursePage: 'Kurs',
-    SchoolPage: 'Schule'
-};
-
-var setCategories = function (pages) {
+var setCategories = function (pages, PageCategories) {
     angular.forEach(pages, function (page) {
-        page.category = categories[page.label];
+        page.category = PageCategories.categories[page.label];
     });
 };
 
-module.exports = ['$scope', '$state', 'Page', 'SearchPage',
-    function ($scope, $state, Page, SearchPage) {
+module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
+    function ($scope, $state, Page, SearchPage, PageCategories) {
 
+        $scope.query = "";
         $scope.itemsPerPage = 30;
 
         $scope.getPages = function (skip) {
             $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip * $scope.itemsPerPage}, function () {
-                setCategories($scope.page.pages);
+                setCategories($scope.page.pages, PageCategories);
             });
         };
         $scope.getPages(0);
@@ -32,6 +26,10 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage',
             });
         };
 
+        $scope.createNewPage = function () {
+            $state.go('page.create');
+        };
+
         $scope.searchPage = function (searchValue) {
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.page = SearchPage.get({
@@ -40,7 +38,7 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage',
                     filterLanguage: 'NoFilter',
                     isSuggestion: false
                 }, function () {
-                    setCategories($scope.page.pages);
+                    setCategories($scope.page.pages, PageCategories);
                 });
             } else {
                 $scope.getPages(0);

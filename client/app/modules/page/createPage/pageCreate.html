@@ -1,0 +1,51 @@
+<div id="content-page-create">
+    <div id="centerCol">
+        <div id="inner-centerCol">
+            <div class="website-structure-header">
+                <div class="website-structure-header-title">
+                    <h2>Kategorie ausw&aumlhlen</h2>
+                </div>
+            </div>
+            <div id="content-create-category">
+                <form class="form-horizontal" name="categoryForm" role="form" novalidate>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default content-create-category-element" ng-model="category.selectedCategory"
+                                name="inputCategory"
+                                id="inputCategoryId"
+                                bs-options="category as category for category in categories"
+                                data-placeholder="Kategorie ausw&aumlhlen"
+                                bs-select>
+                            <span class="caret"></span>
+                        </button>
+                        <button type="button" class="btn btn-default content-create-category-element" ng-model="category.selectedLanguage"
+                                name="inputLanguage"
+                                id="inputLanguageId"
+                                bs-options="language.description as language.description for language in languages"
+                                data-placeholder="Sprache der Seite ausw&aumlhlen"
+                                bs-select>
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                    <div class="form-group content-create-category-element">
+                        <input name="inputTitle" ng-model="category.title"
+                               class="form-control" id="inputTitleId"
+                               placeholder="Titel"
+                               ng-maxlength="255" ng-required="true">
+                    </div>
+                    <div class="form-group content-create-category-element">
+                        <div>
+                            <button type="submit"
+                                    class="btn btn-default"
+                                    id="category-select-finished"
+                                    ng-click="categorySelectFinished()"
+                                    ng-class="{disabled: sendButtonDisabled}">
+                                Fertig
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="leftColNav" ng-include="'app/modules/page/leftNavCol.html'"></div>
+</div>

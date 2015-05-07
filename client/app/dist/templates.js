@@ -1327,6 +1327,111 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/createPage/pageCreate.html',
+    "<div id=\"content-page-create\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header-title\">\r" +
+    "\n" +
+    "                    <h2>Kategorie ausw&aumlhlen</h2>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"content-create-category\">\r" +
+    "\n" +
+    "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-category-element\" ng-model=\"category.selectedCategory\"\r" +
+    "\n" +
+    "                                name=\"inputCategory\"\r" +
+    "\n" +
+    "                                id=\"inputCategoryId\"\r" +
+    "\n" +
+    "                                bs-options=\"category as category for category in categories\"\r" +
+    "\n" +
+    "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                bs-select>\r" +
+    "\n" +
+    "                            <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-category-element\" ng-model=\"category.selectedLanguage\"\r" +
+    "\n" +
+    "                                name=\"inputLanguage\"\r" +
+    "\n" +
+    "                                id=\"inputLanguageId\"\r" +
+    "\n" +
+    "                                bs-options=\"language.description as language.description for language in languages\"\r" +
+    "\n" +
+    "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                bs-select>\r" +
+    "\n" +
+    "                            <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group content-create-category-element\">\r" +
+    "\n" +
+    "                        <input name=\"inputTitle\" ng-model=\"category.title\"\r" +
+    "\n" +
+    "                               class=\"form-control\" id=\"inputTitleId\"\r" +
+    "\n" +
+    "                               placeholder=\"Titel\"\r" +
+    "\n" +
+    "                               ng-maxlength=\"255\" ng-required=\"true\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group content-create-category-element\">\r" +
+    "\n" +
+    "                        <div>\r" +
+    "\n" +
+    "                            <button type=\"submit\"\r" +
+    "\n" +
+    "                                    class=\"btn btn-default\"\r" +
+    "\n" +
+    "                                    id=\"category-select-finished\"\r" +
+    "\n" +
+    "                                    ng-click=\"categorySelectFinished()\"\r" +
+    "\n" +
+    "                                    ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "\n" +
+    "                                Fertig\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </form>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/page/leftNavCol.html',
     "<div class=\"nav-placeholder-top\"></div>\n" +
     "\n" +
@@ -1733,6 +1838,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            get-query-suggestion=\"getUserSuggestion\"\r" +
     "\n" +
     "                            get-query=\"searchPage\"></ely-search-box>\r" +
+    "\n" +
+    "            <button class=\"btn btn-default page-preview-add-page\" type=\"button\" ng-click=\"createNewPage()\">\r" +
+    "\n" +
+    "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Seite erstellen\r" +
+    "\n" +
+    "            </button>\r" +
     "\n" +
     "            <div>Filtern nach</div>\r" +
     "\n" +
@@ -2214,11 +2325,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div id=\"content-settings-security\">\n" +
     "    <div id=\"centerCol\">\n" +
     "        <div id=\"inner-centerCol\">\n" +
-    "            <div class=\"header-privacy\">\n" +
-    "                <div class=\"row\">\n" +
-    "                    <div class=\"header-privacy-title\">\n" +
-    "                        <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>\n" +
-    "                    </div>\n" +
+    "            <div class=\"website-structure-header\">\n" +
+    "                <div class=\"website-structure-header-title\">\n" +
+    "                    <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"content-privacy\">\n" +
@@ -2230,10 +2339,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            Mein Profil ist sichtbar\n" +
     "                        </div>\n" +
     "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
-    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
+    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen\n" +
+    "                            sehen. Alle anderen Profildaten bleiben verborgen.\n" +
     "                        </div>\n" +
     "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
+    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur\n" +
+    "                            deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -2278,13 +2389,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
     "                        </div>\n" +
     "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
+    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag,\n" +
+    "                            sehen können.\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "                <div class=\"privacy-setting-button-row\">\n" +
     "                    <ely-send-button button-description=\"Änderung übernehmen\" send-data=\"updatePrivacyType\"\n" +
-    "                                     error-placement=\"right\" model=\"selectedType\" ></ely-send-button>\n" +
+    "                                     error-placement=\"right\" model=\"selectedType\"></ely-send-button>\n" +
     "                    <!--<button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
     "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +
     "                    </button>-->\n" +
@@ -2335,7 +2447,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                    <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
     "                        <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
     "                               ng-model=\"addingPrivacy.newPrivacyName\">\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\" ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
+    "                                ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
     "                            Hinzufügen\n" +
     "                        </button>\n" +
     "                        <button class=\"btn btn-default\" type=\"button\"\n" +

@@ -1,11 +1,9 @@
 <div id="content-settings-security">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="header-privacy">
-                <div class="row">
-                    <div class="header-privacy-title">
-                        <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>
-                    </div>
+            <div class="website-structure-header">
+                <div class="website-structure-header-title">
+                    <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>
                 </div>
             </div>
             <div class="content-privacy">
@@ -17,10 +15,12 @@
                             Mein Profil ist sichtbar
                         </div>
                         <div class="select-privacy-settings-description" ng-show="privacySettings.noContactSelected">
-                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.
+                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen
+                            sehen. Alle anderen Profildaten bleiben verborgen.
                         </div>
                         <div class="select-privacy-settings-description" ng-show="!privacySettings.noContactSelected">
-                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.
+                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur
+                            deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.
                         </div>
                     </div>
                 </div>
@@ -65,13 +65,14 @@
                             Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.
                         </div>
                         <div class="select-privacy-settings-description" ng-show="!privacySettings.noContactSelected">
-                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.
+                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag,
+                            sehen können.
                         </div>
                     </div>
                 </div>
                 <div class="privacy-setting-button-row">
                     <ely-send-button button-description="Änderung übernehmen" send-data="updatePrivacyType"
-                                     error-placement="right" model="selectedType" ></ely-send-button>
+                                     error-placement="right" model="selectedType"></ely-send-button>
                     <!--<button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
                             type="submit" ng-click="updatePrivacyType()">Änderung übernehmen
                     </button>-->
@@ -122,7 +123,8 @@
                     <div class="privacy-adding-input" ng-if="showNewPrivacySettingInput">
                         <input class="form-control" placeholder="Privatsphären Typ" ng-maxlength="30"
                                ng-model="addingPrivacy.newPrivacyName">
-                        <button class="btn btn-default" type="button" ng-click="addPrivacySetting()" ng-class="{disabled: addingPrivacy.newPrivacyName.trim() === ''}">
+                        <button class="btn btn-default" type="button" ng-click="addPrivacySetting()"
+                                ng-class="{disabled: addingPrivacy.newPrivacyName.trim() === ''}">
                             Hinzufügen
                         </button>
                         <button class="btn btn-default" type="button"
