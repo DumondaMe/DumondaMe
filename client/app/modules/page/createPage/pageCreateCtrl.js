@@ -7,6 +7,8 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categories = PageCategories.getCategories();
         $scope.languages = [];
         $scope.sendButtonDisabled = true;
+        $scope.showSuggestions = false;
+        $scope.showCommonSection = false;
 
         $scope.languages = Languages.languages;
 
@@ -25,7 +27,9 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
                 isSuggestion: false
             }, function () {
-
+                if ($scope.pageSuggestions.pages.length > 0) {
+                    $scope.showSuggestions = true;
+                }
             });
         };
     }];

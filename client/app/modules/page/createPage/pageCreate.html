@@ -45,6 +45,14 @@
                     </div>
                 </form>
             </div>
+            <div id="content-create-page-suggestions" ng-show="showSuggestions">
+                <div class="website-structure-header">
+                    <div class="website-structure-header-title">
+                        <h2>Existiert die Seite die Sie erstellen m&oumlchten bereits?</h2>
+                    </div>
+                </div>
+                <ely-page-preview pages="pageSuggestions.pages"></ely-page-preview>
+            </div>
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/page/leftNavCol.html'"></div>

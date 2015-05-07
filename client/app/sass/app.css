@@ -1137,59 +1137,6 @@
         @media (min-width: 1400px) {
           #content #content-page-overview #centerCol #inner-centerCol {
             width: 1110px; } }
-        #content #content-page-overview #centerCol #inner-centerCol .page-preview {
-          border-bottom: 1px solid #e7e7e7;
-          display: block;
-          height: 100px;
-          width: 100%; }
-          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-image {
-            height: 100px;
-            width: 100px;
-            float: left;
-            cursor: pointer;
-            height: 100px;
-            width: 150px; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-image img {
-              max-height: 90px;
-              padding-top: 10px; }
-          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text {
-            float: left;
-            margin-top: 10px;
-            width: 300px;
-            white-space: nowrap; }
-            @media (min-width: 1400px) {
-              #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text {
-                width: 450px; } }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-title {
-              font-size: 16px;
-              font-weight: bold;
-              color: #009688;
-              cursor: pointer;
-              overflow: hidden;
-              text-overflow: ellipsis; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-category {
-              font-size: 12px; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
-              font-style: italic; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
-              margin-left: 5px;
-              display: inline-block; }
-          #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation {
-            display: inline-block;
-            padding-top: 10px;
-            margin-left: 10px; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
-              margin-top: 3px; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
-              margin-top: 16px; }
-            #content #content-page-overview #centerCol #inner-centerCol .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
-              font-size: 13px;
-              font-style: italic;
-              word-wrap: break-word;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              width: 150px;
-              height: 33px; }
     #content #content-page-overview #leftCol {
       position: fixed;
       display: inline-block;
@@ -1206,6 +1153,60 @@
         margin-bottom: 20px; }
         #content #content-page-overview #leftCol #inner-leftCol .page-preview-add-page {
           margin: 10px 0px 10px 10px; }
+
+.page-preview {
+  border-bottom: 1px solid #e7e7e7;
+  display: block;
+  height: 100px;
+  width: 100%; }
+  .page-preview .page-preview-image {
+    height: 100px;
+    width: 100px;
+    float: left;
+    cursor: pointer;
+    height: 100px;
+    width: 150px; }
+    .page-preview .page-preview-image img {
+      max-height: 90px;
+      padding-top: 10px; }
+  .page-preview .page-preview-text {
+    float: left;
+    margin-top: 10px;
+    width: 300px;
+    white-space: nowrap; }
+    @media (min-width: 1400px) {
+      .page-preview .page-preview-text {
+        width: 450px; } }
+    .page-preview .page-preview-text .page-preview-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #009688;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .page-preview .page-preview-text .page-preview-category {
+      font-size: 12px; }
+    .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
+      font-style: italic; }
+    .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
+      margin-left: 5px;
+      display: inline-block; }
+  .page-preview .page-preview-user-recommendation {
+    display: inline-block;
+    padding-top: 10px;
+    margin-left: 10px; }
+    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
+      margin-top: 3px; }
+    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
+      margin-top: 16px; }
+    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
+      font-size: 13px;
+      font-style: italic;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 150px;
+      height: 33px; }
 
 #content-recommendation-home {
   width: 100%;

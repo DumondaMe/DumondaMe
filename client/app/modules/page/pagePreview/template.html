@@ -1,0 +1,61 @@
+<div ng-repeat="pagePreview in pages" class="page-preview">
+    <div class="page-preview-image" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+        <img ng-src="{{pagePreview.url}}">
+    </div>
+    <div class="page-preview-text">
+        <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+            {{pagePreview.title}}
+        </div>
+        <div class="page-preview-category">
+            Kategorie: {{pagePreview.category}}
+        </div>
+        <div class="page-preview-rating-overview">
+            <div ng-show="pagePreview.recommendation.summary.contact.numberOfRatings > 0">
+                <ely-star-rating is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="pagePreview.recommendation.summary.contact.rating"></ely-star-rating>
+                <div class="page-preview-rating-overview-description">
+                    (Kontakte {{pagePreview.recommendation.summary.contact.numberOfRatings}})
+                </div>
+            </div>
+            <div ng-show="pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings > 0"
+                 class="page-preview-no-rating-overview-text">
+                Keine Bewertung durch deine Kontakte
+            </div>
+        </div>
+        <div class="page-preview-rating-overview">
+            <div ng-show="pagePreview.recommendation.summary.all.numberOfRatings > 0">
+                <ely-star-rating is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="pagePreview.recommendation.summary.all.rating"></ely-star-rating>
+                <div class="page-preview-rating-overview-description">
+                    (Alle {{pagePreview.recommendation.summary.all.numberOfRatings}})
+                </div>
+            </div>
+            <div ng-show="pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings === 0"
+                 class="page-preview-no-rating-overview-text">
+                Seite wurde noch nie bewertet
+            </div>
+        </div>
+    </div>
+    <div class="page-preview-user-recommendation" ng-controller="AddRemoveRecommendationCtrl">
+        <div ng-show="pagePreview.recommendation.user.recommendationId">
+            <div>
+                <button type="submit" class="btn btn-default btn-xs"
+                        ng-click="removeRecommendation(pagePreview, pagePreview.pageId, pagePreview.label)">
+                    Bewertung entfernen
+                </button>
+            </div>
+            <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-user-recommendation-rating"
+                             number-of-selected-stars-readonly="pagePreview.recommendation.user.rating"
+                             ng-class="{'page-preview-user-recommendation-no-comment': pagePreview.recommendation.user.comment.trim() === ''}"></ely-star-rating>
+            <div class="page-preview-user-recommendation-comment" ng-show="pagePreview.recommendation.user.comment.trim() !== ''">
+                {{pagePreview.recommendation.user.comment}}
+            </div>
+        </div>
+        <div ng-hide="pagePreview.recommendation.user.recommendationId">
+            <button type="submit" class="btn btn-default btn-xs"
+                    ng-click="addNewRecommendation(pagePreview, pagePreview.pageId, pagePreview.label, pagePreview.title)">
+                Bewerten
+            </button>
+        </div>
+    </div>
+</div>

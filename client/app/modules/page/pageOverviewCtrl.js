@@ -19,13 +19,6 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
         };
         $scope.getPages(0);
 
-        $scope.openDetail = function (pageId, label) {
-            $state.go('page.detail', {
-                label: label,
-                pageId: pageId
-            });
-        };
-
         $scope.createNewPage = function () {
             $state.go('page.create');
         };

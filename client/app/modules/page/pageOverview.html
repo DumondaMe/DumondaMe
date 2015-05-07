@@ -1,8 +1,8 @@
 <div id="content-page-overview">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="pagePreview in page.pages" class="page-preview"
-                 ng-click="openDetailPage(pagePreview.pageId)">
+            <ely-page-preview pages="page.pages"></ely-page-preview>
+            <!--<div ng-repeat="pagePreview in page.pages" class="page-preview">
                 <div class="page-preview-image" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
                     <img ng-src="{{pagePreview.url}}">
                 </div>
@@ -62,7 +62,7 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
     <div id="leftCol">
