@@ -1,8 +1,8 @@
 'use strict';
 
-var userInfo = require('../../../app/modules/settings/profile')[1];
-var privacy = require('../../../app/modules/settings/privacy')[1];
-var password = require('../../../app/modules/settings/password')[1];
+var userInfo = require('../../../app/modules/settings/services/profile')[1];
+var privacy = require('../../../app/modules/settings/services/privacy')[1];
+var password = require('../../../app/modules/settings/services/password')[1];
 
 describe('Tests all Services of the navigation for http requests', function () {
     var resource;
