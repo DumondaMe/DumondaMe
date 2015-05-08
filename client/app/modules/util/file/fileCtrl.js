@@ -14,20 +14,28 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
 
     $scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
+    $scope.uploadFile = false;
 
     $scope.imageResultData = function (data) {
+        var blob;
         if (data.trim() !== '') {
             delete $scope.uploadError;
             $scope.uploadRunning = true;
-            fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
-                showSuccess(function () {
-                    $scope.uploadRunning = false;
-                    $scope.$emit('elyoos.profileImage.change');
-                    $scope.$hide();
-                }).
-                error(function () {
-                    $scope.uploadRunning = false;
-                });
+            blob = dataURItoBlob(data);
+            if ($scope.uploadFile) {
+                fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
+                    showSuccess(function () {
+                        $scope.uploadRunning = false;
+                        $scope.$emit('elyoos.profileImage.change');
+                        $scope.$hide();
+                    }).
+                    error(function () {
+                        $scope.uploadRunning = false;
+                    });
+            } else {
+                $scope.$hide();
+                $scope.$emit('image.cropper.image.preview', data);
+            }
         } else {
             $scope.uploadError = 'File kann nicht hochgeladen werden';
         }
@@ -45,10 +53,12 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     });
 
     $scope.startUpload = function () {
-        if ($scope.updateImageResult) {
-            $scope.updateImageResult += 1;
-        } else {
-            $scope.updateImageResult = 1;
-        }
+        $scope.uploadFile = true;
+        $scope.$broadcast('image.cropper.get.data');
+    };
+
+    $scope.getPreview = function () {
+        $scope.uploadFile = false;
+        $scope.$broadcast('image.cropper.get.data');
     };
 }];

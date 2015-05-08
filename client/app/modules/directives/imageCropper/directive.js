@@ -11,8 +11,8 @@ module.exports = {
             scope: {
                 reset: '=',
                 image: '=',
-                getDataToUpload: '=',
-                imageResultData: '='
+                imageResultData: '=',
+                ratio: '@'
             },
             link: link.directiveLink()
         };

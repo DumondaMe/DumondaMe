@@ -3,20 +3,23 @@
 module.exports = {
     directiveLink: function () {
         return function ($scope, element) {
-            var $image = $(element.find('img')[0]);
-            $image.cropper({
-                aspectRatio: 1,
-                minWidth: 200,
-                minHeight: 200,
-                dashed: false,
-                zoomable: false,
-                rotatable: false
-            });
+            var $image = $(element.find('img')[0]),
+                cropperSettings = {
+                    minWidth: 200,
+                    minHeight: 200,
+                    dashed: false,
+                    zoomable: false,
+                    rotatable: false
+                };
 
-            $scope.$watch('getDataToUpload', function (newCommand) {
-                if (newCommand) {
-                    $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
-                }
+            if ($scope.ratio) {
+                cropperSettings.aspectRatio = $scope.ratio;
+            }
+
+            $image.cropper(cropperSettings);
+
+            $scope.$on('image.cropper.get.data', function () {
+                $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
             });
 
             $scope.$watch('image', function (newImage) {

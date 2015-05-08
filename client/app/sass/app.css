@@ -997,6 +997,41 @@
             margin-top: 10px; }
           #content #content-page-create #centerCol #inner-centerCol #content-create-category .content-create-category-element {
             margin-right: 10px; }
+        #content #content-page-create #centerCol #inner-centerCol #content-create-page-suggestion-commands {
+          margin-top: 20px; }
+          #content #content-page-create #centerCol #inner-centerCol #content-create-page-suggestion-commands .content-create-page-suggestion-commands-buttons {
+            margin-right: 10px; }
+        #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-picture-area {
+          margin-top: 10px;
+          margin-right: 20px;
+          float: left; }
+          #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-picture-area .content-create-page-common-picture {
+            min-height: 150px;
+            min-width: 150px;
+            max-height: 200px;
+            max-width: 310px; }
+          #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-picture-area .content-create-page-common-get-picture {
+            margin-top: 10px; }
+        #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-area {
+          margin-top: 10px;
+          width: 100%;
+          padding-left: 310px;
+          margin-left: 15px; }
+          #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-area #content-create-page-common-inner-area {
+            float: left;
+            width: 100%; }
+            #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-area #content-create-page-common-inner-area .ely-form-text-input {
+              margin: 15px 0 15px 15px; }
+        #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-description-area {
+          float: left;
+          height: 250px;
+          width: 100%;
+          margin-top: 15px; }
+          #content #content-page-create #centerCol #inner-centerCol #content-create-page-common #content-create-page-common-description-area textarea {
+            height: 100%; }
+        #content #content-page-create #centerCol #inner-centerCol #content-create-page-common .content-create-page-common-commands {
+          float: left;
+          margin-top: 15px; }
 
 #content-page-detail {
   width: 100%;

@@ -8,7 +8,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                pages: '='
+                pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',
             controller: controller.directiveCtrl()

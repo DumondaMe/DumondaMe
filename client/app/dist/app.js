@@ -1328,6 +1328,29 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/createPage/commonBook.html',
+    "<div>\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\" name=\"bookCommonForm\" role=\"form\" novalidate>\r" +
+    "\n" +
+    "        <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
+    "\n" +
+    "                             profile-form=\"bookCommonForm\" submit-model=\"page.authors\"\r" +
+    "\n" +
+    "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
+    "\n" +
+    "        <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
+    "\n" +
+    "                             profile-form=\"bookCommonForm\" submit-model=\"page.publicationDate\"\r" +
+    "\n" +
+    "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/page/createPage/pageCreate.html',
     "<div id=\"content-page-create\">\r" +
     "\n" +
@@ -1435,7 +1458,107 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <ely-page-preview pages=\"pageSuggestions.pages\"></ely-page-preview>\r" +
+    "                <div ng-repeat=\"pagePreview in pageSuggestions.pages\">\r" +
+    "\n" +
+    "                    <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"content-create-page-suggestion-commands\">\r" +
+    "\n" +
+    "                    <button type=\"submit\"\r" +
+    "\n" +
+    "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
+    "\n" +
+    "                            ng-click=\"suggestionContinue()\">\r" +
+    "\n" +
+    "                        Weiter\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                    <button type=\"submit\"\r" +
+    "\n" +
+    "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
+    "\n" +
+    "                            ng-click=\"abortCreatePage()\">\r" +
+    "\n" +
+    "                        Seite Erstellen Abbrechen\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <div class=\"website-structure-header-title\">\r" +
+    "\n" +
+    "                        <h2>Allgemeines</h2>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"content-create-page-common-picture-area\">\r" +
+    "\n" +
+    "                    <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
+    "\n" +
+    "                                data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
+    "\n" +
+    "                                data-backdrop=\"static\"\r" +
+    "\n" +
+    "                                data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "\n" +
+    "                            Titelbild ausw&aumlhlen..\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"content-create-page-common-area\">\r" +
+    "\n" +
+    "                    <div id=\"content-create-page-common-inner-area\">\r" +
+    "\n" +
+    "                        <div ng-include=\"'app/modules/page/createPage/commonBook.html'\"></div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"content-create-page-common-description-area\">\r" +
+    "\n" +
+    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
+    "\n" +
+    "                              ng-maxlength=\"10000\"\r" +
+    "\n" +
+    "                              ng-model=\"page.description\"></textarea>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    <button type=\"submit\"\r" +
+    "\n" +
+    "                            class=\"btn btn-default content-create-page-common-commands\"\r" +
+    "\n" +
+    "                            ng-click=\"createPage()\">\r" +
+    "\n" +
+    "                        Seite erstellen\r" +
+    "\n" +
+    "                    </button>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1718,129 +1841,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <ely-page-preview pages=\"page.pages\"></ely-page-preview>\r" +
+    "            <div ng-repeat=\"pagePreview in page.pages\">\r" +
     "\n" +
-    "            <!--<div ng-repeat=\"pagePreview in page.pages\" class=\"page-preview\">\r" +
+    "                <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
-    "                <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                    <img ng-src=\"{{pagePreview.url}}\">\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-text\">\r" +
-    "\n" +
-    "                    <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                        {{pagePreview.title}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-preview-category\">\r" +
-    "\n" +
-    "                        Kategorie: {{pagePreview.category}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-preview-rating-overview\">\r" +
-    "\n" +
-    "                        <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings > 0\">\r" +
-    "\n" +
-    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                             number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            <div class=\"page-preview-rating-overview-description\">\r" +
-    "\n" +
-    "                                (Kontakte {{pagePreview.recommendation.summary.contact.numberOfRatings}})\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings > 0\"\r" +
-    "\n" +
-    "                             class=\"page-preview-no-rating-overview-text\">\r" +
-    "\n" +
-    "                            Keine Bewertung durch deine Kontakte\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-preview-rating-overview\">\r" +
-    "\n" +
-    "                        <div ng-show=\"pagePreview.recommendation.summary.all.numberOfRatings > 0\">\r" +
-    "\n" +
-    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                             number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.all.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            <div class=\"page-preview-rating-overview-description\">\r" +
-    "\n" +
-    "                                (Alle {{pagePreview.recommendation.summary.all.numberOfRatings}})\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings === 0\"\r" +
-    "\n" +
-    "                             class=\"page-preview-no-rating-overview-text\">\r" +
-    "\n" +
-    "                            Seite wurde noch nie bewertet\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-user-recommendation\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
-    "\n" +
-    "                    <div ng-show=\"pagePreview.recommendation.user.recommendationId\">\r" +
-    "\n" +
-    "                        <div>\r" +
-    "\n" +
-    "                            <button type=\"submit\" class=\"btn btn-default btn-xs\"\r" +
-    "\n" +
-    "                                    ng-click=\"removeRecommendation(pagePreview, pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                                Bewertung entfernen\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-user-recommendation-rating\"\r" +
-    "\n" +
-    "                                         number-of-selected-stars-readonly=\"pagePreview.recommendation.user.rating\"\r" +
-    "\n" +
-    "                                         ng-class=\"{'page-preview-user-recommendation-no-comment': pagePreview.recommendation.user.comment.trim() === ''}\"></ely-star-rating>\r" +
-    "\n" +
-    "                        <div class=\"page-preview-user-recommendation-comment\" ng-show=\"pagePreview.recommendation.user.comment.trim() !== ''\">\r" +
-    "\n" +
-    "                            {{pagePreview.recommendation.user.comment}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div ng-hide=\"pagePreview.recommendation.user.recommendationId\">\r" +
-    "\n" +
-    "                        <button type=\"submit\" class=\"btn btn-default btn-xs\"\r" +
-    "\n" +
-    "                                ng-click=\"addNewRecommendation(pagePreview, pagePreview.pageId, pagePreview.label, pagePreview.title)\">\r" +
-    "\n" +
-    "                            Bewerten\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>-->\r" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1917,7 +1922,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div ng-repeat=\"pagePreview in pages\" class=\"page-preview\">\r" +
+    "<div class=\"page-preview\">\r" +
     "\n" +
     "    <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
@@ -2839,8 +2844,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/util/file/uploadFile.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"UploadFileCtrl\">\r" +
+  $templateCache.put('app/modules/util/file/previewFile.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"FileCtrl\">\r" +
     "\n" +
     "    <div class=\"modal-dialog\">\r" +
     "\n" +
@@ -2856,9 +2861,74 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                      image=\"imageForUploadPreview\"\r" +
     "\n" +
-    "                                      image-result-data=\"imageResultData\"\r" +
+    "                                      image-result-data=\"imageResultData\"></ely-image-upload>\r" +
     "\n" +
-    "                                      get-data-to-upload=\"updateImageResult\"></ely-image-upload>\r" +
+    "                </div>\r" +
+    "\n" +
+    "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">\r" +
+    "\n" +
+    "                    Bild auswählen...<input type=\"file\" ely-file-model=\"imageForUpload\"\r" +
+    "\n" +
+    "                                            accept=\".jpg, .png, jpeg\">\r" +
+    "\n" +
+    "                </span>\r" +
+    "\n" +
+    "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
+    "\n" +
+    "                    {{uploadError}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\"\r" +
+    "\n" +
+    "                        ng-click=\"getPreview()\">\r" +
+    "\n" +
+    "                    Auswählen\r" +
+    "\n" +
+    "                </button>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\"\r" +
+    "\n" +
+    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
+    "\n" +
+    "                </button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/util/file/uploadFile.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"FileCtrl\">\r" +
+    "\n" +
+    "    <div class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <div class=\"cropArea\">\r" +
+    "\n" +
+    "                    <ely-image-upload ng-if=\"!uploadRunning\"\r" +
+    "\n" +
+    "                                      reset=\"resetImage\"\r" +
+    "\n" +
+    "                                      image=\"imageForUploadPreview\"\r" +
+    "\n" +
+    "                                      image-result-data=\"imageResultData\" ratio=\"1\"></ely-image-upload>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -5607,8 +5677,8 @@ module.exports = {
             scope: {
                 reset: '=',
                 image: '=',
-                getDataToUpload: '=',
-                imageResultData: '='
+                imageResultData: '=',
+                ratio: '@'
             },
             link: link.directiveLink()
         };
@@ -5624,20 +5694,23 @@ arguments[4][34][0].apply(exports,arguments)
 module.exports = {
     directiveLink: function () {
         return function ($scope, element) {
-            var $image = $(element.find('img')[0]);
-            $image.cropper({
-                aspectRatio: 1,
-                minWidth: 200,
-                minHeight: 200,
-                dashed: false,
-                zoomable: false,
-                rotatable: false
-            });
+            var $image = $(element.find('img')[0]),
+                cropperSettings = {
+                    minWidth: 200,
+                    minHeight: 200,
+                    dashed: false,
+                    zoomable: false,
+                    rotatable: false
+                };
 
-            $scope.$watch('getDataToUpload', function (newCommand) {
-                if (newCommand) {
-                    $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
-                }
+            if ($scope.ratio) {
+                cropperSettings.aspectRatio = $scope.ratio;
+            }
+
+            $image.cropper(cropperSettings);
+
+            $scope.$on('image.cropper.get.data', function () {
+                $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
             });
 
             $scope.$watch('image', function (newImage) {
@@ -6470,8 +6543,14 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
 },{}],74:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
-    function ($scope, PageCategories, Languages, SearchPage) {
+var setCategories = function (pages, PageCategories) {
+    angular.forEach(pages, function (page) {
+        page.category = PageCategories.categories[page.label];
+    });
+};
+
+module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage',
+    function ($scope, $state, PageCategories, Languages, SearchPage) {
 
         $scope.category = {};
         $scope.categories = PageCategories.getCategories();
@@ -6479,6 +6558,7 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.sendButtonDisabled = true;
         $scope.showSuggestions = false;
         $scope.showCommonSection = false;
+        $scope.imagePreview = 'app/img/default.jpg';
 
         $scope.languages = Languages.languages;
 
@@ -6498,9 +6578,29 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 isSuggestion: false
             }, function () {
                 if ($scope.pageSuggestions.pages.length > 0) {
+                    setCategories($scope.pageSuggestions.pages, PageCategories);
                     $scope.showSuggestions = true;
+                } else {
+                    $scope.suggestionContinue();
                 }
             });
+        };
+
+        $scope.abortCreatePage = function () {
+            $state.go('page.overview');
+        };
+
+        $scope.suggestionContinue = function () {
+            $scope.showSuggestions = false;
+            $scope.showCommonSection = true;
+        };
+
+        $scope.$on('image.cropper.image.preview', function (event, data) {
+            $scope.imagePreview = data;
+        });
+
+        $scope.createPage = function () {
+
         };
     }];
 
@@ -6693,7 +6793,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                pages: '='
+                pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',
             controller: controller.directiveCtrl()
@@ -7374,6 +7474,72 @@ module.exports = [function () {
 },{}],106:[function(require,module,exports){
 'use strict';
 
+function dataURItoBlob(dataURI) {
+    var binary = window.atob(dataURI.split(',')[1]),
+        array = [],
+        i;
+    for (i = 0; i < binary.length; i = i + 1) {
+        array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+}
+
+module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
+
+    $scope.imageForUploadPreview = null;
+    $scope.uploadRunning = false;
+    $scope.uploadFile = false;
+
+    $scope.imageResultData = function (data) {
+        var blob;
+        if (data.trim() !== '') {
+            delete $scope.uploadError;
+            $scope.uploadRunning = true;
+            blob = dataURItoBlob(data);
+            if ($scope.uploadFile) {
+                fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
+                    showSuccess(function () {
+                        $scope.uploadRunning = false;
+                        $scope.$emit('elyoos.profileImage.change');
+                        $scope.$hide();
+                    }).
+                    error(function () {
+                        $scope.uploadRunning = false;
+                    });
+            } else {
+                $scope.$hide();
+                $scope.$emit('image.cropper.image.preview', data);
+            }
+        } else {
+            $scope.uploadError = 'File kann nicht hochgeladen werden';
+        }
+    };
+
+    $scope.$watch('imageForUpload', function (newImage) {
+        if (newImage) {
+            FileReader.onloadend = function () {
+                $scope.$apply(function () {
+                    $scope.imageForUploadPreview = FileReader.result;
+                });
+            };
+            FileReader.readAsDataURL(newImage);
+        }
+    });
+
+    $scope.startUpload = function () {
+        $scope.uploadFile = true;
+        $scope.$broadcast('image.cropper.get.data');
+    };
+
+    $scope.getPreview = function () {
+        $scope.uploadFile = false;
+        $scope.$broadcast('image.cropper.get.data');
+    };
+}];
+
+},{}],107:[function(require,module,exports){
+'use strict';
+
 module.exports = {
     directive: ['$parse', function ($parse) {
         return {
@@ -7393,14 +7559,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -7414,7 +7580,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7424,66 +7590,10 @@ app.service('fileUpload', require('./fileUpload'));
 
 app.factory('FileReader', require('./fileReader'));
 
-app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
+app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":106,"./fileReader":107,"./fileUpload":108,"./uploadFileCtrl":110,"angular":4}],110:[function(require,module,exports){
-'use strict';
-
-function dataURItoBlob(dataURI) {
-    var binary = window.atob(dataURI.split(',')[1]),
-        array = [],
-        i;
-    for (i = 0; i < binary.length; i = i + 1) {
-        array.push(binary.charCodeAt(i));
-    }
-    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-}
-
-module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
-
-    $scope.imageForUploadPreview = null;
-    $scope.uploadRunning = false;
-
-    $scope.imageResultData = function (data) {
-        if (data.trim() !== '') {
-            delete $scope.uploadError;
-            $scope.uploadRunning = true;
-            fileUpload.uploadFileToUrl(dataURItoBlob(data), '/api/user/settings/uploadProfileImage').
-                showSuccess(function () {
-                    $scope.uploadRunning = false;
-                    $scope.$emit('elyoos.profileImage.change');
-                    $scope.$hide();
-                }).
-                error(function () {
-                    $scope.uploadRunning = false;
-                });
-        } else {
-            $scope.uploadError = 'File kann nicht hochgeladen werden';
-        }
-    };
-
-    $scope.$watch('imageForUpload', function (newImage) {
-        if (newImage) {
-            FileReader.onloadend = function () {
-                $scope.$apply(function () {
-                    $scope.imageForUploadPreview = FileReader.result;
-                });
-            };
-            FileReader.readAsDataURL(newImage);
-        }
-    });
-
-    $scope.startUpload = function () {
-        if ($scope.updateImageResult) {
-            $scope.updateImageResult += 1;
-        } else {
-            $scope.updateImageResult = 1;
-        }
-    };
-}];
-
-},{}],111:[function(require,module,exports){
+},{"./fileCtrl":106,"./fileModel.js":107,"./fileReader":108,"./fileUpload":109,"angular":4}],111:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');

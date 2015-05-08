@@ -6,7 +6,7 @@
                     <ely-image-upload ng-if="!uploadRunning"
                                       reset="resetImage"
                                       image="imageForUploadPreview"
-                                      image-result-data="imageResultData" ratio="1"></ely-image-upload>
+                                      image-result-data="imageResultData"></ely-image-upload>
                 </div>
                 <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
@@ -20,8 +20,8 @@
                 </div>
                 <button type="button" class="btn btn-default"
                         ng-class="{disabled: !imageForUploadPreview || uploadRunning}"
-                        ng-click="startUpload()">
-                    Hochladen
+                        ng-click="getPreview()">
+                    Auswählen
                 </button>
                 <button type="button" class="btn btn-default"
                         ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen

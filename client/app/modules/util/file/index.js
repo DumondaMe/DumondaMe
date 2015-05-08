@@ -7,6 +7,6 @@ app.service('fileUpload', require('./fileUpload'));
 
 app.factory('FileReader', require('./fileReader'));
 
-app.controller('UploadFileCtrl', require('./uploadFileCtrl'));
+app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);

@@ -21,10 +21,7 @@ describe('Integration Tests for searching Pages', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
 
             return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
-                .end().send(commands)
-                .catch(function (err) {
-                    var error = err;
-                });
+                .end().send(commands);
         });
     });
 

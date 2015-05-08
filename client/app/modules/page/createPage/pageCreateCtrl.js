@@ -1,7 +1,13 @@
 'use strict';
 
-module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
-    function ($scope, PageCategories, Languages, SearchPage) {
+var setCategories = function (pages, PageCategories) {
+    angular.forEach(pages, function (page) {
+        page.category = PageCategories.categories[page.label];
+    });
+};
+
+module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage',
+    function ($scope, $state, PageCategories, Languages, SearchPage) {
 
         $scope.category = {};
         $scope.categories = PageCategories.getCategories();
@@ -9,6 +15,7 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.sendButtonDisabled = true;
         $scope.showSuggestions = false;
         $scope.showCommonSection = false;
+        $scope.imagePreview = 'app/img/default.jpg';
 
         $scope.languages = Languages.languages;
 
@@ -28,8 +35,28 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 isSuggestion: false
             }, function () {
                 if ($scope.pageSuggestions.pages.length > 0) {
+                    setCategories($scope.pageSuggestions.pages, PageCategories);
                     $scope.showSuggestions = true;
+                } else {
+                    $scope.suggestionContinue();
                 }
             });
+        };
+
+        $scope.abortCreatePage = function () {
+            $state.go('page.overview');
+        };
+
+        $scope.suggestionContinue = function () {
+            $scope.showSuggestions = false;
+            $scope.showCommonSection = true;
+        };
+
+        $scope.$on('image.cropper.image.preview', function (event, data) {
+            $scope.imagePreview = data;
+        });
+
+        $scope.createPage = function () {
+
         };
     }];
