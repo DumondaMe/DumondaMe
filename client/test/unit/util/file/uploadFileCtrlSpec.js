@@ -1,6 +1,6 @@
 'use strict';
 
-var uploadFileCtrl = require('../../../../app/modules/util/file/uploadFileCtrl')[3];
+var uploadFileCtrl = require('../../../../app/modules/util/file/fileCtrl')[3];
 
 describe('Tests of the upload file controller', function () {
     var scope, fileUpload, FileReader;
@@ -53,22 +53,6 @@ describe('Tests of the upload file controller', function () {
         mockFileReaderRead.verify();
     });
 
-    it('startUpload causes the updateImageResult to be increased', function () {
-
-        scope.updateImageResult = 2;
-
-        uploadFileCtrl(scope, fileUpload, FileReader);
-        scope.startUpload();
-        expect(scope.updateImageResult).to.equal(3);
-    });
-
-    it('startUpload at the first call', function () {
-
-        uploadFileCtrl(scope, fileUpload, FileReader);
-        scope.startUpload();
-        expect(scope.updateImageResult).to.equal(1);
-    });
-
     it('Upload a Profile Image', function () {
 
         var data = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQAB',
@@ -83,6 +67,7 @@ describe('Tests of the upload file controller', function () {
             }
         });
         uploadFileCtrl(scope, fileUpload, FileReader);
+        scope.uploadFile = true;
         scope.imageResultData(data);
 
         spyCall = stubUploadFile.getCall(0);

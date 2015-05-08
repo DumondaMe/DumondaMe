@@ -40,18 +40,4 @@ describe('Tests of Directive ely-image-upload', function () {
         image = element.find('img');
         expect(image.eq(0).attr('src')).to.equal(rootScope.test.imageToUpload);
     });
-
-    it('Generate ely-image-upload and get data for upload', function () {
-
-        var image = element.find('img'),
-            mockImageResultData = sinon.mock(rootScope.test).expects('imageResultData');
-        mockImageResultData.once();
-
-        expect(image.length).to.equal(1);
-
-        rootScope.test.getDataToUpload = '1';
-        rootScope.$digest();
-
-        mockImageResultData.verify();
-    });
 });
