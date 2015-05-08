@@ -34,7 +34,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
                     });
             } else {
                 $scope.$hide();
-                $scope.$emit('image.cropper.image.preview', data);
+                $scope.$emit('image.cropper.image.preview', data, blob);
             }
         } else {
             $scope.uploadError = 'File kann nicht hochgeladen werden';
