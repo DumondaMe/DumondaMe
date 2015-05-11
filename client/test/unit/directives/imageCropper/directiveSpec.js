@@ -3,7 +3,7 @@
 var directive = require('../../../../app/modules/directives/imageCropper/directive');
 elyoosAppModule.directive(directive.name, directive.directive);
 
-describe('Tests of Directive ely-image-upload', function () {
+describe('Tests of Directive ely-image-cropper', function () {
     var scope, element, rootScope;
 
     beforeEach(function () {
@@ -21,15 +21,15 @@ describe('Tests of Directive ely-image-upload', function () {
         rootScope.test.imageResultData = function () {
         };
 
-        element = angular.element("<ely-image-upload image='test.imageToUpload' image-result-data='test.imageResultData' " +
-            "get-data-to-upload='test.getDataToUpload'></ely-image-upload>");
+        element = angular.element("<ely-image-cropper image='test.imageToUpload' image-result-data='test.imageResultData' " +
+            "get-data-to-upload='test.getDataToUpload'></ely-image-cropper>");
 
         $compile(element)(scope);
         scope.$digest();
     }));
 
 
-    it('Generate ely-image-upload and load image', function () {
+    it('Generate ely-image-cropper and load image', function () {
 
         var image = element.find('img');
         expect(image.length).to.equal(1);
