@@ -78,10 +78,10 @@
                             <div class="btn-group" id="inputGender">
                                 <label class="btn btn-default"
                                        ng-click="userDataToChange.female = true; profileForm.$setDirty()"
-                                       ng-class="{'active': userDataToChange.female == true}">Frau</label>
+                                       ng-class="{'active': userDataToChange.female === true}">Frau</label>
                                 <label class="btn btn-default"
                                        ng-click="userDataToChange.female = false; profileForm.$setDirty()"
-                                       ng-class="{'active': userDataToChange.female == false}">Mann</label>
+                                       ng-class="{'active': userDataToChange.female === false}">Mann</label>
                             </div>
                         </div>
                     </div>

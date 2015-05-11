@@ -1490,7 +1490,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
+    "            <div id=\"content-create-page-common\"> <!--ng-show=\"showCommonSection\"-->\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2772,13 +2772,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\"\r" +
     "\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female == true}\">Frau</label>\r" +
+    "                                       ng-class=\"{'active': userDataToChange.female === true}\">Frau</label>\r" +
     "\n" +
     "                                <label class=\"btn btn-default\"\r" +
     "\n" +
     "                                       ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\"\r" +
     "\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female == false}\">Mann</label>\r" +
+    "                                       ng-class=\"{'active': userDataToChange.female === false}\">Mann</label>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -2847,7 +2847,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/util/file/previewFile.html',
     "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"FileCtrl\">\r" +
     "\n" +
-    "    <div class=\"modal-dialog\">\r" +
+    "    <div class=\"modal-dialog\" id=\"modal-preview-file\">\r" +
     "\n" +
     "        <div class=\"modal-content\">\r" +
     "\n" +
@@ -2855,13 +2855,33 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"cropArea\">\r" +
     "\n" +
-    "                    <ely-image-upload ng-if=\"!uploadRunning\"\r" +
+    "                    <ely-image-cropper ng-if=\"!uploadRunning\"\r" +
     "\n" +
-    "                                      reset=\"resetImage\"\r" +
+    "                                       reset=\"resetImage\"\r" +
     "\n" +
-    "                                      image=\"imageForUploadPreview\"\r" +
+    "                                       image=\"imageForUploadPreview\"\r" +
     "\n" +
-    "                                      image-result-data=\"imageResultData\"></ely-image-upload>\r" +
+    "                                       image-result-data=\"imageResultData\"\r" +
+    "\n" +
+    "                                       ratio=\"0.75\"\r" +
+    "\n" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"300\" min-height=\"200\"></ely-image-cropper>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"cropArea-orientation\">\r" +
+    "\n" +
+    "                    <div class=\"btn-group-vertical\" role=\"group\">\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default cropArea-orientation-img\" ng-class=\"{'active': isLandscape === false}\"><img\r" +
+    "\n" +
+    "                                src=\"app/img/portraitFormat.png\" ng-click=\"setFormat(0.75, false)\"></button>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default cropArea-orientation-img\" ng-class=\"{'active': isLandscape === true}\"><img\r" +
+    "\n" +
+    "                                src=\"app/img/landscapeFormat.png\" ng-click=\"setFormat(1.25, true)\"></button>\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -2879,6 +2899,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </span>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
     "\n" +
     "                    {{uploadError}}\r" +
@@ -2887,17 +2909,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\"\r" +
     "\n" +
-    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\"\r" +
-    "\n" +
-    "                        ng-click=\"getPreview()\">\r" +
-    "\n" +
-    "                    Auswählen\r" +
+    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
     "\n" +
     "                </button>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\"\r" +
     "\n" +
-    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
+    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning || uploadError}\"\r" +
+    "\n" +
+    "                        ng-click=\"getPreview()\">\r" +
+    "\n" +
+    "                    Auswählen\r" +
     "\n" +
     "                </button>\r" +
     "\n" +
@@ -2922,13 +2944,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"cropArea\">\r" +
     "\n" +
-    "                    <ely-image-upload ng-if=\"!uploadRunning\"\r" +
+    "                    <ely-image-cropper ng-if=\"!uploadRunning\"\r" +
     "\n" +
-    "                                      reset=\"resetImage\"\r" +
+    "                                       reset=\"resetImage\"\r" +
     "\n" +
-    "                                      image=\"imageForUploadPreview\"\r" +
+    "                                       image=\"imageForUploadPreview\"\r" +
     "\n" +
-    "                                      image-result-data=\"imageResultData\" ratio=\"1\"></ely-image-upload>\r" +
+    "                                       image-result-data=\"imageResultData\"\r" +
+    "\n" +
+    "                                       ratio=\"1\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -2946,6 +2970,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </span>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
     "\n" +
     "                    {{uploadError}}\r" +
@@ -2954,17 +2980,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\"\r" +
     "\n" +
-    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\"\r" +
-    "\n" +
-    "                        ng-click=\"startUpload()\">\r" +
-    "\n" +
-    "                    Hochladen\r" +
+    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
     "\n" +
     "                </button>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\"\r" +
     "\n" +
-    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
+    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\"\r" +
+    "\n" +
+    "                        ng-click=\"startUpload()\">\r" +
+    "\n" +
+    "                    Hochladen\r" +
     "\n" +
     "                </button>\r" +
     "\n" +
@@ -5678,12 +5704,15 @@ module.exports = {
                 reset: '=',
                 image: '=',
                 imageResultData: '=',
-                ratio: '@'
+                originalSize: '=',
+                ratio: '@',
+                minHeight: '@',
+                minWidth: '@'
             },
             link: link.directiveLink()
         };
     }],
-    name: 'elyImageUpload'
+    name: 'elyImageCropper'
 };
 
 },{"./link":37}],36:[function(require,module,exports){
@@ -5700,17 +5729,31 @@ module.exports = {
                     minHeight: 200,
                     dashed: false,
                     zoomable: false,
-                    rotatable: false
+                    rotatable: false,
+                    built: function () {
+                        var size = $image.cropper('getImageData');
+                        $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                    }
                 };
 
             if ($scope.ratio) {
                 cropperSettings.aspectRatio = $scope.ratio;
+            }
+            if ($scope.minWidth) {
+                cropperSettings.minWidth = $scope.minWidth;
+            }
+            if ($scope.minHeight) {
+                cropperSettings.minHeight = $scope.minHeight;
             }
 
             $image.cropper(cropperSettings);
 
             $scope.$on('image.cropper.get.data', function () {
                 $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
+            });
+
+            $scope.$on('image.cropper.set.ratio', function (event, ratio) {
+                $image.cropper('setAspectRatio', ratio);
             });
 
             $scope.$watch('image', function (newImage) {
@@ -7507,6 +7550,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
     $scope.uploadFile = false;
+    $scope.isLandscape = false;
 
     $scope.imageResultData = function (data) {
         var blob;
@@ -7552,6 +7596,23 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.getPreview = function () {
         $scope.uploadFile = false;
         $scope.$broadcast('image.cropper.get.data');
+    };
+
+    $scope.setFormat = function (ratio, isLandsacpe) {
+        $scope.$broadcast('image.cropper.set.ratio', ratio);
+        $scope.isLandscape = isLandsacpe;
+    };
+
+    $scope.checkOriginalSize = function (width, height) {
+        if (width < 300 || height < 200) {
+            $scope.$apply(function () {
+                $scope.uploadError = 'Bild ist zu klein';
+            });
+        } else {
+            $scope.$apply(function () {
+                delete $scope.uploadError;
+            });
+        }
     };
 }];
 

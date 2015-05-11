@@ -15,6 +15,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
     $scope.uploadFile = false;
+    $scope.isLandscape = false;
 
     $scope.imageResultData = function (data) {
         var blob;
@@ -60,5 +61,22 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     $scope.getPreview = function () {
         $scope.uploadFile = false;
         $scope.$broadcast('image.cropper.get.data');
+    };
+
+    $scope.setFormat = function (ratio, isLandsacpe) {
+        $scope.$broadcast('image.cropper.set.ratio', ratio);
+        $scope.isLandscape = isLandsacpe;
+    };
+
+    $scope.checkOriginalSize = function (width, height) {
+        if (width < 300 || height < 200) {
+            $scope.$apply(function () {
+                $scope.uploadError = 'Bild ist zu klein';
+            });
+        } else {
+            $scope.$apply(function () {
+                delete $scope.uploadError;
+            });
+        }
     };
 }];

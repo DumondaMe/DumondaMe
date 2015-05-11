@@ -12,10 +12,13 @@ module.exports = {
                 reset: '=',
                 image: '=',
                 imageResultData: '=',
-                ratio: '@'
+                originalSize: '=',
+                ratio: '@',
+                minHeight: '@',
+                minWidth: '@'
             },
             link: link.directiveLink()
         };
     }],
-    name: 'elyImageUpload'
+    name: 'elyImageCropper'
 };

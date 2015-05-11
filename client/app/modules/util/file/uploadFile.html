@@ -3,10 +3,11 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="cropArea">
-                    <ely-image-upload ng-if="!uploadRunning"
-                                      reset="resetImage"
-                                      image="imageForUploadPreview"
-                                      image-result-data="imageResultData" ratio="1"></ely-image-upload>
+                    <ely-image-cropper ng-if="!uploadRunning"
+                                       reset="resetImage"
+                                       image="imageForUploadPreview"
+                                       image-result-data="imageResultData"
+                                       ratio="1"></ely-image-cropper>
                 </div>
                 <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
@@ -15,16 +16,17 @@
                     Bild auswählen...<input type="file" ely-file-model="imageForUpload"
                                             accept=".jpg, .png, jpeg">
                 </span>
+
                 <div class="upload-file-error" ng-show="uploadError">
                     {{uploadError}}
                 </div>
                 <button type="button" class="btn btn-default"
+                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
+                </button>
+                <button type="button" class="btn btn-default"
                         ng-class="{disabled: !imageForUploadPreview || uploadRunning}"
                         ng-click="startUpload()">
                     Hochladen
-                </button>
-                <button type="button" class="btn btn-default"
-                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
                 </button>
             </div>
         </div>

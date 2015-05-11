@@ -1,12 +1,22 @@
 <div class="modal" tabindex="-1" role="dialog" ng-controller="FileCtrl">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="modal-preview-file">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="cropArea">
-                    <ely-image-upload ng-if="!uploadRunning"
-                                      reset="resetImage"
-                                      image="imageForUploadPreview"
-                                      image-result-data="imageResultData"></ely-image-upload>
+                    <ely-image-cropper ng-if="!uploadRunning"
+                                       reset="resetImage"
+                                       image="imageForUploadPreview"
+                                       image-result-data="imageResultData"
+                                       ratio="0.75"
+                                       original-size="checkOriginalSize" min-width="300" min-height="200"></ely-image-cropper>
+                </div>
+                <div class="cropArea-orientation">
+                    <div class="btn-group-vertical" role="group">
+                        <button type="button" class="btn btn-default cropArea-orientation-img" ng-class="{'active': isLandscape === false}"><img
+                                src="app/img/portraitFormat.png" ng-click="setFormat(0.75, false)"></button>
+                        <button type="button" class="btn btn-default cropArea-orientation-img" ng-class="{'active': isLandscape === true}"><img
+                                src="app/img/landscapeFormat.png" ng-click="setFormat(1.25, true)"></button>
+                    </div>
                 </div>
                 <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
@@ -15,16 +25,17 @@
                     Bild auswählen...<input type="file" ely-file-model="imageForUpload"
                                             accept=".jpg, .png, jpeg">
                 </span>
+
                 <div class="upload-file-error" ng-show="uploadError">
                     {{uploadError}}
                 </div>
                 <button type="button" class="btn btn-default"
-                        ng-class="{disabled: !imageForUploadPreview || uploadRunning}"
-                        ng-click="getPreview()">
-                    Auswählen
+                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
                 </button>
                 <button type="button" class="btn btn-default"
-                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
+                        ng-class="{disabled: !imageForUploadPreview || uploadRunning || uploadError}"
+                        ng-click="getPreview()">
+                    Auswählen
                 </button>
             </div>
         </div>

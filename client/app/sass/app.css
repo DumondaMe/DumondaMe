@@ -17,7 +17,9 @@
   overflow: hidden;
   margin: auto;
   width: 500px;
-  height: 350px; }
+  height: 350px;
+  display: inline-block;
+  vertical-align: middle; }
 
 .cropper-outer-container {
   width: 100%;
@@ -373,6 +375,19 @@
 
 #modal-yes-no-dialog {
   width: 300px; }
+
+.cropArea-orientation {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px; }
+  .cropArea-orientation .cropArea-orientation-img {
+    padding: 6px; }
+    .cropArea-orientation .cropArea-orientation-img img {
+      width: 24px;
+      height: 24px; }
+
+#modal-preview-file {
+  width: 580px; }
 
 .website-structure-header {
   height: 50px; }
