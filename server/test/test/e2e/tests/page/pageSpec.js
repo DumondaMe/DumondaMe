@@ -130,6 +130,64 @@ describe('Integration Tests for getting the page overview', function () {
             });
     });
 
+    // Sorted by when the recommendation was added
+    it('Getting only book pages contacts has recommended - Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(a)-[:IS_CONTACT]->(b)")
+            .end().getCommand());
+
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', created: 5070, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', created: 5080, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', created: 506, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', created: 5050, pageId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:CoursePage {title: 'page5Title', description: 'page5', created: 5040, pageId: '4'})").end().getCommand());
+        commands.push(db.cypher().create("(:PracticePage {title: 'page6Title', description: 'page6', created: 503, pageId: '5'})").end().getCommand());
+        commands.push(db.cypher().create("(:EventPage {title: 'page7Title', description: 'page7', created: 5020, pageId: '6'})").end().getCommand());
+        commands.push(db.cypher().create("(:BlogPage {title: 'page8Title', description: 'page8', created: 5010, pageId: '7'})").end().getCommand());
+        commands.push(db.cypher().create("(:StorePage {title: 'page9Title', description: 'page9', created: 5000, pageId: '8'})").end().getCommand());
+
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:SchoolPage {pageId: '2'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '3'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:CoursePage {pageId: '4'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:PracticePage {pageId: '5'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 503, recommendationId: '6'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:EventPage {pageId: '6'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, recommendationId: '7'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:BlogPage {pageId: '7'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, recommendationId: '8'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:StorePage {pageId: '8'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, recommendationId: '9'})-[:RECOMMENDS]->(a)").end().getCommand());
+
+        return db.cypher().create("(:StorePage {title: 'page90Title', description: 'page90', created: 5011, pageId: '18'})")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page', {
+                        skip: '0',
+                        maxItems: 50,
+                        filters: 'BookPage'
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+                    res.body.pages.length.should.equals(1);
+
+                    res.body.pages[0].description.should.equals('page1');
+                    res.body.pages[0].pageId.should.equals('0');
+                    res.body.pages[0].label.should.equals('BookPage');
+                });
+            });
+    });
+
     it('Getting a book page in the overview because contact has made a recommendation- Return 200', function () {
 
         var commands = [];

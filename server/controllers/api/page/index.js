@@ -15,7 +15,12 @@ var schemaGetPage = {
     properties: {
         skip: {type: 'integer', minimum: 0, maximum: 50},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
-        filter: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 1000}
+        filters: {
+            type: 'array',
+            items: {enum: ['BookPage', 'VideoPage']},
+            minItems: 1,
+            uniqueItems: true
+        }
     }
 };
 
@@ -23,12 +28,14 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
+        if (req.query.filters && typeof req.query.filters === 'string') {
+            req.query.filters = req.query.filters.split(',');
+        }
+
         return controllerErrors('Error occurs when getting the page overview', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
-                if (!request.search && !request.filter) {
-                    logger.info('Request all pages without filter', req);
-                    return page.getAllPages(req.user.id, request.skip, request.maxItems);
-                }
+                logger.info('Request all pages without filter', req);
+                return page.getPages(req.user.id, request.skip, request.maxItems, request.filters);
             }).then(function (page) {
                 res.status(200).json(page);
             });

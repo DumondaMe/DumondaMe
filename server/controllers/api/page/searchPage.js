@@ -11,18 +11,27 @@ var schemaSearchPage = {
     name: 'searchPage',
     type: 'object',
     additionalProperties: false,
-    required: ['search', 'isSuggestion', 'filterType', 'filterLanguage'],
+    required: ['search', 'isSuggestion'],
     properties: {
         search: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 255},
         isSuggestion: {type: 'boolean'},
-        filterType: {enum: ['NoFilter', 'BookPage', 'VideoPage', 'CoursePage', 'SchoolPage', 'PracticePage', 'EventPage', 'BlogPage']},
-        filterLanguage: {enum: ['NoFilter', 'de', 'en', 'fr', 'it']}
+        filterType: {
+            type: 'array',
+            items: {enum: ['BookPage', 'VideoPage']},
+            minItems: 1,
+            uniqueItems: true
+        },
+        filterLanguage: {enum: ['de', 'en', 'fr', 'it']}
     }
 };
 
 module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
+
+        if (req.query.filterType && typeof req.query.filterType === 'string') {
+            req.query.filterType = req.query.filterType.split(',');
+        }
 
         return controllerErrors('Error occurs when searching for a page', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaSearchPage, logger).then(function (request) {

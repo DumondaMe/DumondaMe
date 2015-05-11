@@ -29,12 +29,14 @@ describe('Integration Tests for searching Pages', function () {
         return requestHandler.logout();
     });
 
-    it('Searching for a book title - Return 200', function () {
+    it('Searching for a book title and ignore other categories and language- Return 200', function () {
 
         var commands = [];
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', created: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page1', created: 501, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(a)-[:IS_CONTACT]->(b)")
@@ -51,6 +53,9 @@ describe('Integration Tests for searching Pages', function () {
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, recommendationId: '3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:BookPage {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")
@@ -59,8 +64,8 @@ describe('Integration Tests for searching Pages', function () {
                     requestAgent = agent;
                     return requestHandler.getWithData('/api/page/searchPage', {
                         search: 'page1',
-                        filterType: 'NoFilter',
-                        filterLanguage: 'NoFilter',
+                        filterType: 'BookPage',
+                        filterLanguage: 'de',
                         isSuggestion: false
                     }, requestAgent);
                 }).then(function (res) {
@@ -83,6 +88,55 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].recommendation.user.comment.should.equals('irgendwas');
                     res.body.pages[0].recommendation.user.rating.should.equals(5);
 
+                });
+            });
+    });
+
+    it('Searching for a book title without filters- Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 503, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', created: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page3', created: 502, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page4', created: 501, pageId: '0'})").end().getCommand());
+
+        return db.cypher().match("(a:User {userId: '1'}), (b:BookPage {pageId: '0'})")
+            .create("(a)-[:IS_ADMIN]->(b)")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page/searchPage', {
+                        search: 'page1',
+                        isSuggestion: false
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+
+                    res.body.pages.length.should.equals(3);
+                    res.body.pages[0].description.should.equals('page1');
+                    res.body.pages[0].title.should.equals('page1Title');
+                    res.body.pages[0].pageId.should.equals('0');
+                    res.body.pages[0].label.should.equals('BookPage');
+                    res.body.pages[0].language.should.equals('de');
+                    res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
+                    res.body.pages[0].lastModified.should.equals(503);
+
+                    res.body.pages[1].description.should.equals('page3');
+                    res.body.pages[1].title.should.equals('page1Title');
+                    res.body.pages[1].pageId.should.equals('2');
+                    res.body.pages[1].label.should.equals('BookPage');
+                    res.body.pages[1].language.should.equals('en');
+                    res.body.pages[1].url.should.equals('pages/BookPage/2/pagePreview.jpg');
+                    res.body.pages[1].lastModified.should.equals(502);
+
+                    res.body.pages[2].description.should.equals('page4');
+                    res.body.pages[2].title.should.equals('page1Title');
+                    res.body.pages[2].pageId.should.equals('0');
+                    res.body.pages[2].label.should.equals('VideoPage');
+                    res.body.pages[2].language.should.equals('de');
+                    res.body.pages[2].url.should.equals('pages/VideoPage/0/pagePreview.jpg');
+                    res.body.pages[2].lastModified.should.equals(501);
                 });
             });
     });

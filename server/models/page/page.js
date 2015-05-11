@@ -89,34 +89,54 @@ var pageOverviewQuery = function (params, orderBy, startQuery) {
         });
 };
 
+var getFilterQuery = function (filters) {
+    var filterQuery = '';
+    if (filters) {
+        underscore.forEach(filters, function (filter) {
+            filterQuery += 'page:' + filter + ' OR ';
+        });
+
+        filterQuery = filterQuery.substring(0, filterQuery.length - 3);
+    } else {
+        filterQuery = "page:BookPage OR page:VideoPage OR page:SchoolPage OR page:CoursePage OR page:PracticePage OR " +
+            "page:EventPage OR page:BlogPage OR page:StorePage";
+    }
+    return filterQuery;
+};
+
 var searchPage = function (userId, search, filterType, filterLanguage, isSuggestion) {
 
     var orderBy = "page.created DESC",
         startQuery = db.cypher(),
-        searchRegEx = '(?i).*'.concat(search, '.*');
+        searchRegEx = '(?i).*'.concat(search, '.*'),
+        filterQuery = getFilterQuery(filterType),
+        filterLanguageQuery = '';
+
+    if (filterLanguage) {
+        filterLanguageQuery = "AND page.language = '" + filterLanguage + "'";
+    }
 
     startQuery.match("(page)")
-        .where("(page:BookPage OR page:VideoPage OR page:SchoolPage OR page:CoursePage OR page:PracticePage OR " +
-        "page:EventPage OR page:BlogPage OR page:StorePage) AND page.title =~ {search}")
+        .where("(" + filterQuery + ") AND page.title =~ {search} " + filterLanguageQuery)
         .with("page")
         .optionalMatch("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})");
 
     return pageOverviewQuery({userId: userId, skip: 0, limit: 20, search: searchRegEx}, orderBy, startQuery);
 };
 
-var getAllPages = function (userId, skip, limit) {
+var getPages = function (userId, skip, limit, filters) {
 
     var orderBy = "contactRec.created DESC",
-        startQuery = db.cypher();
+        startQuery = db.cypher(),
+        filterQuery = getFilterQuery(filters);
 
     startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .where("(page:BookPage OR page:VideoPage OR page:SchoolPage OR page:CoursePage OR page:PracticePage OR " +
-        "page:EventPage OR page:BlogPage OR page:StorePage)");
+        .where("(" + filterQuery + ")");
 
     return pageOverviewQuery({userId: userId, skip: skip, limit: limit}, orderBy, startQuery);
 };
 
 module.exports = {
-    getAllPages: getAllPages,
+    getPages: getPages,
     searchPage: searchPage
 };
