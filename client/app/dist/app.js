@@ -6655,7 +6655,7 @@ module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage
                 }
             };
             fileUpload.uploadFileAndJson($scope.imagePreviewData, json, 'api/user/page/create').
-                success(function () {
+                showSuccess(function () {
 
                 }).
                 error(function () {

@@ -7,33 +7,41 @@ $margin-right-col: 290px;
 
   @include centerColumn(80px) {
     #inner-centerCol {
-      min-width: 800px;
+      min-width: 1000px;
       height: 100%;
       margin-left: 60px;
 
       #page-detail-header {
         margin-right: $margin-right-col;
+        display: table;
         #page-detail-inner-header {
-          display: inline-block;
+          display: table-row;
           width: 100%;
           .page-detail-header-image {
-            float: left;
+            display: table-cell;
+            vertical-align: top;
             height: 200px;
             img {
-              height: 100%;
-              max-width: 300px;
+              height: 200px;
+              max-width: 250px;
             }
           }
           .page-detail-header-list {
-            margin-left: 40px;
+            padding-left: 35px;
             height: 200px;
-            float: left;
+            display: table-cell;
+            vertical-align: top;
             position: relative;
-            box-sizing: border-box;
+            //box-sizing: border-box;
             .page-detail-header-title {
               display: inline-block;
               font-size: 28px;
               color: $primary-color;
+              min-width: 300px;
+              word-break: break-all;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              height: 35px;
             }
             .page-detail-header-category {
               font-size: 14px;

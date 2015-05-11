@@ -29,7 +29,7 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
             .end(params)
             .send();
     }).then(function () {
-        return uploadImage.generateProfileImage(titlePicturePath, 'BookPage', params.pageId);
+        return uploadImage.generatePageImage(titlePicturePath, 'BookPage', params.pageId);
     }).then(function () {
         return {pageId: params.pageId};
     });
