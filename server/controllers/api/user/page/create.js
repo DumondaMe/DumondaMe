@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    contact = require('./../../../../models/contact/contact'),
-    auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    controllerErrors = require('./../../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var createBookPage = require('./../../../../models/user/page/createBookPage');
+var auth = require('./../../../../lib/auth');
+var exceptions = require('./../../../../lib/error/exceptions');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestCreatePage = {
     name: 'createPage',
@@ -48,7 +48,9 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestCreatePage, logger).then(function (request) {
-
+                if (request.createBookPage) {
+                    return createBookPage.createBookPage(req.user.id, request.createBookPage, req.files.file.path, req);
+                }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();
             }).then(function (data) {

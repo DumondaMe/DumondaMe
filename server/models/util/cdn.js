@@ -36,7 +36,7 @@ module.exports = {
             };
         return s3.getSignedUrl('getObject', params);
     },
-    uploadProfilePicture: function (fileName, key) {
+    uploadFile: function (fileName, key) {
         var s3 = new AWS.S3({params: {Bucket: cdnConfig.getConfig().bucket, Key: key}});
 
         return new Promise(function (resolve, reject) {

@@ -24,10 +24,15 @@ module.exports = {
                 send(user);
         }
     },
-    post: function (api, data, agent) {
+    post: function (api, data, agent, pathToFile) {
         var req = request(app).post(api);
         if (agent) {
             agent.attachCookies(req);
+        }
+        if (pathToFile) {
+            req.attach('file', pathToFile);
+            req.field('model', JSON.stringify(data));
+            return req.send();
         }
         return req.send(data);
     },
