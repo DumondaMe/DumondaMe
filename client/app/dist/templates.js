@@ -1489,7 +1489,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-common\"> <!--ng-show=\"showCommonSection\"-->\r" +
+    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +

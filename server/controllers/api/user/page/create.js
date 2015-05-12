@@ -48,8 +48,12 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestCreatePage, logger).then(function (request) {
+                var filePath;
+                if (req.files && req.files.file) {
+                    filePath = req.files.file.path;
+                }
                 if (request.createBookPage) {
-                    return createBookPage.createBookPage(req.user.id, request.createBookPage, req.files.file.path, req);
+                    return createBookPage.createBookPage(req.user.id, request.createBookPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

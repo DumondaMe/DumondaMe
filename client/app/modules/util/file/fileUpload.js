@@ -11,7 +11,9 @@ module.exports = ['$http', function ($http) {
     };
     this.uploadFileAndJson = function (file, json, uploadUrl) {
         var fd = new FormData();
-        fd.append('file', file);
+        if (file) {
+            fd.append('file', file);
+        }
         fd.append('model', angular.toJson(json));
         return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,

@@ -50,6 +50,10 @@ module.exports = {
                 });
         });
     },
+    copyFile: function (source, destination) {
+        var s3 = new AWS.S3();
+        return copyFile(source, destination, s3);
+    },
     createFolderRegisterUser: function (userId) {
         var s3 = new AWS.S3();
         return copyFile('profileImage/default/profile.jpg', userId + '/profile.jpg', s3).then(function () {

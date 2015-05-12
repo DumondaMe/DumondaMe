@@ -1490,7 +1490,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-common\"> <!--ng-show=\"showCommonSection\"-->\r" +
+    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -6591,13 +6591,14 @@ var setCategories = function (pages, PageCategories) {
 module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage', 'fileUpload', 'moment',
     function ($scope, $state, PageCategories, Languages, SearchPage, fileUpload, moment) {
 
+        var imageDefaultPath = 'app/img/default.jpg';
         $scope.category = {};
         $scope.categories = PageCategories.getCategories();
         $scope.languages = [];
         $scope.sendButtonDisabled = true;
         $scope.showSuggestions = false;
         $scope.showCommonSection = false;
-        $scope.imagePreview = 'app/img/default.jpg';
+        $scope.imagePreview = imageDefaultPath;
         $scope.page = {};
 
         $scope.languages = Languages.languages;
@@ -6649,10 +6650,17 @@ module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage
                     author: $scope.page.authors,
                     publishDate: moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
                 }
-            };
-            fileUpload.uploadFileAndJson($scope.imagePreviewData, json, 'api/user/page/create').
-                showSuccess(function () {
+            }, imageToUpload;
+            if ($scope.imagePreviewData !== imageDefaultPath) {
+                imageToUpload = $scope.imagePreviewData;
+            }
 
+            fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
+                showSuccess(function (resp) {
+                    $state.go('page.detail', {
+                        label: 'BookPage',
+                        pageId: resp.pageId
+                    });
                 }).
                 error(function () {
 
@@ -7701,7 +7709,9 @@ module.exports = ['$http', function ($http) {
     };
     this.uploadFileAndJson = function (file, json, uploadUrl) {
         var fd = new FormData();
-        fd.append('file', file);
+        if (file) {
+            fd.append('file', file);
+        }
         fd.append('model', angular.toJson(json));
         return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,

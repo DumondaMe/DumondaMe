@@ -11,6 +11,7 @@ var Promise = require('bluebird');
 
 sinon.stub(cdn, 'getUrl').returnsArg(0);
 sinon.stub(cdn, 'uploadFile').returns(Promise.resolve());
+sinon.stub(cdn, 'copyFile').returns(Promise.resolve());
 sinon.stub(cdn, 'createFolderRegisterUser').returns(Promise.resolve());
 
 describe('Initialize Server for all integration tests', function () {
