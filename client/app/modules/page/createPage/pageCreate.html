@@ -6,7 +6,7 @@
                     <h2>Kategorie ausw&aumlhlen</h2>
                 </div>
             </div>
-            <div id="content-create-category">
+            <div id="content-create-category" ng-controller="PageCreateSelectCategoryCtrl">
                 <form class="form-horizontal" name="categoryForm" role="form" novalidate>
                     <div class="form-group">
                         <button type="button" class="btn btn-default content-create-category-element" ng-model="category.selectedCategory"
@@ -14,6 +14,7 @@
                                 id="inputCategoryId"
                                 bs-options="category as category for category in categories"
                                 data-placeholder="Kategorie ausw&aumlhlen"
+                                ng-class="{disabled: !categoryFirstSelect}"
                                 bs-select>
                             <span class="caret"></span>
                         </button>
@@ -22,6 +23,7 @@
                                 id="inputLanguageId"
                                 bs-options="language.description as language.description for language in languages"
                                 data-placeholder="Sprache der Seite ausw&aumlhlen"
+                                ng-class="{disabled: !categoryFirstSelect}"
                                 bs-select>
                             <span class="caret"></span>
                         </button>
@@ -30,28 +32,34 @@
                         <input name="inputTitle" ng-model="category.title"
                                class="form-control" id="inputTitleId"
                                placeholder="Titel"
-                               ng-maxlength="255" ng-required="true">
+                               maxLength="100">
                     </div>
                     <div class="form-group content-create-category-element">
                         <div>
                             <button type="submit"
-                                    class="btn btn-default"
-                                    id="category-select-finished"
+                                    class="btn btn-default category-select-finished"
                                     ng-click="categorySelectFinished()"
-                                    ng-class="{disabled: sendButtonDisabled}">
+                                    ng-class="{disabled: categoryFinishedButtonDisabled}"
+                                    ng-show="categoryFirstSelect">
                                 Fertig
+                            </button>
+                            <button type="submit"
+                                    class="btn btn-default category-select-finished"
+                                    ng-click="categorySelectFinished()"
+                                    ng-show="!categoryFirstSelect && state.actual === 1">
+                                Titel umbenennen
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
-            <div id="content-create-page-suggestions" ng-show="showSuggestions">
+            <div id="content-create-page-suggestions" ng-show="state.actual === 2">
                 <div class="website-structure-header">
                     <div class="website-structure-header-title">
                         <h2>Existiert die Seite die Sie erstellen m&oumlchten bereits?</h2>
                     </div>
                 </div>
-                <div ng-repeat="pagePreview in pageSuggestions.pages">
+                <div ng-repeat="pagePreview in page.pageSuggestions.pages">
                     <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                 </div>
                 <div id="content-create-page-suggestion-commands">
@@ -67,42 +75,7 @@
                     </button>
                 </div>
             </div>
-            <div id="content-create-page-common" ng-show="showCommonSection">
-                <div class="website-structure-header">
-                    <div class="website-structure-header-title">
-                        <h2>Allgemeines</h2>
-                    </div>
-                </div>
-                <div id="content-create-page-common-picture-area">
-                    <img ng-src="{{imagePreview}}" class="content-create-page-common-picture">
-
-                    <div>
-                        <button type="button" class="btn btn-default content-create-page-common-get-picture"
-                                data-animation="am-fade-and-scale" data-placement="center"
-                                data-backdrop="static"
-                                data-template="app/modules/util/file/previewFile.html" bs-modal="modal">
-                            Titelbild ausw&aumlhlen..
-                        </button>
-                    </div>
-                </div>
-                <div id="content-create-page-common-area">
-                    <div id="content-create-page-common-inner-area">
-                        <div ng-include="'app/modules/page/createPage/commonBook.html'"></div>
-                    </div>
-                </div>
-                <div id="content-create-page-common-description-area">
-                    <textarea class="form-control" placeholder="Beschreibung"
-                              ng-maxlength="10000"
-                              ng-model="page.description"></textarea>
-                </div>
-                <div>
-                    <button type="submit"
-                            class="btn btn-default content-create-page-common-commands"
-                            ng-click="createPage()">
-                        Seite erstellen
-                    </button>
-                </div>
-            </div>
+            <div ng-include="'app/modules/page/createPage/commonSection.html'"></div>
         </div>
     </div>
     <div id="leftColNav" ng-include="'app/modules/page/leftNavCol.html'"></div>

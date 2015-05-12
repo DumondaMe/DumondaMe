@@ -3,6 +3,9 @@
 var app = require('angular').module('elyoosApp');
 
 app.controller('PageCreateCtrl', require('./createPage/pageCreateCtrl'));
+app.controller('PageCreateSelectCategoryCtrl', require('./createPage/selectCategoryCtrl'));
+app.controller('PageCreateCommonSectionCtrl', require('./createPage/commonSectionCtrl'));
+app.controller('PageCreateCommonBookCtrl', require('./createPage/commonBookCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));

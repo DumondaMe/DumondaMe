@@ -11,7 +11,7 @@ module.exports = {
 
             var originalModel, lastModel;
 
-            $scope.sendButtonDisabled = true;
+            $scope.categoryFinishedButtonDisabled = true;
 
             resetMessageNotification($scope);
 
@@ -24,9 +24,9 @@ module.exports = {
                 if (originalModel && newValue) {
                     lastModel = newValue;
                     if (angular.equals(originalModel, newValue)) {
-                        $scope.sendButtonDisabled = true;
+                        $scope.categoryFinishedButtonDisabled = true;
                     } else {
-                        $scope.sendButtonDisabled = false;
+                        $scope.categoryFinishedButtonDisabled = false;
                         $scope.showSuccess = false;
                     }
                 }
@@ -45,14 +45,14 @@ module.exports = {
 
             $scope.$on('ely.send.button.success', function () {
                 angular.copy($scope.model, originalModel);
-                $scope.sendButtonDisabled = true;
+                $scope.categoryFinishedButtonDisabled = true;
                 $scope.showError = false;
                 $scope.showSuccess = true;
             });
 
             $scope.$on('ely.send.button.model.changed', function (event, newModel) {
                 angular.copy(newModel, originalModel);
-                $scope.sendButtonDisabled = true;
+                $scope.categoryFinishedButtonDisabled = true;
                 $scope.showError = false;
                 $scope.showSuccess = false;
             });

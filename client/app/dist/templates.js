@@ -868,7 +868,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            ng-click=\"sendAllData()\"\r" +
     "\n" +
-    "            ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "            ng-class=\"{disabled: categoryFinishedButtonDisabled}\">\r" +
     "\n" +
     "        {{buttonDescription}}\r" +
     "\n" +
@@ -1328,7 +1328,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createPage/commonBook.html',
-    "<div>\r" +
+    "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
     "\n" +
     "    <form class=\"form-horizontal\" name=\"bookCommonForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1345,6 +1345,83 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/createPage/commonSection.html',
+    "<div id=\"content-create-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
+    "\n" +
+    "    <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "        <div class=\"website-structure-header-title\">\r" +
+    "\n" +
+    "            <h2>Allgemeines</h2>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-picture-area\">\r" +
+    "\n" +
+    "        <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
+    "\n" +
+    "                    data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
+    "\n" +
+    "                    data-backdrop=\"static\"\r" +
+    "\n" +
+    "                    data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "\n" +
+    "                Titelbild ausw&aumlhlen..\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-area\">\r" +
+    "\n" +
+    "        <div id=\"content-create-page-common-inner-area\">\r" +
+    "\n" +
+    "            <div ng-include=\"'app/modules/page/createPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-description-area\">\r" +
+    "\n" +
+    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
+    "\n" +
+    "                              ng-maxlength=\"10000\"\r" +
+    "\n" +
+    "                              ng-model=\"page.description\"></textarea>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div>\r" +
+    "\n" +
+    "        <button type=\"submit\"\r" +
+    "\n" +
+    "                class=\"btn btn-default content-create-page-common-commands\"\r" +
+    "\n" +
+    "                ng-click=\"createPage()\">\r" +
+    "\n" +
+    "            Seite erstellen\r" +
+    "\n" +
+    "        </button>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
     "\n" +
     "</div>"
   );
@@ -1367,7 +1444,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-category\">\r" +
+    "            <div id=\"content-create-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
     "\n" +
     "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1382,6 +1459,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                bs-options=\"category as category for category in categories\"\r" +
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1399,6 +1478,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
     "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "\n" +
     "                                bs-select>\r" +
     "\n" +
     "                            <span class=\"caret\"></span>\r" +
@@ -1415,7 +1496,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                               placeholder=\"Titel\"\r" +
     "\n" +
-    "                               ng-maxlength=\"255\" ng-required=\"true\">\r" +
+    "                               maxLength=\"100\">\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1425,15 +1506,27 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <button type=\"submit\"\r" +
     "\n" +
-    "                                    class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                    id=\"category-select-finished\"\r" +
+    "                                    class=\"btn btn-default category-select-finished\"\r" +
     "\n" +
     "                                    ng-click=\"categorySelectFinished()\"\r" +
     "\n" +
-    "                                    ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "                                    ng-class=\"{disabled: categoryFinishedButtonDisabled}\"\r" +
+    "\n" +
+    "                                    ng-show=\"categoryFirstSelect\">\r" +
     "\n" +
     "                                Fertig\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                            <button type=\"submit\"\r" +
+    "\n" +
+    "                                    class=\"btn btn-default category-select-finished\"\r" +
+    "\n" +
+    "                                    ng-click=\"categorySelectFinished()\"\r" +
+    "\n" +
+    "                                    ng-show=\"!categoryFirstSelect && state.actual === 1\">\r" +
+    "\n" +
+    "                                Titel umbenennen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -1445,7 +1538,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-suggestions\" ng-show=\"showSuggestions\">\r" +
+    "            <div id=\"content-create-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -1457,7 +1550,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div ng-repeat=\"pagePreview in pageSuggestions.pages\">\r" +
+    "                <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\">\r" +
     "\n" +
     "                    <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
@@ -1489,77 +1582,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <div class=\"website-structure-header-title\">\r" +
-    "\n" +
-    "                        <h2>Allgemeines</h2>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-picture-area\">\r" +
-    "\n" +
-    "                    <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div>\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
-    "\n" +
-    "                                data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
-    "\n" +
-    "                                data-backdrop=\"static\"\r" +
-    "\n" +
-    "                                data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
-    "\n" +
-    "                            Titelbild ausw&aumlhlen..\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-area\">\r" +
-    "\n" +
-    "                    <div id=\"content-create-page-common-inner-area\">\r" +
-    "\n" +
-    "                        <div ng-include=\"'app/modules/page/createPage/commonBook.html'\"></div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-description-area\">\r" +
-    "\n" +
-    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
-    "\n" +
-    "                              ng-maxlength=\"10000\"\r" +
-    "\n" +
-    "                              ng-model=\"page.description\"></textarea>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <button type=\"submit\"\r" +
-    "\n" +
-    "                            class=\"btn btn-default content-create-page-common-commands\"\r" +
-    "\n" +
-    "                            ng-click=\"createPage()\">\r" +
-    "\n" +
-    "                        Seite erstellen\r" +
-    "\n" +
-    "                    </button>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
+    "            <div ng-include=\"'app/modules/page/createPage/commonSection.html'\"></div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

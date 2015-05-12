@@ -869,7 +869,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            ng-click=\"sendAllData()\"\r" +
     "\n" +
-    "            ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "            ng-class=\"{disabled: categoryFinishedButtonDisabled}\">\r" +
     "\n" +
     "        {{buttonDescription}}\r" +
     "\n" +
@@ -1329,7 +1329,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createPage/commonBook.html',
-    "<div>\r" +
+    "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
     "\n" +
     "    <form class=\"form-horizontal\" name=\"bookCommonForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1346,6 +1346,83 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
     "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/createPage/commonSection.html',
+    "<div id=\"content-create-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
+    "\n" +
+    "    <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "        <div class=\"website-structure-header-title\">\r" +
+    "\n" +
+    "            <h2>Allgemeines</h2>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-picture-area\">\r" +
+    "\n" +
+    "        <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
+    "\n" +
+    "                    data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
+    "\n" +
+    "                    data-backdrop=\"static\"\r" +
+    "\n" +
+    "                    data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "\n" +
+    "                Titelbild ausw&aumlhlen..\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-area\">\r" +
+    "\n" +
+    "        <div id=\"content-create-page-common-inner-area\">\r" +
+    "\n" +
+    "            <div ng-include=\"'app/modules/page/createPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div id=\"content-create-page-common-description-area\">\r" +
+    "\n" +
+    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
+    "\n" +
+    "                              ng-maxlength=\"10000\"\r" +
+    "\n" +
+    "                              ng-model=\"page.description\"></textarea>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div>\r" +
+    "\n" +
+    "        <button type=\"submit\"\r" +
+    "\n" +
+    "                class=\"btn btn-default content-create-page-common-commands\"\r" +
+    "\n" +
+    "                ng-click=\"createPage()\">\r" +
+    "\n" +
+    "            Seite erstellen\r" +
+    "\n" +
+    "        </button>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
     "\n" +
     "</div>"
   );
@@ -1368,7 +1445,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-category\">\r" +
+    "            <div id=\"content-create-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
     "\n" +
     "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1383,6 +1460,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                bs-options=\"category as category for category in categories\"\r" +
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1400,6 +1479,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
     "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "\n" +
     "                                bs-select>\r" +
     "\n" +
     "                            <span class=\"caret\"></span>\r" +
@@ -1416,7 +1497,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                               placeholder=\"Titel\"\r" +
     "\n" +
-    "                               ng-maxlength=\"255\" ng-required=\"true\">\r" +
+    "                               maxLength=\"100\">\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1426,15 +1507,27 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <button type=\"submit\"\r" +
     "\n" +
-    "                                    class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                    id=\"category-select-finished\"\r" +
+    "                                    class=\"btn btn-default category-select-finished\"\r" +
     "\n" +
     "                                    ng-click=\"categorySelectFinished()\"\r" +
     "\n" +
-    "                                    ng-class=\"{disabled: sendButtonDisabled}\">\r" +
+    "                                    ng-class=\"{disabled: categoryFinishedButtonDisabled}\"\r" +
+    "\n" +
+    "                                    ng-show=\"categoryFirstSelect\">\r" +
     "\n" +
     "                                Fertig\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                            <button type=\"submit\"\r" +
+    "\n" +
+    "                                    class=\"btn btn-default category-select-finished\"\r" +
+    "\n" +
+    "                                    ng-click=\"categorySelectFinished()\"\r" +
+    "\n" +
+    "                                    ng-show=\"!categoryFirstSelect && state.actual === 1\">\r" +
+    "\n" +
+    "                                Titel umbenennen\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -1446,7 +1539,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-suggestions\" ng-show=\"showSuggestions\">\r" +
+    "            <div id=\"content-create-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -1458,7 +1551,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div ng-repeat=\"pagePreview in pageSuggestions.pages\">\r" +
+    "                <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\">\r" +
     "\n" +
     "                    <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
@@ -1490,77 +1583,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-common\" ng-show=\"showCommonSection\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <div class=\"website-structure-header-title\">\r" +
-    "\n" +
-    "                        <h2>Allgemeines</h2>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-picture-area\">\r" +
-    "\n" +
-    "                    <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div>\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
-    "\n" +
-    "                                data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
-    "\n" +
-    "                                data-backdrop=\"static\"\r" +
-    "\n" +
-    "                                data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
-    "\n" +
-    "                            Titelbild ausw&aumlhlen..\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-area\">\r" +
-    "\n" +
-    "                    <div id=\"content-create-page-common-inner-area\">\r" +
-    "\n" +
-    "                        <div ng-include=\"'app/modules/page/createPage/commonBook.html'\"></div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"content-create-page-common-description-area\">\r" +
-    "\n" +
-    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
-    "\n" +
-    "                              ng-maxlength=\"10000\"\r" +
-    "\n" +
-    "                              ng-model=\"page.description\"></textarea>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <button type=\"submit\"\r" +
-    "\n" +
-    "                            class=\"btn btn-default content-create-page-common-commands\"\r" +
-    "\n" +
-    "                            ng-click=\"createPage()\">\r" +
-    "\n" +
-    "                        Seite erstellen\r" +
-    "\n" +
-    "                    </button>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
+    "            <div ng-include=\"'app/modules/page/createPage/commonSection.html'\"></div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -4795,7 +4818,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":114,"./auth":15,"./contact":25,"./directives":38,"./filters":55,"./home":59,"./navigation":69,"./settings":91,"./util":111,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":117,"./auth":15,"./contact":25,"./directives":38,"./filters":55,"./home":59,"./navigation":69,"./settings":94,"./util":114,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -5891,7 +5914,7 @@ module.exports = {
 
             var originalModel, lastModel;
 
-            $scope.sendButtonDisabled = true;
+            $scope.categoryFinishedButtonDisabled = true;
 
             resetMessageNotification($scope);
 
@@ -5904,9 +5927,9 @@ module.exports = {
                 if (originalModel && newValue) {
                     lastModel = newValue;
                     if (angular.equals(originalModel, newValue)) {
-                        $scope.sendButtonDisabled = true;
+                        $scope.categoryFinishedButtonDisabled = true;
                     } else {
-                        $scope.sendButtonDisabled = false;
+                        $scope.categoryFinishedButtonDisabled = false;
                         $scope.showSuccess = false;
                     }
                 }
@@ -5925,14 +5948,14 @@ module.exports = {
 
             $scope.$on('ely.send.button.success', function () {
                 angular.copy($scope.model, originalModel);
-                $scope.sendButtonDisabled = true;
+                $scope.categoryFinishedButtonDisabled = true;
                 $scope.showError = false;
                 $scope.showSuccess = true;
             });
 
             $scope.$on('ely.send.button.model.changed', function (event, newModel) {
                 angular.copy(newModel, originalModel);
-                $scope.sendButtonDisabled = true;
+                $scope.categoryFinishedButtonDisabled = true;
                 $scope.showError = false;
                 $scope.showSuccess = false;
             });
@@ -6582,67 +6605,11 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
 },{}],74:[function(require,module,exports){
 'use strict';
 
-var setCategories = function (pages, PageCategories) {
-    angular.forEach(pages, function (page) {
-        page.category = PageCategories.categories[page.label];
-    });
-};
+module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment',
+    function ($scope, $state, Languages, fileUpload, moment) {
 
-module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage', 'fileUpload', 'moment',
-    function ($scope, $state, PageCategories, Languages, SearchPage, fileUpload, moment) {
-
-        var imageDefaultPath = 'app/img/default.jpg';
-        $scope.category = {};
-        $scope.categories = PageCategories.getCategories();
-        $scope.languages = [];
-        $scope.sendButtonDisabled = true;
-        $scope.showSuggestions = false;
-        $scope.showCommonSection = false;
-        $scope.imagePreview = imageDefaultPath;
-        $scope.page = {};
-
-        $scope.languages = Languages.languages;
-
-        $scope.$watchCollection('category', function (newCategories) {
-            if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                $scope.sendButtonDisabled = false;
-            } else {
-                $scope.sendButtonDisabled = true;
-            }
-        });
-
-        $scope.categorySelectFinished = function () {
-            $scope.pageSuggestions = SearchPage.get({
-                search: $scope.category.title,
-                filterType: PageCategories.getPageType($scope.category.selectedCategory),
-                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
-                isSuggestion: false
-            }, function () {
-                if ($scope.pageSuggestions.pages.length > 0) {
-                    setCategories($scope.pageSuggestions.pages, PageCategories);
-                    $scope.showSuggestions = true;
-                } else {
-                    $scope.suggestionContinue();
-                }
-            });
-        };
-
-        $scope.abortCreatePage = function () {
-            $state.go('page.overview');
-        };
-
-        $scope.suggestionContinue = function () {
-            $scope.showSuggestions = false;
-            $scope.showCommonSection = true;
-        };
-
-        $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
-            $scope.imagePreview = data;
-            $scope.imagePreviewData = dataToSend;
-        });
-
-        $scope.createPage = function () {
-            var json = {
+        $scope.page.BookPage = function() {
+            return {
                 createBookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
@@ -6650,7 +6617,33 @@ module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage
                     author: $scope.page.authors,
                     publishDate: moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
                 }
-            }, imageToUpload;
+            };
+        };
+    }];
+
+},{}],75:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'PageCategories',
+    function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
+
+        var imageDefaultPath = 'app/img/default.jpg';
+        $scope.imagePreview = imageDefaultPath;
+
+        $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
+            $scope.imagePreview = data;
+            $scope.imagePreviewData = dataToSend;
+        });
+
+        $scope.$watch('category.selectedCategory', function (newValue) {
+            if (newValue) {
+                $scope.category.seletedCategoryType = PageCategories.getPageType($scope.category.selectedCategory);
+            }
+        });
+
+        $scope.createPage = function () {
+            var json = $scope.page[PageCategories.getPageType($scope.category.selectedCategory)](), imageToUpload;
+
             if ($scope.imagePreviewData !== imageDefaultPath) {
                 imageToUpload = $scope.imagePreviewData;
             }
@@ -6658,7 +6651,7 @@ module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage
             fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
                 showSuccess(function (resp) {
                     $state.go('page.detail', {
-                        label: 'BookPage',
+                        label: PageCategories.getPageType($scope.category.selectedCategory),
                         pageId: resp.pageId
                     });
                 }).
@@ -6669,12 +6662,109 @@ module.exports = ['$scope', '$state', 'PageCategories', 'Languages', 'SearchPage
         };
     }];
 
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', '$state',
+    function ($scope, $state) {
+
+        $scope.category = {};
+        $scope.page = {};
+        $scope.state = {actual: 1, previous: 1};
+
+        $scope.setNextState = function (newState) {
+            if (newState !== $scope.state.actual) {
+                $scope.state.previous = $scope.state.actual;
+                $scope.state.actual = newState;
+            }
+        };
+
+        $scope.setPreviousState = function () {
+            $scope.state.actual = $scope.state.previous;
+        };
+
+        $scope.abortCreatePage = function () {
+            $state.go('page.overview');
+        };
+
+        $scope.suggestionContinue = function () {
+            $scope.setNextState(3);
+        };
+    }];
+
+},{}],77:[function(require,module,exports){
+'use strict';
+
+var setCategories = function (pages, PageCategories) {
+    angular.forEach(pages, function (page) {
+        page.category = PageCategories.categories[page.label];
+    });
+};
+
+module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
+    function ($scope, PageCategories, Languages, SearchPage) {
+
+        $scope.categories = PageCategories.getCategories();
+        $scope.languages = Languages.languages;
+        $scope.categoryFinishedButtonDisabled = true;
+        $scope.categoryFirstSelect = true;
+        $scope.categoryTitleChanged = false;
+        $scope.categoryTitlePrviouse = '';
+
+        $scope.$watchCollection('category', function (newCategories) {
+            if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
+                $scope.categoryFinishedButtonDisabled = false;
+            } else {
+                $scope.categoryFinishedButtonDisabled = true;
+            }
+        });
+
+        $scope.categorySelectFinished = function () {
+            var title = $scope.category.title;
+            $scope.page.pageSuggestions = SearchPage.get({
+                search: title,
+                filterType: PageCategories.getPageType($scope.category.selectedCategory),
+                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
+                isSuggestion: false
+            }, function () {
+                $scope.categoryFirstSelect = false;
+                $scope.categoryTitleChanged = false;
+                $scope.categoryTitlePrviouse = title;
+                if ($scope.page.pageSuggestions.pages.length > 0) {
+                    setCategories($scope.page.pageSuggestions.pages, PageCategories);
+                    $scope.setNextState(2);
+                } else {
+                    $scope.setNextState(3);
+                }
+            });
+        };
+
+        $scope.$watch('category.title', function (newValue) {
+            if (newValue && newValue.trim() !== '' && !$scope.categoryFirstSelect) {
+                if (newValue !== $scope.categoryTitlePrviouse) {
+                    $scope.categoryTitleChanged = true;
+                    $scope.setNextState(1);
+                } else {
+                    if($scope.categoryTitleChanged) {
+                        $scope.setPreviousState();
+                    }
+                    $scope.categoryTitleChanged = false;
+                }
+            } else {
+                $scope.categoryTitleChanged = false;
+            }
+        });
+    }];
+
+},{}],78:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.controller('PageCreateCtrl', require('./createPage/pageCreateCtrl'));
+app.controller('PageCreateSelectCategoryCtrl', require('./createPage/selectCategoryCtrl'));
+app.controller('PageCreateCommonSectionCtrl', require('./createPage/commonSectionCtrl'));
+app.controller('PageCreateCommonBookCtrl', require('./createPage/commonBookCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
@@ -6725,7 +6815,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./addRemoveRecommendationCtrl":73,"./createPage/pageCreateCtrl":74,"./pageDetailCtrl":76,"./pageOverviewCtrl":77,"./services/categories":81,"./services/page":82,"./services/pageDetail":83,"./services/searchPage":84,"angular":4}],76:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":73,"./createPage/commonBookCtrl":74,"./createPage/commonSectionCtrl":75,"./createPage/pageCreateCtrl":76,"./createPage/selectCategoryCtrl":77,"./pageDetailCtrl":79,"./pageOverviewCtrl":80,"./services/categories":84,"./services/page":85,"./services/pageDetail":86,"./services/searchPage":87,"angular":4}],79:[function(require,module,exports){
 'use strict';
 
 var categories = {
@@ -6789,7 +6879,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail',
         };
     }];
 
-},{}],77:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 var setCategories = function (pages, PageCategories) {
@@ -6877,7 +6967,7 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
         };
     }];
 
-},{}],78:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6893,7 +6983,7 @@ module.exports = {
     }
 };
 
-},{}],79:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6913,9 +7003,9 @@ module.exports = {
     name: 'elyPagePreview'
 };
 
-},{"./controller.js":78}],80:[function(require,module,exports){
+},{"./controller.js":81}],83:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"./directive.js":79,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],81:[function(require,module,exports){
+},{"./directive.js":82,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":34}],84:[function(require,module,exports){
 'use strict';
 
 var categories = {
@@ -6949,28 +7039,28 @@ module.exports = [
         };
     }];
 
-},{}],82:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page');
 }];
 
-},{}],83:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/detail');
 }];
 
-},{}],84:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/searchPage');
 }];
 
-},{}],85:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7003,7 +7093,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./modalAddRecommendationCtrl":86,"./recommendationHomeCtrl":87,"./services/pageRecommendation":88,"./services/recommendation":89,"angular":4}],86:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":89,"./recommendationHomeCtrl":90,"./services/pageRecommendation":91,"./services/recommendation":92,"angular":4}],89:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
@@ -7029,14 +7119,14 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     };
 }];
 
-},{}],87:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Recommendation', function ($scope, Recommendation) {
 
 }];
 
-},{}],88:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7045,14 +7135,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],89:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/recommendation');
 }];
 
-},{}],90:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -7084,7 +7174,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],91:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7139,7 +7229,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./deletePrivacyCtrl":90,"./passwordCtrl":92,"./privacyCtrl":93,"./profileCtrl":94,"./renamePrivacyCtrl":95,"./services/password":96,"./services/privacy":97,"./services/profile":98,"angular":4}],92:[function(require,module,exports){
+},{"./deletePrivacyCtrl":93,"./passwordCtrl":95,"./privacyCtrl":96,"./profileCtrl":97,"./renamePrivacyCtrl":98,"./services/password":99,"./services/privacy":100,"./services/profile":101,"angular":4}],95:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -7192,7 +7282,7 @@ module.exports = ['$scope', 'Password', function ($scope, Password) {
     };
 }];
 
-},{}],93:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -7309,7 +7399,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],94:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
@@ -7393,7 +7483,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],95:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -7437,14 +7527,14 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],96:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],97:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7453,14 +7543,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],98:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],99:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -7494,14 +7584,14 @@ module.exports = function () {
     };
 };
 
-},{}],100:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":99,"./languages":101,"angular":4}],101:[function(require,module,exports){
+},{"./countryCodeConverter":102,"./languages":104,"angular":4}],104:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -7525,7 +7615,7 @@ module.exports = [
         };
     }];
 
-},{}],102:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -7558,19 +7648,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],103:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":102,"angular":4}],104:[function(require,module,exports){
+},{"./dateFormatter":105,"angular":4}],107:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":105,"angular":4}],105:[function(require,module,exports){
+},{"./profileImage":108,"angular":4}],108:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -7582,7 +7672,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],106:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -7666,7 +7756,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],107:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -7688,14 +7778,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],108:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],109:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -7720,7 +7810,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],110:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7733,14 +7823,14 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":106,"./fileModel.js":107,"./fileReader":108,"./fileUpload":109,"angular":4}],111:[function(require,module,exports){
+},{"./fileCtrl":109,"./fileModel.js":110,"./fileReader":111,"./fileUpload":112,"angular":4}],114:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
-},{"./moment":112,"./promiseModal":113,"angular":4}],112:[function(require,module,exports){
+},{"./moment":115,"./promiseModal":116,"angular":4}],115:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -7750,7 +7840,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],113:[function(require,module,exports){
+},{"moment":11}],116:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
@@ -7785,7 +7875,7 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
     };
 }];
 
-},{}],114:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -7840,4 +7930,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116]);

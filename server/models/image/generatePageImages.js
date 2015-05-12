@@ -51,9 +51,9 @@ var copyDefaultImages = function (label, pageId) {
 module.exports = {
     generatePageImage: function (originalFilePath, label, pageId) {
         if (originalFilePath) {
-            uploadImages(originalFilePath, label, pageId);
-        } else {
-            copyDefaultImages(label, pageId);
+            return uploadImages(originalFilePath, label, pageId);
         }
+
+        return copyDefaultImages(label, pageId);
     }
 };
