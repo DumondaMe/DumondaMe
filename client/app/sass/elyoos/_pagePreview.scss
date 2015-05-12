@@ -1,74 +1,99 @@
-.page-preview {
-
-  border-bottom: 1px solid $divider-light;
-  display: block;
-  height: 100px;
+#page-preview-container {
   width: 100%;
 
-  .page-preview-image {
-    height: 100px;
-    width: 100px;
-    float: left;
-    cursor: pointer;
-    height: 100px;
-    width: 150px;
+  .page-preview {
 
-    img {
-      max-height: 90px;
-      padding-top: 10px;
-    }
-  }
-  .page-preview-text {
-    float: left;
-    margin-top: 10px;
-    width: 300px;
-    @include breakpoint(largeDesktop) {
-      width: 450px;
-    }
-    white-space: nowrap;
-    .page-preview-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: $primary-color;
+    border-bottom: 1px solid $divider-light;
+    height: 110px;
+    width: 100%;
+
+    .page-preview-image {
+      height: 110px;
+      width: 120px;
+      display: inline-block;
+      vertical-align: top;
       cursor: pointer;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .page-preview-category {
-      font-size: 12px;
-    }
 
-    .page-preview-rating-overview {
-
-      .page-preview-no-rating-overview-text {
-        font-style: italic;
+      img {
+        height: 100px;
+        max-width: 120px;
+        padding-top: 10px;
       }
-      .page-preview-rating-overview-description {
-        margin-left: 5px;
+    }
+    .page-preview-text {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 10px;
+      padding-left: 20px;
+      width: 300px;
+      @include breakpoint(largeDesktop) {
+        max-width: 450px;
+      }
+      white-space: nowrap;
+      .page-preview-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: $primary-color;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .page-preview-category {
+        font-size: 12px;
+      }
+
+      .page-preview-rating-overview {
+
+        .page-preview-no-rating-overview-text {
+          font-style: italic;
+        }
+        .page-preview-rating-overview-description {
+          margin-left: 5px;
+          display: inline-block;
+        }
+      }
+    }
+
+    .page-preview-user-recommendation {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 4px;
+      padding-left: 20px;
+      width: 200px;
+
+      .page-preview-user-recommendation-add {
+        margin-top: 35px;
+      }
+
+      .page-preview-user-recommendation-remove {
         display: inline-block;
+        height: 14px;
+        width:  14px;
+        cursor: pointer;
+        span.glyphicon-remove-circle {
+          font-size: 1.5em;
+          position: relative;
+          top: 7px;
+        }
       }
-    }
-  }
 
-  .page-preview-user-recommendation {
-    display: inline-block;
-    padding-top: 10px;
-    margin-left: 10px;
-
-    .page-preview-user-recommendation-rating {
-      margin-top: 3px;
-    }
-    .page-preview-user-recommendation-no-comment {
-      margin-top: 16px;
-    }
-    .page-preview-user-recommendation-comment {
-      font-size: 13px;
-      font-style: italic;
-      word-wrap: break-word;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 150px;
-      height: 33px;
+      .page-preview-user-recommendation-rating {
+        display: inline-block;
+        width: 90px;
+        margin-bottom: 10px;
+      }
+      .page-preview-user-recommendation-no-comment {
+        margin-top: 43px;
+      }
+      .page-preview-user-recommendation-comment {
+        font-size: 13px;
+        font-style: italic;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 150px;
+        height: 35px;
+      }
     }
   }
 }

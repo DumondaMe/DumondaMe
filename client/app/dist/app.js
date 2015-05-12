@@ -1870,9 +1870,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-repeat=\"pagePreview in page.pages\">\r" +
+    "            <div id=\"page-preview-container\">\r" +
     "\n" +
-    "                <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "                <div ng-repeat=\"pagePreview in page.pages\">\r" +
+    "\n" +
+    "                    <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1947,121 +1951,127 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div class=\"page-preview\">\r" +
+    "<div>\r" +
     "\n" +
-    "    <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
+    "    <div class=\"page-preview-column1\"></div>\r" +
     "\n" +
-    "        <img ng-src=\"{{pagePreview.url}}\">\r" +
+    "    <div class=\"page-preview-column2\"></div>\r" +
     "\n" +
-    "    </div>\r" +
+    "    <div class=\"page-preview-column3\"></div>\r" +
     "\n" +
-    "    <div class=\"page-preview-text\">\r" +
+    "    <div class=\"page-preview\">\r" +
     "\n" +
-    "        <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
+    "        <div class=\"page-preview-image\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
-    "            {{pagePreview.title}}\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"page-preview-category\">\r" +
-    "\n" +
-    "            Kategorie: {{pagePreview.category}}\r" +
+    "            <img ng-src=\"{{pagePreview.url}}\">\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div class=\"page-preview-rating-overview\">\r" +
+    "        <div class=\"page-preview-text\">\r" +
     "\n" +
-    "            <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings > 0\">\r" +
+    "            <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
-    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "                {{pagePreview.title}}\r" +
     "\n" +
-    "                                 number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "            </div>\r" +
     "\n" +
-    "                <div class=\"page-preview-rating-overview-description\">\r" +
+    "            <div class=\"page-preview-category\">\r" +
     "\n" +
-    "                    (Kontakte {{pagePreview.recommendation.summary.contact.numberOfRatings}})\r" +
+    "                Kategorie: {{pagePreview.category}}\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-preview-rating-overview\">\r" +
+    "\n" +
+    "                <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings > 0\">\r" +
+    "\n" +
+    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                     number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                    <div class=\"page-preview-rating-overview-description\">\r" +
+    "\n" +
+    "                        (Kontakte {{pagePreview.recommendation.summary.contact.numberOfRatings}})\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings > 0\"\r" +
+    "\n" +
+    "                     class=\"page-preview-no-rating-overview-text\">\r" +
+    "\n" +
+    "                    Keine Bewertung durch deine Kontakte\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings > 0\"\r" +
+    "            <div class=\"page-preview-rating-overview\">\r" +
     "\n" +
-    "                 class=\"page-preview-no-rating-overview-text\">\r" +
+    "                <div ng-show=\"pagePreview.recommendation.summary.all.numberOfRatings > 0\">\r" +
     "\n" +
-    "                Keine Bewertung durch deine Kontakte\r" +
+    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
     "\n" +
-    "            </div>\r" +
+    "                                     number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.all.rating\"></ely-star-rating>\r" +
     "\n" +
-    "        </div>\r" +
+    "                    <div class=\"page-preview-rating-overview-description\">\r" +
     "\n" +
-    "        <div class=\"page-preview-rating-overview\">\r" +
+    "                        (Alle {{pagePreview.recommendation.summary.all.numberOfRatings}})\r" +
     "\n" +
-    "            <div ng-show=\"pagePreview.recommendation.summary.all.numberOfRatings > 0\">\r" +
+    "                    </div>\r" +
     "\n" +
-    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "                </div>\r" +
     "\n" +
-    "                                 number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.all.rating\"></ely-star-rating>\r" +
+    "                <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings === 0\"\r" +
     "\n" +
-    "                <div class=\"page-preview-rating-overview-description\">\r" +
+    "                     class=\"page-preview-no-rating-overview-text\">\r" +
     "\n" +
-    "                    (Alle {{pagePreview.recommendation.summary.all.numberOfRatings}})\r" +
+    "                    Seite wurde noch nie bewertet\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings === 0 && pagePreview.recommendation.summary.all.numberOfRatings === 0\"\r" +
+    "        </div>\r" +
     "\n" +
-    "                 class=\"page-preview-no-rating-overview-text\">\r" +
+    "        <div class=\"page-preview-user-recommendation\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
     "\n" +
-    "                Seite wurde noch nie bewertet\r" +
+    "            <div ng-show=\"pagePreview.recommendation.user.recommendationId\">\r" +
+    "\n" +
+    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-user-recommendation-rating\"\r" +
+    "\n" +
+    "                                 number-of-selected-stars-readonly=\"pagePreview.recommendation.user.rating\"\r" +
+    "\n" +
+    "                                 ng-class=\"{'page-preview-user-recommendation-no-comment': pagePreview.recommendation.user.comment.trim() === ''}\"></ely-star-rating>\r" +
+    "\n" +
+    "                <div class=\"page-preview-user-recommendation-remove\">\r" +
+    "\n" +
+    "                    <span class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"\r" +
+    "\n" +
+    "                          ng-click=\"removeRecommendation(pagePreview, pagePreview.pageId, pagePreview.label)\"></span>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-preview-user-recommendation-comment\" ng-show=\"pagePreview.recommendation.user.comment.trim() !== ''\">\r" +
+    "\n" +
+    "                    {{pagePreview.recommendation.user.comment}}\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
-    "        </div>\r" +
+    "            <div ng-hide=\"pagePreview.recommendation.user.recommendationId\">\r" +
     "\n" +
-    "    </div>\r" +
+    "                <button type=\"submit\" class=\"btn btn-default page-preview-user-recommendation-add\"\r" +
     "\n" +
-    "    <div class=\"page-preview-user-recommendation\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
+    "                        ng-click=\"addNewRecommendation(pagePreview, pagePreview.pageId, pagePreview.label, pagePreview.title)\">\r" +
     "\n" +
-    "        <div ng-show=\"pagePreview.recommendation.user.recommendationId\">\r" +
-    "\n" +
-    "            <div>\r" +
-    "\n" +
-    "                <button type=\"submit\" class=\"btn btn-default btn-xs\"\r" +
-    "\n" +
-    "                        ng-click=\"removeRecommendation(pagePreview, pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                    Bewertung entfernen\r" +
+    "                    Bewerten\r" +
     "\n" +
     "                </button>\r" +
     "\n" +
     "            </div>\r" +
-    "\n" +
-    "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-user-recommendation-rating\"\r" +
-    "\n" +
-    "                             number-of-selected-stars-readonly=\"pagePreview.recommendation.user.rating\"\r" +
-    "\n" +
-    "                             ng-class=\"{'page-preview-user-recommendation-no-comment': pagePreview.recommendation.user.comment.trim() === ''}\"></ely-star-rating>\r" +
-    "\n" +
-    "            <div class=\"page-preview-user-recommendation-comment\" ng-show=\"pagePreview.recommendation.user.comment.trim() !== ''\">\r" +
-    "\n" +
-    "                {{pagePreview.recommendation.user.comment}}\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-hide=\"pagePreview.recommendation.user.recommendationId\">\r" +
-    "\n" +
-    "            <button type=\"submit\" class=\"btn btn-default btn-xs\"\r" +
-    "\n" +
-    "                    ng-click=\"addNewRecommendation(pagePreview, pagePreview.pageId, pagePreview.label, pagePreview.title)\">\r" +
-    "\n" +
-    "                Bewerten\r" +
-    "\n" +
-    "            </button>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -2887,8 +2897,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                       image=\"imageForUploadPreview\"\r" +
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
-    "\n" +
-    "                                       ratio=\"0.75\"\r" +
     "\n" +
     "                                       original-size=\"checkOriginalSize\" min-width=\"300\" min-height=\"200\"></ely-image-cropper>\r" +
     "\n" +

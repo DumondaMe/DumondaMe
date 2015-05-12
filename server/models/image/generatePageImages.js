@@ -14,7 +14,7 @@ var uploadImages = function (originalFilePath, label, pageId) {
         original = tmp.fileSync({postfix: '.jpg'});
     return gm.gm(originalFilePath).resize(null, 100).writeAsync(preview.name)
         .then(function () {
-            return gm.gm(originalFilePath).resize(null, 200).writeAsync(normal.name);
+            return gm.gm(originalFilePath).resize(null, 300).writeAsync(normal.name);
         })
         .then(function () {
             return gm.gm(originalFilePath).sizeAsync();

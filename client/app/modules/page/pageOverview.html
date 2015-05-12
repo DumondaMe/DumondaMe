@@ -1,8 +1,10 @@
 <div id="content-page-overview">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="pagePreview in page.pages">
-                <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+            <div id="page-preview-container">
+                <div ng-repeat="pagePreview in page.pages">
+                    <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                </div>
             </div>
         </div>
     </div>

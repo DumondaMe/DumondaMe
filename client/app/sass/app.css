@@ -1068,10 +1068,10 @@
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
             display: table-cell;
             vertical-align: top;
-            height: 200px; }
+            height: 300px; }
             #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
-              height: 200px;
-              max-width: 250px; }
+              height: 300px;
+              max-width: 400px; }
           #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
             padding-left: 35px;
             height: 200px;
@@ -1224,59 +1224,77 @@
           margin-bottom: 0;
           margin-top: 10px; }
 
-.page-preview {
-  border-bottom: 1px solid #e7e7e7;
-  display: block;
-  height: 100px;
+#page-preview-container {
   width: 100%; }
-  .page-preview .page-preview-image {
-    height: 100px;
-    width: 100px;
-    float: left;
-    cursor: pointer;
-    height: 100px;
-    width: 150px; }
-    .page-preview .page-preview-image img {
-      max-height: 90px;
-      padding-top: 10px; }
-  .page-preview .page-preview-text {
-    float: left;
-    margin-top: 10px;
-    width: 300px;
-    white-space: nowrap; }
-    @media (min-width: 1400px) {
-      .page-preview .page-preview-text {
-        width: 450px; } }
-    .page-preview .page-preview-text .page-preview-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: #009688;
-      cursor: pointer;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-    .page-preview .page-preview-text .page-preview-category {
-      font-size: 12px; }
-    .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
-      font-style: italic; }
-    .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
-      margin-left: 5px;
-      display: inline-block; }
-  .page-preview .page-preview-user-recommendation {
-    display: inline-block;
-    padding-top: 10px;
-    margin-left: 10px; }
-    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
-      margin-top: 3px; }
-    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
-      margin-top: 16px; }
-    .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
-      font-size: 13px;
-      font-style: italic;
-      word-wrap: break-word;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 150px;
-      height: 33px; }
+  #page-preview-container .page-preview {
+    border-bottom: 1px solid #e7e7e7;
+    height: 110px;
+    width: 100%; }
+    #page-preview-container .page-preview .page-preview-image {
+      height: 110px;
+      width: 120px;
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer; }
+      #page-preview-container .page-preview .page-preview-image img {
+        height: 100px;
+        max-width: 120px;
+        padding-top: 10px; }
+    #page-preview-container .page-preview .page-preview-text {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 10px;
+      padding-left: 20px;
+      width: 300px;
+      white-space: nowrap; }
+      @media (min-width: 1400px) {
+        #page-preview-container .page-preview .page-preview-text {
+          max-width: 450px; } }
+      #page-preview-container .page-preview .page-preview-text .page-preview-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #009688;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      #page-preview-container .page-preview .page-preview-text .page-preview-category {
+        font-size: 12px; }
+      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
+        font-style: italic; }
+      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
+        margin-left: 5px;
+        display: inline-block; }
+    #page-preview-container .page-preview .page-preview-user-recommendation {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 4px;
+      padding-left: 20px;
+      width: 200px; }
+      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-add {
+        margin-top: 35px; }
+      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove {
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        cursor: pointer; }
+        #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove span.glyphicon-remove-circle {
+          font-size: 1.5em;
+          position: relative;
+          top: 7px; }
+      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
+        display: inline-block;
+        width: 90px;
+        margin-bottom: 10px; }
+      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
+        margin-top: 43px; }
+      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
+        font-size: 13px;
+        font-style: italic;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 150px;
+        height: 35px; }
 
 #content-recommendation-home {
   width: 100%;
