@@ -5,6 +5,7 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
 
         var imageDefaultPath = 'app/img/default.jpg';
         $scope.imagePreview = imageDefaultPath;
+        $scope.validInputs = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
             $scope.imagePreview = data;
@@ -18,7 +19,7 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         });
 
         $scope.createPage = function () {
-            var json = $scope.page[PageCategories.getPageType($scope.category.selectedCategory)](), imageToUpload;
+            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
 
             if ($scope.imagePreviewData !== imageDefaultPath) {
                 imageToUpload = $scope.imagePreviewData;
@@ -27,7 +28,7 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
             fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
                 showSuccess(function (resp) {
                     $state.go('page.detail', {
-                        label: PageCategories.getPageType($scope.category.selectedCategory),
+                        label: $scope.category.seletedCategoryType,
                         pageId: resp.pageId
                     });
                 }).

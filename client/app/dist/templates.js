@@ -1330,21 +1330,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/page/createPage/commonBook.html',
     "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
     "\n" +
-    "    <form class=\"form-horizontal\" name=\"bookCommonForm\" role=\"form\" novalidate>\r" +
+    "    <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
     "\n" +
-    "        <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
+    "                         profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
     "\n" +
-    "                             profile-form=\"bookCommonForm\" submit-model=\"page.authors\"\r" +
+    "                         max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
     "\n" +
-    "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
+    "    <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
     "\n" +
-    "        <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
+    "                         profile-form=\"commonForm\" submit-model=\"page.publicationDate\"\r" +
     "\n" +
-    "                             profile-form=\"bookCommonForm\" submit-model=\"page.publicationDate\"\r" +
+    "                         max-length=\"255\" required=\"true\"\r" +
     "\n" +
-    "                             max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
-    "\n" +
-    "    </form>\r" +
+    "                         custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
     "\n" +
     "</div>"
   );
@@ -1353,73 +1351,81 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/page/createPage/commonSection.html',
     "<div id=\"content-create-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
     "\n" +
-    "    <div class=\"website-structure-header\">\r" +
+    "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
-    "        <div class=\"website-structure-header-title\">\r" +
+    "        <div class=\"website-structure-header\">\r" +
     "\n" +
-    "            <h2>Allgemeines</h2>\r" +
+    "            <div class=\"website-structure-header-title\">\r" +
+    "\n" +
+    "                <h2>Allgemeines</h2>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
+    "        <div id=\"content-create-page-common-picture-area\">\r" +
     "\n" +
-    "    <div id=\"content-create-page-common-picture-area\">\r" +
-    "\n" +
-    "        <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
+    "            <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "        <div>\r" +
+    "            <div>\r" +
     "\n" +
-    "            <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
+    "                <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
     "\n" +
-    "                    data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
+    "                        data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
     "\n" +
-    "                    data-backdrop=\"static\"\r" +
+    "                        data-backdrop=\"static\"\r" +
     "\n" +
-    "                    data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "                        data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
     "\n" +
-    "                Titelbild ausw&aumlhlen..\r" +
+    "                    Titelbild ausw&aumlhlen..\r" +
     "\n" +
-    "            </button>\r" +
+    "                </button>\r" +
     "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"content-create-page-common-area\">\r" +
-    "\n" +
-    "        <div id=\"content-create-page-common-inner-area\">\r" +
-    "\n" +
-    "            <div ng-include=\"'app/modules/page/createPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
+    "        <div id=\"content-create-page-common-area\">\r" +
     "\n" +
-    "    <div id=\"content-create-page-common-description-area\">\r" +
+    "            <div id=\"content-create-page-common-inner-area\">\r" +
+    "\n" +
+    "                <div ng-include=\"'app/modules/page/createPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div id=\"content-create-page-common-description-area\">\r" +
     "\n" +
     "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
     "\n" +
     "                              ng-maxlength=\"10000\"\r" +
     "\n" +
-    "                              ng-model=\"page.description\"></textarea>\r" +
+    "                              maxLength=\"10000\"\r" +
     "\n" +
-    "    </div>\r" +
+    "                              ng-model=\"page.description\" required></textarea>\r" +
     "\n" +
-    "    <div>\r" +
+    "        </div>\r" +
     "\n" +
-    "        <button type=\"submit\"\r" +
+    "        <div>\r" +
     "\n" +
-    "                class=\"btn btn-default content-create-page-common-commands\"\r" +
+    "            <button type=\"submit\"\r" +
     "\n" +
-    "                ng-click=\"createPage()\">\r" +
+    "                    class=\"btn btn-default content-create-page-common-commands\"\r" +
     "\n" +
-    "            Seite erstellen\r" +
+    "                    ng-click=\"createPage()\"\r" +
     "\n" +
-    "        </button>\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid}\">\r" +
     "\n" +
-    "    </div>\r" +
+    "                Seite erstellen\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
