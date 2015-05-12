@@ -6,18 +6,42 @@ var setCategories = function (pages, PageCategories) {
     });
 };
 
+var getSelectedFilters = function ($scope) {
+    var typesFilter = '';
+    if ($scope.filterDisabled) {
+        return;
+    }
+    angular.forEach($scope.filters, function (filter) {
+        if (filter.selected) {
+            if (typesFilter.length === 0) {
+                typesFilter = typesFilter.concat(filter.filter);
+            } else {
+                typesFilter = typesFilter.concat(',', filter.filter);
+            }
+        }
+    });
+    return typesFilter;
+};
+
 module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
     function ($scope, $state, Page, SearchPage, PageCategories) {
 
         $scope.query = "";
         $scope.itemsPerPage = 30;
+        $scope.filterDisabled = true;
+
+        $scope.filters = [{description: 'Buch', filter: 'BookPage'}, {description: 'Video', filter: 'VideoPage'}];
 
         $scope.getPages = function (skip) {
-            $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip * $scope.itemsPerPage}, function () {
+
+            skip = (skip - 1) * $scope.itemsPerPage;
+
+            $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip, filterType: getSelectedFilters($scope)}, function () {
+                delete $scope.lastSearch;
                 setCategories($scope.page.pages, PageCategories);
             });
         };
-        $scope.getPages(0);
+        $scope.getPages(1);
 
         $scope.createNewPage = function () {
             $state.go('page.create');
@@ -27,14 +51,36 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.page = SearchPage.get({
                     search: searchValue,
-                    filterType: 'NoFilter',
-                    filterLanguage: 'NoFilter',
+                    filterType: getSelectedFilters($scope),
                     isSuggestion: false
                 }, function () {
+                    $scope.lastSearch = searchValue;
                     setCategories($scope.page.pages, PageCategories);
                 });
             } else {
-                $scope.getPages(0);
+                $scope.getPages(1);
             }
+        };
+
+        $scope.selectChanged = function () {
+            if ($scope.lastSearch) {
+                $scope.searchPage($scope.lastSearch);
+            } else {
+                $scope.getPages(1);
+            }
+        };
+
+        $scope.selectedFilter = function (filter) {
+            $scope.filterDisabled = false;
+            filter.selected = !filter.selected;
+            $scope.selectChanged();
+        };
+
+        $scope.selectedAllPages = function () {
+            $scope.filterDisabled = true;
+            angular.forEach($scope.filters, function (filter) {
+                filter.selected = false;
+            });
+            $scope.selectChanged();
         };
     }];

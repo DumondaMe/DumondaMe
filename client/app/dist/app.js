@@ -1867,21 +1867,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </button>\r" +
     "\n" +
-    "            <div>Filtern nach</div>\r" +
+    "            <div id=\"page-overview-counter-description\">Filter:</div>\r" +
     "\n" +
-    "            <ul id=\"contact-counter\" class=\"list-group\">\r" +
+    "            <ul id=\"page-overview-counter\" class=\"list-group\">\r" +
     "\n" +
     "                <div>\r" +
     "\n" +
     "                    <li class=\"list-group-item\"\r" +
     "\n" +
-    "                        ng-class=\"{'group-selected': allFilterEnabled}\">\r" +
-    "\n" +
-    "                        <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
+    "                        ng-class=\"{'group-selected': filterDisabled}\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"contact-description-count\" ng-click=\"selectedAllContacts()\">{{}}\r" +
+    "                        <div class=\"page-overview-description\" ng-click=\"selectedAllPages()\">Alle Anzeigen\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1889,19 +1887,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div ng-repeat=\"statistic in users.statistic\">\r" +
+    "                <div ng-repeat=\"filter in filters\">\r" +
     "\n" +
     "                    <li class=\"list-group-item\"\r" +
     "\n" +
-    "                        ng-class=\"{'group-selected': statistic.selected}\">\r" +
-    "\n" +
-    "                        <span class=\"badge\">{{statistic.count}}</span>\r" +
+    "                        ng-class=\"{'group-selected': filter.selected}\">\r" +
     "\n" +
     "\r" +
     "\n" +
     "                        <div class=\"contact-description-count\"\r" +
     "\n" +
-    "                             ng-click=\"selectedStatisticType(statistic)\">{{statistic.type}}\r" +
+    "                             ng-click=\"selectedFilter(filter)\">{{filter.description}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -6794,18 +6790,42 @@ var setCategories = function (pages, PageCategories) {
     });
 };
 
+var getSelectedFilters = function ($scope) {
+    var typesFilter = '';
+    if ($scope.filterDisabled) {
+        return;
+    }
+    angular.forEach($scope.filters, function (filter) {
+        if (filter.selected) {
+            if (typesFilter.length === 0) {
+                typesFilter = typesFilter.concat(filter.filter);
+            } else {
+                typesFilter = typesFilter.concat(',', filter.filter);
+            }
+        }
+    });
+    return typesFilter;
+};
+
 module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
     function ($scope, $state, Page, SearchPage, PageCategories) {
 
         $scope.query = "";
         $scope.itemsPerPage = 30;
+        $scope.filterDisabled = true;
+
+        $scope.filters = [{description: 'Buch', filter: 'BookPage'}, {description: 'Video', filter: 'VideoPage'}];
 
         $scope.getPages = function (skip) {
-            $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip * $scope.itemsPerPage}, function () {
+
+            skip = (skip - 1) * $scope.itemsPerPage;
+
+            $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip, filterType: getSelectedFilters($scope)}, function () {
+                delete $scope.lastSearch;
                 setCategories($scope.page.pages, PageCategories);
             });
         };
-        $scope.getPages(0);
+        $scope.getPages(1);
 
         $scope.createNewPage = function () {
             $state.go('page.create');
@@ -6815,15 +6835,37 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.page = SearchPage.get({
                     search: searchValue,
-                    filterType: 'NoFilter',
-                    filterLanguage: 'NoFilter',
+                    filterType: getSelectedFilters($scope),
                     isSuggestion: false
                 }, function () {
+                    $scope.lastSearch = searchValue;
                     setCategories($scope.page.pages, PageCategories);
                 });
             } else {
-                $scope.getPages(0);
+                $scope.getPages(1);
             }
+        };
+
+        $scope.selectChanged = function () {
+            if ($scope.lastSearch) {
+                $scope.searchPage($scope.lastSearch);
+            } else {
+                $scope.getPages(1);
+            }
+        };
+
+        $scope.selectedFilter = function (filter) {
+            $scope.filterDisabled = false;
+            filter.selected = !filter.selected;
+            $scope.selectChanged();
+        };
+
+        $scope.selectedAllPages = function () {
+            $scope.filterDisabled = true;
+            angular.forEach($scope.filters, function (filter) {
+                filter.selected = false;
+            });
+            $scope.selectChanged();
         };
     }];
 

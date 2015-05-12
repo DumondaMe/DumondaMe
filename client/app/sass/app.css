@@ -1210,6 +1210,19 @@
         margin-bottom: 20px; }
         #content #content-page-overview #leftCol #inner-leftCol .page-preview-add-page {
           margin: 10px 0px 10px 10px; }
+        #content #content-page-overview #leftCol #inner-leftCol .list-group-item {
+          padding: 5px 15px;
+          cursor: pointer; }
+        #content #content-page-overview #leftCol #inner-leftCol .group-selected {
+          background-color: #B2DFDB; }
+        #content #content-page-overview #leftCol #inner-leftCol #page-overview-counter-description {
+          margin: 5px 10px -5px 25px;
+          font-weight: bold;
+          font-size: 14px; }
+        #content #content-page-overview #leftCol #inner-leftCol #page-overview-counter {
+          padding: 0px 10px;
+          margin-bottom: 0;
+          margin-top: 10px; }
 
 .page-preview {
   border-bottom: 1px solid #e7e7e7;

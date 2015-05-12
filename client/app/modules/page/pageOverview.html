@@ -14,24 +14,22 @@
             <button class="btn btn-default page-preview-add-page" type="button" ng-click="createNewPage()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Seite erstellen
             </button>
-            <div>Filtern nach</div>
-            <ul id="contact-counter" class="list-group">
+            <div id="page-overview-counter-description">Filter:</div>
+            <ul id="page-overview-counter" class="list-group">
                 <div>
                     <li class="list-group-item"
-                        ng-class="{'group-selected': allFilterEnabled}">
-                        <span class="badge">{{users.numberOfContacts}}</span>
+                        ng-class="{'group-selected': filterDisabled}">
 
-                        <div class="contact-description-count" ng-click="selectedAllContacts()">{{}}
+                        <div class="page-overview-description" ng-click="selectedAllPages()">Alle Anzeigen
                         </div>
                     </li>
                 </div>
-                <div ng-repeat="statistic in users.statistic">
+                <div ng-repeat="filter in filters">
                     <li class="list-group-item"
-                        ng-class="{'group-selected': statistic.selected}">
-                        <span class="badge">{{statistic.count}}</span>
+                        ng-class="{'group-selected': filter.selected}">
 
                         <div class="contact-description-count"
-                             ng-click="selectedStatisticType(statistic)">{{statistic.type}}
+                             ng-click="selectedFilter(filter)">{{filter.description}}
                         </div>
                     </li>
                 </div>
