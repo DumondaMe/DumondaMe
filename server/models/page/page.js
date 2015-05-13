@@ -85,7 +85,8 @@ var pageOverviewQuery = function (params, orderBy, startQuery) {
         "page.language AS language, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating," +
         "userRec.comment AS userRecComment, userRec.recommendationId AS userRecRecommendationId, userRec.rating AS userRecRating, " +
         "contact.name AS contactRecUserName, contact.userId AS contactRecUserId, contactRec.created AS contactRecDate, " +
-        "contactRec.rating AS contactRecRating, contactRec.comment AS contactRecComment")
+        "contactRec.rating AS contactRecRating, contactRec.comment AS contactRecComment, " +
+        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .end(params)
         .send()
         .then(function (resp) {

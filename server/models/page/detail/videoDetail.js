@@ -42,7 +42,7 @@ var getVideoDetail = function (pageId, userId) {
         .then(function (resp) {
             addActors(resp[2][0], resp[1]);
             detailTitlePicture.addTitlePicture(pageId, resp[2][0], 'VideoPage');
-            return {page: resp[2][0], administrators: resp[0]};
+            return {page: resp[2][0], administrators: {list: resp[0]}};
         });
 };
 

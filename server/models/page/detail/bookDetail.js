@@ -4,7 +4,6 @@ var db = require('./../../../neo4j');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
 var detailTitlePicture = require('./detailTitlePicture');
-var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
 var getBookAuthors = function (pageId, userId) {
@@ -50,7 +49,10 @@ var getBookDetail = function (pageId, userId) {
             detailTitlePicture.addTitlePicture(pageId, resp[6][0], 'BookPage');
             returnValue = {
                 page: resp[6][0],
-                administrators: resp[0],
+                administrators: {
+                    list: resp[0],
+                    isAdmin: administrator.isUserAdministrator(resp[0])
+                },
                 recommendation: {
                     users: resp[3],
                     summary: {

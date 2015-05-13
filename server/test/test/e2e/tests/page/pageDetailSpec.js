@@ -87,6 +87,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.description.should.equals('bookPage1');
                 res.body.page.created.should.equals(501);
                 res.body.page.titleUrl.should.equals('pages/BookPage/0/pageTitlePicture.jpg');
+
                 res.body.page.author.length.should.equals(3);
                 res.body.page.author[0].name.should.equals('Hans Muster');
                 res.body.page.author[0].isLoggedInUser.should.be.false;
@@ -97,13 +98,13 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.author[2].name.should.equals('user Meier2');
                 res.body.page.author[2].userId.should.equals('2');
                 res.body.page.author[2].isLoggedInUser.should.be.false;
-                res.body.administrators.length.should.equals(2);
-                res.body.administrators[0].name.should.equals('user Meier');
-                res.body.administrators[0].userId.should.equals('1');
-                res.body.administrators[0].isLoggedInUser.should.be.true;
-                res.body.administrators[1].name.should.equals('user Meier2');
-                res.body.administrators[1].userId.should.equals('2');
-                res.body.administrators[1].isLoggedInUser.should.be.false;
+
+                res.body.administrators.list.length.should.equals(2);
+                res.body.administrators.list[0].name.should.equals('user Meier');
+                res.body.administrators.list[0].userId.should.equals('1');
+                res.body.administrators.list[1].name.should.equals('user Meier2');
+                res.body.administrators.list[1].userId.should.equals('2');
+                res.body.administrators.isAdmin.should.be.true;
 
                 res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.recommendation.user.rating.should.equals(5);
@@ -190,13 +191,13 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.actor[2].name.should.equals('user Meier2');
                 res.body.page.actor[2].userId.should.equals('2');
                 res.body.page.actor[2].isLoggedInUser.should.be.false;
-                res.body.administrators.length.should.equals(2);
-                res.body.administrators[0].name.should.equals('user Meier');
-                res.body.administrators[0].userId.should.equals('1');
-                res.body.administrators[0].isLoggedInUser.should.be.true;
-                res.body.administrators[1].name.should.equals('user Meier2');
-                res.body.administrators[1].userId.should.equals('2');
-                res.body.administrators[1].isLoggedInUser.should.be.false;
+                res.body.administrators.list.length.should.equals(2);
+                res.body.administrators.list[0].name.should.equals('user Meier');
+                res.body.administrators.list[0].userId.should.equals('1');
+                res.body.administrators.list[0].userIsAdmin.should.be.true;
+                res.body.administrators.list[1].name.should.equals('user Meier2');
+                res.body.administrators.list[1].userId.should.equals('2');
+                res.body.administrators.list[1].userIsAdmin.should.be.false;
             });
     });
 
@@ -237,10 +238,10 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.instructor[1].name.should.equals('user Meier2');
                 res.body.page.instructor[1].userId.should.equals('2');
                 res.body.page.instructor[1].isLoggedInUser.should.be.false;
-                res.body.administrators.length.should.equals(1);
-                res.body.administrators[0].name.should.equals('user Meier2');
-                res.body.administrators[0].userId.should.equals('2');
-                res.body.administrators[0].isLoggedInUser.should.be.false;
+                res.body.administrators.list.length.should.equals(1);
+                res.body.administrators.list[0].name.should.equals('user Meier2');
+                res.body.administrators.list[0].userId.should.equals('2');
+                res.body.administrators.list[0].userIsAdmin.should.be.false;
             });
     });
 
@@ -287,10 +288,10 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.pageReference.length.should.equals(1);
                 res.body.page.pageReference[0].title.should.equals('page4Title');
                 res.body.page.pageReference[0].previewUrl.should.equals('pages/CoursePage/0/pageTitlePicturePreview.jpg');
-                res.body.administrators.length.should.equals(1);
-                res.body.administrators[0].name.should.equals('user Meier2');
-                res.body.administrators[0].userId.should.equals('2');
-                res.body.administrators[0].isLoggedInUser.should.be.false;
+                res.body.administrators.list.length.should.equals(1);
+                res.body.administrators.list[0].name.should.equals('user Meier2');
+                res.body.administrators.list[0].userId.should.equals('2');
+                res.body.administrators.list[0].userIsAdmin.should.be.false;
             });
     });
 });

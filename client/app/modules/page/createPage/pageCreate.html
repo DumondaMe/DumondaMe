@@ -59,8 +59,10 @@
                         <h2>Existiert die Seite die Sie erstellen m&oumlchten bereits?</h2>
                     </div>
                 </div>
-                <div ng-repeat="pagePreview in page.pageSuggestions.pages">
-                    <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                <div id="page-preview-container">
+                    <div ng-repeat="pagePreview in page.pageSuggestions.pages">
+                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                    </div>
                 </div>
                 <div id="content-create-page-suggestion-commands">
                     <button type="submit"

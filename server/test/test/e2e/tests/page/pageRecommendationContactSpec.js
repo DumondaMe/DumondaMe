@@ -230,6 +230,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
                     res.body.pages[0].lastModified.should.equals(501);
+                    res.body.pages[0].isAdmin.should.be.true;
 
                     res.body.pages[0].recommendation.summary.all.numberOfRatings.should.equals(4);
                     res.body.pages[0].recommendation.summary.all.rating.should.equals(4);

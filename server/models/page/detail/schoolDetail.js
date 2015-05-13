@@ -48,7 +48,7 @@ var getSchoolDetail = function (pageId, userId) {
             resp[3][0].principal = resp[1];
             addPreviewToCourse(resp[3][0], resp[2]);
             detailTitlePicture.addTitlePicture(pageId, resp[3][0], 'SchoolPage');
-            return {page: resp[3][0], administrators: resp[0]};
+            return {page: resp[3][0], administrators: {list: resp[0]}};
         });
 };
 

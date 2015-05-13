@@ -1243,13 +1243,15 @@
     #page-preview-container .page-preview .page-preview-text {
       display: inline-block;
       vertical-align: top;
+      position: relative;
       padding-top: 10px;
       padding-left: 20px;
-      width: 300px;
+      width: 280px;
+      height: 100px;
       white-space: nowrap; }
       @media (min-width: 1400px) {
         #page-preview-container .page-preview .page-preview-text {
-          max-width: 450px; } }
+          width: 400px; } }
       #page-preview-container .page-preview .page-preview-text .page-preview-title {
         font-size: 16px;
         font-weight: bold;
@@ -1259,32 +1261,44 @@
         text-overflow: ellipsis; }
       #page-preview-container .page-preview .page-preview-text .page-preview-category {
         font-size: 12px; }
-      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview .page-preview-no-rating-overview-text {
-        font-style: italic; }
-      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview .page-preview-rating-overview-description {
-        margin-left: 5px;
-        display: inline-block; }
+      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact {
+        position: absolute;
+        bottom: 0px; }
+        #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all .page-preview-no-rating-overview-text, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact .page-preview-no-rating-overview-text {
+          font-style: italic; }
+        #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all .page-preview-rating-overview-description, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact .page-preview-rating-overview-description {
+          margin-left: 5px;
+          font-size: 12px;
+          display: inline-block; }
+      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact {
+        bottom: 20px; }
     #page-preview-container .page-preview .page-preview-user-recommendation {
       display: inline-block;
       vertical-align: top;
-      padding-top: 4px;
+      position: relative;
+      padding-top: 10px;
       padding-left: 20px;
-      width: 200px; }
+      width: 230px;
+      height: 100px; }
+      @media (min-width: 1400px) {
+        #page-preview-container .page-preview .page-preview-user-recommendation {
+          width: 400px; } }
       #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-add {
-        margin-top: 35px; }
+        position: absolute;
+        bottom: 0px; }
       #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove {
+        cursor: pointer;
+        position: absolute;
         display: inline-block;
-        height: 14px;
-        width: 14px;
-        cursor: pointer; }
+        left: 115px;
+        bottom: -5px; }
         #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove span.glyphicon-remove-circle {
-          font-size: 1.5em;
-          position: relative;
-          top: 7px; }
+          font-size: 1.5em; }
       #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
         display: inline-block;
-        width: 90px;
-        margin-bottom: 10px; }
+        position: absolute;
+        bottom: 0px;
+        width: 90px; }
       #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
         margin-top: 43px; }
       #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
@@ -1295,6 +1309,38 @@
         text-overflow: ellipsis;
         width: 150px;
         height: 55px; }
+    #page-preview-container .page-preview .page-preview-contact-recommendation {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      padding-top: 10px;
+      height: 100px;
+      width: 150px; }
+      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-thumbnail {
+        display: inline-block;
+        width: 34px;
+        height: 34px; }
+      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-name-description {
+        font-size: 12px;
+        position: absolute;
+        bottom: 20px; }
+      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-name {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        color: #009688;
+        overflow: hidden; }
+      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-user-recommendation-comment {
+        max-width: 150px;
+        height: 55px;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-rating {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%; }
 
 #content-recommendation-home {
   width: 100%;

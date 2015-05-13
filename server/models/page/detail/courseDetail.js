@@ -26,7 +26,7 @@ var getCourseDetail = function (pageId, userId) {
         .then(function (resp) {
             resp[2][0].instructor = resp[1];
             detailTitlePicture.addTitlePicture(pageId, resp[2][0], 'CoursePage');
-            return {page: resp[2][0], administrators: resp[0]};
+            return {page: resp[2][0], administrators: {list: resp[0]}};
         });
 };
 

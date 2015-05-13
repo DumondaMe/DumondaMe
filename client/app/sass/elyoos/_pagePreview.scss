@@ -23,11 +23,13 @@
     .page-preview-text {
       display: inline-block;
       vertical-align: top;
+      position: relative;
       padding-top: 10px;
       padding-left: 20px;
-      width: 300px;
+      width: 280px;
+      height: 100px;
       @include breakpoint(largeDesktop) {
-        max-width: 450px;
+        width: 400px;
       }
       white-space: nowrap;
       .page-preview-title {
@@ -42,45 +44,59 @@
         font-size: 12px;
       }
 
-      .page-preview-rating-overview {
+      .page-preview-rating-overview-all {
+        position: absolute;
+        bottom: 0px;
 
         .page-preview-no-rating-overview-text {
           font-style: italic;
         }
         .page-preview-rating-overview-description {
           margin-left: 5px;
+          font-size: 12px;
           display: inline-block;
         }
+      }
+
+      .page-preview-rating-overview-contact {
+        @extend .page-preview-rating-overview-all;
+        bottom: 20px;
       }
     }
 
     .page-preview-user-recommendation {
       display: inline-block;
       vertical-align: top;
-      padding-top: 4px;
+      position: relative;
+      padding-top: 10px;
       padding-left: 20px;
-      width: 200px;
+      width: 230px;
+      height: 100px;
+      @include breakpoint(largeDesktop) {
+        width: 400px;
+      }
 
       .page-preview-user-recommendation-add {
-        margin-top: 35px;
+        position: absolute;
+        bottom: 0px;
       }
 
       .page-preview-user-recommendation-remove {
-        display: inline-block;
-        height: 14px;
-        width:  14px;
         cursor: pointer;
+        position: absolute;
+        display: inline-block;
+        left: 115px;
+        bottom: -5px;
         span.glyphicon-remove-circle {
           font-size: 1.5em;
-          position: relative;
-          top: 7px;
         }
       }
 
       .page-preview-user-recommendation-rating {
         display: inline-block;
+        position: absolute;
+        bottom: 0px;
         width: 90px;
-        margin-bottom: 10px;
       }
       .page-preview-user-recommendation-no-comment {
         margin-top: 43px;
@@ -93,6 +109,50 @@
         text-overflow: ellipsis;
         width: 150px;
         height: 55px;
+      }
+    }
+
+    .page-preview-contact-recommendation {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      padding-top: 10px;
+      height: 100px;
+      width: 150px;
+
+      .page-preview-contact-recommendation-thumbnail {
+        display: inline-block;
+        width: 34px;
+        height: 34px;
+      }
+
+      .page-preview-contact-recommendation-name-description {
+        font-size: 12px;
+        position: absolute;
+        bottom: 20px;
+      }
+
+      .page-preview-contact-recommendation-name {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        color: $primary-color;
+        overflow: hidden;
+      }
+
+      .page-preview-user-recommendation-comment {
+        max-width: 150px;
+        height: 55px;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .page-preview-contact-recommendation-rating {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
       }
     }
   }
