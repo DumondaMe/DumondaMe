@@ -35,7 +35,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting the page overview', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 logger.info('Request all pages without filter', req);
-                return page.getPages(req.user.id, request.skip, request.maxItems, request.filters);
+                return page.getRecommendationContacts(req.user.id, request.skip, request.maxItems, request.filters);
             }).then(function (page) {
                 res.status(200).json(page);
             });

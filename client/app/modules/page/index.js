@@ -11,7 +11,7 @@ app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
 app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
-app.service('Page', require('./services/page'));
+app.service('PageRecommendationContact', require('./services/pageRecommendationContact'));
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('SearchPage', require('./services/searchPage'));
 app.service('PageCategories', require('./services/categories'));

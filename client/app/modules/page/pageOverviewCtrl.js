@@ -23,8 +23,8 @@ var getSelectedFilters = function ($scope) {
     return typesFilter;
 };
 
-module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
-    function ($scope, $state, Page, SearchPage, PageCategories) {
+module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories',
+    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories) {
 
         $scope.query = "";
         $scope.itemsPerPage = 30;
@@ -32,16 +32,20 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
 
         $scope.filters = [{description: 'Buch', filter: 'BookPage'}, {description: 'Video', filter: 'VideoPage'}];
 
-        $scope.getPages = function (skip) {
+        $scope.getRecommendationContacts = function (skip) {
 
             skip = (skip - 1) * $scope.itemsPerPage;
 
-            $scope.page = Page.get({maxItems: $scope.itemsPerPage, skip: skip, filterType: getSelectedFilters($scope)}, function () {
+            $scope.page = PageRecommendationContact.get({
+                maxItems: $scope.itemsPerPage,
+                skip: skip,
+                filters: getSelectedFilters($scope)
+            }, function () {
                 delete $scope.lastSearch;
                 setCategories($scope.page.pages, PageCategories);
             });
         };
-        $scope.getPages(1);
+        $scope.getRecommendationContacts(1);
 
         $scope.createNewPage = function () {
             $state.go('page.create');
@@ -58,7 +62,7 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
                     setCategories($scope.page.pages, PageCategories);
                 });
             } else {
-                $scope.getPages(1);
+                $scope.getRecommendationContacts(1);
             }
         };
 
@@ -66,7 +70,7 @@ module.exports = ['$scope', '$state', 'Page', 'SearchPage', 'PageCategories',
             if ($scope.lastSearch) {
                 $scope.searchPage($scope.lastSearch);
             } else {
-                $scope.getPages(1);
+                $scope.getRecommendationContacts(1);
             }
         };
 
