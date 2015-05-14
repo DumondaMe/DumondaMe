@@ -11,19 +11,20 @@ var tmp = require('tmp');
 var uploadImages = function (originalFilePath, label, pageId) {
     var preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
-        original = tmp.fileSync({postfix: '.jpg'});
-    return gm.gm(originalFilePath).resize(160).writeAsync(preview.name)
+        original = tmp.fileSync({postfix: '.jpg'}),
+        sigma = 0.5, amount = 0.7, threshold = 0;
+    return gm.gm(originalFilePath).resize(160).quality(90).unsharp(2 + sigma, sigma, amount, threshold).writeAsync(preview.name)
         .then(function () {
-            return gm.gm(originalFilePath).resize(300).writeAsync(normal.name);
+            return gm.gm(originalFilePath).resize(300).quality(94).unsharp(2 + sigma, sigma, amount, threshold).writeAsync(normal.name);
         })
         .then(function () {
             return gm.gm(originalFilePath).sizeAsync();
         })
         .then(function (size) {
-            if (size.height > 1000) {
-                return gm.gm(originalFilePath).resize(1000).writeAsync(original.name);
+            if (size.height > 600) {
+                return gm.gm(originalFilePath).resize(600).quality(92).unsharp(2 + sigma, sigma, amount, threshold).writeAsync(original.name);
             }
-            return gm.gm(originalFilePath).resize(size.height).writeAsync(original.name);
+            return gm.gm(originalFilePath).resize(size.height).quality(92).unsharp(2 + sigma, sigma, amount, threshold).writeAsync(original.name);
         })
         .then(function () {
             return cdn.uploadFile(preview.name, 'pages/' + label + '/' + pageId + '/pagePreview.jpg');

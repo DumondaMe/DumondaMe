@@ -6,19 +6,3 @@ MATCH (n:PracticePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:EventPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:BlogPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
 MATCH (n:StorePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-
-CREATE (:BookPage {title: 'Der Pfad des friedvollen Kriegers', language: 'de', description: 'Atemberaubende Erfahrungen und berührende Erlebnisse erwarten Sie auf dem Pfad des friedvollen Kriegers
-
-Ein absolutes Kultbuch – immer wieder als das beste Einstiegsbuch in die Welt der echten Spiritualität empfohlen. Folgen Sie dem Autor auf seinem Weg, der ebenso atemberaubende wie berührende Erlebnisse auch für Sie bereit hält. Seite für Seite werden Sie zu einer neuen, faszinierenden Bewusstheit heranwachsen.
-
-Wer war »Socrates«? Ein Zauberer, ein Schamane, ein Erleuchteter? Oder einfach nur ein wunderlicher alter Mann, den Dan Millman vor Jahren an einer Tankstelle traf und den er mit viel Phantasie zur literarischen Idealgestalt des friedvollen Kriegers formte?
-
-Es spielt im Grund keine Rolle, wer »Socrates« war und ob es ihn überhaupt je gegeben hat, denn es ist eine innere Reise, auf die uns Dan Millman mitnimmt. Inmitten des Lärms, der Hetze und des Drucks unseres Alltags lebt sie im verborgenen weiter: die Kraft, die Weisheit und die Genialität des Friedvollen Kriegers – in jedem einzelnen von uns.
-
-Dieses Buch lässt das Bewusstsein in die höchsten Höhen des Wunderbaren aufsteigen und bleibt doch ganz und gar irdisch, praktisch und verständlich. Der Humor, die Spannung und die Inspiration dieser unglaublichen, dabei absolut glaubwürdigen Geschichte sorgen dafür, dass die Reise zu uns selbst zum kostbaren, unvergesslichen Erlebnis wird. Folgen Sie dem Autor auf seinem Weg, und Sie werden selbst Seite für Seite zu einer neuen faszinierenden Bewusstheit heranwachsen.', author: 'Dan Millman', created: 1424692757, pageId: '0'});
-MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);
-MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_ADMIN]->(page);
-MATCH (page:BookPage {pageId: '0'}), (user:User {userId: '3'}) CREATE (user)-[:IS_AUTHOR]->(page);
-
-CREATE (:VideoPage {title: 'Im Zeichen der Libelle', language: 'de', created: 1424692757 - 100, duration: 6240, description: 'Mysteriöse Zeichen treiben Dr. Joe Darrow nach dem tragischen Tod seiner Frau Emily im Dschungel von Venezuela an den Rand der Verzweiflung. Emily war Zeit ihres Lebens fasziniert von Libellen und plötzlich ereignen sich merkwürdige Dinge, für die es einfach keine logische Erklärung gibt. Joe ist überzeugt, dass Emily Kontakt mit ihm aufnehmen will. Die Ereignisse überstürzen sich und führen ihn schließlich nach Venezuela, wo er eine unglaubliche Entdeckung macht...', actor: 'Kevin Costner', link: 'http://de.wikipedia.org/wiki/Im_Zeichen_der_Libelle', pageId: '1'});
-MATCH (page:VideoPage {pageId: '1'}), (user:User {userId: '0'}) CREATE (user)-[:IS_ADMIN]->(page);

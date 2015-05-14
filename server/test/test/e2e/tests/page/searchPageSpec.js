@@ -33,28 +33,34 @@ describe('Integration Tests for searching Pages', function () {
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
-        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', created: 501, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page1', created: 501, pageId: '2'})").end().getCommand());
-        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', modified: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', modified: 502, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page1', modified: 503, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page1', modified: 504, pageId: '0'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(a)-[:IS_CONTACT]->(b)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
             .create("(a)-[:IS_CONTACT]->(b)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 2, recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, rating: 1, recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 2, recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 2, recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 503, rating: 5, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '4'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, rating: 5, recommendationId: '4'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, rating: 5, recommendationId: '5'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:BookPage {pageId: '0'})")
@@ -80,26 +86,23 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
                     res.body.pages[0].lastModified.should.equals(501);
 
-                    res.body.pages[0].recommendation.summary.all.numberOfRatings.should.equals(3);
+                    res.body.pages[0].recommendation.summary.all.numberOfRatings.should.equals(4);
                     res.body.pages[0].recommendation.summary.all.rating.should.equals(4);
-                    res.body.pages[0].recommendation.summary.contact.numberOfRatings.should.equals(1);
-                    res.body.pages[0].recommendation.summary.contact.rating.should.equals(2);
-                    res.body.pages[0].recommendation.user.recommendationId.should.equals('0');
-                    res.body.pages[0].recommendation.user.comment.should.equals('irgendwas');
-                    res.body.pages[0].recommendation.user.rating.should.equals(5);
+                    res.body.pages[0].recommendation.summary.contact.numberOfRatings.should.equals(2);
+                    res.body.pages[0].recommendation.summary.contact.rating.should.equals(3);
 
                 });
             });
     });
 
-    it('Searching for a book title without filters- Return 200', function () {
+    it('Searching for a title without filters- Return 200', function () {
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 503, pageId: '0'})").end().getCommand());
-        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', created: 501, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page3', created: 502, pageId: '2'})").end().getCommand());
-        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page4', created: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'en', description: 'page3', modified: 502, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', language: 'de', description: 'page4', modified: 501, pageId: '0'})").end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:BookPage {pageId: '0'})")
             .create("(a)-[:IS_ADMIN]->(b)")

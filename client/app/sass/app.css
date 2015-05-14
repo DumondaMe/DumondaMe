@@ -1226,7 +1226,8 @@
   display: inline-block;
   vertical-align: top;
   width: 160px;
-  margin-right: 20px; }
+  margin-right: 20px;
+  margin-bottom: 20px; }
   #page-preview-container .page-preview-container-inner .page-preview {
     position: relative;
     cursor: pointer;

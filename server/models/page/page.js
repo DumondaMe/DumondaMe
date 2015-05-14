@@ -33,60 +33,29 @@ var addRecommendation = function (previews) {
                     rating: preview.contactRating
                 }
             },
-            user: {
-                recommendationId: preview.userRecRecommendationId,
-                comment: preview.userRecComment,
-                rating: preview.userRecRating
-            },
-            contact: {
-                name: preview.contactRecUserName,
-                url: cdn.getUrl('profileImage/' + preview.contactRecUserId + '/thumbnail.jpg'),
-                date: preview.contactRecDate,
-                comment: preview.contactRecComment,
-                rating: preview.contactRecRating
-            }
         };
 
         delete preview.allNumberOfRatings;
         delete preview.allRating;
         delete preview.contactNumberOfRatings;
         delete preview.contactRating;
-
-        delete preview.userRecComment;
-        delete preview.userRecRecommendationId;
-        delete preview.userRecRating;
-
-        delete preview.contactRecComment;
-        delete preview.contactRecRating;
-        delete preview.contactRecUserName;
-        delete preview.contactRecUserId;
-        delete preview.contactRecDate;
     });
 };
 
-var pageOverviewQuery = function (params, orderBy, startQuery) {
+var pageOverviewQuery = function (params, orderBy, startWith, startQuery, modifiedReturn) {
 
     return startQuery
-        .with("page, contactRec, contact")
+        //Calculating the recommendation summary statistic
+        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
+        .with(startWith + ", count(rec) AS allNumberOfRatings, AVG(rec.rating) AS allRating")
+        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+        .with(startWith + ", allNumberOfRatings, allRating, count(rec) AS contactNumberOfRatings, AVG(rec.rating) AS contactRating")
+        .return("page.pageId AS pageId, page.description AS description, page.title AS title, LABELS(page) AS types, " + modifiedReturn +
+        "page.language AS language, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating, " +
+        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
         .limit("{limit}")
-        //Calculating the recommendation summary statistic
-        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
-        .with("page, contactRec, contact, count(rec) AS allNumberOfRatings, AVG(rec.rating) AS allRating")
-        .orderBy(orderBy)
-        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .with("page, contactRec, contact, allNumberOfRatings, allRating, count(rec) AS contactNumberOfRatings, AVG(rec.rating) AS contactRating")
-        .orderBy(orderBy)
-        //Get If available user recommendation
-        .optionalMatch("(page)<-[:RECOMMENDS]-(userRec:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})")
-        .with("page, contactRec, contact, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating, userRec")
-        .return("page.pageId AS pageId, page.description AS description, page.title AS title, LABELS(page) AS types, page.created AS lastModified, " +
-        "page.language AS language, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating," +
-        "userRec.comment AS userRecComment, userRec.recommendationId AS userRecRecommendationId, userRec.rating AS userRecRating, " +
-        "contact.name AS contactRecUserName, contact.userId AS contactRecUserId, contactRec.created AS contactRecDate, " +
-        "contactRec.rating AS contactRecRating, contactRec.comment AS contactRecComment, " +
-        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .end(params)
         .send()
         .then(function (resp) {
@@ -114,7 +83,7 @@ var getFilterQuery = function (filters) {
 
 var searchPage = function (userId, search, filterType, filterLanguage, isSuggestion) {
 
-    var orderBy = "page.created DESC",
+    var orderBy = "page.modified DESC",
         startQuery = db.cypher(),
         searchRegEx = '(?i).*'.concat(search, '.*'),
         filterQuery = getFilterQuery(filterType),
@@ -126,25 +95,35 @@ var searchPage = function (userId, search, filterType, filterLanguage, isSuggest
 
     startQuery.match("(page)")
         .where("(" + filterQuery + ") AND page.title =~ {search} " + filterLanguageQuery)
-        .with("page")
-        .optionalMatch("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})");
+        .with("page");
 
-    return pageOverviewQuery({userId: userId, skip: 0, limit: 20, search: searchRegEx}, orderBy, startQuery);
+    return pageOverviewQuery({
+        userId: userId,
+        skip: 0,
+        limit: 20,
+        search: searchRegEx
+    }, orderBy, "page", startQuery, "page.modified AS lastModified,");
 };
 
 var getRecommendationContacts = function (userId, skip, limit, filters) {
 
     var orderBy = "contactRec.created DESC",
         startQuery = db.cypher(),
-        filterQuery = getFilterQuery(filters);
+        filterQuery = getFilterQuery(filters),
+        withCommand = "page, contactRec";
 
     startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, max(contactRec.created) AS created")
         .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .where("contactRec.created = created");
+        .where("contactRec.created = created")
+        .with(withCommand);
 
-    return pageOverviewQuery({userId: userId, skip: skip, limit: limit}, orderBy, startQuery);
+    return pageOverviewQuery({
+        userId: userId,
+        skip: skip,
+        limit: limit
+    }, orderBy, withCommand, startQuery, "contactRec.created AS lastModified,");
 };
 
 module.exports = {
