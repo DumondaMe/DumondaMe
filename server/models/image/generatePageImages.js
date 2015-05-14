@@ -12,18 +12,18 @@ var uploadImages = function (originalFilePath, label, pageId) {
     var preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         original = tmp.fileSync({postfix: '.jpg'});
-    return gm.gm(originalFilePath).resize(null, 100).writeAsync(preview.name)
+    return gm.gm(originalFilePath).resize(160).writeAsync(preview.name)
         .then(function () {
-            return gm.gm(originalFilePath).resize(null, 300).writeAsync(normal.name);
+            return gm.gm(originalFilePath).resize(300).writeAsync(normal.name);
         })
         .then(function () {
             return gm.gm(originalFilePath).sizeAsync();
         })
         .then(function (size) {
             if (size.height > 1000) {
-                return gm.gm(originalFilePath).resize(null, 1000).writeAsync(original.name);
+                return gm.gm(originalFilePath).resize(1000).writeAsync(original.name);
             }
-            return gm.gm(originalFilePath).resize(null, size.height).writeAsync(original.name);
+            return gm.gm(originalFilePath).resize(size.height).writeAsync(original.name);
         })
         .then(function () {
             return cdn.uploadFile(preview.name, 'pages/' + label + '/' + pageId + '/pagePreview.jpg');

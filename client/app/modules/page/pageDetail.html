@@ -70,12 +70,16 @@
                             </div>
                         </div>
                         <div class="page-detail-header-commands" ng-controller="AddRemoveRecommendationCtrl">
-                            <button class="btn btn-default" type="button" ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
+                            <button class="btn btn-default" type="button"
+                                    ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
                                     ng-hide="pageDetail.recommendation.user">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
                             </button>
                             <button class="btn btn-default" type="button" ng-click="removeRecommendation(pageDetail, pageId, label)"
                                     ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
+                            </button>
+                            <button class="btn btn-default" type="button" ng-click="editPage(pageId, label)"
+                                    ng-show="pageDetail.administrators.isAdmin"> Seite editieren
                             </button>
                         </div>
                         <div class="page-detail-header-rating-overviews">

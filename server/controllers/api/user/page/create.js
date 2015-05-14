@@ -38,7 +38,7 @@ var schemaRequestCreatePage = {
     definitions: {
         language: {enum: ['de', 'en', 'fr', 'it', 'es']},
         title: {type: 'string', format: 'notEmptyString', maxLength: 255},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+        description: {type: 'string', format: 'notEmptyString', maxLength: 10000}
     }
 };
 

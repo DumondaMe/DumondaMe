@@ -1,158 +1,48 @@
 #page-preview-container {
-  width: 100%;
 
-  .page-preview {
+  .page-preview-container-inner {
+    display: inline-block;
+    vertical-align: top;
+    width: 160px;
+    margin-right: 20px;
 
-    border-bottom: 1px solid $divider-light;
-    height: 110px;
-    width: 100%;
-
-    .page-preview-image {
-      height: 110px;
-      width: 120px;
-      display: inline-block;
-      vertical-align: top;
+    .page-preview {
+      position: relative;
       cursor: pointer;
+      width: 160px;
+      height: 330px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+      background-color: white;
 
-      img {
-        height: 100px;
-        max-width: 120px;
-        padding-top: 10px;
+      .page-preview-image-container {
+        width: 160px;
+        height: 255px;
+        display: table-cell;
+        vertical-align: middle;
+        .page-preview-image {
+          width: 100%;
+          max-height: 255px;
+        }
       }
-    }
-    .page-preview-text {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      padding-left: 20px;
-      width: 280px;
-      height: 100px;
-      @include breakpoint(largeDesktop) {
-        width: 400px;
-      }
-      white-space: nowrap;
+
       .page-preview-title {
-        font-size: 16px;
-        font-weight: bold;
+        margin-top: 10px;
+        padding: 0 10px;
+        font-size: 15px;
+        width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         color: $primary-color;
-        cursor: pointer;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
-      .page-preview-category {
-        font-size: 12px;
-      }
+      .page-preview-description {
 
-      .page-preview-rating-overview-all {
+      }
+      .page-preview-rating {
         position: absolute;
-        bottom: 0px;
-
-        .page-preview-no-rating-overview-text {
-          font-style: italic;
-        }
-        .page-preview-rating-overview-description {
-          margin-left: 5px;
-          font-size: 12px;
-          display: inline-block;
-        }
-      }
-
-      .page-preview-rating-overview-contact {
-        @extend .page-preview-rating-overview-all;
-        bottom: 20px;
-      }
-    }
-
-    .page-preview-user-recommendation {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      padding-left: 20px;
-      width: 230px;
-      height: 100px;
-      @include breakpoint(largeDesktop) {
-        width: 400px;
-      }
-
-      .page-preview-user-recommendation-add {
-        position: absolute;
-        bottom: 0px;
-      }
-
-      .page-preview-user-recommendation-remove {
-        cursor: pointer;
-        position: absolute;
-        display: inline-block;
-        left: 115px;
-        bottom: -5px;
-        span.glyphicon-remove-circle {
-          font-size: 1.5em;
-        }
-      }
-
-      .page-preview-user-recommendation-rating {
-        display: inline-block;
-        position: absolute;
-        bottom: 0px;
-        width: 90px;
-      }
-      .page-preview-user-recommendation-no-comment {
-        margin-top: 43px;
-      }
-      .page-preview-user-recommendation-comment {
-        font-size: 13px;
-        font-style: italic;
-        word-wrap: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 150px;
-        height: 55px;
-      }
-    }
-
-    .page-preview-contact-recommendation {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      height: 100px;
-      width: 150px;
-
-      .page-preview-contact-recommendation-thumbnail {
-        display: inline-block;
-        width: 34px;
-        height: 34px;
-      }
-
-      .page-preview-contact-recommendation-name-description {
-        font-size: 12px;
-        position: absolute;
-        bottom: 20px;
-      }
-
-      .page-preview-contact-recommendation-name {
-        display: inline-block;
-        font-size: 14px;
-        font-weight: bold;
-        color: $primary-color;
-        overflow: hidden;
-      }
-
-      .page-preview-user-recommendation-comment {
-        max-width: 150px;
-        height: 55px;
-        word-wrap: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .page-preview-contact-recommendation-rating {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width: 100%;
+        bottom: 5px;
+        left: 10px;
       }
     }
   }

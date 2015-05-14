@@ -1178,7 +1178,8 @@
 
 #content {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  background-color: #F4F4F4; }
   #content #content-page-overview {
     width: 100%;
     height: 100%; }
@@ -1224,123 +1225,40 @@
           margin-bottom: 0;
           margin-top: 10px; }
 
-#page-preview-container {
-  width: 100%; }
-  #page-preview-container .page-preview {
-    border-bottom: 1px solid #e7e7e7;
-    height: 110px;
-    width: 100%; }
-    #page-preview-container .page-preview .page-preview-image {
-      height: 110px;
-      width: 120px;
-      display: inline-block;
-      vertical-align: top;
-      cursor: pointer; }
-      #page-preview-container .page-preview .page-preview-image img {
-        height: 100px;
-        max-width: 120px;
-        padding-top: 10px; }
-    #page-preview-container .page-preview .page-preview-text {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      padding-left: 20px;
-      width: 280px;
-      height: 100px;
-      white-space: nowrap; }
-      @media (min-width: 1400px) {
-        #page-preview-container .page-preview .page-preview-text {
-          width: 400px; } }
-      #page-preview-container .page-preview .page-preview-text .page-preview-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #009688;
-        cursor: pointer;
-        overflow: hidden;
-        text-overflow: ellipsis; }
-      #page-preview-container .page-preview .page-preview-text .page-preview-category {
-        font-size: 12px; }
-      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact {
-        position: absolute;
-        bottom: 0px; }
-        #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all .page-preview-no-rating-overview-text, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact .page-preview-no-rating-overview-text {
-          font-style: italic; }
-        #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-all .page-preview-rating-overview-description, #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact .page-preview-rating-overview-description {
-          margin-left: 5px;
-          font-size: 12px;
-          display: inline-block; }
-      #page-preview-container .page-preview .page-preview-text .page-preview-rating-overview-contact {
-        bottom: 20px; }
-    #page-preview-container .page-preview .page-preview-user-recommendation {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      padding-left: 20px;
-      width: 230px;
-      height: 100px; }
-      @media (min-width: 1400px) {
-        #page-preview-container .page-preview .page-preview-user-recommendation {
-          width: 400px; } }
-      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-add {
-        position: absolute;
-        bottom: 0px; }
-      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove {
-        cursor: pointer;
-        position: absolute;
-        display: inline-block;
-        left: 115px;
-        bottom: -5px; }
-        #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-remove span.glyphicon-remove-circle {
-          font-size: 1.5em; }
-      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-rating {
-        display: inline-block;
-        position: absolute;
-        bottom: 0px;
-        width: 90px; }
-      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-no-comment {
-        margin-top: 43px; }
-      #page-preview-container .page-preview .page-preview-user-recommendation .page-preview-user-recommendation-comment {
-        font-size: 13px;
-        font-style: italic;
-        word-wrap: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 150px;
-        height: 55px; }
-    #page-preview-container .page-preview .page-preview-contact-recommendation {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding-top: 10px;
-      height: 100px;
-      width: 150px; }
-      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-thumbnail {
-        display: inline-block;
-        width: 34px;
-        height: 34px; }
-      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-name-description {
-        font-size: 12px;
-        position: absolute;
-        bottom: 20px; }
-      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-name {
-        display: inline-block;
-        font-size: 14px;
-        font-weight: bold;
-        color: #009688;
-        overflow: hidden; }
-      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-user-recommendation-comment {
-        max-width: 150px;
-        height: 55px;
-        word-wrap: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis; }
-      #page-preview-container .page-preview .page-preview-contact-recommendation .page-preview-contact-recommendation-rating {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width: 100%; }
+#page-preview-container .page-preview-container-inner {
+  display: inline-block;
+  vertical-align: top;
+  width: 160px;
+  margin-right: 20px; }
+  #page-preview-container .page-preview-container-inner .page-preview {
+    position: relative;
+    cursor: pointer;
+    width: 160px;
+    height: 330px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    background-color: white; }
+    #page-preview-container .page-preview-container-inner .page-preview .page-preview-image-container {
+      width: 160px;
+      height: 255px;
+      display: table-cell;
+      vertical-align: middle; }
+      #page-preview-container .page-preview-container-inner .page-preview .page-preview-image-container .page-preview-image {
+        width: 100%;
+        max-height: 255px; }
+    #page-preview-container .page-preview-container-inner .page-preview .page-preview-title {
+      margin-top: 10px;
+      padding: 0 10px;
+      font-size: 15px;
+      width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #009688; }
+    #page-preview-container .page-preview-container-inner .page-preview .page-preview-rating {
+      position: absolute;
+      bottom: 5px;
+      left: 10px; }
 
 #content-recommendation-home {
   width: 100%;
