@@ -36,7 +36,7 @@
 
       .button-leftNavCol-active-white {
         @extend .button-leftNavCol-active;
-        border-right: 10px solid white;
+        border-right: 10px solid $background-normal;
       }
     }
 

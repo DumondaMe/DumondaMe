@@ -1610,9 +1610,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"nav-sub-element\" ui-sref=\"page.overview\">\n" +
     "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"page.overview\"></div>\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"page.overview\"></div>\n" +
     "    </div>\n" +
     "    <img src=\"app/img/page/overview.png\">\n" +
+    "</div>\n" +
+    "<div class=\"nav-sub-element\" ui-sref=\"page.create\">\n" +
+    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"page.create\"></div>\n" +
+    "    </div>\n" +
+    "    <img src=\"app/img/page/pageCreate.png\">\n" +
     "</div>\n" +
     "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
     "    <img src=\"app/img/home.png\">\n" +
@@ -1882,11 +1888,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div id=\"page-preview-container\">\r" +
+    "            <div ng-show=\"page.pages.length > 0\">\r" +
     "\n" +
-    "                <div ng-repeat=\"pagePreview in page.pages\" class=\"page-preview-container-inner\">\r" +
+    "                <h1 class=\"page-overview-title\">Neuste Bewertungen deiner Kontakte</h1>\r" +
     "\n" +
-    "                    <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\r" +
+    "\n" +
+    "                <div class=\"page-preview-container\">\r" +
+    "\n" +
+    "                    <div ng-repeat=\"pagePreview in page.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

@@ -1,9 +1,11 @@
-#page-preview-container {
-
-  .page-preview-container-inner {
+.page-preview-container {
+  height: 350px;
+  overflow: hidden;
+  .page-preview-inner-container{
     display: inline-block;
     vertical-align: top;
     width: 160px;
+    overflow: hidden;
     margin-right: 20px;
     margin-bottom: 20px;
 
@@ -12,9 +14,10 @@
       cursor: pointer;
       width: 160px;
       height: 330px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
       border-radius: 2px;
-      background-color: white;
+      background: white;
 
       .page-preview-image-container {
         width: 160px;

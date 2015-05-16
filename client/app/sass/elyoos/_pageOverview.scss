@@ -2,6 +2,7 @@
 
   width: 100%;
   height: 100%;
+  min-width: 1000px;
 
   #content-page-overview {
 
@@ -11,9 +12,19 @@
     @include centerColumn(340px) {
       #inner-centerCol {
         position: relative;
-        width: 800px;
+        min-width: 800px;
+        max-width: 1600px;
         height: 100%;
-        margin: 0 auto;
+        padding-left: 50px;
+
+        h1.page-overview-title {
+          margin-top: 0px;
+          margin-bottom: 20px;
+          font-size: 28px;
+          font-style: normal;
+          font-variant: normal;
+          font-weight: 100;
+        }
 
         @include breakpoint(largeDesktop) {
           width: 1110px;
