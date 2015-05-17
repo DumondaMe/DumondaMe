@@ -1504,7 +1504,7 @@
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, UILanguageFont, Arial, sans-serif; }
+  font-family: Roboto, Arial, sans-serif; }
 
 #viewport {
   width: 100%;

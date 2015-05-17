@@ -1990,9 +1990,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.summary.contact.numberOfRatings > 0\"\r" +
+    "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\"\r" +
     "\n" +
-    "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.rating\"></ely-star-rating>\r" +
     "\n" +
     "</div>"
   );

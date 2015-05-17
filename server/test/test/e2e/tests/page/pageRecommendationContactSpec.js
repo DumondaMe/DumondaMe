@@ -88,39 +88,30 @@ describe('Integration Tests for getting the overview of contact recommended page
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(9);
-                    res.body.pages[0].description.should.equals('page2');
                     res.body.pages[0].pageId.should.equals('1');
                     res.body.pages[0].label.should.equals('VideoPage');
 
-                    res.body.pages[1].description.should.equals('page1');
                     res.body.pages[1].pageId.should.equals('0');
                     res.body.pages[1].label.should.equals('BookPage');
 
-                    res.body.pages[2].description.should.equals('page3');
                     res.body.pages[2].pageId.should.equals('2');
                     res.body.pages[2].label.should.equals('SchoolPage');
 
-                    res.body.pages[3].description.should.equals('page4');
                     res.body.pages[3].pageId.should.equals('3');
                     res.body.pages[3].label.should.equals('CoursePage');
 
-                    res.body.pages[4].description.should.equals('page5');
                     res.body.pages[4].pageId.should.equals('4');
                     res.body.pages[4].label.should.equals('CoursePage');
 
-                    res.body.pages[5].description.should.equals('page6');
                     res.body.pages[5].pageId.should.equals('5');
                     res.body.pages[5].label.should.equals('PracticePage');
 
-                    res.body.pages[6].description.should.equals('page7');
                     res.body.pages[6].pageId.should.equals('6');
                     res.body.pages[6].label.should.equals('EventPage');
 
-                    res.body.pages[7].description.should.equals('page8');
                     res.body.pages[7].pageId.should.equals('7');
                     res.body.pages[7].label.should.equals('BlogPage');
 
-                    res.body.pages[8].description.should.equals('page9');
                     res.body.pages[8].pageId.should.equals('8');
                     res.body.pages[8].label.should.equals('StorePage');
                 });
@@ -178,7 +169,6 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(1);
 
-                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
                 });
@@ -223,19 +213,15 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.status.should.equal(200);
 
                     res.body.pages.length.should.equals(1);
-                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
-                    res.body.pages[0].lastModified.should.equals(502);
                     res.body.pages[0].isAdmin.should.be.true;
 
-                    res.body.pages[0].recommendation.summary.all.numberOfRatings.should.equals(4);
-                    res.body.pages[0].recommendation.summary.all.rating.should.equals(4);
-                    res.body.pages[0].recommendation.summary.contact.numberOfRatings.should.equals(2);
-                    res.body.pages[0].recommendation.summary.contact.rating.should.equals(3.5);
+                    res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(2);
+                    res.body.pages[0].recommendation.summary.rating.should.equals(3.5);
                 });
             });
     });

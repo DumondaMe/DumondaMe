@@ -11,16 +11,12 @@ var schemaGetPage = {
     name: 'getPage',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems'],
+    required: ['skip', 'maxItems', 'onlyContacts', 'category'],
     properties: {
         skip: {type: 'integer', minimum: 0, maximum: 50},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
-        filters: {
-            type: 'array',
-            items: {enum: ['BookPage', 'VideoPage']},
-            minItems: 1,
-            uniqueItems: true
-        }
+        onlyContacts: {type: 'boolean'},
+        category: {enum: ['BookPage', 'VideoPage']}
     }
 };
 
@@ -28,14 +24,10 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        if (req.query.filters && typeof req.query.filters === 'string') {
-            req.query.filters = req.query.filters.split(',');
-        }
-
-        return controllerErrors('Error occurs when getting contact recommendations', req, res, logger, function () {
+        return controllerErrors('Error occurs when getting popular pages', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
-                logger.info('Request contact recommendations', req);
-                return page.getRecommendationContacts(req.user.id, request.skip, request.maxItems, request.filters);
+                logger.info('Request popular pages', req);
+                return page.getPopularPages(req.user.id, request.skip, request.maxItems, request.onlyContacts, request.category);
             }).then(function (page) {
                 res.status(200).json(page);
             });

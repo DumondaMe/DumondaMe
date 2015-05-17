@@ -78,18 +78,14 @@ describe('Integration Tests for searching Pages', function () {
                     res.status.should.equal(200);
 
                     res.body.pages.length.should.equals(1);
-                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
-                    res.body.pages[0].lastModified.should.equals(501);
 
-                    res.body.pages[0].recommendation.summary.all.numberOfRatings.should.equals(4);
-                    res.body.pages[0].recommendation.summary.all.rating.should.equals(4);
-                    res.body.pages[0].recommendation.summary.contact.numberOfRatings.should.equals(2);
-                    res.body.pages[0].recommendation.summary.contact.rating.should.equals(3);
+                    res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(4);
+                    res.body.pages[0].recommendation.summary.rating.should.equals(4);
 
                 });
             });
@@ -117,29 +113,23 @@ describe('Integration Tests for searching Pages', function () {
                     res.status.should.equal(200);
 
                     res.body.pages.length.should.equals(3);
-                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
-                    res.body.pages[0].lastModified.should.equals(503);
 
-                    res.body.pages[1].description.should.equals('page3');
                     res.body.pages[1].title.should.equals('page1Title');
                     res.body.pages[1].pageId.should.equals('2');
                     res.body.pages[1].label.should.equals('BookPage');
                     res.body.pages[1].language.should.equals('en');
                     res.body.pages[1].url.should.equals('pages/BookPage/2/pagePreview.jpg');
-                    res.body.pages[1].lastModified.should.equals(502);
 
-                    res.body.pages[2].description.should.equals('page4');
                     res.body.pages[2].title.should.equals('page1Title');
                     res.body.pages[2].pageId.should.equals('0');
                     res.body.pages[2].label.should.equals('VideoPage');
                     res.body.pages[2].language.should.equals('de');
                     res.body.pages[2].url.should.equals('pages/VideoPage/0/pagePreview.jpg');
-                    res.body.pages[2].lastModified.should.equals(501);
                 });
             });
     });

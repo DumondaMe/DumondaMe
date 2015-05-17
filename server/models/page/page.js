@@ -24,34 +24,21 @@ var addRecommendation = function (previews) {
 
         preview.recommendation = {
             summary: {
-                all: {
-                    numberOfRatings: preview.allNumberOfRatings,
-                    rating: preview.allRating
-                },
-                contact: {
-                    numberOfRatings: preview.contactNumberOfRatings,
-                    rating: preview.contactRating
-                }
-            },
+                numberOfRatings: preview.numberOfRatings,
+                rating: preview.rating
+            }
         };
 
-        delete preview.allNumberOfRatings;
-        delete preview.allRating;
-        delete preview.contactNumberOfRatings;
-        delete preview.contactRating;
+        delete preview.numberOfRatings;
+        delete preview.rating;
     });
 };
 
-var pageOverviewQuery = function (params, orderBy, startWith, startQuery, modifiedReturn) {
+var pagePreviewQuery = function (params, orderBy, startQuery) {
 
     return startQuery
-        //Calculating the recommendation summary statistic
-        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
-        .with(startWith + ", count(rec) AS allNumberOfRatings, AVG(rec.rating) AS allRating")
-        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .with(startWith + ", allNumberOfRatings, allRating, count(rec) AS contactNumberOfRatings, AVG(rec.rating) AS contactRating")
-        .return("page.pageId AS pageId, page.description AS description, page.title AS title, LABELS(page) AS types, " + modifiedReturn +
-        "page.language AS language, allNumberOfRatings, allRating, contactNumberOfRatings, contactRating, " +
+        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, " +
+        "numberOfRatings, rating, " +
         "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
@@ -95,38 +82,58 @@ var searchPage = function (userId, search, filterType, filterLanguage, isSuggest
 
     startQuery.match("(page)")
         .where("(" + filterQuery + ") AND page.title =~ {search} " + filterLanguageQuery)
-        .with("page");
+        .with("page")
+        .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
+        .with("page, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
 
-    return pageOverviewQuery({
+    return pagePreviewQuery({
         userId: userId,
         skip: 0,
         limit: 20,
         search: searchRegEx
-    }, orderBy, "page", startQuery, "page.modified AS lastModified,");
+    }, orderBy, startQuery);
 };
 
 var getRecommendationContacts = function (userId, skip, limit, filters) {
 
     var orderBy = "contactRec.created DESC",
         startQuery = db.cypher(),
-        filterQuery = getFilterQuery(filters),
-        withCommand = "page, contactRec";
+        filterQuery = getFilterQuery(filters);
 
-    startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+    startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, max(contactRec.created) AS created")
         .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("contactRec.created = created")
-        .with(withCommand);
+        .with("page, contactRec")
+        .match("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+        .with("page, contactRec, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
 
-    return pageOverviewQuery({
+    return pagePreviewQuery({
         userId: userId,
         skip: skip,
         limit: limit
-    }, orderBy, withCommand, startQuery, "contactRec.created AS lastModified,");
+    }, orderBy, startQuery);
+};
+
+var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
+
+    var orderBy = "rating DESC, numberOfRatings DESC",
+        startQuery = db.cypher();
+
+        startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+        .where("page:" + pageType)
+        .with("page, AVG(contactRec.rating) AS rating, COUNT(contactRec) AS numberOfRatings");
+
+    return pagePreviewQuery({
+        userId: userId,
+        skip: skip,
+        limit: limit
+    }, orderBy, startQuery);
 };
 
 module.exports = {
     getRecommendationContacts: getRecommendationContacts,
+    getPopularPages: getPopularPages,
     searchPage: searchPage
 };
