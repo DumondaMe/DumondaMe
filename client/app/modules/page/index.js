@@ -14,6 +14,7 @@ app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendation
 app.service('PageRecommendationContact', require('./services/pageRecommendationContact'));
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('SearchPage', require('./services/searchPage'));
+app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 
 app.config(['$stateProvider', function ($stateProvider) {

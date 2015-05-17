@@ -23,8 +23,8 @@ var getSelectedFilters = function ($scope) {
     return typesFilter;
 };
 
-module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories',
-    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories) {
+module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories', 'PopularPages',
+    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories, PopularPages) {
 
         $scope.query = "";
         $scope.itemsPerPage = 30;
@@ -36,16 +36,29 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
             skip = (skip - 1) * $scope.itemsPerPage;
 
-            $scope.page = PageRecommendationContact.get({
+            $scope.newestPages = PageRecommendationContact.get({
                 maxItems: $scope.itemsPerPage,
-                skip: skip,
-                filters: getSelectedFilters($scope)
+                skip: skip
             }, function () {
-                delete $scope.lastSearch;
-                setCategories($scope.page.pages, PageCategories);
+                setCategories($scope.newestPages.pages, PageCategories);
             });
         };
-        $scope.getRecommendationContacts(1);
+
+        $scope.getPopularBooks = function (skip, isContact, store) {
+
+            skip = (skip - 1) * $scope.itemsPerPage;
+
+
+            $scope[store] = PopularPages.get({
+                maxItems: $scope.itemsPerPage,
+                skip: skip,
+                onlyContacts: isContact,
+                category: 'BookPage'
+            }, function () {
+                setCategories($scope[store].pages, PageCategories);
+            });
+        };
+
 
         $scope.createNewPage = function () {
             $state.go('page.create');
@@ -53,20 +66,27 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
         $scope.searchPage = function (searchValue) {
             if (searchValue && searchValue.trim().length > 0) {
-                $scope.page = SearchPage.get({
+                $scope.search = SearchPage.get({
                     search: searchValue,
-                    filterType: getSelectedFilters($scope),
                     isSuggestion: false
                 }, function () {
-                    $scope.lastSearch = searchValue;
-                    setCategories($scope.page.pages, PageCategories);
+                    setCategories($scope.search.pages, PageCategories);
                 });
             } else {
-                $scope.getRecommendationContacts(1);
+                $scope.getOverview();
             }
         };
 
-        $scope.selectChanged = function () {
+        $scope.getOverview = function() {
+            delete $scope.search;
+            $scope.getRecommendationContacts(1);
+            $scope.getPopularBooks(1, false, 'popularBookPagesContact');
+            $scope.getPopularBooks(1, true, 'popularBookPages');
+        };
+
+        $scope.getOverview();
+
+        /*$scope.selectChanged = function () {
             if ($scope.lastSearch) {
                 $scope.searchPage($scope.lastSearch);
             } else {
@@ -86,5 +106,5 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
                 filter.selected = false;
             });
             $scope.selectChanged();
-        };
+        };*/
     }];

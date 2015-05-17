@@ -1887,7 +1887,25 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-show=\"page.pages.length > 0\">\r" +
+    "            <div ng-show=\"search.pages.length > 0\" class=\"page-overview-container\">\r" +
+    "\n" +
+    "                <h1 class=\"page-overview-title\">Suchergebnisse</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"page-preview-container\">\r" +
+    "\n" +
+    "                    <div ng-repeat=\"pagePreview in search.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"newestPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
     "\n" +
     "                <h1 class=\"page-overview-title\">Neuste Bewertungen deiner Kontakte</h1>\r" +
     "\n" +
@@ -1895,7 +1913,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
-    "                    <div ng-repeat=\"pagePreview in page.pages\" class=\"page-preview-inner-container\">\r" +
+    "                    <div ng-repeat=\"pagePreview in newestPages.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"popularBookPagesContact.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
+    "\n" +
+    "                <h1 class=\"page-overview-title\">Beliebteste B&uuml;cher deiner Kontakte</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"page-preview-container\">\r" +
+    "\n" +
+    "                    <div ng-repeat=\"pagePreview in popularBookPagesContact.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"popularBookPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
+    "\n" +
+    "                <h1 class=\"page-overview-title\">Beliebteste B&uuml;cher</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"page-preview-container\">\r" +
+    "\n" +
+    "                    <div ng-repeat=\"pagePreview in popularBookPages.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
     "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +

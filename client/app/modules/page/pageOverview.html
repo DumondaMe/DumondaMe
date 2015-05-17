@@ -1,11 +1,38 @@
 <div id="content-page-overview">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-show="page.pages.length > 0">
+            <div ng-show="search.pages.length > 0" class="page-overview-container">
+                <h1 class="page-overview-title">Suchergebnisse</h1>
+
+                <div class="page-preview-container">
+                    <div ng-repeat="pagePreview in search.pages" class="page-preview-inner-container">
+                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="newestPages.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
                 <h1 class="page-overview-title">Neuste Bewertungen deiner Kontakte</h1>
 
                 <div class="page-preview-container">
-                    <div ng-repeat="pagePreview in page.pages" class="page-preview-inner-container">
+                    <div ng-repeat="pagePreview in newestPages.pages" class="page-preview-inner-container">
+                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="popularBookPagesContact.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
+                <h1 class="page-overview-title">Beliebteste B&uuml;cher deiner Kontakte</h1>
+
+                <div class="page-preview-container">
+                    <div ng-repeat="pagePreview in popularBookPagesContact.pages" class="page-preview-inner-container">
+                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="popularBookPages.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
+                <h1 class="page-overview-title">Beliebteste B&uuml;cher</h1>
+
+                <div class="page-preview-container">
+                    <div ng-repeat="pagePreview in popularBookPages.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
                 </div>

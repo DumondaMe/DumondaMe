@@ -12,6 +12,7 @@
     @include centerColumn(340px) {
       #inner-centerCol {
         position: relative;
+        display: inline-block;
         min-width: 800px;
         max-width: 1600px;
         height: 100%;
@@ -24,6 +25,10 @@
           font-style: normal;
           font-variant: normal;
           font-weight: 100;
+        }
+
+        .page-overview-container {
+          margin-bottom: 20px;
         }
 
         @include breakpoint(largeDesktop) {
