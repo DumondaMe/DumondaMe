@@ -119,9 +119,15 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
 var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
 
     var orderBy = "rating DESC, numberOfRatings DESC",
-        startQuery = db.cypher();
+        startQuery = db.cypher(), matchQuery;
 
-        startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+    if (onlyContact) {
+        matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
+    } else {
+        matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)";
+    }
+
+    startQuery.match(matchQuery)
         .where("page:" + pageType)
         .with("page, AVG(contactRec.rating) AS rating, COUNT(contactRec) AS numberOfRatings");
 
