@@ -1275,42 +1275,58 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/leftNav/template.html',
+    "<div id=\"leftCol\">\r" +
+    "\n" +
+    "    <div class=\"left-nav-element-container\" ng-repeat=\"section in sectionsDisply\" ng-style=\"containerStyle\">\r" +
+    "\n" +
+    "        <div class=\"left-nav-element\" ng-style=\"isFirst($first, section.color)\">\r" +
+    "\n" +
+    "            <div class=\"left-nav-image-container\" ng-style=\"{'background-color': section.color }\">\r" +
+    "\n" +
+    "                <img ng-src=\"{{section.url}}\" class=\"left-nav-image\">\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"left-nav-description-container\" ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\"\r" +
+    "\n" +
+    "                 ng-mouseleave=\"containerStyle={}\" ng-click=\"goToState(section.sref)\">\r" +
+    "\n" +
+    "                <div class=\"left-nav-description\">\r" +
+    "\n" +
+    "                    {{section.description}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/navigation/leftNavCol.html',
+    "<div ng-controller=\"LeftNavColCtrl\" id=\"leftColNav\">\n" +
+    "    <ely-left-nav sections=\"sections\"></ely-left-nav>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/loggedInHeader.html',
     "<div id=\"public-header\" ng-controller=\"LoggedInHeaderCtrl\">\r" +
     "\n" +
     "    <div>\r" +
     "\n" +
-    "        <div class=\"rightHeaderNavElement\">\r" +
-    "\n" +
-    "            <ul>\r" +
-    "\n" +
-    "                <li>\r" +
-    "\n" +
-    "                    <img src=\"app/img/settingsNav.png\">\r" +
-    "\n" +
-    "                    <ul>\r" +
-    "\n" +
-    "                        <li class=\"first\"></li>\r" +
-    "\n" +
-    "                        <li ui-sref=\"settings.profile\">Einstellungen</li>\r" +
-    "\n" +
-    "                        <li ng-click=\"logout()\">Logout</li>\r" +
-    "\n" +
-    "                    </ul>\r" +
-    "\n" +
-    "                </li>\r" +
-    "\n" +
-    "            </ul>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
     "        <div class=\"leftHeaderNavElement\" ui-sref=\"settings.profile\">\r" +
-    "\n" +
-    "            <img ng-src=\"{{userHeaderInfo.profileImage}}\" class=\"img-circle\">\r" +
     "\n" +
     "\r" +
     "\n" +
     "            <div id=\"header-user-name\">{{userHeaderInfo.name}}</div>\r" +
+    "\n" +
+    "            <img ng-src=\"{{userHeaderInfo.profileImage}}\" class=\"img-circle\">\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1598,29 +1614,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/page/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"page.overview\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"page.overview\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/page/overview.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"page.create\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"page.create\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/page/pageCreate.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
     "</div>"
   );
 
@@ -1874,8 +1867,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
-    "\n" +
     "</div>"
   );
 
@@ -1962,68 +1953,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "            <ely-search-box description=\"Suche nach Seite...\" query=\"query\"\r" +
-    "\n" +
-    "                            get-query-suggestion=\"getUserSuggestion\"\r" +
-    "\n" +
-    "                            get-query=\"searchPage\"></ely-search-box>\r" +
-    "\n" +
-    "            <button class=\"btn btn-default page-preview-add-page\" type=\"button\" ng-click=\"createNewPage()\">\r" +
-    "\n" +
-    "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Seite erstellen\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <div id=\"page-overview-counter-description\">Filter:</div>\r" +
-    "\n" +
-    "            <ul id=\"page-overview-counter\" class=\"list-group\">\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                        ng-class=\"{'group-selected': filterDisabled}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"page-overview-description\" ng-click=\"selectedAllPages()\">Alle Anzeigen\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-repeat=\"filter in filters\">\r" +
-    "\n" +
-    "                    <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                        ng-class=\"{'group-selected': filter.selected}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"contact-description-count\"\r" +
-    "\n" +
-    "                             ng-click=\"selectedFilter(filter)\">{{filter.description}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </ul>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/page/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
   );

@@ -80,6 +80,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         if (!Auth.authorize(toState.isPublic)) {
             event.preventDefault();
             $state.go('login');
+        } else if (!toState.isPublic) {
+            if ($rootScope.isLoggedIn) {
+                $rootScope.isLoggedIn();
+            }
         }
     });
 }]);

@@ -1,11 +1,13 @@
 'use strict';
 
-module.exports = ['$scope', '$state',
-    function ($scope, $state) {
+module.exports = ['$scope', '$state', 'PageLeftNavElements',
+    function ($scope, $state, PageLeftNavElements) {
 
         $scope.category = {};
         $scope.page = {};
         $scope.state = {actual: 1, previous: 1};
+
+        $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
         $scope.setNextState = function (newState) {
             if (newState !== $scope.state.actual) {

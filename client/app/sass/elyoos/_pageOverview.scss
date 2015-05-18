@@ -9,7 +9,7 @@
     width: 100%;
     height: 100%;
 
-    @include centerColumn(340px) {
+    @include centerColumn(220px) {
       #inner-centerCol {
         position: relative;
         display: inline-block;

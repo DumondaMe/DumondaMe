@@ -6,25 +6,8 @@ var setCategories = function (pages, PageCategories) {
     });
 };
 
-var getSelectedFilters = function ($scope) {
-    var typesFilter = '';
-    if ($scope.filterDisabled) {
-        return;
-    }
-    angular.forEach($scope.filters, function (filter) {
-        if (filter.selected) {
-            if (typesFilter.length === 0) {
-                typesFilter = typesFilter.concat(filter.filter);
-            } else {
-                typesFilter = typesFilter.concat(',', filter.filter);
-            }
-        }
-    });
-    return typesFilter;
-};
-
-module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories', 'PopularPages',
-    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories, PopularPages) {
+module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
+    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories, PopularPages, PageLeftNavElements) {
 
         $scope.query = "";
         $scope.itemsPerPage = 30;
@@ -43,6 +26,8 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
                 setCategories($scope.newestPages.pages, PageCategories);
             });
         };
+
+        $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
         $scope.getPopularBooks = function (skip, isContact, store) {
 
@@ -77,7 +62,7 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
             }
         };
 
-        $scope.getOverview = function() {
+        $scope.getOverview = function () {
             delete $scope.search;
             $scope.getRecommendationContacts(1);
             $scope.getPopularBooks(1, false, 'popularBookPagesContact');
@@ -85,26 +70,4 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
         };
 
         $scope.getOverview();
-
-        /*$scope.selectChanged = function () {
-            if ($scope.lastSearch) {
-                $scope.searchPage($scope.lastSearch);
-            } else {
-                $scope.getRecommendationContacts(1);
-            }
-        };
-
-        $scope.selectedFilter = function (filter) {
-            $scope.filterDisabled = false;
-            filter.selected = !filter.selected;
-            $scope.selectChanged();
-        };
-
-        $scope.selectedAllPages = function () {
-            $scope.filterDisabled = true;
-            angular.forEach($scope.filters, function (filter) {
-                filter.selected = false;
-            });
-            $scope.selectChanged();
-        };*/
     }];

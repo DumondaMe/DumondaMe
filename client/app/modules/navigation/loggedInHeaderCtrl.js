@@ -3,35 +3,33 @@
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
     function ($scope, $window, $interval, $rootScope, UserInfo, Modification, profileImage, Auth) {
 
-        var userHeaderInfo, modificationInfo;
-
-        modificationInfo = $interval(function () {
-            var modification = Modification.get(null, function () {
-                if (modification.hasChanged) {
-                    $rootScope.$broadcast('message.changed', modification.numberOfMessages);
-                }
-            });
-        }, 30000);
+        var modificationInfo, isLoggedIn = false;
 
         profileImage.addProfileImageChangedEvent($rootScope, function () {
-            userHeaderInfo = UserInfo.get(null, function () {
-                $rootScope.userHeaderInfo = userHeaderInfo;
-            });
+            $rootScope.userHeaderInfo = UserInfo.get(null);
         });
 
-        $scope.$on('$destroy', function () {
-            $interval.cancel(modificationInfo);
-            delete $rootScope.userHeaderInfo;
-        });
+        $rootScope.isLoggedIn = function() {
+            if(!isLoggedIn) {
+                $rootScope.userHeaderInfo = UserInfo.get(null, function () {
+                    isLoggedIn = true;
+                    modificationInfo = $interval(function () {
+                        var modification = Modification.get(null, function () {
+                            if (modification.hasChanged) {
+                                $rootScope.$broadcast('message.changed', modification.numberOfMessages);
+                            }
+                        });
+                    }, 30000);
+                });
+            }
+        };
 
-        if ($rootScope.userHeaderInfo === undefined) {
-            userHeaderInfo = UserInfo.get(null, function () {
-                $rootScope.userHeaderInfo = userHeaderInfo;
-            });
-        }
+        $rootScope.isLoggedIn();
 
         $rootScope.logout = function () {
             Auth.logout().then(function () {
+                $interval.cancel(modificationInfo);
+                isLoggedIn = false;
                 $window.location.href = '/login';
             }, function () {
                 $scope.error = "Fehler beim Abmelden";

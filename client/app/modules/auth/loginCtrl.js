@@ -7,6 +7,7 @@ module.exports = ['$scope', '$location', 'Auth', function ($scope, $location, Au
             username: $scope.loginuser.email,
             password: $scope.loginuser.password
         }).then(function () {
+            $scope.$broadcast('elyoos.login');
             $location.path('/');
         }, function () {
             $scope.error = "Passwort oder Kennwort stimmen nicht.";

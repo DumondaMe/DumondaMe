@@ -1,21 +1,9 @@
 <div id="public-header" ng-controller="LoggedInHeaderCtrl">
     <div>
-        <div class="rightHeaderNavElement">
-            <ul>
-                <li>
-                    <img src="app/img/settingsNav.png">
-                    <ul>
-                        <li class="first"></li>
-                        <li ui-sref="settings.profile">Einstellungen</li>
-                        <li ng-click="logout()">Logout</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
         <div class="leftHeaderNavElement" ui-sref="settings.profile">
-            <img ng-src="{{userHeaderInfo.profileImage}}" class="img-circle">
 
             <div id="header-user-name">{{userHeaderInfo.name}}</div>
+            <img ng-src="{{userHeaderInfo.profileImage}}" class="img-circle">
         </div>
     </div>
 </div>

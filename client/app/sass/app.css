@@ -296,17 +296,17 @@
       box-shadow: inset 0 0 2px #009688;
       cursor: pointer; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement:hover {
-        background-color: #B2DFDB; }
+        background-color: #f1f1f1; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement img {
         margin: 3px;
         width: 40px;
         height: 40px; }
     .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement.disabled {
-      border: solid 2px #E0E0E0;
-      box-shadow: inset 0 0 2px #E0E0E0;
-      background-color: #E0E0E0; }
+      border: solid 2px #EDEDED;
+      box-shadow: inset 0 0 2px #EDEDED;
+      background-color: #EDEDED; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement.disabled:hover {
-        background-color: #E0E0E0; }
+        background-color: #EDEDED; }
 
 .ely-submit-button button {
   display: inline-block; }
@@ -530,7 +530,7 @@
       top: 0px;
       padding-top: 35px;
       z-index: 98;
-      background-color: #E0E0E0;
+      background-color: #EDEDED;
       overflow: visible; }
       #content #content-page-contact #leftCol #inner-leftCol {
         padding-top: 24px;
@@ -555,7 +555,7 @@
             text-overflow: ellipsis;
             cursor: pointer; }
           #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item.group-selected {
-            background-color: #B2DFDB; }
+            background-color: #f1f1f1; }
         #content #content-page-contact #leftCol #inner-leftCol #privacy-link {
           display: inline-block;
           width: 190px;
@@ -672,84 +672,31 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  height: 35px;
+  height: 60px;
+  padding-right: 30px;
   width: 100%;
-  background-color: #00796B;
+  background-color: #f1f1f1;
   z-index: 99; }
-  #public-header .headerNavElement ul li, #public-header .leftHeaderNavElement ul li, #public-header .rightHeaderNavElement ul li {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    height: 35px;
-    padding: 6px 15px 6px 15px; }
-    #public-header .headerNavElement ul li:hover ul, #public-header .leftHeaderNavElement ul li:hover ul, #public-header .rightHeaderNavElement ul li:hover ul {
-      display: block;
-      opacity: 1;
-      visibility: visible; }
-    #public-header .headerNavElement ul li ul, #public-header .leftHeaderNavElement ul li ul, #public-header .rightHeaderNavElement ul li ul {
-      padding: 0;
-      position: absolute;
-      top: 35px;
-      right: -15px;
-      width: 130px;
-      barder-radius: 4px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-      background-color: white;
-      display: block;
-      opacity: 0;
-      visibility: hidden; }
-      #public-header .headerNavElement ul li ul .first, #public-header .leftHeaderNavElement ul li ul .first, #public-header .rightHeaderNavElement ul li ul .first {
-        margin: 0px;
-        height: 10px;
-        padding: 0px; }
-        #public-header .headerNavElement ul li ul .first:hover, #public-header .leftHeaderNavElement ul li ul .first:hover, #public-header .rightHeaderNavElement ul li ul .first:hover {
-          background-color: white; }
-      #public-header .headerNavElement ul li ul li, #public-header .leftHeaderNavElement ul li ul li, #public-header .rightHeaderNavElement ul li ul li {
-        text-decoration: none;
-        display: block;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        margin: 2px 0 2px 0px;
-        padding-left: 15px;
-        height: 25px;
-        vertical-align: middle;
-        text-decoration: none;
-        color: #000;
-        /*a {
-          vertical-align: middle;
-          text-decoration: none;
-          color: #000;
-        }*/ }
-        #public-header .headerNavElement ul li ul li:hover, #public-header .leftHeaderNavElement ul li ul li:hover, #public-header .rightHeaderNavElement ul li ul li:hover {
-          background-color: lightgrey; }
   #public-header .leftHeaderNavElement {
-    float: left; }
+    float: right;
+    padding-top: 10px; }
     #public-header .leftHeaderNavElement img {
       cursor: pointer;
       float: left;
-      height: 35px;
-      width: 35px;
+      height: 40px;
+      width: 40px;
       padding: 5px;
-      margin-left: 20px; }
+      margin-left: 10px; }
     #public-header .leftHeaderNavElement #header-user-name {
       cursor: pointer;
       float: left;
       font-weight: bold;
-      color: #FFFFFF;
-      height: 35px;
-      padding-top: 8px;
+      color: black;
+      height: 40px;
+      padding-top: 10px;
       margin-left: 5px;
       font-size: 14px;
       vertical-align: middle; }
-  #public-header .leftHeaderNavElement:hover {
-    color: #449d44;
-    text-decoration: none; }
-  #public-header .rightHeaderNavElement {
-    float: right; }
-  #public-header .rightHeaderNavElement:hover {
-    color: #449d44;
-    text-decoration: none; }
 
 .navigation-element {
   float: left;
@@ -761,7 +708,7 @@
     height: 100%;
     width: 100%; }
     .navigation-element .navigation-element-content:hover {
-      background-color: #B2DFDB; }
+      background-color: #f1f1f1; }
   .navigation-element .navigation-element-description {
     text-align: center;
     font-size: 16px; }
@@ -786,39 +733,38 @@
 #leftColNav {
   position: fixed;
   left: 0;
-  top: 35px;
-  width: 80px;
-  height: 100%;
-  background-color: #009688;
-  z-index: 100; }
-  #leftColNav .nav-placeholder-top {
-    width: 100%;
-    height: 10px; }
-  #leftColNav .nav-sub-element, #leftColNav .nav-sub-element-last {
-    width: 70px;
-    margin: 0px 5px;
-    height: 70px;
+  top: 60px;
+  width: 200px;
+  background-color: #EDEDED;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
+  #leftColNav .left-nav-element-container {
+    height: 48px;
+    width: 200px;
     cursor: pointer; }
-    #leftColNav .nav-sub-element .button-leftNavCol-active-wrapper, #leftColNav .nav-sub-element-last .button-leftNavCol-active-wrapper {
-      position: relative;
-      width: 0px;
-      height: 0px; }
-      #leftColNav .nav-sub-element .button-leftNavCol-active-wrapper .button-leftNavCol-active, #leftColNav .nav-sub-element-last .button-leftNavCol-active-wrapper .button-leftNavCol-active, #leftColNav .nav-sub-element .button-leftNavCol-active-wrapper .button-leftNavCol-active-white, #leftColNav .nav-sub-element-last .button-leftNavCol-active-wrapper .button-leftNavCol-active-white {
-        position: absolute;
-        width: 0px;
-        height: 0px;
-        left: 65px;
-        top: 30px;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-right: 10px solid #E0E0E0; }
-      #leftColNav .nav-sub-element .button-leftNavCol-active-wrapper .button-leftNavCol-active-white, #leftColNav .nav-sub-element-last .button-leftNavCol-active-wrapper .button-leftNavCol-active-white {
-        border-right: 10px solid #E0E0E0; }
-    #leftColNav .nav-sub-element img, #leftColNav .nav-sub-element-last img {
-      margin-left: 15px;
-      margin-top: 20px;
-      width: 40px;
-      height: 40px; }
+    #leftColNav .left-nav-element-container .left-nav-element {
+      height: 100%;
+      width: 100%; }
+      #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 65px;
+        height: 100%;
+        padding-top: 10px; }
+        #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container .left-nav-image {
+          margin-right: 13px;
+          float: right;
+          height: 24px;
+          width: 24px; }
+      #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 130px;
+        height: 100%; }
+        #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
+          font-size: 18px;
+          font-weight: 300;
+          padding-left: 5px;
+          padding-top: 13px; }
 
 #content-threads {
   width: 100%;
@@ -843,7 +789,7 @@
         -moz-user-select: none;
         -ms-user-select: none; }
         #content-threads #centerCol #inner-centerCol .thread-preview:hover, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
-          background-color: #B2DFDB; }
+          background-color: #f1f1f1; }
         #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image {
           float: left;
           margin-left: 10px;
@@ -890,7 +836,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #E0E0E0;
+    background-color: #EDEDED;
     overflow: auto; }
     #content-threads #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -898,7 +844,7 @@
       #content-threads #leftCol #inner-leftCol #message-index {
         margin: 5px 10px; }
         #content-threads #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
-          background-color: #B2DFDB; }
+          background-color: #f1f1f1; }
         #content-threads #leftCol #inner-leftCol #message-index .list-group-item {
           padding: 5px 15px; }
           #content-threads #leftCol #inner-leftCol #message-index .list-group-item .badge {
@@ -963,7 +909,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #E0E0E0;
+    background-color: #EDEDED;
     overflow: auto; }
     #content-messages #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -971,7 +917,7 @@
       #content-messages #leftCol #inner-leftCol #message-index {
         margin: 5px 10px; }
         #content-messages #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
-          background-color: #B2DFDB; }
+          background-color: #f1f1f1; }
         #content-messages #leftCol #inner-leftCol #message-index .list-group-item {
           padding: 5px 15px; }
           #content-messages #leftCol #inner-leftCol #message-index .list-group-item .badge {
@@ -1184,7 +1130,7 @@
     #content #content-page-overview #centerCol {
       width: 100%;
       height: 100%;
-      padding-left: 340px; }
+      padding-left: 220px; }
       #content #content-page-overview #centerCol #inner-centerCol {
         position: relative;
         display: inline-block;
@@ -1213,7 +1159,7 @@
       top: 0px;
       padding-top: 35px;
       z-index: 98;
-      background-color: #E0E0E0;
+      background-color: #EDEDED;
       overflow: visible; }
       #content #content-page-overview #leftCol #inner-leftCol {
         padding-top: 24px;
@@ -1224,7 +1170,7 @@
           padding: 5px 15px;
           cursor: pointer; }
         #content #content-page-overview #leftCol #inner-leftCol .group-selected {
-          background-color: #B2DFDB; }
+          background-color: #f1f1f1; }
         #content #content-page-overview #leftCol #inner-leftCol #page-overview-counter-description {
           margin: 5px 10px -5px 25px;
           font-weight: bold;
@@ -1354,7 +1300,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #E0E0E0;
+    background-color: #EDEDED;
     overflow: visible; }
     #content-settings-profile #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -1450,7 +1396,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #E0E0E0;
+    background-color: #EDEDED;
     overflow: visible; }
     #content-settings-security #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -1490,7 +1436,7 @@
                 #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element input {
                   width: 130px; }
         #content-settings-security #leftCol #inner-leftCol ul .list-group-item.group-selected {
-          background-color: #B2DFDB; }
+          background-color: #f1f1f1; }
         #content-settings-security #leftCol #inner-leftCol ul .active a {
           color: #FFFFFF; }
         #content-settings-security #leftCol #inner-leftCol ul a {
@@ -1517,7 +1463,7 @@ html, body {
 #content {
   float: left;
   width: 100%;
-  padding-top: 60px; }
+  padding-top: 100px; }
   #content #content-container {
     width: 100%;
     height: 100%; }

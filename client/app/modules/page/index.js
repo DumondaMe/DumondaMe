@@ -16,18 +16,15 @@ app.service('PageDetail', require('./services/pageDetail'));
 app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
+app.service('PageLeftNavElements', require('./services/leftNavElements'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
         .state('page', {
             abstract: true,
-            url: '/page',
-            views: {
-                header: {
-                    templateUrl: 'app/modules/navigation/loggedInHeader.html'
-                }
-            }
+            url: '/page'
+
         })
         .state('page.overview', {
             url: '/overview',
@@ -36,7 +33,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/page/pageOverview.html',
                     controller: 'PageOverviewCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('page.detail', {
             url: '/detail/{label}/{pageId}',
@@ -45,7 +43,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/page/pageDetail.html',
                     controller: 'PageDetailCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('page.create', {
             url: '/create',
@@ -54,6 +53,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/page/createPage/pageCreate.html',
                     controller: 'PageCreateCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         });
 }]);
