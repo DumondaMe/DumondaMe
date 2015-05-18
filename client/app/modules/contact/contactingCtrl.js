@@ -45,7 +45,7 @@ var isTransition = function ($scope, index, now) {
         isTransitionWeekMonth($scope, index, now) || isTransitionMonthLater($scope, index, now);
 };
 
-module.exports = ['$scope', 'Contacting', function ($scope, Contacting) {
+module.exports = ['$scope', 'Contacting', 'ContactLeftNavElements', function ($scope, Contacting, ContactLeftNavElements) {
 
     $scope.resetCounter = 1;
     $scope.itemsPerPage = 30;
@@ -61,6 +61,8 @@ module.exports = ['$scope', 'Contacting', function ($scope, Contacting) {
         });
     };
     $scope.getContacting(1);
+
+    $scope.$emit(ContactLeftNavElements.event, ContactLeftNavElements.elements);
 
     $scope.showContactingInfo = function (index) {
         var now = Math.floor(moment.utc().valueOf() / 1000);

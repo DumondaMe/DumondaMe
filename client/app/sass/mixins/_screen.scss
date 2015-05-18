@@ -71,3 +71,22 @@
     @content;
   }
 }
+
+@mixin searchBoxContainer() {
+  #search-box-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff;
+
+    .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px;
+    }
+
+    @content;
+  }
+}

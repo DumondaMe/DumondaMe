@@ -39,9 +39,8 @@ html, body {
 }
 
 #content {
-  float: left;
+  top: 60px;
   width: 100%;
-  padding-top: 100px;
 
   #content-container {
     width: 100%;
@@ -63,7 +62,7 @@ html, body {
 
 .navigation {
   position: absolute;
-  top: 50px;
+  top: 100px;
   left: 50%;
   margin-left: -405px;
   width: 810px;

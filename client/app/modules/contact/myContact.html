@@ -19,8 +19,13 @@
                 </div>
             </div>
         </div>
+        <div id="search-box-container">
+            <ely-search-box description="Suche nach Personen..." query="query"
+                            get-query-suggestion="getUserSuggestion"
+                            get-query="getUser"></ely-search-box>
+        </div>
     </div>
-    <div id="leftCol">
+   <!-- <div id="leftCol">
         <div id="inner-leftCol">
             <ely-search-box description="Suche nach Personen..." query="query"
                             get-query-suggestion="getUserSuggestion"
@@ -56,6 +61,5 @@
                 <img src="/app/img/help.png">
             </div>
         </div>
-    </div>
-    <div id="leftColNav" ng-include="'app/modules/contact/leftNavCol.html'"></div>
+    </div>-->
 </div>

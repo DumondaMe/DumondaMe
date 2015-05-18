@@ -412,29 +412,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
-    "\n" +
     "</div>"
   );
 
 
   $templateCache.put('app/modules/contact/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
+    "<div class=\"nav-placeholder-top\"></div>\r" +
     "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.myContacts\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.myContacts\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/address-book.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.contacting\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.contacting\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/followMe.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
+    "\r" +
+    "\n" +
+    "<div class=\"nav-sub-element\" ui-sref=\"contact.myContacts\">\r" +
+    "\n" +
+    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
+    "\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.myContacts\"></div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <img src=\"app/img/address-book.png\">\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"nav-sub-element\" ui-sref=\"contact.contacting\">\r" +
+    "\n" +
+    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
+    "\n" +
+    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.contacting\"></div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <img src=\"app/img/followMe.png\">\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\r" +
+    "\n" +
+    "    <img src=\"app/img/home.png\">\r" +
+    "\n" +
     "</div>"
   );
 
@@ -482,9 +496,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
+    "        <div id=\"search-box-container\">\r" +
+    "\n" +
+    "            <ely-search-box description=\"Suche nach Personen...\" query=\"query\"\r" +
+    "\n" +
+    "                            get-query-suggestion=\"getUserSuggestion\"\r" +
+    "\n" +
+    "                            get-query=\"getUser\"></ely-search-box>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftCol\">\r" +
+    "   <!-- <div id=\"leftCol\">\r" +
     "\n" +
     "        <div id=\"inner-leftCol\">\r" +
     "\n" +
@@ -556,9 +580,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
+    "    </div>-->\r" +
     "\n" +
     "</div>"
   );
@@ -739,10 +761,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/contact/leftNavCol.html'\"></div>\r" +
-    "\n" +
     "</div>"
   );
 
@@ -843,7 +861,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "               bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\"\r" +
     "\n" +
-    "               data-trigger=\"focus\" bs-typeahead>\r" +
+    "               data-trigger=\"click\" bs-typeahead>\r" +
     "\n" +
     "        <span class=\"input-group-btn\">\r" +
     "\n" +

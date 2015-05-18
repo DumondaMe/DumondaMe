@@ -2,7 +2,7 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', function ($scope, $state) {
+        return ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
 
             $scope.originalSection = [];
 
@@ -35,6 +35,10 @@ module.exports = {
                 }
                 return {};
             };
+
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                $scope.setSections(toState.name);
+            });
         }];
     }
 };

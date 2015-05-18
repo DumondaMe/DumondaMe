@@ -3,7 +3,7 @@
         <input class="form-control" placeholder="{{description}}" ng-model="query"
                ng-keypress="sendGetQuery($event)"
                bs-options="querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)"
-               data-trigger="focus" bs-typeahead>
+               data-trigger="click" bs-typeahead>
         <span class="input-group-btn">
             <button class="btn btn-default" type="button" ng-click="getQuery(query)"><span
                     class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

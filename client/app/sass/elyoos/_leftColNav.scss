@@ -2,14 +2,14 @@
   position: fixed;
   left: 0;
   top: 60px;
-  width: 200px;
+  width: 230px;
   background-color: $background-left-column;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   //z-index: 100;
 
   .left-nav-element-container {
     height: 48px;
-    width: 200px;
+    width: 230px;
     cursor: pointer;
 
     .left-nav-element {
@@ -32,7 +32,7 @@
       .left-nav-description-container {
         display: inline-block;
         vertical-align: top;
-        width: 130px;
+        width: 160px;
         height: 100%;
         .left-nav-description {
           font-size: 18px;
