@@ -25,41 +25,36 @@
                             get-query="getUser"></ely-search-box>
         </div>
     </div>
-   <!-- <div id="leftCol">
-        <div id="inner-leftCol">
-            <ely-search-box description="Suche nach Personen..." query="query"
-                            get-query-suggestion="getUserSuggestion"
-                            get-query="getUser"></ely-search-box>
-            <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
-                <div>
-                    <li class="list-group-item"
-                        ng-class="{'group-selected': allContactsSelected}">
-                        <span class="badge">{{users.numberOfContacts}}</span>
+    <div id="my-contact-statistic">
+        <ul id="contact-counter" class="list-group" ng-controller="DescriptionCounterCtrl">
+            <div>
+                <li class="list-group-item"
+                    ng-class="{'group-selected': allContactsSelected}">
+                    <span class="badge">{{users.numberOfContacts}}</span>
 
-                        <div class="contact-description-count" ng-click="selectedAllContacts()">
-                            Alle
-                            Kontakte
-                        </div>
-                    </li>
-                </div>
-                <div ng-repeat="statistic in users.statistic">
-                    <li class="list-group-item"
-                        ng-class="{'group-selected': statistic.selected}">
-                        <span class="badge">{{statistic.count}}</span>
+                    <div class="contact-description-count" ng-click="selectedAllContacts()">
+                        Alle
+                        Kontakte
+                    </div>
+                </li>
+            </div>
+            <div ng-repeat="statistic in users.statistic">
+                <li class="list-group-item"
+                    ng-class="{'group-selected': statistic.selected}">
+                    <span class="badge">{{statistic.count}}</span>
 
-                        <div class="contact-description-count"
-                             ng-click="selectedStatisticType(statistic)">{{statistic.type}}
-                        </div>
-                    </li>
-                </div>
-            </ul>
-            <div id="privacy-link">
-                <a ui-sref="settings.privacy">Privatsphären Einstellungen verwalten...</a>
+                    <div class="contact-description-count"
+                         ng-click="selectedStatisticType(statistic)">{{statistic.type}}
+                    </div>
+                </li>
             </div>
-            <div id="help-my-contact" data-animation="am-fade-and-scale" data-placement="center" data-backdrop="false"
-                 bs-modal="help">
-                <img src="/app/img/help.png">
-            </div>
+        </ul>
+        <div id="privacy-link">
+            <a ui-sref="settings.privacy">Privatsphären Einstellungen verwalten...</a>
         </div>
-    </div>-->
+        <div id="help-my-contact" data-animation="am-fade-and-scale" data-placement="center" data-backdrop="false"
+             bs-modal="help">
+            <img src="/app/img/help.png">
+        </div>
+    </div>
 </div>

@@ -530,54 +530,54 @@
         padding-left: 60px;
         margin-top: 2px;
         width: 600px; }
-    #content #content-page-contact #leftCol {
+    #content #content-page-contact #my-contact-statistic {
       position: fixed;
       display: inline-block;
-      left: 80px;
-      width: 260px;
-      height: 100%;
-      top: 0px;
-      padding-top: 35px;
-      z-index: 98;
-      background-color: #EDEDED;
-      overflow: visible; }
-      #content #content-page-contact #leftCol #inner-leftCol {
-        padding-top: 24px;
-        margin-bottom: 20px; }
-        #content #content-page-contact #leftCol #inner-leftCol h5 {
-          padding-left: 10px;
-          font-weight: bold; }
-        #content #content-page-contact #leftCol #inner-leftCol #contact-counter {
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          padding: 0px 10px;
-          margin-bottom: 0;
-          margin-top: 10px; }
-          #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item .badge {
+      vertical-align: top;
+      overflow: hidden;
+      left: 0px;
+      top: 204px;
+      width: 230px;
+      background-color: rgba(238, 238, 238, 0.95);
+      box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px; }
+      #content #content-page-contact #my-contact-statistic #contact-counter {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        padding: 0px 10px;
+        margin-bottom: 0;
+        margin-top: 10px; }
+        #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item {
+          height: 30px;
+          padding: 5px 15px; }
+          #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item .badge {
             cursor: pointer;
             background-color: #009688; }
-          #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item .contact-description-count {
+          #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item .contact-description-count {
             white-space: nowrap;
-            width: 155px;
+            width: 130px;
             overflow: hidden;
             text-overflow: ellipsis;
             cursor: pointer; }
-          #content #content-page-contact #leftCol #inner-leftCol #contact-counter .list-group-item.group-selected {
-            background-color: #f1f1f1; }
-        #content #content-page-contact #leftCol #inner-leftCol #privacy-link {
-          display: inline-block;
-          width: 190px;
-          margin: 5px 5px 5px 25px; }
-          #content #content-page-contact #leftCol #inner-leftCol #privacy-link a {
-            color: #000000; }
-        #content #content-page-contact #leftCol #inner-leftCol #help-my-contact {
-          display: inline-block; }
-          #content #content-page-contact #leftCol #inner-leftCol #help-my-contact img {
-            margin-bottom: 25px;
-            height: 24px;
-            width: 24px;
-            cursor: pointer; }
+        #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item.group-selected {
+          background-color: #B3C833;
+          color: #ffffff; }
+      #content #content-page-contact #my-contact-statistic #privacy-link {
+        display: inline-block;
+        width: 190px;
+        margin: 5px 5px 5px 25px; }
+        #content #content-page-contact #my-contact-statistic #privacy-link a {
+          color: #000000; }
+      #content #content-page-contact #my-contact-statistic #help-my-contact {
+        display: inline-block;
+        margin-left: 20px; }
+        #content #content-page-contact #my-contact-statistic #help-my-contact img {
+          margin-bottom: 25px;
+          height: 24px;
+          width: 24px;
+          cursor: pointer; }
 
 #content #content-page-contact-details {
   width: 100%;
@@ -748,7 +748,7 @@
   left: 0;
   top: 60px;
   width: 230px;
-  background-color: #EDEDED;
+  background-color: #f1f1f1;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
   #leftColNav .left-nav-element-container {
     height: 48px;

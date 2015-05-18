@@ -509,79 +509,69 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "   <!-- <div id=\"leftCol\">\r" +
+    "    <div id=\"my-contact-statistic\">\r" +
     "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
+    "        <ul id=\"contact-counter\" class=\"list-group\" ng-controller=\"DescriptionCounterCtrl\">\r" +
     "\n" +
-    "            <ely-search-box description=\"Suche nach Personen...\" query=\"query\"\r" +
+    "            <div>\r" +
     "\n" +
-    "                            get-query-suggestion=\"getUserSuggestion\"\r" +
+    "                <li class=\"list-group-item\"\r" +
     "\n" +
-    "                            get-query=\"getUser\"></ely-search-box>\r" +
+    "                    ng-class=\"{'group-selected': allContactsSelected}\">\r" +
     "\n" +
-    "            <ul id=\"contact-counter\" class=\"list-group\" ng-controller=\"DescriptionCounterCtrl\">\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                        ng-class=\"{'group-selected': allContactsSelected}\">\r" +
-    "\n" +
-    "                        <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
+    "                    <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"contact-description-count\" ng-click=\"selectedAllContacts()\">\r" +
+    "                    <div class=\"contact-description-count\" ng-click=\"selectedAllContacts()\">\r" +
     "\n" +
-    "                            Alle\r" +
+    "                        Alle\r" +
     "\n" +
-    "                            Kontakte\r" +
+    "                        Kontakte\r" +
     "\n" +
-    "                        </div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "                    </li>\r" +
+    "                </li>\r" +
     "\n" +
-    "                </div>\r" +
+    "            </div>\r" +
     "\n" +
-    "                <div ng-repeat=\"statistic in users.statistic\">\r" +
+    "            <div ng-repeat=\"statistic in users.statistic\">\r" +
     "\n" +
-    "                    <li class=\"list-group-item\"\r" +
+    "                <li class=\"list-group-item\"\r" +
     "\n" +
-    "                        ng-class=\"{'group-selected': statistic.selected}\">\r" +
+    "                    ng-class=\"{'group-selected': statistic.selected}\">\r" +
     "\n" +
-    "                        <span class=\"badge\">{{statistic.count}}</span>\r" +
+    "                    <span class=\"badge\">{{statistic.count}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"contact-description-count\"\r" +
+    "                    <div class=\"contact-description-count\"\r" +
     "\n" +
-    "                             ng-click=\"selectedStatisticType(statistic)\">{{statistic.type}}\r" +
+    "                         ng-click=\"selectedStatisticType(statistic)\">{{statistic.type}}\r" +
     "\n" +
-    "                        </div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </ul>\r" +
-    "\n" +
-    "            <div id=\"privacy-link\">\r" +
-    "\n" +
-    "                <a ui-sref=\"settings.privacy\">Privatsphären Einstellungen verwalten...</a>\r" +
+    "                </li>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"help-my-contact\" data-animation=\"am-fade-and-scale\" data-placement=\"center\" data-backdrop=\"false\"\r" +
+    "        </ul>\r" +
     "\n" +
-    "                 bs-modal=\"help\">\r" +
+    "        <div id=\"privacy-link\">\r" +
     "\n" +
-    "                <img src=\"/app/img/help.png\">\r" +
-    "\n" +
-    "            </div>\r" +
+    "            <a ui-sref=\"settings.privacy\">Privatsphären Einstellungen verwalten...</a>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>-->\r" +
+    "        <div id=\"help-my-contact\" data-animation=\"am-fade-and-scale\" data-placement=\"center\" data-backdrop=\"false\"\r" +
+    "\n" +
+    "             bs-modal=\"help\">\r" +
+    "\n" +
+    "            <img src=\"/app/img/help.png\">\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
     "\n" +
     "</div>"
   );

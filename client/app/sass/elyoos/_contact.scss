@@ -166,17 +166,27 @@
     @include searchBoxContainer() {
     }
 
-    @include leftFixedColumn(260px, 80px, $background-left-column, visible) {
-      h5 {
-        padding-left: 10px;
-        font-weight: bold;
-      }
+    #my-contact-statistic {
+      position: fixed;
+      display: inline-block;
+      vertical-align: top;
+      overflow: hidden;
+      left: 0px;
+      top: 204px;
+      width: 230px;
+      background-color: $background-left-column-bottom;
+      box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid $divider-light;
+      padding-top: 10px;
+
       #contact-counter {
         @include noneSelect();
         padding: 0px 10px;
         margin-bottom: 0;
         margin-top: 10px;
         .list-group-item {
+          height: 30px;
+          padding: 5px 15px;
           .badge {
             cursor: pointer;
             background-color: $primary-color;
@@ -184,14 +194,15 @@
 
           .contact-description-count {
             white-space: nowrap;
-            width: 155px;
+            width: 130px;
             overflow: hidden;
             text-overflow: ellipsis;
             cursor: pointer;
           }
         }
         .list-group-item.group-selected {
-          background-color: $primary-color-light;
+          background-color: $selected-element;
+          color: #ffffff;
         }
       }
 
@@ -206,6 +217,7 @@
 
       #help-my-contact {
         display: inline-block;
+        margin-left: 20px;
         img {
           margin-bottom: 25px;
           height: 24px;
