@@ -358,57 +358,55 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftCol\">\r" +
+    "    <div id=\"my-contact-statistic\">\r" +
     "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
+    "        <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>\r" +
     "\n" +
-    "            <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>\r" +
+    "        <ul id=\"contact-counter\" class=\"list-group\">\r" +
     "\n" +
-    "            <ul id=\"contact-counter\" class=\"list-group\">\r" +
+    "            <li class=\"list-group-item\">\r" +
     "\n" +
-    "                <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                    <span class=\"badge\">{{users.numberOfContactingLastDay}}</span>\r" +
+    "                <span class=\"badge\">{{users.numberOfContactingLastDay}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"contact-description-count\">In den letzten 24h</div>\r" +
+    "                <div class=\"contact-description-count\">In den letzten 24h</div>\r" +
     "\n" +
-    "                </li>\r" +
+    "            </li>\r" +
     "\n" +
-    "                <li class=\"list-group-item\">\r" +
+    "            <li class=\"list-group-item\">\r" +
     "\n" +
-    "                    <span class=\"badge\">{{users.numberOfContactingLastWeek}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"contact-description-count\">In der letzten Woche</div>\r" +
-    "\n" +
-    "                </li>\r" +
-    "\n" +
-    "                <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                    <span class=\"badge\">{{users.numberOfContactingLastMonth}}</span>\r" +
+    "                <span class=\"badge\">{{users.numberOfContactingLastWeek}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"contact-description-count\">Im letzten Monat</div>\r" +
+    "                <div class=\"contact-description-count\">In der letzten Woche</div>\r" +
     "\n" +
-    "                </li>\r" +
+    "            </li>\r" +
     "\n" +
-    "                <li class=\"list-group-item\">\r" +
+    "            <li class=\"list-group-item\">\r" +
     "\n" +
-    "                    <span class=\"badge\">{{users.numberOfAllContactings}}</span>\r" +
+    "                <span class=\"badge\">{{users.numberOfContactingLastMonth}}</span>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"contact-description-count\">Gesamt</div>\r" +
+    "                <div class=\"contact-description-count\">Im letzten Monat</div>\r" +
     "\n" +
-    "                </li>\r" +
+    "            </li>\r" +
     "\n" +
-    "            </ul>\r" +
+    "            <li class=\"list-group-item\">\r" +
     "\n" +
-    "        </div>\r" +
+    "                <span class=\"badge\">{{users.numberOfAllContactings}}</span>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"contact-description-count\">Gesamt</div>\r" +
+    "\n" +
+    "            </li>\r" +
+    "\n" +
+    "        </ul>\r" +
+    "\n" +
+    "        <div id=\"my-contact-statistic-bottom\"></div>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +

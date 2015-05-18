@@ -1,0 +1,33 @@
+#content {
+
+  width: 100%;
+  height: 100%;
+
+  #content-page-contacting {
+
+    width: 100%;
+    height: 100%;
+
+    .contacting-info {
+      width: 100%;
+      height: 40px;
+      clear: both;
+      .contacting-inner-info {
+        font-size: 14px;
+        font-weight: bold;
+        border-bottom: 1px solid $primary-color-darker;
+        margin: 6px 10px 10px 10px;
+      }
+    }
+
+
+    @include centerColumn(230px) {
+      #inner-centerCol {
+        position: relative;
+        min-width: 800px;
+        padding-left: 50px;
+        margin-top: 0px;
+      }
+    }
+  }
+}

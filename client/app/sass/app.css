@@ -404,180 +404,27 @@
 #content {
   width: 100%;
   height: 100%; }
-  #content #content-page-contact {
+  #content #content-page-contacting {
     width: 100%;
     height: 100%; }
-    #content #content-page-contact .contact-preview {
-      float: left;
-      width: 350px;
-      height: 100px;
-      background-color: #ffffff;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-      margin: 5px 10px 5px 10px;
-      padding: 0;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none; }
-      #content #content-page-contact .contact-preview .contact-preview-content {
-        overflow: hidden;
-        float: left;
-        height: 100px;
-        width: 239px;
-        word-wrap: break-word; }
-        #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name {
-          padding: 5px 0px 0px 5px;
-          font-size: 14px;
-          font-weight: bold;
-          height: 70px;
-          width: 100%;
-          color: #009688;
-          cursor: pointer; }
-          #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description-container .description {
-            display: inline-block;
-            font-size: 12px;
-            color: #9197a3;
-            font-weight: normal; }
-            #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .description-container .description:hover {
-              text-decoration: underline;
-              cursor: pointer; }
-          #content #content-page-contact .contact-preview .contact-preview-content .contact-preview-name .blocked-description {
-            font-size: 12px;
-            color: red;
-            font-weight: bold; }
-      #content #content-page-contact .contact-preview .select-user {
-        float: left;
-        height: 100px; }
-        #content #content-page-contact .contact-preview .select-user .s1 {
-          height: 100px;
-          display: inline-block;
-          vertical-align: middle; }
-        #content #content-page-contact .contact-preview .select-user .s2 {
-          display: inline-block;
-          vertical-align: middle;
-          margin-top: 5px;
-          margin-left: 15px; }
-      #content #content-page-contact .contact-preview .command-icons {
-        float: left;
-        height: 25px;
-        width: 230px; }
-        #content #content-page-contact .contact-preview .command-icons button {
-          float: left; }
-        #content #content-page-contact .contact-preview .command-icons .command-connection-state {
-          float: left;
-          height: 25px;
-          width: 25px;
-          margin-left: 5px; }
-          #content #content-page-contact .contact-preview .command-icons .command-connection-state img {
-            height: 100%;
-            width: 100%;
-            border: none; }
-        #content #content-page-contact .contact-preview .command-icons .command-connection-block {
-          float: left;
-          height: 20px;
-          width: 20px;
-          margin-top: 2px;
-          margin-left: 5px;
-          cursor: pointer; }
-          #content #content-page-contact .contact-preview .command-icons .command-connection-block img {
-            height: 100%;
-            width: 100%;
-            border: none; }
-      #content #content-page-contact .contact-preview img {
-        float: left;
-        position: relative;
-        display: block;
-        width: 100px;
-        height: 100px;
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
-        margin: 0px 10px 0px 0px;
-        cursor: pointer; }
-      #content #content-page-contact .contact-preview .popover .popover-content {
-        padding: 9px 14px; }
-        #content #content-page-contact .contact-preview .popover .popover-content .popover-select-privacy {
-          max-width: 150px;
-          margin-right: 10px; }
-    #content #content-page-contact .contacting-info {
+    #content #content-page-contacting .contacting-info {
       width: 100%;
       height: 40px;
       clear: both; }
-      #content #content-page-contact .contacting-info .contacting-inner-info {
+      #content #content-page-contacting .contacting-info .contacting-inner-info {
         font-size: 14px;
         font-weight: bold;
         border-bottom: 1px solid #00796B;
         margin: 6px 10px 10px 10px; }
-    #content #content-page-contact .pagination {
-      width: 100%;
-      clear: both; }
-    #content #content-page-contact .no-contact-description {
-      margin: 0 0 0 50px; }
-    #content #content-page-contact #centerCol {
+    #content #content-page-contacting #centerCol {
       width: 100%;
       height: 100%;
       padding-left: 230px; }
-      #content #content-page-contact #centerCol #inner-centerCol {
+      #content #content-page-contacting #centerCol #inner-centerCol {
         position: relative;
         min-width: 800px;
         padding-left: 50px;
-        margin-top: 150px; }
-    #content #content-page-contact #search-box-container {
-      position: fixed;
-      top: 60px;
-      width: 100%;
-      height: 48px;
-      background-color: #ffffff; }
-      #content #content-page-contact #search-box-container .searchBoxForm {
-        display: inline-block;
-        padding-left: 60px;
-        margin-top: 2px;
-        width: 600px; }
-    #content #content-page-contact #my-contact-statistic {
-      position: fixed;
-      display: inline-block;
-      vertical-align: top;
-      overflow: hidden;
-      left: 0px;
-      top: 204px;
-      width: 230px;
-      background-color: rgba(238, 238, 238, 0.95);
-      box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
-      border-top: 1px solid #e7e7e7;
-      padding-top: 10px; }
-      #content #content-page-contact #my-contact-statistic #contact-counter {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        padding: 0px 10px;
-        margin-bottom: 0;
-        margin-top: 10px; }
-        #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item {
-          height: 30px;
-          padding: 5px 15px; }
-          #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item .badge {
-            cursor: pointer;
-            background-color: #009688; }
-          #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item .contact-description-count {
-            white-space: nowrap;
-            width: 130px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer; }
-        #content #content-page-contact #my-contact-statistic #contact-counter .list-group-item.group-selected {
-          background-color: #B3C833;
-          color: #ffffff; }
-      #content #content-page-contact #my-contact-statistic #privacy-link {
-        display: inline-block;
-        width: 190px;
-        margin: 5px 5px 5px 25px; }
-        #content #content-page-contact #my-contact-statistic #privacy-link a {
-          color: #000000; }
-      #content #content-page-contact #my-contact-statistic #help-my-contact {
-        display: inline-block;
-        margin-left: 20px; }
-        #content #content-page-contact #my-contact-statistic #help-my-contact img {
-          margin-bottom: 25px;
-          height: 24px;
-          width: 24px;
-          cursor: pointer; }
+        margin-top: 0px; }
 
 #content #content-page-contact-details {
   width: 100%;
@@ -676,6 +523,182 @@
         #content #content-page-contact-details #centerCol #inner-centerCol .profile-contact-expander img {
           width: 100%;
           height: 100%; }
+
+#content {
+  width: 100%;
+  height: 100%; }
+  #content #content-page-contact {
+    width: 100%;
+    height: 100%; }
+    #content #content-page-contact .pagination {
+      width: 100%;
+      clear: both; }
+    #content #content-page-contact .no-contact-description {
+      margin: 0 0 0 50px; }
+    #content #content-page-contact #centerCol {
+      width: 100%;
+      height: 100%;
+      padding-left: 230px; }
+      #content #content-page-contact #centerCol #inner-centerCol {
+        position: relative;
+        min-width: 800px;
+        padding-left: 50px;
+        margin-top: 150px; }
+    #content #content-page-contact #search-box-container {
+      position: fixed;
+      top: 60px;
+      width: 100%;
+      height: 48px;
+      background-color: #ffffff; }
+      #content #content-page-contact #search-box-container .searchBoxForm {
+        display: inline-block;
+        padding-left: 60px;
+        margin-top: 2px;
+        width: 600px; }
+
+.contact-preview {
+  float: left;
+  width: 350px;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  margin: 5px 10px 5px 10px;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
+  .contact-preview .contact-preview-content {
+    overflow: hidden;
+    float: left;
+    height: 100px;
+    width: 239px;
+    word-wrap: break-word; }
+    .contact-preview .contact-preview-content .contact-preview-name {
+      padding: 5px 0px 0px 5px;
+      font-size: 14px;
+      font-weight: bold;
+      height: 70px;
+      width: 100%;
+      color: #009688;
+      cursor: pointer; }
+      .contact-preview .contact-preview-content .contact-preview-name .description-container .description {
+        display: inline-block;
+        font-size: 12px;
+        color: #9197a3;
+        font-weight: normal; }
+        .contact-preview .contact-preview-content .contact-preview-name .description-container .description:hover {
+          text-decoration: underline;
+          cursor: pointer; }
+      .contact-preview .contact-preview-content .contact-preview-name .blocked-description {
+        font-size: 12px;
+        color: red;
+        font-weight: bold; }
+  .contact-preview .select-user {
+    float: left;
+    height: 100px; }
+    .contact-preview .select-user .s1 {
+      height: 100px;
+      display: inline-block;
+      vertical-align: middle; }
+    .contact-preview .select-user .s2 {
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: 5px;
+      margin-left: 15px; }
+  .contact-preview .command-icons {
+    float: left;
+    height: 25px;
+    width: 230px; }
+    .contact-preview .command-icons button {
+      float: left; }
+    .contact-preview .command-icons .command-connection-state {
+      float: left;
+      height: 25px;
+      width: 25px;
+      margin-left: 5px; }
+      .contact-preview .command-icons .command-connection-state img {
+        height: 100%;
+        width: 100%;
+        border: none; }
+    .contact-preview .command-icons .command-connection-block {
+      float: left;
+      height: 20px;
+      width: 20px;
+      margin-top: 2px;
+      margin-left: 5px;
+      cursor: pointer; }
+      .contact-preview .command-icons .command-connection-block img {
+        height: 100%;
+        width: 100%;
+        border: none; }
+  .contact-preview img {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px 10px 0px 0px;
+    cursor: pointer; }
+  .contact-preview .popover .popover-content {
+    padding: 9px 14px; }
+    .contact-preview .popover .popover-content .popover-select-privacy {
+      max-width: 150px;
+      margin-right: 10px; }
+
+#my-contact-statistic {
+  position: fixed;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  left: 0px;
+  top: 204px;
+  width: 230px;
+  background-color: rgba(238, 238, 238, 0.95);
+  box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #e7e7e7;
+  padding-top: 20px; }
+  #my-contact-statistic h5 {
+    padding-left: 10px;
+    font-weight: 300; }
+  #my-contact-statistic #my-contact-statistic-bottom {
+    height: 10px; }
+  #my-contact-statistic #contact-counter {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    padding: 0px 10px;
+    margin-bottom: 0;
+    margin-top: 15px; }
+    #my-contact-statistic #contact-counter .list-group-item {
+      height: 30px;
+      padding: 5px 15px; }
+      #my-contact-statistic #contact-counter .list-group-item .badge {
+        cursor: pointer;
+        background-color: #009688; }
+      #my-contact-statistic #contact-counter .list-group-item .contact-description-count {
+        white-space: nowrap;
+        width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer; }
+    #my-contact-statistic #contact-counter .list-group-item.group-selected {
+      background-color: #B3C833;
+      color: #ffffff; }
+  #my-contact-statistic #privacy-link {
+    display: inline-block;
+    width: 190px;
+    margin: 5px 5px 5px 25px; }
+    #my-contact-statistic #privacy-link a {
+      color: #000000; }
+  #my-contact-statistic #help-my-contact {
+    display: inline-block;
+    margin-left: 20px; }
+    #my-contact-statistic #help-my-contact img {
+      margin-bottom: 10px;
+      height: 24px;
+      width: 24px;
+      cursor: pointer; }
 
 #public-header {
   position: fixed;

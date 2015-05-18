@@ -1,55 +1,56 @@
-<div id="content-page-contact">
+<div id="content-page-contacting">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-repeat="contact in users.contactingUsers">
-                <div ng-if="showContactingInfo($index)" class="contacting-info">
-                    <div class="contacting-inner-info">
-                        {{getContactingInfo($index)}}
+            <div id="contact-contacting-content">
+                <div ng-repeat="contact in users.contactingUsers">
+                    <div ng-if="showContactingInfo($index)" class="contacting-info">
+                        <div class="contacting-inner-info">
+                            {{getContactingInfo($index)}}
+                        </div>
                     </div>
+                    <ely-contact-preview enable-select="false" contact="contact"
+                                         privacy-settings="users.privacySettings"
+                                         statistic="users.statistic"></ely-contact-preview>
                 </div>
-                <ely-contact-preview enable-select="false" contact="contact"
-                                     privacy-settings="users.privacySettings"
-                                     statistic="users.statistic"></ely-contact-preview>
-            </div>
-            <div ng-show="users.numberOfAllContactings > itemsPerPage"
-                 class="pagination">
-                <ely-pagination-next-previous total-items="users.numberOfAllContactings"
-                                              items-per-page="{{itemsPerPage}}"
-                                              get-pagination-set="getContacting"
-                                              reset-counter="resetCounter"></ely-pagination-next-previous>
-            </div>
-            <div ng-show="users.numberOfAllContactings === 0 && users.contactingUsers.length === 0">
-                <div class="no-contact-description">
-                    <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>
+                <div ng-show="users.numberOfAllContactings > itemsPerPage"
+                     class="pagination">
+                    <ely-pagination-next-previous total-items="users.numberOfAllContactings"
+                                                  items-per-page="{{itemsPerPage}}"
+                                                  get-pagination-set="getContacting"
+                                                  reset-counter="resetCounter"></ely-pagination-next-previous>
+                </div>
+                <div ng-show="users.numberOfAllContactings === 0 && users.contactingUsers.length === 0">
+                    <div class="no-contact-description">
+                        <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="leftCol">
-        <div id="inner-leftCol">
-            <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>
-            <ul id="contact-counter" class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">{{users.numberOfContactingLastDay}}</span>
+    <div id="my-contact-statistic">
+        <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>
+        <ul id="contact-counter" class="list-group">
+            <li class="list-group-item">
+                <span class="badge">{{users.numberOfContactingLastDay}}</span>
 
-                    <div class="contact-description-count">In den letzten 24h</div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{users.numberOfContactingLastWeek}}</span>
+                <div class="contact-description-count">In den letzten 24h</div>
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{users.numberOfContactingLastWeek}}</span>
 
-                    <div class="contact-description-count">In der letzten Woche</div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{users.numberOfContactingLastMonth}}</span>
+                <div class="contact-description-count">In der letzten Woche</div>
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{users.numberOfContactingLastMonth}}</span>
 
-                    <div class="contact-description-count">Im letzten Monat</div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{users.numberOfAllContactings}}</span>
+                <div class="contact-description-count">Im letzten Monat</div>
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{users.numberOfAllContactings}}</span>
 
-                    <div class="contact-description-count">Gesamt</div>
-                </li>
-            </ul>
-        </div>
+                <div class="contact-description-count">Gesamt</div>
+            </li>
+        </ul>
+        <div id="my-contact-statistic-bottom"></div>
     </div>
 </div>

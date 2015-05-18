@@ -1,0 +1,33 @@
+#content {
+
+  width: 100%;
+  height: 100%;
+
+  #content-page-contact {
+
+    width: 100%;
+    height: 100%;
+
+    .pagination {
+      width: 100%;
+      clear: both;
+    }
+
+    .no-contact-description {
+      margin: 0 0 0 50px;
+    }
+
+    @include centerColumn(230px) {
+      #inner-centerCol {
+        position: relative;
+        min-width: 800px;
+        padding-left: 50px;
+        margin-top: 150px;
+      }
+    }
+
+    @include searchBoxContainer() {
+    }
+
+  }
+}
