@@ -12,6 +12,8 @@ app.factory('Profile', require('./services/profile'));
 app.factory('Privacy', require('./services/privacy'));
 app.factory('Password', require('./services/password'));
 
+app.service('SettingLeftNavElements', require('./services/leftNavElements'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
@@ -31,7 +33,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/profile.html',
                     controller: 'ProfileCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('settings.profile.changePassword', {
             url: '/newPassword',
@@ -40,7 +43,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/changePassword.html',
                     controller: 'PasswordCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('settings.privacy', {
             url: '/privacy',
@@ -49,6 +53,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/privacy.html',
                     controller: 'PrivacyCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         });
 }]);

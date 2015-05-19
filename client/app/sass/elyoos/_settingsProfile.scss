@@ -8,7 +8,7 @@
     #inner-centerCol {
       position: relative;
       width: 800px;
-      margin: 0 auto;
+      margin: 100px auto 0 auto;
 
       #manage-profile-photo-container {
         float: left;
@@ -37,24 +37,6 @@
       .select.dropdown-menu {
         max-height: 200px;
         overflow: auto;
-      }
-    }
-  }
-
-  @include leftFixedColumn(260px, 80px, $background-left-column, visible) {
-
-    ul {
-      width: 100%;
-      padding: 0 10px;
-
-      .active {
-        a {
-          color: #FFFFFF;
-        }
-      }
-
-      a {
-        color: #000000;
       }
     }
   }

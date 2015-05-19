@@ -1349,7 +1349,7 @@ h1.website-structure-title {
     #content-settings-profile #centerCol #inner-centerCol {
       position: relative;
       width: 800px;
-      margin: 0 auto; }
+      margin: 100px auto 0 auto; }
       #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container {
         float: left;
         margin: 0 10px 0 20px; }
@@ -1367,27 +1367,6 @@ h1.website-structure-title {
       #content-settings-profile #centerCol #inner-centerCol .select.dropdown-menu {
         max-height: 200px;
         overflow: auto; }
-  #content-settings-profile #leftCol {
-    position: fixed;
-    display: inline-block;
-    left: 80px;
-    width: 260px;
-    height: 100%;
-    top: 0px;
-    padding-top: 35px;
-    z-index: 98;
-    background-color: #F2F2F2;
-    overflow: visible; }
-    #content-settings-profile #leftCol #inner-leftCol {
-      padding-top: 24px;
-      margin-bottom: 20px; }
-      #content-settings-profile #leftCol #inner-leftCol ul {
-        width: 100%;
-        padding: 0 10px; }
-        #content-settings-profile #leftCol #inner-leftCol ul .active a {
-          color: #FFFFFF; }
-        #content-settings-profile #leftCol #inner-leftCol ul a {
-          color: #000000; }
 
 .upload-file-error {
   display: inline-block;
@@ -1420,11 +1399,11 @@ h1.website-structure-title {
   #content-settings-security #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 360px; }
+    padding-left: 230px; }
     #content-settings-security #centerCol #inner-centerCol {
       position: relative;
       width: 800px;
-      margin: 0 auto; }
+      margin: 100px auto 0 auto; }
       #content-settings-security #centerCol #inner-centerCol .header-privacy {
         height: 50px; }
         #content-settings-security #centerCol #inner-centerCol .header-privacy .header-privacy-title {
@@ -1463,68 +1442,69 @@ h1.website-structure-title {
             font-weight: normal; }
           #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings input {
             float: left; }
-  #content-settings-security #leftCol {
+  #content-settings-security #privacy-setting-overview {
     position: fixed;
     display: inline-block;
-    left: 80px;
-    width: 260px;
-    height: 100%;
-    top: 0px;
-    padding-top: 35px;
-    z-index: 98;
-    background-color: #F2F2F2;
-    overflow: visible; }
-    #content-settings-security #leftCol #inner-leftCol {
-      padding-top: 24px;
-      margin-bottom: 20px; }
-      #content-settings-security #leftCol #inner-leftCol ul {
-        width: 100%;
-        padding: 0 10px; }
-        #content-settings-security #leftCol #inner-leftCol ul .list-group-item .privacy-type-description {
-          width: 140px;
+    vertical-align: top;
+    top: 204px;
+    width: 230px;
+    background-color: rgba(238, 238, 238, 0.95);
+    box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #CCCCCC;
+    padding-top: 20px; }
+    #content-settings-security #privacy-setting-overview ul {
+      width: 100%;
+      padding: 0 10px; }
+      #content-settings-security #privacy-setting-overview ul .list-group-item {
+        height: 30px;
+        padding: 5px 15px; }
+        #content-settings-security #privacy-setting-overview ul .list-group-item .privacy-type-description {
+          width: 110px;
           overflow: hidden;
           cursor: pointer; }
-        #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container {
+        #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container {
           width: 30px;
           padding-left: 10px;
           float: right; }
-          #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .list-group-item-icons {
+          #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .list-group-item-icons {
             height: 20px;
             width: 20px;
             cursor: pointer; }
-          #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover {
+          #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover {
             width: 276px; }
-            #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content {
+            #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content {
               padding: 9px 14px; }
-              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-description {
+              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-description {
                 margin: 5px 10px; }
-              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-divider {
+              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-divider {
                 clear: both;
                 width: 100%;
                 border-bottom: 1px solid #141823;
                 margin: 5px 0 0 0; }
-              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-right {
+              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-right {
                 float: right;
                 margin: 8px 10px; }
-              #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element {
+              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element {
                 float: left;
                 margin: 8px 10px; }
-                #content-settings-security #leftCol #inner-leftCol ul .list-group-item .list-group-item-container .popover .popover-content .popover-element input {
+                #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element input {
                   width: 130px; }
-        #content-settings-security #leftCol #inner-leftCol ul .list-group-item.group-selected {
-          background-color: #f1f1f1; }
-        #content-settings-security #leftCol #inner-leftCol ul .active a {
-          color: #FFFFFF; }
-        #content-settings-security #leftCol #inner-leftCol ul a {
-          color: #000000; }
-        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding {
-          margin-top: 10px;
-          padding-left: 15px; }
-        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding-input input {
-          margin: 15px 0 10px 0; }
-        #content-settings-security #leftCol #inner-leftCol ul .privacy-adding-input button {
-          float: right;
-          margin-left: 10px; }
+      #content-settings-security #privacy-setting-overview ul .list-group-item.group-selected {
+        background-color: #E0E0E0; }
+      #content-settings-security #privacy-setting-overview ul .active a {
+        color: #FFFFFF; }
+      #content-settings-security #privacy-setting-overview ul a {
+        color: #000000; }
+      #content-settings-security #privacy-setting-overview ul .privacy-adding {
+        margin-top: 10px;
+        padding-left: 15px; }
+      #content-settings-security #privacy-setting-overview ul .privacy-adding-input input {
+        margin: 15px 0 10px 0; }
+      #content-settings-security #privacy-setting-overview ul .privacy-adding-input button {
+        float: right; }
+      #content-settings-security #privacy-setting-overview ul .privacy-adding-input .privacy-abort-adding {
+        float: left;
+        margin-bottom: 10px; }
 
 html, body {
   margin: 0;

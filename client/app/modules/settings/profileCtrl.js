@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
-    function ($scope, Profile, profileImage, moment, CountryCodeConverter) {
+module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
+    function ($scope, Profile, profileImage, moment, CountryCodeConverter, SettingLeftNavElements) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
@@ -13,6 +13,8 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         $scope.submitFailed = false;
         $scope.submitFailedToServer = false;
         $scope.successUserDataChange = false;
+
+        $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
         $scope.getUserData = function () {
             $scope.userDataToChange = Profile.get({}, function () {

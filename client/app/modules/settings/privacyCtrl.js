@@ -21,7 +21,7 @@ var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, 
     });
 };
 
-module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
+module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scope, Privacy, SettingLeftNavElements) {
 
     $scope.allowedToChangePrivacy = false;
     $scope.selectedType = {};
@@ -30,6 +30,8 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
         $scope.setPrivacyTypeNoContact();
     });
     $scope.privacySettings.noContactSelected = true;
+
+    $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
     $scope.setPrivacyType = function (type) {
         $scope.privacySettings.noContactSelected = false;

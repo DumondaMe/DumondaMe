@@ -418,43 +418,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.myContacts\">\r" +
-    "\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
-    "\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.myContacts\"></div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <img src=\"app/img/address-book.png\">\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.contacting\">\r" +
-    "\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
-    "\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.contacting\"></div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <img src=\"app/img/followMe.png\">\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\r" +
-    "\n" +
-    "    <img src=\"app/img/home.png\">\r" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/contact/myContact.html',
     "<div id=\"content-page-contact\">\r" +
     "\n" +
@@ -2473,11 +2436,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div id=\"content-settings-security\">\n" +
     "    <div id=\"centerCol\">\n" +
     "        <div id=\"inner-centerCol\">\n" +
-    "            <div class=\"website-structure-header\">\n" +
-    "                <div class=\"website-structure-header-title\">\n" +
-    "                    <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "            <h1 class=\"website-structure-title\">\n" +
+    "                Privatsphäre Einstellung für {{selectedType.type}}\n" +
+    "            </h1>\n" +
     "            <div class=\"content-privacy\">\n" +
     "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
@@ -2552,62 +2513,59 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div id=\"leftCol\">\n" +
-    "        <div id=\"inner-leftCol\">\n" +
-    "            <ul class=\"list-group\">\n" +
-    "                <div>\n" +
-    "                    <li class=\"list-group-item\" ng-click=\"setPrivacyTypeNoContact()\"\n" +
-    "                        ng-class=\"{'group-selected': privacySettings.noContactSelected}\">\n" +
+    "    <div id=\"privacy-setting-overview\">\n" +
+    "        <ul class=\"list-group\">\n" +
+    "            <div>\n" +
+    "                <li class=\"list-group-item\" ng-click=\"setPrivacyTypeNoContact()\"\n" +
+    "                    ng-class=\"{'group-selected': privacySettings.noContactSelected}\">\n" +
     "\n" +
-    "                        <div class=\"privacy-type-description\">Kein Kontakt</div>\n" +
-    "                    </li>\n" +
-    "                </div>\n" +
-    "                <div ng-repeat=\"privacy in privacySettings.normal\">\n" +
-    "                    <li class=\"list-group-item\"\n" +
-    "                        ng-class=\"{'group-selected': selectedType.type === privacy.type}\">\n" +
-    "                        <div class=\"list-group-item-container\">\n" +
-    "                            <img ng-if=\"privacySettings.normal.length > 1\"\n" +
-    "                                 class=\"list-group-item-icons\"\n" +
-    "                                 src=\"app/img/delete.png\" trigger=\"click\"\n" +
-    "                                 data-auto-close=\"true\"\n" +
-    "                                 data-placement=\"bottom\"\n" +
-    "                                 data-template=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
-    "                                 bs-popover/>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"list-group-item-container\">\n" +
-    "                            <img class=\"list-group-item-icons\" src=\"app/img/edit.png\"\n" +
-    "                                 trigger=\"click\"\n" +
-    "                                 data-auto-close=\"true\"\n" +
-    "                                 data-placement=\"bottom\"\n" +
-    "                                 data-template=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
-    "                                 bs-popover/>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"privacy-type-description\"\n" +
-    "                             ng-click=\"setPrivacyType(privacy.type)\">{{privacy.type}}\n" +
-    "                        </div>\n" +
-    "                    </li>\n" +
-    "                </div>\n" +
-    "                <div>\n" +
-    "                    <div class=\"privacy-adding\" ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\">\n" +
-    "                        <a href=\"#\" ng-click=\"showAddingNewPrivacySetting()\">Neuer Privatsphären Typ\n" +
-    "                            hinzufügen...</a>\n" +
+    "                    <div class=\"privacy-type-description\">Kein Kontakt</div>\n" +
+    "                </li>\n" +
+    "            </div>\n" +
+    "            <div ng-repeat=\"privacy in privacySettings.normal\">\n" +
+    "                <li class=\"list-group-item\"\n" +
+    "                    ng-class=\"{'group-selected': selectedType.type === privacy.type}\">\n" +
+    "                    <div class=\"list-group-item-container\">\n" +
+    "                        <img ng-if=\"privacySettings.normal.length > 1\"\n" +
+    "                             class=\"list-group-item-icons\"\n" +
+    "                             src=\"app/img/delete.png\" trigger=\"click\"\n" +
+    "                             data-auto-close=\"true\"\n" +
+    "                             data-placement=\"bottom\"\n" +
+    "                             data-template=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
+    "                             bs-popover/>\n" +
     "                    </div>\n" +
-    "                    <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
-    "                        <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
-    "                               ng-model=\"addingPrivacy.newPrivacyName\">\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
-    "                                ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
-    "                            Hinzufügen\n" +
-    "                        </button>\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\"\n" +
-    "                                ng-click=\"abortAddingNewPrivacy()\">Abbrechen\n" +
-    "                        </button>\n" +
+    "                    <div class=\"list-group-item-container\">\n" +
+    "                        <img class=\"list-group-item-icons\" src=\"app/img/edit.png\"\n" +
+    "                             trigger=\"click\"\n" +
+    "                             data-auto-close=\"true\"\n" +
+    "                             data-placement=\"bottom\"\n" +
+    "                             data-template=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
+    "                             bs-popover/>\n" +
     "                    </div>\n" +
+    "                    <div class=\"privacy-type-description\"\n" +
+    "                         ng-click=\"setPrivacyType(privacy.type)\">{{privacy.type}}\n" +
+    "                    </div>\n" +
+    "                </li>\n" +
+    "            </div>\n" +
+    "            <div>\n" +
+    "                <div class=\"privacy-adding\" ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\">\n" +
+    "                    <a href=\"#\" ng-click=\"showAddingNewPrivacySetting()\">Neuer Privatsphären Typ\n" +
+    "                        hinzufügen...</a>\n" +
     "                </div>\n" +
-    "            </ul>\n" +
-    "        </div>\n" +
+    "                <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
+    "                    <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
+    "                           ng-model=\"addingPrivacy.newPrivacyName\">\n" +
+    "                    <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
+    "                            ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
+    "                        Hinzufügen\n" +
+    "                    </button>\n" +
+    "                    <button class=\"btn btn-default privacy-abort-adding\" type=\"button\"\n" +
+    "                            ng-click=\"abortAddingNewPrivacy()\">Abbrechen\n" +
+    "                    </button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </ul>\n" +
     "    </div>\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\n" +
     "</div>"
   );
 
@@ -2810,8 +2768,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
   );

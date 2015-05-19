@@ -419,43 +419,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.myContacts\">\r" +
-    "\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
-    "\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.myContacts\"></div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <img src=\"app/img/address-book.png\">\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"contact.contacting\">\r" +
-    "\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\r" +
-    "\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"contact.contacting\"></div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <img src=\"app/img/followMe.png\">\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\r" +
-    "\n" +
-    "    <img src=\"app/img/home.png\">\r" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/contact/myContact.html',
     "<div id=\"content-page-contact\">\r" +
     "\n" +
@@ -2474,11 +2437,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div id=\"content-settings-security\">\n" +
     "    <div id=\"centerCol\">\n" +
     "        <div id=\"inner-centerCol\">\n" +
-    "            <div class=\"website-structure-header\">\n" +
-    "                <div class=\"website-structure-header-title\">\n" +
-    "                    <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "            <h1 class=\"website-structure-title\">\n" +
+    "                Privatsphäre Einstellung für {{selectedType.type}}\n" +
+    "            </h1>\n" +
     "            <div class=\"content-privacy\">\n" +
     "                <div class=\"privacy-setting-row\">\n" +
     "                    <div class=\"select-privacy-settings\">\n" +
@@ -2553,62 +2514,59 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div id=\"leftCol\">\n" +
-    "        <div id=\"inner-leftCol\">\n" +
-    "            <ul class=\"list-group\">\n" +
-    "                <div>\n" +
-    "                    <li class=\"list-group-item\" ng-click=\"setPrivacyTypeNoContact()\"\n" +
-    "                        ng-class=\"{'group-selected': privacySettings.noContactSelected}\">\n" +
+    "    <div id=\"privacy-setting-overview\">\n" +
+    "        <ul class=\"list-group\">\n" +
+    "            <div>\n" +
+    "                <li class=\"list-group-item\" ng-click=\"setPrivacyTypeNoContact()\"\n" +
+    "                    ng-class=\"{'group-selected': privacySettings.noContactSelected}\">\n" +
     "\n" +
-    "                        <div class=\"privacy-type-description\">Kein Kontakt</div>\n" +
-    "                    </li>\n" +
-    "                </div>\n" +
-    "                <div ng-repeat=\"privacy in privacySettings.normal\">\n" +
-    "                    <li class=\"list-group-item\"\n" +
-    "                        ng-class=\"{'group-selected': selectedType.type === privacy.type}\">\n" +
-    "                        <div class=\"list-group-item-container\">\n" +
-    "                            <img ng-if=\"privacySettings.normal.length > 1\"\n" +
-    "                                 class=\"list-group-item-icons\"\n" +
-    "                                 src=\"app/img/delete.png\" trigger=\"click\"\n" +
-    "                                 data-auto-close=\"true\"\n" +
-    "                                 data-placement=\"bottom\"\n" +
-    "                                 data-template=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
-    "                                 bs-popover/>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"list-group-item-container\">\n" +
-    "                            <img class=\"list-group-item-icons\" src=\"app/img/edit.png\"\n" +
-    "                                 trigger=\"click\"\n" +
-    "                                 data-auto-close=\"true\"\n" +
-    "                                 data-placement=\"bottom\"\n" +
-    "                                 data-template=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
-    "                                 bs-popover/>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"privacy-type-description\"\n" +
-    "                             ng-click=\"setPrivacyType(privacy.type)\">{{privacy.type}}\n" +
-    "                        </div>\n" +
-    "                    </li>\n" +
-    "                </div>\n" +
-    "                <div>\n" +
-    "                    <div class=\"privacy-adding\" ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\">\n" +
-    "                        <a href=\"#\" ng-click=\"showAddingNewPrivacySetting()\">Neuer Privatsphären Typ\n" +
-    "                            hinzufügen...</a>\n" +
+    "                    <div class=\"privacy-type-description\">Kein Kontakt</div>\n" +
+    "                </li>\n" +
+    "            </div>\n" +
+    "            <div ng-repeat=\"privacy in privacySettings.normal\">\n" +
+    "                <li class=\"list-group-item\"\n" +
+    "                    ng-class=\"{'group-selected': selectedType.type === privacy.type}\">\n" +
+    "                    <div class=\"list-group-item-container\">\n" +
+    "                        <img ng-if=\"privacySettings.normal.length > 1\"\n" +
+    "                             class=\"list-group-item-icons\"\n" +
+    "                             src=\"app/img/delete.png\" trigger=\"click\"\n" +
+    "                             data-auto-close=\"true\"\n" +
+    "                             data-placement=\"bottom\"\n" +
+    "                             data-template=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
+    "                             bs-popover/>\n" +
     "                    </div>\n" +
-    "                    <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
-    "                        <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
-    "                               ng-model=\"addingPrivacy.newPrivacyName\">\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
-    "                                ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
-    "                            Hinzufügen\n" +
-    "                        </button>\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\"\n" +
-    "                                ng-click=\"abortAddingNewPrivacy()\">Abbrechen\n" +
-    "                        </button>\n" +
+    "                    <div class=\"list-group-item-container\">\n" +
+    "                        <img class=\"list-group-item-icons\" src=\"app/img/edit.png\"\n" +
+    "                             trigger=\"click\"\n" +
+    "                             data-auto-close=\"true\"\n" +
+    "                             data-placement=\"bottom\"\n" +
+    "                             data-template=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
+    "                             bs-popover/>\n" +
     "                    </div>\n" +
+    "                    <div class=\"privacy-type-description\"\n" +
+    "                         ng-click=\"setPrivacyType(privacy.type)\">{{privacy.type}}\n" +
+    "                    </div>\n" +
+    "                </li>\n" +
+    "            </div>\n" +
+    "            <div>\n" +
+    "                <div class=\"privacy-adding\" ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\">\n" +
+    "                    <a href=\"#\" ng-click=\"showAddingNewPrivacySetting()\">Neuer Privatsphären Typ\n" +
+    "                        hinzufügen...</a>\n" +
     "                </div>\n" +
-    "            </ul>\n" +
-    "        </div>\n" +
+    "                <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
+    "                    <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
+    "                           ng-model=\"addingPrivacy.newPrivacyName\">\n" +
+    "                    <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
+    "                            ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
+    "                        Hinzufügen\n" +
+    "                    </button>\n" +
+    "                    <button class=\"btn btn-default privacy-abort-adding\" type=\"button\"\n" +
+    "                            ng-click=\"abortAddingNewPrivacy()\">Abbrechen\n" +
+    "                    </button>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </ul>\n" +
     "    </div>\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\n" +
     "</div>"
   );
 
@@ -2811,8 +2769,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
   );
@@ -4804,7 +4760,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":125,"./auth":15,"./contact":25,"./directives":39,"./filters":56,"./home":60,"./navigation":70,"./settings":102,"./util":122,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":126,"./auth":15,"./contact":25,"./directives":39,"./filters":56,"./home":60,"./navigation":70,"./settings":102,"./util":123,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -7322,6 +7278,8 @@ app.factory('Profile', require('./services/profile'));
 app.factory('Privacy', require('./services/privacy'));
 app.factory('Password', require('./services/password'));
 
+app.service('SettingLeftNavElements', require('./services/leftNavElements'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
@@ -7341,7 +7299,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/profile.html',
                     controller: 'ProfileCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('settings.profile.changePassword', {
             url: '/newPassword',
@@ -7350,7 +7309,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/changePassword.html',
                     controller: 'PasswordCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('settings.privacy', {
             url: '/privacy',
@@ -7359,10 +7319,11 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/settings/privacy.html',
                     controller: 'PrivacyCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":101,"./passwordCtrl":103,"./privacyCtrl":104,"./profileCtrl":105,"./renamePrivacyCtrl":106,"./services/password":107,"./services/privacy":108,"./services/profile":109,"angular":4}],103:[function(require,module,exports){
+},{"./deletePrivacyCtrl":101,"./passwordCtrl":103,"./privacyCtrl":104,"./profileCtrl":105,"./renamePrivacyCtrl":106,"./services/leftNavElements":107,"./services/password":108,"./services/privacy":109,"./services/profile":110,"angular":4}],103:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', function ($scope, Password) {
@@ -7439,7 +7400,7 @@ var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, 
     });
 };
 
-module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
+module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scope, Privacy, SettingLeftNavElements) {
 
     $scope.allowedToChangePrivacy = false;
     $scope.selectedType = {};
@@ -7448,6 +7409,8 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
         $scope.setPrivacyTypeNoContact();
     });
     $scope.privacySettings.noContactSelected = true;
+
+    $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
     $scope.setPrivacyType = function (type) {
         $scope.privacySettings.noContactSelected = false;
@@ -7535,8 +7498,8 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 },{}],105:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter',
-    function ($scope, Profile, profileImage, moment, CountryCodeConverter) {
+module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
+    function ($scope, Profile, profileImage, moment, CountryCodeConverter, SettingLeftNavElements) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
@@ -7548,6 +7511,8 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         $scope.submitFailed = false;
         $scope.submitFailedToServer = false;
         $scope.successUserDataChange = false;
+
+        $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
         $scope.getUserData = function () {
             $scope.userDataToChange = Profile.get({}, function () {
@@ -7663,11 +7628,24 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 },{}],107:[function(require,module,exports){
 'use strict';
 
+module.exports = [
+    function () {
+        this.event = 'elyoos.leftNav.changed';
+
+        this.elements = [
+            {description: 'Profile', url: 'app/img/defaultProfile.png', color: '#009688', sref: 'settings.profile'},
+            {description: 'Privatsph\u00e4re', url: 'app/img/security.png', color: '#FFA000', sref: 'settings.privacy'},
+            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
+    }];
+
+},{}],108:[function(require,module,exports){
+'use strict';
+
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7676,14 +7654,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],110:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -7717,14 +7695,14 @@ module.exports = function () {
     };
 };
 
-},{}],111:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":110,"./languages":112,"angular":4}],112:[function(require,module,exports){
+},{"./countryCodeConverter":111,"./languages":113,"angular":4}],113:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -7748,7 +7726,7 @@ module.exports = [
         };
     }];
 
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -7781,19 +7759,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":113,"angular":4}],115:[function(require,module,exports){
+},{"./dateFormatter":114,"angular":4}],116:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":116,"angular":4}],116:[function(require,module,exports){
+},{"./profileImage":117,"angular":4}],117:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -7805,7 +7783,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],117:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -7889,7 +7867,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],118:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -7911,14 +7889,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],119:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],120:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -7943,7 +7921,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],121:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7956,14 +7934,14 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":117,"./fileModel.js":118,"./fileReader":119,"./fileUpload":120,"angular":4}],122:[function(require,module,exports){
+},{"./fileCtrl":118,"./fileModel.js":119,"./fileReader":120,"./fileUpload":121,"angular":4}],123:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
-},{"./moment":123,"./promiseModal":124,"angular":4}],123:[function(require,module,exports){
+},{"./moment":124,"./promiseModal":125,"angular":4}],124:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -7973,7 +7951,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],124:[function(require,module,exports){
+},{"moment":11}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
@@ -8008,7 +7986,7 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
     };
 }];
 
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -8063,4 +8041,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,72,73,74,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,72,73,74,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125]);

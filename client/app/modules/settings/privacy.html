@@ -1,11 +1,9 @@
 <div id="content-settings-security">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="website-structure-header">
-                <div class="website-structure-header-title">
-                    <h2>Privatsphäre Einstellung für {{selectedType.type}}</h2>
-                </div>
-            </div>
+            <h1 class="website-structure-title">
+                Privatsphäre Einstellung für {{selectedType.type}}
+            </h1>
             <div class="content-privacy">
                 <div class="privacy-setting-row">
                     <div class="select-privacy-settings">
@@ -80,60 +78,57 @@
             </div>
         </div>
     </div>
-    <div id="leftCol">
-        <div id="inner-leftCol">
-            <ul class="list-group">
-                <div>
-                    <li class="list-group-item" ng-click="setPrivacyTypeNoContact()"
-                        ng-class="{'group-selected': privacySettings.noContactSelected}">
+    <div id="privacy-setting-overview">
+        <ul class="list-group">
+            <div>
+                <li class="list-group-item" ng-click="setPrivacyTypeNoContact()"
+                    ng-class="{'group-selected': privacySettings.noContactSelected}">
 
-                        <div class="privacy-type-description">Kein Kontakt</div>
-                    </li>
-                </div>
-                <div ng-repeat="privacy in privacySettings.normal">
-                    <li class="list-group-item"
-                        ng-class="{'group-selected': selectedType.type === privacy.type}">
-                        <div class="list-group-item-container">
-                            <img ng-if="privacySettings.normal.length > 1"
-                                 class="list-group-item-icons"
-                                 src="app/img/delete.png" trigger="click"
-                                 data-auto-close="true"
-                                 data-placement="bottom"
-                                 data-template="app/modules/settings/popoverDeletePrivacy.html"
-                                 bs-popover/>
-                        </div>
-                        <div class="list-group-item-container">
-                            <img class="list-group-item-icons" src="app/img/edit.png"
-                                 trigger="click"
-                                 data-auto-close="true"
-                                 data-placement="bottom"
-                                 data-template="app/modules/settings/popoverRenamePrivacy.html"
-                                 bs-popover/>
-                        </div>
-                        <div class="privacy-type-description"
-                             ng-click="setPrivacyType(privacy.type)">{{privacy.type}}
-                        </div>
-                    </li>
-                </div>
-                <div>
-                    <div class="privacy-adding" ng-if="!showNewPrivacySettingInput && privacySettings.normal.length < 10">
-                        <a href="#" ng-click="showAddingNewPrivacySetting()">Neuer Privatsphären Typ
-                            hinzufügen...</a>
+                    <div class="privacy-type-description">Kein Kontakt</div>
+                </li>
+            </div>
+            <div ng-repeat="privacy in privacySettings.normal">
+                <li class="list-group-item"
+                    ng-class="{'group-selected': selectedType.type === privacy.type}">
+                    <div class="list-group-item-container">
+                        <img ng-if="privacySettings.normal.length > 1"
+                             class="list-group-item-icons"
+                             src="app/img/delete.png" trigger="click"
+                             data-auto-close="true"
+                             data-placement="bottom"
+                             data-template="app/modules/settings/popoverDeletePrivacy.html"
+                             bs-popover/>
                     </div>
-                    <div class="privacy-adding-input" ng-if="showNewPrivacySettingInput">
-                        <input class="form-control" placeholder="Privatsphären Typ" ng-maxlength="30"
-                               ng-model="addingPrivacy.newPrivacyName">
-                        <button class="btn btn-default" type="button" ng-click="addPrivacySetting()"
-                                ng-class="{disabled: addingPrivacy.newPrivacyName.trim() === ''}">
-                            Hinzufügen
-                        </button>
-                        <button class="btn btn-default" type="button"
-                                ng-click="abortAddingNewPrivacy()">Abbrechen
-                        </button>
+                    <div class="list-group-item-container">
+                        <img class="list-group-item-icons" src="app/img/edit.png"
+                             trigger="click"
+                             data-auto-close="true"
+                             data-placement="bottom"
+                             data-template="app/modules/settings/popoverRenamePrivacy.html"
+                             bs-popover/>
                     </div>
+                    <div class="privacy-type-description"
+                         ng-click="setPrivacyType(privacy.type)">{{privacy.type}}
+                    </div>
+                </li>
+            </div>
+            <div>
+                <div class="privacy-adding" ng-if="!showNewPrivacySettingInput && privacySettings.normal.length < 10">
+                    <a href="#" ng-click="showAddingNewPrivacySetting()">Neuer Privatsphären Typ
+                        hinzufügen...</a>
                 </div>
-            </ul>
-        </div>
+                <div class="privacy-adding-input" ng-if="showNewPrivacySettingInput">
+                    <input class="form-control" placeholder="Privatsphären Typ" ng-maxlength="30"
+                           ng-model="addingPrivacy.newPrivacyName">
+                    <button class="btn btn-default" type="button" ng-click="addPrivacySetting()"
+                            ng-class="{disabled: addingPrivacy.newPrivacyName.trim() === ''}">
+                        Hinzufügen
+                    </button>
+                    <button class="btn btn-default privacy-abort-adding" type="button"
+                            ng-click="abortAddingNewPrivacy()">Abbrechen
+                    </button>
+                </div>
+            </div>
+        </ul>
     </div>
-    <div id="leftColNav" ng-include="'app/modules/settings/leftNavCol.html'"></div>
 </div>
