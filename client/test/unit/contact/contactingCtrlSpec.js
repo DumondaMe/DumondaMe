@@ -1,10 +1,10 @@
 'use strict';
 
-var contactingCtrl = require('../../../app/modules/contact/contactingCtrl')[2];
+var contactingCtrl = require('../../../app/modules/contact/contactingCtrl')[3];
 var moment = require('../../../app/lib/moment/moment');
 
 describe('Tests of contacting controller', function () {
-    var scope, Contacting;
+    var scope, Contacting, ContactLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -12,6 +12,8 @@ describe('Tests of contacting controller', function () {
             Contacting = {};
             Contacting.get = function () {
             };
+
+            ContactLeftNavElements = {};
 
             scope = $rootScope.$new();
             done();
@@ -35,7 +37,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(2);
@@ -67,7 +69,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(7);
@@ -94,7 +96,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(2);
@@ -116,7 +118,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(2);
@@ -138,7 +140,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(2);
@@ -170,7 +172,7 @@ describe('Tests of contacting controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        contactingCtrl(scope, Contacting);
+        contactingCtrl(scope, Contacting, ContactLeftNavElements);
         stubContactGet.callArg(1);
 
         expect(scope.users.contactingUsers.length).to.equal(7);

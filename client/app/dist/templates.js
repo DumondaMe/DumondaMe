@@ -1330,19 +1330,75 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div>\r" +
     "\n" +
-    "        <div class=\"leftHeaderNavElement\" ui-sref=\"settings.profile\">\r" +
+    "        <div class=\"leftHeaderNavElement\">\r" +
     "\n" +
     "\r" +
     "\n" +
     "            <div id=\"header-user-name\">{{userHeaderInfo.name}}</div>\r" +
     "\n" +
-    "            <img ng-src=\"{{userHeaderInfo.profileImage}}\" class=\"img-circle\">\r" +
+    "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" class=\"img-circle\" data-placement=\"bottom-right\"\r" +
+    "\n" +
+    "                 data-template=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
+    "\n" +
+    "                 data-trigger=\"click\" bs-popover>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/navigation/profilePreview/profilePreviewPopover.html',
+    "<div class=\"popover\" id=\"popover-profile-preview\" ng-controller=\"ProfilePreviewPopoverCtrl\">\r" +
+    "\n" +
+    "    <div class=\"arrow\"></div>\r" +
+    "\n" +
+    "    <div class=\"popover-content\">\r" +
+    "\n" +
+    "        <div id=\"profile-preview-content\">\r" +
+    "\n" +
+    "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" id=\"profile-preview-image\" class=\"img-rounded\">\r" +
+    "\n" +
+    "            <div id=\"profile-preview-description\">\r" +
+    "\n" +
+    "                <div id=\"profile-preview-name\">\r" +
+    "\n" +
+    "                    {{userHeaderInfo.name}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div id=\"profile-preview-email\">\r" +
+    "\n" +
+    "                    {{userHeaderInfo.email}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div id=\"profile-preview-commands\">\r" +
+    "\n" +
+    "            <button class=\"btn btn-default\" id=\"profile-preview-change\" type=\"button\" ng-click=\"openProfileEdit($hide)\">\r" +
+    "\n" +
+    "                Profil bearbeiten\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button class=\"btn btn-default\" id=\"profile-preview-logout\" type=\"button\" ng-click=\"logout()\">\r" +
+    "\n" +
+    "                 Abmelden\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 

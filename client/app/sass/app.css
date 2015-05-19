@@ -718,8 +718,7 @@ h1.website-structure-title {
   height: 60px;
   padding-right: 30px;
   width: 100%;
-  background-color: #f1f1f1;
-  z-index: 99; }
+  background-color: #f1f1f1; }
   #public-header .leftHeaderNavElement {
     float: right;
     padding-top: 10px; }
@@ -740,6 +739,36 @@ h1.website-structure-title {
       margin-left: 5px;
       font-size: 14px;
       vertical-align: middle; }
+
+#popover-profile-preview {
+  max-width: 100%; }
+  #popover-profile-preview .popover-content {
+    width: 350px; }
+    #popover-profile-preview .popover-content #profile-preview-content {
+      width: 100%;
+      height: 120px; }
+      #popover-profile-preview .popover-content #profile-preview-content #profile-preview-image {
+        display: inline-block;
+        vertical-align: top;
+        width: 96px;
+        height: 96px;
+        margin-left: 0px;
+        margin-right: 20px; }
+      #popover-profile-preview .popover-content #profile-preview-content #profile-preview-description {
+        width: 200px;
+        display: inline-block;
+        vertical-align: top; }
+        #popover-profile-preview .popover-content #profile-preview-content #profile-preview-description #profile-preview-name {
+          font-size: 14px;
+          font-weight: bold; }
+        #popover-profile-preview .popover-content #profile-preview-content #profile-preview-description #profile-preview-email {
+          font-size: 14px;
+          font-weight: 300; }
+    #popover-profile-preview .popover-content #profile-preview-commands {
+      border-top: solid 1px #CCCCCC;
+      padding-top: 10px; }
+      #popover-profile-preview .popover-content #profile-preview-commands #profile-preview-logout {
+        float: right; }
 
 .navigation-element {
   float: left;

@@ -31,7 +31,7 @@ describe('Unit Test controllers/api/user/userInfo', function () {
             end: function () {
             }
         });
-        sandbox.stub(user, 'getUserName').returns(Promise.reject({}));
+        sandbox.stub(user, 'getUserInfo').returns(Promise.reject({}));
 
         return request.executeGetRequest(request.req, request.res).then(function () {
             expect(stubResponse.withArgs(500).calledOnce).to.be.true;

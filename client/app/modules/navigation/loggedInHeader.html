@@ -1,9 +1,11 @@
 <div id="public-header" ng-controller="LoggedInHeaderCtrl">
     <div>
-        <div class="leftHeaderNavElement" ui-sref="settings.profile">
+        <div class="leftHeaderNavElement">
 
             <div id="header-user-name">{{userHeaderInfo.name}}</div>
-            <img ng-src="{{userHeaderInfo.profileImage}}" class="img-circle">
+            <img ng-src="{{userHeaderInfo.profileImagePreview}}" class="img-circle" data-placement="bottom-right"
+                 data-template="app/modules/navigation/profilePreview/profilePreviewPopover.html" data-auto-close="true"
+                 data-trigger="click" bs-popover>
         </div>
     </div>
 </div>

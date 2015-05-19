@@ -31,6 +31,8 @@ describe('Integration Tests User Name', function () {
             res.status.should.equal(200);
             res.body.name.should.equal('user Meier');
             res.body.profileImage.should.equal('profileImage/1/thumbnail.jpg');
+            res.body.profileImagePreview.should.equal('profileImage/1/profilePreview.jpg');
+            res.body.email.should.equal('user@irgendwo.ch');
         });
     });
 });

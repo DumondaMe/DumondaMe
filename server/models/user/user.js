@@ -7,17 +7,20 @@ var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
 var cdn = require('../util/cdn');
 var moment = require('moment');
+var underscore = require('underscore');
 
-var getUser = function (resp, id, profileUrl) {
+var getUser = function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
-        resp[0].profileImage = cdn.getUrl('profileImage/' + id + profileUrl);
+        underscore.forEach(profileUrls, function (profileUrl) {
+            resp[0][profileUrl.property] = cdn.getUrl('profileImage/' + id + profileUrl.image);
+        });
         return resp[0];
     }
     if (resp.length > 1) {
-        logger.error('More then one user with id ' + id);
+        logger.error('More then one user with id ' + id, req);
     }
     if (resp.length === 0) {
-        logger.error('User with id ' + id + ' not found');
+        logger.error('User with id ' + id + ' not found', req);
     }
 };
 
@@ -44,7 +47,7 @@ module.exports = {
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, '/profile.jpg', req);
+                return getUser(resp, id, [{property: 'profileImage', image: '/profile.jpg'}], req);
             });
     },
     updateUserProfile: function (userId, userData) {
@@ -83,13 +86,20 @@ module.exports = {
             })
             .send();
     },
-    getUserName: function (id, req) {
+    getUserInfo: function (id, req) {
         return db.cypher().match('(u:User {userId: {id}})')
-            .return('u.name AS name')
+            .return('u.name AS name, u.email AS email')
             .end({id: id})
             .send()
             .then(function (resp) {
-                return getUser(resp, id, '/thumbnail.jpg', req);
+                return getUser(resp, id, [
+                    {
+                        property: 'profileImage',
+                        image: '/thumbnail.jpg'
+                    }, {
+                        property: 'profileImagePreview',
+                        image: '/profilePreview.jpg'
+                    }], req);
             });
     }
 };

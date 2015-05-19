@@ -1,9 +1,9 @@
 'use strict';
 
-var myContactCtrl = require('../../../app/modules/contact/myContactCtrl')[3];
+var myContactCtrl = require('../../../app/modules/contact/myContactCtrl')[4];
 
 describe('Tests of My Contact Controller', function () {
-    var scope, Contact, SearchUsers;
+    var scope, Contact, SearchUsers, ContactLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -15,6 +15,8 @@ describe('Tests of My Contact Controller', function () {
             SearchUsers = {};
             SearchUsers.query = function () {
             };
+
+            ContactLeftNavElements = {};
 
             scope = $rootScope.$new();
             done();
@@ -38,7 +40,7 @@ describe('Tests of My Contact Controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getContacts(1);
         stubContactGet.callArg(1);
 
@@ -66,7 +68,7 @@ describe('Tests of My Contact Controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 30}).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getContacts(2);
         stubContactGet.callsArg(1);
 
@@ -88,7 +90,7 @@ describe('Tests of My Contact Controller', function () {
             isSuggestion: true
         }).returns({$promise: 1});
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getUserSuggestion(searchQuery);
 
         mockSearchUser.verify();
@@ -113,7 +115,7 @@ describe('Tests of My Contact Controller', function () {
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getUserSuggestion();
         stubContactGet.callArg(1);
 
@@ -144,7 +146,7 @@ describe('Tests of My Contact Controller', function () {
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getUserSuggestion('   ');
         stubContactGet.callArg(1);
 
@@ -166,6 +168,14 @@ describe('Tests of My Contact Controller', function () {
                 name: 'Hans Muster'
             }];
 
+        stubSearchUser.withArgs({
+            search: search,
+            maxItems: 20,
+            isSuggestion: false
+        }).returns(response);
+
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+
         scope.users = {};
         scope.users.statistic = [{
             type: 'Freund',
@@ -173,13 +183,6 @@ describe('Tests of My Contact Controller', function () {
             selected: true
         }];
 
-        stubSearchUser.withArgs({
-            search: search,
-            maxItems: 20,
-            isSuggestion: false
-        }).returns(response);
-
-        myContactCtrl(scope, SearchUsers, Contact);
         scope.getUser(search);
         stubSearchUser.callArg(1);
 
@@ -209,7 +212,7 @@ describe('Tests of My Contact Controller', function () {
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
         mockSearchUser.expects('query').never();
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.getUser('   ');
         stubContactGet.callArg(1);
 
@@ -238,7 +241,7 @@ describe('Tests of My Contact Controller', function () {
 
         stubContactGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
         scope.selectedAllContacts();
         stubContactGet.callArg(1);
 
@@ -265,19 +268,20 @@ describe('Tests of My Contact Controller', function () {
                 contactsForPagination: 2
             };
 
-        scope.users = {};
-        scope.users.statistic = [
-            {type: 'Freund', selected: false},
-            {type: 'Bekannter', selected: true}
-        ];
-
         stubContactGet.withArgs({
             itemsPerPage: 30,
             skip: 0,
             types: 'Freund,Bekannter'
         }).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+
+        scope.users = {};
+        scope.users.statistic = [
+            {type: 'Freund', selected: false},
+            {type: 'Bekannter', selected: true}
+        ];
+
         scope.selectedStatisticType(scope.users.statistic[0]);
         stubContactGet.callArg(1);
 
@@ -300,19 +304,20 @@ describe('Tests of My Contact Controller', function () {
                 contactsForPagination: 1
             };
 
-        scope.users = {};
-        scope.users.statistic = [
-            {type: 'Freund', selected: true},
-            {type: 'Bekannter', selected: true}
-        ];
-
         stubContactGet.withArgs({
             itemsPerPage: 30,
             skip: 0,
             types: 'Bekannter'
         }).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+
+        scope.users = {};
+        scope.users.statistic = [
+            {type: 'Freund', selected: true},
+            {type: 'Bekannter', selected: true}
+        ];
+
         scope.selectedStatisticType(scope.users.statistic[0]);
         stubContactGet.callArg(1);
 
@@ -333,18 +338,19 @@ describe('Tests of My Contact Controller', function () {
                 }]
             };
 
+        stubContactGet.withArgs({
+            itemsPerPage: 30,
+            skip: 0
+        }).returns(response);
+
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+
         scope.users = {};
         scope.users.statistic = [
             {type: 'Freund', selected: true},
             {type: 'Bekannter', selected: false}
         ];
 
-        stubContactGet.withArgs({
-            itemsPerPage: 30,
-            skip: 0
-        }).returns(response);
-
-        myContactCtrl(scope, SearchUsers, Contact);
         scope.selectedStatisticType(scope.users.statistic[0]);
         stubContactGet.callArg(1);
 
@@ -366,18 +372,20 @@ describe('Tests of My Contact Controller', function () {
             };
 
         scope.allContactsSelected = true;
-        scope.users = {};
-        scope.users.statistic = [
-            {type: 'Freund', selected: false},
-            {type: 'Bekannter', selected: false}
-        ];
 
         stubContactGet.withArgs({
             itemsPerPage: 30,
             skip: 30
         }).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+
+        scope.users = {};
+        scope.users.statistic = [
+            {type: 'Freund', selected: false},
+            {type: 'Bekannter', selected: false}
+        ];
+
         scope.paginationChanged(2);
         stubContactGet.callArg(1);
 
@@ -399,27 +407,24 @@ describe('Tests of My Contact Controller', function () {
                 contactsForPagination: 1
             };
 
-        scope.users = {};
-        scope.users.statistic = [
-            {type: 'Freund', selected: true},
-            {type: 'Bekannter', selected: false}
-        ];
-
         stubContactGet.withArgs({
             itemsPerPage: 30,
             skip: 30,
             types: 'Freund'
         }).returns(response);
 
-        myContactCtrl(scope, SearchUsers, Contact);
+        myContactCtrl(scope, SearchUsers, Contact, ContactLeftNavElements);
+        scope.users = {};
+        scope.users.statistic = [
+            {type: 'Freund', selected: true},
+            {type: 'Bekannter', selected: false}
+        ];
         scope.allContactsSelected = false;
         scope.paginationChanged(2);
         stubContactGet.callArg(1);
 
         expect(scope.users.contacts.length).to.equal(1);
         expect(scope.users.contactsForPagination).to.equal(1);
-        expect(scope.isUserSearch).to.be.false;
-        expect(scope.allContactsSelected).to.be.false;
         expect(scope.users.contacts[0].type).to.equal('Freund');
     });
 });
