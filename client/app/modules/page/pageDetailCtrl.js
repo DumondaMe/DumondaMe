@@ -7,8 +7,10 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail',
-    function ($scope, $window, $state, $stateParams, PageDetail) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements',
+    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements) {
+
+        $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
             var collection;

@@ -4,8 +4,9 @@ $margin-right-col: 290px;
 
   width: 100%;
   height: 100%;
+  margin-top: 95px;
 
-  @include centerColumn(80px) {
+  @include centerColumn(240px) {
     #inner-centerCol {
       min-width: 1000px;
       height: 100%;

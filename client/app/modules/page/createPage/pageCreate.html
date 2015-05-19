@@ -2,9 +2,7 @@
     <div id="centerCol">
         <div id="inner-centerCol">
             <div class="website-structure-header">
-                <div class="website-structure-header-title">
-                    <h2>Kategorie ausw&aumlhlen</h2>
-                </div>
+                <h1 class="website-structure-title">Kategorie ausw&aumlhlen</h1>
             </div>
             <div id="content-create-category" ng-controller="PageCreateSelectCategoryCtrl">
                 <form class="form-horizontal" name="categoryForm" role="form" novalidate>
@@ -55,12 +53,10 @@
             </div>
             <div id="content-create-page-suggestions" ng-show="state.actual === 2">
                 <div class="website-structure-header">
-                    <div class="website-structure-header-title">
-                        <h2>Existiert die Seite die Sie erstellen m&oumlchten bereits?</h2>
-                    </div>
+                    <h1 class="website-structure-title">Existiert die Seite die Sie erstellen m&oumlchten bereits?</h1>
                 </div>
-                <div id="page-preview-container">
-                    <div ng-repeat="pagePreview in page.pageSuggestions.pages">
+                <div class="page-preview-container">
+                    <div ng-repeat="pagePreview in page.pageSuggestions.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
                 </div>

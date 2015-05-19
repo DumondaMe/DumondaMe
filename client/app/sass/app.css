@@ -974,7 +974,8 @@ h1.website-structure-title {
   height: 100%; }
   #content #content-page-create {
     width: 100%;
-    height: 100%; }
+    height: 100%;
+    margin-top: 95px; }
     #content #content-page-create #centerCol {
       width: 100%;
       height: 100%;
@@ -1030,11 +1031,12 @@ h1.website-structure-title {
 
 #content-page-detail {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  margin-top: 95px; }
   #content-page-detail #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 80px; }
+    padding-left: 240px; }
     #content-page-detail #centerCol #inner-centerCol {
       min-width: 1000px;
       height: 100%;
@@ -1158,11 +1160,12 @@ h1.website-structure-title {
 
 #content {
   width: 100%;
-  height: 100%;
-  min-width: 1000px; }
+  height: 100%; }
   #content #content-page-overview {
     width: 100%;
-    height: 100%; }
+    height: 100%;
+    min-width: 1000px;
+    padding-top: 140px; }
     #content #content-page-overview #centerCol {
       width: 100%;
       height: 100%;
@@ -1174,47 +1177,25 @@ h1.website-structure-title {
         max-width: 1600px;
         height: 100%;
         padding-left: 50px; }
-        #content #content-page-overview #centerCol #inner-centerCol h1.page-overview-title {
-          margin-top: 0px;
-          margin-bottom: 20px;
-          font-size: 28px;
-          font-style: normal;
-          font-variant: normal;
-          font-weight: 100; }
         #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
           margin-bottom: 20px; }
         @media (min-width: 1400px) {
           #content #content-page-overview #centerCol #inner-centerCol {
             width: 1110px; } }
-    #content #content-page-overview #leftCol {
+    #content #content-page-overview #search-box-container {
       position: fixed;
-      display: inline-block;
-      left: 80px;
-      width: 260px;
-      height: 100%;
-      top: 0px;
-      padding-top: 35px;
-      z-index: 98;
-      background-color: #F2F2F2;
-      overflow: visible; }
-      #content #content-page-overview #leftCol #inner-leftCol {
-        padding-top: 24px;
-        margin-bottom: 20px; }
-        #content #content-page-overview #leftCol #inner-leftCol .page-preview-add-page {
-          margin: 10px 0px 10px 10px; }
-        #content #content-page-overview #leftCol #inner-leftCol .list-group-item {
-          padding: 5px 15px;
-          cursor: pointer; }
-        #content #content-page-overview #leftCol #inner-leftCol .group-selected {
-          background-color: #f1f1f1; }
-        #content #content-page-overview #leftCol #inner-leftCol #page-overview-counter-description {
-          margin: 5px 10px -5px 25px;
-          font-weight: bold;
-          font-size: 14px; }
-        #content #content-page-overview #leftCol #inner-leftCol #page-overview-counter {
-          padding: 0px 10px;
-          margin-bottom: 0;
-          margin-top: 10px; }
+      top: 60px;
+      width: 100%;
+      height: 48px;
+      background-color: #ffffff;
+      left: 230px; }
+      #content #content-page-overview #search-box-container .searchBoxForm {
+        display: inline-block;
+        padding-left: 60px;
+        margin-top: 2px;
+        width: 600px; }
+      #content #content-page-overview #search-box-container .searchBoxForm {
+        padding-left: 40px; }
 
 .page-preview-container {
   height: 350px;

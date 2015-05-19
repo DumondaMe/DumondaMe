@@ -1204,58 +1204,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <!--<div id=\"leftCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "            <ely-search-box description=\"Nachricht an...\" query=\"query\"\r" +
-    "\n" +
-    "                            get-query-suggestion=\"getSuggestion\"\r" +
-    "\n" +
-    "                            get-query=\"getThreadsOrContacts\"></ely-search-box>\r" +
-    "\n" +
-    "            &lt;!&ndash;<div id=\"add-new-group-button\">\r" +
-    "\n" +
-    "                <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\">\r" +
-    "\n" +
-    "                    <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Neuer\r" +
-    "\n" +
-    "                    Gruppenchat\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>&ndash;&gt;\r" +
-    "\n" +
-    "            <ul id=\"message-index\" class=\"list-group\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"thread in threads.threads\">\r" +
-    "\n" +
-    "                    <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                        ng-click=\"openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                        <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
-    "\n" +
-    "                             data-title=\"{{thread.description}}\"\r" +
-    "\n" +
-    "                             bs-tooltip>{{thread.description}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </ul>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>-->\r" +
-    "\n" +
     "</div>"
   );
 
@@ -1412,11 +1360,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div class=\"website-structure-header\">\r" +
     "\n" +
-    "            <div class=\"website-structure-header-title\">\r" +
-    "\n" +
-    "                <h2>Allgemeines</h2>\r" +
-    "\n" +
-    "            </div>\r" +
+    "            <h1 class=\"website-structure-title\">Allgemeines</h1>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1499,11 +1443,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"website-structure-header\">\r" +
     "\n" +
-    "                <div class=\"website-structure-header-title\">\r" +
-    "\n" +
-    "                    <h2>Kategorie ausw&aumlhlen</h2>\r" +
-    "\n" +
-    "                </div>\r" +
+    "                <h1 class=\"website-structure-title\">Kategorie ausw&aumlhlen</h1>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1605,17 +1545,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "                    <div class=\"website-structure-header-title\">\r" +
-    "\n" +
-    "                        <h2>Existiert die Seite die Sie erstellen m&oumlchten bereits?</h2>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                    <h1 class=\"website-structure-title\">Existiert die Seite die Sie erstellen m&oumlchten bereits?</h1>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div id=\"page-preview-container\">\r" +
+    "                <div class=\"page-preview-container\">\r" +
     "\n" +
-    "                    <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\">\r" +
+    "                    <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
     "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
@@ -1921,7 +1857,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-show=\"search.pages.length > 0\" class=\"page-overview-container\">\r" +
     "\n" +
-    "                <h1 class=\"page-overview-title\">Suchergebnisse</h1>\r" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Suchergebnisse</h1>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -1939,9 +1879,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-show=\"newestPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
     "\n" +
-    "                <h1 class=\"page-overview-title\">Neuste Bewertungen deiner Kontakte</h1>\r" +
+    "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "\r" +
+    "                    <h1 class=\"website-structure-title\">Neuste Bewertungen deiner Kontakte</h1>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
@@ -1957,9 +1899,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-show=\"popularBookPagesContact.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
     "\n" +
-    "                <h1 class=\"page-overview-title\">Beliebteste B&uuml;cher deiner Kontakte</h1>\r" +
+    "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "\r" +
+    "                    <h1 class=\"website-structure-title\">Beliebteste B&uuml;cher deiner Kontakte</h1>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
@@ -1975,9 +1919,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-show=\"popularBookPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
     "\n" +
-    "                <h1 class=\"page-overview-title\">Beliebteste B&uuml;cher</h1>\r" +
+    "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "\r" +
+    "                    <h1 class=\"website-structure-title\">eliebteste B&uuml;cher</h1>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
@@ -1988,6 +1934,16 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"search-box-container\">\r" +
+    "\n" +
+    "                <ely-search-box description=\"Suche nach Seite...\" query=\"query\"\r" +
+    "\n" +
+    "                                get-query-suggestion=\"getUserSuggestion\"\r" +
+    "\n" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
