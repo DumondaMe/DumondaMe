@@ -302,11 +302,11 @@
         width: 40px;
         height: 40px; }
     .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement.disabled {
-      border: solid 2px #EDEDED;
-      box-shadow: inset 0 0 2px #EDEDED;
-      background-color: #EDEDED; }
+      border: solid 2px #F2F2F2;
+      box-shadow: inset 0 0 2px #F2F2F2;
+      background-color: #F2F2F2; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement.disabled:hover {
-        background-color: #EDEDED; }
+        background-color: #F2F2F2; }
 
 .ely-submit-button button {
   display: inline-block; }
@@ -401,6 +401,14 @@
       margin: 0;
       padding: 10px 0 0 0; }
 
+h1.website-structure-title {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 100; }
+
 #content {
   width: 100%;
   height: 100%; }
@@ -424,7 +432,10 @@
         position: relative;
         min-width: 800px;
         padding-left: 50px;
-        margin-top: 0px; }
+        margin-top: 80px; }
+        #content #content-page-contacting #centerCol #inner-centerCol h1.website-structure-title {
+          padding-left: 10px;
+          margin-bottom: 30px; }
 
 #content #content-page-contact-details {
   width: 100%;
@@ -443,7 +454,7 @@
         width: 100%;
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid #e7e7e7; }
+        border-bottom: 1px solid #CCCCCC; }
       #content #content-page-contact-details #centerCol #inner-centerCol #profile-image {
         float: left;
         width: 250px;
@@ -656,8 +667,8 @@
   width: 230px;
   background-color: rgba(238, 238, 238, 0.95);
   box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
-  border-top: 1px solid #e7e7e7;
-  padding-top: 20px; }
+  border-top: 1px solid #CCCCCC;
+  padding-top: 10px; }
   #my-contact-statistic h5 {
     padding-left: 10px;
     font-weight: 300; }
@@ -820,7 +831,7 @@
         height: 50px;
         margin: 0 auto;
         padding: 5px 0;
-        border-bottom: 1px solid #e7e7e7;
+        border-bottom: 1px solid #CCCCCC;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none; }
@@ -872,7 +883,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #EDEDED;
+    background-color: #F2F2F2;
     overflow: auto; }
     #content-threads #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -908,7 +919,7 @@
         height: 50px;
         margin-top: 5px;
         margin-bottom: 20px;
-        border-bottom: 1px solid #e7e7e7; }
+        border-bottom: 1px solid #CCCCCC; }
         #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
           height: 34px; }
       #content-messages #centerCol #inner-centerCol .message-view {
@@ -945,7 +956,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #EDEDED;
+    background-color: #F2F2F2;
     overflow: auto; }
     #content-messages #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -1101,7 +1112,7 @@
         height: 500px;
         margin-right: 20px;
         padding: 10px;
-        border: solid 1px #e7e7e7;
+        border: solid 1px #CCCCCC;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
         border-radius: 6px; }
@@ -1147,7 +1158,7 @@
         color: #009688; }
       #content-page-detail #centerCol #inner-centerCol .page-detail-section-separator {
         margin-top: 10px;
-        border: solid 1px #e7e7e7;
+        border: solid 1px #CCCCCC;
         margin-right: 290px; }
       #content-page-detail #centerCol #inner-centerCol #page-detail-description {
         padding-top: 20px;
@@ -1195,7 +1206,7 @@
       top: 0px;
       padding-top: 35px;
       z-index: 98;
-      background-color: #EDEDED;
+      background-color: #F2F2F2;
       overflow: visible; }
       #content #content-page-overview #leftCol #inner-leftCol {
         padding-top: 24px;
@@ -1336,7 +1347,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #EDEDED;
+    background-color: #F2F2F2;
     overflow: visible; }
     #content-settings-profile #leftCol #inner-leftCol {
       padding-top: 24px;
@@ -1432,7 +1443,7 @@
     top: 0px;
     padding-top: 35px;
     z-index: 98;
-    background-color: #EDEDED;
+    background-color: #F2F2F2;
     overflow: visible; }
     #content-settings-security #leftCol #inner-leftCol {
       padding-top: 24px;

@@ -26,7 +26,12 @@
         position: relative;
         min-width: 800px;
         padding-left: 50px;
-        margin-top: 0px;
+        margin-top: 80px;
+
+        h1.website-structure-title {
+          padding-left: 10px;
+          margin-bottom: 30px;
+        }
       }
     }
   }

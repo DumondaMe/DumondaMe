@@ -4,9 +4,9 @@
             <div id="contact-contacting-content">
                 <div ng-repeat="contact in users.contactingUsers">
                     <div ng-if="showContactingInfo($index)" class="contacting-info">
-                        <div class="contacting-inner-info">
+                        <h1 class="website-structure-title">
                             {{getContactingInfo($index)}}
-                        </div>
+                        </h1>
                     </div>
                     <ely-contact-preview enable-select="false" contact="contact"
                                          privacy-settings="users.privacySettings"

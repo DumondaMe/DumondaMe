@@ -305,51 +305,55 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contacting.html',
-    "<div id=\"content-page-contact\">\r" +
+    "<div id=\"content-page-contacting\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-repeat=\"contact in users.contactingUsers\">\r" +
+    "            <div id=\"contact-contacting-content\">\r" +
     "\n" +
-    "                <div ng-if=\"showContactingInfo($index)\" class=\"contacting-info\">\r" +
+    "                <div ng-repeat=\"contact in users.contactingUsers\">\r" +
     "\n" +
-    "                    <div class=\"contacting-inner-info\">\r" +
+    "                    <div ng-if=\"showContactingInfo($index)\" class=\"contacting-info\">\r" +
     "\n" +
-    "                        {{getContactingInfo($index)}}\r" +
+    "                        <h1 class=\"website-structure-title\">\r" +
+    "\n" +
+    "                            {{getContactingInfo($index)}}\r" +
+    "\n" +
+    "                        </h1>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
+    "                    <ely-contact-preview enable-select=\"false\" contact=\"contact\"\r" +
+    "\n" +
+    "                                         privacy-settings=\"users.privacySettings\"\r" +
+    "\n" +
+    "                                         statistic=\"users.statistic\"></ely-contact-preview>\r" +
+    "\n" +
     "                </div>\r" +
     "\n" +
-    "                <ely-contact-preview enable-select=\"false\" contact=\"contact\"\r" +
+    "                <div ng-show=\"users.numberOfAllContactings > itemsPerPage\"\r" +
     "\n" +
-    "                                     privacy-settings=\"users.privacySettings\"\r" +
+    "                     class=\"pagination\">\r" +
     "\n" +
-    "                                     statistic=\"users.statistic\"></ely-contact-preview>\r" +
+    "                    <ely-pagination-next-previous total-items=\"users.numberOfAllContactings\"\r" +
     "\n" +
-    "            </div>\r" +
+    "                                                  items-per-page=\"{{itemsPerPage}}\"\r" +
     "\n" +
-    "            <div ng-show=\"users.numberOfAllContactings > itemsPerPage\"\r" +
+    "                                                  get-pagination-set=\"getContacting\"\r" +
     "\n" +
-    "                 class=\"pagination\">\r" +
+    "                                                  reset-counter=\"resetCounter\"></ely-pagination-next-previous>\r" +
     "\n" +
-    "                <ely-pagination-next-previous total-items=\"users.numberOfAllContactings\"\r" +
+    "                </div>\r" +
     "\n" +
-    "                                              items-per-page=\"{{itemsPerPage}}\"\r" +
+    "                <div ng-show=\"users.numberOfAllContactings === 0 && users.contactingUsers.length === 0\">\r" +
     "\n" +
-    "                                              get-pagination-set=\"getContacting\"\r" +
+    "                    <div class=\"no-contact-description\">\r" +
     "\n" +
-    "                                              reset-counter=\"resetCounter\"></ely-pagination-next-previous>\r" +
+    "                        <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>\r" +
     "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"users.numberOfAllContactings === 0 && users.contactingUsers.length === 0\">\r" +
-    "\n" +
-    "                <div class=\"no-contact-description\">\r" +
-    "\n" +
-    "                    <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>\r" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
