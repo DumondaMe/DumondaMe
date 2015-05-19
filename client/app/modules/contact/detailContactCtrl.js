@@ -1,11 +1,14 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter', 'ContactUserActions',
-    function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions) {
+module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter',
+    'ContactUserActions', 'ContactLeftNavElements',
+    function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements) {
 
         var contactDetails, numberOfExpand = 0, skipContacts = 7, contactsToAdd = 28;
         $scope.$scope = $scope;
         angular.extend($scope, ContactUserActions);
+
+        $scope.$emit(ContactLeftNavElements.event, ContactLeftNavElements.elements);
 
         $scope.userId = $stateParams.userId;
         contactDetails = ContactDetail.get({
