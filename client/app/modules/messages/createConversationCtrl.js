@@ -1,11 +1,13 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
-    function ($scope, $state, $stateParams, Conversation, Message) {
+module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'MessageLeftNavElements',
+    function ($scope, $state, $stateParams, Conversation, Message, MessageLeftNavElements) {
 
         $scope.settings = {};
         $scope.settings.getThreadAtInit = false;
         $scope.settings.thread = {threadDescription: $stateParams.name};
+
+        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
 
         $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
 

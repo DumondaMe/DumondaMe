@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter',
-    function ($scope, $stateParams, Conversation, Message, dateFormatter) {
+module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter', 'MessageLeftNavElements',
+    function ($scope, $stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements) {
 
         $scope.settings = {};
         $scope.settings.itemsPerPage = 30;
@@ -10,6 +10,8 @@ module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateForm
         $scope.settings.currentPagination = 1;
         $scope.settings.getThreadAtInit = true;
         $scope.settings.newMessage = '';
+
+        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
 
         $scope.$on('message.changed', function () {
             if ($scope.settings.currentPagination === 1) {

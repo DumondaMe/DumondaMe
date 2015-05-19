@@ -31,9 +31,11 @@ module.exports = ['$scope', '$state', 'Message', 'Conversation',
         };
 
         $scope.settings.checkHeightOfInput = function ($event) {
-            if ($event.target.offsetHeight < 74) {
+            if ($event.target.offsetHeight < 110) {
                 $scope.settings.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
                 $scope.settings.textInputWrapperStyle = {height: $event.target.scrollHeight + 18 + 'px'};
+            } else if ($event.target.offsetHeight < 144) {
+                $scope.settings.textInputWrapperStyle = {height: '144px'};
             }
         };
 

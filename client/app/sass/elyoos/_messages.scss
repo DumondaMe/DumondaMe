@@ -1,48 +1,19 @@
-@mixin leftFixedColumnMessages() {
-
-  @include leftFixedColumn(260px, 80px, $background-left-column, auto) {
-    #message-index {
-      margin: 5px 10px;
-
-      .list-group-item.selected-thread {
-        background-color: $primary-color-light;
-      }
-
-      .list-group-item {
-        padding: 5px 15px;
-        .badge {
-          background-color: $primary-color;
-        }
-        .message-unread-count {
-          white-space: nowrap;
-          width: 155px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          cursor: pointer;
-        }
-      }
-    }
-
-    @content;
-  }
-}
-
 #content-threads {
 
   width: 100%;
   height: 100%;
 
-  @include centerColumn(340px) {
+  @include centerColumn(240px) {
 
     #inner-centerCol {
       position: relative;
       width: 800px;
-      margin: 0 auto;
+      margin: 130px auto 0 auto;
 
       .thread-preview {
         cursor: pointer;
         display: inline-block;
-        width: 90%;
+        width: 800px;
         height: 50px;
         margin: 0 auto;
         padding: 5px 0;
@@ -113,9 +84,20 @@
       }
     }
   }
-  @include leftFixedColumnMessages() {
-    #add-new-group-button {
-      margin: 0 10px 10px 10px;
+
+  @include searchBoxContainer() {
+    left: 230px;
+    padding-left: 230px;
+
+    #search-box-container-inner {
+      position: relative;
+      width: 800px;
+      margin: 0 auto;
+      .searchBoxForm {
+        margin-left: -230px;
+        padding: 5px 10px 0 10px;
+        width: 800px;
+      }
     }
   }
 }
@@ -124,20 +106,20 @@
 
   width: 100%;
   height: 100%;
+  margin-top: 60px;
 
-  @include centerColumn(340px) {
+  @include centerColumn(230px) {
 
     #inner-centerCol {
       position: relative;
-      margin: 0 40px;
 
       .add-message {
-        height: 50px;
-        margin-top: 5px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid $divider-light;
+        height: 48px;
+        padding-top: 2px;
+        background-color: #ffffff;
 
         .input-group {
+          margin: 5px 10px 0 30px;
           textarea {
             height: 34px;
           }
@@ -145,7 +127,8 @@
       }
 
       .message-view {
-        margin-bottom: 15px;
+        margin: 20px 0 15px 30px;
+
         .message-inner-view {
           .message-view-image {
             display: inline-block;
@@ -181,13 +164,6 @@
         width: 100%;
         clear: both;
       }
-    }
-  }
-  @include leftFixedColumnMessages() {
-    #thread-description {
-      margin: 0px 27px 10px 27px;
-      font-weight: bold;
-      font-size: 16px;
     }
   }
 }

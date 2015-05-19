@@ -1,10 +1,12 @@
 'use strict';
 
-module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter',
-    function ($scope, $state, Message, SearchUserToSendMessage, dateFormatter) {
+module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter', 'MessageLeftNavElements',
+    function ($scope, $state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements) {
 
         var currentPagination = 1;
         $scope.itemsPerPage = 30;
+
+        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
 
         $scope.getThreads = function (paginationNumber) {
             currentPagination = paginationNumber;

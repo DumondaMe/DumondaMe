@@ -847,15 +847,15 @@ h1.website-structure-title {
   #content-threads #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 340px; }
+    padding-left: 240px; }
     #content-threads #centerCol #inner-centerCol {
       position: relative;
       width: 800px;
-      margin: 0 auto; }
+      margin: 130px auto 0 auto; }
       #content-threads #centerCol #inner-centerCol .thread-preview, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread {
         cursor: pointer;
         display: inline-block;
-        width: 90%;
+        width: 800px;
         height: 50px;
         margin: 0 auto;
         padding: 5px 0;
@@ -902,56 +902,48 @@ h1.website-structure-title {
         clear: both; }
       #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
         background-color: white; }
-  #content-threads #leftCol {
+  #content-threads #search-box-container {
     position: fixed;
-    display: inline-block;
-    left: 80px;
-    width: 260px;
-    height: 100%;
-    top: 0px;
-    padding-top: 35px;
-    z-index: 98;
-    background-color: #F2F2F2;
-    overflow: auto; }
-    #content-threads #leftCol #inner-leftCol {
-      padding-top: 24px;
-      margin-bottom: 20px; }
-      #content-threads #leftCol #inner-leftCol #message-index {
-        margin: 5px 10px; }
-        #content-threads #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
-          background-color: #f1f1f1; }
-        #content-threads #leftCol #inner-leftCol #message-index .list-group-item {
-          padding: 5px 15px; }
-          #content-threads #leftCol #inner-leftCol #message-index .list-group-item .badge {
-            background-color: #009688; }
-          #content-threads #leftCol #inner-leftCol #message-index .list-group-item .message-unread-count {
-            white-space: nowrap;
-            width: 155px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer; }
-      #content-threads #leftCol #inner-leftCol #add-new-group-button {
-        margin: 0 10px 10px 10px; }
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff;
+    left: 230px;
+    padding-left: 230px; }
+    #content-threads #search-box-container .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px; }
+    #content-threads #search-box-container #search-box-container-inner {
+      position: relative;
+      width: 800px;
+      margin: 0 auto; }
+      #content-threads #search-box-container #search-box-container-inner .searchBoxForm {
+        margin-left: -230px;
+        padding: 5px 10px 0 10px;
+        width: 800px; }
 
 #content-messages {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  margin-top: 60px; }
   #content-messages #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 340px; }
+    padding-left: 230px; }
     #content-messages #centerCol #inner-centerCol {
-      position: relative;
-      margin: 0 40px; }
+      position: relative; }
       #content-messages #centerCol #inner-centerCol .add-message {
-        height: 50px;
-        margin-top: 5px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #CCCCCC; }
-        #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
-          height: 34px; }
+        height: 48px;
+        padding-top: 2px;
+        background-color: #ffffff; }
+        #content-messages #centerCol #inner-centerCol .add-message .input-group {
+          margin: 5px 10px 0 30px; }
+          #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
+            height: 34px; }
       #content-messages #centerCol #inner-centerCol .message-view {
-        margin-bottom: 15px; }
+        margin: 20px 0 15px 30px; }
         #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image {
           display: inline-block;
           vertical-align: top;
@@ -975,38 +967,6 @@ h1.website-structure-title {
       #content-messages #centerCol #inner-centerCol .pagination {
         width: 100%;
         clear: both; }
-  #content-messages #leftCol {
-    position: fixed;
-    display: inline-block;
-    left: 80px;
-    width: 260px;
-    height: 100%;
-    top: 0px;
-    padding-top: 35px;
-    z-index: 98;
-    background-color: #F2F2F2;
-    overflow: auto; }
-    #content-messages #leftCol #inner-leftCol {
-      padding-top: 24px;
-      margin-bottom: 20px; }
-      #content-messages #leftCol #inner-leftCol #message-index {
-        margin: 5px 10px; }
-        #content-messages #leftCol #inner-leftCol #message-index .list-group-item.selected-thread {
-          background-color: #f1f1f1; }
-        #content-messages #leftCol #inner-leftCol #message-index .list-group-item {
-          padding: 5px 15px; }
-          #content-messages #leftCol #inner-leftCol #message-index .list-group-item .badge {
-            background-color: #009688; }
-          #content-messages #leftCol #inner-leftCol #message-index .list-group-item .message-unread-count {
-            white-space: nowrap;
-            width: 155px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer; }
-      #content-messages #leftCol #inner-leftCol #thread-description {
-        margin: 0px 27px 10px 27px;
-        font-weight: bold;
-        font-size: 16px; }
 
 #content {
   width: 100%;

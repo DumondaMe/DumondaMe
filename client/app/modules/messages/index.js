@@ -12,6 +12,8 @@ app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
 
+app.service('MessageLeftNavElements', require('./services/leftNavElements'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
@@ -31,7 +33,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/messages/threads.html',
                     controller: 'ThreadsCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('message.threads.detail', {
             url: '/conversation/{isGroupThread}/{threadId}',
@@ -40,7 +43,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/messages/conversation.html',
                     controller: 'ConversationCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('message.threads.create', {
             url: '/single/create/{userId}/{name}',
@@ -49,6 +53,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/messages/conversation.html',
                     controller: 'CreateConversationCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         });
 }]);

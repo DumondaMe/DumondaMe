@@ -1018,7 +1018,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div id=\"leftCol\">\r" +
+    "        <!--<div id=\"leftCol\">\r" +
     "\n" +
     "            <div id=\"inner-leftCol\">\r" +
     "\n" +
@@ -1054,11 +1054,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "        </div>\r" +
+    "        </div>-->\r" +
     "\n" +
     "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/messages/leftNavCol.html'\"></div>\r" +
     "\n" +
     "</div>"
   );
@@ -1182,7 +1180,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-if=\"search.threads.length === 0\">\r" +
     "\n" +
-    "                Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche du als Kontakt hinzugefügt hast.\r" +
+    "                Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche\r" +
+    "\n" +
+    "                du als Kontakt hinzugefügt hast.\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"search-box-container\">\r" +
+    "\n" +
+    "                <div id=\"search-box-container-inner\">\r" +
+    "\n" +
+    "                    <ely-search-box description=\"Nachricht an...\" query=\"query\"\r" +
+    "\n" +
+    "                                    get-query-suggestion=\"getSuggestion\"\r" +
+    "\n" +
+    "                                    get-query=\"getThreadsOrContacts\"></ely-search-box>\r" +
+    "\n" +
+    "                </div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1190,7 +1204,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftCol\">\r" +
+    "    <!--<div id=\"leftCol\">\r" +
     "\n" +
     "        <div id=\"inner-leftCol\">\r" +
     "\n" +
@@ -1200,7 +1214,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            get-query=\"getThreadsOrContacts\"></ely-search-box>\r" +
     "\n" +
-    "            <!--<div id=\"add-new-group-button\">\r" +
+    "            &lt;!&ndash;<div id=\"add-new-group-button\">\r" +
     "\n" +
     "                <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\">\r" +
     "\n" +
@@ -1210,7 +1224,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </button>\r" +
     "\n" +
-    "            </div>-->\r" +
+    "            </div>&ndash;&gt;\r" +
     "\n" +
     "            <ul id=\"message-index\" class=\"list-group\">\r" +
     "\n" +
@@ -1240,9 +1254,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/messages/leftNavCol.html'\"></div>\r" +
+    "    </div>-->\r" +
     "\n" +
     "</div>"
   );
