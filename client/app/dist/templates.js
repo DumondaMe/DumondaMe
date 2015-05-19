@@ -2295,29 +2295,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/settings/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"settings.profile\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"settings.profile\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/defaultProfile.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"settings.privacy\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"settings.privacy\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/security.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
     "</div>"
   );
 

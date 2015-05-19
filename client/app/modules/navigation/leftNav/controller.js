@@ -11,7 +11,7 @@ module.exports = {
                 angular.forEach($scope.originalSection, function (section) {
                     if(section.sref === selectedState) {
                         $scope.sectionsDisply.unshift(section);
-                    } else {
+                    } else if(!section.onlyShowSelected){
                         $scope.sectionsDisply.push(section);
                     }
                 });

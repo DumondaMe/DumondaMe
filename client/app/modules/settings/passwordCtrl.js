@@ -1,12 +1,14 @@
 'use strict';
 
-module.exports = ['$scope', 'Password', function ($scope, Password) {
+module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
 
     $scope.password = {};
     $scope.submitFailed = false;
     $scope.newPasswordNotEqual = false;
     $scope.submitFailedToServer = false;
     $scope.successUserDataChange = false;
+
+    $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
     $scope.submitNewPassword = function () {
         function checkMinPasswordLength() {

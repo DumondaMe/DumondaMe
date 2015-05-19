@@ -730,7 +730,6 @@ h1.website-structure-title {
       padding: 5px;
       margin-left: 10px; }
     #public-header .leftHeaderNavElement #header-user-name {
-      cursor: pointer;
       float: left;
       font-weight: bold;
       color: black;
@@ -1330,12 +1329,12 @@ h1.website-structure-title {
   #content-settings-password #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 80px; }
+    padding-left: 250px; }
     #content-settings-password #centerCol #inner-centerCol {
       position: relative;
       width: 500px;
       margin-left: 50px;
-      padding-top: 50px; }
+      padding-top: 120px; }
       #content-settings-password #centerCol #inner-centerCol #label-password-confirm {
         padding-top: 0px; }
 

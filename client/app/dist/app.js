@@ -2296,29 +2296,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/settings/leftNavCol.html'\"></div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/settings/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"settings.profile\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active-white\" ui-sref=\"settings.profile\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/defaultProfile.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"settings.privacy\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"settings.privacy\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/security.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
     "</div>"
   );
 
@@ -6492,7 +6469,7 @@ module.exports = {
                 angular.forEach($scope.originalSection, function (section) {
                     if(section.sref === selectedState) {
                         $scope.sectionsDisply.unshift(section);
-                    } else {
+                    } else if(!section.onlyShowSelected){
                         $scope.sectionsDisply.push(section);
                     }
                 });
@@ -7326,13 +7303,15 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./deletePrivacyCtrl":101,"./passwordCtrl":103,"./privacyCtrl":104,"./profileCtrl":105,"./renamePrivacyCtrl":106,"./services/leftNavElements":107,"./services/password":108,"./services/privacy":109,"./services/profile":110,"angular":4}],103:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'Password', function ($scope, Password) {
+module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
 
     $scope.password = {};
     $scope.submitFailed = false;
     $scope.newPasswordNotEqual = false;
     $scope.submitFailedToServer = false;
     $scope.successUserDataChange = false;
+
+    $scope.$emit(SettingLeftNavElements.event, SettingLeftNavElements.elements);
 
     $scope.submitNewPassword = function () {
         function checkMinPasswordLength() {
@@ -7635,6 +7614,7 @@ module.exports = [
         this.elements = [
             {description: 'Profile', url: 'app/img/defaultProfile.png', color: '#009688', sref: 'settings.profile'},
             {description: 'Privatsph\u00e4re', url: 'app/img/security.png', color: '#FFA000', sref: 'settings.privacy'},
+            {description: 'Password', url: 'app/img/security.png', color: '#ce5043', sref: 'settings.profile.changePassword', onlyShowSelected: true},
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
 
