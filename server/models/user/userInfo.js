@@ -7,7 +7,7 @@ var cdn = require('../util/cdn');
 var addImageForPreview = function (contacts) {
     underscore.each(contacts, function (contact) {
         if (contact.profileVisible && contact.imageVisible) {
-            contact.profileUrl = cdn.getUrl('profileImage/' + contact.id + '/profilePreview.jpg');
+            contact.profileUrl = cdn.getUrl('profileImage/' + contact.userId + '/profilePreview.jpg');
         } else {
             contact.profileUrl = cdn.getUrl('profileImage/default/profilePreview.jpg');
         }

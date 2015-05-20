@@ -688,7 +688,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"profile-contacts-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.id)\">\r" +
+    "                <div class=\"profile-contacts-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.userId)\">\r" +
     "\n" +
     "                    <div class=\"profile-contacts-preview-content\">\r" +
     "\n" +

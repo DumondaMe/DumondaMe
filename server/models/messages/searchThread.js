@@ -20,12 +20,12 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
 
 
     if (!isSuggestion) {
-        returnThread = "thread.threadId AS threadId, false AS isGroupThread, user2.name AS description, null AS userId, " +
-        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
-        returnGroupThread = "thread.threadId AS threadId, true AS isGroupThread, thread.description AS description, null AS userId, " +
-        "null AS id, false AS profileVisible, false AS imageVisible, message.text AS previewText";
-        returnContact = "null AS threadId, null AS isGroupThread, user2.name AS description, user2.userId AS userId," +
-        "user2.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
+        returnThread = "thread.threadId AS threadId, false AS isGroupThread, user2.name AS description, " +
+        "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
+        returnGroupThread = "thread.threadId AS threadId, true AS isGroupThread, thread.description AS description, " +
+        "null AS userId, false AS profileVisible, false AS imageVisible, message.text AS previewText";
+        returnContact = "null AS threadId, null AS isGroupThread, user2.name AS description, " +
+        "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
     } else {
         returnThread = "user2.name AS name";
         returnGroupThread = "thread.description AS name";

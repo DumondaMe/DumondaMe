@@ -19,7 +19,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
         }, function () {
 
             $scope.contact = contactDetails.contact;
-            $scope.contact.id = $stateParams.userId;
+            $scope.contact.userId = $stateParams.userId;
             $scope.statistic = contactDetails.statistic;
             $scope.privacySettings = contactDetails.privacySettings;
             $scope.numberOfContacts = contactDetails.numberOfContacts;

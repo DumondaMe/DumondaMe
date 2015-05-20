@@ -169,7 +169,7 @@ var getContact = function (params, where) {
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, " +
-        "contact.name AS name, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible")
+        "contact.name AS name, contact.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 

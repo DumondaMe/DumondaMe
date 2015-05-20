@@ -4,7 +4,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            click: "sendMessage(contact.id, contact.name)"
+            click: "sendMessage(contact.userId, contact.name)"
         },
         {
             divider: true
@@ -37,7 +37,7 @@ module.exports = {
 
                 $scope.openUserDetails = function () {
                     $state.go('contact.detail', {
-                        userId: $scope.contact.id
+                        userId: $scope.contact.userId
                     });
                 };
             }];

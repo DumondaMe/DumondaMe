@@ -13,7 +13,7 @@ var logger = requireLogger.getLogger(__filename);
 
 var addWriterInfo = function (userId, messages) {
     underscore.forEach(messages, function (message) {
-        if (message.id === userId) {
+        if (message.userId === userId) {
             message.profileVisible = true;
             message.imageVisible = true;
         }
@@ -56,7 +56,7 @@ var getMessagesOfThreads = function (params, setTime, isGroupThread) {
         .with("user, message, writer, vr, v, rContact")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY') OR " +
         "writer.userId = user.userId")
-        .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS id, writer.name AS name," +
+        .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS userId, writer.name AS name," +
         "v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("message.messageAdded DESC")
         .skip("{skip}")
@@ -114,7 +114,7 @@ var addMessage = function (userId, threadId, text, isGroupThread, session, req) 
                 .with("thread, messagePrevious, user, newMessage, active")
                 .set('active', {lastTimeVisited: now})
                 .with("thread, messagePrevious, user, newMessage")
-                .return("user.userId AS id, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp, " +
+                .return("user.userId AS userId, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp, " +
                 "true AS profileVisible, true AS imageVisible")
                 .end({
                     userId: userId,

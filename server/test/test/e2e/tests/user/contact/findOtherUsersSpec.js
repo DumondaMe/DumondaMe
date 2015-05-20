@@ -160,21 +160,21 @@ describe('Integration Tests for finding other users', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(4);
-            res.body[0].id.should.equal('6');
+            res.body[0].userId.should.equal('6');
             res.body[0].name.should.equal('user Meier6');
             res.body[0].type.should.equal('Freund');
             res.body[0].contactAdded.should.least(startTime);
             res.body[0].userAdded.should.least(startTime);
             res.body[0].connected.should.equal('both');
             should.exist(res.body[0].profileUrl);
-            res.body[1].id.should.equal('2');
+            res.body[1].userId.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
             res.body[1].type.should.equal('Familie');
             should.not.exist(res.body[1].userAdded);
             res.body[1].contactAdded.should.least(startTime);
             res.body[1].connected.should.equal('userToContact');
             should.exist(res.body[1].profileUrl);
-            res.body[2].id.should.equal('4');
+            res.body[2].userId.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
             res.body[2].connected.should.equal('none');
             should.not.exist(res.body[2].type);
@@ -200,11 +200,11 @@ describe('Integration Tests for finding other users', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(2);
-            res.body[0].id.should.equal('2');
+            res.body[0].userId.should.equal('2');
             res.body[0].name.should.equal('user2 Meier2');
             res.body[0].type.should.equal('Familie');
             should.exist(res.body[0].profileUrl);
-            res.body[1].id.should.equal('3');
+            res.body[1].userId.should.equal('3');
             res.body[1].name.should.equal('user2 Meier3');
             should.not.exist(res.body[1].type);
             should.exist(res.body[1].profileUrl);
@@ -223,15 +223,15 @@ describe('Integration Tests for finding other users', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(3);
-            res.body[0].id.should.equal('6');
+            res.body[0].userId.should.equal('6');
             res.body[0].name.should.equal('user Meier6');
             res.body[0].type.should.equal('Freund');
             should.exist(res.body[0].profileUrl);
-            res.body[1].id.should.equal('2');
+            res.body[1].userId.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
             res.body[1].type.should.equal('Familie');
             should.exist(res.body[1].profileUrl);
-            res.body[2].id.should.equal('4');
+            res.body[2].userId.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
             should.exist(res.body[2].profileUrl);
@@ -252,19 +252,19 @@ describe('Integration Tests for finding other users', function () {
             res.body.length.should.equal(4);
             res.body[0].name.should.equal('user Meier6');
             should.not.exist(res.body[0].type);
-            should.not.exist(res.body[0].id);
+            should.not.exist(res.body[0].userId);
             should.not.exist(res.body[0].profileUrl);
             res.body[1].name.should.equal('user2 Meier2');
             should.not.exist(res.body[1].type);
-            should.not.exist(res.body[1].id);
+            should.not.exist(res.body[1].userId);
             should.not.exist(res.body[1].profileUrl);
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
-            should.not.exist(res.body[2].id);
+            should.not.exist(res.body[2].userId);
             should.not.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
             should.not.exist(res.body[3].type);
-            should.not.exist(res.body[3].id);
+            should.not.exist(res.body[3].userId);
             should.not.exist(res.body[3].profileUrl);
         });
     });
@@ -286,7 +286,7 @@ describe('Integration Tests for finding other users', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.length.should.equal(1);
-            res.body[0].id.should.equal('2');
+            res.body[0].userId.should.equal('2');
             res.body[0].name.should.equal('user2 Meier2');
             should.not.exist(res.body[0].type);
             res.body[0].blocked.should.be.true;

@@ -50,8 +50,16 @@ describe('Integration Tests for getting page detail', function () {
 
         var commands = [];
 
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: false})")
+            .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '3'}), (b:User {userId: '1'})")
-            .create("(b)-[:IS_CONTACT]->(a)")
+            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Bekannter'}]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
@@ -63,10 +71,13 @@ describe('Integration Tests for getting page detail', function () {
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 4, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
@@ -102,27 +113,29 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');
                 res.body.administrators.list[0].userId.should.equals('1');
+                res.body.administrators.list[0].profileUrl.should.equals('profileImage/1/profilePreview.jpg');
                 res.body.administrators.list[1].name.should.equals('user Meier2');
                 res.body.administrators.list[1].userId.should.equals('2');
+                res.body.administrators.list[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
                 res.body.administrators.isAdmin.should.be.true;
 
                 res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.recommendation.user.rating.should.equals(5);
+                res.body.recommendation.user.rating.should.equals(1);
                 res.body.recommendation.user.comment.should.equals('irgendwas');
                 res.body.recommendation.user.recommendationId.should.equals('0');
 
-                res.body.recommendation.users.length.should.equals(1);
+                /*res.body.recommendation.users.length.should.equals(2);
                 res.body.recommendation.users[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 res.body.recommendation.users[0].name.should.equals('user Meier3');
                 res.body.recommendation.users[0].userId.should.equals('3');
                 res.body.recommendation.users[0].rating.should.equals(4);
-                res.body.recommendation.users[0].comment.should.equals('irgendwas2');
-                res.body.recommendation.users[0].recommendationId.should.equals('1');
+                res.body.recommendation.users[0].comment.should.equals('irgendwas3');
+                res.body.recommendation.users[0].recommendationId.should.equals('2');*/
 
                 res.body.recommendation.summary.contact.rating.should.equals(4);
-                res.body.recommendation.summary.contact.numberOfRatings.should.equals(1);
-                res.body.recommendation.summary.all.rating.should.equals(4.5);
-                res.body.recommendation.summary.all.numberOfRatings.should.equals(2);
+                res.body.recommendation.summary.contact.numberOfRatings.should.equals(2);
+                res.body.recommendation.summary.all.rating.should.equals(3);
+                res.body.recommendation.summary.all.numberOfRatings.should.equals(3);
             });
     });
 
@@ -194,9 +207,11 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');
                 res.body.administrators.list[0].userId.should.equals('1');
+                res.body.administrators.list[0].profileUrl.should.equals('profileImage/1/profilePreview.jpg');
                 res.body.administrators.list[0].userIsAdmin.should.be.true;
                 res.body.administrators.list[1].name.should.equals('user Meier2');
                 res.body.administrators.list[1].userId.should.equals('2');
+                res.body.administrators.list[1].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
                 res.body.administrators.list[1].userIsAdmin.should.be.false;
             });
     });
@@ -241,6 +256,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators.list.length.should.equals(1);
                 res.body.administrators.list[0].name.should.equals('user Meier2');
                 res.body.administrators.list[0].userId.should.equals('2');
+                res.body.administrators.list[0].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
                 res.body.administrators.list[0].userIsAdmin.should.be.false;
             });
     });
@@ -291,6 +307,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.administrators.list.length.should.equals(1);
                 res.body.administrators.list[0].name.should.equals('user Meier2');
                 res.body.administrators.list[0].userId.should.equals('2');
+                res.body.administrators.list[0].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
                 res.body.administrators.list[0].userIsAdmin.should.be.false;
             });
     });

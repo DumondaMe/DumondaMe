@@ -54,7 +54,7 @@ var getThreads = function (cypher) {
         "(rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
         .return("message.text AS previewText, contact.name AS description, message.messageAdded AS lastUpdate, " +
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, privacy.profile AS profileVisible, " +
-        "privacy.image AS imageVisible, contact.userId AS id, false AS isGroupThread");
+        "privacy.image AS imageVisible, contact.userId AS userId, false AS isGroupThread");
 };
 
 var getGroupThreads = function (cypher) {
@@ -62,7 +62,7 @@ var getGroupThreads = function (cypher) {
         .optionalMatch("(thread)-[:NEXT_MESSAGE]->(message:Message)")
         .return("message.text AS previewText, thread.description AS description, message.messageAdded AS lastUpdate, " +
         "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, " +
-        "null AS imageVisible, null AS id, true AS isGroupThread");
+        "null AS imageVisible, null AS userId, true AS isGroupThread");
 };
 
 var getNumberOfThreads = function (userId) {

@@ -144,7 +144,7 @@ describe('Integration Tests for getting the contact details', function () {
             });
     });
 
-    it('Getting only the name for a user when user-[IS_CONTACT]->contact - Return 200', function () {
+    it('Getting only the name for a user when user-[IS_CONTACT]->contact- Return 200', function () {
 
         var commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
@@ -298,19 +298,19 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contacts.length.should.equals(5);
                 res.body.contacts[0].name.should.equals('user3 Meier3');
                 res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[0].id.should.equals('3');
+                res.body.contacts[0].userId.should.equals('3');
                 res.body.contacts[1].name.should.equals('user4 Meier4');
                 res.body.contacts[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[1].id.should.equals('4');
+                res.body.contacts[1].userId.should.equals('4');
                 res.body.contacts[2].name.should.equals('user5 Meier5');
                 res.body.contacts[2].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
-                res.body.contacts[2].id.should.equals('5');
+                res.body.contacts[2].userId.should.equals('5');
                 res.body.contacts[3].name.should.equals('user6 Meier6');
                 res.body.contacts[3].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
-                res.body.contacts[3].id.should.equals('6');
+                res.body.contacts[3].userId.should.equals('6');
                 res.body.contacts[4].name.should.equals('user7 Meier7');
                 res.body.contacts[4].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[4].id.should.equals('7');
+                res.body.contacts[4].userId.should.equals('7');
 
                 res.body.numberOfContacts.should.equals(6);
                 res.body.numberOfSameContacts.should.equals(2);
@@ -329,13 +329,13 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contacts.length.should.equals(3);
                 res.body.contacts[0].name.should.equals('user4 Meier4');
                 res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[0].id.should.equals('4');
+                res.body.contacts[0].userId.should.equals('4');
                 res.body.contacts[1].name.should.equals('user5 Meier5');
                 res.body.contacts[1].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
-                res.body.contacts[1].id.should.equals('5');
+                res.body.contacts[1].userId.should.equals('5');
                 res.body.contacts[2].name.should.equals('user6 Meier6');
                 res.body.contacts[2].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
-                res.body.contacts[2].id.should.equals('6');
+                res.body.contacts[2].userId.should.equals('6');
             });
     });
 
@@ -481,13 +481,13 @@ describe('Integration Tests for getting the contact details', function () {
                 res.body.contacts.length.should.equals(3);
                 res.body.contacts[0].name.should.equals('user4 Meier4');
                 res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[0].id.should.equals('4');
+                res.body.contacts[0].userId.should.equals('4');
                 res.body.contacts[1].name.should.equals('user5 Meier5');
                 res.body.contacts[1].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
-                res.body.contacts[1].id.should.equals('5');
+                res.body.contacts[1].userId.should.equals('5');
                 res.body.contacts[2].name.should.equals('user6 Meier6');
                 res.body.contacts[2].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
-                res.body.contacts[2].id.should.equals('6');
+                res.body.contacts[2].userId.should.equals('6');
             });
     });
 

@@ -34,7 +34,7 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return('contact.name AS name, r.type AS type, r.contactAdded AS contactAdded, rContact AS contactType, ' +
-            'rContact.contactAdded AS userAdded, contact.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, null AS blocked')
+            'rContact.contactAdded AS userAdded, contact.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS blocked')
         .orderBy('name LIMIT {maxItems}')
         .union().match('(u2:User {userId: {userId}}), (noContacts:User)')
         .where("noContacts.name =~ {userQueryRegEx} AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
@@ -44,7 +44,7 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
         .with("noContacts, rContact, u2, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return('noContacts.name AS name, null AS type, null AS contactAdded, rContact AS contactType, rContact.contactAdded AS userAdded, ' +
-            'noContacts.userId AS id, v.profile AS profileVisible, v.image AS imageVisible, EXISTS((u2)-[:IS_BLOCKED]->(noContacts)) AS blocked')
+            'noContacts.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, EXISTS((u2)-[:IS_BLOCKED]->(noContacts)) AS blocked')
         .orderBy('name LIMIT {maxItems}')
         .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems})
         .send()

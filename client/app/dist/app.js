@@ -689,7 +689,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"profile-contacts-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.id)\">\r" +
+    "                <div class=\"profile-contacts-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.userId)\">\r" +
     "\n" +
     "                    <div class=\"profile-contacts-preview-content\">\r" +
     "\n" +
@@ -4836,7 +4836,7 @@ var setContactActions = function ($scope) {
     $scope.contact.actions = [
         {
             text: "Nachricht senden",
-            click: "sendMessage(contact.id, contact.name)"
+            click: "sendMessage(contact.userId, contact.name)"
         },
         {
             divider: true
@@ -4869,7 +4869,7 @@ module.exports = {
 
                 $scope.openUserDetails = function () {
                     $state.go('contact.detail', {
-                        userId: $scope.contact.id
+                        userId: $scope.contact.userId
                     });
                 };
             }];
@@ -5039,7 +5039,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
         }, function () {
 
             $scope.contact = contactDetails.contact;
-            $scope.contact.id = $stateParams.userId;
+            $scope.contact.userId = $stateParams.userId;
             $scope.statistic = contactDetails.statistic;
             $scope.privacySettings = contactDetails.privacySettings;
             $scope.numberOfContacts = contactDetails.numberOfContacts;
@@ -5400,7 +5400,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
         this.updateType = function ($scope, hide) {
             if ($scope.contact.selectedPrivacySetting) {
                 var contact = Contact.save({
-                    contactIds: [$scope.contact.id],
+                    contactIds: [$scope.contact.userId],
                     mode: 'changeState',
                     description: $scope.contact.selectedPrivacySetting
                 }, function () {
@@ -5428,7 +5428,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
             var contact;
             if ($scope.contact.selectedPrivacySetting) {
                 contact = Contact.save({
-                    contactIds: [$scope.contact.id],
+                    contactIds: [$scope.contact.userId],
                     mode: 'addContact',
                     description: $scope.contact.selectedPrivacySetting
                 }, function () {
@@ -5446,7 +5446,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
 
         this.deleteContact = function ($scope) {
             var contact = Contact.delete({
-                contactIds: [$scope.contact.id]
+                contactIds: [$scope.contact.userId]
             }, function () {
                 $scope.statistic = contact.statistic;
                 if (angular.isDefined($scope.numberOfContacts)) {
@@ -5460,7 +5460,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
         this.blockContact = function ($scope) {
             var contact = Contact.save({
                 mode: 'blockContact',
-                contactIds: [$scope.contact.id]
+                contactIds: [$scope.contact.userId]
             }, function () {
                 $scope.statistic = contact.statistic;
                 if (angular.isDefined($scope.numberOfContacts)) {
@@ -5475,7 +5475,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
         this.unblockContact = function ($scope) {
             var contact = Contact.save({
                 mode: 'unblockContact',
-                contactIds: [$scope.contact.id]
+                contactIds: [$scope.contact.userId]
             }, function () {
                 $scope.statistic = contact.statistic;
                 if (angular.isDefined($scope.numberOfContacts)) {

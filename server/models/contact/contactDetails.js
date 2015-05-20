@@ -8,13 +8,6 @@ var userInfo = require('../user/userInfo');
 var underscore = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
-var deletePrivacyProperties = function (privacy) {
-    delete privacy.profile;
-    delete privacy.profileNoContact;
-    delete privacy.imageProfile;
-    delete privacy.imageProfileNoContact;
-};
-
 var numberOfContacts = function (contactId) {
     return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)')
         .return('count(*) AS numberOfContacts')
@@ -38,26 +31,17 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
         .with('contact, contactOfContact, isContact')
         .where("contactOfContact.userId <> {userId}")
         .with('contact, contactOfContact, isContact')
-        .optionalMatch('(contactOfContact)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)')
-        .where('privacyRel.type = isContact.type')
-        .with('contact, contactOfContact, isContact, privacy')
-        .optionalMatch('(contactOfContact)-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)')
-        .where('isContact IS NULL')
-        .return('contactOfContact.name AS name, contactOfContact.userId AS id, privacy.profile AS profile, privacy.image AS imageProfile,' +
-        'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact')
+        .match("(contactOfContact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contactOfContact)")
+        .with("contact, contactOfContact, rContact, privacy, vr")
+        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
+        .return('contactOfContact.name AS name, contactOfContact.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible')
         .skip('{skipContacts}')
         .limit('{contactsPerPage}')
         .end({contactId: contactId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts})
         .send(commands)
         .then(function (resp) {
-            underscore.each(resp[2], function (contact) {
-                if ((contact.profile || contact.profileNoContact) && (contact.imageProfile || contact.imageProfileNoContact)) {
-                    contact.profileUrl = cdn.getUrl('profileImage/' + contact.id + '/profilePreview.jpg');
-                } else {
-                    contact.profileUrl = cdn.getUrl('profileImage/default/profilePreview.jpg');
-                }
-                deletePrivacyProperties(contact);
-            });
+            userInfo.addImageForPreview(resp[2]);
             return {
                 contact: contactDetails,
                 numberOfContacts: resp[0][0].numberOfContacts,
