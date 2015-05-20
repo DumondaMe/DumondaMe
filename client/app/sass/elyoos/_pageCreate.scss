@@ -9,10 +9,13 @@
     height: 100%;
     margin-top: 95px;
 
-    @include centerColumn(80px) {
+    @include centerColumn(240px) {
       #inner-centerCol {
         position: relative;
         width: 800px;
+        @include breakpoint(largeDesktop) {
+          width: 1300px;
+        }
         margin: 0 auto;
 
         #content-create-category {
@@ -20,6 +23,10 @@
           margin-left: 15px;
           #inputTitleId {
             width: 800px;
+            @include breakpoint(largeDesktop) {
+              width: 1300px;
+            }
+            padding-right: 10px;
           }
           .category-select-finished {
             margin-top: 10px;

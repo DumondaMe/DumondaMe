@@ -1,176 +1,105 @@
-$margin-right-col: 290px;
-
 #content-page-detail {
+
+  $detail-padding-left: 280px;
 
   width: 100%;
   height: 100%;
-  margin-top: 95px;
+  padding-top: 60px;
+  background-color: $primary-color-light;
 
-  @include centerColumn(240px) {
-    #inner-centerCol {
-      min-width: 1000px;
-      height: 100%;
-      margin-left: 60px;
+  @include centerColumn(0px) {
+    min-width: 1000px;
+    height: 100%;
 
-      #page-detail-header {
-        margin-right: $margin-right-col;
-        display: table;
-        #page-detail-inner-header {
-          display: table-row;
-          width: 100%;
-          .page-detail-header-image {
-            display: table-cell;
-            vertical-align: top;
+    #page-detail-header {
+      padding-top: 25px;
+      padding-bottom: 35px;
+      background-color: $background-normal;
+      border-bottom: 2px solid #d6d6d6;
+      #page-detail-inner-header {
+        padding-left: $detail-padding-left;
+        width: 100%;
+        .page-detail-header-image {
+          display: inline-block;
+          vertical-align: top;
+          height: 300px;
+          img {
             height: 300px;
-            img {
-              height: 300px;
-              max-width: 400px;
-            }
+            max-width: 400px;
           }
-          .page-detail-header-list {
-            padding-left: 35px;
-            height: 200px;
-            display: table-cell;
-            vertical-align: top;
-            position: relative;
-            //box-sizing: border-box;
-            .page-detail-header-title {
-              display: inline-block;
-              font-size: 28px;
-              color: $primary-color;
-              min-width: 300px;
-              word-break: break-all;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              height: 35px;
-            }
-            .page-detail-header-category {
-              font-size: 14px;
-              height: 25px;
-              line-height: 25px;
-            }
-            .page-detail-contributor-title {
-              display: inline-block;
-              margin-right: 5px;
-              font-size: 14px;
-            }
-            .page-detail-header-contributor {
-              display: inline-block;
-              margin-right: 10px;
-              font-size: 14px;
-            }
-            .page-detail-header-contributor-with-Profile {
-              @extend .page-detail-header-contributor;
-              color: $link;
-              cursor: pointer;
-            }
+        }
+        .page-detail-header-list {
+          padding-left: 35px;
+          height: 300px;
+          display: inline-block;
+          vertical-align: top;
+          position: relative;
+          .page-detail-header-title {
+            display: inline-block;
+            font-size: 30px;
+            font-weight: 100;
+            color: $primary-color;
+            min-width: 300px;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 34px;
+          }
+          .page-detail-header-category {
+            font-size: 14px;
+            font-weight: 300;
+            height: 25px;
+            line-height: 25px;
+          }
+          .page-detail-contributor-title {
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 14px;
+            font-weight: 300;
+          }
+          .page-detail-header-contributor {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: 300;
+          }
+          .page-detail-header-contributor-with-Profile {
+            @extend .page-detail-header-contributor;
+            color: $link;
+            cursor: pointer;
+          }
 
-            .page-detail-header-commands {
-              position: absolute;
-              bottom: 55px;
-              width: 100%;
-            }
+          .page-detail-header-commands {
+            position: absolute;
+            bottom: 55px;
+            width: 100%;
+          }
 
-            .page-detail-header-rating-overviews {
-              position: absolute;
-              bottom: 0px;
-              .page-detail-header-rating-overview {
-                margin-top: 5px;
-                .page-detail-header-rating-overview-description {
-                  display: inline-block;
-                  font-size: 14px;
-                  margin-left: 5px;
-                }
+          .page-detail-header-rating-overviews {
+            position: absolute;
+            bottom: 0px;
+            .page-detail-header-rating-overview {
+              margin-top: 5px;
+              .page-detail-header-rating-overview-description {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 300;
+                margin-left: 5px;
               }
             }
           }
         }
       }
+    }
 
-      // Right Column
-      #page-detail-rightCol {
-        float: right;
-        width: 250px;
-        height: 500px;
-        margin-right: 20px;
-        padding: 10px;
-        border: solid 1px $divider-light;
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        border-radius: 6px;
+    .page-detail-bottom-element {
+      width: 100%;
+      padding-top: 10px;
+      padding-left: $detail-padding-left;
 
-        .page-detail-select-contact-visible {
-          margin-top: 5px;
-          input {
-            margin-left: 5px;
-            float: left;
-          }
-          .page-detail-select-contact-visible-description {
-            display: block;
-            margin-left: 25px;
-            margin-bottom: 20px;
-          }
-        }
-
-        .page-detail-user-recommendation-preview {
-          margin-left: 5px;
-        }
-
-        .page-detail-recommendation-preview-thumbnail {
-          display: inline-block;
-          margin-right: 5px;
-          width: 35px;
-          height: 35px;
-          img {
-            vertical-align: baseline;
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .page-detail-recommendation-preview-list {
-          display: inline-block;
-
-          .page-detail-recommendation-preview-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: $primary-color;
-          }
-          .page-detail-recommendation-preview-rating {
-
-          }
-        }
-        .page-detail-recommendation-preview-comment {
-          max-width: 220px;
-          max-height: 80px;
-          font-size: 14px;
-          font-style: italic;
-          overflow: hidden;
-          word-wrap: break-word;
-          text-overflow: ellipsis;
-          margin-bottom: 15px;
-          margin-top: 5px;
-        }
-      }
-
-      .page-detail-section-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: $primary-color;
-      }
-
-      .page-detail-section-separator {
-        margin-top: 10px;
-        border: solid 1px $divider-light;
-        margin-right: $margin-right-col;
-      }
-
-      #page-detail-description {
-        padding-top: 20px;
-        margin-right: $margin-right-col + 10;
-        #page-detail-description-text {
-          /*overflow: hidden;
-          text-overflow: ellipsis;*/
-        }
+      #page-detail-description-text {
+        font-size: 14px;
+        font-weight: 300;
       }
     }
   }

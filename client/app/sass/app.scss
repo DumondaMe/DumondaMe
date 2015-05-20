@@ -34,6 +34,8 @@ html, body {
   margin: 0;
   font-family: Roboto, Arial, sans-serif;
   background-color: $background-normal;
+  width: 100%;
+  height: 100%;
 }
 
 #viewport {
@@ -45,6 +47,7 @@ html, body {
 #content {
   top: 60px;
   width: 100%;
+  height: 100%;
 
   #content-container {
     width: 100%;

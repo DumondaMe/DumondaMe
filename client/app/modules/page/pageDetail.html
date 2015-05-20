@@ -1,125 +1,108 @@
 <div id="content-page-detail">
     <div id="centerCol">
-        <div id="inner-centerCol">
-            <div id="page-detail-rightCol">
-                <div class="page-detail-select-contact-visible">
-                    <input type="checkbox" ng-model="contact">
+        <!--<div id="page-detail-rightCol">
+            <div class="page-detail-select-contact-visible">
+                <input type="checkbox" ng-model="contact">
 
-                    <div class="page-detail-select-contact-visible-description">
-                        Nur Kontakte
+                <div class="page-detail-select-contact-visible-description">
+                    Nur Kontakte
+                </div>
+                <div class="page-detail-user-recommendation-preview" ng-show="pageDetail.recommendation.user">
+                    <div class="page-detail-recommendation-preview-thumbnail">
+                        <img ng-src="{{pageDetail.recommendation.user.profileUrl}}" class="img-circle">
                     </div>
-                    <div class="page-detail-user-recommendation-preview" ng-show="pageDetail.recommendation.user">
-                        <div class="page-detail-recommendation-preview-thumbnail">
-                            <img ng-src="{{pageDetail.recommendation.user.profileUrl}}" class="img-circle">
+                    <div class="page-detail-recommendation-preview-list">
+                        <div class="page-detail-recommendation-preview-name">
+                            Meine Bewertung
                         </div>
-                        <div class="page-detail-recommendation-preview-list">
-                            <div class="page-detail-recommendation-preview-name">
-                                Meine Bewertung
-                            </div>
-                            <div class="page-detail-recommendation-preview-rating">
-                                <ely-star-rating is-readonly="true" is-small="true"
-                                                 number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
-                            </div>
-                        </div>
-                        <div class="page-detail-recommendation-preview-comment">
-                            {{pageDetail.recommendation.user.comment}}
+                        <div class="page-detail-recommendation-preview-rating">
+                            <ely-star-rating is-readonly="true" is-small="true"
+                                             number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
                         </div>
                     </div>
-                    <div class="page-detail-users-recommendation-preview" ng-repeat="user in pageDetail.recommendation.users">
-                        <div class="page-detail-recommendation-preview-thumbnail">
-                            <img ng-src="{{user.profileUrl}}" class="img-circle">
+                    <div class="page-detail-recommendation-preview-comment">
+                        {{pageDetail.recommendation.user.comment}}
+                    </div>
+                </div>
+                <div class="page-detail-users-recommendation-preview" ng-repeat="user in pageDetail.recommendation.users">
+                    <div class="page-detail-recommendation-preview-thumbnail">
+                        <img ng-src="{{user.profileUrl}}" class="img-circle">
+                    </div>
+                    <div class="page-detail-recommendation-preview-list">
+                        <div class="page-detail-recommendation-preview-name">
+                            {{user.name}}
                         </div>
-                        <div class="page-detail-recommendation-preview-list">
-                            <div class="page-detail-recommendation-preview-name">
-                                {{user.name}}
-                            </div>
-                            <div class="page-detail-recommendation-preview-rating">
-                                <ely-star-rating is-readonly="true" is-small="true"
-                                                 number-of-selected-stars-readonly="user.rating"></ely-star-rating>
+                        <div class="page-detail-recommendation-preview-rating">
+                            <ely-star-rating is-readonly="true" is-small="true"
+                                             number-of-selected-stars-readonly="user.rating"></ely-star-rating>
+                        </div>
+                    </div>
+                    <div class="page-detail-recommendation-preview-comment">
+                        {{user.comment}}
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div id="page-detail-header">
+            <div id="page-detail-inner-header">
+                <div class="page-detail-header-image">
+                    <img ng-src="{{pageDetail.page.titleUrl}}">
+                </div>
+                <div class="page-detail-header-list">
+                    <div class="page-detail-header-title">
+                        {{pageDetail.page.title}}
+                    </div>
+                    <div class="page-detail-header-category">
+                        Kategorie: {{category}}
+                    </div>
+                    <div ng-show="contributorsWithProfile.length > 0 || contributors.length > 0">
+                        <div class="page-detail-contributor-title">
+                            {{contributorPrefix}}
+                        </div>
+                        <div class="page-detail-header-contributor-with-Profile" ng-repeat="contributor in contributorsWithProfile"
+                             ng-click="openUserDetail(contributor.userId, contributor.isLoggedInUser)">
+                            <div ng-if="contributor.isLoggedInUser">Ich</div>
+                            <div ng-if="!contributor.isLoggedInUser">{{contributor.name}}</div>
+                        </div>
+                        <div class="page-detail-header-contributor" ng-repeat="contributor in contributors">
+                            {{contributor.name}}
+                        </div>
+                    </div>
+                    <div class="page-detail-header-commands" ng-controller="AddRemoveRecommendationCtrl">
+                        <button class="btn btn-default" type="button"
+                                ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
+                                ng-hide="pageDetail.recommendation.user">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
+                        </button>
+                        <button class="btn btn-default" type="button" ng-click="removeRecommendation(pageDetail, pageId, label)"
+                                ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
+                        </button>
+                        <button class="btn btn-default" type="button" ng-click="editPage(pageId, label)"
+                                ng-show="pageDetail.administrators.isAdmin"> Seite editieren
+                        </button>
+                    </div>
+                    <div class="page-detail-header-rating-overviews">
+                        <div class="page-detail-header-rating-overview">
+                            <ely-star-rating is-readonly="true" is-x-small="true"
+                                             number-of-selected-stars-readonly="pageDetail.recommendation.summary.contact.rating"></ely-star-rating>
+                            <div class="page-detail-header-rating-overview-description">
+                                (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})
                             </div>
                         </div>
-                        <div class="page-detail-recommendation-preview-comment">
-                            {{user.comment}}
+                        <div class="page-detail-header-rating-overview">
+                            <ely-star-rating is-readonly="true" is-x-small="true"
+                                             number-of-selected-stars-readonly="pageDetail.recommendation.summary.all.rating"></ely-star-rating>
+                            <div class="page-detail-header-rating-overview-description">
+                                (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="page-detail-header">
-                <div id="page-detail-inner-header">
-                    <div class="page-detail-header-image">
-                        <img ng-src="{{pageDetail.page.titleUrl}}">
-                    </div>
-                    <div class="page-detail-header-list">
-                        <div class="page-detail-header-title">
-                            {{pageDetail.page.title}}
-                        </div>
-                        <div class="page-detail-header-category">
-                            Kategorie: {{category}}
-                        </div>
-                        <div ng-show="contributorsWithProfile.length > 0 || contributors.length > 0">
-                            <div class="page-detail-contributor-title">
-                                {{contributorPrefix}}
-                            </div>
-                            <div class="page-detail-header-contributor-with-Profile" ng-repeat="contributor in contributorsWithProfile"
-                                 ng-click="openUserDetail(contributor.userId, contributor.isLoggedInUser)">
-                                <div ng-if="contributor.isLoggedInUser">Ich</div>
-                                <div ng-if="!contributor.isLoggedInUser">{{contributor.name}}</div>
-                            </div>
-                            <div class="page-detail-header-contributor" ng-repeat="contributor in contributors">
-                                {{contributor.name}}
-                            </div>
-                        </div>
-                        <div class="page-detail-header-commands" ng-controller="AddRemoveRecommendationCtrl">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
-                                    ng-hide="pageDetail.recommendation.user">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
-                            </button>
-                            <button class="btn btn-default" type="button" ng-click="removeRecommendation(pageDetail, pageId, label)"
-                                    ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
-                            </button>
-                            <button class="btn btn-default" type="button" ng-click="editPage(pageId, label)"
-                                    ng-show="pageDetail.administrators.isAdmin"> Seite editieren
-                            </button>
-                        </div>
-                        <div class="page-detail-header-rating-overviews">
-                            <div class="page-detail-header-rating-overview">
-                                <ely-star-rating is-readonly="true" is-small="true"
-                                                 number-of-selected-stars-readonly="pageDetail.recommendation.summary.contact.rating"></ely-star-rating>
-                                <div class="page-detail-header-rating-overview-description">
-                                    (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})
-                                </div>
-                            </div>
-                            <div class="page-detail-header-rating-overview">
-                                <ely-star-rating is-readonly="true" is-small="true"
-                                                 number-of-selected-stars-readonly="pageDetail.recommendation.summary.all.rating"></ely-star-rating>
-                                <div class="page-detail-header-rating-overview-description">
-                                    (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="page-detail-section-separator"></div>
-            <div id="page-detail-description">
-                <div class="page-detail-section-title">Beschreibung</div>
-                <div id="page-detail-description-text" style="height: 100px">{{pageDetail.page.description}}</div>
-            </div>
-            <div class="page-detail-reference-pages">
-                <div class="page-detail-reference-title">
-
-                </div>
-                <div class="page-detail-reference-preview" ng-repeat="pagePreview in pageDetail.page.pageReference">
-                    <div class="page-detail-reference-preview-content">
-                        <img ng-src="{{pagePreview.previewUrl}}">
-
-                        <div class="profile-contacts-preview-name">
-                            <div class="name">{{pagePreview.title}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="page-detail-bottom-element">
+            <h1 class="website-structure-title">Beschreibung</h1>
+            <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
         </div>
     </div>
 </div>

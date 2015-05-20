@@ -26,7 +26,7 @@
                             <span class="caret"></span>
                         </button>
                     </div>
-                    <div class="form-group content-create-category-element">
+                    <div class="form-group">
                         <input name="inputTitle" ng-model="category.title"
                                class="form-control" id="inputTitleId"
                                placeholder="Titel"
@@ -53,7 +53,7 @@
             </div>
             <div id="content-create-page-suggestions" ng-show="state.actual === 2">
                 <div class="website-structure-header">
-                    <h1 class="website-structure-title">Existiert die Seite die Sie erstellen m&oumlchten bereits?</h1>
+                    <h1 class="website-structure-title">Existiert die Seite die Du erstellen m&oumlchten bereits?</h1>
                 </div>
                 <div class="page-preview-container">
                     <div ng-repeat="pagePreview in page.pageSuggestions.pages" class="page-preview-inner-container">
@@ -63,13 +63,13 @@
                 <div id="content-create-page-suggestion-commands">
                     <button type="submit"
                             class="btn btn-default content-create-page-suggestion-commands-buttons"
-                            ng-click="suggestionContinue()">
-                        Weiter
+                            ng-click="abortCreatePage()">
+                        Seite Erstellen Abbrechen
                     </button>
                     <button type="submit"
                             class="btn btn-default content-create-page-suggestion-commands-buttons"
-                            ng-click="abortCreatePage()">
-                        Seite Erstellen Abbrechen
+                            ng-click="suggestionContinue()">
+                        Weiter
                     </button>
                 </div>
             </div>

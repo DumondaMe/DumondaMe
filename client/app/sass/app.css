@@ -979,16 +979,23 @@ h1.website-structure-title {
     #content #content-page-create #centerCol {
       width: 100%;
       height: 100%;
-      padding-left: 80px; }
+      padding-left: 240px; }
       #content #content-page-create #centerCol #inner-centerCol {
         position: relative;
         width: 800px;
         margin: 0 auto; }
+        @media (min-width: 1400px) {
+          #content #content-page-create #centerCol #inner-centerCol {
+            width: 1300px; } }
         #content #content-page-create #centerCol #inner-centerCol #content-create-category {
           margin-top: 10px;
           margin-left: 15px; }
           #content #content-page-create #centerCol #inner-centerCol #content-create-category #inputTitleId {
-            width: 800px; }
+            width: 800px;
+            padding-right: 10px; }
+            @media (min-width: 1400px) {
+              #content #content-page-create #centerCol #inner-centerCol #content-create-category #inputTitleId {
+                width: 1300px; } }
           #content #content-page-create #centerCol #inner-centerCol #content-create-category .category-select-finished {
             margin-top: 10px; }
           #content #content-page-create #centerCol #inner-centerCol #content-create-category .content-create-category-element {
@@ -1032,131 +1039,84 @@ h1.website-structure-title {
 #content-page-detail {
   width: 100%;
   height: 100%;
-  margin-top: 95px; }
+  padding-top: 60px;
+  background-color: #f1f1f1; }
   #content-page-detail #centerCol {
     width: 100%;
     height: 100%;
-    padding-left: 240px; }
-    #content-page-detail #centerCol #inner-centerCol {
-      min-width: 1000px;
-      height: 100%;
-      margin-left: 60px; }
-      #content-page-detail #centerCol #inner-centerCol #page-detail-header {
-        margin-right: 290px;
-        display: table; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header {
-          display: table-row;
-          width: 100%; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
-            display: table-cell;
-            vertical-align: top;
-            height: 300px; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
-              height: 300px;
-              max-width: 400px; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
-            padding-left: 35px;
-            height: 200px;
-            display: table-cell;
-            vertical-align: top;
-            position: relative; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
-              display: inline-block;
-              font-size: 28px;
-              color: #009688;
-              min-width: 300px;
-              word-break: break-all;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              height: 35px; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-category {
-              font-size: 14px;
-              height: 25px;
-              line-height: 25px; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-contributor-title {
-              display: inline-block;
-              margin-right: 5px;
-              font-size: 14px; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor, #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
-              display: inline-block;
-              margin-right: 10px;
-              font-size: 14px; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
-              color: #0066c0;
-              cursor: pointer; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-commands {
-              position: absolute;
-              bottom: 55px;
-              width: 100%; }
-            #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews {
-              position: absolute;
-              bottom: 0px; }
-              #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview {
-                margin-top: 5px; }
-                #content-page-detail #centerCol #inner-centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description {
-                  display: inline-block;
-                  font-size: 14px;
-                  margin-left: 5px; }
-      #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol {
-        float: right;
-        width: 250px;
-        height: 500px;
-        margin-right: 20px;
-        padding: 10px;
-        border: solid 1px #CCCCCC;
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        border-radius: 6px; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible {
-          margin-top: 5px; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible input {
-            margin-left: 5px;
-            float: left; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-select-contact-visible .page-detail-select-contact-visible-description {
-            display: block;
-            margin-left: 25px;
-            margin-bottom: 20px; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-user-recommendation-preview {
-          margin-left: 5px; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-thumbnail {
+    padding-left: 0px;
+    min-width: 1000px;
+    height: 100%; }
+    #content-page-detail #centerCol #page-detail-header {
+      padding-top: 25px;
+      padding-bottom: 35px;
+      background-color: #E0E0E0;
+      border-bottom: 2px solid #d6d6d6; }
+      #content-page-detail #centerCol #page-detail-header #page-detail-inner-header {
+        padding-left: 280px;
+        width: 100%; }
+        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
           display: inline-block;
-          margin-right: 5px;
-          width: 35px;
-          height: 35px; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-thumbnail img {
-            vertical-align: baseline;
-            width: 100%;
-            height: 100%; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-list {
-          display: inline-block; }
-          #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-list .page-detail-recommendation-preview-name {
+          vertical-align: top;
+          height: 300px; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
+            height: 300px;
+            max-width: 400px; }
+        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
+          padding-left: 35px;
+          height: 300px;
+          display: inline-block;
+          vertical-align: top;
+          position: relative; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
+            display: inline-block;
+            font-size: 30px;
+            font-weight: 100;
+            color: #009688;
+            min-width: 300px;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 34px; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-category {
             font-size: 14px;
-            font-weight: bold;
-            color: #009688; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-rightCol .page-detail-recommendation-preview-comment {
-          max-width: 220px;
-          max-height: 80px;
-          font-size: 14px;
-          font-style: italic;
-          overflow: hidden;
-          word-wrap: break-word;
-          text-overflow: ellipsis;
-          margin-bottom: 15px;
-          margin-top: 5px; }
-      #content-page-detail #centerCol #inner-centerCol .page-detail-section-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: #009688; }
-      #content-page-detail #centerCol #inner-centerCol .page-detail-section-separator {
-        margin-top: 10px;
-        border: solid 1px #CCCCCC;
-        margin-right: 290px; }
-      #content-page-detail #centerCol #inner-centerCol #page-detail-description {
-        padding-top: 20px;
-        margin-right: 300px; }
-        #content-page-detail #centerCol #inner-centerCol #page-detail-description #page-detail-description-text {
-          /*overflow: hidden;
-          text-overflow: ellipsis;*/ }
+            font-weight: 300;
+            height: 25px;
+            line-height: 25px; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-contributor-title {
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 14px;
+            font-weight: 300; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor, #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: 300; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
+            color: #0066c0;
+            cursor: pointer; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-commands {
+            position: absolute;
+            bottom: 55px;
+            width: 100%; }
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews {
+            position: absolute;
+            bottom: 0px; }
+            #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview {
+              margin-top: 5px; }
+              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 300;
+                margin-left: 5px; }
+    #content-page-detail #centerCol .page-detail-bottom-element {
+      width: 100%;
+      padding-top: 10px;
+      padding-left: 280px; }
+      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-description-text {
+        font-size: 14px;
+        font-weight: 300; }
 
 #content {
   width: 100%;
@@ -1450,7 +1410,9 @@ h1.website-structure-title {
 html, body {
   margin: 0;
   font-family: Roboto, Arial, sans-serif;
-  background-color: #E0E0E0; }
+  background-color: #E0E0E0;
+  width: 100%;
+  height: 100%; }
 
 #viewport {
   width: 100%;
@@ -1459,7 +1421,8 @@ html, body {
 
 #content {
   top: 60px;
-  width: 100%; }
+  width: 100%;
+  height: 100%; }
   #content #content-container {
     width: 100%;
     height: 100%; }

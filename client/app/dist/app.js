@@ -1492,7 +1492,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"form-group content-create-category-element\">\r" +
+    "                    <div class=\"form-group\">\r" +
     "\n" +
     "                        <input name=\"inputTitle\" ng-model=\"category.title\"\r" +
     "\n" +
@@ -1546,7 +1546,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "                    <h1 class=\"website-structure-title\">Existiert die Seite die Sie erstellen m&oumlchten bereits?</h1>\r" +
+    "                    <h1 class=\"website-structure-title\">Existiert die Seite die Du erstellen m&oumlchten bereits?</h1>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -1566,9 +1566,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
     "\n" +
-    "                            ng-click=\"suggestionContinue()\">\r" +
+    "                            ng-click=\"abortCreatePage()\">\r" +
     "\n" +
-    "                        Weiter\r" +
+    "                        Seite Erstellen Abbrechen\r" +
     "\n" +
     "                    </button>\r" +
     "\n" +
@@ -1576,9 +1576,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
     "\n" +
-    "                            ng-click=\"abortCreatePage()\">\r" +
+    "                            ng-click=\"suggestionContinue()\">\r" +
     "\n" +
-    "                        Seite Erstellen Abbrechen\r" +
+    "                        Weiter\r" +
     "\n" +
     "                    </button>\r" +
     "\n" +
@@ -1601,85 +1601,195 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <!--<div id=\"page-detail-rightCol\">\r" +
     "\n" +
-    "            <div id=\"page-detail-rightCol\">\r" +
+    "            <div class=\"page-detail-select-contact-visible\">\r" +
     "\n" +
-    "                <div class=\"page-detail-select-contact-visible\">\r" +
-    "\n" +
-    "                    <input type=\"checkbox\" ng-model=\"contact\">\r" +
+    "                <input type=\"checkbox\" ng-model=\"contact\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"page-detail-select-contact-visible-description\">\r" +
+    "                <div class=\"page-detail-select-contact-visible-description\">\r" +
     "\n" +
-    "                        Nur Kontakte\r" +
+    "                    Nur Kontakte\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-user-recommendation-preview\" ng-show=\"pageDetail.recommendation.user\">\r" +
+    "\n" +
+    "                    <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "\n" +
+    "                        <img ng-src=\"{{pageDetail.recommendation.user.profileUrl}}\" class=\"img-circle\">\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"page-detail-user-recommendation-preview\" ng-show=\"pageDetail.recommendation.user\">\r" +
+    "                    <div class=\"page-detail-recommendation-preview-list\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "                        <div class=\"page-detail-recommendation-preview-name\">\r" +
     "\n" +
-    "                            <img ng-src=\"{{pageDetail.recommendation.user.profileUrl}}\" class=\"img-circle\">\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
-    "\n" +
-    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
-    "\n" +
-    "                                Meine Bewertung\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
-    "\n" +
-    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
-    "\n" +
-    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            Meine Bewertung\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "                        <div class=\"page-detail-recommendation-preview-rating\">\r" +
     "\n" +
-    "                            {{pageDetail.recommendation.user.comment}}\r" +
+    "                            <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                             number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"page-detail-users-recommendation-preview\" ng-repeat=\"user in pageDetail.recommendation.users\">\r" +
+    "                    <div class=\"page-detail-recommendation-preview-comment\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
+    "                        {{pageDetail.recommendation.user.comment}}\r" +
     "\n" +
-    "                            <img ng-src=\"{{user.profileUrl}}\" class=\"img-circle\">\r" +
+    "                    </div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-list\">\r" +
+    "                <div class=\"page-detail-users-recommendation-preview\" ng-repeat=\"user in pageDetail.recommendation.users\">\r" +
     "\n" +
-    "                            <div class=\"page-detail-recommendation-preview-name\">\r" +
+    "                    <div class=\"page-detail-recommendation-preview-thumbnail\">\r" +
     "\n" +
-    "                                {{user.name}}\r" +
+    "                        <img ng-src=\"{{user.profileUrl}}\" class=\"img-circle\">\r" +
     "\n" +
-    "                            </div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "                            <div class=\"page-detail-recommendation-preview-rating\">\r" +
+    "                    <div class=\"page-detail-recommendation-preview-list\">\r" +
     "\n" +
-    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "                        <div class=\"page-detail-recommendation-preview-name\">\r" +
     "\n" +
-    "                                                 number-of-selected-stars-readonly=\"user.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            {{user.name}}\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "                        <div class=\"page-detail-recommendation-preview-rating\">\r" +
     "\n" +
-    "                            {{user.comment}}\r" +
+    "                            <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                             number-of-selected-stars-readonly=\"user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-recommendation-preview-comment\">\r" +
+    "\n" +
+    "                        {{user.comment}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>-->\r" +
+    "\n" +
+    "        <div id=\"page-detail-header\">\r" +
+    "\n" +
+    "            <div id=\"page-detail-inner-header\">\r" +
+    "\n" +
+    "                <div class=\"page-detail-header-image\">\r" +
+    "\n" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-header-list\">\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-title\">\r" +
+    "\n" +
+    "                        {{pageDetail.page.title}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-category\">\r" +
+    "\n" +
+    "                        Kategorie: {{category}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-contributor-title\">\r" +
+    "\n" +
+    "                            {{contributorPrefix}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
+    "\n" +
+    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
+    "\n" +
+    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "                            {{contributor.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-commands\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default\" type=\"button\"\r" +
+    "\n" +
+    "                                ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\"\r" +
+    "\n" +
+    "                                ng-hide=\"pageDetail.recommendation.user\">\r" +
+    "\n" +
+    "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation(pageDetail, pageId, label)\"\r" +
+    "\n" +
+    "                                ng-show=\"pageDetail.recommendation.user && pageDetail.recommendation.users\">Bewertung entfernen\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"editPage(pageId, label)\"\r" +
+    "\n" +
+    "                                ng-show=\"pageDetail.administrators.isAdmin\"> Seite editieren\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"page-detail-header-rating-overviews\">\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                             number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-rating-overview\">\r" +
+    "\n" +
+    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                             number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.all.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-rating-overview-description\">\r" +
+    "\n" +
+    "                                (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1689,157 +1799,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"page-detail-header\">\r" +
+    "        </div>\r" +
     "\n" +
-    "                <div id=\"page-detail-inner-header\">\r" +
+    "        <div class=\"page-detail-bottom-element\">\r" +
     "\n" +
-    "                    <div class=\"page-detail-header-image\">\r" +
+    "            <h1 class=\"website-structure-title\">Beschreibung</h1>\r" +
     "\n" +
-    "                        <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-detail-header-list\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-title\">\r" +
-    "\n" +
-    "                            {{pageDetail.page.title}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-category\">\r" +
-    "\n" +
-    "                            Kategorie: {{category}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
-    "\n" +
-    "                            <div class=\"page-detail-contributor-title\">\r" +
-    "\n" +
-    "                                {{contributorPrefix}}\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
-    "\n" +
-    "                                 ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
-    "\n" +
-    "                                <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                                <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
-    "\n" +
-    "                                {{contributor.name}}\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-commands\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
-    "\n" +
-    "                            <button class=\"btn btn-default\" type=\"button\"\r" +
-    "\n" +
-    "                                    ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\"\r" +
-    "\n" +
-    "                                    ng-hide=\"pageDetail.recommendation.user\">\r" +
-    "\n" +
-    "                                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation(pageDetail, pageId, label)\"\r" +
-    "\n" +
-    "                                    ng-show=\"pageDetail.recommendation.user && pageDetail.recommendation.users\">Bewertung entfernen\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                            <button class=\"btn btn-default\" type=\"button\" ng-click=\"editPage(pageId, label)\"\r" +
-    "\n" +
-    "                                    ng-show=\"pageDetail.administrators.isAdmin\"> Seite editieren\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-rating-overviews\">\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-rating-overview\">\r" +
-    "\n" +
-    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
-    "\n" +
-    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
-    "\n" +
-    "                                    (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-rating-overview\">\r" +
-    "\n" +
-    "                                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
-    "\n" +
-    "                                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.all.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                                <div class=\"page-detail-header-rating-overview-description\">\r" +
-    "\n" +
-    "                                    (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-detail-section-separator\"></div>\r" +
-    "\n" +
-    "            <div id=\"page-detail-description\">\r" +
-    "\n" +
-    "                <div class=\"page-detail-section-title\">Beschreibung</div>\r" +
-    "\n" +
-    "                <div id=\"page-detail-description-text\" style=\"height: 100px\">{{pageDetail.page.description}}</div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-detail-reference-pages\">\r" +
-    "\n" +
-    "                <div class=\"page-detail-reference-title\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-detail-reference-preview\" ng-repeat=\"pagePreview in pageDetail.page.pageReference\">\r" +
-    "\n" +
-    "                    <div class=\"page-detail-reference-preview-content\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{pagePreview.previewUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"profile-contacts-preview-name\">\r" +
-    "\n" +
-    "                            <div class=\"name\">{{pagePreview.title}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
+    "            <div id=\"page-detail-description-text\">{{pageDetail.page.description}}</div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1922,7 +1888,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
-    "                    <h1 class=\"website-structure-title\">eliebteste B&uuml;cher</h1>\r" +
+    "                    <h1 class=\"website-structure-title\">Beliebteste B&uuml;cher</h1>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

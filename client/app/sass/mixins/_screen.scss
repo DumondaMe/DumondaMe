@@ -55,8 +55,6 @@
       margin-bottom: 20px;
       overflow: auto;
 
-      //background: white;
-
       @content;
     }
   }
