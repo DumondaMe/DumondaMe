@@ -1,13 +1,14 @@
 'use strict';
 
-var conversationCtrl = require('../../../app/modules/messages/createConversationCtrl')[5];
+var conversationCtrl = require('../../../app/modules/messages/createConversationCtrl')[6];
 
 describe('Tests of create conversation controller', function () {
-    var scope, state, stateParams, Conversation, Message;
+    var scope, state, stateParams, Conversation, Message, MessageLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
+            MessageLeftNavElements = {};
             Conversation = {};
             Conversation.get = function () {
             };
@@ -36,7 +37,7 @@ describe('Tests of create conversation controller', function () {
 
         stateParams.userId = '1';
 
-        conversationCtrl(scope, state, stateParams, Conversation, Message);
+        conversationCtrl(scope, state, stateParams, Conversation, Message, MessageLeftNavElements);
         scope.settings.newMessage = 'test';
 
         expectation = mockConversation.expects('save');
@@ -53,7 +54,7 @@ describe('Tests of create conversation controller', function () {
 
         stateParams.userId = '1';
 
-        conversationCtrl(scope, state, stateParams, Conversation, Message);
+        conversationCtrl(scope, state, stateParams, Conversation, Message, MessageLeftNavElements);
         scope.settings.newMessage = '  ';
 
         expectation = mockConversation.expects('save');

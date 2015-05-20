@@ -27,10 +27,10 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
     commands.push(numberOfSameContacts(userId, contactId).getCommand());
 
     return db.cypher().match('(contact:User {userId: {contactId}})-[:IS_CONTACT]->(contactOfContact:User), (user:User {userId: {userId}})')
-        .optionalMatch('(contactOfContact)-[isContact:IS_CONTACT]->(user)')
-        .with('contact, contactOfContact, isContact')
+        .optionalMatch('(contactOfContact)-[:IS_CONTACT]->(user)')
+        .with('contact, contactOfContact')
         .where("contactOfContact.userId <> {userId}")
-        .with('contact, contactOfContact, isContact')
+        .with('contact, contactOfContact')
         .match("(contactOfContact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contactOfContact)")
         .with("contact, contactOfContact, rContact, privacy, vr")

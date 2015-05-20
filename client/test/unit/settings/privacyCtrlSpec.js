@@ -1,15 +1,16 @@
 'use strict';
 
-var privacyCtrl = require('../../../app/modules/settings/privacyCtrl')[2];
+var privacyCtrl = require('../../../app/modules/settings/privacyCtrl')[3];
 
 describe('Tests of Privacy Controller', function () {
-    var scope, Privacy;
+    var scope, Privacy, SettingLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             scope = $rootScope.$new();
 
+            SettingLeftNavElements = {};
             Privacy = {};
             Privacy.get = function () {
             };
@@ -30,7 +31,7 @@ describe('Tests of Privacy Controller', function () {
             stubPrivacy = sinon.stub(Privacy, 'get');
         stubPrivacy.returns(privacySettings);
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         stubPrivacy.callArgWith(1, privacySettings);
 
@@ -54,7 +55,7 @@ describe('Tests of Privacy Controller', function () {
             stubPrivacy = sinon.stub(Privacy, 'get');
         stubPrivacy.returns(privacySettings);
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         stubPrivacy.callArgWith(1, privacySettings);
         scope.setPrivacyType('Familie');
@@ -71,7 +72,7 @@ describe('Tests of Privacy Controller', function () {
             stubGetPrivacy = sinon.stub(Privacy, 'get');
         stubGetPrivacy.returns({});
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         scope.privacySettings.noContact = {};
         scope.privacySettings.noContact.profileVisible = true;
@@ -102,7 +103,7 @@ describe('Tests of Privacy Controller', function () {
             stubGetPrivacy = sinon.stub(Privacy, 'get');
         stubGetPrivacy.returns({});
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         scope.privacySettings.normal = [];
         scope.privacySettings.normal.push({
@@ -143,7 +144,7 @@ describe('Tests of Privacy Controller', function () {
             stubGetPrivacy = sinon.stub(Privacy, 'get');
         stubGetPrivacy.returns({});
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         scope.privacySettings.normal = [];
         scope.privacySettings.normal.push({
@@ -188,7 +189,7 @@ describe('Tests of Privacy Controller', function () {
         var stubGetPrivacy = sinon.stub(Privacy, 'get');
         stubGetPrivacy.returns({});
 
-        privacyCtrl(scope, Privacy);
+        privacyCtrl(scope, Privacy, SettingLeftNavElements);
 
         scope.showAddingNewPrivacySetting();
         scope.abortAddingNewPrivacy();

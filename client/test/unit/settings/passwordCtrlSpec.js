@@ -1,15 +1,16 @@
 'use strict';
 
-var passwordCtrl = require('../../../app/modules/settings/passwordCtrl')[2];
+var passwordCtrl = require('../../../app/modules/settings/passwordCtrl')[3];
 
 describe('Tests of Password Controller', function () {
-    var scope, Password;
+    var scope, Password, MessageLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
 
             scope = $rootScope.$new();
 
+            MessageLeftNavElements = {};
             Password = {};
             Password.save = function () {
             };
@@ -29,7 +30,7 @@ describe('Tests of Password Controller', function () {
 
     it('Successful sending of message to change the password', function () {
 
-        passwordCtrl(scope, Password);
+        passwordCtrl(scope, Password, MessageLeftNavElements);
         scope.password = {
             newPassword: 'ur3miOsw',
             newPasswordConfirm: 'ur3miOsw',
@@ -49,7 +50,7 @@ describe('Tests of Password Controller', function () {
 
     it('Sending of message failed because of to short password', function () {
 
-        passwordCtrl(scope, Password);
+        passwordCtrl(scope, Password, MessageLeftNavElements);
         scope.password = {
             newPassword: 'ur3miOs',
             newPasswordConfirm: 'ur3miOs',
@@ -66,7 +67,7 @@ describe('Tests of Password Controller', function () {
 
     it('Sending of message failed because new password and passwort to confirm are not equal', function () {
 
-        passwordCtrl(scope, Password);
+        passwordCtrl(scope, Password, MessageLeftNavElements);
         scope.password = {
             newPassword: 'ur3miOsw',
             newPasswordConfirm: 'ur3miOse',

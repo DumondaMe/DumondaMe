@@ -28,7 +28,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         var spyGo = sinon.stub(state, 'go');
 
-        scope.contact = {id: '5'};
+        scope.contact = {userId: '5'};
 
         contactPreviewCtrl(scope, state, ContactUserActions);
         scope.openUserDetails();

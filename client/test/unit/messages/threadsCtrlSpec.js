@@ -1,9 +1,9 @@
 'use strict';
 
-var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[5];
+var threadsCtrl = require('../../../app/modules/messages/threadsCtrl')[6];
 
 describe('Tests of threads controller', function () {
-    var scope, rootScope, state, Message, SearchUserToSendMessage, dateFormatter;
+    var scope, rootScope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -12,6 +12,7 @@ describe('Tests of threads controller', function () {
             Message.get = function () {
             };
 
+            MessageLeftNavElements = {};
             SearchUserToSendMessage = {};
             SearchUserToSendMessage.get = function () {
             };
@@ -39,7 +40,7 @@ describe('Tests of threads controller', function () {
 
         stubMessageGet.withArgs({itemsPerPage: 30, skip: 0}).returns(response);
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
 
         expect(scope.threads).to.equal('test');
     });
@@ -48,7 +49,7 @@ describe('Tests of threads controller', function () {
 
         var mockStateGo = sinon.mock(state);
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
 
         mockStateGo.expects('go').withArgs('message.threads.detail', {
             threadId: '1',
@@ -65,7 +66,7 @@ describe('Tests of threads controller', function () {
 
         mockMessageGet.expects('get').withArgs({itemsPerPage: 30, skip: 0}).twice();
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
         rootScope.$broadcast('message.changed');
 
         mockMessageGet.verify();
@@ -82,7 +83,7 @@ describe('Tests of threads controller', function () {
             isSuggestion: true
         }).returns({$promise: 1});
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
         scope.getSuggestion(searchQuery);
 
         mockSearchUser.verify();
@@ -95,7 +96,7 @@ describe('Tests of threads controller', function () {
 
         mockSearchUser.expects('query').never();
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
         scope.getSuggestion(searchQuery);
 
         mockSearchUser.verify();
@@ -112,7 +113,7 @@ describe('Tests of threads controller', function () {
             isSuggestion: false
         }).returns({});
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
         scope.getThreadsOrContacts(searchQuery);
 
         mockSearchUser.verify();
@@ -125,7 +126,7 @@ describe('Tests of threads controller', function () {
 
         mockSearchUser.expects('get').never();
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
         scope.getThreadsOrContacts(searchQuery);
 
         mockSearchUser.verify();
@@ -135,7 +136,7 @@ describe('Tests of threads controller', function () {
 
         var mockStateGo = sinon.mock(state);
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
 
         mockStateGo.expects('go').withArgs('message.threads.create', {
             userId: '1',
@@ -150,7 +151,7 @@ describe('Tests of threads controller', function () {
 
         var mockStateGo = sinon.mock(state);
 
-        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter);
+        threadsCtrl(scope, state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements);
 
         mockStateGo.expects('go').never();
         scope.addNewSingleThread();

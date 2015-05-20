@@ -58,7 +58,7 @@ describe('Tests of the user action to handle the contact state', function () {
             service;
 
         scope.numberOfContacts = 1;
-        scope.contact.id = '5';
+        scope.contact.userId = '5';
         scope.contact.selectedPrivacySetting = 'Freund';
 
         stubContactSave.withArgs({
@@ -86,7 +86,7 @@ describe('Tests of the user action to handle the contact state', function () {
             },
             service;
 
-        scope.contact = {id: '5', connected: 'none'};
+        scope.contact = {userId: '5', connected: 'none'};
         scope.contact.selectedPrivacySetting = 'Familie';
 
         stubContactSave.withArgs({
@@ -113,7 +113,7 @@ describe('Tests of the user action to handle the contact state', function () {
             },
             service;
 
-        scope.contact = {id: '5', connected: 'contactToUser'};
+        scope.contact = {userId: '5', connected: 'contactToUser'};
         scope.contact.selectedPrivacySetting = 'Freund';
 
         stubContactSave.withArgs({
@@ -151,7 +151,7 @@ describe('Tests of the user action to handle the contact state', function () {
             service;
 
         scope.users = {};
-        scope.contact = {id: '5', connected: 'contactToUser'};
+        scope.contact = {userId: '5', connected: 'contactToUser'};
 
         stubContactSave.withArgs({
             contactIds: ['5'],
@@ -182,7 +182,7 @@ describe('Tests of the user action to handle the contact state', function () {
 
         scope.statistic = {};
         scope.numberOfContacts = 1;
-        scope.contact = {id: '5', type: 'Freund'};
+        scope.contact = {userId: '5', type: 'Freund'};
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
@@ -204,7 +204,7 @@ describe('Tests of the user action to handle the contact state', function () {
             },
             service;
 
-        scope.contact = {id: '5', type: 'Freund', connected: 'both'};
+        scope.contact = {userId: '5', type: 'Freund', connected: 'both'};
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
@@ -225,7 +225,7 @@ describe('Tests of the user action to handle the contact state', function () {
             },
             service;
 
-        scope.contact = {id: '5', type: 'Freund', connected: 'userToContact'};
+        scope.contact = {userId: '5', type: 'Freund', connected: 'userToContact'};
 
         stubContactDelete.withArgs({contactIds: ['5']}).returns(response);
 
@@ -248,7 +248,7 @@ describe('Tests of the user action to handle the contact state', function () {
 
         scope.statistic = {};
         scope.numberOfContacts = 1;
-        scope.contact = {id: '5', type: 'Freund'};
+        scope.contact = {userId: '5', type: 'Freund'};
 
         stubContactBlock.withArgs({mode: 'blockContact', contactIds: ['5']}).returns(response);
 
@@ -273,7 +273,7 @@ describe('Tests of the user action to handle the contact state', function () {
 
         scope.statistic = {};
         scope.numberOfContacts = 1;
-        scope.contact = {id: '5', type: 'Freund', blocked: true};
+        scope.contact = {userId: '5', type: 'Freund', blocked: true};
 
         stubContactBlock.withArgs({mode: 'unblockContact', contactIds: ['5']}).returns(response);
 
@@ -299,7 +299,7 @@ describe('Tests of the user action to handle the contact state', function () {
 
         scope.statistic = {};
         scope.numberOfContacts = 1;
-        scope.contact = {id: '5', type: 'Freund', blocked: false};
+        scope.contact = {userId: '5', type: 'Freund', blocked: false};
 
         stubSearchThread.withArgs({userId: '5'}).returns(response);
         mockStateGo.withArgs('message.threads.detail');
@@ -322,7 +322,7 @@ describe('Tests of the user action to handle the contact state', function () {
 
         scope.statistic = {};
         scope.numberOfContacts = 1;
-        scope.contact = {id: '5', type: 'Freund', blocked: false};
+        scope.contact = {userId: '5', type: 'Freund', blocked: false};
 
         stubSearchThread.withArgs({userId: '5'}).returns(response);
         mockStateGo.withArgs('message.threads.create');
@@ -367,7 +367,7 @@ describe('Tests of the user action to handle the contact state', function () {
         expect(scope.contact.connectionImage).to.equal("app/img/contactToUser.png");
     });
 
-    it('Get no connection state iImage url when no connection has been made', function () {
+    it('Get no connection state Image url when no connection has been made', function () {
 
         var service;
         scope.contact = {connected: 'none'};

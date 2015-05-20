@@ -117,7 +117,7 @@ describe('Tests of conversation actions controller', function () {
         mockStateGo.verify();
     });
 
-    it('Raise the input height when scroll height has changed and is below 74px', function () {
+    it('Raise the input height when scroll height has changed and is below 144px', function () {
 
         var event = {target: {offsetHeight: 73, scrollHeight: 73}};
         conversationCtrl(scope, state, Message, Conversation);
@@ -128,9 +128,9 @@ describe('Tests of conversation actions controller', function () {
         expect(scope.settings.textInputWrapperStyle.height).to.equal('91px');
     });
 
-    it('Do not raise input size when offsetHeight over 73px', function () {
+    it('Do not raise input size when offsetHeight over 144', function () {
 
-        var event = {target: {offsetHeight: 74, scrollHeight: 73}};
+        var event = {target: {offsetHeight: 145, scrollHeight: 145}};
         scope.settings.textInputStyle = {};
         scope.settings.textInputWrapperStyle = {};
         conversationCtrl(scope, state, Message, Conversation);

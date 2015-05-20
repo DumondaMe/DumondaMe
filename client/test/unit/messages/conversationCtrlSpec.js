@@ -1,9 +1,9 @@
 'use strict';
 
-var conversationCtrl = require('../../../app/modules/messages/conversationCtrl')[5];
+var conversationCtrl = require('../../../app/modules/messages/conversationCtrl')[6];
 
 describe('Tests of conversation controller', function () {
-    var scope, rootScope, stateParams, Conversation, Message, dateFormatter;
+    var scope, rootScope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -23,6 +23,7 @@ describe('Tests of conversation controller', function () {
             };
 
             stateParams = {};
+            MessageLeftNavElements = {};
 
             rootScope = $rootScope;
             scope = $rootScope.$new();
@@ -34,7 +35,7 @@ describe('Tests of conversation controller', function () {
 
         var stubGetThread;
 
-        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter);
+        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements);
         scope.settings.getThread = function () {
         };
         stubGetThread = sinon.stub(scope.settings, 'getThread');
@@ -48,7 +49,7 @@ describe('Tests of conversation controller', function () {
 
         var stubMessageGet = sinon.stub(Message, 'get');
 
-        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter);
+        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements);
         scope.settings.currentPagination = 2;
 
         rootScope.$broadcast('message.changed');
@@ -62,7 +63,7 @@ describe('Tests of conversation controller', function () {
 
         resp = {message: {test: 'test'}};
 
-        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter);
+        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements);
         scope.settings.selectedThreadId = '1';
         scope.settings.selectedIsGroupThread = false;
         scope.settings.thread = {messages: []};
@@ -86,7 +87,7 @@ describe('Tests of conversation controller', function () {
 
         resp = {message: {test: 'test'}};
 
-        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter);
+        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements);
         scope.settings.selectedThreadId = '1';
         scope.settings.selectedIsGroupThread = true;
         scope.settings.thread = {messages: []};
@@ -108,7 +109,7 @@ describe('Tests of conversation controller', function () {
 
         var mockConversation = sinon.mock(Conversation), expectation;
 
-        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter);
+        conversationCtrl(scope, stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements);
         scope.settings.selectedThreadId = '1';
         scope.settings.selectedIsGroupThread = false;
         scope.settings.thread = {messages: []};

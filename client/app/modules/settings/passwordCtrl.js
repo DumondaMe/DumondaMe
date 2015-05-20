@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
+module.exports = ['$scope', 'Password', 'MessageLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
 
     $scope.password = {};
     $scope.submitFailed = false;

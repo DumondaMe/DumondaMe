@@ -51,15 +51,23 @@ describe('Integration Tests for getting page detail', function () {
         var commands = [];
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: false})")
+            "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: false, image: false})")
             .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '3'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_CONTACT {type: 'Bekannter'}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '2'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
@@ -124,14 +132,6 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.recommendation.user.comment.should.equals('irgendwas');
                 res.body.recommendation.user.recommendationId.should.equals('0');
 
-                /*res.body.recommendation.users.length.should.equals(2);
-                res.body.recommendation.users[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
-                res.body.recommendation.users[0].name.should.equals('user Meier3');
-                res.body.recommendation.users[0].userId.should.equals('3');
-                res.body.recommendation.users[0].rating.should.equals(4);
-                res.body.recommendation.users[0].comment.should.equals('irgendwas3');
-                res.body.recommendation.users[0].recommendationId.should.equals('2');*/
-
                 res.body.recommendation.summary.contact.rating.should.equals(4);
                 res.body.recommendation.summary.contact.numberOfRatings.should.equals(2);
                 res.body.recommendation.summary.all.rating.should.equals(3);
@@ -157,158 +157,6 @@ describe('Integration Tests for getting page detail', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-            });
-    });
-
-    it('Getting the detail of the page for a video with linked actors in elyoos', function () {
-
-        var commands = [];
-
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:IS_ACTOR]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ACTOR]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().getCommand());
-
-        return db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
-                    pageId: '0',
-                    label: 'VideoPage'
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-                res.body.page.title.should.equals('page2Title');
-                res.body.page.description.should.equals('page2');
-                res.body.page.link.should.equals('www.link.com');
-                res.body.page.duration.should.equals(10);
-                res.body.page.created.should.equals(500);
-                res.body.page.titleUrl.should.equals('pages/VideoPage/0/pageTitlePicture.jpg');
-                res.body.page.actor.length.should.equals(3);
-                res.body.page.actor[0].name.should.equals('Hans Muster');
-                res.body.page.actor[0].isLoggedInUser.should.be.false;
-                should.not.exist(res.body.page.actor[0].userId);
-                res.body.page.actor[1].name.should.equals('user Meier');
-                res.body.page.actor[1].userId.should.equals('1');
-                res.body.page.actor[1].isLoggedInUser.should.be.true;
-                res.body.page.actor[2].name.should.equals('user Meier2');
-                res.body.page.actor[2].userId.should.equals('2');
-                res.body.page.actor[2].isLoggedInUser.should.be.false;
-                res.body.administrators.list.length.should.equals(2);
-                res.body.administrators.list[0].name.should.equals('user Meier');
-                res.body.administrators.list[0].userId.should.equals('1');
-                res.body.administrators.list[0].profileUrl.should.equals('profileImage/1/profilePreview.jpg');
-                res.body.administrators.list[0].userIsAdmin.should.be.true;
-                res.body.administrators.list[1].name.should.equals('user Meier2');
-                res.body.administrators.list[1].userId.should.equals('2');
-                res.body.administrators.list[1].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
-                res.body.administrators.list[1].userIsAdmin.should.be.false;
-            });
-    });
-
-    it('Getting the detail of the page for a course', function () {
-
-        var commands = [];
-
-        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:INSTRUCTOR]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:INSTRUCTOR]->(a)")
-            .end().getCommand());
-
-        return db.cypher().match("(a:CoursePage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
-                    pageId: '0',
-                    label: 'CoursePage'
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-                res.body.page.title.should.equals('page4Title');
-                res.body.page.description.should.equals('page4');
-                res.body.page.link.should.equals('www.link.com');
-                res.body.page.created.should.equals(503);
-                res.body.page.titleUrl.should.equals('pages/CoursePage/0/pageTitlePicture.jpg');
-                res.body.page.instructor.length.should.equals(2);
-                res.body.page.instructor[0].name.should.equals('user Meier');
-                res.body.page.instructor[0].userId.should.equals('1');
-                res.body.page.instructor[0].isLoggedInUser.should.be.true;
-                res.body.page.instructor[1].name.should.equals('user Meier2');
-                res.body.page.instructor[1].userId.should.equals('2');
-                res.body.page.instructor[1].isLoggedInUser.should.be.false;
-                res.body.administrators.list.length.should.equals(1);
-                res.body.administrators.list[0].name.should.equals('user Meier2');
-                res.body.administrators.list[0].userId.should.equals('2');
-                res.body.administrators.list[0].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
-                res.body.administrators.list[0].userIsAdmin.should.be.false;
-            });
-    });
-
-    it('Getting the detail of the page for a school', function () {
-
-        var commands = [];
-
-        commands.push(db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:PRINCIPAL]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:PRINCIPAL]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:CoursePage {pageId: '0'}), (b:SchoolPage {pageId: '0'})")
-            .create("(b)-[:OFFER]->(a)")
-            .end().getCommand());
-
-        return db.cypher().match("(a:SchoolPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
-                    pageId: '0',
-                    label: 'SchoolPage'
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-                res.body.page.title.should.equals('page3Title');
-                res.body.page.description.should.equals('page3');
-                res.body.page.link.should.equals('www.link.com');
-                res.body.page.created.should.equals(502);
-                res.body.page.titleUrl.should.equals('pages/SchoolPage/0/pageTitlePicture.jpg');
-                res.body.page.principal.length.should.equals(2);
-                res.body.page.principal[0].name.should.equals('user Meier');
-                res.body.page.principal[0].userId.should.equals('1');
-                res.body.page.principal[0].isLoggedInUser.should.be.true;
-                res.body.page.principal[1].name.should.equals('user Meier2');
-                res.body.page.principal[1].userId.should.equals('2');
-                res.body.page.principal[1].isLoggedInUser.should.be.false;
-                res.body.page.pageReference.length.should.equals(1);
-                res.body.page.pageReference[0].title.should.equals('page4Title');
-                res.body.page.pageReference[0].previewUrl.should.equals('pages/CoursePage/0/pageTitlePicturePreview.jpg');
-                res.body.administrators.list.length.should.equals(1);
-                res.body.administrators.list[0].name.should.equals('user Meier2');
-                res.body.administrators.list[0].userId.should.equals('2');
-                res.body.administrators.list[0].profileUrl.should.equals('profileImage/2/profilePreview.jpg');
-                res.body.administrators.list[0].userIsAdmin.should.be.false;
             });
     });
 });

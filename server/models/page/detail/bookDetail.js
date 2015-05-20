@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
 var detailTitlePicture = require('./detailTitlePicture');
@@ -43,15 +44,16 @@ var getBookDetail = function (pageId, userId) {
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
-            var returnValue;
+            var returnValue, isAdmin = administrator.isUserAdministrator(resp[0]);
             addAuthors(resp[6][0], resp[1]);
+            userInfo.addImageForPreview(resp[0]);
             recommendation.addProfileThumbnails(resp[3]);
             detailTitlePicture.addTitlePicture(pageId, resp[6][0], 'BookPage');
             returnValue = {
                 page: resp[6][0],
                 administrators: {
                     list: resp[0],
-                    isAdmin: administrator.isUserAdministrator(resp[0])
+                    isAdmin: isAdmin
                 },
                 recommendation: {
                     users: resp[3],
