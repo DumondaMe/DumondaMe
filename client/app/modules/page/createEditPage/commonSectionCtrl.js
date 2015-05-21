@@ -37,4 +37,9 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
                 });
 
         };
+
+        $scope.editPage = function () {
+            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
+
+        };
     }];

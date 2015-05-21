@@ -1332,7 +1332,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/createPage/commonBook.html',
+  $templateCache.put('app/modules/page/createEditPage/commonBook.html',
     "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
     "\n" +
     "    <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
@@ -1353,8 +1353,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/createPage/commonSection.html',
-    "<div id=\"content-create-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
+  $templateCache.put('app/modules/page/createEditPage/commonSection.html',
+    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1364,15 +1364,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div id=\"content-create-page-common-picture-area\">\r" +
+    "        <div id=\"content-create-edit-page-common-picture-area\">\r" +
     "\n" +
-    "            <img ng-src=\"{{imagePreview}}\" class=\"content-create-page-common-picture\">\r" +
+    "            <img ng-src=\"{{imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
     "\n" +
     "\r" +
     "\n" +
     "            <div>\r" +
     "\n" +
-    "                <button type=\"button\" class=\"btn btn-default content-create-page-common-get-picture\"\r" +
+    "                <button type=\"button\" class=\"btn btn-default content-create-edit-page-common-get-picture\"\r" +
     "\n" +
     "                        data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
     "\n" +
@@ -1388,17 +1388,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div id=\"content-create-page-common-area\">\r" +
+    "        <div id=\"content-create-edit-page-common-area\">\r" +
     "\n" +
-    "            <div id=\"content-create-page-common-inner-area\">\r" +
+    "            <div id=\"content-create-edit-page-common-inner-area\">\r" +
     "\n" +
-    "                <div ng-include=\"'app/modules/page/createPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "                <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div id=\"content-create-page-common-description-area\">\r" +
+    "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
     "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
     "\n" +
@@ -1414,13 +1414,29 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <button type=\"submit\"\r" +
     "\n" +
-    "                    class=\"btn btn-default content-create-page-common-commands\"\r" +
+    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
     "\n" +
     "                    ng-click=\"createPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid}\">\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
+    "\n" +
+    "                    ng-hide=\"mode.edit\">\r" +
     "\n" +
     "                Seite erstellen\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button type=\"submit\"\r" +
+    "\n" +
+    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
+    "\n" +
+    "                    ng-click=\"editPage()\"\r" +
+    "\n" +
+    "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
+    "\n" +
+    "                    ng-show=\"mode.edit\">\r" +
+    "\n" +
+    "                Seite &aumlndern\r" +
     "\n" +
     "            </button>\r" +
     "\n" +
@@ -1434,26 +1450,24 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/createPage/pageCreate.html',
-    "<div id=\"content-page-create\">\r" +
+  $templateCache.put('app/modules/page/createEditPage/pageCreateEdit.html',
+    "<div id=\"content-page-create-edit\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"website-structure-header\">\r" +
+    "            <h1 class=\"website-structure-title\">Kategorie ausw&aumlhlen</h1>\r" +
     "\n" +
-    "                <h1 class=\"website-structure-title\">Kategorie ausw&aumlhlen</h1>\r" +
+    "\r" +
     "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"content-create-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
+    "            <div id=\"content-create-edit-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
     "\n" +
     "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
     "\n" +
     "                    <div class=\"form-group\">\r" +
     "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-category-element\" ng-model=\"category.selectedCategory\"\r" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedCategory\"\r" +
     "\n" +
     "                                name=\"inputCategory\"\r" +
     "\n" +
@@ -1471,7 +1485,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </button>\r" +
     "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-category-element\" ng-model=\"category.selectedLanguage\"\r" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedLanguage\"\r" +
     "\n" +
     "                                name=\"inputLanguage\"\r" +
     "\n" +
@@ -1503,7 +1517,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"form-group content-create-category-element\">\r" +
+    "                    <div class=\"form-group content-create-edit-category-element\">\r" +
     "\n" +
     "                        <div>\r" +
     "\n" +
@@ -1541,13 +1555,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div id=\"content-create-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
+    "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
-    "                <div class=\"website-structure-header\">\r" +
+    "                <h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>\r" +
     "\n" +
-    "                    <h1 class=\"website-structure-title\">Existiert die Seite die Du erstellen m&oumlchten bereits?</h1>\r" +
-    "\n" +
-    "                </div>\r" +
+    "\r" +
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
@@ -1559,11 +1571,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div id=\"content-create-page-suggestion-commands\">\r" +
+    "                <div id=\"content-create-edit-page-suggestion-commands\">\r" +
     "\n" +
     "                    <button type=\"submit\"\r" +
     "\n" +
-    "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
+    "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
     "\n" +
     "                            ng-click=\"abortCreatePage()\">\r" +
     "\n" +
@@ -1573,7 +1585,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <button type=\"submit\"\r" +
     "\n" +
-    "                            class=\"btn btn-default content-create-page-suggestion-commands-buttons\"\r" +
+    "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
     "\n" +
     "                            ng-click=\"suggestionContinue()\">\r" +
     "\n" +
@@ -1585,7 +1597,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div ng-include=\"'app/modules/page/createPage/commonSection.html'\"></div>\r" +
+    "            <div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1668,7 +1680,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </button>\r" +
     "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"editPage(pageId, label)\"\r" +
+    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"goEditPage(pageId, label)\"\r" +
     "\n" +
     "                                ng-show=\"pageDetail.administrators.isAdmin\"> Seite editieren\r" +
     "\n" +

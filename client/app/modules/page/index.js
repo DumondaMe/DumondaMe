@@ -2,10 +2,11 @@
 
 var app = require('angular').module('elyoosApp');
 
-app.controller('PageCreateCtrl', require('./createPage/pageCreateCtrl'));
-app.controller('PageCreateSelectCategoryCtrl', require('./createPage/selectCategoryCtrl'));
-app.controller('PageCreateCommonSectionCtrl', require('./createPage/commonSectionCtrl'));
-app.controller('PageCreateCommonBookCtrl', require('./createPage/commonBookCtrl'));
+app.controller('PageCreateCtrl', require('./createEditPage/pageCreateCtrl'));
+app.controller('PageEditCtrl', require('./createEditPage/pageEditCtrl'));
+app.controller('PageCreateSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
+app.controller('PageCreateCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
+app.controller('PageCreateCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
@@ -46,11 +47,21 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             hasNavigation: true
         })
+        .state('page.edit', {
+            url: '/edit/{label}/{pageId}',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
+                    controller: 'PageEditCtrl'
+                }
+            },
+            hasNavigation: true
+        })
         .state('page.create', {
             url: '/create',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/createPage/pageCreate.html',
+                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
                     controller: 'PageCreateCtrl'
                 }
             },

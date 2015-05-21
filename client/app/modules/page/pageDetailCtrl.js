@@ -67,4 +67,11 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
                 userId: userId
             });
         };
+
+        $scope.goEditPage = function (pageId, label) {
+            $state.go('page.edit', {
+                pageId: pageId,
+                label: label
+            });
+        };
     }];
