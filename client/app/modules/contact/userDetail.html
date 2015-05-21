@@ -46,11 +46,11 @@
                 <div id="profile-contacts-title-male" ng-show="!contact.female">
                     Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)
                 </div>
-                <div class="profile-contacts-preview" ng-repeat="user in contacts" ng-click="openUserDetails(user.userId)">
-                    <div class="profile-contacts-preview-content">
+                <div class="user-mini-preview" ng-repeat="user in contacts" ng-click="openUserDetails(user.userId)">
+                    <div class="user-mini-preview-content">
                         <img ng-src="{{user.profileUrl}}">
 
-                        <div class="profile-contacts-preview-name">
+                        <div class="user-mini-preview-name">
                             <div class="name">{{user.name}}</div>
                         </div>
                     </div>

@@ -1,48 +1,5 @@
 <div id="content-page-detail">
     <div id="centerCol">
-        <!--<div id="page-detail-rightCol">
-            <div class="page-detail-select-contact-visible">
-                <input type="checkbox" ng-model="contact">
-
-                <div class="page-detail-select-contact-visible-description">
-                    Nur Kontakte
-                </div>
-                <div class="page-detail-user-recommendation-preview" ng-show="pageDetail.recommendation.user">
-                    <div class="page-detail-recommendation-preview-thumbnail">
-                        <img ng-src="{{pageDetail.recommendation.user.profileUrl}}" class="img-circle">
-                    </div>
-                    <div class="page-detail-recommendation-preview-list">
-                        <div class="page-detail-recommendation-preview-name">
-                            Meine Bewertung
-                        </div>
-                        <div class="page-detail-recommendation-preview-rating">
-                            <ely-star-rating is-readonly="true" is-small="true"
-                                             number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
-                        </div>
-                    </div>
-                    <div class="page-detail-recommendation-preview-comment">
-                        {{pageDetail.recommendation.user.comment}}
-                    </div>
-                </div>
-                <div class="page-detail-users-recommendation-preview" ng-repeat="user in pageDetail.recommendation.users">
-                    <div class="page-detail-recommendation-preview-thumbnail">
-                        <img ng-src="{{user.profileUrl}}" class="img-circle">
-                    </div>
-                    <div class="page-detail-recommendation-preview-list">
-                        <div class="page-detail-recommendation-preview-name">
-                            {{user.name}}
-                        </div>
-                        <div class="page-detail-recommendation-preview-rating">
-                            <ely-star-rating is-readonly="true" is-small="true"
-                                             number-of-selected-stars-readonly="user.rating"></ely-star-rating>
-                        </div>
-                    </div>
-                    <div class="page-detail-recommendation-preview-comment">
-                        {{user.comment}}
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div id="page-detail-header">
             <div id="page-detail-inner-header">
                 <div class="page-detail-header-image">
@@ -102,7 +59,22 @@
         </div>
         <div class="page-detail-bottom-element">
             <h1 class="website-structure-title">Beschreibung</h1>
+
             <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
+        </div>
+        <div class="page-detail-bottom-element">
+            <div class="page-detail-bottom-element-inner">
+                <h1 class="website-structure-title">Administratoren</h1>
+                <div class="user-mini-preview" ng-repeat="admin in pageDetail.administrators.list" ng-click="openUserDetails(admin.userId)">
+                    <div class="user-mini-preview-content">
+                        <img ng-src="{{admin.profileUrl}}">
+
+                        <div class="user-mini-preview-name">
+                            <div class="name">{{admin.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

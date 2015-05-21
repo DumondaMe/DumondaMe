@@ -61,4 +61,10 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
                 $window.open(link, '_blank');
             }
         };
+
+        $scope.openUserDetails = function (userId) {
+            $state.go('contact.detail', {
+                userId: userId
+            });
+        };
     }];

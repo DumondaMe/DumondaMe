@@ -500,33 +500,6 @@ h1.website-structure-title {
         margin-bottom: 20px;
         font-size: 14px;
         font-weight: bold; }
-      #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview {
-        display: inline-block;
-        position: relative;
-        margin-right: 5px;
-        margin-bottom: 5px; }
-        #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content {
-          display: inline-block;
-          width: 100px;
-          height: 100px;
-          cursor: pointer; }
-          #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content img {
-            width: 100%;
-            height: 100%; }
-          #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content .profile-contacts-preview-name {
-            background: #000;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0% 0% transparent;
-            background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            position: absolute;
-            display: block;
-            bottom: 0px;
-            left: 0px;
-            width: 100%;
-            word-wrap: break-word;
-            color: #FFF; }
-            #content #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-preview .profile-contacts-preview-content .profile-contacts-preview-name .name {
-              margin: 5px;
-              font-size: 12px; }
       #content #content-page-contact-details #centerCol #inner-centerCol .profile-contact-expander {
         width: 28px;
         height: 28px;
@@ -535,6 +508,34 @@ h1.website-structure-title {
         #content #content-page-contact-details #centerCol #inner-centerCol .profile-contact-expander img {
           width: 100%;
           height: 100%; }
+
+.user-mini-preview {
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  margin-bottom: 5px; }
+  .user-mini-preview .user-mini-preview-content {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    cursor: pointer; }
+    .user-mini-preview .user-mini-preview-content img {
+      width: 100%;
+      height: 100%; }
+    .user-mini-preview .user-mini-preview-content .user-mini-preview-name {
+      background: #000;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0% 0% transparent;
+      background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      position: absolute;
+      display: block;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      word-wrap: break-word;
+      color: #FFF; }
+      .user-mini-preview .user-mini-preview-content .user-mini-preview-name .name {
+        margin: 5px;
+        font-size: 12px; }
 
 #content {
   width: 100%;
@@ -1112,11 +1113,18 @@ h1.website-structure-title {
                 margin-left: 5px; }
     #content-page-detail #centerCol .page-detail-bottom-element {
       width: 100%;
-      padding-top: 10px;
-      padding-left: 280px; }
+      padding-top: 30px;
+      padding-right: 60px;
+      padding-left: 280px;
+      background-color: #f1f1f1; }
       #content-page-detail #centerCol .page-detail-bottom-element #page-detail-description-text {
         font-size: 14px;
         font-weight: 300; }
+      #content-page-detail #centerCol .page-detail-bottom-element .page-detail-bottom-element-inner {
+        border-top: solid 1px #CCCCCC;
+        margin-top: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px; }
 
 #content {
   width: 100%;
