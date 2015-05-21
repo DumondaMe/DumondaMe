@@ -1,10 +1,10 @@
-<div id="content-create-edit-page-common" ng-show="state.actual === 3" ng-controller="PageCreateCommonSectionCtrl">
+<div id="content-create-edit-page-common" ng-show="state.actual === 3" ng-controller="PageCommonSectionCtrl">
     <form name="commonForm" class="form-horizontal" role="form" novalidate>
         <div class="website-structure-header">
             <h1 class="website-structure-title">Allgemeines</h1>
         </div>
         <div id="content-create-edit-page-common-picture-area">
-            <img ng-src="{{imagePreview}}" class="content-create-edit-page-common-picture">
+            <img ng-src="{{page.imagePreview}}" class="content-create-edit-page-common-picture">
 
             <div>
                 <button type="button" class="btn btn-default content-create-edit-page-common-get-picture"
@@ -37,7 +37,7 @@
             <button type="submit"
                     class="btn btn-default content-create-edit-page-common-commands"
                     ng-click="editPage()"
-                    ng-class="{disabled: commonForm.$invalid}"
+                    ng-class="{disabled: commonForm.$invalid || !editChanged}"
                     ng-show="mode.edit">
                 Seite &aumlndern
             </button>

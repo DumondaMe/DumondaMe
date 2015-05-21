@@ -12,21 +12,37 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categories = PageCategories.getCategories();
         $scope.languages = Languages.languages;
         $scope.categoryFinishedButtonDisabled = true;
-        $scope.categoryFirstSelect = true;
+        $scope.categoryFirstSelect = !$scope.mode.edit;
         $scope.categoryTitleChanged = false;
-        $scope.categoryTitlePrviouse = '';
 
-        $scope.$watchCollection('category', function (newCategories) {
-            if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                $scope.categoryFinishedButtonDisabled = false;
-            } else {
-                $scope.categoryFinishedButtonDisabled = true;
+        if (!$scope.mode.edit) {
+            $scope.$watchCollection('category', function (newCategories) {
+                if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
+                    $scope.categoryFinishedButtonDisabled = false;
+                } else {
+                    $scope.categoryFinishedButtonDisabled = true;
+                }
+            });
+        }
+
+        $scope.setNextState = function (newState) {
+            if (newState !== $scope.state.actual) {
+                $scope.state.previous = $scope.state.actual;
+                $scope.state.actual = newState;
             }
-        });
+        };
+
+        $scope.setPreviousState = function () {
+            $scope.state.actual = $scope.state.previous;
+        };
+
+        $scope.suggestionContinue = function () {
+            $scope.setNextState(3);
+        };
 
         $scope.categorySelectFinished = function () {
             var title = $scope.category.title;
-            $scope.page.pageSuggestions = SearchPage.get({
+            $scope.pageSuggestions = SearchPage.get({
                 search: title,
                 filterType: PageCategories.getPageType($scope.category.selectedCategory),
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
@@ -34,9 +50,11 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
             }, function () {
                 $scope.categoryFirstSelect = false;
                 $scope.categoryTitleChanged = false;
-                $scope.categoryTitlePrviouse = title;
-                if ($scope.page.pageSuggestions.pages.length > 0) {
-                    setCategories($scope.page.pageSuggestions.pages, PageCategories);
+                if (!$scope.mode.edit) {
+                    $scope.categoryTitlePrviouse = title;
+                }
+                if ($scope.pageSuggestions.pages.length > 0) {
+                    setCategories($scope.pageSuggestions.pages, PageCategories);
                     $scope.setNextState(2);
                 } else {
                     $scope.setNextState(3);
@@ -46,14 +64,19 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
 
         $scope.$watch('category.title', function (newValue) {
             if (newValue && newValue.trim() !== '' && !$scope.categoryFirstSelect) {
-                if (newValue !== $scope.categoryTitlePrviouse) {
-                    $scope.categoryTitleChanged = true;
-                    $scope.setNextState(1);
-                } else {
-                    if($scope.categoryTitleChanged) {
-                        $scope.setPreviousState();
-                    }
+                if ($scope.mode.edit && !$scope.categoryTitlePrviouse) {
+                    $scope.categoryTitlePrviouse = newValue;
                     $scope.categoryTitleChanged = false;
+                } else {
+                    if (newValue !== $scope.categoryTitlePrviouse) {
+                        $scope.categoryTitleChanged = true;
+                        $scope.setNextState(1);
+                    } else {
+                        if ($scope.categoryTitleChanged) {
+                            $scope.setPreviousState();
+                        }
+                        $scope.categoryTitleChanged = false;
+                    }
                 }
             } else {
                 $scope.categoryTitleChanged = false;

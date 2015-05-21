@@ -18,7 +18,7 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', created: 501, pageId: '0'," +
+            commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
                 "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', link: 'www.link.com', created: 502, pageId: '0'})").end().getCommand());
@@ -104,6 +104,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.status.should.equal(200);
                 res.body.page.title.should.equals('bookPage1Title');
                 res.body.page.description.should.equals('bookPage1');
+                res.body.page.language.should.equals('de');
                 res.body.page.created.should.equals(501);
                 res.body.page.titleUrl.should.equals('pages/BookPage/0/pageTitlePicture.jpg');
 

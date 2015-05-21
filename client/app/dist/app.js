@@ -1334,7 +1334,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonBook.html',
-    "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
+    "<div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
     "    <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
     "\n" +
@@ -1346,7 +1346,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                         profile-form=\"commonForm\" submit-model=\"page.publicationDate\"\r" +
     "\n" +
-    "                         max-length=\"255\" required=\"true\"\r" +
+    "                         max-length=\"255\"\r" +
     "\n" +
     "                         custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
     "\n" +
@@ -1355,7 +1355,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
+    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCommonSectionCtrl\">\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1367,7 +1367,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"content-create-edit-page-common-picture-area\">\r" +
     "\n" +
-    "            <img ng-src=\"{{imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
+    "            <img ng-src=\"{{page.imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -1433,7 +1433,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || !editChanged}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
@@ -1456,13 +1456,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"PageSelectCategoryCtrl\">\r" +
     "\n" +
-    "            <h1 class=\"website-structure-title\">Kategorie ausw&aumlhlen</h1>\r" +
+    "            <h1 class=\"website-structure-title\" ng-hide=\"mode.edit\">Kategorie ausw&aumlhlen</h1>\r" +
+    "\n" +
+    "            <h1 class=\"website-structure-title\" ng-show=\"mode.edit\">Titel</h1>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "            <div id=\"content-create-edit-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
+    "            <div id=\"content-create-edit-category\">\r" +
     "\n" +
     "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1478,7 +1480,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
     "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1496,7 +1498,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
     "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1564,7 +1566,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
-    "                    <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
+    "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
     "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
@@ -1578,7 +1580,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
     "\n" +
-    "                            ng-click=\"abortCreatePage()\">\r" +
+    "                            ng-click=\"abortCreateEditPage()\">\r" +
     "\n" +
     "                        Seite Erstellen Abbrechen\r" +
     "\n" +
@@ -6584,14 +6586,14 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
 },{}],81:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment',
-    function ($scope, $state, Languages, fileUpload, moment) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail',
+    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
-        $scope.page.BookPage = function() {
+        $scope.page.BookPage = function () {
             return {
                 createBookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
@@ -6603,9 +6605,29 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment',
             };
         };
 
+        if ($scope.mode.edit && $stateParams.label === 'BookPage') {
+            $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
+                $scope.category.selectedLanguage = Languages.getLanguage($scope.pageDetail.page.language);
+                $scope.category.title = $scope.pageDetail.page.title;
+                $scope.category.selectedCategory = 'Buch';
+                $scope.page.description = $scope.pageDetail.page.description;
+                $scope.page.authors = $scope.pageDetail.page.author[0].name;
+                if ($scope.pageDetail.page.publicationDate) {
+                    $scope.page.publicationDate = moment.unix($scope.pageDetail.page.publicationDate).format('l');
+                }
+                $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
+                $scope.commonSection.toCompare = {};
+                angular.copy($scope.page, $scope.commonSection.toCompare);
+            });
+        }
+
         $scope.$watch('page.publicationDate', function (publicationDate) {
-            if (publicationDate && $scope.commonForm && $scope.commonForm.inputPublicationDate) {
-                $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(publicationDate));
+            if ($scope.commonForm && $scope.commonForm.inputPublicationDate) {
+                if (publicationDate) {
+                    $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(publicationDate));
+                } else if (!publicationDate || publicationDate.trim() === '') {
+                    $scope.commonForm.inputPublicationDate.$setValidity('custom', true);
+                }
             }
         });
 
@@ -6622,11 +6644,12 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
     function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
 
         var imageDefaultPath = 'app/img/default.jpg';
-        $scope.imagePreview = imageDefaultPath;
-        $scope.validInputs = false;
+        $scope.page.imagePreview = imageDefaultPath;
+        $scope.commonSection = {};
+        $scope.editChanged = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
-            $scope.imagePreview = data;
+            $scope.page.imagePreview = data;
             $scope.imagePreviewData = dataToSend;
         });
 
@@ -6636,10 +6659,22 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
             }
         });
 
+        if ($scope.mode.edit) {
+            $scope.$watchCollection('page', function (newValue) {
+                if (newValue && $scope.commonSection.toCompare) {
+                    if(!angular.equals($scope.commonSection.toCompare, newValue)) {
+                        $scope.editChanged = true;
+                    } else {
+                        $scope.editChanged = false;
+                    }
+                }
+            });
+        }
+
         $scope.createPage = function () {
             var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
 
-            if ($scope.imagePreviewData !== imageDefaultPath) {
+            if ($scope.imagePreviewData) {
                 imageToUpload = $scope.imagePreviewData;
             }
 
@@ -6668,37 +6703,23 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
 module.exports = ['$scope', '$state', 'PageLeftNavElements',
     function ($scope, $state, PageLeftNavElements) {
 
+        $scope.mode = {edit: false};
         $scope.category = {};
         $scope.page = {};
         $scope.state = {actual: 1, previous: 1};
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
-        $scope.setNextState = function (newState) {
-            if (newState !== $scope.state.actual) {
-                $scope.state.previous = $scope.state.actual;
-                $scope.state.actual = newState;
-            }
-        };
-
-        $scope.setPreviousState = function () {
-            $scope.state.actual = $scope.state.previous;
-        };
-
         $scope.abortCreatePage = function () {
             $state.go('page.overview');
-        };
-
-        $scope.suggestionContinue = function () {
-            $scope.setNextState(3);
         };
     }];
 
 },{}],84:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'PageLeftNavElements',
-    function ($scope, $state, PageLeftNavElements) {
+module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'PageCategories', 'PageDetail',
+    function ($scope, $state, $stateParams, PageLeftNavElements, PageCategories, PageDetail) {
 
         $scope.mode = {edit: true};
         $scope.category = {};
@@ -6707,6 +6728,12 @@ module.exports = ['$scope', '$state', 'PageLeftNavElements',
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
+        $scope.abortCreateEditPage = function () {
+            $state.go('page.detail', {
+                pageId: $stateParams.pageId,
+                label: $stateParams.label
+            });
+        };
     }];
 
 },{}],85:[function(require,module,exports){
@@ -6724,21 +6751,37 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categories = PageCategories.getCategories();
         $scope.languages = Languages.languages;
         $scope.categoryFinishedButtonDisabled = true;
-        $scope.categoryFirstSelect = true;
+        $scope.categoryFirstSelect = !$scope.mode.edit;
         $scope.categoryTitleChanged = false;
-        $scope.categoryTitlePrviouse = '';
 
-        $scope.$watchCollection('category', function (newCategories) {
-            if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                $scope.categoryFinishedButtonDisabled = false;
-            } else {
-                $scope.categoryFinishedButtonDisabled = true;
+        if (!$scope.mode.edit) {
+            $scope.$watchCollection('category', function (newCategories) {
+                if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
+                    $scope.categoryFinishedButtonDisabled = false;
+                } else {
+                    $scope.categoryFinishedButtonDisabled = true;
+                }
+            });
+        }
+
+        $scope.setNextState = function (newState) {
+            if (newState !== $scope.state.actual) {
+                $scope.state.previous = $scope.state.actual;
+                $scope.state.actual = newState;
             }
-        });
+        };
+
+        $scope.setPreviousState = function () {
+            $scope.state.actual = $scope.state.previous;
+        };
+
+        $scope.suggestionContinue = function () {
+            $scope.setNextState(3);
+        };
 
         $scope.categorySelectFinished = function () {
             var title = $scope.category.title;
-            $scope.page.pageSuggestions = SearchPage.get({
+            $scope.pageSuggestions = SearchPage.get({
                 search: title,
                 filterType: PageCategories.getPageType($scope.category.selectedCategory),
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
@@ -6746,9 +6789,11 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
             }, function () {
                 $scope.categoryFirstSelect = false;
                 $scope.categoryTitleChanged = false;
-                $scope.categoryTitlePrviouse = title;
-                if ($scope.page.pageSuggestions.pages.length > 0) {
-                    setCategories($scope.page.pageSuggestions.pages, PageCategories);
+                if (!$scope.mode.edit) {
+                    $scope.categoryTitlePrviouse = title;
+                }
+                if ($scope.pageSuggestions.pages.length > 0) {
+                    setCategories($scope.pageSuggestions.pages, PageCategories);
                     $scope.setNextState(2);
                 } else {
                     $scope.setNextState(3);
@@ -6758,14 +6803,19 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
 
         $scope.$watch('category.title', function (newValue) {
             if (newValue && newValue.trim() !== '' && !$scope.categoryFirstSelect) {
-                if (newValue !== $scope.categoryTitlePrviouse) {
-                    $scope.categoryTitleChanged = true;
-                    $scope.setNextState(1);
-                } else {
-                    if($scope.categoryTitleChanged) {
-                        $scope.setPreviousState();
-                    }
+                if ($scope.mode.edit && !$scope.categoryTitlePrviouse) {
+                    $scope.categoryTitlePrviouse = newValue;
                     $scope.categoryTitleChanged = false;
+                } else {
+                    if (newValue !== $scope.categoryTitlePrviouse) {
+                        $scope.categoryTitleChanged = true;
+                        $scope.setNextState(1);
+                    } else {
+                        if ($scope.categoryTitleChanged) {
+                            $scope.setPreviousState();
+                        }
+                        $scope.categoryTitleChanged = false;
+                    }
                 }
             } else {
                 $scope.categoryTitleChanged = false;
@@ -6780,9 +6830,9 @@ var app = require('angular').module('elyoosApp');
 
 app.controller('PageCreateCtrl', require('./createEditPage/pageCreateCtrl'));
 app.controller('PageEditCtrl', require('./createEditPage/pageEditCtrl'));
-app.controller('PageCreateSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
-app.controller('PageCreateCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
-app.controller('PageCreateCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
+app.controller('PageSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
+app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
+app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
@@ -7699,6 +7749,16 @@ module.exports = [
             angular.forEach(languages, function (language) {
                 if (language.description === description) {
                     result = language.code;
+                }
+            });
+            return result;
+        };
+
+        this.getLanguage = function (code) {
+            var result = languages[0].description;
+            angular.forEach(languages, function (language) {
+                if (language.code === code) {
+                    result = language.description;
                 }
             });
             return result;

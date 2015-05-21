@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$state', 'PageLeftNavElements',
-    function ($scope, $state, PageLeftNavElements) {
+module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'PageCategories', 'PageDetail',
+    function ($scope, $state, $stateParams, PageLeftNavElements, PageCategories, PageDetail) {
 
         $scope.mode = {edit: true};
         $scope.category = {};
@@ -10,4 +10,10 @@ module.exports = ['$scope', '$state', 'PageLeftNavElements',
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
+        $scope.abortCreateEditPage = function () {
+            $state.go('page.detail', {
+                pageId: $stateParams.pageId,
+                label: $stateParams.label
+            });
+        };
     }];

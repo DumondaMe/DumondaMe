@@ -4,9 +4,9 @@ var app = require('angular').module('elyoosApp');
 
 app.controller('PageCreateCtrl', require('./createEditPage/pageCreateCtrl'));
 app.controller('PageEditCtrl', require('./createEditPage/pageEditCtrl'));
-app.controller('PageCreateSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
-app.controller('PageCreateCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
-app.controller('PageCreateCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
+app.controller('PageSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
+app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
+app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));

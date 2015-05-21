@@ -1333,7 +1333,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonBook.html',
-    "<div ng-controller=\"PageCreateCommonBookCtrl\">\r" +
+    "<div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
     "    <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
     "\n" +
@@ -1345,7 +1345,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                         profile-form=\"commonForm\" submit-model=\"page.publicationDate\"\r" +
     "\n" +
-    "                         max-length=\"255\" required=\"true\"\r" +
+    "                         max-length=\"255\"\r" +
     "\n" +
     "                         custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
     "\n" +
@@ -1354,7 +1354,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCreateCommonSectionCtrl\">\r" +
+    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCommonSectionCtrl\">\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1366,7 +1366,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"content-create-edit-page-common-picture-area\">\r" +
     "\n" +
-    "            <img ng-src=\"{{imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
+    "            <img ng-src=\"{{page.imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -1432,7 +1432,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || !editChanged}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
@@ -1455,13 +1455,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"PageSelectCategoryCtrl\">\r" +
     "\n" +
-    "            <h1 class=\"website-structure-title\">Kategorie ausw&aumlhlen</h1>\r" +
+    "            <h1 class=\"website-structure-title\" ng-hide=\"mode.edit\">Kategorie ausw&aumlhlen</h1>\r" +
+    "\n" +
+    "            <h1 class=\"website-structure-title\" ng-show=\"mode.edit\">Titel</h1>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "            <div id=\"content-create-edit-category\" ng-controller=\"PageCreateSelectCategoryCtrl\">\r" +
+    "            <div id=\"content-create-edit-category\">\r" +
     "\n" +
     "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -1477,7 +1479,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
     "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1495,7 +1497,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
     "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect}\"\r" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +
     "                                bs-select>\r" +
     "\n" +
@@ -1563,7 +1565,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-preview-container\">\r" +
     "\n" +
-    "                    <div ng-repeat=\"pagePreview in page.pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
+    "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
     "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
     "\n" +
@@ -1577,7 +1579,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
     "\n" +
-    "                            ng-click=\"abortCreatePage()\">\r" +
+    "                            ng-click=\"abortCreateEditPage()\">\r" +
     "\n" +
     "                        Seite Erstellen Abbrechen\r" +
     "\n" +

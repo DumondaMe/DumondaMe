@@ -4,11 +4,12 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
     function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
 
         var imageDefaultPath = 'app/img/default.jpg';
-        $scope.imagePreview = imageDefaultPath;
-        $scope.validInputs = false;
+        $scope.page.imagePreview = imageDefaultPath;
+        $scope.commonSection = {};
+        $scope.editChanged = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
-            $scope.imagePreview = data;
+            $scope.page.imagePreview = data;
             $scope.imagePreviewData = dataToSend;
         });
 
@@ -18,10 +19,22 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
             }
         });
 
+        if ($scope.mode.edit) {
+            $scope.$watchCollection('page', function (newValue) {
+                if (newValue && $scope.commonSection.toCompare) {
+                    if(!angular.equals($scope.commonSection.toCompare, newValue)) {
+                        $scope.editChanged = true;
+                    } else {
+                        $scope.editChanged = false;
+                    }
+                }
+            });
+        }
+
         $scope.createPage = function () {
             var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
 
-            if ($scope.imagePreviewData !== imageDefaultPath) {
+            if ($scope.imagePreviewData) {
                 imageToUpload = $scope.imagePreviewData;
             }
 

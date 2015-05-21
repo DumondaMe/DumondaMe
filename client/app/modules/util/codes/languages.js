@@ -19,4 +19,14 @@ module.exports = [
             });
             return result;
         };
+
+        this.getLanguage = function (code) {
+            var result = languages[0].description;
+            angular.forEach(languages, function (language) {
+                if (language.code === code) {
+                    result = language.description;
+                }
+            });
+            return result;
+        };
     }];

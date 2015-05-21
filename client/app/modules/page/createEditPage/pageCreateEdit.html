@@ -1,9 +1,10 @@
 <div id="content-page-create-edit">
     <div id="centerCol">
-        <div id="inner-centerCol">
-            <h1 class="website-structure-title">Kategorie ausw&aumlhlen</h1>
+        <div id="inner-centerCol" ng-controller="PageSelectCategoryCtrl">
+            <h1 class="website-structure-title" ng-hide="mode.edit">Kategorie ausw&aumlhlen</h1>
+            <h1 class="website-structure-title" ng-show="mode.edit">Titel</h1>
 
-            <div id="content-create-edit-category" ng-controller="PageCreateSelectCategoryCtrl">
+            <div id="content-create-edit-category">
                 <form class="form-horizontal" name="categoryForm" role="form" novalidate>
                     <div class="form-group">
                         <button type="button" class="btn btn-default content-create-edit-category-element" ng-model="category.selectedCategory"
@@ -11,7 +12,7 @@
                                 id="inputCategoryId"
                                 bs-options="category as category for category in categories"
                                 data-placeholder="Kategorie ausw&aumlhlen"
-                                ng-class="{disabled: !categoryFirstSelect}"
+                                ng-class="{disabled: !categoryFirstSelect || mode.edit}"
                                 bs-select>
                             <span class="caret"></span>
                         </button>
@@ -20,7 +21,7 @@
                                 id="inputLanguageId"
                                 bs-options="language.description as language.description for language in languages"
                                 data-placeholder="Sprache der Seite ausw&aumlhlen"
-                                ng-class="{disabled: !categoryFirstSelect}"
+                                ng-class="{disabled: !categoryFirstSelect || mode.edit}"
                                 bs-select>
                             <span class="caret"></span>
                         </button>
@@ -54,14 +55,14 @@
                 <h1 class="website-structure-title">Existiert die Seite bereits?</h1>
 
                 <div class="page-preview-container">
-                    <div ng-repeat="pagePreview in page.pageSuggestions.pages" class="page-preview-inner-container">
+                    <div ng-repeat="pagePreview in pageSuggestions.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
                 </div>
                 <div id="content-create-edit-page-suggestion-commands">
                     <button type="submit"
                             class="btn btn-default content-create-edit-page-suggestion-commands-buttons"
-                            ng-click="abortCreatePage()">
+                            ng-click="abortCreateEditPage()">
                         Seite Erstellen Abbrechen
                     </button>
                     <button type="submit"
