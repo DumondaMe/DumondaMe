@@ -56,12 +56,6 @@ module.exports = {
         if (userData.forename && userData.surname) {
             name = userData.forename + ' ' + userData.surname;
         }
-        if (!userData.place) {
-            userData.place = "";
-        }
-        if (!userData.street) {
-            userData.street = "";
-        }
         return db.cypher().match('(u:User {userId: {id}})')
             .set('u', {
                 name: name,
@@ -74,15 +68,7 @@ module.exports = {
                 female: userData.female
             })
             .end({
-                name: name,
-                id: userId,
-                forename: userData.forename,
-                surname: userData.surname,
-                birthday: userData.birthday,
-                place: userData.place,
-                country: userData.country,
-                street: userData.street,
-                female: userData.female
+                id: userId
             })
             .send();
     },

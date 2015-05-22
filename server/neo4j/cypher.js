@@ -100,10 +100,12 @@ var Cypher = function (connectionUrl) {
         var setCondition = '', key, propertyAdded = false;
         for (key in objectToSet) {
             if (objectToSet.hasOwnProperty(key)) {
-                if (objectToSet[key] !== undefined && objectToSet[key] !== null) {
-                    setCondition = setCondition.concat(ref, '.', key, ' = {', key, '},');
-                    propertyAdded = true;
+                setCondition = setCondition.concat(ref, '.', key, ' = {', key, '},');
+                propertyAdded = true;
+                if (objectToSet[key] === undefined) {
+                    objectToSet[key] = null;
                 }
+                paramsToSend[key] = objectToSet[key];
             }
         }
         if (propertyAdded) {
@@ -127,7 +129,7 @@ var Cypher = function (connectionUrl) {
 
     this.end = function (params) {
         if (params) {
-            paramsToSend = params;
+            paramsToSend = underscore.extend(paramsToSend, params) ;
         }
         return this;
     };

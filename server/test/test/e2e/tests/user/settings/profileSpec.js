@@ -140,4 +140,41 @@ describe('Integration Tests User Profile Data', function () {
             user[0].user.place.should.equals('Urdorf');
         });
     });
+
+    it('Remove the optional street and place values - Return a 200', function () {
+        var user = {
+            forename: 'user',
+            surname: 'surname',
+            birthday: 123546,
+            female: true,
+            country: 'Schweiz',
+            street: 'Main Street',
+            place: 'Urdorf'
+        }, userAgent;
+
+        return requestHandler.login(users.changeUserData).then(function (agent) {
+            userAgent = agent;
+            return requestHandler.post('/api/user/settings/profile', user, userAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            delete user.street;
+            delete user.place;
+            return requestHandler.post('/api/user/settings/profile', user, userAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(user:User {userId: '1'})")
+                .return('user')
+                .end()
+                .send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            user[0].user.forename.should.equals('user');
+            user[0].user.surname.should.equals('surname');
+            user[0].user.birthday.should.equals(123546);
+            user[0].user.country.should.equals('Schweiz');
+            user[0].user.female.should.equals(true);
+            should.not.exist(user[0].user.street);
+            should.not.exist(user[0].user.place);
+        });
+    });
 });

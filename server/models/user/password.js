@@ -29,7 +29,7 @@ var changePassword = function (userId, newPassword, actualPassword, req) {
         .then(function (hash) {
             return db.cypher().match('(u:User {userId: {userId}})')
                 .set('u', {password: hash})
-                .end({userId: userId, password: hash})
+                .end({userId: userId})
                 .send();
         });
 };

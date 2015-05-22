@@ -141,8 +141,7 @@ var changeContactState = function (userId, contactIds, type, req) {
         .return('r')
         .end({
             userId: userId,
-            contactIds: contactIds,
-            type: type
+            contactIds: contactIds
         }).getCommand());
 
     return contactStatistic.getContactStatistics(userId)

@@ -26,14 +26,13 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
     commands.push(numberOfContacts(contactId).getCommand());
     commands.push(numberOfSameContacts(userId, contactId).getCommand());
 
-    return db.cypher().match('(contact:User {userId: {contactId}})-[:IS_CONTACT]->(contactOfContact:User), (user:User {userId: {userId}})')
-        .optionalMatch('(contactOfContact)-[:IS_CONTACT]->(user)')
+    return db.cypher().match('(contact:User {userId: {contactId}})-[:IS_CONTACT]->(contactOfContact:User)')
         .with('contact, contactOfContact')
         .where("contactOfContact.userId <> {userId}")
         .with('contact, contactOfContact')
         .match("(contactOfContact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contactOfContact)")
-        .with("contact, contactOfContact, rContact, privacy, vr")
+        .optionalMatch('(contactOfContact)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
+        .with("contact, rContact, contactOfContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return('contactOfContact.name AS name, contactOfContact.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible')
         .skip('{skipContacts}')

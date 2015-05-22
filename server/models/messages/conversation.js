@@ -78,8 +78,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         userId: userId,
         threadId: threadId,
         skip: skip,
-        limit: itemsPerPage,
-        lastTimeVisited: now
+        limit: itemsPerPage
     }, {lastTimeVisited: now}, isGroupThread)
         .send(commands)
         .then(function (resp) {
@@ -120,8 +119,7 @@ var addMessage = function (userId, threadId, text, isGroupThread, session, req) 
                     userId: userId,
                     threadId: threadId,
                     text: text,
-                    now: now,
-                    lastTimeVisited: now
+                    now: now
                 }).send()
                 .then(function (resp) {
                     userInfo.addImageForPreview(resp);

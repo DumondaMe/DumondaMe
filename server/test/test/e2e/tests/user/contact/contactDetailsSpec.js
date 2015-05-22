@@ -216,10 +216,6 @@ describe('Integration Tests for getting the contact details', function () {
             .end().getCommand());
         //User6
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo6.ch', password: '1234', name: 'user6 Meier6', userId: '6'})").end().getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '6' AND u2.userId = '1'")
-            .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(u:User {userId: '6'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
@@ -254,6 +250,10 @@ describe('Integration Tests for getting the contact details', function () {
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
+            .where("u.userId = '6' AND u2.userId = '2'")
+            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '2' AND u2.userId = '7'")
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
@@ -266,6 +266,10 @@ describe('Integration Tests for getting the contact details', function () {
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '1' AND u2.userId = '6'")
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(u:User), (u2:User)")
+            .where("u.userId = '6' AND u2.userId = '1'")
+            .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
 
         return db.cypher().match("(u:User {userId: '7'})")

@@ -943,6 +943,7 @@ h1.website-structure-title {
         #content-messages #centerCol #inner-centerCol .add-message .input-group {
           margin: 5px 10px 0 30px; }
           #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
+            z-index: 0;
             height: 34px; }
       #content-messages #centerCol #inner-centerCol .message-view {
         margin: 20px 0 15px 30px; }
@@ -1432,6 +1433,9 @@ html, body {
   #content #content-container {
     width: 100%;
     height: 100%; }
+
+textarea {
+  opacity: 0.99; }
 
 #userinfo {
   float: left; }

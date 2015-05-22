@@ -66,11 +66,7 @@ module.exports = {
                     })
                     .end({
                         userId: id,
-                        type: privacySettingType,
-                        profile: privacySettings.profileVisible,
-                        profileData: privacySettings.profileDataVisible,
-                        image: privacySettings.imageVisible,
-                        contacts: privacySettings.contactsVisible
+                        type: privacySettingType
                     }).send();
             });
     },
@@ -84,11 +80,7 @@ module.exports = {
                 contacts: privacySettings.contactsVisible
             })
             .end({
-                userId: id,
-                profile: privacySettings.profileVisible,
-                profileData: privacySettings.profileDataVisible,
-                image: privacySettings.imageVisible,
-                contacts: privacySettings.contactsVisible
+                userId: id
             }).send();
     },
     renamePrivacySetting: function (id, privacySettingType, newPrivacySettingType, req) {
@@ -102,8 +94,7 @@ module.exports = {
                     })
                     .end({
                         userId: id,
-                        typeOld: privacySettingType,
-                        type: newPrivacySettingType
+                        typeOld: privacySettingType
                     }).getCommand());
                 return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(:Privacy)")
                     .set('r', {
@@ -111,8 +102,7 @@ module.exports = {
                     })
                     .end({
                         userId: id,
-                        typeOld: privacySettingType,
-                        type: newPrivacySettingType
+                        typeOld: privacySettingType
                     }).send(commands);
             });
     },
@@ -139,8 +129,7 @@ module.exports = {
                     })
                     .end({
                         userId: id,
-                        typeOld: privacySettingType,
-                        type: newPrivacySettingType
+                        typeOld: privacySettingType
                     }).getCommand());
                 return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {typeOld}}]->(privacy:Privacy)")
                     .delete("privacy, r")

@@ -6594,13 +6594,17 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         };
 
         $scope.page.BookPage = function () {
+            var publishDate;
+            if ($scope.page.publicationDate) {
+                publishDate = moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
+            }
             return {
                 createBookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,
                     author: $scope.page.authors,
-                    publishDate: moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
+                    publishDate: publishDate
                 }
             };
         };

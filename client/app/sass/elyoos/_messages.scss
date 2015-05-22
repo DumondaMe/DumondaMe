@@ -121,6 +121,7 @@
         .input-group {
           margin: 5px 10px 0 30px;
           textarea {
+            z-index: 0;
             height: 34px;
           }
         }
