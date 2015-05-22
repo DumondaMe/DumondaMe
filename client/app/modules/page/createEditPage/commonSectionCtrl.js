@@ -1,5 +1,24 @@
 'use strict';
 
+var uploadPage = function ($scope, $state, fileUpload, api) {
+    var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
+
+    if ($scope.imagePreviewData) {
+        imageToUpload = $scope.imagePreviewData;
+    }
+
+    fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
+        showSuccess(function (resp) {
+            $state.go('page.detail', {
+                label: $scope.category.seletedCategoryType,
+                pageId: resp.pageId
+            });
+        }).
+        error(function () {
+
+        });
+};
+
 module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'PageCategories',
     function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
 
@@ -32,27 +51,11 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         }
 
         $scope.createPage = function () {
-            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
-
-            if ($scope.imagePreviewData) {
-                imageToUpload = $scope.imagePreviewData;
-            }
-
-            fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
-                showSuccess(function (resp) {
-                    $state.go('page.detail', {
-                        label: $scope.category.seletedCategoryType,
-                        pageId: resp.pageId
-                    });
-                }).
-                error(function () {
-
-                });
+            uploadPage($scope, $state, fileUpload, 'api/user/page/create');
 
         };
 
         $scope.editPage = function () {
-            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
-
+            uploadPage($scope, $state, fileUpload, 'api/user/page/edit');
         };
     }];

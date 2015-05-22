@@ -1344,7 +1344,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
     "\n" +
-    "                         profile-form=\"commonForm\" submit-model=\"page.publicationDate\"\r" +
+    "                         profile-form=\"commonForm\" submit-model=\"page.publishDate\"\r" +
     "\n" +
     "                         max-length=\"255\"\r" +
     "\n" +
@@ -6594,19 +6594,21 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         };
 
         $scope.page.BookPage = function () {
-            var publishDate;
-            if ($scope.page.publicationDate) {
-                publishDate = moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
-            }
-            return {
+            var bookPage = {
                 bookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,
-                    author: $scope.page.authors,
-                    publishDate: publishDate
+                    author: $scope.page.authors
                 }
             };
+            if ($scope.page.publishDate) {
+                bookPage.bookPage.publishDate = moment.utc($scope.page.publishDate, 'l', moment.locale(), true).valueOf() / 1000;
+            }
+            if ($scope.mode.edit) {
+                bookPage.bookPage.pageId = $stateParams.pageId;
+            }
+            return bookPage;
         };
 
         if ($scope.mode.edit && $stateParams.label === 'BookPage') {
@@ -6616,8 +6618,8 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
                 $scope.category.selectedCategory = 'Buch';
                 $scope.page.description = $scope.pageDetail.page.description;
                 $scope.page.authors = $scope.pageDetail.page.author[0].name;
-                if ($scope.pageDetail.page.publicationDate) {
-                    $scope.page.publicationDate = moment.unix($scope.pageDetail.page.publicationDate).format('l');
+                if ($scope.pageDetail.page.publishDate) {
+                    $scope.page.publishDate = moment.unix($scope.pageDetail.page.publishDate).format('l');
                 }
                 $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
                 $scope.commonSection.toCompare = {};
@@ -6625,7 +6627,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
             });
         }
 
-        $scope.$watch('page.publicationDate', function (publicationDate) {
+        $scope.$watch('page.publishDate', function (publicationDate) {
             if ($scope.commonForm && $scope.commonForm.inputPublicationDate) {
                 if (publicationDate) {
                     $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(publicationDate));
@@ -6643,6 +6645,25 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 
 },{}],82:[function(require,module,exports){
 'use strict';
+
+var uploadPage = function ($scope, $state, fileUpload, api) {
+    var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
+
+    if ($scope.imagePreviewData) {
+        imageToUpload = $scope.imagePreviewData;
+    }
+
+    fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
+        showSuccess(function (resp) {
+            $state.go('page.detail', {
+                label: $scope.category.seletedCategoryType,
+                pageId: resp.pageId
+            });
+        }).
+        error(function () {
+
+        });
+};
 
 module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'PageCategories',
     function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
@@ -6676,28 +6697,12 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         }
 
         $scope.createPage = function () {
-            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
-
-            if ($scope.imagePreviewData) {
-                imageToUpload = $scope.imagePreviewData;
-            }
-
-            fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
-                showSuccess(function (resp) {
-                    $state.go('page.detail', {
-                        label: $scope.category.seletedCategoryType,
-                        pageId: resp.pageId
-                    });
-                }).
-                error(function () {
-
-                });
+            uploadPage($scope, $state, fileUpload, 'api/user/page/create');
 
         };
 
         $scope.editPage = function () {
-            var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
-
+            uploadPage($scope, $state, fileUpload, 'api/user/page/edit');
         };
     }];
 

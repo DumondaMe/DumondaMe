@@ -1343,7 +1343,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
     "\n" +
-    "                         profile-form=\"commonForm\" submit-model=\"page.publicationDate\"\r" +
+    "                         profile-form=\"commonForm\" submit-model=\"page.publishDate\"\r" +
     "\n" +
     "                         max-length=\"255\"\r" +
     "\n" +

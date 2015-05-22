@@ -40,7 +40,8 @@ var getBookDetail = function (pageId, userId) {
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId).getCommand());
 
     return db.cypher().match("(page:BookPage {pageId: {pageId}})")
-        .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.author AS author")
+        .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.author AS author, " +
+        "page.publishDate AS publishDate")
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {

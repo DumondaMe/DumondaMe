@@ -19,7 +19,7 @@ describe('Integration Tests for getting page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:BookPage {title: 'bookPage1Title', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
-                "author: 'Hans Muster'})").end().getCommand());
+                "author: 'Hans Muster', publishDate: 1000})").end().getCommand());
             commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', link: 'www.link.com', duration: 10, created: 500, pageId: '0', actor: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:SchoolPage {title: 'page3Title', description: 'page3', link: 'www.link.com', created: 502, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:CoursePage {title: 'page4Title', description: 'page4', link: 'www.link.com', created: 503, pageId: '0'})").end().getCommand());
@@ -106,6 +106,7 @@ describe('Integration Tests for getting page detail', function () {
                 res.body.page.description.should.equals('bookPage1');
                 res.body.page.language.should.equals('de');
                 res.body.page.created.should.equals(501);
+                res.body.page.publishDate.should.equals(1000);
                 res.body.page.titleUrl.should.equals('pages/BookPage/0/pageTitlePicture.jpg');
 
                 res.body.page.author.length.should.equals(3);
