@@ -1417,6 +1417,16 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
     "\n" +
+    "                    ng-click=\"abortCreateEditPage()\">\r" +
+    "\n" +
+    "                Abbrechen\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button type=\"submit\"\r" +
+    "\n" +
+    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
+    "\n" +
     "                    ng-click=\"createPage()\"\r" +
     "\n" +
     "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
@@ -1433,7 +1443,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid || !editChanged}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle)}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
@@ -1546,7 +1556,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                    ng-show=\"!categoryFirstSelect && state.actual === 1\">\r" +
     "\n" +
-    "                                Titel umbenennen\r" +
+    "                                Weiter\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
@@ -6623,6 +6633,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
                 }
                 $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
                 $scope.commonSection.toCompare = {};
+                $scope.commonSection.toCompareTitle = $scope.category.title;
                 angular.copy($scope.page, $scope.commonSection.toCompare);
             });
         }
@@ -6672,6 +6683,7 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         $scope.page.imagePreview = imageDefaultPath;
         $scope.commonSection = {};
         $scope.editChanged = false;
+        $scope.editChangedTitle = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
             $scope.page.imagePreview = data;
@@ -6687,10 +6699,20 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         if ($scope.mode.edit) {
             $scope.$watchCollection('page', function (newValue) {
                 if (newValue && $scope.commonSection.toCompare) {
-                    if(!angular.equals($scope.commonSection.toCompare, newValue)) {
+                    if (!angular.equals($scope.commonSection.toCompare, newValue)) {
                         $scope.editChanged = true;
                     } else {
                         $scope.editChanged = false;
+                    }
+                }
+            });
+
+            $scope.$watch('category.title', function (newValue) {
+                if (newValue && $scope.commonSection.toCompareTitle) {
+                    if ($scope.commonSection.toCompareTitle !== $scope.category.title) {
+                        $scope.editChangedTitle = true;
+                    } else {
+                        $scope.editChangedTitle = false;
                     }
                 }
             });
@@ -6719,7 +6741,7 @@ module.exports = ['$scope', '$state', 'PageLeftNavElements',
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
-        $scope.abortCreatePage = function () {
+        $scope.abortCreateEditPage = function () {
             $state.go('page.overview');
         };
     }];

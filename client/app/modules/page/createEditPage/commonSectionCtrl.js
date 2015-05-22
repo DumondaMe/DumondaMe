@@ -26,6 +26,7 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         $scope.page.imagePreview = imageDefaultPath;
         $scope.commonSection = {};
         $scope.editChanged = false;
+        $scope.editChangedTitle = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
             $scope.page.imagePreview = data;
@@ -41,10 +42,20 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         if ($scope.mode.edit) {
             $scope.$watchCollection('page', function (newValue) {
                 if (newValue && $scope.commonSection.toCompare) {
-                    if(!angular.equals($scope.commonSection.toCompare, newValue)) {
+                    if (!angular.equals($scope.commonSection.toCompare, newValue)) {
                         $scope.editChanged = true;
                     } else {
                         $scope.editChanged = false;
+                    }
+                }
+            });
+
+            $scope.$watch('category.title', function (newValue) {
+                if (newValue && $scope.commonSection.toCompareTitle) {
+                    if ($scope.commonSection.toCompareTitle !== $scope.category.title) {
+                        $scope.editChangedTitle = true;
+                    } else {
+                        $scope.editChangedTitle = false;
                     }
                 }
             });

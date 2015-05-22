@@ -1416,6 +1416,16 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
     "\n" +
+    "                    ng-click=\"abortCreateEditPage()\">\r" +
+    "\n" +
+    "                Abbrechen\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <button type=\"submit\"\r" +
+    "\n" +
+    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
+    "\n" +
     "                    ng-click=\"createPage()\"\r" +
     "\n" +
     "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
@@ -1432,7 +1442,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid || !editChanged}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle)}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
@@ -1545,7 +1555,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                    ng-show=\"!categoryFirstSelect && state.actual === 1\">\r" +
     "\n" +
-    "                                Titel umbenennen\r" +
+    "                                Weiter\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +

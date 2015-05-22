@@ -37,6 +37,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
                 }
                 $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
                 $scope.commonSection.toCompare = {};
+                $scope.commonSection.toCompareTitle = $scope.category.title;
                 angular.copy($scope.page, $scope.commonSection.toCompare);
             });
         }

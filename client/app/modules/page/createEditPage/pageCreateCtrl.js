@@ -10,7 +10,7 @@ module.exports = ['$scope', '$state', 'PageLeftNavElements',
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
-        $scope.abortCreatePage = function () {
+        $scope.abortCreateEditPage = function () {
             $state.go('page.overview');
         };
     }];

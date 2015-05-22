@@ -29,6 +29,11 @@
         <div>
             <button type="submit"
                     class="btn btn-default content-create-edit-page-common-commands"
+                    ng-click="abortCreateEditPage()">
+                Abbrechen
+            </button>
+            <button type="submit"
+                    class="btn btn-default content-create-edit-page-common-commands"
                     ng-click="createPage()"
                     ng-class="{disabled: commonForm.$invalid}"
                     ng-hide="mode.edit">
@@ -37,7 +42,7 @@
             <button type="submit"
                     class="btn btn-default content-create-edit-page-common-commands"
                     ng-click="editPage()"
-                    ng-class="{disabled: commonForm.$invalid || !editChanged}"
+                    ng-class="{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle)}"
                     ng-show="mode.edit">
                 Seite &aumlndern
             </button>
