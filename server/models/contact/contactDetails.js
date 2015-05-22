@@ -60,23 +60,22 @@ var returnContactDetails = function (resp, userId, contactId, contactsPerPage, s
         contactAdded: resp[2][0].contactAdded,
         userAdded: resp[2][0].userAdded
     };
-
     userInfo.addConnectionInfo(resp[2][0]);
     contact.connected = resp[2][0].connected;
 
-    if (resp[2][0].profile || resp[2][0].profileNoContact) {
-        if (resp[2][0].imageProfile || resp[2][0].imageProfileNoContact) {
+    if (resp[2][0].profileVisible) {
+        if (resp[2][0].imageVisible) {
             contact.profileUrl = cdn.getUrl('profileImage/' + contactId + '/profile.jpg');
         } else {
             contact.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
         }
-        if (resp[2][0].profileData || resp[2][0].profileDataNoContact) {
+        if (resp[2][0].profileDataVisible) {
             contact.birthday = resp[2][0].birthday;
             contact.country = resp[2][0].country;
             contact.place = resp[2][0].place;
             contact.street = resp[2][0].street;
         }
-        if (resp[2][0].contacts || resp[2][0].contactsNoContact) {
+        if (resp[2][0].contactsVisible) {
             logger.debug('Get detail of user ' + contactId + ' with contacts', req);
             return getContacts(userId, contactId, contactsPerPage, skipContacts, contact, resp[0], resp[1]);
         }
@@ -97,19 +96,15 @@ var getContactDetails = function (userId, contactId, contactsPerPage, skipContac
     return db.cypher().match('(contact:User {userId: {contactId}}), (user:User {userId: {userId}})')
         .optionalMatch('(user)-[isContact:IS_CONTACT]->(contact)')
         .with('user, contact, isContact')
+        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch('(user)<-[contactHasUserContacted:IS_CONTACT]-(contact)')
-        .with('user, contact, isContact, contactHasUserContacted')
-        .optionalMatch('(contact)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)')
-        .where('privacyRel.type = contactHasUserContacted.type')
-        .with('user, contact, isContact, contactHasUserContacted, privacyRel, privacy')
-        .optionalMatch('(contact)-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)')
-        .where('contactHasUserContacted IS NULL')
-        .return('contact.name AS name, contact.birthday AS birthday, contact.country AS country, contact.place AS place, ' +
+        .with("user, contact, isContact, contactHasUserContacted, privacy, vr")
+        .where("(contactHasUserContacted IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR " +
+        "(contactHasUserContacted.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
+        .return('contact.userId AS userId, contact.name AS name, contact.birthday AS birthday, contact.country AS country, contact.place AS place, ' +
         'contact.street AS street, contact.female AS female, isContact.type AS type, contactHasUserContacted.type AS contactType, ' +
-        'isContact.contactAdded AS contactAdded, contactHasUserContacted.contactAdded AS userAdded, privacy.profile AS profile, ' +
-        'privacy.image AS imageProfile, privacy.profileData AS profileData, privacy.contacts AS contacts, ' +
-        'noContactPrivacy.profile AS profileNoContact, noContactPrivacy.image AS imageProfileNoContact, ' +
-        'noContactPrivacy.profileData AS profileDataNoContact, noContactPrivacy.contacts AS contactsNoContact')
+        'isContact.contactAdded AS contactAdded, contactHasUserContacted.contactAdded AS userAdded, privacy.profile AS profileVisible, ' +
+        'privacy.image AS imageVisible, privacy.profileData AS profileDataVisible, privacy.contacts AS contactsVisible')
         .end({userId: userId, contactId: contactId})
         .send(commands)
         .then(function (resp) {
