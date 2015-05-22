@@ -63,6 +63,38 @@ describe('Integration Tests for creating new pages', function () {
         });
     });
 
+    it('Create a new book page without publish date - Return 200', function () {
+
+        var createPage = {
+            createBookPage: {
+                language: 'de',
+                title: 'title',
+                description: 'description',
+                author: 'Hans Muster'
+            }
+        }, pageId;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+        }).then(function (res) {
+            res.status.should.equal(200);
+            pageId = res.body.pageId;
+            return db.cypher().match("(page:BookPage {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+                .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.author AS author, ' +
+                'page.modified AS modified, page.publishDate AS publishDate')
+                .end().send();
+        }).then(function (page) {
+            page.length.should.equals(1);
+            page[0].modified.should.be.at.least(startTime);
+            page[0].language.should.be.equals("de");
+            page[0].pageId.should.be.equals(pageId);
+            page[0].description.should.be.equals("description");
+            page[0].author.should.be.equals("Hans Muster");
+            should.not.exist(page[0].publishDate);
+        });
+    });
+
     it('Create a new book page without a uploaded image- Return 200', function () {
 
         var createPage = {

@@ -1,6 +1,7 @@
 'use strict';
 
 var validation = require('./../../../../lib/jsonValidation');
+var underscore = require('underscore');
 var createBookPage = require('./../../../../models/user/page/createBookPage');
 var auth = require('./../../../../lib/auth');
 var exceptions = require('./../../../../lib/error/exceptions');
@@ -15,7 +16,7 @@ var schemaRequestCreatePage = {
         createBookPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['language', 'title', 'description', 'author', 'publishDate'],
+            required: ['language', 'title', 'description', 'author'],
             properties: {
                 language: {'$ref': '#/definitions/language'},
                 title: {'$ref': '#/definitions/title'},
@@ -53,6 +54,7 @@ module.exports = function (router) {
                     filePath = req.files.file.path;
                 }
                 if (request.createBookPage) {
+                    underscore.defaults(request.createBookPage, {publishDate: null});
                     return createBookPage.createBookPage(req.user.id, request.createBookPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
