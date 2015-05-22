@@ -6599,7 +6599,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
                 publishDate = moment.utc($scope.page.publicationDate, 'l', moment.locale(), true).valueOf() / 1000
             }
             return {
-                createBookPage: {
+                bookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,

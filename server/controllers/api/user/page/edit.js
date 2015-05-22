@@ -3,11 +3,14 @@
 var validation = require('./../../../../lib/jsonValidation');
 var schema = require('./schemaCreateEdit');
 var underscore = require('underscore');
-var createBookPage = require('./../../../../models/user/page/createBookPage');
+var editBookPage = require('./../../../../models/user/page/editBookPage');
 var auth = require('./../../../../lib/auth');
 var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
+
+schema.properties.bookPage.required.push('pageId');
+schema.properties.bookPage.properties.pageId = {'$ref': '#/definitions/id'};
 
 module.exports = function (router) {
 
@@ -21,7 +24,7 @@ module.exports = function (router) {
                 }
                 if (request.bookPage) {
                     underscore.defaults(request.bookPage, {publishDate: null});
-                    return createBookPage.createBookPage(req.user.id, request.bookPage, filePath, req);
+                    return editBookPage.editBookPage(req.user.id, request.bookPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

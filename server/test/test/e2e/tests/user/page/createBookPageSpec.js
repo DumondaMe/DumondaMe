@@ -7,7 +7,7 @@ var requestHandler = require('../../util/request');
 var should = require('chai').should();
 var moment = require('moment');
 
-describe('Integration Tests for creating new pages', function () {
+describe('Integration Tests for creating new book pages', function () {
 
     var requestAgent, startTime;
 
@@ -33,7 +33,7 @@ describe('Integration Tests for creating new pages', function () {
     it('Create a new book page - Return 200', function () {
 
         var createPage = {
-            createBookPage: {
+            bookPage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
@@ -66,7 +66,7 @@ describe('Integration Tests for creating new pages', function () {
     it('Create a new book page without publish date - Return 200', function () {
 
         var createPage = {
-            createBookPage: {
+            bookPage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
@@ -98,7 +98,7 @@ describe('Integration Tests for creating new pages', function () {
     it('Create a new book page without a uploaded image- Return 200', function () {
 
         var createPage = {
-            createBookPage: {
+            bookPage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
@@ -131,7 +131,7 @@ describe('Integration Tests for creating new pages', function () {
     it('Create a new book page with to small width image - Return 400', function () {
 
         var createPage = {
-            createBookPage: {
+            bookPage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
@@ -156,7 +156,7 @@ describe('Integration Tests for creating new pages', function () {
     it('Create a new book page with to small height image - Return 400', function () {
 
         var createPage = {
-            createBookPage: {
+            bookPage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
