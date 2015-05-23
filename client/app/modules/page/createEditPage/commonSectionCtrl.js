@@ -1,26 +1,33 @@
 'use strict';
 
-var uploadPage = function ($scope, $state, fileUpload, api) {
+var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
     var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
 
     if ($scope.imagePreviewData) {
         imageToUpload = $scope.imagePreviewData;
     }
 
-    fileUpload.uploadFileAndJson(imageToUpload, json, 'api/user/page/create').
+    fileUpload.uploadFileAndJson(imageToUpload, json, api).
         showSuccess(function (resp) {
-            $state.go('page.detail', {
-                label: $scope.category.seletedCategoryType,
-                pageId: resp.pageId
-            });
+            if(!pageId) {
+                $state.go('page.detail', {
+                    label: $scope.category.seletedCategoryType,
+                    pageId: resp.pageId
+                });
+            } else {
+                $state.go('page.detail', {
+                    label: $scope.category.seletedCategoryType,
+                    pageId: pageId
+                });
+            }
         }).
         error(function () {
 
         });
 };
 
-module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'PageCategories',
-    function ($scope, $state, Languages, fileUpload, moment, PageCategories) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageCategories) {
 
         var imageDefaultPath = 'app/img/default.jpg';
         $scope.page.imagePreview = imageDefaultPath;
@@ -62,11 +69,11 @@ module.exports = ['$scope', '$state', 'Languages', 'fileUpload', 'moment', 'Page
         }
 
         $scope.createPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/create');
+            uploadPage($scope, $state, fileUpload, 'api/user/page/create', $stateParams.pageId);
 
         };
 
         $scope.editPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/edit');
+            uploadPage($scope, $state, fileUpload, 'api/user/page/edit', $stateParams.pageId);
         };
     }];
