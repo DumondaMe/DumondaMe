@@ -43,9 +43,12 @@
 }
 
 .upload-file-error {
-  display: inline-block;
+  float: left;
   margin-right: 5px;
+  margin-left: 10px;
   color: red;
+  max-width: 200px;
+  text-align: left;
 }
 
 .btn-file {

@@ -19,10 +19,10 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
 
     $scope.imageResultData = function (data) {
         var blob;
-        if (data.trim() !== '') {
+        if (data && data.toDataURL && angular.isFunction(data.toDataURL)) {
             delete $scope.uploadError;
             $scope.uploadRunning = true;
-            blob = dataURItoBlob(data);
+            blob = dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
             if ($scope.uploadFile) {
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
                     showSuccess(function () {
@@ -69,7 +69,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 
     $scope.checkOriginalSize = function (width, height) {
-        if (width < 300 || height < 200) {
+        if (width < 184 || height < 300) {
             $scope.$apply(function () {
                 $scope.uploadError = 'Bild ist zu klein';
             });

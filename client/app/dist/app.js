@@ -1355,7 +1355,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCommonSectionCtrl\">\r" +
+    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\"> <!--ng-show=\"state.actual === 3\"-->\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -2700,11 +2700,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
     "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"300\" min-height=\"200\"></ely-image-cropper>\r" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"184\" min-height=\"300\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"cropArea-orientation\">\r" +
+    "                <!--<div class=\"cropArea-orientation\">\r" +
     "\n" +
     "                    <div class=\"btn-group-vertical\" role=\"group\">\r" +
     "\n" +
@@ -2718,7 +2718,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                </div>\r" +
+    "                </div>-->\r" +
     "\n" +
     "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
     "\n" +
@@ -5607,7 +5607,9 @@ module.exports = {
                     rotatable: false,
                     built: function () {
                         var size = $image.cropper('getImageData');
-                        $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                        if ($scope.originalSize) {
+                            $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                        }
                     }
                 };
 
@@ -5624,7 +5626,7 @@ module.exports = {
             $image.cropper(cropperSettings);
 
             $scope.$on('image.cropper.get.data', function () {
-                $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
+                $scope.imageResultData($image.cropper('getCroppedCanvas'));
             });
 
             $scope.$on('image.cropper.set.ratio', function (event, ratio) {
@@ -6693,7 +6695,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         $scope.editChangedTitle = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
-            $scope.page.imagePreview = data;
+            $scope.page.imagePreview = data.toDataURL("image/jpeg", 1.0);
             $scope.imagePreviewData = dataToSend;
         });
 
@@ -7882,10 +7884,10 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
 
     $scope.imageResultData = function (data) {
         var blob;
-        if (data.trim() !== '') {
+        if (data && data.toDataURL && angular.isFunction(data.toDataURL)) {
             delete $scope.uploadError;
             $scope.uploadRunning = true;
-            blob = dataURItoBlob(data);
+            blob = dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
             if ($scope.uploadFile) {
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
                     showSuccess(function () {
@@ -7932,7 +7934,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 
     $scope.checkOriginalSize = function (width, height) {
-        if (width < 300 || height < 200) {
+        if (width < 184 || height < 300) {
             $scope.$apply(function () {
                 $scope.uploadError = 'Bild ist zu klein';
             });

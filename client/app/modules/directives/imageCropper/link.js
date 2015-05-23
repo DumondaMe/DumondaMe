@@ -12,7 +12,9 @@ module.exports = {
                     rotatable: false,
                     built: function () {
                         var size = $image.cropper('getImageData');
-                        $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                        if ($scope.originalSize) {
+                            $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                        }
                     }
                 };
 
@@ -29,7 +31,7 @@ module.exports = {
             $image.cropper(cropperSettings);
 
             $scope.$on('image.cropper.get.data', function () {
-                $scope.imageResultData($image.cropper('getDataURL', 'image/jpeg'));
+                $scope.imageResultData($image.cropper('getCroppedCanvas'));
             });
 
             $scope.$on('image.cropper.set.ratio', function (event, ratio) {

@@ -9,6 +9,7 @@ var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 
+schema = JSON.parse(JSON.stringify(schema));
 schema.properties.bookPage.required.push('pageId');
 schema.properties.bookPage.properties.pageId = {'$ref': '#/definitions/id'};
 

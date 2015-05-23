@@ -1354,7 +1354,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-show=\"state.actual === 3\" ng-controller=\"PageCommonSectionCtrl\">\r" +
+    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\"> <!--ng-show=\"state.actual === 3\"-->\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -2699,11 +2699,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
     "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"300\" min-height=\"200\"></ely-image-cropper>\r" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"184\" min-height=\"300\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"cropArea-orientation\">\r" +
+    "                <!--<div class=\"cropArea-orientation\">\r" +
     "\n" +
     "                    <div class=\"btn-group-vertical\" role=\"group\">\r" +
     "\n" +
@@ -2717,7 +2717,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                </div>\r" +
+    "                </div>-->\r" +
     "\n" +
     "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
     "\n" +

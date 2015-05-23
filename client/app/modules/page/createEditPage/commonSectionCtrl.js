@@ -36,7 +36,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         $scope.editChangedTitle = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
-            $scope.page.imagePreview = data;
+            $scope.page.imagePreview = data.toDataURL("image/jpeg", 1.0);
             $scope.imagePreviewData = dataToSend;
         });
 
