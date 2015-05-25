@@ -767,6 +767,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/directives/iframe/template.html',
+    "<div class=\"ely-iframe\">\r" +
+    "\n" +
+    "    <iframe width=\"500\" height=\"400\" ng-src=\"{{link}}\"></iframe>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/directives/imageCropper/template.html',
     "<div class=\"cropper-outer-container\">\r" +
     "\n" +
@@ -1337,9 +1346,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div>\r" +
     "\n" +
-    "    <div id=\"content-create-edit-page-common-area\">\r" +
+    "    <div id=\"content-create-edit-book-page-common-area\">\r" +
     "\n" +
-    "        <div id=\"content-create-edit-page-common-inner-area\">\r" +
+    "        <div id=\"content-create-edit-book-page-common-inner-area\">\r" +
     "\n" +
     "            <div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
@@ -1378,7 +1387,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "\n" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.seletedCategoryType === 'Youtube'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1437,6 +1448,27 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    </form>\r" +
     "\n" +
     "</div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/createEditPage/commonYoutube.html',
+    "<div>\r" +
+    "\n" +
+    "    <div id=\"content-create-edit-youtube-page-common-area\">\r" +
+    "\n" +
+    "        <input name=\"inputYoutubeLink\" ng-model=\"page.youtubeLink\"\r" +
+    "\n" +
+    "               class=\"form-control\" id=\"inputYoutubeLinkId\"\r" +
+    "\n" +
+    "               placeholder=\"Link zum Youtube Video\"\r" +
+    "\n" +
+    "               maxLength=\"1000\" required>\r" +
+    "\n" +
+    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"></ely-iframe>\r" +
+    "\n" +
+    "    </div>\r" +
     "\n" +
     "</div>"
   );

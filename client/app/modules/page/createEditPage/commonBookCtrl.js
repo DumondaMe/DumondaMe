@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail, PageCategories) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
@@ -29,7 +29,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
             $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
                 $scope.category.selectedLanguage = Languages.getLanguage($scope.pageDetail.page.language);
                 $scope.category.title = $scope.pageDetail.page.title;
-                $scope.category.selectedCategory = 'Buch';
+                $scope.category.selectedCategory = PageCategories.categories.BookPage;
                 $scope.page.description = $scope.pageDetail.page.description;
                 $scope.page.authors = $scope.pageDetail.page.author[0].name;
                 if ($scope.pageDetail.page.publishDate) {

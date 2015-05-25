@@ -2,6 +2,7 @@
 
 var categories = {
     BookPage: 'Buch',
+    Youtube: 'Youtube Video',
     VideoPage: 'Video'
 };
 

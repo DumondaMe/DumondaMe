@@ -7,6 +7,7 @@ app.controller('PageEditCtrl', require('./createEditPage/pageEditCtrl'));
 app.controller('PageSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
 app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
 app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
+app.controller('PageCommonYoutubeCtrl', require('./createEditPage/commonYoutubeCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetailCtrl'));

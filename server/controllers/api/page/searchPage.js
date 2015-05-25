@@ -17,7 +17,7 @@ var schemaSearchPage = {
         isSuggestion: {type: 'boolean'},
         filterType: {
             type: 'array',
-            items: {enum: ['BookPage', 'VideoPage']},
+            items: {enum: ['BookPage', 'VideoPage', 'Youtube']},
             minItems: 1,
             uniqueItems: true
         },

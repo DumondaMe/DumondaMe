@@ -4,6 +4,7 @@
 @import 'mixins/_util';
 @import 'directives/_cropper';
 @import 'directives/_formTextInput';
+@import 'directives/_iFrame';
 @import 'directives/_searchBox';
 @import 'directives/_paginationNextPrevious';
 @import 'directives/_sendButton';
@@ -22,6 +23,8 @@
 @import 'elyoos/_leftColNav';
 @import 'elyoos/_messages';
 @import 'elyoos/_pageCreateEdit';
+@import 'elyoos/_pageCreateEditBook';
+@import 'elyoos/_pageCreateEditYoutube';
 @import 'elyoos/_pageDetail';
 @import 'elyoos/_pageOverview';
 @import 'elyoos/_pagePreview';
