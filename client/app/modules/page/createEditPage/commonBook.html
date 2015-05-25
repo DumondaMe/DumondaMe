@@ -1,9 +1,16 @@
-<div ng-controller="PageCommonBookCtrl">
-    <ely-form-text-input label="Author" input-name="inputAuthor" input-placeholder="Author"
-                         profile-form="commonForm" submit-model="page.authors"
-                         max-length="255" required="true"></ely-form-text-input>
-    <ely-form-text-input label="Erscheinungsdatum" input-name="inputPublicationDate" input-placeholder="Erscheinungsdatum"
-                         profile-form="commonForm" submit-model="page.publishDate"
-                         max-length="255"
-                         custom-error-description="Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})"></ely-form-text-input>
+<div>
+    <div ng-include="'app/modules/page/createEditPage/selectPicture.html'"></div>
+    <div id="content-create-edit-page-common-area">
+        <div id="content-create-edit-page-common-inner-area">
+            <div ng-controller="PageCommonBookCtrl">
+                <ely-form-text-input label="Author" input-name="inputAuthor" input-placeholder="Author"
+                                     profile-form="commonForm" submit-model="page.authors"
+                                     max-length="255" required="true"></ely-form-text-input>
+                <ely-form-text-input label="Erscheinungsdatum" input-name="inputPublicationDate" input-placeholder="Erscheinungsdatum"
+                                     profile-form="commonForm" submit-model="page.publishDate"
+                                     max-length="255"
+                                     custom-error-description="Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})"></ely-form-text-input>
+            </div>
+        </div>
+    </div>
 </div>

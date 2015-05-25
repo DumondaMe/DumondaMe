@@ -1333,21 +1333,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonBook.html',
-    "<div ng-controller=\"PageCommonBookCtrl\">\r" +
+    "<div>\r" +
     "\n" +
-    "    <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
+    "    <div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div>\r" +
     "\n" +
-    "                         profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
+    "    <div id=\"content-create-edit-page-common-area\">\r" +
     "\n" +
-    "                         max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
+    "        <div id=\"content-create-edit-page-common-inner-area\">\r" +
     "\n" +
-    "    <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
+    "            <div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
-    "                         profile-form=\"commonForm\" submit-model=\"page.publishDate\"\r" +
+    "                <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
     "\n" +
-    "                         max-length=\"255\"\r" +
+    "                                     profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
     "\n" +
-    "                         custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
+    "                                     max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
+    "\n" +
+    "                <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
+    "\n" +
+    "                                     profile-form=\"commonForm\" submit-model=\"page.publishDate\"\r" +
+    "\n" +
+    "                                     max-length=\"255\"\r" +
+    "\n" +
+    "                                     custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
     "\n" +
     "</div>"
   );
@@ -1364,39 +1378,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div id=\"content-create-edit-page-common-picture-area\">\r" +
-    "\n" +
-    "            <img ng-src=\"{{page.imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default content-create-edit-page-common-get-picture\"\r" +
-    "\n" +
-    "                        data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
-    "\n" +
-    "                        data-backdrop=\"static\"\r" +
-    "\n" +
-    "                        data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
-    "\n" +
-    "                    Titelbild ausw&aumlhlen..\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div id=\"content-create-edit-page-common-area\">\r" +
-    "\n" +
-    "            <div id=\"content-create-edit-page-common-inner-area\">\r" +
-    "\n" +
-    "                <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-show=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1612,6 +1594,33 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "            <div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div>\r" +
     "\n" +
     "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/createEditPage/selectPicture.html',
+    "<div id=\"content-create-edit-page-common-picture-area\">\r" +
+    "\n" +
+    "    <img ng-src=\"{{page.imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <div>\r" +
+    "\n" +
+    "        <button type=\"button\" class=\"btn btn-default content-create-edit-page-common-get-picture\"\r" +
+    "\n" +
+    "                data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
+    "\n" +
+    "                data-backdrop=\"static\"\r" +
+    "\n" +
+    "                data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "\n" +
+    "            Titelbild ausw&aumlhlen..\r" +
+    "\n" +
+    "        </button>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
