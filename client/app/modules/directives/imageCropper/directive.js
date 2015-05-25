@@ -14,6 +14,8 @@ module.exports = {
                 imageResultData: '=',
                 originalSize: '=',
                 ratio: '@',
+                minRatio: '@',
+                maxRatio: '@',
                 minHeight: '@',
                 minWidth: '@'
             },

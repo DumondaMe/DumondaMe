@@ -1355,7 +1355,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\"> <!--ng-show=\"state.actual === 3\"-->\r" +
+    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\" ng-show=\"state.actual === 3\">\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -2700,7 +2700,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
     "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"184\" min-height=\"300\"></ely-image-cropper>\r" +
+    "                                       min-ratio=\"1.2\"\r" +
+    "\n" +
+    "                                       max-ratio=\"1.63\"\r" +
+    "\n" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"200\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -5581,6 +5585,8 @@ module.exports = {
                 imageResultData: '=',
                 originalSize: '=',
                 ratio: '@',
+                minRatio: '@',
+                maxRatio: '@',
                 minHeight: '@',
                 minWidth: '@'
             },
@@ -5595,21 +5601,58 @@ arguments[4][35][0].apply(exports,arguments)
 },{"./directive.js":36,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":35}],38:[function(require,module,exports){
 'use strict';
 
+var previousHeight, previousWidth;
+
+var checkRatio = function ($scope, $image) {
+    var size, ratio;
+    if ($scope.minRatio && $scope.maxRatio && previousHeight && previousWidth) {
+        size = $image.cropper('getCropBoxData');
+        if (previousHeight !== size.height || previousWidth !== size.width) {
+            ratio = size.height / size.width;
+            if (ratio < $scope.minRatio || ratio > $scope.maxRatio) {
+                $image.cropper('setCropBoxData', {
+                    left: size.left,
+                    top: size.top,
+                    width: previousWidth,
+                    height: previousHeight
+                });
+                return;
+            }
+            previousHeight = size.height;
+            previousWidth = size.width;
+        }
+    }
+};
+
 module.exports = {
     directiveLink: function () {
         return function ($scope, element) {
             var $image = $(element.find('img')[0]),
                 cropperSettings = {
-                    minWidth: 200,
-                    minHeight: 200,
-                    dashed: false,
+                    minCropBoxWidth: 200,
+                    minCropBoxHeight: 200,
+                    guides: false,
                     zoomable: false,
                     rotatable: false,
                     built: function () {
-                        var size = $image.cropper('getImageData');
+                        var size = $image.cropper('getImageData'), cropWidth;
                         if ($scope.originalSize) {
                             $scope.originalSize(size.naturalWidth, size.naturalHeight);
                         }
+                        if ($scope.minRatio && $scope.maxRatio) {
+                            cropWidth = size.height / $scope.maxRatio;
+                            $image.cropper('setCropBoxData', {
+                                left: (size.width - cropWidth) / 2,
+                                top: 0,
+                                width: cropWidth,
+                                height: size.height
+                            });
+                            previousHeight = size.height;
+                            previousWidth = cropWidth;
+                        }
+                    },
+                    crop: function () {
+                        checkRatio($scope, $image);
                     }
                 };
 
@@ -5617,10 +5660,10 @@ module.exports = {
                 cropperSettings.aspectRatio = $scope.ratio;
             }
             if ($scope.minWidth) {
-                cropperSettings.minWidth = $scope.minWidth;
+                cropperSettings.minCropBoxWidth = $scope.minWidth;
             }
             if ($scope.minHeight) {
-                cropperSettings.minHeight = $scope.minHeight;
+                cropperSettings.minCropBoxHeight = $scope.minHeight;
             }
 
             $image.cropper(cropperSettings);

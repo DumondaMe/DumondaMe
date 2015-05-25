@@ -1,20 +1,57 @@
 'use strict';
 
+var previousHeight, previousWidth;
+
+var checkRatio = function ($scope, $image) {
+    var size, ratio;
+    if ($scope.minRatio && $scope.maxRatio && previousHeight && previousWidth) {
+        size = $image.cropper('getCropBoxData');
+        if (previousHeight !== size.height || previousWidth !== size.width) {
+            ratio = size.height / size.width;
+            if (ratio < $scope.minRatio || ratio > $scope.maxRatio) {
+                $image.cropper('setCropBoxData', {
+                    left: size.left,
+                    top: size.top,
+                    width: previousWidth,
+                    height: previousHeight
+                });
+                return;
+            }
+            previousHeight = size.height;
+            previousWidth = size.width;
+        }
+    }
+};
+
 module.exports = {
     directiveLink: function () {
         return function ($scope, element) {
             var $image = $(element.find('img')[0]),
                 cropperSettings = {
-                    minWidth: 200,
-                    minHeight: 200,
-                    dashed: false,
+                    minCropBoxWidth: 200,
+                    minCropBoxHeight: 200,
+                    guides: false,
                     zoomable: false,
                     rotatable: false,
                     built: function () {
-                        var size = $image.cropper('getImageData');
+                        var size = $image.cropper('getImageData'), cropWidth;
                         if ($scope.originalSize) {
                             $scope.originalSize(size.naturalWidth, size.naturalHeight);
                         }
+                        if ($scope.minRatio && $scope.maxRatio) {
+                            cropWidth = size.height / $scope.maxRatio;
+                            $image.cropper('setCropBoxData', {
+                                left: (size.width - cropWidth) / 2,
+                                top: 0,
+                                width: cropWidth,
+                                height: size.height
+                            });
+                            previousHeight = size.height;
+                            previousWidth = cropWidth;
+                        }
+                    },
+                    crop: function () {
+                        checkRatio($scope, $image);
                     }
                 };
 
@@ -22,10 +59,10 @@ module.exports = {
                 cropperSettings.aspectRatio = $scope.ratio;
             }
             if ($scope.minWidth) {
-                cropperSettings.minWidth = $scope.minWidth;
+                cropperSettings.minCropBoxWidth = $scope.minWidth;
             }
             if ($scope.minHeight) {
-                cropperSettings.minHeight = $scope.minHeight;
+                cropperSettings.minCropBoxHeight = $scope.minHeight;
             }
 
             $image.cropper(cropperSettings);

@@ -1354,7 +1354,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\"> <!--ng-show=\"state.actual === 3\"-->\r" +
+    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\" ng-show=\"state.actual === 3\">\r" +
     "\n" +
     "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
     "\n" +
@@ -2699,7 +2699,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
     "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"184\" min-height=\"300\"></ely-image-cropper>\r" +
+    "                                       min-ratio=\"1.2\"\r" +
+    "\n" +
+    "                                       max-ratio=\"1.63\"\r" +
+    "\n" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"200\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
