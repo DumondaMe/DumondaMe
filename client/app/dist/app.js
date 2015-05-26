@@ -771,7 +771,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/iframe/template.html',
     "<div class=\"ely-iframe\">\r" +
     "\n" +
-    "    <iframe width=\"500\" height=\"400\" ng-src=\"{{link}}\"></iframe>\r" +
+    "    <iframe width=\"{{width}}\" height=\"{{height}}\" ng-src=\"{{link}}\"></iframe>\r" +
     "\n" +
     "</div>"
   );
@@ -1696,9 +1696,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-detail-header-image\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.subCategory !== 'Youtube'\">\r" +
+    "\n" +
+    "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
+    "\n" +
+    "                                ng-show=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-header-separator\"></div>\r" +
     "\n" +
     "                <div class=\"page-detail-header-list\">\r" +
     "\n" +
@@ -6898,6 +6904,8 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 },{}],86:[function(require,module,exports){
 'use strict';
 
+var subCategory = 'Youtube';
+
 var isValidYoutubeLink = function (link) {
     var isValidLink = false;
     if (angular.isString(link)) {
@@ -6909,11 +6917,24 @@ var isValidYoutubeLink = function (link) {
 module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
     function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
 
-        $scope.page.Youtube = function () {
-
+        $scope.page.VideoPage = function () {
+            var page = {
+                videoPage: {
+                    language: Languages.getCode($scope.category.selectedLanguage),
+                    title: $scope.category.title,
+                    description: $scope.page.description,
+                    link: $scope.page.youtubeLink
+                }
+            };
+            if ($scope.mode.edit) {
+                page.videoPage.pageId = $stateParams.pageId;
+            } else {
+                page.videoPage.subCategory = subCategory;
+            }
+            return page;
         };
 
-        if ($scope.mode.edit && $stateParams.label === 'Youtube') {
+        if ($scope.mode.edit && $scope.category.selectedCategoryType === subCategory) {
             $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
 
             });
@@ -7182,7 +7203,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             });
         });
 
-        $scope.category = categories[$stateParams.label].description;
+        $scope.category = categories[$stateParams.label];
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
 

@@ -1062,33 +1062,43 @@ h1.website-structure-title {
       padding-top: 25px;
       padding-bottom: 35px;
       background-color: #E0E0E0;
-      border-bottom: 2px solid #d6d6d6; }
+      border-bottom: 2px solid #d6d6d6;
+      display: table;
+      width: 100%; }
       #content-page-detail #centerCol #page-detail-header #page-detail-inner-header {
-        padding-left: 280px;
+        display: table-row;
         width: 100%; }
         #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
-          display: inline-block;
+          padding-left: 280px;
+          margin-right: 25px;
+          display: table-cell;
           vertical-align: top;
           height: 300px; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
             height: 300px;
             max-width: 400px; }
-        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
-          padding-left: 35px;
+          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image .ely-iframe {
+            height: 300px;
+            width: 400px; }
+        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-separator {
+          display: table-cell;
           height: 300px;
-          display: inline-block;
+          width: 35px; }
+        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
+          height: 300px;
+          display: table-cell;
           vertical-align: top;
-          position: relative; }
+          position: relative;
+          box-sizing: border-box; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
             display: inline-block;
             font-size: 30px;
             font-weight: 100;
             color: #009688;
             min-width: 300px;
-            word-break: break-all;
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 34px; }
+            max-height: 80px; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-category {
             font-size: 14px;
             font-weight: 300;

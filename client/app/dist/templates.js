@@ -770,7 +770,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/iframe/template.html',
     "<div class=\"ely-iframe\">\r" +
     "\n" +
-    "    <iframe width=\"500\" height=\"400\" ng-src=\"{{link}}\"></iframe>\r" +
+    "    <iframe width=\"{{width}}\" height=\"{{height}}\" ng-src=\"{{link}}\"></iframe>\r" +
     "\n" +
     "</div>"
   );
@@ -1695,9 +1695,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-detail-header-image\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\">\r" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.subCategory !== 'Youtube'\">\r" +
+    "\n" +
+    "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
+    "\n" +
+    "                                ng-show=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-detail-header-separator\"></div>\r" +
     "\n" +
     "                <div class=\"page-detail-header-list\">\r" +
     "\n" +

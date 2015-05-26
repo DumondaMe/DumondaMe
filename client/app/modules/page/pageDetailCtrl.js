@@ -38,7 +38,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             });
         });
 
-        $scope.category = categories[$stateParams.label].description;
+        $scope.category = categories[$stateParams.label];
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
 
