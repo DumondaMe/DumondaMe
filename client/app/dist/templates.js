@@ -723,7 +723,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/formTextInput/template.html',
     "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
     "\n" +
-    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\">{{label}}\r" +
+    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\" ng-hide=\"showWithoutLabel\">{{label}}\r" +
     "\n" +
     "        <em ng-show=\"required !== 'true'\">(optional)</em>\r" +
     "\n" +
@@ -731,7 +731,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "    <div class=\"col-sm-8\">\r" +
+    "    <div ng-class=\"{'col-sm-8': !showWithoutLabel}\">\r" +
     "\n" +
     "        <input name=\"{{inputName}}\" ng-model=\"submitModel\"\r" +
     "\n" +
@@ -1387,9 +1387,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'BookPage'\"></div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.seletedCategoryType === 'Youtube'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedSubCategoryType === 'Youtube'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1456,17 +1456,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/page/createEditPage/commonYoutube.html',
     "<div>\r" +
     "\n" +
-    "    <div id=\"content-create-edit-youtube-page-common-area\">\r" +
+    "    <div id=\"content-create-edit-youtube-page-common-area\" ng-controller=\"PageCommonYoutubeCtrl\">\r" +
     "\n" +
-    "        <input name=\"inputYoutubeLink\" ng-model=\"page.youtubeLink\"\r" +
+    "        <ely-form-text-input input-name=\"inputYoutubeLink\" input-placeholder=\"Link zum Youtube Video\"\r" +
     "\n" +
-    "               class=\"form-control\" id=\"inputYoutubeLinkId\"\r" +
+    "                             profile-form=\"commonForm\" submit-model=\"page.youtubeLink\"\r" +
     "\n" +
-    "               placeholder=\"Link zum Youtube Video\"\r" +
+    "                             max-length=\"1000\" required=\"true\" show-without-label=\"true\"\r" +
     "\n" +
-    "               maxLength=\"1000\" required>\r" +
+    "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/\"></ely-form-text-input>\r" +
     "\n" +
-    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"></ely-iframe>\r" +
+    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"\r" +
+    "\n" +
+    "                ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
+    "\n" +
+    "        <img src=\"app/img/defaultVideo.png\" ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\">\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -1502,6 +1506,26 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                bs-options=\"category as category for category in categories\"\r" +
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
+    "\n" +
+    "                                bs-select>\r" +
+    "\n" +
+    "                            <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedSubCategory\"\r" +
+    "\n" +
+    "                                name=\"inputSubCategory\"\r" +
+    "\n" +
+    "                                id=\"inputSubCategoryId\"\r" +
+    "\n" +
+    "                                bs-options=\"category as category for category in subCategories\"\r" +
+    "\n" +
+    "                                ng-show=\"subCategories.length > 0\"\r" +
+    "\n" +
+    "                                data-placeholder=\"Unterkategorie ausw&aumlhlen\"\r" +
     "\n" +
     "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +

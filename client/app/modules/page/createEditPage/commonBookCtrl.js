@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail, PageCategories) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();

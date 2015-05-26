@@ -11,6 +11,7 @@ module.exports = {
                 label: '@',
                 inputName: '@',
                 inputPlaceholder: '@',
+                showWithoutLabel: '@',
                 profileForm: '=',
                 submitModel: '=',
                 maxLength: '@',

@@ -724,7 +724,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/directives/formTextInput/template.html',
     "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
     "\n" +
-    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\">{{label}}\r" +
+    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\" ng-hide=\"showWithoutLabel\">{{label}}\r" +
     "\n" +
     "        <em ng-show=\"required !== 'true'\">(optional)</em>\r" +
     "\n" +
@@ -732,7 +732,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "    <div class=\"col-sm-8\">\r" +
+    "    <div ng-class=\"{'col-sm-8': !showWithoutLabel}\">\r" +
     "\n" +
     "        <input name=\"{{inputName}}\" ng-model=\"submitModel\"\r" +
     "\n" +
@@ -1388,9 +1388,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.seletedCategoryType === 'BookPage'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'BookPage'\"></div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.seletedCategoryType === 'Youtube'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedSubCategoryType === 'Youtube'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1457,17 +1457,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/page/createEditPage/commonYoutube.html',
     "<div>\r" +
     "\n" +
-    "    <div id=\"content-create-edit-youtube-page-common-area\">\r" +
+    "    <div id=\"content-create-edit-youtube-page-common-area\" ng-controller=\"PageCommonYoutubeCtrl\">\r" +
     "\n" +
-    "        <input name=\"inputYoutubeLink\" ng-model=\"page.youtubeLink\"\r" +
+    "        <ely-form-text-input input-name=\"inputYoutubeLink\" input-placeholder=\"Link zum Youtube Video\"\r" +
     "\n" +
-    "               class=\"form-control\" id=\"inputYoutubeLinkId\"\r" +
+    "                             profile-form=\"commonForm\" submit-model=\"page.youtubeLink\"\r" +
     "\n" +
-    "               placeholder=\"Link zum Youtube Video\"\r" +
+    "                             max-length=\"1000\" required=\"true\" show-without-label=\"true\"\r" +
     "\n" +
-    "               maxLength=\"1000\" required>\r" +
+    "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/\"></ely-form-text-input>\r" +
     "\n" +
-    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"></ely-iframe>\r" +
+    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"\r" +
+    "\n" +
+    "                ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
+    "\n" +
+    "        <img src=\"app/img/defaultVideo.png\" ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\">\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -1503,6 +1507,26 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                bs-options=\"category as category for category in categories\"\r" +
     "\n" +
     "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
+    "\n" +
+    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
+    "\n" +
+    "                                bs-select>\r" +
+    "\n" +
+    "                            <span class=\"caret\"></span>\r" +
+    "\n" +
+    "                        </button>\r" +
+    "\n" +
+    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedSubCategory\"\r" +
+    "\n" +
+    "                                name=\"inputSubCategory\"\r" +
+    "\n" +
+    "                                id=\"inputSubCategoryId\"\r" +
+    "\n" +
+    "                                bs-options=\"category as category for category in subCategories\"\r" +
+    "\n" +
+    "                                ng-show=\"subCategories.length > 0\"\r" +
+    "\n" +
+    "                                data-placeholder=\"Unterkategorie ausw&aumlhlen\"\r" +
     "\n" +
     "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
     "\n" +
@@ -5587,6 +5611,7 @@ module.exports = {
                 label: '@',
                 inputName: '@',
                 inputPlaceholder: '@',
+                showWithoutLabel: '@',
                 profileForm: '=',
                 submitModel: '=',
                 maxLength: '@',
@@ -6725,8 +6750,8 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
 },{}],84:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail, PageCategories) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
@@ -6787,7 +6812,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 'use strict';
 
 var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
-    var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
+    var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
     if ($scope.imagePreviewData) {
         imageToUpload = $scope.imagePreviewData;
@@ -6797,12 +6822,12 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
         showSuccess(function (resp) {
             if(!pageId) {
                 $state.go('page.detail', {
-                    label: $scope.category.seletedCategoryType,
+                    label: $scope.category.selectedCategoryType,
                     pageId: resp.pageId
                 });
             } else {
                 $state.go('page.detail', {
-                    label: $scope.category.seletedCategoryType,
+                    label: $scope.category.selectedCategoryType,
                     pageId: pageId
                 });
             }
@@ -6828,7 +6853,13 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 
         $scope.$watch('category.selectedCategory', function (newValue) {
             if (newValue) {
-                $scope.category.seletedCategoryType = PageCategories.getPageType($scope.category.selectedCategory);
+                $scope.category.selectedCategoryType = PageCategories.getPageType(newValue);
+            }
+        });
+
+        $scope.$watch('category.selectedSubCategory', function (newValue) {
+            if (newValue) {
+                $scope.category.selectedSubCategoryType = PageCategories.getPageType(newValue);
             }
         });
 
@@ -6867,10 +6898,16 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 },{}],86:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail, PageCategories) {
+var isValidYoutubeLink = function (link) {
+    var isValidLink = false;
+    if (angular.isString(link)) {
+        isValidLink = link.search('https://www.youtube.com/embed/') !== -1;
+    }
+    return isValidLink;
+};
 
-        $scope.page.youtubeLink = null;
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
 
         $scope.page.Youtube = function () {
 
@@ -6881,6 +6918,14 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 
             });
         }
+
+        $scope.$watch('page.youtubeLink', function (link) {
+            if ($scope.commonForm && $scope.commonForm.inputYoutubeLink) {
+                if (link) {
+                    $scope.commonForm.inputYoutubeLink.$setValidity('custom', isValidYoutubeLink(link));
+                }
+            }
+        });
 
     }];
 
@@ -6932,6 +6977,10 @@ var setCategories = function (pages, PageCategories) {
     });
 };
 
+var isSubCategorySelected = function ($scope) {
+    return $scope.subCategories.length > 0 && !$scope.category.selectedSubCategory;
+};
+
 module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
     function ($scope, PageCategories, Languages, SearchPage) {
 
@@ -6940,11 +6989,19 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categoryFinishedButtonDisabled = true;
         $scope.categoryFirstSelect = !$scope.mode.edit;
         $scope.categoryTitleChanged = false;
+        $scope.subCategories = [];
 
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
-                if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                    $scope.categoryFinishedButtonDisabled = false;
+                if (newCategories) {
+                    $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
+                    if($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
+                        delete $scope.category.selectedSubCategory;
+                    }
+                }
+
+                if (newCategories && newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
+                    $scope.categoryFinishedButtonDisabled = isSubCategorySelected($scope);
                 } else {
                     $scope.categoryFinishedButtonDisabled = true;
                 }
@@ -7123,7 +7180,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             });
         });
 
-        $scope.category = categories[$stateParams.label];
+        $scope.category = categories[$stateParams.label].description;
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
 
@@ -7278,9 +7335,14 @@ arguments[4][35][0].apply(exports,arguments)
 'use strict';
 
 var categories = {
-    BookPage: 'Buch',
-    Youtube: 'Youtube Video',
-    VideoPage: 'Video'
+    BookPage: {description: 'Buch'},
+    VideoPage: {
+        description: 'Video',
+        subCategory: {
+            Movie: {description: 'Film'},
+            Youtube: {description: 'Youtube Video'}
+        }
+    }
 };
 
 module.exports = [
@@ -7291,18 +7353,40 @@ module.exports = [
             var key, collection = [];
             for (key in categories) {
                 if (categories.hasOwnProperty(key)) {
-                    collection.push(categories[key]);
+                    collection.push(categories[key].description);
+                }
+            }
+            return collection;
+        };
+
+        this.getSubCategories = function (subCategory) {
+            var key, subKey, collection = [];
+            for (key in categories) {
+                if (categories.hasOwnProperty(key)) {
+                    if (categories[key].description === subCategory) {
+                        for (subKey in categories[key].subCategory) {
+                            if (categories[key].subCategory.hasOwnProperty(subKey)) {
+                                collection.push(categories[key].subCategory[subKey].description);
+                            }
+                        }
+                    }
                 }
             }
             return collection;
         };
 
         this.getPageType = function (description) {
-            var result = false, key;
+            var result = false, key, subKey;
 
             for (key in categories) {
-                if (categories[key] === description) {
+                if (categories[key].description === description) {
                     result = key;
+                } else if (categories[key].subCategory) {
+                    for (subKey in categories[key].subCategory) {
+                        if (categories[key].subCategory[subKey].description === description) {
+                            result = subKey;
+                        }
+                    }
                 }
             }
             return result;

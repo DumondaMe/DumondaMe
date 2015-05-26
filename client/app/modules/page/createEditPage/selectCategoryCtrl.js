@@ -6,6 +6,10 @@ var setCategories = function (pages, PageCategories) {
     });
 };
 
+var isSubCategorySelected = function ($scope) {
+    return $scope.subCategories.length > 0 && !$scope.category.selectedSubCategory;
+};
+
 module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
     function ($scope, PageCategories, Languages, SearchPage) {
 
@@ -14,11 +18,19 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categoryFinishedButtonDisabled = true;
         $scope.categoryFirstSelect = !$scope.mode.edit;
         $scope.categoryTitleChanged = false;
+        $scope.subCategories = [];
 
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
-                if (newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                    $scope.categoryFinishedButtonDisabled = false;
+                if (newCategories) {
+                    $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
+                    if($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
+                        delete $scope.category.selectedSubCategory;
+                    }
+                }
+
+                if (newCategories && newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
+                    $scope.categoryFinishedButtonDisabled = isSubCategorySelected($scope);
                 } else {
                     $scope.categoryFinishedButtonDisabled = true;
                 }

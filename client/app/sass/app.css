@@ -1042,9 +1042,10 @@ h1.website-structure-title {
 #content-create-edit-youtube-page-common-area {
   margin-top: 10px;
   width: 100%; }
-  #content-create-edit-youtube-page-common-area #inputYoutubeLinkId {
-    width: 100%;
-    margin-bottom: 25px; }
+  #content-create-edit-youtube-page-common-area .ely-form-text-input {
+    padding: 0 15px; }
+  #content-create-edit-youtube-page-common-area #inputYoutubeLink {
+    width: 100%; }
 
 #content-page-detail {
   width: 100%;

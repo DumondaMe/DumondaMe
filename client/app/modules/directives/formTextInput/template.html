@@ -1,9 +1,9 @@
 <div class="form-group ely-form-text-input" ng-class="{'has-error': showError && (visited || submitFailed)}">
-    <label for="{{inputName}}" class="col-sm-4 control-label">{{label}}
+    <label for="{{inputName}}" class="col-sm-4 control-label" ng-hide="showWithoutLabel">{{label}}
         <em ng-show="required !== 'true'">(optional)</em>
     </label>
 
-    <div class="col-sm-8">
+    <div ng-class="{'col-sm-8': !showWithoutLabel}">
         <input name="{{inputName}}" ng-model="submitModel"
                class="form-control" id="{{inputName}}"
                placeholder="{{inputPlaceholder}}" ng-blur="visited = true"

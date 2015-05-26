@@ -1,7 +1,7 @@
 'use strict';
 
 var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
-    var json = $scope.page[$scope.category.seletedCategoryType](), imageToUpload;
+    var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
     if ($scope.imagePreviewData) {
         imageToUpload = $scope.imagePreviewData;
@@ -11,12 +11,12 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
         showSuccess(function (resp) {
             if(!pageId) {
                 $state.go('page.detail', {
-                    label: $scope.category.seletedCategoryType,
+                    label: $scope.category.selectedCategoryType,
                     pageId: resp.pageId
                 });
             } else {
                 $state.go('page.detail', {
-                    label: $scope.category.seletedCategoryType,
+                    label: $scope.category.selectedCategoryType,
                     pageId: pageId
                 });
             }
@@ -42,7 +42,13 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 
         $scope.$watch('category.selectedCategory', function (newValue) {
             if (newValue) {
-                $scope.category.seletedCategoryType = PageCategories.getPageType($scope.category.selectedCategory);
+                $scope.category.selectedCategoryType = PageCategories.getPageType(newValue);
+            }
+        });
+
+        $scope.$watch('category.selectedSubCategory', function (newValue) {
+            if (newValue) {
+                $scope.category.selectedSubCategoryType = PageCategories.getPageType(newValue);
             }
         });
 

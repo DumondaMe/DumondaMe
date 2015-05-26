@@ -1,9 +1,15 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageDetail, PageCategories) {
+var isValidYoutubeLink = function (link) {
+    var isValidLink = false;
+    if (angular.isString(link)) {
+        isValidLink = link.search('https://www.youtube.com/embed/') !== -1;
+    }
+    return isValidLink;
+};
 
-        $scope.page.youtubeLink = null;
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
+    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
 
         $scope.page.Youtube = function () {
 
@@ -14,5 +20,13 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 
             });
         }
+
+        $scope.$watch('page.youtubeLink', function (link) {
+            if ($scope.commonForm && $scope.commonForm.inputYoutubeLink) {
+                if (link) {
+                    $scope.commonForm.inputYoutubeLink.$setValidity('custom', isValidYoutubeLink(link));
+                }
+            }
+        });
 
     }];

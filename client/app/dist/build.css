@@ -17,11 +17,7 @@
 .cropArea {
   background: #E4E4E4;
   overflow: hidden;
-  margin: auto;
-  width: 500px;
-  height: 350px;
-  display: inline-block;
-  vertical-align: middle; }
+  height: 350px; }
 
 .cropper-outer-container {
   width: 100%;
@@ -275,6 +271,9 @@
       transition: all linear 0.5s; }
       .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error img .ng-hide {
         opacity: 0; }
+
+.ely-iframe iframe {
+  border: none; }
 
 .searchBoxForm {
   width: 100%;
@@ -1013,22 +1012,9 @@ h1.website-structure-title {
         margin-right: 20px;
         float: left; }
         #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-picture-area .content-create-edit-page-common-picture {
-          min-height: 150px;
-          min-width: 150px;
-          max-height: 200px;
-          max-width: 310px; }
+          height: 200px; }
         #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-picture-area .content-create-edit-page-common-get-picture {
           margin-top: 10px; }
-      #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-area {
-        margin-top: 10px;
-        width: 100%;
-        padding-left: 320px;
-        margin-left: 15px; }
-        #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-area #content-create-edit-page-common-inner-area {
-          float: left;
-          width: 100%; }
-          #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-area #content-create-edit-page-common-inner-area .ely-form-text-input {
-            margin: 15px 0 15px 15px; }
       #content-page-create-edit #centerCol #inner-centerCol #content-create-edit-page-common #content-create-edit-page-common-description-area {
         float: left;
         height: 250px;
@@ -1041,6 +1027,24 @@ h1.website-structure-title {
         margin-top: 15px;
         margin-bottom: 10px;
         margin-right: 10px; }
+
+#content-create-edit-book-page-common-area {
+  margin-top: 10px;
+  width: 100%;
+  padding-left: 320px;
+  margin-left: 15px; }
+  #content-create-edit-book-page-common-area #content-create-edit-book-page-common-inner-area {
+    float: left;
+    width: 100%; }
+    #content-create-edit-book-page-common-area #content-create-edit-book-page-common-inner-area .ely-form-text-input {
+      margin: 15px 0 15px 15px; }
+
+#content-create-edit-youtube-page-common-area {
+  margin-top: 10px;
+  width: 100%; }
+  #content-create-edit-youtube-page-common-area #inputYoutubeLinkId {
+    width: 100%;
+    margin-bottom: 25px; }
 
 #content-page-detail {
   width: 100%;
@@ -1283,9 +1287,12 @@ h1.website-structure-title {
         overflow: auto; }
 
 .upload-file-error {
-  display: inline-block;
+  float: left;
   margin-right: 5px;
-  color: red; }
+  margin-left: 10px;
+  color: red;
+  max-width: 200px;
+  text-align: left; }
 
 .btn-file {
   float: left;
