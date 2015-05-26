@@ -52,27 +52,4 @@ describe('Tests of the upload file controller', function () {
 
         mockFileReaderRead.verify();
     });
-
-    it('Upload a Profile Image', function () {
-
-        var data = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQAB',
-            stubUploadFile = sinon.stub(fileUpload, 'uploadFileToUrl'),
-            spyCall;
-        stubUploadFile.returns({
-            showSuccess: function () {
-                return {
-                    error: function () {
-                    }
-                };
-            }
-        });
-        uploadFileCtrl(scope, fileUpload, FileReader);
-        scope.uploadFile = true;
-        scope.imageResultData(data);
-
-        spyCall = stubUploadFile.getCall(0);
-
-        expect(spyCall.args[0].type).to.equal('image/jpeg');
-        expect(spyCall.args[0].size).to.equal(18);
-    });
 });
