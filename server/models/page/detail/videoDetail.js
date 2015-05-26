@@ -1,30 +1,22 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
-var detailTitlePicture = require('./detailTitlePicture');
-var underscore = require('underscore');
+var recommendation = require('./recommendation');
+var response = require('./detailResponse');
 var logger = requireLogger.getLogger(__filename);
 
-var getVideoActors = function (pageId, userId) {
-
-    return db.cypher().match("(:VideoPage {pageId: {pageId}})<-[:IS_ACTOR]-(u:User)")
-        .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
-        .end({pageId: pageId, userId: userId})
-        .getCommand();
-};
-
-var addActors = function (videoPage, actorLinks) {
-    var authors = [];
-    if (videoPage.actor) {
-        authors.push({name: videoPage.actor, isLoggedInUser: false});
-        delete videoPage.actor;
-    }
-    if (actorLinks && actorLinks.length > 0) {
-        authors = authors.concat(actorLinks);
-    }
-
-    videoPage.actor = authors;
+var getYoutubeResponse = function (resp) {
+    var returnPage = {};
+    returnPage.title = resp.title;
+    returnPage.description = resp.description;
+    returnPage.language = resp.language;
+    returnPage.link = resp.link;
+    returnPage.subCategory = resp.subCategory;
+    returnPage.created = resp.created;
+    returnPage.modified = resp.modified;
+    return returnPage;
 };
 
 var getVideoDetail = function (pageId, userId) {
@@ -32,17 +24,20 @@ var getVideoDetail = function (pageId, userId) {
     var commands = [];
 
     commands.push(administrator.getAdministrator(pageId, ':VideoPage', userId));
-    commands.push(getVideoActors(pageId, userId));
+    commands.push(recommendation.getUserRecommendation(pageId, ':VideoPage', userId));
+    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':VideoPage').getCommand());
+    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':VideoPage', userId).getCommand());
 
     return db.cypher().match("(page:VideoPage {pageId: {pageId}})")
-        .return("page.title AS title, page.description AS description, page.created AS created, page.actor AS actor, page.link AS link, " +
-        "page.duration AS duration")
+        .return("page")
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
-            addActors(resp[2][0], resp[1]);
-            detailTitlePicture.addTitlePicture(pageId, resp[2][0], 'VideoPage');
-            return {page: resp[2][0], administrators: {list: resp[0]}};
+            var pageResponse;
+            if(resp[4][0].page.subCategory === 'Youtube') {
+                pageResponse = getYoutubeResponse(resp[4][0].page);
+            }
+            return response.getResponse(resp, pageResponse, pageId, userId);
         });
 };
 

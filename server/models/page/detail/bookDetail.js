@@ -4,6 +4,7 @@ var db = require('./../../../neo4j');
 var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
+var response = require('./detailResponse');
 var detailTitlePicture = require('./detailTitlePicture');
 var logger = requireLogger.getLogger(__filename);
 
@@ -11,8 +12,7 @@ var getBookAuthors = function (pageId, userId) {
 
     return db.cypher().match("(:BookPage {pageId: {pageId}})<-[:IS_AUTHOR]-(u:User)")
         .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
-        .end({pageId: pageId, userId: userId})
-        .getCommand();
+        .end({pageId: pageId, userId: userId});
 };
 
 var addAuthors = function (bookPage, authorLinks) {
@@ -33,42 +33,20 @@ var getBookDetail = function (pageId, userId) {
     var commands = [];
 
     commands.push(administrator.getAdministrator(pageId, ':BookPage', userId));
-    commands.push(getBookAuthors(pageId, userId));
     commands.push(recommendation.getUserRecommendation(pageId, ':BookPage', userId));
-    commands.push(recommendation.getOtherUserRecommendation(pageId, ':BookPage', userId, 10, 0));
     commands.push(recommendation.getRecommendationSummaryAll(pageId, ':BookPage').getCommand());
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId).getCommand());
-
-    return db.cypher().match("(page:BookPage {pageId: {pageId}})")
+    commands.push(db.cypher().match("(page:BookPage {pageId: {pageId}})")
         .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.author AS author, " +
         "page.publishDate AS publishDate")
-        .end({pageId: pageId})
+        .end({pageId: pageId}).getCommand());
+
+    return getBookAuthors(pageId, userId)
         .send(commands)
         .then(function (resp) {
-            var returnValue, isAdmin = administrator.isUserAdministrator(resp[0]);
-            addAuthors(resp[6][0], resp[1]);
-            userInfo.addImageForPreview(resp[0]);
-            recommendation.addProfileThumbnails(resp[3]);
-            detailTitlePicture.addTitlePicture(pageId, resp[6][0], 'BookPage');
-            returnValue = {
-                page: resp[6][0],
-                administrators: {
-                    list: resp[0],
-                    isAdmin: isAdmin
-                },
-                recommendation: {
-                    users: resp[3],
-                    summary: {
-                        all: resp[4][0],
-                        contact: resp[5][0]
-                    }
-                }
-            };
-            if (resp[2] && resp[2][0]) {
-                recommendation.addProfileThumbnail(resp[2][0], userId);
-                returnValue.recommendation.user = resp[2][0];
-            }
-            return returnValue;
+            addAuthors(resp[4][0], resp[5]);
+            detailTitlePicture.addTitlePicture(pageId, resp[4][0], 'BookPage');
+            return response.getResponse(resp, resp[4][0], pageId, userId);
         });
 };
 
