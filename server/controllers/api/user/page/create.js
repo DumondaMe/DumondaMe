@@ -4,6 +4,7 @@ var validation = require('./../../../../lib/jsonValidation');
 var schema = require('./schemaCreateEdit');
 var underscore = require('underscore');
 var createBookPage = require('./../../../../models/user/page/createBookPage');
+var createVideoPage = require('./../../../../models/user/page/createVideoPage');
 var auth = require('./../../../../lib/auth');
 var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
@@ -22,6 +23,8 @@ module.exports = function (router) {
                 if (request.bookPage) {
                     underscore.defaults(request.bookPage, {publishDate: null});
                     return createBookPage.createBookPage(req.user.id, request.bookPage, filePath, req);
+                } else if(request.videoPage) {
+                    return createVideoPage.createVideoPage(req.user.id, request.videoPage);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

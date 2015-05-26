@@ -5,8 +5,8 @@ var categories = {
     VideoPage: {
         description: 'Video',
         subCategory: {
-            Movie: {description: 'Film'},
-            Youtube: {description: 'Youtube Video'}
+            //Movie: {description: 'Film'},
+            Youtube: {description: 'Youtube'}
         }
     }
 };

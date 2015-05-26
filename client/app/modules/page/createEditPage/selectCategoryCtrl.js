@@ -26,6 +26,8 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                     $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
                     if($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
                         delete $scope.category.selectedSubCategory;
+                    } else if($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
+                        $scope.category.selectedSubCategory = $scope.subCategories[0];
                     }
                 }
 

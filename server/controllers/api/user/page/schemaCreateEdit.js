@@ -20,11 +20,13 @@ module.exports = {
         videoPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['threadId', 'text'],
+            required: ['language', 'title','description', 'link', 'subCategory'],
             properties: {
                 language: {'$ref': '#/definitions/language'},
                 title: {'$ref': '#/definitions/title'},
-                description: {'$ref': '#/definitions/description'}
+                description: {'$ref': '#/definitions/description'},
+                link: {'$ref': '#/definitions/link'},
+                subCategory: {enum: ['Youtube']}
             }
         }
     },
@@ -32,6 +34,7 @@ module.exports = {
         id: {type: 'string', format: 'notEmptyString', maxLength: 30},
         language: {enum: ['de', 'en', 'fr', 'it', 'es']},
         title: {type: 'string', format: 'notEmptyString', maxLength: 255},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 10000}
+        description: {type: 'string', format: 'notEmptyString', maxLength: 10000},
+        link: {type: 'string', format: 'url', maxLength: 1000}
     }
 };
