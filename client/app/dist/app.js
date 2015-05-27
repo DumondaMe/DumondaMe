@@ -1700,7 +1700,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
     "\n" +
-    "                                ng-show=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
+    "                                ng-if=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -1826,6 +1826,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <h1 class=\"website-structure-title\">Administratoren</h1>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "                <div class=\"user-mini-preview\" ng-repeat=\"admin in pageDetail.administrators.list\" ng-click=\"openUserDetails(admin.userId)\">\r" +
     "\n" +
     "                    <div class=\"user-mini-preview-content\">\r" +
@@ -1895,7 +1897,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <div ng-repeat=\"pagePreview in newestPages.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "                        <ely-page-preview page-preview=\"pagePreview\" long-format=\"true\"></ely-page-preview>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1962,11 +1964,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div class=\"page-preview\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
+    "<div  ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "    <div class=\"page-preview-image-container\">\r" +
     "\n" +
-    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\">\r" +
+    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.subCategory === 'Youtube'\">\r" +
+    "\n" +
+    "        <ely-iframe width=\"160\" height=\"255\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
+    "\n" +
+    "                    ng-show=\"pagePreview.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -1976,9 +1982,27 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
+    "    <div class=\"page-preview-language\">\r" +
+    "\n" +
+    "        {{pagePreview.labelShow}}, {{pagePreview.languageShow}}\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\">\r" +
+    "\n" +
+    "        <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
+    "\n" +
+    "        <!--<img ng-src=\"{{pagePreview.recommendation.contact.url}}\" class=\"page-preview-contact-img img-circle\">-->\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
     "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\"\r" +
     "\n" +
     "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.contact.rating\"\r" +
+    "\n" +
+    "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"></ely-star-rating>\r" +
     "\n" +
     "</div>"
   );
@@ -7321,7 +7345,16 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', function ($scope, $state) {
+        return ['$scope', '$state', 'Languages', 'PageCategories', function ($scope, $state, Languages, PageCategories) {
+            $scope.longFormat = $scope.longFormat === 'true';
+
+            $scope.$watchCollection('pagePreview', function (newValue) {
+                if (newValue) {
+                    $scope.pagePreview.languageShow = Languages.getLanguage($scope.pagePreview.language);
+                    $scope.pagePreview.labelShow = PageCategories.categories[$scope.pagePreview.label].description;
+                }
+            });
+
             $scope.openDetail = function (pageId, label) {
                 $state.go('page.detail', {
                     label: label,
@@ -7343,6 +7376,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
+                longFormat: '@',
                 pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',

@@ -8,6 +8,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
+                longFormat: '@',
                 pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',

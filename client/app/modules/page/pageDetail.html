@@ -5,7 +5,7 @@
                 <div class="page-detail-header-image">
                     <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="pageDetail.page.subCategory !== 'Youtube'">
                     <ely-iframe width="400" height="300" secure-link="https://www.youtube.com/embed/" src="pageDetail.page.link"
-                                ng-show="pageDetail.page.subCategory === 'Youtube'"></ely-iframe>
+                                ng-if="pageDetail.page.subCategory === 'Youtube'"></ely-iframe>
                 </div>
                 <div class="page-detail-header-separator"></div>
                 <div class="page-detail-header-list">
@@ -68,6 +68,7 @@
         <div class="page-detail-bottom-element">
             <div class="page-detail-bottom-element-inner">
                 <h1 class="website-structure-title">Administratoren</h1>
+
                 <div class="user-mini-preview" ng-repeat="admin in pageDetail.administrators.list" ng-click="openUserDetails(admin.userId)">
                     <div class="user-mini-preview-content">
                         <img ng-src="{{admin.profileUrl}}">

@@ -1,5 +1,5 @@
 .page-preview-container {
-  height: 350px;
+  max-height: 400px;
   overflow: hidden;
   .page-preview-inner-container{
     display: inline-block;
@@ -28,6 +28,9 @@
           width: 100%;
           max-height: 255px;
         }
+        .ely-iframe {
+          height: 255px;
+        }
       }
 
       .page-preview-title {
@@ -40,13 +43,39 @@
         white-space: nowrap;
         color: $primary-color;
       }
-      .page-preview-description {
+      .page-preview-language {
+        margin-left: 10px;
+        font-size: 12px;
+        font-weight: 300;
+      }
+      .page-preview-contact {
+        position: absolute;
+        bottom: 25px;
 
+        .page-preview-contact-name {
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 14px;
+          font-weight: 300;
+          margin-left: 10px;
+          width: 140px;
+          max-height: 40px;
+          overflow: hidden;
+        }
       }
       .page-preview-rating {
         position: absolute;
         bottom: 5px;
         left: 10px;
+      }
+    }
+
+    .page-preview-long {
+      @extend .page-preview;
+      height: 380px;
+
+      .page-preview-rating {
+        //left: 50px;
       }
     }
   }
