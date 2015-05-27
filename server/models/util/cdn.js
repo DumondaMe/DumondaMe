@@ -56,10 +56,10 @@ module.exports = {
     },
     createFolderRegisterUser: function (userId) {
         var s3 = new AWS.S3();
-        return copyFile('profileImage/default/profile.jpg', userId + '/profile.jpg', s3).then(function () {
-            return copyFile('profileImage/default/profilePreview.jpg', userId + '/profilePreview.jpg', s3);
+        return copyFile('profileImage/default/profile.jpg', 'profileImage/' + userId + '/profile.jpg', s3).then(function () {
+            return copyFile('profileImage/default/profilePreview.jpg', 'profileImage/' + userId + '/profilePreview.jpg', s3);
         }).then(function () {
-            return copyFile('profileImage/default/thumbnail.jpg', userId + '/thumbnail.jpg', s3);
+            return copyFile('profileImage/default/thumbnail.jpg', 'profileImage/' + userId + '/thumbnail.jpg', s3);
         });
     }
 };
