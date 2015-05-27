@@ -16,7 +16,8 @@ var schemaGetPage = {
         skip: {type: 'integer', minimum: 0, maximum: 50},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         onlyContacts: {type: 'boolean'},
-        category: {enum: ['BookPage', 'VideoPage']}
+        category: {enum: ['BookPage', 'VideoPage']},
+        subCategory: {enum: ['Youtube']}
     }
 };
 
@@ -27,7 +28,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting popular pages', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 logger.info('Request popular pages', req);
-                return page.getPopularPages(req.user.id, request.skip, request.maxItems, request.onlyContacts, request.category);
+                return page.getPopularPages(req.user.id, request.skip, request.maxItems, request.onlyContacts, request.category, request.subCategory);
             }).then(function (page) {
                 res.status(200).json(page);
             });

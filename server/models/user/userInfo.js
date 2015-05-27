@@ -4,13 +4,17 @@ var logger = requireLogger.getLogger(__filename);
 var underscore = require('underscore');
 var cdn = require('../util/cdn');
 
+var getImageForPreview = function (contact, profileType) {
+    if (contact.profileVisible && contact.imageVisible) {
+        return cdn.getUrl('profileImage/' + contact.userId + '/' + profileType);
+    }
+    return cdn.getUrl('profileImage/default/' + profileType);
+
+};
+
 var addImageForPreview = function (contacts) {
     underscore.each(contacts, function (contact) {
-        if (contact.profileVisible && contact.imageVisible) {
-            contact.profileUrl = cdn.getUrl('profileImage/' + contact.userId + '/profilePreview.jpg');
-        } else {
-            contact.profileUrl = cdn.getUrl('profileImage/default/profilePreview.jpg');
-        }
+        contact.profileUrl = getImageForPreview(contact, 'profilePreview.jpg');
         delete contact.profileVisible;
         delete contact.imageVisible;
     });
@@ -36,6 +40,7 @@ var addConnectionInfos = function (contacts) {
 };
 
 module.exports = {
+    getImageForPreview: getImageForPreview,
     addImageForPreview: addImageForPreview,
     addConnectionInfo: addConnectionInfo,
     addContactPreviewInfos: function (contacts) {

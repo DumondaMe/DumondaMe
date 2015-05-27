@@ -4,11 +4,15 @@ var db = require('./../../neo4j');
 var exceptions = require('./../../lib/error/exceptions');
 var underscore = require('underscore');
 var cdn = require('../util/cdn');
+var userInfo = require('../user/userInfo');
 var logger = requireLogger.getLogger(__filename);
 
-var addImageUrl = function (previews) {
+var addPageUrl = function (previews) {
     underscore.forEach(previews, function (preview) {
-        preview.url = cdn.getUrl('pages/' + preview.label + '/' + preview.pageId + '/pagePreview.jpg');
+        if (preview.subCategory !== 'Youtube') {
+            preview.url = cdn.getUrl('pages/' + preview.label + '/' + preview.pageId + '/pagePreview.jpg');
+            delete preview.link;
+        }
     });
 };
 
@@ -34,11 +38,29 @@ var addRecommendation = function (previews) {
     });
 };
 
+var addContactRecommendation = function (previews) {
+    underscore.forEach(previews, function (preview) {
+
+        preview.recommendation = {
+            contact: {
+                name: preview.name,
+                rating: preview.rating,
+                url: userInfo.getImageForPreview(preview, 'thumbnail.jpg')
+            }
+        };
+
+        delete preview.profileVisible;
+        delete preview.imageVisible;
+        delete preview.rating;
+        delete preview.name;
+    });
+};
+
 var pagePreviewQuery = function (params, orderBy, startQuery) {
 
     return startQuery
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, " +
-        "numberOfRatings, rating, " +
+        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        "page.link AS link, numberOfRatings, rating, " +
         "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
@@ -48,7 +70,7 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
         .then(function (resp) {
             addLabel(resp);
             addRecommendation(resp);
-            addImageUrl(resp);
+            addPageUrl(resp);
             return {pages: resp};
         });
 };
@@ -97,29 +119,42 @@ var searchPage = function (userId, search, filterType, filterLanguage, isSuggest
 var getRecommendationContacts = function (userId, skip, limit, filters) {
 
     var orderBy = "contactRec.created DESC",
-        startQuery = db.cypher(),
         filterQuery = getFilterQuery(filters);
 
-    startQuery.match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, max(contactRec.created) AS created")
-        .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+        .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(user:User {userId: {userId}})")
         .where("contactRec.created = created")
-        .with("page, contactRec")
-        .match("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .with("page, contactRec, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
-
-    return pagePreviewQuery({
-        userId: userId,
-        skip: skip,
-        limit: limit
-    }, orderBy, startQuery);
+        .with("page, contactRec, contact, user, contactRec.rating AS rating")
+        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
+        .with("page, contactRec, contact, rating, rContact, privacy, vr")
+        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
+        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        "page.link AS link, rating, contact.name AS name, contact.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible, " +
+        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        .orderBy(orderBy)
+        .skip("{skip}")
+        .limit("{limit}")
+        .end({
+            userId: userId,
+            skip: skip,
+            limit: limit
+        })
+        .send()
+        .then(function (resp) {
+            addLabel(resp);
+            addContactRecommendation(resp);
+            addPageUrl(resp);
+            return {pages: resp};
+        });
 };
 
-var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
+var getPopularPages = function (userId, skip, limit, onlyContact, pageType, subCategory) {
 
     var orderBy = "rating DESC, numberOfRatings DESC",
-        startQuery = db.cypher(), matchQuery;
+        startQuery = db.cypher(), matchQuery, subCategoryWhere = '';
 
     if (onlyContact) {
         matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
@@ -127,14 +162,19 @@ var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
         matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)";
     }
 
+    if (subCategory) {
+        subCategoryWhere = ' AND page.subCategory = {subCategory}';
+    }
+
     startQuery.match(matchQuery)
-        .where("page:" + pageType)
+        .where("page:" + pageType + subCategoryWhere)
         .with("page, AVG(contactRec.rating) AS rating, COUNT(contactRec) AS numberOfRatings");
 
     return pagePreviewQuery({
         userId: userId,
         skip: skip,
-        limit: limit
+        limit: limit,
+        subCategory: subCategory
     }, orderBy, startQuery);
 };
 

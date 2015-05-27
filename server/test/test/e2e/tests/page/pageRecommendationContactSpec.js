@@ -20,6 +20,19 @@ describe('Integration Tests for getting the overview of contact recommended page
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
 
+            commands.push(db.cypher().match("(u:User {userId: '1'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                .end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '2'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true})")
+                .end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '3'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true})")
+                .end().getCommand());
+
             return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
                 .end().send(commands);
         });
@@ -35,7 +48,7 @@ describe('Integration Tests for getting the overview of contact recommended page
         var commands = [];
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(a)-[:IS_CONTACT]->(b)")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")
             .end().getCommand());
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
@@ -124,7 +137,7 @@ describe('Integration Tests for getting the overview of contact recommended page
         var commands = [];
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(a)-[:IS_CONTACT]->(b)")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")
             .end().getCommand());
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
@@ -175,23 +188,27 @@ describe('Integration Tests for getting the overview of contact recommended page
             });
     });
 
-    it('Getting a book page in the overview because contact has made a recommendation- Return 200', function () {
+    it('Getting two book pages in the overview because contacts has made recommendations- Return 200', function () {
 
         var commands = [];
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', created: 502, pageId: '1'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(a)-[:IS_CONTACT]->(b)")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
-            .create("(a)-[:IS_CONTACT]->(b)")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '1'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 3, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, rating: 5, recommendationId: '2'})-[:RECOMMENDS]->(a)")
@@ -212,16 +229,94 @@ describe('Integration Tests for getting the overview of contact recommended page
                 }).then(function (res) {
                     res.status.should.equal(200);
 
-                    res.body.pages.length.should.equals(1);
+                    res.body.pages.length.should.equals(2);
                     res.body.pages[0].title.should.equals('page1Title');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
                     res.body.pages[0].isAdmin.should.be.true;
+                    res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
+                    res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
+                    res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
-                    res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(2);
-                    res.body.pages[0].recommendation.summary.rating.should.equals(3.5);
+                    res.body.pages[1].title.should.equals('page2Title');
+                    res.body.pages[1].pageId.should.equals('1');
+                    res.body.pages[1].label.should.equals('BookPage');
+                    res.body.pages[1].language.should.equals('de');
+                    res.body.pages[1].url.should.equals('pages/BookPage/1/pagePreview.jpg');
+                    res.body.pages[1].isAdmin.should.be.false;
+                    res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
+                    res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
+                    res.body.pages[1].recommendation.contact.rating.should.equals(3);
+                });
+            });
+    });
+
+    it('Getting two video pages in the overview because contacts has made recommendations- Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:VideoPage {title: 'page1Title', link: 'www.youtube.com', subCategory: 'Youtube', language: 'de', description: 'page1', created: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', link: 'www.youtube.com', language: 'de', description: 'page2', created: 502, pageId: '1'})").end().getCommand());
+
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
+            .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '1'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 3, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, rating: 5, recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '4'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 488, rating: 4, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+
+        return db.cypher().match("(a:User {userId: '1'}), (b:VideoPage {pageId: '0'})")
+            .create("(a)-[:IS_ADMIN]->(b)")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page/recommendationContact', {
+                        skip: '0',
+                        maxItems: 50
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+
+                    res.body.pages.length.should.equals(2);
+                    res.body.pages[0].title.should.equals('page1Title');
+                    res.body.pages[0].pageId.should.equals('0');
+                    res.body.pages[0].label.should.equals('VideoPage');
+                    res.body.pages[0].language.should.equals('de');
+                    should.not.exist(res.body.pages[0].url);
+                    res.body.pages[0].link.should.equals('www.youtube.com');
+                    res.body.pages[0].isAdmin.should.be.true;
+                    res.body.pages[0].subCategory.should.equals('Youtube');
+                    res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
+                    res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
+                    res.body.pages[0].recommendation.contact.rating.should.equals(2);
+
+                    res.body.pages[1].title.should.equals('page2Title');
+                    res.body.pages[1].pageId.should.equals('1');
+                    res.body.pages[1].label.should.equals('VideoPage');
+                    res.body.pages[1].language.should.equals('de');
+                    res.body.pages[1].url.should.equals('pages/VideoPage/1/pagePreview.jpg');
+                    res.body.pages[1].isAdmin.should.be.false;
+                    should.not.exist(res.body.pages[1].link);
+                    res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
+                    res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
+                    res.body.pages[1].recommendation.contact.rating.should.equals(3);
                 });
             });
     });
