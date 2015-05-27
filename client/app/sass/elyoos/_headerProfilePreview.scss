@@ -20,6 +20,9 @@
         #profile-preview-name {
           font-size: 14px;
           font-weight: bold;
+          width: 100%;
+          overflow: hidden;
+          max-height: 40px;
         }
         #profile-preview-email {
           font-size: 14px;

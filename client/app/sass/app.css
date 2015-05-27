@@ -743,7 +743,11 @@ h1.website-structure-title {
       padding-top: 10px;
       margin-left: 5px;
       font-size: 14px;
-      vertical-align: middle; }
+      vertical-align: middle;
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
 
 #popover-profile-preview {
   max-width: 100%; }
@@ -765,7 +769,10 @@ h1.website-structure-title {
         vertical-align: top; }
         #popover-profile-preview .popover-content #profile-preview-content #profile-preview-description #profile-preview-name {
           font-size: 14px;
-          font-weight: bold; }
+          font-weight: bold;
+          width: 100%;
+          overflow: hidden;
+          max-height: 40px; }
         #popover-profile-preview .popover-content #profile-preview-content #profile-preview-description #profile-preview-email {
           font-size: 14px;
           font-weight: 300; }

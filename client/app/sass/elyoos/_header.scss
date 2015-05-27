@@ -29,6 +29,10 @@
       margin-left: 5px;
       font-size: 14px;
       vertical-align: middle;
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
