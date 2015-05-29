@@ -1254,9 +1254,6 @@ h1.website-structure-title {
         left: 10px; }
     .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long {
       height: 380px; }
-    .page-preview-container .page-preview-inner-container .page-preview-landscape, .page-preview-short-container .page-preview-inner-container .page-preview-landscape {
-      height: 160px;
-      width: 300px; }
 
 .page-preview-short-container {
   height: 360px; }

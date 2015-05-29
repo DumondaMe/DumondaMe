@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = require('./controller.js');
+var link = require('./link.js');
 
 module.exports = {
     directive: [function () {
@@ -11,11 +11,13 @@ module.exports = {
                 longFormat: '@',
                 videoHeight: '@',
                 videoWidth: '@',
-                pagePreview: '='
+                title: '@',
+                pagePreviews: '=',
+                search: '='
             },
-            templateUrl: 'app/modules/page/pagePreview/template.html',
-            controller: controller.directiveCtrl()
+            link: link.directiveLink(),
+            templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
         };
     }],
-    name: 'elyPagePreview'
+    name: 'elyPagePreviewContainer'
 };

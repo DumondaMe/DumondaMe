@@ -1,47 +1,17 @@
 <div id="content-page-overview">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-show="search.pages.length > 0" class="page-overview-container">
-                <div class="website-structure-header">
-                    <h1 class="website-structure-title">Suchergebnisse</h1>
-                </div>
 
-                <div class="page-preview-short-container">
-                    <div ng-repeat="pagePreview in search.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview" video-width="160" video-height="255"></ely-page-preview>
-                    </div>
-                </div>
-            </div>
-            <div ng-show="newestPages.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
-                <div class="website-structure-header">
-                    <h1 class="website-structure-title">Neuste Bewertungen deiner Kontakte</h1>
-                </div>
-                <div class="page-preview-container">
-                    <div ng-repeat="pagePreview in newestPages.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview" long-format="true" video-width="160" video-height="255"></ely-page-preview>
-                    </div>
-                </div>
-            </div>
-            <div ng-show="popularBookPagesContact.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
-                <div class="website-structure-header">
-                    <h1 class="website-structure-title">Beliebteste B&uuml;cher deiner Kontakte</h1>
-                </div>
-                <div class="page-preview-short-container">
-                    <div ng-repeat="pagePreview in popularBookPagesContact.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
-                    </div>
-                </div>
-            </div>
-            <div ng-show="popularBookPages.pages.length > 0 && !search.pages.length > 0" class="page-overview-container">
-                <div class="website-structure-header">
-                    <h1 class="website-structure-title">Beliebteste B&uuml;cher</h1>
-                </div>
-                <div class="page-preview-short-container">
-                    <div ng-repeat="pagePreview in popularBookPages.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
-                    </div>
-                </div>
-            </div>
+            <ely-page-preview-container video-width="160" video-height="255"
+                                        title="Suchergebnisse" page-previews="search.pages"></ely-page-preview-container>
+
+            <ely-page-preview-container long-format="true" video-width="160" video-height="255"
+                                        title="Neuste Bewertungen deiner Kontakte" page-previews="newestPages.pages"
+                                        search="search.pages"></ely-page-preview-container>
+            <ely-page-preview-container title="Beliebteste B&uuml;cher deiner Kontakte" page-previews="popularBookPagesContact.pages"
+                                        search="search.pages"></ely-page-preview-container>
+            <ely-page-preview-container title="Beliebteste B&uuml;cher" page-previews="popularBookPages.pages"
+                                        search="search.pages"></ely-page-preview-container>
             <div id="search-box-container">
                 <ely-search-box description="Suche nach Seite..." query="query"
                                 get-query-suggestion="getUserSuggestion"

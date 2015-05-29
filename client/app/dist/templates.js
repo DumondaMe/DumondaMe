@@ -1862,87 +1862,27 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-show=\"search.pages.length > 0\" class=\"page-overview-container\">\r" +
+    "\r" +
     "\n" +
-    "                <div class=\"website-structure-header\">\r" +
+    "            <ely-page-preview-container video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                    <h1 class=\"website-structure-title\">Suchergebnisse</h1>\r" +
-    "\n" +
-    "                </div>\r" +
+    "                                        title=\"Suchergebnisse\" page-previews=\"search.pages\"></ely-page-preview-container>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                <div class=\"page-preview-short-container\">\r" +
+    "            <ely-page-preview-container long-format=\"true\" video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                    <div ng-repeat=\"pagePreview in search.pages\" class=\"page-preview-inner-container\">\r" +
+    "                                        title=\"Neuste Bewertungen deiner Kontakte\" page-previews=\"newestPages.pages\"\r" +
     "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\" video-height=\"255\"></ely-page-preview>\r" +
+    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
     "\n" +
-    "                    </div>\r" +
+    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" page-previews=\"popularBookPagesContact.pages\"\r" +
     "\n" +
-    "                </div>\r" +
+    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
     "\n" +
-    "            </div>\r" +
+    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" page-previews=\"popularBookPages.pages\"\r" +
     "\n" +
-    "            <div ng-show=\"newestPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Neuste Bewertungen deiner Kontakte</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-container\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"pagePreview in newestPages.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\" long-format=\"true\" video-width=\"160\" video-height=\"255\"></ely-page-preview>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"popularBookPagesContact.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Beliebteste B&uuml;cher deiner Kontakte</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-short-container\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"pagePreview in popularBookPagesContact.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"popularBookPages.pages.length > 0 && !search.pages.length > 0\" class=\"page-overview-container\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Beliebteste B&uuml;cher</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-short-container\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"pagePreview in popularBookPages.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
+    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -1963,7 +1903,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div ng-class=\"{'page-preview': !longFormat && !landscapeFormat, 'page-preview-long': longFormat && !landscapeFormat, 'page-preview-landscape': landscapeFormat}\"\r" +
+    "<div ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\"\r" +
     "\n" +
     "     ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
@@ -1989,7 +1929,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-contact\" ng-if=\"longFormat && !landscapeFormat\">\r" +
+    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\">\r" +
     "\n" +
     "        <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
     "\n" +
@@ -2002,6 +1942,31 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.contact.rating\"\r" +
     "\n" +
     "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
+    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\">\r" +
+    "\n" +
+    "    <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div ng-class=\"{'page-preview-container': longFormat, 'page-preview-short-container': !longFormat}\">\r" +
+    "\n" +
+    "        <div ng-repeat=\"pagePreview in pagePreviews\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "            <ely-page-preview page-preview=\"pagePreview\" long-format=\"{{longFormat}}\" video-width=\"{{videoWidth}}\"\r" +
+    "\n" +
+    "                              video-height=\"{{videoHeight}}\"></ely-page-preview>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
     "\n" +
     "</div>"
   );
