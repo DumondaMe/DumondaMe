@@ -1939,6 +1939,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\">Mehr</button>\r" +
+    "\n" +
     "    </div>\r" +
     "\n" +
     "    <div ng-class=\"{'page-preview-container': longFormat, 'page-preview-short-container': !longFormat}\">\r" +

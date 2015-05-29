@@ -823,6 +823,7 @@ h1.website-structure-title {
   left: 0;
   top: 60px;
   width: 230px;
+  z-index: 100;
   background-color: #f1f1f1;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
   #leftColNav .left-nav-element-container {
@@ -1177,8 +1178,17 @@ h1.website-structure-title {
         width: 100%;
         padding-left: 50px; }
         #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
+          position: relative;
           margin-bottom: 20px;
           width: 100%; }
+          #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
+            display: inline-block; }
+          #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            background-color: #009688;
+            color: #ffffff; }
     #content #content-page-overview #search-box-container {
       position: fixed;
       top: 60px;

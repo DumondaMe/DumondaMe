@@ -1940,6 +1940,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\">Mehr</button>\r" +
+    "\n" +
     "    </div>\r" +
     "\n" +
     "    <div ng-class=\"{'page-preview-container': longFormat, 'page-preview-short-container': !longFormat}\">\r" +
@@ -7335,12 +7337,12 @@ var minScreenSize = 1000;
 var maxScreenSize = 1900;
 
 var setContainerWidth = function($scope) {
-    var numberOfElements = 5, containerSize, screenWidth = $(window).width();
+    var numberOfElements = 4, containerSize, screenWidth = $(window).width();
     if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
         numberOfElements = Math.floor(containerSize / 190)
     } else if(screenWidth < minScreenSize) {
-        numberOfElements = 5;
+        numberOfElements = 4;
     } else if(screenWidth > maxScreenSize) {
         numberOfElements = 8;
     }
