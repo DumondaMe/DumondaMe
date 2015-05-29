@@ -1071,21 +1071,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/messages/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"message.threads\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"message.threads\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/threads.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/messages/threads.html',
     "<div id=\"content-threads\">\r" +
     "\n" +
@@ -1948,7 +1933,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\">\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +

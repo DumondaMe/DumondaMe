@@ -1072,21 +1072,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/messages/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"message.threads\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"message.threads\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/threads.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('app/modules/messages/threads.html',
     "<div id=\"content-threads\">\r" +
     "\n" +
@@ -1949,7 +1934,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\">\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -7346,12 +7331,32 @@ arguments[4][35][0].apply(exports,arguments)
 },{"./directive.js":93,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\formTextInput\\index.js":35}],95:[function(require,module,exports){
 'use strict';
 
+var minScreenSize = 1000;
+var maxScreenSize = 1900;
+
+var setContainerWidth = function($scope) {
+    var numberOfElements = 5, containerSize, screenWidth = $(window).width();
+    if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+        containerSize = screenWidth - 270;
+        numberOfElements = Math.floor(containerSize / 190)
+    } else if(screenWidth < minScreenSize) {
+        numberOfElements = 5;
+    } else if(screenWidth > maxScreenSize) {
+        numberOfElements = 8;
+    }
+
+    $scope.containerWidth = 190 * numberOfElements;
+    $scope.$applyAsync();
+};
 
 module.exports = {
     directiveLink: function () {
-        return function ($scope, element) {
+        return function ($scope) {
+            $(window).resize(function () {
+                setContainerWidth($scope);
+            });
 
-
+            setContainerWidth($scope);
         };
     }
 };
