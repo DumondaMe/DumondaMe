@@ -33,7 +33,6 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
             skip = (skip - 1) * $scope.itemsPerPage;
 
-
             $scope[store] = PopularPages.get({
                 maxItems: $scope.itemsPerPage,
                 skip: skip,

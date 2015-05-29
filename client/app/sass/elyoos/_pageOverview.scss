@@ -17,14 +17,12 @@
         min-width: 800px;
         max-width: 1600px;
         height: 100%;
+        width: 100%;
         padding-left: 50px;
 
         .page-overview-container {
           margin-bottom: 20px;
-        }
-
-        @include breakpoint(largeDesktop) {
-          width: 1110px;
+          width: 100%;
         }
       }
     }

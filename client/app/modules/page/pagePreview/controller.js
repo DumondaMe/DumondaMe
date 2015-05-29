@@ -4,6 +4,7 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', '$state', 'Languages', 'PageCategories', function ($scope, $state, Languages, PageCategories) {
             $scope.longFormat = $scope.longFormat === 'true';
+            $scope.landscapeFormat = $scope.landscapeFormat === 'true';
 
             $scope.$watchCollection('pagePreview', function (newValue) {
                 if (newValue) {

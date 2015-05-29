@@ -9,6 +9,9 @@ module.exports = {
             replace: true,
             scope: {
                 longFormat: '@',
+                landscapeFormat: '@',
+                videoHeight: '@',
+                videoWidth: '@',
                 pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',

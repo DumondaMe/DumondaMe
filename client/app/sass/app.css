@@ -1174,12 +1174,11 @@ h1.website-structure-title {
         min-width: 800px;
         max-width: 1600px;
         height: 100%;
+        width: 100%;
         padding-left: 50px; }
         #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
-          margin-bottom: 20px; }
-        @media (min-width: 1400px) {
-          #content #content-page-overview #centerCol #inner-centerCol {
-            width: 1110px; } }
+          margin-bottom: 20px;
+          width: 100%; }
     #content #content-page-overview #search-box-container {
       position: fixed;
       top: 60px;
@@ -1255,6 +1254,9 @@ h1.website-structure-title {
         left: 10px; }
     .page-preview-container .page-preview-inner-container .page-preview-long {
       height: 380px; }
+    .page-preview-container .page-preview-inner-container .page-preview-landscape {
+      height: 160px;
+      width: 300px; }
 
 #content-recommendation-home {
   width: 100%;

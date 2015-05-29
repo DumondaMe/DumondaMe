@@ -1467,7 +1467,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/\"></ely-form-text-input>\r" +
     "\n" +
-    "        <ely-iframe width=\"500\" heigth=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"\r" +
+    "        <ely-iframe width=\"500\" height=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"\r" +
     "\n" +
     "                ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
     "\n" +
@@ -1897,7 +1897,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <div ng-repeat=\"pagePreview in newestPages.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\" long-format=\"true\"></ely-page-preview>\r" +
+    "                        <ely-page-preview page-preview=\"pagePreview\" long-format=\"true\" video-width=\"160\" video-height=\"255\"></ely-page-preview>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1964,13 +1964,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div  ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
+    "<div ng-class=\"{'page-preview': !longFormat && !landscapeFormat, 'page-preview-long': longFormat && !landscapeFormat, 'page-preview-landscape': landscapeFormat}\"\r" +
+    "\n" +
+    "     ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "    <div class=\"page-preview-image-container\">\r" +
     "\n" +
     "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.subCategory === 'Youtube'\">\r" +
     "\n" +
-    "        <ely-iframe width=\"160\" height=\"255\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
+    "        <ely-iframe width=\"{{videoWidth}}\" height=\"{{videoHeight}}\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
     "\n" +
     "                    ng-show=\"pagePreview.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
@@ -1988,11 +1990,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\">\r" +
+    "    <div class=\"page-preview-contact\" ng-if=\"longFormat && !landscapeFormat\">\r" +
     "\n" +
     "        <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
-    "\n" +
-    "        <!--<img ng-src=\"{{pagePreview.recommendation.contact.url}}\" class=\"page-preview-contact-img img-circle\">-->\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -7301,7 +7301,6 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
             skip = (skip - 1) * $scope.itemsPerPage;
 
-
             $scope[store] = PopularPages.get({
                 maxItems: $scope.itemsPerPage,
                 skip: skip,
@@ -7347,6 +7346,7 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', '$state', 'Languages', 'PageCategories', function ($scope, $state, Languages, PageCategories) {
             $scope.longFormat = $scope.longFormat === 'true';
+            $scope.landscapeFormat = $scope.landscapeFormat === 'true';
 
             $scope.$watchCollection('pagePreview', function (newValue) {
                 if (newValue) {
@@ -7377,6 +7377,9 @@ module.exports = {
             replace: true,
             scope: {
                 longFormat: '@',
+                landscapeFormat: '@',
+                videoHeight: '@',
+                videoWidth: '@',
                 pagePreview: '='
             },
             templateUrl: 'app/modules/page/pagePreview/template.html',
@@ -8065,7 +8068,7 @@ app.service('CountryCodeConverter', require('./countryCodeConverter'));
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
-    {description: 'English', code: 'en'},
+    {description: 'Englisch', code: 'en'},
     {description: 'Franz\u00f6sisch', code: 'fr'},
     {description: 'Italienisch', code: 'it'},
     {description: 'Spanisch', code: 'es'}];
