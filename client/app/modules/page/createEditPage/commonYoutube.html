@@ -3,9 +3,9 @@
         <ely-form-text-input input-name="inputYoutubeLink" input-placeholder="Link zum Youtube Video"
                              profile-form="commonForm" submit-model="page.youtubeLink"
                              max-length="1000" required="true" show-without-label="true"
-                             custom-error-description="Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/"></ely-form-text-input>
-        <ely-iframe width="500" height="400" secure-link="https://www.youtube.com/embed/" src="page.youtubeLink"
-                ng-show="commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty"></ely-iframe>
+                             custom-error-description="Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v="></ely-form-text-input>
+        <ely-iframe width="500" height="400" secure-link="https://www.youtube.com/embed/" src="page.youtubeLinkFormatted"
+                    ng-show="commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty"></ely-iframe>
         <img src="app/img/defaultVideo.png" ng-hide="commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty">
     </div>
 </div>

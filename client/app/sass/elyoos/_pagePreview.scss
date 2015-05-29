@@ -1,12 +1,12 @@
 .page-preview-container {
-  max-height: 400px;
+  height: 400px;
   overflow: hidden;
   .page-preview-inner-container{
     display: inline-block;
     vertical-align: top;
     width: 160px;
     overflow: hidden;
-    margin-right: 20px;
+    margin-right: 30px;
     margin-bottom: 20px;
 
     .page-preview {
@@ -73,10 +73,6 @@
     .page-preview-long {
       @extend .page-preview;
       height: 380px;
-
-      .page-preview-rating {
-        //left: 50px;
-      }
     }
 
     .page-preview-landscape {
@@ -84,4 +80,9 @@
       width: 300px;
     }
   }
+}
+
+.page-preview-short-container {
+  @extend .page-preview-container;
+  height: 360px;
 }

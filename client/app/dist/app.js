@@ -1465,11 +1465,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                             max-length=\"1000\" required=\"true\" show-without-label=\"true\"\r" +
     "\n" +
-    "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/\"></ely-form-text-input>\r" +
+    "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v=\"></ely-form-text-input>\r" +
     "\n" +
-    "        <ely-iframe width=\"500\" height=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLink\"\r" +
+    "        <ely-iframe width=\"500\" height=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLinkFormatted\"\r" +
     "\n" +
-    "                ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
+    "                    ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
     "\n" +
     "        <img src=\"app/img/defaultVideo.png\" ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\">\r" +
     "\n" +
@@ -1873,11 +1873,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "                <div class=\"page-preview-container\">\r" +
+    "                <div class=\"page-preview-short-container\">\r" +
     "\n" +
     "                    <div ng-repeat=\"pagePreview in search.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
+    "                        <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\" video-height=\"255\"></ely-page-preview>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1913,7 +1913,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"page-preview-container\">\r" +
+    "                <div class=\"page-preview-short-container\">\r" +
     "\n" +
     "                    <div ng-repeat=\"pagePreview in popularBookPagesContact.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -1933,7 +1933,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"page-preview-container\">\r" +
+    "                <div class=\"page-preview-short-container\">\r" +
     "\n" +
     "                    <div ng-repeat=\"pagePreview in popularBookPages.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -6933,13 +6933,24 @@ var subCategory = 'Youtube';
 var isValidYoutubeLink = function (link) {
     var isValidLink = false;
     if (angular.isString(link)) {
-        isValidLink = link.search('https://www.youtube.com/embed/') !== -1;
+        if (link.indexOf('https://www.youtube.com/embed/') !== -1 || link.indexOf('https://www.youtube.com/watch?v=') !== -1) {
+            isValidLink = true;
+        }
     }
     return isValidLink;
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
+var getYoutubeLink = function (link) {
+    if(isValidYoutubeLink(link)) {
+        if (link.indexOf('https://www.youtube.com/watch?v=') !== -1) {
+            link = link.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/');
+        }
+    }
+    return link;
+};
+
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail',
+    function ($scope, $state, $stateParams, Languages, moment, PageDetail) {
 
         $scope.page.VideoPage = function () {
             var page = {
@@ -6947,7 +6958,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,
-                    link: $scope.page.youtubeLink
+                    link: $scope.page.youtubeLinkFormatted
                 }
             };
             if ($scope.mode.edit) {
@@ -6968,6 +6979,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             if ($scope.commonForm && $scope.commonForm.inputYoutubeLink) {
                 if (link) {
                     $scope.commonForm.inputYoutubeLink.$setValidity('custom', isValidYoutubeLink(link));
+                    $scope.page.youtubeLinkFormatted = getYoutubeLink(link);
                 }
             }
         });

@@ -6,9 +6,9 @@
                     <h1 class="website-structure-title">Suchergebnisse</h1>
                 </div>
 
-                <div class="page-preview-container">
+                <div class="page-preview-short-container">
                     <div ng-repeat="pagePreview in search.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
+                        <ely-page-preview page-preview="pagePreview" video-width="160" video-height="255"></ely-page-preview>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="website-structure-header">
                     <h1 class="website-structure-title">Beliebteste B&uuml;cher deiner Kontakte</h1>
                 </div>
-                <div class="page-preview-container">
+                <div class="page-preview-short-container">
                     <div ng-repeat="pagePreview in popularBookPagesContact.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
@@ -36,7 +36,7 @@
                 <div class="website-structure-header">
                     <h1 class="website-structure-title">Beliebteste B&uuml;cher</h1>
                 </div>
-                <div class="page-preview-container">
+                <div class="page-preview-short-container">
                     <div ng-repeat="pagePreview in popularBookPages.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
