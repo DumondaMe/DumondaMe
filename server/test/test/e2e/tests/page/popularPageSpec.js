@@ -111,6 +111,8 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[2].isAdmin.should.be.false;
                     res.body.pages[2].recommendation.summary.numberOfRatings.should.equals(1);
                     res.body.pages[2].recommendation.summary.rating.should.equals(4);
+
+                    res.body.totalNumberOfPages.should.equals(4);
                 });
             });
     });
@@ -196,6 +198,8 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[2].isAdmin.should.be.false;
                     res.body.pages[2].recommendation.summary.numberOfRatings.should.equals(1);
                     res.body.pages[2].recommendation.summary.rating.should.equals(3);
+
+                    res.body.totalNumberOfPages.should.equals(4);
                 });
             });
     });
@@ -289,6 +293,8 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[2].isAdmin.should.be.false;
                     res.body.pages[2].recommendation.summary.numberOfRatings.should.equals(1);
                     res.body.pages[2].recommendation.summary.rating.should.equals(4);
+
+                    res.body.totalNumberOfPages.should.equals(3);
                 });
             });
     });

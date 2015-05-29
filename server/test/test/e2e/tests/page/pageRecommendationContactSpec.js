@@ -127,6 +127,8 @@ describe('Integration Tests for getting the overview of contact recommended page
 
                     res.body.pages[8].pageId.should.equals('8');
                     res.body.pages[8].label.should.equals('StorePage');
+
+                    res.body.totalNumberOfPages.should.equals(9);
                 });
             });
     });
@@ -184,6 +186,8 @@ describe('Integration Tests for getting the overview of contact recommended page
 
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('BookPage');
+
+                    res.body.totalNumberOfPages.should.equals(1);
                 });
             });
     });
@@ -249,6 +253,8 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.pages[1].recommendation.contact.rating.should.equals(3);
+
+                    res.body.totalNumberOfPages.should.equals(2);
                 });
             });
     });
@@ -317,6 +323,8 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.pages[1].recommendation.contact.rating.should.equals(3);
+
+                    res.body.totalNumberOfPages.should.equals(2);
                 });
             });
     });

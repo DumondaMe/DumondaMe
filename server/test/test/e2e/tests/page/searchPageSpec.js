@@ -72,7 +72,9 @@ describe('Integration Tests for searching Pages', function () {
                         search: 'page1',
                         filterType: 'BookPage',
                         filterLanguage: 'de',
-                        isSuggestion: false
+                        isSuggestion: false,
+                        skip: 0,
+                        maxItems: 10
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -86,6 +88,8 @@ describe('Integration Tests for searching Pages', function () {
 
                     res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(4);
                     res.body.pages[0].recommendation.summary.rating.should.equals(4);
+
+                    res.body.totalNumberOfPages.should.equals(1);
 
                 });
             });
@@ -107,7 +111,9 @@ describe('Integration Tests for searching Pages', function () {
                     requestAgent = agent;
                     return requestHandler.getWithData('/api/page/searchPage', {
                         search: 'page1',
-                        isSuggestion: false
+                        isSuggestion: false,
+                        skip: 0,
+                        maxItems: 10
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -130,6 +136,8 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[2].label.should.equals('VideoPage');
                     res.body.pages[2].language.should.equals('de');
                     res.body.pages[2].url.should.equals('pages/VideoPage/0/pagePreview.jpg');
+
+                    res.body.totalNumberOfPages.should.equals(3);
                 });
             });
     });
