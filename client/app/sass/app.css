@@ -1204,17 +1204,17 @@ h1.website-structure-title {
       #content #content-page-overview #search-box-container .searchBoxForm {
         padding-left: 40px; }
 
-.page-preview-container, .page-preview-short-container {
+.page-preview-container, .page-preview-short-container, .page-preview-expand-container {
   height: 400px;
   overflow: hidden; }
-  .page-preview-container .page-preview-inner-container, .page-preview-short-container .page-preview-inner-container {
+  .page-preview-container .page-preview-inner-container, .page-preview-short-container .page-preview-inner-container, .page-preview-expand-container .page-preview-inner-container {
     display: inline-block;
     vertical-align: top;
     width: 160px;
     overflow: hidden;
     margin-right: 30px;
     margin-bottom: 20px; }
-    .page-preview-container .page-preview-inner-container .page-preview, .page-preview-short-container .page-preview-inner-container .page-preview, .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long {
+    .page-preview-container .page-preview-inner-container .page-preview, .page-preview-short-container .page-preview-inner-container .page-preview, .page-preview-expand-container .page-preview-inner-container .page-preview, .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long, .page-preview-expand-container .page-preview-inner-container .page-preview-long {
       position: relative;
       cursor: pointer;
       width: 160px;
@@ -1223,17 +1223,17 @@ h1.website-structure-title {
       box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
       border-radius: 2px;
       background: white; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container {
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container {
         width: 160px;
         height: 255px;
         display: table-cell;
         vertical-align: middle; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image {
+        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image {
           width: 100%;
           max-height: 255px; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe {
+        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe {
           height: 255px; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-title, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-title {
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-title, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-title, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-title {
         margin-top: 10px;
         padding: 0 10px;
         font-size: 15px;
@@ -1242,14 +1242,14 @@ h1.website-structure-title {
         text-overflow: ellipsis;
         white-space: nowrap;
         color: #009688; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-language, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-language {
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-language, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-language {
         margin-left: 10px;
         font-size: 12px;
         font-weight: 300; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-contact {
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-contact, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-contact {
         position: absolute;
         bottom: 25px; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name {
+        .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name {
           display: inline-block;
           vertical-align: middle;
           font-size: 14px;
@@ -1258,15 +1258,18 @@ h1.website-structure-title {
           width: 140px;
           max-height: 40px;
           overflow: hidden; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-rating, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-rating {
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-rating, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-rating, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-rating {
         position: absolute;
         bottom: 5px;
         left: 10px; }
-    .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long {
+    .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long, .page-preview-expand-container .page-preview-inner-container .page-preview-long {
       height: 380px; }
 
 .page-preview-short-container {
   height: 360px; }
+
+.page-preview-expand-container {
+  height: initial; }
 
 #content-recommendation-home {
   width: 100%;

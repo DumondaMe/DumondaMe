@@ -1860,15 +1860,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                        title=\"Neuste Bewertungen deiner Kontakte\" page-previews=\"newestPages.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"newestPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" page-previews=\"popularBookPagesContact.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPagesContact.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" page-previews=\"popularBookPages.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -1934,17 +1934,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
+    "\n" +
+    "     ng-click=\"expand=true\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
-    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\">Mehr</button>\r" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-hide=\"expand\"\r" +
+    "\n" +
+    "                ng-show=\"numberOfElements < totalNumberOfPages\">Mehr\r" +
+    "\n" +
+    "        </button>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div ng-class=\"{'page-preview-container': longFormat, 'page-preview-short-container': !longFormat}\">\r" +
+    "    <div ng-class=\"{'page-preview-container': longFormat && !expand, 'page-preview-short-container': !longFormat&& !expand, 'page-preview-expand-container': expand}\">\r" +
     "\n" +
     "        <div ng-repeat=\"pagePreview in pagePreviews\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -7284,7 +7290,9 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.search = SearchPage.get({
                     search: searchValue,
-                    isSuggestion: false
+                    isSuggestion: false,
+                    skip: 0,
+                    maxItems: 9
                 }, function () {
                     setCategories($scope.search.pages, PageCategories);
                 });
@@ -7319,7 +7327,8 @@ module.exports = {
                 videoWidth: '@',
                 title: '@',
                 pagePreviews: '=',
-                search: '='
+                search: '=',
+                totalNumberOfPages: '='
             },
             link: link.directiveLink(),
             templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
@@ -7337,17 +7346,17 @@ var minScreenSize = 1000;
 var maxScreenSize = 1900;
 
 var setContainerWidth = function($scope) {
-    var numberOfElements = 4, containerSize, screenWidth = $(window).width();
+    var containerSize, screenWidth = $(window).width();
     if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
-        numberOfElements = Math.floor(containerSize / 190)
+        $scope.numberOfElements = Math.floor(containerSize / 190)
     } else if(screenWidth < minScreenSize) {
-        numberOfElements = 4;
+        $scope.numberOfElements = 4;
     } else if(screenWidth > maxScreenSize) {
-        numberOfElements = 8;
+        $scope.numberOfElements = 8;
     }
 
-    $scope.containerWidth = 190 * numberOfElements;
+    $scope.containerWidth = 190 * $scope.numberOfElements;
     $scope.$applyAsync();
 };
 

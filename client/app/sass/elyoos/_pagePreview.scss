@@ -81,3 +81,8 @@
   @extend .page-preview-container;
   height: 360px;
 }
+
+.page-preview-expand-container {
+  @extend .page-preview-container;
+  height: initial;
+}

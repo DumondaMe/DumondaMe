@@ -1859,15 +1859,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                        title=\"Neuste Bewertungen deiner Kontakte\" page-previews=\"newestPages.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"newestPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" page-previews=\"popularBookPagesContact.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPagesContact.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" page-previews=\"popularBookPages.pages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\"></ely-page-preview-container>\r" +
+    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -1933,17 +1933,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
+    "\n" +
+    "     ng-click=\"expand=true\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
-    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\">Mehr</button>\r" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-hide=\"expand\"\r" +
+    "\n" +
+    "                ng-show=\"numberOfElements < totalNumberOfPages\">Mehr\r" +
+    "\n" +
+    "        </button>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div ng-class=\"{'page-preview-container': longFormat, 'page-preview-short-container': !longFormat}\">\r" +
+    "    <div ng-class=\"{'page-preview-container': longFormat && !expand, 'page-preview-short-container': !longFormat&& !expand, 'page-preview-expand-container': expand}\">\r" +
     "\n" +
     "        <div ng-repeat=\"pagePreview in pagePreviews\" class=\"page-preview-inner-container\">\r" +
     "\n" +

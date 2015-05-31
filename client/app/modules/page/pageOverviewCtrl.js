@@ -52,7 +52,9 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.search = SearchPage.get({
                     search: searchValue,
-                    isSuggestion: false
+                    isSuggestion: false,
+                    skip: 0,
+                    maxItems: 9
                 }, function () {
                     setCategories($scope.search.pages, PageCategories);
                 });

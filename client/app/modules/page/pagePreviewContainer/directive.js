@@ -13,7 +13,8 @@ module.exports = {
                 videoWidth: '@',
                 title: '@',
                 pagePreviews: '=',
-                search: '='
+                search: '=',
+                totalNumberOfPages: '='
             },
             link: link.directiveLink(),
             templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
