@@ -65,6 +65,13 @@
 
             <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
         </div>
+        <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings">
+            <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"></ely-page-review>
+            <ely-page-review only-contacts="false" title="Alle Bewertungen"></ely-page-review>
+        </div>
+        <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings">
+            <ely-page-review only-contacts="false" title="Bewertungen"></ely-page-review>
+        </div>
         <div class="page-detail-bottom-element">
             <div class="page-detail-bottom-element-inner">
                 <h1 class="website-structure-title">Administratoren</h1>

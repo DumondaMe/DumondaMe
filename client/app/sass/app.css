@@ -1157,6 +1157,67 @@ h1.website-structure-title {
         padding-top: 20px;
         padding-bottom: 20px; }
 
+#content-page-detail .page-rating-review {
+  display: inline-block;
+  width: 330px;
+  height: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; }
+  #content-page-detail .page-rating-review .page-rating-review-summary {
+    display: inline-block;
+    height: 100%;
+    width: 165px;
+    text-align: center; }
+    #content-page-detail .page-rating-review .page-rating-review-summary .page-rating-review-number {
+      font-size: 64px;
+      line-height: 64px;
+      font-weight: 100;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #333; }
+    #content-page-detail .page-rating-review .page-rating-review-summary .page-rating-review-total {
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 300; }
+  #content-page-detail .page-rating-review .page-rating-review-diagram {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 15px;
+    width: 160px; }
+    #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line {
+      height: 24px; }
+      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
+        display: inline-block;
+        vertical-align: middle;
+        height: 12px;
+        width: 12px; }
+      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-number {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        font-size: 11px;
+        line-height: 11px; }
+      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
+        display: inline-block;
+        vertical-align: middle;
+        width: 120px;
+        height: 24px; }
+        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
+          font-size: 11px;
+          padding-top: 5px;
+          padding-left: 5px;
+          background-color: #88b131;
+          width: 100%;
+          height: 100%; }
+        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4 {
+          background-color: #99cc00; }
+        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3 {
+          background-color: #ffcf02; }
+        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2 {
+          background-color: #ff9f02; }
+        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
+          background-color: #ff6f31; }
+
 #content {
   width: 100%;
   height: 100%; }

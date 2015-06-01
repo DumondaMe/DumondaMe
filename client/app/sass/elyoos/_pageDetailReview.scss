@@ -1,0 +1,84 @@
+#content-page-detail {
+  .page-rating-review {
+    display: inline-block;
+    width: 330px;
+    height: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+
+    .page-rating-review-summary {
+      display: inline-block;
+      height: 100%;
+      width: 165px;
+      text-align: center;
+
+      .page-rating-review-number {
+        font-size: 64px;
+        line-height: 64px;
+        font-weight: 100;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      .page-rating-review-total {
+        margin-top: 7px;
+        font-size: 12px;
+        font-weight: 300;
+      }
+    }
+
+    .page-rating-review-diagram {
+      display: inline-block;
+      vertical-align: top;
+      padding-top: 15px;
+      width: 160px;
+      .page-rating-review-line {
+        height: 24px;
+        .page-rating-review-line-star {
+          display: inline-block;
+          vertical-align: middle;
+          height: 12px;
+          width: 12px;
+        }
+        .page-rating-review-line-number {
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 5px;
+          font-size: 11px;
+          line-height: 11px;
+        }
+        .page-rating-review-line-block {
+          display: inline-block;
+          vertical-align: middle;
+          width: 120px;
+          height: 24px;
+          .page-rating-review-line-block-5 {
+            font-size: 11px;
+            padding-top: 5px;
+            padding-left: 5px;
+            background-color: rgb(136, 177, 49);
+            width: 100%;
+            height: 100%;
+          }
+          .page-rating-review-line-block-4 {
+            @extend .page-rating-review-line-block-5;
+            background-color: rgb(153, 204, 0);
+          }
+          .page-rating-review-line-block-3 {
+            @extend .page-rating-review-line-block-5;
+            background-color: rgb(255, 207, 2);
+          }
+          .page-rating-review-line-block-2 {
+            @extend .page-rating-review-line-block-5;
+            background-color: rgb(255, 159, 2);
+          }
+          .page-rating-review-line-block-1 {
+            @extend .page-rating-review-line-block-5;
+            background-color: rgb(255, 111, 49);
+          }
+        }
+      }
+    }
+  }
+}

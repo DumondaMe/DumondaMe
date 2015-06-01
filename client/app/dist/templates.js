@@ -1669,7 +1669,130 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/pageDetail.html',
+  $templateCache.put('app/modules/page/pageDetail/detailReview/template.html',
+    "<div class=\"page-detail-bottom-element\">\r" +
+    "\n" +
+    "    <div class=\"page-detail-bottom-element-inner\">\r" +
+    "\n" +
+    "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"page-rating-review\">\r" +
+    "\n" +
+    "            <div class=\"page-rating-review-summary\">\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-number\">\r" +
+    "\n" +
+    "                    {{summaryRating}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                 number-of-selected-stars-readonly=\"summaryRating\"></ely-star-rating>\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-total\">\r" +
+    "\n" +
+    "                    {{totalNumberOfRatings}} total\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-rating-review-diagram\">\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-line\">\r" +
+    "\n" +
+    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-number\">5</div>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-block\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-review-line-block-5\" ng-style=\"{'width': rating[4].width + '%'}\">{{rating[4].numberOfRatings}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-line\">\r" +
+    "\n" +
+    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-number\">4</div>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-block\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-review-line-block-4\" ng-style=\"{'width': rating[3].width + '%'}\">{{rating[3].numberOfRatings}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-line\">\r" +
+    "\n" +
+    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-number\">3</div>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-block\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-review-line-block-3\" ng-style=\"{'width': rating[2].width + '%'}\">{{rating[2].numberOfRatings}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-line\">\r" +
+    "\n" +
+    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-number\">2</div>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-block\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-review-line-block-2\" ng-style=\"{'width': rating[1].width + '%'}\">{{rating[1].numberOfRatings}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-rating-review-line\">\r" +
+    "\n" +
+    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-number\">1</div>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-review-line-block\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-review-line-block-1\" ng-style=\"{'width': rating[0].width + '%'}\">{{rating[0].numberOfRatings}}</div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/pageDetail/pageDetail.html',
     "<div id=\"content-page-detail\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
@@ -1804,6 +1927,20 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
+    "        <div ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings\">\r" +
+    "\n" +
+    "            <ely-page-review only-contacts=\"true\" title=\"Bewertungen deiner Kontakte\"></ely-page-review>\r" +
+    "\n" +
+    "            <ely-page-review only-contacts=\"false\" title=\"Alle Bewertungen\"></ely-page-review>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings\">\r" +
+    "\n" +
+    "            <ely-page-review only-contacts=\"false\" title=\"Bewertungen\"></ely-page-review>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
     "        <div class=\"page-detail-bottom-element\">\r" +
     "\n" +
     "            <div class=\"page-detail-bottom-element-inner\">\r" +
@@ -1929,9 +2066,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
     "\n" +
-    "     ng-click=\"startExpand()\" ng-hide=\"hide\">\r" +
+    "     ng-click=\"startExpand()\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +

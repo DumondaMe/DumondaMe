@@ -1,0 +1,60 @@
+<div class="page-detail-bottom-element">
+    <div class="page-detail-bottom-element-inner">
+        <h1 class="website-structure-title">{{title}}</h1>
+
+        <div class="page-rating-review">
+            <div class="page-rating-review-summary">
+                <div class="page-rating-review-number">
+                    {{summaryRating}}
+                </div>
+                <ely-star-rating is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="summaryRating"></ely-star-rating>
+                <div class="page-rating-review-total">
+                    {{totalNumberOfRatings}} total
+                </div>
+            </div>
+            <div class="page-rating-review-diagram">
+                <div class="page-rating-review-line">
+                    <img class="page-rating-review-line-star" src="app/img/starRating/starFull.png">
+
+                    <div class="page-rating-review-line-number">5</div>
+                    <div class="page-rating-review-line-block">
+                        <div class="page-rating-review-line-block-5" ng-style="{'width': rating[4].width + '%'}">{{rating[4].numberOfRatings}}</div>
+                    </div>
+                </div>
+                <div class="page-rating-review-line">
+                    <img class="page-rating-review-line-star" src="app/img/starRating/starFull.png">
+
+                    <div class="page-rating-review-line-number">4</div>
+                    <div class="page-rating-review-line-block">
+                        <div class="page-rating-review-line-block-4" ng-style="{'width': rating[3].width + '%'}">{{rating[3].numberOfRatings}}</div>
+                    </div>
+                </div>
+                <div class="page-rating-review-line">
+                    <img class="page-rating-review-line-star" src="app/img/starRating/starFull.png">
+
+                    <div class="page-rating-review-line-number">3</div>
+                    <div class="page-rating-review-line-block">
+                        <div class="page-rating-review-line-block-3" ng-style="{'width': rating[2].width + '%'}">{{rating[2].numberOfRatings}}</div>
+                    </div>
+                </div>
+                <div class="page-rating-review-line">
+                    <img class="page-rating-review-line-star" src="app/img/starRating/starFull.png">
+
+                    <div class="page-rating-review-line-number">2</div>
+                    <div class="page-rating-review-line-block">
+                        <div class="page-rating-review-line-block-2" ng-style="{'width': rating[1].width + '%'}">{{rating[1].numberOfRatings}}</div>
+                    </div>
+                </div>
+                <div class="page-rating-review-line">
+                    <img class="page-rating-review-line-star" src="app/img/starRating/starFull.png">
+
+                    <div class="page-rating-review-line-number">1</div>
+                    <div class="page-rating-review-line-block">
+                        <div class="page-rating-review-line-block-1" ng-style="{'width': rating[0].width + '%'}">{{rating[0].numberOfRatings}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

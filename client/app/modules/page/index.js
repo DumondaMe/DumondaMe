@@ -10,7 +10,7 @@ app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'))
 app.controller('PageCommonYoutubeCtrl', require('./createEditPage/commonYoutubeCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
-app.controller('PageDetailCtrl', require('./pageDetailCtrl'));
+app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
 app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
 app.service('PageRecommendationContact', require('./services/pageRecommendationContact'));
@@ -19,6 +19,8 @@ app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 app.service('PageLeftNavElements', require('./services/leftNavElements'));
+
+app.service('PageDetailReview', require('./pageDetail/services/pageDetailReview'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -42,7 +44,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/detail/{label}/{pageId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/pageDetail.html',
+                    templateUrl: 'app/modules/page/pageDetail/pageDetail.html',
                     controller: 'PageDetailCtrl'
                 }
             },

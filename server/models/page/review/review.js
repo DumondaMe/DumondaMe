@@ -11,6 +11,8 @@ var getMatchQuery = function (label, onlyContacts) {
     var matchQuery = "(page:" + label + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
     if (onlyContacts) {
         matchQuery = matchQuery.concat("<-[IS_CONTACT]-(user:User {userId: {userId}})");
+    } else {
+        matchQuery = matchQuery.concat(", (user:User {userId: {userId}})");
     }
     return db.cypher().match(matchQuery).where("otherUser.userId <> {userId}");
 };
