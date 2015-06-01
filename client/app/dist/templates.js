@@ -1847,27 +1847,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "\r" +
+    "            <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Suchergebnisse\" service=\"SearchPage\"\r" +
     "\n" +
-    "            <ely-page-preview-container video-width=\"160\" video-height=\"255\"\r" +
-    "\n" +
-    "                                        title=\"Suchergebnisse\" page-previews=\"search.pages\"></ely-page-preview-container>\r" +
-    "\n" +
-    "\r" +
+    "                                        service-parameter=\"SearchPageParameter\" hide=\"!hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container long-format=\"true\" video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                                        title=\"Neuste Bewertungen deiner Kontakte\" page-previews=\"newestPages.pages\"\r" +
+    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationContact\"\r" +
     "\n" +
-    "                                        search=\"search.pages\" total-number-of-pages=\"newestPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
-    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" page-previews=\"popularBookPagesContact.pages\"\r" +
+    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPagesContact.totalNumberOfPages\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: true, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
-    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" page-previews=\"popularBookPages.pages\"\r" +
+    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        search=\"search.pages\" total-number-of-pages=\"popularBookPages.totalNumberOfPages\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: false, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -1935,7 +1931,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
     "<div ng-show=\"pagePreviews.length > 0 && !search.length > 0\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
     "\n" +
-    "     ng-click=\"expand=true\">\r" +
+    "     ng-click=\"startExpand()\" ng-hide=\"hide\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +

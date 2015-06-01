@@ -1,17 +1,15 @@
 <div id="content-page-overview">
     <div id="centerCol">
         <div id="inner-centerCol">
-
-            <ely-page-preview-container video-width="160" video-height="255"
-                                        title="Suchergebnisse" page-previews="search.pages"></ely-page-preview-container>
-
+            <ely-page-preview-container video-width="160" video-height="255" title="Suchergebnisse" service="SearchPage"
+                                        service-parameter="SearchPageParameter" hide="!hide"></ely-page-preview-container>
             <ely-page-preview-container long-format="true" video-width="160" video-height="255"
-                                        title="Neuste Bewertungen deiner Kontakte" page-previews="newestPages.pages"
-                                        search="search.pages" total-number-of-pages="newestPages.totalNumberOfPages"></ely-page-preview-container>
-            <ely-page-preview-container title="Beliebteste B&uuml;cher deiner Kontakte" page-previews="popularBookPagesContact.pages"
-                                        search="search.pages" total-number-of-pages="popularBookPagesContact.totalNumberOfPages"></ely-page-preview-container>
-            <ely-page-preview-container title="Beliebteste B&uuml;cher" page-previews="popularBookPages.pages"
-                                        search="search.pages" total-number-of-pages="popularBookPages.totalNumberOfPages"></ely-page-preview-container>
+                                        title="Neuste Bewertungen deiner Kontakte" service="PageRecommendationContact"
+                                        service-parameter="{}" hide="hide"></ely-page-preview-container>
+            <ely-page-preview-container title="Beliebteste B&uuml;cher deiner Kontakte" service="PopularPages"
+                                        service-parameter="{onlyContacts: true, category: 'BookPage'}" hide="hide"></ely-page-preview-container>
+            <ely-page-preview-container title="Beliebteste B&uuml;cher" service="PopularPages"
+                                        service-parameter="{onlyContacts: false, category: 'BookPage'}" hide="hide"></ely-page-preview-container>
             <div id="search-box-container">
                 <ely-search-box description="Suche nach Seite..." query="query"
                                 get-query-suggestion="getUserSuggestion"

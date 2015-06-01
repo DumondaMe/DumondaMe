@@ -1,5 +1,5 @@
 <div ng-show="pagePreviews.length > 0 && !search.length > 0" class="page-overview-container" ng-style="{'width': containerWidth + 'px'}"
-     ng-click="expand=true">
+     ng-click="startExpand()" ng-hide="hide">
     <div class="website-structure-header">
         <h1 class="website-structure-title">{{title}}</h1>
         <button type="button" class="btn btn-default page-overview-expand" ng-hide="expand"

@@ -7,7 +7,7 @@ var setContainerWidth = function($scope) {
     var containerSize, screenWidth = $(window).width();
     if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
-        $scope.numberOfElements = Math.floor(containerSize / 190)
+        $scope.numberOfElements = Math.floor(containerSize / 190);
     } else if(screenWidth < minScreenSize) {
         $scope.numberOfElements = 4;
     } else if(screenWidth > maxScreenSize) {

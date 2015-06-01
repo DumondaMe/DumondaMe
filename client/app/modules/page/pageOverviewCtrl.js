@@ -12,8 +12,14 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
         $scope.query = "";
         $scope.itemsPerPage = 30;
         $scope.filterDisabled = true;
+        $scope.hide = false;
 
         $scope.filters = [{description: 'Buch', filter: 'BookPage'}, {description: 'Video', filter: 'VideoPage'}];
+
+        $scope.PageRecommendationContact = PageRecommendationContact;
+        $scope.SearchPage = SearchPage;
+        $scope.SearchPageParameter = {};
+        $scope.PopularPages = PopularPages;
 
         $scope.getRecommendationContacts = function (skip) {
 
@@ -50,25 +56,31 @@ module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage',
 
         $scope.searchPage = function (searchValue) {
             if (searchValue && searchValue.trim().length > 0) {
-                $scope.search = SearchPage.get({
+                $scope.hide = true;
+                $scope.SearchPageParameter = {
+                    search: searchValue,
+                    isSuggestion: false
+                };
+                /*$scope.search = SearchPage.get({
                     search: searchValue,
                     isSuggestion: false,
                     skip: 0,
                     maxItems: 9
                 }, function () {
                     setCategories($scope.search.pages, PageCategories);
-                });
+                });*/
             } else {
-                $scope.getOverview();
+                /*$scope.getOverview();*/
+                $scope.hide = false;
             }
         };
 
-        $scope.getOverview = function () {
+        /*$scope.getOverview = function () {
             delete $scope.search;
             $scope.getRecommendationContacts(1);
             $scope.getPopularBooks(1, false, 'popularBookPagesContact');
             $scope.getPopularBooks(1, true, 'popularBookPages');
         };
 
-        $scope.getOverview();
+        $scope.getOverview();*/
     }];
