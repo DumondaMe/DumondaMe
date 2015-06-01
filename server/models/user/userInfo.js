@@ -12,12 +12,20 @@ var getImageForPreview = function (contact, profileType) {
 
 };
 
-var addImageForPreview = function (contacts) {
+var addImage = function (contacts, imageTyp) {
     underscore.each(contacts, function (contact) {
-        contact.profileUrl = getImageForPreview(contact, 'profilePreview.jpg');
+        contact.profileUrl = getImageForPreview(contact, imageTyp);
         delete contact.profileVisible;
         delete contact.imageVisible;
     });
+};
+
+var addImageForPreview = function (contacts) {
+    addImage(contacts, 'profilePreview.jpg');
+};
+
+var addImageForThumbnail = function (contacts) {
+    addImage(contacts, 'thumbnail.jpg');
 };
 
 var addConnectionInfo = function (contact) {
@@ -42,6 +50,7 @@ var addConnectionInfos = function (contacts) {
 module.exports = {
     getImageForPreview: getImageForPreview,
     addImageForPreview: addImageForPreview,
+    addImageForThumbnail: addImageForThumbnail,
     addConnectionInfo: addConnectionInfo,
     addContactPreviewInfos: function (contacts) {
         addImageForPreview(contacts);

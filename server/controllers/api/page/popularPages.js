@@ -13,7 +13,7 @@ var schemaGetPage = {
     additionalProperties: false,
     required: ['skip', 'maxItems', 'onlyContacts', 'category'],
     properties: {
-        skip: {type: 'integer', minimum: 0, maximum: 50},
+        skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         onlyContacts: {type: 'boolean'},
         category: {enum: ['BookPage', 'VideoPage']},

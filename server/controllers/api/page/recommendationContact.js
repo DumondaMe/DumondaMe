@@ -13,7 +13,7 @@ var schemaGetPage = {
     additionalProperties: false,
     required: ['skip', 'maxItems'],
     properties: {
-        skip: {type: 'integer', minimum: 0, maximum: 50},
+        skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         filters: {
             type: 'array',

@@ -15,7 +15,7 @@ var schemaSearchPage = {
     properties: {
         search: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 255},
         isSuggestion: {type: 'boolean'},
-        skip: {type: 'integer', minimum: 0, maximum: 50},
+        skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         filterType: {
             type: 'array',

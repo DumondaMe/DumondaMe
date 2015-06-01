@@ -3,8 +3,6 @@
 var validation = require('./../../../lib/jsonValidation');
 var bookDetail = require('./../../../models/page/detail/bookDetail');
 var videoDetail = require('./../../../models/page/detail/videoDetail');
-var courseDetail = require('./../../../models/page/detail/courseDetail');
-var schoolDetail = require('./../../../models/page/detail/schoolDetail');
 var auth = require('./../../../lib/auth');
 var exceptions = require('./../../../lib/error/exceptions');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
@@ -17,7 +15,7 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['BookPage', 'VideoPage', 'CoursePage', 'SchoolPage']}
+        label: {enum: ['BookPage', 'VideoPage']}
     }
 };
 
@@ -32,12 +30,6 @@ module.exports = function (router) {
                 }
                 if (request.label === 'VideoPage') {
                     return videoDetail.getVideoDetail(request.pageId, req.user.id);
-                }
-                if (request.label === 'CoursePage') {
-                    return courseDetail.getCourseDetail(request.pageId, req.user.id);
-                }
-                if (request.label === 'SchoolPage') {
-                    return schoolDetail.getSchoolDetail(request.pageId, req.user.id);
                 }
             }).then(function (page) {
                 res.status(200).json(page);

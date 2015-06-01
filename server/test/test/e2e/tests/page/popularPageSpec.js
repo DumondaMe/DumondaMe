@@ -1,11 +1,9 @@
 'use strict';
 
-var app = require('../../../../../server');
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var should = require('chai').should();
-var moment = require('moment');
 
 describe('Integration Tests for getting popular pages', function () {
 
