@@ -132,31 +132,37 @@ describe('Integration Tests for getting page review', function () {
                     res.body.reviews[0].name.should.equals('user Meier2');
                     res.body.reviews[0].rating.should.equals(5);
                     res.body.reviews[0].comment.should.equals('irgendwas');
+                    res.body.reviews[0].created.should.equals(510);
 
                     res.body.reviews[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[1].name.should.equals('user Meier3');
                     res.body.reviews[1].rating.should.equals(4);
                     res.body.reviews[1].comment.should.equals('irgendwas2');
+                    res.body.reviews[1].created.should.equals(509);
 
                     res.body.reviews[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[2].name.should.equals('user Meier4');
                     res.body.reviews[2].rating.should.equals(5);
                     res.body.reviews[2].comment.should.equals('irgendwas3');
+                    res.body.reviews[2].created.should.equals(508);
 
                     res.body.reviews[3].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[3].name.should.equals('user Meier5');
                     res.body.reviews[3].rating.should.equals(2);
                     res.body.reviews[3].comment.should.equals('irgendwas4');
+                    res.body.reviews[3].created.should.equals(507);
 
                     res.body.reviews[4].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
                     res.body.reviews[4].name.should.equals('user Meier6');
                     res.body.reviews[4].rating.should.equals(1);
                     res.body.reviews[4].comment.should.equals('irgendwas5');
+                    res.body.reviews[4].created.should.equals(506);
 
                     res.body.reviews[5].profileUrl.should.equals('profileImage/7/thumbnail.jpg');
                     res.body.reviews[5].name.should.equals('user Meier7');
                     res.body.reviews[5].rating.should.equals(2);
                     res.body.reviews[5].comment.should.equals('irgendwas6');
+                    res.body.reviews[5].created.should.equals(505);
                 });
             });
     });
@@ -230,36 +236,43 @@ describe('Integration Tests for getting page review', function () {
                     res.body.reviews[0].name.should.equals('user Meier2');
                     res.body.reviews[0].rating.should.equals(5);
                     res.body.reviews[0].comment.should.equals('irgendwas');
+                    res.body.reviews[0].created.should.equals(510);
 
                     res.body.reviews[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[1].name.should.equals('user Meier3');
                     res.body.reviews[1].rating.should.equals(4);
                     res.body.reviews[1].comment.should.equals('irgendwas2');
+                    res.body.reviews[1].created.should.equals(509);
 
                     res.body.reviews[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[2].name.should.equals('user Meier4');
                     res.body.reviews[2].rating.should.equals(5);
                     res.body.reviews[2].comment.should.equals('irgendwas3');
+                    res.body.reviews[2].created.should.equals(508);
 
                     res.body.reviews[3].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[3].name.should.equals('user Meier5');
                     res.body.reviews[3].rating.should.equals(2);
                     res.body.reviews[3].comment.should.equals('irgendwas4');
+                    res.body.reviews[3].created.should.equals(507);
 
                     res.body.reviews[4].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
                     res.body.reviews[4].name.should.equals('user Meier6');
                     res.body.reviews[4].rating.should.equals(1);
                     res.body.reviews[4].comment.should.equals('irgendwas5');
+                    res.body.reviews[4].created.should.equals(506);
 
                     res.body.reviews[5].profileUrl.should.equals('profileImage/7/thumbnail.jpg');
                     res.body.reviews[5].name.should.equals('user Meier7');
                     res.body.reviews[5].rating.should.equals(2);
                     res.body.reviews[5].comment.should.equals('irgendwas6');
+                    res.body.reviews[5].created.should.equals(505);
 
                     res.body.reviews[6].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.reviews[6].name.should.equals('user Meier8');
                     res.body.reviews[6].rating.should.equals(5);
                     res.body.reviews[6].comment.should.equals('irgendwas7');
+                    res.body.reviews[6].created.should.equals(504);
                 });
             });
     });

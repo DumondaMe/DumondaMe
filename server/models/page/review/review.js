@@ -26,7 +26,7 @@ var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(otherUser)")
         .with("page, rec, otherUser, rContact, vr, privacy")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("otherUser.userId AS userId, otherUser.name AS name, rec.rating AS rating, rec.comment AS comment, " +
+        .return("otherUser.userId AS userId, otherUser.name AS name, rec.rating AS rating, rec.comment AS comment, rec.created AS created," +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible")
         .skip("{skip}")
         .limit("{limit}")
