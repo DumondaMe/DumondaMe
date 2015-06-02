@@ -35,6 +35,7 @@ var getPages = function ($scope, service, serviceParameter, PageCategories, limi
         $scope.pagePreviewsTemp = service.get(params, function () {
             setCategories($scope.pagePreviewsTemp.pages, PageCategories);
             addPagePreview($scope);
+            $scope.$emit('page.preview.request.finished', $scope.pagePreviews);
         });
     }
 };
@@ -44,10 +45,11 @@ module.exports = {
         return ['$scope', 'PageCategories', function ($scope, PageCategories) {
 
             var init = true;
+            $scope.notRequestInitService = $scope.notRequestInitService === 'true';
             $scope.pagePreviews = [];
 
             $scope.$watch('service', function (newValue) {
-                if (newValue && !$scope.hide) {
+                if (newValue && !$scope.hide && !$scope.notRequestInitService) {
                     getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
                 }
             });

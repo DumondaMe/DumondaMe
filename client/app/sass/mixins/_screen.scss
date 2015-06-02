@@ -62,7 +62,7 @@
 
 @mixin centerColumn($paddingLeft) {
   #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: $paddingLeft;
 

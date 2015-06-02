@@ -413,40 +413,37 @@ h1.website-structure-title {
   font-variant: normal;
   font-weight: 100; }
 
-#content {
+#content #content-page-contacting {
   width: 100%;
   height: 100%; }
-  #content #content-page-contacting {
+  #content #content-page-contacting .contacting-info {
     width: 100%;
-    height: 100%; }
-    #content #content-page-contacting .contacting-info {
-      width: 100%;
-      height: 40px;
-      clear: both; }
-      #content #content-page-contacting .contacting-info .contacting-inner-info {
-        font-size: 14px;
-        font-weight: bold;
-        border-bottom: 1px solid #00796B;
-        margin: 6px 10px 10px 10px; }
-    #content #content-page-contacting #centerCol {
-      width: 100%;
-      height: 100%;
-      padding-left: 230px; }
-      #content #content-page-contacting #centerCol #inner-centerCol {
-        position: relative;
-        min-width: 800px;
-        padding-left: 50px;
-        margin-top: 80px; }
-        #content #content-page-contacting #centerCol #inner-centerCol h1.website-structure-title {
-          padding-left: 10px;
-          margin-bottom: 30px; }
+    height: 40px;
+    clear: both; }
+    #content #content-page-contacting .contacting-info .contacting-inner-info {
+      font-size: 14px;
+      font-weight: bold;
+      border-bottom: 1px solid #00796B;
+      margin: 6px 10px 10px 10px; }
+  #content #content-page-contacting #centerCol {
+    display: block;
+    height: 100%;
+    padding-left: 230px; }
+    #content #content-page-contacting #centerCol #inner-centerCol {
+      position: relative;
+      min-width: 800px;
+      padding-left: 50px;
+      margin-top: 80px; }
+      #content #content-page-contacting #centerCol #inner-centerCol h1.website-structure-title {
+        padding-left: 10px;
+        margin-bottom: 30px; }
 
 #content #content-page-contact-details {
   width: 100%;
   height: 100%;
   margin-top: 100px; }
   #content #content-page-contact-details #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 80px; }
     #content #content-page-contact-details #centerCol #inner-centerCol {
@@ -541,37 +538,34 @@ h1.website-structure-title {
         margin: 5px;
         font-size: 12px; }
 
-#content {
+#content #content-page-contact {
   width: 100%;
   height: 100%; }
-  #content #content-page-contact {
+  #content #content-page-contact .pagination {
     width: 100%;
-    height: 100%; }
-    #content #content-page-contact .pagination {
-      width: 100%;
-      clear: both; }
-    #content #content-page-contact .no-contact-description {
-      margin: 0 0 0 50px; }
-    #content #content-page-contact #centerCol {
-      width: 100%;
-      height: 100%;
-      padding-left: 230px; }
-      #content #content-page-contact #centerCol #inner-centerCol {
-        position: relative;
-        min-width: 800px;
-        padding-left: 50px;
-        margin-top: 150px; }
-    #content #content-page-contact #search-box-container {
-      position: fixed;
-      top: 60px;
-      width: 100%;
-      height: 48px;
-      background-color: #ffffff; }
-      #content #content-page-contact #search-box-container .searchBoxForm {
-        display: inline-block;
-        padding-left: 60px;
-        margin-top: 2px;
-        width: 600px; }
+    clear: both; }
+  #content #content-page-contact .no-contact-description {
+    margin: 0 0 0 50px; }
+  #content #content-page-contact #centerCol {
+    display: block;
+    height: 100%;
+    padding-left: 230px; }
+    #content #content-page-contact #centerCol #inner-centerCol {
+      position: relative;
+      min-width: 800px;
+      padding-left: 50px;
+      margin-top: 150px; }
+  #content #content-page-contact #search-box-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff; }
+    #content #content-page-contact #search-box-container .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px; }
 
 .contact-preview {
   float: left;
@@ -863,7 +857,7 @@ h1.website-structure-title {
   width: 100%;
   height: 100%; }
   #content-threads #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 240px; }
     #content-threads #centerCol #inner-centerCol {
@@ -947,7 +941,7 @@ h1.website-structure-title {
   height: 100%;
   margin-top: 60px; }
   #content-messages #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 230px; }
     #content-messages #centerCol #inner-centerCol {
@@ -992,7 +986,7 @@ h1.website-structure-title {
   height: 100%;
   padding-top: 95px; }
   #content-page-create-edit #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 240px; }
     #content-page-create-edit #centerCol #inner-centerCol {
@@ -1060,12 +1054,11 @@ h1.website-structure-title {
     width: 100%; }
 
 #content-page-detail {
-  width: 100%;
-  height: 100%;
+  display: block;
   padding-top: 60px;
   background-color: #f1f1f1; }
   #content-page-detail #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 0px;
     min-width: 1000px;
@@ -1075,15 +1068,17 @@ h1.website-structure-title {
       padding-bottom: 35px;
       background-color: #E0E0E0;
       border-bottom: 2px solid #d6d6d6;
-      border-spacing: 20px;
       display: table;
-      width: 100%; }
+      width: 100%;
+      min-width: 1000px; }
+      @media (min-width: 992px) {
+        #content-page-detail #centerCol #page-detail-header {
+          min-width: 1000px; } }
       #content-page-detail #centerCol #page-detail-header #page-detail-inner-header {
         display: table-row;
         width: 100%; }
         #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
           padding-left: 280px;
-          margin-right: 25px;
           display: table-cell;
           vertical-align: top;
           height: 300px; }
@@ -1093,18 +1088,13 @@ h1.website-structure-title {
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image .ely-iframe {
             height: 300px;
             width: 400px; }
-        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-separator {
-          display: table-cell;
-          height: 300px;
-          width: 35px;
-          empty-cells: show; }
         #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
           height: 300px;
           width: 100%;
           display: table-cell;
           vertical-align: top;
           position: relative;
-          box-sizing: border-box; }
+          padding-left: 20px; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
             display: inline-block;
             font-size: 30px;
@@ -1134,8 +1124,7 @@ h1.website-structure-title {
             cursor: pointer; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-commands {
             position: absolute;
-            bottom: 55px;
-            width: 100%; }
+            bottom: 55px; }
           #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews {
             position: absolute;
             bottom: 0px; }
@@ -1147,7 +1136,6 @@ h1.website-structure-title {
                 font-weight: 300;
                 margin-left: 5px; }
     #content-page-detail #centerCol .page-detail-bottom-element {
-      width: 100%;
       padding-top: 30px;
       padding-right: 60px;
       padding-left: 280px;
@@ -1277,52 +1265,49 @@ h1.website-structure-title {
         font-size: 13px;
         font-weight: 300; }
 
-#content {
+#content #content-page-overview {
   width: 100%;
-  height: 100%; }
-  #content #content-page-overview {
-    width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  padding-top: 140px; }
+  #content #content-page-overview #centerCol {
+    display: block;
     height: 100%;
-    min-width: 1000px;
-    padding-top: 140px; }
-    #content #content-page-overview #centerCol {
-      width: 100%;
+    padding-left: 220px; }
+    #content #content-page-overview #centerCol #inner-centerCol {
+      position: relative;
+      display: inline-block;
+      min-width: 800px;
+      max-width: 1600px;
       height: 100%;
-      padding-left: 220px; }
-      #content #content-page-overview #centerCol #inner-centerCol {
-        position: relative;
-        display: inline-block;
-        min-width: 800px;
-        max-width: 1600px;
-        height: 100%;
-        width: 100%;
-        padding-left: 50px; }
-        #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
-          position: relative;
-          margin-bottom: 20px;
-          width: 100%; }
-          #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
-            display: inline-block; }
-          #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
-            display: inline-block;
-            position: absolute;
-            right: 30px;
-            background-color: #009688;
-            color: #ffffff; }
-    #content #content-page-overview #search-box-container {
-      position: fixed;
-      top: 60px;
       width: 100%;
-      height: 48px;
-      background-color: #ffffff;
-      left: 230px; }
-      #content #content-page-overview #search-box-container .searchBoxForm {
-        display: inline-block;
-        padding-left: 60px;
-        margin-top: 2px;
-        width: 600px; }
-      #content #content-page-overview #search-box-container .searchBoxForm {
-        padding-left: 40px; }
+      padding-left: 50px; }
+      #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
+        position: relative;
+        margin-bottom: 20px;
+        width: 100%; }
+        #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
+          display: inline-block; }
+        #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
+          display: inline-block;
+          position: absolute;
+          right: 30px;
+          background-color: #009688;
+          color: #ffffff; }
+  #content #content-page-overview #search-box-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff;
+    left: 230px; }
+    #content #content-page-overview #search-box-container .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px; }
+    #content #content-page-overview #search-box-container .searchBoxForm {
+      padding-left: 40px; }
 
 .page-preview-container, .page-preview-short-container, .page-preview-expand-container {
   height: 400px;
@@ -1395,7 +1380,7 @@ h1.website-structure-title {
   width: 100%;
   height: 100%; }
   #content-recommendation-home #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 80px; }
     #content-recommendation-home #centerCol #inner-centerCol {
@@ -1422,7 +1407,7 @@ h1.website-structure-title {
   width: 100%;
   height: 100%; }
   #content-settings-password #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 250px; }
     #content-settings-password #centerCol #inner-centerCol {
@@ -1437,7 +1422,7 @@ h1.website-structure-title {
   width: 100%;
   height: 100%; }
   #content-settings-profile #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 80px; }
     #content-settings-profile #centerCol #inner-centerCol {
@@ -1494,7 +1479,7 @@ h1.website-structure-title {
   width: 100%;
   height: 100%; }
   #content-settings-security #centerCol {
-    width: 100%;
+    display: block;
     height: 100%;
     padding-left: 230px; }
     #content-settings-security #centerCol #inner-centerCol {
@@ -1607,8 +1592,7 @@ html, body {
   margin: 0;
   font-family: Roboto, Arial, sans-serif;
   background-color: #E0E0E0;
-  width: 100%;
-  height: 100%; }
+  display: block; }
 
 #viewport {
   width: 100%;
@@ -1617,11 +1601,9 @@ html, body {
   top: 0; }
 
 #content {
-  width: 100%;
-  height: 100%; }
+  display: block; }
   #content #content-container {
-    width: 100%;
-    height: 100%; }
+    display: block; }
 
 textarea {
   opacity: 0.99; }

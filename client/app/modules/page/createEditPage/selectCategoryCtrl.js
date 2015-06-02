@@ -1,11 +1,5 @@
 'use strict';
 
-var setCategories = function (pages, PageCategories) {
-    angular.forEach(pages, function (page) {
-        page.category = PageCategories.categories[page.label];
-    });
-};
-
 var isSubCategorySelected = function ($scope) {
     return $scope.subCategories.length > 0 && !$scope.category.selectedSubCategory;
 };
@@ -20,13 +14,16 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categoryTitleChanged = false;
         $scope.subCategories = [];
 
+        $scope.SearchPage = SearchPage;
+        $scope.SearchPageParameter = {};
+
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
                 if (newCategories) {
                     $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
-                    if($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
+                    if ($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
                         delete $scope.category.selectedSubCategory;
-                    } else if($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
+                    } else if ($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
                         $scope.category.selectedSubCategory = $scope.subCategories[0];
                     }
                 }
@@ -55,8 +52,14 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         };
 
         $scope.categorySelectFinished = function () {
-            var title = $scope.category.title;
-            $scope.pageSuggestions = SearchPage.get({
+
+            $scope.SearchPageParameter = {
+                search: $scope.category.title,
+                filterType: PageCategories.getPageType($scope.category.selectedCategory),
+                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
+                isSuggestion: false
+            };
+            /*$scope.pageSuggestions = SearchPage.get({
                 search: title,
                 filterType: PageCategories.getPageType($scope.category.selectedCategory),
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
@@ -73,8 +76,21 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 } else {
                     $scope.setNextState(3);
                 }
-            });
+            });*/
         };
+
+        $scope.$on('page.preview.request.finished', function (event, pages) {
+            $scope.categoryFirstSelect = false;
+            $scope.categoryTitleChanged = false;
+            if (!$scope.mode.edit) {
+                $scope.categoryTitlePrviouse = $scope.category.title;
+            }
+            if (pages.length > 0) {
+                $scope.setNextState(2);
+            } else {
+                $scope.setNextState(3);
+            }
+        });
 
         $scope.$watch('category.title', function (newValue) {
             if (newValue && newValue.trim() !== '' && !$scope.categoryFirstSelect) {

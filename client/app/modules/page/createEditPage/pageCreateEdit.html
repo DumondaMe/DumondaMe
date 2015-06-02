@@ -2,6 +2,7 @@
     <div id="centerCol">
         <div id="inner-centerCol" ng-controller="PageSelectCategoryCtrl">
             <h1 class="website-structure-title" ng-hide="mode.edit">Kategorie ausw&aumlhlen</h1>
+
             <h1 class="website-structure-title" ng-show="mode.edit">Titel</h1>
 
             <div id="content-create-edit-category">
@@ -62,13 +63,16 @@
                 </form>
             </div>
             <div id="content-create-edit-page-suggestions" ng-show="state.actual === 2">
-                <h1 class="website-structure-title">Existiert die Seite bereits?</h1>
+                <!--<h1 class="website-structure-title">Existiert die Seite bereits?</h1>-->
 
-                <div class="page-preview-container">
+                <!--<div class="page-preview-container">
                     <div ng-repeat="pagePreview in pageSuggestions.pages" class="page-preview-inner-container">
                         <ely-page-preview page-preview="pagePreview"></ely-page-preview>
                     </div>
-                </div>
+                </div>-->
+                <ely-page-preview-container video-width="160" video-height="255" title="Existiert die Seite bereits?" service="SearchPage"
+                                            service-parameter="SearchPageParameter" hide="false"
+                                            not-request-init-service="true"></ely-page-preview-container>
                 <div id="content-create-edit-page-suggestion-commands">
                     <button type="submit"
                             class="btn btn-default content-create-edit-page-suggestion-commands-buttons"

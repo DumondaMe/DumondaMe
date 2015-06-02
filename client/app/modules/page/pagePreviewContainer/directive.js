@@ -13,6 +13,7 @@ module.exports = {
                 videoHeight: '@',
                 videoWidth: '@',
                 title: '@',
+                notRequestInitService: '@',
                 hide: '=',
                 service: '=',
                 serviceParameter: '='

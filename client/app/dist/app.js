@@ -1473,6 +1473,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <h1 class=\"website-structure-title\" ng-hide=\"mode.edit\">Kategorie ausw&aumlhlen</h1>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "            <h1 class=\"website-structure-title\" ng-show=\"mode.edit\">Titel</h1>\r" +
     "\n" +
     "\r" +
@@ -1593,11 +1595,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
-    "                <h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>\r" +
+    "                <!--<h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>-->\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                <div class=\"page-preview-container\">\r" +
+    "                <!--<div class=\"page-preview-container\">\r" +
     "\n" +
     "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -1605,7 +1607,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                </div>\r" +
+    "                </div>-->\r" +
+    "\n" +
+    "                <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Existiert die Seite bereits?\" service=\"SearchPage\"\r" +
+    "\n" +
+    "                                            service-parameter=\"SearchPageParameter\" hide=\"false\"\r" +
+    "\n" +
+    "                                            not-request-init-service=\"true\"></ely-page-preview-container>\r" +
     "\n" +
     "                <div id=\"content-create-edit-page-suggestion-commands\">\r" +
     "\n" +
@@ -1855,8 +1863,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                ng-if=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-detail-header-separator\"></div>\r" +
     "\n" +
     "                <div class=\"page-detail-header-list\">\r" +
     "\n" +
@@ -7243,12 +7249,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'Pa
 },{}],89:[function(require,module,exports){
 'use strict';
 
-var setCategories = function (pages, PageCategories) {
-    angular.forEach(pages, function (page) {
-        page.category = PageCategories.categories[page.label];
-    });
-};
-
 var isSubCategorySelected = function ($scope) {
     return $scope.subCategories.length > 0 && !$scope.category.selectedSubCategory;
 };
@@ -7263,13 +7263,16 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categoryTitleChanged = false;
         $scope.subCategories = [];
 
+        $scope.SearchPage = SearchPage;
+        $scope.SearchPageParameter = {};
+
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
                 if (newCategories) {
                     $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
-                    if($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
+                    if ($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
                         delete $scope.category.selectedSubCategory;
-                    } else if($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
+                    } else if ($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
                         $scope.category.selectedSubCategory = $scope.subCategories[0];
                     }
                 }
@@ -7298,8 +7301,14 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         };
 
         $scope.categorySelectFinished = function () {
-            var title = $scope.category.title;
-            $scope.pageSuggestions = SearchPage.get({
+
+            $scope.SearchPageParameter = {
+                search: $scope.category.title,
+                filterType: PageCategories.getPageType($scope.category.selectedCategory),
+                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
+                isSuggestion: false
+            };
+            /*$scope.pageSuggestions = SearchPage.get({
                 search: title,
                 filterType: PageCategories.getPageType($scope.category.selectedCategory),
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
@@ -7316,8 +7325,21 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 } else {
                     $scope.setNextState(3);
                 }
-            });
+            });*/
         };
+
+        $scope.$on('page.preview.request.finished', function (event, pages) {
+            $scope.categoryFirstSelect = false;
+            $scope.categoryTitleChanged = false;
+            if (!$scope.mode.edit) {
+                $scope.categoryTitlePrviouse = $scope.category.title;
+            }
+            if (pages.length > 0) {
+                $scope.setNextState(2);
+            } else {
+                $scope.setNextState(3);
+            }
+        });
 
         $scope.$watch('category.title', function (newValue) {
             if (newValue && newValue.trim() !== '' && !$scope.categoryFirstSelect) {
@@ -7678,6 +7700,7 @@ var getPages = function ($scope, service, serviceParameter, PageCategories, limi
         $scope.pagePreviewsTemp = service.get(params, function () {
             setCategories($scope.pagePreviewsTemp.pages, PageCategories);
             addPagePreview($scope);
+            $scope.$emit('page.preview.request.finished', $scope.pagePreviews);
         });
     }
 };
@@ -7687,10 +7710,11 @@ module.exports = {
         return ['$scope', 'PageCategories', function ($scope, PageCategories) {
 
             var init = true;
+            $scope.notRequestInitService = $scope.notRequestInitService === 'true';
             $scope.pagePreviews = [];
 
             $scope.$watch('service', function (newValue) {
-                if (newValue && !$scope.hide) {
+                if (newValue && !$scope.hide && !$scope.notRequestInitService) {
                     getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
                 }
             });
@@ -7731,6 +7755,7 @@ module.exports = {
                 videoHeight: '@',
                 videoWidth: '@',
                 title: '@',
+                notRequestInitService: '@',
                 hide: '=',
                 service: '=',
                 serviceParameter: '='

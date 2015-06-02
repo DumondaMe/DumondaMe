@@ -1472,6 +1472,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <h1 class=\"website-structure-title\" ng-hide=\"mode.edit\">Kategorie ausw&aumlhlen</h1>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "            <h1 class=\"website-structure-title\" ng-show=\"mode.edit\">Titel</h1>\r" +
     "\n" +
     "\r" +
@@ -1592,11 +1594,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
-    "                <h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>\r" +
+    "                <!--<h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>-->\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                <div class=\"page-preview-container\">\r" +
+    "                <!--<div class=\"page-preview-container\">\r" +
     "\n" +
     "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -1604,7 +1606,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                </div>\r" +
+    "                </div>-->\r" +
+    "\n" +
+    "                <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Existiert die Seite bereits?\" service=\"SearchPage\"\r" +
+    "\n" +
+    "                                            service-parameter=\"SearchPageParameter\" hide=\"false\"\r" +
+    "\n" +
+    "                                            not-request-init-service=\"true\"></ely-page-preview-container>\r" +
     "\n" +
     "                <div id=\"content-create-edit-page-suggestion-commands\">\r" +
     "\n" +
@@ -1854,8 +1862,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                                ng-if=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-detail-header-separator\"></div>\r" +
     "\n" +
     "                <div class=\"page-detail-header-list\">\r" +
     "\n" +
