@@ -74,4 +74,11 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
                 label: label
             });
         };
+
+        $scope.$on('page.detail.edit', function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+            $scope.$broadcast('page.detail.edit.child');
+        });
     }];

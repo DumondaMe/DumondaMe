@@ -40,22 +40,37 @@ var calculateDiagramBlockWidth = function ($scope) {
 
 };
 
+var setCreateDate = function ($scope, moment) {
+    angular.forEach($scope.review.reviews, function (review) {
+        review.created = moment.unix(review.created).format('LL');
+    });
+};
+
+var getRating = function ($scope, $stateParams, PageDetailReview, moment) {
+    $scope.review = PageDetailReview.get({
+        skip: 0,
+        maxItems: 6,
+        onlyContacts: $scope.onlyContacts,
+        pageId: $stateParams.pageId,
+        label: $stateParams.label
+    }, function () {
+        calculateSummaryRating($scope);
+        calculateDiagramBlockWidth($scope);
+        setCreateDate($scope, moment);
+    });
+};
+
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$stateParams', 'PageDetailReview', function ($scope, $stateParams, PageDetailReview) {
+        return ['$scope', '$stateParams', 'PageDetailReview', 'moment', function ($scope, $stateParams, PageDetailReview, moment) {
             $scope.onlyContacts = $scope.onlyContacts === 'true';
 
             initRating($scope);
 
-            $scope.review = PageDetailReview.get({
-                skip: 0,
-                maxItems: 10,
-                onlyContacts: $scope.onlyContacts,
-                pageId: $stateParams.pageId,
-                label: $stateParams.label
-            }, function () {
-                calculateSummaryRating($scope);
-                calculateDiagramBlockWidth($scope);
+            getRating($scope, $stateParams, PageDetailReview, moment);
+
+            $scope.$on('page.detail.edit.child', function () {
+                getRating($scope, $stateParams, PageDetailReview, moment);
             });
         }];
     }

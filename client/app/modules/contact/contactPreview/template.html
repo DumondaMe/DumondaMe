@@ -2,8 +2,8 @@
     <img ng-src="{{contact.profileUrl}}" ng-click="openUserDetails()">
 
     <div class="contact-preview-content">
-        <div class="contact-preview-name">
-            <div ng-click="openUserDetails()">
+        <div class="contact-preview-name-container">
+            <div ng-click="openUserDetails()" class="contact-preview-name">
                 {{contact.name}}
             </div>
             <div class="description-container">

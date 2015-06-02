@@ -1,6 +1,7 @@
 #content-page-detail {
   .page-rating-review {
     display: inline-block;
+    float: left;
     width: 330px;
     height: 150px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -77,6 +78,73 @@
             @extend .page-rating-review-line-block-5;
             background-color: rgb(255, 111, 49);
           }
+        }
+      }
+    }
+  }
+  .page-rating-comments {
+    width: 100%;
+    padding-left: 350px;
+    cursor: pointer;
+    .page-rating-comment-preview {
+      display: inline-block;
+      max-height: 120px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      .page-rating-comment-left {
+        display: inline-block;
+        width: 50px;
+        height: 100%;
+        .page-rating-comment-img {
+          width: 48px;
+          height: 48px;
+          padding: 5px;
+        }
+      }
+      .page-rating-comment-right {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 10px;
+        width: 210px;
+        height: 100%;
+        .page-rating-comment-header {
+          .page-rating-comment-name {
+            display: inline-block;
+            vertical-align: top;
+            font-weight: 500;
+            font-size: 13px;
+            max-width: 120px;
+            height: 22px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          .page-rating-comment-created {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 11px;
+            font-weight: 300;
+            color: #AAAAAA;
+            line-height: 18px;
+            margin-left: 4px;
+            margin-top: 1px;
+          }
+        }
+        .ely-star-rating {
+          .ely-star-rating-x-small {
+            width: 11px;
+            height: 11px;
+          }
+        }
+        .page-rating-comment-description {
+          width: 210px;
+          white-space: normal;
+          margin-top: 5px;
+          padding-right: 20px;
+          max-height: 70px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-size: 13px;
+          font-weight: 300;
         }
       }
     }

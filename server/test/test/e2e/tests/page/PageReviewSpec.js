@@ -192,21 +192,23 @@ describe('Integration Tests for getting page review', function () {
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', modified: 5072, pageId: '0'})").end().getCommand());
 
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, rating: 5, comment: 'irgendwas', recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, rating: 4, comment: 'irgendwas2', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, rating: 4, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '4'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, rating: 5, comment: 'irgendwas3', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, rating: 5, comment: 'irgendwas3', recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '5'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, rating: 2, comment: 'irgendwas4', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, rating: 2, comment: 'irgendwas4', recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '6'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, rating: 1, comment: 'irgendwas5', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, rating: 1, comment: 'irgendwas5', recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '7'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, rating: 2, comment: 'irgendwas6', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, rating: 2, comment: 'irgendwas6', recommendationId: '6'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '8'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, rating: 5, comment: 'irgendwas7', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, rating: 5, comment: 'irgendwas7', recommendationId: '7'})-[:RECOMMENDS]->(a)")
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
@@ -228,7 +230,7 @@ describe('Integration Tests for getting page review', function () {
                     res.body.ratings[2].rating.should.equals(4);
                     res.body.ratings[2].numberOfRatings.should.equals(1);
                     res.body.ratings[3].rating.should.equals(5);
-                    res.body.ratings[3].numberOfRatings.should.equals(3);
+                    res.body.ratings[3].numberOfRatings.should.equals(4);
 
                     res.body.reviews.length.should.equals(7);
 

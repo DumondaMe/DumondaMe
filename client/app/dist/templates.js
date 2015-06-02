@@ -195,9 +195,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"contact-preview-content\">\r" +
     "\n" +
-    "        <div class=\"contact-preview-name\">\r" +
+    "        <div class=\"contact-preview-name-container\">\r" +
     "\n" +
-    "            <div ng-click=\"openUserDetails()\">\r" +
+    "            <div ng-click=\"openUserDetails()\" class=\"contact-preview-name\">\r" +
     "\n" +
     "                {{contact.name}}\r" +
     "\n" +
@@ -1786,6 +1786,50 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
+    "        <div class=\"page-rating-comments\">\r" +
+    "\n" +
+    "            <div class=\"page-rating-comment-preview\" ng-repeat=\"userReview in review.reviews\">\r" +
+    "\n" +
+    "                <div class=\"page-rating-comment-left\">\r" +
+    "\n" +
+    "                    <img ng-src=\"{{userReview.profileUrl}}\" class=\"img-circle page-rating-comment-img\">\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"page-rating-comment-right\">\r" +
+    "\n" +
+    "                    <div class=\"page-rating-comment-header\">\r" +
+    "\n" +
+    "                        <div class=\"page-rating-comment-name\">\r" +
+    "\n" +
+    "                            {{userReview.name}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-rating-comment-created\">\r" +
+    "\n" +
+    "                            {{userReview.created}}\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                     number-of-selected-stars-readonly=\"userReview.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                    <div class=\"page-rating-comment-description\">\r" +
+    "\n" +
+    "                        {{userReview.comment}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
     "    </div>\r" +
     "\n" +
     "</div>"
@@ -1867,7 +1911,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation(pageDetail, pageId, label)\"\r" +
     "\n" +
-    "                                ng-show=\"pageDetail.recommendation.user && pageDetail.recommendation.users\">Bewertung entfernen\r" +
+    "                                ng-show=\"pageDetail.recommendation.user\">Bewertung entfernen\r" +
     "\n" +
     "                        </button>\r" +
     "\n" +
@@ -1929,9 +1973,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings\">\r" +
     "\n" +
-    "            <ely-page-review only-contacts=\"true\" title=\"Bewertungen deiner Kontakte\"></ely-page-review>\r" +
+    "            <ely-page-review only-contacts=\"true\" title=\"Bewertungen deiner Kontakte\"\r" +
     "\n" +
-    "            <ely-page-review only-contacts=\"false\" title=\"Alle Bewertungen\"></ely-page-review>\r" +
+    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"></ely-page-review>\r" +
+    "\n" +
+    "            <ely-page-review only-contacts=\"false\" title=\"Alle Bewertungen\"\r" +
+    "\n" +
+    "                             ng-show=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"></ely-page-review>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -2161,7 +2209,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"modal-dialog-add-recommendation-description\">\r" +
     "\n" +
-    "                    <textarea class=\"form-control\" ng-model=\"recommendationDescription\"></textarea>\r" +
+    "                    <textarea class=\"form-control\" ng-model=\"recommendationDescription\" maxlength=\"1000\"></textarea>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

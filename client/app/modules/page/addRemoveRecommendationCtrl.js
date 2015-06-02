@@ -27,6 +27,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
                 };
                 page.recommendation.summary.contact = resp.recommendation.contact;
                 page.recommendation.summary.all = resp.recommendation.all;
+                $scope.$emit('page.detail.edit');
             });
         };
 
@@ -45,6 +46,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
                     delete page.recommendation.user;
                     page.recommendation.summary.contact = resp.recommendation.contact;
                     page.recommendation.summary.all = resp.recommendation.all;
+                    $scope.$emit('page.detail.edit');
                 });
             });
         };

@@ -590,23 +590,27 @@ h1.website-structure-title {
     height: 100px;
     width: 239px;
     word-wrap: break-word; }
-    .contact-preview .contact-preview-content .contact-preview-name {
-      padding: 5px 0px 0px 5px;
-      font-size: 14px;
-      font-weight: bold;
+    .contact-preview .contact-preview-content .contact-preview-name-container {
+      padding: 5px 10px 0 5px;
       height: 70px;
-      width: 100%;
-      color: #009688;
-      cursor: pointer; }
-      .contact-preview .contact-preview-content .contact-preview-name .description-container .description {
+      width: 100%; }
+      .contact-preview .contact-preview-content .contact-preview-name-container .contact-preview-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: #009688;
+        cursor: pointer;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        height: 40px; }
+      .contact-preview .contact-preview-content .contact-preview-name-container .description-container .description {
         display: inline-block;
         font-size: 12px;
         color: #9197a3;
         font-weight: normal; }
-        .contact-preview .contact-preview-content .contact-preview-name .description-container .description:hover {
+        .contact-preview .contact-preview-content .contact-preview-name-container .description-container .description:hover {
           text-decoration: underline;
           cursor: pointer; }
-      .contact-preview .contact-preview-content .contact-preview-name .blocked-description {
+      .contact-preview .contact-preview-content .contact-preview-name-container .blocked-description {
         font-size: 12px;
         color: red;
         font-weight: bold; }
@@ -1159,6 +1163,7 @@ h1.website-structure-title {
 
 #content-page-detail .page-rating-review {
   display: inline-block;
+  float: left;
   width: 330px;
   height: 150px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -1217,6 +1222,60 @@ h1.website-structure-title {
           background-color: #ff9f02; }
         #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
           background-color: #ff6f31; }
+#content-page-detail .page-rating-comments {
+  width: 100%;
+  padding-left: 350px;
+  cursor: pointer; }
+  #content-page-detail .page-rating-comments .page-rating-comment-preview {
+    display: inline-block;
+    max-height: 120px;
+    margin-right: 10px;
+    margin-bottom: 10px; }
+    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left {
+      display: inline-block;
+      width: 50px;
+      height: 100%; }
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img {
+        width: 48px;
+        height: 48px;
+        padding: 5px; }
+    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 10px;
+      width: 210px;
+      height: 100%; }
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
+        display: inline-block;
+        vertical-align: top;
+        font-weight: 500;
+        font-size: 13px;
+        max-width: 120px;
+        height: 22px;
+        text-overflow: ellipsis;
+        overflow: hidden; }
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 11px;
+        font-weight: 300;
+        color: #AAAAAA;
+        line-height: 18px;
+        margin-left: 4px;
+        margin-top: 1px; }
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small {
+        width: 11px;
+        height: 11px; }
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description {
+        width: 210px;
+        white-space: normal;
+        margin-top: 5px;
+        padding-right: 20px;
+        max-height: 70px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 13px;
+        font-weight: 300; }
 
 #content {
   width: 100%;

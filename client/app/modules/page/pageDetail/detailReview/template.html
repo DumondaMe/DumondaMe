@@ -56,5 +56,27 @@
                 </div>
             </div>
         </div>
+        <div class="page-rating-comments">
+            <div class="page-rating-comment-preview" ng-repeat="userReview in review.reviews">
+                <div class="page-rating-comment-left">
+                    <img ng-src="{{userReview.profileUrl}}" class="img-circle page-rating-comment-img">
+                </div>
+                <div class="page-rating-comment-right">
+                    <div class="page-rating-comment-header">
+                        <div class="page-rating-comment-name">
+                            {{userReview.name}}
+                        </div>
+                        <div class="page-rating-comment-created">
+                            {{userReview.created}}
+                        </div>
+                    </div>
+                    <ely-star-rating is-readonly="true" is-x-small="true"
+                                     number-of-selected-stars-readonly="userReview.rating"></ely-star-rating>
+                    <div class="page-rating-comment-description">
+                        {{userReview.comment}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

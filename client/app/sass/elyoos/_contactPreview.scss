@@ -15,14 +15,20 @@
     width: 239px;
     word-wrap: break-word;
 
-    .contact-preview-name {
-      padding: 5px 0px 0px 5px;
-      font-size: 14px;
-      font-weight: bold;
+    .contact-preview-name-container {
+      padding: 5px 10px 0 5px;
       height: 70px;
       width: 100%;
-      color: $primary-color;
-      cursor: pointer;
+
+      .contact-preview-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: $primary-color;
+        cursor: pointer;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        height: 40px;
+      }
 
       .description-container {
         .description {

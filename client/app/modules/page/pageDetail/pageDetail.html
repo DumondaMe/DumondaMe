@@ -35,7 +35,7 @@
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
                         </button>
                         <button class="btn btn-default" type="button" ng-click="removeRecommendation(pageDetail, pageId, label)"
-                                ng-show="pageDetail.recommendation.user && pageDetail.recommendation.users">Bewertung entfernen
+                                ng-show="pageDetail.recommendation.user">Bewertung entfernen
                         </button>
                         <button class="btn btn-default" type="button" ng-click="goEditPage(pageId, label)"
                                 ng-show="pageDetail.administrators.isAdmin"> Seite editieren
@@ -66,8 +66,10 @@
             <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
         </div>
         <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings">
-            <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"></ely-page-review>
-            <ely-page-review only-contacts="false" title="Alle Bewertungen"></ely-page-review>
+            <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"
+                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings > 0"></ely-page-review>
+            <ely-page-review only-contacts="false" title="Alle Bewertungen"
+                             ng-show="pageDetail.recommendation.summary.all.numberOfRatings > 0"></ely-page-review>
         </div>
         <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings">
             <ely-page-review only-contacts="false" title="Bewertungen"></ely-page-review>

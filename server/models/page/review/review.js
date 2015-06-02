@@ -14,13 +14,14 @@ var getMatchQuery = function (label, onlyContacts) {
     } else {
         matchQuery = matchQuery.concat(", (user:User {userId: {userId}})");
     }
-    return db.cypher().match(matchQuery).where("otherUser.userId <> {userId}");
+    return db.cypher().match(matchQuery);
 };
 
 var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
     var matchQuery = getMatchQuery(label, onlyContacts);
 
     return matchQuery
+        .where("otherUser.userId <> {userId}")
         .with("page, rec, user, otherUser")
         .match("(otherUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(otherUser)")
@@ -28,6 +29,7 @@ var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("otherUser.userId AS userId, otherUser.name AS name, rec.rating AS rating, rec.comment AS comment, rec.created AS created," +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible")
+        .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end({
