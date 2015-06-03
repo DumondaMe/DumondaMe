@@ -16,6 +16,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             var collection;
             $scope.contributorsWithProfile = [];
             $scope.contributors = [];
+            $scope.startLoad = true;
             if ($stateParams.label === 'BookPage') {
                 collection = $scope.pageDetail.page.author;
                 $scope.contributorPrefix = 'von';

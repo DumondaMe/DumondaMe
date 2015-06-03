@@ -1686,7 +1686,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "        <div class=\"page-rating-review\">\r" +
+    "        <div class=\"page-rating-review\" ng-hide=\"showCommentDetail\">\r" +
     "\n" +
     "            <div class=\"page-rating-review-summary\">\r" +
     "\n" +
@@ -1794,47 +1794,63 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div class=\"page-rating-comments\">\r" +
+    "        <div ng-class=\"{'page-rating-comments': !showCommentDetail, 'page-rating-comments-detail': showCommentDetail}\">\r" +
     "\n" +
-    "            <div class=\"page-rating-comment-preview\" ng-repeat=\"userReview in review.reviews\">\r" +
+    "            <div class=\"page-rating-comments-nav\" ng-show=\"showCommentDetail\" ng-click=\"previousComments()\"><img src=\"app/img/arrow-previous.png\">\r" +
     "\n" +
-    "                <div class=\"page-rating-comment-left\">\r" +
+    "            </div>\r" +
     "\n" +
-    "                    <img ng-src=\"{{userReview.profileUrl}}\" class=\"img-circle page-rating-comment-img\">\r" +
+    "            <div class=\"page-rating-comments-previews\" ng-style=\"styleCommentsDetail\" ng-click=\"setShowCommentDetail()\">\r" +
     "\n" +
-    "                </div>\r" +
+    "                <div ng-repeat=\"userReview in review.reviews\"\r" +
     "\n" +
-    "                <div class=\"page-rating-comment-right\">\r" +
+    "                     ng-class=\"{'page-rating-comment-preview': userReview.comment.length < 100 || !userReview.comment || !showCommentDetail,\r" +
     "\n" +
-    "                    <div class=\"page-rating-comment-header\">\r" +
+    "                    'page-rating-comment-preview-wide': userReview.comment.length > 100 && showCommentDetail}\">\r" +
     "\n" +
-    "                        <div class=\"page-rating-comment-name\">\r" +
+    "                    <div class=\"page-rating-comment-left\">\r" +
     "\n" +
-    "                            {{userReview.name}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-rating-comment-created\">\r" +
-    "\n" +
-    "                            {{userReview.created}}\r" +
-    "\n" +
-    "                        </div>\r" +
+    "                        <img ng-src=\"{{userReview.profileUrl}}\" class=\"img-circle page-rating-comment-img\">\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "                    <div class=\"page-rating-comment-right\">\r" +
     "\n" +
-    "                                     number-of-selected-stars-readonly=\"userReview.rating\"></ely-star-rating>\r" +
+    "                        <div class=\"page-rating-comment-header\">\r" +
     "\n" +
-    "                    <div class=\"page-rating-comment-description\">\r" +
+    "                            <div class=\"page-rating-comment-name\">\r" +
     "\n" +
-    "                        {{userReview.comment}}\r" +
+    "                                {{userReview.name}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"page-rating-comment-created\">\r" +
+    "\n" +
+    "                                {{userReview.created}}\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
+    "\n" +
+    "                                         number-of-selected-stars-readonly=\"userReview.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                        <div class=\"page-rating-comment-description\">\r" +
+    "\n" +
+    "                            {{userReview.comment}}\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
     "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-rating-comments-nav\" ng-click=\"nextComments()\"\r" +
+    "\n" +
+    "                 ng-show=\"totalNumberOfRatings > skipComments + numberOfElements && showCommentDetail\"><img src=\"app/img/arrow-next.png\"></div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -1977,19 +1993,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings\">\r" +
+    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad\">\r" +
     "\n" +
     "            <ely-page-review only-contacts=\"true\" title=\"Bewertungen deiner Kontakte\"\r" +
     "\n" +
-    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"></ely-page-review>\r" +
+    "                             ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"></ely-page-review>\r" +
     "\n" +
     "            <ely-page-review only-contacts=\"false\" title=\"Alle Bewertungen\"\r" +
     "\n" +
-    "                             ng-show=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"></ely-page-review>\r" +
+    "                             ng-if=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"></ely-page-review>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings\">\r" +
+    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings && startLoad\">\r" +
     "\n" +
     "            <ely-page-review only-contacts=\"false\" title=\"Bewertungen\"></ely-page-review>\r" +
     "\n" +

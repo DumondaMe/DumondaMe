@@ -1210,30 +1210,31 @@ h1.website-structure-title {
           background-color: #ff9f02; }
         #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
           background-color: #ff6f31; }
-#content-page-detail .page-rating-comments {
+#content-page-detail .page-rating-comments, #content-page-detail .page-rating-comments-detail {
   width: 100%;
   padding-left: 350px;
-  cursor: pointer; }
-  #content-page-detail .page-rating-comments .page-rating-comment-preview {
+  cursor: pointer;
+  min-height: 150px; }
+  #content-page-detail .page-rating-comments .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
     display: inline-block;
     max-height: 120px;
     margin-right: 10px;
     margin-bottom: 10px; }
-    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left {
+    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-left, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-left {
       display: inline-block;
       width: 50px;
       height: 100%; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img {
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-left .page-rating-comment-img {
         width: 48px;
         height: 48px;
         padding: 5px; }
-    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right {
+    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right {
       display: inline-block;
       vertical-align: top;
       margin-left: 10px;
       width: 210px;
       height: 100%; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
         display: inline-block;
         vertical-align: top;
         font-weight: 500;
@@ -1242,7 +1243,7 @@ h1.website-structure-title {
         height: 22px;
         text-overflow: ellipsis;
         overflow: hidden; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
         display: inline-block;
         vertical-align: top;
         font-size: 11px;
@@ -1251,10 +1252,10 @@ h1.website-structure-title {
         line-height: 18px;
         margin-left: 4px;
         margin-top: 1px; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small {
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small {
         width: 11px;
         height: 11px; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description {
+      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-description {
         width: 210px;
         white-space: normal;
         margin-top: 5px;
@@ -1264,6 +1265,30 @@ h1.website-structure-title {
         overflow: hidden;
         font-size: 13px;
         font-weight: 300; }
+#content-page-detail .page-rating-comments-detail {
+  width: 100%;
+  min-height: 150px;
+  white-space: nowrap;
+  padding-left: 0;
+  display: table-row; }
+  #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
+    width: 350px; }
+    #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-description {
+      width: 320px;
+      max-height: inherit; }
+  #content-page-detail .page-rating-comments-detail .page-rating-comments-previews {
+    display: table-cell; }
+  #content-page-detail .page-rating-comments-detail .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
+    max-height: inherit; }
+  #content-page-detail .page-rating-comments-detail .page-rating-comments-nav {
+    display: table-cell;
+    vertical-align: middle;
+    width: 64px;
+    height: 100%;
+    margin: auto 0; }
+    #content-page-detail .page-rating-comments-detail .page-rating-comments-nav img {
+      width: 64px;
+      height: 64px; }
 
 #content #content-page-overview {
   width: 100%;

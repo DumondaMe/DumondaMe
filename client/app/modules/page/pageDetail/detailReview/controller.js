@@ -40,23 +40,25 @@ var calculateDiagramBlockWidth = function ($scope) {
 
 };
 
-var setCreateDate = function ($scope, moment) {
-    angular.forEach($scope.review.reviews, function (review) {
+var setCreateDate = function (reviews, moment) {
+    angular.forEach(reviews, function (review) {
         review.created = moment.unix(review.created).format('LL');
     });
 };
 
-var getRating = function ($scope, $stateParams, PageDetailReview, moment) {
+var getRating = function ($scope, $stateParams, PageDetailReview, moment, skip, limit, skipCalculate) {
     $scope.review = PageDetailReview.get({
-        skip: 0,
-        maxItems: 6,
+        skip: skip,
+        maxItems: limit,
         onlyContacts: $scope.onlyContacts,
         pageId: $stateParams.pageId,
         label: $stateParams.label
     }, function () {
-        calculateSummaryRating($scope);
-        calculateDiagramBlockWidth($scope);
-        setCreateDate($scope, moment);
+        if (!skipCalculate) {
+            calculateSummaryRating($scope);
+            calculateDiagramBlockWidth($scope);
+        }
+        setCreateDate($scope.review.reviews, moment);
     });
 };
 
@@ -64,14 +66,48 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', '$stateParams', 'PageDetailReview', 'moment', function ($scope, $stateParams, PageDetailReview, moment) {
             $scope.onlyContacts = $scope.onlyContacts === 'true';
+            $scope.showCommentDetail = false;
+            $scope.styleCommentsDetail = {};
+            $scope.skipComments = 0;
 
             initRating($scope);
 
-            getRating($scope, $stateParams, PageDetailReview, moment);
+            getRating($scope, $stateParams, PageDetailReview, moment, 0, 2);
 
             $scope.$on('page.detail.edit.child', function () {
-                getRating($scope, $stateParams, PageDetailReview, moment);
+                getRating($scope, $stateParams, PageDetailReview, moment, 0, 2);
             });
+
+            $scope.setShowCommentDetail = function () {
+                if (!$scope.showCommentDetail) {
+                    $scope.showCommentDetail = true;
+                    $scope.styleCommentsDetail = {'width': $scope.containerWidth};
+                    getRating($scope, $stateParams, PageDetailReview, moment, $scope.skipComments, $scope.numberOfElements, true);
+                }
+            };
+
+            $scope.$watch('numberOfElements', function (newValue) {
+                if ($scope.showCommentDetail) {
+                    getRating($scope, $stateParams, PageDetailReview, moment, $scope.skipComments, newValue, true);
+                }
+            });
+
+            $scope.nextComments = function () {
+                $scope.skipComments += $scope.numberOfElements;
+                getRating($scope, $stateParams, PageDetailReview, moment, $scope.skipComments, $scope.numberOfElements, true);
+            };
+
+            $scope.previousComments = function () {
+                $scope.skipComments -= $scope.numberOfElements;
+                if ($scope.skipComments < 0) {
+                    $scope.skipComments = 0;
+                    $scope.showCommentDetail = false;
+                    $scope.styleCommentsDetail = {};
+                    getRating($scope, $stateParams, PageDetailReview, moment, 0, 2);
+                } else {
+                    getRating($scope, $stateParams, PageDetailReview, moment, $scope.skipComments, $scope.numberOfElements, true);
+                }
+            };
         }];
     }
 };

@@ -64,13 +64,13 @@
 
             <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
         </div>
-        <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings">
+        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad">
             <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"
-                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings > 0"></ely-page-review>
+                             ng-if="pageDetail.recommendation.summary.contact.numberOfRatings > 0"></ely-page-review>
             <ely-page-review only-contacts="false" title="Alle Bewertungen"
-                             ng-show="pageDetail.recommendation.summary.all.numberOfRatings > 0"></ely-page-review>
+                             ng-if="pageDetail.recommendation.summary.all.numberOfRatings > 0"></ely-page-review>
         </div>
-        <div ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings">
+        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings && startLoad">
             <ely-page-review only-contacts="false" title="Bewertungen"></ely-page-review>
         </div>
         <div class="page-detail-bottom-element">

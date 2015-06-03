@@ -2,7 +2,7 @@
     <div class="page-detail-bottom-element-inner">
         <h1 class="website-structure-title">{{title}}</h1>
 
-        <div class="page-rating-review">
+        <div class="page-rating-review" ng-hide="showCommentDetail">
             <div class="page-rating-review-summary">
                 <div class="page-rating-review-number">
                     {{summaryRating}}
@@ -56,27 +56,35 @@
                 </div>
             </div>
         </div>
-        <div class="page-rating-comments">
-            <div class="page-rating-comment-preview" ng-repeat="userReview in review.reviews">
-                <div class="page-rating-comment-left">
-                    <img ng-src="{{userReview.profileUrl}}" class="img-circle page-rating-comment-img">
-                </div>
-                <div class="page-rating-comment-right">
-                    <div class="page-rating-comment-header">
-                        <div class="page-rating-comment-name">
-                            {{userReview.name}}
-                        </div>
-                        <div class="page-rating-comment-created">
-                            {{userReview.created}}
-                        </div>
+        <div ng-class="{'page-rating-comments': !showCommentDetail, 'page-rating-comments-detail': showCommentDetail}">
+            <div class="page-rating-comments-nav" ng-show="showCommentDetail" ng-click="previousComments()"><img src="app/img/arrow-previous.png">
+            </div>
+            <div class="page-rating-comments-previews" ng-style="styleCommentsDetail" ng-click="setShowCommentDetail()">
+                <div ng-repeat="userReview in review.reviews"
+                     ng-class="{'page-rating-comment-preview': userReview.comment.length < 100 || !userReview.comment || !showCommentDetail,
+                    'page-rating-comment-preview-wide': userReview.comment.length > 100 && showCommentDetail}">
+                    <div class="page-rating-comment-left">
+                        <img ng-src="{{userReview.profileUrl}}" class="img-circle page-rating-comment-img">
                     </div>
-                    <ely-star-rating is-readonly="true" is-x-small="true"
-                                     number-of-selected-stars-readonly="userReview.rating"></ely-star-rating>
-                    <div class="page-rating-comment-description">
-                        {{userReview.comment}}
+                    <div class="page-rating-comment-right">
+                        <div class="page-rating-comment-header">
+                            <div class="page-rating-comment-name">
+                                {{userReview.name}}
+                            </div>
+                            <div class="page-rating-comment-created">
+                                {{userReview.created}}
+                            </div>
+                        </div>
+                        <ely-star-rating is-readonly="true" is-x-small="true"
+                                         number-of-selected-stars-readonly="userReview.rating"></ely-star-rating>
+                        <div class="page-rating-comment-description">
+                            {{userReview.comment}}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="page-rating-comments-nav" ng-click="nextComments()"
+                 ng-show="totalNumberOfRatings > skipComments + numberOfElements && showCommentDetail"><img src="app/img/arrow-next.png"></div>
         </div>
     </div>
 </div>

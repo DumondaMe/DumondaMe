@@ -86,6 +86,7 @@
     width: 100%;
     padding-left: 350px;
     cursor: pointer;
+    min-height: 150px;
     .page-rating-comment-preview {
       display: inline-block;
       max-height: 120px;
@@ -146,6 +147,43 @@
           font-size: 13px;
           font-weight: 300;
         }
+      }
+    }
+  }
+  .page-rating-comments-detail {
+    @extend .page-rating-comments;
+    width: 100%;
+    min-height: 150px;
+    white-space: nowrap;
+    padding-left: 0;
+    display: table-row;
+    .page-rating-comment-preview-wide {
+      @extend .page-rating-comment-preview;
+      width: 350px;
+      .page-rating-comment-right {
+        .page-rating-comment-description {
+          width: 320px;
+          max-height: inherit;
+        }
+      }
+    }
+    .page-rating-comments-previews {
+      //padding: 0 80px;
+      display: table-cell;
+    }
+    .page-rating-comment-preview {
+      //display: table-cell;
+      max-height: inherit;
+    }
+    .page-rating-comments-nav {
+      display: table-cell;
+      vertical-align: middle;
+      width: 64px;
+      height: 100%;
+      margin: auto 0;
+      img {
+        width: 64px;
+        height: 64px;
       }
     }
   }
