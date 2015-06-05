@@ -1,27 +1,41 @@
-#content {
+$detail-padding-left: 280px;
 
-  #content-page-contact-details {
-    width: 100%;
-    height: 100%;
-    margin-top: 100px;
+#content-page-contact-details {
+  width: 100%;
+  height: 100%;
+  padding-top: 60px;
 
-    @include centerColumn(80px) {
-      #inner-centerCol {
-        position: relative;
-        width: 800px;
-        height: 100%;
-        margin: 0 auto;
+  @include centerColumn(0px) {
+    #inner-centerCol {
+      height: 100%;
+      background-color: $primary-color-light;
 
-        .profile-detail-content-group {
-          display: inline-block;
-          width: 100%;
-          padding-bottom: 10px;
-          margin-bottom: 10px;
-          border-bottom: 1px solid $divider-light;
+      .profile-detail-content-group {
+        width: 100%;
+        padding-top: 10px;
+        padding-left: $detail-padding-left;
+        background-color: $primary-color-light;
+        padding-bottom: 10px;
+
+        .profile-detail-content-group-inner {
+          border-top: solid 1px $divider-light;
+          margin-top: 10px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 40px;
         }
+      }
+
+      #profile-detail-header {
+        background-color: $background-normal;
+        border-bottom: 2px solid #d6d6d6;
+        min-width: 1000px;
+        padding: 40px 0 20px $detail-padding-left;
+        margin-bottom: 10px;
 
         #profile-image {
-          float: left;
+          display: inline-block;
+          vertical-align: top;
           width: 250px;
           height: 250px;
 
@@ -32,20 +46,21 @@
         }
 
         #profile-data {
-          float: left;
+          display: inline-block;
           margin-left: 60px;
           height: 250px;
           #profile-data-overview {
             height: 216px;
             max-height: 216px;
             #profile-data-name {
-              font-weight: bold;
-              font-size: 18px;
+              font-size: 30px;
+              font-weight: 100;
               color: $primary-color;
               display: inline-block;
             }
             #profile-connection-type {
               font-size: 14px;
+              font-weight: 300;
               font-style: italic;
               margin-bottom: 10px;
               &:hover {
@@ -69,32 +84,18 @@
             }
             .profile-data-description {
               font-size: 16px;
+              font-weight: 300;
               margin-bottom: 4px;
             }
           }
         }
+      }
 
-        #profile-contacts-title-female {
-          margin-bottom: 20px;
-          font-size: 14px;
-          font-weight: bold;
-        }
-
-        #profile-contacts-title-male {
-          @extend #profile-contacts-title-female;
-        }
-
-
-        .profile-contact-expander {
-          width: 28px;
-          height: 28px;
-          margin: 10px auto 0 auto;
-          cursor: pointer;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
+      .profile-contacts-description {
+        margin-top: -10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 300;
       }
     }
   }

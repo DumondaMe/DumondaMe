@@ -599,7 +599,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"profile-detail-content-group\">\r" +
+    "            <div id=\"profile-detail-header\">\r" +
     "\n" +
     "                <div id=\"profile-image\">\r" +
     "\n" +
@@ -677,39 +677,51 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"profile-detail-content-group\" ng-show=\"contacts.length > 0\">\r" +
     "\n" +
-    "                <div id=\"profile-contacts-title-female\" ng-show=\"contact.female\">\r" +
+    "                <h1 class=\"website-structure-title\">Kontakte</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"profile-contacts-description\" ng-show=\"contact.female\">\r" +
     "\n" +
     "                    Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div id=\"profile-contacts-title-male\" ng-show=\"!contact.female\">\r" +
+    "                <div class=\"profile-contacts-description\" ng-show=\"!contact.female\">\r" +
     "\n" +
     "                    Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"user-mini-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.userId)\">\r" +
+    "                <div class=\"user-mini-preview-container\">\r" +
     "\n" +
-    "                    <div class=\"user-mini-preview-content\">\r" +
+    "                    <div class=\"user-mini-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.userId)\">\r" +
     "\n" +
-    "                        <img ng-src=\"{{user.profileUrl}}\">\r" +
+    "                        <div class=\"user-mini-preview-content\">\r" +
+    "\n" +
+    "                            <img ng-src=\"{{user.profileUrl}}\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"user-mini-preview-name\">\r" +
+    "                            <div class=\"user-mini-preview-name\">\r" +
     "\n" +
-    "                            <div class=\"name\">{{user.name}}</div>\r" +
+    "                                <div class=\"name\">{{user.name}}</div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
+    "                    <div class=\"profile-contact-expander-container\">\r" +
+    "\n" +
+    "                        <div class=\"profile-contact-expander\" ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=\"appendContacts()\"><img\r" +
+    "\n" +
+    "                                src=\"app/img/expand-down.png\"/></div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
     "                </div>\r" +
-    "\n" +
-    "                <div class=\"profile-contact-expander\" ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=\"appendContacts()\"><img\r" +
-    "\n" +
-    "                        src=\"app/img/expand-down.png\"/></div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -7376,24 +7388,6 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
                 isSuggestion: false
             };
-            /*$scope.pageSuggestions = SearchPage.get({
-                search: title,
-                filterType: PageCategories.getPageType($scope.category.selectedCategory),
-                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
-                isSuggestion: false
-            }, function () {
-                $scope.categoryFirstSelect = false;
-                $scope.categoryTitleChanged = false;
-                if (!$scope.mode.edit) {
-                    $scope.categoryTitlePrviouse = title;
-                }
-                if ($scope.pageSuggestions.pages.length > 0) {
-                    setCategories($scope.pageSuggestions.pages, PageCategories);
-                    $scope.setNextState(2);
-                } else {
-                    $scope.setNextState(3);
-                }
-            });*/
         };
 
         $scope.$on('page.preview.request.finished', function (event, pages) {

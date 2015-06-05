@@ -1,7 +1,7 @@
 <div id="content-page-contact-details">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="profile-detail-content-group">
+            <div id="profile-detail-header">
                 <div id="profile-image">
                     <img class="img-rounded img-responsive" ng-src="{{contact.profileUrl}}"/>
                 </div>
@@ -40,23 +40,29 @@
                 </div>
             </div>
             <div class="profile-detail-content-group" ng-show="contacts.length > 0">
-                <div id="profile-contacts-title-female" ng-show="contact.female">
+                <h1 class="website-structure-title">Kontakte</h1>
+
+                <div class="profile-contacts-description" ng-show="contact.female">
                     Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)
                 </div>
-                <div id="profile-contacts-title-male" ng-show="!contact.female">
+                <div class="profile-contacts-description" ng-show="!contact.female">
                     Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)
                 </div>
-                <div class="user-mini-preview" ng-repeat="user in contacts" ng-click="openUserDetails(user.userId)">
-                    <div class="user-mini-preview-content">
-                        <img ng-src="{{user.profileUrl}}">
+                <div class="user-mini-preview-container">
+                    <div class="user-mini-preview" ng-repeat="user in contacts" ng-click="openUserDetails(user.userId)">
+                        <div class="user-mini-preview-content">
+                            <img ng-src="{{user.profileUrl}}">
 
-                        <div class="user-mini-preview-name">
-                            <div class="name">{{user.name}}</div>
+                            <div class="user-mini-preview-name">
+                                <div class="name">{{user.name}}</div>
+                            </div>
                         </div>
                     </div>
+                    <div class="profile-contact-expander-container">
+                        <div class="profile-contact-expander" ng-show="contacts.length < numberOfContacts - 1" ng-click="appendContacts()"><img
+                                src="app/img/expand-down.png"/></div>
+                    </div>
                 </div>
-                <div class="profile-contact-expander" ng-show="contacts.length < numberOfContacts - 1" ng-click="appendContacts()"><img
-                        src="app/img/expand-down.png"/></div>
             </div>
         </div>
     </div>

@@ -59,24 +59,6 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
                 filterLanguage: Languages.getCode($scope.category.selectedLanguage),
                 isSuggestion: false
             };
-            /*$scope.pageSuggestions = SearchPage.get({
-                search: title,
-                filterType: PageCategories.getPageType($scope.category.selectedCategory),
-                filterLanguage: Languages.getCode($scope.category.selectedLanguage),
-                isSuggestion: false
-            }, function () {
-                $scope.categoryFirstSelect = false;
-                $scope.categoryTitleChanged = false;
-                if (!$scope.mode.edit) {
-                    $scope.categoryTitlePrviouse = title;
-                }
-                if ($scope.pageSuggestions.pages.length > 0) {
-                    setCategories($scope.pageSuggestions.pages, PageCategories);
-                    $scope.setNextState(2);
-                } else {
-                    $scope.setNextState(3);
-                }
-            });*/
         };
 
         $scope.$on('page.preview.request.finished', function (event, pages) {
