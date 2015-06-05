@@ -96,6 +96,10 @@
                 font-weight: 300;
                 margin-left: 5px;
               }
+              .page-detail-header-no-rating-overview-description {
+                @extend .page-detail-header-rating-overview-description;
+                margin-left: 0;
+              }
             }
           }
         }

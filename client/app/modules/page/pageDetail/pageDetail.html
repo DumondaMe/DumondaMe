@@ -38,18 +38,30 @@
                         </button>
                     </div>
                     <div class="page-detail-header-rating-overviews">
-                        <div class="page-detail-header-rating-overview">
+                        <div class="page-detail-header-rating-overview" ng-show="pageDetail.recommendation.summary.contact.numberOfRatings > 0">
                             <ely-star-rating is-readonly="true" is-x-small="true"
                                              number-of-selected-stars-readonly="pageDetail.recommendation.summary.contact.rating"></ely-star-rating>
                             <div class="page-detail-header-rating-overview-description">
                                 (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})
                             </div>
                         </div>
-                        <div class="page-detail-header-rating-overview">
+                        <div class="page-detail-header-rating-overview"
+                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings > 0">
+                            <div class="page-detail-header-no-rating-overview-description">
+                                Noch keine Bewertungen durch deine Kontakte
+                            </div>
+                        </div>
+                        <div class="page-detail-header-rating-overview" ng-show="pageDetail.recommendation.summary.all.numberOfRatings > 0">
                             <ely-star-rating is-readonly="true" is-x-small="true"
                                              number-of-selected-stars-readonly="pageDetail.recommendation.summary.all.rating"></ely-star-rating>
                             <div class="page-detail-header-rating-overview-description">
                                 (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})
+                            </div>
+                        </div>
+                        <div class="page-detail-header-rating-overview"
+                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings === 0">
+                            <div class="page-detail-header-no-rating-overview-description">
+                                Noch keine Bewertungen
                             </div>
                         </div>
                     </div>

@@ -1927,7 +1927,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <div class=\"page-detail-header-rating-overviews\">\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\">\r" +
+    "                        <div class=\"page-detail-header-rating-overview\" ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\">\r" +
     "\n" +
     "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
     "\n" +
@@ -1941,7 +1941,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\">\r" +
+    "                        <div class=\"page-detail-header-rating-overview\"\r" +
+    "\n" +
+    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings > 0\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-no-rating-overview-description\">\r" +
+    "\n" +
+    "                                Noch keine Bewertungen durch deine Kontakte\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-rating-overview\" ng-show=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\">\r" +
     "\n" +
     "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
     "\n" +
@@ -1950,6 +1962,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                            <div class=\"page-detail-header-rating-overview-description\">\r" +
     "\n" +
     "                                (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"page-detail-header-rating-overview\"\r" +
+    "\n" +
+    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings === 0\">\r" +
+    "\n" +
+    "                            <div class=\"page-detail-header-no-rating-overview-description\">\r" +
+    "\n" +
+    "                                Noch keine Bewertungen\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +

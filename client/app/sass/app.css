@@ -1130,11 +1130,13 @@ h1.website-structure-title {
             bottom: 0px; }
             #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview {
               margin-top: 5px; }
-              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description {
+              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description, #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-no-rating-overview-description {
                 display: inline-block;
                 font-size: 12px;
                 font-weight: 300;
                 margin-left: 5px; }
+              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-no-rating-overview-description {
+                margin-left: 0; }
     #content-page-detail #centerCol .page-detail-bottom-element {
       padding-top: 30px;
       padding-right: 60px;
