@@ -2166,15 +2166,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\"\r" +
-    "\n" +
-    "     ng-click=\"startExpand()\">\r" +
+    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
     "\n" +
     "    <div class=\"website-structure-header\">\r" +
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
-    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-hide=\"expand\"\r" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-hide=\"expand\" ng-click=\"startExpand()\"\r" +
     "\n" +
     "                ng-show=\"numberOfElements < totalNumberOfPages\">Mehr\r" +
     "\n" +
@@ -2193,6 +2191,10 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "    <div class=\"page-overview-next\" ng-click=\"nextPages()\" ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img\r" +
+    "\n" +
+    "            src=\"app/img/expand-down.png\"></div>\r" +
     "\n" +
     "</div>"
   );

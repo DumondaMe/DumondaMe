@@ -1,5 +1,11 @@
 'use strict';
 
+var resetPages = function ($scope) {
+    $scope.pagePreviews = [];
+    $scope.expandSkipPages = 0;
+    $scope.expand = false;
+};
+
 var setCategories = function (pages, PageCategories) {
     angular.forEach(pages, function (page) {
         page.category = PageCategories.categories[page.label];
@@ -35,6 +41,7 @@ var getPages = function ($scope, service, serviceParameter, PageCategories, limi
         $scope.pagePreviewsTemp = service.get(params, function () {
             setCategories($scope.pagePreviewsTemp.pages, PageCategories);
             addPagePreview($scope);
+            $scope.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
             $scope.$emit('page.preview.request.finished', $scope.pagePreviews);
         });
     }
@@ -46,7 +53,7 @@ module.exports = {
 
             var init = true;
             $scope.notRequestInitService = $scope.notRequestInitService === 'true';
-            $scope.pagePreviews = [];
+            resetPages($scope);
 
             $scope.$watch('service', function (newValue) {
                 if (newValue && !$scope.hide && !$scope.notRequestInitService) {
@@ -57,7 +64,7 @@ module.exports = {
             $scope.$watchCollection('serviceParameter', function (newValue) {
                 if (newValue) {
                     if (!init && !$scope.hide) {
-                        $scope.pagePreviews = [];
+                        resetPages($scope);
                         getPages($scope, $scope.service, newValue, PageCategories, 9, 0);
                     } else {
                         init = false;
@@ -66,9 +73,15 @@ module.exports = {
             });
 
             $scope.startExpand = function () {
-                var limit = ($scope.numberOfElements * 2);
+                $scope.expandNumberOfPages = ($scope.numberOfElements * 2);
+                $scope.expandSkipPages = 0;
                 $scope.expand = true;
-                getPages($scope, $scope.service, $scope.serviceParameter, PageCategories, limit, 0);
+                getPages($scope, $scope.service, $scope.serviceParameter, PageCategories, $scope.expandNumberOfPages, $scope.expandSkipPages);
+            };
+
+            $scope.nextPages = function () {
+                $scope.expandSkipPages += $scope.expandNumberOfPages;
+                getPages($scope, $scope.service, $scope.serviceParameter, PageCategories, $scope.expandNumberOfPages, $scope.expandSkipPages);
             };
         }];
     }

@@ -1334,6 +1334,10 @@ h1.website-structure-title {
           right: 30px;
           background-color: #009688;
           color: #ffffff; }
+      #content #content-page-overview #centerCol #inner-centerCol .page-overview-next {
+        width: 48px;
+        margin: 0 auto 0 auto;
+        cursor: pointer; }
   #content #content-page-overview #search-box-container {
     position: fixed;
     top: 60px;

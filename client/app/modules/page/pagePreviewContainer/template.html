@@ -1,8 +1,7 @@
-<div ng-show="pagePreviews.length > 0 && !hide" class="page-overview-container" ng-style="{'width': containerWidth + 'px'}"
-     ng-click="startExpand()">
+<div ng-show="pagePreviews.length > 0 && !hide" class="page-overview-container" ng-style="{'width': containerWidth + 'px'}">
     <div class="website-structure-header">
         <h1 class="website-structure-title">{{title}}</h1>
-        <button type="button" class="btn btn-default page-overview-expand" ng-hide="expand"
+        <button type="button" class="btn btn-default page-overview-expand" ng-hide="expand" ng-click="startExpand()"
                 ng-show="numberOfElements < totalNumberOfPages">Mehr
         </button>
     </div>
@@ -12,4 +11,6 @@
                               video-height="{{videoHeight}}"></ely-page-preview>
         </div>
     </div>
+    <div class="page-overview-next" ng-click="nextPages()" ng-show="expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages"><img
+            src="app/img/expand-down.png"></div>
 </div>
