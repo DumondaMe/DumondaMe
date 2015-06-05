@@ -114,6 +114,7 @@ describe('Integration Tests for getting book page detail', function () {
                 res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.recommendation.user.rating.should.equals(1);
                 res.body.recommendation.user.comment.should.equals('irgendwas');
+                res.body.recommendation.user.created.should.equals(500);
                 res.body.recommendation.user.recommendationId.should.equals('0');
 
                 res.body.recommendation.summary.contact.rating.should.equals(4);

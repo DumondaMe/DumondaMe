@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
-    function ($scope, PromiseModal, PageRecommendation) {
+module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
+    function ($scope, PromiseModal, PageRecommendation, moment) {
 
 
         $scope.addNewRecommendation = function (page, pageId, label, title) {
@@ -23,7 +23,8 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
                     rating: resp.rating,
                     comment: resp.comment,
                     profileUrl: resp.profileUrl,
-                    recommendationId: resp.recommendationId
+                    recommendationId: resp.recommendationId,
+                    created: moment.unix(resp.created).format('LL')
                 };
                 page.recommendation.summary.contact = resp.recommendation.contact;
                 page.recommendation.summary.all = resp.recommendation.all;

@@ -23,7 +23,7 @@ var getRecommendationSummaryContacts = function (pageId, pageLabel, userId) {
 var getUserRecommendation = function (pageId, pageLabel, userId) {
 
     return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating")
+        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating, rec.created AS created")
         .end({pageId: pageId, userId: userId})
         .getCommand();
 };

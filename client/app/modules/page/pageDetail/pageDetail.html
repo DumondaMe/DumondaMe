@@ -31,10 +31,7 @@
                         <button class="btn btn-default" type="button"
                                 ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
                                 ng-hide="pageDetail.recommendation.user">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Bewerten
-                        </button>
-                        <button class="btn btn-default" type="button" ng-click="removeRecommendation(pageDetail, pageId, label)"
-                                ng-show="pageDetail.recommendation.user">Bewertung entfernen
+                            Bewerten
                         </button>
                         <button class="btn btn-default" type="button" ng-click="goEditPage(pageId, label)"
                                 ng-show="pageDetail.administrators.isAdmin"> Seite editieren
@@ -63,6 +60,19 @@
             <h1 class="website-structure-title">Beschreibung</h1>
 
             <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
+        </div>
+        <div class="page-detail-bottom-element" ng-show="pageDetail.recommendation.user">
+            <div class="page-detail-bottom-element-inner" ng-controller="AddRemoveRecommendationCtrl">
+                <h1 class="website-structure-title">Meine Bewertung</h1>
+
+                <ely-star-rating is-readonly="true" is-small="true"
+                                 number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
+                <div id="page-detail-my-recommendation"> bewertet am {{pageDetail.recommendation.user.created}}</div>
+                <button class="btn btn-default page-detail-my-recommendation-remove" type="button"
+                        ng-click="removeRecommendation(pageDetail, pageId, label)">Bewertung entfernen
+                </button>
+                <div id="page-detail-my-recommendation-comment"> {{pageDetail.recommendation.user.comment}}</div>
+            </div>
         </div>
         <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad">
             <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"

@@ -7,8 +7,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements',
-    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment',
+    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment) {
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -37,6 +37,9 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
                     $scope.contributors.push(author);
                 }
             });
+            if ($scope.pageDetail.recommendation && $scope.pageDetail.recommendation.user) {
+                $scope.pageDetail.recommendation.user.created = moment.unix($scope.pageDetail.recommendation.user.created).format('LL');
+            }
         });
 
         $scope.category = categories[$stateParams.label];

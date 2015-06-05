@@ -1928,13 +1928,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                ng-hide=\"pageDetail.recommendation.user\">\r" +
     "\n" +
-    "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Bewerten\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"removeRecommendation(pageDetail, pageId, label)\"\r" +
-    "\n" +
-    "                                ng-show=\"pageDetail.recommendation.user\">Bewertung entfernen\r" +
+    "                            Bewerten\r" +
     "\n" +
     "                        </button>\r" +
     "\n" +
@@ -1991,6 +1985,32 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\r" +
     "\n" +
     "            <div id=\"page-detail-description-text\">{{pageDetail.page.description}}</div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"page-detail-bottom-element\" ng-show=\"pageDetail.recommendation.user\">\r" +
+    "\n" +
+    "            <div class=\"page-detail-bottom-element-inner\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
+    "\n" +
+    "                <h1 class=\"website-structure-title\">Meine Bewertung</h1>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
+    "\n" +
+    "                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                <div id=\"page-detail-my-recommendation\"> bewertet am {{pageDetail.recommendation.user.created}}</div>\r" +
+    "\n" +
+    "                <button class=\"btn btn-default page-detail-my-recommendation-remove\" type=\"button\"\r" +
+    "\n" +
+    "                        ng-click=\"removeRecommendation(pageDetail, pageId, label)\">Bewertung entfernen\r" +
+    "\n" +
+    "                </button>\r" +
+    "\n" +
+    "                <div id=\"page-detail-my-recommendation-comment\"> {{pageDetail.recommendation.user.comment}}</div>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -6962,8 +6982,8 @@ module.exports = ['$resource', function ($resource) {
 },{}],83:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
-    function ($scope, PromiseModal, PageRecommendation) {
+module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
+    function ($scope, PromiseModal, PageRecommendation, moment) {
 
 
         $scope.addNewRecommendation = function (page, pageId, label, title) {
@@ -6985,7 +7005,8 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation',
                     rating: resp.rating,
                     comment: resp.comment,
                     profileUrl: resp.profileUrl,
-                    recommendationId: resp.recommendationId
+                    recommendationId: resp.recommendationId,
+                    created: moment.unix(resp.created).format('LL')
                 };
                 page.recommendation.summary.contact = resp.recommendation.contact;
                 page.recommendation.summary.all = resp.recommendation.all;
@@ -7633,8 +7654,8 @@ var categories = {
     SchoolPage: 'Schule'
 };
 
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements',
-    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment',
+    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment) {
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -7663,6 +7684,9 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
                     $scope.contributors.push(author);
                 }
             });
+            if ($scope.pageDetail.recommendation && $scope.pageDetail.recommendation.user) {
+                $scope.pageDetail.recommendation.user.created = moment.unix($scope.pageDetail.recommendation.user.created).format('LL');
+            }
         });
 
         $scope.category = categories[$stateParams.label];
@@ -8107,6 +8131,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
             data.profileUrl = res.profileUrl;
             data.recommendationId = res.recommendationId;
             data.recommendation = res.recommendation;
+            data.created = res.created;
             $scope.confirm(data);
         }, function () {
             $scope.error = 'Bewertung konnte nicht gespeicher werden';

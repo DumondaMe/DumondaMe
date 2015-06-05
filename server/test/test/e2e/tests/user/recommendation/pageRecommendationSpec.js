@@ -62,7 +62,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
 
     it('Adding a new page recommendation - Return 200', function () {
 
-        var recommendationId;
+        var recommendationId, created;
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/page', {
@@ -79,12 +79,13 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             res.body.recommendation.all.numberOfRatings.should.equals(2);
             res.body.recommendation.all.rating.should.equals(4);
             recommendationId = res.body.recommendationId;
+            created = res.body.created;
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(course:CoursePage {pageId: '0'})")
                 .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment, recommendation.recommendationId AS recommendationId')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(1);
-            resp[0].created.should.be.at.least(startTime);
+            resp[0].created.should.equals(created);
             resp[0].rating.should.equals(5);
             resp[0].comment.should.equals('irgendwas');
             resp[0].recommendationId.should.equals(recommendationId);

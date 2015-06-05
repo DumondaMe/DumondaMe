@@ -1148,6 +1148,19 @@ h1.website-structure-title {
         margin-top: 10px;
         padding-top: 20px;
         padding-bottom: 20px; }
+      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-my-recommendation {
+        display: inline-block;
+        padding-top: 1px;
+        margin-left: 10px;
+        font-size: 14px;
+        line-height: 16px;
+        vertical-align: middle;
+        font-weight: 300; }
+      #content-page-detail #centerCol .page-detail-bottom-element .page-detail-my-recommendation-remove {
+        margin-left: 20px; }
+      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-my-recommendation-comment {
+        margin-top: 20px;
+        font-size: 14px; }
 
 #content-page-detail .page-rating-review {
   display: inline-block;

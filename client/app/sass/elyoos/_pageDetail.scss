@@ -119,6 +119,23 @@
         padding-top: 20px;
         padding-bottom: 20px;
       }
+
+      #page-detail-my-recommendation {
+        display: inline-block;
+        padding-top: 1px;
+        margin-left: 10px;
+        font-size: 14px;
+        line-height: 16px;
+        vertical-align: middle;
+        font-weight: 300;
+      }
+      .page-detail-my-recommendation-remove {
+        margin-left: 20px;
+      }
+      #page-detail-my-recommendation-comment {
+        margin-top: 20px;
+        font-size: 14px;
+      }
     }
 
   }

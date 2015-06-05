@@ -70,7 +70,7 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
     }
     return checkAddingRecommendationAllowed(userId, pageId, label, req).then(function () {
 
-        var recommendationId = uuid.generateUUID(), commands = [];
+        var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:" + label + " {pageId: {pageId}})")
             .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
@@ -81,7 +81,7 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
                 recommendationId: recommendationId,
                 comment: comment,
                 rating: rating,
-                created: time.getNowUtcTimestamp()
+                created: created
             }).getCommand());
         commands.push(recommendation.getRecommendationSummaryAll(pageId, ':' + label).getCommand());
         return recommendation.getRecommendationSummaryContacts(pageId, ':' + label, userId)
@@ -90,6 +90,7 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
                 return {
                     profileUrl: cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg'),
                     recommendationId: recommendationId,
+                    created: created,
                     recommendation: {
                         all: resp[1][0],
                         contact: resp[2][0]
