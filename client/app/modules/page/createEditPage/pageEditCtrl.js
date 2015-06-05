@@ -16,4 +16,15 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'Pa
                 label: $stateParams.label
             });
         };
+
+        $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
+            var subCategory;
+            $scope.category.selectedCategory = PageCategories.categories[$stateParams.label].description;
+            if ($scope.pageDetail.page.subCategory) {
+                subCategory = PageCategories.categories[$stateParams.label].subCategory[$scope.pageDetail.page.subCategory];
+                if (subCategory) {
+                    $scope.category.selectedSubCategory = subCategory.description;
+                }
+            }
+        });
     }];

@@ -1594,20 +1594,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
-    "                <!--<h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>-->\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <!--<div class=\"page-preview-container\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>-->\r" +
-    "\n" +
     "                <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Existiert die Seite bereits?\" service=\"SearchPage\"\r" +
     "\n" +
     "                                            service-parameter=\"SearchPageParameter\" hide=\"false\"\r" +

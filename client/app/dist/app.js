@@ -1595,20 +1595,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
     "\n" +
-    "                <!--<h1 class=\"website-structure-title\">Existiert die Seite bereits?</h1>-->\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <!--<div class=\"page-preview-container\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"pagePreview in pageSuggestions.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                        <ely-page-preview page-preview=\"pagePreview\"></ely-page-preview>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>-->\r" +
-    "\n" +
     "                <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Existiert die Seite bereits?\" service=\"SearchPage\"\r" +
     "\n" +
     "                                            service-parameter=\"SearchPageParameter\" hide=\"false\"\r" +
@@ -7063,17 +7049,16 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             return bookPage;
         };
 
-        if ($scope.mode.edit && $stateParams.label === 'BookPage') {
-            $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-                $scope.category.selectedLanguage = Languages.getLanguage($scope.pageDetail.page.language);
-                $scope.category.title = $scope.pageDetail.page.title;
-                $scope.category.selectedCategory = PageCategories.categories.BookPage;
-                $scope.page.description = $scope.pageDetail.page.description;
-                $scope.page.authors = $scope.pageDetail.page.author[0].name;
-                if ($scope.pageDetail.page.publishDate) {
-                    $scope.page.publishDate = moment.unix($scope.pageDetail.page.publishDate).format('l');
+        if ($scope.mode.edit) {
+            $scope.$watch('pageDetail.page', function (newPageDetail) {
+                $scope.category.selectedLanguage = Languages.getLanguage(newPageDetail.language);
+                $scope.category.title = newPageDetail.title;
+                $scope.page.description = newPageDetail.description;
+                $scope.page.authors = newPageDetail.author[0].name;
+                if (newPageDetail.publishDate) {
+                    $scope.page.publishDate = moment.unix(newPageDetail.publishDate).format('l');
                 }
-                $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
+                $scope.page.imagePreview = newPageDetail.titleUrl;
                 $scope.commonSection.toCompare = {};
                 $scope.commonSection.toCompareTitle = $scope.category.title;
                 angular.copy($scope.page, $scope.commonSection.toCompare);
@@ -7227,10 +7212,19 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             return page;
         };
 
-        if ($scope.mode.edit && $scope.category.selectedCategoryType === subCategory) {
-            $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-
-            });
+        if ($scope.mode.edit) {
+            if ($scope.mode.edit) {
+                $scope.$watch('pageDetail.page', function (newPageDetail) {
+                    $scope.category.selectedLanguage = Languages.getLanguage(newPageDetail.language);
+                    $scope.category.title = newPageDetail.title;
+                    $scope.page.description = newPageDetail.description;
+                    $scope.page.youtubeLink = newPageDetail.link;
+                    $scope.commonForm.inputYoutubeLink.$dirty = true;
+                    $scope.commonSection.toCompare = {};
+                    $scope.commonSection.toCompareTitle = $scope.category.title;
+                    angular.copy($scope.page, $scope.commonSection.toCompare);
+                });
+            }
         }
 
         $scope.$watch('page.youtubeLink', function (link) {
@@ -7281,6 +7275,17 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'Pa
                 label: $stateParams.label
             });
         };
+
+        $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
+            var subCategory;
+            $scope.category.selectedCategory = PageCategories.categories[$stateParams.label].description;
+            if ($scope.pageDetail.page.subCategory) {
+                subCategory = PageCategories.categories[$stateParams.label].subCategory[$scope.pageDetail.page.subCategory];
+                if (subCategory) {
+                    $scope.category.selectedSubCategory = subCategory.description;
+                }
+            }
+        });
     }];
 
 },{}],89:[function(require,module,exports){

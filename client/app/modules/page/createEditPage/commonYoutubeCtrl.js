@@ -41,10 +41,19 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             return page;
         };
 
-        if ($scope.mode.edit && $scope.category.selectedCategoryType === subCategory) {
-            $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-
-            });
+        if ($scope.mode.edit) {
+            if ($scope.mode.edit) {
+                $scope.$watch('pageDetail.page', function (newPageDetail) {
+                    $scope.category.selectedLanguage = Languages.getLanguage(newPageDetail.language);
+                    $scope.category.title = newPageDetail.title;
+                    $scope.page.description = newPageDetail.description;
+                    $scope.page.youtubeLink = newPageDetail.link;
+                    $scope.commonForm.inputYoutubeLink.$dirty = true;
+                    $scope.commonSection.toCompare = {};
+                    $scope.commonSection.toCompareTitle = $scope.category.title;
+                    angular.copy($scope.page, $scope.commonSection.toCompare);
+                });
+            }
         }
 
         $scope.$watch('page.youtubeLink', function (link) {

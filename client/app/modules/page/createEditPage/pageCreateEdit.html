@@ -63,13 +63,6 @@
                 </form>
             </div>
             <div id="content-create-edit-page-suggestions" ng-show="state.actual === 2">
-                <!--<h1 class="website-structure-title">Existiert die Seite bereits?</h1>-->
-
-                <!--<div class="page-preview-container">
-                    <div ng-repeat="pagePreview in pageSuggestions.pages" class="page-preview-inner-container">
-                        <ely-page-preview page-preview="pagePreview"></ely-page-preview>
-                    </div>
-                </div>-->
                 <ely-page-preview-container video-width="160" video-height="255" title="Existiert die Seite bereits?" service="SearchPage"
                                             service-parameter="SearchPageParameter" hide="false"
                                             not-request-init-service="true"></ely-page-preview-container>

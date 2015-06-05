@@ -25,17 +25,16 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             return bookPage;
         };
 
-        if ($scope.mode.edit && $stateParams.label === 'BookPage') {
-            $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-                $scope.category.selectedLanguage = Languages.getLanguage($scope.pageDetail.page.language);
-                $scope.category.title = $scope.pageDetail.page.title;
-                $scope.category.selectedCategory = PageCategories.categories.BookPage;
-                $scope.page.description = $scope.pageDetail.page.description;
-                $scope.page.authors = $scope.pageDetail.page.author[0].name;
-                if ($scope.pageDetail.page.publishDate) {
-                    $scope.page.publishDate = moment.unix($scope.pageDetail.page.publishDate).format('l');
+        if ($scope.mode.edit) {
+            $scope.$watch('pageDetail.page', function (newPageDetail) {
+                $scope.category.selectedLanguage = Languages.getLanguage(newPageDetail.language);
+                $scope.category.title = newPageDetail.title;
+                $scope.page.description = newPageDetail.description;
+                $scope.page.authors = newPageDetail.author[0].name;
+                if (newPageDetail.publishDate) {
+                    $scope.page.publishDate = moment.unix(newPageDetail.publishDate).format('l');
                 }
-                $scope.page.imagePreview = $scope.pageDetail.page.titleUrl;
+                $scope.page.imagePreview = newPageDetail.titleUrl;
                 $scope.commonSection.toCompare = {};
                 $scope.commonSection.toCompareTitle = $scope.category.title;
                 angular.copy($scope.page, $scope.commonSection.toCompare);
