@@ -1,10 +1,10 @@
 'use strict';
 
-var detailContactCtrl = require('../../../app/modules/contact/detailContactCtrl')[8];
+var detailContactCtrl = require('../../../app/modules/contact/detailContactCtrl')[9];
 var moment = require('../../../app/lib/moment/moment');
 
 describe('Tests of the detail contact controller', function () {
-    var scope, state, stateParams, ContactUserActions, ContactDetail, CountryCodeConverter, ContactLeftNavElements;
+    var scope, state, stateParams, ContactUserActions, ContactDetail, CountryCodeConverter, ContactLeftNavElements, PageRecommendationOtherUser;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -20,6 +20,8 @@ describe('Tests of the detail contact controller', function () {
             };
 
             ContactLeftNavElements = {};
+
+            PageRecommendationOtherUser = {};
 
             state = {};
             state.go = function () {
@@ -68,7 +70,7 @@ describe('Tests of the detail contact controller', function () {
         }).returns(response);
         getCountry.withArgs('CH').returns('Schweiz');
 
-        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions,ContactLeftNavElements);
+        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements, PageRecommendationOtherUser);
         getContactDetail.callArg(1);
 
         expect(scope.contact.country).to.equals('Schweiz');
@@ -106,7 +108,7 @@ describe('Tests of the detail contact controller', function () {
         }).returns(response);
         getCountry.withArgs('CH').returns('Schweiz');
 
-        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements);
+        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements, PageRecommendationOtherUser);
         getContactDetail.callArg(1);
 
         expect(scope.contact.country).to.be.undefined;
@@ -135,7 +137,7 @@ describe('Tests of the detail contact controller', function () {
             mode: 'onlyContacts'
         }).returns(response);
 
-        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements);
+        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements, PageRecommendationOtherUser);
         scope.appendContacts();
 
         getContactDetail.getCall(1).callArg(1);
@@ -147,7 +149,7 @@ describe('Tests of the detail contact controller', function () {
 
         var mockStateGo = sinon.mock(state);
 
-        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements);
+        detailContactCtrl(scope, state, stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements, PageRecommendationOtherUser);
 
         mockStateGo.expects('go').withArgs('contact.detail', {userId: '2'});
         scope.openUserDetails('2');
