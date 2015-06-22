@@ -36,7 +36,7 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         .with("page, contactRec, otherUser, user, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
-        "contactRec.rating AS rating, contactRec.comment AS comment, " +
+        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")

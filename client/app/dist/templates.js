@@ -724,6 +724,28 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
+    "            <div class=\"profile-detail-content-group\">\r" +
+    "\n" +
+    "                <div class=\"profile-detail-content-group-inner\">\r" +
+    "\n" +
+    "                    <ely-page-preview-container title=\"Buch Empfehlungen\" service=\"PageRecommendationOtherUser\"\r" +
+    "\n" +
+    "                                                service-parameter=\"bookServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"profile-detail-content-group-inner\">\r" +
+    "\n" +
+    "                    <ely-page-preview-container video-width=\"160\" video-height=\"255\"\r" +
+    "\n" +
+    "                                                title=\"Video Empfehlungen\" service=\"PageRecommendationOtherUser\"\r" +
+    "\n" +
+    "                                                service-parameter=\"videoServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
     "        </div>\r" +
     "\n" +
     "    </div>\r" +

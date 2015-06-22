@@ -1,11 +1,21 @@
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter',
-    'ContactUserActions', 'ContactLeftNavElements',
-    function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements) {
+    'ContactUserActions', 'ContactLeftNavElements', 'PageRecommendationOtherUser',
+    function ($scope, $state, $stateParams, ContactDetail, moment, CountryCodeConverter, ContactUserActions, ContactLeftNavElements,
+              PageRecommendationOtherUser) {
 
         var contactDetails, numberOfExpand = 0, skipContacts = 7, contactsToAdd = 28;
         $scope.$scope = $scope;
+        $scope.PageRecommendationOtherUser = PageRecommendationOtherUser;
+        $scope.bookServiceParameter = {
+            userId: $stateParams.userId,
+            filters: 'BookPage'
+        };
+        $scope.videoServiceParameter = {
+            userId: $stateParams.userId,
+            filters: 'VideoPage'
+        };
         angular.extend($scope, ContactUserActions);
 
         $scope.$emit(ContactLeftNavElements.event, ContactLeftNavElements.elements);

@@ -145,7 +145,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
 
         commands.push(db.cypher().create("(:BookPage {title: 'page1Title', language: 'de', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:BookPage {title: 'page2Title', language: 'de', description: 'page2', modified: 5071, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:VideoPage {title: 'page3Title', subCategory: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page3Title', link: 'www.youtube.com', subCategory: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
@@ -175,6 +175,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
                     res.body.pages[0].label.should.equals('VideoPage');
                     res.body.pages[0].title.should.equals('page3Title');
                     res.body.pages[0].language.should.equals('de');
+                    res.body.pages[0].link.should.equals('www.youtube.com');
                     should.not.exist(res.body.pages[0].url);
                     res.body.pages[0].subCategory.should.equals('Youtube');
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
