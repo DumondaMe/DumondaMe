@@ -27,7 +27,7 @@
         cursor: pointer;
         overflow-y: hidden;
         text-overflow: ellipsis;
-        height: 40px;
+        max-height: 40px;
       }
 
       .description-container {

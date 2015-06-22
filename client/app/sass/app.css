@@ -609,7 +609,7 @@ h1.website-structure-title {
         cursor: pointer;
         overflow-y: hidden;
         text-overflow: ellipsis;
-        height: 40px; }
+        max-height: 40px; }
       .contact-preview .contact-preview-content .contact-preview-name-container .description-container .description {
         display: inline-block;
         font-size: 12px;
