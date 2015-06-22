@@ -6,11 +6,11 @@ var controllerErrors = require('./../../../lib/error/controllerErrors');
 var review = require('./../../../models/page/review/review');
 var logger = requireLogger.getLogger(__filename);
 
-var schemaGetPage = {
-    name: 'getPage',
+var schemaGetPageReview = {
+    name: 'getPageReview',
     type: 'object',
     additionalProperties: false,
-    required: ['pageId', 'label'],
+    required: ['pageId', 'label', 'skip', 'onlyContacts', 'maxItems'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
         label: {enum: ['BookPage', 'VideoPage']},
@@ -25,7 +25,8 @@ module.exports = function (router) {
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs when getting a page review', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
+            return validation.validateQueryRequest(req, schemaGetPageReview, logger).then(function (request) {
+                logger.info('Request page review', req);
                 return review.getReview(req.user.id, request);
             }).then(function (pageReview) {
                 res.status(200).json(pageReview);
