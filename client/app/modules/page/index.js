@@ -13,7 +13,7 @@ app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
 app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
-app.service('PageRecommendationContact', require('./services/pageRecommendationContact'));
+app.service('PageRecommendationAllContact', require('./services/pageRecommendationAllContact'));
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));

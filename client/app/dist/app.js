@@ -2103,7 +2103,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-page-preview-container long-format=\"true\" video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationContact\"\r" +
+    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationAllContact\"\r" +
     "\n" +
     "                                        service-parameter=\"{}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
@@ -7441,7 +7441,7 @@ app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
 app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
-app.service('PageRecommendationContact', require('./services/pageRecommendationContact'));
+app.service('PageRecommendationAllContact', require('./services/pageRecommendationAllContact'));
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
@@ -7499,7 +7499,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":83,"./createEditPage/commonBookCtrl":84,"./createEditPage/commonSectionCtrl":85,"./createEditPage/commonYoutubeCtrl":86,"./createEditPage/pageCreateCtrl":87,"./createEditPage/pageEditCtrl":88,"./createEditPage/selectCategoryCtrl":89,"./pageDetail/pageDetailCtrl":95,"./pageDetail/services/pageDetailReview":96,"./pageOverviewCtrl":97,"./services/categories":105,"./services/leftNavElements":106,"./services/pageDetail":107,"./services/pageRecommendationContact":108,"./services/popularPages":109,"./services/searchPage":110,"angular":4}],91:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":83,"./createEditPage/commonBookCtrl":84,"./createEditPage/commonSectionCtrl":85,"./createEditPage/commonYoutubeCtrl":86,"./createEditPage/pageCreateCtrl":87,"./createEditPage/pageEditCtrl":88,"./createEditPage/selectCategoryCtrl":89,"./pageDetail/pageDetailCtrl":95,"./pageDetail/services/pageDetailReview":96,"./pageOverviewCtrl":97,"./services/categories":105,"./services/leftNavElements":106,"./services/pageDetail":107,"./services/pageRecommendationAllContact":108,"./services/popularPages":109,"./services/searchPage":110,"angular":4}],91:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -7769,13 +7769,13 @@ module.exports = ['$resource', function ($resource) {
 },{}],97:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'PageRecommendationContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
-    function ($scope, $state, PageRecommendationContact, SearchPage, PageCategories, PopularPages, PageLeftNavElements) {
+module.exports = ['$scope', '$state', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
+    function ($scope, $state, PageRecommendationAllContact, SearchPage, PageCategories, PopularPages, PageLeftNavElements) {
 
         $scope.query = "";
         $scope.hide = false;
 
-        $scope.PageRecommendationContact = PageRecommendationContact;
+        $scope.PageRecommendationAllContact = PageRecommendationAllContact;
         $scope.SearchPage = SearchPage;
         $scope.SearchPageParameter = {};
         $scope.PopularPages = PopularPages;
@@ -8100,7 +8100,7 @@ module.exports = ['$resource', function ($resource) {
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/page/recommendationContact');
+    return $resource('api/page/recommendationAllContact');
 }];
 
 },{}],109:[function(require,module,exports){

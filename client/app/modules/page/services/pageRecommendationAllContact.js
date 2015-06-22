@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/page/recommendationContact');
+    return $resource('api/page/recommendationAllContact');
 }];

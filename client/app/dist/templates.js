@@ -2102,7 +2102,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-page-preview-container long-format=\"true\" video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationContact\"\r" +
+    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationAllContact\"\r" +
     "\n" +
     "                                        service-parameter=\"{}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +

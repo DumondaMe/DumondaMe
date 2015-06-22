@@ -94,7 +94,7 @@ describe('Integration Tests for getting popular pages', function () {
 
                     res.body.pages[1].title.should.equals('page2Title');
                     res.body.pages[1].pageId.should.equals('1');
-                    res.body.pages[1].label.should.equals('BookPage')
+                    res.body.pages[1].label.should.equals('BookPage');
                     res.body.pages[1].language.should.equals('de');
                     res.body.pages[1].url.should.equals('pages/BookPage/1/pagePreview.jpg');
                     res.body.pages[1].isAdmin.should.be.false;

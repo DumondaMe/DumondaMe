@@ -1,9 +1,8 @@
 'use strict';
 
 var validation = require('./../../../lib/jsonValidation');
-var page = require('./../../../models/page/page');
+var page = require('./../../../models/page/pageRecommendation');
 var auth = require('./../../../lib/auth');
-var exceptions = require('./../../../lib/error/exceptions');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 

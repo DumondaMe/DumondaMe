@@ -3,7 +3,6 @@
 var validation = require('./../../../../lib/jsonValidation');
 var pageRecommendation = require('./../../../../models/recommendation/page');
 var auth = require('./../../../../lib/auth');
-var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 
