@@ -17,7 +17,7 @@ var checkAllowedToEditPage = function (userId, pageId, label, req) {
     };
 
     return db.cypher()
-        .match("(page:" + label + " {pageId: {pageId}})<-[IS_ADMIN]-(user:User {userId: {userId}})")
+        .match("(page:" + label + " {pageId: {pageId}})<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .return("user.userId AS userId")
         .end(params).send()
         .then(function (resp) {
