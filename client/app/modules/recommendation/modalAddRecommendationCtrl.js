@@ -19,7 +19,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
             data.created = res.created;
             $scope.confirm(data);
         }, function () {
-            $scope.error = 'Bewertung konnte nicht gespeicher werden';
+            $scope.error = 'Bewertung konnte nicht gespeichert werden';
         });
     };
 }];

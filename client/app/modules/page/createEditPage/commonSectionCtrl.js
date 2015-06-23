@@ -1,6 +1,20 @@
 'use strict';
 
-var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
+var goToPageDetail = function (pageId, $state, $scope) {
+    $state.go('page.detail', {
+        label: $scope.category.selectedCategoryType,
+        pageId: pageId
+    });
+};
+
+var getPageId = function (pageId, resp) {
+    if (!pageId) {
+        return resp.pageId;
+    }
+    return pageId;
+};
+
+var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal) {
     var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
     if ($scope.imagePreviewData) {
@@ -9,25 +23,31 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId) {
 
     fileUpload.uploadFileAndJson(imageToUpload, json, api).
         showSuccess(function (resp) {
-            if(!pageId) {
-                $state.go('page.detail', {
-                    label: $scope.category.selectedCategoryType,
-                    pageId: resp.pageId
-                });
-            } else {
-                $state.go('page.detail', {
-                    label: $scope.category.selectedCategoryType,
-                    pageId: pageId
-                });
-            }
+            var modalScope = $scope.$new(false);
+            pageId = getPageId(pageId, resp);
+            modalScope.recommendation = {
+                pageId: pageId,
+                label: $scope.category.selectedCategoryType
+            };
+            PromiseModal.getModal({
+                scope: modalScope,
+                title: $scope.category.title,
+                template: 'app/modules/recommendation/modalAddRecommendation.html',
+                placement: 'center',
+                backdrop: 'static'
+            }).show().then(function () {
+                goToPageDetail(pageId, $state, $scope);
+            }, function () {
+                goToPageDetail(pageId, $state, $scope);
+            });
         }).
         error(function () {
 
         });
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageCategories) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
+    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageCategories, PromiseModal) {
 
         var imageDefaultPath = 'app/img/default.jpg';
         $scope.page.imagePreview = imageDefaultPath;
@@ -75,11 +95,11 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         }
 
         $scope.createPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/create', $stateParams.pageId);
+            uploadPage($scope, $state, fileUpload, 'api/user/page/create', $stateParams.pageId, PromiseModal);
 
         };
 
         $scope.editPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/edit', $stateParams.pageId);
+            uploadPage($scope, $state, fileUpload, 'api/user/page/edit', $stateParams.pageId, PromiseModal);
         };
     }];

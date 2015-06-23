@@ -728,7 +728,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"profile-detail-content-group-inner\">\r" +
     "\n" +
-    "                    <ely-page-preview-container title=\"Buch Empfehlungen\" service=\"PageRecommendationOtherUser\"\r" +
+    "                    <ely-page-preview-container title=\"Buch Bewertungen\" service=\"PageRecommendationOtherUser\"\r" +
     "\n" +
     "                                                service-parameter=\"bookServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
     "\n" +
@@ -738,7 +738,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    <ely-page-preview-container video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
-    "                                                title=\"Video Empfehlungen\" service=\"PageRecommendationOtherUser\"\r" +
+    "                                                title=\"Video Bewertungen\" service=\"PageRecommendationOtherUser\"\r" +
     "\n" +
     "                                                service-parameter=\"videoServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
     "\n" +
@@ -1371,7 +1371,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
-    "                <ely-form-text-input label=\"Author\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
+    "                <ely-form-text-input label=\"Autor\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
     "\n" +
     "                                     profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
     "\n" +
@@ -1953,7 +1953,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"goEditPage(pageId, label)\"\r" +
     "\n" +
-    "                                ng-show=\"pageDetail.administrators.isAdmin\"> Seite editieren\r" +
+    "                                ng-show=\"pageDetail.administrators.isAdmin\"> Seite bearbeiten\r" +
     "\n" +
     "                        </button>\r" +
     "\n" +
@@ -2069,7 +2069,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings && startLoad\">\r" +
+    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings &&\r" +
+    "\n" +
+    "        pageDetail.recommendation.summary.contact.numberOfRatings > 0 && startLoad\">\r" +
     "\n" +
     "            <ely-page-review only-contacts=\"false\" title=\"Bewertungen\"></ely-page-review>\r" +
     "\n" +
@@ -2206,9 +2208,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
     "\n" +
-    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-hide=\"expand\" ng-click=\"startExpand()\"\r" +
+    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-click=\"startExpand()\"\r" +
     "\n" +
-    "                ng-show=\"numberOfElements < totalNumberOfPages\">Mehr\r" +
+    "                ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr\r" +
     "\n" +
     "        </button>\r" +
     "\n" +
@@ -2230,48 +2232,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            src=\"app/img/expand-down.png\"></div>\r" +
     "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/recommendation/home.html',
-    "<div id=\"content-recommendation-home\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"leftColNav\" ng-include=\"'app/modules/recommendation/leftNavCol.html'\"></div>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/recommendation/leftNavCol.html',
-    "<div class=\"nav-placeholder-top\"></div>\n" +
-    "\n" +
-    "<div class=\"nav-sub-element\" ui-sref=\"recommendation.home\">\n" +
-    "    <div class=\"button-leftNavCol-active-wrapper\">\n" +
-    "        <div ui-sref-active=\"button-leftNavCol-active\" ui-sref=\"recommendation.home\"></div>\n" +
-    "    </div>\n" +
-    "    <img src=\"app/img/recommendation/home.png\">\n" +
-    "</div>\n" +
-    "<div class=\"nav-sub-element-last\" ui-sref=\"home\">\n" +
-    "    <img src=\"app/img/home.png\">\n" +
     "</div>"
   );
 
@@ -2309,7 +2269,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"modal-dialog-add-recommendation-error\" ng-show=\"error\">{{error}}</div>\r" +
     "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"abort()\">Abbrechen</button>\r" +
     "\n" +
     "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation()\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
     "\n" +

@@ -34,7 +34,7 @@
                             Bewerten
                         </button>
                         <button class="btn btn-default" type="button" ng-click="goEditPage(pageId, label)"
-                                ng-show="pageDetail.administrators.isAdmin"> Seite editieren
+                                ng-show="pageDetail.administrators.isAdmin"> Seite bearbeiten
                         </button>
                     </div>
                     <div class="page-detail-header-rating-overviews">
@@ -92,7 +92,8 @@
             <ely-page-review only-contacts="false" title="Alle Bewertungen"
                              ng-if="pageDetail.recommendation.summary.all.numberOfRatings > 0"></ely-page-review>
         </div>
-        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings && startLoad">
+        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings &&
+        pageDetail.recommendation.summary.contact.numberOfRatings > 0 && startLoad">
             <ely-page-review only-contacts="false" title="Bewertungen"></ely-page-review>
         </div>
         <div class="page-detail-bottom-element">

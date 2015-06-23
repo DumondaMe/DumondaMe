@@ -14,7 +14,8 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
                 scope: modalScope,
                 title: title,
                 template: 'app/modules/recommendation/modalAddRecommendation.html',
-                placement: 'center'
+                placement: 'center',
+                backdrop: 'static'
             }).show().then(function (resp) {
                 if (!page.recommendation) {
                     page.recommendation = {};
