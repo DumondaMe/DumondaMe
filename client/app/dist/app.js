@@ -7140,21 +7140,25 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
         showSuccess(function (resp) {
             var modalScope = $scope.$new(false);
             pageId = getPageId(pageId, resp);
-            modalScope.recommendation = {
-                pageId: pageId,
-                label: $scope.category.selectedCategoryType
-            };
-            PromiseModal.getModal({
-                scope: modalScope,
-                title: $scope.category.title,
-                template: 'app/modules/recommendation/modalAddRecommendation.html',
-                placement: 'center',
-                backdrop: 'static'
-            }).show().then(function () {
+            if ($scope.mode.edit) {
                 goToPageDetail(pageId, $state, $scope);
-            }, function () {
-                goToPageDetail(pageId, $state, $scope);
-            });
+            } else {
+                modalScope.recommendation = {
+                    pageId: pageId,
+                    label: $scope.category.selectedCategoryType
+                };
+                PromiseModal.getModal({
+                    scope: modalScope,
+                    title: $scope.category.title,
+                    template: 'app/modules/recommendation/modalAddRecommendation.html',
+                    placement: 'center',
+                    backdrop: 'static'
+                }).show().then(function () {
+                    goToPageDetail(pageId, $state, $scope);
+                }, function () {
+                    goToPageDetail(pageId, $state, $scope);
+                });
+            }
         }).
         error(function () {
 
