@@ -1,8 +1,6 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var underscore = require('underscore');
-var logger = requireLogger.getLogger(__filename);
 var userInfo = require('./../user/userInfo');
 
 var getPrivacyString = function (withCondition) {
@@ -16,7 +14,7 @@ var getPrivacyString = function (withCondition) {
 };
 
 var searchQuery = function (userId, query, maxItems, isSuggestion) {
-    var queryRegEx = '(?i).*'.concat(query, '.*'), returnThread, returnGroupThread, returnContact;
+    var queryRegEx = '(?i).*'.concat(query, '.*'), returnThread, returnGroupThread, returnContact, orderBy;
 
 
     if (!isSuggestion) {
@@ -26,10 +24,12 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
         "null AS userId, false AS profileVisible, false AS imageVisible, message.text AS previewText";
         returnContact = "null AS threadId, null AS isGroupThread, user2.name AS description, " +
         "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
+        orderBy = "user2.name";
     } else {
         returnThread = "user2.name AS name";
         returnGroupThread = "thread.description AS name";
         returnContact = returnThread;
+        orderBy = "name";
     }
 
     return db.cypher()
@@ -37,17 +37,20 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
         .where("user2.name =~ {queryRegEx}")
         .addCommand(getPrivacyString(',thread, message'))
         .return(returnThread)
+        .orderBy("user2.name")
         .limit("{maxItems}")
         .unionAll()
         .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("thread.description =~ {queryRegEx}")
         .return(returnGroupThread)
+        .orderBy("thread.description")
         .limit("{maxItems}")
         .unionAll()
         .match("(user:User {userId: {userId}})-[:IS_CONTACT]->(user2:User)")
         .where("user2.name =~ {queryRegEx} AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2)")
         .addCommand(getPrivacyString(''))
         .return(returnContact)
+        .orderBy("user2.name")
         .limit("{maxItems}")
         .end({userId: userId, queryRegEx: queryRegEx, maxItems: maxItems});
 };

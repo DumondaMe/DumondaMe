@@ -1,17 +1,16 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
 var response = require('./detailResponse');
 var detailTitlePicture = require('./detailTitlePicture');
-var logger = requireLogger.getLogger(__filename);
 
 var getBookAuthors = function (pageId, userId) {
 
     return db.cypher().match("(:BookPage {pageId: {pageId}})<-[:IS_AUTHOR]-(u:User)")
         .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
+        .orderBy("u.name")
         .end({pageId: pageId, userId: userId});
 };
 

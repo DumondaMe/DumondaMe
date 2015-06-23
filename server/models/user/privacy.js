@@ -42,11 +42,13 @@ module.exports = {
 
         commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(privacy:Privacy)")
             .return(returnCommand)
+            .orderBy("type")
             .end({
                 userId: id
             }).getCommand());
         return db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
             .return(returnCommand)
+            .orderBy("type")
             .end({
                 userId: id
             }).send(commands)

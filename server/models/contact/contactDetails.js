@@ -35,6 +35,7 @@ var getContacts = function (userId, contactId, contactsPerPage, skipContacts, co
         .with("contact, rContact, contactOfContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return('contactOfContact.name AS name, contactOfContact.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible')
+        .orderBy('name')
         .skip('{skipContacts}')
         .limit('{contactsPerPage}')
         .end({contactId: contactId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts})
@@ -105,6 +106,7 @@ var getContactDetails = function (userId, contactId, contactsPerPage, skipContac
         'contact.street AS street, contact.female AS female, isContact.type AS type, contactHasUserContacted.type AS contactType, ' +
         'isContact.contactAdded AS contactAdded, contactHasUserContacted.contactAdded AS userAdded, privacy.profile AS profileVisible, ' +
         'privacy.image AS imageVisible, privacy.profileData AS profileDataVisible, privacy.contacts AS contactsVisible')
+        .orderBy("name DESC")
         .end({userId: userId, contactId: contactId})
         .send(commands)
         .then(function (resp) {
