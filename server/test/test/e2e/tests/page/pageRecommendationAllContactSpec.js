@@ -1,11 +1,9 @@
 'use strict';
 
-var app = require('../../../../../server');
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var should = require('chai').should();
-var moment = require('moment');
 
 describe('Integration Tests for getting the overview of contact recommended pages', function () {
 
@@ -241,6 +239,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].url.should.equals('pages/BookPage/0/pagePreview.jpg');
                     res.body.pages[0].isAdmin.should.be.true;
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
+                    res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
@@ -251,6 +250,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].url.should.equals('pages/BookPage/1/pagePreview.jpg');
                     res.body.pages[1].isAdmin.should.be.false;
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
+                    res.body.pages[1].recommendation.contact.comment.should.equals('irgendwas3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.pages[1].recommendation.contact.rating.should.equals(3);
 
@@ -310,6 +310,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].isAdmin.should.be.true;
                     res.body.pages[0].subCategory.should.equals('Youtube');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
+                    res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
@@ -321,6 +322,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].isAdmin.should.be.false;
                     should.not.exist(res.body.pages[1].link);
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
+                    res.body.pages[1].recommendation.contact.comment.should.equals('irgendwas3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.pages[1].recommendation.contact.rating.should.equals(3);
 

@@ -69,14 +69,14 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         .with("page, max(contactRec.created) AS created")
         .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(user:User {userId: {userId}})")
         .where("contactRec.created = created")
-        .with("page, contactRec, contact, user, contactRec.rating AS rating")
+        .with("page, contactRec, contact, user")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
-        .with("page, contactRec, contact, rating, rContact, privacy, vr")
+        .with("page, contactRec, contact, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
-        "page.link AS link, rating, contact.name AS name, contact.userId AS userId, privacy.profile AS profileVisible, " +
-        "privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, contact.name AS name, contact.userId AS userId, " +
+        "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
         .limit("{limit}")
