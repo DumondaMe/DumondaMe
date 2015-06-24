@@ -53,6 +53,7 @@ var addContactRecommendation = function (previews) {
         delete preview.rating;
         delete preview.name;
         delete preview.comment;
+        delete preview.userId;
     });
 };
 

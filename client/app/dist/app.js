@@ -2157,12 +2157,62 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/pagePreview/commentDialog.html',
+    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
+    "\n" +
+    "    <div id=\"modal-comment-dialog\" class=\"modal-dialog\">\r" +
+    "\n" +
+    "        <div class=\"modal-content\">\r" +
+    "\n" +
+    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
+    "\n" +
+    "            <div class=\"modal-body\">\r" +
+    "\n" +
+    "                <img ng-src=\"{{contact.url}}\" class=\"modal-body-profile-img img-circle\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"modal-body-user-info\">\r" +
+    "\n" +
+    "                    <div class=\"modal-body-name\">\r" +
+    "\n" +
+    "                        {{contact.name}}\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"modal-body-rating\"\r" +
+    "\n" +
+    "                                     number-of-selected-stars-readonly=\"contact.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"modal-body-comment\">\r" +
+    "\n" +
+    "                    {{contact.comment}}\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"modal-footer\">\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"confirm()\">Ok</button>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\"\r" +
+    "<div ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\">\r" +
     "\n" +
-    "     ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "    <div class=\"page-preview-image-container\">\r" +
+    "    <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.subCategory === 'Youtube'\">\r" +
     "\n" +
@@ -2172,19 +2222,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-title\">\r" +
+    "    <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "        {{pagePreview.title}}\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-language\">\r" +
+    "    <div class=\"page-preview-language\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "        {{pagePreview.labelShow}}, {{pagePreview.languageShow}}\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\">\r" +
+    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "        <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
     "\n" +
@@ -2196,7 +2246,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.contact.rating\"\r" +
     "\n" +
-    "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"></ely-star-rating>\r" +
+    "                     number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"\r" +
+    "\n" +
+    "                     ng-click=\"showComment(pagePreview.recommendation.contact)\"></ely-star-rating>\r" +
+    "\n" +
+    "    <img src=\"app/img/comment.png\" class=\"page-preview-rating-comment\" ng-show=\"pagePreview.recommendation.contact.comment\"\r" +
+    "\n" +
+    "         ng-click=\"showComment(pagePreview.recommendation.contact)\">\r" +
     "\n" +
     "</div>"
   );
@@ -7973,23 +8029,37 @@ module.exports = {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Languages', 'PageCategories', function ($scope, $state, Languages, PageCategories) {
-            $scope.longFormat = $scope.longFormat === 'true';
+        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal',
+            function ($scope, $state, Languages, PageCategories, PromiseModal) {
+                $scope.longFormat = $scope.longFormat === 'true';
 
-            $scope.$watchCollection('pagePreview', function (newValue) {
-                if (newValue) {
-                    $scope.pagePreview.languageShow = Languages.getLanguage($scope.pagePreview.language);
-                    $scope.pagePreview.labelShow = PageCategories.categories[$scope.pagePreview.label].description;
-                }
-            });
-
-            $scope.openDetail = function (pageId, label) {
-                $state.go('page.detail', {
-                    label: label,
-                    pageId: pageId
+                $scope.$watchCollection('pagePreview', function (newValue) {
+                    if (newValue) {
+                        $scope.pagePreview.languageShow = Languages.getLanguage($scope.pagePreview.language);
+                        $scope.pagePreview.labelShow = PageCategories.categories[$scope.pagePreview.label].description;
+                    }
                 });
-            };
-        }];
+
+                $scope.openDetail = function (pageId, label) {
+                    $state.go('page.detail', {
+                        label: label,
+                        pageId: pageId
+                    });
+                };
+
+                $scope.showComment = function (contact) {
+                    var modalScope = $scope.$new(false);
+                    if (contact && contact.hasOwnProperty('comment') && contact.comment.trim() !== "" && contact.hasOwnProperty('url')) {
+                        modalScope.contact = contact;
+                        PromiseModal.getModal({
+                            scope: modalScope,
+                            title: 'Kommentar zu ' + $scope.pagePreview.title,
+                            template: 'app/modules/page/pagePreview/commentDialog.html',
+                            placement: 'center'
+                        }).show();
+                    }
+                };
+            }];
     }
 };
 

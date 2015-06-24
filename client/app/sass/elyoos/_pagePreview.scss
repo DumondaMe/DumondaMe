@@ -1,7 +1,7 @@
 .page-preview-container {
   height: 400px;
   overflow: hidden;
-  .page-preview-inner-container{
+  .page-preview-inner-container {
     display: inline-block;
     vertical-align: top;
     width: 160px;
@@ -68,6 +68,12 @@
         bottom: 5px;
         left: 10px;
       }
+      .page-preview-rating-comment {
+        position: absolute;
+        height: 16px;
+        bottom: 7px;
+        right: 10px;
+      }
     }
 
     .page-preview-long {
@@ -85,4 +91,37 @@
 .page-preview-expand-container {
   @extend .page-preview-container;
   height: initial;
+}
+
+#modal-comment-dialog {
+  .modal-content {
+    .modal-body {
+
+      .modal-body-profile-img {
+        display: inline-block;
+        vertical-align: top;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        margin-top: 3px;
+      }
+      .modal-body-user-info {
+        display: inline-block;
+        .modal-body-name {
+          font-size: 14px;
+          font-weight: bold;
+          color: $primary-color;
+          cursor: pointer;
+          overflow-y: hidden;
+          text-overflow: ellipsis;
+          max-height: 40px;
+        }
+      }
+
+      .modal-body-comment {
+        margin-top: 10px;
+        word-break: break-all;
+      }
+    }
+  }
 }

@@ -36,7 +36,7 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         .with("page, contactRec, otherUser, user, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
-        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, " +
+        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, otherUser.userId AS userId, otherUser.name AS name, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
@@ -75,8 +75,8 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         .with("page, contactRec, contact, rating, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
-        "page.link AS link, rating, contact.name AS name, contact.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible, " +
-        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        "page.link AS link, rating, contact.name AS name, contact.userId AS userId, privacy.profile AS profileVisible, " +
+        "privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
         .limit("{limit}")

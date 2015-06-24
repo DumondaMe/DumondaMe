@@ -1,21 +1,23 @@
-<div ng-class="{'page-preview': !longFormat, 'page-preview-long': longFormat}"
-     ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-    <div class="page-preview-image-container">
+<div ng-class="{'page-preview': !longFormat, 'page-preview-long': longFormat}">
+    <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         <img ng-src="{{pagePreview.url}}" class="page-preview-image" ng-hide="pagePreview.subCategory === 'Youtube'">
         <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
                     ng-show="pagePreview.subCategory === 'Youtube'"></ely-iframe>
     </div>
-    <div class="page-preview-title">
+    <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         {{pagePreview.title}}
     </div>
-    <div class="page-preview-language">
+    <div class="page-preview-language" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         {{pagePreview.labelShow}}, {{pagePreview.languageShow}}
     </div>
-    <div class="page-preview-contact" ng-if="longFormat">
+    <div class="page-preview-contact" ng-if="longFormat" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         <div class="page-preview-contact-name">{{pagePreview.recommendation.contact.name}}</div>
     </div>
     <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating" ng-show="pagePreview.recommendation.summary.numberOfRatings > 0"
                      number-of-selected-stars-readonly="pagePreview.recommendation.summary.rating"></ely-star-rating>
     <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating" ng-show="pagePreview.recommendation.contact.rating"
-                     number-of-selected-stars-readonly="pagePreview.recommendation.contact.rating"></ely-star-rating>
+                     number-of-selected-stars-readonly="pagePreview.recommendation.contact.rating"
+                     ng-click="showComment(pagePreview.recommendation.contact)"></ely-star-rating>
+    <img src="app/img/comment.png" class="page-preview-rating-comment" ng-show="pagePreview.recommendation.contact.comment"
+         ng-click="showComment(pagePreview.recommendation.contact)">
 </div>

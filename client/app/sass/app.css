@@ -1177,7 +1177,8 @@ h1.website-structure-title {
         margin-left: 20px; }
       #content-page-detail #centerCol .page-detail-bottom-element #page-detail-my-recommendation-comment {
         margin-top: 20px;
-        font-size: 14px; }
+        font-size: 14px;
+        word-break: break-all; }
 
 #content-page-detail .page-rating-review {
   display: inline-block;
@@ -1426,6 +1427,11 @@ h1.website-structure-title {
         position: absolute;
         bottom: 5px;
         left: 10px; }
+      .page-preview-container .page-preview-inner-container .page-preview .page-preview-rating-comment, .page-preview-short-container .page-preview-inner-container .page-preview .page-preview-rating-comment, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-rating-comment, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-rating-comment, .page-preview-short-container .page-preview-inner-container .page-preview-long .page-preview-rating-comment, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-rating-comment {
+        position: absolute;
+        height: 16px;
+        bottom: 7px;
+        right: 10px; }
     .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-short-container .page-preview-inner-container .page-preview-long, .page-preview-expand-container .page-preview-inner-container .page-preview-long {
       height: 380px; }
 
@@ -1434,6 +1440,27 @@ h1.website-structure-title {
 
 .page-preview-expand-container {
   height: initial; }
+
+#modal-comment-dialog .modal-content .modal-body .modal-body-profile-img {
+  display: inline-block;
+  vertical-align: top;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 3px; }
+#modal-comment-dialog .modal-content .modal-body .modal-body-user-info {
+  display: inline-block; }
+  #modal-comment-dialog .modal-content .modal-body .modal-body-user-info .modal-body-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #009688;
+    cursor: pointer;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    max-height: 40px; }
+#modal-comment-dialog .modal-content .modal-body .modal-body-comment {
+  margin-top: 10px;
+  word-break: break-all; }
 
 #content-recommendation-home {
   width: 100%;
