@@ -1455,7 +1455,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle)}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
@@ -7172,6 +7172,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
 'use strict';
 
 var goToPageDetail = function (pageId, $state, $scope) {
+    $scope.uploadRunning = false;
     $state.go('page.detail', {
         label: $scope.category.selectedCategoryType,
         pageId: pageId
@@ -7188,37 +7189,41 @@ var getPageId = function (pageId, resp) {
 var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal) {
     var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
-    if ($scope.imagePreviewData) {
-        imageToUpload = $scope.imagePreviewData;
+    if (!$scope.uploadRunning) {
+        $scope.uploadRunning = true;
+        if ($scope.imagePreviewData) {
+            imageToUpload = $scope.imagePreviewData;
+        }
+
+        fileUpload.uploadFileAndJson(imageToUpload, json, api).
+            showSuccess(function (resp) {
+                var modalScope = $scope.$new(false);
+                pageId = getPageId(pageId, resp);
+                if ($scope.mode.edit) {
+                    goToPageDetail(pageId, $state, $scope);
+                } else {
+                    modalScope.recommendation = {
+                        pageId: pageId,
+                        label: $scope.category.selectedCategoryType
+                    };
+                    PromiseModal.getModal({
+                        scope: modalScope,
+                        title: $scope.category.title,
+                        template: 'app/modules/recommendation/modalAddRecommendation.html',
+                        placement: 'center',
+                        backdrop: 'static'
+                    }).show().then(function () {
+                        $scope.uploadRunning = false;
+                        goToPageDetail(pageId, $state, $scope);
+                    }, function () {
+                        $scope.uploadRunning = false;
+                    });
+                }
+            }).
+            error(function () {
+                $scope.uploadRunning = false;
+            });
     }
-
-    fileUpload.uploadFileAndJson(imageToUpload, json, api).
-        showSuccess(function (resp) {
-            var modalScope = $scope.$new(false);
-            pageId = getPageId(pageId, resp);
-            if ($scope.mode.edit) {
-                goToPageDetail(pageId, $state, $scope);
-            } else {
-                modalScope.recommendation = {
-                    pageId: pageId,
-                    label: $scope.category.selectedCategoryType
-                };
-                PromiseModal.getModal({
-                    scope: modalScope,
-                    title: $scope.category.title,
-                    template: 'app/modules/recommendation/modalAddRecommendation.html',
-                    placement: 'center',
-                    backdrop: 'static'
-                }).show().then(function () {
-                    goToPageDetail(pageId, $state, $scope);
-                }, function () {
-                    goToPageDetail(pageId, $state, $scope);
-                });
-            }
-        }).
-        error(function () {
-
-        });
 };
 
 module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
@@ -7229,6 +7234,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         $scope.commonSection = {};
         $scope.editChanged = false;
         $scope.editChangedTitle = false;
+        $scope.uploadRunning = false;
 
         $scope.$on('image.cropper.image.preview', function (event, data, dataToSend) {
             $scope.page.imagePreview = data.toDataURL("image/jpeg", 1.0);

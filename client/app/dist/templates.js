@@ -1454,7 +1454,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    ng-click=\"editPage()\"\r" +
     "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle)}\"\r" +
+    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning}\"\r" +
     "\n" +
     "                    ng-show=\"mode.edit\">\r" +
     "\n" +
