@@ -862,7 +862,7 @@ h1.website-structure-title {
         width: 160px;
         height: 100%; }
         #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 300;
           padding-left: 5px;
           padding-top: 13px; }
@@ -1461,6 +1461,38 @@ h1.website-structure-title {
 #modal-comment-dialog .modal-content .modal-body .modal-body-comment {
   margin-top: 10px;
   word-break: break-all; }
+
+#content #content-page-user-recommendation {
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  padding-top: 140px; }
+  #content #content-page-user-recommendation #centerCol {
+    display: block;
+    height: 100%;
+    padding-left: 220px; }
+    #content #content-page-user-recommendation #centerCol #inner-centerCol {
+      position: relative;
+      display: inline-block;
+      min-width: 800px;
+      max-width: 1600px;
+      height: 100%;
+      width: 100%;
+      padding-left: 50px; }
+  #content #content-page-user-recommendation #search-box-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 48px;
+    background-color: #ffffff;
+    left: 230px; }
+    #content #content-page-user-recommendation #search-box-container .searchBoxForm {
+      display: inline-block;
+      padding-left: 60px;
+      margin-top: 2px;
+      width: 600px; }
+    #content #content-page-user-recommendation #search-box-container .searchBoxForm {
+      padding-left: 40px; }
 
 #content-recommendation-home {
   width: 100%;

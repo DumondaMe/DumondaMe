@@ -2292,6 +2292,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
+    "<div id=\"content-page-user-recommendation\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\">\r" +
+    "\n" +
+    "            <div class=\"page-preview-expand-container\">\r" +
+    "\n" +
+    "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                    <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\"\r" +
+    "\n" +
+    "                                      video-height=\"255\"></ely-page-preview>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"search-box-container\">\r" +
+    "\n" +
+    "                <ely-search-box description=\"Suche nach Bewertung...\" query=\"query\"\r" +
+    "\n" +
+    "                                get-query-suggestion=\"getUserSuggestion\"\r" +
+    "\n" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
     "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\" ng-controller=\"ModalAddRecommendationCtrl\">\r" +
     "\n" +

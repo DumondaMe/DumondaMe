@@ -13,10 +13,10 @@ var getTotalRecommendationContacts = function (userId, filterQuery) {
         .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
-var getTotalRecommendationOtherUser = function (otherUserId, filterQuery) {
-    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User {userId: {otherUserId}})")
+var getTotalRecommendationUser = function (userId, filterQuery) {
+    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
-        .return("count(*) AS totalNumberOfPages").end({otherUserId: otherUserId}).getCommand();
+        .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
 var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, filters) {
@@ -25,7 +25,7 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         filterQuery = pageFilter.getFilterQuery(filters),
         commands = [];
 
-    commands.push(getTotalRecommendationOtherUser(otherUserId, filterQuery));
+    commands.push(getTotalRecommendationUser(otherUserId, filterQuery));
 
     return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(otherUser:User {userId: {otherUserId}}), " +
         "(user:User {userId: {userId}})")
@@ -44,6 +44,36 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         .end({
             userId: userId,
             otherUserId: otherUserId,
+            skip: skip,
+            limit: limit
+        })
+        .send(commands)
+        .then(function (resp) {
+            pagePreview.addLabel(resp[1]);
+            pagePreview.addContactRecommendation(resp[1]);
+            pagePreview.addPageUrl(resp[1]);
+            return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
+        });
+};
+
+var getRecommendationUser = function (userId, skip, limit) {
+
+    var orderBy = "contactRec.rating DESC, contactRec.created DESC",
+        filterQuery = pageFilter.getFilterQuery(),
+        commands = [];
+
+    commands.push(getTotalRecommendationUser(userId, filterQuery));
+
+    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
+        .where("(" + filterQuery + ")")
+        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, user.userId AS userId, user.name AS name, " +
+        "true AS profileVisible, true AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        .orderBy(orderBy)
+        .skip("{skip}")
+        .limit("{limit}")
+        .end({
+            userId: userId,
             skip: skip,
             limit: limit
         })
@@ -124,5 +154,6 @@ var getPopularPages = function (userId, skip, limit, onlyContact, pageType, subC
 module.exports = {
     getRecommendationContacts: getRecommendationContacts,
     getRecommendationOtherUser: getRecommendationOtherUser,
+    getRecommendationUser: getRecommendationUser,
     getPopularPages: getPopularPages
 };
