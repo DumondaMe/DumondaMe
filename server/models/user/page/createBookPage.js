@@ -1,8 +1,6 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var logger = requireLogger.getLogger(__filename);
-var underscore = require('underscore');
 var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 var uploadImage = require('./../../image/generatePageImages');

@@ -6,7 +6,6 @@ var underscore = require('underscore');
 var createBookPage = require('./../../../../models/user/page/createBookPage');
 var createVideoPage = require('./../../../../models/user/page/createVideoPage');
 var auth = require('./../../../../lib/auth');
-var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 

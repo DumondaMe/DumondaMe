@@ -3201,7 +3201,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       ratio=\"0.62745\"\r" +
     "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"200\"></ely-image-cropper>\r" +
+    "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"160\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
