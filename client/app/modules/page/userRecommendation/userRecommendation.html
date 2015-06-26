@@ -15,6 +15,12 @@
                                       video-height="255"></ely-page-preview>
                 </div>
             </div>
+            <button type="button" class="btn btn-default page-user-recommendation-expand" ng-click="getNextUserPageRecommendation()"
+                    ng-show="pagePreviews.pages.length < pagePreviews.totalNumberOfPages">Mehr
+            </button>
+            <div class="page-user-recommendation-expand">
+
+            </div>
             <div id="search-box-container">
                 <ely-search-box description="Suche nach Seite mit einer Bewertung von Dir..." query="query"
                                 get-query-suggestion="getUserSuggestion"

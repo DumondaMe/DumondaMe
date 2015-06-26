@@ -2327,6 +2327,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextUserPageRecommendation()\"\r" +
+    "\n" +
+    "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <div class=\"page-user-recommendation-expand\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
     "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
