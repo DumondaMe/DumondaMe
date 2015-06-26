@@ -21,7 +21,7 @@ module.exports = [
                 onlyShowSelected: true
             },
             {description: 'Meine Bewertungen', url: 'app/img/page/pageMyRecommendation.png', color: '#ce5043', sref: 'page.userRecommendation'},
-            /*{description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPage'},*/
+            {description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPageAdmin'},
             {description: 'Seite erstellen', url: 'app/img/page/pageCreate.png', color: '#FFA000', sref: 'page.create'},
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];

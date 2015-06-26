@@ -9,6 +9,8 @@ app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionC
 app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
 app.controller('PageCommonYoutubeCtrl', require('./createEditPage/commonYoutubeCtrl'));
 app.controller('UserRecommendationCtrl', require('./userRecommendation/userRecommendationCtrl'));
+app.controller('GetPageAndExtendCtrl', require('./userRecommendation/getPageAndExtendCtrl'));
+app.controller('UserPageAdministrationCtrl', require('./userPageAdministration/userPageAdministrationCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
@@ -21,6 +23,7 @@ app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 app.service('PageUserRecommendation', require('./services/pageUserRecommendation'));
+app.service('PageUserAdministration', require('./services/pageUserAdministration'));
 app.service('PageSearchUserRecommendation', require('./services/pageSearchUserRecommendation'));
 app.service('PageLeftNavElements', require('./services/leftNavElements'));
 
@@ -80,6 +83,16 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/page/userRecommendation/userRecommendation.html',
                     controller: 'UserRecommendationCtrl'
+                }
+            },
+            hasNavigation: true
+        })
+        .state('page.userPageAdmin', {
+            url: '/user/admin',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/page/userPageAdministration/userPageAdministration.html',
+                    controller: 'UserPageAdministrationCtrl'
                 }
             },
             hasNavigation: true

@@ -4,7 +4,6 @@ var db = require('./../../neo4j');
 var underscore = require('underscore');
 var pagePreview = require('./pagePreview');
 var pageFilter = require('./pageFilter');
-var cdn = require('../util/cdn');
 
 var searchPage = function (userId, search, filterType, filterLanguage, skip, limit) {
 

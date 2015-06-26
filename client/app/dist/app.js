@@ -2293,14 +2293,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
-    "<div id=\"content-page-user-recommendation\">\r" +
+  $templateCache.put('app/modules/page/userPageAdministration/userPageAdministration.html',
+    "<div id=\"content-page-user-administration\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
     "\n" +
-    "            <div ng-show=\"noSearchResult && !noPageRecommendation\">\r" +
+    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2316,7 +2316,88 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div ng-show=\"noPageRecommendation\">\r" +
+    "            <div ng-show=\"noPage\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Du hast noch keine eigene Seite erstellt</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.create\">Seite erstellen</a>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-preview-expand-container\" ng-hide=\"noSearchResult\">\r" +
+    "\n" +
+    "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                    <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\"\r" +
+    "\n" +
+    "                                      video-height=\"255\"></ely-page-preview>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPages()\"\r" +
+    "\n" +
+    "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <div class=\"page-user-recommendation-expand\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"search-box-container\">\r" +
+    "\n" +
+    "                <ely-search-box description=\"Suche nach Seite von welcher Du Administrator bist...\" query=\"query\"\r" +
+    "\n" +
+    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
+    "\n" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
+    "<div id=\"content-page-user-recommendation\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
+    "\n" +
+    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Keine Suchergebnisse</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"noPage\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2344,7 +2425,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextUserPageRecommendation()\"\r" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPage()\"\r" +
     "\n" +
     "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
     "\n" +
@@ -2360,9 +2441,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
     "\n" +
-    "                                get-query-suggestion=\"searchSuggestionPageUserRecommendation\"\r" +
+    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
     "\n" +
-    "                                get-query=\"searchPageUserRecommendation\"></ely-search-box>\r" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -5136,7 +5217,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":143,"./auth":15,"./contact":25,"./directives":42,"./filters":59,"./home":63,"./navigation":74,"./settings":119,"./util":140,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
+},{"../../package.json":146,"./auth":15,"./contact":25,"./directives":42,"./filters":59,"./home":63,"./navigation":74,"./settings":122,"./util":143,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"templates":1}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -7597,6 +7678,8 @@ app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionC
 app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
 app.controller('PageCommonYoutubeCtrl', require('./createEditPage/commonYoutubeCtrl'));
 app.controller('UserRecommendationCtrl', require('./userRecommendation/userRecommendationCtrl'));
+app.controller('GetPageAndExtendCtrl', require('./userRecommendation/getPageAndExtendCtrl'));
+app.controller('UserPageAdministrationCtrl', require('./userPageAdministration/userPageAdministrationCtrl'));
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
@@ -7609,6 +7692,7 @@ app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 app.service('PageUserRecommendation', require('./services/pageUserRecommendation'));
+app.service('PageUserAdministration', require('./services/pageUserAdministration'));
 app.service('PageSearchUserRecommendation', require('./services/pageSearchUserRecommendation'));
 app.service('PageLeftNavElements', require('./services/leftNavElements'));
 
@@ -7671,9 +7755,19 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             hasNavigation: true
+        })
+        .state('page.userPageAdmin', {
+            url: '/user/admin',
+            views: {
+                'content@': {
+                    templateUrl: 'app/modules/page/userPageAdministration/userPageAdministration.html',
+                    controller: 'UserPageAdministrationCtrl'
+                }
+            },
+            hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":83,"./createEditPage/commonBookCtrl":84,"./createEditPage/commonSectionCtrl":85,"./createEditPage/commonYoutubeCtrl":86,"./createEditPage/pageCreateCtrl":87,"./createEditPage/pageEditCtrl":88,"./createEditPage/selectCategoryCtrl":89,"./pageDetail/pageDetailCtrl":95,"./pageDetail/services/pageDetailReview":96,"./pageOverviewCtrl":97,"./services/categories":105,"./services/leftNavElements":106,"./services/pageDetail":107,"./services/pageRecommendationAllContact":108,"./services/pageRecommendationOtherUser":109,"./services/pageSearchUserRecommendation":110,"./services/pageUserRecommendation":111,"./services/popularPages":112,"./services/searchPage":113,"./userRecommendation/userRecommendationCtrl":114,"angular":4}],91:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":83,"./createEditPage/commonBookCtrl":84,"./createEditPage/commonSectionCtrl":85,"./createEditPage/commonYoutubeCtrl":86,"./createEditPage/pageCreateCtrl":87,"./createEditPage/pageEditCtrl":88,"./createEditPage/selectCategoryCtrl":89,"./pageDetail/pageDetailCtrl":95,"./pageDetail/services/pageDetailReview":96,"./pageOverviewCtrl":97,"./services/categories":105,"./services/leftNavElements":106,"./services/pageDetail":107,"./services/pageRecommendationAllContact":108,"./services/pageRecommendationOtherUser":109,"./services/pageSearchUserRecommendation":110,"./services/pageUserAdministration":111,"./services/pageUserRecommendation":112,"./services/popularPages":113,"./services/searchPage":114,"./userPageAdministration/userPageAdministrationCtrl":115,"./userRecommendation/getPageAndExtendCtrl":116,"./userRecommendation/userRecommendationCtrl":117,"angular":4}],91:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -8274,7 +8368,7 @@ module.exports = [
                 onlyShowSelected: true
             },
             {description: 'Meine Bewertungen', url: 'app/img/page/pageMyRecommendation.png', color: '#ce5043', sref: 'page.userRecommendation'},
-            /*{description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPage'},*/
+            {description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPageAdmin'},
             {description: 'Seite erstellen', url: 'app/img/page/pageCreate.png', color: '#FFA000', sref: 'page.create'},
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
@@ -8311,31 +8405,51 @@ module.exports = ['$resource', function ($resource) {
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/page/recommendation');
+    return $resource('api/user/page/administrator');
 }];
 
 },{}],112:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/page/popularPages');
+    return $resource('api/user/page/recommendation');
 }];
 
 },{}],113:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/page/searchPage');
+    return $resource('api/page/popularPages');
 }];
 
 },{}],114:[function(require,module,exports){
 'use strict';
 
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/page/searchPage');
+}];
+
+},{}],115:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration',
+    function ($scope, PageLeftNavElements, PageUserAdministration) {
+
+        $scope.getPageService = PageUserAdministration;
+        //$scope.searchPageService = PageSearchUserRecommendation;
+
+        $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
+
+    }];
+
+},{}],116:[function(require,module,exports){
+'use strict';
+
 var addPagePreviews = function ($scope, paginationNumber) {
     if (paginationNumber === 1 || !$scope.pagePreviews) {
         $scope.pagePreviews = $scope.pagePreviewsTemp;
-        if($scope.pagePreviews.pages.length === 0) {
-            $scope.noPageRecommendation = true;
+        if ($scope.pagePreviews.pages.length === 0) {
+            $scope.noPage = true;
         }
     } else {
         $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pagePreviewsTemp.pages);
@@ -8343,88 +8457,99 @@ var addPagePreviews = function ($scope, paginationNumber) {
     }
 };
 
+module.exports = ['$scope', function ($scope) {
+
+    var itemsPerPage = 30, searchActive = false, lastSearch = '';
+    $scope.noSearchResult = false;
+    $scope.noPage = false;
+    $scope.currentSkip = 1;
+
+    $scope.getPage = function (paginationNumber) {
+        var skip = (paginationNumber - 1) * itemsPerPage;
+        $scope.noSearchResult = false;
+        $scope.pagePreviewsTemp = $scope.getPageService.get({skip: skip, maxItems: itemsPerPage}, function () {
+            searchActive = false;
+            $scope.noPage = false;
+            addPagePreviews($scope, paginationNumber);
+        });
+    };
+
+    $scope.searchSuggestionPage = function (searchValue) {
+        if (searchValue && searchValue.trim().length > 0) {
+            return $scope.searchPageService.query({
+                search: searchValue,
+                maxItems: 7,
+                skip: 0,
+                isSuggestion: true
+            }).$promise;
+        } else {
+            if (searchActive) {
+                $scope.currentSkip = 1;
+                $scope.getPage(1);
+            }
+        }
+    };
+
+    $scope.searchPage = function (searchValue, paginationNumber) {
+        var skip = 0;
+        if (searchValue && searchValue.trim().length > 0) {
+            $scope.noSearchResult = false;
+            if (isFinite(paginationNumber)) {
+                skip = (paginationNumber - 1) * itemsPerPage;
+            } else {
+                $scope.currentSkip = 1;
+            }
+            $scope.pageSearchPreviews = $scope.searchPageService.get({
+                search: searchValue,
+                maxItems: itemsPerPage,
+                skip: skip,
+                isSuggestion: false
+            }, function () {
+                searchActive = true;
+                lastSearch = searchValue;
+                if ($scope.pageSearchPreviews.pages && $scope.pageSearchPreviews.pages.length > 0) {
+                    if (skip === 0) {
+                        $scope.pagePreviews = $scope.pageSearchPreviews;
+                    } else {
+                        $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pageSearchPreviews.pages);
+                        $scope.pagePreviews.totalNumberOfPages = $scope.pageSearchPreviews.totalNumberOfPages;
+                    }
+                } else {
+                    $scope.noSearchResult = true;
+                }
+            });
+        } else {
+            $scope.currentSkip = 1;
+            $scope.getPage(1);
+        }
+    };
+
+    $scope.getNextPages = function () {
+        $scope.currentSkip++;
+        if (searchActive) {
+            $scope.searchPage(lastSearch, $scope.currentSkip);
+        } else {
+            $scope.getPage($scope.currentSkip);
+        }
+
+    };
+
+    $scope.getPage(1);
+}];
+
+},{}],117:[function(require,module,exports){
+'use strict';
+
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'PageSearchUserRecommendation',
     function ($scope, PageLeftNavElements, PageUserRecommendation, PageSearchUserRecommendation) {
 
-        var itemsPerPage = 30, searchActive = false, lastSearch = '';
-        $scope.noSearchResult = false;
-        $scope.noPageRecommendation = false;
-        $scope.currentSkip = 1;
+        $scope.getPageService = PageUserRecommendation;
+        $scope.searchPageService = PageSearchUserRecommendation;
+
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
-
-        $scope.getPageUserRecommendation = function (paginationNumber) {
-            var skip = (paginationNumber - 1) * itemsPerPage;
-            $scope.noSearchResult = false;
-            $scope.pagePreviewsTemp = PageUserRecommendation.get({skip: skip, maxItems: itemsPerPage}, function () {
-                searchActive = false;
-                $scope.noPageRecommendation = false;
-                addPagePreviews($scope, paginationNumber);
-            });
-        };
-
-        $scope.searchSuggestionPageUserRecommendation = function (searchValue) {
-            if (searchValue && searchValue.trim().length > 0) {
-                return PageSearchUserRecommendation.query({
-                    search: searchValue,
-                    maxItems: 7,
-                    skip: 0,
-                    isSuggestion: true
-                }).$promise;
-            } else {
-                if (searchActive) {
-                    $scope.currentSkip = 1;
-                    $scope.getPageUserRecommendation(1);
-                }
-            }
-        };
-
-        $scope.searchPageUserRecommendation = function (searchValue, paginationNumber) {
-            var skip = 0;
-            if (searchValue && searchValue.trim().length > 0) {
-                $scope.noSearchResult = false;
-                if (isFinite(paginationNumber)) {
-                    skip = (paginationNumber - 1) * itemsPerPage;
-                } else {
-                    $scope.currentSkip = 1;
-                }
-                $scope.pageSearchPreviews = PageSearchUserRecommendation.get({
-                    search: searchValue,
-                    maxItems: itemsPerPage,
-                    skip: skip,
-                    isSuggestion: false
-                }, function () {
-                    searchActive = true;
-                    lastSearch = searchValue;
-                    if ($scope.pageSearchPreviews.pages && $scope.pageSearchPreviews.pages.length > 0) {
-                        if (skip === 0) {
-                            $scope.pagePreviews = $scope.pageSearchPreviews;
-                        } else {
-                            $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pageSearchPreviews.pages);
-                            $scope.pagePreviews.totalNumberOfPages = $scope.pageSearchPreviews.totalNumberOfPages;
-                        }
-                    } else {
-                        $scope.noSearchResult = true;
-                    }
-                });
-            } else {
-                $scope.currentSkip = 1;
-                $scope.getPageUserRecommendation(1);
-            }
-        };
-
-        $scope.getNextUserPageRecommendation = function () {
-            $scope.currentSkip++;
-            if (searchActive) {
-                $scope.searchPageUserRecommendation(lastSearch, $scope.currentSkip);
-            } else {
-                $scope.getPageUserRecommendation($scope.currentSkip);
-            }
-
-        };
-        $scope.getPageUserRecommendation(1);
     }];
 
-},{}],115:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -8432,7 +8557,7 @@ var app = require('angular').module('elyoosApp');
 app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
-},{"./modalAddRecommendationCtrl":116,"./services/pageRecommendation":117,"angular":4}],116:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":119,"./services/pageRecommendation":120,"angular":4}],119:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
@@ -8459,7 +8584,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     };
 }];
 
-},{}],117:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -8468,7 +8593,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],118:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -8500,7 +8625,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],119:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -8560,7 +8685,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":118,"./passwordCtrl":120,"./privacyCtrl":121,"./profileCtrl":122,"./renamePrivacyCtrl":123,"./services/leftNavElements":124,"./services/password":125,"./services/privacy":126,"./services/profile":127,"angular":4}],120:[function(require,module,exports){
+},{"./deletePrivacyCtrl":121,"./passwordCtrl":123,"./privacyCtrl":124,"./profileCtrl":125,"./renamePrivacyCtrl":126,"./services/leftNavElements":127,"./services/password":128,"./services/privacy":129,"./services/profile":130,"angular":4}],123:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', 'MessageLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
@@ -8615,7 +8740,7 @@ module.exports = ['$scope', 'Password', 'MessageLeftNavElements', function ($sco
     };
 }];
 
-},{}],121:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -8734,7 +8859,7 @@ module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scop
     };
 }];
 
-},{}],122:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
@@ -8820,7 +8945,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],123:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -8864,7 +8989,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],124:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -8878,14 +9003,14 @@ module.exports = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],125:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],126:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -8894,14 +9019,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],127:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],128:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -8935,14 +9060,14 @@ module.exports = function () {
     };
 };
 
-},{}],129:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":128,"./languages":130,"angular":4}],130:[function(require,module,exports){
+},{"./countryCodeConverter":131,"./languages":133,"angular":4}],133:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -8976,7 +9101,7 @@ module.exports = [
         };
     }];
 
-},{}],131:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -9009,19 +9134,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],132:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":131,"angular":4}],133:[function(require,module,exports){
+},{"./dateFormatter":134,"angular":4}],136:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":134,"angular":4}],134:[function(require,module,exports){
+},{"./profileImage":137,"angular":4}],137:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -9033,7 +9158,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],135:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -9117,7 +9242,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],136:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -9139,14 +9264,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],137:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],138:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -9171,7 +9296,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],139:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -9184,14 +9309,14 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":135,"./fileModel.js":136,"./fileReader":137,"./fileUpload":138,"angular":4}],140:[function(require,module,exports){
+},{"./fileCtrl":138,"./fileModel.js":139,"./fileReader":140,"./fileUpload":141,"angular":4}],143:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
-},{"./moment":141,"./promiseModal":142,"angular":4}],141:[function(require,module,exports){
+},{"./moment":144,"./promiseModal":145,"angular":4}],144:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -9201,7 +9326,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":11}],142:[function(require,module,exports){
+},{"moment":11}],145:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
@@ -9236,7 +9361,7 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
     };
 }];
 
-},{}],143:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -9291,4 +9416,4 @@ module.exports={
   }
 }
 
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,76,77,78,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,102,103,104,98,99,100,101,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,76,77,78,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,102,103,104,98,99,100,101,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145]);

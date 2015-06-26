@@ -2292,14 +2292,14 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
-    "<div id=\"content-page-user-recommendation\">\r" +
+  $templateCache.put('app/modules/page/userPageAdministration/userPageAdministration.html',
+    "<div id=\"content-page-user-administration\">\r" +
     "\n" +
     "    <div id=\"centerCol\">\r" +
     "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
     "\n" +
-    "            <div ng-show=\"noSearchResult && !noPageRecommendation\">\r" +
+    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2315,7 +2315,88 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <div ng-show=\"noPageRecommendation\">\r" +
+    "            <div ng-show=\"noPage\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Du hast noch keine eigene Seite erstellt</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.create\">Seite erstellen</a>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-preview-expand-container\" ng-hide=\"noSearchResult\">\r" +
+    "\n" +
+    "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
+    "\n" +
+    "                    <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\"\r" +
+    "\n" +
+    "                                      video-height=\"255\"></ely-page-preview>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPages()\"\r" +
+    "\n" +
+    "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
+    "\n" +
+    "            </button>\r" +
+    "\n" +
+    "            <div class=\"page-user-recommendation-expand\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div id=\"search-box-container\">\r" +
+    "\n" +
+    "                <ely-search-box description=\"Suche nach Seite von welcher Du Administrator bist...\" query=\"query\"\r" +
+    "\n" +
+    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
+    "\n" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
+    "<div id=\"content-page-user-recommendation\">\r" +
+    "\n" +
+    "    <div id=\"centerCol\">\r" +
+    "\n" +
+    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
+    "\n" +
+    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Keine Suchergebnisse</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"noPage\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2343,7 +2424,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextUserPageRecommendation()\"\r" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPage()\"\r" +
     "\n" +
     "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
     "\n" +
@@ -2359,9 +2440,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
     "\n" +
-    "                                get-query-suggestion=\"searchSuggestionPageUserRecommendation\"\r" +
+    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
     "\n" +
-    "                                get-query=\"searchPageUserRecommendation\"></ely-search-box>\r" +
+    "                                get-query=\"searchPage\"></ely-search-box>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
