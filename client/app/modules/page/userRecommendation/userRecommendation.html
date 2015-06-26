@@ -1,16 +1,24 @@
 <div id="content-page-user-recommendation">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div class="page-preview-expand-container">
+            <div ng-show="noSearchResult">
+                <div class="website-structure-header">
+                    <h1 class="website-structure-title">Keine Suchergebnisse</h1>
+                </div>
+                <div>
+                    <b>{{query}}</b> liefert kein Suchresultat
+                </div>
+            </div>
+            <div class="page-preview-expand-container" ng-hide="noSearchResult">
                 <div ng-repeat="pagePreview in pagePreviews.pages" class="page-preview-inner-container">
                     <ely-page-preview page-preview="pagePreview" video-width="160"
                                       video-height="255"></ely-page-preview>
                 </div>
             </div>
             <div id="search-box-container">
-                <ely-search-box description="Suche nach Bewertung..." query="query"
+                <ely-search-box description="Suche nach Seite mit einer Bewertung von Dir..." query="query"
                                 get-query-suggestion="getUserSuggestion"
-                                get-query="searchPage"></ely-search-box>
+                                get-query="searchPageUserRecommendation"></ely-search-box>
             </div>
         </div>
     </div>

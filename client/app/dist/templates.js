@@ -2299,7 +2299,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div class=\"page-preview-expand-container\">\r" +
+    "            <div ng-show=\"noSearchResult\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Keine Suchergebnisse</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"page-preview-expand-container\" ng-hide=\"noSearchResult\">\r" +
     "\n" +
     "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
     "\n" +
@@ -2313,11 +2329,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
-    "                <ely-search-box description=\"Suche nach Bewertung...\" query=\"query\"\r" +
+    "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
     "\n" +
     "                                get-query-suggestion=\"getUserSuggestion\"\r" +
     "\n" +
-    "                                get-query=\"searchPage\"></ely-search-box>\r" +
+    "                                get-query=\"searchPageUserRecommendation\"></ely-search-box>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +

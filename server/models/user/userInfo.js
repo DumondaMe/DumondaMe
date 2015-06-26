@@ -1,6 +1,5 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
 var underscore = require('underscore');
 var cdn = require('../util/cdn');
 

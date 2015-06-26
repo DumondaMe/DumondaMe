@@ -75,7 +75,11 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
         .send(commands)
         .then(function (resp) {
             addLabel(resp[1]);
-            addRecommendation(resp[1]);
+            if (isUserRecommendation === true) {
+                addContactRecommendation(resp[1]);
+            } else {
+                addRecommendation(resp[1]);
+            }
             addPageUrl(resp[1]);
             return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
         });

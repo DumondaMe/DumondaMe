@@ -21,6 +21,7 @@ app.service('SearchPage', require('./services/searchPage'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 app.service('PageUserRecommendation', require('./services/pageUserRecommendation'));
+app.service('PageSearchUserRecommendation', require('./services/pageSearchUserRecommendation'));
 app.service('PageLeftNavElements', require('./services/leftNavElements'));
 
 app.service('PageDetailReview', require('./pageDetail/services/pageDetailReview'));
