@@ -1372,7 +1372,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div ng-controller=\"PageCommonBookCtrl\">\r" +
     "\n" +
-    "                <ely-form-text-input label=\"Autor\" input-name=\"inputAuthor\" input-placeholder=\"Author\"\r" +
+    "                <ely-form-text-input label=\"Autor\" input-name=\"inputAuthor\" input-placeholder=\"Autor\"\r" +
     "\n" +
     "                                     profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
     "\n" +
@@ -3200,29 +3200,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                       image-result-data=\"imageResultData\"\r" +
     "\n" +
-    "                                       min-ratio=\"1.2\"\r" +
-    "\n" +
-    "                                       max-ratio=\"1.63\"\r" +
+    "                                       ratio=\"0.62745\"\r" +
     "\n" +
     "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"200\"></ely-image-cropper>\r" +
     "\n" +
     "                </div>\r" +
-    "\n" +
-    "                <!--<div class=\"cropArea-orientation\">\r" +
-    "\n" +
-    "                    <div class=\"btn-group-vertical\" role=\"group\">\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default cropArea-orientation-img\" ng-class=\"{'active': isLandscape === false}\"><img\r" +
-    "\n" +
-    "                                src=\"app/img/portraitFormat.png\" ng-click=\"setFormat(0.75, false)\"></button>\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default cropArea-orientation-img\" ng-class=\"{'active': isLandscape === true}\"><img\r" +
-    "\n" +
-    "                                src=\"app/img/landscapeFormat.png\" ng-click=\"setFormat(1.25, true)\"></button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>-->\r" +
     "\n" +
     "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
     "\n" +

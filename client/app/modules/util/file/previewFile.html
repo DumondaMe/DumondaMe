@@ -7,18 +7,9 @@
                                        reset="resetImage"
                                        image="imageForUploadPreview"
                                        image-result-data="imageResultData"
-                                       min-ratio="1.2"
-                                       max-ratio="1.63"
+                                       ratio="0.62745"
                                        original-size="checkOriginalSize" min-width="100" min-height="200"></ely-image-cropper>
                 </div>
-                <!--<div class="cropArea-orientation">
-                    <div class="btn-group-vertical" role="group">
-                        <button type="button" class="btn btn-default cropArea-orientation-img" ng-class="{'active': isLandscape === false}"><img
-                                src="app/img/portraitFormat.png" ng-click="setFormat(0.75, false)"></button>
-                        <button type="button" class="btn btn-default cropArea-orientation-img" ng-class="{'active': isLandscape === true}"><img
-                                src="app/img/landscapeFormat.png" ng-click="setFormat(1.25, true)"></button>
-                    </div>
-                </div>-->
                 <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
             <div class="modal-footer">
