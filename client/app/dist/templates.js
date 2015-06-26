@@ -2299,7 +2299,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-show=\"noSearchResult\">\r" +
+    "            <div ng-show=\"noSearchResult && !noPageRecommendation\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2310,6 +2310,22 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                <div>\r" +
     "\n" +
     "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"noPageRecommendation\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Du hast noch keine Seite bewertet</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.overview\">Empfehlungen</a>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

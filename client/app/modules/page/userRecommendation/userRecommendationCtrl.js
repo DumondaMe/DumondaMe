@@ -1,10 +1,23 @@
 'use strict';
 
+var addPagePreviews = function ($scope, paginationNumber) {
+    if (paginationNumber === 1 || !$scope.pagePreviews) {
+        $scope.pagePreviews = $scope.pagePreviewsTemp;
+        if($scope.pagePreviews.pages.length === 0) {
+            $scope.noPageRecommendation = true;
+        }
+    } else {
+        $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pagePreviewsTemp.pages);
+        $scope.pagePreviews.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
+    }
+};
+
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'PageSearchUserRecommendation',
     function ($scope, PageLeftNavElements, PageUserRecommendation, PageSearchUserRecommendation) {
 
         var itemsPerPage = 30, searchActive = false, lastSearch = '';
         $scope.noSearchResult = false;
+        $scope.noPageRecommendation = false;
         $scope.currentSkip = 1;
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -13,12 +26,8 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
             $scope.noSearchResult = false;
             $scope.pagePreviewsTemp = PageUserRecommendation.get({skip: skip, maxItems: itemsPerPage}, function () {
                 searchActive = false;
-                if (paginationNumber === 1 || !$scope.pagePreviews) {
-                    $scope.pagePreviews = $scope.pagePreviewsTemp;
-                } else {
-                    $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pagePreviewsTemp.pages);
-                    $scope.pagePreviews.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
-                }
+                $scope.noPageRecommendation = false;
+                addPagePreviews($scope, paginationNumber);
             });
         };
 

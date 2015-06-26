@@ -2300,7 +2300,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div id=\"inner-centerCol\">\r" +
     "\n" +
-    "            <div ng-show=\"noSearchResult\">\r" +
+    "            <div ng-show=\"noSearchResult && !noPageRecommendation\">\r" +
     "\n" +
     "                <div class=\"website-structure-header\">\r" +
     "\n" +
@@ -2311,6 +2311,22 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                <div>\r" +
     "\n" +
     "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div ng-show=\"noPageRecommendation\">\r" +
+    "\n" +
+    "                <div class=\"website-structure-header\">\r" +
+    "\n" +
+    "                    <h1 class=\"website-structure-title\">Du hast noch keine Seite bewertet</h1>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div>\r" +
+    "\n" +
+    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.overview\">Empfehlungen</a>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -8315,11 +8331,24 @@ module.exports = ['$resource', function ($resource) {
 },{}],114:[function(require,module,exports){
 'use strict';
 
+var addPagePreviews = function ($scope, paginationNumber) {
+    if (paginationNumber === 1 || !$scope.pagePreviews) {
+        $scope.pagePreviews = $scope.pagePreviewsTemp;
+        if($scope.pagePreviews.pages.length === 0) {
+            $scope.noPageRecommendation = true;
+        }
+    } else {
+        $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pagePreviewsTemp.pages);
+        $scope.pagePreviews.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
+    }
+};
+
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'PageSearchUserRecommendation',
     function ($scope, PageLeftNavElements, PageUserRecommendation, PageSearchUserRecommendation) {
 
         var itemsPerPage = 30, searchActive = false, lastSearch = '';
         $scope.noSearchResult = false;
+        $scope.noPageRecommendation = false;
         $scope.currentSkip = 1;
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -8328,12 +8357,8 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
             $scope.noSearchResult = false;
             $scope.pagePreviewsTemp = PageUserRecommendation.get({skip: skip, maxItems: itemsPerPage}, function () {
                 searchActive = false;
-                if (paginationNumber === 1 || !$scope.pagePreviews) {
-                    $scope.pagePreviews = $scope.pagePreviewsTemp;
-                } else {
-                    $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pagePreviewsTemp.pages);
-                    $scope.pagePreviews.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
-                }
+                $scope.noPageRecommendation = false;
+                addPagePreviews($scope, paginationNumber);
             });
         };
 

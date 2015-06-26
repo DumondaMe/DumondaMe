@@ -1,12 +1,20 @@
 <div id="content-page-user-recommendation">
     <div id="centerCol">
         <div id="inner-centerCol">
-            <div ng-show="noSearchResult">
+            <div ng-show="noSearchResult && !noPageRecommendation">
                 <div class="website-structure-header">
                     <h1 class="website-structure-title">Keine Suchergebnisse</h1>
                 </div>
                 <div>
                     <b>{{query}}</b> liefert kein Suchresultat
+                </div>
+            </div>
+            <div ng-show="noPageRecommendation">
+                <div class="website-structure-header">
+                    <h1 class="website-structure-title">Du hast noch keine Seite bewertet</h1>
+                </div>
+                <div>
+                    Um Seiten zu bewerten gehe zu <a ui-sref="page.overview">Empfehlungen</a>
                 </div>
             </div>
             <div class="page-preview-expand-container" ng-hide="noSearchResult">
