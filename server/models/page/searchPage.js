@@ -73,7 +73,27 @@ var searchUserRecommendedPage = function (userId, search, skip, limit) {
         });
 };
 
+var searchSuggestionUserRecommendedPage = function (userId, search, skip, limit) {
+
+    var searchRegEx = '(?i).*'.concat(search, '.*');
+
+    return db.cypher().match("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
+        .where("(" + pageFilter.getFilterQuery() + ") AND page.title =~ {search} ")
+        .return("DISTINCT page.title AS name")
+        .orderBy("page.title")
+        .skip("{skip}")
+        .limit("{limit}")
+        .end({
+            userId: userId,
+            skip: skip,
+            limit: limit,
+            search: searchRegEx
+        })
+        .send();
+};
+
 module.exports = {
     searchPage: searchPage,
-    searchUserRecommendedPage: searchUserRecommendedPage
+    searchUserRecommendedPage: searchUserRecommendedPage,
+    searchSuggestionUserRecommendedPage: searchSuggestionUserRecommendedPage
 };

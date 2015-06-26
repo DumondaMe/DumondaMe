@@ -64,7 +64,8 @@ describe('Integration Tests for searching recommendations of the user', function
                     return requestHandler.getWithData('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
-                        search: 'page'
+                        search: 'page',
+                        isSuggestion: false
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -76,6 +77,52 @@ describe('Integration Tests for searching recommendations of the user', function
                     res.body.pages[1].label.should.equals('VideoPage');
 
                     res.body.totalNumberOfPages.should.equals(2);
+                });
+            });
+    });
+
+    it('Search for recommendation of the user in suggestion mode- Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:BookPage {title: 'page1Title', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:BookPage {title: 'title', description: 'page2', modified: 5071, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page2Title', description: 'page2', modified: 5080, pageId: '3'})").end().getCommand());
+
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '1'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '3'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+
+        commands.push(db.cypher().create("(:BookPage {title: 'page3Title', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:VideoPage {title: 'page4Title', description: 'page4', modified: 5080, pageId: '4'})").end().getCommand());
+        commands.push(db.cypher().match("(a:BookPage {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:VideoPage {pageId: '2'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+
+        return db.cypher().create("(:VideoPage {title: 'page5Title', description: 'page5', modified: 5090, pageId: '5'})")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/user/page/searchRecommendation', {
+                        skip: '0',
+                        maxItems: 50,
+                        search: 'page',
+                        isSuggestion: true
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+                    res.body.length.should.equals(2);
+                    res.body[0].name.should.equals('page1Title');
+                    res.body[1].name.should.equals('page2Title');
+
+                    should.not.exist(res.body.totalNumberOfPages);
                 });
             });
     });
@@ -100,7 +147,8 @@ describe('Integration Tests for searching recommendations of the user', function
                     return requestHandler.getWithData('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
-                        search: 'page1Title'
+                        search: 'page1Title',
+                        isSuggestion: false
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);
@@ -140,7 +188,8 @@ describe('Integration Tests for searching recommendations of the user', function
                     return requestHandler.getWithData('/api/user/page/searchRecommendation', {
                         skip: '0',
                         maxItems: 50,
-                        search: 'page3Title'
+                        search: 'page3Title',
+                        isSuggestion: false
                     }, requestAgent);
                 }).then(function (res) {
                     res.status.should.equal(200);

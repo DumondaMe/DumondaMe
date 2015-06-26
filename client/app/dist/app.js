@@ -2344,7 +2344,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
     "\n" +
-    "                                get-query-suggestion=\"getUserSuggestion\"\r" +
+    "                                get-query-suggestion=\"searchSuggestionPageUserRecommendation\"\r" +
     "\n" +
     "                                get-query=\"searchPageUserRecommendation\"></ely-search-box>\r" +
     "\n" +
@@ -8258,7 +8258,7 @@ module.exports = [
                 onlyShowSelected: true
             },
             {description: 'Meine Bewertungen', url: 'app/img/page/pageMyRecommendation.png', color: '#ce5043', sref: 'page.userRecommendation'},
-            {description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPage'},
+            /*{description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPage'},*/
             {description: 'Seite erstellen', url: 'app/img/page/pageCreate.png', color: '#FFA000', sref: 'page.create'},
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
@@ -8337,6 +8337,22 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
             });
         };
 
+        $scope.searchSuggestionPageUserRecommendation = function (searchValue) {
+            if (searchValue && searchValue.trim().length > 0) {
+                return PageSearchUserRecommendation.query({
+                    search: searchValue,
+                    maxItems: 7,
+                    skip: 0,
+                    isSuggestion: true
+                }).$promise;
+            } else {
+                if (searchActive) {
+                    $scope.currentSkip = 1;
+                    $scope.getPageUserRecommendation(1);
+                }
+            }
+        };
+
         $scope.searchPageUserRecommendation = function (searchValue, paginationNumber) {
             var skip = 0;
             if (searchValue && searchValue.trim().length > 0) {
@@ -8349,12 +8365,13 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
                 $scope.pageSearchPreviews = PageSearchUserRecommendation.get({
                     search: searchValue,
                     maxItems: itemsPerPage,
-                    skip: skip
+                    skip: skip,
+                    isSuggestion: false
                 }, function () {
                     searchActive = true;
                     lastSearch = searchValue;
                     if ($scope.pageSearchPreviews.pages && $scope.pageSearchPreviews.pages.length > 0) {
-                        if(skip === 0) {
+                        if (skip === 0) {
                             $scope.pagePreviews = $scope.pageSearchPreviews;
                         } else {
                             $scope.pagePreviews.pages.push.apply($scope.pagePreviews.pages, $scope.pageSearchPreviews.pages);

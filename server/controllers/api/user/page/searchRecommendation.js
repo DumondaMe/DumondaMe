@@ -10,11 +10,12 @@ var schemaGetPage = {
     name: 'searchUserPageRecommendations',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems', 'search'],
+    required: ['skip', 'maxItems', 'search', 'isSuggestion'],
     properties: {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
-        search: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 255}
+        search: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 255},
+        isSuggestion: {type: 'boolean'}
     }
 };
 
@@ -25,6 +26,9 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when searching page recommendations of the user', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 logger.info('Request search page recommendations of user', req);
+                if(request.isSuggestion) {
+                    return searchPage.searchSuggestionUserRecommendedPage(req.user.id, request.search, request.skip, request.maxItems);
+                }
                 return searchPage.searchUserRecommendedPage(req.user.id, request.search, request.skip, request.maxItems);
             }).then(function (page) {
                 res.status(200).json(page);

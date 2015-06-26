@@ -2343,7 +2343,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
     "\n" +
-    "                                get-query-suggestion=\"getUserSuggestion\"\r" +
+    "                                get-query-suggestion=\"searchSuggestionPageUserRecommendation\"\r" +
     "\n" +
     "                                get-query=\"searchPageUserRecommendation\"></ely-search-box>\r" +
     "\n" +
