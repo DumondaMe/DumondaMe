@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration',
-    function ($scope, PageLeftNavElements, PageUserAdministration) {
+module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration', 'PageSearchUserAdministratedPage',
+    function ($scope, PageLeftNavElements, PageUserAdministration, PageSearchUserAdministratedPage) {
 
         $scope.getPageService = PageUserAdministration;
-        //$scope.searchPageService = PageSearchUserRecommendation;
+        $scope.searchPageService = PageSearchUserAdministratedPage;
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 

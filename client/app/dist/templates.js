@@ -2424,7 +2424,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </div>\r" +
     "\n" +
-    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPage()\"\r" +
+    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPages()\"\r" +
     "\n" +
     "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
     "\n" +
