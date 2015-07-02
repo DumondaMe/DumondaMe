@@ -3,9 +3,9 @@
         <div id="page-detail-header">
             <div id="page-detail-inner-header">
                 <div class="page-detail-header-image">
-                    <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="pageDetail.page.subCategory !== 'Youtube'">
+                    <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="pageDetail.page.label !== 'Youtube'">
                     <ely-iframe width="400" height="300" secure-link="https://www.youtube.com/embed/" src="pageDetail.page.link"
-                                ng-if="pageDetail.page.subCategory === 'Youtube'"></ely-iframe>
+                                ng-if="pageDetail.page.label === 'Youtube'"></ely-iframe>
                 </div>
                 <div class="page-detail-header-list">
                     <div class="page-detail-header-title">

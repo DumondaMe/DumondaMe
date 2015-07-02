@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail', 'PageCategories',
-    function ($scope, $state, $stateParams, Languages, moment, PageDetail, PageCategories) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment',
+    function ($scope, $state, $stateParams, Languages, moment) {
 
         var isDateValid = function (date) {
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
-        $scope.page.BookPage = function () {
+        $scope.page.Book = function () {
             var bookPage = {
                 bookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),

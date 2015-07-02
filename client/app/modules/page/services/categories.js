@@ -1,14 +1,8 @@
 'use strict';
 
 var categories = {
-    BookPage: {description: 'Buch'},
-    VideoPage: {
-        description: 'Video',
-        subCategory: {
-            //Movie: {description: 'Film'},
-            Youtube: {description: 'Youtube'}
-        }
-    }
+    Book: {description: 'Buch'},
+    Youtube: {description: 'Youtube'}
 };
 
 module.exports = [

@@ -1,7 +1,5 @@
 'use strict';
 
-var subCategory = 'Youtube';
-
 var isValidYoutubeLink = function (link) {
     var isValidLink = false;
     if (angular.isString(link)) {
@@ -21,12 +19,12 @@ var getYoutubeLink = function (link) {
     return link;
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail',
-    function ($scope, $state, $stateParams, Languages, moment, PageDetail) {
+module.exports = ['$scope', '$state', '$stateParams', 'Languages',
+    function ($scope, $state, $stateParams, Languages) {
 
-        $scope.page.VideoPage = function () {
+        $scope.page.Youtube = function () {
             var page = {
-                videoPage: {
+                youtubePage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,
@@ -35,8 +33,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             };
             if ($scope.mode.edit) {
                 page.videoPage.pageId = $stateParams.pageId;
-            } else {
-                page.videoPage.subCategory = subCategory;
             }
             return page;
         };

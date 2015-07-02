@@ -4,11 +4,10 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
     function ($scope, PromiseModal, PageRecommendation, moment) {
 
 
-        $scope.addNewRecommendation = function (page, pageId, label, title) {
+        $scope.addNewRecommendation = function (page, pageId, title) {
             var modalScope = $scope.$new(false);
             modalScope.recommendation = {
-                pageId: pageId,
-                label: label
+                pageId: pageId
             };
             PromiseModal.getModal({
                 scope: modalScope,
@@ -33,7 +32,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             });
         };
 
-        $scope.removeRecommendation = function (page, pageId, label) {
+        $scope.removeRecommendation = function (page, pageId) {
             PromiseModal.getModal({
                 title: 'Bewertung l\u00f6schen',
                 content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
@@ -42,8 +41,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             }).show().then(function () {
                 PageRecommendation.delete({
                     recommendationId: page.recommendation.user.recommendationId,
-                    pageId: pageId,
-                    label: label
+                    pageId: pageId
                 }, function (resp) {
                     delete page.recommendation.user;
                     page.recommendation.summary.contact = resp.recommendation.contact;

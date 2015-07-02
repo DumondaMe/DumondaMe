@@ -1,14 +1,7 @@
 'use strict';
 
-var categories = {
-    BookPage: 'Buch',
-    VideoPage: 'Video',
-    CoursePage: 'Kurs',
-    SchoolPage: 'Schule'
-};
-
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment',
-    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
+    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment, PageCategories) {
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -17,18 +10,9 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             $scope.contributorsWithProfile = [];
             $scope.contributors = [];
             $scope.startLoad = true;
-            if ($stateParams.label === 'BookPage') {
+            if ($stateParams.label === 'Book') {
                 collection = $scope.pageDetail.page.author;
                 $scope.contributorPrefix = 'von';
-            } else if ($stateParams.label === 'VideoPage') {
-                collection = $scope.pageDetail.page.actor;
-                $scope.contributorPrefix = 'mit';
-            } else if ($stateParams.label === 'SchoolPage') {
-                collection = $scope.pageDetail.page.principal;
-                $scope.contributorPrefix = 'wird geleited von';
-            } else if ($stateParams.label === 'CoursePage') {
-                collection = $scope.pageDetail.page.instructor;
-                $scope.contributorPrefix = 'wird geleited von';
             }
             angular.forEach(collection, function (author) {
                 if (author.userId) {
@@ -42,7 +26,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             }
         });
 
-        $scope.category = categories[$stateParams.label];
+        $scope.category = PageCategories.categories[$stateParams.label].description;
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
 

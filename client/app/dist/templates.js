@@ -1406,9 +1406,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'BookPage'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedSubCategoryType === 'Youtube'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1891,11 +1891,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-detail-header-image\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.subCategory !== 'Youtube'\">\r" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.label !== 'Youtube'\">\r" +
     "\n" +
     "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
     "\n" +
-    "                                ng-if=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
+    "                                ng-if=\"pageDetail.page.label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -2132,11 +2132,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        service-parameter=\"{onlyContacts: true, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        service-parameter=\"{onlyContacts: false, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -2213,11 +2213,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
-    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.subCategory === 'Youtube'\">\r" +
+    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.label === 'Youtube'\">\r" +
     "\n" +
     "        <ely-iframe width=\"{{videoWidth}}\" height=\"{{videoHeight}}\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
     "\n" +
-    "                    ng-show=\"pagePreview.subCategory === 'Youtube'\"></ely-iframe>\r" +
+    "                    ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +

@@ -6,7 +6,6 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     $scope.addRecommendation = function () {
         var data = {
             pageId: $scope.recommendation.pageId,
-            label: $scope.recommendation.label,
             comment: $scope.recommendationDescription,
             rating: $scope.numberOfSelectedStars
         };

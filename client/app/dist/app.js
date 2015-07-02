@@ -1407,9 +1407,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'BookPage'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div>\r" +
     "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedSubCategoryType === 'Youtube'\"></div>\r" +
+    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div>\r" +
     "\n" +
     "        <div id=\"content-create-edit-page-common-description-area\">\r" +
     "\n" +
@@ -1892,11 +1892,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-detail-header-image\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.subCategory !== 'Youtube'\">\r" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.label !== 'Youtube'\">\r" +
     "\n" +
     "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
     "\n" +
-    "                                ng-if=\"pageDetail.page.subCategory === 'Youtube'\"></ely-iframe>\r" +
+    "                                ng-if=\"pageDetail.page.label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -2133,11 +2133,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        service-parameter=\"{onlyContacts: true, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=\"PopularPages\"\r" +
     "\n" +
-    "                                        service-parameter=\"{onlyContacts: false, category: 'BookPage'}\" hide=\"hide\"></ely-page-preview-container>\r" +
+    "                                        service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
     "\n" +
     "            <div id=\"search-box-container\">\r" +
     "\n" +
@@ -2214,11 +2214,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
-    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.subCategory === 'Youtube'\">\r" +
+    "        <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.label === 'Youtube'\">\r" +
     "\n" +
     "        <ely-iframe width=\"{{videoWidth}}\" height=\"{{videoHeight}}\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
     "\n" +
-    "                    ng-show=\"pagePreview.subCategory === 'Youtube'\"></ely-iframe>\r" +
+    "                    ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -7202,11 +7202,10 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
     function ($scope, PromiseModal, PageRecommendation, moment) {
 
 
-        $scope.addNewRecommendation = function (page, pageId, label, title) {
+        $scope.addNewRecommendation = function (page, pageId, title) {
             var modalScope = $scope.$new(false);
             modalScope.recommendation = {
-                pageId: pageId,
-                label: label
+                pageId: pageId
             };
             PromiseModal.getModal({
                 scope: modalScope,
@@ -7231,7 +7230,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             });
         };
 
-        $scope.removeRecommendation = function (page, pageId, label) {
+        $scope.removeRecommendation = function (page, pageId) {
             PromiseModal.getModal({
                 title: 'Bewertung l\u00f6schen',
                 content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
@@ -7240,8 +7239,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             }).show().then(function () {
                 PageRecommendation.delete({
                     recommendationId: page.recommendation.user.recommendationId,
-                    pageId: pageId,
-                    label: label
+                    pageId: pageId
                 }, function (resp) {
                     delete page.recommendation.user;
                     page.recommendation.summary.contact = resp.recommendation.contact;
@@ -7262,7 +7260,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             return moment(date, 'l', moment.locale(), true).isValid();
         };
 
-        $scope.page.BookPage = function () {
+        $scope.page.Book = function () {
             var bookPage = {
                 bookPage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
@@ -7347,8 +7345,7 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
                     goToPageDetail(pageId, $state, $scope);
                 } else {
                     modalScope.recommendation = {
-                        pageId: pageId,
-                        label: $scope.category.selectedCategoryType
+                        pageId: pageId
                     };
                     PromiseModal.getModal({
                         scope: modalScope,
@@ -7391,12 +7388,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
             }
         });
 
-        $scope.$watch('category.selectedSubCategory', function (newValue) {
-            if (newValue) {
-                $scope.category.selectedSubCategoryType = PageCategories.getPageType(newValue);
-            }
-        });
-
         if ($scope.mode.edit) {
             $scope.$watchCollection('page', function (newValue) {
                 if (newValue && $scope.commonSection.toCompare) {
@@ -7432,8 +7423,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
 },{}],86:[function(require,module,exports){
 'use strict';
 
-var subCategory = 'Youtube';
-
 var isValidYoutubeLink = function (link) {
     var isValidLink = false;
     if (angular.isString(link)) {
@@ -7456,9 +7445,9 @@ var getYoutubeLink = function (link) {
 module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'PageDetail',
     function ($scope, $state, $stateParams, Languages, moment, PageDetail) {
 
-        $scope.page.VideoPage = function () {
+        $scope.page.Youtube = function () {
             var page = {
-                videoPage: {
+                youtubePage: {
                     language: Languages.getCode($scope.category.selectedLanguage),
                     title: $scope.category.title,
                     description: $scope.page.description,
@@ -7467,8 +7456,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment', 'Pa
             };
             if ($scope.mode.edit) {
                 page.videoPage.pageId = $stateParams.pageId;
-            } else {
-                page.videoPage.subCategory = subCategory;
             }
             return page;
         };
@@ -7923,15 +7910,8 @@ module.exports = {
 },{}],95:[function(require,module,exports){
 'use strict';
 
-var categories = {
-    BookPage: 'Buch',
-    VideoPage: 'Video',
-    CoursePage: 'Kurs',
-    SchoolPage: 'Schule'
-};
-
-module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment',
-    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment) {
+module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
+    function ($scope, $window, $state, $stateParams, PageDetail, PageLeftNavElements, moment, PageCategories) {
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
@@ -7940,18 +7920,9 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             $scope.contributorsWithProfile = [];
             $scope.contributors = [];
             $scope.startLoad = true;
-            if ($stateParams.label === 'BookPage') {
+            if ($stateParams.label === 'Book') {
                 collection = $scope.pageDetail.page.author;
                 $scope.contributorPrefix = 'von';
-            } else if ($stateParams.label === 'VideoPage') {
-                collection = $scope.pageDetail.page.actor;
-                $scope.contributorPrefix = 'mit';
-            } else if ($stateParams.label === 'SchoolPage') {
-                collection = $scope.pageDetail.page.principal;
-                $scope.contributorPrefix = 'wird geleited von';
-            } else if ($stateParams.label === 'CoursePage') {
-                collection = $scope.pageDetail.page.instructor;
-                $scope.contributorPrefix = 'wird geleited von';
             }
             angular.forEach(collection, function (author) {
                 if (author.userId) {
@@ -7965,7 +7936,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             }
         });
 
-        $scope.category = categories[$stateParams.label];
+        $scope.category = PageCategories.categories[$stateParams.label].description;
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
 
@@ -8269,14 +8240,8 @@ arguments[4][35][0].apply(exports,arguments)
 'use strict';
 
 var categories = {
-    BookPage: {description: 'Buch'},
-    VideoPage: {
-        description: 'Video',
-        subCategory: {
-            //Movie: {description: 'Film'},
-            Youtube: {description: 'Youtube'}
-        }
-    }
+    Book: {description: 'Buch'},
+    Youtube: {description: 'Youtube'}
 };
 
 module.exports = [
@@ -8556,7 +8521,6 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     $scope.addRecommendation = function () {
         var data = {
             pageId: $scope.recommendation.pageId,
-            label: $scope.recommendation.label,
             comment: $scope.recommendationDescription,
             rating: $scope.numberOfSelectedStars
         };

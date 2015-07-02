@@ -32,8 +32,7 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
                     goToPageDetail(pageId, $state, $scope);
                 } else {
                     modalScope.recommendation = {
-                        pageId: pageId,
-                        label: $scope.category.selectedCategoryType
+                        pageId: pageId
                     };
                     PromiseModal.getModal({
                         scope: modalScope,
@@ -73,12 +72,6 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         $scope.$watch('category.selectedCategory', function (newValue) {
             if (newValue) {
                 $scope.category.selectedCategoryType = PageCategories.getPageType(newValue);
-            }
-        });
-
-        $scope.$watch('category.selectedSubCategory', function (newValue) {
-            if (newValue) {
-                $scope.category.selectedSubCategoryType = PageCategories.getPageType(newValue);
             }
         });
 

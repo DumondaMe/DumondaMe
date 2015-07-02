@@ -1,8 +1,8 @@
 <div ng-class="{'page-preview': !longFormat, 'page-preview-long': longFormat}">
     <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-        <img ng-src="{{pagePreview.url}}" class="page-preview-image" ng-hide="pagePreview.subCategory === 'Youtube'">
+        <img ng-src="{{pagePreview.url}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
         <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
-                    ng-show="pagePreview.subCategory === 'Youtube'"></ely-iframe>
+                    ng-show="pagePreview.label === 'Youtube'"></ely-iframe>
     </div>
     <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         {{pagePreview.title}}
