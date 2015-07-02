@@ -8,7 +8,7 @@ var detailTitlePicture = require('./detailTitlePicture');
 
 var getBookAuthors = function (pageId, userId) {
 
-    return db.cypher().match("(:BookPage {pageId: {pageId}})<-[:IS_AUTHOR]-(u:User)")
+    return db.cypher().match("(:Page {pageId: {pageId}})<-[:IS_AUTHOR]-(u:User)")
         .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
         .orderBy("u.name")
         .end({pageId: pageId, userId: userId});
@@ -31,11 +31,11 @@ var getBookDetail = function (pageId, userId) {
 
     var commands = [];
 
-    commands.push(administrator.getAdministrator(pageId, ':BookPage', userId));
-    commands.push(recommendation.getUserRecommendation(pageId, ':BookPage', userId));
-    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':BookPage').getCommand());
-    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':BookPage', userId).getCommand());
-    commands.push(db.cypher().match("(page:BookPage {pageId: {pageId}})")
+    commands.push(administrator.getAdministrator(pageId, userId));
+    commands.push(recommendation.getUserRecommendation(pageId, userId));
+    commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
+    commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
+    commands.push(db.cypher().match("(page:Page {pageId: {pageId}})")
         .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.author AS author, " +
         "page.publishDate AS publishDate")
         .end({pageId: pageId}).getCommand());
@@ -44,7 +44,7 @@ var getBookDetail = function (pageId, userId) {
         .send(commands)
         .then(function (resp) {
             addAuthors(resp[4][0], resp[5]);
-            detailTitlePicture.addTitlePicture(pageId, resp[4][0], 'BookPage');
+            detailTitlePicture.addTitlePicture(pageId, resp[4][0], 'Book');
             return response.getResponse(resp, resp[4][0], pageId, userId);
         });
 };

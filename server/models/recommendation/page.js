@@ -23,8 +23,8 @@ var checkDeleteRecommendationAllowed = function (userId, recommendationId, req) 
         });
 };
 
-var checkAddingRecommendationAllowed = function (userId, pageId, label, req) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:" + label + " {pageId: {pageId}})")
+var checkAddingRecommendationAllowed = function (userId, pageId, req) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page {pageId: {pageId}})")
         .return("user.userId AS userId")
         .end({
             userId: userId,
@@ -38,21 +38,21 @@ var checkAddingRecommendationAllowed = function (userId, pageId, label, req) {
         });
 };
 
-var deleteRecommendation = function (userId, recommendationId, pageId, label, req) {
+var deleteRecommendation = function (userId, recommendationId, pageId, req) {
     return checkDeleteRecommendationAllowed(userId, recommendationId, req).then(function () {
 
         var commands = [];
 
         commands.push(db.cypher().match("(user:User {userId: {userId}})-[rel:RECOMMENDS]->" +
-            "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2:RECOMMENDS]->(page)")
+            "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2:RECOMMENDS]->(page:Page)")
             .delete("rel, rec, rel2")
             .end({
                 userId: userId,
                 recommendationId: recommendationId
             }).getCommand());
 
-        commands.push(recommendation.getRecommendationSummaryAll(pageId, ':' + label).getCommand());
-        return recommendation.getRecommendationSummaryContacts(pageId, ':' + label, userId)
+        commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
+        return recommendation.getRecommendationSummaryContacts(pageId, userId)
             .send(commands)
             .then(function (resp) {
                 return {
@@ -65,15 +65,15 @@ var deleteRecommendation = function (userId, recommendationId, pageId, label, re
     });
 };
 
-var addRecommendation = function (userId, pageId, label, comment, rating, req) {
+var addRecommendation = function (userId, pageId, comment, rating, req) {
     if (!comment) {
         comment = '';
     }
-    return checkAddingRecommendationAllowed(userId, pageId, label, req).then(function () {
+    return checkAddingRecommendationAllowed(userId, pageId, req).then(function () {
 
         var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
-        commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:" + label + " {pageId: {pageId}})")
+        commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:Page {pageId: {pageId}})")
             .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
             "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
             .end({
@@ -84,8 +84,8 @@ var addRecommendation = function (userId, pageId, label, comment, rating, req) {
                 rating: rating,
                 created: created
             }).getCommand());
-        commands.push(recommendation.getRecommendationSummaryAll(pageId, ':' + label).getCommand());
-        return recommendation.getRecommendationSummaryContacts(pageId, ':' + label, userId)
+        commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
+        return recommendation.getRecommendationSummaryContacts(pageId, userId)
             .send(commands)
             .then(function (resp) {
                 return {

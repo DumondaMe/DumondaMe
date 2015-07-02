@@ -2,26 +2,22 @@
 
 var db = require('./../../neo4j');
 var pagePreview = require('./pagePreview');
-var pageFilter = require('./pageFilter');
 var underscore = require('underscore');
 
-var getTotalAdministratedPages = function (userId, filterQuery) {
+var getTotalAdministratedPages = function (userId) {
     return db.cypher().match("(page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
-        .where("(" + filterQuery + ")")
         .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
-var getAdministratedUserPages = function (userId, skip, limit, filters) {
+var getAdministratedUserPages = function (userId, skip, limit) {
 
-    var filterQuery = pageFilter.getFilterQuery(filters),
-        commands = [];
+    var commands = [];
 
-    commands.push(getTotalAdministratedPages(userId, filterQuery));
+    commands.push(getTotalAdministratedPages(userId));
 
-    return db.cypher().match("(page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
+    return db.cypher().match("(page:Page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user)")
-        .where("(" + filterQuery + ")")
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
         "page.link AS link, rec.rating AS rating, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
         "true AS isAdmin")
         .orderBy("page.modified DESC")
@@ -34,7 +30,6 @@ var getAdministratedUserPages = function (userId, skip, limit, filters) {
         })
         .send(commands)
         .then(function (resp) {
-            pagePreview.addLabel(resp[1]);
             underscore.forEach(resp[1], function (page) {
                 page.imageVisible = true;
                 page.profileVisible = true;

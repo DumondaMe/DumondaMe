@@ -1,43 +1,26 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
 var response = require('./detailResponse');
-var logger = requireLogger.getLogger(__filename);
-
-var getYoutubeResponse = function (resp) {
-    var returnPage = {};
-    returnPage.title = resp.title;
-    returnPage.description = resp.description;
-    returnPage.language = resp.language;
-    returnPage.link = resp.link;
-    returnPage.subCategory = resp.subCategory;
-    returnPage.created = resp.created;
-    returnPage.modified = resp.modified;
-    return returnPage;
-};
 
 var getVideoDetail = function (pageId, userId) {
 
     var commands = [];
 
-    commands.push(administrator.getAdministrator(pageId, ':VideoPage', userId));
-    commands.push(recommendation.getUserRecommendation(pageId, ':VideoPage', userId));
-    commands.push(recommendation.getRecommendationSummaryAll(pageId, ':VideoPage').getCommand());
-    commands.push(recommendation.getRecommendationSummaryContacts(pageId, ':VideoPage', userId).getCommand());
+    commands.push(administrator.getAdministrator(pageId, userId));
+    commands.push(recommendation.getUserRecommendation(pageId, userId));
+    commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
+    commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
 
-    return db.cypher().match("(page:VideoPage {pageId: {pageId}})")
-        .return("page")
+    return db.cypher().match("(page:Page {pageId: {pageId}})")
+        .return("page.title AS title, page.description AS description, page.language AS language, page.link AS link, page.created AS created," +
+        "page.modified AS modified, page.label AS label")
         .end({pageId: pageId})
         .send(commands)
         .then(function (resp) {
-            var pageResponse;
-            if(resp[4][0].page.subCategory === 'Youtube') {
-                pageResponse = getYoutubeResponse(resp[4][0].page);
-            }
-            return response.getResponse(resp, pageResponse, pageId, userId);
+            return response.getResponse(resp, resp[4][0], pageId, userId);
         });
 };
 

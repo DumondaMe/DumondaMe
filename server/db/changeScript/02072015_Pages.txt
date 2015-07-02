@@ -1,0 +1,4 @@
+MATCH (n:BookPage) SET n :Page, n.label = 'Book';
+MATCH (n:BookPage) REMOVE n:BookPage;
+MATCH (n:VideoPage) SET n :Page, n.label = 'Youtube';
+MATCH (n:VideoPage) REMOVE n:VideoPage;

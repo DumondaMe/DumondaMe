@@ -1,26 +1,25 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var exceptions = require('./../../../lib/error/exceptions');
-var underscore = require('underscore');
-var cdn = require('../../util/cdn');
+var pageFilter = require('./../pageFilter');
 var userInfo = require('../../user/userInfo');
-var logger = requireLogger.getLogger(__filename);
 
 var getMatchQuery = function (label, onlyContacts) {
-    var matchQuery = "(page:" + label + " {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
+    var matchQuery = "(page:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
     if (onlyContacts) {
         matchQuery = matchQuery.concat("<-[IS_CONTACT]-(user:User {userId: {userId}})");
     } else {
         matchQuery = matchQuery.concat(", (user:User {userId: {userId}})");
     }
-    return db.cypher().match(matchQuery);
+
+    return db.cypher().match(matchQuery).where(pageFilter.getFilterQuery([label]));
 };
 
 var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
     var matchQuery = getMatchQuery(label, onlyContacts);
 
     return matchQuery
+        .with("page, rec, user, otherUser")
         .where("otherUser.userId <> {userId}")
         .with("page, rec, user, otherUser")
         .match("(otherUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")

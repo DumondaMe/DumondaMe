@@ -16,7 +16,7 @@ var schemaGetPage = {
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         filters: {
             type: 'array',
-            items: {enum: ['BookPage', 'VideoPage']},
+            items: {enum: ['Book', 'Video']},
             minItems: 1,
             uniqueItems: true
         }

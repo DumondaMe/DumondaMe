@@ -13,7 +13,7 @@ var schemaGetPageReview = {
     required: ['pageId', 'label', 'skip', 'onlyContacts', 'maxItems'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['BookPage', 'VideoPage']},
+        label: {enum: ['Book', 'Youtube']},
         skip: {type: 'integer', minimum: 0},
         onlyContacts: {type: 'boolean'},
         maxItems: {type: 'integer', minimum: 1, maximum: 50}

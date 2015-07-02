@@ -12,12 +12,12 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
     params.userId = userId;
     return commonBookPage.checkImageSize(titlePicturePath, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})")
-            .createUnique("(user)-[:IS_ADMIN]->(:BookPage {pageId: {pageId}, title: {title}, description: {description}, author: {author}, " +
-            "publishDate: {publishDate}, modified: {modified}, language: {language}})")
+            .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, " +
+            "publishDate: {publishDate}, modified: {modified}, language: {language}, label: 'Book'})")
             .end(params)
             .send();
     }).then(function () {
-        return uploadImage.generatePageImage(titlePicturePath, 'BookPage', params.pageId);
+        return uploadImage.generatePageImage(titlePicturePath, 'Book', params.pageId);
     }).then(function () {
         return {pageId: params.pageId};
     });

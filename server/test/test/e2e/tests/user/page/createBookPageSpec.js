@@ -1,6 +1,5 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
@@ -48,18 +47,19 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:BookPage {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.author AS author, ' +
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.be.equals("de");
-            page[0].pageId.should.be.equals(pageId);
-            page[0].description.should.be.equals("description");
-            page[0].author.should.be.equals("Hans Muster");
-            page[0].publishDate.should.be.equals(500);
+            page[0].language.should.equals("de");
+            page[0].label.should.equals("Book");
+            page[0].pageId.should.equals(pageId);
+            page[0].description.should.equals("description");
+            page[0].author.should.equals("Hans Muster");
+            page[0].publishDate.should.equals(500);
         });
     });
 
@@ -80,17 +80,18 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:BookPage {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.author AS author, ' +
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.be.equals("de");
-            page[0].pageId.should.be.equals(pageId);
-            page[0].description.should.be.equals("description");
-            page[0].author.should.be.equals("Hans Muster");
+            page[0].language.should.equals("de");
+            page[0].label.should.equals("Book");
+            page[0].pageId.should.equals(pageId);
+            page[0].description.should.equals("description");
+            page[0].author.should.equals("Hans Muster");
             should.not.exist(page[0].publishDate);
         });
     });
@@ -113,18 +114,19 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:BookPage {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.author AS author, ' +
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.be.equals("de");
-            page[0].pageId.should.be.equals(pageId);
-            page[0].description.should.be.equals("description");
-            page[0].author.should.be.equals("Hans Muster");
-            page[0].publishDate.should.be.equals(500);
+            page[0].language.should.equals("de");
+            page[0].label.should.equals("Book");
+            page[0].pageId.should.equals(pageId);
+            page[0].description.should.equals("description");
+            page[0].author.should.equals("Hans Muster");
+            page[0].publishDate.should.equals(500);
         });
     });
 
@@ -145,7 +147,7 @@ describe('Integration Tests for creating new book pages', function () {
             return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
-            return db.cypher().match("(page:BookPage {title: 'title'})")
+            return db.cypher().match("(page:Page {title: 'title'})")
                 .return('page.pageId AS pageId')
                 .end().send();
         }).then(function (page) {
@@ -170,7 +172,7 @@ describe('Integration Tests for creating new book pages', function () {
             return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
-            return db.cypher().match("(page:BookPage {title: 'title'})")
+            return db.cypher().match("(page:Page {title: 'title'})")
                 .return('page.pageId AS pageId')
                 .end().send();
         }).then(function (page) {

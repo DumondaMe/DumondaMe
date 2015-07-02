@@ -22,8 +22,8 @@ module.exports = function (router) {
                 if (request.bookPage) {
                     underscore.defaults(request.bookPage, {publishDate: null});
                     return createBookPage.createBookPage(req.user.id, request.bookPage, filePath, req);
-                } else if(request.videoPage) {
-                    return createVideoPage.createVideoPage(req.user.id, request.videoPage);
+                } else if(request.youtubePage) {
+                    return createVideoPage.createVideoPage(req.user.id, request.youtubePage);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

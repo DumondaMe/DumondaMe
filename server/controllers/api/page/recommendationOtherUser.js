@@ -17,7 +17,7 @@ var schemaGetPage = {
         userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         filters: {
             type: 'array',
-            items: {enum: ['BookPage', 'VideoPage']},
+            items: {enum: ['Book', 'Youtube']},
             minItems: 1,
             uniqueItems: true
         }

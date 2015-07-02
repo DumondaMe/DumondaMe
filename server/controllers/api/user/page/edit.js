@@ -14,10 +14,8 @@ schema = JSON.parse(JSON.stringify(schema));
 schema.properties.bookPage.required.push('pageId');
 schema.properties.bookPage.properties.pageId = {'$ref': '#/definitions/id'};
 
-schema.properties.videoPage.required.push('pageId');
-schema.properties.videoPage.properties.pageId = {'$ref': '#/definitions/id'};
-delete schema.properties.videoPage.properties.subCategory;
-schema.properties.videoPage.required = underscore.without(schema.properties.videoPage.required, 'subCategory');
+schema.properties.youtubePage.required.push('pageId');
+schema.properties.youtubePage.properties.pageId = {'$ref': '#/definitions/id'};
 
 module.exports = function (router) {
 
@@ -32,8 +30,8 @@ module.exports = function (router) {
                 if (request.bookPage) {
                     underscore.defaults(request.bookPage, {publishDate: null});
                     return editBookPage.editBookPage(req.user.id, request.bookPage, filePath, req);
-                } else if (request.videoPage) {
-                    return editVideoPage.editVideoPage(req.user.id, request.videoPage, req);
+                } else if (request.youtubePage) {
+                    return editVideoPage.editVideoPage(req.user.id, request.youtubePage, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

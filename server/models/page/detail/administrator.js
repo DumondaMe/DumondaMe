@@ -3,9 +3,9 @@
 var db = require('./../../../neo4j');
 var underscore = require('underscore');
 
-var getAdministrator = function (pageId, pageLabel, userId) {
+var getAdministrator = function (pageId, userId) {
 
-    return db.cypher().match("(" + pageLabel + " {pageId: {pageId}})" +
+    return db.cypher().match("(:Page {pageId: {pageId}})" +
         "<-[:IS_ADMIN]-(u:User)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(:User {userId: {userId}})<-[rContact:IS_CONTACT]-(u)")
         .with("u, vr, privacy, rContact")

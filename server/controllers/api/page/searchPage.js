@@ -18,7 +18,7 @@ var schemaSearchPage = {
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         filterType: {
             type: 'array',
-            items: {enum: ['BookPage', 'VideoPage', 'Youtube']},
+            items: {enum: ['Book', 'Youtube']},
             minItems: 1,
             uniqueItems: true
         },

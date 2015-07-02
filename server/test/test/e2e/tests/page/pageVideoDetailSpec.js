@@ -1,13 +1,10 @@
 'use strict';
 
-var app = require('../../../../../server');
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
-var should = require('chai').should();
-var moment = require('moment');
 
-describe('Integration Tests for getting video page detail', function () {
+describe('Integration Tests for getting youtube page detail', function () {
 
     var requestAgent;
 
@@ -18,8 +15,8 @@ describe('Integration Tests for getting video page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:VideoPage {title: 'pageTitle', description: 'page', language: 'de', link: 'www.link.com', " +
-                "created: 500, modified: 501, pageId: '0', subCategory: 'Youtube'})").send(commands);
+            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', language: 'de', link: 'www.link.com', " +
+                "created: 500, modified: 501, pageId: '0'})").send(commands);
 
         });
     });
@@ -52,26 +49,26 @@ describe('Integration Tests for getting video page detail', function () {
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_AUTHOR]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 4, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
-        return db.cypher().match("(a:VideoPage {pageId: '0'}), (b:User {userId: '2'})")
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().send(commands)
             .then(function () {
@@ -81,7 +78,7 @@ describe('Integration Tests for getting video page detail', function () {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/page/detail', {
                     pageId: '0',
-                    label: 'VideoPage'
+                    label: 'Youtube'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -91,7 +88,7 @@ describe('Integration Tests for getting video page detail', function () {
                 res.body.page.created.should.equals(500);
                 res.body.page.modified.should.equals(501);
                 res.body.page.link.should.equals('www.link.com');
-                res.body.page.subCategory.should.equals('Youtube');
+                res.body.page.label.should.equals('Youtube');
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');

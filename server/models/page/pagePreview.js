@@ -7,17 +7,10 @@ var userInfo = require('../user/userInfo');
 
 var addPageUrl = function (previews) {
     underscore.forEach(previews, function (preview) {
-        if (preview.subCategory !== 'Youtube') {
+        if (preview.label !== 'Youtube') {
             preview.url = cdn.getUrl('pages/' + preview.label + '/' + preview.pageId + '/pagePreview.jpg');
             delete preview.link;
         }
-    });
-};
-
-var addLabel = function (previews) {
-    underscore.forEach(previews, function (preview) {
-        preview.label = preview.types[0];
-        delete preview.types;
     });
 };
 
@@ -65,7 +58,7 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());
 
     return startQuery
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
         "page.link AS link, numberOfRatings, rating, " +
         "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
@@ -74,7 +67,6 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
         .end(params)
         .send(commands)
         .then(function (resp) {
-            addLabel(resp[1]);
             addRecommendation(resp[1]);
             addPageUrl(resp[1]);
             return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
@@ -84,7 +76,6 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
 module.exports = {
     pagePreviewQuery: pagePreviewQuery,
     addPageUrl: addPageUrl,
-    addLabel: addLabel,
     addRecommendation: addRecommendation,
     addContactRecommendation: addContactRecommendation
 };

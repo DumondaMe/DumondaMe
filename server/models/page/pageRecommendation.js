@@ -27,7 +27,7 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
 
     commands.push(getTotalRecommendationUser(otherUserId, filterQuery));
 
-    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(otherUser:User {userId: {otherUserId}}), " +
+    return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(otherUser:User {userId: {otherUserId}}), " +
         "(user:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, contactRec, otherUser, user")
@@ -35,7 +35,7 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(otherUser)")
         .with("page, contactRec, otherUser, user, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
         "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, otherUser.userId AS userId, otherUser.name AS name, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
@@ -49,7 +49,6 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         })
         .send(commands)
         .then(function (resp) {
-            pagePreview.addLabel(resp[1]);
             pagePreview.addContactRecommendation(resp[1]);
             pagePreview.addPageUrl(resp[1]);
             return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
@@ -59,14 +58,12 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
 var getRecommendationUser = function (userId, skip, limit) {
 
     var orderBy = "contactRec.rating DESC, contactRec.created DESC",
-        filterQuery = pageFilter.getFilterQuery(),
         commands = [];
 
-    commands.push(getTotalRecommendationUser(userId, filterQuery));
+    commands.push(getTotalRecommendationUser(userId, pageFilter.getFilterQuery()));
 
-    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
-        .where("(" + filterQuery + ")")
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+    return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
         "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, user.userId AS userId, user.name AS name, " +
         "true AS profileVisible, true AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
@@ -79,7 +76,6 @@ var getRecommendationUser = function (userId, skip, limit) {
         })
         .send(commands)
         .then(function (resp) {
-            pagePreview.addLabel(resp[1]);
             pagePreview.addContactRecommendation(resp[1]);
             pagePreview.addPageUrl(resp[1]);
             return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
@@ -94,7 +90,7 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
 
     commands.push(getTotalRecommendationContacts(userId, filterQuery));
 
-    return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
+    return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, max(contactRec.created) AS created")
         .match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(contact:User)<-[:IS_CONTACT]-(user:User {userId: {userId}})")
@@ -104,7 +100,7 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("page, contactRec, contact, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
         "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, contact.name AS name, contact.userId AS userId, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
@@ -117,37 +113,31 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         })
         .send(commands)
         .then(function (resp) {
-            pagePreview.addLabel(resp[1]);
             pagePreview.addContactRecommendation(resp[1]);
             pagePreview.addPageUrl(resp[1]);
             return {pages: resp[1], totalNumberOfPages: resp[0][0].totalNumberOfPages};
         });
 };
 
-var getPopularPages = function (userId, skip, limit, onlyContact, pageType, subCategory) {
+var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
 
     var orderBy = "rating DESC, numberOfRatings DESC",
-        startQuery = db.cypher(), matchQuery, subCategoryWhere = '';
+        startQuery = db.cypher(), matchQuery;
 
     if (onlyContact) {
-        matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
+        matchQuery = "(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
     } else {
-        matchQuery = "(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)";
-    }
-
-    if (subCategory) {
-        subCategoryWhere = ' AND page.subCategory = {subCategory}';
+        matchQuery = "(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)";
     }
 
     startQuery.match(matchQuery)
-        .where("page:" + pageType + subCategoryWhere)
+        .where(pageFilter.getFilterQuery([pageType]))
         .with("page, AVG(contactRec.rating) AS rating, COUNT(contactRec) AS numberOfRatings");
 
     return pagePreview.pagePreviewQuery({
         userId: userId,
         skip: skip,
-        limit: limit,
-        subCategory: subCategory
+        limit: limit
     }, orderBy, startQuery);
 };
 

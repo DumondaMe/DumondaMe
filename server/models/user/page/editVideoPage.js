@@ -1,16 +1,13 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var logger = requireLogger.getLogger(__filename);
-var underscore = require('underscore');
-var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 var security = require('./security');
 
 var editVideoPage = function (userId, params, req) {
 
-    return security.checkAllowedToEditPage(userId, params.pageId, 'VideoPage', req).then(function () {
-        return db.cypher().match("(page:VideoPage {pageId: {pageId}})")
+    return security.checkAllowedToEditPage(userId, params.pageId, req).then(function () {
+        return db.cypher().match("(page:Page {pageId: {pageId}})")
             .set('page', {
                 language: params.language,
                 description: params.description,

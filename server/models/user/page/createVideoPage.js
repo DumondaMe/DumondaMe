@@ -1,7 +1,6 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var logger = requireLogger.getLogger(__filename);
 var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 
@@ -10,8 +9,8 @@ var createVideoPage = function (userId, params) {
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     return db.cypher().match("(user:User {userId: {userId}})")
-        .createUnique("(user)-[:IS_ADMIN]->(:VideoPage {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
-        "subCategory: {subCategory}, modified: {created}, created: {created}, language: {language}})")
+        .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
+        "modified: {created}, created: {created}, language: {language}, label: 'Youtube'})")
         .end(params)
         .send().then(function () {
             return {pageId: params.pageId};

@@ -2,10 +2,9 @@
 
 var db = require('./../../../neo4j/index');
 var exceptions = require('./../../../lib/error/exceptions');
-var time = require('./../../../lib/time');
 var logger = requireLogger.getLogger(__filename);
 
-var checkAllowedToEditPage = function (userId, pageId, label, req) {
+var checkAllowedToEditPage = function (userId, pageId, req) {
 
     function checkUserAllowedToEditPage(resp) {
         return resp.length === 0;
@@ -17,7 +16,7 @@ var checkAllowedToEditPage = function (userId, pageId, label, req) {
     };
 
     return db.cypher()
-        .match("(page:" + label + " {pageId: {pageId}})<-[:IS_ADMIN]-(user:User {userId: {userId}})")
+        .match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .return("user.userId AS userId")
         .end(params).send()
         .then(function (resp) {

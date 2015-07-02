@@ -17,16 +17,15 @@ module.exports = {
                 publishDate: {type: 'integer'}
             }
         },
-        videoPage: {
+        youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['language', 'title','description', 'link', 'subCategory'],
+            required: ['language', 'title','description', 'link'],
             properties: {
                 language: {'$ref': '#/definitions/language'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
-                link: {'$ref': '#/definitions/link'},
-                subCategory: {enum: ['Youtube']}
+                link: {'$ref': '#/definitions/link'}
             }
         }
     },

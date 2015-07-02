@@ -44,15 +44,15 @@ var searchUserRecommendedPage = function (userId, search, skip, limit) {
             search: searchRegEx
         };
 
-    startQuery.match("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
-        .where("(" + pageFilter.getFilterQuery() + ") AND page.title =~ {search} ")
+    startQuery.match("(page:Page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
+        .where("page.title =~ {search} ")
         .with("page, user, count(rec) AS numberOfRatings, rec");
 
     commands.push(db.cypher().addCommand(startQuery.getCommandString())
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());
 
     return startQuery
-        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.subCategory AS subCategory, " +
+        .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.label AS label, " +
         "page.link AS link, numberOfRatings, rec.rating AS rating, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
         "EXISTS((page)<-[:IS_ADMIN]-(user)) AS isAdmin")
         .orderBy(orderBy)
@@ -61,7 +61,6 @@ var searchUserRecommendedPage = function (userId, search, skip, limit) {
         .end(params)
         .send(commands)
         .then(function (resp) {
-            pagePreview.addLabel(resp[1]);
             underscore.forEach(resp[1], function (page) {
                 page.imageVisible = true;
                 page.profileVisible = true;
@@ -76,8 +75,8 @@ var searchSuggestionUserRecommendedPage = function (userId, search, skip, limit)
 
     var searchRegEx = '(?i).*'.concat(search, '.*');
 
-    return db.cypher().match("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
-        .where("(" + pageFilter.getFilterQuery() + ") AND page.title =~ {search} ")
+    return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
+        .where("page.title =~ {search} ")
         .return("DISTINCT page.title AS name")
         .orderBy("page.title")
         .skip("{skip}")

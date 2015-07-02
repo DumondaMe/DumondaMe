@@ -3,7 +3,6 @@
 var userInfo = require('../../user/userInfo');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
-var logger = requireLogger.getLogger(__filename);
 
 var getResponse = function (resp, page, pageId, userId) {
 

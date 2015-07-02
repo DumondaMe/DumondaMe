@@ -1,13 +1,11 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
-var should = require('chai').should();
 var moment = require('moment');
 
-describe('Integration Tests for creating new video pages for subcategory youtube', function () {
+describe('Integration Tests for creating new youtube pages', function () {
 
     var requestAgent, startTime;
 
@@ -33,12 +31,11 @@ describe('Integration Tests for creating new video pages for subcategory youtube
     it('Create a new youtube page - Return 200', function () {
 
         var createPage = {
-            videoPage: {
+            youtubePage: {
                 language: 'de',
                 title: 'title',
                 description: 'description',
                 link: 'https://www.youtube.com/embed/Test',
-                subCategory: 'Youtube'
             }
         }, pageId;
 
@@ -48,19 +45,19 @@ describe('Integration Tests for creating new video pages for subcategory youtube
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:VideoPage {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.link AS link, ' +
-                'page.modified AS modified, page.created AS created, page.subCategory AS subCategory')
+                'page.modified AS modified, page.created AS created, page.label AS label')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
-            page[0].modified.should.be.at.least(startTime);
-            page[0].created.should.be.at.least(startTime);
-            page[0].language.should.be.equals("de");
-            page[0].pageId.should.be.equals(pageId);
-            page[0].description.should.be.equals("description");
-            page[0].link.should.be.equals("https://www.youtube.com/embed/Test");
-            page[0].subCategory.should.be.equals("Youtube");
+            page[0].modified.should.at.least(startTime);
+            page[0].created.should.at.least(startTime);
+            page[0].language.should.equals("de");
+            page[0].pageId.should.equals(pageId);
+            page[0].description.should.equals("description");
+            page[0].link.should.equals("https://www.youtube.com/embed/Test");
+            page[0].label.should.equals("Youtube");
         });
     });
 });

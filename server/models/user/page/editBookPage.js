@@ -11,9 +11,9 @@ var security = require('./security');
 
 var editBookPage = function (userId, params, titlePicturePath, req) {
     return commonBookPage.checkImageSize(titlePicturePath, req).then(function () {
-        return security.checkAllowedToEditPage(userId, params.pageId, 'BookPage', req);
+        return security.checkAllowedToEditPage(userId, params.pageId, req);
     }).then(function () {
-        return db.cypher().match("(page:BookPage {pageId: {pageId}})")
+        return db.cypher().match("(page:Page {pageId: {pageId}})")
             .set('page', {
                 language: params.language,
                 description: params.description,
@@ -26,7 +26,7 @@ var editBookPage = function (userId, params, titlePicturePath, req) {
             .send();
     }).then(function () {
         if (titlePicturePath) {
-            return uploadImage.generatePageImage(titlePicturePath, 'BookPage', params.pageId);
+            return uploadImage.generatePageImage(titlePicturePath, 'Book', params.pageId);
         }
     });
 };
