@@ -14,6 +14,7 @@ app.controller('UserPageAdministrationCtrl', require('./userPageAdministration/u
 
 app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
+app.controller('PageHeaderBookDetailCtrl', require('./pageDetail/headerBookDetailCtrl'));
 app.controller('AddRemoveRecommendationCtrl', require('./addRemoveRecommendationCtrl'));
 
 app.service('PageRecommendationAllContact', require('./services/pageRecommendationAllContact'));

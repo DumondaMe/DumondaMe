@@ -1880,6 +1880,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/pageDetail/headerBookDetail.html',
+    "<div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\" ng-controller=\"PageHeaderBookDetailCtrl\">\r" +
+    "\n" +
+    "    <div class=\"page-detail-contributor-title\">\r" +
+    "\n" +
+    "        {{contributorPrefix}}\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
+    "\n" +
+    "         ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
+    "\n" +
+    "        <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
+    "\n" +
+    "        <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
+    "\n" +
+    "        {{contributor.name}}\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/page/pageDetail/pageDetail.html',
     "<div id=\"content-page-detail\">\r" +
     "\n" +
@@ -1891,11 +1920,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"page-detail-header-image\">\r" +
     "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"pageDetail.page.label !== 'Youtube'\">\r" +
+    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"label !== 'Youtube'\">\r" +
     "\n" +
     "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
     "\n" +
-    "                                ng-if=\"pageDetail.page.label === 'Youtube'\"></ely-iframe>\r" +
+    "                                ng-if=\"label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -1913,31 +1942,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-contributor-title\">\r" +
-    "\n" +
-    "                            {{contributorPrefix}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
-    "\n" +
-    "                             ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
-    "\n" +
-    "                            <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "                            <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
-    "\n" +
-    "                            {{contributor.name}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                    <div ng-include=\"'app/modules/page/pageDetail/headerBookDetail.html'\" ng-if=\"label === 'Book'\"></div>\r" +
     "\n" +
     "                    <div class=\"page-detail-header-commands\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
     "\n" +

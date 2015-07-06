@@ -3,9 +3,9 @@
         <div id="page-detail-header">
             <div id="page-detail-inner-header">
                 <div class="page-detail-header-image">
-                    <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="pageDetail.page.label !== 'Youtube'">
+                    <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="label !== 'Youtube'">
                     <ely-iframe width="400" height="300" secure-link="https://www.youtube.com/embed/" src="pageDetail.page.link"
-                                ng-if="pageDetail.page.label === 'Youtube'"></ely-iframe>
+                                ng-if="label === 'Youtube'"></ely-iframe>
                 </div>
                 <div class="page-detail-header-list">
                     <div class="page-detail-header-title">
@@ -14,19 +14,7 @@
                     <div class="page-detail-header-category">
                         Kategorie: {{category}}
                     </div>
-                    <div ng-show="contributorsWithProfile.length > 0 || contributors.length > 0">
-                        <div class="page-detail-contributor-title">
-                            {{contributorPrefix}}
-                        </div>
-                        <div class="page-detail-header-contributor-with-Profile" ng-repeat="contributor in contributorsWithProfile"
-                             ng-click="openUserDetail(contributor.userId, contributor.isLoggedInUser)">
-                            <div ng-if="contributor.isLoggedInUser">Ich</div>
-                            <div ng-if="!contributor.isLoggedInUser">{{contributor.name}}</div>
-                        </div>
-                        <div class="page-detail-header-contributor" ng-repeat="contributor in contributors">
-                            {{contributor.name}}
-                        </div>
-                    </div>
+                    <div ng-include="'app/modules/page/pageDetail/headerBookDetail.html'" ng-if="label === 'Book'"></div>
                     <div class="page-detail-header-commands" ng-controller="AddRemoveRecommendationCtrl">
                         <button class="btn btn-default" type="button"
                                 ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"

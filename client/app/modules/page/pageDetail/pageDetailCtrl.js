@@ -6,21 +6,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
         $scope.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
-            var collection;
-            $scope.contributorsWithProfile = [];
-            $scope.contributors = [];
             $scope.startLoad = true;
-            if ($stateParams.label === 'Book') {
-                collection = $scope.pageDetail.page.author;
-                $scope.contributorPrefix = 'von';
-            }
-            angular.forEach(collection, function (author) {
-                if (author.userId) {
-                    $scope.contributorsWithProfile.push(author);
-                } else {
-                    $scope.contributors.push(author);
-                }
-            });
             if ($scope.pageDetail.recommendation && $scope.pageDetail.recommendation.user) {
                 $scope.pageDetail.recommendation.user.created = moment.unix($scope.pageDetail.recommendation.user.created).format('LL');
             }
@@ -29,20 +15,6 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         $scope.category = PageCategories.categories[$stateParams.label].description;
         $scope.pageId = $stateParams.pageId;
         $scope.label = $stateParams.label;
-
-        $scope.openUserDetail = function (userId, isLoggedInUser) {
-            if (userId) {
-                if (isLoggedInUser) {
-                    $state.go('settings.profile', {
-                        userId: userId
-                    });
-                } else {
-                    $state.go('contact.detail', {
-                        userId: userId
-                    });
-                }
-            }
-        };
 
         $scope.openLink = function (link) {
             if (link) {
