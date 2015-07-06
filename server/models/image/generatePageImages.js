@@ -3,12 +3,11 @@
  */
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
 var gm = require('./../util/gm');
 var cdn = require('./../util/cdn');
 var tmp = require('tmp');
 
-var uploadImages = function (originalFilePath, label, pageId) {
+var uploadImages = function (originalFilePath, pageId) {
     var preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         original = tmp.fileSync({postfix: '.jpg'}),
@@ -27,13 +26,13 @@ var uploadImages = function (originalFilePath, label, pageId) {
             return gm.gm(originalFilePath).resize(size.height).quality(92).unsharp(2 + sigma, sigma, amount, threshold).writeAsync(original.name);
         })
         .then(function () {
-            return cdn.uploadFile(preview.name, 'pages/' + label + '/' + pageId + '/pagePreview.jpg');
+            return cdn.uploadFile(preview.name, 'pages/' + pageId + '/pagePreview.jpg');
         })
         .then(function () {
-            return cdn.uploadFile(normal.name, 'pages/' + label + '/' + pageId + '/pageTitlePicture.jpg');
+            return cdn.uploadFile(normal.name, 'pages/' + pageId + '/pageTitlePicture.jpg');
         })
         .then(function () {
-            return cdn.uploadFile(original.name, 'pages/' + label + '/' + pageId + '/original.jpg');
+            return cdn.uploadFile(original.name, 'pages/' + pageId + '/original.jpg');
         })
         .then(function () {
             preview.removeCallback();
@@ -42,19 +41,19 @@ var uploadImages = function (originalFilePath, label, pageId) {
         });
 };
 
-var copyDefaultImages = function (label, pageId) {
-    return cdn.copyFile('pages/default/pagePreview.jpg', 'pages/' + label + '/' + pageId + '/pagePreview.jpg')
+var copyDefaultImages = function (pageId) {
+    return cdn.copyFile('pages/default/pagePreview.jpg', 'pages/' + pageId + '/pagePreview.jpg')
         .then(function () {
-            cdn.copyFile('pages/default/pageTitlePicture.jpg', 'pages/' + label + '/' + pageId + '/pageTitlePicture.jpg');
+            cdn.copyFile('pages/default/pageTitlePicture.jpg', 'pages/' + pageId + '/pageTitlePicture.jpg');
         });
 };
 
 module.exports = {
-    generatePageImage: function (originalFilePath, label, pageId) {
+    generatePageImage: function (originalFilePath, pageId) {
         if (originalFilePath) {
-            return uploadImages(originalFilePath, label, pageId);
+            return uploadImages(originalFilePath, pageId);
         }
 
-        return copyDefaultImages(label, pageId);
+        return copyDefaultImages(pageId);
     }
 };

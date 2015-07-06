@@ -229,7 +229,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/Book/0/pagePreview.jpg');
+                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
                     res.body.pages[0].isAdmin.should.be.true;
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
                     res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
@@ -240,7 +240,7 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].pageId.should.equals('1');
                     res.body.pages[1].label.should.equals('Book');
                     res.body.pages[1].language.should.equals('de');
-                    res.body.pages[1].url.should.equals('pages/Book/1/pagePreview.jpg');
+                    res.body.pages[1].url.should.equals('pages/1/pagePreview.jpg');
                     res.body.pages[1].isAdmin.should.be.false;
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
                     res.body.pages[1].recommendation.contact.comment.should.equals('irgendwas3');

@@ -27,7 +27,7 @@ var addAuthors = function (bookPage, authorLinks) {
     bookPage.author = authors;
 };
 
-var getBookDetail = function (pageId, userId) {
+var getDetail = function (pageId, label, userId) {
 
     var commands = [];
 
@@ -35,10 +35,10 @@ var getBookDetail = function (pageId, userId) {
     commands.push(recommendation.getUserRecommendation(pageId, userId));
     commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
-    commands.push(db.cypher().match("(page:Page {pageId: {pageId}})")
+    commands.push(db.cypher().match("(page:Page {pageId: {pageId}, label: {label}})")
         .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.author AS author, " +
         "page.publishDate AS publishDate")
-        .end({pageId: pageId}).getCommand());
+        .end({pageId: pageId, label: label}).getCommand());
 
     return getBookAuthors(pageId, userId)
         .send(commands)
@@ -50,5 +50,5 @@ var getBookDetail = function (pageId, userId) {
 };
 
 module.exports = {
-    getBookDetail: getBookDetail
+    getDetail: getDetail
 };

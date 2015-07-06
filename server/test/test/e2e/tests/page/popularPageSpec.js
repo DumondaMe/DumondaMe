@@ -87,7 +87,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/Book/0/pagePreview.jpg');
+                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
                     res.body.pages[0].isAdmin.should.be.false;
                     res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(2);
                     res.body.pages[0].recommendation.summary.rating.should.equals(4.5);
@@ -96,7 +96,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[1].pageId.should.equals('1');
                     res.body.pages[1].label.should.equals('Book');
                     res.body.pages[1].language.should.equals('de');
-                    res.body.pages[1].url.should.equals('pages/Book/1/pagePreview.jpg');
+                    res.body.pages[1].url.should.equals('pages/1/pagePreview.jpg');
                     res.body.pages[1].isAdmin.should.be.false;
                     res.body.pages[1].recommendation.summary.numberOfRatings.should.equals(2);
                     res.body.pages[1].recommendation.summary.rating.should.equals(4);
@@ -105,7 +105,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[2].pageId.should.equals('2');
                     res.body.pages[2].label.should.equals('Book');
                     res.body.pages[2].language.should.equals('de');
-                    res.body.pages[2].url.should.equals('pages/Book/2/pagePreview.jpg');
+                    res.body.pages[2].url.should.equals('pages/2/pagePreview.jpg');
                     res.body.pages[2].isAdmin.should.be.false;
                     res.body.pages[2].recommendation.summary.numberOfRatings.should.equals(1);
                     res.body.pages[2].recommendation.summary.rating.should.equals(4);
@@ -174,7 +174,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/Book/0/pagePreview.jpg');
+                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
                     res.body.pages[0].isAdmin.should.be.false;
                     res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(4);
                     res.body.pages[0].recommendation.summary.rating.should.equals(4);
@@ -183,7 +183,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[1].pageId.should.equals('1');
                     res.body.pages[1].label.should.equals('Book');
                     res.body.pages[1].language.should.equals('de');
-                    res.body.pages[1].url.should.equals('pages/Book/1/pagePreview.jpg');
+                    res.body.pages[1].url.should.equals('pages/1/pagePreview.jpg');
                     res.body.pages[1].isAdmin.should.be.false;
                     res.body.pages[1].recommendation.summary.numberOfRatings.should.equals(3);
                     res.body.pages[1].recommendation.summary.rating.should.equals(3);
@@ -192,7 +192,7 @@ describe('Integration Tests for getting popular pages', function () {
                     res.body.pages[2].pageId.should.equals('4');
                     res.body.pages[2].label.should.equals('Book');
                     res.body.pages[2].language.should.equals('de');
-                    res.body.pages[2].url.should.equals('pages/Book/4/pagePreview.jpg');
+                    res.body.pages[2].url.should.equals('pages/4/pagePreview.jpg');
                     res.body.pages[2].isAdmin.should.be.false;
                     res.body.pages[2].recommendation.summary.numberOfRatings.should.equals(1);
                     res.body.pages[2].recommendation.summary.rating.should.equals(3);

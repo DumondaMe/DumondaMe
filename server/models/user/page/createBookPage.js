@@ -17,7 +17,7 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
             .end(params)
             .send();
     }).then(function () {
-        return uploadImage.generatePageImage(titlePicturePath, 'Book', params.pageId);
+        return uploadImage.generatePageImage(titlePicturePath, params.pageId);
     }).then(function () {
         return {pageId: params.pageId};
     });

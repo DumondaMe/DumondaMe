@@ -8,7 +8,7 @@ var userInfo = require('../user/userInfo');
 var addPageUrl = function (previews) {
     underscore.forEach(previews, function (preview) {
         if (preview.label !== 'Youtube') {
-            preview.url = cdn.getUrl('pages/' + preview.label + '/' + preview.pageId + '/pagePreview.jpg');
+            preview.url = cdn.getUrl('pages/' + preview.pageId + '/pagePreview.jpg');
             delete preview.link;
         }
     });

@@ -81,7 +81,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/Book/0/pagePreview.jpg');
+                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
 
                     res.body.pages[0].recommendation.summary.numberOfRatings.should.equals(4);
                     res.body.pages[0].recommendation.summary.rating.should.equals(4);
@@ -120,13 +120,13 @@ describe('Integration Tests for searching Pages', function () {
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].language.should.equals('de');
-                    res.body.pages[0].url.should.equals('pages/Book/0/pagePreview.jpg');
+                    res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
 
                     res.body.pages[1].title.should.equals('page1Title');
                     res.body.pages[1].pageId.should.equals('2');
                     res.body.pages[1].label.should.equals('Book');
                     res.body.pages[1].language.should.equals('en');
-                    res.body.pages[1].url.should.equals('pages/Book/2/pagePreview.jpg');
+                    res.body.pages[1].url.should.equals('pages/2/pagePreview.jpg');
 
                     res.body.pages[2].title.should.equals('page1Title');
                     res.body.pages[2].pageId.should.equals('3');

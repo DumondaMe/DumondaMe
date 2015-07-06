@@ -3,8 +3,10 @@
 var validation = require('./../../../lib/jsonValidation');
 var bookDetail = require('./../../../models/page/detail/bookDetail');
 var videoDetail = require('./../../../models/page/detail/videoDetail');
+var courseDetail = require('./../../../models/page/detail/courseDetail');
 var auth = require('./../../../lib/auth');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
+var exceptions = require('./../../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
 var schemaGetPage = {
@@ -14,8 +16,14 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['Book', 'Youtube']}
+        label: {enum: ['Book', 'Youtube', 'Course']}
     }
+};
+
+var detail = {
+    Book: bookDetail,
+    Youtube: videoDetail,
+    Course: courseDetail
 };
 
 module.exports = function (router) {
@@ -24,12 +32,14 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs when getting the page detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
-                if (request.label === 'Book') {
-                    return bookDetail.getBookDetail(request.pageId, req.user.id);
+
+                var detailFunction = detail[request.label];
+                if (detailFunction) {
+                    logger.info("Getting detail information for page [" + request.pageId + "]", req);
+                    return detailFunction.getDetail(request.pageId, request.label, req.user.id);
                 }
-                if (request.label === 'Youtube') {
-                    return videoDetail.getVideoDetail(request.pageId, req.user.id);
-                }
+
+                return exceptions.getInvalidOperation("Label [" + request.label + "] unknown", logger, req);
             }).then(function (page) {
                 res.status(200).json(page);
             });

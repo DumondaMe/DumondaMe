@@ -1,9 +1,7 @@
 'use strict';
 
 var app = require('../../../server');
-var db = require('../../../neo4j/index');
 var dbConfig = require('../../../lib/database');
-var request = require('supertest');
 var cdn = require('../../../models/util/cdn');
 var sinon = require('sinon');
 

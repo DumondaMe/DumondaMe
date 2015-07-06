@@ -3,9 +3,8 @@
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
-var should = require('chai').should();
 
-describe('Integration Tests for getting book page detail', function () {
+describe('Integration Tests for getting course page details', function () {
 
     var requestAgent;
 
@@ -16,8 +15,8 @@ describe('Integration Tests for getting book page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000})").end().send(commands);
+            return db.cypher().create("(:Page {title: 'coursePage1Title', label: 'Course', description: 'coursePage1', language: 'de', created: 501, pageId: '0'," +
+                "website: 'wwww.website.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().send(commands);
 
         });
     });
@@ -26,7 +25,7 @@ describe('Integration Tests for getting book page detail', function () {
         return requestHandler.logout();
     });
 
-    it('Getting the detail of the page for a book with linked authors in elyoos', function () {
+    it('Getting the detail of the page for a course', function () {
 
         var commands = [];
 
@@ -48,12 +47,6 @@ describe('Integration Tests for getting book page detail', function () {
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:IS_AUTHOR]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_AUTHOR]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)")
@@ -78,27 +71,20 @@ describe('Integration Tests for getting book page detail', function () {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/page/detail', {
                     pageId: '0',
-                    label: 'Book'
+                    label:'Course'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.page.title.should.equals('bookPage1Title');
-                res.body.page.description.should.equals('bookPage1');
+                res.body.page.title.should.equals('coursePage1Title');
+                res.body.page.description.should.equals('coursePage1');
                 res.body.page.language.should.equals('de');
                 res.body.page.created.should.equals(501);
-                res.body.page.publishDate.should.equals(1000);
+                res.body.page.website.should.equals('wwww.website.com');
+                res.body.page.street.should.equals('Strasse 1');
+                res.body.page.place.should.equals('Winkel');
+                res.body.page.postalCode.should.equals('8185');
+                res.body.page.country.should.equals('ch');
                 res.body.page.titleUrl.should.equals('pages/0/pageTitlePicture.jpg');
-
-                res.body.page.author.length.should.equals(3);
-                res.body.page.author[0].name.should.equals('Hans Muster');
-                res.body.page.author[0].isLoggedInUser.should.be.false;
-                should.not.exist(res.body.page.author[0].userId);
-                res.body.page.author[1].name.should.equals('user Meier');
-                res.body.page.author[1].userId.should.equals('1');
-                res.body.page.author[1].isLoggedInUser.should.be.true;
-                res.body.page.author[2].name.should.equals('user Meier2');
-                res.body.page.author[2].userId.should.equals('2');
-                res.body.page.author[2].isLoggedInUser.should.be.false;
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');
@@ -122,24 +108,4 @@ describe('Integration Tests for getting book page detail', function () {
             });
     });
 
-    it('Getting the detail of the page for a book without user recommendation', function () {
-
-        var commands = [];
-
-        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/page/detail', {
-                    pageId: '0',
-                    label: 'Book'
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-            });
-    });
 });

@@ -1,9 +1,6 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var logger = requireLogger.getLogger(__filename);
-var underscore = require('underscore');
-var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 var uploadImage = require('./../../image/generatePageImages');
 var commonBookPage = require('./commonBookPage');
@@ -26,7 +23,7 @@ var editBookPage = function (userId, params, titlePicturePath, req) {
             .send();
     }).then(function () {
         if (titlePicturePath) {
-            return uploadImage.generatePageImage(titlePicturePath, 'Book', params.pageId);
+            return uploadImage.generatePageImage(titlePicturePath, params.pageId);
         }
     });
 };
