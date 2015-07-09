@@ -117,6 +117,18 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
+    this.setArray = function (ref, arrayToSet) {
+        if (underscore.isArray(arrayToSet) && arrayToSet.length > 0) {
+            chainedQuery += ' SET ' + ref + ' = [';
+            arrayToSet.forEach(function (entry) {
+                chainedQuery += entry + ',';
+            });
+            chainedQuery = chainedQuery.slice(0, -1);
+            chainedQuery += ']';
+        }
+        return this;
+    };
+
     this.addCommand = function (command) {
         chainedQuery = chainedQuery + command;
         return this;
@@ -129,7 +141,7 @@ var Cypher = function (connectionUrl) {
 
     this.end = function (params) {
         if (params) {
-            paramsToSend = underscore.extend(paramsToSend, params) ;
+            paramsToSend = underscore.extend(paramsToSend, params);
         }
         return this;
     };

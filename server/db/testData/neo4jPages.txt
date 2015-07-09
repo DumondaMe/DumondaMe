@@ -1,8 +1,29 @@
-MATCH (n:BookPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:VideoPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:SchoolPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:CoursePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:PracticePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:EventPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:BlogPage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
-MATCH (n:StorePage) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
+MATCH (n:Page) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
+MATCH (n:Activity) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
+
+CREATE (:Page {title: 'Medialität', label: 'Education', description: 'Das Übermitteln von Informationen aus der Geistigen Welt wird im Allgemeinen als Medialität verstanden. Ein Medium arbeitet mit der Geistigen Welt, mit Jenseitskontakten (Kontakte mit Verstorbenen), Geistführern, Engel, Meistern, Heiligen und anderen Wesen. Alle Medien sind auch "Sensitive". In der englischen Tradition wird diese Arbeit als "Medialität" (Mediumship) betrachtet und das Arbeiten "mit dem Sitzungsnehmer" als "Sensitivität" (Psychic).                                                                    Medialität
+
+                                                                    Sensitivität und Medialität sind zwar miteinander verwandt, aber doch zwei unterschiedliche Sachen. Gemeinsam ist beiden Bereichen die "übersinnliche" Wahrnehmung. Sowohl Sensitive als auch Medien können hellsichtig, hellfühlig oder hellhörig wahrnehmen.
+
+                                                                    Von Medialität redet man erst, wenn ein Mensch als Übermittler (Medium) für Nachrichten aus der Geistigen Welt dient. Ein seriöses Medium beweist zuerst einmal die Anwesenheit eines Verstorbenen. Das Medium beschreibt den Verstorbenen äusserlich und charakterlich. Auch das Erwähnen von Beruf oder Familienverhältnissen, das Nennen von wichtigen Ereignissen aus dem Leben des Verstorbenen, wichtigen Erbstücken oder Namen - einfach alles, was zur Identifikation des Verstorbenen beiträgt, ist erwünscht. Erst wenn klar ist, wer aus der geistigen Welt anwesend ist und der Verstorbene zweifelsfrei erkannt wurde, wird eine Nachricht weitergegeben.
+
+                                                                    Diese Nachricht kann manchmal auch sehr einfach sein. "Es gibt mich noch - ich bin bei Dir - ich liebe Dich" sind Nachrichten, die zwar kurz aber für die Person im Jenseits sehr wichtig sind. Manchmal geben Verstorbene auch Ratschläge. Ab und zu möchte sich ein Verstorbener auch für etwas entschuldigen, schliesslich können nicht alle Menschen in Frieden mit sich und dem Umfeld gehen.
+
+                                                                    Wir im Kaleidoskop nehmen Kontakte zu Verstorbenen oder Geistführern auf und dienen als Übermittler von Botschaften. Wir legen Wert darauf zu sagen, dass wir keine Toten wecken, sondern die Toten den Kontakt suchen müssen. Ein Medium kann entsprechend auch nicht entscheiden, wer sich aus der Geistigen Welt meldet.
+
+                                                                    Man darf aber nie vergessen, dass ein Verstorbener kein allwissender Übermensch ist, sondern immer noch ein Wesen mit Gefühlen und Gedanken wie zu Lebzeiten. Die Entscheidung, einem Ratschlag aus der geistigen Welt zu folgen, liegt deshalb immer beim Sitzungsnehmer.', language: 'de', created: 501, pageId: '0', website: 'wwww.kaleidoskop.org', street:'Egghölzlistrasse 3', place:'Bern', postalCode:'3006', country:'ch'});
+
+MATCH (p:Page {pageId:'0'}), (u:User {userId:'0'}) CREATE (p)<-[:IS_ADMIN]-(u);
+
+CREATE (:Page {pageId: '1', label: 'Course', title:'Hellsehen, Hellhören, Hellfühlen', description:'Die übersinnliche Wahrnehmung ist eine natürlich eingebaute Gabe bei allen Menschen. Und wie bei allen Fähigkeiten muss man mit ihnen arbeiten, sie hegen und pflegen, erforschen und testen, um aus der Gabe ein Talent zu machen.
+                                                                                                                                Es spielt keine Rolle, ob Sie gerade beginnen, Ihre Wahrnehmungen zu erforschen oder ob Sie schon über jahrelange Erfahrungen mit sensitiven und medialen Wahrnehmungen verfügen.
+
+                                                                                                                                Als ausgebildete Musikerin mit einem wundervollen Zugang zur unerschöpflichen Kreativität zeigt die Kursleiterin Sabine Wolters Ihnen die wichtigsten Tore zur Weiterentwicklung Ihrer eigenen Wahrnehmung, egal wo Sie gerade stehen. Mit einem reichen Fundus an Erfahrungen entwickelt die Kursleiterin auf Ihre individuellen Bedürfnisse zugeschnittene Übungen. Die Theorie wird von verschiedenen Blickwinkeln her beleuchtet und mit der Unterstützung der Geistigen Welt erhalten Sie Antworten auf Ihre Fragen.
+                                                                                                                                Dieser Kurs eignet sich auch als Schnupperkurs für den Einstieg in die Basisausbildung', link:'http://www.kaleidoskop.org/de/Events/Alle-Events.31.html?aid=3955', price: '370', currency: 'CHF'});
+MATCH (p:Page {pageId:'1'}), (u:User {userId:'0'}) CREATE (p)<-[:IS_ADMIN]-(u);
+MATCH (p:Page {pageId:'0'}), (p2:Page {pageId:'1'}) CREATE (p2)<-[:HAS]-(p);
+
+MATCH (p:Page {pageId:'1'}) CREATE UNIQUE (a:Activity {place:'Zürich', street:'Altstetterstrasse 121', postalCode: '8048', country: 'ch'})<-[:HAS]-(p)
+SET a.times = [1441445400, 1441472400, 1441533600, 1441555200];
+
+MATCH (p:Page {pageId:'1'}), (p2:Page {pageId:'2'}), (u:User {userId:'0'}) CREATE UNIQUE (u)-[:IS_ADMIN]->(p2)<-[:HAS]-(p);

@@ -1,9 +1,6 @@
 'use strict';
 
 var validation = require('./../../../lib/jsonValidation');
-var bookDetail = require('./../../../models/page/detail/bookDetail');
-var videoDetail = require('./../../../models/page/detail/videoDetail');
-var courseDetail = require('./../../../models/page/detail/courseDetail');
 var auth = require('./../../../lib/auth');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
 var exceptions = require('./../../../lib/error/exceptions');
@@ -16,14 +13,15 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['Book', 'Youtube', 'Course']}
+        label: {enum: ['Book', 'Youtube', 'Education', 'Course']}
     }
 };
 
 var detail = {
-    Book: bookDetail,
-    Youtube: videoDetail,
-    Course: courseDetail
+    Book: require('./../../../models/page/detail/bookDetail'),
+    Youtube: require('./../../../models/page/detail/videoDetail'),
+    Course: require('./../../../models/page/detail/courseDetail'),
+    Education: require('./../../../models/page/detail/educationDetail')
 };
 
 module.exports = function (router) {

@@ -7556,7 +7556,6 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         $scope.categoryFinishedButtonDisabled = true;
         $scope.categoryFirstSelect = !$scope.mode.edit;
         $scope.categoryTitleChanged = false;
-        $scope.subCategories = [];
 
         $scope.SearchPage = SearchPage;
         $scope.SearchPageParameter = {};
@@ -7564,7 +7563,6 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
                 if (newCategories) {
-                    $scope.subCategories = PageCategories.getSubCategories(newCategories.selectedCategory);
                     if ($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
                         delete $scope.category.selectedSubCategory;
                     } else if ($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
@@ -8258,7 +8256,9 @@ arguments[4][35][0].apply(exports,arguments)
 
 var categories = {
     Book: {description: 'Buch'},
-    Youtube: {description: 'Youtube'}
+    Youtube: {description: 'Youtube'},
+    Course: {description: 'Kurs'},
+    Education: {description: 'Ausbildung'}
 };
 
 module.exports = [
@@ -8275,34 +8275,12 @@ module.exports = [
             return collection;
         };
 
-        this.getSubCategories = function (subCategory) {
-            var key, subKey, collection = [];
-            for (key in categories) {
-                if (categories.hasOwnProperty(key)) {
-                    if (categories[key].description === subCategory) {
-                        for (subKey in categories[key].subCategory) {
-                            if (categories[key].subCategory.hasOwnProperty(subKey)) {
-                                collection.push(categories[key].subCategory[subKey].description);
-                            }
-                        }
-                    }
-                }
-            }
-            return collection;
-        };
-
         this.getPageType = function (description) {
-            var result = false, key, subKey;
+            var result = false, key;
 
             for (key in categories) {
                 if (categories[key].description === description) {
                     result = key;
-                } else if (categories[key].subCategory) {
-                    for (subKey in categories[key].subCategory) {
-                        if (categories[key].subCategory[subKey].description === description) {
-                            result = subKey;
-                        }
-                    }
                 }
             }
             return result;

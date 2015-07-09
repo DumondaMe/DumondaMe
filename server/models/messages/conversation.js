@@ -1,7 +1,6 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
 var exceptions = require('./../../lib/error/exceptions');
 var modification = require('./../modification/modification');
