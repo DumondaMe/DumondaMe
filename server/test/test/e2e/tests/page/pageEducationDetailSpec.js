@@ -3,14 +3,16 @@
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
+var moment = require('moment');
 
 describe('Integration Tests for getting education page details', function () {
 
-    var requestAgent;
+    var requestAgent, startTime;
 
     beforeEach(function () {
 
         var commands = [];
+        startTime = Math.floor(moment.utc().valueOf() / 1000) + 100; // Add a delay
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -19,12 +21,15 @@ describe('Integration Tests for getting education page details', function () {
                 "website: 'wwww.website1.com', street:'Strasse 2', place:'Bern', postalCode:'3006', country:'ch'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'coursePage1Title', label: 'Course', description: 'coursePage1', language: 'de', created: 501, pageId: '1'," +
                 "website: 'wwww.website2.com'})").end().getCommand());
-            commands.push(db.cypher().create("(:Activity { website: 'wwww.website3.com', beginning: 50})").end().getCommand());
-            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website3.com'})").setArray("p.times", [50, 51, 52, 53] ).end().getCommand());
-            commands.push(db.cypher().create("(:Activity { website: 'wwww.website4.com', beginning: 54})").end().getCommand());
-            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website4.com'})").setArray("p.times", [54, 55, 56, 57] ).end().getCommand());
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website3.com', startTime: " + startTime + ", endTime: " + (startTime + 3) + "})").end().getCommand());
+            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website3.com'})").setArray("p.times", [startTime, startTime + 1, startTime + 2, startTime + 3]).end().getCommand());
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website4.com', startTime: " + (startTime + 4) + ", endTime: " + (startTime + 7) + "})").end().getCommand());
+            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website4.com'})").setArray("p.times", [startTime + 4, startTime + 5, startTime + 6, startTime + 7]).end().getCommand());
+            startTime -= 100;
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website5.com', startTime: " + (startTime - 4) + ", endTime: " + (startTime - 1) + "})").end().getCommand());
+            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website5.com'})").setArray("p.times", [startTime - 4, startTime - 3, startTime - 2, startTime - 1]).end().getCommand());
             return db.cypher().create("(:Page {title: 'coursePage2Title', label: 'Course', description: 'coursePage2', language: 'de', created: 501, pageId: '2'," +
-                "website: 'wwww.website5.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().send(commands);
+                "website: 'wwww.website6.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().send(commands);
 
         });
     });
@@ -59,6 +64,9 @@ describe('Integration Tests for getting education page details', function () {
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Activity {website: 'wwww.website4.com'})")
             .create("(a)-[:HAS]->(b)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Activity {website: 'wwww.website5.com'})")
+            .create("(a)-[:HAS]->(b)")
+            .end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
@@ -70,7 +78,7 @@ describe('Integration Tests for getting education page details', function () {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/page/detail', {
                     pageId: '0',
-                    label:'Education'
+                    label: 'Education'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -94,22 +102,27 @@ describe('Integration Tests for getting education page details', function () {
                 res.body.page.course[1].pageId.should.equals('2');
 
                 res.body.page.activities.length.should.equals(2);
-                res.body.page.activities[0].beginning.should.equals(50);
+                startTime += 100;
+                res.body.page.activities[0].startTime.should.equals(startTime);
+                res.body.page.activities[0].endTime.should.equals(startTime + 3);
                 res.body.page.activities[0].pageId.should.equals("2");
+                res.body.page.activities[0].label.should.equals("Course");
                 res.body.page.activities[0].title.should.equals('coursePage2Title');
                 res.body.page.activities[0].times.length.should.equals(4);
-                res.body.page.activities[0].times[0].should.equals(50);
-                res.body.page.activities[0].times[1].should.equals(51);
-                res.body.page.activities[0].times[2].should.equals(52);
-                res.body.page.activities[0].times[3].should.equals(53);
-                res.body.page.activities[1].beginning.should.equals(54);
+                res.body.page.activities[0].times[0].should.equals(startTime);
+                res.body.page.activities[0].times[1].should.equals(startTime + 1);
+                res.body.page.activities[0].times[2].should.equals(startTime + 2);
+                res.body.page.activities[0].times[3].should.equals(startTime + 3);
+                res.body.page.activities[1].startTime.should.equals(startTime + 4);
+                res.body.page.activities[1].endTime.should.equals(startTime + 7);
                 res.body.page.activities[1].pageId.should.equals("2");
+                res.body.page.activities[1].label.should.equals("Course");
                 res.body.page.activities[1].title.should.equals('coursePage2Title');
                 res.body.page.activities[1].times.length.should.equals(4);
-                res.body.page.activities[1].times[0].should.equals(54);
-                res.body.page.activities[1].times[1].should.equals(55);
-                res.body.page.activities[1].times[2].should.equals(56);
-                res.body.page.activities[1].times[3].should.equals(57);
+                res.body.page.activities[1].times[0].should.equals(startTime + 4);
+                res.body.page.activities[1].times[1].should.equals(startTime + 5);
+                res.body.page.activities[1].times[2].should.equals(startTime + 6);
+                res.body.page.activities[1].times[3].should.equals(startTime + 7);
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');

@@ -23,7 +23,7 @@ CREATE (:Page {pageId: '1', label: 'Course', title:'Hellsehen, Hellhören, Hellf
 MATCH (p:Page {pageId:'1'}), (u:User {userId:'0'}) CREATE (p)<-[:IS_ADMIN]-(u);
 MATCH (p:Page {pageId:'0'}), (p2:Page {pageId:'1'}) CREATE (p2)<-[:HAS]-(p);
 
-MATCH (p:Page {pageId:'1'}) CREATE UNIQUE (a:Activity {place:'Zürich', street:'Altstetterstrasse 121', postalCode: '8048', country: 'ch'})<-[:HAS]-(p)
+MATCH (p:Page {pageId:'1'}) CREATE UNIQUE (a:Activity {place:'Zürich', street:'Altstetterstrasse 121', postalCode: '8048', country: 'ch', startTime:1441445400, endTime:1441445400})<-[:HAS]-(p)
 SET a.times = [1441445400, 1441472400, 1441533600, 1441555200];
 
 MATCH (p:Page {pageId:'1'}), (p2:Page {pageId:'2'}), (u:User {userId:'0'}) CREATE UNIQUE (u)-[:IS_ADMIN]->(p2)<-[:HAS]-(p);

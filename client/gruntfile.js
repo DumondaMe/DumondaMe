@@ -6,6 +6,9 @@ module.exports = function (grunt) {
 
     require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
+    grunt.file.defaultEncoding = 'utf8';
+    grunt.file.preserveBOM = true;
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         browserify: {

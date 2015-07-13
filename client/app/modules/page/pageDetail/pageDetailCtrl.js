@@ -28,6 +28,10 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
             });
         };
 
+        $scope.getTime = function (time) {
+            return moment.unix(time).format('L');
+        };
+
         $scope.goEditPage = function (pageId, label) {
             $state.go('page.edit', {
                 pageId: pageId,

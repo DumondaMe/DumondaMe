@@ -2022,6 +2022,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                </div>\r" +
     "\n" +
+    "                <div ng-include=\"'app/modules/page/pageDetail/pageHeaderActivityPreview.html'\" ng-if=\"label === 'Education'\"></div>\r" +
+    "\n" +
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
@@ -2115,6 +2117,32 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    </div>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/page/pageDetail/pageHeaderActivityPreview.html',
+    "<div class=\"page-detail-header-preview\" ng-show=\"pageDetail.page.activities.length > 0\" ng-controller=\"pageHeaderActivityPreviewCtrl\">\r" +
+    "\n" +
+    "    <div class=\"page-detail-header-preview-title\">\r" +
+    "\n" +
+    "        N&auml;chste Kurse\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"page-detail-activity\" ng-repeat=\"activity in pageDetail.page.activities\">\r" +
+    "\n" +
+    "        <div ng-click=\"openDetail(activity.pageId, activity.label)\">\r" +
+    "\n" +
+    "            <div class=\"page-detail-activity-time\">{{getTime(activity.startTime)}}</div>\r" +
+    "\n" +
+    "            <div class=\"page-detail-activity-title\">{{activity.title}}</div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 

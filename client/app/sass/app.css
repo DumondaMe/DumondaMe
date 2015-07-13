@@ -1180,6 +1180,36 @@ h1.website-structure-title {
         font-size: 14px;
         word-break: break-all; }
 
+#content-page-detail .page-detail-header-preview {
+  display: table-cell;
+  position: relative;
+  padding-left: 20px; }
+  #content-page-detail .page-detail-header-preview .page-detail-header-preview-title {
+    font-size: 30px;
+    font-weight: 100;
+    color: #009688;
+    margin-bottom: 10px; }
+  #content-page-detail .page-detail-header-preview .page-detail-activity {
+    width: 350px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-left: 10px;
+    background-color: #ffffff;
+    cursor: pointer; }
+    #content-page-detail .page-detail-header-preview .page-detail-activity .page-detail-activity-time {
+      margin-right: 10px;
+      vertical-align: middle;
+      width: 80px;
+      display: inline-block; }
+    #content-page-detail .page-detail-header-preview .page-detail-activity .page-detail-activity-title {
+      display: inline-block;
+      vertical-align: middle;
+      width: 245px;
+      overflow: hidden; }
+
 #content-page-detail .page-rating-review {
   display: inline-block;
   float: left;

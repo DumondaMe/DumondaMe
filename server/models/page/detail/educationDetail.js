@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var time = require('./../../../lib/time');
 var _ = require('underscore');
 var administrator = require('./administrator');
 var recommendation = require('./recommendation');
@@ -10,9 +11,10 @@ var detailTitlePicture = require('./detailTitlePicture');
 var getCourses = function (pageId) {
     return db.cypher().match("(:Page {pageId: {pageId}, label: 'Education'})-[:HAS]->(course:Page {label: 'Course'})")
         .optionalMatch("(course)-[:HAS]->(activity:Activity)")
+        .where("activity.startTime >= {actualTime}")
         .return("course, activity")
-        .orderBy("course.pageId, activity.beginning")
-        .end({pageId: pageId}).getCommand();
+        .orderBy("course.pageId, activity.startTime")
+        .end({pageId: pageId, actualTime: time.getNowUtcTimestamp()}).getCommand();
 };
 
 var addCourseToResponse = function (courses, page) {
@@ -22,6 +24,7 @@ var addCourseToResponse = function (courses, page) {
         if (course.hasOwnProperty("activity") && course.hasOwnProperty("course")) {
             course.activity.pageId = course.course.pageId;
             course.activity.title = course.course.title;
+            course.activity.label = course.course.label;
             page.activities.push(course.activity);
         }
 
