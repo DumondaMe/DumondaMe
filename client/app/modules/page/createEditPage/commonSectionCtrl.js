@@ -25,7 +25,7 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
         }
 
         fileUpload.uploadFileAndJson(imageToUpload, json, api).
-            showSuccess(function (resp) {
+            success(function (resp) {
                 var modalScope = $scope.$new(false);
                 pageId = getPageId(pageId, resp);
                 if ($scope.mode.edit) {

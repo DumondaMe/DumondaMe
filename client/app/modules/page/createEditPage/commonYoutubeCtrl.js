@@ -32,7 +32,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages',
                 }
             };
             if ($scope.mode.edit) {
-                page.videoPage.pageId = $stateParams.pageId;
+                page.youtubePage.pageId = $stateParams.pageId;
             }
             return page;
         };

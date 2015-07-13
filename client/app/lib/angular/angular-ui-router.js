@@ -1,12 +1,12 @@
 /**
  * State-based routing for AngularJS
- * @version v0.2.13
+ * @version v0.2.15
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 
 /* commonjs package manager support (eg componentjs) */
-if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports) {
+if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
     module.exports = 'ui.router';
 }
 
@@ -25,17 +25,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         copy = angular.copy;
 
     function inherit(parent, extra) {
-        return extend(new (extend(function () {
-        }, {prototype: parent}))(), extra);
+        return extend(new (extend(function() {}, { prototype: parent }))(), extra);
     }
 
     function merge(dst) {
-        forEach(arguments, function (obj) {
+        forEach(arguments, function(obj) {
             if (obj !== dst) {
-                forEach(obj, function (value, key) {
-                    if (!dst.hasOwnProperty(key)) {
-                        dst[key] = value;
-                    }
+                forEach(obj, function(value, key) {
+                    if (!dst.hasOwnProperty(key)) dst[key] = value;
                 });
             }
         });
@@ -53,9 +50,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         var path = [];
 
         for (var n in first.path) {
-            if (first.path[n] !== second.path[n]) {
-                break;
-            }
+            if (first.path[n] !== second.path[n]) break;
             path.push(first.path[n]);
         }
         return path;
@@ -73,7 +68,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         }
         var result = [];
 
-        angular.forEach(object, function (val, key) {
+        forEach(object, function(val, key) {
             result.push(key);
         });
         return result;
@@ -93,14 +88,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         var len = array.length >>> 0, from = Number(arguments[2]) || 0;
         from = (from < 0) ? Math.ceil(from) : Math.floor(from);
 
-        if (from < 0) {
-            from += len;
-        }
+        if (from < 0) from += len;
 
         for (; from < len; from++) {
-            if (from in array && array[from] === value) {
-                return from;
-            }
+            if (from in array && array[from] === value) return from;
         }
         return -1;
     }
@@ -118,18 +109,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         var parents = ancestors($current, $to), parentParams, inherited = {}, inheritList = [];
 
         for (var i in parents) {
-            if (!parents[i].params) {
-                continue;
-            }
+            if (!parents[i].params) continue;
             parentParams = objectKeys(parents[i].params);
-            if (!parentParams.length) {
-                continue;
-            }
+            if (!parentParams.length) continue;
 
             for (var j in parentParams) {
-                if (indexOf(inheritList, parentParams[j]) >= 0) {
-                    continue;
-                }
+                if (indexOf(inheritList, parentParams[j]) >= 0) continue;
                 inheritList.push(parentParams[j]);
                 inherited[parentParams[j]] = currentParams[parentParams[j]];
             }
@@ -152,11 +137,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             for (var n in a) keys.push(n); // Used instead of Object.keys() for IE8 compatibility
         }
 
-        for (var i = 0; i < keys.length; i++) {
+        for (var i=0; i<keys.length; i++) {
             var k = keys[i];
-            if (a[k] != b[k]) {
-                return false;
-            } // Not '===', values aren't necessarily normalized
+            if (a[k] != b[k]) return false; // Not '===', values aren't necessarily normalized
         }
         return true;
     }
@@ -181,7 +164,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 // when you know that your index values will be unique, or you want last-one-in to win
     function indexBy(array, propName) {
         var result = {};
-        forEach(array, function (item) {
+        forEach(array, function(item) {
             result[item[propName]] = item;
         });
         return result;
@@ -192,10 +175,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     function pick(obj) {
         var copy = {};
         var keys = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
-        forEach(keys, function (key) {
-            if (key in obj) {
-                copy[key] = obj[key];
-            }
+        forEach(keys, function(key) {
+            if (key in obj) copy[key] = obj[key];
         });
         return copy;
     }
@@ -206,9 +187,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         var copy = {};
         var keys = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
         for (var key in obj) {
-            if (indexOf(keys, key) == -1) {
-                copy[key] = obj[key];
-            }
+            if (indexOf(keys, key) == -1) copy[key] = obj[key];
         }
         return copy;
     }
@@ -216,7 +195,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     function pluck(collection, key) {
         var result = isArray(collection) ? [] : {};
 
-        forEach(collection, function (val, i) {
+        forEach(collection, function(val, i) {
             result[i] = isFunction(key) ? key(val) : val[key];
         });
         return result;
@@ -225,7 +204,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     function filter(collection, callback) {
         var array = isArray(collection);
         var result = array ? [] : {};
-        forEach(collection, function (val, i) {
+        forEach(collection, function(val, i) {
             if (callback(val, i)) {
                 result[array ? result.length : i] = val;
             }
@@ -236,7 +215,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     function map(collection, callback) {
         var result = isArray(collection) ? [] : {};
 
-        forEach(collection, function (val, i) {
+        forEach(collection, function(val, i) {
             result[i] = callback(val, i);
         });
         return result;
@@ -336,14 +315,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * Manages resolution of (acyclic) graphs of promises.
      */
     $Resolve.$inject = ['$q', '$injector'];
-    function $Resolve($q, $injector) {
+    function $Resolve(  $q,    $injector) {
 
         var VISIT_IN_PROGRESS = 1,
             VISIT_DONE = 2,
             NOTHING = {},
             NO_DEPENDENCIES = [],
             NO_LOCALS = NOTHING,
-            NO_PARENT = extend($q.when(NOTHING), {$$promises: NOTHING, $$values: NOTHING});
+            NO_PARENT = extend($q.when(NOTHING), { $$promises: NOTHING, $$values: NOTHING });
 
 
         /**
@@ -367,18 +346,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * @return {function} a function to pass in locals, parent and self
          */
         this.study = function (invocables) {
-            if (!isObject(invocables)) {
-                throw new Error("'invocables' must be an object");
-            }
+            if (!isObject(invocables)) throw new Error("'invocables' must be an object");
             var invocableKeys = objectKeys(invocables || {});
 
             // Perform a topological sort of invocables to build an ordered plan
             var plan = [], cycle = [], visited = {};
-
             function visit(value, key) {
-                if (visited[key] === VISIT_DONE) {
-                    return;
-                }
+                if (visited[key] === VISIT_DONE) return;
 
                 cycle.push(key);
                 if (visited[key] === VISIT_IN_PROGRESS) {
@@ -388,15 +362,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 visited[key] = VISIT_IN_PROGRESS;
 
                 if (isString(value)) {
-                    plan.push(key, [function () {
-                        return $injector.get(value);
-                    }], NO_DEPENDENCIES);
+                    plan.push(key, [ function() { return $injector.get(value); }], NO_DEPENDENCIES);
                 } else {
                     var params = $injector.annotate(value);
                     forEach(params, function (param) {
-                        if (param !== key && invocables.hasOwnProperty(param)) {
-                            visit(invocables[param], param);
-                        }
+                        if (param !== key && invocables.hasOwnProperty(param)) visit(invocables[param], param);
                     });
                     plan.push(key, value, params);
                 }
@@ -404,7 +374,6 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 cycle.pop();
                 visited[key] = VISIT_DONE;
             }
-
             forEach(invocables, visit);
             invocables = cycle = visited = null; // plan is all that's required
 
@@ -414,18 +383,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
             return function (locals, parent, self) {
                 if (isResolve(locals) && self === undefined) {
-                    self = parent;
-                    parent = locals;
-                    locals = null;
+                    self = parent; parent = locals; locals = null;
                 }
-                if (!locals) {
-                    locals = NO_LOCALS;
-                } else if (!isObject(locals)) {
+                if (!locals) locals = NO_LOCALS;
+                else if (!isObject(locals)) {
                     throw new Error("'locals' must be an object");
                 }
-                if (!parent) {
-                    parent = NO_PARENT;
-                } else if (!isResolve(parent)) {
+                if (!parent) parent = NO_PARENT;
+                else if (!isResolve(parent)) {
                     throw new Error("'parent' must be a promise returned by $resolve.resolve()");
                 }
 
@@ -435,15 +400,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     result = resolution.promise,
                     promises = result.$$promises = {},
                     values = extend({}, locals),
-                    wait = 1 + plan.length / 3,
+                    wait = 1 + plan.length/3,
                     merged = false;
 
                 function done() {
                     // Merge parent values we haven't got yet and publish our own $$values
                     if (!--wait) {
-                        if (!merged) {
-                            merge(values, parent.$$values);
-                        }
+                        if (!merged) merge(values, parent.$$values);
                         result.$$values = values;
                         result.$$promises = result.$$promises || true; // keep for isResolve()
                         delete result.$$inheritedValues;
@@ -481,23 +444,18 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 }
 
                 // Process each invocable in the plan, but ignore any where a local of the same name exists.
-                for (var i = 0, ii = plan.length; i < ii; i += 3) {
-                    if (locals.hasOwnProperty(plan[i])) {
-                        done();
-                    } else {
-                        invoke(plan[i], plan[i + 1], plan[i + 2]);
-                    }
+                for (var i=0, ii=plan.length; i<ii; i+=3) {
+                    if (locals.hasOwnProperty(plan[i])) done();
+                    else invoke(plan[i], plan[i+1], plan[i+2]);
                 }
 
                 function invoke(key, invocable, params) {
                     // Create a deferred for this invocation. Failures will propagate to the resolution as well.
                     var invocation = $q.defer(), waitParams = 0;
-
                     function onfailure(reason) {
                         invocation.reject(reason);
                         fail(reason);
                     }
-
                     // Wait for any parameter that we have a promise for (either from parent or from this
                     // resolve; in that case study() will have made sure it's ordered before us in the plan).
                     forEach(params, function (dep) {
@@ -505,19 +463,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                             waitParams++;
                             promises[dep].then(function (result) {
                                 values[dep] = result;
-                                if (!(--waitParams)) {
-                                    proceed();
-                                }
+                                if (!(--waitParams)) proceed();
                             }, onfailure);
                         }
                     });
-                    if (!waitParams) {
-                        proceed();
-                    }
+                    if (!waitParams) proceed();
                     function proceed() {
-                        if (isDefined(result.$$failure)) {
-                            return;
-                        }
+                        if (isDefined(result.$$failure)) return;
                         try {
                             invocation.resolve($injector.invoke(invocable, self, values));
                             invocation.promise.then(function (result) {
@@ -528,7 +480,6 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                             onfailure(e);
                         }
                     }
-
                     // Publish promise synchronously; invocations further down in the plan may depend on it.
                     promises[key] = invocation.promise;
                 }
@@ -618,7 +569,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * Service. Manages loading of templates.
      */
     $TemplateFactory.$inject = ['$http', '$templateCache', '$injector'];
-    function $TemplateFactory($http, $templateCache, $injector) {
+    function $TemplateFactory(  $http,   $templateCache,   $injector) {
 
         /**
          * @ngdoc function
@@ -688,18 +639,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * for that string.
          */
         this.fromUrl = function (url, params) {
-            if (isFunction(url)) {
-                url = url(params);
-            }
-            if (url == null) {
-                return null;
-            } else {
-                return $http
-                    .get(url, {cache: $templateCache, headers: {Accept: 'text/html'}})
-                    .then(function (response) {
-                        return response.data;
-                    });
-            }
+            if (isFunction(url)) url = url(params);
+            if (url == null) return null;
+            else return $http
+                .get(url, { cache: $templateCache, headers: { Accept: 'text/html' }})
+                .then(function(response) { return response.data; });
         };
 
         /**
@@ -718,7 +662,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * for that string.
          */
         this.fromProvider = function (provider, params, locals) {
-            return $injector.invoke(provider, null, locals || {params: params});
+            return $injector.invoke(provider, null, locals || { params: params });
         };
     }
 
@@ -792,7 +736,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * @returns {Object}  New `UrlMatcher` object
      */
     function UrlMatcher(pattern, config, parentMatcher) {
-        config = extend({params: {}}, isObject(config) ? config : {});
+        config = extend({ params: {} }, isObject(config) ? config : {});
 
         // Find all placeholders and create a compiled pattern, using either classic or curly syntax:
         //   '*' name
@@ -807,7 +751,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         //    [^{}\\]+                       - anything other than curly braces or backslash
         //    \\.                            - a backslash escape
         //    \{(?:[^{}\\]+|\\.)*\}          - a matched set of curly braces containing other atoms
-        var placeholder = /([:*])([\w\[\]]+)|\{([\w\[\]]+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,
+        var placeholder       = /([:*])([\w\[\]]+)|\{([\w\[\]]+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,
             searchPlaceholder = /([:]?)([\w\[\]-]+)|\{([\w\[\]-]+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,
             compiled = '^', last = 0, m,
             segments = this.segments = [],
@@ -817,34 +761,20 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
         function addParameter(id, type, config, location) {
             paramNames.push(id);
-            if (parentParams[id]) {
-                return parentParams[id];
-            }
-            if (!/^\w+(-+\w+)*(?:\[\])?$/.test(id)) {
-                throw new Error("Invalid parameter name '" + id + "' in pattern '" + pattern + "'");
-            }
-            if (params[id]) {
-                throw new Error("Duplicate parameter name '" + id + "' in pattern '" + pattern + "'");
-            }
+            if (parentParams[id]) return parentParams[id];
+            if (!/^\w+(-+\w+)*(?:\[\])?$/.test(id)) throw new Error("Invalid parameter name '" + id + "' in pattern '" + pattern + "'");
+            if (params[id]) throw new Error("Duplicate parameter name '" + id + "' in pattern '" + pattern + "'");
             params[id] = new $$UMFP.Param(id, type, config, location);
             return params[id];
         }
 
-        function quoteRegExp(string, pattern, squash) {
-            var surroundPattern = ['', ''], result = string.replace(/[\\\[\]\^$*+?.()|{}]/g, "\\$&");
-            if (!pattern) {
-                return result;
-            }
-            switch (squash) {
-                case false:
-                    surroundPattern = ['(', ')'];
-                    break;
-                case true:
-                    surroundPattern = ['?(', ')?'];
-                    break;
-                default:
-                    surroundPattern = ['(' + squash + "|", ')?'];
-                    break;
+        function quoteRegExp(string, pattern, squash, optional) {
+            var surroundPattern = ['',''], result = string.replace(/[\\\[\]\^$*+?.()|{}]/g, "\\$&");
+            if (!pattern) return result;
+            switch(squash) {
+                case false: surroundPattern = ['(', ')' + (optional ? "?" : "")]; break;
+                case true:  surroundPattern = ['?(', ')?']; break;
+                default:    surroundPattern = ['(' + squash + "|", ')?']; break;
             }
             return result + surroundPattern[0] + pattern + surroundPattern[1];
         }
@@ -855,11 +785,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         // The number of segments is always 1 more than the number of parameters.
         function matchDetails(m, isSearch) {
             var id, regexp, segment, type, cfg, arrayMode;
-            id = m[2] || m[3]; // IE[78] returns '' for unmatched groups instead of null
-            cfg = config.params[id];
-            segment = pattern.substring(last, m.index);
-            regexp = isSearch ? m[4] : m[4] || (m[1] == '*' ? '.*' : null);
-            type = $$UMFP.type(regexp || "string") || inherit($$UMFP.type("string"), {pattern: new RegExp(regexp)});
+            id          = m[2] || m[3]; // IE[78] returns '' for unmatched groups instead of null
+            cfg         = config.params[id];
+            segment     = pattern.substring(last, m.index);
+            regexp      = isSearch ? m[4] : m[4] || (m[1] == '*' ? '.*' : null);
+            type        = $$UMFP.type(regexp || "string") || inherit($$UMFP.type("string"), { pattern: new RegExp(regexp, config.caseInsensitive ? 'i' : undefined) });
             return {
                 id: id, regexp: regexp, segment: segment, type: type, cfg: cfg
             };
@@ -868,12 +798,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         var p, param, segment;
         while ((m = placeholder.exec(pattern))) {
             p = matchDetails(m, false);
-            if (p.segment.indexOf('?') >= 0) {
-                break;
-            } // we're into the search part
+            if (p.segment.indexOf('?') >= 0) break; // we're into the search part
 
             param = addParameter(p.id, p.type, p.cfg, "path");
-            compiled += quoteRegExp(p.segment, param.type.pattern.source, param.squash);
+            compiled += quoteRegExp(p.segment, param.type.pattern.source, param.squash, param.isOptional);
             segments.push(p.segment);
             last = placeholder.lastIndex;
         }
@@ -973,27 +901,18 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      */
     UrlMatcher.prototype.exec = function (path, searchParams) {
         var m = this.regexp.exec(path);
-        if (!m) {
-            return null;
-        }
+        if (!m) return null;
         searchParams = searchParams || {};
 
         var paramNames = this.parameters(), nTotal = paramNames.length,
             nPath = this.segments.length - 1,
             values = {}, i, j, cfg, paramName;
 
-        if (nPath !== m.length - 1) {
-            throw new Error("Unbalanced capture group in route '" + this.source + "'");
-        }
+        if (nPath !== m.length - 1) throw new Error("Unbalanced capture group in route '" + this.source + "'");
 
         function decodePathArray(string) {
-            function reverseString(str) {
-                return str.split("").reverse().join("");
-            }
-
-            function unquoteDashes(str) {
-                return str.replace(/\\-/, "-");
-            }
+            function reverseString(str) { return str.split("").reverse().join(""); }
+            function unquoteDashes(str) { return str.replace(/\\-/g, "-"); }
 
             var split = reverseString(string).split(/-(?!\\)/);
             var allReversed = map(split, reverseString);
@@ -1003,16 +922,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         for (i = 0; i < nPath; i++) {
             paramName = paramNames[i];
             var param = this.params[paramName];
-            var paramVal = m[i + 1];
+            var paramVal = m[i+1];
             // if the param value matches a pre-replace pair, replace the value before decoding.
             for (j = 0; j < param.replace; j++) {
-                if (param.replace[j].from === paramVal) {
-                    paramVal = param.replace[j].to;
-                }
+                if (param.replace[j].from === paramVal) paramVal = param.replace[j].to;
             }
-            if (paramVal && param.array === true) {
-                paramVal = decodePathArray(paramVal);
-            }
+            if (paramVal && param.array === true) paramVal = decodePathArray(paramVal);
             values[paramName] = param.value(paramVal);
         }
         for (/**/; i < nTotal; i++) {
@@ -1035,9 +950,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      *    pattern has no parameters, an empty array is returned.
      */
     UrlMatcher.prototype.parameters = function (param) {
-        if (!isDefined(param)) {
-            return this.$$paramNames;
-        }
+        if (!isDefined(param)) return this.$$paramNames;
         return this.params[param] || null;
     };
 
@@ -1079,16 +992,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     UrlMatcher.prototype.format = function (values) {
         values = values || {};
         var segments = this.segments, params = this.parameters(), paramset = this.params;
-        if (!this.validates(values)) {
-            return null;
-        }
+        if (!this.validates(values)) return null;
 
         var i, search = false, nPath = segments.length - 1, nTotal = params.length, result = segments[0];
 
         function encodeDashes(str) { // Replace dashes with encoded "\-"
-            return encodeURIComponent(str).replace(/-/g, function (c) {
-                return '%5C%' + c.charCodeAt(0).toString(16).toUpperCase();
-            });
+            return encodeURIComponent(str).replace(/-/g, function(c) { return '%5C%' + c.charCodeAt(0).toString(16).toUpperCase(); });
         }
 
         for (i = 0; i < nTotal; i++) {
@@ -1116,12 +1025,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     result += squash + nextSegment;
                 }
             } else {
-                if (encoded == null || (isDefaultValue && squash !== false)) {
-                    continue;
-                }
-                if (!isArray(encoded)) {
-                    encoded = [encoded];
-                }
+                if (encoded == null || (isDefaultValue && squash !== false)) continue;
+                if (!isArray(encoded)) encoded = [ encoded ];
                 encoded = map(encoded, encodeURIComponent).join('&' + name + '=');
                 result += (search ? '&' : '?') + (name + '=' + encoded);
                 search = true;
@@ -1180,7 +1085,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      *        parameter in which `val` is stored. Can be used for meta-programming of `Type` objects.
      * @returns {Boolean}  Returns `true` if the value matches the type, otherwise `false`.
      */
-    Type.prototype.is = function (val, key) {
+    Type.prototype.is = function(val, key) {
         return true;
     };
 
@@ -1199,7 +1104,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      *        meta-programming of `Type` objects.
      * @returns {string}  Returns a string representation of `val` that can be encoded in a URL.
      */
-    Type.prototype.encode = function (val, key) {
+    Type.prototype.encode = function(val, key) {
         return val;
     };
 
@@ -1216,7 +1121,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      *        meta-programming of `Type` objects.
      * @returns {*}  Returns a custom representation of the URL parameter value.
      */
-    Type.prototype.decode = function (val, key) {
+    Type.prototype.decode = function(val, key) {
         return val;
     };
 
@@ -1232,19 +1137,22 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * @param {*} b  A value to compare against.
      * @returns {Boolean}  Returns `true` if the values are equivalent/equal, otherwise `false`.
      */
-    Type.prototype.equals = function (a, b) {
+    Type.prototype.equals = function(a, b) {
         return a == b;
     };
 
-    Type.prototype.$subPattern = function () {
+    Type.prototype.$subPattern = function() {
         var sub = this.pattern.toString();
         return sub.substr(1, sub.length - 2);
     };
 
     Type.prototype.pattern = /.*/;
 
-    Type.prototype.toString = function () {
-        return "{Type:" + this.name + "}";
+    Type.prototype.toString = function() { return "{Type:" + this.name + "}"; };
+
+    /** Given an encoded string, or a decoded object, returns a decoded object */
+    Type.prototype.$normalize = function(val) {
+        return this.is(val) ? val : this.decode(val);
     };
 
     /*
@@ -1257,51 +1165,36 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * - url: "/path?queryParam=1 will create $stateParams.queryParam: 1
      * - url: "/path?queryParam=1&queryParam=2 will create $stateParams.queryParam: [1, 2]
      */
-    Type.prototype.$asArray = function (mode, isSearch) {
-        if (!mode) {
-            return this;
-        }
-        if (mode === "auto" && !isSearch) {
-            throw new Error("'auto' array mode is for query parameters only");
-        }
-        return new ArrayType(this, mode);
+    Type.prototype.$asArray = function(mode, isSearch) {
+        if (!mode) return this;
+        if (mode === "auto" && !isSearch) throw new Error("'auto' array mode is for query parameters only");
 
         function ArrayType(type, mode) {
             function bindTo(type, callbackName) {
-                return function () {
+                return function() {
                     return type[callbackName].apply(type, arguments);
                 };
             }
 
             // Wrap non-array value as array
-            function arrayWrap(val) {
-                return isArray(val) ? val : (isDefined(val) ? [val] : []);
-            }
-
+            function arrayWrap(val) { return isArray(val) ? val : (isDefined(val) ? [ val ] : []); }
             // Unwrap array value for "auto" mode. Return undefined for empty array.
             function arrayUnwrap(val) {
-                switch (val.length) {
-                    case 0:
-                        return undefined;
-                    case 1:
-                        return mode === "auto" ? val[0] : val;
-                    default:
-                        return val;
+                switch(val.length) {
+                    case 0: return undefined;
+                    case 1: return mode === "auto" ? val[0] : val;
+                    default: return val;
                 }
             }
-
-            function falsey(val) {
-                return !val;
-            }
+            function falsey(val) { return !val; }
 
             // Wraps type (.is/.encode/.decode) functions to operate on each value of an array
             function arrayHandler(callback, allTruthyMode) {
                 return function handleArray(val) {
                     val = arrayWrap(val);
                     var result = map(val, callback);
-                    if (allTruthyMode === true) {
+                    if (allTruthyMode === true)
                         return filter(result, falsey).length === 0;
-                    }
                     return arrayUnwrap(result);
                 };
             }
@@ -1310,13 +1203,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             function arrayEqualsHandler(callback) {
                 return function handleArray(val1, val2) {
                     var left = arrayWrap(val1), right = arrayWrap(val2);
-                    if (left.length !== right.length) {
-                        return false;
-                    }
+                    if (left.length !== right.length) return false;
                     for (var i = 0; i < left.length; i++) {
-                        if (!callback(left[i], right[i])) {
-                            return false;
-                        }
+                        if (!callback(left[i], right[i])) return false;
                     }
                     return true;
                 };
@@ -1324,12 +1213,17 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
             this.encode = arrayHandler(bindTo(type, 'encode'));
             this.decode = arrayHandler(bindTo(type, 'decode'));
-            this.is = arrayHandler(bindTo(type, 'is'), true);
+            this.is     = arrayHandler(bindTo(type, 'is'), true);
             this.equals = arrayEqualsHandler(bindTo(type, 'equals'));
             this.pattern = type.pattern;
+            this.$normalize = arrayHandler(bindTo(type, '$normalize'));
+            this.name = type.name;
             this.$arrayMode = mode;
         }
+
+        return new ArrayType(this, mode);
     };
+
 
 
     /**
@@ -1345,72 +1239,46 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
         var isCaseInsensitive = false, isStrictMode = true, defaultSquashPolicy = false;
 
-        function valToString(val) {
-            return val != null ? val.toString().replace(/\//g, "%2F") : val;
-        }
-
-        function valFromString(val) {
-            return val != null ? val.toString().replace(/%2F/g, "/") : val;
-        }
-
-//  TODO: in 1.0, make string .is() return false if value is undefined by default.
-//  function regexpMatches(val) { /*jshint validthis:true */ return isDefined(val) && this.pattern.test(val); }
-        function regexpMatches(val) { /*jshint validthis:true */
-            return this.pattern.test(val);
-        }
+        function valToString(val) { return val != null ? val.toString().replace(/\//g, "%2F") : val; }
+        function valFromString(val) { return val != null ? val.toString().replace(/%2F/g, "/") : val; }
 
         var $types = {}, enqueue = true, typeQueue = [], injector, defaultTypes = {
             string: {
                 encode: valToString,
                 decode: valFromString,
-                is: regexpMatches,
+                // TODO: in 1.0, make string .is() return false if value is undefined/null by default.
+                // In 0.2.x, string params are optional by default for backwards compat
+                is: function(val) { return val == null || !isDefined(val) || typeof val === "string"; },
                 pattern: /[^/]*/
             },
             int: {
                 encode: valToString,
-                decode: function (val) {
-                    return parseInt(val, 10);
-                },
-                is: function (val) {
-                    return isDefined(val) && this.decode(val.toString()) === val;
-                },
+                decode: function(val) { return parseInt(val, 10); },
+                is: function(val) { return isDefined(val) && this.decode(val.toString()) === val; },
                 pattern: /\d+/
             },
             bool: {
-                encode: function (val) {
-                    return val ? 1 : 0;
-                },
-                decode: function (val) {
-                    return parseInt(val, 10) !== 0;
-                },
-                is: function (val) {
-                    return val === true || val === false;
-                },
+                encode: function(val) { return val ? 1 : 0; },
+                decode: function(val) { return parseInt(val, 10) !== 0; },
+                is: function(val) { return val === true || val === false; },
                 pattern: /0|1/
             },
             date: {
                 encode: function (val) {
-                    if (!this.is(val)) {
+                    if (!this.is(val))
                         return undefined;
-                    }
-                    return [val.getFullYear(),
+                    return [ val.getFullYear(),
                         ('0' + (val.getMonth() + 1)).slice(-2),
                         ('0' + val.getDate()).slice(-2)
                     ].join("-");
                 },
                 decode: function (val) {
-                    if (this.is(val)) {
-                        return val;
-                    }
+                    if (this.is(val)) return val;
                     var match = this.capture.exec(val);
                     return match ? new Date(match[1], match[2] - 1, match[3]) : undefined;
                 },
-                is: function (val) {
-                    return val instanceof Date && !isNaN(val.valueOf());
-                },
-                equals: function (a, b) {
-                    return this.is(a) && this.is(b) && a.toISOString() === b.toISOString();
-                },
+                is: function(val) { return val instanceof Date && !isNaN(val.valueOf()); },
+                equals: function (a, b) { return this.is(a) && this.is(b) && a.toISOString() === b.toISOString(); },
                 pattern: /[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1])/,
                 capture: /([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/
             },
@@ -1424,7 +1292,6 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             any: { // does not encode/decode
                 encode: angular.identity,
                 decode: angular.identity,
-                is: angular.identity,
                 equals: angular.equals,
                 pattern: /.*/
             }
@@ -1444,13 +1311,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         /**
          * [Internal] Get the default value of a parameter, which may be an injectable function.
          */
-        $UrlMatcherFactory.$$getDefaultValue = function (config) {
-            if (!isInjectable(config.value)) {
-                return config.value;
-            }
-            if (!injector) {
-                throw new Error("Injectable functions cannot be called at configuration time");
-            }
+        $UrlMatcherFactory.$$getDefaultValue = function(config) {
+            if (!isInjectable(config.value)) return config.value;
+            if (!injector) throw new Error("Injectable functions cannot be called at configuration time");
             return injector.invoke(config.value);
         };
 
@@ -1465,10 +1328,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * @param {boolean} value `false` to match URL in a case sensitive manner; otherwise `true`;
          * @returns {boolean} the current value of caseInsensitive
          */
-        this.caseInsensitive = function (value) {
-            if (isDefined(value)) {
+        this.caseInsensitive = function(value) {
+            if (isDefined(value))
                 isCaseInsensitive = value;
-            }
             return isCaseInsensitive;
         };
 
@@ -1483,10 +1345,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * @param {boolean=} value `false` to match trailing slashes in URLs, otherwise `true`.
          * @returns {boolean} the current value of strictMode
          */
-        this.strictMode = function (value) {
-            if (isDefined(value)) {
+        this.strictMode = function(value) {
+            if (isDefined(value))
                 isStrictMode = value;
-            }
             return isStrictMode;
         };
 
@@ -1505,13 +1366,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          *    any other string, e.g. "~": When generating an href with a default parameter value, squash (remove)
          *             the parameter value from the URL and replace it with this string.
          */
-        this.defaultSquashPolicy = function (value) {
-            if (!isDefined(value)) {
-                return defaultSquashPolicy;
-            }
-            if (value !== true && value !== false && !isString(value)) {
+        this.defaultSquashPolicy = function(value) {
+            if (!isDefined(value)) return defaultSquashPolicy;
+            if (value !== true && value !== false && !isString(value))
                 throw new Error("Invalid squash policy: " + value + ". Valid policies: false, true, arbitrary-string");
-            }
             defaultSquashPolicy = value;
             return value;
         };
@@ -1545,12 +1403,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          *          implementing all the same methods.
          */
         this.isMatcher = function (o) {
-            if (!isObject(o)) {
-                return false;
-            }
+            if (!isObject(o)) return false;
             var result = true;
 
-            forEach(UrlMatcher.prototype, function (val, name) {
+            forEach(UrlMatcher.prototype, function(val, name) {
                 if (isFunction(val)) {
                     result = result && (isDefined(o[name]) && isFunction(o[name]));
                 }
@@ -1666,38 +1522,28 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * </pre>
          */
         this.type = function (name, definition, definitionFn) {
-            if (!isDefined(definition)) {
-                return $types[name];
-            }
-            if ($types.hasOwnProperty(name)) {
-                throw new Error("A type named '" + name + "' has already been defined.");
-            }
+            if (!isDefined(definition)) return $types[name];
+            if ($types.hasOwnProperty(name)) throw new Error("A type named '" + name + "' has already been defined.");
 
-            $types[name] = new Type(extend({name: name}, definition));
+            $types[name] = new Type(extend({ name: name }, definition));
             if (definitionFn) {
-                typeQueue.push({name: name, def: definitionFn});
-                if (!enqueue) {
-                    flushTypeQueue();
-                }
+                typeQueue.push({ name: name, def: definitionFn });
+                if (!enqueue) flushTypeQueue();
             }
             return this;
         };
 
         // `flushTypeQueue()` waits until `$urlMatcherFactory` is injected before invoking the queued `definitionFn`s
         function flushTypeQueue() {
-            while (typeQueue.length) {
+            while(typeQueue.length) {
                 var type = typeQueue.shift();
-                if (type.pattern) {
-                    throw new Error("You cannot override a type's .pattern at runtime.");
-                }
+                if (type.pattern) throw new Error("You cannot override a type's .pattern at runtime.");
                 angular.extend($types[type.name], injector.invoke(type.def));
             }
         }
 
         // Register default types. Store them in the prototype of $types.
-        forEach(defaultTypes, function (type, name) {
-            $types[name] = new Type(extend({name: name}, type));
-        });
+        forEach(defaultTypes, function(type, name) { $types[name] = new Type(extend({name: name}, type)); });
         $types = inherit($types, {});
 
         /* No need to document $get, since it returns this */
@@ -1706,10 +1552,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             enqueue = false;
             flushTypeQueue();
 
-            forEach(defaultTypes, function (type, name) {
-                if (!$types[name]) {
-                    $types[name] = new Type(type);
-                }
+            forEach(defaultTypes, function(type, name) {
+                if (!$types[name]) $types[name] = new Type(type);
             });
             return this;
         }];
@@ -1720,9 +1564,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             type = getType(config, type, location);
             var arrayMode = getArrayMode();
             type = arrayMode ? type.$asArray(arrayMode, location === "search") : type;
-            if (type.name === "string" && !arrayMode && location === "path" && config.value === undefined) {
-                config.value = "";
-            } // for 0.2.x; in 0.3.0+ do not automatically default to ""
+            if (type.name === "string" && !arrayMode && location === "path" && config.value === undefined)
+                config.value = ""; // for 0.2.x; in 0.3.0+ do not automatically default to ""
             var isOptional = config.value !== undefined;
             var squash = getSquashPolicy(config, isOptional);
             var replace = getReplace(config, arrayMode, isOptional, squash);
@@ -1731,32 +1574,22 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 var keys = isObject(config) ? objectKeys(config) : [];
                 var isShorthand = indexOf(keys, "value") === -1 && indexOf(keys, "type") === -1 &&
                     indexOf(keys, "squash") === -1 && indexOf(keys, "array") === -1;
-                if (isShorthand) {
-                    config = {value: config};
-                }
-                config.$$fn = isInjectable(config.value) ? config.value : function () {
-                    return config.value;
-                };
+                if (isShorthand) config = { value: config };
+                config.$$fn = isInjectable(config.value) ? config.value : function () { return config.value; };
                 return config;
             }
 
             function getType(config, urlType, location) {
-                if (config.type && urlType) {
-                    throw new Error("Param '" + id + "' has two type configurations.");
-                }
-                if (urlType) {
-                    return urlType;
-                }
-                if (!config.type) {
-                    return (location === "config" ? $types.any : $types.string);
-                }
+                if (config.type && urlType) throw new Error("Param '"+id+"' has two type configurations.");
+                if (urlType) return urlType;
+                if (!config.type) return (location === "config" ? $types.any : $types.string);
                 return config.type instanceof Type ? config.type : new Type(config.type);
             }
 
             // array config: param name (param[]) overrides default settings.  explicit config overrides param name.
             function getArrayMode() {
-                var arrayDefaults = {array: (location === "search" ? "auto" : false)};
-                var arrayParamNomenclature = id.match(/\[\]$/) ? {array: true} : {};
+                var arrayDefaults = { array: (location === "search" ? "auto" : false) };
+                var arrayParamNomenclature = id.match(/\[\]$/) ? { array: true } : {};
                 return extend(arrayDefaults, arrayParamNomenclature, config).array;
             }
 
@@ -1765,43 +1598,33 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              */
             function getSquashPolicy(config, isOptional) {
                 var squash = config.squash;
-                if (!isOptional || squash === false) {
-                    return false;
-                }
-                if (!isDefined(squash) || squash == null) {
-                    return defaultSquashPolicy;
-                }
-                if (squash === true || isString(squash)) {
-                    return squash;
-                }
+                if (!isOptional || squash === false) return false;
+                if (!isDefined(squash) || squash == null) return defaultSquashPolicy;
+                if (squash === true || isString(squash)) return squash;
                 throw new Error("Invalid squash policy: '" + squash + "'. Valid policies: false, true, or arbitrary string");
             }
 
             function getReplace(config, arrayMode, isOptional, squash) {
                 var replace, configuredKeys, defaultPolicy = [
-                    {from: "", to: (isOptional || arrayMode ? undefined : "")},
-                    {from: null, to: (isOptional || arrayMode ? undefined : "")}
+                    { from: "",   to: (isOptional || arrayMode ? undefined : "") },
+                    { from: null, to: (isOptional || arrayMode ? undefined : "") }
                 ];
                 replace = isArray(config.replace) ? config.replace : [];
-                if (isString(squash)) {
-                    replace.push({from: squash, to: undefined});
-                }
-                configuredKeys = map(replace, function (item) {
-                    return item.from;
-                });
-                return filter(defaultPolicy, function (item) {
-                    return indexOf(configuredKeys, item.from) === -1;
-                }).concat(replace);
+                if (isString(squash))
+                    replace.push({ from: squash, to: undefined });
+                configuredKeys = map(replace, function(item) { return item.from; } );
+                return filter(defaultPolicy, function(item) { return indexOf(configuredKeys, item.from) === -1; }).concat(replace);
             }
 
             /**
              * [Internal] Get the default value of a parameter, which may be an injectable function.
              */
             function $$getDefaultValue() {
-                if (!injector) {
-                    throw new Error("Injectable functions cannot be called at configuration time");
-                }
-                return injector.invoke(config.$$fn);
+                if (!injector) throw new Error("Injectable functions cannot be called at configuration time");
+                var defaultValue = injector.invoke(config.$$fn);
+                if (defaultValue !== null && defaultValue !== undefined && !self.type.is(defaultValue))
+                    throw new Error("Default value (" + defaultValue + ") for parameter '" + self.id + "' is not an instance of Type (" + self.type.name + ")");
+                return defaultValue;
             }
 
             /**
@@ -1809,26 +1632,16 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * default value, which may be the result of an injectable function.
              */
             function $value(value) {
-                function hasReplaceVal(val) {
-                    return function (obj) {
-                        return obj.from === val;
-                    };
-                }
-
+                function hasReplaceVal(val) { return function(obj) { return obj.from === val; }; }
                 function $replace(value) {
-                    var replacement = map(filter(self.replace, hasReplaceVal(value)), function (obj) {
-                        return obj.to;
-                    });
+                    var replacement = map(filter(self.replace, hasReplaceVal(value)), function(obj) { return obj.to; });
                     return replacement.length ? replacement[0] : value;
                 }
-
                 value = $replace(value);
-                return isDefined(value) ? self.type.decode(value) : $$getDefaultValue();
+                return !isDefined(value) ? $$getDefaultValue() : self.type.$normalize(value);
             }
 
-            function toString() {
-                return "{Param:" + id + " " + type + " squash: '" + squash + "' optional: " + isOptional + "}";
-            }
+            function toString() { return "{Param:" + id + " " + type + " squash: '" + squash + "' optional: " + isOptional + "}"; }
 
             extend(this, {
                 id: id,
@@ -1850,53 +1663,51 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         }
 
         ParamSet.prototype = {
-            $$new: function () {
-                return inherit(this, extend(new ParamSet(), {$$parent: this}));
+            $$new: function() {
+                return inherit(this, extend(new ParamSet(), { $$parent: this}));
             },
             $$keys: function () {
                 var keys = [], chain = [], parent = this,
                     ignore = objectKeys(ParamSet.prototype);
-                while (parent) {
-                    chain.push(parent);
-                    parent = parent.$$parent;
-                }
+                while (parent) { chain.push(parent); parent = parent.$$parent; }
                 chain.reverse();
-                forEach(chain, function (paramset) {
-                    forEach(objectKeys(paramset), function (key) {
-                        if (indexOf(keys, key) === -1 && indexOf(ignore, key) === -1) {
-                            keys.push(key);
-                        }
+                forEach(chain, function(paramset) {
+                    forEach(objectKeys(paramset), function(key) {
+                        if (indexOf(keys, key) === -1 && indexOf(ignore, key) === -1) keys.push(key);
                     });
                 });
                 return keys;
             },
-            $$values: function (paramValues) {
+            $$values: function(paramValues) {
                 var values = {}, self = this;
-                forEach(self.$$keys(), function (key) {
+                forEach(self.$$keys(), function(key) {
                     values[key] = self[key].value(paramValues && paramValues[key]);
                 });
                 return values;
             },
-            $$equals: function (paramValues1, paramValues2) {
+            $$equals: function(paramValues1, paramValues2) {
                 var equal = true, self = this;
-                forEach(self.$$keys(), function (key) {
+                forEach(self.$$keys(), function(key) {
                     var left = paramValues1 && paramValues1[key], right = paramValues2 && paramValues2[key];
-                    if (!self[key].type.equals(left, right)) {
-                        equal = false;
-                    }
+                    if (!self[key].type.equals(left, right)) equal = false;
                 });
                 return equal;
             },
             $$validates: function $$validate(paramValues) {
-                var result = true, isOptional, val, param, self = this;
-
-                forEach(this.$$keys(), function (key) {
-                    param = self[key];
-                    val = paramValues[key];
-                    isOptional = !val && param.isOptional;
-                    result = result && (isOptional || !!param.type.is(val));
-                });
-                return result;
+                var keys = this.$$keys(), i, param, rawVal, normalized, encoded;
+                for (i = 0; i < keys.length; i++) {
+                    param = this[keys[i]];
+                    rawVal = paramValues[keys[i]];
+                    if ((rawVal === undefined || rawVal === null) && param.isOptional)
+                        break; // There was no parameter value, but the param is optional
+                    normalized = param.type.$normalize(rawVal);
+                    if (!param.type.is(normalized))
+                        return false; // The value was not of the correct Type, and could not be decoded to the correct Type
+                    encoded = param.type.encode(normalized);
+                    if (angular.isString(encoded) && !param.type.pattern.exec(encoded))
+                        return false; // The value was of the correct type, but when encoded, did not match the Type's regexp
+                }
+                return true;
             },
             $$parent: undefined
         };
@@ -1906,8 +1717,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
 // Register as a provider so it's available to other providers
     angular.module('ui.router.util').provider('$urlMatcherFactory', $UrlMatcherFactory);
-    angular.module('ui.router.util').run(['$urlMatcherFactory', function ($urlMatcherFactory) {
-    }]);
+    angular.module('ui.router.util').run(['$urlMatcherFactory', function($urlMatcherFactory) { }]);
 
     /**
      * @ngdoc object
@@ -1926,7 +1736,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * in your module config.
      */
     $UrlRouterProvider.$inject = ['$locationProvider', '$urlMatcherFactoryProvider'];
-    function $UrlRouterProvider($locationProvider, $urlMatcherFactory) {
+    function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
         var rules = [], otherwise = null, interceptDeferred = false, listener;
 
         // Returns a string that is a prefix of all strings matching the RegExp
@@ -1974,9 +1784,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
          */
         this.rule = function (rule) {
-            if (!isFunction(rule)) {
-                throw new Error("'rule' must be a function");
-            }
+            if (!isFunction(rule)) throw new Error("'rule' must be a function");
             rules.push(rule);
             return this;
         };
@@ -2015,23 +1823,17 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         this.otherwise = function (rule) {
             if (isString(rule)) {
                 var redirect = rule;
-                rule = function () {
-                    return redirect;
-                };
+                rule = function () { return redirect; };
             }
-            else if (!isFunction(rule)) {
-                throw new Error("'rule' must be a function");
-            }
+            else if (!isFunction(rule)) throw new Error("'rule' must be a function");
             otherwise = rule;
             return this;
         };
 
 
         function handleIfMatch($injector, handler, match) {
-            if (!match) {
-                return false;
-            }
-            var result = $injector.invoke(handler, handler, {$match: match});
+            if (!match) return false;
+            var result = $injector.invoke(handler, handler, { $match: match });
             return isDefined(result) ? result : true;
         }
 
@@ -2074,21 +1876,16 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          */
         this.when = function (what, handler) {
             var redirect, handlerIsString = isString(handler);
-            if (isString(what)) {
-                what = $urlMatcherFactory.compile(what);
-            }
+            if (isString(what)) what = $urlMatcherFactory.compile(what);
 
-            if (!handlerIsString && !isFunction(handler) && !isArray(handler)) {
+            if (!handlerIsString && !isFunction(handler) && !isArray(handler))
                 throw new Error("invalid 'handler' in when()");
-            }
 
             var strategies = {
                 matcher: function (what, handler) {
                     if (handlerIsString) {
                         redirect = $urlMatcherFactory.compile(handler);
-                        handler = ['$match', function ($match) {
-                            return redirect.format($match);
-                        }];
+                        handler = ['$match', function ($match) { return redirect.format($match); }];
                     }
                     return extend(function ($injector, $location) {
                         return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
@@ -2097,15 +1894,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     });
                 },
                 regex: function (what, handler) {
-                    if (what.global || what.sticky) {
-                        throw new Error("when() RegExp must not be global or sticky");
-                    }
+                    if (what.global || what.sticky) throw new Error("when() RegExp must not be global or sticky");
 
                     if (handlerIsString) {
                         redirect = handler;
-                        handler = ['$match', function ($match) {
-                            return interpolate(redirect, $match);
-                        }];
+                        handler = ['$match', function ($match) { return interpolate(redirect, $match); }];
                     }
                     return extend(function ($injector, $location) {
                         return handleIfMatch($injector, handler, what.exec($location.path()));
@@ -2115,15 +1908,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 }
             };
 
-            var check = {
-                matcher: $urlMatcherFactory.isMatcher(what),
-                regex: what instanceof RegExp
-            };
+            var check = { matcher: $urlMatcherFactory.isMatcher(what), regex: what instanceof RegExp };
 
             for (var n in check) {
-                if (check[n]) {
-                    return this.rule(strategies[n](what, handler));
-                }
+                if (check[n]) return this.rule(strategies[n](what, handler));
             }
 
             throw new Error("invalid 'what' in when()");
@@ -2178,9 +1966,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          no parameter is equivalent to `true`.
          */
         this.deferIntercept = function (defer) {
-            if (defer === undefined) {
-                defer = true;
-            }
+            if (defer === undefined) defer = true;
             interceptDeferred = defer;
         };
 
@@ -2198,57 +1984,39 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          */
         this.$get = $get;
         $get.$inject = ['$location', '$rootScope', '$injector', '$browser'];
-        function $get($location, $rootScope, $injector, $browser) {
+        function $get(   $location,   $rootScope,   $injector,   $browser) {
 
             var baseHref = $browser.baseHref(), location = $location.url(), lastPushedUrl;
 
             function appendBasePath(url, isHtml5, absolute) {
-                if (baseHref === '/') {
-                    return url;
-                }
-                if (isHtml5) {
-                    return baseHref.slice(0, -1) + url;
-                }
-                if (absolute) {
-                    return baseHref.slice(1) + url;
-                }
+                if (baseHref === '/') return url;
+                if (isHtml5) return baseHref.slice(0, -1) + url;
+                if (absolute) return baseHref.slice(1) + url;
                 return url;
             }
 
             // TODO: Optimize groups of rules with non-empty prefix into some sort of decision tree
             function update(evt) {
-                if (evt && evt.defaultPrevented) {
-                    return;
-                }
+                if (evt && evt.defaultPrevented) return;
                 var ignoreUpdate = lastPushedUrl && $location.url() === lastPushedUrl;
                 lastPushedUrl = undefined;
-                if (ignoreUpdate) {
-                    return true;
-                }
+                // TODO: Re-implement this in 1.0 for https://github.com/angular-ui/ui-router/issues/1573
+                //if (ignoreUpdate) return true;
 
                 function check(rule) {
                     var handled = rule($injector, $location);
 
-                    if (!handled) {
-                        return false;
-                    }
-                    if (isString(handled)) {
-                        $location.replace().url(handled);
-                    }
+                    if (!handled) return false;
+                    if (isString(handled)) $location.replace().url(handled);
                     return true;
                 }
-
                 var n = rules.length, i;
 
                 for (i = 0; i < n; i++) {
-                    if (check(rules[i])) {
-                        return;
-                    }
+                    if (check(rules[i])) return;
                 }
                 // always check otherwise last to allow dynamic updates to the set of rules
-                if (otherwise) {
-                    check(otherwise);
-                }
+                if (otherwise) check(otherwise);
             }
 
             function listen() {
@@ -2256,9 +2024,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 return listener;
             }
 
-            if (!interceptDeferred) {
-                listen();
-            }
+            if (!interceptDeferred) listen();
 
             return {
                 /**
@@ -2287,33 +2053,36 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
        * });
                  * </pre>
                  */
-                sync: function () {
+                sync: function() {
                     update();
                 },
 
-                listen: function () {
+                listen: function() {
                     return listen();
                 },
 
-                update: function (read) {
+                update: function(read) {
                     if (read) {
                         location = $location.url();
                         return;
                     }
-                    if ($location.url() === location) {
-                        return;
-                    }
+                    if ($location.url() === location) return;
 
                     $location.url(location);
                     $location.replace();
                 },
 
-                push: function (urlMatcher, params, options) {
-                    $location.url(urlMatcher.format(params || {}));
-                    lastPushedUrl = options && options.$$avoidResync ? $location.url() : undefined;
-                    if (options && options.replace) {
-                        $location.replace();
+                push: function(urlMatcher, params, options) {
+                    var url = urlMatcher.format(params || {});
+
+                    // Handle the special hash param, if needed
+                    if (url !== null && params && params['#']) {
+                        url += '#' + params['#'];
                     }
+
+                    $location.url(url);
+                    lastPushedUrl = options && options.$$avoidResync ? $location.url() : undefined;
+                    if (options && options.replace) $location.replace();
                 },
 
                 /**
@@ -2341,10 +2110,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                  *
                  * @returns {string} Returns the fully compiled URL, or `null` if `params` fail validation against `urlMatcher`
                  */
-                href: function (urlMatcher, params, options) {
-                    if (!urlMatcher.validates(params)) {
-                        return null;
-                    }
+                href: function(urlMatcher, params, options) {
+                    if (!urlMatcher.validates(params)) return null;
 
                     var isHtml5 = $locationProvider.html5Mode();
                     if (angular.isObject(isHtml5)) {
@@ -2357,6 +2124,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     if (!isHtml5 && url !== null) {
                         url = "#" + $locationProvider.hashPrefix() + url;
                     }
+
+                    // Handle special hash param, if needed
+                    if (url !== null && params && params['#']) {
+                        url += '#' + params['#'];
+                    }
+
                     url = appendBasePath(url, isHtml5, options.absolute);
 
                     if (!options.absolute || !url) {
@@ -2396,7 +2169,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * The `$stateProvider` provides interfaces to declare these states for your app.
      */
     $StateProvider.$inject = ['$urlRouterProvider', '$urlMatcherFactoryProvider'];
-    function $StateProvider($urlRouterProvider, $urlMatcherFactory) {
+    function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
         var root, states = {}, $state, queue = {}, abstractKey = 'abstract';
 
@@ -2406,10 +2179,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             // Derive parent state from a hierarchical name only if 'parent' is not explicitly defined.
             // state.children = [];
             // if (parent) parent.children.push(state);
-            parent: function (state) {
-                if (isDefined(state.parent) && state.parent) {
-                    return findState(state.parent);
-                }
+            parent: function(state) {
+                if (isDefined(state.parent) && state.parent) return findState(state.parent);
                 // regex matches any valid composite state name
                 // would match "contact.list" but not "contacts"
                 var compositeName = /^(.+)\.[^.]+$/.exec(state.name);
@@ -2417,7 +2188,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             },
 
             // inherit 'data' from parent and override by own values (if any)
-            data: function (state) {
+            data: function(state) {
                 if (state.parent && state.parent.data) {
                     state.data = state.self.data = extend({}, state.parent.data, state.data);
                 }
@@ -2425,40 +2196,34 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             },
 
             // Build a URLMatcher if necessary, either via a relative or absolute URL
-            url: function (state) {
-                var url = state.url, config = {params: state.params || {}};
+            url: function(state) {
+                var url = state.url, config = { params: state.params || {} };
 
                 if (isString(url)) {
-                    if (url.charAt(0) == '^') {
-                        return $urlMatcherFactory.compile(url.substring(1), config);
-                    }
+                    if (url.charAt(0) == '^') return $urlMatcherFactory.compile(url.substring(1), config);
                     return (state.parent.navigable || root).url.concat(url, config);
                 }
 
-                if (!url || $urlMatcherFactory.isMatcher(url)) {
-                    return url;
-                }
+                if (!url || $urlMatcherFactory.isMatcher(url)) return url;
                 throw new Error("Invalid url '" + url + "' in state '" + state + "'");
             },
 
             // Keep track of the closest ancestor state that has a URL (i.e. is navigable)
-            navigable: function (state) {
+            navigable: function(state) {
                 return state.url ? state : (state.parent ? state.parent.navigable : null);
             },
 
             // Own parameters for this state. state.url.params is already built at this point. Create and add non-url params
-            ownParams: function (state) {
+            ownParams: function(state) {
                 var params = state.url && state.url.params || new $$UMFP.ParamSet();
-                forEach(state.params || {}, function (config, id) {
-                    if (!params[id]) {
-                        params[id] = new $$UMFP.Param(id, null, config, "config");
-                    }
+                forEach(state.params || {}, function(config, id) {
+                    if (!params[id]) params[id] = new $$UMFP.Param(id, null, config, "config");
                 });
                 return params;
             },
 
             // Derive parameters for this state and ensure they're a super-set of parent's parameters
-            params: function (state) {
+            params: function(state) {
                 return state.parent && state.parent.params ? extend(state.parent.params.$$new(), state.ownParams) : new $$UMFP.ParamSet();
             },
 
@@ -2467,25 +2232,23 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             // 'views' property will mean the default unnamed view properties are ignored. This
             // is also a good time to resolve view names to absolute names, so everything is a
             // straight lookup at link time.
-            views: function (state) {
+            views: function(state) {
                 var views = {};
 
-                forEach(isDefined(state.views) ? state.views : {'': state}, function (view, name) {
-                    if (name.indexOf('@') < 0) {
-                        name += '@' + state.parent.name;
-                    }
+                forEach(isDefined(state.views) ? state.views : { '': state }, function (view, name) {
+                    if (name.indexOf('@') < 0) name += '@' + state.parent.name;
                     views[name] = view;
                 });
                 return views;
             },
 
             // Keep a full path from the root down to this state as this is needed for state activation.
-            path: function (state) {
+            path: function(state) {
                 return state.parent ? state.parent.path.concat(state) : []; // exclude root from path
             },
 
             // Speed up $state.contains() as it's used a lot
-            includes: function (state) {
+            includes: function(state) {
                 var includes = state.parent ? extend({}, state.parent.includes) : {};
                 includes[state.name] = true;
                 return includes;
@@ -2499,18 +2262,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         }
 
         function findState(stateOrName, base) {
-            if (!stateOrName) {
-                return undefined;
-            }
+            if (!stateOrName) return undefined;
 
             var isStr = isString(stateOrName),
-                name = isStr ? stateOrName : stateOrName.name,
-                path = isRelative(name);
+                name  = isStr ? stateOrName : stateOrName.name,
+                path  = isRelative(name);
 
             if (path) {
-                if (!base) {
-                    throw new Error("No reference point given for path '" + name + "'");
-                }
+                if (!base) throw new Error("No reference point given for path '"  + name + "'");
                 base = findState(base);
 
                 var rel = name.split("."), i = 0, pathLength = rel.length, current = base;
@@ -2521,9 +2280,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         continue;
                     }
                     if (rel[i] === "^") {
-                        if (!current.parent) {
-                            throw new Error("Path '" + name + "' not valid for state '" + base.name + "'");
-                        }
+                        if (!current.parent) throw new Error("Path '" + name + "' not valid for state '" + base.name + "'");
                         current = current.parent;
                         continue;
                     }
@@ -2549,7 +2306,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
         function flushQueuedChildren(parentName) {
             var queued = queue[parentName] || [];
-            while (queued.length) {
+            while(queued.length) {
                 registerState(queued.shift());
             }
         }
@@ -2559,18 +2316,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             state = inherit(state, {
                 self: state,
                 resolve: state.resolve || {},
-                toString: function () {
-                    return this.name;
-                }
+                toString: function() { return this.name; }
             });
 
             var name = state.name;
-            if (!isString(name) || name.indexOf('@') >= 0) {
-                throw new Error("State must have a valid name");
-            }
-            if (states.hasOwnProperty(name)) {
-                throw new Error("State '" + name + "'' is already defined");
-            }
+            if (!isString(name) || name.indexOf('@') >= 0) throw new Error("State must have a valid name");
+            if (states.hasOwnProperty(name)) throw new Error("State '" + name + "'' is already defined");
 
             // Get parent name
             var parentName = (name.indexOf('.') !== -1) ? name.substring(0, name.lastIndexOf('.'))
@@ -2584,9 +2335,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             }
 
             for (var key in stateBuilder) {
-                if (isFunction(stateBuilder[key])) {
-                    state[key] = stateBuilder[key](state, stateBuilder.$delegates[key]);
-                }
+                if (isFunction(stateBuilder[key])) state[key] = stateBuilder[key](state, stateBuilder.$delegates[key]);
             }
             states[name] = state;
 
@@ -2594,7 +2343,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             if (!state[abstractKey] && state.url) {
                 $urlRouterProvider.when(state.url, ['$match', '$stateParams', function ($match, $stateParams) {
                     if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
-                        $state.transitionTo(state, $match, {inherit: true, location: false});
+                        $state.transitionTo(state, $match, { inherit: true, location: false });
                     }
                 }]);
             }
@@ -2606,14 +2355,21 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         }
 
         // Checks text to see if it looks like a glob.
-        function isGlob(text) {
+        function isGlob (text) {
             return text.indexOf('*') > -1;
         }
 
         // Returns true if glob matches current $state name.
-        function doesStateMatchGlob(glob) {
+        function doesStateMatchGlob (glob) {
             var globSegments = glob.split('.'),
                 segments = $state.$current.name.split('.');
+
+            //match single stars
+            for (var i = 0, l = globSegments.length; i < l; i++) {
+                if (globSegments[i] === '*') {
+                    segments[i] = '*';
+                }
+            }
 
             //match greedy starts
             if (globSegments[0] === '**') {
@@ -2628,13 +2384,6 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
             if (globSegments.length != segments.length) {
                 return false;
-            }
-
-            //match single stars
-            for (var i = 0, l = globSegments.length; i < l; i++) {
-                if (globSegments[i] === '*') {
-                    segments[i] = '*';
-                }
             }
 
             return segments.join('') === globSegments.join('');
@@ -2845,6 +2594,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          *   published to scope under the controllerAs name.
          * <pre>controllerAs: "myCtrl"</pre>
          *
+         * @param {string|object=} stateConfig.parent
+         * <a id='parent'></a>
+         * Optionally specifies the parent state of this state.
+         *
+         * <pre>parent: 'parentState'</pre>
+         * <pre>parent: parentState // JS variable</pre>
+         *
          * @param {object=} stateConfig.resolve
          * <a id='resolve'></a>
          *
@@ -2876,6 +2632,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          *   transitioned to, the `$stateParams` service will be populated with any
          *   parameters that were passed.
          *
+         *   (See {@link ui.router.util.type:UrlMatcher UrlMatcher} `UrlMatcher`} for
+         *   more details on acceptable patterns )
+         *
          * examples:
          * <pre>url: "/home"
          * url: "/users/:userid"
@@ -2883,8 +2642,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          * url: "/books/{categoryid:int}"
          * url: "/books/{publishername:string}/{categoryid:int}"
          * url: "/messages?before&after"
-         * url: "/messages?{before:date}&{after:date}"</pre>
+         * url: "/messages?{before:date}&{after:date}"
          * url: "/messages/:mailboxid?{before:date}&{after:date}"
+         * </pre>
          *
          * @param {object=} stateConfig.views
          * <a id='views'></a>
@@ -2916,7 +2676,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
    *       controller: "messagesCtrl",
    *       templateUrl: "messages.html"
    *     }
-         *   }</pre>
+   *   }</pre>
          *
          * @param {boolean=} [stateConfig.abstract=false]
          * <a id='abstract'></a>
@@ -3069,11 +2829,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         this.state = state;
         function state(name, definition) {
             /*jshint validthis: true */
-            if (isObject(name)) {
-                definition = name;
-            } else {
-                definition.name = name;
-            }
+            if (isObject(name)) definition = name;
+            else definition.name = name;
             registerState(definition);
             return this;
         }
@@ -3104,7 +2861,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          */
         this.$get = $get;
         $get.$inject = ['$rootScope', '$q', '$view', '$injector', '$resolve', '$stateParams', '$urlRouter', '$location', '$urlMatcherFactory'];
-        function $get($rootScope, $q, $view, $injector, $resolve, $stateParams, $urlRouter, $location, $urlMatcherFactory) {
+        function $get(   $rootScope,   $q,   $view,   $injector,   $resolve,   $stateParams,   $urlRouter,   $location,   $urlMatcherFactory) {
 
             var TransitionSuperseded = $q.reject(new Error('transition superseded'));
             var TransitionPrevented = $q.reject(new Error('transition prevented'));
@@ -3164,13 +2921,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 }
                 var retryTransition = $state.transition = $q.when(evt.retry);
 
-                retryTransition.then(function () {
-                    if (retryTransition !== $state.transition) {
-                        return TransitionSuperseded;
-                    }
+                retryTransition.then(function() {
+                    if (retryTransition !== $state.transition) return TransitionSuperseded;
                     redirect.options.$retry = true;
                     return $state.transitionTo(redirect.to, redirect.toParams, redirect.options);
-                }, function () {
+                }, function() {
                     return TransitionAborted;
                 });
                 $urlRouter.update();
@@ -3178,7 +2933,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 return retryTransition;
             }
 
-            root.locals = {resolve: null, globals: {$stateParams: {}}};
+            root.locals = { resolve: null, globals: { $stateParams: {} } };
 
             $state = {
                 params: {},
@@ -3193,8 +2948,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * @methodOf ui.router.state.$state
              *
              * @description
-             * A method that force reloads the current state. All resolves are re-resolved, events are not re-fired,
-             * and controllers reinstantiated (bug with controllers reinstantiating right now, fixing soon).
+             * A method that force reloads the current state. All resolves are re-resolved,
+             * controllers reinstantiated, and events re-fired.
              *
              * @example
              * <pre>
@@ -3214,15 +2969,33 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * });
              * </pre>
              *
+             * @param {string=|object=} state - A state name or a state object, which is the root of the resolves to be re-resolved.
+             * @example
+             * <pre>
+             * //assuming app application consists of 3 states: 'contacts', 'contacts.detail', 'contacts.detail.item'
+             * //and current state is 'contacts.detail.item'
+             * var app angular.module('app', ['ui.router']);
+             *
+             * app.controller('ctrl', function ($scope, $state) {
+     *   $scope.reload = function(){
+     *     //will reload 'contact.detail' and 'contact.detail.item' states
+     *     $state.reload('contact.detail');
+     *   }
+     * });
+             * </pre>
+             *
+             * `reload()` is just an alias for:
+             * <pre>
+             * $state.transitionTo($state.current, $stateParams, { 
+     *   reload: true, inherit: false, notify: true
+     * });
+             * </pre>
+
              * @returns {promise} A promise representing the state of the new transition. See
              * {@link ui.router.state.$state#methods_go $state.go}.
              */
-            $state.reload = function reload() {
-                return $state.transitionTo($state.current, $stateParams, {
-                    reload: true,
-                    inherit: false,
-                    notify: true
-                });
+            $state.reload = function reload(state) {
+                return $state.transitionTo($state.current, $stateParams, { reload: state || true, inherit: false, notify: true});
             };
 
             /**
@@ -3292,10 +3065,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              *
              */
             $state.go = function go(to, params, options) {
-                return $state.transitionTo(to, params, extend({
-                    inherit: true,
-                    relative: $state.$current
-                }, options));
+                return $state.transitionTo(to, params, extend({ inherit: true, relative: $state.$current }, options));
             };
 
             /**
@@ -3329,9 +3099,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * - **`relative`** - {object=}, When transitioning with relative path (e.g '^'),
              *    defines which state to be relative from.
              * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
-             * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params
+             * - **`reload`** (v0.2.5) - {boolean=false|string=|object=}, If `true` will force transition even if the state or params
              *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
              *    use this when you want to force a reload when *everything* is the same, including search params.
+             *    if String, then will reload the state with the name given in reload, and any children.
+             *    if Object, then a stateObj is expected, will reload the state found in stateObj, and any children.
              *
              * @returns {promise} A promise representing the state of the new transition. See
              * {@link ui.router.state.$state#methods_go $state.go}.
@@ -3339,19 +3111,17 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             $state.transitionTo = function transitionTo(to, toParams, options) {
                 toParams = toParams || {};
                 options = extend({
-                    location: true,
-                    inherit: false,
-                    relative: null,
-                    notify: true,
-                    reload: false,
-                    $retry: false
+                    location: true, inherit: false, relative: null, notify: true, reload: false, $retry: false
                 }, options || {});
 
                 var from = $state.$current, fromParams = $state.params, fromPath = from.path;
                 var evt, toState = findState(to, options.relative);
 
+                // Store the hash param for later (since it will be stripped out by various methods)
+                var hash = toParams['#'];
+
                 if (!isDefined(toState)) {
-                    var redirect = {to: to, toParams: toParams, options: options};
+                    var redirect = { to: to, toParams: toParams, options: options };
                     var redirectResult = handleRedirect(redirect, from.self, fromParams, options);
 
                     if (redirectResult) {
@@ -3366,21 +3136,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     toState = findState(to, options.relative);
 
                     if (!isDefined(toState)) {
-                        if (!options.relative) {
-                            throw new Error("No such state '" + to + "'");
-                        }
+                        if (!options.relative) throw new Error("No such state '" + to + "'");
                         throw new Error("Could not resolve '" + to + "' from state '" + options.relative + "'");
                     }
                 }
-                if (toState[abstractKey]) {
-                    throw new Error("Cannot transition to abstract state '" + to + "'");
-                }
-                if (options.inherit) {
-                    toParams = inheritParams($stateParams, toParams || {}, $state.$current, toState);
-                }
-                if (!toState.params.$$validates(toParams)) {
-                    return TransitionFailed;
-                }
+                if (toState[abstractKey]) throw new Error("Cannot transition to abstract state '" + to + "'");
+                if (options.inherit) toParams = inheritParams($stateParams, toParams || {}, $state.$current, toState);
+                if (!toState.params.$$validates(toParams)) return TransitionFailed;
 
                 toParams = toState.params.$$values(toParams);
                 to = toState;
@@ -3396,6 +3158,21 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         keep++;
                         state = toPath[keep];
                     }
+                } else if (isString(options.reload) || isObject(options.reload)) {
+                    if (isObject(options.reload) && !options.reload.name) {
+                        throw new Error('Invalid reload state object');
+                    }
+
+                    var reloadState = options.reload === true ? fromPath[0] : findState(options.reload);
+                    if (options.reload && !reloadState) {
+                        throw new Error("No such reload state '" + (isString(options.reload) ? options.reload : options.reload.name) + "'");
+                    }
+
+                    while (state && state === fromPath[keep] && state !== reloadState) {
+                        locals = toLocals[keep] = state.locals;
+                        keep++;
+                        state = toPath[keep];
+                    }
                 }
 
                 // If we're going to the same state and all locals are kept, we've got nothing to do.
@@ -3403,9 +3180,15 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 // TODO: We may not want to bump 'transition' if we're called from a location change
                 // that we've initiated ourselves, because we might accidentally abort a legitimate
                 // transition initiated from code?
-                if (shouldTriggerReload(to, from, locals, options)) {
-                    if (to.self.reloadOnSearch !== false) {
-                        $urlRouter.update();
+                if (shouldSkipReload(to, toParams, from, fromParams, locals, options)) {
+                    if (hash) toParams['#'] = hash;
+                    $state.params = toParams;
+                    copy($state.params, $stateParams);
+                    if (options.location && to.navigable && to.navigable.url) {
+                        $urlRouter.push(to.navigable.url, toParams, {
+                            $$avoidResync: true, replace: options.location === 'replace'
+                        });
+                        $urlRouter.update(true);
                     }
                     $state.transition = null;
                     return $q.when($state.current);
@@ -3444,6 +3227,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                      * </pre>
                      */
                     if ($rootScope.$broadcast('$stateChangeStart', to.self, toParams, from.self, fromParams).defaultPrevented) {
+                        $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
                         $urlRouter.update();
                         return TransitionPrevented;
                     }
@@ -3470,9 +3254,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 var transition = $state.transition = resolved.then(function () {
                     var l, entering, exiting;
 
-                    if ($state.transition !== transition) {
-                        return TransitionSuperseded;
-                    }
+                    if ($state.transition !== transition) return TransitionSuperseded;
 
                     // Exit 'from' states not kept
                     for (l = fromPath.length - 1; l >= keep; l--) {
@@ -3492,10 +3274,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         }
                     }
 
+                    // Re-add the saved hash before we start returning things
+                    if (hash) toParams['#'] = hash;
+
                     // Run it again, to catch any transitions in callbacks
-                    if ($state.transition !== transition) {
-                        return TransitionSuperseded;
-                    }
+                    if ($state.transition !== transition) return TransitionSuperseded;
 
                     // Update globals in $state
                     $state.$current = to;
@@ -3531,9 +3314,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                     return $state.current;
                 }, function (error) {
-                    if ($state.transition !== transition) {
-                        return TransitionSuperseded;
-                    }
+                    if ($state.transition !== transition) return TransitionSuperseded;
 
                     $state.transition = null;
                     /**
@@ -3601,15 +3382,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * @returns {boolean} Returns true if it is the state.
              */
             $state.is = function is(stateOrName, params, options) {
-                options = extend({relative: $state.$current}, options || {});
+                options = extend({ relative: $state.$current }, options || {});
                 var state = findState(stateOrName, options.relative);
 
-                if (!isDefined(state)) {
-                    return undefined;
-                }
-                if ($state.$current !== state) {
-                    return false;
-                }
+                if (!isDefined(state)) { return undefined; }
+                if ($state.$current !== state) { return false; }
                 return params ? equalForKeys(state.params.$$values(params), $stateParams) : true;
             };
 
@@ -3665,7 +3442,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * @returns {boolean} Returns true if it does include the state
              */
             $state.includes = function includes(stateOrName, params, options) {
-                options = extend({relative: $state.$current}, options || {});
+                options = extend({ relative: $state.$current }, options || {});
                 if (isString(stateOrName) && isGlob(stateOrName)) {
                     if (!doesStateMatchGlob(stateOrName)) {
                         return false;
@@ -3674,12 +3451,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 }
 
                 var state = findState(stateOrName, options.relative);
-                if (!isDefined(state)) {
-                    return undefined;
-                }
-                if (!isDefined($state.$current.includes[state.name])) {
-                    return false;
-                }
+                if (!isDefined(state)) { return undefined; }
+                if (!isDefined($state.$current.includes[state.name])) { return false; }
                 return params ? equalForKeys(state.params.$$values(params), $stateParams, objectKeys(params)) : true;
             };
 
@@ -3713,27 +3486,23 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              */
             $state.href = function href(stateOrName, params, options) {
                 options = extend({
-                    lossy: true,
-                    inherit: true,
+                    lossy:    true,
+                    inherit:  true,
                     absolute: false,
                     relative: $state.$current
                 }, options || {});
 
                 var state = findState(stateOrName, options.relative);
 
-                if (!isDefined(state)) {
-                    return null;
-                }
-                if (options.inherit) {
-                    params = inheritParams($stateParams, params || {}, $state.$current, state);
-                }
+                if (!isDefined(state)) return null;
+                if (options.inherit) params = inheritParams($stateParams, params || {}, $state.$current, state);
 
                 var nav = (state && options.lossy) ? state.navigable : state;
 
                 if (!nav || nav.url === undefined || nav.url === null) {
                     return null;
                 }
-                return $urlRouter.href(nav.url, filterByKeys(state.params.$$keys(), params || {}), {
+                return $urlRouter.href(nav.url, filterByKeys(state.params.$$keys().concat('#'), params || {}), {
                     absolute: options.absolute
                 });
             };
@@ -3752,11 +3521,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
              * @returns {Object|Array} State configuration object or array of all objects.
              */
             $state.get = function (stateOrName, context) {
-                if (arguments.length === 0) {
-                    return map(objectKeys(states), function (name) {
-                        return states[name].self;
-                    });
-                }
+                if (arguments.length === 0) return map(objectKeys(states), function(name) { return states[name].self; });
                 var state = findState(stateOrName, context || $state.$current);
                 return (state && state.self) ? state.self : null;
             };
@@ -3767,7 +3532,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 // we also need $stateParams to be available for any $injector calls we make during the
                 // dependency resolution process.
                 var $stateParams = (paramsAreFiltered) ? params : filterByKeys(state.params.$$keys(), params);
-                var locals = {$stateParams: $stateParams};
+                var locals = { $stateParams: $stateParams };
 
                 // Resolve 'global' dependencies for the state, i.e. those not specific to a view.
                 // We're also including $stateParams in this; that way the parameters are restricted
@@ -3777,39 +3542,40 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 var promises = [dst.resolve.then(function (globals) {
                     dst.globals = globals;
                 })];
-                if (inherited) {
-                    promises.push(inherited);
+                if (inherited) promises.push(inherited);
+
+                function resolveViews() {
+                    var viewsPromises = [];
+
+                    // Resolve template and dependencies for all views.
+                    forEach(state.views, function (view, name) {
+                        var injectables = (view.resolve && view.resolve !== state.resolve ? view.resolve : {});
+                        injectables.$template = [ function () {
+                            return $view.load(name, { view: view, locals: dst.globals, params: $stateParams, notify: options.notify }) || '';
+                        }];
+
+                        viewsPromises.push($resolve.resolve(injectables, dst.globals, dst.resolve, state).then(function (result) {
+                            // References to the controller (only instantiated at link time)
+                            if (isFunction(view.controllerProvider) || isArray(view.controllerProvider)) {
+                                var injectLocals = angular.extend({}, injectables, dst.globals);
+                                result.$$controller = $injector.invoke(view.controllerProvider, null, injectLocals);
+                            } else {
+                                result.$$controller = view.controller;
+                            }
+                            // Provide access to the state itself for internal use
+                            result.$$state = state;
+                            result.$$controllerAs = view.controllerAs;
+                            dst[name] = result;
+                        }));
+                    });
+
+                    return $q.all(viewsPromises).then(function(){
+                        return dst.globals;
+                    });
                 }
 
-                // Resolve template and dependencies for all views.
-                forEach(state.views, function (view, name) {
-                    var injectables = (view.resolve && view.resolve !== state.resolve ? view.resolve : {});
-                    injectables.$template = [function () {
-                        return $view.load(name, {
-                                view: view,
-                                locals: locals,
-                                params: $stateParams,
-                                notify: options.notify
-                            }) || '';
-                    }];
-
-                    promises.push($resolve.resolve(injectables, locals, dst.resolve, state).then(function (result) {
-                        // References to the controller (only instantiated at link time)
-                        if (isFunction(view.controllerProvider) || isArray(view.controllerProvider)) {
-                            var injectLocals = angular.extend({}, injectables, locals);
-                            result.$$controller = $injector.invoke(view.controllerProvider, null, injectLocals);
-                        } else {
-                            result.$$controller = view.controller;
-                        }
-                        // Provide access to the state itself for internal use
-                        result.$$state = state;
-                        result.$$controllerAs = view.controllerAs;
-                        dst[name] = result;
-                    }));
-                });
-
                 // Wait for all the promises and then return the activation object
-                return $q.all(promises).then(function (values) {
+                return $q.all(promises).then(resolveViews).then(function (values) {
                     return dst;
                 });
             }
@@ -3817,8 +3583,27 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             return $state;
         }
 
-        function shouldTriggerReload(to, from, locals, options) {
-            if (to === from && ((locals === from.locals && !options.reload) || (to.self.reloadOnSearch === false))) {
+        function shouldSkipReload(to, toParams, from, fromParams, locals, options) {
+            // Return true if there are no differences in non-search (path/object) params, false if there are differences
+            function nonSearchParamsEqual(fromAndToState, fromParams, toParams) {
+                // Identify whether all the parameters that differ between `fromParams` and `toParams` were search params.
+                function notSearchParam(key) {
+                    return fromAndToState.params[key].location != "search";
+                }
+                var nonQueryParamKeys = fromAndToState.params.$$keys().filter(notSearchParam);
+                var nonQueryParams = pick.apply({}, [fromAndToState.params].concat(nonQueryParamKeys));
+                var nonQueryParamSet = new $$UMFP.ParamSet(nonQueryParams);
+                return nonQueryParamSet.$$equals(fromParams, toParams);
+            }
+
+            // If reload was not explicitly requested
+            // and we're transitioning to the same state we're already in
+            // and    the locals didn't change
+            //     or they changed in a way that doesn't merit reloading
+            //        (reloadOnParams:false, or reloadOnSearch.false and only search params changed)
+            // Then return true.
+            if (!options.reload && to === from &&
+                (locals === from.locals || (to.self.reloadOnSearch === false && nonSearchParamsEqual(from, fromParams, toParams)))) {
                 return true;
             }
         }
@@ -3844,7 +3629,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
          *
          */
         $get.$inject = ['$rootScope', '$templateFactory'];
-        function $get($rootScope, $templateFactory) {
+        function $get(   $rootScope,   $templateFactory) {
             return {
                 // $view.load('full.viewName', { template: ..., controller: ..., resolve: ..., async: false, params: ... })
                 /**
@@ -3859,13 +3644,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                  */
                 load: function load(name, options) {
                     var result, defaults = {
-                        template: null,
-                        controller: null,
-                        view: null,
-                        locals: null,
-                        notify: true,
-                        async: true,
-                        params: {}
+                        template: null, controller: null, view: null, locals: null, notify: true, async: true, params: {}
                     };
                     options = extend(defaults, options);
 
@@ -3950,7 +3729,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             }
 
             return function ($element) {
-                $timeout(function () {
+                return $timeout(function () {
                     $element[0].scrollIntoView();
                 }, 0, false);
             };
@@ -4073,12 +3852,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      * </pre>
      */
     $ViewDirective.$inject = ['$state', '$injector', '$uiViewScroll', '$interpolate'];
-    function $ViewDirective($state, $injector, $uiViewScroll, $interpolate) {
+    function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate) {
 
         function getService() {
-            return ($injector.has) ? function (service) {
+            return ($injector.has) ? function(service) {
                 return $injector.has(service) ? $injector.get(service) : null;
-            } : function (service) {
+            } : function(service) {
                 try {
                     return $injector.get(service);
                 } catch (e) {
@@ -4094,32 +3873,22 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         // Returns a set of DOM manipulation functions based on which Angular version
         // it should use
         function getRenderer(attrs, scope) {
-            var statics = function () {
+            var statics = function() {
                 return {
-                    enter: function (element, target, cb) {
-                        target.after(element);
-                        cb();
-                    },
-                    leave: function (element, cb) {
-                        element.remove();
-                        cb();
-                    }
+                    enter: function (element, target, cb) { target.after(element); cb(); },
+                    leave: function (element, cb) { element.remove(); cb(); }
                 };
             };
 
             if ($animate) {
                 return {
-                    enter: function (element, target, cb) {
+                    enter: function(element, target, cb) {
                         var promise = $animate.enter(element, null, target, cb);
-                        if (promise && promise.then) {
-                            promise.then(cb);
-                        }
+                        if (promise && promise.then) promise.then(cb);
                     },
-                    leave: function (element, cb) {
+                    leave: function(element, cb) {
                         var promise = $animate.leave(element, cb);
-                        if (promise && promise.then) {
-                            promise.then(cb);
-                        }
+                        if (promise && promise.then) promise.then(cb);
                     }
                 };
             }
@@ -4128,14 +3897,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 var animate = $animator && $animator(scope, attrs);
 
                 return {
-                    enter: function (element, target, cb) {
-                        animate.enter(element, null, target);
-                        cb();
-                    },
-                    leave: function (element, cb) {
-                        animate.leave(element);
-                        cb();
-                    }
+                    enter: function(element, target, cb) {animate.enter(element, null, target); cb(); },
+                    leave: function(element, cb) { animate.leave(element); cb(); }
                 };
             }
 
@@ -4150,14 +3913,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             compile: function (tElement, tAttrs, $transclude) {
                 return function (scope, $element, attrs) {
                     var previousEl, currentEl, currentScope, latestLocals,
-                        onloadExp = attrs.onload || '',
+                        onloadExp     = attrs.onload || '',
                         autoScrollExp = attrs.autoscroll,
-                        renderer = getRenderer(attrs, scope);
+                        renderer      = getRenderer(attrs, scope);
 
-                    scope.$on('$stateChangeSuccess', function () {
+                    scope.$on('$stateChangeSuccess', function() {
                         updateView(false);
                     });
-                    scope.$on('$viewContentLoading', function () {
+                    scope.$on('$viewContentLoading', function() {
                         updateView(false);
                     });
 
@@ -4175,7 +3938,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         }
 
                         if (currentEl) {
-                            renderer.leave(currentEl, function () {
+                            renderer.leave(currentEl, function() {
                                 previousEl = null;
                             });
 
@@ -4186,18 +3949,16 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                     function updateView(firstTime) {
                         var newScope,
-                            name = getUiViewName(scope, attrs, $element, $interpolate),
-                            previousLocals = name && $state.$current && $state.$current.locals[name];
+                            name            = getUiViewName(scope, attrs, $element, $interpolate),
+                            previousLocals  = name && $state.$current && $state.$current.locals[name];
 
-                        if (!firstTime && previousLocals === latestLocals) {
-                            return;
-                        } // nothing to do
+                        if (!firstTime && previousLocals === latestLocals) return; // nothing to do
                         newScope = scope.$new();
                         latestLocals = $state.$current.locals[name];
 
-                        var clone = $transclude(newScope, function (clone) {
+                        var clone = $transclude(newScope, function(clone) {
                             renderer.enter(clone, $element, function onUiViewEnter() {
-                                if (currentScope) {
+                                if(currentScope) {
                                     currentScope.$emit('$viewContentAnimationEnded');
                                 }
 
@@ -4231,7 +3992,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     }
 
     $ViewDirectiveFill.$inject = ['$compile', '$controller', '$state', '$interpolate'];
-    function $ViewDirectiveFill($compile, $controller, $state, $interpolate) {
+    function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate) {
         return {
             restrict: 'ECA',
             priority: -400,
@@ -4240,19 +4001,20 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 return function (scope, $element, attrs) {
                     var current = $state.$current,
                         name = getUiViewName(scope, attrs, $element, $interpolate),
-                        locals = current && current.locals[name];
+                        locals  = current && current.locals[name];
 
-                    if (!locals) {
+                    if (! locals) {
                         return;
                     }
 
-                    $element.data('$uiView', {name: name, state: locals.$$state});
+                    $element.data('$uiView', { name: name, state: locals.$$state });
                     $element.html(locals.$template ? locals.$template : initial);
 
                     var link = $compile($element.contents());
 
                     if (locals.$$controller) {
                         locals.$scope = scope;
+                        locals.$element = $element;
                         var controller = $controller(locals.$$controller, locals);
                         if (locals.$$controllerAs) {
                             scope[locals.$$controllerAs] = controller;
@@ -4274,7 +4036,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
     function getUiViewName(scope, attrs, element, $interpolate) {
         var name = $interpolate(attrs.uiView || attrs.name || '')(scope);
         var inherited = element.inheritedData('$uiView');
-        return name.indexOf('@') >= 0 ? name : (name + '@' + (inherited ? inherited.state.name : ''));
+        return name.indexOf('@') >= 0 ?  name :  (name + '@' + (inherited ? inherited.state.name : ''));
     }
 
     angular.module('ui.router.state').directive('uiView', $ViewDirective);
@@ -4282,14 +4044,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
     function parseStateRef(ref, current) {
         var preparsed = ref.match(/^\s*({[^}]*})\s*$/), parsed;
-        if (preparsed) {
-            ref = current + '(' + preparsed[1] + ')';
-        }
+        if (preparsed) ref = current + '(' + preparsed[1] + ')';
         parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
-        if (!parsed || parsed.length !== 4) {
-            throw new Error("Invalid state ref '" + ref + "'");
-        }
-        return {state: parsed[1], paramExpr: parsed[3] || null};
+        if (!parsed || parsed.length !== 4) throw new Error("Invalid state ref '" + ref + "'");
+        return { state: parsed[1], paramExpr: parsed[3] || null };
     }
 
     function stateContext(el) {
@@ -4364,40 +4122,39 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      */
     $StateRefDirective.$inject = ['$state', '$timeout'];
     function $StateRefDirective($state, $timeout) {
-        var allowedOptions = ['location', 'inherit', 'reload'];
+        var allowedOptions = ['location', 'inherit', 'reload', 'absolute'];
 
         return {
             restrict: 'A',
             require: ['?^uiSrefActive', '?^uiSrefActiveEq'],
-            link: function (scope, element, attrs, uiSrefActive) {
+            link: function(scope, element, attrs, uiSrefActive) {
                 var ref = parseStateRef(attrs.uiSref, $state.current.name);
                 var params = null, url = null, base = stateContext(element) || $state.$current;
-                var newHref = null, isAnchor = element.prop("tagName") === "A";
+                // SVGAElement does not use the href attribute, but rather the 'xlinkHref' attribute.
+                var hrefKind = Object.prototype.toString.call(element.prop('href')) === '[object SVGAnimatedString]' ?
+                    'xlink:href' : 'href';
+                var newHref = null, isAnchor = element.prop("tagName").toUpperCase() === "A";
                 var isForm = element[0].nodeName === "FORM";
-                var attr = isForm ? "action" : "href", nav = true;
+                var attr = isForm ? "action" : hrefKind, nav = true;
 
-                var options = {relative: base, inherit: true};
+                var options = { relative: base, inherit: true };
                 var optionsOverride = scope.$eval(attrs.uiSrefOpts) || {};
 
-                angular.forEach(allowedOptions, function (option) {
+                angular.forEach(allowedOptions, function(option) {
                     if (option in optionsOverride) {
                         options[option] = optionsOverride[option];
                     }
                 });
 
-                var update = function (newVal) {
-                    if (newVal) {
-                        params = angular.copy(newVal);
-                    }
-                    if (!nav) {
-                        return;
-                    }
+                var update = function(newVal) {
+                    if (newVal) params = angular.copy(newVal);
+                    if (!nav) return;
 
                     newHref = $state.href(ref.state, params, options);
 
                     var activeDirective = uiSrefActive[1] || uiSrefActive[0];
                     if (activeDirective) {
-                        activeDirective.$$setStateInfo(ref.state, params);
+                        activeDirective.$$addStateInfo(ref.state, params);
                     }
                     if (newHref === null) {
                         nav = false;
@@ -4407,34 +4164,29 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 if (ref.paramExpr) {
-                    scope.$watch(ref.paramExpr, function (newVal, oldVal) {
-                        if (newVal !== params) {
-                            update(newVal);
-                        }
+                    scope.$watch(ref.paramExpr, function(newVal, oldVal) {
+                        if (newVal !== params) update(newVal);
                     }, true);
                     params = angular.copy(scope.$eval(ref.paramExpr));
                 }
                 update();
 
-                if (isForm) {
-                    return;
-                }
+                if (isForm) return;
 
-                element.bind("click", function (e) {
+                element.bind("click", function(e) {
                     var button = e.which || e.button;
-                    if (!(button > 1 || e.ctrlKey || e.metaKey || e.shiftKey || element.attr('target'))) {
+                    if ( !(button > 1 || e.ctrlKey || e.metaKey || e.shiftKey || element.attr('target')) ) {
                         // HACK: This is to allow ng-clicks to be processed before the transition is initiated:
-                        var transition = $timeout(function () {
+                        var transition = $timeout(function() {
                             $state.go(ref.state, params, options);
                         });
                         e.preventDefault();
 
                         // if the state has no URL, ignore one preventDefault from the <a> directive.
-                        var ignorePreventDefaultCount = isAnchor && !newHref ? 1 : 0;
-                        e.preventDefault = function () {
-                            if (ignorePreventDefaultCount-- <= 0) {
+                        var ignorePreventDefaultCount = isAnchor && !newHref ? 1: 0;
+                        e.preventDefault = function() {
+                            if (ignorePreventDefaultCount-- <= 0)
                                 $timeout.cancel(transition);
-                            }
                         };
                     }
                 });
@@ -4518,10 +4270,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
      */
     $StateRefActiveDirective.$inject = ['$state', '$stateParams', '$interpolate'];
     function $StateRefActiveDirective($state, $stateParams, $interpolate) {
-        return {
+        return  {
             restrict: "A",
             controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-                var state, params, activeClass;
+                var states = [], activeClass;
 
                 // There probably isn't much point in $observing this
                 // uiSrefActive and uiSrefActiveEq share the same directive object with some
@@ -4529,9 +4281,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 activeClass = $interpolate($attrs.uiSrefActiveEq || $attrs.uiSrefActive || '', false)($scope);
 
                 // Allow uiSref to communicate with uiSrefActive[Equals]
-                this.$$setStateInfo = function (newState, newParams) {
-                    state = $state.get(newState, stateContext($element));
-                    params = newParams;
+                this.$$addStateInfo = function (newState, newParams) {
+                    var state = $state.get(newState, stateContext($element));
+
+                    states.push({
+                        state: state || { name: newState },
+                        params: newParams
+                    });
+
                     update();
                 };
 
@@ -4539,18 +4296,27 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 // Update route state
                 function update() {
-                    if (isMatch()) {
+                    if (anyMatch()) {
                         $element.addClass(activeClass);
                     } else {
                         $element.removeClass(activeClass);
                     }
                 }
 
-                function isMatch() {
+                function anyMatch() {
+                    for (var i = 0; i < states.length; i++) {
+                        if (isMatch(states[i].state, states[i].params)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                function isMatch(state, params) {
                     if (typeof $attrs.uiSrefActiveEq !== 'undefined') {
-                        return state && $state.is(state.name, params);
+                        return $state.is(state.name, params);
                     } else {
-                        return state && $state.includes(state.name, params);
+                        return $state.includes(state.name, params);
                     }
                 }
             }]
@@ -4595,7 +4361,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             return $state.includes(state);
         };
         includesFilter.$stateful = true;
-        return includesFilter;
+        return  includesFilter;
     }
 
     angular.module('ui.router.state')

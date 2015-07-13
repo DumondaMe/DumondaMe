@@ -1,9 +1,5 @@
 'use strict';
 
-var isSubCategorySelected = function ($scope) {
-    return $scope.subCategories.length > 0 && !$scope.category.selectedSubCategory;
-};
-
 module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
     function ($scope, PageCategories, Languages, SearchPage) {
 
@@ -18,16 +14,16 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
 
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
-                if (newCategories) {
+                /*if (newCategories) {
                     if ($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
                         delete $scope.category.selectedSubCategory;
                     } else if ($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
                         $scope.category.selectedSubCategory = $scope.subCategories[0];
                     }
-                }
+                }*/
 
                 if (newCategories && newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
-                    $scope.categoryFinishedButtonDisabled = isSubCategorySelected($scope);
+                    $scope.categoryFinishedButtonDisabled = false;
                 } else {
                     $scope.categoryFinishedButtonDisabled = true;
                 }

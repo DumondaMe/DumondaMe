@@ -25,7 +25,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
             blob = dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
             if ($scope.uploadFile) {
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
-                    showSuccess(function () {
+                    success(function () {
                         $scope.uploadRunning = false;
                         $scope.$emit('elyoos.profileImage.change');
                         $scope.$hide();

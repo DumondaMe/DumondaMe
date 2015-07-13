@@ -1536,7 +1536,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        </button>\r" +
     "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedSubCategory\"\r" +
+    "                        <!--<button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedSubCategory\"\r" +
     "\n" +
     "                                name=\"inputSubCategory\"\r" +
     "\n" +
@@ -1554,7 +1554,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                            <span class=\"caret\"></span>\r" +
     "\n" +
-    "                        </button>\r" +
+    "                        </button>-->\r" +
     "\n" +
     "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedLanguage\"\r" +
     "\n" +
@@ -1602,7 +1602,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                    ng-show=\"categoryFirstSelect\">\r" +
     "\n" +
-    "                                Fertig\r" +
+    "                                Weiter\r" +
     "\n" +
     "                            </button>\r" +
     "\n" +
