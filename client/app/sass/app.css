@@ -257,9 +257,8 @@
 .ely-expand-text .ely-expand-text-description {
   font-size: 14px;
   font-weight: 300;
-  max-height: 4.1em;
-  overflow: hidden;
-  text-overflow: ellipsis; }
+  max-height: 4.2em;
+  overflow: hidden; }
 .ely-expand-text button {
   margin-top: 10px; }
 
@@ -1166,9 +1165,6 @@ h1.website-structure-title {
       padding-right: 60px;
       padding-left: 280px;
       background-color: #f1f1f1; }
-      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-description-text {
-        font-size: 14px;
-        font-weight: 300; }
       #content-page-detail #centerCol .page-detail-bottom-element .page-detail-bottom-element-inner {
         border-top: solid 1px #CCCCCC;
         margin-top: 10px;
