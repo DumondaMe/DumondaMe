@@ -1,4 +1,4 @@
-<div ng-class="{'page-preview': !longFormat, 'page-preview-long': longFormat}">
+<div ng-class="{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}">
     <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         <img ng-src="{{pagePreview.url}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
         <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
@@ -10,7 +10,7 @@
     <div class="page-preview-language" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         {{pagePreview.labelShow}}, {{pagePreview.languageShow}}
     </div>
-    <div class="page-preview-contact" ng-if="longFormat" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+    <div class="page-preview-contact" ng-if="format === 'long'" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
         <div class="page-preview-contact-name">{{pagePreview.recommendation.contact.name}}</div>
     </div>
     <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating" ng-show="pagePreview.recommendation.summary.numberOfRatings > 0"

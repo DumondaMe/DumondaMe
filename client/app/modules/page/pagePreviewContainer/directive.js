@@ -9,7 +9,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                longFormat: '@',
+                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
                 title: '@',

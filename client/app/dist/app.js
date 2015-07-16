@@ -2177,7 +2177,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                        service-parameter=\"SearchPageParameter\" hide=\"!hide\"></ely-page-preview-container>\r" +
     "\n" +
-    "            <ely-page-preview-container long-format=\"true\" video-width=\"160\" video-height=\"255\"\r" +
+    "            <ely-page-preview-container format=\"long\" video-width=\"160\" video-height=\"255\"\r" +
     "\n" +
     "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationAllContact\"\r" +
     "\n" +
@@ -2262,7 +2262,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div ng-class=\"{'page-preview': !longFormat, 'page-preview-long': longFormat}\">\r" +
+    "<div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\">\r" +
     "\n" +
     "    <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
@@ -2286,7 +2286,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div class=\"page-preview-contact\" ng-if=\"longFormat\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
+    "    <div class=\"page-preview-contact\" ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
     "\n" +
     "        <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
     "\n" +
@@ -2325,11 +2325,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div ng-class=\"{'page-preview-container': longFormat && !expand, 'page-preview-short-container': !longFormat&& !expand, 'page-preview-expand-container': expand}\">\r" +
+    "    <div ng-class=\"{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}\">\r" +
     "\n" +
     "        <div ng-repeat=\"pagePreview in pagePreviews\" class=\"page-preview-inner-container\">\r" +
     "\n" +
-    "            <ely-page-preview page-preview=\"pagePreview\" long-format=\"{{longFormat}}\" video-width=\"{{videoWidth}}\"\r" +
+    "            <ely-page-preview page-preview=\"pagePreview\" format=\"{{format}}\" video-width=\"{{videoWidth}}\"\r" +
     "\n" +
     "                              video-height=\"{{videoHeight}}\"></ely-page-preview>\r" +
     "\n" +
@@ -6997,7 +6997,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                longFormat: '@',
+                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
                 title: '@',
@@ -7056,7 +7056,6 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal',
             function ($scope, $state, Languages, PageCategories, PromiseModal) {
-                $scope.longFormat = $scope.longFormat === 'true';
 
                 $scope.$watchCollection('pagePreview', function (newValue) {
                     if (newValue) {
@@ -7099,7 +7098,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                longFormat: '@',
+                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
                 pagePreview: '='

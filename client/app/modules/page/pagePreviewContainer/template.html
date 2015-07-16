@@ -5,9 +5,9 @@
                 ng-show="!expand && numberOfElements < totalNumberOfPages">Mehr
         </button>
     </div>
-    <div ng-class="{'page-preview-container': longFormat && !expand, 'page-preview-short-container': !longFormat&& !expand, 'page-preview-expand-container': expand}">
+    <div ng-class="{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}">
         <div ng-repeat="pagePreview in pagePreviews" class="page-preview-inner-container">
-            <ely-page-preview page-preview="pagePreview" long-format="{{longFormat}}" video-width="{{videoWidth}}"
+            <ely-page-preview page-preview="pagePreview" format="{{format}}" video-width="{{videoWidth}}"
                               video-height="{{videoHeight}}"></ely-page-preview>
         </div>
     </div>
