@@ -27,7 +27,7 @@ module.exports = {
                         PromiseModal.getModal({
                             scope: modalScope,
                             title: 'Kommentar zu ' + $scope.pagePreview.title,
-                            template: 'app/modules/page/pagePreview/commentDialog.html',
+                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html',
                             placement: 'center'
                         }).show();
                     }

@@ -1306,7 +1306,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" class=\"img-circle\" data-placement=\"bottom-right\"\r" +
     "\n" +
-    "                 data-template=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
+    "                 data-template-url=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
     "\n" +
     "                 data-trigger=\"click\" bs-popover>\r" +
     "\n" +

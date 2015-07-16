@@ -1307,7 +1307,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" class=\"img-circle\" data-placement=\"bottom-right\"\r" +
     "\n" +
-    "                 data-template=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
+    "                 data-template-url=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
     "\n" +
     "                 data-trigger=\"click\" bs-popover>\r" +
     "\n" +
@@ -7082,7 +7082,7 @@ module.exports = {
                         PromiseModal.getModal({
                             scope: modalScope,
                             title: 'Kommentar zu ' + $scope.pagePreview.title,
-                            template: 'app/modules/page/pagePreview/commentDialog.html',
+                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html',
                             placement: 'center'
                         }).show();
                     }
