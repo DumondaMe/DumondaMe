@@ -60,7 +60,8 @@
         <div class="page-detail-bottom-element">
             <h1 class="website-structure-title">Beschreibung</h1>
 
-            <div id="page-detail-description-text">{{pageDetail.page.description}}</div>
+            <!--<div id="page-detail-description-text">{{pageDetail.page.description}}</div>-->
+            <ely-expand-text description="{{pageDetail.page.description}}"></ely-expand-text>
         </div>
         <div class="page-detail-bottom-element" ng-show="pageDetail.recommendation.user">
             <div class="page-detail-bottom-element-inner" ng-controller="AddRemoveRecommendationCtrl">

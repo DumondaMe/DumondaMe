@@ -754,6 +754,23 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/directives/expandText/template.html',
+    "<div class=\"ely-expand-text\">\r" +
+    "\n" +
+    "    <div class=\"ely-expand-text-description\" ng-style=\"descriptionStyle\">{{description}}</div>\r" +
+    "\n" +
+    "    <button type=\"submit\" class=\"btn btn-default\" ng-click=\"expand()\"\r" +
+    "\n" +
+    "            ng-show=\"showExpand && !expanded\">\r" +
+    "\n" +
+    "        Mehr lesen\r" +
+    "\n" +
+    "    </button>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/directives/formTextInput/template.html',
     "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
     "\n" +
@@ -2034,7 +2051,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "            <div id=\"page-detail-description-text\">{{pageDetail.page.description}}</div>\r" +
+    "            <!--<div id=\"page-detail-description-text\">{{pageDetail.page.description}}</div>-->\r" +
+    "\n" +
+    "            <ely-expand-text description=\"{{pageDetail.page.description}}\"></ely-expand-text>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

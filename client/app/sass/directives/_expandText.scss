@@ -1,0 +1,13 @@
+.ely-expand-text {
+  .ely-expand-text-description {
+    font-size: 14px;
+    font-weight: 300;
+    max-height: 4.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}

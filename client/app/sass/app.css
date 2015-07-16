@@ -254,6 +254,15 @@
 .cropper-disabled .cropper-point {
   cursor: not-allowed; }
 
+.ely-expand-text .ely-expand-text-description {
+  font-size: 14px;
+  font-weight: 300;
+  max-height: 4.1em;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+.ely-expand-text button {
+  margin-top: 10px; }
+
 .ely-form-text-input .ely-input-error-wrapper {
   position: relative; }
   .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error {
