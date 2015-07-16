@@ -73,7 +73,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
             $modal({
                 scope: $scope,
                 title: '\u00c4nderung der Privatsph\u00e4ren Einstellung f\u00fcr ' + $scope.contact.name,
-                template: 'app/modules/contact/services/userActionsModalDescription.html',
+                templateUrl: 'app/modules/contact/services/userActionsModalDescription.html',
                 show: true,
                 placement: 'center'
             });
@@ -100,7 +100,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
             $modal({
                 scope: $scope,
                 title: 'Kontakt hinzuf\u00fcgen',
-                template: 'app/modules/contact/services/userActionsModalDescription.html',
+                templateUrl: 'app/modules/contact/services/userActionsModalDescription.html',
                 show: true,
                 placement: 'center'
             });

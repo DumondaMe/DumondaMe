@@ -12,7 +12,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             PromiseModal.getModal({
                 scope: modalScope,
                 title: title,
-                template: 'app/modules/recommendation/modalAddRecommendation.html',
+                templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
                 placement: 'center',
                 backdrop: 'static'
             }).show().then(function (resp) {
@@ -36,7 +36,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
             PromiseModal.getModal({
                 title: 'Bewertung l\u00f6schen',
                 content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
-                template: 'app/modules/util/dialog/yesNoDialog.html',
+                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
                 placement: 'center'
             }).show().then(function () {
                 PageRecommendation.delete({

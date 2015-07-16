@@ -37,7 +37,7 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
                     PromiseModal.getModal({
                         scope: modalScope,
                         title: $scope.category.title,
-                        template: 'app/modules/recommendation/modalAddRecommendation.html',
+                        templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
                         placement: 'center',
                         backdrop: 'static'
                     }).show().then(function () {

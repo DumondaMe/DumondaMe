@@ -798,7 +798,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div class=\"ely-input-image-error\" ng-show=\"showError && (visited || submitFailed)\"\r" +
     "\n" +
-    "                 data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "                 data-template-url=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
     "\n" +
     "                 data-placement=\"left\"\r" +
     "\n" +
@@ -909,7 +909,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"ely-submit-button-error\" ng-show=\"showError\">\r" +
     "\n" +
-    "        <img src=\"app/img/error.png\" ng-show=\"showError\" data-template=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
+    "        <img src=\"app/img/error.png\" ng-show=\"showError\" data-template-url=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
     "\n" +
     "             data-placement=\"{{errorPlacement}}\" bs-tooltip=\"errorDescription\"/>\r" +
     "\n" +
@@ -1702,7 +1702,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                data-backdrop=\"static\"\r" +
     "\n" +
-    "                data-template=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
+    "                data-template-url=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
     "\n" +
     "            Titelbild ausw&aumlhlen..\r" +
     "\n" +
@@ -2937,9 +2937,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                <div class=\"privacy-setting-button-row\">\n" +
     "                    <ely-send-button button-description=\"Änderung übernehmen\" send-data=\"updatePrivacyType\"\n" +
     "                                     error-placement=\"right\" model=\"selectedType\"></ely-send-button>\n" +
-    "                    <!--<button class=\"btn btn-default\" ng-class=\"{disabled: disableChangePrivacy}\"\n" +
-    "                            type=\"submit\" ng-click=\"updatePrivacyType()\">Änderung übernehmen\n" +
-    "                    </button>-->\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -2962,7 +2959,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                             src=\"app/img/delete.png\" trigger=\"click\"\n" +
     "                             data-auto-close=\"true\"\n" +
     "                             data-placement=\"bottom\"\n" +
-    "                             data-template=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
+    "                             data-template-url=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
     "                             bs-popover/>\n" +
     "                    </div>\n" +
     "                    <div class=\"list-group-item-container\">\n" +
@@ -2970,7 +2967,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "                             trigger=\"click\"\n" +
     "                             data-auto-close=\"true\"\n" +
     "                             data-placement=\"bottom\"\n" +
-    "                             data-template=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
+    "                             data-template-url=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
     "                             bs-popover/>\n" +
     "                    </div>\n" +
     "                    <div class=\"privacy-type-description\"\n" +
@@ -3024,7 +3021,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                        data-backdrop=\"static\"\r" +
     "\n" +
-    "                        data-template=\"app/modules/util/file/uploadFile.html\" bs-modal=\"modal\">\r" +
+    "                        data-template-url=\"app/modules/util/file/uploadFile.html\" bs-modal=\"modal\">\r" +
     "\n" +
     "                    Foto ändern..\r" +
     "\n" +

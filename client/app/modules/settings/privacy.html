@@ -71,9 +71,6 @@
                 <div class="privacy-setting-button-row">
                     <ely-send-button button-description="Änderung übernehmen" send-data="updatePrivacyType"
                                      error-placement="right" model="selectedType"></ely-send-button>
-                    <!--<button class="btn btn-default" ng-class="{disabled: disableChangePrivacy}"
-                            type="submit" ng-click="updatePrivacyType()">Änderung übernehmen
-                    </button>-->
                 </div>
             </div>
         </div>
@@ -96,7 +93,7 @@
                              src="app/img/delete.png" trigger="click"
                              data-auto-close="true"
                              data-placement="bottom"
-                             data-template="app/modules/settings/popoverDeletePrivacy.html"
+                             data-template-url="app/modules/settings/popoverDeletePrivacy.html"
                              bs-popover/>
                     </div>
                     <div class="list-group-item-container">
@@ -104,7 +101,7 @@
                              trigger="click"
                              data-auto-close="true"
                              data-placement="bottom"
-                             data-template="app/modules/settings/popoverRenamePrivacy.html"
+                             data-template-url="app/modules/settings/popoverRenamePrivacy.html"
                              bs-popover/>
                     </div>
                     <div class="privacy-type-description"
