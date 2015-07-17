@@ -27,3 +27,18 @@ MATCH (p:Page {pageId:'1'}) CREATE UNIQUE (a:Activity {place:'Zürich', street:'
 SET a.times = [1441445400, 1441472400, 1441533600, 1441555200];
 
 MATCH (p:Page {pageId:'1'}), (p2:Page {pageId:'2'}), (u:User {userId:'0'}) CREATE UNIQUE (u)-[:IS_ADMIN]->(p2)<-[:HAS]-(p);
+
+CREATE (:Page {pageId: '2', label: 'Course', title:'Aura sehen, Aura verstehen', description: 'Die Aura durchfliesst und umgibt den menschlichen Körper. Die Farben und Farbschattierungen, welche in einer Aura wahrgenommen werden können, sind so vielseitig und facettenreich wie die Menschen selber. In ihr sind alle Informationen über einen Menschen gespeichert; Vergangenheit, Gegenwart und die potentielle Zukunft.
+
+                                                    Die Aura ist das Energiefeld, welches die Eigenschaften, Gefühle, Gedanken und alles andere ausdrückt. Natürlich können Gedanken und Gefühle nicht aus der Aura wortgetreu gelesen werden, aber die Essenz daraus kann wahrgenommen werden!
+
+                                                    Was bedeuten die einzelnen Farben und wie kann dieses Wissen umgesetzt werden?
+
+                                                    Lernen Sie an diesem Wochenende, wie Sie die Aura und ihre Farben sehen und wahrnehmen können. Lernen Sie die vielen Farben kennen und interpretieren. Nehmen Sie Ihre eigene Aura und die Ihres Gegenübers wahr.
+
+                                                    Ein spannender Kurs mit einem fachkundigen und humorvollen Kursleiter, der seit Jahren mit der Aura arbeitet und ihre Interpretation im täglichen Leben einsetzt.
+
+                                                    Bitte bringen Sie Farbstifte und weisses Papier mit.', link:'http://www.kaleidoskop.org/de/Events/Alle-Events.31.html?aid=3956', price: '370', currency: 'CHF'});
+
+MATCH (p:Page {pageId:'2'}), (u:User {userId:'0'}) CREATE (p)<-[:IS_ADMIN]-(u);
+MATCH (p:Page {pageId:'0'}), (p2:Page {pageId:'2'}) CREATE (p2)<-[:HAS]-(p);

@@ -5,7 +5,6 @@ var administrator = require('./administrator');
 var detailTitlePicture = require('./detailTitlePicture');
 var underscore = require('underscore');
 var cdn = require('../../util/cdn');
-var logger = requireLogger.getLogger(__filename);
 
 var getPrincipal = function (pageId, userId) {
 

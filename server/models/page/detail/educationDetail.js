@@ -7,14 +7,17 @@ var administrator = require('./administrator');
 var recommendation = require('./recommendation');
 var response = require('./detailResponse');
 var detailTitlePicture = require('./detailTitlePicture');
+var cdn = require('../../util/cdn');
 
-var getCourses = function (pageId) {
+var getCourses = function (pageId, userId) {
     return db.cypher().match("(:Page {pageId: {pageId}, label: 'Education'})-[:HAS]->(course:Page {label: 'Course'})")
         .optionalMatch("(course)-[:HAS]->(activity:Activity)")
         .where("activity.startTime >= {actualTime}")
-        .return("course, activity")
+        .with("course, activity")
+        .optionalMatch("(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->course")
+        .return("course, activity, AVG(rec.rating) AS rating")
         .orderBy("course.pageId, activity.startTime")
-        .end({pageId: pageId, actualTime: time.getNowUtcTimestamp()}).getCommand();
+        .end({pageId: pageId, userId: userId, actualTime: time.getNowUtcTimestamp()}).getCommand();
 };
 
 var addCourseToResponse = function (courses, page) {
@@ -30,6 +33,10 @@ var addCourseToResponse = function (courses, page) {
 
         if (course.hasOwnProperty("course")) {
             if (!_.findWhere(page.course, {pageId: course.course.pageId})) {
+                course.course.url = cdn.getUrl('pages/' + course.course.pageId + '/pagePreview.jpg');
+                if (course.hasOwnProperty("rating")) {
+                    course.course.recommendation = {contact: {rating: course.rating}};
+                }
                 page.course.push(course.course);
             }
         }
@@ -44,7 +51,7 @@ var getDetail = function (pageId, label, userId) {
     commands.push(recommendation.getUserRecommendation(pageId, userId));
     commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
-    commands.push(getCourses(pageId));
+    commands.push(getCourses(pageId, userId));
     return db.cypher().match("(page:Page {pageId: {pageId}, label: 'Education'})")
         .optionalMatch("(page)-[:HAS]->(course:Page {label: 'Course'})")
         .return("page.title AS title, page.language AS language, page.description AS description, page.created AS created, page.website AS website, " +

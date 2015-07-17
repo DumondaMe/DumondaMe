@@ -4,6 +4,7 @@ var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var moment = require('moment');
+var should = require('chai').should();
 
 describe('Integration Tests for getting education page details', function () {
 
@@ -28,8 +29,10 @@ describe('Integration Tests for getting education page details', function () {
             startTime -= 100;
             commands.push(db.cypher().create("(:Activity { website: 'wwww.website5.com', startTime: " + (startTime - 4) + ", endTime: " + (startTime - 1) + "})").end().getCommand());
             commands.push(db.cypher().match("(p:Activity { website: 'wwww.website5.com'})").setArray("p.times", [startTime - 4, startTime - 3, startTime - 2, startTime - 1]).end().getCommand());
-            return db.cypher().create("(:Page {title: 'coursePage2Title', label: 'Course', description: 'coursePage2', language: 'de', created: 501, pageId: '2'," +
-                "website: 'wwww.website6.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().send(commands);
+            commands.push(db.cypher().create("(:Page {title: 'coursePage2Title', label: 'Course', description: 'coursePage2', language: 'de', created: 501, pageId: '2'," +
+                "website: 'wwww.website6.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().getCommand());
+            return db.cypher().create("(:Page {title: 'coursePage3Title', label: 'Course', description: 'coursePage3', language: 'de', created: 501, pageId: '3'," +
+                "website: 'wwww.website7.com', street:'Strasse 2', place:'Winkel2', postalCode:'8186', country:'de'})").end().send(commands);
 
         });
     });
@@ -43,11 +46,18 @@ describe('Integration Tests for getting education page details', function () {
         var commands = [];
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true})")
-            .end().getCommand());
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: true, profileData: true, contacts: true})")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '3'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
+
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().getCommand());
@@ -58,6 +68,9 @@ describe('Integration Tests for getting education page details', function () {
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Page {pageId: '2'})")
             .create("(a)-[:HAS]->(b)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Page {pageId: '3'})")
+            .create("(a)-[:HAS]->(b)")
+            .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Activity {website: 'wwww.website3.com'})")
             .create("(a)-[:HAS]->(b)")
             .end().getCommand());
@@ -66,6 +79,17 @@ describe('Integration Tests for getting education page details', function () {
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Activity {website: 'wwww.website5.com'})")
             .create("(a)-[:HAS]->(b)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '3'}), (b:Activity {website: 'wwww.website5.com'})")
+            .create("(a)-[:HAS]->(b)")
+            .end().getCommand());
+
+        //Recommendation of the first Course by contacts
+        commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 2, recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
@@ -93,13 +117,22 @@ describe('Integration Tests for getting education page details', function () {
                 res.body.page.country.should.equals('ch');
                 res.body.page.titleUrl.should.equals('pages/0/pageTitlePicture.jpg');
 
-                res.body.page.course.length.should.equals(2);
+                res.body.page.course.length.should.equals(3);
                 res.body.page.course[0].title.should.equals('coursePage1Title');
                 res.body.page.course[0].language.should.equals('de');
                 res.body.page.course[0].pageId.should.equals('1');
+                res.body.page.course[0].url.should.equals('pages/1/pagePreview.jpg');
+                should.not.exist(res.body.page.course[0].recommendation);
                 res.body.page.course[1].title.should.equals('coursePage2Title');
                 res.body.page.course[1].language.should.equals('de');
                 res.body.page.course[1].pageId.should.equals('2');
+                res.body.page.course[1].url.should.equals('pages/2/pagePreview.jpg');
+                res.body.page.course[1].recommendation.contact.rating.should.equals(3);
+                res.body.page.course[2].title.should.equals('coursePage3Title');
+                res.body.page.course[2].language.should.equals('de');
+                res.body.page.course[2].pageId.should.equals('3');
+                res.body.page.course[2].url.should.equals('pages/3/pagePreview.jpg');
+                should.not.exist(res.body.page.course[2].recommendation);
 
                 res.body.page.activities.length.should.equals(2);
                 startTime += 100;
