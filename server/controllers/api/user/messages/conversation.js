@@ -3,7 +3,6 @@ var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
 var conversation = require('./../../../../models/messages/conversation');
 var messageThread = require('./../../../../models/messages/messageThread');
-var exceptions = require('./../../../../lib/error/exceptions');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 
