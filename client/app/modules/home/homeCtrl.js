@@ -1,22 +1,14 @@
 'use strict';
 
-module.exports = ['$scope', 'Modification', function ($scope, Modification) {
+module.exports = ['$scope', 'Home', 'HomeLeftNavElements', function ($scope, Home, HomeLeftNavElements) {
 
-    function setMessageText(modification, scope) {
-        if (modification.numberOfMessages === 1) {
-            scope.messageText = modification.numberOfMessages + ' neue Meldung';
-        } else if (modification.numberOfMessages > 1) {
-            scope.messageText = modification.numberOfMessages + ' neue Meldungen';
-        } else {
-            scope.messageText = '';
-        }
-    }
+    var skip = 0, itemsPerPage = 10;
 
-    var modification = Modification.get({forceShowModification: true}, function () {
-        setMessageText(modification, $scope);
-    });
+    $scope.$emit(HomeLeftNavElements.event, HomeLeftNavElements.elements);
+
+    $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip});
 
     $scope.$on('message.changed', function (event, numberOfMessages) {
-        setMessageText({numberOfMessages: numberOfMessages}, $scope);
+        //setMessageText({numberOfMessages: numberOfMessages}, $scope);
     });
 }];

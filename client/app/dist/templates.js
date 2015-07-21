@@ -952,13 +952,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/home.html',
-    "<div class=\"navigation\">\n" +
-    "    <ely-home-nav-element description=\"Kontakte\" image-url=\"app/img/home/contact.png\"\n" +
-    "                          nav-to=\"contact.myContacts\"></ely-home-nav-element>\n" +
-    "    <ely-home-nav-element description=\"Nachrichten\" image-url=\"app/img/home/email.png\"\n" +
-    "                          nav-to=\"message.threads\" event-description=\"messageText\"></ely-home-nav-element>\n" +
-    "    <ely-home-nav-element description=\"Seiten\" image-url=\"app/img/home/page.png\"\n" +
-    "                          nav-to=\"page.overview\"></ely-home-nav-element>\n" +
+    "<div id=\"home\">\n" +
+    "    <ely-home-pinwall-container pinwall=\"pinwall\"></ely-home-pinwall-container>\n" +
     "</div>"
   );
 
@@ -984,6 +979,84 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "</div>\r" +
     "\n"
+  );
+
+
+  $templateCache.put('app/modules/home/homePinwallContainer/template.html',
+    "<div class=\"home-pinwall-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
+    "\n" +
+    "    <div class=\"home-pinwall-container-column\">\r" +
+    "\n" +
+    "        <div ng-repeat=\"pinwallElement in pinwall1Elements\">\r" +
+    "\n" +
+    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 1\">\r" +
+    "\n" +
+    "        <div ng-repeat=\"pinwallElement in pinwall2Elements\">\r" +
+    "\n" +
+    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
+    "\n" +
+    "        <div ng-repeat=\"pinwal3Element in pinwall1Elements\">\r" +
+    "\n" +
+    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/home/homePinwallElement/template.html',
+    "<div class=\"home-pinwall-element\">\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-description\"> {{category}} Bewertung</div>\r" +
+    "\n" +
+    "    <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{element.profileUrl}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-profile-description\">\r" +
+    "\n" +
+    "        <div class=\"pinwall-element-profile-name\">{{element.name}}</div>\r" +
+    "\n" +
+    "        <div class=\"pinwall-element-time\">{{getFormattedDate(element.created, 'LLL')}}</div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-content\" ng-click=\"openDetail(element.pageId, element.label)\">\r" +
+    "\n" +
+    "        <img class=\"pinwall-element-image\" ng-src=\"{{element.url}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"pinwall-element-content-description\">\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-title\">{{element.title}}</div>\r" +
+    "\n" +
+    "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"pinwall-element-rating\"\r" +
+    "\n" +
+    "                             number-of-selected-stars-readonly=\"element.rating\"></ely-star-rating>\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-content-description-text\">{{element.description}}</div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
   );
 
 

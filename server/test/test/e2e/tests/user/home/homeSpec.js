@@ -79,6 +79,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[0].url.should.equals('pages/0/pagePreview.jpg');
                 res.body.pinwall[0].comment.should.equals('irgendwas');
+                res.body.pinwall[0].description.should.equals('bookPage1');
 
                 res.body.pinwall[1].label.should.equals('Book');
                 res.body.pinwall[1].pageId.should.equals('1');
@@ -89,6 +90,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[1].url.should.equals('pages/1/pagePreview.jpg');
                 res.body.pinwall[1].comment.should.equals('irgendwas2');
+                res.body.pinwall[1].description.should.equals('bookPage2');
 
             });
     });

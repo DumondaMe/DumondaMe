@@ -48,7 +48,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                         templateUrl: 'app/modules/navigation/loggedInHeader.html',
                         controller: 'LoggedInHeaderCtrl'
                     }
-                }
+                },
+                hasNavigation: true
             })
             .state('public', {
                 abstract: true,

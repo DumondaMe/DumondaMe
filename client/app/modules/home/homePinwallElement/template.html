@@ -1,0 +1,19 @@
+<div class="home-pinwall-element">
+    <div class="pinwall-element-description"> {{category}} Bewertung</div>
+    <img class="pinwall-element-profile-image img-circle" ng-src="{{element.profileUrl}}">
+
+    <div class="pinwall-element-profile-description">
+        <div class="pinwall-element-profile-name">{{element.name}}</div>
+        <div class="pinwall-element-time">{{getFormattedDate(element.created, 'LLL')}}</div>
+    </div>
+    <div class="pinwall-element-content" ng-click="openDetail(element.pageId, element.label)">
+        <img class="pinwall-element-image" ng-src="{{element.url}}">
+
+        <div class="pinwall-element-content-description">
+            <div class="pinwall-element-title">{{element.title}}</div>
+            <ely-star-rating is-readonly="true" is-x-small="true" class="pinwall-element-rating"
+                             number-of-selected-stars-readonly="element.rating"></ely-star-rating>
+            <div class="pinwall-element-content-description-text">{{element.description}}</div>
+        </div>
+    </div>
+</div>
