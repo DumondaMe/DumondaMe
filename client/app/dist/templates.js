@@ -1019,8 +1019,43 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/home/homePinwallElement/template.html',
-    "<div class=\"home-pinwall-element\">\r" +
+  $templateCache.put('app/modules/home/homePinwallElement/newMessages.html',
+    "<div ng-controller=\"HomePinwallElementNewMessageCtrl\">\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-description\"> Du hast neue Nachrichten</div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-profile-messages\" ng-repeat=\"message in element.messages\">\r" +
+    "\n" +
+    "        <div ng-click=\"openThread(message.threadId)\">\r" +
+    "\n" +
+    "            <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{message.profileUrl}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-profile-description\">\r" +
+    "\n" +
+    "                <div class=\"pinwall-element-profile-name\">{{message.name}}</div>\r" +
+    "\n" +
+    "                <div class=\"pinwall-element-time\" ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"pinwall-element-time\" ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/home/homePinwallElement/recommendation.html',
+    "<div ng-controller=\"HomePinwallElementRecommendationCtrl\">\r" +
     "\n" +
     "    <div class=\"pinwall-element-description\"> {{category}} Bewertung</div>\r" +
     "\n" +
@@ -1059,6 +1094,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "        </div>\r" +
     "\n" +
     "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/home/homePinwallElement/template.html',
+    "<div class=\"home-pinwall-element\">\r" +
+    "\n" +
+    "    <div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div>\r" +
+    "\n" +
+    "    <div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div>\r" +
     "\n" +
     "</div>"
   );

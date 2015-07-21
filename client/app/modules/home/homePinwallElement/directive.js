@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
@@ -10,7 +8,6 @@ module.exports = {
             scope: {
                 element: '='
             },
-            controller: controller.directiveCtrl(),
             templateUrl: 'app/modules/home/homePinwallElement/template.html'
         };
     }],

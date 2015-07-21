@@ -824,6 +824,9 @@ h1.website-structure-title {
           color: #999;
           font-size: 12px;
           border-bottom: 1px solid #e5e5e5; }
+        #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-profile-messages {
+          margin-bottom: 10px;
+          cursor: pointer; }
         #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-profile-image {
           display: inline-block;
           vertical-align: top;
