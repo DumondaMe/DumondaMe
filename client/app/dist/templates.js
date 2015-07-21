@@ -1007,7 +1007,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
     "\n" +
-    "        <div ng-repeat=\"pinwal3Element in pinwall1Elements\">\r" +
+    "        <div ng-repeat=\"pinwallElement in pinwall3Elements\">\r" +
     "\n" +
     "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
     "\n" +

@@ -1008,7 +1008,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
     "\n" +
-    "        <div ng-repeat=\"pinwal3Element in pinwall1Elements\">\r" +
+    "        <div ng-repeat=\"pinwallElement in pinwall3Elements\">\r" +
     "\n" +
     "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
     "\n" +
@@ -5722,25 +5722,49 @@ var resetPinwallElements = function ($scope) {
     $scope.pinwall3Elements = [];
 };
 
+var addPinwallElementsToColumns = function ($scope, pinwall) {
+    var i;
+    if ($scope.numberOfRows === 1) {
+        $scope.pinwall1Elements = pinwall;
+    } else if ($scope.numberOfRows === 2) {
+        for (i = 0; i < pinwall.length; i++) {
+            if (i % 2 === 0) {
+                $scope.pinwall1Elements.push(pinwall[i]);
+            } else {
+                $scope.pinwall2Elements.push(pinwall[i]);
+            }
+        }
+    } else if ($scope.numberOfRows === 3) {
+        for (i = 0; i < pinwall.length; i++) {
+            if (i % 3 === 0) {
+                $scope.pinwall1Elements.push(pinwall[i]);
+            } else if (i % 3 === 1) {
+                $scope.pinwall2Elements.push(pinwall[i]);
+            } else {
+                $scope.pinwall3Elements.push(pinwall[i]);
+            }
+        }
+    }
+};
+
+var pinwall;
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
 
             $scope.$watchCollection('pinwall', function (newPinwall) {
-                var i;
                 if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
+                    pinwall = newPinwall.pinwall;
                     resetPinwallElements($scope);
-                    if ($scope.numberOfRows === 1) {
-                        $scope.pinwall1Elements = newPinwall.pinwall;
-                    } else if ($scope.numberOfRows === 2) {
-                        for (i = 0; i < newPinwall.pinwall.length; i++) {
-                            if (i % 2 === 0) {
-                                $scope.pinwall1Elements.push(newPinwall.pinwall[i]);
-                            } else {
-                                $scope.pinwall2Elements.push(newPinwall.pinwall[i]);
-                            }
-                        }
-                    }
+                    addPinwallElementsToColumns($scope, newPinwall.pinwall);
+                }
+            });
+
+            $scope.$watch('numberOfRows', function (newNumberOfRows) {
+                if (newNumberOfRows && pinwall) {
+                    resetPinwallElements($scope);
+                    addPinwallElementsToColumns($scope, pinwall);
                 }
             });
         }];
