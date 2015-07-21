@@ -847,20 +847,24 @@ h1.website-structure-title {
           #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-image {
             width: 120px;
             max-height: 200px; }
-          #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description {
+          #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description {
             display: inline-block;
             vertical-align: top;
-            margin-left: 10px; }
-            #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-title {
-              width: 230px;
+            margin-left: 10px;
+            width: 230px; }
+            #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-title, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description .pinwall-element-title {
               color: #009688;
-              overflow: hidden; }
-            #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-content-description-text {
-              width: 230px;
-              height: 120px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis; }
+            #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-content-description-text, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description .pinwall-element-content-description-text {
+              max-height: 120px;
               margin-top: 5px;
               overflow: hidden;
               font-weight: 300; }
+          #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description {
+            margin-left: 0px;
+            width: 380px; }
 
 .navigation-element {
   float: left;

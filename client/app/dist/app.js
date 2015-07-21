@@ -1039,11 +1039,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"pinwall-element-content\" ng-click=\"openDetail(element.pageId, element.label)\">\r" +
     "\n" +
-    "        <img class=\"pinwall-element-image\" ng-src=\"{{element.url}}\">\r" +
+    "        <img class=\"pinwall-element-image\" ng-hide=\"element.label === 'Youtube'\" ng-src=\"{{element.url}}\">\r" +
+    "\n" +
+    "        <ely-iframe width=\"380\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"element.link\"\r" +
+    "\n" +
+    "                    ng-show=\"element.label === 'Youtube'\"></ely-iframe>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "        <div class=\"pinwall-element-content-description\">\r" +
+    "        <div ng-class=\"{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}\">\r" +
     "\n" +
     "            <div class=\"pinwall-element-title\">{{element.title}}</div>\r" +
     "\n" +
@@ -5670,7 +5674,7 @@ app.filter('fromTo', require('./fromToFilter'));
 
 module.exports = ['$scope', 'Home', 'HomeLeftNavElements', function ($scope, Home, HomeLeftNavElements) {
 
-    var skip = 0, itemsPerPage = 10;
+    var skip = 0, itemsPerPage = 40;
 
     $scope.$emit(HomeLeftNavElements.event, HomeLeftNavElements.elements);
 
@@ -8258,10 +8262,10 @@ module.exports = ['moment', function (moment) {
     };
 
     this.formatRelativeTimes =  function (dateValue, format) {
-        var endYesterday = moment().subtract(1, 'days').endOf('day');
+        var startYesterday = moment().subtract(1, 'days').startOf('day');
         dateValue = moment.unix(dateValue);
 
-        if (dateValue.isAfter(endYesterday)) {
+        if (dateValue.isAfter(startYesterday)) {
             return dateValue.fromNow();
         }
         if (format) {

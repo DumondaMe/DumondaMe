@@ -21,10 +21,10 @@ module.exports = ['moment', function (moment) {
     };
 
     this.formatRelativeTimes =  function (dateValue, format) {
-        var endYesterday = moment().subtract(1, 'days').endOf('day');
+        var startYesterday = moment().subtract(1, 'days').startOf('day');
         dateValue = moment.unix(dateValue);
 
-        if (dateValue.isAfter(endYesterday)) {
+        if (dateValue.isAfter(startYesterday)) {
             return dateValue.fromNow();
         }
         if (format) {

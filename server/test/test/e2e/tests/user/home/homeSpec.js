@@ -18,8 +18,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
                 "author: 'Hans Muster', publishDate: 1000})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Book', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000})").end().send(commands);
+            return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
+                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch'})").end().send(commands);
 
         });
     });
@@ -81,14 +81,15 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].comment.should.equals('irgendwas');
                 res.body.pinwall[0].description.should.equals('bookPage1');
 
-                res.body.pinwall[1].label.should.equals('Book');
+                res.body.pinwall[1].label.should.equals('Youtube');
                 res.body.pinwall[1].pageId.should.equals('1');
                 res.body.pinwall[1].name.should.equals('user Meier2');
                 res.body.pinwall[1].title.should.equals('bookPage2Title');
                 res.body.pinwall[1].rating.should.equals(4);
                 res.body.pinwall[1].created.should.equals(501);
                 res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                res.body.pinwall[1].url.should.equals('pages/1/pagePreview.jpg');
+                should.not.exist(res.body.pinwall[1].url);
+                res.body.pinwall[1].link.should.equals('www.test.ch');
                 res.body.pinwall[1].comment.should.equals('irgendwas2');
                 res.body.pinwall[1].description.should.equals('bookPage2');
 

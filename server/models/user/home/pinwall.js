@@ -13,7 +13,7 @@ var getPinwall = function (userId, request) {
         .with("contact, rec, page, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("contact.name AS name, contact.userId AS userId, rec.rating AS rating, rec.created AS created, rec.comment AS comment, " +
-        "page.label AS label, page.title AS title, page.pageId AS pageId, page.description AS description, " +
+        "page.label AS label, page.title AS title, page.pageId AS pageId, page.description AS description, page.link AS link, " +
         "v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("rec.created DESC")
         .skip("{skip}")

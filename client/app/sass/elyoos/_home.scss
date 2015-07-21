@@ -61,21 +61,25 @@
             display: inline-block;
             vertical-align: top;
             margin-left: 10px;
+            width: 230px;
             .pinwall-element-title {
-              width: 230px;
               color: $primary-color;
               overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
-            .pinwall-element-rating {
 
-            }
             .pinwall-element-content-description-text {
-              width: 230px;
-              height: 120px;
+              max-height: 120px;
               margin-top: 5px;
               overflow: hidden;
               font-weight: 300;
             }
+          }
+          .pinwall-element-content-youtube-description {
+            @extend .pinwall-element-content-description;
+            margin-left: 0px;
+            width: 380px;
           }
         }
       }
