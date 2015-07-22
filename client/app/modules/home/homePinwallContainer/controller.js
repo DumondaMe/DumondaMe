@@ -1,5 +1,13 @@
 'use strict';
 
+var pinwall;
+var messages;
+var skip;
+var itemsPerPage;
+var timestamp;
+var requestPinwallElements;
+var requestPinwallElementsRunning;
+
 var resetPinwallElements = function ($scope) {
     $scope.pinwall1Elements = [];
     $scope.pinwall2Elements = [];
@@ -37,19 +45,19 @@ var removeMessageElement = function (column) {
     }
 };
 
-var addNewMessagesElementsToColumns = function ($scope, messages) {
+var addNewMessagesElementsToColumns = function ($scope, messagesToColumn) {
 
     removeMessageElement($scope.pinwall1Elements);
     removeMessageElement($scope.pinwall2Elements);
     removeMessageElement($scope.pinwall3Elements);
 
-    if (messages && messages.messages.length > 0) {
+    if (messagesToColumn && messagesToColumn.messages.length > 0) {
         if ($scope.numberOfRows === 1) {
-            $scope.pinwall1Elements.unshift(messages);
+            $scope.pinwall1Elements.unshift(messagesToColumn);
         } else if ($scope.numberOfRows === 2) {
-            $scope.pinwall2Elements.unshift(messages);
+            $scope.pinwall2Elements.unshift(messagesToColumn);
         } else if ($scope.numberOfRows === 3) {
-            $scope.pinwall3Elements.unshift(messages);
+            $scope.pinwall3Elements.unshift(messagesToColumn);
         }
     }
 };
@@ -60,20 +68,20 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-var pinwall;
-var messages;
-var skip, itemsPerPage, timestamp, requestPinwallElements;
-
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
         if (newPinwall.pinwall.length > 0) {
             setPinwallType(newPinwall.pinwall, 'Recommendation');
             pinwall = pinwall.concat(newPinwall.pinwall);
+            if (pinwall.length < skip - 1) {
+                requestPinwallElements = false;
+            }
             resetPinwallElements($scope);
             addPinwallElementsToColumns($scope, pinwall);
         } else {
             requestPinwallElements = false;
         }
+        requestPinwallElementsRunning = false;
     }
 };
 
@@ -93,6 +101,7 @@ module.exports = {
             timestamp = Math.floor(moment.utc().valueOf() / 1000);
             pinwall = [];
             requestPinwallElements = true;
+            requestPinwallElementsRunning = false;
 
             $scope.$watchCollection('pinwall', function (newPinwall) {
                 setRecommendation($scope, newPinwall);
@@ -108,7 +117,8 @@ module.exports = {
             });
 
             $scope.nextPinwallInfo = function () {
-                if (requestPinwallElements) {
+                if (requestPinwallElements && !requestPinwallElementsRunning) {
+                    requestPinwallElementsRunning = true;
                     $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
                     skip += itemsPerPage;
                 }

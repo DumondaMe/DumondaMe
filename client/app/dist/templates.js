@@ -958,30 +958,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/home/homeNavElement/template.html',
-    "<div class=\"navigation-element\">\r" +
-    "\n" +
-    "    <a ui-sref={{navTo}}>\r" +
-    "\n" +
-    "        <div class=\"navigation-element-content\">\r" +
-    "\n" +
-    "            <img ng-src=\"{{imageUrl}}\"/>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div class=\"navigation-element-description\">{{description}}</div>\r" +
-    "\n" +
-    "            <div class=\"navigation-element-info\">{{eventDescription}}</div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </a>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
-  );
-
-
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
     "<div class=\"home-pinwall-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
     "\n" +
