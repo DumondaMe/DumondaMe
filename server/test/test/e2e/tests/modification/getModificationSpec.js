@@ -100,7 +100,18 @@ describe('Integration Tests for getting modification info', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.hasChanged.should.be.true;
-            res.body.numberOfMessages.should.equals(4);
+            res.body.messages.length.should.equals(2);
+            res.body.messages[0].threadId.should.equals('1');
+            res.body.messages[0].isGroupThread.should.equals(false);
+            res.body.messages[0].name.should.equals('user2 Meier2');
+            res.body.messages[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+            res.body.messages[0].numberOfUnreadMessages.should.equals(3);
+
+            res.body.messages[1].threadId.should.equals('1');
+            res.body.messages[1].isGroupThread.should.equals(true);
+            res.body.messages[1].name.should.equals('TestChat');
+            res.body.messages[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+            res.body.messages[1].numberOfUnreadMessages.should.equals(1);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -114,7 +125,7 @@ describe('Integration Tests for getting modification info', function () {
             return requestHandler.getWithData('/api/modification', {forceShowModification: true}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.numberOfMessages.should.equals(3);
+            res.body.messages.length.should.equals(2);
         });
     });
 

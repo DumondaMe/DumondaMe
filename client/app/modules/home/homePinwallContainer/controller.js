@@ -95,6 +95,11 @@ module.exports = {
                     addNewMessagesElementsToColumns($scope, messages);
                 }
             });
+
+            $scope.$on('message.changed', function (event, newMessages) {
+                messages = {messages: newMessages, type: 'NewMessages'};
+                addNewMessagesElementsToColumns($scope, messages);
+            });
         }];
     }
 };

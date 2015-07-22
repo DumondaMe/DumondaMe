@@ -1,10 +1,8 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
-var should = require('chai').should();
 var moment = require('moment');
 
 describe('Integration Tests for getting all threads of a user', function () {
@@ -148,7 +146,6 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[2].threadId.should.equal('2');
             res.body.threads[2].isGroupThread.should.be.false;
 
-            res.body.numberOfUnreadMessages.should.equal(5);
             res.body.numberOfThreads.should.equal(3);
         });
     });
@@ -179,7 +176,6 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].threadId.should.equal('2');
             res.body.threads[1].isGroupThread.should.be.false;
 
-            res.body.numberOfUnreadMessages.should.equal(5);
             res.body.numberOfThreads.should.equal(3);
         });
     });

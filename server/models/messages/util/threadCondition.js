@@ -1,7 +1,5 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
-
 var getThreadCondition = function (isGroupThread) {
     var threadTyp;
     if (isGroupThread) {

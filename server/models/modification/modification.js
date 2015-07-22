@@ -1,35 +1,34 @@
 'use strict';
 
-var db = require('./../../neo4j');
-var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
+var userInfo = require('./../user/userInfo');
 var unread = require('../messages/util/unreadMessages');
 
-var getNumberOfUnreadMessages = function (unreadMessages) {
-    var total = 0;
-    underscore.forEach(unreadMessages, function (unreadMessage) {
-        total += unreadMessage.unreadMessage;
-    });
-    return total;
+var checkNewUnreadMessages = function (unreadMessages, session) {
+
+    var hasChanged = false, sessionUnreadMessage;
+    if (unreadMessages.length !== session.userData.unreadMessages.length) {
+        session.userData.unreadMessages = unreadMessages;
+        hasChanged = true;
+    } else {
+        underscore.forEach(unreadMessages, function (unreadMessage) {
+            sessionUnreadMessage = underscore.findWhere(session.userData.unreadMessages,
+                {threadId: unreadMessage.threadId, numberOfUnreadMessages: unreadMessage.numberOfUnreadMessages});
+            if (!sessionUnreadMessage) {
+                session.userData.unreadMessages = unreadMessages;
+                hasChanged = true;
+            }
+        });
+    }
+    return hasChanged;
 };
 
 var hasModification = function (userId, session) {
-    return unread.hasUnreadMessages(userId).then(function (unreadMessages) {
-        var hasChanged = false, sessionUnreadMessage, numberOfUnreadMessages;
-        numberOfUnreadMessages = getNumberOfUnreadMessages(unreadMessages);
-        if (unreadMessages.length !== session.userData.unreadMessages.length) {
-            session.userData.unreadMessages = unreadMessages;
-            hasChanged = true;
-        } else {
-            underscore.forEach(unreadMessages, function (unreadMessage) {
-                sessionUnreadMessage = underscore.findWhere(session.userData.unreadMessages, unreadMessage);
-                if (!sessionUnreadMessage) {
-                    session.userData.unreadMessages = unreadMessages;
-                    hasChanged = true;
-                }
-            });
-        }
-        return {hasChanged: hasChanged, numberOfMessages: numberOfUnreadMessages};
+    return unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
+        var hasChanged;
+        userInfo.addImageForThumbnail(unreadMessages);
+        hasChanged = checkNewUnreadMessages(unreadMessages, session);
+        return {hasChanged: hasChanged, messages: unreadMessages};
     });
 };
 
@@ -41,7 +40,7 @@ var resetModificationForThread = function (threadId, isGroupThread, session) {
 
 var initModificationOnSession = function (userId, session, callback) {
     session.userData = {unreadMessages: []};
-    unread.hasUnreadMessages(userId).then(function (unreadMessages) {
+    unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
         session.userData.unreadMessages = unreadMessages;
         callback();
     });

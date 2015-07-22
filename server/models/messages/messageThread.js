@@ -2,9 +2,7 @@
 
 var db = require('./../../neo4j');
 var uuid = require('./../../lib/uuid');
-var Promise = require('bluebird').Promise;
 var underscore = require('underscore');
-var logger = requireLogger.getLogger(__filename);
 var userInfo = require('./../user/userInfo');
 var unreadMessages = require('./util/unreadMessages');
 var time = require('./../../lib/time');
@@ -23,7 +21,7 @@ var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
             isGroupThread: thread.isGroupThread
         });
         if (unreadMessagesOfThread) {
-            thread.numberOfUnreadMessages = unreadMessagesOfThread.unreadMessage;
+            thread.numberOfUnreadMessages = unreadMessagesOfThread.numberOfUnreadMessages;
         }
     }
 
@@ -86,7 +84,7 @@ var getMessageThreads = function (userId, itemsPerPage, skip) {
 
     var commands = [];
 
-    commands.push(unreadMessages.getNumberOfUnreadMessages(userId).getCommand());
+    commands.push(unreadMessages.getUnreadMessages(userId).getCommand());
     commands.push(getNumberOfThreads(userId).getCommand());
 
     return getAllThreads({
