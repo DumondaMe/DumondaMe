@@ -60,9 +60,9 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-var pinwall = [];
+var pinwall;
 var messages;
-var skip = 0, itemsPerPage = 30, timestamp, requestPinwallElements = true;
+var skip, itemsPerPage, timestamp, requestPinwallElements;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
@@ -88,7 +88,12 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
 
+            skip = 0;
+            itemsPerPage = 30;
             timestamp = Math.floor(moment.utc().valueOf() / 1000);
+            pinwall = [];
+            requestPinwallElements = true;
+
             $scope.$watchCollection('pinwall', function (newPinwall) {
                 setRecommendation($scope, newPinwall);
                 setNewMessages($scope, newPinwall);
