@@ -62,7 +62,7 @@ var setPinwallType = function (pinwallElements, type) {
 
 var pinwall = [];
 var messages;
-var skip = 0, itemsPerPage = 5, timestamp;
+var skip = 0, itemsPerPage = 30, timestamp;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {

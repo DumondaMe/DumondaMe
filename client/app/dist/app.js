@@ -5825,7 +5825,7 @@ var setPinwallType = function (pinwallElements, type) {
 
 var pinwall = [];
 var messages;
-var skip = 0, itemsPerPage = 5, timestamp;
+var skip = 0, itemsPerPage = 30, timestamp;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
@@ -7588,9 +7588,9 @@ arguments[4][36][0].apply(exports,arguments)
 
 var categories = {
     Book: {description: 'Buch'},
-    Youtube: {description: 'Youtube'},
+    Youtube: {description: 'Youtube'}/*,
     Course: {description: 'Kurs'},
-    Education: {description: 'Ausbildung'}
+    Education: {description: 'Ausbildung'}*/
 };
 
 module.exports = [
