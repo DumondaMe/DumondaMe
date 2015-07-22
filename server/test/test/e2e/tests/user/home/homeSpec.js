@@ -65,7 +65,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
                     skip: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    timestamp: 502
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -94,6 +95,46 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[1].comment.should.equals('irgendwas2');
                 res.body.pinwall[1].description.should.equals('bookPage2');
 
+            });
+    });
+
+    it('Ignoring newer recommenations', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '2'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true})")
+            .end().getCommand());
+
+        //Recommendations
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10,
+                    timestamp: 501
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.pinwall.length.should.equals(0);
+                res.body.messages.length.should.equals(0);
             });
     });
 
@@ -160,7 +201,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
                     skip: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    timestamp: 500
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);

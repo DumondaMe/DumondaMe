@@ -12,6 +12,7 @@ var getPinwall = function (userId, request) {
 
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)" +
         "-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
+        .where("rec.created <= {timestamp}")
         .with("contact, user, rec, page")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
@@ -23,7 +24,7 @@ var getPinwall = function (userId, request) {
         .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
+        .end({userId: userId, skip: request.skip, maxItems: request.maxItems, timestamp: request.timestamp})
         .send(commands)
         .then(function (resp) {
             userInfo.addImageForThumbnail(resp[0]);

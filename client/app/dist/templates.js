@@ -953,7 +953,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/home/home.html',
     "<div id=\"home\">\n" +
-    "    <ely-home-pinwall-container pinwall=\"pinwall\"></ely-home-pinwall-container>\n" +
+    "    <ely-home-pinwall-container></ely-home-pinwall-container>\n" +
     "</div>"
   );
 
@@ -985,31 +985,35 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
     "<div class=\"home-pinwall-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
     "\n" +
-    "    <div class=\"home-pinwall-container-column\">\r" +
+    "    <div infinite-scroll=\"nextPinwallInfo()\" infinite-scroll-distance=\"1\">\r" +
     "\n" +
-    "        <div ng-repeat=\"pinwallElement in pinwall1Elements\">\r" +
+    "        <div class=\"home-pinwall-container-column\">\r" +
     "\n" +
-    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "            <div ng-repeat=\"pinwallElement in pinwall1Elements\">\r" +
     "\n" +
-    "        </div>\r" +
+    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
     "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 1\">\r" +
-    "\n" +
-    "        <div ng-repeat=\"pinwallElement in pinwall2Elements\">\r" +
-    "\n" +
-    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
-    "    </div>\r" +
+    "        <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 1\">\r" +
     "\n" +
-    "    <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
+    "            <div ng-repeat=\"pinwallElement in pinwall2Elements\">\r" +
     "\n" +
-    "        <div ng-repeat=\"pinwallElement in pinwall3Elements\">\r" +
+    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
     "\n" +
-    "            <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
+    "\n" +
+    "            <div ng-repeat=\"pinwallElement in pinwall3Elements\">\r" +
+    "\n" +
+    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

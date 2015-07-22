@@ -9,7 +9,6 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                pinwall: '='
             },
             link: link.directiveLink(),
             controller: controller.directiveCtrl(),

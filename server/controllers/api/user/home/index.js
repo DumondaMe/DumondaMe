@@ -10,10 +10,11 @@ var schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems'],
+    required: ['skip', 'maxItems', 'timestamp'],
     properties: {
         skip: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50}
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        timestamp: {type: 'integer'}
     }
 };
 

@@ -8,6 +8,7 @@ require('angular-animate');
 require('angular-resource');
 require('angular-strap');
 require('angular-strap-tpl');
+require('infinit-scroll');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
@@ -15,7 +16,8 @@ var app = angular.module('elyoosApp', [
     'ngCookies',
     'ngAnimate',
     'ngResource',
-    'mgcrea.ngStrap'
+    'mgcrea.ngStrap',
+    'infinite-scroll'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);

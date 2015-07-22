@@ -60,15 +60,16 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-var pinwall;
+var pinwall = [];
 var messages;
+var skip = 0, itemsPerPage = 5, timestamp;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
         setPinwallType(newPinwall.pinwall, 'Recommendation');
-        pinwall = newPinwall.pinwall;
+        pinwall = pinwall.concat(newPinwall.pinwall);
         resetPinwallElements($scope);
-        addPinwallElementsToColumns($scope, newPinwall.pinwall);
+        addPinwallElementsToColumns($scope, pinwall);
     }
 };
 
@@ -81,8 +82,9 @@ var setNewMessages = function ($scope, newPinwall) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', function ($scope) {
+        return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
 
+            timestamp = Math.floor(moment.utc().valueOf() / 1000);
             $scope.$watchCollection('pinwall', function (newPinwall) {
                 setRecommendation($scope, newPinwall);
                 setNewMessages($scope, newPinwall);
@@ -95,6 +97,11 @@ module.exports = {
                     addNewMessagesElementsToColumns($scope, messages);
                 }
             });
+
+            $scope.nextPinwallInfo = function () {
+                $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
+                skip += itemsPerPage;
+            };
 
             $scope.$on('message.changed', function (event, newMessages) {
                 messages = {messages: newMessages, type: 'NewMessages'};

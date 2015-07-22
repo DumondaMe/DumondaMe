@@ -1,17 +1,19 @@
 <div class="home-pinwall-container" ng-style="{'width': containerWidth + 'px'}">
-    <div class="home-pinwall-container-column">
-        <div ng-repeat="pinwallElement in pinwall1Elements">
-            <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+    <div infinite-scroll="nextPinwallInfo()" infinite-scroll-distance="1">
+        <div class="home-pinwall-container-column">
+            <div ng-repeat="pinwallElement in pinwall1Elements">
+                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+            </div>
         </div>
-    </div>
-    <div class="home-pinwall-container-column" ng-if="numberOfRows > 1">
-        <div ng-repeat="pinwallElement in pinwall2Elements">
-            <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+        <div class="home-pinwall-container-column" ng-if="numberOfRows > 1">
+            <div ng-repeat="pinwallElement in pinwall2Elements">
+                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+            </div>
         </div>
-    </div>
-    <div class="home-pinwall-container-column" ng-if="numberOfRows > 2">
-        <div ng-repeat="pinwallElement in pinwall3Elements">
-            <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+        <div class="home-pinwall-container-column" ng-if="numberOfRows > 2">
+            <div ng-repeat="pinwallElement in pinwall3Elements">
+                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+            </div>
         </div>
     </div>
 </div>
