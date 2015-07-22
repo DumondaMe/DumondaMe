@@ -5825,14 +5825,18 @@ var setPinwallType = function (pinwallElements, type) {
 
 var pinwall = [];
 var messages;
-var skip = 0, itemsPerPage = 30, timestamp;
+var skip = 0, itemsPerPage = 5, timestamp, requestPinwallElements = true;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
-        setPinwallType(newPinwall.pinwall, 'Recommendation');
-        pinwall = pinwall.concat(newPinwall.pinwall);
-        resetPinwallElements($scope);
-        addPinwallElementsToColumns($scope, pinwall);
+        if (newPinwall.pinwall.length > 0) {
+            setPinwallType(newPinwall.pinwall, 'Recommendation');
+            pinwall = pinwall.concat(newPinwall.pinwall);
+            resetPinwallElements($scope);
+            addPinwallElementsToColumns($scope, pinwall);
+        } else {
+            requestPinwallElements = false;
+        }
     }
 };
 
@@ -5862,8 +5866,10 @@ module.exports = {
             });
 
             $scope.nextPinwallInfo = function () {
-                $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
-                skip += itemsPerPage;
+                if (requestPinwallElements) {
+                    $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
+                    skip += itemsPerPage;
+                }
             };
 
             $scope.$on('message.changed', function (event, newMessages) {
@@ -6021,9 +6027,9 @@ module.exports = [
 
         this.elements = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'},
-            {description: 'Kontakte', url: 'app/img/page/overview.png', color: '#009688', sref: 'contact.myContacts'},
-            {description: 'Nachrichten', url: 'app/img/page/pageMyRecommendation.png', color: '#ce5043', sref: 'message.threads'},
-            {description: 'Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.overview'}];
+            {description: 'Kontakte', url: 'app/img/home/contact.png', color: '#009688', sref: 'contact.myContacts'},
+            {description: 'Nachrichten', url: 'app/img/home/email.png', color: '#ce5043', sref: 'message.threads'},
+            {description: 'Seiten', url: 'app/img/home/page.png', color: '#1aa1e1', sref: 'page.overview'}];
     }];
 
 },{}],79:[function(require,module,exports){

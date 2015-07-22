@@ -62,14 +62,18 @@ var setPinwallType = function (pinwallElements, type) {
 
 var pinwall = [];
 var messages;
-var skip = 0, itemsPerPage = 30, timestamp;
+var skip = 0, itemsPerPage = 5, timestamp, requestPinwallElements = true;
 
 var setRecommendation = function ($scope, newPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
-        setPinwallType(newPinwall.pinwall, 'Recommendation');
-        pinwall = pinwall.concat(newPinwall.pinwall);
-        resetPinwallElements($scope);
-        addPinwallElementsToColumns($scope, pinwall);
+        if (newPinwall.pinwall.length > 0) {
+            setPinwallType(newPinwall.pinwall, 'Recommendation');
+            pinwall = pinwall.concat(newPinwall.pinwall);
+            resetPinwallElements($scope);
+            addPinwallElementsToColumns($scope, pinwall);
+        } else {
+            requestPinwallElements = false;
+        }
     }
 };
 
@@ -99,8 +103,10 @@ module.exports = {
             });
 
             $scope.nextPinwallInfo = function () {
-                $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
-                skip += itemsPerPage;
+                if (requestPinwallElements) {
+                    $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
+                    skip += itemsPerPage;
+                }
             };
 
             $scope.$on('message.changed', function (event, newMessages) {
