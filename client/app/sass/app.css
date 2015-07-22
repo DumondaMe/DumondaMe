@@ -841,8 +841,12 @@ h1.website-structure-title {
             font-size: 16px;
             color: #009688; }
           #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-profile-description .pinwall-element-time {
+            display: inline-block;
+            vertical-align: top;
             color: #999;
-            font-size: 12px; }
+            font-size: 12px;
+            margin-top: 3px;
+            margin-left: 5px; }
         #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content {
           margin-top: 20px;
           margin-bottom: 20px;
@@ -860,12 +864,20 @@ h1.website-structure-title {
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis; }
+            #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-rating-description, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description .pinwall-element-rating-description {
+              display: inline-block;
+              vertical-align: top;
+              color: #999;
+              font-size: 12px;
+              margin-top: 3px;
+              margin-left: 5px; }
             #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-description .pinwall-element-content-description-text, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description .pinwall-element-content-description-text {
               max-height: 120px;
               margin-top: 5px;
               overflow: hidden;
               font-weight: 300; }
           #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-content .pinwall-element-content-youtube-description {
+            margin-top: 10px;
             margin-left: 0px;
             width: 380px; }
 

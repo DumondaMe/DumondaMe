@@ -10,17 +10,20 @@ var getPinwall = function (userId, request) {
 
     commands.push(unread.getUnreadMessages(userId).getCommand());
 
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)" +
-        "-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
+    return db.cypher().match("(:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
         .where("rec.created <= {timestamp}")
-        .with("contact, user, rec, page")
+        .with("page, max(rec.created) AS created, avg(rec.rating) AS ratingAllContacts, count(rec) AS numberOfRatingsByContacts")
+        .match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)" +
+        "-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page)")
+        .where("rec.created = created")
+        .with("contact, rec, page, ratingAllContacts, numberOfRatingsByContacts, user")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
-        .with("contact, rec, page, rContact, v, vr")
+        .with("contact, rec, page, ratingAllContacts, numberOfRatingsByContacts, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("contact.name AS name, contact.userId AS userId, rec.rating AS rating, rec.created AS created, rec.comment AS comment, " +
         "page.label AS label, page.title AS title, page.pageId AS pageId, page.description AS description, page.link AS link, " +
-        "v.profile AS profileVisible, v.image AS imageVisible")
+        "ratingAllContacts, numberOfRatingsByContacts, v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")

@@ -47,8 +47,12 @@
             color: $primary-color;
           }
           .pinwall-element-time {
+            display: inline-block;
+            vertical-align: top;
             color: #999;
             font-size: 12px;
+            margin-top: 3px;
+            margin-left: 5px;
           }
         }
 
@@ -74,6 +78,15 @@
               text-overflow: ellipsis;
             }
 
+            .pinwall-element-rating-description {
+              display: inline-block;
+              vertical-align: top;
+              color: #999;
+              font-size: 12px;
+              margin-top: 3px;
+              margin-left: 5px;
+            }
+
             .pinwall-element-content-description-text {
               max-height: 120px;
               margin-top: 5px;
@@ -83,6 +96,7 @@
           }
           .pinwall-element-content-youtube-description {
             @extend .pinwall-element-content-description;
+            margin-top: 10px;
             margin-left: 0px;
             width: 380px;
           }

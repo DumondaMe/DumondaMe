@@ -1047,6 +1047,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div class=\"pinwall-element-profile-name\">{{element.name}}</div>\r" +
     "\n" +
+    "        <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" number-of-selected-stars-readonly=\"element.rating\"></ely-star-rating>\r" +
+    "\n" +
     "        <div class=\"pinwall-element-time\">{{getFormattedDate(element.created, 'LLL')}}</div>\r" +
     "\n" +
     "    </div>\r" +
@@ -1067,7 +1069,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"pinwall-element-rating\"\r" +
     "\n" +
-    "                             number-of-selected-stars-readonly=\"element.rating\"></ely-star-rating>\r" +
+    "                             number-of-selected-stars-readonly=\"element.ratingAllContacts\"></ely-star-rating>\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-rating-description\">{{element.numberOfRatingsByContacts}} Bewertungen</div>\r" +
     "\n" +
     "            <div class=\"pinwall-element-content-description-text\">{{element.description}}</div>\r" +
     "\n" +
