@@ -15,8 +15,11 @@
         <div ng-class="{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}">
             <div class="pinwall-element-title">{{element.title}}</div>
             <ely-star-rating is-readonly="true" is-x-small="true" class="pinwall-element-rating"
-                             number-of-selected-stars-readonly="element.ratingAllContacts"></ely-star-rating>
-            <div class="pinwall-element-rating-description">{{element.numberOfRatingsByContacts}} Bewertungen</div>
+                             number-of-selected-stars-readonly="element.ratingAllContacts"
+                             ng-show="element.numberOfRatingsByContacts > 1"></ely-star-rating>
+            <div class="pinwall-element-rating-description"
+                 ng-show="element.numberOfRatingsByContacts > 1">{{element.numberOfRatingsByContacts}} Bewertungen
+            </div>
             <div class="pinwall-element-content-description-text">{{element.description}}</div>
         </div>
     </div>

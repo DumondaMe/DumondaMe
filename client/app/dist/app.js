@@ -1070,9 +1070,15 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"pinwall-element-rating\"\r" +
     "\n" +
-    "                             number-of-selected-stars-readonly=\"element.ratingAllContacts\"></ely-star-rating>\r" +
+    "                             number-of-selected-stars-readonly=\"element.ratingAllContacts\"\r" +
     "\n" +
-    "            <div class=\"pinwall-element-rating-description\">{{element.numberOfRatingsByContacts}} Bewertungen</div>\r" +
+    "                             ng-show=\"element.numberOfRatingsByContacts > 1\"></ely-star-rating>\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-rating-description\"\r" +
+    "\n" +
+    "                 ng-show=\"element.numberOfRatingsByContacts > 1\">{{element.numberOfRatingsByContacts}} Bewertungen\r" +
+    "\n" +
+    "            </div>\r" +
     "\n" +
     "            <div class=\"pinwall-element-content-description-text\">{{element.description}}</div>\r" +
     "\n" +
