@@ -5808,7 +5808,7 @@ module.exports = {
         return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
 
             skip = 0;
-            itemsPerPage = 5;
+            itemsPerPage = 30;
             timestamp = Math.floor(moment.utc().valueOf() / 1000);
             pinwall = [];
             requestPinwallElements = true;
