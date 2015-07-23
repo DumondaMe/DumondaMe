@@ -855,6 +855,11 @@ h1.website-structure-title {
             color: #999;
             font-size: 12px;
             margin-top: 3px; }
+        #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-comment {
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 300;
+          margin-bottom: 20px; }
         #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .pinwall-element-link {
           color: #009688;
           cursor: pointer;

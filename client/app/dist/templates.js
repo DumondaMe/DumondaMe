@@ -1075,6 +1075,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/homePinwallElement/noRecommendation.html',
+    "<div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-description\"> Information</div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-comment\" ui-sref=\"contact.myContacts\">\r" +
+    "\n" +
+    "        Suche nach Personen die Du kennst oder denen Du folgen m&ouml;chtest. (Hier klicken)</div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallElement/recommendation.html',
     "<div ng-controller=\"HomePinwallElementRecommendationCtrl\">\r" +
     "\n" +
@@ -1134,6 +1147,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div class=\"home-pinwall-element\">\r" +
     "\n" +
     "    <div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div>\r" +
+    "\n" +
+    "    <div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div>\r" +
     "\n" +
     "    <div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div>\r" +
     "\n" +

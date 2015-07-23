@@ -81,6 +81,9 @@ var setRecommendation = function ($scope, newPinwall) {
             addPinwallElementsToColumns($scope, pinwall);
         } else {
             requestPinwallElements = false;
+            if (pinwall.length === 0) {
+                $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
+            }
         }
         requestPinwallElementsRunning = false;
     }
@@ -110,6 +113,8 @@ module.exports = {
             itemsPerPage = 30;
             timestamp = Math.floor(moment.utc().valueOf() / 1000);
             pinwall = [];
+            messages = {};
+            contacting = {};
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
 
@@ -123,12 +128,8 @@ module.exports = {
                 if (newNumberOfRows && pinwall) {
                     resetPinwallElements($scope);
                     addPinwallElementsToColumns($scope, pinwall);
-                    if (contacting) {
-                        addNewElementToColumns($scope, contacting, contacting.contacting);
-                    }
-                    if (messages) {
-                        addNewElementToColumns($scope, messages, messages.messages);
-                    }
+                    addNewElementToColumns($scope, contacting, contacting.contacting);
+                    addNewElementToColumns($scope, messages, messages.messages);
                 }
             });
 
