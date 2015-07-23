@@ -3,6 +3,7 @@
 
 var passport = require('passport');
 var modification = require('../../../models/modification/modification');
+var loginUser = require('../../../models/user/loginUser');
 var logger = requireLogger.getLogger(__filename);
 
 
@@ -27,10 +28,15 @@ module.exports = function (router) {
                     return res.status(500).end();
                 }
 
-                modification.initModificationOnSession(req.user.id, req.session, function () {
-                    req.session.cookie.maxAge = 1000 * 60 * 60 * 12;
-                    res.status(200).json({"username": user.email});
-                    logger.info('Successful login of user', req, {});
+                loginUser.setTimestamp(req.user.id).then(function () {
+                    modification.initModificationOnSession(req.user.id, req.session, function () {
+                        req.session.cookie.maxAge = 1000 * 60 * 60 * 12;
+                        res.status(200).json({"username": user.email});
+                        logger.info('Successful login of user', req, {});
+                    });
+                }).catch(function (err) {
+                    logger.error('Setting Timestamp failed', req, {error: err});
+                    res.status(500).end();
                 });
             });
 

@@ -6,7 +6,6 @@
 var db = require('./../../neo4j');
 var logger = requireLogger.getLogger(__filename);
 var cdn = require('../util/cdn');
-var moment = require('moment');
 var underscore = require('underscore');
 
 var getUser = function (resp, id, profileUrls, req) {

@@ -3,13 +3,16 @@
 var app = require('../../../../../server');
 var request = require('supertest');
 var users = require('../util/user');
+var requestHandler = require('../util/request');
+var moment = require('moment');
 var db = require('../util/db');
 
 describe('Integration Tests Login', function () {
 
-    before(function () {
+    beforeEach(function () {
         return db.clearDatabase().then(function () {
-            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', userId:'1' })")
+            return db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', " +
+                "lastLogin: 100, userId:'1' })")
                 .end().send();
         });
     });
@@ -23,6 +26,19 @@ describe('Integration Tests Login', function () {
 
     it('Login - Return a 200', function (done) {
         request(app).post('/api/login').send(users.validUser).expect(200).end(done);
+    });
+
+    it('Login and setting the flag last login - Return a 200', function () {
+        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        return requestHandler.login(users.validUser).then(function () {
+            return db.cypher().match("(user:User {userId: '1'})")
+                .return("user.lastLogin AS lastLogin, user.previousLastLogin AS previousLastLogin").end().send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            user[0].lastLogin.should.least(startTime);
+            user[0].previousLastLogin.should.equals(100);
+        });
     });
 
     it('Logout - Return a 200', function (done) {

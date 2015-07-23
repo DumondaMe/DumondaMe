@@ -5,7 +5,6 @@ var uuid = require('./../../lib/uuid');
 var cdn = require('./../util/cdn');
 var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../lib/error/exceptions');
-var Promise = require('bluebird').Promise;
 var time = require('./../../lib/time');
 var logger = requireLogger.getLogger(__filename);
 
@@ -40,6 +39,8 @@ var registerUser = function (params, req) {
                 country: params.country,
                 female: params.female,
                 userId: userId,
+                lastLogin: time.getNowUtcTimestamp(),
+                previousLastLogin: time.getNowUtcTimestamp(),
                 registerDate: time.getNowUtcTimestamp()
             },
             privacy: {
