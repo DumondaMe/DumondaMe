@@ -9,7 +9,7 @@ var getUnreadMessages = function (userId) {
         .with("user, thread, COUNT(thread.threadId) AS numberOfUnreadMessages")
         .orderBy("numberOfUnreadMessages DESC")
         .match("(user)-[:ACTIVE]->(thread)<-[:ACTIVE]-(contact:User)")
-        .with("contact, thread, numberOfUnreadMessages")
+        .with("contact, user, thread, numberOfUnreadMessages")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, thread, numberOfUnreadMessages, rContact, v, vr")

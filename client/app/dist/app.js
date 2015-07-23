@@ -7565,9 +7565,9 @@ arguments[4][36][0].apply(exports,arguments)
 
 var categories = {
     Book: {description: 'Buch'},
-    Youtube: {description: 'Youtube'},
+    Youtube: {description: 'Youtube'}/*,
     Course: {description: 'Kurs'},
-    Education: {description: 'Ausbildung'}
+    Education: {description: 'Ausbildung'}*/
 };
 
 module.exports = [
