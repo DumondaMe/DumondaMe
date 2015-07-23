@@ -20,17 +20,8 @@ module.exports = ['moment', function (moment) {
         return dateValue.format('l');
     };
 
-    this.formatRelativeTimes =  function (dateValue, format) {
-        var startYesterday = moment().subtract(1, 'days').startOf('day');
-        dateValue = moment.unix(dateValue);
-
-        if (dateValue.isAfter(startYesterday)) {
-            return dateValue.fromNow();
-        }
-        if (format) {
-            return dateValue.format(format);
-        }
-        return dateValue.format('l');
+    this.formatRelativeTimes =  function (dateValue) {
+        return moment.unix(dateValue).fromNow();
     };
 
     this.formatExact = function (dateValue) {

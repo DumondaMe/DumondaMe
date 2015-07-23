@@ -5,5 +5,6 @@ var directive = require('./directive.js');
 
 app.controller('HomePinwallElementNewMessageCtrl', require('./newMessageCtrl'));
 app.controller('HomePinwallElementRecommendationCtrl', require('./recommendationCtrl'));
+app.controller('HomePinwallElementContactingCtrl', require('./contactingCtrl'));
 
 app.directive(directive.name, directive.directive);

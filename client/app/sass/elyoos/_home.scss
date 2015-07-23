@@ -45,6 +45,10 @@
           .pinwall-element-profile-name {
             font-size: 16px;
             color: $primary-color;
+            max-width: 320px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
           .pinwall-element-time {
             display: inline-block;
@@ -53,6 +57,24 @@
             font-size: 12px;
             margin-top: 3px;
             margin-left: 5px;
+          }
+          .pinwall-element-info {
+            color: #999;
+            font-size: 12px;
+            margin-top: 3px;
+          }
+        }
+
+        .pinwall-element-link {
+          color: $primary-color;
+          cursor: pointer;
+          font-size: 12px;
+          margin-top: 20px;
+          margin-left: 50px;
+          margin-bottom: 10px;
+
+          &:hover {
+            text-decoration: underline;
           }
         }
 

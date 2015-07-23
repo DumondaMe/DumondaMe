@@ -18,6 +18,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier5', userId: '5'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier5', userId: '6'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
                 "author: 'Hans Muster', publishDate: 1000})").end().getCommand());
             return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
@@ -234,58 +236,47 @@ describe('Integration Tests for getting home screen information for a user', fun
             });
     });
 
-    it('Getting the contacts who has recently added user', function () {
+    it('Getting the contacts who have added user since last login', function () {
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true})")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .set("u", {lastLogin: startTime - 604700})
             .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 1000}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 604500}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '4'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 604600}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '5'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 604700}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '6'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 604800}).getCommand());
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '3'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true})")
-            .end().getCommand());
-
-
-        //Create Thread with messages between user 1 + 2
-        commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
-            .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '1'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-            .end({
-                lastTimeVisited: startTime - 500,
-                lastTimeVisited2: startTime - 400
-            }).getCommand());
-        commands.push(db.cypher().match("(thread:Thread {threadId: '1'}), (u:User {userId: '1'}), (u2:User {userId: '2'})")
-            .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-            "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-            "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})," +
-            "(message)-[:WRITTEN]->(u2)," +
-            "(message2)-[:WRITTEN]->(u)," +
-            "(message3)-[:WRITTEN]->(u2)")
-            .end({
-                messageAdded: startTime - 299,
-                messageAdded2: startTime - 400,
-                messageAdded3: startTime - 600
-            }).getCommand());
-
-        //Create Thread with messages between user 1 + 3
-        commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
-            .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '2'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-            .end({
-                lastTimeVisited: startTime - 300,
-                lastTimeVisited2: startTime - 300
-            }).getCommand());
-        commands.push(db.cypher().match("(thread:Thread {threadId: '2'}), (u:User {userId: '1'}), (u2:User {userId: '3'})")
-            .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})," +
-            "(message)-[:WRITTEN]->(u2)")
-            .end({
-                messageAdded: startTime - 299
-            }).getCommand());
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: false})").end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '4'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true})").end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '5'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true})").end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '6'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
@@ -303,16 +294,23 @@ describe('Integration Tests for getting home screen information for a user', fun
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.messages.length.should.equals(2);
-                res.body.messages[0].threadId.should.equals('1');
-                res.body.messages[0].name.should.equals('user Meier2');
-                res.body.messages[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                res.body.messages[0].numberOfUnreadMessages.should.equals(2);
+                res.body.contacting.users.length.should.equals(3);
+                res.body.contacting.users[0].userId.should.equals('2');
+                res.body.contacting.users[0].name.should.equals('user Meier2');
+                res.body.contacting.users[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                res.body.contacting.users[0].contactAdded.should.equals(startTime - 1000);
 
-                res.body.messages[1].threadId.should.equals('2');
-                res.body.messages[1].name.should.equals('user Meier3');
-                res.body.messages[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
-                res.body.messages[1].numberOfUnreadMessages.should.equals(1);
+                res.body.contacting.users[1].userId.should.equals('3');
+                res.body.contacting.users[1].name.should.equals('user Meier3');
+                res.body.contacting.users[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+                res.body.contacting.users[1].contactAdded.should.equals(startTime - 604500);
+
+                res.body.contacting.users[2].userId.should.equals('4');
+                res.body.contacting.users[2].name.should.equals('user Meier4');
+                res.body.contacting.users[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+                res.body.contacting.users[2].contactAdded.should.equals(startTime - 604600);
+
+                res.body.contacting.numberOfContacting.should.equals(4);
             });
     });
 });

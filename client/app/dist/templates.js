@@ -999,6 +999,47 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/homePinwallElement/contacting.html',
+    "<div ng-controller=\"HomePinwallElementContactingCtrl\">\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-description\"> Personen die Dich als Kontakt hinzugef&uuml;gt haben</div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-profile-messages\" ng-repeat=\"contacting in element.contacting\">\r" +
+    "\n" +
+    "        <div ng-click=\"openDetail(contacting.userId)\">\r" +
+    "\n" +
+    "            <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{contacting.profileUrl}}\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"pinwall-element-profile-description\">\r" +
+    "\n" +
+    "                <div class=\"pinwall-element-profile-name\">{{contacting.name}}</div>\r" +
+    "\n" +
+    "                <div class=\"pinwall-element-info\">{{getFormattedDate(contacting.contactAdded)}}</div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-link\" ng-show=\"element.numberOfContacting === 4\" ui-sref=\"contact.contacting\">\r" +
+    "\n" +
+    "        1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"pinwall-element-link\" ng-show=\"element.numberOfContacting > 4\" ui-sref=\"contact.contacting\">\r" +
+    "\n" +
+    "        {{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallElement/newMessages.html',
     "<div ng-controller=\"HomePinwallElementNewMessageCtrl\">\r" +
     "\n" +
@@ -1016,11 +1057,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <div class=\"pinwall-element-profile-name\">{{message.name}}</div>\r" +
     "\n" +
-    "                <div class=\"pinwall-element-time\" ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht\r" +
+    "                <div class=\"pinwall-element-info\" ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
-    "                <div class=\"pinwall-element-time\" ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten\r" +
+    "                <div class=\"pinwall-element-info\" ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -1095,6 +1136,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "    <div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div>\r" +
     "\n" +
     "    <div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div>\r" +
+    "\n" +
+    "    <div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div>\r" +
     "\n" +
     "</div>"
   );
