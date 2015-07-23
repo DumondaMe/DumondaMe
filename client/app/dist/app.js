@@ -4594,11 +4594,11 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
         $scope.PageRecommendationOtherUser = PageRecommendationOtherUser;
         $scope.bookServiceParameter = {
             userId: $stateParams.userId,
-            filters: 'BookPage'
+            filters: 'Book'
         };
         $scope.videoServiceParameter = {
             userId: $stateParams.userId,
-            filters: 'VideoPage'
+            filters: 'Youtube'
         };
         angular.extend($scope, ContactUserActions);
 
