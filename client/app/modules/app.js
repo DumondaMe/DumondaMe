@@ -33,8 +33,10 @@ require('./navigation');
 require('./settings');
 require('./util');
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider) {
+
+        $compileProvider.debugInfoEnabled(false);
 
         $urlRouterProvider.otherwise('/home');
 
