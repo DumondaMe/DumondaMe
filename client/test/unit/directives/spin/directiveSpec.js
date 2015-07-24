@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 var directive = require('../../../../app/modules/directives/spin/directive');
@@ -28,3 +29,4 @@ describe('Tests of Directive ely-spin', function () {
     });
 
 });
+*/

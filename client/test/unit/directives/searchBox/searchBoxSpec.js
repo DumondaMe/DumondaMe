@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 var directive = require('../../../../app/modules/directives/searchBox/directive.js');
@@ -30,3 +31,4 @@ describe('Tests of Directive ely-search-bar', function () {
         expect(textInput.eq(0).hasClass('form-control')).to.be.true;
     });
 });
+*/

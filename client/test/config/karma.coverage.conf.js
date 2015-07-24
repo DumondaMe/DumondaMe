@@ -33,7 +33,7 @@ module.exports = function (config) {
             'karma-junit-reporter',
             'karma-coverage',
             'karma-chrome-launcher',
-            'karma-bro',
+            'karma-browserify',
             'karma-mocha',
             'karma-sinon',
             'karma-chai',

@@ -31,7 +31,7 @@ module.exports = function (config) {
 
         plugins: [
             'karma-chrome-launcher',
-            'karma-bro',
+            'karma-browserify',
             'karma-mocha',
             'karma-sinon',
             'karma-chai',
