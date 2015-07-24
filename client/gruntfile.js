@@ -42,7 +42,17 @@ module.exports = function (grunt) {
         ngtemplates: {
             elyoosApp: {
                 options: {
-                    module: 'elyoosApp'
+                    module: 'elyoosApp',
+                    htmlmin: {
+                        collapseBooleanAttributes:      true,
+                        collapseWhitespace:             true,
+                        removeAttributeQuotes:          true,
+                        removeComments:                 true, // Only if you don't use comment directives!
+                        removeEmptyAttributes:          true,
+                        removeRedundantAttributes:      true,
+                        removeScriptTypeAttributes:     true,
+                        removeStyleLinkTypeAttributes:  true
+                    }
                 },
                 src: 'app/modules/**/*.html',
                 dest: 'app/dist/templates.js'

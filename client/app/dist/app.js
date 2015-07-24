@@ -3,3637 +3,286 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('app/modules/auth/login.html',
-    "<div id=\"loginform\">\n" +
-    "    <div id=\"error-message\" class=\"alert alert-danger\" role=\"alert\" ng-if=\"error\">\n" +
-    "        {{error}}\n" +
-    "    </div>\n" +
-    "    <form class=\"form-horizontal\" name=\"loginForm\" role=\"form\" novalidate=\"novalidate\">\n" +
-    "        <div class=\"form-group\">\n" +
-    "            <label for=\"id_username\" class=\"col-sm-2 control-label\">Email</label>\n" +
-    "\n" +
-    "            <div class=\"col-sm-10\">\n" +
-    "                <input type=\"email\" name=\"username\" ng-model=\"loginuser.email\"\n" +
-    "                       class=\"form-control\" id=\"id_username\" autofocus=\"autofocus\"\n" +
-    "                       placeholder=\"Email\" required>\n" +
-    "                <span class=\"error\" ng-show=\"loginForm.inputEmail.$error.email\">\n" +
-    "    Keine gültige E-Mail Adresse!</span>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"form-group\">\n" +
-    "            <label for=\"id_password\" class=\"col-sm-2 control-label\">Passwort</label>\n" +
-    "\n" +
-    "            <div class=\"col-sm-10\">\n" +
-    "                <input type=\"password\" ng-model=\"loginuser.password\" class=\"form-control\"\n" +
-    "                       id=\"id_password\" name=\"password\"\n" +
-    "                       placeholder=\"Passwort\" required>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"form-group\">\n" +
-    "            <div class=\"col-sm-offset-2 col-sm-10\">\n" +
-    "                <button id=\"login\" type=\"submit\" class=\"btn btn-default\" ng-click=\"login()\"\n" +
-    "                        ng-disabled=\"loginForm.$invalid\">\n" +
-    "                    Anmelden\n" +
-    "                </button>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
-    "</div>"
+    "<div id=loginform><div id=error-message class=\"alert alert-danger\" role=alert ng-if=error>{{error}}</div><form class=form-horizontal name=loginForm role=form novalidate><div class=form-group><label for=id_username class=\"col-sm-2 control-label\">Email</label><div class=col-sm-10><input type=email name=username ng-model=loginuser.email class=form-control id=id_username autofocus placeholder=Email required> <span class=error ng-show=loginForm.inputEmail.$error.email>Keine gültige E-Mail Adresse!</span></div></div><div class=form-group><label for=id_password class=\"col-sm-2 control-label\">Passwort</label><div class=col-sm-10><input type=password ng-model=loginuser.password class=form-control id=id_password name=password placeholder=Passwort required></div></div><div class=form-group><div class=\"col-sm-offset-2 col-sm-10\"><button id=login type=submit class=\"btn btn-default\" ng-click=login() ng-disabled=loginForm.$invalid>Anmelden</button></div></div></form></div>"
   );
 
 
   $templateCache.put('app/modules/auth/register.html',
-    "<div id=\"content-settings-profile\">\n" +
-    "    <div id=\"centerCol\">\n" +
-    "        <div id=\"inner-centerCol\">\n" +
-    "            <div id=\"manage-profile\">\n" +
-    "                <form class=\"form-horizontal\" name=\"profileForm\" role=\"form\" novalidate>\n" +
-    "                    <div class=\"form-group\">\n" +
-    "                        <label for=\"inputEmail\" class=\"col-sm-4 control-label\">E-Mail</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputEmail\" ng-model=\"userDataToChange.email\"\n" +
-    "                                   class=\"form-control\"\n" +
-    "                                   id=\"inputEmail\"\n" +
-    "                                   placeholder=\"Email\">\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\">\n" +
-    "                        <label for=\"inputPassword\" class=\"col-sm-4 control-label\">Passwort</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputEmail\" ng-model=\"userDataToChange.password\"\n" +
-    "                                   class=\"form-control\"\n" +
-    "                                   id=\"inputPassword\">\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\"\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputForename.$invalid && (visitedForename || submitFailed)}\">\n" +
-    "                        <label for=\"inputForenameId\" class=\"col-sm-4 control-label\">Vorname\n" +
-    "                        </label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputForename\" ng-model=\"userDataToChange.forename\"\n" +
-    "                                   class=\"form-control\"\n" +
-    "                                   id=\"inputForenameId\" ng-blur=\"visitedForename = true\"\n" +
-    "                                   placeholder=\"Vorname\" required ng-maxlength=\"30\">\n" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.required && (visitedForename || submitFailed)\">\n" +
-    "                                <span>Es wird ein Vorname benötigt</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputForename.$error.maxlength && (visitedForename || submitFailed)\">\n" +
-    "                                <span>Der Vorname darf nicht länger als 30 Zeichen sein</span>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\"\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputSurename.$invalid && (visitedSurename || submitFailed)}\">\n" +
-    "                        <label for=\"inputSurename\" class=\"col-sm-4 control-label\">Nachname</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputSurename\" ng-model=\"userDataToChange.surname\"\n" +
-    "                                   class=\"form-control\"\n" +
-    "                                   id=\"inputSurename\" ng-blur=\"visitedSurename = true\"\n" +
-    "                                   placeholder=\"Nachname\" required ng-maxlength=\"50\">\n" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)\">\n" +
-    "                                <span>Es wird ein Nachname benötigt</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputSurename.$error.maxlength && (visitedSurename || submitFailed)\">\n" +
-    "                                <span>Der Nachname darf nicht länger als 50 Zeichen sein</span>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\"\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputBirthday.$invalid && (visitedBirthday || submitFailed)}\">\n" +
-    "                        <label for=\"inputBirthday\" class=\"col-sm-4 control-label\">Geburtstag</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input name=\"inputBirthday\" ng-model=\"userDataToChange.birthday\"\n" +
-    "                                   class=\"form-control\"\n" +
-    "                                   id=\"inputBirthday\" ng-blur=\"visitedBirthday = true\"\n" +
-    "                                   placeholder=\"z.B {{getDateExample()}}\" required/>\n" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\">\n" +
-    "                                <span>Bitte gib deinen Geburtstag an</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\">\n" +
-    "                                <span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\"\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}\">\n" +
-    "                        <label for=\"inputCountryId\" class=\"col-sm-4 control-label\">Land</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <button type=\"button\" class=\"btn btn-default\" ng-model=\"selectedCountryCode\"\n" +
-    "                                    name=\"inputCountry\"\n" +
-    "                                    id=\"inputCountryId\"\n" +
-    "                                    bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\n" +
-    "                                    data-placeholder=\"Land\"\n" +
-    "                                    bs-select>\n" +
-    "                                Action <span class=\"caret\"></span>\n" +
-    "                            </button>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\">\n" +
-    "                        <label for=\"inputGender\" class=\"col-sm-4 control-label\">Geschlecht</label>\n" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <div class=\"btn-group\" id=\"inputGender\">\n" +
-    "                                <label class=\"btn btn-default\"\n" +
-    "                                       ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\"\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female == true}\">Frau</label>\n" +
-    "                                <label class=\"btn btn-default\"\n" +
-    "                                       ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\"\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female == false}\">Mann</label>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"form-group\">\n" +
-    "                        <div class=\"col-sm-offset-4 col-sm-8\">\n" +
-    "                            <div>\n" +
-    "                                <button id=\"submit-change-profile\" type=\"submit\"\n" +
-    "                                        class=\"btn btn-default\"\n" +
-    "                                        ng-click=\"submitProfileData()\">\n" +
-    "                                    Profil erstellen\n" +
-    "                                </button>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\n" +
-    "                                <span>Bitte fülle alle Werte korrekt aus</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-danger\"\n" +
-    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\n" +
-    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\n" +
-    "                            </div>\n" +
-    "                            <div class=\"alert-input alert-success\"\n" +
-    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\n" +
-    "                                <span>Profil erfolgreich erstellt</span>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </form>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>"
+    "<div id=content-settings-profile><div id=centerCol><div id=inner-centerCol><div id=manage-profile><form class=form-horizontal name=profileForm role=form novalidate><div class=form-group><label for=inputEmail class=\"col-sm-4 control-label\">E-Mail</label><div class=col-sm-8><input name=inputEmail ng-model=userDataToChange.email class=form-control id=inputEmail placeholder=Email></div></div><div class=form-group><label for=inputPassword class=\"col-sm-4 control-label\">Passwort</label><div class=col-sm-8><input name=inputEmail ng-model=userDataToChange.password class=form-control id=inputPassword></div></div><div class=form-group ng-class=\"{'has-error': profileForm.inputForename.$invalid && (visitedForename || submitFailed)}\"><label for=inputForenameId class=\"col-sm-4 control-label\">Vorname</label><div class=col-sm-8><input name=inputForename ng-model=userDataToChange.forename class=form-control id=inputForenameId ng-blur=\"visitedForename = true\" placeholder=Vorname required ng-maxlength=30><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputForename.$error.required && (visitedForename || submitFailed)\"><span>Es wird ein Vorname benötigt</span></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputForename.$error.maxlength && (visitedForename || submitFailed)\"><span>Der Vorname darf nicht länger als 30 Zeichen sein</span></div></div></div><div class=form-group ng-class=\"{'has-error': profileForm.inputSurename.$invalid && (visitedSurename || submitFailed)}\"><label for=inputSurename class=\"col-sm-4 control-label\">Nachname</label><div class=col-sm-8><input name=inputSurename ng-model=userDataToChange.surname class=form-control id=inputSurename ng-blur=\"visitedSurename = true\" placeholder=Nachname required ng-maxlength=50><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputSurename.$error.required && (visitedSurename || submitFailed)\"><span>Es wird ein Nachname benötigt</span></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputSurename.$error.maxlength && (visitedSurename || submitFailed)\"><span>Der Nachname darf nicht länger als 50 Zeichen sein</span></div></div></div><div class=form-group ng-class=\"{'has-error': profileForm.inputBirthday.$invalid && (visitedBirthday || submitFailed)}\"><label for=inputBirthday class=\"col-sm-4 control-label\">Geburtstag</label><div class=col-sm-8><input name=inputBirthday ng-model=userDataToChange.birthday class=form-control id=inputBirthday ng-blur=\"visitedBirthday = true\" placeholder=\"z.B {{getDateExample()}}\" required><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputBirthday.$error.required && (visitedBirthday || submitFailed)\"><span>Bitte gib deinen Geburtstag an</span></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.inputBirthday.$error.date && (visitedBirthday || submitFailed)\"><span>Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})</span></div></div></div><div class=form-group ng-class=\"{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}\"><label for=inputCountryId class=\"col-sm-4 control-label\">Land</label><div class=col-sm-8><button type=button class=\"btn btn-default\" ng-model=selectedCountryCode name=inputCountry id=inputCountryId bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\" data-placeholder=Land bs-select>Action <span class=caret></span></button></div></div><div class=form-group><label for=inputGender class=\"col-sm-4 control-label\">Geschlecht</label><div class=col-sm-8><div class=btn-group id=inputGender><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female == true}\">Frau</label><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female == false}\">Mann</label></div></div></div><div class=form-group><div class=\"col-sm-offset-4 col-sm-8\"><div><button id=submit-change-profile type=submit class=\"btn btn-default\" ng-click=submitProfileData()>Profil erstellen</button></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.$invalid && submitFailed\"><span>Bitte fülle alle Werte korrekt aus</span></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.$invalid == false && submitFailedToServer\"><span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span></div><div class=\"alert-input alert-success\" ng-show=\"successUserDataChange && profileForm.$pristine\"><span>Profil erfolgreich erstellt</span></div></div></div></form></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=\"contact-preview\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{contact.profileUrl}}\" ng-click=\"openUserDetails()\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "    <div class=\"contact-preview-content\">\r" +
-    "\n" +
-    "        <div class=\"contact-preview-name-container\">\r" +
-    "\n" +
-    "            <div ng-click=\"openUserDetails()\" class=\"contact-preview-name\">\r" +
-    "\n" +
-    "                {{contact.name}}\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"description-container\">\r" +
-    "\n" +
-    "                <div class=\"description\" ng-click=\"openModalUpdateType($scope)\" ng-show=\"!contact.blocked && contact.type\">\r" +
-    "\n" +
-    "                    ({{contact.type}})\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"blocked-description\" ng-show=\"contact.blocked\">\r" +
-    "\n" +
-    "                BLOCKIERT\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"command-icons\">\r" +
-    "\n" +
-    "            <button type=\"button\"\r" +
-    "\n" +
-    "                    class=\"btn btn-default btn-xs dropdown-toggle left\"\r" +
-    "\n" +
-    "                    data-toggle=\"dropdown\" aria-expanded=\"false\"\r" +
-    "\n" +
-    "                    bs-dropdown=\"contact.actions\"\r" +
-    "\n" +
-    "                    ng-show=\"!contact.blocked && contact.type\">\r" +
-    "\n" +
-    "                Aktionen <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
-    "\n" +
-    "                    aria-expanded=\"false\"\r" +
-    "\n" +
-    "                    ng-show=\"!contact.blocked && !contact.type\"\r" +
-    "\n" +
-    "                    ng-click=\"openModalAddNewContact($scope)\">\r" +
-    "\n" +
-    "                <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
-    "\n" +
-    "                Als Kontakt hinzufügen\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default btn-xs left\"\r" +
-    "\n" +
-    "                    aria-expanded=\"false\"\r" +
-    "\n" +
-    "                    ng-show=\"contact.blocked\"\r" +
-    "\n" +
-    "                    ng-click=\"unblockContact($scope)\">\r" +
-    "\n" +
-    "                Blockierung aufheben\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <div class=\"command-connection-state\" ng-hide=\"contact.connected === 'none'\"\r" +
-    "\n" +
-    "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"{{tooltipConnectionState.title}}\"\r" +
-    "\n" +
-    "                 bs-tooltip>\r" +
-    "\n" +
-    "                <img ng-src=\"{{contact.connectionImage}}\">\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <!--<div class=\"command-connection-block\"\r" +
-    "\n" +
-    "                 ng-show=\"!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')\"\r" +
-    "\n" +
-    "                 data-trigger=\"hover\" data-delay=\"600\" data-title=\"User blockieren\"\r" +
-    "\n" +
-    "                 bs-tooltip ng-click=\"blockContact($scope)\">\r" +
-    "\n" +
-    "                <img src=\"/app/img/block.png\">\r" +
-    "\n" +
-    "            </div>-->\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <!--<div class=\"select-user\" ng-show=\"enableSelect !== 'false'\">\r" +
-    "\n" +
-    "        <div class=\"s2\">\r" +
-    "\n" +
-    "            <input type=\"checkbox\" ng-model=\"contact.selected\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>-->\r" +
-    "\n" +
-    "</div>"
+    "<div class=contact-preview><img ng-src={{contact.profileUrl}} ng-click=openUserDetails()><div class=contact-preview-content><div class=contact-preview-name-container><div ng-click=openUserDetails() class=contact-preview-name>{{contact.name}}</div><div class=description-container><div class=description ng-click=openModalUpdateType($scope) ng-show=\"!contact.blocked && contact.type\">({{contact.type}})</div></div><div class=blocked-description ng-show=contact.blocked>BLOCKIERT</div></div><div class=command-icons><button type=button class=\"btn btn-default btn-xs dropdown-toggle left\" data-toggle=dropdown aria-expanded=false bs-dropdown=contact.actions ng-show=\"!contact.blocked && contact.type\">Aktionen <span class=caret></span></button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=\"!contact.blocked && !contact.type\" ng-click=openModalAddNewContact($scope)><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Als Kontakt hinzufügen</button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=contact.blocked ng-click=unblockContact($scope)>Blockierung aufheben</button><div class=command-connection-state ng-hide=\"contact.connected === 'none'\" data-trigger=hover data-delay=600 data-title={{tooltipConnectionState.title}} bs-tooltip><img ng-src={{contact.connectionImage}}></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/contacting.html',
-    "<div id=\"content-page-contacting\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div id=\"contact-contacting-content\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"contact in users.contactingUsers\">\r" +
-    "\n" +
-    "                    <div ng-if=\"showContactingInfo($index)\" class=\"contacting-info\">\r" +
-    "\n" +
-    "                        <h1 class=\"website-structure-title\">\r" +
-    "\n" +
-    "                            {{getContactingInfo($index)}}\r" +
-    "\n" +
-    "                        </h1>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <ely-contact-preview enable-select=\"false\" contact=\"contact\"\r" +
-    "\n" +
-    "                                         privacy-settings=\"users.privacySettings\"\r" +
-    "\n" +
-    "                                         statistic=\"users.statistic\"></ely-contact-preview>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-show=\"users.numberOfAllContactings > itemsPerPage\"\r" +
-    "\n" +
-    "                     class=\"pagination\">\r" +
-    "\n" +
-    "                    <ely-pagination-next-previous total-items=\"users.numberOfAllContactings\"\r" +
-    "\n" +
-    "                                                  items-per-page=\"{{itemsPerPage}}\"\r" +
-    "\n" +
-    "                                                  get-pagination-set=\"getContacting\"\r" +
-    "\n" +
-    "                                                  reset-counter=\"resetCounter\"></ely-pagination-next-previous>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-show=\"users.numberOfAllContactings === 0 && users.contactingUsers.length === 0\">\r" +
-    "\n" +
-    "                    <div class=\"no-contact-description\">\r" +
-    "\n" +
-    "                        <h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"my-contact-statistic\">\r" +
-    "\n" +
-    "        <h5>Personen die mich als Kontakt hinzugefügt haben:</h5>\r" +
-    "\n" +
-    "        <ul id=\"contact-counter\" class=\"list-group\">\r" +
-    "\n" +
-    "            <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                <span class=\"badge\">{{users.numberOfContactingLastDay}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"contact-description-count\">In den letzten 24h</div>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "            <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                <span class=\"badge\">{{users.numberOfContactingLastWeek}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"contact-description-count\">In der letzten Woche</div>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "            <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                <span class=\"badge\">{{users.numberOfContactingLastMonth}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"contact-description-count\">Im letzten Monat</div>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "            <li class=\"list-group-item\">\r" +
-    "\n" +
-    "                <span class=\"badge\">{{users.numberOfAllContactings}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"contact-description-count\">Gesamt</div>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "        </ul>\r" +
-    "\n" +
-    "        <div id=\"my-contact-statistic-bottom\"></div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-contacting><div id=centerCol><div id=inner-centerCol><div id=contact-contacting-content><div ng-repeat=\"contact in users.contactingUsers\"><div ng-if=showContactingInfo($index) class=contacting-info><h1 class=website-structure-title>{{getContactingInfo($index)}}</h1></div><ely-contact-preview enable-select=false contact=contact privacy-settings=users.privacySettings statistic=users.statistic></ely-contact-preview></div><div ng-show=\"users.numberOfAllContactings > itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=users.numberOfAllContactings items-per-page={{itemsPerPage}} get-pagination-set=getContacting reset-counter=resetCounter></ely-pagination-next-previous></div><div ng-show=\"users.numberOfAllContactings === 0 && users.contactingUsers.length === 0\"><div class=no-contact-description><h3>Es hat Dich noch niemand als Kontakt hinzugefügt</h3></div></div></div></div></div><div id=my-contact-statistic><h5>Personen die mich als Kontakt hinzugefügt haben:</h5><ul id=contact-counter class=list-group><li class=list-group-item><span class=badge>{{users.numberOfContactingLastDay}}</span><div class=contact-description-count>In den letzten 24h</div></li><li class=list-group-item><span class=badge>{{users.numberOfContactingLastWeek}}</span><div class=contact-description-count>In der letzten Woche</div></li><li class=list-group-item><span class=badge>{{users.numberOfContactingLastMonth}}</span><div class=contact-description-count>Im letzten Monat</div></li><li class=list-group-item><span class=badge>{{users.numberOfAllContactings}}</span><div class=contact-description-count>Gesamt</div></li></ul><div id=my-contact-statistic-bottom></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/myContact.html',
-    "<div id=\"content-page-contact\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div ng-repeat=\"contact in users.contacts\">\r" +
-    "\n" +
-    "                <ely-contact-preview contact=\"contact\" statistic=\"users.statistic\"\r" +
-    "\n" +
-    "                                     privacy-settings=\"users.privacySettings\"\r" +
-    "\n" +
-    "                                     number-of-contacts=\"users.numberOfContacts\"></ely-contact-preview>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"!isUserSearch && users.contactsForPagination > itemsPerPage\"\r" +
-    "\n" +
-    "                 class=\"pagination\">\r" +
-    "\n" +
-    "                <ely-pagination-next-previous total-items=\"users.contactsForPagination\"\r" +
-    "\n" +
-    "                                              items-per-page=\"{{itemsPerPage}}\"\r" +
-    "\n" +
-    "                                              get-pagination-set=\"paginationChanged\"></ely-pagination-next-previous>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"users.numberOfContacts === 0 && users.contacts.length === 0\">\r" +
-    "\n" +
-    "                <div class=\"no-contact-description\">\r" +
-    "\n" +
-    "                    <h3>Du hast noch keine Kontakte</h3>\r" +
-    "\n" +
-    "                    {{help.content}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div id=\"search-box-container\">\r" +
-    "\n" +
-    "            <ely-search-box description=\"Suche nach Personen...\" query=\"query\"\r" +
-    "\n" +
-    "                            get-query-suggestion=\"getUserSuggestion\"\r" +
-    "\n" +
-    "                            get-query=\"getUser\"></ely-search-box>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div id=\"my-contact-statistic\">\r" +
-    "\n" +
-    "        <ul id=\"contact-counter\" class=\"list-group\" ng-controller=\"DescriptionCounterCtrl\">\r" +
-    "\n" +
-    "            <div>\r" +
-    "\n" +
-    "                <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                    ng-class=\"{'group-selected': allContactsSelected}\">\r" +
-    "\n" +
-    "                    <span class=\"badge\">{{users.numberOfContacts}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"contact-description-count\" ng-click=\"selectedAllContacts()\">\r" +
-    "\n" +
-    "                        Alle\r" +
-    "\n" +
-    "                        Kontakte\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </li>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-repeat=\"statistic in users.statistic\">\r" +
-    "\n" +
-    "                <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                    ng-class=\"{'group-selected': statistic.selected}\">\r" +
-    "\n" +
-    "                    <span class=\"badge\">{{statistic.count}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"contact-description-count\"\r" +
-    "\n" +
-    "                         ng-click=\"selectedStatisticType(statistic)\">{{statistic.type}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </li>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </ul>\r" +
-    "\n" +
-    "        <div id=\"privacy-link\">\r" +
-    "\n" +
-    "            <a ui-sref=\"settings.privacy\">Privatsphären Einstellungen verwalten...</a>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div id=\"help-my-contact\" data-animation=\"am-fade-and-scale\" data-placement=\"center\" data-backdrop=\"false\"\r" +
-    "\n" +
-    "             bs-modal=\"help\">\r" +
-    "\n" +
-    "            <img src=\"/app/img/help.png\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-contact><div id=centerCol><div id=inner-centerCol><div ng-repeat=\"contact in users.contacts\"><ely-contact-preview contact=contact statistic=users.statistic privacy-settings=users.privacySettings number-of-contacts=users.numberOfContacts></ely-contact-preview></div><div ng-show=\"!isUserSearch && users.contactsForPagination > itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=users.contactsForPagination items-per-page={{itemsPerPage}} get-pagination-set=paginationChanged></ely-pagination-next-previous></div><div ng-show=\"users.numberOfContacts === 0 && users.contacts.length === 0\"><div class=no-contact-description><h3>Du hast noch keine Kontakte</h3>{{help.content}}</div></div></div><div id=search-box-container><ely-search-box description=\"Suche nach Personen...\" query=query get-query-suggestion=getUserSuggestion get-query=getUser></ely-search-box></div></div><div id=my-contact-statistic><ul id=contact-counter class=list-group ng-controller=DescriptionCounterCtrl><div><li class=list-group-item ng-class=\"{'group-selected': allContactsSelected}\"><span class=badge>{{users.numberOfContacts}}</span><div class=contact-description-count ng-click=selectedAllContacts()>Alle Kontakte</div></li></div><div ng-repeat=\"statistic in users.statistic\"><li class=list-group-item ng-class=\"{'group-selected': statistic.selected}\"><span class=badge>{{statistic.count}}</span><div class=contact-description-count ng-click=selectedStatisticType(statistic)>{{statistic.type}}</div></li></div></ul><div id=privacy-link><a ui-sref=settings.privacy>Privatsphären Einstellungen verwalten...</a></div><div id=help-my-contact data-animation=am-fade-and-scale data-placement=center data-backdrop=false bs-modal=help><img src=/app/img/help.png></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/services/userActionsModalDescription.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
-    "\n" +
-    "    <div id=\"modal-dialog-set-privacy\" class=\"modal-dialog\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
-    "\n" +
-    "            <div class=\"modal-body\">\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default privacy-selection\"\r" +
-    "\n" +
-    "                        ng-model=\"contact.selectedPrivacySetting\" trigger=\"click\"\r" +
-    "\n" +
-    "                        bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\"\r" +
-    "\n" +
-    "                        data-placeholder=\"\"\r" +
-    "\n" +
-    "                        bs-select>\r" +
-    "\n" +
-    "                    Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "                <div class=\"privacy-description\">\r" +
-    "\n" +
-    "                    Wähle eine Privatsphären Einstellung\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"$hide()\">Abbrechen</button>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"send($scope, $hide)\">{{actionDescription}}</button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-dialog-set-privacy class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body><button type=button class=\"btn btn-default privacy-selection\" ng-model=contact.selectedPrivacySetting trigger=click bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\" data-placeholder=\"\" bs-select>Action <span class=caret></span></button><div class=privacy-description>Wähle eine Privatsphären Einstellung</div></div><div class=modal-footer><button type=button class=\"btn btn-default\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-click=\"send($scope, $hide)\">{{actionDescription}}</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/userDetail.html',
-    "<div id=\"content-page-contact-details\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div id=\"profile-detail-header\">\r" +
-    "\n" +
-    "                <div id=\"profile-image\">\r" +
-    "\n" +
-    "                    <img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"/>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"profile-data\">\r" +
-    "\n" +
-    "                    <div id=\"profile-data-overview\">\r" +
-    "\n" +
-    "                        <div id=\"profile-data-name\">{{contact.name}}</div>\r" +
-    "\n" +
-    "                        <div id=\"profile-connection-state\" ng-hide=\"contact.connected === 'none'\" data-trigger=\"hover\" data-delay=\"600\"\r" +
-    "\n" +
-    "                             data-title=\"{{tooltipConnectionState.title}}\"\r" +
-    "\n" +
-    "                             bs-tooltip>\r" +
-    "\n" +
-    "                            <img ng-src=\"{{contact.connectionImage}}\">\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div id=\"profile-connection-type\">\r" +
-    "\n" +
-    "                            <div class=\"profile-inner-connection-type\" ng-click=\"openModalUpdateType($scope)\" ng-show=\"contact.type\">\r" +
-    "\n" +
-    "                                ({{contact.type}})\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"profile-data-description\">{{contact.country}}</div>\r" +
-    "\n" +
-    "                        <div class=\"profile-data-description\">{{contact.birthday}}</div>\r" +
-    "\n" +
-    "                        <div class=\"profile-data-description\">{{contact.street}}</div>\r" +
-    "\n" +
-    "                        <div class=\"profile-data-description\">{{contact.place}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div id=\"profile-command\">\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                aria-expanded=\"false\"\r" +
-    "\n" +
-    "                                ng-show=\"!contact.type\"\r" +
-    "\n" +
-    "                                ng-click=\"openModalAddNewContact($scope)\">\r" +
-    "\n" +
-    "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\r" +
-    "\n" +
-    "                            Als Kontakt hinzufügen\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                aria-expanded=\"false\"\r" +
-    "\n" +
-    "                                ng-click=\"sendMessage(userId, contact.name)\">\r" +
-    "\n" +
-    "                            Nachricht senden\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"profile-detail-content-group\" ng-show=\"contacts.length > 0\">\r" +
-    "\n" +
-    "                <h1 class=\"website-structure-title\">Kontakte</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"profile-contacts-description\" ng-show=\"contact.female\">\r" +
-    "\n" +
-    "                    Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"profile-contacts-description\" ng-show=\"!contact.female\">\r" +
-    "\n" +
-    "                    Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"user-mini-preview-container\">\r" +
-    "\n" +
-    "                    <div class=\"user-mini-preview\" ng-repeat=\"user in contacts\" ng-click=\"openUserDetails(user.userId)\">\r" +
-    "\n" +
-    "                        <div class=\"user-mini-preview-content\">\r" +
-    "\n" +
-    "                            <img ng-src=\"{{user.profileUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"user-mini-preview-name\">\r" +
-    "\n" +
-    "                                <div class=\"name\">{{user.name}}</div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"profile-contact-expander-container\">\r" +
-    "\n" +
-    "                        <div class=\"profile-contact-expander\" ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=\"appendContacts()\"><img\r" +
-    "\n" +
-    "                                src=\"app/img/expand-down.png\"/></div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"profile-detail-content-group\">\r" +
-    "\n" +
-    "                <div class=\"profile-detail-content-group-inner\">\r" +
-    "\n" +
-    "                    <ely-page-preview-container title=\"Buch Bewertungen\" service=\"PageRecommendationOtherUser\"\r" +
-    "\n" +
-    "                                                service-parameter=\"bookServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"profile-detail-content-group-inner\">\r" +
-    "\n" +
-    "                    <ely-page-preview-container video-width=\"160\" video-height=\"255\"\r" +
-    "\n" +
-    "                                                title=\"Video Bewertungen\" service=\"PageRecommendationOtherUser\"\r" +
-    "\n" +
-    "                                                service-parameter=\"videoServiceParameter\" hide=\"false\"></ely-page-preview-container>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-contact-details><div id=centerCol><div id=inner-centerCol><div id=profile-detail-header><div id=profile-image><img class=\"img-rounded img-responsive\" ng-src=\"{{contact.profileUrl}}\"></div><div id=profile-data><div id=profile-data-overview><div id=profile-data-name>{{contact.name}}</div><div id=profile-connection-state ng-hide=\"contact.connected === 'none'\" data-trigger=hover data-delay=600 data-title={{tooltipConnectionState.title}} bs-tooltip><img ng-src={{contact.connectionImage}}></div><div id=profile-connection-type><div class=profile-inner-connection-type ng-click=openModalUpdateType($scope) ng-show=contact.type>({{contact.type}})</div></div><div class=profile-data-description>{{contact.country}}</div><div class=profile-data-description>{{contact.birthday}}</div><div class=profile-data-description>{{contact.street}}</div><div class=profile-data-description>{{contact.place}}</div></div><div id=profile-command><button type=button class=\"btn btn-default\" aria-expanded=false ng-show=!contact.type ng-click=openModalAddNewContact($scope)><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Als Kontakt hinzufügen</button> <button type=button class=\"btn btn-default\" aria-expanded=false ng-click=\"sendMessage(userId, contact.name)\">Nachricht senden</button></div></div></div><div class=profile-detail-content-group ng-show=\"contacts.length > 0\"><h1 class=website-structure-title>Kontakte</h1><div class=profile-contacts-description ng-show=contact.female>Sie hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)</div><div class=profile-contacts-description ng-show=!contact.female>Er hat {{numberOfContacts}} Kontakte ({{numberOfSameContacts}} gemeinsame Kontakte)</div><div class=user-mini-preview-container><div class=user-mini-preview ng-repeat=\"user in contacts\" ng-click=openUserDetails(user.userId)><div class=user-mini-preview-content><img ng-src={{user.profileUrl}}><div class=user-mini-preview-name><div class=name>{{user.name}}</div></div></div></div><div class=profile-contact-expander-container><div class=profile-contact-expander ng-show=\"contacts.length < numberOfContacts - 1\" ng-click=appendContacts()><img src=\"app/img/expand-down.png\"></div></div></div></div><div class=profile-detail-content-group><div class=profile-detail-content-group-inner><ely-page-preview-container title=\"Buch Bewertungen\" service=PageRecommendationOtherUser service-parameter=bookServiceParameter hide=false></ely-page-preview-container></div><div class=profile-detail-content-group-inner><ely-page-preview-container video-width=160 video-height=255 title=\"Video Bewertungen\" service=PageRecommendationOtherUser service-parameter=videoServiceParameter hide=false></ely-page-preview-container></div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/expandText/template.html',
-    "<div class=\"ely-expand-text\">\r" +
-    "\n" +
-    "    <div class=\"ely-expand-text-description\" ng-style=\"descriptionStyle\">{{description}}</div>\r" +
-    "\n" +
-    "    <button type=\"submit\" class=\"btn btn-default\" ng-click=\"expand()\"\r" +
-    "\n" +
-    "            ng-show=\"showExpand && !expanded\">\r" +
-    "\n" +
-    "        Mehr lesen\r" +
-    "\n" +
-    "    </button>\r" +
-    "\n" +
-    "</div>"
+    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><button type=submit class=\"btn btn-default\" ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</button></div>"
   );
 
 
   $templateCache.put('app/modules/directives/formTextInput/template.html',
-    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\">\r" +
-    "\n" +
-    "    <label for=\"{{inputName}}\" class=\"col-sm-4 control-label\" ng-hide=\"showWithoutLabel\">{{label}}\r" +
-    "\n" +
-    "        <em ng-show=\"required !== 'true'\">(optional)</em>\r" +
-    "\n" +
-    "    </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "    <div ng-class=\"{'col-sm-8': !showWithoutLabel}\">\r" +
-    "\n" +
-    "        <input name=\"{{inputName}}\" ng-model=\"submitModel\"\r" +
-    "\n" +
-    "               class=\"form-control\" id=\"{{inputName}}\"\r" +
-    "\n" +
-    "               placeholder=\"{{inputPlaceholder}}\" ng-blur=\"visited = true\"\r" +
-    "\n" +
-    "               ng-maxlength=\"{{maxLength}}\" ng-required=\"{{required === 'true'}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"ely-input-error-wrapper\">\r" +
-    "\n" +
-    "            <div class=\"ely-input-image-error\" ng-show=\"showError && (visited || submitFailed)\"\r" +
-    "\n" +
-    "                 data-template-url=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
-    "\n" +
-    "                 data-placement=\"left\"\r" +
-    "\n" +
-    "                 data-container=\"body\"\r" +
-    "\n" +
-    "                 bs-tooltip=\"errorDescription\">\r" +
-    "\n" +
-    "                <img src=\"app/img/error.png\"/>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\"><label for={{inputName}} class=\"col-sm-4 control-label\" ng-hide=showWithoutLabel>{{label}} <em ng-show=\"required !== 'true'\">(optional)</em></label><div ng-class=\"{'col-sm-8': !showWithoutLabel}\"><input name={{inputName}} ng-model=submitModel class=form-control id={{inputName}} placeholder={{inputPlaceholder}} ng-blur=\"visited = true\" ng-maxlength={{maxLength}} ng-required=\"{{required === 'true'}}\"><div class=ely-input-error-wrapper><div class=ely-input-image-error ng-show=\"showError && (visited || submitFailed)\" data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement=left data-container=body bs-tooltip=errorDescription><img src=\"app/img/error.png\"></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/iframe/template.html',
-    "<div class=\"ely-iframe\">\r" +
-    "\n" +
-    "    <iframe width=\"{{width}}\" height=\"{{height}}\" ng-src=\"{{link}}\"></iframe>\r" +
-    "\n" +
-    "</div>"
+    "<div class=ely-iframe><iframe width={{width}} height={{height}} ng-src={{link}}></iframe></div>"
   );
 
 
   $templateCache.put('app/modules/directives/imageCropper/template.html',
-    "<div class=\"cropper-outer-container\">\r" +
-    "\n" +
-    "    <img src=\"\" ng-show=\"image && image.trim() !== ''\">\r" +
-    "\n" +
-    "</div>"
+    "<div class=cropper-outer-container><img src=\"\" ng-show=\"image && image.trim() !== ''\"></div>"
   );
 
 
   $templateCache.put('app/modules/directives/paginationNextPrevious/template.html',
-    "<div class=\"paginationNextPrevious\">\r" +
-    "\n" +
-    "    <div class=\"paginationNextPrevious-wrapper\">\r" +
-    "\n" +
-    "        <div class=\"paginationElement\" ng-class=\"{disabled: currentPagination === 1}\"\r" +
-    "\n" +
-    "             ng-click=\"clickPrevious()\">\r" +
-    "\n" +
-    "            <img src=\"app/img/arrow-previous.png\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"paginationElement\"\r" +
-    "\n" +
-    "             ng-class=\"{disabled: currentPagination === currentPaginationRange}\"\r" +
-    "\n" +
-    "             ng-click=\"clickNext()\">\r" +
-    "\n" +
-    "            <img src=\"app/img/arrow-next.png\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=paginationNextPrevious><div class=paginationNextPrevious-wrapper><div class=paginationElement ng-class=\"{disabled: currentPagination === 1}\" ng-click=clickPrevious()><img src=app/img/arrow-previous.png></div><div class=paginationElement ng-class=\"{disabled: currentPagination === currentPaginationRange}\" ng-click=clickNext()><img src=app/img/arrow-next.png></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/searchBox/template.html',
-    "<div class=\"searchBoxForm\">\r" +
-    "\n" +
-    "    <div class=\"input-group\">\r" +
-    "\n" +
-    "        <input class=\"form-control\" placeholder=\"{{description}}\" ng-model=\"query\"\r" +
-    "\n" +
-    "               ng-keypress=\"sendGetQuery($event)\"\r" +
-    "\n" +
-    "               bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\"\r" +
-    "\n" +
-    "               data-trigger=\"click\" bs-typeahead>\r" +
-    "\n" +
-    "        <span class=\"input-group-btn\">\r" +
-    "\n" +
-    "            <button class=\"btn btn-default\" type=\"button\" ng-click=\"getQuery(query)\"><span\r" +
-    "\n" +
-    "                    class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span></button>\r" +
-    "\n" +
-    "        </span>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=searchBoxForm><div class=input-group><input class=form-control placeholder={{description}} ng-model=query ng-keypress=sendGetQuery($event) bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\" data-trigger=click bs-typeahead> <span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=getQuery(query)><span class=\"glyphicon glyphicon-search\" aria-hidden=true></span></button></span></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/sendButton/template.html',
-    "<div class=\"ely-submit-button\">\r" +
-    "\n" +
-    "    <button type=\"submit\"\r" +
-    "\n" +
-    "            class=\"btn btn-default\"\r" +
-    "\n" +
-    "            ng-click=\"sendAllData()\"\r" +
-    "\n" +
-    "            ng-class=\"{disabled: categoryFinishedButtonDisabled}\">\r" +
-    "\n" +
-    "        {{buttonDescription}}\r" +
-    "\n" +
-    "    </button>\r" +
-    "\n" +
-    "    <div class=\"ely-submit-button-error\" ng-show=\"showError\">\r" +
-    "\n" +
-    "        <img src=\"app/img/error.png\" ng-show=\"showError\" data-template-url=\"app/modules/util/tooltip/tooltipError.html\" data-trigger=\"hover\"\r" +
-    "\n" +
-    "             data-placement=\"{{errorPlacement}}\" bs-tooltip=\"errorDescription\"/>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"ely-submit-button-success\" ng-show=\"showSuccess\">\r" +
-    "\n" +
-    "        <img src=\"app/img/success.png\" ng-show=\"showSuccess\"/>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=ely-submit-button><button type=submit class=\"btn btn-default\" ng-click=sendAllData() ng-class=\"{disabled: categoryFinishedButtonDisabled}\">{{buttonDescription}}</button><div class=ely-submit-button-error ng-show=showError><img src=app/img/error.png ng-show=showError data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement={{errorPlacement}} bs-tooltip=\"errorDescription\"></div><div class=ely-submit-button-success ng-show=showSuccess><img src=app/img/success.png ng-show=\"showSuccess\"></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/spin/template.html',
-    "<div class=\"spin\">\r" +
-    "\n" +
-    "    <div id=\"spinner-content\"></div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=spin><div id=spinner-content></div></div>"
   );
 
 
   $templateCache.put('app/modules/directives/starRating/template.html',
-    "<div class=\"ely-star-rating\" ng-mouseleave=\"resetToSelected()\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{star0}}\" ng-mouseover=\"mouseOverStar(0)\" ng-mousedown=\"starSelected(1)\" ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{star1}}\" ng-mouseover=\"mouseOverStar(1)\" ng-mousedown=\"starSelected(2)\" ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{star2}}\" ng-mouseover=\"mouseOverStar(2)\" ng-mousedown=\"starSelected(3)\" ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{star3}}\" ng-mouseover=\"mouseOverStar(3)\" ng-mousedown=\"starSelected(4)\" ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{star4}}\" ng-mouseover=\"mouseOverStar(4)\" ng-mousedown=\"starSelected(5)\" ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\">\r" +
-    "\n" +
-    "</div>"
+    "<div class=ely-star-rating ng-mouseleave=resetToSelected()><img ng-src={{star0}} ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star1}} ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star2}} ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star3}} ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star4}} ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></div>"
   );
 
 
   $templateCache.put('app/modules/home/home.html',
-    "<div id=\"home\">\n" +
-    "    <ely-home-pinwall-container></ely-home-pinwall-container>\n" +
-    "</div>"
+    "<div id=home><ely-home-pinwall-container></ely-home-pinwall-container></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
-    "<div class=\"home-pinwall-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
-    "\n" +
-    "    <div infinite-scroll=\"nextPinwallInfo()\" infinite-scroll-distance=\"1\">\r" +
-    "\n" +
-    "        <div class=\"home-pinwall-container-column\">\r" +
-    "\n" +
-    "            <div ng-repeat=\"pinwallElement in pinwall1Elements\">\r" +
-    "\n" +
-    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 1\">\r" +
-    "\n" +
-    "            <div ng-repeat=\"pinwallElement in pinwall2Elements\">\r" +
-    "\n" +
-    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"home-pinwall-container-column\" ng-if=\"numberOfRows > 2\">\r" +
-    "\n" +
-    "            <div ng-repeat=\"pinwallElement in pinwall3Elements\">\r" +
-    "\n" +
-    "                <ely-home-pinwall-element element=\"pinwallElement\"></ely-home-pinwall-element>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-container-column><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/contacting.html',
-    "<div ng-controller=\"HomePinwallElementContactingCtrl\">\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-description\"> Personen die Dich als Kontakt hinzugef&uuml;gt haben</div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-profile-messages\" ng-repeat=\"contacting in element.contacting\">\r" +
-    "\n" +
-    "        <div ng-click=\"openDetail(contacting.userId)\">\r" +
-    "\n" +
-    "            <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{contacting.profileUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div class=\"pinwall-element-profile-description\">\r" +
-    "\n" +
-    "                <div class=\"pinwall-element-profile-name\">{{contacting.name}}</div>\r" +
-    "\n" +
-    "                <div class=\"pinwall-element-info\">{{getFormattedDate(contacting.contactAdded)}}</div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-link\" ng-show=\"element.numberOfContacting === 4\" ui-sref=\"contact.contacting\">\r" +
-    "\n" +
-    "        1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-link\" ng-show=\"element.numberOfContacting > 4\" ui-sref=\"contact.contacting\">\r" +
-    "\n" +
-    "        {{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-controller=HomePinwallElementContactingCtrl><div class=pinwall-element-description>Personen die Dich als Kontakt hinzugef&uuml;gt haben</div><div class=pinwall-element-profile-messages ng-repeat=\"contacting in element.contacting\"><div ng-click=openDetail(contacting.userId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{contacting.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{contacting.name}}</div><div class=pinwall-element-info>{{getFormattedDate(contacting.contactAdded)}}</div></div></div></div><div class=pinwall-element-link ng-show=\"element.numberOfContacting === 4\" ui-sref=contact.contacting>1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt</div><div class=pinwall-element-link ng-show=\"element.numberOfContacting > 4\" ui-sref=contact.contacting>{{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt</div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/newMessages.html',
-    "<div ng-controller=\"HomePinwallElementNewMessageCtrl\">\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-description\"> Du hast neue Nachrichten</div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-profile-messages\" ng-repeat=\"message in element.messages\">\r" +
-    "\n" +
-    "        <div ng-click=\"openThread(message.threadId)\">\r" +
-    "\n" +
-    "            <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{message.profileUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div class=\"pinwall-element-profile-description\">\r" +
-    "\n" +
-    "                <div class=\"pinwall-element-profile-name\">{{message.name}}</div>\r" +
-    "\n" +
-    "                <div class=\"pinwall-element-info\" ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"pinwall-element-info\" ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-controller=HomePinwallElementNewMessageCtrl><div class=pinwall-element-description>Du hast neue Nachrichten</div><div class=pinwall-element-profile-messages ng-repeat=\"message in element.messages\"><div ng-click=openThread(message.threadId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{message.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{message.name}}</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten</div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/noRecommendation.html',
-    "<div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-description\"> Information</div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-comment\" ui-sref=\"contact.myContacts\">\r" +
-    "\n" +
-    "        Suche nach Personen die Du kennst oder denen Du folgen m&ouml;chtest. (Hier klicken)</div>\r" +
-    "\n" +
-    "</div>"
+    "<div><div class=pinwall-element-description>Information</div><div class=pinwall-element-comment ui-sref=contact.myContacts>Suche nach Personen die Du kennst oder denen Du folgen m&ouml;chtest. (Hier klicken)</div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/recommendation.html',
-    "<div ng-controller=\"HomePinwallElementRecommendationCtrl\">\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-description\"> {{category}} Bewertung</div>\r" +
-    "\n" +
-    "    <img class=\"pinwall-element-profile-image img-circle\" ng-src=\"{{element.profileUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-profile-description\">\r" +
-    "\n" +
-    "        <div class=\"pinwall-element-profile-name\">{{element.name}}</div>\r" +
-    "\n" +
-    "        <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" number-of-selected-stars-readonly=\"element.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "        <div class=\"pinwall-element-time\">{{getFormattedDate(element.created, 'LLL')}}</div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"pinwall-element-content\" ng-click=\"openDetail(element.pageId, element.label)\">\r" +
-    "\n" +
-    "        <img class=\"pinwall-element-image\" ng-hide=\"element.label === 'Youtube'\" ng-src=\"{{element.url}}\">\r" +
-    "\n" +
-    "        <ely-iframe width=\"380\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"element.link\"\r" +
-    "\n" +
-    "                    ng-show=\"element.label === 'Youtube'\"></ely-iframe>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div ng-class=\"{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}\">\r" +
-    "\n" +
-    "            <div class=\"pinwall-element-title\">{{element.title}}</div>\r" +
-    "\n" +
-    "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"pinwall-element-rating\"\r" +
-    "\n" +
-    "                             number-of-selected-stars-readonly=\"element.ratingAllContacts\"\r" +
-    "\n" +
-    "                             ng-show=\"element.numberOfRatingsByContacts > 1\"></ely-star-rating>\r" +
-    "\n" +
-    "            <div class=\"pinwall-element-rating-description\"\r" +
-    "\n" +
-    "                 ng-show=\"element.numberOfRatingsByContacts > 1\">{{element.numberOfRatingsByContacts}} Bewertungen\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"pinwall-element-content-description-text\">{{element.description}}</div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-controller=HomePinwallElementRecommendationCtrl><div class=pinwall-element-description>{{category}} Bewertung</div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=element.rating></ely-star-rating><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=pinwall-element-content ng-click=\"openDetail(element.pageId, element.label)\"><img class=pinwall-element-image ng-hide=\"element.label === 'Youtube'\" ng-src={{element.url}}><ely-iframe width=380 height=300 secure-link=\"https://www.youtube.com/embed/\" src=element.link ng-show=\"element.label === 'Youtube'\"></ely-iframe><div ng-class=\"{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}\"><div class=pinwall-element-title>{{element.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=pinwall-element-rating number-of-selected-stars-readonly=element.ratingAllContacts ng-show=\"element.numberOfRatingsByContacts > 1\"></ely-star-rating><div class=pinwall-element-rating-description ng-show=\"element.numberOfRatingsByContacts > 1\">{{element.numberOfRatingsByContacts}} Bewertungen</div><div class=pinwall-element-content-description-text>{{element.description}}</div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/template.html',
-    "<div class=\"home-pinwall-element\">\r" +
-    "\n" +
-    "    <div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div>\r" +
-    "\n" +
-    "    <div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div>\r" +
-    "\n" +
-    "    <div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div>\r" +
-    "\n" +
-    "    <div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=home-pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div></div>"
   );
 
 
   $templateCache.put('app/modules/messages/conversation.html',
-    "<div id=\"content-messages\">\r" +
-    "\n" +
-    "    <div ng-controller=\"ConversationActionsCtrl\">\r" +
-    "\n" +
-    "        <div id=\"centerCol\">\r" +
-    "\n" +
-    "            <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "                <div class=\"add-message\" ng-style=\"settings.textInputWrapperStyle\">\r" +
-    "\n" +
-    "                    <div class=\"input-group\">\r" +
-    "\n" +
-    "                    <textarea class=\"form-control\" placeholder=\"Nachricht\"\r" +
-    "\n" +
-    "                              ng-style=\"settings.textInputStyle\"\r" +
-    "\n" +
-    "                              ng-keyup=\"settings.checkHeightOfInput($event)\"\r" +
-    "\n" +
-    "                              ng-maxlength=\"1000\"\r" +
-    "\n" +
-    "                              ng-model=\"settings.newMessage\"></textarea>\r" +
-    "\n" +
-    "                    <span class=\"input-group-btn\">\r" +
-    "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"sendMessage()\"\r" +
-    "\n" +
-    "                                ng-style=\"settings.textInputStyle\"\r" +
-    "\n" +
-    "                                ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </span>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-repeat=\"message in settings.thread.messages\" class=\"message-view\">\r" +
-    "\n" +
-    "                    <div class=\"message-inner-view\">\r" +
-    "\n" +
-    "                        <div class=\"message-view-image\">\r" +
-    "\n" +
-    "                            <img ng-src=\"{{message.profileUrl}}\" class=\"img-rounded\">\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"message-view-content\">\r" +
-    "\n" +
-    "                            <div class=\"message-view-title\">\r" +
-    "\n" +
-    "                                <div class=\"message-view-name\">\r" +
-    "\n" +
-    "                                    {{message.name}}\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                                <div class=\"message-view-timestamp\">\r" +
-    "\n" +
-    "                                    {{getFormattedDate(message.timestamp)}}\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"message-view-text\">{{message.text}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\"\r" +
-    "\n" +
-    "                     class=\"pagination\">\r" +
-    "\n" +
-    "                    <ely-pagination-next-previous total-items=\"settings.thread.numberOfMessages\"\r" +
-    "\n" +
-    "                                                  items-per-page=\"{{settings.itemsPerPage}}\"\r" +
-    "\n" +
-    "                                                  get-pagination-set=\"settings.getThread\"></ely-pagination-next-previous>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <!--<div id=\"leftCol\">\r" +
-    "\n" +
-    "            <div id=\"inner-leftCol\">\r" +
-    "\n" +
-    "                <div id=\"thread-description\">{{settings.thread.threadDescription}}</div>\r" +
-    "\n" +
-    "                <ul id=\"message-index\" class=\"list-group\">\r" +
-    "\n" +
-    "                    <div ng-repeat=\"thread in settings.threads.threads\"\r" +
-    "\n" +
-    "                         ng-if=\"thread.threadId !== settings.selectedThreadId\">\r" +
-    "\n" +
-    "                        <li class=\"list-group-item\"\r" +
-    "\n" +
-    "                            ng-click=\"settings.openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                            <span class=\"badge\" ng-if=\"thread.hasNotReadMessages\">{{thread.numberOfUnreadMessages}}</span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <div class=\"message-unread-count\" data-trigger=\"hover\" data-delay=\"1000\"\r" +
-    "\n" +
-    "                                 data-title=\"{{thread.description}}\"\r" +
-    "\n" +
-    "                                 bs-tooltip>{{thread.description}}\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </li>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>-->\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-messages><div ng-controller=ConversationActionsCtrl><div id=centerCol><div id=inner-centerCol><div class=add-message ng-style=settings.textInputWrapperStyle><div class=input-group><textarea class=form-control placeholder=Nachricht ng-style=settings.textInputStyle ng-keyup=settings.checkHeightOfInput($event) ng-maxlength=1000 ng-model=settings.newMessage></textarea><span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=sendMessage() ng-style=settings.textInputStyle ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden</button></span></div></div><div ng-repeat=\"message in settings.thread.messages\" class=message-view><div class=message-inner-view><div class=message-view-image><img ng-src={{message.profileUrl}} class=img-rounded></div><div class=message-view-content><div class=message-view-title><div class=message-view-name>{{message.name}}</div><div class=message-view-timestamp>{{getFormattedDate(message.timestamp)}}</div></div><div class=message-view-text>{{message.text}}</div></div></div></div><div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=settings.thread.numberOfMessages items-per-page={{settings.itemsPerPage}} get-pagination-set=settings.getThread></ely-pagination-next-previous></div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/messages/threads.html',
-    "<div id=\"content-threads\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div ng-if=\"!search\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"thread in threads.threads\" class=\"thread-preview\"\r" +
-    "\n" +
-    "                     ng-click=\"openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                    <div class=\"thread-preview-image\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{thread.profileUrl}}\" class=\"img-circle\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"thread-preview-text\">\r" +
-    "\n" +
-    "                        <div class=\"thread-preview-description\">\r" +
-    "\n" +
-    "                            {{thread.description}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div ng-class=\"{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}\">\r" +
-    "\n" +
-    "                            {{thread.previewText}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div ng-class=\"{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}\">\r" +
-    "\n" +
-    "                        {{getFormattedDate(thread.lastUpdate)}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-show=\"threads.numberOfThreads > itemsPerPage\"\r" +
-    "\n" +
-    "                     class=\"pagination\">\r" +
-    "\n" +
-    "                    <ely-pagination-next-previous total-items=\"threads.numberOfThreads\"\r" +
-    "\n" +
-    "                                                  items-per-page=\"{{itemsPerPage}}\"\r" +
-    "\n" +
-    "                                                  get-pagination-set=\"getThreads\"></ely-pagination-next-previous>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-if=\"search.threads.length > 0\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"thread in search.threads\" class=\"thread-preview\"\r" +
-    "\n" +
-    "                     ng-class=\"{'thread-preview-add-thread': !thread.previewText, 'thread-preview': thread.previewText}\"\r" +
-    "\n" +
-    "                     ng-click=\"openThread(thread.threadId, thread.isGroupThread)\">\r" +
-    "\n" +
-    "                    <div class=\"thread-preview-image\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{thread.profileUrl}}\" class=\"img-circle\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"thread-preview-text\">\r" +
-    "\n" +
-    "                        <div ng-class=\"{'thread-preview-description': thread.previewText, 'thread-preview-description-center': !thread.previewText}\">\r" +
-    "\n" +
-    "                            {{thread.description}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"thread-preview-previewText\" ng-if=\"thread.previewText\">\r" +
-    "\n" +
-    "                            {{thread.previewText}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div id=\"add-new-single-thread\" ng-if=\"!thread.previewText\">\r" +
-    "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"addNewSingleThread(thread.userId, thread.description)\">\r" +
-    "\n" +
-    "                            <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Konversation starten\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-if=\"search.threads.length === 0\">\r" +
-    "\n" +
-    "                Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche\r" +
-    "\n" +
-    "                du als Kontakt hinzugefügt hast.\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"search-box-container\">\r" +
-    "\n" +
-    "                <div id=\"search-box-container-inner\">\r" +
-    "\n" +
-    "                    <ely-search-box description=\"Nachricht an...\" query=\"query\"\r" +
-    "\n" +
-    "                                    get-query-suggestion=\"getSuggestion\"\r" +
-    "\n" +
-    "                                    get-query=\"getThreadsOrContacts\"></ely-search-box>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-threads><div id=centerCol><div id=inner-centerCol><div ng-if=!search><div ng-repeat=\"thread in threads.threads\" class=thread-preview ng-click=\"openThread(thread.threadId, thread.isGroupThread)\"><div class=thread-preview-image><img ng-src={{thread.profileUrl}} class=img-circle></div><div class=thread-preview-text><div class=thread-preview-description>{{thread.description}}</div><div ng-class=\"{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}\">{{thread.previewText}}</div></div><div ng-class=\"{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}\">{{getFormattedDate(thread.lastUpdate)}}</div></div><div ng-show=\"threads.numberOfThreads > itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=threads.numberOfThreads items-per-page={{itemsPerPage}} get-pagination-set=getThreads></ely-pagination-next-previous></div></div><div ng-if=\"search.threads.length > 0\"><div ng-repeat=\"thread in search.threads\" class=thread-preview ng-class=\"{'thread-preview-add-thread': !thread.previewText, 'thread-preview': thread.previewText}\" ng-click=\"openThread(thread.threadId, thread.isGroupThread)\"><div class=thread-preview-image><img ng-src={{thread.profileUrl}} class=img-circle></div><div class=thread-preview-text><div ng-class=\"{'thread-preview-description': thread.previewText, 'thread-preview-description-center': !thread.previewText}\">{{thread.description}}</div><div class=thread-preview-previewText ng-if=thread.previewText>{{thread.previewText}}</div></div><div id=add-new-single-thread ng-if=!thread.previewText><button class=\"btn btn-default\" type=button ng-click=\"addNewSingleThread(thread.userId, thread.description)\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Konversation starten</button></div></div></div><div ng-if=\"search.threads.length === 0\">Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche du als Kontakt hinzugefügt hast.</div><div id=search-box-container><div id=search-box-container-inner><ely-search-box description=\"Nachricht an...\" query=query get-query-suggestion=getSuggestion get-query=getThreadsOrContacts></ely-search-box></div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div id=\"leftCol\">\r" +
-    "\n" +
-    "    <div class=\"left-nav-element-container\" ng-repeat=\"section in sectionsDisply\" ng-style=\"containerStyle\">\r" +
-    "\n" +
-    "        <div class=\"left-nav-element\" ng-style=\"isFirst($first, section.color)\">\r" +
-    "\n" +
-    "            <div class=\"left-nav-image-container\" ng-style=\"{'background-color': section.color }\">\r" +
-    "\n" +
-    "                <img ng-src=\"{{section.url}}\" class=\"left-nav-image\">\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"left-nav-description-container\" ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\"\r" +
-    "\n" +
-    "                 ng-mouseleave=\"containerStyle={}\" ng-click=\"goToState(section.sref)\">\r" +
-    "\n" +
-    "                <div class=\"left-nav-description\">\r" +
-    "\n" +
-    "                    {{section.description}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\"><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><img ng-src={{section.url}} class=left-nav-image></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\" ng-click=goToState(section.sref)><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/leftNavCol.html',
-    "<div ng-controller=\"LeftNavColCtrl\" id=\"leftColNav\">\n" +
-    "    <ely-left-nav sections=\"sections\"></ely-left-nav>\n" +
-    "</div>"
+    "<div ng-controller=LeftNavColCtrl id=leftColNav><ely-left-nav sections=sections></ely-left-nav></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/loggedInHeader.html',
-    "<div id=\"public-header\" ng-controller=\"LoggedInHeaderCtrl\">\r" +
-    "\n" +
-    "    <div>\r" +
-    "\n" +
-    "        <div class=\"leftHeaderNavElement\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div id=\"header-user-name\">{{userHeaderInfo.name}}</div>\r" +
-    "\n" +
-    "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" class=\"img-circle\" data-placement=\"bottom-right\"\r" +
-    "\n" +
-    "                 data-template-url=\"app/modules/navigation/profilePreview/profilePreviewPopover.html\" data-auto-close=\"true\"\r" +
-    "\n" +
-    "                 data-trigger=\"click\" bs-popover>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=public-header ng-controller=LoggedInHeaderCtrl><div><div class=leftHeaderNavElement><div id=header-user-name>{{userHeaderInfo.name}}</div><img ng-src={{userHeaderInfo.profileImagePreview}} class=img-circle data-placement=bottom-right data-template-url=app/modules/navigation/profilePreview/profilePreviewPopover.html data-auto-close=true data-trigger=click bs-popover></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/profilePreview/profilePreviewPopover.html',
-    "<div class=\"popover\" id=\"popover-profile-preview\" ng-controller=\"ProfilePreviewPopoverCtrl\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <div id=\"profile-preview-content\">\r" +
-    "\n" +
-    "            <img ng-src=\"{{userHeaderInfo.profileImagePreview}}\" id=\"profile-preview-image\" class=\"img-rounded\">\r" +
-    "\n" +
-    "            <div id=\"profile-preview-description\">\r" +
-    "\n" +
-    "                <div id=\"profile-preview-name\">\r" +
-    "\n" +
-    "                    {{userHeaderInfo.name}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div id=\"profile-preview-email\">\r" +
-    "\n" +
-    "                    {{userHeaderInfo.email}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div id=\"profile-preview-commands\">\r" +
-    "\n" +
-    "            <button class=\"btn btn-default\" id=\"profile-preview-change\" type=\"button\" ng-click=\"openProfileEdit($hide)\">\r" +
-    "\n" +
-    "                Profil bearbeiten\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button class=\"btn btn-default\" id=\"profile-preview-logout\" type=\"button\" ng-click=\"logout()\">\r" +
-    "\n" +
-    "                 Abmelden\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=popover id=popover-profile-preview ng-controller=ProfilePreviewPopoverCtrl><div class=arrow></div><div class=popover-content><div id=profile-preview-content><img ng-src={{userHeaderInfo.profileImagePreview}} id=profile-preview-image class=img-rounded><div id=profile-preview-description><div id=profile-preview-name>{{userHeaderInfo.name}}</div><div id=profile-preview-email>{{userHeaderInfo.email}}</div></div></div><div id=profile-preview-commands><button class=\"btn btn-default\" id=profile-preview-change type=button ng-click=openProfileEdit($hide)>Profil bearbeiten</button> <button class=\"btn btn-default\" id=profile-preview-logout type=button ng-click=logout()>Abmelden</button></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/publicHeader.html',
-    "<div id=\"public-header\">\r" +
-    "\n" +
-    "</div>"
+    "<div id=public-header></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/commonBook.html',
-    "<div>\r" +
-    "\n" +
-    "    <div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div>\r" +
-    "\n" +
-    "    <div id=\"content-create-edit-book-page-common-area\">\r" +
-    "\n" +
-    "        <div id=\"content-create-edit-book-page-common-inner-area\">\r" +
-    "\n" +
-    "            <div ng-controller=\"PageCommonBookCtrl\">\r" +
-    "\n" +
-    "                <ely-form-text-input label=\"Autor\" input-name=\"inputAuthor\" input-placeholder=\"Autor\"\r" +
-    "\n" +
-    "                                     profile-form=\"commonForm\" submit-model=\"page.authors\"\r" +
-    "\n" +
-    "                                     max-length=\"255\" required=\"true\"></ely-form-text-input>\r" +
-    "\n" +
-    "                <ely-form-text-input label=\"Erscheinungsdatum\" input-name=\"inputPublicationDate\" input-placeholder=\"Erscheinungsdatum\"\r" +
-    "\n" +
-    "                                     profile-form=\"commonForm\" submit-model=\"page.publishDate\"\r" +
-    "\n" +
-    "                                     max-length=\"255\"\r" +
-    "\n" +
-    "                                     custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div><div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div><div id=content-create-edit-book-page-common-area><div id=content-create-edit-book-page-common-inner-area><div ng-controller=PageCommonBookCtrl><ely-form-text-input label=Autor input-name=inputAuthor input-placeholder=Autor profile-form=commonForm submit-model=page.authors max-length=255 required></ely-form-text-input><ely-form-text-input label=Erscheinungsdatum input-name=inputPublicationDate input-placeholder=Erscheinungsdatum profile-form=commonForm submit-model=page.publishDate max-length=255 custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=\"content-create-edit-page-common\" ng-controller=\"PageCommonSectionCtrl\" ng-show=\"state.actual === 3\">\r" +
-    "\n" +
-    "    <form name=\"commonForm\" class=\"form-horizontal\" role=\"form\" novalidate>\r" +
-    "\n" +
-    "        <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "            <h1 class=\"website-structure-title\">Allgemeines</h1>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div>\r" +
-    "\n" +
-    "        <div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div>\r" +
-    "\n" +
-    "        <div id=\"content-create-edit-page-common-description-area\">\r" +
-    "\n" +
-    "                    <textarea class=\"form-control\" placeholder=\"Beschreibung\"\r" +
-    "\n" +
-    "                              ng-maxlength=\"10000\"\r" +
-    "\n" +
-    "                              maxLength=\"10000\"\r" +
-    "\n" +
-    "                              ng-model=\"page.description\" required></textarea>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div>\r" +
-    "\n" +
-    "            <button type=\"submit\"\r" +
-    "\n" +
-    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
-    "\n" +
-    "                    ng-click=\"abortCreateEditPage()\">\r" +
-    "\n" +
-    "                Abbrechen\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"submit\"\r" +
-    "\n" +
-    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
-    "\n" +
-    "                    ng-click=\"createPage()\"\r" +
-    "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid}\"\r" +
-    "\n" +
-    "                    ng-hide=\"mode.edit\">\r" +
-    "\n" +
-    "                Seite erstellen\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <button type=\"submit\"\r" +
-    "\n" +
-    "                    class=\"btn btn-default content-create-edit-page-common-commands\"\r" +
-    "\n" +
-    "                    ng-click=\"editPage()\"\r" +
-    "\n" +
-    "                    ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning}\"\r" +
-    "\n" +
-    "                    ng-show=\"mode.edit\">\r" +
-    "\n" +
-    "                Seite &aumlndern\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </form>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-create-edit-page-common ng-controller=PageCommonSectionCtrl ng-show=\"state.actual === 3\"><form name=commonForm class=form-horizontal role=form novalidate><div class=website-structure-header><h1 class=website-structure-title>Allgemeines</h1></div><div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div><div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div><div id=content-create-edit-page-common-description-area><textarea class=form-control placeholder=Beschreibung ng-maxlength=10000 maxlength=10000 ng-model=page.description required></textarea></div><div><button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=abortCreateEditPage()>Abbrechen</button> <button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=createPage() ng-class=\"{disabled: commonForm.$invalid}\" ng-hide=mode.edit>Seite erstellen</button> <button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=editPage() ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning}\" ng-show=mode.edit>Seite &aumlndern</button></div></form></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/commonYoutube.html',
-    "<div>\r" +
-    "\n" +
-    "    <div id=\"content-create-edit-youtube-page-common-area\" ng-controller=\"PageCommonYoutubeCtrl\">\r" +
-    "\n" +
-    "        <ely-form-text-input input-name=\"inputYoutubeLink\" input-placeholder=\"Link zum Youtube Video\"\r" +
-    "\n" +
-    "                             profile-form=\"commonForm\" submit-model=\"page.youtubeLink\"\r" +
-    "\n" +
-    "                             max-length=\"1000\" required=\"true\" show-without-label=\"true\"\r" +
-    "\n" +
-    "                             custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v=\"></ely-form-text-input>\r" +
-    "\n" +
-    "        <ely-iframe width=\"500\" height=\"400\" secure-link=\"https://www.youtube.com/embed/\" src=\"page.youtubeLinkFormatted\"\r" +
-    "\n" +
-    "                    ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe>\r" +
-    "\n" +
-    "        <img src=\"app/img/defaultVideo.png\" ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\">\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div><div id=content-create-edit-youtube-page-common-area ng-controller=PageCommonYoutubeCtrl><ely-form-text-input input-name=inputYoutubeLink input-placeholder=\"Link zum Youtube Video\" profile-form=commonForm submit-model=page.youtubeLink max-length=1000 required show-without-label=true custom-error-description=\"Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v=\"></ely-form-text-input><ely-iframe width=500 height=400 secure-link=\"https://www.youtube.com/embed/\" src=page.youtubeLinkFormatted ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe><img src=app/img/defaultVideo.png ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/pageCreateEdit.html',
-    "<div id=\"content-page-create-edit\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\" ng-controller=\"PageSelectCategoryCtrl\">\r" +
-    "\n" +
-    "            <h1 class=\"website-structure-title\" ng-hide=\"mode.edit\">Kategorie ausw&aumlhlen</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <h1 class=\"website-structure-title\" ng-show=\"mode.edit\">Titel</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div id=\"content-create-edit-category\">\r" +
-    "\n" +
-    "                <form class=\"form-horizontal\" name=\"categoryForm\" role=\"form\" novalidate>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedCategory\"\r" +
-    "\n" +
-    "                                name=\"inputCategory\"\r" +
-    "\n" +
-    "                                id=\"inputCategoryId\"\r" +
-    "\n" +
-    "                                bs-options=\"category as category for category in categories\"\r" +
-    "\n" +
-    "                                data-placeholder=\"Kategorie ausw&aumlhlen\"\r" +
-    "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
-    "\n" +
-    "                                bs-select>\r" +
-    "\n" +
-    "                            <span class=\"caret\"></span>\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                        <!--<button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedSubCategory\"\r" +
-    "\n" +
-    "                                name=\"inputSubCategory\"\r" +
-    "\n" +
-    "                                id=\"inputSubCategoryId\"\r" +
-    "\n" +
-    "                                bs-options=\"category as category for category in subCategories\"\r" +
-    "\n" +
-    "                                ng-show=\"subCategories.length > 0\"\r" +
-    "\n" +
-    "                                data-placeholder=\"Unterkategorie ausw&aumlhlen\"\r" +
-    "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
-    "\n" +
-    "                                bs-select>\r" +
-    "\n" +
-    "                            <span class=\"caret\"></span>\r" +
-    "\n" +
-    "                        </button>-->\r" +
-    "\n" +
-    "                        <button type=\"button\" class=\"btn btn-default content-create-edit-category-element\" ng-model=\"category.selectedLanguage\"\r" +
-    "\n" +
-    "                                name=\"inputLanguage\"\r" +
-    "\n" +
-    "                                id=\"inputLanguageId\"\r" +
-    "\n" +
-    "                                bs-options=\"language.description as language.description for language in languages\"\r" +
-    "\n" +
-    "                                data-placeholder=\"Sprache der Seite ausw&aumlhlen\"\r" +
-    "\n" +
-    "                                ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\"\r" +
-    "\n" +
-    "                                bs-select>\r" +
-    "\n" +
-    "                            <span class=\"caret\"></span>\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <input name=\"inputTitle\" ng-model=\"category.title\"\r" +
-    "\n" +
-    "                               class=\"form-control\" id=\"inputTitleId\"\r" +
-    "\n" +
-    "                               placeholder=\"Titel\"\r" +
-    "\n" +
-    "                               maxLength=\"100\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group content-create-edit-category-element\">\r" +
-    "\n" +
-    "                        <div>\r" +
-    "\n" +
-    "                            <button type=\"submit\"\r" +
-    "\n" +
-    "                                    class=\"btn btn-default category-select-finished\"\r" +
-    "\n" +
-    "                                    ng-click=\"categorySelectFinished()\"\r" +
-    "\n" +
-    "                                    ng-class=\"{disabled: categoryFinishedButtonDisabled}\"\r" +
-    "\n" +
-    "                                    ng-show=\"categoryFirstSelect\">\r" +
-    "\n" +
-    "                                Weiter\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                            <button type=\"submit\"\r" +
-    "\n" +
-    "                                    class=\"btn btn-default category-select-finished\"\r" +
-    "\n" +
-    "                                    ng-click=\"categorySelectFinished()\"\r" +
-    "\n" +
-    "                                    ng-show=\"!categoryFirstSelect && state.actual === 1\">\r" +
-    "\n" +
-    "                                Weiter\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </form>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"content-create-edit-page-suggestions\" ng-show=\"state.actual === 2\">\r" +
-    "\n" +
-    "                <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Existiert die Seite bereits?\" service=\"SearchPage\"\r" +
-    "\n" +
-    "                                            service-parameter=\"SearchPageParameter\" hide=\"false\"\r" +
-    "\n" +
-    "                                            not-request-init-service=\"true\"></ely-page-preview-container>\r" +
-    "\n" +
-    "                <div id=\"content-create-edit-page-suggestion-commands\">\r" +
-    "\n" +
-    "                    <button type=\"submit\"\r" +
-    "\n" +
-    "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
-    "\n" +
-    "                            ng-click=\"abortCreateEditPage()\">\r" +
-    "\n" +
-    "                        Seite Erstellen Abbrechen\r" +
-    "\n" +
-    "                    </button>\r" +
-    "\n" +
-    "                    <button type=\"submit\"\r" +
-    "\n" +
-    "                            class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\"\r" +
-    "\n" +
-    "                            ng-click=\"suggestionContinue()\">\r" +
-    "\n" +
-    "                        Weiter\r" +
-    "\n" +
-    "                    </button>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-create-edit><div id=centerCol><div id=inner-centerCol ng-controller=PageSelectCategoryCtrl><h1 class=website-structure-title ng-hide=mode.edit>Kategorie ausw&aumlhlen</h1><h1 class=website-structure-title ng-show=mode.edit>Titel</h1><div id=content-create-edit-category><form class=form-horizontal name=categoryForm role=form novalidate><div class=form-group><button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedCategory name=inputCategory id=inputCategoryId bs-options=\"category as category for category in categories\" data-placeholder=\"Kategorie ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button> <button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedLanguage name=inputLanguage id=inputLanguageId bs-options=\"language.description as language.description for language in languages\" data-placeholder=\"Sprache der Seite ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button></div><div class=form-group><input name=inputTitle ng-model=category.title class=form-control id=inputTitleId placeholder=Titel maxlength=100></div><div class=\"form-group content-create-edit-category-element\"><div><button type=submit class=\"btn btn-default category-select-finished\" ng-click=categorySelectFinished() ng-class=\"{disabled: categoryFinishedButtonDisabled}\" ng-show=categoryFirstSelect>Weiter</button> <button type=submit class=\"btn btn-default category-select-finished\" ng-click=categorySelectFinished() ng-show=\"!categoryFirstSelect && state.actual === 1\">Weiter</button></div></div></form></div><div id=content-create-edit-page-suggestions ng-show=\"state.actual === 2\"><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=SearchPage service-parameter=SearchPageParameter hide=false not-request-init-service=true></ely-page-preview-container><div id=content-create-edit-page-suggestion-commands><button type=submit class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\" ng-click=abortCreateEditPage()>Seite Erstellen Abbrechen</button> <button type=submit class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\" ng-click=suggestionContinue()>Weiter</button></div></div><div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/selectPicture.html',
-    "<div id=\"content-create-edit-page-common-picture-area\">\r" +
-    "\n" +
-    "    <img ng-src=\"{{page.imagePreview}}\" class=\"content-create-edit-page-common-picture\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "    <div>\r" +
-    "\n" +
-    "        <button type=\"button\" class=\"btn btn-default content-create-edit-page-common-get-picture\"\r" +
-    "\n" +
-    "                data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
-    "\n" +
-    "                data-backdrop=\"static\"\r" +
-    "\n" +
-    "                data-template-url=\"app/modules/util/file/previewFile.html\" bs-modal=\"modal\">\r" +
-    "\n" +
-    "            Titelbild ausw&aumlhlen..\r" +
-    "\n" +
-    "        </button>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-create-edit-page-common-picture-area><img ng-src={{page.imagePreview}} class=content-create-edit-page-common-picture><div><button type=button class=\"btn btn-default content-create-edit-page-common-get-picture\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/previewFile.html bs-modal=modal>Titelbild ausw&aumlhlen..</button></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageDetail/detailReview/template.html',
-    "<div class=\"page-detail-bottom-element\">\r" +
+    "<div class=page-detail-bottom-element><div class=page-detail-bottom-element-inner><h1 class=website-structure-title>{{title}}</h1><div class=page-rating-review ng-hide=showCommentDetail><div class=page-rating-review-summary><div class=page-rating-review-number>{{summaryRating}}</div><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=summaryRating></ely-star-rating><div class=page-rating-review-total>{{totalNumberOfRatings}} total</div></div><div class=page-rating-review-diagram><div class=page-rating-review-line><img class=page-rating-review-line-star src=app/img/starRating/starFull.png><div class=page-rating-review-line-number>5</div><div class=page-rating-review-line-block><div class=page-rating-review-line-block-5 ng-style=\"{'width': rating[4].width + '%'}\">{{rating[4].numberOfRatings}}</div></div></div><div class=page-rating-review-line><img class=page-rating-review-line-star src=app/img/starRating/starFull.png><div class=page-rating-review-line-number>4</div><div class=page-rating-review-line-block><div class=page-rating-review-line-block-4 ng-style=\"{'width': rating[3].width + '%'}\">{{rating[3].numberOfRatings}}</div></div></div><div class=page-rating-review-line><img class=page-rating-review-line-star src=app/img/starRating/starFull.png><div class=page-rating-review-line-number>3</div><div class=page-rating-review-line-block><div class=page-rating-review-line-block-3 ng-style=\"{'width': rating[2].width + '%'}\">{{rating[2].numberOfRatings}}</div></div></div><div class=page-rating-review-line><img class=page-rating-review-line-star src=app/img/starRating/starFull.png><div class=page-rating-review-line-number>2</div><div class=page-rating-review-line-block><div class=page-rating-review-line-block-2 ng-style=\"{'width': rating[1].width + '%'}\">{{rating[1].numberOfRatings}}</div></div></div><div class=page-rating-review-line><img class=page-rating-review-line-star src=app/img/starRating/starFull.png><div class=page-rating-review-line-number>1</div><div class=page-rating-review-line-block><div class=page-rating-review-line-block-1 ng-style=\"{'width': rating[0].width + '%'}\">{{rating[0].numberOfRatings}}</div></div></div></div></div><div ng-class=\"{'page-rating-comments': !showCommentDetail, 'page-rating-comments-detail': showCommentDetail}\"><div class=page-rating-comments-nav ng-show=showCommentDetail ng-click=previousComments()><img src=app/img/arrow-previous.png></div><div class=page-rating-comments-previews ng-style=styleCommentsDetail ng-click=setShowCommentDetail()><div ng-repeat=\"userReview in review.reviews\" ng-class=\"{'page-rating-comment-preview': userReview.comment.length < 100 || !userReview.comment || !showCommentDetail,\r" +
     "\n" +
-    "    <div class=\"page-detail-bottom-element-inner\">\r" +
-    "\n" +
-    "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"page-rating-review\" ng-hide=\"showCommentDetail\">\r" +
-    "\n" +
-    "            <div class=\"page-rating-review-summary\">\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-number\">\r" +
-    "\n" +
-    "                    {{summaryRating}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                 number-of-selected-stars-readonly=\"summaryRating\"></ely-star-rating>\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-total\">\r" +
-    "\n" +
-    "                    {{totalNumberOfRatings}} total\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-rating-review-diagram\">\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-line\">\r" +
-    "\n" +
-    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-number\">5</div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-block\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-review-line-block-5\" ng-style=\"{'width': rating[4].width + '%'}\">{{rating[4].numberOfRatings}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-line\">\r" +
-    "\n" +
-    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-number\">4</div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-block\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-review-line-block-4\" ng-style=\"{'width': rating[3].width + '%'}\">{{rating[3].numberOfRatings}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-line\">\r" +
-    "\n" +
-    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-number\">3</div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-block\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-review-line-block-3\" ng-style=\"{'width': rating[2].width + '%'}\">{{rating[2].numberOfRatings}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-line\">\r" +
-    "\n" +
-    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-number\">2</div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-block\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-review-line-block-2\" ng-style=\"{'width': rating[1].width + '%'}\">{{rating[1].numberOfRatings}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-rating-review-line\">\r" +
-    "\n" +
-    "                    <img class=\"page-rating-review-line-star\" src=\"app/img/starRating/starFull.png\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-number\">1</div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-review-line-block\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-review-line-block-1\" ng-style=\"{'width': rating[0].width + '%'}\">{{rating[0].numberOfRatings}}</div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-class=\"{'page-rating-comments': !showCommentDetail, 'page-rating-comments-detail': showCommentDetail}\">\r" +
-    "\n" +
-    "            <div class=\"page-rating-comments-nav\" ng-show=\"showCommentDetail\" ng-click=\"previousComments()\"><img src=\"app/img/arrow-previous.png\">\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-rating-comments-previews\" ng-style=\"styleCommentsDetail\" ng-click=\"setShowCommentDetail()\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"userReview in review.reviews\"\r" +
-    "\n" +
-    "                     ng-class=\"{'page-rating-comment-preview': userReview.comment.length < 100 || !userReview.comment || !showCommentDetail,\r" +
-    "\n" +
-    "                    'page-rating-comment-preview-wide': userReview.comment.length > 100 && showCommentDetail}\">\r" +
-    "\n" +
-    "                    <div class=\"page-rating-comment-left\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{userReview.profileUrl}}\" class=\"img-circle page-rating-comment-img\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-rating-comment-right\">\r" +
-    "\n" +
-    "                        <div class=\"page-rating-comment-header\">\r" +
-    "\n" +
-    "                            <div class=\"page-rating-comment-name\">\r" +
-    "\n" +
-    "                                {{userReview.name}}\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"page-rating-comment-created\">\r" +
-    "\n" +
-    "                                {{userReview.created}}\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                         number-of-selected-stars-readonly=\"userReview.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                        <div class=\"page-rating-comment-description\">\r" +
-    "\n" +
-    "                            {{userReview.comment}}\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-rating-comments-nav\" ng-click=\"nextComments()\"\r" +
-    "\n" +
-    "                 ng-show=\"totalNumberOfRatings > skipComments + numberOfElements && showCommentDetail\"><img src=\"app/img/arrow-next.png\"></div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "                    'page-rating-comment-preview-wide': userReview.comment.length > 100 && showCommentDetail}\"><div class=page-rating-comment-left><img ng-src={{userReview.profileUrl}} class=\"img-circle page-rating-comment-img\"></div><div class=page-rating-comment-right><div class=page-rating-comment-header><div class=page-rating-comment-name>{{userReview.name}}</div><div class=page-rating-comment-created>{{userReview.created}}</div></div><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=userReview.rating></ely-star-rating><div class=page-rating-comment-description>{{userReview.comment}}</div></div></div></div><div class=page-rating-comments-nav ng-click=nextComments() ng-show=\"totalNumberOfRatings > skipComments + numberOfElements && showCommentDetail\"><img src=app/img/arrow-next.png></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageDetail/headerBookDetail.html',
-    "<div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\" ng-controller=\"PageHeaderBookDetailCtrl\">\r" +
-    "\n" +
-    "    <div class=\"page-detail-contributor-title\">\r" +
-    "\n" +
-    "        {{contributorPrefix}}\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"page-detail-header-contributor-with-Profile\" ng-repeat=\"contributor in contributorsWithProfile\"\r" +
-    "\n" +
-    "         ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\">\r" +
-    "\n" +
-    "        <div ng-if=\"contributor.isLoggedInUser\">Ich</div>\r" +
-    "\n" +
-    "        <div ng-if=\"!contributor.isLoggedInUser\">{{contributor.name}}</div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"page-detail-header-contributor\" ng-repeat=\"contributor in contributors\">\r" +
-    "\n" +
-    "        {{contributor.name}}\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-show=\"contributorsWithProfile.length > 0 || contributors.length > 0\" ng-controller=PageHeaderBookDetailCtrl><div class=page-detail-contributor-title>{{contributorPrefix}}</div><div class=page-detail-header-contributor-with-Profile ng-repeat=\"contributor in contributorsWithProfile\" ng-click=\"openUserDetail(contributor.userId, contributor.isLoggedInUser)\"><div ng-if=contributor.isLoggedInUser>Ich</div><div ng-if=!contributor.isLoggedInUser>{{contributor.name}}</div></div><div class=page-detail-header-contributor ng-repeat=\"contributor in contributors\">{{contributor.name}}</div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageDetail/pageDetail.html',
-    "<div id=\"content-page-detail\">\r" +
+    "<div id=content-page-detail><div id=centerCol><div id=page-detail-header><div id=page-detail-inner-header><div class=page-detail-header-image><img ng-src={{pageDetail.page.titleUrl}} ng-show=\"label !== 'Youtube'\"><ely-iframe width=400 height=300 secure-link=\"https://www.youtube.com/embed/\" src=pageDetail.page.link ng-if=\"label === 'Youtube'\"></ely-iframe></div><div class=page-detail-header-list><div class=page-detail-header-title>{{pageDetail.page.title}}</div><div class=page-detail-header-category>Kategorie: {{category}}</div><div ng-include=\"'app/modules/page/pageDetail/headerBookDetail.html'\" ng-if=\"label === 'Book'\"></div><div class=page-detail-header-commands ng-controller=AddRemoveRecommendationCtrl><button class=\"btn btn-default\" type=button ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</button> <button class=\"btn btn-default\" type=button ng-click=\"goEditPage(pageId, label)\" ng-show=pageDetail.administrators.isAdmin>Seite bearbeiten</button></div><div class=page-detail-header-rating-overviews><div class=page-detail-header-rating-overview ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=pageDetail.recommendation.summary.contact.rating></ely-star-rating><div class=page-detail-header-rating-overview-description>(Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})</div></div><div class=page-detail-header-rating-overview ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings > 0\"><div class=page-detail-header-no-rating-overview-description>Noch keine Bewertungen durch deine Kontakte</div></div><div class=page-detail-header-rating-overview ng-show=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=pageDetail.recommendation.summary.all.rating></ely-star-rating><div class=page-detail-header-rating-overview-description>(Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})</div></div><div class=page-detail-header-rating-overview ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings === 0\"><div class=page-detail-header-no-rating-overview-description>Noch keine Bewertungen</div></div></div></div><div ng-include=\"'app/modules/page/pageDetail/pageHeaderActivityPreview.html'\" ng-if=\"label === 'Education'\"></div></div></div><div class=page-detail-bottom-element><h1 class=website-structure-title>Beschreibung</h1><ely-expand-text description={{pageDetail.page.description}}></ely-expand-text></div><div ng-include=\"'app/modules/page/pageDetail/pageDetailEducation.html'\" ng-if=\"label === 'Education'\"></div><div class=page-detail-bottom-element ng-show=pageDetail.recommendation.user><div class=page-detail-bottom-element-inner ng-controller=AddRemoveRecommendationCtrl><h1 class=website-structure-title>Meine Bewertung</h1><ely-star-rating is-readonly=true is-small=true number-of-selected-stars-readonly=pageDetail.recommendation.user.rating></ely-star-rating><div id=page-detail-my-recommendation>bewertet am {{pageDetail.recommendation.user.created}}</div><button class=\"btn btn-default page-detail-my-recommendation-remove\" type=button ng-click=\"removeRecommendation(pageDetail, pageId, label)\">Bewertung entfernen</button><div id=page-detail-my-recommendation-comment>{{pageDetail.recommendation.user.comment}}</div></div></div><div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad\"><ely-page-review only-contacts=true title=\"Bewertungen deiner Kontakte\" ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"></ely-page-review><ely-page-review only-contacts=false title=\"Alle Bewertungen\" ng-if=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"></ely-page-review></div><div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings &&\r" +
     "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"page-detail-header\">\r" +
-    "\n" +
-    "            <div id=\"page-detail-inner-header\">\r" +
-    "\n" +
-    "                <div class=\"page-detail-header-image\">\r" +
-    "\n" +
-    "                    <img ng-src=\"{{pageDetail.page.titleUrl}}\" ng-show=\"label !== 'Youtube'\">\r" +
-    "\n" +
-    "                    <ely-iframe width=\"400\" height=\"300\" secure-link=\"https://www.youtube.com/embed/\" src=\"pageDetail.page.link\"\r" +
-    "\n" +
-    "                                ng-if=\"label === 'Youtube'\"></ely-iframe>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-detail-header-list\">\r" +
-    "\n" +
-    "                    <div class=\"page-detail-header-title\">\r" +
-    "\n" +
-    "                        {{pageDetail.page.title}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-detail-header-category\">\r" +
-    "\n" +
-    "                        Kategorie: {{category}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div ng-include=\"'app/modules/page/pageDetail/headerBookDetail.html'\" ng-if=\"label === 'Book'\"></div>\r" +
-    "\n" +
-    "                    <div class=\"page-detail-header-commands\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
-    "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\"\r" +
-    "\n" +
-    "                                ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\"\r" +
-    "\n" +
-    "                                ng-hide=\"pageDetail.recommendation.user\">\r" +
-    "\n" +
-    "                            Bewerten\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                        <button class=\"btn btn-default\" type=\"button\" ng-click=\"goEditPage(pageId, label)\"\r" +
-    "\n" +
-    "                                ng-show=\"pageDetail.administrators.isAdmin\"> Seite bearbeiten\r" +
-    "\n" +
-    "                        </button>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"page-detail-header-rating-overviews\">\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\" ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\">\r" +
-    "\n" +
-    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                             number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.contact.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-rating-overview-description\">\r" +
-    "\n" +
-    "                                (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\"\r" +
-    "\n" +
-    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings > 0\">\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-no-rating-overview-description\">\r" +
-    "\n" +
-    "                                Noch keine Bewertungen durch deine Kontakte\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\" ng-show=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\">\r" +
-    "\n" +
-    "                            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\"\r" +
-    "\n" +
-    "                                             number-of-selected-stars-readonly=\"pageDetail.recommendation.summary.all.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-rating-overview-description\">\r" +
-    "\n" +
-    "                                (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"page-detail-header-rating-overview\"\r" +
-    "\n" +
-    "                             ng-show=\"pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings === 0\">\r" +
-    "\n" +
-    "                            <div class=\"page-detail-header-no-rating-overview-description\">\r" +
-    "\n" +
-    "                                Noch keine Bewertungen\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div ng-include=\"'app/modules/page/pageDetail/pageHeaderActivityPreview.html'\" ng-if=\"label === 'Education'\"></div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"page-detail-bottom-element\">\r" +
-    "\n" +
-    "            <h1 class=\"website-structure-title\">Beschreibung</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <ely-expand-text description=\"{{pageDetail.page.description}}\"></ely-expand-text>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-include=\"'app/modules/page/pageDetail/pageDetailEducation.html'\" ng-if=\"label === 'Education'\"></div>\r" +
-    "\n" +
-    "        <div class=\"page-detail-bottom-element\" ng-show=\"pageDetail.recommendation.user\">\r" +
-    "\n" +
-    "            <div class=\"page-detail-bottom-element-inner\" ng-controller=\"AddRemoveRecommendationCtrl\">\r" +
-    "\n" +
-    "                <h1 class=\"website-structure-title\">Meine Bewertung</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <ely-star-rating is-readonly=\"true\" is-small=\"true\"\r" +
-    "\n" +
-    "                                 number-of-selected-stars-readonly=\"pageDetail.recommendation.user.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                <div id=\"page-detail-my-recommendation\"> bewertet am {{pageDetail.recommendation.user.created}}</div>\r" +
-    "\n" +
-    "                <button class=\"btn btn-default page-detail-my-recommendation-remove\" type=\"button\"\r" +
-    "\n" +
-    "                        ng-click=\"removeRecommendation(pageDetail, pageId, label)\">Bewertung entfernen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "                <div id=\"page-detail-my-recommendation-comment\"> {{pageDetail.recommendation.user.comment}}</div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad\">\r" +
-    "\n" +
-    "            <ely-page-review only-contacts=\"true\" title=\"Bewertungen deiner Kontakte\"\r" +
-    "\n" +
-    "                             ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings > 0\"></ely-page-review>\r" +
-    "\n" +
-    "            <ely-page-review only-contacts=\"false\" title=\"Alle Bewertungen\"\r" +
-    "\n" +
-    "                             ng-if=\"pageDetail.recommendation.summary.all.numberOfRatings > 0\"></ely-page-review>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div ng-if=\"pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings &&\r" +
-    "\n" +
-    "        pageDetail.recommendation.summary.contact.numberOfRatings > 0 && startLoad\">\r" +
-    "\n" +
-    "            <ely-page-review only-contacts=\"false\" title=\"Bewertungen\"></ely-page-review>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"page-detail-bottom-element\">\r" +
-    "\n" +
-    "            <div class=\"page-detail-bottom-element-inner\">\r" +
-    "\n" +
-    "                <h1 class=\"website-structure-title\">Administratoren</h1>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"user-mini-preview\" ng-repeat=\"admin in pageDetail.administrators.list\" ng-click=\"openUserDetails(admin.userId)\">\r" +
-    "\n" +
-    "                    <div class=\"user-mini-preview-content\">\r" +
-    "\n" +
-    "                        <img ng-src=\"{{admin.profileUrl}}\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"user-mini-preview-name\">\r" +
-    "\n" +
-    "                            <div class=\"name\">{{admin.name}}</div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "        pageDetail.recommendation.summary.contact.numberOfRatings > 0 && startLoad\"><ely-page-review only-contacts=false title=Bewertungen></ely-page-review></div><div class=page-detail-bottom-element><div class=page-detail-bottom-element-inner><h1 class=website-structure-title>Administratoren</h1><div class=user-mini-preview ng-repeat=\"admin in pageDetail.administrators.list\" ng-click=openUserDetails(admin.userId)><div class=user-mini-preview-content><img ng-src={{admin.profileUrl}}><div class=user-mini-preview-name><div class=name>{{admin.name}}</div></div></div></div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageDetail/pageDetailEducation.html',
-    "<div ng-controller=\"PageDetailEducationCtrl\">\r" +
-    "\n" +
-    "    <div class=\"page-detail-bottom-element\">\r" +
-    "\n" +
-    "        <div class=\"page-detail-bottom-element-inner\">\r" +
-    "\n" +
-    "            <h1 class=\"website-structure-title\">Kurse</h1>\r" +
-    "\n" +
-    "            <div class=\"page-preview-expand-container\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"course in pageDetail.page.course\" class=\"page-preview-inner-cross-container\">\r" +
-    "\n" +
-    "                    <ely-page-preview page-preview=\"course\" video-width=\"160\" format=\"cross\"\r" +
-    "\n" +
-    "                                      video-height=\"255\"></ely-page-preview>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-controller=PageDetailEducationCtrl><div class=page-detail-bottom-element><div class=page-detail-bottom-element-inner><h1 class=website-structure-title>Kurse</h1><div class=page-preview-expand-container><div ng-repeat=\"course in pageDetail.page.course\" class=page-preview-inner-cross-container><ely-page-preview page-preview=course video-width=160 format=cross video-height=255></ely-page-preview></div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageDetail/pageHeaderActivityPreview.html',
-    "<div class=\"page-detail-header-preview\" ng-show=\"pageDetail.page.activities.length > 0\" ng-controller=\"pageHeaderActivityPreviewCtrl\">\r" +
-    "\n" +
-    "    <div class=\"page-detail-header-preview-title\">\r" +
-    "\n" +
-    "        N&auml;chste Kurse\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"page-detail-activity\" ng-repeat=\"activity in pageDetail.page.activities\">\r" +
-    "\n" +
-    "        <div ng-click=\"openDetail(activity.pageId, activity.label)\">\r" +
-    "\n" +
-    "            <div class=\"page-detail-activity-time\">{{getTime(activity.startTime)}}</div>\r" +
-    "\n" +
-    "            <div class=\"page-detail-activity-title\">{{activity.title}}</div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=page-detail-header-preview ng-show=\"pageDetail.page.activities.length > 0\" ng-controller=pageHeaderActivityPreviewCtrl><div class=page-detail-header-preview-title>N&auml;chste Kurse</div><div class=page-detail-activity ng-repeat=\"activity in pageDetail.page.activities\"><div ng-click=\"openDetail(activity.pageId, activity.label)\"><div class=page-detail-activity-time>{{getTime(activity.startTime)}}</div><div class=page-detail-activity-title>{{activity.title}}</div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pageOverview.html',
-    "<div id=\"content-page-overview\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <ely-page-preview-container video-width=\"160\" video-height=\"255\" title=\"Suchergebnisse\" service=\"SearchPage\"\r" +
-    "\n" +
-    "                                        service-parameter=\"SearchPageParameter\" hide=\"!hide\"></ely-page-preview-container>\r" +
-    "\n" +
-    "            <ely-page-preview-container format=\"long\" video-width=\"160\" video-height=\"255\"\r" +
-    "\n" +
-    "                                        title=\"Neuste Bewertungen deiner Kontakte\" service=\"PageRecommendationAllContact\"\r" +
-    "\n" +
-    "                                        service-parameter=\"{}\" hide=\"hide\"></ely-page-preview-container>\r" +
-    "\n" +
-    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=\"PopularPages\"\r" +
-    "\n" +
-    "                                        service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
-    "\n" +
-    "            <ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=\"PopularPages\"\r" +
-    "\n" +
-    "                                        service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=\"hide\"></ely-page-preview-container>\r" +
-    "\n" +
-    "            <div id=\"search-box-container\">\r" +
-    "\n" +
-    "                <ely-search-box description=\"Suche nach Seite...\" query=\"query\"\r" +
-    "\n" +
-    "                                get-query-suggestion=\"getUserSuggestion\"\r" +
-    "\n" +
-    "                                get-query=\"searchPage\"></ely-search-box>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage service-parameter=SearchPageParameter hide=!hide></ely-page-preview-container><ely-page-preview-container format=long video-width=160 video-height=255 title=\"Neuste Bewertungen deiner Kontakte\" service=PageRecommendationAllContact service-parameter={} hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pagePreview/commentDialog.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
-    "\n" +
-    "    <div id=\"modal-comment-dialog\" class=\"modal-dialog\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
-    "\n" +
-    "            <div class=\"modal-body\">\r" +
-    "\n" +
-    "                <img ng-src=\"{{contact.url}}\" class=\"modal-body-profile-img img-circle\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"modal-body-user-info\">\r" +
-    "\n" +
-    "                    <div class=\"modal-body-name\">\r" +
-    "\n" +
-    "                        {{contact.name}}\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"modal-body-rating\"\r" +
-    "\n" +
-    "                                     number-of-selected-stars-readonly=\"contact.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"modal-body-comment\">\r" +
-    "\n" +
-    "                    {{contact.comment}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"confirm()\">Ok</button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-comment-dialog class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body><img ng-src={{contact.url}} class=\"modal-body-profile-img img-circle\"><div class=modal-body-user-info><div class=modal-body-name>{{contact.name}}</div><ely-star-rating is-readonly=true is-x-small=true class=modal-body-rating number-of-selected-stars-readonly=contact.rating></ely-star-rating></div><div class=modal-body-comment>{{contact.comment}}</div></div><div class=modal-footer><button type=button class=\"btn btn-default\" ng-click=confirm()>Ok</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div>\r" +
-    "\n" +
-    "    <div ng-if=\"format !== 'cross'\">\r" +
-    "\n" +
-    "        <div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\">\r" +
-    "\n" +
-    "            <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\" ng-hide=\"pagePreview.label === 'Youtube'\">\r" +
-    "\n" +
-    "                <ely-iframe width=\"{{videoWidth}}\" height=\"{{videoHeight}}\" secure-link=\"https://www.youtube.com/embed/\" src=\"pagePreview.link\"\r" +
-    "\n" +
-    "                            ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                {{pagePreview.title}}\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-language\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                {{pagePreview.labelShow}}, {{pagePreview.languageShow}}\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-contact\" ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                <div class=\"page-preview-contact-name\">{{pagePreview.recommendation.contact.name}}</div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\"\r" +
-    "\n" +
-    "                             ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\"\r" +
-    "\n" +
-    "                             number-of-selected-stars-readonly=\"pagePreview.recommendation.summary.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "            <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\" ng-show=\"pagePreview.recommendation.contact.rating\"\r" +
-    "\n" +
-    "                             number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"\r" +
-    "\n" +
-    "                             ng-click=\"showComment(pagePreview.recommendation.contact)\"></ely-star-rating>\r" +
-    "\n" +
-    "            <img src=\"app/img/comment.png\" class=\"page-preview-rating-comment\" ng-show=\"pagePreview.recommendation.contact.comment\"\r" +
-    "\n" +
-    "                 ng-click=\"showComment(pagePreview.recommendation.contact)\">\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div ng-if=\"format === 'cross'\">\r" +
-    "\n" +
-    "        <div class=\"page-preview\">\r" +
-    "\n" +
-    "            <div class=\"page-preview-image-container\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                <img ng-src=\"{{pagePreview.url}}\" class=\"page-preview-image\">\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-content\">\r" +
-    "\n" +
-    "                <div class=\"page-preview-title\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">\r" +
-    "\n" +
-    "                    {{pagePreview.title}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <ely-star-rating is-readonly=\"true\" is-x-small=\"true\" class=\"page-preview-rating\"\r" +
-    "\n" +
-    "                                 ng-show=\"pagePreview.recommendation.contact.rating\"\r" +
-    "\n" +
-    "                                 number-of-selected-stars-readonly=\"pagePreview.recommendation.contact.rating\"></ely-star-rating>\r" +
-    "\n" +
-    "                <div class=\"page-preview-no-rating\" ng-hide=\"pagePreview.recommendation.contact.rating\">\r" +
-    "\n" +
-    "                    Noch keine Bewertung durch deine Kontakte\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"page-preview-description\">\r" +
-    "\n" +
-    "                    {{pagePreview.description}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div><div ng-if=\"format !== 'cross'\"><div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\"><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{pagePreview.url}} class=page-preview-image ng-hide=\"pagePreview.label === 'Youtube'\"><ely-iframe width={{videoWidth}} height={{videoHeight}} secure-link=\"https://www.youtube.com/embed/\" src=pagePreview.link ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe></div><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><div class=page-preview-language ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.labelShow}}, {{pagePreview.languageShow}}</div><div class=page-preview-contact ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><div class=page-preview-contact-name>{{pagePreview.recommendation.contact.name}}</div></div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\" number-of-selected-stars-readonly=pagePreview.recommendation.summary.rating></ely-star-rating><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating ng-click=showComment(pagePreview.recommendation.contact)></ely-star-rating><img src=app/img/comment.png class=page-preview-rating-comment ng-show=pagePreview.recommendation.contact.comment ng-click=showComment(pagePreview.recommendation.contact)></div></div><div ng-if=\"format === 'cross'\"><div class=page-preview><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{pagePreview.url}} class=page-preview-image></div><div class=page-preview-content><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating></ely-star-rating><div class=page-preview-no-rating ng-hide=pagePreview.recommendation.contact.rating>Noch keine Bewertung durch deine Kontakte</div><div class=page-preview-description>{{pagePreview.description}}</div></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=\"page-overview-container\" ng-style=\"{'width': containerWidth + 'px'}\">\r" +
-    "\n" +
-    "    <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "        <h1 class=\"website-structure-title\">{{title}}</h1>\r" +
-    "\n" +
-    "        <button type=\"button\" class=\"btn btn-default page-overview-expand\" ng-click=\"startExpand()\"\r" +
-    "\n" +
-    "                ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr\r" +
-    "\n" +
-    "        </button>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div ng-class=\"{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}\">\r" +
-    "\n" +
-    "        <div ng-repeat=\"pagePreview in pagePreviews\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "            <ely-page-preview page-preview=\"pagePreview\" format=\"{{format}}\" video-width=\"{{videoWidth}}\"\r" +
-    "\n" +
-    "                              video-height=\"{{videoHeight}}\"></ely-page-preview>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"page-overview-next\" ng-click=\"nextPages()\" ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img\r" +
-    "\n" +
-    "            src=\"app/img/expand-down.png\"></div>\r" +
-    "\n" +
-    "</div>"
+    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=page-overview-container ng-style=\"{'width': containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{title}}</h1><button type=button class=\"btn btn-default page-overview-expand\" ng-click=startExpand() ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr</button></div><div ng-class=\"{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}\"><div ng-repeat=\"pagePreview in pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview format={{format}} video-width={{videoWidth}} video-height={{videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=nextPages() ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/userPageAdministration/userPageAdministration.html',
-    "<div id=\"content-page-user-administration\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
-    "\n" +
-    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Keine Suchergebnisse</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"noPage\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Du hast noch keine eigene Seite erstellt</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.create\">Seite erstellen</a>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-expand-container\" ng-hide=\"noSearchResult\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                    <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\"\r" +
-    "\n" +
-    "                                      video-height=\"255\"></ely-page-preview>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPages()\"\r" +
-    "\n" +
-    "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <div class=\"page-user-recommendation-expand\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"search-box-container\">\r" +
-    "\n" +
-    "                <ely-search-box description=\"Suche nach Seite von welcher Du Administrator bist...\" query=\"query\"\r" +
-    "\n" +
-    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
-    "\n" +
-    "                                get-query=\"searchPage\"></ely-search-box>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-user-administration><div id=centerCol><div id=inner-centerCol ng-controller=GetPageAndExtendCtrl><div ng-show=\"noSearchResult && !noPage\"><div class=website-structure-header><h1 class=website-structure-title>Keine Suchergebnisse</h1></div><div><b>{{query}}</b> liefert kein Suchresultat</div></div><div ng-show=noPage><div class=website-structure-header><h1 class=website-structure-title>Du hast noch keine eigene Seite erstellt</h1></div><div>Um Seiten zu bewerten gehe zu <a ui-sref=page.create>Seite erstellen</a></div></div><div class=page-preview-expand-container ng-hide=noSearchResult><div ng-repeat=\"pagePreview in pagePreviews.pages\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width=160 video-height=255></ely-page-preview></div></div><button type=button class=\"btn btn-default page-user-recommendation-expand\" ng-click=getNextPages() ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr</button><div class=page-user-recommendation-expand></div><div id=search-box-container><ely-search-box description=\"Suche nach Seite von welcher Du Administrator bist...\" query=query get-query-suggestion=searchSuggestionPage get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/userRecommendation/userRecommendation.html',
-    "<div id=\"content-page-user-recommendation\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\" ng-controller=\"GetPageAndExtendCtrl\">\r" +
-    "\n" +
-    "            <div ng-show=\"noSearchResult && !noPage\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Keine Suchergebnisse</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <b>{{query}}</b> liefert kein Suchresultat\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div ng-show=\"noPage\">\r" +
-    "\n" +
-    "                <div class=\"website-structure-header\">\r" +
-    "\n" +
-    "                    <h1 class=\"website-structure-title\">Du hast noch keine Seite bewertet</h1>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    Um Seiten zu bewerten gehe zu <a ui-sref=\"page.overview\">Empfehlungen</a>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"page-preview-expand-container\" ng-hide=\"noSearchResult\">\r" +
-    "\n" +
-    "                <div ng-repeat=\"pagePreview in pagePreviews.pages\" class=\"page-preview-inner-container\">\r" +
-    "\n" +
-    "                    <ely-page-preview page-preview=\"pagePreview\" video-width=\"160\"\r" +
-    "\n" +
-    "                                      video-height=\"255\"></ely-page-preview>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default page-user-recommendation-expand\" ng-click=\"getNextPages()\"\r" +
-    "\n" +
-    "                    ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <div class=\"page-user-recommendation-expand\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"search-box-container\">\r" +
-    "\n" +
-    "                <ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=\"query\"\r" +
-    "\n" +
-    "                                get-query-suggestion=\"searchSuggestionPage\"\r" +
-    "\n" +
-    "                                get-query=\"searchPage\"></ely-search-box>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-page-user-recommendation><div id=centerCol><div id=inner-centerCol ng-controller=GetPageAndExtendCtrl><div ng-show=\"noSearchResult && !noPage\"><div class=website-structure-header><h1 class=website-structure-title>Keine Suchergebnisse</h1></div><div><b>{{query}}</b> liefert kein Suchresultat</div></div><div ng-show=noPage><div class=website-structure-header><h1 class=website-structure-title>Du hast noch keine Seite bewertet</h1></div><div>Um Seiten zu bewerten gehe zu <a ui-sref=page.overview>Empfehlungen</a></div></div><div class=page-preview-expand-container ng-hide=noSearchResult><div ng-repeat=\"pagePreview in pagePreviews.pages\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width=160 video-height=255></ely-page-preview></div></div><button type=button class=\"btn btn-default page-user-recommendation-expand\" ng-click=getNextPages() ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr</button><div class=page-user-recommendation-expand></div><div id=search-box-container><ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=query get-query-suggestion=searchSuggestionPage get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\" ng-controller=\"ModalAddRecommendationCtrl\">\r" +
-    "\n" +
-    "    <div id=\"modal-dialog-add-recommendation\" class=\"modal-dialog\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-header\">\r" +
-    "\n" +
-    "                <h4 class=\"modal-title\">Deine Bewertung für\r" +
-    "\n" +
-    "                    <div class=\"modal-dialog-add-recommendation-title\">{{title}}</div>\r" +
-    "\n" +
-    "                </h4>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-body\">\r" +
-    "\n" +
-    "                <div class=\"modal-dialog-add-recommendation-description\">\r" +
-    "\n" +
-    "                    <textarea class=\"form-control\" ng-model=\"recommendationDescription\" maxlength=\"1000\"></textarea>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <ely-star-rating number-of-selected-stars=\"numberOfSelectedStars\"></ely-star-rating>\r" +
-    "\n" +
-    "                <div class=\"modal-dialog-add-recommendation-error\" ng-show=\"error\">{{error}}</div>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"abort()\">Abbrechen</button>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addRecommendation()\" ng-class=\"{disabled: numberOfSelectedStars === -1}\">\r" +
-    "\n" +
-    "                    Hinzufügen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true ng-controller=ModalAddRecommendationCtrl><div id=modal-dialog-add-recommendation class=modal-dialog><div class=modal-content><div class=modal-header><h4 class=modal-title>Deine Bewertung für<div class=modal-dialog-add-recommendation-title>{{title}}</div></h4></div><div class=modal-body><div class=modal-dialog-add-recommendation-description><textarea class=form-control ng-model=recommendationDescription maxlength=1000></textarea></div></div><div class=modal-footer><ely-star-rating number-of-selected-stars=numberOfSelectedStars></ely-star-rating><div class=modal-dialog-add-recommendation-error ng-show=error>{{error}}</div><button type=button class=\"btn btn-default\" ng-click=abort()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-click=addRecommendation() ng-class=\"{disabled: numberOfSelectedStars === -1}\">Hinzufügen</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/settings/changePassword.html',
-    "<div id=\"content-settings-password\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div id=\"manage-profile\">\r" +
-    "\n" +
-    "                <form class=\"form-horizontal\" name=\"profileForm\" role=\"form\" novalidate>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputPasswordActual\" class=\"col-sm-4 control-label\">Aktuelles\r" +
-    "\n" +
-    "                            Passwort\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputPasswordActual\" ng-model=\"password.actualPassword\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   type=\"password\"\r" +
-    "\n" +
-    "                                   id=\"inputPasswordActual\"\r" +
-    "\n" +
-    "                                   required ng-maxlength=\"55\" ng-minlength=\"1\">\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPasswordActual.$error.minlength\">\r" +
-    "\n" +
-    "                                <span>Das Passwort muss mindestens 1 Zeichen lang sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPasswordActual.$error.maxlength\">\r" +
-    "\n" +
-    "                                <span>Das Passwort darf nicht länger als 55 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputPassword\" class=\"col-sm-4 control-label\">Neu\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputPassword\" ng-model=\"password.newPassword\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   type=\"password\"\r" +
-    "\n" +
-    "                                   id=\"inputPassword\"\r" +
-    "\n" +
-    "                                   required ng-maxlength=\"55\" ng-pattern=\"/^(?=.*[A-Z])(?=.*\\d)/\">\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPassword.$error.pattern\">\r" +
-    "\n" +
-    "                                <span>Das Passwort muss mindestens eine Zahl und einen Grossbuchstaben beinhalten</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPassword.$error.minlength\">\r" +
-    "\n" +
-    "                                <span>Das Passwort muss mindestens 8 Zeichen lang sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.inputPassword.$error.maxlength\">\r" +
-    "\n" +
-    "                                <span>Das Passwort darf nicht länger als 55 Zeichen sein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label  id=\"label-password-confirm\" for=\"inputPasswordConfirm\" class=\"col-sm-4 control-label\">Neues\r" +
-    "\n" +
-    "                            Passwort erneut eingeben\r" +
-    "\n" +
-    "                        </label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputPasswordConfirm\"\r" +
-    "\n" +
-    "                                   ng-model=\"password.newPasswordConfirm\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   type=\"password\"\r" +
-    "\n" +
-    "                                   id=\"inputPasswordConfirm\"\r" +
-    "\n" +
-    "                                   required ng-maxlength=\"55\">\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <div class=\"col-sm-offset-4 col-sm-8\">\r" +
-    "\n" +
-    "                            <div>\r" +
-    "\n" +
-    "                                <button id=\"submit-change-profile\" type=\"submit\"\r" +
-    "\n" +
-    "                                        class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                        ng-click=\"submitNewPassword()\">\r" +
-    "\n" +
-    "                                    Passwort ändern\r" +
-    "\n" +
-    "                                </button>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid && submitFailed\">\r" +
-    "\n" +
-    "                                <span>Bitte fülle alle Werte korrekt aus</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"newPasswordNotEqual\">\r" +
-    "\n" +
-    "                                <span>Das neue Passwort stimmt nicht überein</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                                 ng-show=\"profileForm.$invalid == false && submitFailedToServer\">\r" +
-    "\n" +
-    "                                <span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"alert-input alert-success\"\r" +
-    "\n" +
-    "                                 ng-show=\"successUserDataChange && profileForm.$pristine\">\r" +
-    "\n" +
-    "                                <span>Passwort erfolgreich geändert</span>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </form>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-settings-password><div id=centerCol><div id=inner-centerCol><div id=manage-profile><form class=form-horizontal name=profileForm role=form novalidate><div class=form-group><label for=inputPasswordActual class=\"col-sm-4 control-label\">Aktuelles Passwort</label><div class=col-sm-8><input name=inputPasswordActual ng-model=password.actualPassword class=form-control type=password id=inputPasswordActual required ng-maxlength=55 ng-minlength=1><div class=\"alert-input alert-danger\" ng-show=profileForm.inputPasswordActual.$error.minlength><span>Das Passwort muss mindestens 1 Zeichen lang sein</span></div><div class=\"alert-input alert-danger\" ng-show=profileForm.inputPasswordActual.$error.maxlength><span>Das Passwort darf nicht länger als 55 Zeichen sein</span></div></div></div><div class=form-group><label for=inputPassword class=\"col-sm-4 control-label\">Neu</label><div class=col-sm-8><input name=inputPassword ng-model=password.newPassword class=form-control type=password id=inputPassword required ng-maxlength=55 ng-pattern=\"/^(?=.*[A-Z])(?=.*\\d)/\"><div class=\"alert-input alert-danger\" ng-show=profileForm.inputPassword.$error.pattern><span>Das Passwort muss mindestens eine Zahl und einen Grossbuchstaben beinhalten</span></div><div class=\"alert-input alert-danger\" ng-show=profileForm.inputPassword.$error.minlength><span>Das Passwort muss mindestens 8 Zeichen lang sein</span></div><div class=\"alert-input alert-danger\" ng-show=profileForm.inputPassword.$error.maxlength><span>Das Passwort darf nicht länger als 55 Zeichen sein</span></div></div></div><div class=form-group><label id=label-password-confirm for=inputPasswordConfirm class=\"col-sm-4 control-label\">Neues Passwort erneut eingeben</label><div class=col-sm-8><input name=inputPasswordConfirm ng-model=password.newPasswordConfirm class=form-control type=password id=inputPasswordConfirm required ng-maxlength=55></div></div><div class=form-group><div class=\"col-sm-offset-4 col-sm-8\"><div><button id=submit-change-profile type=submit class=\"btn btn-default\" ng-click=submitNewPassword()>Passwort ändern</button></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.$invalid && submitFailed\"><span>Bitte fülle alle Werte korrekt aus</span></div><div class=\"alert-input alert-danger\" ng-show=newPasswordNotEqual><span>Das neue Passwort stimmt nicht überein</span></div><div class=\"alert-input alert-danger\" ng-show=\"profileForm.$invalid == false && submitFailedToServer\"><span>Fehler auf dem Server. Die Werte konnten nicht gespeichert werden</span></div><div class=\"alert-input alert-success\" ng-show=\"successUserDataChange && profileForm.$pristine\"><span>Passwort erfolgreich geändert</span></div></div></div></form></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/settings/popoverDeletePrivacy.html',
-    "<div class=\"popover\" ng-controller=\"DeletePrivacyCtrl\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <div class=\"popover-element-description\">\r" +
-    "\n" +
-    "                Kontakte <b>{{privacy.type}}</b> werden beim löschen der Privatsphären Einstellung verschoben nach:\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <button type=\"button\" class=\"btn btn-default popover-element-right\" ng-model=\"otherPrivacySettingType\"\r" +
-    "\n" +
-    "                    bs-options=\"privacyType for privacyType in otherPrivacySettingTypes\" bs-select>\r" +
-    "\n" +
-    "                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "            </button>\r" +
-    "\n" +
-    "            <div class=\"popover-element-divider\"></div>\r" +
-    "\n" +
-    "            <div class=\"popover-element-right\">\r" +
-    "\n" +
-    "                <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-click=\"deletePrivacySetting()\">Löschen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"popover-element\">\r" +
-    "\n" +
-    "                <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-click=\"$hide()\">Abbrechen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=popover ng-controller=DeletePrivacyCtrl><div class=arrow></div><div class=popover-content><form name=popoverForm><div class=popover-element-description>Kontakte <b>{{privacy.type}}</b> werden beim löschen der Privatsphären Einstellung verschoben nach:</div><button type=button class=\"btn btn-default popover-element-right\" ng-model=otherPrivacySettingType bs-options=\"privacyType for privacyType in otherPrivacySettingTypes\" bs-select>Action <span class=caret></span></button><div class=popover-element-divider></div><div class=popover-element-right><button type=submit class=\"btn btn-default\" ng-click=deletePrivacySetting()>Löschen</button></div><div class=popover-element><button type=submit class=\"btn btn-default\" ng-click=$hide()>Abbrechen</button></div></form></div></div>"
   );
 
 
   $templateCache.put('app/modules/settings/popoverRenamePrivacy.html',
-    "<div class=\"popover\" ng-controller=\"RenamePrivacyCtrl\">\r" +
-    "\n" +
-    "    <div class=\"arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"popover-content\">\r" +
-    "\n" +
-    "        <form name=\"popoverForm\">\r" +
-    "\n" +
-    "            <div class=\"popover-element-description\">\r" +
-    "\n" +
-    "                Privatsphären Einstellung <b>{{privacy.type}}</b> umbennen in:\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"popover-element\">\r" +
-    "\n" +
-    "                <input type=\"text\" class=\"form-control\" ng-model=\"renameType\"\r" +
-    "\n" +
-    "                       bs-options=\"type for type in types\"\r" +
-    "\n" +
-    "                       bs-typeahead>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"popover-element\">\r" +
-    "\n" +
-    "                <button type=\"submit\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-class=\"{'disabled': renameType === privacy.type || renameType.trim() === '' || renameExists}\"\r" +
-    "\n" +
-    "                        ng-click=\"renamePrivacySetting()\">Ändern\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"popover-element\">\r" +
-    "\n" +
-    "                <div class=\"alert-input alert-danger\"\r" +
-    "\n" +
-    "                     ng-if=\"renameExists && renameType !== privacy.type\">\r" +
-    "\n" +
-    "                    <span>Diese Privatspähren Einstellung existiert bereits.</span>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=popover ng-controller=RenamePrivacyCtrl><div class=arrow></div><div class=popover-content><form name=popoverForm><div class=popover-element-description>Privatsphären Einstellung <b>{{privacy.type}}</b> umbennen in:</div><div class=popover-element><input class=form-control ng-model=renameType bs-options=\"type for type in types\" bs-typeahead></div><div class=popover-element><button type=submit class=\"btn btn-default\" ng-class=\"{'disabled': renameType === privacy.type || renameType.trim() === '' || renameExists}\" ng-click=renamePrivacySetting()>Ändern</button></div><div class=popover-element><div class=\"alert-input alert-danger\" ng-if=\"renameExists && renameType !== privacy.type\"><span>Diese Privatspähren Einstellung existiert bereits.</span></div></div></form></div></div>"
   );
 
 
   $templateCache.put('app/modules/settings/privacy.html',
-    "<div id=\"content-settings-security\">\n" +
-    "    <div id=\"centerCol\">\n" +
-    "        <div id=\"inner-centerCol\">\n" +
-    "            <h1 class=\"website-structure-title\">\n" +
-    "                Privatsphäre Einstellung für {{selectedType.type}}\n" +
-    "            </h1>\n" +
-    "            <div class=\"content-privacy\">\n" +
-    "                <div class=\"privacy-setting-row\">\n" +
-    "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.profileVisible\">\n" +
-    "\n" +
-    "                        <div class=\"select-privacy-settings-text\">\n" +
-    "                            Mein Profil ist sichtbar\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
-    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen\n" +
-    "                            sehen. Alle anderen Profildaten bleiben verborgen.\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur\n" +
-    "                            deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"privacy-setting-row\">\n" +
-    "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.contactsVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
-    "\n" +
-    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
-    "                            Meine Kontakte sind sichtbar\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Kontakte sehen können.\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Kontake sehen können.\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"privacy-setting-row\">\n" +
-    "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.imageVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
-    "\n" +
-    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
-    "                            Mein Profilbild ist sichtbar\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast dein Profilbild sehen können.\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast dein Profilbild sehen können.\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"privacy-setting-row\">\n" +
-    "                    <div class=\"select-privacy-settings\">\n" +
-    "                        <input type=\"checkbox\" ng-model=\"selectedType.profileDataVisible\" ng-disabled=\"!selectedType.profileVisible\">\n" +
-    "\n" +
-    "                        <div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">\n" +
-    "                            Meine Profildaten sind sichtbar\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.\n" +
-    "                        </div>\n" +
-    "                        <div class=\"select-privacy-settings-description\" ng-show=\"!privacySettings.noContactSelected\">\n" +
-    "                            Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag,\n" +
-    "                            sehen können.\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"privacy-setting-button-row\">\n" +
-    "                    <ely-send-button button-description=\"Änderung übernehmen\" send-data=\"updatePrivacyType\"\n" +
-    "                                     error-placement=\"right\" model=\"selectedType\"></ely-send-button>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div id=\"privacy-setting-overview\">\n" +
-    "        <ul class=\"list-group\">\n" +
-    "            <div>\n" +
-    "                <li class=\"list-group-item\" ng-click=\"setPrivacyTypeNoContact()\"\n" +
-    "                    ng-class=\"{'group-selected': privacySettings.noContactSelected}\">\n" +
-    "\n" +
-    "                    <div class=\"privacy-type-description\">Kein Kontakt</div>\n" +
-    "                </li>\n" +
-    "            </div>\n" +
-    "            <div ng-repeat=\"privacy in privacySettings.normal\">\n" +
-    "                <li class=\"list-group-item\"\n" +
-    "                    ng-class=\"{'group-selected': selectedType.type === privacy.type}\">\n" +
-    "                    <div class=\"list-group-item-container\">\n" +
-    "                        <img ng-if=\"privacySettings.normal.length > 1\"\n" +
-    "                             class=\"list-group-item-icons\"\n" +
-    "                             src=\"app/img/delete.png\" trigger=\"click\"\n" +
-    "                             data-auto-close=\"true\"\n" +
-    "                             data-placement=\"bottom\"\n" +
-    "                             data-template-url=\"app/modules/settings/popoverDeletePrivacy.html\"\n" +
-    "                             bs-popover/>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"list-group-item-container\">\n" +
-    "                        <img class=\"list-group-item-icons\" src=\"app/img/edit.png\"\n" +
-    "                             trigger=\"click\"\n" +
-    "                             data-auto-close=\"true\"\n" +
-    "                             data-placement=\"bottom\"\n" +
-    "                             data-template-url=\"app/modules/settings/popoverRenamePrivacy.html\"\n" +
-    "                             bs-popover/>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"privacy-type-description\"\n" +
-    "                         ng-click=\"setPrivacyType(privacy.type)\">{{privacy.type}}\n" +
-    "                    </div>\n" +
-    "                </li>\n" +
-    "            </div>\n" +
-    "            <div>\n" +
-    "                <div class=\"privacy-adding\" ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\">\n" +
-    "                    <a href=\"#\" ng-click=\"showAddingNewPrivacySetting()\">Neuer Privatsphären Typ\n" +
-    "                        hinzufügen...</a>\n" +
-    "                </div>\n" +
-    "                <div class=\"privacy-adding-input\" ng-if=\"showNewPrivacySettingInput\">\n" +
-    "                    <input class=\"form-control\" placeholder=\"Privatsphären Typ\" ng-maxlength=\"30\"\n" +
-    "                           ng-model=\"addingPrivacy.newPrivacyName\">\n" +
-    "                    <button class=\"btn btn-default\" type=\"button\" ng-click=\"addPrivacySetting()\"\n" +
-    "                            ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">\n" +
-    "                        Hinzufügen\n" +
-    "                    </button>\n" +
-    "                    <button class=\"btn btn-default privacy-abort-adding\" type=\"button\"\n" +
-    "                            ng-click=\"abortAddingNewPrivacy()\">Abbrechen\n" +
-    "                    </button>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </ul>\n" +
-    "    </div>\n" +
-    "</div>"
+    "<div id=content-settings-security><div id=centerCol><div id=inner-centerCol><h1 class=website-structure-title>Privatsphäre Einstellung für {{selectedType.type}}</h1><div class=content-privacy><div class=privacy-setting-row><div class=select-privacy-settings><input type=checkbox ng-model=selectedType.profileVisible><div class=select-privacy-settings-text>Mein Profil ist sichtbar</div><div class=select-privacy-settings-description ng-show=privacySettings.noContactSelected>Wenn diese Funktion deaktiviert ist, können andere User die Du nicht zu deinen Kontakten hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.</div><div class=select-privacy-settings-description ng-show=!privacySettings.noContactSelected>Wenn diese Funktion deaktiviert ist, können andere User die Du der Gruppe {{selectedType.type}} hinzugefügt hast nur deinen Namen sehen. Alle anderen Profildaten bleiben verborgen.</div></div></div><div class=privacy-setting-row><div class=select-privacy-settings><input type=checkbox ng-model=selectedType.contactsVisible ng-disabled=!selectedType.profileVisible><div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">Meine Kontakte sind sichtbar</div><div class=select-privacy-settings-description ng-show=privacySettings.noContactSelected>Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Kontakte sehen können.</div><div class=select-privacy-settings-description ng-show=!privacySettings.noContactSelected>Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Kontake sehen können.</div></div></div><div class=privacy-setting-row><div class=select-privacy-settings><input type=checkbox ng-model=selectedType.imageVisible ng-disabled=!selectedType.profileVisible><div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">Mein Profilbild ist sichtbar</div><div class=select-privacy-settings-description ng-show=privacySettings.noContactSelected>Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast dein Profilbild sehen können.</div><div class=select-privacy-settings-description ng-show=!privacySettings.noContactSelected>Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast dein Profilbild sehen können.</div></div></div><div class=privacy-setting-row><div class=select-privacy-settings><input type=checkbox ng-model=selectedType.profileDataVisible ng-disabled=!selectedType.profileVisible><div ng-class=\"{'select-privacy-settings-text': selectedType.profileVisible, 'select-privacy-settings-text-disabled': !selectedType.profileVisible}\">Meine Profildaten sind sichtbar</div><div class=select-privacy-settings-description ng-show=privacySettings.noContactSelected>Bestimmt ob User die Du nicht als Kontakte hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.</div><div class=select-privacy-settings-description ng-show=!privacySettings.noContactSelected>Bestimmt ob User die Du der Gruppe {{selectedType.type}} hinzugefügt hast deine Profil Daten, wie z.B. deinen Geburtstag, sehen können.</div></div></div><div class=privacy-setting-button-row><ely-send-button button-description=\"Änderung übernehmen\" send-data=updatePrivacyType error-placement=right model=selectedType></ely-send-button></div></div></div></div><div id=privacy-setting-overview><ul class=list-group><div><li class=list-group-item ng-click=setPrivacyTypeNoContact() ng-class=\"{'group-selected': privacySettings.noContactSelected}\"><div class=privacy-type-description>Kein Kontakt</div></li></div><div ng-repeat=\"privacy in privacySettings.normal\"><li class=list-group-item ng-class=\"{'group-selected': selectedType.type === privacy.type}\"><div class=list-group-item-container><img ng-if=\"privacySettings.normal.length > 1\" class=list-group-item-icons src=app/img/delete.png trigger=click data-auto-close=true data-placement=bottom data-template-url=app/modules/settings/popoverDeletePrivacy.html bs-popover></div><div class=list-group-item-container><img class=list-group-item-icons src=app/img/edit.png trigger=click data-auto-close=true data-placement=bottom data-template-url=app/modules/settings/popoverRenamePrivacy.html bs-popover></div><div class=privacy-type-description ng-click=setPrivacyType(privacy.type)>{{privacy.type}}</div></li></div><div><div class=privacy-adding ng-if=\"!showNewPrivacySettingInput && privacySettings.normal.length < 10\"><a href=# ng-click=showAddingNewPrivacySetting()>Neuer Privatsphären Typ hinzufügen...</a></div><div class=privacy-adding-input ng-if=showNewPrivacySettingInput><input class=form-control placeholder=\"Privatsphären Typ\" ng-maxlength=30 ng-model=addingPrivacy.newPrivacyName> <button class=\"btn btn-default\" type=button ng-click=addPrivacySetting() ng-class=\"{disabled: addingPrivacy.newPrivacyName.trim() === ''}\">Hinzufügen</button> <button class=\"btn btn-default privacy-abort-adding\" type=button ng-click=abortAddingNewPrivacy()>Abbrechen</button></div></div></ul></div></div>"
   );
 
 
   $templateCache.put('app/modules/settings/profile.html',
-    "<div id=\"content-settings-profile\">\r" +
-    "\n" +
-    "    <div id=\"centerCol\">\r" +
-    "\n" +
-    "        <div id=\"inner-centerCol\">\r" +
-    "\n" +
-    "            <div id=\"manage-profile-photo-container\">\r" +
-    "\n" +
-    "                <div>\r" +
-    "\n" +
-    "                    <img class=\"img-rounded img-responsive\"\r" +
-    "\n" +
-    "                         ng-src=\"{{userDataToChange.profileImage}}\"/>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <button id=\"change-profile-image\" type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        data-animation=\"am-fade-and-scale\" data-placement=\"center\"\r" +
-    "\n" +
-    "                        data-backdrop=\"static\"\r" +
-    "\n" +
-    "                        data-template-url=\"app/modules/util/file/uploadFile.html\" bs-modal=\"modal\">\r" +
-    "\n" +
-    "                    Foto ändern..\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div id=\"manage-profile\">\r" +
-    "\n" +
-    "                <form class=\"form-horizontal\" name=\"profileForm\" role=\"form\" novalidate>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputEmail\" class=\"col-sm-4 control-label\">E-Mail</label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input name=\"inputEmail\" ng-model=\"userDataToChange.email\"\r" +
-    "\n" +
-    "                                   class=\"form-control\"\r" +
-    "\n" +
-    "                                   id=\"inputEmail\"\r" +
-    "\n" +
-    "                                   ng-disabled=\"true\">\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\"></div>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-5\">\r" +
-    "\n" +
-    "                            <a ui-sref=\"settings.profile.changePassword\">\r" +
-    "\n" +
-    "                                <button id=\"change-profile-password\" type=\"button\"\r" +
-    "\n" +
-    "                                        class=\"btn btn-default\">\r" +
-    "\n" +
-    "                                    Passwort ändern..\r" +
-    "\n" +
-    "                                </button>\r" +
-    "\n" +
-    "                            </a>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <ely-form-text-input label=\"Vorname\" input-name=\"inputForename\" input-placeholder=\"Vorname\"\r" +
-    "\n" +
-    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.forename\"\r" +
-    "\n" +
-    "                                         max-length=\"30\" required=\"true\"></ely-form-text-input>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <ely-form-text-input label=\"Nachname\" input-name=\"inputSurename\" input-placeholder=\"Nachname\"\r" +
-    "\n" +
-    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.surname\"\r" +
-    "\n" +
-    "                                         max-length=\"50\" required=\"true\"></ely-form-text-input>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <ely-form-text-input label=\"Geburtstag\" input-name=\"inputBirthday\" input-placeholder=\"z.B {{getDateExample()}}\"\r" +
-    "\n" +
-    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.birthday\"\r" +
-    "\n" +
-    "                                         required=\"true\"\r" +
-    "\n" +
-    "                                         custom-error-description=\"Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})\">\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    </ely-form-text-input>\r" +
-    "\n" +
-    "                    <ely-form-text-input label=\"Strasse\" input-name=\"inputStreet\" input-placeholder=\"Strasse\"\r" +
-    "\n" +
-    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.street\"\r" +
-    "\n" +
-    "                                         max-length=\"80\"></ely-form-text-input>\r" +
-    "\n" +
-    "                    <ely-form-text-input label=\"Ort\" input-name=\"inputPlace\" input-placeholder=\"Ort\"\r" +
-    "\n" +
-    "                                         profile-form=\"profileForm\" submit-model=\"userDataToChange.place\"\r" +
-    "\n" +
-    "                                         max-length=\"80\"></ely-form-text-input>\r" +
-    "\n" +
-    "                    <div class=\"form-group\"\r" +
-    "\n" +
-    "                         ng-class=\"{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}\">\r" +
-    "\n" +
-    "                        <label for=\"inputCountryId\" class=\"col-sm-4 control-label\">Land</label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <button type=\"button\" class=\"btn btn-default\" ng-model=\"selectedCountryCode\"\r" +
-    "\n" +
-    "                                    name=\"inputCountry\"\r" +
-    "\n" +
-    "                                    id=\"inputCountryId\"\r" +
-    "\n" +
-    "                                    bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\"\r" +
-    "\n" +
-    "                                    data-placeholder=\"Land\"\r" +
-    "\n" +
-    "                                    bs-select>\r" +
-    "\n" +
-    "                                Action <span class=\"caret\"></span>\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"inputGender\" class=\"col-sm-4 control-label\">Geschlecht</label>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <div class=\"btn-group\" id=\"inputGender\">\r" +
-    "\n" +
-    "                                <label class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                       ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\"\r" +
-    "\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female === true}\">Frau</label>\r" +
-    "\n" +
-    "                                <label class=\"btn btn-default\"\r" +
-    "\n" +
-    "                                       ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\"\r" +
-    "\n" +
-    "                                       ng-class=\"{'active': userDataToChange.female === false}\">Mann</label>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <div class=\"col-sm-offset-4 col-sm-8\">\r" +
-    "\n" +
-    "                            <div>\r" +
-    "\n" +
-    "                                <ely-send-button button-description=\"Profil ändern\" send-data=\"submitProfileData\"\r" +
-    "\n" +
-    "                                                 error-placement=\"right\" model=\"userDataToChange\" ></ely-send-button>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </form>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div id=content-settings-profile><div id=centerCol><div id=inner-centerCol><div id=manage-profile-photo-container><div><img class=\"img-rounded img-responsive\" ng-src=\"{{userDataToChange.profileImage}}\"></div><button id=change-profile-image type=button class=\"btn btn-default\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/uploadFile.html bs-modal=modal>Foto ändern..</button></div><div id=manage-profile><form class=form-horizontal name=profileForm role=form novalidate><div class=form-group><label for=inputEmail class=\"col-sm-4 control-label\">E-Mail</label><div class=col-sm-8><input name=inputEmail ng-model=userDataToChange.email class=form-control id=inputEmail ng-disabled=true></div></div><div class=form-group><div class=col-sm-4></div><div class=col-sm-5><a ui-sref=settings.profile.changePassword><button id=change-profile-password type=button class=\"btn btn-default\">Passwort ändern..</button></a></div></div><ely-form-text-input label=Vorname input-name=inputForename input-placeholder=Vorname profile-form=profileForm submit-model=userDataToChange.forename max-length=30 required></ely-form-text-input><ely-form-text-input label=Nachname input-name=inputSurename input-placeholder=Nachname profile-form=profileForm submit-model=userDataToChange.surname max-length=50 required></ely-form-text-input><ely-form-text-input label=Geburtstag input-name=inputBirthday input-placeholder=\"z.B {{getDateExample()}}\" profile-form=profileForm submit-model=userDataToChange.birthday required custom-error-description=\"Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})\"></ely-form-text-input><ely-form-text-input label=Strasse input-name=inputStreet input-placeholder=Strasse profile-form=profileForm submit-model=userDataToChange.street max-length=80></ely-form-text-input><ely-form-text-input label=Ort input-name=inputPlace input-placeholder=Ort profile-form=profileForm submit-model=userDataToChange.place max-length=80></ely-form-text-input><div class=form-group ng-class=\"{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}\"><label for=inputCountryId class=\"col-sm-4 control-label\">Land</label><div class=col-sm-8><button type=button class=\"btn btn-default\" ng-model=selectedCountryCode name=inputCountry id=inputCountryId bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\" data-placeholder=Land bs-select>Action <span class=caret></span></button></div></div><div class=form-group><label for=inputGender class=\"col-sm-4 control-label\">Geschlecht</label><div class=col-sm-8><div class=btn-group id=inputGender><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female === true}\">Frau</label><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female === false}\">Mann</label></div></div></div><div class=form-group><div class=\"col-sm-offset-4 col-sm-8\"><div><ely-send-button button-description=\"Profil ändern\" send-data=submitProfileData error-placement=right model=userDataToChange></ely-send-button></div></div></div></form></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r" +
-    "\n" +
-    "    <div id=\"modal-yes-no-dialog\" class=\"modal-dialog\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-header\" ng-show=\"title\"><h4 class=\"modal-title\" ng-bind=\"title\"></h4></div>\r" +
-    "\n" +
-    "            <div class=\"modal-body\" ng-bind=\"content\"></div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"abort()\">Nein</button>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\" ng-click=\"confirm()\">Ja</button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n"
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-yes-no-dialog class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><button type=button class=\"btn btn-default\" ng-click=abort()>Nein</button> <button type=button class=\"btn btn-default\" ng-click=confirm()>Ja</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/util/file/previewFile.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"FileCtrl\">\r" +
-    "\n" +
-    "    <div class=\"modal-dialog\" id=\"modal-preview-file\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-body\">\r" +
-    "\n" +
-    "                <div class=\"cropArea\">\r" +
-    "\n" +
-    "                    <ely-image-cropper ng-if=\"!uploadRunning\"\r" +
-    "\n" +
-    "                                       reset=\"resetImage\"\r" +
-    "\n" +
-    "                                       image=\"imageForUploadPreview\"\r" +
-    "\n" +
-    "                                       image-result-data=\"imageResultData\"\r" +
-    "\n" +
-    "                                       ratio=\"0.62745\"\r" +
-    "\n" +
-    "                                       original-size=\"checkOriginalSize\" min-width=\"100\" min-height=\"160\"></ely-image-cropper>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">\r" +
-    "\n" +
-    "                    Bild auswählen...<input type=\"file\" ely-file-model=\"imageForUpload\"\r" +
-    "\n" +
-    "                                            accept=\".jpg, .png, jpeg\">\r" +
-    "\n" +
-    "                </span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
-    "\n" +
-    "                    {{uploadError}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning || uploadError}\"\r" +
-    "\n" +
-    "                        ng-click=\"getPreview()\">\r" +
-    "\n" +
-    "                    Auswählen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog id=modal-preview-file><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=0.62745 original-size=checkOriginalSize min-width=100 min-height=160></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">Bild auswählen...<input type=file ely-file-model=imageForUpload accept=\".jpg, .png, jpeg\"></span><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><button type=button class=\"btn btn-default\" ng-class=\"{disabled: uploadRunning}\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-class=\"{disabled: !imageForUploadPreview || uploadRunning || uploadError}\" ng-click=getPreview()>Auswählen</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/util/file/uploadFile.html',
-    "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" ng-controller=\"FileCtrl\">\r" +
-    "\n" +
-    "    <div class=\"modal-dialog\">\r" +
-    "\n" +
-    "        <div class=\"modal-content\">\r" +
-    "\n" +
-    "            <div class=\"modal-body\">\r" +
-    "\n" +
-    "                <div class=\"cropArea\">\r" +
-    "\n" +
-    "                    <ely-image-cropper ng-if=\"!uploadRunning\"\r" +
-    "\n" +
-    "                                       reset=\"resetImage\"\r" +
-    "\n" +
-    "                                       image=\"imageForUploadPreview\"\r" +
-    "\n" +
-    "                                       image-result-data=\"imageResultData\"\r" +
-    "\n" +
-    "                                       ratio=\"1\"></ely-image-cropper>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <ely-spin ng-if=\"uploadRunning\"></ely-spin>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"modal-footer\">\r" +
-    "\n" +
-    "                <span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">\r" +
-    "\n" +
-    "                    Bild auswählen...<input type=\"file\" ely-file-model=\"imageForUpload\"\r" +
-    "\n" +
-    "                                            accept=\".jpg, .png, jpeg\">\r" +
-    "\n" +
-    "                </span>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                <div class=\"upload-file-error\" ng-show=\"uploadError\">\r" +
-    "\n" +
-    "                    {{uploadError}}\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-class=\"{disabled: uploadRunning}\" ng-click=\"$hide()\">Abbrechen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"btn btn-default\"\r" +
-    "\n" +
-    "                        ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\"\r" +
-    "\n" +
-    "                        ng-click=\"startUpload()\">\r" +
-    "\n" +
-    "                    Hochladen\r" +
-    "\n" +
-    "                </button>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=1></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">Bild auswählen...<input type=file ely-file-model=imageForUpload accept=\".jpg, .png, jpeg\"></span><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><button type=button class=\"btn btn-default\" ng-class=\"{disabled: uploadRunning}\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\" ng-click=startUpload()>Hochladen</button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/util/tooltip/tooltipError.html',
-    "<div class=\"tooltip in ely-tooltip-error\" ng-show=\"title\">\r" +
-    "\n" +
-    "    <div class=\"tooltip-arrow\"></div>\r" +
-    "\n" +
-    "    <div class=\"tooltip-inner\" ng-bind=\"title\"></div>\r" +
-    "\n" +
-    "</div>"
+    "<div class=\"tooltip in ely-tooltip-error\" ng-show=title><div class=tooltip-arrow></div><div class=tooltip-inner ng-bind=title></div></div>"
   );
 
 }]);
@@ -3690,7 +339,7 @@ c=a(d,e);return c.$$willAnimate?c:null}if(!n.animations&&!n.transitions)return H
 u(f,function(a){b.push(a())});b.length?c.all(b,a):a();return function(a){u(b,function(b){a?b.cancel():b.end()})}}}3===arguments.length&&na(d)&&(e=d,d=null);e=ia(e);d||(d=a.attr("class")||"",e.addClass&&(d+=" "+e.addClass),e.removeClass&&(d+=" "+e.removeClass));var r=e.addClass,K=e.removeClass,C=s(d),E,f;if(C.length){var F,G;"leave"==b?(G="leave",F="afterLeave"):(G="before"+b.charAt(0).toUpperCase()+b.substr(1),F=b);"enter"!==b&&"move"!==b&&(E=B(a,b,e,C,G));f=B(a,b,e,C,F)}if(E||f)return{start:function(){function b(c){n=
 !0;t();ca(a,e);g.complete(c)}var d,k=[];E&&k.push(function(a){d=E(a)});k.length?k.push(function(a){t();a(!0)}):t();f&&k.push(function(a){d=f(a)});var n=!1,g=new c({end:function(){n||((d||H)(void 0),b(void 0))},cancel:function(){n||((d||H)(!0),b(!0))}});c.chain(k,b);return g}}}}]}]).provider("$$animateJsDriver",["$$animationProvider",function(a){a.drivers.push("$$animateJsDriver");this.$get=["$$animateJs","$$AnimateRunner",function(a,c){function d(c){return a(c.element,c.event,c.classes,c.options)}
 return function(a){if(a.from&&a.to){var b=d(a.from),n=d(a.to);if(b||n)return{start:function(){function a(){return function(){u(d,function(a){a.end()})}}var d=[];b&&d.push(b.start());n&&d.push(n.start());c.all(d,function(a){e.complete(a)});var e=new c({end:a(),cancel:a()});return e}}}else return d(a)}}]}])})(window,window.angular);
-//# sourceMappingURL=angular-animate.min.js.map
+
 
 },{}],3:[function(require,module,exports){
 /*
@@ -3701,7 +350,7 @@ return function(a){if(a.from&&a.to){var b=d(a.from),n=d(a.to);if(b||n)return{sta
 (function(p,g,l){'use strict';function m(b,a,f){var c=f.baseHref(),k=b[0];return function(b,d,e){var f,h;e=e||{};h=e.expires;f=g.isDefined(e.path)?e.path:c;d===l&&(h="Thu, 01 Jan 1970 00:00:00 GMT",d="");g.isString(h)&&(h=new Date(h));d=encodeURIComponent(b)+"="+encodeURIComponent(d);d=d+(f?";path="+f:"")+(e.domain?";domain="+e.domain:"");d+=h?";expires="+h.toUTCString():"";d+=e.secure?";secure":"";e=d.length+1;4096<e&&a.warn("Cookie '"+b+"' possibly not set or overflowed because it was too large ("+
 e+" > 4096 bytes)!");k.cookie=d}}g.module("ngCookies",["ng"]).provider("$cookies",[function(){var b=this.defaults={};this.$get=["$$cookieReader","$$cookieWriter",function(a,f){return{get:function(c){return a()[c]},getObject:function(c){return(c=this.get(c))?g.fromJson(c):c},getAll:function(){return a()},put:function(c,a,n){f(c,a,n?g.extend({},b,n):b)},putObject:function(c,b,a){this.put(c,g.toJson(b),a)},remove:function(a,k){f(a,l,k?g.extend({},b,k):b)}}}]}]);g.module("ngCookies").factory("$cookieStore",
 ["$cookies",function(b){return{get:function(a){return b.getObject(a)},put:function(a,f){b.putObject(a,f)},remove:function(a){b.remove(a)}}}]);m.$inject=["$document","$log","$browser"];g.module("ngCookies").provider("$$cookieWriter",function(){this.$get=m})})(window,window.angular);
-//# sourceMappingURL=angular-cookies.min.js.map
+
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -3721,7 +370,7 @@ t={},w=b.interceptor&&b.interceptor.response||F,C=b.interceptor&&b.interceptor.r
 (D(c,p),p.$promise=g)}p.$resolved=!0;a.resource=p;return a},function(a){p.$resolved=!0;(A||E)(a);return h.reject(a)});n=n.then(function(a){var b=w(a);(l||E)(b,a.headers);return b},C);return u?n:(p.$promise=n,p.$resolved=!1,p)};e.prototype["$"+k]=function(a,b,c){v(a)&&(c=b,b=a,a={});a=e[k].call(this,a,this,b,c);return a.$promise||a}});e.bind=function(b){return w(y,s({},g,b),l)};return e}var E=d.noop,r=d.forEach,s=d.extend,H=d.copy,v=d.isFunction;u.prototype={setUrlParams:function(f,g,l){var m=this,
 c=l||m.template,h,e,q=m.urlParams={};r(c.split(/\W/),function(b){if("hasOwnProperty"===b)throw x("badname");!/^\d+$/.test(b)&&b&&(new RegExp("(^|[^\\\\]):"+b+"(\\W|$)")).test(c)&&(q[b]=!0)});c=c.replace(/\\:/g,":");g=g||{};r(m.urlParams,function(b,k){h=g.hasOwnProperty(k)?g[k]:m.defaults[k];d.isDefined(h)&&null!==h?(e=encodeURIComponent(h).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"%20").replace(/%26/gi,"&").replace(/%3D/gi,"=").replace(/%2B/gi,
 "+"),c=c.replace(new RegExp(":"+k+"(\\W|$)","g"),function(b,a){return e+a})):c=c.replace(new RegExp("(/?):"+k+"(\\W|$)","g"),function(b,a,c){return"/"==c.charAt(0)?c:a+c})});m.defaults.stripTrailingSlashes&&(c=c.replace(/\/+$/,"")||"/");c=c.replace(/\/\.(?=\w+($|\?))/,".");f.url=c.replace(/\/\\\./,"/.");r(g,function(b,c){m.urlParams[c]||(f.params=f.params||{},f.params[c]=b)})}};return w}]})})(window,window.angular);
-//# sourceMappingURL=angular-resource.min.js.map
+
 
 },{}],6:[function(require,module,exports){
 /*
@@ -3739,7 +388,7 @@ n=g("circle,defs,desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hke
 p=g("accent-height,accumulate,additive,alphabetic,arabic-form,ascent,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,zoomAndPan",
 !0);var O=h.extend({},D,p,n),A=document.createElement("pre");h.module("ngSanitize",[]).provider("$sanitize",function(){this.$get=["$$sanitizeUri",function(a){return function(f){var d=[];F(f,r(d,function(c,b){return!/^unsafe/.test(a(c,b))}));return d.join("")}}]});h.module("ngSanitize").filter("linky",["$sanitize",function(a){var f=/((ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/i,d=/^mailto:/i;return function(c,b){function k(a){a&&g.push(E(a))}function e(a,
 c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.replace(/"/g,"&quot;"),'">');k(c);g.push("</a>")}if(!c)return c;for(var m,l=c,g=[],n,p;m=l.match(f);)n=m[0],m[2]||m[4]||(n=(m[3]?"http://":"mailto:")+n),p=m.index,k(l.substr(0,p)),e(n,m[0].replace(d,"")),l=l.substring(p+m[0].length);k(l);return a(g.join(""))}}])})(window,window.angular);
-//# sourceMappingURL=angular-sanitize.min.js.map
+
 
 },{}],7:[function(require,module,exports){
 /**
@@ -4039,7 +688,7 @@ l=NaN;a.$watch(function(){l!==f.$viewValue||ka(h,f.$viewValue)||(h=ia(f.$viewVal
 (f?a.$watch(f,function(a,f){e.$set("value",a);f!==a&&m.removeOption(f);m.addOption(a,d);m.ngModelCtrl.$render();c(d)}):(m.addOption(e.value,d),m.ngModelCtrl.$render(),c(d)),d.on("$destroy",function(){m.removeOption(e.value);m.ngModelCtrl.$render()}))}}}}],me=ra({restrict:"E",terminal:!1}),Hc=function(){return{restrict:"A",require:"?ngModel",link:function(a,c,d,e){e&&(d.required=!0,e.$validators.required=function(a,c){return!d.required||!e.$isEmpty(c)},d.$observe("required",function(){e.$validate()}))}}},
 Gc=function(){return{restrict:"A",require:"?ngModel",link:function(a,c,d,e){if(e){var f,g=d.ngPattern||d.pattern;d.$observe("pattern",function(a){L(a)&&0<a.length&&(a=new RegExp("^"+a+"$"));if(a&&!a.test)throw J("ngPattern")("noregexp",g,a,ua(c));f=a||t;e.$validate()});e.$validators.pattern=function(a){return e.$isEmpty(a)||A(f)||f.test(a)}}}}},Jc=function(){return{restrict:"A",require:"?ngModel",link:function(a,c,d,e){if(e){var f=-1;d.$observe("maxlength",function(a){a=W(a);f=isNaN(a)?-1:a;e.$validate()});
 e.$validators.maxlength=function(a,c){return 0>f||e.$isEmpty(c)||c.length<=f}}}}},Ic=function(){return{restrict:"A",require:"?ngModel",link:function(a,c,d,e){if(e){var f=0;d.$observe("minlength",function(a){f=W(a)||0;e.$validate()});e.$validators.minlength=function(a,c){return e.$isEmpty(c)||c.length>=f}}}}};O.angular.bootstrap?console.log("WARNING: Tried to load angular more than once."):(ce(),ee(ca),y(U).ready(function(){Zd(U,Ac)}))})(window,document);!window.angular.$$csp()&&window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-//# sourceMappingURL=angular.min.js.map
+
 
 },{}],9:[function(require,module,exports){
 /**
@@ -4053,7 +702,7 @@ e.$validators.maxlength=function(a,c){return 0>f||e.$isEmpty(c)||c.length<=f}}}}
 
 },m.daylightSavingAdjust=function(e){return e?(e.setHours(e.getHours()>12?e.getHours()+2:0),e):null},m.timezoneOffsetAdjust=function(e,t,n){return e?(t&&'UTC'===t&&(e=new Date(e.getTime()),e.setMinutes(e.getMinutes()+(n?-1:1)*e.getTimezoneOffset())),e):null},m.init(),m};return l}]}]),angular.module('mgcrea.ngStrap.helpers.debounce',[]).factory('debounce',['$timeout',function(e){return function(t,n,a){var o=null;return function(){var i=this,r=arguments,s=a&&!o;return o&&e.cancel(o),o=e(function(){o=null,a||t.apply(i,r)},n,!1),s&&t.apply(i,r),o}}}]).factory('throttle',['$timeout',function(e){return function(t,n,a){var o=null;return a||(a={}),function(){var i=this,r=arguments;o||(a.leading!==!1&&t.apply(i,r),o=e(function(){o=null,a.trailing!==!1&&t.apply(i,r)},n,!1))}}}]),angular.module('mgcrea.ngStrap.helpers.dimensions',[]).factory('dimensions',['$document','$window',function(t,n){var a=(angular.element,{}),o=a.nodeName=function(e,t){return e.nodeName&&e.nodeName.toLowerCase()===t.toLowerCase()};a.css=function(t,n,a){var o;return o=t.currentStyle?t.currentStyle[n]:e.getComputedStyle?e.getComputedStyle(t)[n]:t.style[n],a===!0?parseFloat(o)||0:o},a.offset=function(t){var n=t.getBoundingClientRect(),a=t.ownerDocument;return{width:n.width||t.offsetWidth,height:n.height||t.offsetHeight,top:n.top+(e.pageYOffset||a.documentElement.scrollTop)-(a.documentElement.clientTop||0),left:n.left+(e.pageXOffset||a.documentElement.scrollLeft)-(a.documentElement.clientLeft||0)}},a.setOffset=function(e,t,n){var o,i,r,s,l,u,c,d=a.css(e,'position'),f=angular.element(e),p={};'static'===d&&(e.style.position='relative'),l=a.offset(e),r=a.css(e,'top'),u=a.css(e,'left'),c=('absolute'===d||'fixed'===d)&&(r+u).indexOf('auto')>-1,c?(o=a.position(e),s=o.top,i=o.left):(s=parseFloat(r)||0,i=parseFloat(u)||0),angular.isFunction(t)&&(t=t.call(e,n,l)),null!==t.top&&(p.top=t.top-l.top+s),null!==t.left&&(p.left=t.left-l.left+i),'using'in t?t.using.call(f,p):f.css({top:p.top+'px',left:p.left+'px'})},a.position=function(e){var t,n,r={top:0,left:0};return'fixed'===a.css(e,'position')?n=e.getBoundingClientRect():(t=i(e),n=a.offset(e),o(t,'html')||(r=a.offset(t)),r.top+=a.css(t,'borderTopWidth',!0),r.left+=a.css(t,'borderLeftWidth',!0)),{width:e.offsetWidth,height:e.offsetHeight,top:n.top-r.top-a.css(e,'marginTop',!0),left:n.left-r.left-a.css(e,'marginLeft',!0)}};var i=function(e){var t=e.ownerDocument,n=e.offsetParent||t;if(o(n,'#document'))return t.documentElement;for(;n&&!o(n,'html')&&'static'===a.css(n,'position');)n=n.offsetParent;return n||t.documentElement};return a.height=function(e,t){var n=e.offsetHeight;return t?n+=a.css(e,'marginTop',!0)+a.css(e,'marginBottom',!0):n-=a.css(e,'paddingTop',!0)+a.css(e,'paddingBottom',!0)+a.css(e,'borderTopWidth',!0)+a.css(e,'borderBottomWidth',!0),n},a.width=function(e,t){var n=e.offsetWidth;return t?n+=a.css(e,'marginLeft',!0)+a.css(e,'marginRight',!0):n-=a.css(e,'paddingLeft',!0)+a.css(e,'paddingRight',!0)+a.css(e,'borderLeftWidth',!0)+a.css(e,'borderRightWidth',!0),n},a}]),angular.module('mgcrea.ngStrap.helpers.parseOptions',[]).provider('$parseOptions',function(){var e=this.defaults={regexp:/^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/};this.$get=['$parse','$q',function(t,n){function a(a,o){function i(e,t){return e.map(function(e,n){var a,o,i={};return i[c]=e,a=u(t,i),o=p(t,i),{label:a,value:o,index:n}})}var r={},s=angular.extend({},e,o);r.$values=[];var l,u,c,d,f,p,g;return r.init=function(){r.$match=l=a.match(s.regexp),u=t(l[2]||l[1]),c=l[4]||l[6],d=l[5],f=t(l[3]||''),p=t(l[2]?l[1]:c),g=t(l[7])},r.valuesFn=function(e,t){return n.when(g(e,t)).then(function(t){return angular.isArray(t)||(t=[]),r.$values=t.length?i(t,e):[],r.$values})},r.displayValue=function(e){var t={};return t[c]=e,u(t)},r.init(),r}return a}]}),angular.version.minor<3&&angular.version.dot<14&&angular.module('ng').factory('$$rAF',['$window','$timeout',function(e,t){var n=e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame,a=e.cancelAnimationFrame||e.webkitCancelAnimationFrame||e.mozCancelAnimationFrame||e.webkitCancelRequestAnimationFrame,o=!!n,i=o?function(e){var t=n(e);return function(){a(t)}}:function(e){var n=t(e,16.66,!1);return function(){t.cancel(n)}};return i.supported=o,i}]),angular.module('mgcrea.ngStrap.modal',['mgcrea.ngStrap.core','mgcrea.ngStrap.helpers.dimensions']).provider('$modal',function(){var e=this.defaults={animation:'am-fade',backdropAnimation:'am-fade',prefixClass:'modal',prefixEvent:'modal',placement:'top',templateUrl:'modal/modal.tpl.html',template:'',contentTemplate:!1,container:!1,element:null,backdrop:!0,keyboard:!0,html:!1,show:!0};this.$get=['$window','$rootScope','$bsCompiler','$q','$templateCache','$http','$animate','$timeout','$sce','dimensions',function(n,a,o,i,r,s,l,u,c,d){function f(t){function n(){k.$emit(b.prefixEvent+'.show',y)}function i(){k.$emit(b.prefixEvent+'.hide',y),h.removeClass(b.prefixClass+'-open'),b.animation&&h.removeClass(b.prefixClass+'-with-'+b.animation)}function r(){b.backdrop&&(x.on('click',f),C.on('click',f),C.on('wheel',v))}function s(){b.backdrop&&(x.off('click',f),C.off('click',f),C.off('wheel',v))}function u(){b.keyboard&&x.on('keyup',y.$onKeyUp)}function d(){b.keyboard&&x.off('keyup',y.$onKeyUp)}function f(e){e.target===e.currentTarget&&('static'===b.backdrop?y.focus():y.hide())}function v(e){e.preventDefault()}function w(){y.$isShown&&null!==x&&(s(),d()),T&&(T.$destroy(),T=null),x&&(x.remove(),x=y.$element=null)}var y={},b=y.$options=angular.extend({},e,t),D=y.$promise=o.compile(b),k=y.$scope=b.scope&&b.scope.$new()||a.$new();b.element||b.container||(b.container='body'),y.$id=b.id||b.element&&b.element.attr('id')||'',m(['title','content'],function(e){b[e]&&(k[e]=c.trustAsHtml(b[e]))}),k.$hide=function(){k.$$postDigest(function(){y.hide()})},k.$show=function(){k.$$postDigest(function(){y.show()})},k.$toggle=function(){k.$$postDigest(function(){y.toggle()})},y.$isShown=k.$isShown=!1;var S,x,T,C=angular.element('<div class="'+b.prefixClass+'-backdrop"/>');return C.css({position:'fixed',top:'0px',left:'0px',bottom:'0px',right:'0px','z-index':1038}),D.then(function(e){S=e,y.init()}),y.init=function(){b.show&&k.$$postDigest(function(){y.show()})},y.destroy=function(){w(),C&&(C.remove(),C=null),k.$destroy()},y.show=function(){if(!y.$isShown){var e,t;if(angular.isElement(b.container)?(e=b.container,t=b.container[0].lastChild?angular.element(b.container[0].lastChild):null):b.container?(e=g(b.container),t=e[0]&&e[0].lastChild?angular.element(e[0].lastChild):null):(e=null,t=b.element),x&&w(),T=y.$scope.$new(),x=y.$element=S.link(T,function(e,t){}),!k.$emit(b.prefixEvent+'.show.before',y).defaultPrevented){x.css({display:'block'}).addClass(b.placement),b.animation&&(b.backdrop&&C.addClass(b.backdropAnimation),x.addClass(b.animation)),b.backdrop&&l.enter(C,h,null),angular.version.minor<=2?l.enter(x,e,t,n):l.enter(x,e,t).then(n),y.$isShown=k.$isShown=!0,p(k);var a=x[0];$(function(){a.focus()}),h.addClass(b.prefixClass+'-open'),b.animation&&h.addClass(b.prefixClass+'-with-'+b.animation),r(),u()}}},y.hide=function(){y.$isShown&&(k.$emit(b.prefixEvent+'.hide.before',y).defaultPrevented||(angular.version.minor<=2?l.leave(x,i):l.leave(x).then(i),b.backdrop&&l.leave(C),y.$isShown=k.$isShown=!1,p(k),s(),d()))},y.toggle=function(){y.$isShown?y.hide():y.show()},y.focus=function(){x[0].focus()},y.$onKeyUp=function(e){27===e.which&&y.$isShown&&(y.hide(),e.stopPropagation())},y}function p(e){e.$$phase||e.$root&&e.$root.$$phase||e.$digest()}function g(e,n){return angular.element((n||t).querySelectorAll(e))}var m=angular.forEach,$=(String.prototype.trim,n.requestAnimationFrame||n.setTimeout),h=angular.element(n.document.body);return f}]}).directive('bsModal',['$window','$sce','$modal',function(e,t,n){return{restrict:'EAC',scope:!0,link:function(e,a,o,i){var r={scope:e,element:a,show:!1};angular.forEach(['template','templateUrl','controller','controllerAs','contentTemplate','controller','placement','backdrop','keyboard','html','container','animation','id','prefixEvent','prefixClass'],function(e){angular.isDefined(o[e])&&(r[e]=o[e])});var s=/^(false|0|)$/i;angular.forEach(['backdrop','keyboard','html','container'],function(e){angular.isDefined(o[e])&&s.test(o[e])&&(r[e]=!1)}),angular.forEach(['title','content'],function(n){o[n]&&o.$observe(n,function(a,o){e[n]=t.trustAsHtml(a)})}),o.bsModal&&e.$watch(o.bsModal,function(t,n){angular.isObject(t)?angular.extend(e,t):e.content=t},!0);var l=n(r);a.on(o.trigger||'click',l.toggle),e.$on('$destroy',function(){l&&l.destroy(),r=null,l=null})}}}]),angular.module('mgcrea.ngStrap.navbar',[]).provider('$navbar',function(){var e=this.defaults={activeClass:'active',routeAttr:'data-match-route',strict:!1};this.$get=function(){return{defaults:e}}}).directive('bsNavbar',['$window','$location','$navbar',function(e,t,n){var a=n.defaults;return{restrict:'A',link:function(e,n,o,i){var r=angular.copy(a);angular.forEach(Object.keys(a),function(e){angular.isDefined(o[e])&&(r[e]=o[e])}),e.$watch(function(){return t.path()},function(e,t){var a=n[0].querySelectorAll('li['+r.routeAttr+']');angular.forEach(a,function(t){var n=angular.element(t),a=n.attr(r.routeAttr).replace('/','\\/');r.strict&&(a='^'+a+'$');var o=new RegExp(a,'i');o.test(e)?n.addClass(r.activeClass):n.removeClass(r.activeClass)})})}}}]),angular.module('mgcrea.ngStrap.popover',['mgcrea.ngStrap.tooltip']).provider('$popover',function(){var e=this.defaults={animation:'am-fade',customClass:'',container:!1,target:!1,placement:'right',templateUrl:'popover/popover.tpl.html',contentTemplate:!1,trigger:'click',keyboard:!0,html:!1,title:'',content:'',delay:0,autoClose:!1};this.$get=['$tooltip',function(t){function n(n,a){var o=angular.extend({},e,a),i=t(n,o);return o.content&&(i.$scope.content=o.content),i}return n}]}).directive('bsPopover',['$window','$sce','$popover',function(e,t,n){var a=e.requestAnimationFrame||e.setTimeout;return{restrict:'EAC',scope:!0,link:function(e,o,i){var r={scope:e};angular.forEach(['template','templateUrl','controller','controllerAs','contentTemplate','placement','container','delay','trigger','html','animation','customClass','autoClose','id','prefixClass','prefixEvent'],function(e){angular.isDefined(i[e])&&(r[e]=i[e])});var s=/^(false|0|)$/i;angular.forEach(['html','container','autoClose'],function(e){angular.isDefined(i[e])&&s.test(i[e])&&(r[e]=!1)});var l=o.attr('data-target');angular.isDefined(l)&&(r.target=s.test(l)?!1:l),angular.forEach(['title','content'],function(n){i[n]&&i.$observe(n,function(o,i){e[n]=t.trustAsHtml(o),angular.isDefined(i)&&a(function(){u&&u.$applyPlacement()})})}),i.bsPopover&&e.$watch(i.bsPopover,function(t,n){angular.isObject(t)?angular.extend(e,t):e.content=t,angular.isDefined(n)&&a(function(){u&&u.$applyPlacement()})},!0),i.bsShow&&e.$watch(i.bsShow,function(e,t){u&&angular.isDefined(e)&&(angular.isString(e)&&(e=!!e.match(/true|,?(popover),?/i)),e===!0?u.show():u.hide())}),i.viewport&&e.$watch(i.viewport,function(e){u&&angular.isDefined(e)&&u.setViewport(e)});var u=n(o,r);e.$on('$destroy',function(){u&&u.destroy(),r=null,u=null})}}}]),angular.module('mgcrea.ngStrap.scrollspy',['mgcrea.ngStrap.helpers.debounce','mgcrea.ngStrap.helpers.dimensions']).provider('$scrollspy',function(){var e=this.$$spies={},n=this.defaults={debounce:150,throttle:100,offset:100};this.$get=['$window','$document','$rootScope','dimensions','debounce','throttle',function(a,o,i,r,s,l){function u(e,t){return e[0].nodeName&&e[0].nodeName.toLowerCase()===t.toLowerCase()}function c(o){var c=angular.extend({},n,o);c.element||(c.element=p);var g=u(c.element,'body'),m=g?d:c.element,$=g?'window':c.id;if(e[$])return e[$].$$count++,e[$];var h,v,w,y,b,D,k,S,x={},T=x.$trackedElements=[],C=[];return x.init=function(){this.$$count=1,y=s(this.checkPosition,c.debounce),b=l(this.checkPosition,c.throttle),m.on('click',this.checkPositionWithEventLoop),d.on('resize',y),m.on('scroll',b),D=s(this.checkOffsets,c.debounce),h=i.$on('$viewContentLoaded',D),v=i.$on('$includeContentLoaded',D),D(),$&&(e[$]=x)},x.destroy=function(){this.$$count--,this.$$count>0||(m.off('click',this.checkPositionWithEventLoop),d.off('resize',y),m.off('scroll',b),h(),v(),$&&delete e[$])},x.checkPosition=function(){if(C.length){if(S=(g?a.pageYOffset:m.prop('scrollTop'))||0,k=Math.max(a.innerHeight,f.prop('clientHeight')),S<C[0].offsetTop&&w!==C[0].target)return x.$activateElement(C[0]);for(var e=C.length;e--;)if(!angular.isUndefined(C[e].offsetTop)&&null!==C[e].offsetTop&&w!==C[e].target&&!(S<C[e].offsetTop||C[e+1]&&S>C[e+1].offsetTop))return x.$activateElement(C[e])}},x.checkPositionWithEventLoop=function(){setTimeout(x.checkPosition,1)},x.$activateElement=function(e){if(w){var t=x.$getTrackedElement(w);t&&(t.source.removeClass('active'),u(t.source,'li')&&u(t.source.parent().parent(),'li')&&t.source.parent().parent().removeClass('active'))}w=e.target,e.source.addClass('active'),u(e.source,'li')&&u(e.source.parent().parent(),'li')&&e.source.parent().parent().addClass('active')},x.$getTrackedElement=function(e){return T.filter(function(t){return t.target===e})[0]},x.checkOffsets=function(){angular.forEach(T,function(e){var n=t.querySelector(e.target);e.offsetTop=n?r.offset(n).top:null,c.offset&&null!==e.offsetTop&&(e.offsetTop-=1*c.offset)}),C=T.filter(function(e){return null!==e.offsetTop}).sort(function(e,t){return e.offsetTop-t.offsetTop}),y()},x.trackElement=function(e,t){T.push({target:e,source:t})},x.untrackElement=function(e,t){for(var n,a=T.length;a--;)if(T[a].target===e&&T[a].source===t){n=a;break}T=T.splice(n,1)},x.activate=function(e){T[e].addClass('active')},x.init(),x}var d=angular.element(a),f=angular.element(o.prop('documentElement')),p=angular.element(a.document.body);return c}]}).directive('bsScrollspy',['$rootScope','debounce','dimensions','$scrollspy',function(e,t,n,a){return{restrict:'EAC',link:function(e,t,n){var o={scope:e};angular.forEach(['offset','target'],function(e){angular.isDefined(n[e])&&(o[e]=n[e])});var i=a(o);i.trackElement(o.target,t),e.$on('$destroy',function(){i&&(i.untrackElement(o.target,t),i.destroy()),o=null,i=null})}}}]).directive('bsScrollspyList',['$rootScope','debounce','dimensions','$scrollspy',function(e,t,n,a){return{restrict:'A',compile:function(e,t){var n=e[0].querySelectorAll('li > a[href]');angular.forEach(n,function(e){var t=angular.element(e);t.parent().attr('bs-scrollspy','').attr('data-target',t.attr('href'))})}}}]),angular.module('mgcrea.ngStrap.select',['mgcrea.ngStrap.tooltip','mgcrea.ngStrap.helpers.parseOptions']).provider('$select',function(){var e=this.defaults={animation:'am-fade',prefixClass:'select',prefixEvent:'$select',placement:'bottom-left',templateUrl:'select/select.tpl.html',trigger:'focus',container:!1,keyboard:!0,html:!1,delay:0,multiple:!1,allNoneButtons:!1,sort:!0,caretHtml:'&nbsp;<span class="caret"></span>',placeholder:'Choose among the following...',allText:'All',noneText:'None',maxLength:3,maxLengthHtml:'selected',iconCheckmark:'glyphicon glyphicon-ok'};this.$get=['$window','$document','$rootScope','$tooltip','$timeout',function(t,n,a,o,i){function r(t,n,a){var r={},s=angular.extend({},e,a);r=o(t,s);var u=r.$scope;u.$matches=[],u.$activeIndex=s.multiple?[]:-1,u.$isMultiple=s.multiple,u.$showAllNoneButtons=s.allNoneButtons&&s.multiple,u.$iconCheckmark=s.iconCheckmark,u.$allText=s.allText,u.$noneText=s.noneText,u.$activate=function(e){u.$$postDigest(function(){r.activate(e)})},u.$select=function(e,t){u.$$postDigest(function(){r.select(e)})},u.$isVisible=function(){return r.$isVisible()},u.$isActive=function(e){return r.$isActive(e)},u.$selectAll=function(){for(var e=0;e<u.$matches.length;e++)u.$isActive(e)||u.$select(e)},u.$selectNone=function(){for(var e=0;e<u.$matches.length;e++)u.$isActive(e)&&u.$select(e)},r.update=function(e){u.$matches=e,r.$updateActiveIndex()},r.activate=function(e){return s.multiple?(r.$isActive(e)?u.$activeIndex.splice(u.$activeIndex.indexOf(e),1):u.$activeIndex.push(e),s.sort&&u.$activeIndex.sort(function(e,t){return e-t})):u.$activeIndex=e,u.$activeIndex},r.select=function(e){var t=u.$matches[e].value;u.$apply(function(){r.activate(e),s.multiple?n.$setViewValue(u.$activeIndex.map(function(e){return u.$matches[e].value})):(n.$setViewValue(t),r.hide())}),u.$emit(s.prefixEvent+'.select',t,e,r)},r.$updateActiveIndex=function(){n.$modelValue&&u.$matches.length?u.$activeIndex=s.multiple&&angular.isArray(n.$modelValue)?n.$modelValue.map(function(e){return r.$getIndex(e)}):r.$getIndex(n.$modelValue):u.$activeIndex>=u.$matches.length&&(u.$activeIndex=s.multiple?[]:0)},r.$isVisible=function(){return s.minLength&&n?u.$matches.length&&n.$viewValue.length>=s.minLength:u.$matches.length},r.$isActive=function(e){return s.multiple?-1!==u.$activeIndex.indexOf(e):u.$activeIndex===e},r.$getIndex=function(e){var t=u.$matches.length,n=t;if(t){for(n=t;n--&&u.$matches[n].value!==e;);if(!(0>n))return n}},r.$onMouseDown=function(e){if(e.preventDefault(),e.stopPropagation(),l){var t=angular.element(e.target);t.triggerHandler('click')}},r.$onKeyDown=function(e){return/(9|13|38|40)/.test(e.keyCode)?(e.preventDefault(),e.stopPropagation(),s.multiple&&9===e.keyCode?r.hide():s.multiple||13!==e.keyCode&&9!==e.keyCode?void(s.multiple||(38===e.keyCode&&u.$activeIndex>0?u.$activeIndex--:38===e.keyCode&&u.$activeIndex<0?u.$activeIndex=u.$matches.length-1:40===e.keyCode&&u.$activeIndex<u.$matches.length-1?u.$activeIndex++:angular.isUndefined(u.$activeIndex)&&(u.$activeIndex=0),u.$digest())):r.select(u.$activeIndex)):void 0};var c=r.show;r.show=function(){c(),s.multiple&&r.$element.addClass('select-multiple'),i(function(){r.$element.on(l?'touchstart':'mousedown',r.$onMouseDown),s.keyboard&&t.on('keydown',r.$onKeyDown)},0,!1)};var d=r.hide;return r.hide=function(){s.multiple||n.$modelValue||(u.$activeIndex=-1),r.$element.off(l?'touchstart':'mousedown',r.$onMouseDown),s.keyboard&&t.off('keydown',r.$onKeyDown),d(!0)},r}var s=(angular.element(t.document.body),/(ip(a|o)d|iphone|android)/gi.test(t.navigator.userAgent)),l='createTouch'in t.document&&s;return r.defaults=e,r}]}).directive('bsSelect',['$window','$parse','$q','$select','$parseOptions',function(e,t,n,a,o){var i=a.defaults;return{restrict:'EAC',require:'ngModel',link:function(e,t,n,r){var s={scope:e,placeholder:i.placeholder};angular.forEach(['template','templateUrl','controller','controllerAs','placement','container','delay','trigger','keyboard','html','animation','placeholder','allNoneButtons','maxLength','maxLengthHtml','allText','noneText','iconCheckmark','autoClose','id','sort','caretHtml','prefixClass','prefixEvent'],function(e){angular.isDefined(n[e])&&(s[e]=n[e])});var l=/^(false|0|)$/i;angular.forEach(['html','container','allNoneButtons','sort'],function(e){angular.isDefined(n[e])&&l.test(n[e])&&(s[e]=!1)});var u=t.attr('data-multiple');if(angular.isDefined(u)&&(s.multiple=l.test(u)?!1:u),'select'===t[0].nodeName.toLowerCase()){var c=t;c.css('display','none'),t=angular.element('<button type="button" class="btn btn-default"></button>'),c.after(t)}var d=o(n.bsOptions),f=a(t,r,s),p=d.$match[7].replace(/\|.+/,'').trim();e.$watchCollection(p,function(t,n){d.valuesFn(e,r).then(function(e){f.update(e),r.$render()})}),e.$watch(n.ngModel,function(e,t){f.$updateActiveIndex(),r.$render()},!0),r.$render=function(){var e,n;s.multiple&&angular.isArray(r.$modelValue)?(e=r.$modelValue.map(function(e){return n=f.$getIndex(e),angular.isDefined(n)?f.$scope.$matches[n].label:!1}).filter(angular.isDefined),e=e.length>(s.maxLength||i.maxLength)?e.length+' '+(s.maxLengthHtml||i.maxLengthHtml):e.join(', ')):(n=f.$getIndex(r.$modelValue),e=angular.isDefined(n)?f.$scope.$matches[n].label:!1),t.html((e?e:s.placeholder)+(s.caretHtml?s.caretHtml:i.caretHtml))},s.multiple&&(r.$isEmpty=function(e){return!e||0===e.length}),e.$on('$destroy',function(){f&&f.destroy(),s=null,f=null})}}}]),angular.module('mgcrea.ngStrap.timepicker',['mgcrea.ngStrap.helpers.dateParser','mgcrea.ngStrap.helpers.dateFormatter','mgcrea.ngStrap.tooltip']).provider('$timepicker',function(){var e=this.defaults={animation:'am-fade',prefixClass:'timepicker',placement:'bottom-left',templateUrl:'timepicker/timepicker.tpl.html',trigger:'focus',container:!1,keyboard:!0,html:!1,delay:0,useNative:!0,timeType:'date',timeFormat:'shortTime',timezone:null,modelTimeFormat:null,autoclose:!1,minTime:-(1/0),maxTime:+(1/0),length:5,hourStep:1,minuteStep:5,secondStep:5,roundDisplay:!1,iconUp:'glyphicon glyphicon-chevron-up',iconDown:'glyphicon glyphicon-chevron-down',arrowBehavior:'pager'};this.$get=['$window','$document','$rootScope','$sce','$dateFormatter','$tooltip','$timeout',function(t,n,a,o,i,r,s){function l(t,n,a){function o(e){var t=6e4*g.minuteStep;return new Date(Math.floor(e.getTime()/t)*t)}function l(e,n){var a=e+n;if(t[0].createTextRange){var o=t[0].createTextRange();o.collapse(!0),o.moveStart('character',e),o.moveEnd('character',a),o.select()}else t[0].setSelectionRange?t[0].setSelectionRange(e,a):angular.isUndefined(t[0].selectionStart)&&(t[0].selectionStart=e,t[0].selectionEnd=a)}function d(){t[0].focus()}var f=r(t,angular.extend({},e,a)),p=a.scope,g=f.$options,m=f.$scope,$=g.lang,h=function(e,t,n){return i.formatDate(e,t,$,n)},v=0,w=g.roundDisplay?o(new Date):new Date,y=n.$dateValue||w,b={hour:y.getHours(),meridian:y.getHours()<12,minute:y.getMinutes(),second:y.getSeconds(),millisecond:y.getMilliseconds()},D=i.getDatetimeFormat(g.timeFormat,$),k=i.hoursFormat(D),S=i.timeSeparator(D),x=i.minutesFormat(D),T=i.secondsFormat(D),C=i.showSeconds(D),M=i.showAM(D);m.$iconUp=g.iconUp,m.$iconDown=g.iconDown,m.$select=function(e,t){f.select(e,t)},m.$moveIndex=function(e,t){f.$moveIndex(e,t)},m.$switchMeridian=function(e){f.switchMeridian(e)},f.update=function(e){angular.isDate(e)&&!isNaN(e.getTime())?(f.$date=e,angular.extend(b,{hour:e.getHours(),minute:e.getMinutes(),second:e.getSeconds(),millisecond:e.getMilliseconds()}),f.$build()):f.$isBuilt||f.$build()},f.select=function(e,t,a){(!n.$dateValue||isNaN(n.$dateValue.getTime()))&&(n.$dateValue=new Date(1970,0,1)),angular.isDate(e)||(e=new Date(e)),0===t?n.$dateValue.setHours(e.getHours()):1===t?n.$dateValue.setMinutes(e.getMinutes()):2===t&&n.$dateValue.setSeconds(e.getSeconds()),n.$setViewValue(angular.copy(n.$dateValue)),n.$render(),g.autoclose&&!a&&s(function(){f.hide(!0)})},f.switchMeridian=function(e){if(n.$dateValue&&!isNaN(n.$dateValue.getTime())){var t=(e||n.$dateValue).getHours();n.$dateValue.setHours(12>t?t+12:t-12),n.$setViewValue(angular.copy(n.$dateValue)),n.$render()}},f.$build=function(){var e,t,n=m.midIndex=parseInt(g.length/2,10),a=[];for(e=0;e<g.length;e++)t=new Date(1970,0,1,b.hour-(n-e)*g.hourStep),a.push({date:t,label:h(t,k),selected:f.$date&&f.$isSelected(t,0),disabled:f.$isDisabled(t,0)});var o,i=[];for(e=0;e<g.length;e++)o=new Date(1970,0,1,0,b.minute-(n-e)*g.minuteStep),i.push({date:o,label:h(o,x),selected:f.$date&&f.$isSelected(o,1),disabled:f.$isDisabled(o,1)});var r,s=[];for(e=0;e<g.length;e++)r=new Date(1970,0,1,0,0,b.second-(n-e)*g.secondStep),s.push({date:r,label:h(r,T),selected:f.$date&&f.$isSelected(r,2),disabled:f.$isDisabled(r,2)});var l=[];for(e=0;e<g.length;e++)l.push(C?[a[e],i[e],s[e]]:[a[e],i[e]]);m.rows=l,m.showSeconds=C,m.showAM=M,m.isAM=(f.$date||a[n].date).getHours()<12,m.timeSeparator=S,f.$isBuilt=!0},f.$isSelected=function(e,t){return f.$date?0===t?e.getHours()===f.$date.getHours():1===t?e.getMinutes()===f.$date.getMinutes():2===t?e.getSeconds()===f.$date.getSeconds():void 0:!1},f.$isDisabled=function(e,t){var n;return 0===t?n=e.getTime()+6e4*b.minute+1e3*b.second:1===t?n=e.getTime()+36e5*b.hour+1e3*b.second:2===t&&(n=e.getTime()+36e5*b.hour+6e4*b.minute),n<1*g.minTime||n>1*g.maxTime},m.$arrowAction=function(e,t){'picker'===g.arrowBehavior?f.$setTimeByStep(e,t):f.$moveIndex(e,t)},f.$setTimeByStep=function(e,t){var n=new Date(f.$date||y),a=n.getHours(),o=n.getMinutes(),i=n.getSeconds();0===t?n.setHours(a-parseInt(g.hourStep,10)*e):1===t?n.setMinutes(o-parseInt(g.minuteStep,10)*e):2===t&&n.setSeconds(i-parseInt(g.secondStep,10)*e),f.select(n,t,!0)},f.$moveIndex=function(e,t){var n;0===t?(n=new Date(1970,0,1,b.hour+e*g.length,b.minute,b.second),angular.extend(b,{hour:n.getHours()})):1===t?(n=new Date(1970,0,1,b.hour,b.minute+e*g.length*g.minuteStep,b.second),angular.extend(b,{minute:n.getMinutes()})):2===t&&(n=new Date(1970,0,1,b.hour,b.minute,b.second+e*g.length*g.secondStep),angular.extend(b,{second:n.getSeconds()})),f.$build()},f.$onMouseDown=function(e){if('input'!==e.target.nodeName.toLowerCase()&&e.preventDefault(),e.stopPropagation(),c){var t=angular.element(e.target);'button'!==t[0].nodeName.toLowerCase()&&(t=t.parent()),t.triggerHandler('click')}},f.$onKeyDown=function(e){if(/(38|37|39|40|13)/.test(e.keyCode)&&!e.shiftKey&&!e.altKey){if(e.preventDefault(),e.stopPropagation(),13===e.keyCode)return void f.hide(!0);var t=new Date(f.$date),n=t.getHours(),a=h(t,k).length,o=t.getMinutes(),i=h(t,x).length,r=t.getSeconds(),s=h(t,T).length,u=1,c=/(37|39)/.test(e.keyCode),d=2+1*C+1*M;c&&(37===e.keyCode?v=1>v?d-1:v-1:39===e.keyCode&&(v=d-1>v?v+1:0));var m=[0,a],$=0;38===e.keyCode&&($=-1),40===e.keyCode&&($=1);var w=2===v&&C,y=2===v&&!C||3===v&&C;0===v?(t.setHours(n+$*parseInt(g.hourStep,10)),a=h(t,k).length,m=[0,a]):1===v?(t.setMinutes(o+$*parseInt(g.minuteStep,10)),i=h(t,x).length,m=[a+u,i]):w?(t.setSeconds(r+$*parseInt(g.secondStep,10)),s=h(t,T).length,m=[a+u+i+u,s]):y&&(c||f.switchMeridian(),m=[a+u+i+u+(s+u)*C,2]),f.select(t,v,!0),l(m[0],m[1]),p.$digest()}};var E=f.init;f.init=function(){return u&&g.useNative?(t.prop('type','time'),void t.css('-webkit-appearance','textfield')):(c&&(t.prop('type','text'),t.attr('readonly','true'),t.on('click',d)),void E())};var A=f.destroy;f.destroy=function(){u&&g.useNative&&t.off('click',d),A()};var F=f.show;f.show=function(){!c&&t.attr('readonly')||t.attr('disabled')||(F(),s(function(){f.$element&&f.$element.on(c?'touchstart':'mousedown',f.$onMouseDown),g.keyboard&&t&&t.on('keydown',f.$onKeyDown)},0,!1))};var V=f.hide;return f.hide=function(e){f.$isShown&&(f.$element&&f.$element.off(c?'touchstart':'mousedown',f.$onMouseDown),g.keyboard&&t&&t.off('keydown',f.$onKeyDown),V(e))},f}var u=/(ip(a|o)d|iphone|android)/gi.test(t.navigator.userAgent),c='createTouch'in t.document&&u;return e.lang||(e.lang=i.getDefaultLocale()),l.defaults=e,l}]}).directive('bsTimepicker',['$window','$parse','$q','$dateFormatter','$dateParser','$timepicker',function(e,t,a,o,i,r){var s=r.defaults,l=/(ip(a|o)d|iphone|android)/gi.test(e.navigator.userAgent);return{restrict:'EAC',require:'ngModel',link:function(e,t,a,u){function c(e){if(angular.isDate(e)){var t=isNaN(f.minTime)||new Date(e.getTime()).setFullYear(1970,0,1)>=f.minTime,n=isNaN(f.maxTime)||new Date(e.getTime()).setFullYear(1970,0,1)<=f.maxTime,a=t&&n;u.$setValidity('date',a),u.$setValidity('min',t),u.$setValidity('max',n),a&&(u.$dateValue=e)}}function d(){return!u.$dateValue||isNaN(u.$dateValue.getTime())?'':$(u.$dateValue,f.timeFormat)}var f={scope:e};angular.forEach(['template','templateUrl','controller','controllerAs','placement','container','delay','trigger','keyboard','html','animation','autoclose','timeType','timeFormat','timezone','modelTimeFormat','useNative','hourStep','minuteStep','secondStep','length','arrowBehavior','iconUp','iconDown','roundDisplay','id','prefixClass','prefixEvent'],function(e){angular.isDefined(a[e])&&(f[e]=a[e])});var p=/^(false|0|)$/i;angular.forEach(['html','container','autoclose','useNative','roundDisplay'],function(e){angular.isDefined(a[e])&&p.test(a[e])&&(f[e]=!1)}),a.bsShow&&e.$watch(a.bsShow,function(e,t){g&&angular.isDefined(e)&&(angular.isString(e)&&(e=!!e.match(/true|,?(timepicker),?/i)),e===!0?g.show():g.hide())}),l&&(f.useNative||s.useNative)&&(f.timeFormat='HH:mm');var g=r(t,u,f);f=g.$options;var m=f.lang,$=function(e,t,n){return o.formatDate(e,t,m,n)},h=i({format:f.timeFormat,lang:m});angular.forEach(['minTime','maxTime'],function(e){angular.isDefined(a[e])&&a.$observe(e,function(t){g.$options[e]=h.getTimeForAttribute(e,t),!isNaN(g.$options[e])&&g.$build(),c(u.$dateValue)})}),e.$watch(a.ngModel,function(e,t){g.update(u.$dateValue)},!0),u.$parsers.unshift(function(e){var t;if(!e)return u.$setValidity('date',!0),null;var a=angular.isDate(e)?e:h.parse(e,u.$dateValue);return!a||isNaN(a.getTime())?(u.$setValidity('date',!1),n):(c(a),'string'===f.timeType?(t=h.timezoneOffsetAdjust(a,f.timezone,!0),$(t,f.modelTimeFormat||f.timeFormat)):(t=h.timezoneOffsetAdjust(u.$dateValue,f.timezone,!0),'number'===f.timeType?t.getTime():'unix'===f.timeType?t.getTime()/1e3:'iso'===f.timeType?t.toISOString():new Date(t)))}),u.$formatters.push(function(e){var t;return t=angular.isUndefined(e)||null===e?0/0:angular.isDate(e)?e:'string'===f.timeType?h.parse(e,null,f.modelTimeFormat):new Date('unix'===f.timeType?1e3*e:e),u.$dateValue=h.timezoneOffsetAdjust(t,f.timezone),d()}),u.$render=function(){t.val(d())},e.$on('$destroy',function(){g&&g.destroy(),f=null,g=null})}}}]),angular.module('mgcrea.ngStrap.tab',[]).provider('$tab',function(){var e=this.defaults={animation:'am-fade',template:'tab/tab.tpl.html',navClass:'nav-tabs',activeClass:'active'},t=this.controller=function(t,n,a){var o=this;o.$options=angular.copy(e),angular.forEach(['animation','navClass','activeClass'],function(e){angular.isDefined(a[e])&&(o.$options[e]=a[e])}),t.$navClass=o.$options.navClass,t.$activeClass=o.$options.activeClass,o.$panes=t.$panes=[],o.$activePaneChangeListeners=o.$viewChangeListeners=[],o.$push=function(e){angular.isUndefined(o.$panes.$active)&&t.$setActive(e.name||0),o.$panes.push(e)},o.$remove=function(e){var t,n=o.$panes.indexOf(e),a=o.$panes.$active;t=angular.isString(a)?o.$panes.map(function(e){return e.name}).indexOf(a):o.$panes.$active,o.$panes.splice(n,1),t>n?t--:n===t&&t===o.$panes.length&&t--,t>=0&&t<o.$panes.length?o.$setActive(o.$panes[t].name||t):o.$setActive()},o.$setActive=t.$setActive=function(e){o.$panes.$active=e,o.$activePaneChangeListeners.forEach(function(e){e()})},o.$isActive=t.$isActive=function(e,t){return o.$panes.$active===e.name||o.$panes.$active===t}};this.$get=function(){var n={};return n.defaults=e,n.controller=t,n}}).directive('bsTabs',['$window','$animate','$tab','$parse',function(e,t,n,a){var o=n.defaults;return{require:['?ngModel','bsTabs'],transclude:!0,scope:!0,controller:['$scope','$element','$attrs',n.controller],templateUrl:function(e,t){return t.template||o.template},link:function(e,t,n,o){var i=o[0],r=o[1];if(i&&(r.$activePaneChangeListeners.push(function(){i.$setViewValue(r.$panes.$active)}),i.$formatters.push(function(e){return r.$setActive(e),e})),n.bsActivePane){var s=a(n.bsActivePane);r.$activePaneChangeListeners.push(function(){s.assign(e,r.$panes.$active)}),e.$watch(n.bsActivePane,function(e,t){r.$setActive(e)},!0)}}}}]).directive('bsPane',['$window','$animate','$sce',function(e,t,n){return{require:['^?ngModel','^bsTabs'],scope:!0,link:function(e,a,o,i){function r(){var n=s.$panes.indexOf(e);t[s.$isActive(e,n)?'addClass':'removeClass'](a,s.$options.activeClass)}var s=(i[0],i[1]);a.addClass('tab-pane'),o.$observe('title',function(t,a){e.title=n.trustAsHtml(t)}),e.name=o.name,s.$options.animation&&a.addClass(s.$options.animation),o.$observe('disabled',function(t,n){e.disabled=e.$eval(t)}),s.$push(e),e.$on('$destroy',function(){s.$remove(e)}),s.$activePaneChangeListeners.push(function(){r()}),r()}}}]),angular.module('mgcrea.ngStrap.typeahead',['mgcrea.ngStrap.tooltip','mgcrea.ngStrap.helpers.parseOptions']).provider('$typeahead',function(){var e=this.defaults={animation:'am-fade',prefixClass:'typeahead',prefixEvent:'$typeahead',placement:'bottom-left',templateUrl:'typeahead/typeahead.tpl.html',trigger:'focus',container:!1,keyboard:!0,html:!1,delay:0,minLength:1,filter:'bsAsyncFilter',limit:6,autoSelect:!1,comparator:'',trimValue:!0};this.$get=['$window','$rootScope','$tooltip','$$rAF','$timeout',function(t,n,a,o,i){
 function r(t,n,r){var l={},u=angular.extend({},e,r);l=a(t,u);var c=r.scope,d=l.$scope;d.$resetMatches=function(){d.$matches=[],d.$activeIndex=u.autoSelect?0:-1},d.$resetMatches(),d.$activate=function(e){d.$$postDigest(function(){l.activate(e)})},d.$select=function(e,t){d.$$postDigest(function(){l.select(e)})},d.$isVisible=function(){return l.$isVisible()},l.update=function(e){d.$matches=e,d.$activeIndex>=e.length&&(d.$activeIndex=u.autoSelect?0:-1),s(d),o(l.$applyPlacement)},l.activate=function(e){d.$activeIndex=e},l.select=function(e){if(-1!==e){var t=d.$matches[e].value;n.$setViewValue(t),n.$render(),d.$resetMatches(),c&&c.$digest(),d.$emit(u.prefixEvent+'.select',t,e,l)}},l.$isVisible=function(){return u.minLength&&n?d.$matches.length&&angular.isString(n.$viewValue)&&n.$viewValue.length>=u.minLength:!!d.$matches.length},l.$getIndex=function(e){var t=d.$matches.length,n=t;if(t){for(n=t;n--&&d.$matches[n].value!==e;);if(!(0>n))return n}},l.$onMouseDown=function(e){e.preventDefault(),e.stopPropagation()},l.$onKeyDown=function(e){/(38|40|13)/.test(e.keyCode)&&(!l.$isVisible()||13===e.keyCode&&-1===d.$activeIndex||(e.preventDefault(),e.stopPropagation()),13===e.keyCode&&d.$matches.length?l.select(d.$activeIndex):38===e.keyCode&&d.$activeIndex>0?d.$activeIndex--:40===e.keyCode&&d.$activeIndex<d.$matches.length-1?d.$activeIndex++:angular.isUndefined(d.$activeIndex)&&(d.$activeIndex=0),d.$digest())};var f=l.show;l.show=function(){f(),i(function(){l.$element&&l.$element.on('mousedown',l.$onMouseDown),u.keyboard&&t&&t.on('keydown',l.$onKeyDown)},0,!1)};var p=l.hide;return l.hide=function(){l.$element&&l.$element.off('mousedown',l.$onMouseDown),u.keyboard&&t&&t.off('keydown',l.$onKeyDown),u.autoSelect||l.activate(-1),p()},l}function s(e){e.$$phase||e.$root&&e.$root.$$phase||e.$digest()}angular.element(t.document.body);return r.defaults=e,r}]}).filter('bsAsyncFilter',['$filter',function(e){return function(t,n,a){return t&&angular.isFunction(t.then)?t.then(function(t){return e('filter')(t,n,a)}):e('filter')(t,n,a)}}]).directive('bsTypeahead',['$window','$parse','$q','$typeahead','$parseOptions',function(e,t,n,a,o){var i=a.defaults;return{restrict:'EAC',require:'ngModel',link:function(e,t,n,r){var s={scope:e};angular.forEach(['template','templateUrl','controller','controllerAs','placement','container','delay','trigger','keyboard','html','animation','filter','limit','minLength','watchOptions','selectMode','autoSelect','comparator','id','prefixEvent','prefixClass'],function(e){angular.isDefined(n[e])&&(s[e]=n[e])});var l=/^(false|0|)$/i;angular.forEach(['html','container','trimValue'],function(e){angular.isDefined(n[e])&&l.test(n[e])&&(s[e]=!1)}),t.attr('autocomplete','false');var u=s.filter||i.filter,c=s.limit||i.limit,d=s.comparator||i.comparator,f=n.bsOptions;u&&(f+=' | '+u+':$viewValue'),d&&(f+=':'+d),c&&(f+=' | limitTo:'+c);var p=o(f),g=a(t,r,s);if(s.watchOptions){var m=p.$match[7].replace(/\|.+/,'').replace(/\(.*\)/g,'').trim();e.$watchCollection(m,function(t,n){p.valuesFn(e,r).then(function(e){g.update(e),r.$render()})})}e.$watch(n.ngModel,function(t,n){e.$modelValue=t,p.valuesFn(e,r).then(function(e){if(s.selectMode&&!e.length&&t.length>0)return void r.$setViewValue(r.$viewValue.substring(0,r.$viewValue.length-1));e.length>c&&(e=e.slice(0,c));var n=g.$isVisible();n&&g.update(e),(1!==e.length||e[0].value!==t)&&(!n&&g.update(e),r.$render())})}),r.$formatters.push(function(e){var t=p.displayValue(e);return t?t:e&&'object'!=typeof e?e:''}),r.$render=function(){if(r.$isEmpty(r.$viewValue))return t.val('');var e=g.$getIndex(r.$modelValue),n=angular.isDefined(e)?g.$scope.$matches[e].label:r.$viewValue;n=angular.isObject(n)?p.displayValue(n):n;var a=n?n.toString().replace(/<(?:.|\n)*?>/gm,''):'';t.val(s.trimValue===!1?a:a.trim())},e.$on('$destroy',function(){g&&g.destroy(),s=null,g=null})}}}]),angular.module('mgcrea.ngStrap.tooltip',['mgcrea.ngStrap.core','mgcrea.ngStrap.helpers.dimensions']).provider('$tooltip',function(){var e=this.defaults={animation:'am-fade',customClass:'',prefixClass:'tooltip',prefixEvent:'tooltip',container:!1,target:!1,placement:'top',templateUrl:'tooltip/tooltip.tpl.html',template:'',contentTemplate:!1,trigger:'hover focus',keyboard:!1,html:!1,show:!1,title:'',type:'',delay:0,autoClose:!1,bsEnabled:!0,viewport:{selector:'body',padding:0}};this.$get=['$window','$rootScope','$bsCompiler','$q','$templateCache','$http','$animate','$sce','dimensions','$$rAF','$timeout',function(n,a,o,i,r,s,l,u,c,d,f){function p(i,r){function s(){P.$emit(V.prefixEvent+'.show',F)}function p(){if(P.$emit(V.prefixEvent+'.hide',F),R===j){if(z&&'focus'===V.trigger)return i[0].blur();A()}}function v(){var e=V.trigger.split(' ');angular.forEach(e,function(e){'click'===e?i.on('click',F.toggle):'manual'!==e&&(i.on('hover'===e?'mouseenter':'focus',F.enter),i.on('hover'===e?'mouseleave':'blur',F.leave),'button'===I&&'hover'!==e&&i.on($?'touchstart':'mousedown',F.$onFocusElementMouseDown))})}function w(){for(var e=V.trigger.split(' '),t=e.length;t--;){var n=e[t];'click'===n?i.off('click',F.toggle):'manual'!==n&&(i.off('hover'===n?'mouseenter':'focus',F.enter),i.off('hover'===n?'mouseleave':'blur',F.leave),'button'===I&&'hover'!==n&&i.off($?'touchstart':'mousedown',F.$onFocusElementMouseDown))}}function y(){'focus'!==V.trigger?R.on('keyup',F.$onKeyUp):i.on('keyup',F.$onFocusKeyUp)}function b(){'focus'!==V.trigger?R.off('keyup',F.$onKeyUp):i.off('keyup',F.$onFocusKeyUp)}function D(){f(function(){R.on('click',S),h.on('click',F.hide),K=!0},0,!1)}function k(){K&&(R.off('click',S),h.off('click',F.hide),K=!1)}function S(e){e.stopPropagation()}function x(e){e=e||V.target||i;var a=e[0],o='BODY'===a.tagName,r=a.getBoundingClientRect(),s={};for(var l in r)s[l]=r[l];null===s.width&&(s=angular.extend({},s,{width:r.right-r.left,height:r.bottom-r.top}));var u=o?{top:0,left:0}:c.offset(a),d={scroll:o?t.documentElement.scrollTop||t.body.scrollTop:e.prop('scrollTop')||0},f=o?{width:t.documentElement.clientWidth,height:n.innerHeight}:null;return angular.extend({},s,d,f,u)}function T(e,t,n,a){var o,i=e.split('-');switch(i[0]){case'right':o={top:t.top+t.height/2-a/2,left:t.left+t.width};break;case'bottom':o={top:t.top+t.height,left:t.left+t.width/2-n/2};break;case'left':o={top:t.top+t.height/2-a/2,left:t.left-n};break;default:o={top:t.top-a,left:t.left+t.width/2-n/2}}if(!i[1])return o;if('top'===i[0]||'bottom'===i[0])switch(i[1]){case'left':o.left=t.left;break;case'right':o.left=t.left+t.width-n}else if('left'===i[0]||'right'===i[0])switch(i[1]){case'top':o.top=t.top-a;break;case'bottom':o.top=t.top+t.height}return o}function C(e,t){var n=R[0],a=n.offsetWidth,o=n.offsetHeight,i=parseInt(c.css(n,'margin-top'),10),r=parseInt(c.css(n,'margin-left'),10);isNaN(i)&&(i=0),isNaN(r)&&(r=0),e.top=e.top+i,e.left=e.left+r,c.setOffset(n,angular.extend({using:function(e){R.css({top:Math.round(e.top)+'px',left:Math.round(e.left)+'px',right:''})}},e),0);var s=n.offsetWidth,l=n.offsetHeight;if('top'===t&&l!==o&&(e.top=e.top+o-l),!/top-left|top-right|bottom-left|bottom-right/.test(t)){var u=M(t,e,s,l);if(u.left?e.left+=u.left:e.top+=u.top,c.setOffset(n,e),/top|right|bottom|left/.test(t)){var d=/top|bottom/.test(t),f=d?2*u.left-a+s:2*u.top-o+l,p=d?'offsetWidth':'offsetHeight';E(f,n[p],d)}}}function M(e,t,n,a){var o={top:0,left:0};if(!F.$viewport)return o;var i=V.viewport&&V.viewport.padding||0,r=x(F.$viewport);if(/right|left/.test(e)){var s=t.top-i-r.scroll,l=t.top+i-r.scroll+a;s<r.top?o.top=r.top-s:l>r.top+r.height&&(o.top=r.top+r.height-l)}else{var u=t.left-i,c=t.left+i+n;u<r.left?o.left=r.left-u:c>r.right&&(o.left=r.left+r.width-c)}return o}function E(e,t,n){var a=m('.tooltip-arrow, .arrow',R[0]);a.css(n?'left':'top',50*(1-e/t)+'%').css(n?'top':'left','')}function A(){clearTimeout(H),F.$isShown&&null!==R&&(V.autoClose&&k(),V.keyboard&&b()),Y&&(Y.$destroy(),Y=null),R&&(R.remove(),R=F.$element=null)}var F={},V=F.$options=angular.extend({},e,r),O=F.$promise=o.compile(V),P=F.$scope=V.scope&&V.scope.$new()||a.$new(),I=i[0].nodeName.toLowerCase();if(V.delay&&angular.isString(V.delay)){var N=V.delay.split(',').map(parseFloat);V.delay=N.length>1?{show:N[0],hide:N[1]}:N[0]}F.$id=V.id||i.attr('id')||'',V.title&&(P.title=u.trustAsHtml(V.title)),P.$setEnabled=function(e){P.$$postDigest(function(){F.setEnabled(e)})},P.$hide=function(){P.$$postDigest(function(){F.hide()})},P.$show=function(){P.$$postDigest(function(){F.show()})},P.$toggle=function(){P.$$postDigest(function(){F.toggle()})},F.$isShown=P.$isShown=!1;var H,L,U,R,q,Y;O.then(function(e){U=e,F.init()}),F.init=function(){V.delay&&angular.isNumber(V.delay)&&(V.delay={show:V.delay,hide:V.delay}),'self'===V.container?q=i:angular.isElement(V.container)?q=V.container:V.container&&(q=m(V.container)),v(),V.target&&(V.target=angular.isElement(V.target)?V.target:m(V.target)),V.show&&P.$$postDigest(function(){'focus'===V.trigger?i[0].focus():F.show()})},F.destroy=function(){w(),A(),P.$destroy()},F.enter=function(){return clearTimeout(H),L='in',V.delay&&V.delay.show?void(H=setTimeout(function(){'in'===L&&F.show()},V.delay.show)):F.show()},F.show=function(){if(V.bsEnabled&&!F.$isShown){P.$emit(V.prefixEvent+'.show.before',F);var e,t;V.container?(e=q,t=q[0].lastChild?angular.element(q[0].lastChild):null):(e=null,t=i),R&&A(),Y=F.$scope.$new(),R=F.$element=U.link(Y,function(e,t){}),R.css({top:'-9999px',left:'-9999px',right:'auto',display:'block',visibility:'hidden'}),V.animation&&R.addClass(V.animation),V.type&&R.addClass(V.prefixClass+'-'+V.type),V.customClass&&R.addClass(V.customClass),t?t.after(R):e.prepend(R),F.$isShown=P.$isShown=!0,g(P),F.$applyPlacement(),angular.version.minor<=2?l.enter(R,e,t,s):l.enter(R,e,t).then(s),g(P),d(function(){R&&R.css({visibility:'visible'})}),V.keyboard&&('focus'!==V.trigger&&F.focus(),y()),V.autoClose&&D()}},F.leave=function(){return clearTimeout(H),L='out',V.delay&&V.delay.hide?void(H=setTimeout(function(){'out'===L&&F.hide()},V.delay.hide)):F.hide()};var z,j;F.hide=function(e){F.$isShown&&(P.$emit(V.prefixEvent+'.hide.before',F),z=e,j=R,angular.version.minor<=2?l.leave(R,p):l.leave(R).then(p),F.$isShown=P.$isShown=!1,g(P),V.keyboard&&null!==R&&b(),V.autoClose&&null!==R&&k())},F.toggle=function(){F.$isShown?F.leave():F.enter()},F.focus=function(){R[0].focus()},F.setEnabled=function(e){V.bsEnabled=e},F.setViewport=function(e){V.viewport=e},F.$applyPlacement=function(){if(R){var t=V.placement,n=/\s?auto?\s?/i,a=n.test(t);a&&(t=t.replace(n,'')||e.placement),R.addClass(V.placement);var o=x(),i=R.prop('offsetWidth'),r=R.prop('offsetHeight');if(F.$viewport=V.viewport&&m(V.viewport.selector||V.viewport),a){var s=t,l=x(F.$viewport);s.indexOf('bottom')>=0&&o.bottom+r>l.bottom?t=s.replace('bottom','top'):s.indexOf('top')>=0&&o.top-r<l.top&&(t=s.replace('top','bottom')),('right'===s||'bottom-left'===s||'top-left'===s)&&o.right+i>l.width?t='right'===s?'left':t.replace('left','right'):('left'===s||'bottom-right'===s||'top-right'===s)&&o.left-i<l.left&&(t='left'===s?'right':t.replace('right','left')),R.removeClass(s).addClass(t)}var u=T(t,o,i,r);C(u,t)}},F.$onKeyUp=function(e){27===e.which&&F.$isShown&&(F.hide(),e.stopPropagation())},F.$onFocusKeyUp=function(e){27===e.which&&(i[0].blur(),e.stopPropagation())},F.$onFocusElementMouseDown=function(e){e.preventDefault(),e.stopPropagation(),F.$isShown?i[0].blur():i[0].focus()};var K=!1;return F}function g(e){e.$$phase||e.$root&&e.$root.$$phase||e.$digest()}function m(e,n){return angular.element((n||t).querySelectorAll(e))}var $=(String.prototype.trim,'createTouch'in n.document),h=angular.element(n.document);return p}]}).directive('bsTooltip',['$window','$location','$sce','$tooltip','$$rAF',function(e,t,n,a,o){return{restrict:'EAC',scope:!0,link:function(e,t,i,r){var s={scope:e};angular.forEach(['template','templateUrl','controller','controllerAs','contentTemplate','placement','container','delay','trigger','html','animation','backdropAnimation','type','customClass','id'],function(e){angular.isDefined(i[e])&&(s[e]=i[e])});var l=/^(false|0|)$/i;angular.forEach(['html','container'],function(e){angular.isDefined(i[e])&&l.test(i[e])&&(s[e]=!1)});var u=t.attr('data-target');angular.isDefined(u)&&(s.target=l.test(u)?!1:u),e.hasOwnProperty('title')||(e.title=''),i.$observe('title',function(t){if(angular.isDefined(t)||!e.hasOwnProperty('title')){var a=e.title;e.title=n.trustAsHtml(t),angular.isDefined(a)&&o(function(){c&&c.$applyPlacement()})}}),i.bsTooltip&&e.$watch(i.bsTooltip,function(t,n){angular.isObject(t)?angular.extend(e,t):e.title=t,angular.isDefined(n)&&o(function(){c&&c.$applyPlacement()})},!0),i.bsShow&&e.$watch(i.bsShow,function(e,t){c&&angular.isDefined(e)&&(angular.isString(e)&&(e=!!e.match(/true|,?(tooltip),?/i)),e===!0?c.show():c.hide())}),i.bsEnabled&&e.$watch(i.bsEnabled,function(e,t){c&&angular.isDefined(e)&&(angular.isString(e)&&(e=!!e.match(/true|1|,?(tooltip),?/i)),c.setEnabled(e===!1?!1:!0))}),i.viewport&&e.$watch(i.viewport,function(e){c&&angular.isDefined(e)&&c.setViewport(e)});var c=a(t,s);e.$on('$destroy',function(){c&&c.destroy(),s=null,c=null})}}}])}(window,document);
-//# sourceMappingURL=angular-strap.min.js.map
+
 },{}],10:[function(require,module,exports){
 /**
  * angular-strap
@@ -4250,7 +899,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":165,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":76,"./navigation":89,"./settings":141,"./util":162,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
+},{"../../package.json":164,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":75,"./navigation":88,"./settings":140,"./util":161,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -5245,7 +1894,7 @@ module.exports = {
 
 },{"./controller.js":38}],40:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":39,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],41:[function(require,module,exports){
+},{"./directive.js":39,"angular":4,"dup":36}],41:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -5270,7 +1919,7 @@ module.exports = {
 
 },{"./link":43}],42:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":41,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],43:[function(require,module,exports){
+},{"./directive.js":41,"angular":4,"dup":36}],43:[function(require,module,exports){
 'use strict';
 
 
@@ -5318,7 +1967,7 @@ module.exports = {
 
 },{"./link":46}],45:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":44,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],46:[function(require,module,exports){
+},{"./directive.js":44,"angular":4,"dup":36}],46:[function(require,module,exports){
 'use strict';
 
 var previousHeight, previousWidth;
@@ -5477,7 +2126,7 @@ module.exports = {
 
 },{"./controller.js":48}],50:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":49,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],51:[function(require,module,exports){
+},{"./directive.js":49,"angular":4,"dup":36}],51:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5521,7 +2170,7 @@ module.exports = {
 
 },{"./controller.js":51}],53:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":52,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],54:[function(require,module,exports){
+},{"./directive.js":52,"angular":4,"dup":36}],54:[function(require,module,exports){
 'use strict';
 
 var resetMessageNotification = function ($scope) {
@@ -5609,7 +2258,7 @@ module.exports = {
 
 },{"./controller.js":54}],56:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":55,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],57:[function(require,module,exports){
+},{"./directive.js":55,"angular":4,"dup":36}],57:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -5628,7 +2277,7 @@ module.exports = {
 
 },{"./link":59}],58:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":57,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],59:[function(require,module,exports){
+},{"./directive.js":57,"angular":4,"dup":36}],59:[function(require,module,exports){
 'use strict';
 
 var Spinner = require('spin');
@@ -5746,7 +2395,7 @@ module.exports = {
 
 },{"./controller.js":60}],62:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":61,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],63:[function(require,module,exports){
+},{"./directive.js":61,"angular":4,"dup":36}],63:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -5951,7 +2600,7 @@ module.exports = {
 
 },{"./controller.js":66,"./link.js":69}],68:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":67,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],69:[function(require,module,exports){
+},{"./directive.js":67,"angular":4,"dup":36}],69:[function(require,module,exports){
 'use strict';
 
 var navigationWidth = 240;
@@ -6031,7 +2680,7 @@ app.controller('HomePinwallElementContactingCtrl', require('./contactingCtrl'));
 
 app.directive(directive.name, directive.directive);
 
-},{"./contactingCtrl":70,"./directive.js":71,"./newMessageCtrl":73,"./recommendationCtrl":75,"angular":4}],73:[function(require,module,exports){
+},{"./contactingCtrl":70,"./directive.js":71,"./newMessageCtrl":73,"./recommendationCtrl":74,"angular":4}],73:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', function ($scope, $state) {
@@ -6051,15 +2700,6 @@ module.exports = ['$scope', '$state', function ($scope, $state) {
 
 module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', function ($scope, dateFormatter, $state, PageCategories) {
 
-
-}];
-
-
-},{}],75:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', function ($scope, dateFormatter, $state, PageCategories) {
-
     $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
 
     $scope.category = PageCategories.categories[$scope.element.label].description;
@@ -6073,7 +2713,7 @@ module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', functio
 }];
 
 
-},{}],76:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6084,14 +2724,14 @@ app.factory('Home', require('./services/home'));
 
 app.service('HomeLeftNavElements', require('./services/leftNavElements'));
 
-},{"./homeCtrl":65,"./services/home":77,"./services/leftNavElements":78,"angular":4}],77:[function(require,module,exports){
+},{"./homeCtrl":65,"./services/home":76,"./services/leftNavElements":77,"angular":4}],76:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/home');
 }];
 
-},{}],78:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -6105,7 +2745,7 @@ module.exports = [
             {description: 'Seiten', url: 'app/img/home/page.png', color: '#1aa1e1', sref: 'page.overview'}];
     }];
 
-},{}],79:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'Conversation',
@@ -6153,7 +2793,7 @@ module.exports = ['$scope', '$state', 'Message', 'Conversation',
         };
     }];
 
-},{}],80:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter', 'MessageLeftNavElements',
@@ -6206,7 +2846,7 @@ module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateForm
         };
     }];
 
-},{}],81:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'MessageLeftNavElements',
@@ -6239,7 +2879,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],82:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6299,14 +2939,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./conversationActionsCtrl":79,"./conversationCtrl":80,"./createConversationCtrl":81,"./services/conversation":83,"./services/leftNavElements":84,"./services/message":85,"./services/searchThread":86,"./services/searchUserToSendMessage":87,"./threadsCtrl":88,"angular":4}],83:[function(require,module,exports){
+},{"./conversationActionsCtrl":78,"./conversationCtrl":79,"./createConversationCtrl":80,"./services/conversation":82,"./services/leftNavElements":83,"./services/message":84,"./services/searchThread":85,"./services/searchUserToSendMessage":86,"./threadsCtrl":87,"angular":4}],82:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/conversation');
 }];
 
-},{}],84:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -6332,28 +2972,28 @@ module.exports = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],85:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages');
 }];
 
-},{}],86:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/messages/singleThread');
 }];
 
-},{}],87:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/search');
 }];
 
-},{}],88:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter', 'MessageLeftNavElements',
@@ -6419,7 +3059,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         };
     }];
 
-},{}],89:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -6431,7 +3071,7 @@ app.controller('ProfilePreviewPopoverCtrl', require('./profilePreview/profilePre
 app.factory('UserInfo', require('./services/userInfo'));
 app.factory('Modification', require('./services/modification'));
 
-},{"./leftNavColCtrl":90,"./loggedInHeaderCtrl":94,"./profilePreview/profilePreviewPopoverCtrl":95,"./services/modification":96,"./services/userInfo":97,"angular":4}],90:[function(require,module,exports){
+},{"./leftNavColCtrl":89,"./loggedInHeaderCtrl":93,"./profilePreview/profilePreviewPopoverCtrl":94,"./services/modification":95,"./services/userInfo":96,"angular":4}],89:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$rootScope', '$state',
@@ -6447,7 +3087,7 @@ module.exports = ['$scope', '$rootScope', '$state',
         });
     }];
 
-},{}],91:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6493,7 +3133,7 @@ module.exports = {
     }
 };
 
-},{}],92:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6513,9 +3153,9 @@ module.exports = {
     name: 'elyLeftNav'
 };
 
-},{"./controller.js":91}],93:[function(require,module,exports){
+},{"./controller.js":90}],92:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":92,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],94:[function(require,module,exports){
+},{"./directive.js":91,"angular":4,"dup":36}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'Modification', 'profileImage', 'Auth',
@@ -6555,7 +3195,7 @@ module.exports = ['$scope', '$window', '$interval', '$rootScope', 'UserInfo', 'M
         };
     }];
 
-},{}],95:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -6567,21 +3207,21 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],96:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],97:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],98:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
@@ -6636,7 +3276,7 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
         };
     }];
 
-},{}],99:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment',
@@ -6696,7 +3336,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'moment',
         };
     }];
 
-},{}],100:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 'use strict';
 
 var goToPageDetail = function (pageId, $state, $scope) {
@@ -6806,7 +3446,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         };
     }];
 
-},{}],101:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 'use strict';
 
 var isValidYoutubeLink = function (link) {
@@ -6872,7 +3512,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages',
 
     }];
 
-},{}],102:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'PageLeftNavElements',
@@ -6890,7 +3530,7 @@ module.exports = ['$scope', '$state', 'PageLeftNavElements',
         };
     }];
 
-},{}],103:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'PageCategories', 'PageDetail',
@@ -6922,7 +3562,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'PageLeftNavElements', 'Pa
         });
     }];
 
-},{}],104:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
@@ -7015,7 +3655,7 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
         });
     }];
 
-},{}],105:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7120,7 +3760,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":98,"./createEditPage/commonBookCtrl":99,"./createEditPage/commonSectionCtrl":100,"./createEditPage/commonYoutubeCtrl":101,"./createEditPage/pageCreateCtrl":102,"./createEditPage/pageEditCtrl":103,"./createEditPage/selectCategoryCtrl":104,"./pageDetail/headerBookDetailCtrl":110,"./pageDetail/pageDetailCtrl":111,"./pageDetail/pageDetailEducationCtrl":112,"./pageDetail/pageHeaderActivityPreviewCtrl":113,"./pageDetail/services/pageDetailReview":114,"./pageOverviewCtrl":115,"./services/categories":123,"./services/leftNavElements":124,"./services/pageDetail":125,"./services/pageRecommendationAllContact":126,"./services/pageRecommendationOtherUser":127,"./services/pageSearchUserAdministratedPage":128,"./services/pageSearchUserRecommendation":129,"./services/pageUserAdministration":130,"./services/pageUserRecommendation":131,"./services/popularPages":132,"./services/searchPage":133,"./userPageAdministration/userPageAdministrationCtrl":134,"./userRecommendation/getPageAndExtendCtrl":135,"./userRecommendation/userRecommendationCtrl":136,"angular":4}],106:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":97,"./createEditPage/commonBookCtrl":98,"./createEditPage/commonSectionCtrl":99,"./createEditPage/commonYoutubeCtrl":100,"./createEditPage/pageCreateCtrl":101,"./createEditPage/pageEditCtrl":102,"./createEditPage/selectCategoryCtrl":103,"./pageDetail/headerBookDetailCtrl":109,"./pageDetail/pageDetailCtrl":110,"./pageDetail/pageDetailEducationCtrl":111,"./pageDetail/pageHeaderActivityPreviewCtrl":112,"./pageDetail/services/pageDetailReview":113,"./pageOverviewCtrl":114,"./services/categories":122,"./services/leftNavElements":123,"./services/pageDetail":124,"./services/pageRecommendationAllContact":125,"./services/pageRecommendationOtherUser":126,"./services/pageSearchUserAdministratedPage":127,"./services/pageSearchUserRecommendation":128,"./services/pageUserAdministration":129,"./services/pageUserRecommendation":130,"./services/popularPages":131,"./services/searchPage":132,"./userPageAdministration/userPageAdministrationCtrl":133,"./userRecommendation/getPageAndExtendCtrl":134,"./userRecommendation/userRecommendationCtrl":135,"angular":4}],105:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -7235,7 +3875,7 @@ module.exports = {
     }
 };
 
-},{}],107:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -7258,9 +3898,9 @@ module.exports = {
     name: 'elyPageReview'
 };
 
-},{"./controller.js":106,"./link.js":109}],108:[function(require,module,exports){
+},{"./controller.js":105,"./link.js":108}],107:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":107,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],109:[function(require,module,exports){
+},{"./directive.js":106,"angular":4,"dup":36}],108:[function(require,module,exports){
 'use strict';
 
 var minScreenSize = 800;
@@ -7290,7 +3930,7 @@ module.exports = {
     }
 };
 
-},{}],110:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state',
@@ -7329,7 +3969,7 @@ module.exports = ['$scope', '$window', '$state',
         });
     }];
 
-},{}],111:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
@@ -7379,7 +4019,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         });
     }];
 
-},{}],112:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope',
@@ -7394,7 +4034,7 @@ module.exports = ['$scope',
         });
     }];
 
-},{}],113:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -7408,14 +4048,14 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],114:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/review');
 }];
 
-},{}],115:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
@@ -7445,7 +4085,7 @@ module.exports = ['$scope', '$state', 'PageRecommendationAllContact', 'SearchPag
 
     }];
 
-},{}],116:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 'use strict';
 
 var resetPages = function ($scope) {
@@ -7535,7 +4175,7 @@ module.exports = {
     }
 };
 
-},{}],117:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 'use strict';
 
 var link = require('./link.js');
@@ -7564,9 +4204,9 @@ module.exports = {
     name: 'elyPagePreviewContainer'
 };
 
-},{"./controller.js":116,"./link.js":119}],118:[function(require,module,exports){
+},{"./controller.js":115,"./link.js":118}],117:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":117,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],119:[function(require,module,exports){
+},{"./directive.js":116,"angular":4,"dup":36}],118:[function(require,module,exports){
 'use strict';
 
 var minScreenSize = 1000;
@@ -7599,7 +4239,7 @@ module.exports = {
     }
 };
 
-},{}],120:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -7637,7 +4277,7 @@ module.exports = {
     }
 };
 
-},{}],121:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -7660,9 +4300,9 @@ module.exports = {
     name: 'elyPagePreview'
 };
 
-},{"./controller.js":120}],122:[function(require,module,exports){
+},{"./controller.js":119}],121:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":121,"angular":4,"c:\\Programmieren\\Elyoos\\client\\app\\modules\\directives\\expandText\\index.js":36}],123:[function(require,module,exports){
+},{"./directive.js":120,"angular":4,"dup":36}],122:[function(require,module,exports){
 'use strict';
 
 var categories = {
@@ -7698,7 +4338,7 @@ module.exports = [
         };
     }];
 
-},{}],124:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -7727,70 +4367,70 @@ module.exports = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],125:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/detail');
 }];
 
-},{}],126:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationAllContact');
 }];
 
-},{}],127:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationOtherUser');
 }];
 
-},{}],128:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchAdministration');
 }];
 
-},{}],129:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchRecommendation');
 }];
 
-},{}],130:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/administrator');
 }];
 
-},{}],131:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/recommendation');
 }];
 
-},{}],132:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/popularPages');
 }];
 
-},{}],133:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/searchPage');
 }];
 
-},{}],134:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration', 'PageSearchUserAdministratedPage',
@@ -7803,7 +4443,7 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration', 'Pa
 
     }];
 
-},{}],135:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 var addPagePreviews = function ($scope, paginationNumber) {
@@ -7898,7 +4538,7 @@ module.exports = ['$scope', function ($scope) {
     $scope.getPage(1);
 }];
 
-},{}],136:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'PageSearchUserRecommendation',
@@ -7910,7 +4550,7 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
     }];
 
-},{}],137:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -7918,7 +4558,7 @@ var app = require('angular').module('elyoosApp');
 app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
-},{"./modalAddRecommendationCtrl":138,"./services/pageRecommendation":139,"angular":4}],138:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":137,"./services/pageRecommendation":138,"angular":4}],137:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
@@ -7944,7 +4584,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     };
 }];
 
-},{}],139:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7953,7 +4593,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],140:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -7985,7 +4625,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],141:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -8045,7 +4685,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":140,"./passwordCtrl":142,"./privacyCtrl":143,"./profileCtrl":144,"./renamePrivacyCtrl":145,"./services/leftNavElements":146,"./services/password":147,"./services/privacy":148,"./services/profile":149,"angular":4}],142:[function(require,module,exports){
+},{"./deletePrivacyCtrl":139,"./passwordCtrl":141,"./privacyCtrl":142,"./profileCtrl":143,"./renamePrivacyCtrl":144,"./services/leftNavElements":145,"./services/password":146,"./services/privacy":147,"./services/profile":148,"angular":4}],141:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', 'MessageLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
@@ -8100,7 +4740,7 @@ module.exports = ['$scope', 'Password', 'MessageLeftNavElements', function ($sco
     };
 }];
 
-},{}],143:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -8219,7 +4859,7 @@ module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scop
     };
 }];
 
-},{}],144:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
@@ -8305,7 +4945,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],145:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -8349,7 +4989,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],146:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -8363,14 +5003,14 @@ module.exports = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],147:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],148:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -8379,14 +5019,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],149:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],150:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -8420,14 +5060,14 @@ module.exports = function () {
     };
 };
 
-},{}],151:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":150,"./languages":152,"angular":4}],152:[function(require,module,exports){
+},{"./countryCodeConverter":149,"./languages":151,"angular":4}],151:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -8461,7 +5101,7 @@ module.exports = [
         };
     }];
 
-},{}],153:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -8501,19 +5141,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],154:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":153,"angular":4}],155:[function(require,module,exports){
+},{"./dateFormatter":152,"angular":4}],154:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":156,"angular":4}],156:[function(require,module,exports){
+},{"./profileImage":155,"angular":4}],155:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -8525,7 +5165,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],157:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 'use strict';
 
 function dataURItoBlob(dataURI) {
@@ -8609,7 +5249,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
     };
 }];
 
-},{}],158:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8631,14 +5271,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],159:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],160:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -8663,7 +5303,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],161:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
@@ -8676,14 +5316,14 @@ app.factory('FileReader', require('./fileReader'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":157,"./fileModel.js":158,"./fileReader":159,"./fileUpload":160,"angular":4}],162:[function(require,module,exports){
+},{"./fileCtrl":156,"./fileModel.js":157,"./fileReader":158,"./fileUpload":159,"angular":4}],161:[function(require,module,exports){
 'use strict';
 
 var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
-},{"./moment":163,"./promiseModal":164,"angular":4}],163:[function(require,module,exports){
+},{"./moment":162,"./promiseModal":163,"angular":4}],162:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -8693,7 +5333,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":12}],164:[function(require,module,exports){
+},{"moment":12}],163:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
@@ -8728,7 +5368,7 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
     };
 }];
 
-},{}],165:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -8737,11 +5377,11 @@ module.exports={
   "dependencies": {
   },
   "devDependencies": {
-    "browserify": "8.1.1",
+    "browserify": "11.0.0",
     "phantomjs": "~1.9.13",
     "mocha": "~1.21.4",
     "karma": "~0.12.31",
-    "karma-browserify": "3.0.2",
+    "karma-browserify": "4.2.1",
     "karma-chrome-launcher": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-firefox-launcher": "^0.1.4",
@@ -8758,7 +5398,7 @@ module.exports={
     "underscore": "~1.7.0",
     "matchdep": "~0.3.0",
     "grunt": "~0.4.5",
-    "grunt-browserify": "~3.1.0",
+    "grunt-browserify": "~3.8.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-karma": "~0.9.0",
     "grunt-sonar-runner": "~2.4.2",
@@ -8784,4 +5424,4 @@ module.exports={
   }
 }
 
-},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,91,92,93,90,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,120,121,122,116,117,118,119,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164]);
+},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,90,91,92,89,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,119,120,121,115,116,117,118,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163]);
