@@ -313,4 +313,105 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.contacting.numberOfContacting.should.equals(4);
             });
     });
+
+    it('Getting the blog entries of the contact ', function () {
+
+        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle3', text: 'blogText3', created: 503, blogId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle4', text: 'blogText4', created: 504, blogId: '4'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle5', text: 'blogText5', created: 505, blogId: '5'})").end().getCommand());
+
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['3']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .set("u", {lastLogin: startTime + 100})
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '3'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'}) ")
+            .create("(b)-[:WRITTEN {visible: 'Freund Bekannter'}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:User {userId: '2'}) ")
+            .create("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '3'}), (b:User {userId: '2'}) ")
+            .create("(b)-[:WRITTEN {visible: 'Bekannter'}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '3'}) ")
+            .create("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '5'}), (b:User {userId: '1'}) ")
+            .create("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10,
+                    timestamp: 500
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.blog.length.should.equals(4);
+                res.body.blog[0].blogId.should.equals('5');
+                res.body.blog[0].name.should.equals('user Meier');
+                res.body.blog[0].title.should.equals('blogTitle5');
+                res.body.blog[0].created.should.equals(505);
+                res.body.blog[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                //res.body.blog[0].url.should.equals(false);
+                res.body.blog[0].text.should.equals('blogText5');
+
+                res.body.blog[1].blogId.should.equals('4');
+                res.body.blog[1].name.should.equals('user Meier3');
+                res.body.blog[1].title.should.equals('blogTitle4');
+                res.body.blog[1].created.should.equals(504);
+                res.body.blog[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+                //res.body.blog[1].url.should.equals(false);
+                res.body.blog[1].text.should.equals('blogText4');
+
+                res.body.blog[2].blogId.should.equals('2');
+                res.body.blog[2].name.should.equals('user Meier2');
+                res.body.blog[2].title.should.equals('blogTitle2');
+                res.body.blog[2].created.should.equals(502);
+                res.body.blog[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                //res.body.blog[2].url.should.equals(false);
+                res.body.blog[2].text.should.equals('blogText2');
+
+                res.body.blog[3].blogId.should.equals('1');
+                res.body.blog[3].name.should.equals('user Meier2');
+                res.body.blog[3].title.should.equals('blogTitle1');
+                res.body.blog[3].created.should.equals(501);
+                res.body.blog[3].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                //res.body.blog[3].url.should.equals(false);
+                res.body.blog[3].text.should.equals('blogText1');
+
+            });
+    });
 });

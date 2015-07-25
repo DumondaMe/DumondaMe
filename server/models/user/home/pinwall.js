@@ -5,6 +5,34 @@ var userInfo = require('./../userInfo');
 var unread = require('../../messages/util/unreadMessages');
 var pagePreview = require('./../../page/pagePreview');
 
+function compare(a, b) {
+    return b.created - a.created;
+}
+
+var getBlog = function (userId, limit, skip) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[written:WRITTEN]->(blog:Blog)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)")
+        .with("user, contact, blog, written, isContact, '.*' + isContact.type + '.*' AS type")
+        .where("written.visible =~ type OR written.visible IS NULL")
+        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
+        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
+        .with("user, contact, blog, written, rContact, v, vr")
+        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
+        .return("contact.userId AS userId, contact.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
+        "blog.text AS text, v.profile AS profileVisible, v.image AS imageVisible")
+        .orderBy("created DESC")
+        .skip("{skip}")
+        .limit("{limit}")
+        .unionAll()
+        .match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog)")
+        .return("user.userId AS userId, user.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
+        "blog.text AS text, true AS profileVisible, true AS imageVisible")
+        .orderBy("created DESC")
+        .skip("{skip}")
+        .limit("{limit}")
+        .end({userId: userId, limit: limit, skip: skip});
+};
+
 var getContacting = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
         .where("relContacting.contactAdded >= user.previousLastLogin")
@@ -33,6 +61,7 @@ var getPinwall = function (userId, request) {
     commands.push(unread.getUnreadMessages(userId).getCommand());
     commands.push(getContacting(userId).getCommand());
     commands.push(getNumberOfContacting(userId).getCommand());
+    commands.push(getBlog(userId, request.maxItems, request.skip).getCommand());
 
     return db.cypher().match("(:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
         .where("rec.created <= {timestamp}")
@@ -57,8 +86,14 @@ var getPinwall = function (userId, request) {
             userInfo.addImageForThumbnail(resp[0]);
             userInfo.addImageForThumbnail(resp[1]);
             userInfo.addImageForThumbnail(resp[3]);
-            pagePreview.addPageUrl(resp[3]);
-            return {pinwall: resp[3], messages: resp[0], contacting: {users: resp[1], numberOfContacting: resp[2][0].numberOfContacting}};
+            userInfo.addImageForThumbnail(resp[4]);
+            pagePreview.addPageUrl(resp[4]);
+            return {
+                pinwall: resp[4],
+                messages: resp[0],
+                contacting: {users: resp[1], numberOfContacting: resp[2][0].numberOfContacting},
+                blog: resp[3].sort(compare)
+            };
         });
 };
 
