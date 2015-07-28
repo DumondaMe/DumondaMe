@@ -86,8 +86,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/homePinwallBlog/template.html',
+    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog()></textarea><div class=home-pinwall-blog-send ng-show=isExpand><button class=\"btn btn-default btn-sm\" type=button ng-click=sendBlog() ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort()>Abbrechen</button></div></div>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
-    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-container-column><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
+    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
   );
 
 

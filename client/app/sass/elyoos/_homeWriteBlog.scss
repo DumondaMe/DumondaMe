@@ -1,0 +1,46 @@
+#home {
+  .home-pinwall-container {
+    .home-pinwall-blog-container {
+      @extend .home-pinwall-container-column;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .home-pinwall-blog-input {
+      height: 5em;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .home-pinwall-blog-send {
+      margin-bottom: 10px;
+    }
+    .home-pinwall-element.home-pinwall-blog-element {
+      background-color: $primary-color-light;
+      width: 420px;
+    }
+
+    .home-pinwall-blog-element-extended {
+      @extend .home-pinwall-blog-element;
+      position: relative;
+      left: 0;
+      -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
+      transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
+
+      .home-pinwall-blog-input {
+        -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
+        transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
+      }
+
+    }
+
+    .home-pinwall-blog-element-extended.is-extended {
+      width: 540px;
+      margin-right: 30px;
+      left: 160px;
+      box-shadow: 0 2px 40px 0 rgba(0, 0, 0, .4);
+
+      .home-pinwall-blog-input {
+        height: 8em;
+      }
+    }
+  }
+}

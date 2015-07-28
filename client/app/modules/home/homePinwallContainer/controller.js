@@ -118,6 +118,8 @@ module.exports = {
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
 
+            $scope.isExpanded = false;
+
             $scope.$watchCollection('pinwall', function (newPinwall) {
                 setRecommendation($scope, newPinwall);
                 setContacting($scope, newPinwall);

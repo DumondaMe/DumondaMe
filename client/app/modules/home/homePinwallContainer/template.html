@@ -1,6 +1,10 @@
 <div class="home-pinwall-container" ng-style="{'width': containerWidth + 'px'}">
     <div infinite-scroll="nextPinwallInfo()" infinite-scroll-distance="1">
+        <div class="home-pinwall-blog-container">
+            <ely-home-pinwall-blog show-expand="true" is-expand="isExpanded"></ely-home-pinwall-blog>
+        </div>
         <div class="home-pinwall-container-column">
+            <ely-home-pinwall-blog show-expand="false" is-expand="isExpanded"></ely-home-pinwall-blog>
             <div ng-repeat="pinwallElement in pinwall1Elements">
                 <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
             </div>
