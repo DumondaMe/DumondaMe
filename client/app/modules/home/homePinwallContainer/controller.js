@@ -105,6 +105,12 @@ var setContacting = function ($scope, newPinwall) {
     }
 };
 
+var setUserInfo = function ($scope, newPinwall) {
+    if (newPinwall && newPinwall.hasOwnProperty('user') && newPinwall.user.hasOwnProperty('privacyTypes')) {
+        $scope.userInfo = newPinwall.user;
+    }
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
@@ -124,6 +130,7 @@ module.exports = {
                 setRecommendation($scope, newPinwall);
                 setContacting($scope, newPinwall);
                 setNewMessages($scope, newPinwall);
+                setUserInfo($scope, newPinwall);
             });
 
             $scope.$watch('numberOfRows', function (newNumberOfRows) {

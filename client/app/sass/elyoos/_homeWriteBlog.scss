@@ -12,6 +12,13 @@
     }
     .home-pinwall-blog-send {
       margin-bottom: 10px;
+      button {
+        font-weight: bold;
+      }
+      .send-blog-button {
+        background-color: $primary-color;
+        color: #ffffff;
+      }
     }
     .home-pinwall-element.home-pinwall-blog-element {
       background-color: $primary-color-light;
@@ -25,11 +32,80 @@
       -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
       transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
 
+      .home-pinwall-blog-visibility {
+        margin-bottom: 15px;
+        label {
+          width: 70px;
+          text-align: left;
+          padding-right: 5px;
+        }
+        .home-pinwall-blog-select-all {
+          margin-top: 5px;
+          margin-left: 70px;
+          input {
+            position: relative;
+            top: 2px;
+            margin-right: 3px;
+          }
+        }
+        .home-pinwall-blog-select-all.is-selected {
+          display: inline-block;
+          margin-left: 0px;
+          input {
+            position: relative;
+            top: 2px;
+            margin-right: 3px;
+          }
+        }
+      }
+
+      .home-pinwall-blog-attachment {
+        margin-bottom: 10px;
+        label {
+          width: 70px;
+          text-align: left;
+          padding-right: 5px;
+        }
+        .home-pinwall-blog-attachment-element {
+          display: inline-block;
+          vertical-align: top;
+          cursor: pointer;
+          img {
+            height: 20px;
+            width: 20px;
+            margin-right: 5px;
+          }
+          .attachment-text {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 2px;
+            color: #737373;
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .home-pinwall-blog-photo-container {
+        margin-bottom: 10px;
+        img {
+          display: block;
+          margin: 0 auto;
+          max-width: 100%;
+          max-height: 600px;
+        }
+      }
+
+      .home-pinwall-load-photo {
+        height: 100px;
+        display: block;
+
+      }
+
       .home-pinwall-blog-input {
         -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
         transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
       }
-
     }
 
     .home-pinwall-blog-element-extended.is-extended {

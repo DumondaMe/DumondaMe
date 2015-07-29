@@ -4,6 +4,7 @@ var db = require('./../../../neo4j');
 var userInfo = require('./../userInfo');
 var unread = require('../../messages/util/unreadMessages');
 var pagePreview = require('./../../page/pagePreview');
+var cdn = require('../../util/cdn');
 
 function compare(a, b) {
     return b.created - a.created;
@@ -55,6 +56,13 @@ var getNumberOfContacting = function (userId) {
         .end({userId: userId});
 };
 
+var getUserInfos = function (userId) {
+    return db.cypher().match("(user:User {userId: {userId}})-[type:HAS_PRIVACY]->(:Privacy)")
+        .return("type.type AS type")
+        .orderBy("type")
+        .end({userId: userId});
+};
+
 var getPinwall = function (userId, request) {
     var commands = [];
 
@@ -62,6 +70,7 @@ var getPinwall = function (userId, request) {
     commands.push(getContacting(userId).getCommand());
     commands.push(getNumberOfContacting(userId).getCommand());
     commands.push(getBlog(userId, request.maxItems, request.skip).getCommand());
+    commands.push(getUserInfos(userId).getCommand());
 
     return db.cypher().match("(:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
         .where("rec.created <= {timestamp}")
@@ -86,13 +95,14 @@ var getPinwall = function (userId, request) {
             userInfo.addImageForThumbnail(resp[0]);
             userInfo.addImageForThumbnail(resp[1]);
             userInfo.addImageForThumbnail(resp[3]);
-            userInfo.addImageForThumbnail(resp[4]);
-            pagePreview.addPageUrl(resp[4]);
+            userInfo.addImageForThumbnail(resp[5]);
+            pagePreview.addPageUrl(resp[5]);
             return {
-                pinwall: resp[4],
+                pinwall: resp[5],
                 messages: resp[0],
                 contacting: {users: resp[1], numberOfContacting: resp[2][0].numberOfContacting},
-                blog: resp[3].sort(compare)
+                blog: resp[3].sort(compare),
+                user: {privacyTypes: resp[4], profileUrl: cdn.getUrl('profileImage/' + userId + '/profilePreview.jpg')}
             };
         });
 };

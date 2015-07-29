@@ -14,13 +14,6 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
 
         if (!$scope.mode.edit) {
             $scope.$watchCollection('category', function (newCategories) {
-                /*if (newCategories) {
-                    if ($scope.subCategories.length === 0 && $scope.category.selectedSubCategory) {
-                        delete $scope.category.selectedSubCategory;
-                    } else if ($scope.subCategories.length > 0 && !$scope.category.selectedSubCategory) {
-                        $scope.category.selectedSubCategory = $scope.subCategories[0];
-                    }
-                }*/
 
                 if (newCategories && newCategories.title && newCategories.selectedLanguage && newCategories.selectedCategory) {
                     $scope.categoryFinishedButtonDisabled = false;

@@ -912,6 +912,11 @@ h1.website-structure-title {
   margin-bottom: 20px; }
 #home .home-pinwall-container .home-pinwall-blog-send {
   margin-bottom: 10px; }
+  #home .home-pinwall-container .home-pinwall-blog-send button {
+    font-weight: bold; }
+  #home .home-pinwall-container .home-pinwall-blog-send .send-blog-button {
+    background-color: #009688;
+    color: #ffffff; }
 #home .home-pinwall-container .home-pinwall-element.home-pinwall-blog-element, #home .home-pinwall-container .home-pinwall-element.home-pinwall-blog-element-extended {
   background-color: #f1f1f1;
   width: 420px; }
@@ -920,6 +925,57 @@ h1.website-structure-title {
   left: 0;
   -webkit-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.4s ease, left 0.4s ease, box-shadow 0.4s ease, margin 0.4s ease, border 0.4s ease;
   transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.4s ease, left 0.4s ease, box-shadow 0.4s ease, margin 0.4s ease, border 0.4s ease; }
+  #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility {
+    margin-bottom: 15px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility label {
+      width: 70px;
+      text-align: left;
+      padding-right: 5px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility .home-pinwall-blog-select-all {
+      margin-top: 5px;
+      margin-left: 70px; }
+      #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility .home-pinwall-blog-select-all input {
+        position: relative;
+        top: 2px;
+        margin-right: 3px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility .home-pinwall-blog-select-all.is-selected {
+      display: inline-block;
+      margin-left: 0px; }
+      #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-visibility .home-pinwall-blog-select-all.is-selected input {
+        position: relative;
+        top: 2px;
+        margin-right: 3px; }
+  #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-attachment {
+    margin-bottom: 10px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-attachment label {
+      width: 70px;
+      text-align: left;
+      padding-right: 5px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-attachment .home-pinwall-blog-attachment-element {
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer; }
+      #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-attachment .home-pinwall-blog-attachment-element img {
+        height: 20px;
+        width: 20px;
+        margin-right: 5px; }
+      #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-attachment .home-pinwall-blog-attachment-element .attachment-text {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        color: #737373;
+        font-size: 12px;
+        font-weight: bold; }
+  #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-photo-container {
+    margin-bottom: 10px; }
+    #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-photo-container img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      max-height: 600px; }
+  #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-load-photo {
+    height: 100px;
+    display: block; }
   #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-input {
     -webkit-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), height 0.4s ease;
     transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), height 0.4s ease; }

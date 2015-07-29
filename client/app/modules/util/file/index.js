@@ -6,6 +6,7 @@ var fileModel = require('./fileModel.js');
 app.service('fileUpload', require('./fileUpload'));
 
 app.factory('FileReader', require('./fileReader'));
+app.service('FileReaderUtil', require('./fileReaderUtil'));
 
 app.controller('FileCtrl', require('./fileCtrl'));
 

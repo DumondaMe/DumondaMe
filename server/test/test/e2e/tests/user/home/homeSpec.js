@@ -414,4 +414,38 @@ describe('Integration Tests for getting home screen information for a user', fun
 
             });
     });
+
+    it('Getting the info which are needed for write a new blog', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
+            "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10,
+                    timestamp: 500
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.user.privacyTypes.length.should.equals(2);
+                res.body.user.privacyTypes[0].type.should.equals('Bekannter');
+                res.body.user.privacyTypes[1].type.should.equals('Freund');
+
+                res.body.user.profileUrl.should.equals('profileImage/1/profilePreview.jpg');
+            });
+    });
 });

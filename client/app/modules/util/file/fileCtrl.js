@@ -1,16 +1,6 @@
 'use strict';
 
-function dataURItoBlob(dataURI) {
-    var binary = window.atob(dataURI.split(',')[1]),
-        array = [],
-        i;
-    for (i = 0; i < binary.length; i = i + 1) {
-        array.push(binary.charCodeAt(i));
-    }
-    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-}
-
-module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUpload, FileReader) {
+module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
 
     $scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
@@ -22,7 +12,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', function ($scope, fileUp
         if (data && data.toDataURL && angular.isFunction(data.toDataURL)) {
             delete $scope.uploadError;
             $scope.uploadRunning = true;
-            blob = dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
+            blob = FileReaderUtil.dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
             if ($scope.uploadFile) {
                 fileUpload.uploadFileToUrl(blob, '/api/user/settings/uploadProfileImage').
                     success(function () {

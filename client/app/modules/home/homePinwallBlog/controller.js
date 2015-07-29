@@ -2,19 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', function ($scope) {
+        return ['$scope', 'FileReader', function ($scope, FileReader) {
 
-            $scope.expandBlog = function () {
-                if (!$scope.isExpand && !$scope.showExpand) {
-                    $scope.isExpand = true;
-                }
-            };
-
-/*            $scope.abort = function () {
-                if ($scope.isExpand && $scope.showExpand) {
-                    $scope.isExpand = false;
-                }
-            };*/
         }];
     }
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    directiveLink: function ($animate) {
+    directiveLink: function ($animate, $timeout) {
         return function ($scope, element) {
 
             $scope.$watch('showExpand', function (newValue) {
@@ -30,6 +30,8 @@ module.exports = {
                     $animate.removeClass(element, 'is-extended').then(function () {
                         $animate.addClass(element, 'ng-hide');
                         $scope.isExpand = false;
+                        $scope.blogText = '';
+                        $scope.$broadcast('home.blog.abort');
                     });
                 }
             };
@@ -38,6 +40,12 @@ module.exports = {
                 if (!$scope.showExpand) {
                     $scope.isExpand = true;
                 }
+            };
+
+            $scope.attachPhoto = function () {
+                $timeout(function () {
+                    element.find('.select-file-dialog').trigger('click');
+                }, 0, false);
             };
         };
     }

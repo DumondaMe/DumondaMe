@@ -4,15 +4,16 @@ var controller = require('./controller.js');
 var link = require('./link.js');
 
 module.exports = {
-    directive: ['$animate', function ($animate) {
+    directive: ['$animate', '$timeout', function ($animate, $timeout) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
                 showExpand: '=',
-                isExpand: '='
+                isExpand: '=',
+                userInfo: '='
             },
-            link: link.directiveLink($animate),
+            link: link.directiveLink($animate, $timeout),
             controller: controller.directiveCtrl(),
             templateUrl: 'app/modules/home/homePinwallBlog/template.html'
         };
