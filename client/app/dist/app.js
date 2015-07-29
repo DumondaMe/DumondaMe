@@ -88,12 +88,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
-    "<div><div ng-controller=BlogExtendedCtrl><div class=home-pinwall-load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=home-pinwall-blog-photo-container ng-if=imageForUploadPreview><img ng-src={{imageForUploadPreview}}></div><div class=home-pinwall-blog-attachment><label>Anhang:</label><div class=home-pinwall-blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div><input type=file ely-file-model=imageForUpload class=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\"></div></div><div class=home-pinwall-blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=home-pinwall-blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic> F&uuml;r Alle</div></div><div class=home-pinwall-blog-send><button class=\"btn btn-default btn-sm send-blog-button\" type=button ng-click=sendBlog() ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort()>Abbrechen</button></div></div></div>"
+    "<div><div ng-controller=BlogExtendedCtrl><div class=home-pinwall-load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=home-pinwall-blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=home-pinwall-blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture()><img id=trash src=app/img/trash.png></div></div><div class=home-pinwall-blog-attachment><label>Anhang:</label><div class=home-pinwall-blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div><input type=file ely-file-model=imageForUpload class=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\"></div></div><div class=home-pinwall-blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=home-pinwall-blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic> F&uuml;r Alle</div></div><div class=home-pinwall-blog-send><button class=\"btn btn-default btn-sm send-blog-button\" type=button ng-click=sendBlog() ng-class=\"{'disabled': !sendBlogAllowed}\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort()>Abbrechen</button></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog()></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog()></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
@@ -2440,8 +2440,18 @@ module.exports = ['$scope', 'Home', 'HomeLeftNavElements', function ($scope, Hom
 },{}],66:[function(require,module,exports){
 'use strict';
 
+var isSendBlogAllowed = function (selectedPrivacyType, blogText, selectPublic, imageLoading) {
+    if (!imageLoading) {
+        if ((blogText && selectPublic) || (selectedPrivacyType && selectedPrivacyType.length > 0 && blogText)) {
+            return blogText.trim() !== '';
+        }
+    }
+    return false;
+};
+
 module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
     $scope.selectPublic = true;
+    $scope.sendBlogAllowed = false;
 
     $scope.$watch('imageForUpload', function (newImage) {
         if (newImage) {
@@ -2460,6 +2470,31 @@ module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
         }
     });
 
+    $scope.$watch('selectedPrivacyType', function (newPrivacyType) {
+        $scope.sendBlogAllowed = isSendBlogAllowed(newPrivacyType,
+            $scope.user.blogText, $scope.selectPublic, $scope.imageForUploadPreviewStart);
+    });
+
+    $scope.$watch('user.blogText', function (newBlogText) {
+        $scope.sendBlogAllowed = isSendBlogAllowed($scope.selectedPrivacyType,
+            newBlogText, $scope.selectPublic, $scope.imageForUploadPreviewStart);
+    });
+
+    $scope.$watch('selectPublic', function (newSelectPublic) {
+        $scope.sendBlogAllowed = isSendBlogAllowed($scope.selectedPrivacyType,
+            $scope.user.blogText, newSelectPublic, $scope.imageForUploadPreviewStart);
+    });
+
+    $scope.$watch('imageForUploadPreviewStart', function (newImageUpload) {
+        $scope.sendBlogAllowed = isSendBlogAllowed($scope.selectedPrivacyType,
+            $scope.user.blogText, $scope.selectPublic, newImageUpload);
+    });
+
+    $scope.deletePicture = function () {
+        $scope.imageForUploadPreview = null;
+        $scope.imageForUpload = null;
+    };
+
     $scope.$on('home.blog.abort', function () {
         FileReader.abort();
         $scope.selectPublic = true;
@@ -2476,7 +2511,7 @@ module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'FileReader', function ($scope, FileReader) {
-
+            $scope.user = {blogText: ''};
         }];
     }
 };
@@ -5400,6 +5435,12 @@ module.exports = {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
                     });
+                });
+
+                scope.$watch(attrs.elyFileModel, function (newValue) {
+                    if (newValue === null) {
+                        element.val('');
+                    }
                 });
             }
         };

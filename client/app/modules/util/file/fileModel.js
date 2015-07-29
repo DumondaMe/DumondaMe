@@ -13,6 +13,13 @@ module.exports = {
                         modelSetter(scope, element[0].files[0]);
                     });
                 });
+
+                scope.$watch(attrs.elyFileModel, function (newValue) {
+                    if (newValue === null) {
+                        //For reset. Files can be selected again after removing
+                        element.val('');
+                    }
+                });
             }
         };
     }],

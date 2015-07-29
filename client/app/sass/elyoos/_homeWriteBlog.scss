@@ -87,12 +87,31 @@
       }
 
       .home-pinwall-blog-photo-container {
+        position: relative;
         margin-bottom: 10px;
         img {
           display: block;
           margin: 0 auto;
           max-width: 100%;
           max-height: 600px;
+        }
+      }
+
+      .home-pinwall-blog-photo-container-commands {
+        background-color: #fff;
+        border: 1px solid #d8d8d8;
+        height: 46px;
+        margin-bottom: 15px;
+
+        .command-element {
+          cursor: pointer;
+          display: inline-block;
+          width: 46px;
+          height: 46px;
+          padding: 12px 15px;
+          img {
+            height: 20px;
+          }
         }
       }
 
