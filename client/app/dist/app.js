@@ -5439,6 +5439,7 @@ module.exports = {
 
                 scope.$watch(attrs.elyFileModel, function (newValue) {
                     if (newValue === null) {
+                        //For reset. Files can be selected again after removing
                         element.val('');
                     }
                 });

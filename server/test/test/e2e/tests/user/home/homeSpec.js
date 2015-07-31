@@ -347,7 +347,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             .end({contactAdded: startTime}).getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'}) ")
-            .create("(b)-[:WRITTEN {visible: 'Freund Bekannter'}]->(a)")
+            .create("(b)-[:WRITTEN {visible: 'Freund;Bekannter'}]->(a)")
             .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:User {userId: '2'}) ")
             .create("(b)-[:WRITTEN]->(a)")

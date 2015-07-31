@@ -4,7 +4,6 @@ var db = require('./../../neo4j');
 var exceptions = require('./../../lib/error/exceptions');
 var contactStatistic = require('./contactStatistic');
 var privacySettings = require('./privacySettings');
-var underscore = require('underscore');
 var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');

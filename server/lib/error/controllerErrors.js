@@ -1,7 +1,6 @@
 'use strict';
 
 var exceptions = require('./exceptions');
-var Promise = require('bluebird').Promise;
 
 var getErrorHandling = function (description, req, res, logger, controllerCode) {
     return controllerCode().catch(exceptions.InvalidJsonRequest, function () {
