@@ -9,9 +9,10 @@ var isSendBlogAllowed = function (selectedPrivacyType, blogText, selectPublic, i
     return false;
 };
 
-module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
+module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', function ($scope, FileReader, fileUpload, FileReaderUtil) {
     $scope.selectPublic = true;
     $scope.sendBlogAllowed = false;
+    $scope.uploadBlogIsRunning = false;
 
     $scope.$watch('imageForUpload', function (newImage) {
         if (newImage) {
@@ -19,6 +20,7 @@ module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
                 $scope.$apply(function () {
                     $scope.imageForUploadPreviewStart = false;
                     $scope.imageForUploadPreview = FileReader.result;
+                    $scope.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob($scope.imageForUploadPreview);
                 });
             };
             FileReader.onloadstart = function () {
@@ -55,12 +57,39 @@ module.exports = ['$scope', 'FileReader', function ($scope, FileReader) {
         $scope.imageForUpload = null;
     };
 
+    $scope.sendBlog = function () {
+        function getParameters () {
+            var params = {addBlog: {text: $scope.user.blogText}}, visibility = [];
+            if (!$scope.selectPublic) {
+                angular.forEach($scope.selectedPrivacyType, function (type) {
+                    visibility.push(type.type);
+                });
+                params.addBlog.visibility = visibility;
+            }
+            return params;
+        }
+
+        if (!$scope.uploadBlogIsRunning && $scope.sendBlogAllowed) {
+            $scope.uploadBlogIsRunning = true;
+            fileUpload.uploadFileAndJson($scope.imageForUploadPreviewData, getParameters(), 'api/user/blog').
+                success(function () {
+                    $scope.uploadBlogIsRunning = false;
+                }).
+                error(function () {
+                    $scope.uploadBlogIsRunning = false;
+                    $scope.uploadRunning = false;
+                });
+        }
+    };
+
     $scope.$on('home.blog.abort', function () {
-        FileReader.abort();
-        $scope.selectPublic = true;
-        $scope.imageForUploadPreviewStart = false;
-        $scope.imageForUploadPreview = null;
-        $scope.imageForUpload = null;
+        if (!$scope.uploadBlogIsRunning) {
+            FileReader.abort();
+            $scope.selectPublic = true;
+            $scope.imageForUploadPreviewStart = false;
+            $scope.imageForUploadPreview = null;
+            $scope.imageForUpload = null;
+        }
     });
 }];
 
