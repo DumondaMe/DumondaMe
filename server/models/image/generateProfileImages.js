@@ -3,7 +3,6 @@
  */
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
 var gm = require('./../util/gm');
 var cdn = require('./../util/cdn');
 var tmp = require('tmp');

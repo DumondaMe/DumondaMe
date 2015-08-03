@@ -2,15 +2,7 @@
 
 var app = require('../../../server');
 var dbConfig = require('../../../lib/database');
-var cdn = require('../../../models/util/cdn');
-var sinon = require('sinon');
-
-var Promise = require('bluebird');
-
-sinon.stub(cdn, 'getUrl').returnsArg(0);
-sinon.stub(cdn, 'uploadFile').returns(Promise.resolve());
-sinon.stub(cdn, 'copyFile').returns(Promise.resolve());
-sinon.stub(cdn, 'createFolderRegisterUser').returns(Promise.resolve());
+require('./tests/util/stubCDN');
 
 describe('Initialize Server for all integration tests', function () {
 

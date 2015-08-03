@@ -34,8 +34,8 @@ module.exports = function (router) {
                         res.status(200).json({"username": user.email});
                         logger.info('Successful login of user', req, {});
                     });
-                }).catch(function (err) {
-                    logger.error('Setting Timestamp failed', req, {error: err});
+                }).catch(function (errTimestamp) {
+                    logger.error('Setting Timestamp failed', req, {error: errTimestamp});
                     res.status(500).end();
                 });
             });

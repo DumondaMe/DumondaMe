@@ -1,7 +1,9 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var blogImarg = require('./blogImages');
 var _ = require('underscore');
+var Promise = require('bluebird').Promise;
 var time = require('./../../../lib/time');
 var uuid = require('./../../../lib/uuid');
 var exceptions = require('./../../../lib/error/exceptions');
@@ -53,16 +55,30 @@ var security = function (userId, visibility, req) {
         });
 };
 
-var addBlog = function (userId, request, req) {
-    var commands = [], visibility = getVisibilityAsString(request.visibility);
+var uploadFile = function (filePath, blogId) {
+    if (_.isString(filePath)) {
+        return blogImarg.uploadImages(filePath, blogId);
+    }
+    return Promise.resolve(null);
+};
+
+var addBlog = function (userId, request, filePath, req) {
+    var commands = [], visibility = getVisibilityAsString(request.visibility), blogId = uuid.generateUUID();
 
     return security(userId, request.visibility, req).then(function () {
-        return db.cypher().match("(user:User {userId: {userId}})")
-            .create("(user)-[:WRITTEN {visible: {visibility}}]->(blog:Blog {text: {text}, created: {timestamp}, blogId: {blogId}})")
-            .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name")
-            .end({userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, blogId: uuid.generateUUID(), text: request.text})
-            .send(commands)
-            .then(function (resp) {
+        return uploadFile(filePath, blogId)
+            .then(function (height) {
+                return db.cypher().match("(user:User {userId: {userId}})")
+                    .create("(user)-[:WRITTEN {visible: {visibility}}]->(blog:Blog {text: {text}, created: {timestamp}, blogId: {blogId}, " +
+                    "heightPreviewImage: {heightPreviewImage}})")
+                    .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name, " +
+                    "blog.heightPreviewImage AS heightPreviewImage")
+                    .end({
+                        userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, blogId: blogId, text: request.text,
+                        heightPreviewImage: height
+                    })
+                    .send(commands);
+            }).then(function (resp) {
                 resp[0].profileUrl = cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg');
                 return resp[0];
             });

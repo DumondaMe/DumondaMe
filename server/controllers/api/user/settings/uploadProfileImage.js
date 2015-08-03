@@ -1,11 +1,8 @@
 'use strict';
 
-var user = require('./../../../../models/user/user'),
-    auth = require('./../../../../lib/auth'),
+var auth = require('./../../../../lib/auth'),
     logger = requireLogger.getLogger(__filename),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    saveProfileImage = require('./../../../../models/image/generateProfileImages'),
-    gm = require('gm');
+    saveProfileImage = require('./../../../../models/image/generateProfileImages');
 
 module.exports = function (router) {
 

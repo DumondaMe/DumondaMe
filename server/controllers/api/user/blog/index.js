@@ -31,15 +31,23 @@ var schemaRequestBlog = {
     }
 };
 
+var getFilePath = function (req) {
+    if (req.hasOwnProperty('files') && req.files.hasOwnProperty('file') && req.files.file.hasOwnProperty('path')) {
+        return req.files.file.path;
+    }
+    return null;
+};
+
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs when request blog is handled', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestBlog, logger).then(function (request) {
-                if(request.hasOwnProperty('addBlog')) {
+                var path = getFilePath(req);
+                if (request.hasOwnProperty('addBlog')) {
                     logger.info('User adds a new blog', req);
-                    return blog.addBlog(req.user.id, request.addBlog, req);
+                    return blog.addBlog(req.user.id, request.addBlog, path, req);
                 }
                 return exceptions.getInvalidOperation("Unknown request type", logger, req);
             }).then(function (page) {
