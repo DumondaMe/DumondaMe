@@ -2470,6 +2470,8 @@ var closeBlog = function ($scope, FileReader) {
     $scope.imageForUploadPreviewStart = false;
     $scope.imageForUploadPreview = null;
     $scope.imageForUpload = null;
+    $scope.imageForUploadPreviewData = null;
+    $scope.user.blogText = '';
 };
 
 module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', function ($scope, FileReader, fileUpload, FileReaderUtil) {
@@ -2724,28 +2726,6 @@ var setPinwallType = function (pinwallElements, type) {
         pinwallElement.type = type;
     });
 };
-
-/*var setRecommendation = function ($scope, newPinwall) {
- var tempPinwall = [];
- if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
- if (newPinwall.pinwall.length > 0) {
- setPinwallType(newPinwall.pinwall, 'Recommendation');
- pinwall = pinwall.concat(newPinwall.pinwall);
- if (pinwall.length < skip - 1) {
- requestPinwallElements = false;
- }
- resetPinwallElements($scope);
- addPinwallElementsToColumns($scope, pinwall);
- } else {
- requestPinwallElements = false;
- if (pinwall.length === 0) {
- $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
- }
- }
- requestPinwallElementsRunning = false;
- }
- return tempPinwall;
- };*/
 
 var setRecommendation = function ($scope, newPinwall) {
     var tempPinwall = [];

@@ -15,6 +15,8 @@ var closeBlog = function ($scope, FileReader) {
     $scope.imageForUploadPreviewStart = false;
     $scope.imageForUploadPreview = null;
     $scope.imageForUpload = null;
+    $scope.imageForUploadPreviewData = null;
+    $scope.user.blogText = '';
 };
 
 module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', function ($scope, FileReader, fileUpload, FileReaderUtil) {
