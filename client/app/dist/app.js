@@ -88,17 +88,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
-    "<div><div ng-controller=BlogExtendedCtrl><div class=home-pinwall-load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=home-pinwall-blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=home-pinwall-blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture()><img id=trash src=app/img/trash.png></div></div><div class=home-pinwall-blog-attachment><label>Anhang:</label><div class=home-pinwall-blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div><input type=file ely-file-model=imageForUpload class=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\"></div></div><div class=home-pinwall-blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=home-pinwall-blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic> F&uuml;r Alle</div></div><div class=home-pinwall-blog-send><button class=\"btn btn-default btn-sm send-blog-button\" type=button ng-click=sendBlog() ng-class=\"{'disabled': !sendBlogAllowed}\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort()>Abbrechen</button></div></div></div>"
+    "<div><div ng-controller=BlogExtendedCtrl><div class=home-pinwall-load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=home-pinwall-blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=home-pinwall-blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=home-pinwall-blog-attachment><label>Anhang:</label><div class=home-pinwall-blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div><input type=file ely-file-model=imageForUpload class=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div></div><div class=home-pinwall-blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=home-pinwall-blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=home-pinwall-blog-send><button class=\"btn btn-default btn-sm send-blog-button\" type=button ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog()></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
-    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
+    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
   );
 
 
@@ -2285,6 +2285,9 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
+            scope: {
+                size: '@'
+            },
             templateUrl: 'app/modules/directives/spin/template.html',
             link: link.directiveLink()
         };
@@ -2320,6 +2323,13 @@ module.exports = {
                 top: '50%',
                 left: '50%'
             }, spinElement, spinner;
+
+            if ($scope.size === 'small') {
+                opts.lines = 9;
+                opts.length = 5;
+                opts.width = 3;
+                opts.radius = 4;
+            }
 
             spinElement = element.find('#spinner-content');
             spinner = new Spinner(opts).spin();
@@ -2454,10 +2464,17 @@ var isSendBlogAllowed = function (selectedPrivacyType, blogText, selectPublic, i
     return false;
 };
 
+var closeBlog = function ($scope, FileReader) {
+    FileReader.abort();
+    $scope.selectPublic = true;
+    $scope.imageForUploadPreviewStart = false;
+    $scope.imageForUploadPreview = null;
+    $scope.imageForUpload = null;
+};
+
 module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', function ($scope, FileReader, fileUpload, FileReaderUtil) {
     $scope.selectPublic = true;
     $scope.sendBlogAllowed = false;
-    $scope.uploadBlogIsRunning = false;
 
     $scope.$watch('imageForUpload', function (newImage) {
         if (newImage) {
@@ -2514,26 +2531,23 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
             return params;
         }
 
-        if (!$scope.uploadBlogIsRunning && $scope.sendBlogAllowed) {
-            $scope.uploadBlogIsRunning = true;
+        if (!$scope.user.uploadBlogIsRunning && $scope.sendBlogAllowed) {
+            $scope.user.uploadBlogIsRunning = true;
             fileUpload.uploadFileAndJson($scope.imageForUploadPreviewData, getParameters(), 'api/user/blog').
-                success(function () {
-                    $scope.uploadBlogIsRunning = false;
+                success(function (resp) {
+                    $scope.user.uploadBlogIsRunning = false;
+                    $scope.blogAdded(resp);
+                    $scope.abort();
                 }).
                 error(function () {
-                    $scope.uploadBlogIsRunning = false;
-                    $scope.uploadRunning = false;
+                    $scope.user.uploadBlogIsRunning = false;
                 });
         }
     };
 
     $scope.$on('home.blog.abort', function () {
-        if (!$scope.uploadBlogIsRunning) {
-            FileReader.abort();
-            $scope.selectPublic = true;
-            $scope.imageForUploadPreviewStart = false;
-            $scope.imageForUploadPreview = null;
-            $scope.imageForUpload = null;
+        if (!$scope.user.uploadBlogIsRunning) {
+            closeBlog($scope, FileReader);
         }
     });
 }];
@@ -2544,8 +2558,8 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'FileReader', function ($scope, FileReader) {
-            $scope.user = {blogText: ''};
+        return ['$scope', function ($scope) {
+            $scope.user = {blogText: '', uploadBlogIsRunning: false};
         }];
     }
 };
@@ -2565,7 +2579,8 @@ module.exports = {
             scope: {
                 showExpand: '=',
                 isExpand: '=',
-                userInfo: '='
+                userInfo: '=',
+                blogAdded: '='
             },
             link: link.directiveLink($animate, $timeout),
             controller: controller.directiveCtrl(),
@@ -2711,26 +2726,26 @@ var setPinwallType = function (pinwallElements, type) {
 };
 
 /*var setRecommendation = function ($scope, newPinwall) {
-    var tempPinwall = [];
-    if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
-        if (newPinwall.pinwall.length > 0) {
-            setPinwallType(newPinwall.pinwall, 'Recommendation');
-            pinwall = pinwall.concat(newPinwall.pinwall);
-            if (pinwall.length < skip - 1) {
-                requestPinwallElements = false;
-            }
-            resetPinwallElements($scope);
-            addPinwallElementsToColumns($scope, pinwall);
-        } else {
-            requestPinwallElements = false;
-            if (pinwall.length === 0) {
-                $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
-            }
-        }
-        requestPinwallElementsRunning = false;
-    }
-    return tempPinwall;
-};*/
+ var tempPinwall = [];
+ if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
+ if (newPinwall.pinwall.length > 0) {
+ setPinwallType(newPinwall.pinwall, 'Recommendation');
+ pinwall = pinwall.concat(newPinwall.pinwall);
+ if (pinwall.length < skip - 1) {
+ requestPinwallElements = false;
+ }
+ resetPinwallElements($scope);
+ addPinwallElementsToColumns($scope, pinwall);
+ } else {
+ requestPinwallElements = false;
+ if (pinwall.length === 0) {
+ $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
+ }
+ }
+ requestPinwallElementsRunning = false;
+ }
+ return tempPinwall;
+ };*/
 
 var setRecommendation = function ($scope, newPinwall) {
     var tempPinwall = [];
@@ -2755,7 +2770,7 @@ var setBlog = function ($scope, newPinwall, tempPinwall) {
 
 var sortPinwall = function (tempPinwall) {
     return tempPinwall.sort(function (a, b) {
-       return b.created - a.created;
+        return b.created - a.created;
     });
 };
 
@@ -2781,6 +2796,28 @@ var setUserInfo = function ($scope, newPinwall) {
     }
 };
 
+var checkRequestPinwall = function (pinwall, reqestedNumberOfElements) {
+    function countElements(pinwallElements, type) {
+        var count = 0;
+        angular.forEach(pinwallElements, function (pinwallElement) {
+            if (pinwallElement.type === type) {
+                count++;
+            }
+        });
+        return count;
+    }
+
+    return !(countElements(pinwall, 'Blog') < reqestedNumberOfElements && countElements(pinwall, 'Recommendation') < reqestedNumberOfElements );
+};
+
+var updatePinwall = function ($scope) {
+    resetPinwallElements($scope);
+    sortPinwall(pinwall);
+    addPinwallElementsToColumns($scope, pinwall);
+    addNewElementToColumns($scope, contacting, contacting.contacting);
+    addNewElementToColumns($scope, messages, messages.messages);
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
@@ -2797,25 +2834,25 @@ module.exports = {
             $scope.isExpanded = false;
 
             $scope.$watchCollection('pinwall', function (newPinwall) {
-                var tempPinwall = setRecommendation($scope, newPinwall);
-                tempPinwall = setBlog($scope, newPinwall, tempPinwall);
-                sortPinwall(tempPinwall);
-                resetPinwallElements($scope);
-                pinwall = pinwall.concat(tempPinwall);
-                addPinwallElementsToColumns($scope, pinwall);
+                if (newPinwall) {
+                    var tempPinwall = setRecommendation($scope, newPinwall);
+                    tempPinwall = setBlog($scope, newPinwall, tempPinwall);
+                    sortPinwall(tempPinwall);
+                    resetPinwallElements($scope);
+                    pinwall = pinwall.concat(tempPinwall);
+                    addPinwallElementsToColumns($scope, pinwall);
+                    requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
+                    requestPinwallElementsRunning = false;
 
-                setContacting($scope, newPinwall);
-                setNewMessages($scope, newPinwall);
-                setUserInfo($scope, newPinwall);
+                    setContacting($scope, newPinwall);
+                    setNewMessages($scope, newPinwall);
+                    setUserInfo($scope, newPinwall);
+                }
             });
 
             $scope.$watch('numberOfRows', function (newNumberOfRows) {
                 if (newNumberOfRows && pinwall) {
-                    resetPinwallElements($scope);
-                    sortPinwall(pinwall);
-                    addPinwallElementsToColumns($scope, pinwall);
-                    addNewElementToColumns($scope, contacting, contacting.contacting);
-                    addNewElementToColumns($scope, messages, messages.messages);
+                    updatePinwall($scope);
                 }
             });
 
@@ -2831,6 +2868,12 @@ module.exports = {
                 messages = {messages: newMessages, type: 'NewMessages'};
                 addNewElementToColumns($scope, messages, messages.messages);
             });
+
+            $scope.blogAdded = function (blog) {
+                blog.type = 'Blog';
+                pinwall.unshift(blog);
+                updatePinwall($scope);
+            };
         }];
     }
 };

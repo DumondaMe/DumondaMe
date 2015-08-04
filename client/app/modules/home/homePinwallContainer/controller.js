@@ -69,28 +69,6 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-/*var setRecommendation = function ($scope, newPinwall) {
-    var tempPinwall = [];
-    if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
-        if (newPinwall.pinwall.length > 0) {
-            setPinwallType(newPinwall.pinwall, 'Recommendation');
-            pinwall = pinwall.concat(newPinwall.pinwall);
-            if (pinwall.length < skip - 1) {
-                requestPinwallElements = false;
-            }
-            resetPinwallElements($scope);
-            addPinwallElementsToColumns($scope, pinwall);
-        } else {
-            requestPinwallElements = false;
-            if (pinwall.length === 0) {
-                $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
-            }
-        }
-        requestPinwallElementsRunning = false;
-    }
-    return tempPinwall;
-};*/
-
 var setRecommendation = function ($scope, newPinwall) {
     var tempPinwall = [];
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
@@ -114,7 +92,7 @@ var setBlog = function ($scope, newPinwall, tempPinwall) {
 
 var sortPinwall = function (tempPinwall) {
     return tempPinwall.sort(function (a, b) {
-       return b.created - a.created;
+        return b.created - a.created;
     });
 };
 
@@ -140,6 +118,28 @@ var setUserInfo = function ($scope, newPinwall) {
     }
 };
 
+var checkRequestPinwall = function (pinwall, reqestedNumberOfElements) {
+    function countElements(pinwallElements, type) {
+        var count = 0;
+        angular.forEach(pinwallElements, function (pinwallElement) {
+            if (pinwallElement.type === type) {
+                count++;
+            }
+        });
+        return count;
+    }
+
+    return !(countElements(pinwall, 'Blog') < reqestedNumberOfElements && countElements(pinwall, 'Recommendation') < reqestedNumberOfElements );
+};
+
+var updatePinwall = function ($scope) {
+    resetPinwallElements($scope);
+    sortPinwall(pinwall);
+    addPinwallElementsToColumns($scope, pinwall);
+    addNewElementToColumns($scope, contacting, contacting.contacting);
+    addNewElementToColumns($scope, messages, messages.messages);
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
@@ -156,25 +156,25 @@ module.exports = {
             $scope.isExpanded = false;
 
             $scope.$watchCollection('pinwall', function (newPinwall) {
-                var tempPinwall = setRecommendation($scope, newPinwall);
-                tempPinwall = setBlog($scope, newPinwall, tempPinwall);
-                sortPinwall(tempPinwall);
-                resetPinwallElements($scope);
-                pinwall = pinwall.concat(tempPinwall);
-                addPinwallElementsToColumns($scope, pinwall);
+                if (newPinwall) {
+                    var tempPinwall = setRecommendation($scope, newPinwall);
+                    tempPinwall = setBlog($scope, newPinwall, tempPinwall);
+                    sortPinwall(tempPinwall);
+                    resetPinwallElements($scope);
+                    pinwall = pinwall.concat(tempPinwall);
+                    addPinwallElementsToColumns($scope, pinwall);
+                    requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
+                    requestPinwallElementsRunning = false;
 
-                setContacting($scope, newPinwall);
-                setNewMessages($scope, newPinwall);
-                setUserInfo($scope, newPinwall);
+                    setContacting($scope, newPinwall);
+                    setNewMessages($scope, newPinwall);
+                    setUserInfo($scope, newPinwall);
+                }
             });
 
             $scope.$watch('numberOfRows', function (newNumberOfRows) {
                 if (newNumberOfRows && pinwall) {
-                    resetPinwallElements($scope);
-                    sortPinwall(pinwall);
-                    addPinwallElementsToColumns($scope, pinwall);
-                    addNewElementToColumns($scope, contacting, contacting.contacting);
-                    addNewElementToColumns($scope, messages, messages.messages);
+                    updatePinwall($scope);
                 }
             });
 
@@ -190,6 +190,12 @@ module.exports = {
                 messages = {messages: newMessages, type: 'NewMessages'};
                 addNewElementToColumns($scope, messages, messages.messages);
             });
+
+            $scope.blogAdded = function (blog) {
+                blog.type = 'Blog';
+                pinwall.unshift(blog);
+                updatePinwall($scope);
+            };
         }];
     }
 };

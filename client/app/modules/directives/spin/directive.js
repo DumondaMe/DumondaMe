@@ -7,6 +7,9 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
+            scope: {
+                size: '@'
+            },
             templateUrl: 'app/modules/directives/spin/template.html',
             link: link.directiveLink()
         };

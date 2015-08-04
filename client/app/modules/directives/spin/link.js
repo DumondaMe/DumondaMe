@@ -24,6 +24,13 @@ module.exports = {
                 left: '50%'
             }, spinElement, spinner;
 
+            if ($scope.size === 'small') {
+                opts.lines = 9;
+                opts.length = 5;
+                opts.width = 3;
+                opts.radius = 4;
+            }
+
             spinElement = element.find('#spinner-content');
             spinner = new Spinner(opts).spin();
             spinElement.append(spinner.el);

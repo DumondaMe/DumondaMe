@@ -930,6 +930,13 @@ h1.website-structure-title {
   #home .home-pinwall-container .home-pinwall-blog-send .send-blog-button {
     background-color: #009688;
     color: #ffffff; }
+  #home .home-pinwall-container .home-pinwall-blog-send .upload-blog-running {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    height: 30px;
+    width: 30px;
+    margin-left: 15px; }
 #home .home-pinwall-container .home-pinwall-element.home-pinwall-blog-element, #home .home-pinwall-container .home-pinwall-element.home-pinwall-blog-element-extended {
   background-color: #f1f1f1;
   width: 420px; }

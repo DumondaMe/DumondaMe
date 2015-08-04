@@ -19,6 +19,14 @@
         background-color: $primary-color;
         color: #ffffff;
       }
+      .upload-blog-running {
+        position: relative;
+        display: inline-block;
+        vertical-align: bottom;
+        height: 30px;
+        width: 30px;
+        margin-left: 15px;
+      }
     }
     .home-pinwall-element.home-pinwall-blog-element {
       background-color: $primary-color-light;
@@ -118,7 +126,6 @@
       .home-pinwall-load-photo {
         height: 100px;
         display: block;
-
       }
 
       .home-pinwall-blog-input {

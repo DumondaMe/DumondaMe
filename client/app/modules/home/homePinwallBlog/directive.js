@@ -11,7 +11,8 @@ module.exports = {
             scope: {
                 showExpand: '=',
                 isExpand: '=',
-                userInfo: '='
+                userInfo: '=',
+                blogAdded: '='
             },
             link: link.directiveLink($animate, $timeout),
             controller: controller.directiveCtrl(),

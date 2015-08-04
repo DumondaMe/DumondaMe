@@ -9,10 +9,17 @@ var isSendBlogAllowed = function (selectedPrivacyType, blogText, selectPublic, i
     return false;
 };
 
+var closeBlog = function ($scope, FileReader) {
+    FileReader.abort();
+    $scope.selectPublic = true;
+    $scope.imageForUploadPreviewStart = false;
+    $scope.imageForUploadPreview = null;
+    $scope.imageForUpload = null;
+};
+
 module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', function ($scope, FileReader, fileUpload, FileReaderUtil) {
     $scope.selectPublic = true;
     $scope.sendBlogAllowed = false;
-    $scope.uploadBlogIsRunning = false;
 
     $scope.$watch('imageForUpload', function (newImage) {
         if (newImage) {
@@ -69,26 +76,23 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
             return params;
         }
 
-        if (!$scope.uploadBlogIsRunning && $scope.sendBlogAllowed) {
-            $scope.uploadBlogIsRunning = true;
+        if (!$scope.user.uploadBlogIsRunning && $scope.sendBlogAllowed) {
+            $scope.user.uploadBlogIsRunning = true;
             fileUpload.uploadFileAndJson($scope.imageForUploadPreviewData, getParameters(), 'api/user/blog').
-                success(function () {
-                    $scope.uploadBlogIsRunning = false;
+                success(function (resp) {
+                    $scope.user.uploadBlogIsRunning = false;
+                    $scope.blogAdded(resp);
+                    $scope.abort();
                 }).
                 error(function () {
-                    $scope.uploadBlogIsRunning = false;
-                    $scope.uploadRunning = false;
+                    $scope.user.uploadBlogIsRunning = false;
                 });
         }
     };
 
     $scope.$on('home.blog.abort', function () {
-        if (!$scope.uploadBlogIsRunning) {
-            FileReader.abort();
-            $scope.selectPublic = true;
-            $scope.imageForUploadPreviewStart = false;
-            $scope.imageForUploadPreview = null;
-            $scope.imageForUpload = null;
+        if (!$scope.user.uploadBlogIsRunning) {
+            closeBlog($scope, FileReader);
         }
     });
 }];

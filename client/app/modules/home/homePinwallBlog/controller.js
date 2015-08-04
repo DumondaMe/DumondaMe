@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'FileReader', function ($scope, FileReader) {
-            $scope.user = {blogText: ''};
+        return ['$scope', function ($scope) {
+            $scope.user = {blogText: '', uploadBlogIsRunning: false};
         }];
     }
 };

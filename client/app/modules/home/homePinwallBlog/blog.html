@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="home-pinwall-blog-photo-container-commands" ng-if="imageForUploadPreview">
-            <div class="command-element" ng-click="deletePicture()">
+            <div class="command-element" ng-click="deletePicture()" ng-disabled="user.uploadBlogIsRunning">
                 <img id="trash" src="app/img/trash.png">
             </div>
         </div>
@@ -21,7 +21,7 @@
 
                 <div class="attachment-text">Photo</div>
                 <input type="file" ely-file-model="imageForUpload" class="select-file-dialog" ng-hide="true"
-                       accept=".jpg, .png, jpeg">
+                       accept=".jpg, .png, jpeg" ng-disabled="user.uploadBlogIsRunning">
             </div>
         </div>
         <div class="home-pinwall-blog-visibility">
@@ -32,15 +32,18 @@
                 Action <span class="caret"></span>
             </button>
             <div class="home-pinwall-blog-select-all" ng-class="{'is-selected': selectPublic}">
-                <input type="checkbox" ng-model="selectPublic"> F&uuml;r Alle
+                <input type="checkbox" ng-model="selectPublic" ng-disabled="user.uploadBlogIsRunning"> F&uuml;r Alle
             </div>
         </div>
         <div class="home-pinwall-blog-send">
             <button class="btn btn-default btn-sm send-blog-button" type="button" ng-click="sendBlog()"
-                    ng-class="{'disabled': !sendBlogAllowed}">Posten
+                    ng-disabled="!sendBlogAllowed || user.uploadBlogIsRunning">Posten
             </button>
-            <button class="btn btn-default btn-sm" type="button" ng-click="abort()">Abbrechen
+            <button class="btn btn-default btn-sm" type="button" ng-click="abort()" ng-disabled="user.uploadBlogIsRunning">Abbrechen
             </button>
+            <div class="upload-blog-running" ng-if="user.uploadBlogIsRunning">
+                <ely-spin size="small"></ely-spin>
+            </div>
         </div>
     </div>
 </div>
