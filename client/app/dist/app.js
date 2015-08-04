@@ -93,7 +93,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\" ng-style=user.style><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
@@ -2558,32 +2558,10 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
 },{}],67:[function(require,module,exports){
 'use strict';
 
-var setStyle = function ($scope, numberOfRows) {
-    if (numberOfRows === 1) {
-        $scope.user.style = {'left': '0px', 'width': '420px'};
-    } else if (numberOfRows === 3) {
-        $scope.user.style = {'left': '250px', 'width': '700px'};
-    } else {
-        $scope.user.style = {};
-    }
-};
-
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
-            $scope.user = {blogText: '', uploadBlogIsRunning: false, style: {}};
-
-            /*$scope.$watch('numberOfRows', function (newNumberOfRows) {
-                if (angular.isNumber(newNumberOfRows)) {
-                    setStyle($scope, newNumberOfRows);
-                }
-            });
-
-            $scope.$watch('isExpand', function (newIsExpand) {
-                if (newIsExpand && $scope.showExpand) {
-                    setStyle($scope, $scope.numberOfRows);
-                }
-            });*/
+            $scope.user = {blogText: '', uploadBlogIsRunning: false};
         }];
     }
 };
@@ -2842,6 +2820,9 @@ module.exports = {
                     sortPinwall(tempPinwall);
                     resetPinwallElements($scope);
                     pinwall = pinwall.concat(tempPinwall);
+                    if (pinwall.length === 0 && newPinwall.hasOwnProperty('pinwall')) {
+                        $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
+                    }
                     addPinwallElementsToColumns($scope, pinwall);
                     requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
                     requestPinwallElementsRunning = false;

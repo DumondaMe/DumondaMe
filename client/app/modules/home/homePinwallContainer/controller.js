@@ -162,6 +162,9 @@ module.exports = {
                     sortPinwall(tempPinwall);
                     resetPinwallElements($scope);
                     pinwall = pinwall.concat(tempPinwall);
+                    if (pinwall.length === 0 && newPinwall.hasOwnProperty('pinwall')) {
+                        $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
+                    }
                     addPinwallElementsToColumns($scope, pinwall);
                     requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
                     requestPinwallElementsRunning = false;
