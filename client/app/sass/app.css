@@ -1020,6 +1020,12 @@ h1.website-structure-title {
   box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.4); }
   #home .home-pinwall-container .home-pinwall-blog-element-extended.is-extended .home-pinwall-blog-input {
     height: 8em; }
+#home .home-pinwall-container .home-pinwall-blog-element-extended.is-extended.one-column {
+  width: 420px;
+  left: 0px; }
+#home .home-pinwall-container .home-pinwall-blog-element-extended.is-extended.three-column {
+  width: 780px;
+  left: 250px; }
 
 #leftColNav {
   position: fixed;

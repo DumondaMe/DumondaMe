@@ -30,7 +30,6 @@ module.exports = {
                     $animate.removeClass(element, 'is-extended').then(function () {
                         $animate.addClass(element, 'ng-hide');
                         $scope.isExpand = false;
-                        $scope.blogText = '';
                         $scope.$broadcast('home.blog.abort');
                     });
                 }

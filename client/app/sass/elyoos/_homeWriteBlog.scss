@@ -144,5 +144,15 @@
         height: 8em;
       }
     }
+
+    .home-pinwall-blog-element-extended.is-extended.one-column {
+      width: 420px;
+      left: 0px;
+    }
+
+    .home-pinwall-blog-element-extended.is-extended.three-column {
+      width: 780px;
+      left: 250px;
+    }
   }
 }

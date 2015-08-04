@@ -93,12 +93,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\" ng-style=user.style><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallContainer/template.html',
-    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
+    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded number-of-rows=numberOfRows></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\"><ely-home-pinwall-element element=pinwallElement></ely-home-pinwall-element></div></div></div></div>"
   );
 
 
@@ -2558,10 +2558,32 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
 },{}],67:[function(require,module,exports){
 'use strict';
 
+var setStyle = function ($scope, numberOfRows) {
+    if (numberOfRows === 1) {
+        $scope.user.style = {'left': '0px', 'width': '420px'};
+    } else if (numberOfRows === 3) {
+        $scope.user.style = {'left': '250px', 'width': '700px'};
+    } else {
+        $scope.user.style = {};
+    }
+};
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
-            $scope.user = {blogText: '', uploadBlogIsRunning: false};
+            $scope.user = {blogText: '', uploadBlogIsRunning: false, style: {}};
+
+            /*$scope.$watch('numberOfRows', function (newNumberOfRows) {
+                if (angular.isNumber(newNumberOfRows)) {
+                    setStyle($scope, newNumberOfRows);
+                }
+            });
+
+            $scope.$watch('isExpand', function (newIsExpand) {
+                if (newIsExpand && $scope.showExpand) {
+                    setStyle($scope, $scope.numberOfRows);
+                }
+            });*/
         }];
     }
 };
@@ -2582,7 +2604,8 @@ module.exports = {
                 showExpand: '=',
                 isExpand: '=',
                 userInfo: '=',
-                blogAdded: '='
+                blogAdded: '=',
+                numberOfRows: '='
             },
             link: link.directiveLink($animate, $timeout),
             controller: controller.directiveCtrl(),
@@ -2634,7 +2657,6 @@ module.exports = {
                     $animate.removeClass(element, 'is-extended').then(function () {
                         $animate.addClass(element, 'ng-hide');
                         $scope.isExpand = false;
-                        $scope.blogText = '';
                         $scope.$broadcast('home.blog.abort');
                     });
                 }

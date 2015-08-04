@@ -1,5 +1,5 @@
 <div class="home-pinwall-element home-pinwall-blog-element"
-     ng-class="{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand}">
+     ng-class="{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}">
         <textarea class="form-control home-pinwall-blog-input" ng-model="user.blogText" placeholder="Schreibe einen Beitrag"
                   ng-focus="expandBlog()" ng-disabled="user.uploadBlogIsRunning"></textarea>
 

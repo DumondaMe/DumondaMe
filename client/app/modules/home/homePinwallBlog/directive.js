@@ -12,7 +12,8 @@ module.exports = {
                 showExpand: '=',
                 isExpand: '=',
                 userInfo: '=',
-                blogAdded: '='
+                blogAdded: '=',
+                numberOfRows: '='
             },
             link: link.directiveLink($animate, $timeout),
             controller: controller.directiveCtrl(),
