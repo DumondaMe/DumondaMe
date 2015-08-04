@@ -37,7 +37,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/directives/expandText/template.html',
-    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><button type=submit class=\"btn btn-default\" ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</button></div>"
+    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><div class=ely-expand-expand ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</div></div>"
   );
 
 
@@ -101,6 +101,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/homePinwallElement/blog.html',
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog</div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\"><img ng-src={{element.url}}></div></div>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallElement/contacting.html',
     "<div ng-controller=HomePinwallElementContactingCtrl><div class=pinwall-element-description>Personen die Dich als Kontakt hinzugef&uuml;gt haben</div><div class=pinwall-element-profile-messages ng-repeat=\"contacting in element.contacting\"><div ng-click=openDetail(contacting.userId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{contacting.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{contacting.name}}</div><div class=pinwall-element-info>{{getFormattedDate(contacting.contactAdded)}}</div></div></div></div><div class=pinwall-element-link ng-show=\"element.numberOfContacting === 4\" ui-sref=contact.contacting>1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt</div><div class=pinwall-element-link ng-show=\"element.numberOfContacting > 4\" ui-sref=contact.contacting>{{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt</div></div>"
   );
@@ -122,7 +127,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/template.html',
-    "<div class=home-pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div></div>"
+    "<div class=home-pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/blog.html'\" ng-if=\"element.type === 'Blog'\"></div></div>"
   );
 
 

@@ -12,23 +12,21 @@ var uploadImages = function (originalFilePath, blogId) {
     return gm.gm(originalFilePath).sizeAsync()
         .then(function (size) {
             sizeOriginal = size;
-            if(sizeOriginal.width > sizeOriginal.height) {
-                previewHeight = 380 * (sizeOriginal.height / sizeOriginal.width );
-                return gm.gm(originalFilePath).resize(380).quality(82).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
-            } else if (sizeOriginal.height > 600) {
-                previewHeight = 600;
-                return gm.gm(originalFilePath).resize(null, 600).quality(82).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
+            previewHeight = 380 * (sizeOriginal.height / sizeOriginal.width );
+            if (previewHeight > 1000) {
+                previewHeight = 1000;
+                return gm.gm(originalFilePath).resize(null, 1000).quality(82)
+                    .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
             }
-            previewHeight = sizeOriginal.height;
-            return gm.gm(originalFilePath).resize(null, sizeOriginal.height).quality(82).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
+            return gm.gm(originalFilePath).resize(380).quality(82)
+                .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
         })
         .then(function () {
-            if(sizeOriginal.width > sizeOriginal.height) {
-                return gm.gm(originalFilePath).resize(380).quality(94).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
-            } else if (sizeOriginal.height > 600) {
-                return gm.gm(originalFilePath).resize(null, 600).quality(94).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
+            if (previewHeight === 1000) {
+                return gm.gm(originalFilePath).resize(null, 1000).quality(94)
+                    .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
             }
-            return gm.gm(originalFilePath).resize(null, 600).quality(94).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
+            return gm.gm(originalFilePath).resize(380).quality(94).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
         })
         .then(function () {
             return cdn.uploadFile(preview.name, 'blog/' + blogId + '/preview.jpg');

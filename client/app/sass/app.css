@@ -259,8 +259,13 @@
   font-weight: 300;
   max-height: 4.2em;
   overflow: hidden; }
-.ely-expand-text button {
-  margin-top: 10px; }
+.ely-expand-text .ely-expand-expand {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer; }
+  .ely-expand-text .ely-expand-expand:hover {
+    text-decoration: underline; }
 
 .ely-form-text-input .ely-input-error-wrapper {
   position: relative; }
@@ -902,6 +907,14 @@ h1.website-structure-title {
             margin-top: 10px;
             margin-left: 0px;
             width: 380px; }
+        #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-text, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-text {
+          margin-top: 10px;
+          margin-bottom: 10px; }
+        #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-image-preview, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-image-preview {
+          margin-bottom: 20px; }
+          #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-image-preview img, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-image-preview img {
+            max-width: 380px;
+            max-height: 600px; }
 
 #home .home-pinwall-container .home-pinwall-blog-container {
   width: 100%;
@@ -973,7 +986,7 @@ h1.website-structure-title {
       display: block;
       margin: 0 auto;
       max-width: 100%;
-      max-height: 600px; }
+      max-height: 1500px; }
   #home .home-pinwall-container .home-pinwall-blog-element-extended .home-pinwall-blog-photo-container-commands {
     background-color: #fff;
     border: 1px solid #d8d8d8;

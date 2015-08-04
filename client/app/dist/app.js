@@ -38,7 +38,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/directives/expandText/template.html',
-    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><button type=submit class=\"btn btn-default\" ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</button></div>"
+    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><div class=ely-expand-expand ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</div></div>"
   );
 
 
@@ -102,6 +102,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/homePinwallElement/blog.html',
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog</div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\"><img ng-src={{element.url}}></div></div>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallElement/contacting.html',
     "<div ng-controller=HomePinwallElementContactingCtrl><div class=pinwall-element-description>Personen die Dich als Kontakt hinzugef&uuml;gt haben</div><div class=pinwall-element-profile-messages ng-repeat=\"contacting in element.contacting\"><div ng-click=openDetail(contacting.userId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{contacting.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{contacting.name}}</div><div class=pinwall-element-info>{{getFormattedDate(contacting.contactAdded)}}</div></div></div></div><div class=pinwall-element-link ng-show=\"element.numberOfContacting === 4\" ui-sref=contact.contacting>1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt</div><div class=pinwall-element-link ng-show=\"element.numberOfContacting > 4\" ui-sref=contact.contacting>{{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt</div></div>"
   );
@@ -123,7 +128,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/template.html',
-    "<div class=home-pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div></div>"
+    "<div class=home-pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/blog.html'\" ng-if=\"element.type === 'Blog'\"></div></div>"
   );
 
 
@@ -2579,9 +2584,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.controller('BlogExtendedCtrl', require('./blogExtendedCtrl'));
-
-app.factory('Blog', require('./services/blog'));
-},{"./blogExtendedCtrl":66,"./directive.js":68,"./services/blog":71,"angular":4}],70:[function(require,module,exports){
+},{"./blogExtendedCtrl":66,"./directive.js":68,"angular":4}],70:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2636,13 +2639,6 @@ module.exports = {
 };
 
 },{}],71:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/blog');
-}];
-
-},{}],72:[function(require,module,exports){
 'use strict';
 
 var pinwall;
@@ -2714,7 +2710,8 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-var setRecommendation = function ($scope, newPinwall) {
+/*var setRecommendation = function ($scope, newPinwall) {
+    var tempPinwall = [];
     if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
         if (newPinwall.pinwall.length > 0) {
             setPinwallType(newPinwall.pinwall, 'Recommendation');
@@ -2732,6 +2729,34 @@ var setRecommendation = function ($scope, newPinwall) {
         }
         requestPinwallElementsRunning = false;
     }
+    return tempPinwall;
+};*/
+
+var setRecommendation = function ($scope, newPinwall) {
+    var tempPinwall = [];
+    if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
+        if (newPinwall.pinwall.length > 0) {
+            setPinwallType(newPinwall.pinwall, 'Recommendation');
+            tempPinwall = tempPinwall.concat(newPinwall.pinwall);
+        }
+    }
+    return tempPinwall;
+};
+
+var setBlog = function ($scope, newPinwall, tempPinwall) {
+    if (newPinwall && newPinwall.hasOwnProperty('blog')) {
+        if (newPinwall.blog.length > 0) {
+            setPinwallType(newPinwall.blog, 'Blog');
+            tempPinwall = tempPinwall.concat(newPinwall.blog);
+        }
+    }
+    return tempPinwall;
+};
+
+var sortPinwall = function (tempPinwall) {
+    return tempPinwall.sort(function (a, b) {
+       return b.created - a.created;
+    });
 };
 
 var setNewMessages = function ($scope, newPinwall) {
@@ -2772,7 +2797,13 @@ module.exports = {
             $scope.isExpanded = false;
 
             $scope.$watchCollection('pinwall', function (newPinwall) {
-                setRecommendation($scope, newPinwall);
+                var tempPinwall = setRecommendation($scope, newPinwall);
+                tempPinwall = setBlog($scope, newPinwall, tempPinwall);
+                sortPinwall(tempPinwall);
+                resetPinwallElements($scope);
+                pinwall = pinwall.concat(tempPinwall);
+                addPinwallElementsToColumns($scope, pinwall);
+
                 setContacting($scope, newPinwall);
                 setNewMessages($scope, newPinwall);
                 setUserInfo($scope, newPinwall);
@@ -2781,6 +2812,7 @@ module.exports = {
             $scope.$watch('numberOfRows', function (newNumberOfRows) {
                 if (newNumberOfRows && pinwall) {
                     resetPinwallElements($scope);
+                    sortPinwall(pinwall);
                     addPinwallElementsToColumns($scope, pinwall);
                     addNewElementToColumns($scope, contacting, contacting.contacting);
                     addNewElementToColumns($scope, messages, messages.messages);
@@ -2803,7 +2835,7 @@ module.exports = {
     }
 };
 
-},{}],73:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 var link = require('./link.js');
@@ -2824,9 +2856,9 @@ module.exports = {
     name: 'elyHomePinwallContainer'
 };
 
-},{"./controller.js":72,"./link.js":75}],74:[function(require,module,exports){
+},{"./controller.js":71,"./link.js":74}],73:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"./directive.js":73,"angular":4,"dup":36}],75:[function(require,module,exports){
+},{"./directive.js":72,"angular":4,"dup":36}],74:[function(require,module,exports){
 'use strict';
 
 var navigationWidth = 240;
@@ -2859,6 +2891,15 @@ module.exports = {
         };
     }
 };
+
+},{}],75:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', 'dateFormatter', function ($scope, dateFormatter) {
+
+    $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+}];
+
 
 },{}],76:[function(require,module,exports){
 'use strict';
@@ -2903,10 +2944,11 @@ var directive = require('./directive.js');
 app.controller('HomePinwallElementNewMessageCtrl', require('./newMessageCtrl'));
 app.controller('HomePinwallElementRecommendationCtrl', require('./recommendationCtrl'));
 app.controller('HomePinwallElementContactingCtrl', require('./contactingCtrl'));
+app.controller('HomePinwallElementBlogCtrl', require('./blogCtrl'));
 
 app.directive(directive.name, directive.directive);
 
-},{"./contactingCtrl":76,"./directive.js":77,"./newMessageCtrl":79,"./recommendationCtrl":80,"angular":4}],79:[function(require,module,exports){
+},{"./blogCtrl":75,"./contactingCtrl":76,"./directive.js":77,"./newMessageCtrl":79,"./recommendationCtrl":80,"angular":4}],79:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', function ($scope, $state) {
