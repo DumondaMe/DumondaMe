@@ -5,10 +5,19 @@ var userInfo = require('./../userInfo');
 var unread = require('../../messages/util/unreadMessages');
 var pagePreview = require('./../../page/pagePreview');
 var cdn = require('../../util/cdn');
+var _ = require('underscore');
 
 function compare(a, b) {
     return b.created - a.created;
 }
+
+var addBlogUrl = function (blogs) {
+    _.each(blogs, function (blog) {
+        if (blog.hasOwnProperty('heightPreviewImage')) {
+            blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
+        }
+    });
+};
 
 var getBlog = function (userId, limit, skip) {
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[written:WRITTEN]->(blog:Blog)")
@@ -20,14 +29,14 @@ var getBlog = function (userId, limit, skip) {
         .with("user, contact, blog, written, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("contact.userId AS userId, contact.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
-        "blog.text AS text, v.profile AS profileVisible, v.image AS imageVisible")
+        "blog.text AS text, blog.heightPreviewImage AS heightPreviewImage, v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .unionAll()
         .match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog)")
         .return("user.userId AS userId, user.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
-        "blog.text AS text, true AS profileVisible, true AS imageVisible")
+        "blog.text AS text, blog.heightPreviewImage AS heightPreviewImage, true AS profileVisible, true AS imageVisible")
         .orderBy("created DESC")
         .skip("{skip}")
         .limit("{limit}")
@@ -97,6 +106,8 @@ var getPinwall = function (userId, request) {
             userInfo.addImageForThumbnail(resp[3]);
             userInfo.addImageForThumbnail(resp[5]);
             pagePreview.addPageUrl(resp[5]);
+            addBlogUrl(resp[3]);
+
             return {
                 pinwall: resp[5],
                 messages: resp[0],

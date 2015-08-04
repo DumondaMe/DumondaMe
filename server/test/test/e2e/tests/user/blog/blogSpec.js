@@ -93,7 +93,8 @@ describe('Integration Tests for adding and removing blog', function () {
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.heightPreviewImage.should.equals(225);
+                res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
+                res.body.heightPreviewImage.should.equals(285);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
@@ -135,6 +136,7 @@ describe('Integration Tests for adding and removing blog', function () {
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
                 res.body.heightPreviewImage.should.equals(600);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
@@ -177,6 +179,7 @@ describe('Integration Tests for adding and removing blog', function () {
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
                 res.body.heightPreviewImage.should.equals(550);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
@@ -218,6 +221,7 @@ describe('Integration Tests for adding and removing blog', function () {
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                should.not.exist(res.body.url);
                 return db.cypher().match("()-[w:WRITTEN]->(b:Blog {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created, w.visible as visible')
                     .end().send();

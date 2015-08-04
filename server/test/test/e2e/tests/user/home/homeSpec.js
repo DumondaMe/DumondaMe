@@ -318,7 +318,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})").end().getCommand());
         commands.push(db.cypher().create("(:Blog {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2'})").end().getCommand());
         commands.push(db.cypher().create("(:Blog {title: 'blogTitle3', text: 'blogText3', created: 503, blogId: '3'})").end().getCommand());
         commands.push(db.cypher().create("(:Blog {title: 'blogTitle4', text: 'blogText4', created: 504, blogId: '4'})").end().getCommand());
@@ -385,7 +385,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[0].title.should.equals('blogTitle5');
                 res.body.blog[0].created.should.equals(505);
                 res.body.blog[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                //res.body.blog[0].url.should.equals(false);
+                should.not.exist(res.body.blog[0].url);
                 res.body.blog[0].text.should.equals('blogText5');
 
                 res.body.blog[1].blogId.should.equals('4');
@@ -393,7 +393,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[1].title.should.equals('blogTitle4');
                 res.body.blog[1].created.should.equals(504);
                 res.body.blog[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
-                //res.body.blog[1].url.should.equals(false);
+                should.not.exist(res.body.blog[1].url);
                 res.body.blog[1].text.should.equals('blogText4');
 
                 res.body.blog[2].blogId.should.equals('2');
@@ -401,7 +401,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[2].title.should.equals('blogTitle2');
                 res.body.blog[2].created.should.equals(502);
                 res.body.blog[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                //res.body.blog[2].url.should.equals(false);
+                should.not.exist(res.body.blog[2].url);
                 res.body.blog[2].text.should.equals('blogText2');
 
                 res.body.blog[3].blogId.should.equals('1');
@@ -409,7 +409,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[3].title.should.equals('blogTitle1');
                 res.body.blog[3].created.should.equals(501);
                 res.body.blog[3].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                //res.body.blog[3].url.should.equals(false);
+                res.body.blog[3].url.should.equals('blog/1/preview.jpg');
+                res.body.blog[3].heightPreviewImage.should.equals(400);
                 res.body.blog[3].text.should.equals('blogText1');
 
             });
