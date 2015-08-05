@@ -816,7 +816,45 @@ h1.website-structure-title {
     #home .home-pinwall-container .home-pinwall-container-column, #home .home-pinwall-container .home-pinwall-blog-container {
       display: inline-block;
       vertical-align: top;
-      width: 440px; }
+      width: 440px;
+      /*.home-pinwall-container-element.ng-enter, .home-pinwall-container-element.ng-move {
+        -webkit-transition:0.5s linear all;
+        -moz-transition:0.5s linear all;
+        -o-transition:0.5s linear all;
+        transition:0.5s linear all;
+        opacity:0;
+      }
+      .home-pinwall-container-element.ng-enter.ng-enter-active,
+      .home-pinwall-container-element.ng-move.ng-move-active {
+        opacity:1;
+      }
+
+      .home-pinwall-container-element.ng-leave {
+        -webkit-animation:0.5s remove_animation;
+        -moz-animation:0.5s remove_animation;
+        -o-animation:0.5s remove_animation;
+        animation:0.5s remove_animation;
+      }
+
+      @keyframes remove_animation {
+        from { opacity:1; }
+        to { opacity:0; }
+      }
+
+      @-webkit-keyframes remove_animation {
+        from { opacity:1; }
+        to { opacity:0; }
+      }
+
+      @-moz-keyframes remove_animation {
+        from { opacity:1; }
+        to { opacity:0; }
+      }
+
+      @-o-keyframes remove_animation {
+        from { opacity:1; }
+        to { opacity:0; }
+      }*/ }
       #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element {
         margin: 0 10px 25px 10px;
         padding: 0 20px;
@@ -923,7 +961,41 @@ h1.website-structure-title {
           #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-image-preview img, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-image-preview img {
             max-width: 380px;
             max-height: 600px; }
-
+      #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-container-element.ng-enter, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-container-element.ng-enter, #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-container-element.ng-move, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-container-element.ng-move {
+        -webkit-transition: 0.5s linear all;
+        -moz-transition: 0.5s linear all;
+        -o-transition: 0.5s linear all;
+        transition: 0.5s linear all;
+        opacity: 0; }
+      #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-container-element.ng-enter.ng-enter-active, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-container-element.ng-enter.ng-enter-active,
+      #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-container-element.ng-move.ng-move-active,
+      #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-container-element.ng-move.ng-move-active {
+        opacity: 1; }
+      #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-container-element.ng-leave, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-container-element.ng-leave {
+        -webkit-animation: 0.7s remove_animation;
+        -moz-animation: 0.7s remove_animation;
+        -o-animation: 0.7s remove_animation;
+        animation: 0.7s remove_animation; }
+@keyframes remove_animation {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+@-webkit-keyframes remove_animation {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+@-moz-keyframes remove_animation {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+@-o-keyframes remove_animation {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
 #home .home-pinwall-container .home-pinwall-blog-container {
   width: 100%;
   margin-top: 20px; }

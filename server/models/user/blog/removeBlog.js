@@ -24,7 +24,7 @@ var removeBlog = function (userId, request, req) {
             .end({userId: userId, blogId: request.blogId})
             .send()
             .then(function () {
-                cdn.deleteFolder('blog/' + request.blogId + '/');
+                return cdn.deleteFolder('blog/' + request.blogId + '/');
             });
     });
 };

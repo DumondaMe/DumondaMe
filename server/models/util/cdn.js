@@ -59,18 +59,22 @@ module.exports = {
                 if (err) {
                     return reject(err);
                 }
-                params = {Bucket: cdnConfig.getConfig().bucket};
-                params.Delete = {};
-                params.Delete.Objects = [];
-                _.each(data.Contents, function (content) {
-                    params.Delete.Objects.push({Key: content.Key});
-                });
-                s3.deleteObjects(params, function (err) {
-                    if (err) {
-                        return reject(err);
-                    }
+                if(data.Contents.length > 0) {
+                    params = {Bucket: cdnConfig.getConfig().bucket};
+                    params.Delete = {};
+                    params.Delete.Objects = [];
+                    _.each(data.Contents, function (content) {
+                        params.Delete.Objects.push({Key: content.Key});
+                    });
+                    s3.deleteObjects(params, function (err) {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve();
+                    });
+                } else {
                     return resolve();
-                });
+                }
             });
         });
     },
