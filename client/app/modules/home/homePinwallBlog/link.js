@@ -43,7 +43,7 @@ module.exports = {
 
             $scope.attachPhoto = function () {
                 $timeout(function () {
-                    element.find('.select-file-dialog').trigger('click');
+                    element.find('#select-file-dialog').trigger('click');
                 }, 0, false);
             };
         };
