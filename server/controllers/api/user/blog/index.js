@@ -3,7 +3,8 @@
 var validation = require('./../../../../lib/jsonValidation');
 var auth = require('./../../../../lib/auth');
 var exceptions = require('./../../../../lib/error/exceptions');
-var blog = require('./../../../../models/user/blog/blog');
+var addBlog = require('./../../../../models/user/blog/addBlog');
+var removeBlog = require('./../../../../models/user/blog/removeBlog');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 
@@ -27,6 +28,14 @@ var schemaRequestBlog = {
                     uniqueItems: true
                 }
             }
+        },
+        removeBlog: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['blogId'],
+            properties: {
+                blogId: {type: 'string', format: 'id', maxLength: 50}
+            }
         }
     }
 };
@@ -47,7 +56,11 @@ module.exports = function (router) {
                 var path = getFilePath(req);
                 if (request.hasOwnProperty('addBlog')) {
                     logger.info('User adds a new blog', req);
-                    return blog.addBlog(req.user.id, request.addBlog, path, req);
+                    return addBlog.addBlog(req.user.id, request.addBlog, path, req);
+                }
+                if (request.hasOwnProperty('removeBlog')) {
+                    logger.info('User removes blog with id ' + request.removeBlog.blogId, req);
+                    return removeBlog.removeBlog(req.user.id, request.removeBlog, req);
                 }
                 return exceptions.getInvalidOperation("Unknown request type", logger, req);
             }).then(function (page) {

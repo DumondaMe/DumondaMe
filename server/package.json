@@ -28,7 +28,7 @@
     "biguint-format": "1.0.0",
     "flake-idgen": "1.0.0",
     "csurf": "1.7.0",
-    "aws-sdk": "2.1.17",
+    "aws-sdk": "2.1.43",
     "tmp": "0.0.25",
     "connect-redis": "2.2.0"
   },

@@ -30,6 +30,16 @@ tv4.addFormat('passwordString', function (data) {
     return 'Password has not type string';
 });
 
+tv4.addFormat('id', function (data) {
+    if (typeof data === 'string' && /([^\s])/.test(data)) {
+        if (/^[a-zA-Z0-9]+$/.test(data)) {
+            return null;
+        }
+        return 'String contains invalid signs';
+    }
+    return 'String is empty';
+});
+
 var validate = function (req, data, requestSchema, logger) {
     var errors = tv4.validateMultiple(data, requestSchema),
         invalidJsonException;

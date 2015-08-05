@@ -1,7 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var blogImarg = require('./blogImages');
+var blogImage = require('./blogImages');
 var _ = require('underscore');
 var Promise = require('bluebird').Promise;
 var time = require('./../../../lib/time');
@@ -57,7 +57,7 @@ var security = function (userId, visibility, req) {
 
 var uploadFile = function (filePath, blogId) {
     if (_.isString(filePath)) {
-        return blogImarg.uploadImages(filePath, blogId);
+        return blogImage.uploadImages(filePath, blogId);
     }
     return Promise.resolve(null);
 };

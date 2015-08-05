@@ -10,7 +10,7 @@ var moment = require('moment');
 var _ = require('underscore');
 var stubCDN = require('../../util/stubCDN');
 
-describe('Integration Tests for adding and removing blog', function () {
+describe('Integration Tests for adding a blog', function () {
 
     var requestAgent;
 
