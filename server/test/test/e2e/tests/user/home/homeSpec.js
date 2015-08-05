@@ -387,6 +387,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.blog[0].url);
                 res.body.blog[0].text.should.equals('blogText5');
+                res.body.blog[0].isAdmin.should.equals(true);
 
                 res.body.blog[1].blogId.should.equals('4');
                 res.body.blog[1].name.should.equals('user Meier3');
@@ -395,6 +396,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 should.not.exist(res.body.blog[1].url);
                 res.body.blog[1].text.should.equals('blogText4');
+                res.body.blog[1].isAdmin.should.equals(false);
 
                 res.body.blog[2].blogId.should.equals('2');
                 res.body.blog[2].name.should.equals('user Meier2');
@@ -403,6 +405,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 should.not.exist(res.body.blog[2].url);
                 res.body.blog[2].text.should.equals('blogText2');
+                res.body.blog[2].isAdmin.should.equals(false);
 
                 res.body.blog[3].blogId.should.equals('1');
                 res.body.blog[3].name.should.equals('user Meier2');
@@ -412,6 +415,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.blog[3].url.should.equals('blog/1/preview.jpg');
                 res.body.blog[3].heightPreviewImage.should.equals(400);
                 res.body.blog[3].text.should.equals('blogText1');
+                res.body.blog[3].isAdmin.should.equals(false);
 
             });
     });
