@@ -1,13 +1,8 @@
 'use strict';
 
 var users = require('../../util/user');
-var generator = require('../../util/generator');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
-var should = require('chai').should();
-var sinon = require('sinon');
-var moment = require('moment');
-var _ = require('underscore');
 var stubCDN = require('../../util/stubCDN');
 
 describe('Integration Tests for removing a blog', function () {
@@ -49,10 +44,8 @@ describe('Integration Tests for removing a blog', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.post('/api/user/blog', {
-                    removeBlog: {
-                        blogId: '1'
-                    }
+                return requestHandler.del('/api/user/blog', {
+                    blogId: '1'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -83,10 +76,8 @@ describe('Integration Tests for removing a blog', function () {
             }).
             then(function (agent) {
                 requestAgent = agent;
-                return requestHandler.post('/api/user/blog', {
-                    removeBlog: {
-                        blogId: '1'
-                    }
+                return requestHandler.del('/api/user/blog', {
+                    blogId: '1'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(400);

@@ -28,15 +28,17 @@ var schemaRequestBlog = {
                     uniqueItems: true
                 }
             }
-        },
-        removeBlog: {
-            type: 'object',
-            additionalProperties: false,
-            required: ['blogId'],
-            properties: {
-                blogId: {type: 'string', format: 'id', maxLength: 50}
-            }
         }
+    }
+};
+
+var schemaDeleteBlog = {
+    name: 'deleteBlog',
+    type: 'object',
+    additionalProperties: false,
+    required: ['blogId'],
+    properties: {
+        blogId: {type: 'string', format: 'id', maxLength: 50}
     }
 };
 
@@ -58,13 +60,19 @@ module.exports = function (router) {
                     logger.info('User adds a new blog', req);
                     return addBlog.addBlog(req.user.id, request.addBlog, path, req);
                 }
-                if (request.hasOwnProperty('removeBlog')) {
-                    logger.info('User removes blog with id ' + request.removeBlog.blogId, req);
-                    return removeBlog.removeBlog(req.user.id, request.removeBlog, req);
-                }
                 return exceptions.getInvalidOperation("Unknown request type", logger, req);
             }).then(function (page) {
                 res.status(200).json(page);
+            });
+        });
+    });
+
+    router.delete('/', auth.isAuthenticated(), function (req, res) {
+        return controllerErrors('Error occurs while deleting a blog', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteBlog, logger).then(function (request) {
+                return removeBlog.removeBlog(req.user.id, request, req);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });
