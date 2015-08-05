@@ -1,5 +1,8 @@
 <div ng-controller="HomePinwallElementBlogCtrl">
-    <div class="pinwall-element-description"> Blog</div>
+    <div class="pinwall-element-description"> Blog
+        <div class="options" ng-show="element.isAdmin" data-toggle="dropdown" aria-expanded="false" data-placement="bottom-right"
+             bs-dropdown="user.actions"><img src="app/img/settings.png"></div>
+    </div>
     <img class="pinwall-element-profile-image img-circle" ng-src="{{element.profileUrl}}">
 
     <div class="pinwall-element-profile-description">

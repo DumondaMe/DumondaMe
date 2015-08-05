@@ -83,6 +83,7 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
             fileUpload.uploadFileAndJson($scope.imageForUploadPreviewData, getParameters(), 'api/user/blog').
                 success(function (resp) {
                     $scope.user.uploadBlogIsRunning = false;
+                    resp.isAdmin = true;
                     $scope.blogAdded(resp);
                     $scope.abort();
                 }).

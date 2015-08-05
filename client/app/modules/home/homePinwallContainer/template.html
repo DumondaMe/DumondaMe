@@ -7,17 +7,17 @@
         <div class="home-pinwall-container-column">
             <ely-home-pinwall-blog show-expand="false" is-expand="isExpanded"></ely-home-pinwall-blog>
             <div ng-repeat="pinwallElement in pinwall1Elements">
-                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+                <ely-home-pinwall-element element="pinwallElement" element-removed="elementRemoved"></ely-home-pinwall-element>
             </div>
         </div>
         <div class="home-pinwall-container-column" ng-if="numberOfRows > 1">
             <div ng-repeat="pinwallElement in pinwall2Elements">
-                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+                <ely-home-pinwall-element element="pinwallElement" element-removed="elementRemoved"></ely-home-pinwall-element>
             </div>
         </div>
         <div class="home-pinwall-container-column" ng-if="numberOfRows > 2">
             <div ng-repeat="pinwallElement in pinwall3Elements">
-                <ely-home-pinwall-element element="pinwallElement"></ely-home-pinwall-element>
+                <ely-home-pinwall-element element="pinwallElement" element-removed="elementRemoved"></ely-home-pinwall-element>
             </div>
         </div>
     </div>

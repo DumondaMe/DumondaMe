@@ -6,7 +6,8 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                element: '='
+                element: '=',
+                elementRemoved: '='
             },
             templateUrl: 'app/modules/home/homePinwallElement/template.html'
         };

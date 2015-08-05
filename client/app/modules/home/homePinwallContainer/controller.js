@@ -199,6 +199,25 @@ module.exports = {
                 pinwall.unshift(blog);
                 updatePinwall($scope);
             };
+
+            $scope.elementRemoved = function (element) {
+                function removeElement(container, elementToRemove) {
+                    var indexToRemove = null;
+                    angular.forEach(container, function (containerElement, key) {
+                        if (angular.equals(containerElement, elementToRemove)) {
+                            indexToRemove = key;
+                        }
+                    });
+                    if (indexToRemove !== null) {
+                        container.splice(indexToRemove, 1);
+                    }
+                }
+
+                removeElement(pinwall, element);
+                removeElement($scope.pinwall1Elements, element);
+                removeElement($scope.pinwall2Elements, element);
+                removeElement($scope.pinwall3Elements, element);
+            };
         }];
     }
 };
