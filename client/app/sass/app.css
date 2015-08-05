@@ -393,25 +393,18 @@
 #modal-yes-no-dialog {
   width: 300px; }
 
-#modal-waiting-screen {
-  width: 300px;
-  height: 100px; }
-  #modal-waiting-screen .modal-content {
-    height: 100px; }
-    #modal-waiting-screen .modal-content .description {
-      display: inline-block;
-      vertical-align: top;
-      padding-top: 38px;
-      font-size: 16px;
-      font-weight: 300;
-      margin-left: 15px;
-      height: 100%; }
-    #modal-waiting-screen .modal-content .waiting-spin {
-      margin-left: 20px;
-      width: 30px;
-      height: 100%;
-      position: relative;
-      display: inline-block; }
+.cropArea-orientation {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px; }
+  .cropArea-orientation .cropArea-orientation-img {
+    padding: 6px; }
+    .cropArea-orientation .cropArea-orientation-img img {
+      width: 24px;
+      height: 24px; }
+
+#modal-preview-file {
+  width: 580px; }
 
 .cropArea-orientation {
   display: inline-block;
