@@ -299,4 +299,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div class=\"tooltip in ely-tooltip-error\" ng-show=title><div class=tooltip-arrow></div><div class=tooltip-inner ng-bind=title></div></div>"
   );
 
+
+  $templateCache.put('app/modules/util/waitingScreen/waitingScreen.html',
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-waiting-screen class=modal-dialog><div class=modal-content><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div></div>"
+  );
+
 }]);

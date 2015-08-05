@@ -14,29 +14,30 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog',  function ($scope, dateFormatter, PromiseModal, Blog) {
+module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
+    function ($scope, dateFormatter, PromiseModal, Blog, WaitingScreen) {
 
-    $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-    setAdminActions($scope);
+        setAdminActions($scope);
 
-    $scope.removeBlog = function (blogId) {
-        PromiseModal.getModal({
-            title: 'Blog l\u00f6schen',
-            content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
-            templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-            placement: 'center'
-        }).show().then(function () {
-            Blog.delete({
-                blogId: blogId
-            }, function () {
-                $scope.elementRemoved($scope.element);
-                /*delete page.recommendation.user;
-                page.recommendation.summary.contact = resp.recommendation.contact;
-                page.recommendation.summary.all = resp.recommendation.all;
-                $scope.$emit('page.detail.edit');*/
+        $scope.removeBlog = function (blogId) {
+            PromiseModal.getModal({
+                title: 'Blog l\u00f6schen',
+                content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
+                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
+                placement: 'center'
+            }).show().then(function () {
+                var finished = WaitingScreen.openScreen('Blog wird gel\u00f6scht...');
+                Blog.delete({
+                    blogId: blogId
+                }, function () {
+                    $scope.elementRemoved($scope.element);
+                    finished();
+                }, function () {
+                    finished();
+                });
             });
-        });
-    };
-}];
+        };
+    }];
 

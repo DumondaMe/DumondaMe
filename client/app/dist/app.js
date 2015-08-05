@@ -300,6 +300,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
     "<div class=\"tooltip in ely-tooltip-error\" ng-show=title><div class=tooltip-arrow></div><div class=tooltip-inner ng-bind=title></div></div>"
   );
 
+
+  $templateCache.put('app/modules/util/waitingScreen/waitingScreen.html',
+    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-waiting-screen class=modal-dialog><div class=modal-content><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div></div>"
+  );
+
 }]);
 
 },{}],2:[function(require,module,exports){
@@ -916,7 +921,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":172,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":81,"./navigation":95,"./settings":147,"./util":169,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
+},{"../../package.json":173,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":81,"./navigation":95,"./settings":147,"./util":169,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
@@ -2955,31 +2960,32 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog',  function ($scope, dateFormatter, PromiseModal, Blog) {
+module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
+    function ($scope, dateFormatter, PromiseModal, Blog, WaitingScreen) {
 
-    $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-    setAdminActions($scope);
+        setAdminActions($scope);
 
-    $scope.removeBlog = function (blogId) {
-        PromiseModal.getModal({
-            title: 'Blog l\u00f6schen',
-            content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
-            templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-            placement: 'center'
-        }).show().then(function () {
-            Blog.delete({
-                blogId: blogId
-            }, function () {
-                $scope.elementRemoved($scope.element);
-                /*delete page.recommendation.user;
-                page.recommendation.summary.contact = resp.recommendation.contact;
-                page.recommendation.summary.all = resp.recommendation.all;
-                $scope.$emit('page.detail.edit');*/
+        $scope.removeBlog = function (blogId) {
+            PromiseModal.getModal({
+                title: 'Blog l\u00f6schen',
+                content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
+                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
+                placement: 'center'
+            }).show().then(function () {
+                var finished = WaitingScreen.openScreen('Blog wird gel\u00f6scht...');
+                Blog.delete({
+                    blogId: blogId
+                }, function () {
+                    $scope.elementRemoved($scope.element);
+                    finished();
+                }, function () {
+                    finished();
+                });
             });
-        });
-    };
-}];
+        };
+    }];
 
 
 },{}],76:[function(require,module,exports){
@@ -5687,7 +5693,8 @@ var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
-},{"./moment":170,"./promiseModal":171,"angular":4}],170:[function(require,module,exports){
+app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
+},{"./moment":170,"./promiseModal":171,"./waitingScreen/waitingScreen":172,"angular":4}],170:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5733,6 +5740,31 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
 }];
 
 },{}],172:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
+
+    this.openScreen = function (loadingText) {
+        var confirm, modalParams = {}, finished;
+
+        modalParams.scope = $rootScope.$new(false);
+        modalParams.show = true;
+        modalParams.html = true;
+        modalParams.templateUrl = 'app/modules/util/waitingScreen/waitingScreen.html';
+        modalParams.placement = 'center';
+        modalParams.backdrop = 'static';
+        modalParams.title = loadingText;
+        confirm = $modal(modalParams);
+
+        finished = function () {
+            confirm.hide();
+        };
+
+        return finished;
+    };
+}];
+
+},{}],173:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5786,4 +5818,4 @@ module.exports={
   }
 }
 
-},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,97,98,99,96,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,126,127,128,122,123,124,125,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171]);
+},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,97,98,99,96,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,126,127,128,122,123,124,125,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172]);

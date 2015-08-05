@@ -155,44 +155,6 @@
       }
       //Animation
       @include ng-repeat(home-pinwall-container-element);
-      /*.home-pinwall-container-element.ng-enter, .home-pinwall-container-element.ng-move {
-        -webkit-transition:0.5s linear all;
-        -moz-transition:0.5s linear all;
-        -o-transition:0.5s linear all;
-        transition:0.5s linear all;
-        opacity:0;
-      }
-      .home-pinwall-container-element.ng-enter.ng-enter-active,
-      .home-pinwall-container-element.ng-move.ng-move-active {
-        opacity:1;
-      }
-
-      .home-pinwall-container-element.ng-leave {
-        -webkit-animation:0.5s remove_animation;
-        -moz-animation:0.5s remove_animation;
-        -o-animation:0.5s remove_animation;
-        animation:0.5s remove_animation;
-      }
-
-      @keyframes remove_animation {
-        from { opacity:1; }
-        to { opacity:0; }
-      }
-
-      @-webkit-keyframes remove_animation {
-        from { opacity:1; }
-        to { opacity:0; }
-      }
-
-      @-moz-keyframes remove_animation {
-        from { opacity:1; }
-        to { opacity:0; }
-      }
-
-      @-o-keyframes remove_animation {
-        from { opacity:1; }
-        to { opacity:0; }
-      }*/
     }
   }
 }
