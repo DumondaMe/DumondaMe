@@ -38,15 +38,15 @@
                     </div>
                     <ely-form-text-input label="Vorname" input-name="inputForename" input-placeholder="Vorname"
                                          profile-form="profileForm" submit-model="userDataToChange.forename"
-                                         max-length="30" required="true"></ely-form-text-input>
+                                         max-length="30" ely-required="true"></ely-form-text-input>
 
                     <ely-form-text-input label="Nachname" input-name="inputSurename" input-placeholder="Nachname"
                                          profile-form="profileForm" submit-model="userDataToChange.surname"
-                                         max-length="50" required="true"></ely-form-text-input>
+                                         max-length="50" ely-required="true"></ely-form-text-input>
 
                     <ely-form-text-input label="Geburtstag" input-name="inputBirthday" input-placeholder="z.B {{getDateExample()}}"
                                          profile-form="profileForm" submit-model="userDataToChange.birthday"
-                                         required="true"
+                                         ely-required="true"
                                          custom-error-description="Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})">
 
                     </ely-form-text-input>

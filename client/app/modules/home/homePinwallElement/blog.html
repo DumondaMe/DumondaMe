@@ -9,10 +9,11 @@
         <div class="pinwall-element-profile-name">{{element.name}}</div>
         <div class="pinwall-element-time">{{getFormattedDate(element.created, 'LLL')}}</div>
     </div>
-    <div class="blog-text">
+    <div class="blog-text" ng-click="user.showDetail = true">
         <ely-expand-text description="{{element.text}}"></ely-expand-text>
     </div>
-    <div class="blog-image-preview" ng-if="element.hasOwnProperty('url')">
+    <div class="blog-image-preview" ng-if="element.hasOwnProperty('url')" ng-click="user.showDetail = true">
         <img ng-src="{{element.url}}">
     </div>
+    <div ng-include="'app/modules/home/homePinwallElement/blogDetail/blogDetail.html'" ng-if="user.showDetail"></div>
 </div>

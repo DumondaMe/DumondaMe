@@ -21,6 +21,8 @@ module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScr
 
         setAdminActions($scope);
 
+        $scope.user.showDetail = false;
+
         $scope.removeBlog = function (blogId) {
             PromiseModal.getModal({
                 title: 'Blog l\u00f6schen',

@@ -1,13 +1,13 @@
 <div class="form-group ely-form-text-input" ng-class="{'has-error': showError && (visited || submitFailed)}">
     <label for="{{inputName}}" class="col-sm-4 control-label" ng-hide="showWithoutLabel">{{label}}
-        <em ng-show="required !== 'true'">(optional)</em>
+        <em ng-show="elyRequired !== 'true'">(optional)</em>
     </label>
 
     <div ng-class="{'col-sm-8': !showWithoutLabel}">
         <input name="{{inputName}}" ng-model="submitModel"
                class="form-control" id="{{inputName}}"
                placeholder="{{inputPlaceholder}}" ng-blur="visited = true"
-               ng-maxlength="{{maxLength}}" ng-required="{{required === 'true'}}">
+               ng-maxlength="{{maxLength}}" ng-required="{{elyRequired === 'true'}}">
 
         <div class="ely-input-error-wrapper">
             <div class="ely-input-image-error" ng-show="showError && (visited || submitFailed)"

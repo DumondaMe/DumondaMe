@@ -16,7 +16,7 @@ module.exports = {
                 submitModel: '=',
                 maxLength: '@',
                 minLength: '@',
-                required: '@',
+                elyRequired: '@',
                 customErrorDescription: '@'
             },
             templateUrl: 'app/modules/directives/formTextInput/template.html',
