@@ -81,6 +81,7 @@ var addBlog = function (userId, request, filePath, req) {
             }).then(function (resp) {
                 if(resp[0].hasOwnProperty('heightPreviewImage')) {
                     resp[0].url = cdn.getUrl('blog/' + blogId + '/preview.jpg');
+                    resp[0].urlFull = cdn.getUrl('blog/' + blogId + '/normal.jpg');
                 }
                 resp[0].profileUrl = cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg');
                 return resp[0];

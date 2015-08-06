@@ -94,6 +94,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
+                res.body.urlFull.should.equals('blog/' + res.body.blogId + '/normal.jpg');
                 res.body.heightPreviewImage.should.equals(285);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
@@ -137,6 +138,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
+                res.body.urlFull.should.equals('blog/' + res.body.blogId + '/normal.jpg');
                 res.body.heightPreviewImage.should.equals(1000);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
@@ -179,6 +181,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.url);
+                should.not.exist(res.body.urlFull);
                 return db.cypher().match("()-[w:WRITTEN]->(b:Blog {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created, w.visible as visible')
                     .end().send();
