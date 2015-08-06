@@ -14,14 +14,12 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
-    function ($scope, dateFormatter, PromiseModal, Blog, WaitingScreen) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         setAdminActions($scope);
-
-        $scope.user.showDetail = false;
 
         $scope.removeBlog = function (blogId) {
             PromiseModal.getModal({
@@ -41,5 +39,20 @@ module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScr
                 });
             });
         };
+
+        $scope.openFullScreenDetail = function () {
+            $rootScope.fullScreen.data = $scope.element;
+            $rootScope.fullScreen.scrollY = $window.scrollY;
+            $rootScope.fullScreen.template = 'app/modules/home/homePinwallElement/blogDetail/blogDetail.html';
+            $rootScope.fullScreen.show = true;
+        };
+
+        $rootScope.$watch('fullScreen.show', function (newShow) {
+            if (newShow === false && $rootScope.fullScreen && $rootScope.fullScreen.scrollY > 0) {
+                $timeout(function () {
+                    $window.scrollTo(0, $rootScope.fullScreen.scrollY);
+                }, 0, false);
+            }
+        });
     }];
 

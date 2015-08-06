@@ -144,9 +144,11 @@
         .blog-text {
           margin-top: 10px;
           margin-bottom: 10px;
+          cursor: pointer;
         }
         .blog-image-preview {
           margin-bottom: 20px;
+          cursor: pointer;
           img {
             max-width: 380px;
             max-height: 600px;

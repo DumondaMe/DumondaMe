@@ -11,7 +11,6 @@
 @import 'directives/_paginationNextPrevious';
 @import 'directives/_sendButton';
 @import 'directives/_starRating';
-
 @import 'elyoos/_common';
 @import 'elyoos/_contactContacting';
 @import 'elyoos/_contactDetails';
@@ -22,6 +21,7 @@
 @import 'elyoos/_header';
 @import 'elyoos/_headerProfilePreview';
 @import 'elyoos/_home';
+@import 'elyoos/_homeBlogDetail';
 @import 'elyoos/_homeWriteBlog';
 @import 'elyoos/_leftColNav';
 @import 'elyoos/_messages';
@@ -65,6 +65,9 @@ body {
   #content-container {
     display: block;
     height: 100%;
+  }
+  #content-container.full-screen {
+    overflow-y: hidden;
   }
 }
 

@@ -79,7 +79,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             html: true
         });
 
-    }]).run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
+    }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (!Auth.authorize(toState.isPublic)) {
@@ -91,4 +91,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         }
     });
+
+    //Settings for full screen detail view
+    $rootScope.fullScreen = {
+        show: false,
+        template: ''
+    };
 }]);

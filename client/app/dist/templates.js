@@ -102,12 +102,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blog.html',
-    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=\"user.showDetail = true\"><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=\"user.showDetail = true\"><img ng-src={{element.url}}></div><div ng-include=\"'app/modules/home/homePinwallElement/blogDetail/blogDetail.html'\" ng-if=user.showDetail></div></div>"
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=openFullScreenDetail()><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{element.url}}></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blogDetail/blogDetail.html',
-    "<div ng-controller=HomePinwallElementBlogDetailCtrl class=blog-detail-container></div>"
+    "<div ng-controller=HomePinwallElementBlogDetailCtrl id=blog-detail-container><div class=image-container><div class=image-inner-container><img ng-src={{fullScreen.data.urlFull}}></div></div><div class=info-container><div class=close-full-screen ng-click=\"fullScreen.show = false\"><div></div></div></div></div>"
   );
 
 

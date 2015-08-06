@@ -103,12 +103,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blog.html',
-    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=\"user.showDetail = true\"><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=\"user.showDetail = true\"><img ng-src={{element.url}}></div><div ng-include=\"'app/modules/home/homePinwallElement/blogDetail/blogDetail.html'\" ng-if=user.showDetail></div></div>"
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=openFullScreenDetail()><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{element.url}}></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blogDetail/blogDetail.html',
-    "<div ng-controller=HomePinwallElementBlogDetailCtrl class=blog-detail-container></div>"
+    "<div ng-controller=HomePinwallElementBlogDetailCtrl id=blog-detail-container><div class=image-container><div class=image-inner-container><img ng-src={{fullScreen.data.urlFull}}></div></div><div class=info-container><div class=close-full-screen ng-click=\"fullScreen.show = false\"><div></div></div></div></div>"
   );
 
 
@@ -913,7 +913,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             html: true
         });
 
-    }]).run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
+    }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (!Auth.authorize(toState.isPublic)) {
@@ -925,6 +925,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         }
     });
+
+    //Settings for full screen detail view
+    $rootScope.fullScreen = {
+        show: false,
+        template: ''
+    };
 }]);
 },{"../../package.json":174,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":82,"./navigation":96,"./settings":148,"./util":170,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
 'use strict';
@@ -2965,14 +2971,12 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
-    function ($scope, dateFormatter, PromiseModal, Blog, WaitingScreen) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         setAdminActions($scope);
-
-        $scope.user.showDetail = false;
 
         $scope.removeBlog = function (blogId) {
             PromiseModal.getModal({
@@ -2992,51 +2996,30 @@ module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScr
                 });
             });
         };
+
+        $scope.openFullScreenDetail = function () {
+            $rootScope.fullScreen.data = $scope.element;
+            $rootScope.fullScreen.scrollY = $window.scrollY;
+            $rootScope.fullScreen.template = 'app/modules/home/homePinwallElement/blogDetail/blogDetail.html';
+            $rootScope.fullScreen.show = true;
+        };
+
+        $rootScope.$watch('fullScreen.show', function (newShow) {
+            if (newShow === false && $rootScope.fullScreen && $rootScope.fullScreen.scrollY > 0) {
+                $timeout(function () {
+                    $window.scrollTo(0, $rootScope.fullScreen.scrollY);
+                }, 0, false);
+            }
+        });
     }];
 
 
 },{}],76:[function(require,module,exports){
 'use strict';
 
-var setAdminActions = function ($scope) {
-    $scope.user = {};
-    $scope.user.actions = [
-        {
-            text: "L\u00f6schen",
-            click: "removeBlog(element.blogId)"
-        },
-        {
-            text: "Bearbeiten",
-            click: "editBlog($scope)"
-        }
-    ];
-};
+module.exports = ['$scope', '$rootScope',
+    function ($scope, $rootScope) {
 
-module.exports = ['$scope', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
-    function ($scope, dateFormatter, PromiseModal, Blog, WaitingScreen) {
-
-        $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
-
-        setAdminActions($scope);
-
-        $scope.removeBlog = function (blogId) {
-            PromiseModal.getModal({
-                title: 'Blog l\u00f6schen',
-                content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
-                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
-                var finished = WaitingScreen.openScreen('Blog wird gel\u00f6scht...');
-                Blog.delete({
-                    blogId: blogId
-                }, function () {
-                    $scope.elementRemoved($scope.element);
-                    finished();
-                }, function () {
-                    finished();
-                });
-            });
-        };
     }];
 
 
