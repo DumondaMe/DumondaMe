@@ -64,8 +64,8 @@
         "name": "path:./lib/redisSession",
         "arguments": [
           {
-            "key": "abc123",
-            "secret": "keyboard cat",
+            "key": "sessionElyoos",
+            "secret": "23564153589Debd8",
             "cookie": {
               "path": "/",
               "httpOnly": true,

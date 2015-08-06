@@ -1,10 +1,8 @@
 'use strict';
 
-module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
+module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {
 
-    var currentUser = $cookieStore.get('user') || {username: undefined};
-
-    $cookieStore.remove('user');
+    var currentUser = $cookies.getObject('user') || {username: undefined};
 
     function changeUser(user) {
         angular.extend(currentUser, user);
@@ -30,6 +28,7 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
             changeUser({
                 username: undefined
             });
+            $cookies.remove('user');
             deferred.resolve();
         }).error(deferred.reject);
         return deferred.promise;

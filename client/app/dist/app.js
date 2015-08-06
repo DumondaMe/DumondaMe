@@ -915,10 +915,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
         if (!Auth.authorize(toState.isPublic)) {
             event.preventDefault();
             $state.go('login');
+        } else if ($rootScope.fullScreen.show) {
+            event.preventDefault();
+            $rootScope.fullScreen.show = false;
+            $state.go(fromState);
         } else if (!toState.isPublic) {
             if ($rootScope.isLoggedIn) {
                 $rootScope.isLoggedIn();
@@ -935,11 +939,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 },{"../../package.json":174,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":82,"./navigation":96,"./settings":148,"./util":170,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, $q) {
+module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {
 
-    var currentUser = $cookieStore.get('user') || {username: undefined};
-
-    $cookieStore.remove('user');
+    var currentUser = $cookies.getObject('user') || {username: undefined};
 
     function changeUser(user) {
         angular.extend(currentUser, user);
@@ -965,6 +967,7 @@ module.exports = ['$http', '$cookieStore', '$q', function ($http, $cookieStore, 
             changeUser({
                 username: undefined
             });
+            $cookies.remove('user');
             deferred.resolve();
         }).error(deferred.reject);
         return deferred.promise;
@@ -3020,6 +3023,12 @@ module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter'
 module.exports = ['$scope', '$rootScope',
     function ($scope, $rootScope) {
 
+        /*$rootScope.$on('$stateChangeStart', function (event) {
+            if ($rootScope.fullScreen.show) {
+                event.preventDefault();
+                $rootScope.fullScreen.show = false;
+            }
+        });*/
     }];
 
 

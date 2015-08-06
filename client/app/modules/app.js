@@ -81,10 +81,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
         if (!Auth.authorize(toState.isPublic)) {
             event.preventDefault();
             $state.go('login');
+        } else if ($rootScope.fullScreen.show) {
+            event.preventDefault();
+            $rootScope.fullScreen.show = false;
+            $state.go(fromState);
         } else if (!toState.isPublic) {
             if ($rootScope.isLoggedIn) {
                 $rootScope.isLoggedIn();
