@@ -991,15 +991,14 @@ h1.website-structure-title {
   z-index: 1001; }
   #blog-detail-container .image-container {
     position: fixed;
-    display: table;
     width: 60%;
     height: 100%;
     padding-top: 50px;
     padding-bottom: 50px; }
     #blog-detail-container .image-container .image-inner-container {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle; }
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%; }
       #blog-detail-container .image-container .image-inner-container img {
         max-width: 100%;
         max-height: 100%; }
@@ -1008,18 +1007,59 @@ h1.website-structure-title {
     right: 0;
     top: 0;
     width: 40%;
+    min-width: 350px;
     height: 100%;
-    background-color: #FFFFFF; }
+    background-color: #FFFFFF;
+    padding: 0 50px 20px 30px; }
     #blog-detail-container .info-container .close-full-screen {
       position: absolute;
       cursor: pointer;
-      right: 10px;
-      top: 20px;
+      right: 25px;
+      top: 27px;
       height: 16px;
       width: 16px;
+      z-index: 20;
       background: #ffffff url("../img/close.png") no-repeat right top; }
       #blog-detail-container .info-container .close-full-screen:hover {
         background: #ffffff url("../img/closeHover.png") no-repeat right top; }
+    #blog-detail-container .info-container .header {
+      position: relative;
+      background-color: #ffffff;
+      z-index: 10;
+      padding-top: 20px;
+      padding-bottom: 10px; }
+      #blog-detail-container .info-container .header .image-blogger {
+        float: left;
+        width: 46px;
+        height: 46px;
+        vertical-align: top; }
+      #blog-detail-container .info-container .header .profile-description {
+        margin-left: 60px;
+        margin-top: 4px;
+        display: block;
+        width: 100%;
+        vertical-align: top; }
+        #blog-detail-container .info-container .header .profile-description .user-name {
+          font-size: 16px;
+          padding-right: 60px;
+          color: #009688;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+        #blog-detail-container .info-container .header .profile-description .timestamp {
+          color: #999;
+          font-size: 12px; }
+    #blog-detail-container .info-container .blog-text {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      padding-top: 90px;
+      padding-right: 40px;
+      padding-bottom: 20px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 300;
+      overflow: auto; }
 
 #home .home-pinwall-container .home-pinwall-blog-container {
   width: 100%;

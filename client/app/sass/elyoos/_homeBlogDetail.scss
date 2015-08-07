@@ -9,16 +9,15 @@
 
   .image-container {
     position: fixed;
-    display: table;
     width: 60%;
     height: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
 
     .image-inner-container {
-      display: table-cell;
-      text-align: center;
+      display: inline-block;
       vertical-align: middle;
+      height: 100%;
       img {
         max-width: 100%;
         max-height: 100%;
@@ -30,20 +29,71 @@
     right: 0;
     top: 0;
     width: 40%;
+    min-width: 350px;
     height: 100%;
     background-color: #FFFFFF;
+    padding: 0 50px 20px 30px;
 
     .close-full-screen {
       position: absolute;
       cursor: pointer;
-      right: 10px;
-      top: 20px;
+      right: 25px;
+      top: 27px;
       height: 16px;
       width: 16px;
+      z-index: 20;
       background: #ffffff url("../img/close.png") no-repeat right top;
       &:hover {
         background: #ffffff url("../img/closeHover.png") no-repeat right top;
       }
+    }
+
+    .header {
+      position: relative;
+      background-color: #ffffff;
+      z-index: 10;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      .image-blogger {
+        float: left;
+        width: 46px;
+        height: 46px;
+        vertical-align: top;
+      }
+
+      .profile-description {
+        margin-left: 60px;
+        margin-top: 4px;
+        display: block;
+        width: 100%;
+        vertical-align: top;
+
+        .user-name {
+          font-size: 16px;
+          padding-right: 60px;
+          color: $primary-color;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        .timestamp {
+          color: #999;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .blog-text {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      padding-top: 90px;
+      padding-right: 40px;
+      padding-bottom: 20px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 300;
+      overflow: auto;
     }
   }
 }

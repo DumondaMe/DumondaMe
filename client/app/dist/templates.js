@@ -107,7 +107,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blogDetail/blogDetail.html',
-    "<div ng-controller=HomePinwallElementBlogDetailCtrl id=blog-detail-container><div class=image-container><div class=image-inner-container><img ng-src={{fullScreen.data.urlFull}}></div></div><div class=info-container><div class=close-full-screen ng-click=\"fullScreen.show = false\"><div></div></div></div></div>"
+    "<div ng-controller=HomePinwallElementBlogDetailCtrl id=blog-detail-container><div class=image-container><div class=image-inner-container><img ng-src={{fullScreen.data.urlFull}}></div></div><div class=info-container><div class=blog-text>{{fullScreen.data.text}}</div><div class=header><img ng-src={{fullScreen.data.profileUrl}} class=\"image-blogger img-circle\"><div class=profile-description><div class=user-name>{{fullScreen.data.name}}</div><div class=timestamp>{{getFormattedDate(fullScreen.data.created, 'LLL')}}</div></div></div><div class=close-full-screen ng-click=\"fullScreen.show = false\"><div></div></div></div></div>"
   );
 
 

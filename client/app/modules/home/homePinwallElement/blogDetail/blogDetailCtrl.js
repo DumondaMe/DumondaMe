@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$rootScope',
-    function ($scope, $rootScope) {
-
+module.exports = ['$scope', 'dateFormatter',
+    function ($scope, dateFormatter) {
+        $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
     }];
 

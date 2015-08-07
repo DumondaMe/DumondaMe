@@ -23,10 +23,16 @@ var uploadImages = function (originalFilePath, blogId) {
         })
         .then(function () {
             if (previewHeight === 1000) {
-                return gm.gm(originalFilePath).resize(null, 1000).quality(94)
+                return gm.gm(originalFilePath).resize(null, 1000).quality(86)
+                    .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
+            } else if(sizeOriginal.width > 600) {
+                return gm.gm(originalFilePath).resize(600).quality(86)
+                    .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
+            } else if(sizeOriginal.width > 380) {
+                return gm.gm(originalFilePath).resize(sizeOriginal.width).quality(86)
                     .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
             }
-            return gm.gm(originalFilePath).resize(380).quality(94).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
+            return gm.gm(originalFilePath).resize(380).quality(86).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
         })
         .then(function () {
             return cdn.uploadFile(preview.name, 'blog/' + blogId + '/preview.jpg');
