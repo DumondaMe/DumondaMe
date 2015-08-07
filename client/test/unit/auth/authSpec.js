@@ -3,7 +3,7 @@
 var Auth = require('../../../app/modules/auth/auth')[3];
 
 describe('Test of Auth Services', function () {
-    var httpBackend, http, cookieStore, q, testee;
+    var httpBackend, http, cookies, q, testee;
 
     function MockUser(email) {
         this.email = email;
@@ -12,16 +12,16 @@ describe('Test of Auth Services', function () {
     beforeEach(function (done) {
         angular.mock.module('ngCookies');
 
-        inject(function ($httpBackend, $cookieStore, $q, $http) {
+        inject(function ($httpBackend, $cookies, $q, $http) {
             httpBackend = $httpBackend;
-            cookieStore = $cookieStore;
-            cookieStore.put('user', {username: 'irgendwas'});
+            cookies = $cookies;
+            cookies.putObject('user', {username: 'irgendwas'});
             q = $q;
             http = $http;
             httpBackend.when('GET', 'api/user/profile').
                 respond($q.when({userName: 'Steelman'}));
 
-            testee = new Auth(http, cookieStore, q);
+            testee = new Auth(http, cookies, q);
             done();
         });
     });
@@ -37,7 +37,7 @@ describe('Test of Auth Services', function () {
     });
 
     it('Authorize returns false when no user is defined in cookieStore', function () {
-        cookieStore.put('user', {username: undefined});
+        cookies.put('user', {username: undefined});
         var result = testee.authorize(false);
         expect(result).to.be.true;
     });
