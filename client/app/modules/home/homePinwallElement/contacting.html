@@ -2,7 +2,7 @@
     <div class="pinwall-element-description"> Personen die Dich als Kontakt hinzugef&uuml;gt haben</div>
     <div class="pinwall-element-profile-messages" ng-repeat="contacting in element.contacting">
         <div ng-click="openDetail(contacting.userId)">
-            <img class="pinwall-element-profile-image img-circle" ng-src="{{contacting.profileUrl}}">
+            <img class="pinwall-element-profile-image img-circle" ng-src="{{cacheUrl(contacting.profileUrl)}}">
 
             <div class="pinwall-element-profile-description">
                 <div class="pinwall-element-profile-name">{{contacting.name}}</div>

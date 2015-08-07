@@ -23,10 +23,11 @@ var setContactActions = function ($scope) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'ContactUserActions',
-            function ($scope, $state, ContactUserActions) {
+        return ['$scope', '$state', 'ContactUserActions', 'UrlCache',
+            function ($scope, $state, ContactUserActions, UrlCache) {
 
                 $scope.$scope = $scope;
+                $scope.cacheUrl = UrlCache.cacheUrl;
                 ContactUserActions.setPrivacySettings($scope);
 
                 setContactActions($scope);

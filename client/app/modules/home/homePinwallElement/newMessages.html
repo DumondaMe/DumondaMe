@@ -2,7 +2,7 @@
     <div class="pinwall-element-description"> Du hast neue Nachrichten</div>
     <div class="pinwall-element-profile-messages" ng-repeat="message in element.messages">
         <div ng-click="openThread(message.threadId)">
-            <img class="pinwall-element-profile-image img-circle" ng-src="{{message.profileUrl}}">
+            <img class="pinwall-element-profile-image img-circle" ng-src="{{cacheUrl(message.profileUrl)}}">
 
             <div class="pinwall-element-profile-description">
                 <div class="pinwall-element-profile-name">{{message.name}}</div>

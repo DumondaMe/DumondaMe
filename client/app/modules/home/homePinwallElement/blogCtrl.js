@@ -14,10 +14,11 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
-    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen', 'UrlCache',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen, UrlCache) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.cacheUrl = UrlCache.cacheUrl;
 
         setAdminActions($scope);
 

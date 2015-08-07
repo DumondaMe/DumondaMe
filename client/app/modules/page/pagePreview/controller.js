@@ -2,8 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal',
-            function ($scope, $state, Languages, PageCategories, PromiseModal) {
+        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal', 'UrlCache',
+            function ($scope, $state, Languages, PageCategories, PromiseModal, UrlCache) {
+
+                $scope.cacheUrl = UrlCache.cacheUrl;
 
                 $scope.$watchCollection('pagePreview', function (newValue) {
                     if (newValue) {

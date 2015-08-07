@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = ['$scope', 'dateFormatter', '$state', function ($scope, dateFormatter, $state) {
+module.exports = ['$scope', 'dateFormatter', '$state', 'UrlCache', function ($scope, dateFormatter, $state, UrlCache) {
+
+    $scope.cacheUrl = UrlCache.cacheUrl;
 
     $scope.openDetail = function (userId) {
         if (userId) {

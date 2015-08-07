@@ -1,6 +1,6 @@
 <div ng-controller="HomePinwallElementRecommendationCtrl">
     <div class="pinwall-element-description"> {{category}} Bewertung</div>
-    <img class="pinwall-element-profile-image img-circle" ng-src="{{element.profileUrl}}">
+    <img class="pinwall-element-profile-image img-circle" ng-src="{{cacheUrl(element.profileUrl)}}">
 
     <div class="pinwall-element-profile-description">
         <div class="pinwall-element-profile-name">{{element.name}}</div>
@@ -8,7 +8,7 @@
         <div class="pinwall-element-time">{{getFormattedDate(element.created, 'LLL')}}</div>
     </div>
     <div class="pinwall-element-content" ng-click="openDetail(element.pageId, element.label)">
-        <img class="pinwall-element-image" ng-hide="element.label === 'Youtube'" ng-src="{{element.url}}">
+        <img class="pinwall-element-image" ng-hide="element.label === 'Youtube'" ng-src="{{cacheUrl(element.url)}}">
         <ely-iframe width="380" height="300" secure-link="https://www.youtube.com/embed/" src="element.link"
                     ng-show="element.label === 'Youtube'"></ely-iframe>
 

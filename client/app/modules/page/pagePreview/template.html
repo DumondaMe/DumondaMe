@@ -2,7 +2,7 @@
     <div ng-if="format !== 'cross'">
         <div ng-class="{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}">
             <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                <img ng-src="{{pagePreview.url}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
+                <img ng-src="{{cacheUrl(pagePreview.url)}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
                 <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
                             ng-show="pagePreview.label === 'Youtube'"></ely-iframe>
             </div>
@@ -28,7 +28,7 @@
     <div ng-if="format === 'cross'">
         <div class="page-preview">
             <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                <img ng-src="{{pagePreview.url}}" class="page-preview-image">
+                <img ng-src="{{cacheUrl(pagePreview.url)}}" class="page-preview-image">
             </div>
             <div class="page-preview-content">
                 <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">

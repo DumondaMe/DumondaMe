@@ -13,7 +13,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=contact-preview><img ng-src={{contact.profileUrl}} ng-click=openUserDetails()><div class=contact-preview-content><div class=contact-preview-name-container><div ng-click=openUserDetails() class=contact-preview-name>{{contact.name}}</div><div class=description-container><div class=description ng-click=openModalUpdateType($scope) ng-show=\"!contact.blocked && contact.type\">({{contact.type}})</div></div><div class=blocked-description ng-show=contact.blocked>BLOCKIERT</div></div><div class=command-icons><button type=button class=\"btn btn-default btn-xs dropdown-toggle left\" data-toggle=dropdown aria-expanded=false bs-dropdown=contact.actions ng-show=\"!contact.blocked && contact.type\">Aktionen <span class=caret></span></button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=\"!contact.blocked && !contact.type\" ng-click=openModalAddNewContact($scope)><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Als Kontakt hinzufügen</button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=contact.blocked ng-click=unblockContact($scope)>Blockierung aufheben</button><div class=command-connection-state ng-hide=\"contact.connected === 'none'\" data-trigger=hover data-delay=600 data-title={{tooltipConnectionState.title}} bs-tooltip><img ng-src={{contact.connectionImage}}></div></div></div></div>"
+    "<div class=contact-preview><img ng-src={{cacheUrl(contact.profileUrl)}} ng-click=openUserDetails()><div class=contact-preview-content><div class=contact-preview-name-container><div ng-click=openUserDetails() class=contact-preview-name>{{contact.name}}</div><div class=description-container><div class=description ng-click=openModalUpdateType($scope) ng-show=\"!contact.blocked && contact.type\">({{contact.type}})</div></div><div class=blocked-description ng-show=contact.blocked>BLOCKIERT</div></div><div class=command-icons><button type=button class=\"btn btn-default btn-xs dropdown-toggle left\" data-toggle=dropdown aria-expanded=false bs-dropdown=contact.actions ng-show=\"!contact.blocked && contact.type\">Aktionen <span class=caret></span></button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=\"!contact.blocked && !contact.type\" ng-click=openModalAddNewContact($scope)><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Als Kontakt hinzufügen</button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=contact.blocked ng-click=unblockContact($scope)>Blockierung aufheben</button><div class=command-connection-state ng-hide=\"contact.connected === 'none'\" data-trigger=hover data-delay=600 data-title={{tooltipConnectionState.title}} bs-tooltip><img ng-src={{contact.connectionImage}}></div></div></div></div>"
   );
 
 
@@ -98,7 +98,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blog.html',
-    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=openFullScreenDetail()><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{element.url}}></div></div>"
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=pinwall-element-description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{cacheUrl(element.profileUrl)}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text ng-click=openFullScreenDetail()><ely-expand-text description={{element.text}}></ely-expand-text></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{cacheUrl(element.url)}}></div></div>"
   );
 
 
@@ -108,12 +108,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/contacting.html',
-    "<div ng-controller=HomePinwallElementContactingCtrl><div class=pinwall-element-description>Personen die Dich als Kontakt hinzugef&uuml;gt haben</div><div class=pinwall-element-profile-messages ng-repeat=\"contacting in element.contacting\"><div ng-click=openDetail(contacting.userId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{contacting.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{contacting.name}}</div><div class=pinwall-element-info>{{getFormattedDate(contacting.contactAdded)}}</div></div></div></div><div class=pinwall-element-link ng-show=\"element.numberOfContacting === 4\" ui-sref=contact.contacting>1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt</div><div class=pinwall-element-link ng-show=\"element.numberOfContacting > 4\" ui-sref=contact.contacting>{{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt</div></div>"
+    "<div ng-controller=HomePinwallElementContactingCtrl><div class=pinwall-element-description>Personen die Dich als Kontakt hinzugef&uuml;gt haben</div><div class=pinwall-element-profile-messages ng-repeat=\"contacting in element.contacting\"><div ng-click=openDetail(contacting.userId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{cacheUrl(contacting.profileUrl)}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{contacting.name}}</div><div class=pinwall-element-info>{{getFormattedDate(contacting.contactAdded)}}</div></div></div></div><div class=pinwall-element-link ng-show=\"element.numberOfContacting === 4\" ui-sref=contact.contacting>1 weitere Person hat Dich als Kontakt hinzugef&uuml;gt</div><div class=pinwall-element-link ng-show=\"element.numberOfContacting > 4\" ui-sref=contact.contacting>{{element.numberOfContacting - 3}} weitere Personen haben Dich als Kontakt hinzugef&uuml;gt</div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/newMessages.html',
-    "<div ng-controller=HomePinwallElementNewMessageCtrl><div class=pinwall-element-description>Du hast neue Nachrichten</div><div class=pinwall-element-profile-messages ng-repeat=\"message in element.messages\"><div ng-click=openThread(message.threadId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{message.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{message.name}}</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten</div></div></div></div></div>"
+    "<div ng-controller=HomePinwallElementNewMessageCtrl><div class=pinwall-element-description>Du hast neue Nachrichten</div><div class=pinwall-element-profile-messages ng-repeat=\"message in element.messages\"><div ng-click=openThread(message.threadId)><img class=\"pinwall-element-profile-image img-circle\" ng-src={{cacheUrl(message.profileUrl)}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{message.name}}</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages === 1\">{{message.numberOfUnreadMessages}} neue Nachricht</div><div class=pinwall-element-info ng-show=\"message.numberOfUnreadMessages > 1\">{{message.numberOfUnreadMessages}} neue Nachrichten</div></div></div></div></div>"
   );
 
 
@@ -123,7 +123,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/recommendation.html',
-    "<div ng-controller=HomePinwallElementRecommendationCtrl><div class=pinwall-element-description>{{category}} Bewertung</div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{element.profileUrl}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=element.rating></ely-star-rating><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=pinwall-element-content ng-click=\"openDetail(element.pageId, element.label)\"><img class=pinwall-element-image ng-hide=\"element.label === 'Youtube'\" ng-src={{element.url}}><ely-iframe width=380 height=300 secure-link=\"https://www.youtube.com/embed/\" src=element.link ng-show=\"element.label === 'Youtube'\"></ely-iframe><div ng-class=\"{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}\"><div class=pinwall-element-title>{{element.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=pinwall-element-rating number-of-selected-stars-readonly=element.ratingAllContacts ng-show=\"element.numberOfRatingsByContacts > 1\"></ely-star-rating><div class=pinwall-element-rating-description ng-show=\"element.numberOfRatingsByContacts > 1\">{{element.numberOfRatingsByContacts}} Bewertungen</div><div class=pinwall-element-content-description-text>{{element.description}}</div></div></div></div>"
+    "<div ng-controller=HomePinwallElementRecommendationCtrl><div class=pinwall-element-description>{{category}} Bewertung</div><img class=\"pinwall-element-profile-image img-circle\" ng-src={{cacheUrl(element.profileUrl)}}><div class=pinwall-element-profile-description><div class=pinwall-element-profile-name>{{element.name}}</div><ely-star-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=element.rating></ely-star-rating><div class=pinwall-element-time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=pinwall-element-content ng-click=\"openDetail(element.pageId, element.label)\"><img class=pinwall-element-image ng-hide=\"element.label === 'Youtube'\" ng-src={{cacheUrl(element.url)}}><ely-iframe width=380 height=300 secure-link=\"https://www.youtube.com/embed/\" src=element.link ng-show=\"element.label === 'Youtube'\"></ely-iframe><div ng-class=\"{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}\"><div class=pinwall-element-title>{{element.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=pinwall-element-rating number-of-selected-stars-readonly=element.ratingAllContacts ng-show=\"element.numberOfRatingsByContacts > 1\"></ely-star-rating><div class=pinwall-element-rating-description ng-show=\"element.numberOfRatingsByContacts > 1\">{{element.numberOfRatingsByContacts}} Bewertungen</div><div class=pinwall-element-content-description-text>{{element.description}}</div></div></div></div>"
   );
 
 
@@ -232,7 +232,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div><div ng-if=\"format !== 'cross'\"><div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\"><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{pagePreview.url}} class=page-preview-image ng-hide=\"pagePreview.label === 'Youtube'\"><ely-iframe width={{videoWidth}} height={{videoHeight}} secure-link=\"https://www.youtube.com/embed/\" src=pagePreview.link ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe></div><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><div class=page-preview-language ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.labelShow}}, {{pagePreview.languageShow}}</div><div class=page-preview-contact ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><div class=page-preview-contact-name>{{pagePreview.recommendation.contact.name}}</div></div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\" number-of-selected-stars-readonly=pagePreview.recommendation.summary.rating></ely-star-rating><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating ng-click=showComment(pagePreview.recommendation.contact)></ely-star-rating><img src=app/img/comment.png class=page-preview-rating-comment ng-show=pagePreview.recommendation.contact.comment ng-click=showComment(pagePreview.recommendation.contact)></div></div><div ng-if=\"format === 'cross'\"><div class=page-preview><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{pagePreview.url}} class=page-preview-image></div><div class=page-preview-content><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating></ely-star-rating><div class=page-preview-no-rating ng-hide=pagePreview.recommendation.contact.rating>Noch keine Bewertung durch deine Kontakte</div><div class=page-preview-description>{{pagePreview.description}}</div></div></div></div></div>"
+    "<div><div ng-if=\"format !== 'cross'\"><div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\"><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{cacheUrl(pagePreview.url)}} class=page-preview-image ng-hide=\"pagePreview.label === 'Youtube'\"><ely-iframe width={{videoWidth}} height={{videoHeight}} secure-link=\"https://www.youtube.com/embed/\" src=pagePreview.link ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe></div><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><div class=page-preview-language ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.labelShow}}, {{pagePreview.languageShow}}</div><div class=page-preview-contact ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><div class=page-preview-contact-name>{{pagePreview.recommendation.contact.name}}</div></div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\" number-of-selected-stars-readonly=pagePreview.recommendation.summary.rating></ely-star-rating><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating ng-click=showComment(pagePreview.recommendation.contact)></ely-star-rating><img src=app/img/comment.png class=page-preview-rating-comment ng-show=pagePreview.recommendation.contact.comment ng-click=showComment(pagePreview.recommendation.contact)></div></div><div ng-if=\"format === 'cross'\"><div class=page-preview><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{cacheUrl(pagePreview.url)}} class=page-preview-image></div><div class=page-preview-content><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating></ely-star-rating><div class=page-preview-no-rating ng-hide=pagePreview.recommendation.contact.rating>Noch keine Bewertung durch deine Kontakte</div><div class=page-preview-description>{{pagePreview.description}}</div></div></div></div></div>"
   );
 
 
@@ -909,7 +909,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             html: true
         });
 
-    }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
+    }]).run(['$rootScope', '$state', '$window', 'Auth', 'UrlCache', function ($rootScope, $state, $window, Auth, UrlCache) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
         if (!Auth.authorize(toState.isPublic)) {
@@ -932,7 +932,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         template: ''
     };
 }]);
-},{"../../package.json":171,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":78,"./navigation":93,"./settings":145,"./util":167,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
+},{"../../package.json":172,"./auth":16,"./contact":26,"./directives":47,"./filters":64,"./home":78,"./navigation":93,"./settings":145,"./util":167,"angular":4,"angular-animate":2,"angular-cookies":3,"angular-resource":5,"angular-sanitize":6,"angular-strap":9,"angular-strap-tpl":10,"angular-ui-route":7,"infinit-scroll":11,"templates":1}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {
@@ -1008,13 +1008,14 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./auth":15,"./loginCtrl":17,"./register":18,"./registerCtrl":19,"angular":4}],17:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
+module.exports = ['$scope', '$rootScope', '$state', 'Auth', 'UrlCache', function ($scope, $rootScope, $state, Auth, UrlCache) {
     $scope.login = function () {
         delete $scope.error;
         Auth.login({
             username: $scope.loginuser.email,
             password: $scope.loginuser.password
         }).then(function () {
+            UrlCache.reset();
             $scope.$broadcast('elyoos.login');
             $state.go('home');
         }, function () {
@@ -1115,10 +1116,11 @@ var setContactActions = function ($scope) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'ContactUserActions',
-            function ($scope, $state, ContactUserActions) {
+        return ['$scope', '$state', 'ContactUserActions', 'UrlCache',
+            function ($scope, $state, ContactUserActions, UrlCache) {
 
                 $scope.$scope = $scope;
+                $scope.cacheUrl = UrlCache.cacheUrl;
                 ContactUserActions.setPrivacySettings($scope);
 
                 setContactActions($scope);
@@ -2755,10 +2757,11 @@ var setAdminActions = function ($scope) {
     ];
 };
 
-module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen',
-    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen', 'UrlCache',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen, UrlCache) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.cacheUrl = UrlCache.cacheUrl;
 
         setAdminActions($scope);
 
@@ -2810,7 +2813,9 @@ module.exports = ['$scope', 'dateFormatter',
 },{}],73:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'dateFormatter', '$state', function ($scope, dateFormatter, $state) {
+module.exports = ['$scope', 'dateFormatter', '$state', 'UrlCache', function ($scope, dateFormatter, $state, UrlCache) {
+
+    $scope.cacheUrl = UrlCache.cacheUrl;
 
     $scope.openDetail = function (userId) {
         if (userId) {
@@ -2859,7 +2864,9 @@ app.directive(directive.name, directive.directive);
 },{"./blogCtrl":71,"./blogDetail/blogDetailCtrl":72,"./contactingCtrl":73,"./directive.js":74,"./newMessageCtrl":76,"./recommendationCtrl":77,"angular":4}],76:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', function ($scope, $state) {
+module.exports = ['$scope', '$state', 'UrlCache', function ($scope, $state, UrlCache) {
+
+    $scope.cacheUrl = UrlCache.cacheUrl;
 
     $scope.openThread = function (threadId) {
         if (threadId) {
@@ -2874,19 +2881,21 @@ module.exports = ['$scope', '$state', function ($scope, $state) {
 },{}],77:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', function ($scope, dateFormatter, $state, PageCategories) {
+module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', 'UrlCache',
+    function ($scope, dateFormatter, $state, PageCategories, UrlCache) {
 
-    $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
+        $scope.cacheUrl = UrlCache.cacheUrl;
 
-    $scope.category = PageCategories.categories[$scope.element.label].description;
+        $scope.category = PageCategories.categories[$scope.element.label].description;
 
-    $scope.openDetail = function (pageId, label) {
-        $state.go('page.detail', {
-            label: label,
-            pageId: pageId
-        });
-    };
-}];
+        $scope.openDetail = function (pageId, label) {
+            $state.go('page.detail', {
+                label: label,
+                pageId: pageId
+            });
+        };
+    }];
 
 
 },{}],78:[function(require,module,exports){
@@ -4674,8 +4683,10 @@ module.exports = {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal',
-            function ($scope, $state, Languages, PageCategories, PromiseModal) {
+        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal', 'UrlCache',
+            function ($scope, $state, Languages, PageCategories, PromiseModal, UrlCache) {
+
+                $scope.cacheUrl = UrlCache.cacheUrl;
 
                 $scope.$watchCollection('pagePreview', function (newValue) {
                     if (newValue) {
@@ -5766,8 +5777,9 @@ var app = require('angular').module('elyoosApp');
 
 app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
+app.service('UrlCache', require('./urlCache'));
 app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./moment":168,"./promiseModal":169,"./waitingScreen/waitingScreen":170,"angular":4}],168:[function(require,module,exports){
+},{"./moment":168,"./promiseModal":169,"./urlCache":170,"./waitingScreen/waitingScreen":171,"angular":4}],168:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5815,6 +5827,37 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
 },{}],170:[function(require,module,exports){
 'use strict';
 
+module.exports = ['$log', function ($log) {
+
+    var cache = {};
+
+    this.reset = function () {
+        cache = {};
+    };
+
+    this.cacheUrl = function (url) {
+        var index, key;
+        if (angular.isString(url)) {
+            index = url.indexOf(".jpg?");
+            if (index !== -1) {
+                key = url.substring(0, index);
+                if (cache[key]) {
+                    return cache[key];
+                } else {
+                    cache[key] = url;
+                    return url;
+                }
+            }
+            $log.warn("Nor jpg found for url " + url);
+            return url;
+        }
+        return url;
+    };
+}];
+
+},{}],171:[function(require,module,exports){
+'use strict';
+
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
 
     this.openScreen = function (loadingText) {
@@ -5837,7 +5880,7 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
     };
 }];
 
-},{}],171:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5891,4 +5934,4 @@ module.exports={
   }
 }
 
-},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,95,96,97,94,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,124,125,126,120,121,122,123,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170]);
+},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,95,96,97,94,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,124,125,126,120,121,122,123,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171]);
