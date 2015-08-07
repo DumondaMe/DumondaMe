@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', '$state', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
-    function ($scope, $state, PageRecommendationAllContact, SearchPage, PageCategories, PopularPages, PageLeftNavElements) {
+module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
+    function ($scope, PageRecommendationAllContact, SearchPage, PageCategories, PopularPages, PageLeftNavElements) {
 
         $scope.query = "";
         $scope.hide = false;

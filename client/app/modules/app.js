@@ -42,7 +42,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         $stateProvider
             .state('home', {
-                url: '/home',
+                url: '/home/{cache}',
                 views: {
                     content: {
                         templateUrl: 'app/modules/home/home.html',

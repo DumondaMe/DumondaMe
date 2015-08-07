@@ -82,7 +82,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/home.html',
-    "<div id=home><ely-home-pinwall-container></ely-home-pinwall-container></div>"
+    "<div id=home><div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded number-of-rows=numberOfRows></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div></div></div></div>"
   );
 
 
@@ -93,11 +93,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
     "<div class=\"home-pinwall-element home-pinwall-blog-element\" ng-class=\"{'home-pinwall-blog-element-extended': showExpand, 'home-pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><textarea class=\"form-control home-pinwall-blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/home/homePinwallContainer/template.html',
-    "<div class=home-pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=home-pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded number-of-rows=numberOfRows></ely-home-pinwall-blog></div><div class=home-pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwall1Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwall2Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=home-pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwall3Elements\" class=home-pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div></div></div>"
   );
 
 

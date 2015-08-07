@@ -1,13 +1,14 @@
 'use strict';
 
-var pinwall;
-var messages;
-var contacting;
-var skip;
-var itemsPerPage;
-var timestamp;
-var requestPinwallElements;
-var requestPinwallElementsRunning;
+var skip,
+    itemsPerPage,
+    timestamp,
+    pinwall,
+    messages,
+    contacting,
+    requestPinwallElements,
+    requestPinwallElementsRunning,
+    scopeController;
 
 var resetPinwallElements = function ($scope) {
     $scope.pinwall1Elements = [];
@@ -80,7 +81,7 @@ var setRecommendation = function ($scope, newPinwall) {
     return tempPinwall;
 };
 
-var setBlog = function ($scope, newPinwall, tempPinwall) {
+var setBlog = function (newPinwall, tempPinwall) {
     if (newPinwall && newPinwall.hasOwnProperty('blog')) {
         if (newPinwall.blog.length > 0) {
             setPinwallType(newPinwall.blog, 'Blog');
@@ -132,92 +133,89 @@ var checkRequestPinwall = function (pinwall, reqestedNumberOfElements) {
     return !(countElements(pinwall, 'Blog') < reqestedNumberOfElements && countElements(pinwall, 'Recommendation') < reqestedNumberOfElements );
 };
 
-var updatePinwall = function ($scope) {
-    resetPinwallElements($scope);
-    sortPinwall(pinwall);
-    addPinwallElementsToColumns($scope, pinwall);
-    addNewElementToColumns($scope, contacting, contacting.contacting);
-    addNewElementToColumns($scope, messages, messages.messages);
-};
+module.exports = ['moment', 'Home',
+    function (moment, Home) {
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['$scope', 'Home', 'moment', function ($scope, Home, moment) {
-
+        this.resetCache = function () {
+            timestamp = Math.floor(moment.utc().valueOf() / 1000);
             skip = 0;
             itemsPerPage = 30;
-            timestamp = Math.floor(moment.utc().valueOf() / 1000);
             pinwall = [];
             messages = {};
             contacting = {};
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
+        };
 
-            $scope.isExpanded = false;
+        this.resetCache();
 
-            $scope.$watchCollection('pinwall', function (newPinwall) {
-                if (newPinwall) {
-                    var tempPinwall = setRecommendation($scope, newPinwall);
-                    tempPinwall = setBlog($scope, newPinwall, tempPinwall);
+        this.setScopeController = function (scope) {
+            scopeController = scope;
+        };
+
+        this.requestPinwall = function () {
+            var newPinwall;
+            if (requestPinwallElements && !requestPinwallElementsRunning) {
+                requestPinwallElementsRunning = true;
+                newPinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp}, function () {
+
+                    var tempPinwall = setRecommendation(scopeController, newPinwall);
+                    tempPinwall = setBlog(newPinwall, tempPinwall);
                     sortPinwall(tempPinwall);
-                    resetPinwallElements($scope);
+                    resetPinwallElements(scopeController);
                     pinwall = pinwall.concat(tempPinwall);
                     if (pinwall.length === 0 && newPinwall.hasOwnProperty('pinwall')) {
-                        $scope.pinwall1Elements.unshift({type: 'NoRecommendations'});
+                        scopeController.pinwall1Elements.unshift({type: 'NoRecommendations'});
                     }
-                    addPinwallElementsToColumns($scope, pinwall);
+                    addPinwallElementsToColumns(scopeController, pinwall);
                     requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
                     requestPinwallElementsRunning = false;
 
-                    setContacting($scope, newPinwall);
-                    setNewMessages($scope, newPinwall);
-                    setUserInfo($scope, newPinwall);
-                }
-            });
+                    setContacting(scopeController, newPinwall);
+                    setNewMessages(scopeController, newPinwall);
+                    setUserInfo(scopeController, newPinwall);
+                }, function () {
+                    requestPinwallElementsRunning = false;
+                });
+                skip += itemsPerPage;
+            }
+        };
 
-            $scope.$watch('numberOfRows', function (newNumberOfRows) {
-                if (newNumberOfRows && pinwall) {
-                    updatePinwall($scope);
-                }
-            });
+        this.updatePinwall = function (scope) {
+            resetPinwallElements(scope);
+            sortPinwall(pinwall);
+            addPinwallElementsToColumns(scope, pinwall);
+            addNewElementToColumns(scope, contacting, contacting.contacting);
+            addNewElementToColumns(scope, messages, messages.messages);
+        };
 
-            $scope.nextPinwallInfo = function () {
-                if (requestPinwallElements && !requestPinwallElementsRunning) {
-                    requestPinwallElementsRunning = true;
-                    $scope.pinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp});
-                    skip += itemsPerPage;
-                }
-            };
-
-            $scope.$on('message.changed', function (event, newMessages) {
-                messages = {messages: newMessages, type: 'NewMessages'};
-                addNewElementToColumns($scope, messages, messages.messages);
-            });
-
-            $scope.blogAdded = function (blog) {
-                blog.type = 'Blog';
-                pinwall.unshift(blog);
-                updatePinwall($scope);
-            };
-
-            $scope.elementRemoved = function (element) {
-                function removeElement(container, elementToRemove) {
-                    var indexToRemove = null;
-                    angular.forEach(container, function (containerElement, key) {
-                        if (angular.equals(containerElement, elementToRemove)) {
-                            indexToRemove = key;
-                        }
-                    });
-                    if (indexToRemove !== null) {
-                        container.splice(indexToRemove, 1);
+        this.elementRemoved = function (element) {
+            function removeElement(container, elementToRemove) {
+                var indexToRemove = null;
+                angular.forEach(container, function (containerElement, key) {
+                    if (angular.equals(containerElement, elementToRemove)) {
+                        indexToRemove = key;
                     }
+                });
+                if (indexToRemove !== null) {
+                    container.splice(indexToRemove, 1);
                 }
+            }
 
-                removeElement(pinwall, element);
-                removeElement($scope.pinwall1Elements, element);
-                removeElement($scope.pinwall2Elements, element);
-                removeElement($scope.pinwall3Elements, element);
-            };
-        }];
-    }
-};
+            removeElement(pinwall, element);
+            removeElement(scopeController.pinwall1Elements, element);
+            removeElement(scopeController.pinwall2Elements, element);
+            removeElement(scopeController.pinwall3Elements, element);
+        };
+
+        this.blogAdded = function (blog) {
+            blog.type = 'Blog';
+            pinwall.unshift(blog);
+            this.updatePinwall(scopeController);
+        };
+
+        this.messageChanged = function (newMessages) {
+            messages = {messages: newMessages, type: 'NewMessages'};
+            addNewElementToColumns(scopeController, messages, messages.messages);
+        }
+    }];
