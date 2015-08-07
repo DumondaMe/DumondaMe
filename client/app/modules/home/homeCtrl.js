@@ -28,6 +28,7 @@ module.exports = ['$scope', '$rootScope', '$state', '$stateParams', 'HomeLeftNav
         HomePinwallContainer.setScopeController($scope);
         if ($stateParams.cache !== 'cache') {
             HomePinwallContainer.resetCache();
+            HomePinwallContainer.requestPinwall();
         }
 
         $scope.$watch('numberOfRows', function (newNumberOfRows) {

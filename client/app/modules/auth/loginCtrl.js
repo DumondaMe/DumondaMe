@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$scope', '$location', 'Auth', function ($scope, $location, Auth) {
+module.exports = ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
     $scope.login = function () {
         delete $scope.error;
         Auth.login({
@@ -8,7 +8,7 @@ module.exports = ['$scope', '$location', 'Auth', function ($scope, $location, Au
             password: $scope.loginuser.password
         }).then(function () {
             $scope.$broadcast('elyoos.login');
-            $location.path('/');
+            $state.go('home');
         }, function () {
             $scope.error = "Passwort oder Kennwort stimmen nicht.";
         });

@@ -38,7 +38,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         $compileProvider.debugInfoEnabled(false);
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/home/');
+        $urlRouterProvider.when('', '/home/');
 
         $stateProvider
             .state('home', {

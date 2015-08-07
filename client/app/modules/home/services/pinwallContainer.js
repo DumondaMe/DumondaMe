@@ -70,22 +70,46 @@ var setPinwallType = function (pinwallElements, type) {
     });
 };
 
-var setRecommendation = function ($scope, newPinwall) {
-    var tempPinwall = [];
-    if (newPinwall && newPinwall.hasOwnProperty('pinwall')) {
-        if (newPinwall.pinwall.length > 0) {
-            setPinwallType(newPinwall.pinwall, 'Recommendation');
-            tempPinwall = tempPinwall.concat(newPinwall.pinwall);
+var getNewPinwallElements = function (newPinwallElements, compare) {
+    var result = [];
+    angular.forEach(newPinwallElements, function (newPinwallElement) {
+        var exists = false;
+        angular.forEach(pinwall, function (pinwallElement) {
+            if (compare(pinwallElement, newPinwallElement)) {
+                exists = true;
+            }
+        });
+        if (!exists) {
+            result.push(newPinwallElement)
         }
-    }
-    return tempPinwall;
+    });
+    return result;
 };
 
-var setBlog = function (newPinwall, tempPinwall) {
-    if (newPinwall && newPinwall.hasOwnProperty('blog')) {
+var getNewRecommendations = function ($scope, newPinwall) {
+
+    if (newPinwall.hasOwnProperty('pinwall')) {
+        if (newPinwall.pinwall.length > 0) {
+            setPinwallType(newPinwall.pinwall, 'Recommendation');
+            return getNewPinwallElements(newPinwall.pinwall, function (pinwallElement, newPinwallElement) {
+                return (pinwallElement.type === 'Recommendation' && pinwallElement.pageId === newPinwallElement.pageId &&
+                pinwallElement.rating === newPinwallElement.rating &&
+                pinwallElement.numberOfRatingsByContacts === newPinwallElement.numberOfRatingsByContacts &&
+                pinwallElement.description === newPinwallElement.description)
+            });
+        }
+    }
+    return [];
+};
+
+var getNewBlogs = function (newPinwall, tempPinwall) {
+    if (newPinwall.hasOwnProperty('blog')) {
         if (newPinwall.blog.length > 0) {
             setPinwallType(newPinwall.blog, 'Blog');
-            tempPinwall = tempPinwall.concat(newPinwall.blog);
+            tempPinwall = tempPinwall.concat(getNewPinwallElements(newPinwall.blog, function (pinwallElement, newPinwallElement) {
+                return (pinwallElement.type === 'Blog' && pinwallElement.blogId === newPinwallElement.blogId &&
+                pinwallElement.text === newPinwallElement.text)
+            }));
         }
     }
     return tempPinwall;
@@ -98,14 +122,14 @@ var sortPinwall = function (tempPinwall) {
 };
 
 var setNewMessages = function ($scope, newPinwall) {
-    if (newPinwall && newPinwall.hasOwnProperty('messages')) {
+    if (newPinwall.hasOwnProperty('messages')) {
         messages = {messages: newPinwall.messages, type: 'NewMessages'};
         addNewElementToColumns($scope, messages, messages.messages);
     }
 };
 
 var setContacting = function ($scope, newPinwall) {
-    if (newPinwall && newPinwall.hasOwnProperty('contacting') && newPinwall.contacting.hasOwnProperty('users')) {
+    if (newPinwall.hasOwnProperty('contacting') && newPinwall.contacting.hasOwnProperty('users')) {
         if (newPinwall.contacting.users.length > 0) {
             contacting = {contacting: newPinwall.contacting.users, numberOfContacting: newPinwall.contacting.numberOfContacting, type: 'Contacting'};
             addNewElementToColumns($scope, contacting, contacting.contacting);
@@ -136,13 +160,15 @@ var checkRequestPinwall = function (pinwall, reqestedNumberOfElements) {
 module.exports = ['moment', 'Home',
     function (moment, Home) {
 
+        var updatePinwall;
+        pinwall = [];
+        messages = {};
+        contacting = {};
+
         this.resetCache = function () {
             timestamp = Math.floor(moment.utc().valueOf() / 1000);
             skip = 0;
-            itemsPerPage = 30;
-            pinwall = [];
-            messages = {};
-            contacting = {};
+            itemsPerPage = 5;
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
         };
@@ -159,11 +185,11 @@ module.exports = ['moment', 'Home',
                 requestPinwallElementsRunning = true;
                 newPinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp}, function () {
 
-                    var tempPinwall = setRecommendation(scopeController, newPinwall);
-                    tempPinwall = setBlog(newPinwall, tempPinwall);
-                    sortPinwall(tempPinwall);
+                    var tempPinwall = getNewRecommendations(scopeController, newPinwall);
+                    tempPinwall = getNewBlogs(newPinwall, tempPinwall);
                     resetPinwallElements(scopeController);
                     pinwall = pinwall.concat(tempPinwall);
+                    sortPinwall(pinwall);
                     if (pinwall.length === 0 && newPinwall.hasOwnProperty('pinwall')) {
                         scopeController.pinwall1Elements.unshift({type: 'NoRecommendations'});
                     }
@@ -181,13 +207,14 @@ module.exports = ['moment', 'Home',
             }
         };
 
-        this.updatePinwall = function (scope) {
+        updatePinwall = function (scope) {
             resetPinwallElements(scope);
             sortPinwall(pinwall);
             addPinwallElementsToColumns(scope, pinwall);
             addNewElementToColumns(scope, contacting, contacting.contacting);
             addNewElementToColumns(scope, messages, messages.messages);
         };
+        this.updatePinwall = updatePinwall;
 
         this.elementRemoved = function (element) {
             function removeElement(container, elementToRemove) {
@@ -211,7 +238,7 @@ module.exports = ['moment', 'Home',
         this.blogAdded = function (blog) {
             blog.type = 'Blog';
             pinwall.unshift(blog);
-            this.updatePinwall(scopeController);
+            updatePinwall(scopeController);
         };
 
         this.messageChanged = function (newMessages) {
