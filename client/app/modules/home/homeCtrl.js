@@ -19,30 +19,42 @@ var setContainerWidth = function ($scope) {
     $scope.$applyAsync();
 };
 
-module.exports = ['$scope', '$rootScope', '$state', '$stateParams', 'HomeLeftNavElements', 'HomePinwallContainer',
-    function ($scope, $rootScope, $state, $stateParams, HomeLeftNavElements, HomePinwallContainer) {
+var updatePinwall = function ($scope, HomePinwall) {
+    var pinwall = HomePinwall.updatePinwall();
+    $scope.pinwall1Elements = pinwall.pinwall1Elements;
+    $scope.pinwall2Elements = pinwall.pinwall2Elements;
+    $scope.pinwall3Elements = pinwall.pinwall3Elements;
+    $scope.userInfo = pinwall.userInfo;
+};
+
+module.exports = ['$scope', '$rootScope', '$state', '$stateParams', 'HomeLeftNavElements', 'HomePinwallRequest', 'HomePinwall',
+    function ($scope, $rootScope, $state, $stateParams, HomeLeftNavElements, HomePinwallRequest, HomePinwall) {
 
         $scope.$emit(HomeLeftNavElements.event, HomeLeftNavElements.elements);
 
         $scope.isExpanded = false;
-        HomePinwallContainer.setScopeController($scope);
         if ($stateParams.cache !== 'cache') {
-            HomePinwallContainer.resetCache();
-            HomePinwallContainer.requestPinwall();
+            HomePinwallRequest.resetCache();
+            HomePinwallRequest.requestPinwall().then(function () {
+                updatePinwall($scope, HomePinwall);
+            });
         }
 
         $scope.$watch('numberOfRows', function (newNumberOfRows) {
             if (newNumberOfRows) {
-                HomePinwallContainer.updatePinwall($scope);
+                HomePinwall.setNumberOfRows(newNumberOfRows);
+                updatePinwall($scope, HomePinwall);
             }
         });
 
         $scope.nextPinwallInfo = function () {
-            HomePinwallContainer.requestPinwall();
+            HomePinwallRequest.requestPinwall().then(function () {
+                updatePinwall($scope, HomePinwall);
+            });
         };
 
         $scope.$on('message.changed', function (event, newMessages) {
-            HomePinwallContainer.messageChanged(newMessages);
+            HomePinwall.messageChanged(newMessages);
         });
 
         // Navigation from home to recommendation or blog and back to home shall use the cache
@@ -62,8 +74,15 @@ module.exports = ['$scope', '$rootScope', '$state', '$stateParams', 'HomeLeftNav
             }
         });
 
-        $scope.elementRemoved = HomePinwallContainer.elementRemoved;
-        $scope.blogAdded = HomePinwallContainer.blogAdded;
+        $scope.elementRemoved = function (element) {
+            HomePinwall.elementRemoved(element);
+            updatePinwall($scope, HomePinwall);
+        };
+
+        $scope.blogAdded = function (blog) {
+            HomePinwall.blogAdded(blog);
+            updatePinwall($scope, HomePinwall);
+        };
 
         $(window).resize(function () {
             setContainerWidth($scope);
