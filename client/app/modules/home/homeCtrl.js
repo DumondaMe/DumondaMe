@@ -21,9 +21,7 @@ var setContainerWidth = function ($scope) {
 
 var updatePinwall = function ($scope, HomePinwall) {
     var pinwall = HomePinwall.updatePinwall();
-    $scope.pinwall1Elements = pinwall.pinwall1Elements;
-    $scope.pinwall2Elements = pinwall.pinwall2Elements;
-    $scope.pinwall3Elements = pinwall.pinwall3Elements;
+    $scope.pinwallElements = pinwall.pinwallElements;
     $scope.userInfo = pinwall.userInfo;
 };
 

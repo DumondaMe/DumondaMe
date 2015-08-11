@@ -1,8 +1,6 @@
 'use strict';
 
 var pinwall,
-    messages,
-    contacting,
     userInfo;
 
 var setPinwallType = function (pinwallElements, type) {
@@ -40,14 +38,18 @@ var sortPinwall = function (tempPinwall) {
 
 var setNewMessages = function (newPinwall) {
     if (newPinwall.hasOwnProperty('messages')) {
-        messages = {messages: newPinwall.messages, type: 'NewMessages'};
+        pinwall.unshift({messages: newPinwall.messages, type: 'NewMessages'});
     }
 };
 
 var setContacting = function (newPinwall) {
     if (newPinwall.hasOwnProperty('contacting') && newPinwall.contacting.hasOwnProperty('users')) {
         if (newPinwall.contacting.users.length > 0) {
-            contacting = {contacting: newPinwall.contacting.users, numberOfContacting: newPinwall.contacting.numberOfContacting, type: 'Contacting'};
+            pinwall.unshift({
+                contacting: newPinwall.contacting.users,
+                numberOfContacting: newPinwall.contacting.numberOfContacting,
+                type: 'Contacting'
+            });
         }
     }
 };
@@ -58,13 +60,11 @@ var setUserInfo = function (newPinwall) {
     }
 };
 
-module.exports = [
-    function () {
+module.exports = ['HomePinwallHeightCalculator',
+    function (HomePinwallHeightCalculator) {
 
         var reset = function () {
             pinwall = [];
-            messages = {};
-            contacting = {};
             userInfo = null;
         };
         reset();
@@ -72,14 +72,6 @@ module.exports = [
 
         this.getPinwall = function () {
             return pinwall;
-        };
-
-        this.getMessages = function () {
-            return messages;
-        };
-
-        this.getContacting = function () {
-          return contacting;
         };
 
         this.getUserInfo = function () {
@@ -100,10 +92,21 @@ module.exports = [
             setNewMessages(newPinwall);
             setUserInfo(newPinwall);
 
+            HomePinwallHeightCalculator.setHeightPinwallElements(pinwall);
+
             return tempPinwall;
         };
 
         this.messageChanged = function (newMessages) {
-            messages = {messages: newMessages, type: 'NewMessages'};
+            var exist = false;
+            angular.forEach(pinwall, function (element) {
+                if (element.type === 'NewMessages') {
+                    element.messages = newMessages;
+                    exist = true;
+                }
+            });
+            if (!exist) {
+                pinwall.unshift({messages: newMessages, type: 'NewMessages'});
+            }
         };
     }];

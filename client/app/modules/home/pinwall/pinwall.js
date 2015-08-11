@@ -1,79 +1,55 @@
 'use strict';
 
-var pinwall1Elements,
-    pinwall2Elements,
-    pinwall3Elements,
+var pinwallElements,
     numberOfRows = 1;
 
 var resetPinwallElements = function () {
-    pinwall1Elements = [];
-    pinwall2Elements = [];
-    pinwall3Elements = [];
+    pinwallElements = [[], [], []];
 };
 
-var removeMessageElement = function (column, type) {
-    if (column.length > 0 && column[0].type === type) {
-        column.splice(0, 1);
-    }
-};
-
-var addNewElementToColumns = function (messagesToColumn, arrayToCheck) {
-
-    removeMessageElement(pinwall1Elements, messagesToColumn.type);
-    removeMessageElement(pinwall2Elements, messagesToColumn.type);
-    removeMessageElement(pinwall3Elements, messagesToColumn.type);
-
-    if (arrayToCheck && arrayToCheck.length > 0) {
-        if (numberOfRows === 1) {
-            pinwall1Elements.unshift(messagesToColumn);
-        } else if (numberOfRows === 2) {
-            pinwall2Elements.unshift(messagesToColumn);
-        } else if (numberOfRows === 3) {
-            pinwall3Elements.unshift(messagesToColumn);
+var nextColumnIndex = function (heightColumns) {
+    var index = 0, smallest = Number.MAX_VALUE;
+    angular.forEach(heightColumns, function (heightColumn, key) {
+        if (heightColumn < smallest) {
+            smallest = heightColumn;
+            index = key;
         }
-    }
+    });
+    return index;
 };
 
-var addPinwallElementsToColumns = function (pinwall, contacting, messages) {
-    var i;
+var addPinwallElementsToColumns = function (pinwall, log) {
+    var heightColumns = [], i, index;
 
-    addNewElementToColumns(contacting, contacting.contacting);
-    addNewElementToColumns(messages, messages.messages);
+    for (i = 0; i < numberOfRows; i++) {
+        heightColumns.push(0);
+    }
 
-    if (numberOfRows === 1) {
-        pinwall1Elements = pinwall1Elements.concat(pinwall);
-    } else if (numberOfRows === 2) {
-        for (i = 0; i < pinwall.length; i++) {
-            if (i % 2 === 0) {
-                pinwall1Elements.push(pinwall[i]);
+    angular.forEach(pinwall, function (pinwallElement) {
+        if (pinwallElement.type === 'NewMessages' || pinwallElement.type === 'Contacting') {
+            pinwallElements[numberOfRows - 1].unshift(pinwallElement);
+            heightColumns[numberOfRows - 1] += pinwallElement.pinwallHeight;
+        } else {
+            index = nextColumnIndex(heightColumns);
+            if (pinwallElement.hasOwnProperty('pinwallHeight')) {
+                heightColumns[index] += pinwallElement.pinwallHeight;
             } else {
-                pinwall2Elements.push(pinwall[i]);
+                log.warn("Element has no pinwall height");
             }
+            pinwallElements[index].push(pinwallElement);
         }
-    } else if (numberOfRows === 3) {
-        for (i = 0; i < pinwall.length; i++) {
-            if (i % 3 === 0) {
-                pinwall1Elements.push(pinwall[i]);
-            } else if (i % 3 === 1) {
-                pinwall2Elements.push(pinwall[i]);
-            } else {
-                pinwall3Elements.push(pinwall[i]);
-            }
-        }
-    }
+    });
 };
 
-module.exports = ['HomePinwallElements',
-    function (HomePinwallElements) {
+module.exports = ['HomePinwallElements', '$log',
+    function (HomePinwallElements, $log) {
 
 
         var updatePinwall = function () {
             resetPinwallElements();
-            addPinwallElementsToColumns(HomePinwallElements.getPinwall(), HomePinwallElements.getContacting(), HomePinwallElements.getMessages());
+            addPinwallElementsToColumns(HomePinwallElements.getPinwall(), $log);
             return {
-                pinwall1Elements: pinwall1Elements,
-                pinwall2Elements: pinwall2Elements,
-                pinwall3Elements: pinwall3Elements,
+                pinwallElements: pinwallElements,
                 userInfo: HomePinwallElements.getUserInfo()
             };
         };
@@ -83,15 +59,6 @@ module.exports = ['HomePinwallElements',
         this.setNumberOfRows = function (newNumber) {
             numberOfRows = newNumber;
         };
-/*
-        this.getPinwallElements = function () {
-            return {
-                pinwall1Elements: pinwall1Elements,
-                pinwall2Elements: pinwall2Elements,
-                pinwall3Elements: pinwall3Elements,
-                userInfo: HomePinwallElements.getUserInfo()
-            };
-        };*/
 
         this.updatePinwall = updatePinwall;
 
@@ -109,9 +76,9 @@ module.exports = ['HomePinwallElements',
             }
 
             removeElement(HomePinwallElements.pinwall, element);
-            removeElement(pinwall1Elements, element);
-            removeElement(pinwall2Elements, element);
-            removeElement(pinwall3Elements, element);
+            removeElement(pinwallElements[0], element);
+            removeElement(pinwallElements[1], element);
+            removeElement(pinwallElements[2], element);
         };
 
         this.blogAdded = function (blog) {
@@ -121,7 +88,7 @@ module.exports = ['HomePinwallElements',
         };
 
         this.messageChanged = function (newMessages) {
-            HomePinwallElements.messages = {messages: newMessages, type: 'NewMessages'};
-            addNewElementToColumns(HomePinwallElements.messages, HomePinwallElements.messages.messages);
+            HomePinwallElements.messageChanged(newMessages);
+            updatePinwall();
         };
     }];
