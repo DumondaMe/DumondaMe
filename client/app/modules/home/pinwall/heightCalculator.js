@@ -26,6 +26,8 @@ var heightCalculator = {
 module.exports = [
     function () {
 
+        this.calculator = heightCalculator;
+
         this.setHeightPinwallElements = function (pinwall) {
             angular.forEach(pinwall, function (pinwallElement) {
                 if (pinwallElement.hasOwnProperty('type')) {

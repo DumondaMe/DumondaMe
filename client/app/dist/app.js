@@ -2960,6 +2960,8 @@ var heightCalculator = {
 module.exports = [
     function () {
 
+        this.calculator = heightCalculator;
+
         this.setHeightPinwallElements = function (pinwall) {
             angular.forEach(pinwall, function (pinwallElement) {
                 if (pinwallElement.hasOwnProperty('type')) {
@@ -2981,9 +2983,9 @@ var resetPinwallElements = function () {
     pinwallElements = [[], [], []];
 };
 
-var nextColumnIndex = function (heigthColumns) {
+var nextColumnIndex = function (heightColumns) {
     var index = 0, smallest = Number.MAX_VALUE;
-    angular.forEach(heigthColumns, function (heightColumn, key) {
+    angular.forEach(heightColumns, function (heightColumn, key) {
         if (heightColumn < smallest) {
             smallest = heightColumn;
             index = key;
@@ -2992,15 +2994,12 @@ var nextColumnIndex = function (heigthColumns) {
     return index;
 };
 
-var addPinwallElementsToColumns = function (pinwall) {
+var addPinwallElementsToColumns = function (pinwall, log) {
     var heightColumns = [], i, index;
 
     for (i = 0; i < numberOfRows; i++) {
         heightColumns.push(0);
     }
-
-    /*addNewElementToColumns(contacting, contacting.contacting);
-     addNewElementToColumns(messages, messages.messages);*/
 
     angular.forEach(pinwall, function (pinwallElement) {
         if (pinwallElement.type === 'NewMessages' || pinwallElement.type === 'Contacting') {
@@ -3008,41 +3007,23 @@ var addPinwallElementsToColumns = function (pinwall) {
             heightColumns[numberOfRows - 1] += pinwallElement.pinwallHeight;
         } else {
             index = nextColumnIndex(heightColumns);
-            heightColumns[index] += pinwallElement.pinwallHeight;
+            if (pinwallElement.hasOwnProperty('pinwallHeight')) {
+                heightColumns[index] += pinwallElement.pinwallHeight;
+            } else {
+                log.warn("Element has no pinwall height");
+            }
             pinwallElements[index].push(pinwallElement);
         }
     });
-
-    /*if (numberOfRows === 1) {
-     pinwallElements[0] = pinwallElements[0].concat(pinwall);
-     } else if (numberOfRows === 2) {
-     for (i = 0; i < pinwall.length; i++) {
-     if (i % 2 === 0) {
-     pinwallElements[0].push(pinwall[i]);
-     } else {
-     pinwallElements[1].push(pinwall[i]);
-     }
-     }
-     } else if (numberOfRows === 3) {
-     for (i = 0; i < pinwall.length; i++) {
-     if (i % 3 === 0) {
-     pinwallElements[0].push(pinwall[i]);
-     } else if (i % 3 === 1) {
-     pinwallElements[1].push(pinwall[i]);
-     } else {
-     pinwallElements[2].push(pinwall[i]);
-     }
-     }
-     }*/
 };
 
-module.exports = ['HomePinwallElements',
-    function (HomePinwallElements) {
+module.exports = ['HomePinwallElements', '$log',
+    function (HomePinwallElements, $log) {
 
 
         var updatePinwall = function () {
             resetPinwallElements();
-            addPinwallElementsToColumns(HomePinwallElements.getPinwall());
+            addPinwallElementsToColumns(HomePinwallElements.getPinwall(), $log);
             return {
                 pinwallElements: pinwallElements,
                 userInfo: HomePinwallElements.getUserInfo()
@@ -3070,15 +3051,14 @@ module.exports = ['HomePinwallElements',
                 }
             }
 
-            removeElement(HomePinwallElements.pinwall, element);
+            removeElement(HomePinwallElements.getPinwall(), element);
             removeElement(pinwallElements[0], element);
             removeElement(pinwallElements[1], element);
             removeElement(pinwallElements[2], element);
         };
 
         this.blogAdded = function (blog) {
-            blog.type = 'Blog';
-            HomePinwallElements.pinwall.unshift(blog);
+            HomePinwallElements.addBlog(blog);
             updatePinwall();
         };
 
@@ -3186,6 +3166,12 @@ module.exports = ['HomePinwallHeightCalculator',
             HomePinwallHeightCalculator.setHeightPinwallElements(pinwall);
 
             return tempPinwall;
+        };
+
+        this.addBlog = function (blog) {
+            blog.type = 'Blog';
+            HomePinwallHeightCalculator.calculator.Blog(blog);
+            pinwall.unshift(blog);
         };
 
         this.messageChanged = function (newMessages) {

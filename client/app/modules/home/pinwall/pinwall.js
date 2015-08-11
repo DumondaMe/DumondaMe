@@ -75,15 +75,14 @@ module.exports = ['HomePinwallElements', '$log',
                 }
             }
 
-            removeElement(HomePinwallElements.pinwall, element);
+            removeElement(HomePinwallElements.getPinwall(), element);
             removeElement(pinwallElements[0], element);
             removeElement(pinwallElements[1], element);
             removeElement(pinwallElements[2], element);
         };
 
         this.blogAdded = function (blog) {
-            blog.type = 'Blog';
-            HomePinwallElements.pinwall.unshift(blog);
+            HomePinwallElements.addBlog(blog);
             updatePinwall();
         };
 

@@ -97,6 +97,12 @@ module.exports = ['HomePinwallHeightCalculator',
             return tempPinwall;
         };
 
+        this.addBlog = function (blog) {
+            blog.type = 'Blog';
+            HomePinwallHeightCalculator.calculator.Blog(blog);
+            pinwall.unshift(blog);
+        };
+
         this.messageChanged = function (newMessages) {
             var exist = false;
             angular.forEach(pinwall, function (element) {
