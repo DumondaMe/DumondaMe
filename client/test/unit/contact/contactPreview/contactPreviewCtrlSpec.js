@@ -1,9 +1,9 @@
 'use strict';
 
-var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl').directiveCtrl()[3];
+var contactPreviewCtrl = require('../../../../app/modules/contact/contactPreview/contactPreviewCtrl').directiveCtrl()[4];
 
 describe('Tests of Contact Preview Controller', function () {
-    var scope, state, ContactUserActions;
+    var scope, state, ContactUserActions, UrlCache;
 
     beforeEach(function (done) {
         inject(function ($rootScope) {
@@ -13,7 +13,10 @@ describe('Tests of Contact Preview Controller', function () {
             };
             ContactUserActions.setPrivacySettings = function () {
             };
-
+            UrlCache = {
+                reset: function () {
+                }
+            };
             state = {};
             state.go = function () {
             };
@@ -30,7 +33,7 @@ describe('Tests of Contact Preview Controller', function () {
 
         scope.contact = {userId: '5'};
 
-        contactPreviewCtrl(scope, state, ContactUserActions);
+        contactPreviewCtrl(scope, state, ContactUserActions, UrlCache);
         scope.openUserDetails();
 
         expect(spyGo.calledOnce).to.be.true;

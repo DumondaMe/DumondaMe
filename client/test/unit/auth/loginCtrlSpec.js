@@ -1,12 +1,12 @@
 'use strict';
 
-var LoginCtrl = require('../../../app/modules/auth/loginCtrl')[3];
+var LoginCtrl = require('../../../app/modules/auth/loginCtrl')[5];
 
 describe('Tests of Login Controller', function () {
-    var testee, timeout, scope, q, AuthMock;
+    var testee, timeout, scope, q, AuthMock, UrlCache, state;
 
     beforeEach(function (done) {
-        inject(function ($rootScope, $location, $timeout, $q) {
+        inject(function ($rootScope, $timeout, $q) {
 
             scope = $rootScope.$new();
             timeout = $timeout;
@@ -16,7 +16,15 @@ describe('Tests of Login Controller', function () {
                 login: function () {
                 }
             };
-            testee = new LoginCtrl(scope, $location, AuthMock);
+            UrlCache = {
+                reset: function () {
+                }
+            };
+            state = {
+                go: function () {
+                }
+            };
+            testee = new LoginCtrl(scope, $rootScope, state, AuthMock, UrlCache);
             done();
         });
     });
