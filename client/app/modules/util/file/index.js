@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('elyoosApp');
+var app = angular.module('elyoosApp');
 var fileModel = require('./fileModel.js');
 
 app.service('fileUpload', require('./fileUpload'));

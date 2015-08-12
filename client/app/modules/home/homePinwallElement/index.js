@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('elyoosApp');
+var app = angular.module('elyoosApp');
 var directive = require('./directive.js');
 
 app.controller('HomePinwallElementNewMessageCtrl', require('./newMessageCtrl'));

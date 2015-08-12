@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('angular').module('elyoosApp');
+var app = angular.module('elyoosApp');
 
 app.controller('ProfileCtrl', require('./profileCtrl'));
 app.controller('PasswordCtrl', require('./passwordCtrl'));
