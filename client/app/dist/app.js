@@ -222,7 +222,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageOverview.html',
-    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage service-parameter=SearchPageParameter hide=!hide></ely-page-preview-container><ely-page-preview-container format=long video-width=160 video-height=255 title=\"Neuste Bewertungen deiner Kontakte\" service=PageRecommendationAllContact service-parameter={} hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
+    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage service-parameter=SearchPageParameter hide=!hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container format=long video-width=160 video-height=255 title=\"Beliebteste Youtube Videos deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Youtube'}\" hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container format=long video-width=160 video-height=255 title=\"Beliebteste Youtube Videos\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Youtube'}\" hide=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 
 
@@ -3262,7 +3262,7 @@ module.exports = [
             {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'},
             {description: 'Kontakte', url: 'app/img/home/contact.png', color: '#009688', sref: 'contact.myContacts'},
             {description: 'Nachrichten', url: 'app/img/home/email.png', color: '#ce5043', sref: 'message.threads'},
-            {description: 'Seiten', url: 'app/img/home/page.png', color: '#1aa1e1', sref: 'page.overview'}];
+            {description: 'Empfehlungen', url: 'app/img/home/recommend.png', color: '#1aa1e1', sref: 'page.overview'}];
     }];
 
 },{}],86:[function(require,module,exports){
