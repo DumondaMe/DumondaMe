@@ -1,0 +1,49 @@
+#content-page-overview {
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  padding-top: 140px;
+
+  @include centerColumn(220px) {
+    #inner-centerCol {
+      position: relative;
+      display: inline-block;
+      min-width: 800px;
+      max-width: 1600px;
+      height: 100%;
+      width: 100%;
+      padding-left: 50px;
+
+      .page-overview-container {
+        position: relative;
+        display: block;
+        margin-bottom: 20px;
+        width: 100%;
+
+        .website-structure-title {
+          display: inline-block;
+        }
+        .page-overview-expand {
+          display: inline-block;
+          position: absolute;
+          right: 30px;
+          background-color: $primary-color;
+          color: #ffffff;
+        }
+      }
+      .page-overview-next {
+        width: 48px;
+        margin: 0 auto 0 auto;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @include searchBoxContainer() {
+    left: 230px;
+
+    .searchBoxForm {
+      padding-left: 40px;
+    }
+  }
+}

@@ -434,12 +434,7 @@ var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECOND
 },{}],8:[function(require,module,exports){
 'use strict';
 
-/*var angular = require('angular');*/
 require('angular-ui-route');
-/*require('angular-cookies');
-require('angular-sanitize');
-require('angular-animate');
-require('angular-resource');*/
 require('angular-strap');
 require('angular-strap-tpl');
 require('infinit-scroll');
@@ -451,21 +446,13 @@ var app = angular.module('elyoosApp', [
     'ngAnimate',
     'ngResource',
     'mgcrea.ngStrap',
-    'infinite-scroll'
+    'infinite-scroll',
+    'ngMaterial'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
-
-require('./auth');
-require('./contact');
-require('./directives');
-require('./filters');
-require('./home');
-require('./navigation');
-require('./settings');
-require('./util');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider) {
@@ -537,7 +524,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         template: ''
     };
 }]);
-},{"../../package.json":170,"./auth":10,"./contact":20,"./directives":41,"./filters":58,"./home":72,"./navigation":91,"./settings":143,"./util":165,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
+},{"../../package.json":170,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {

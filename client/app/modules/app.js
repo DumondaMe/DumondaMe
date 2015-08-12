@@ -1,11 +1,6 @@
 'use strict';
 
-/*var angular = require('angular');*/
 require('angular-ui-route');
-/*require('angular-cookies');
-require('angular-sanitize');
-require('angular-animate');
-require('angular-resource');*/
 require('angular-strap');
 require('angular-strap-tpl');
 require('infinit-scroll');
@@ -17,21 +12,13 @@ var app = angular.module('elyoosApp', [
     'ngAnimate',
     'ngResource',
     'mgcrea.ngStrap',
-    'infinite-scroll'
+    'infinite-scroll',
+    'ngMaterial'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
-
-require('./auth');
-require('./contact');
-require('./directives');
-require('./filters');
-require('./home');
-require('./navigation');
-require('./settings');
-require('./util');
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider) {

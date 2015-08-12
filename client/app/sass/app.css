@@ -1179,42 +1179,50 @@ h1.website-structure-title {
   width: 780px;
   left: 250px; }
 
-#leftColNav {
-  position: fixed;
-  left: 0;
-  top: 60px;
-  width: 230px;
-  z-index: 100;
-  background-color: #f1f1f1;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
-  #leftColNav .left-nav-element-container {
-    height: 48px;
-    width: 230px;
-    cursor: pointer; }
-    #leftColNav .left-nav-element-container .left-nav-element {
-      height: 100%;
-      width: 100%; }
-      #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 65px;
-        height: 100%;
-        padding-top: 10px; }
-        #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container .left-nav-image {
-          margin-right: 13px;
-          float: right;
-          height: 24px;
-          width: 24px; }
-      #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 160px;
-        height: 100%; }
-        #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
-          font-size: 16px;
-          font-weight: 300;
-          padding-left: 5px;
-          padding-top: 13px; }
+#content-messages {
+  width: 100%;
+  height: 100%;
+  padding-top: 60px; }
+  #content-messages #centerCol {
+    display: block;
+    height: 100%;
+    padding-left: 230px; }
+    #content-messages #centerCol #inner-centerCol {
+      position: relative; }
+      #content-messages #centerCol #inner-centerCol .add-message {
+        height: 48px;
+        padding-top: 2px;
+        background-color: #ffffff; }
+        #content-messages #centerCol #inner-centerCol .add-message .input-group {
+          margin: 5px 10px 0 30px; }
+          #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
+            z-index: 0;
+            height: 34px; }
+      #content-messages #centerCol #inner-centerCol .message-view {
+        margin: 20px 0 15px 30px; }
+        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image {
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 10px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image img {
+            height: 40px;
+            width: 40px; }
+        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content {
+          display: inline-block;
+          max-width: 80%; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-name {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 14px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-timestamp {
+            display: inline-block;
+            font-style: italic;
+            font-size: 12px; }
+          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-text {
+            white-space: pre-line; }
+      #content-messages #centerCol #inner-centerCol .pagination {
+        width: 100%;
+        clear: both; }
 
 #content-threads {
   width: 100%;
@@ -1299,51 +1307,6 @@ h1.website-structure-title {
         margin-left: -230px;
         padding: 5px 10px 0 10px;
         width: 800px; }
-
-#content-messages {
-  width: 100%;
-  height: 100%;
-  padding-top: 60px; }
-  #content-messages #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 230px; }
-    #content-messages #centerCol #inner-centerCol {
-      position: relative; }
-      #content-messages #centerCol #inner-centerCol .add-message {
-        height: 48px;
-        padding-top: 2px;
-        background-color: #ffffff; }
-        #content-messages #centerCol #inner-centerCol .add-message .input-group {
-          margin: 5px 10px 0 30px; }
-          #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
-            z-index: 0;
-            height: 34px; }
-      #content-messages #centerCol #inner-centerCol .message-view {
-        margin: 20px 0 15px 30px; }
-        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image {
-          display: inline-block;
-          vertical-align: top;
-          margin-right: 10px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image img {
-            height: 40px;
-            width: 40px; }
-        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content {
-          display: inline-block;
-          max-width: 80%; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-name {
-            display: inline-block;
-            font-weight: bold;
-            font-size: 14px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-timestamp {
-            display: inline-block;
-            font-style: italic;
-            font-size: 12px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-text {
-            white-space: pre-line; }
-      #content-messages #centerCol #inner-centerCol .pagination {
-        width: 100%;
-        clear: both; }
 
 #content-page-create-edit {
   width: 100%;
@@ -1697,16 +1660,16 @@ h1.website-structure-title {
       width: 64px;
       height: 64px; }
 
-#content #content-page-overview {
+#content-page-overview {
   width: 100%;
   height: 100%;
   min-width: 1000px;
   padding-top: 140px; }
-  #content #content-page-overview #centerCol {
+  #content-page-overview #centerCol {
     display: block;
     height: 100%;
     padding-left: 220px; }
-    #content #content-page-overview #centerCol #inner-centerCol {
+    #content-page-overview #centerCol #inner-centerCol {
       position: relative;
       display: inline-block;
       min-width: 800px;
@@ -1714,35 +1677,36 @@ h1.website-structure-title {
       height: 100%;
       width: 100%;
       padding-left: 50px; }
-      #content #content-page-overview #centerCol #inner-centerCol .page-overview-container {
+      #content-page-overview #centerCol #inner-centerCol .page-overview-container {
         position: relative;
+        display: block;
         margin-bottom: 20px;
         width: 100%; }
-        #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
+        #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
           display: inline-block; }
-        #content #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
+        #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
           display: inline-block;
           position: absolute;
           right: 30px;
           background-color: #009688;
           color: #ffffff; }
-      #content #content-page-overview #centerCol #inner-centerCol .page-overview-next {
+      #content-page-overview #centerCol #inner-centerCol .page-overview-next {
         width: 48px;
         margin: 0 auto 0 auto;
         cursor: pointer; }
-  #content #content-page-overview #search-box-container {
+  #content-page-overview #search-box-container {
     position: fixed;
     top: 60px;
     width: 100%;
     height: 48px;
     background-color: #ffffff;
     left: 230px; }
-    #content #content-page-overview #search-box-container .searchBoxForm {
+    #content-page-overview #search-box-container .searchBoxForm {
       display: inline-block;
       padding-left: 60px;
       margin-top: 2px;
       width: 600px; }
-    #content #content-page-overview #search-box-container .searchBoxForm {
+    #content-page-overview #search-box-container .searchBoxForm {
       padding-left: 40px; }
 
 .page-preview-container, .page-preview-short-container, .page-preview-expand-container {
@@ -1940,18 +1904,6 @@ h1.website-structure-title {
       width: 600px; }
     #content #content-page-user-administration #search-box-container .searchBoxForm {
       padding-left: 40px; }
-
-#content-recommendation-home {
-  width: 100%;
-  height: 100%; }
-  #content-recommendation-home #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 80px; }
-    #content-recommendation-home #centerCol #inner-centerCol {
-      min-width: 800px;
-      height: 100%;
-      margin-left: 60px; }
 
 #modal-dialog-add-recommendation .modal-header .modal-dialog-add-recommendation-title {
   font-weight: bold;
@@ -2153,13 +2105,48 @@ h1.website-structure-title {
         float: left;
         margin-bottom: 10px; }
 
+#leftColNav {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 230px;
+  z-index: 100;
+  background-color: #f1f1f1;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
+  #leftColNav .left-nav-element-container {
+    height: 48px;
+    width: 230px;
+    cursor: pointer; }
+    #leftColNav .left-nav-element-container .left-nav-element {
+      height: 100%;
+      width: 100%; }
+      #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 65px;
+        height: 100%;
+        padding-top: 10px; }
+        #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container .left-nav-image {
+          margin-right: 13px;
+          float: right;
+          height: 24px;
+          width: 24px; }
+      #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 160px;
+        height: 100%; }
+        #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
+          font-size: 16px;
+          font-weight: 300;
+          padding-left: 5px;
+          padding-top: 13px; }
+
 html {
-  display: block;
-  height: 100%; }
+  background-color: #E0E0E0; }
 
 body {
   background-color: #E0E0E0;
-  height: 100%;
   font-family: Roboto, Arial, sans-serif; }
 
 #viewport {

@@ -12,43 +12,15 @@
 @import 'directives/_sendButton';
 @import 'directives/_starRating';
 @import 'elyoos/_common';
-@import 'elyoos/_contactContacting';
-@import 'elyoos/_contactDetails';
-@import 'elyoos/_contactMiniPreview';
-@import 'elyoos/_contactMy';
-@import 'elyoos/_contactPreview';
-@import 'elyoos/_contactStatistic';
-@import 'elyoos/_header';
-@import 'elyoos/_headerProfilePreview';
-@import 'elyoos/_home';
-@import 'elyoos/_homeBlogDetail';
-@import 'elyoos/_homeWriteBlog';
+@import 'elyoos/_index';
 @import 'elyoos/_leftColNav';
-@import 'elyoos/_messages';
-@import 'elyoos/_pageCreateEdit';
-@import 'elyoos/_pageCreateEditBook';
-@import 'elyoos/_pageCreateEditYoutube';
-@import 'elyoos/_pageDetail';
-@import 'elyoos/_pageDetailEducation';
-@import 'elyoos/_pageDetailReview';
-@import 'elyoos/_pageOverview';
-@import 'elyoos/_pagePreview';
-@import 'elyoos/_pageUserRecommendation';
-@import 'elyoos/_pageUserAdministration';
-@import 'elyoos/_recommendationHome';
-@import 'elyoos/_recommendationModal';
-@import 'elyoos/_settingsPassword';
-@import 'elyoos/_settingsProfile';
-@import 'elyoos/_settingsPrivacy';
 
 html {
-  display: block;
-  height: 100%;
+  background-color: $background-normal;
 }
 
 body {
   background-color: $background-normal;
-  height: 100%;
   font-family: Roboto, Arial, sans-serif;
 }
 
