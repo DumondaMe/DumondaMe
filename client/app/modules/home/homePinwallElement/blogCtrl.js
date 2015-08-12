@@ -47,13 +47,5 @@ module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter'
             $rootScope.fullScreen.template = 'app/modules/home/homePinwallElement/blogDetail/blogDetail.html';
             $rootScope.fullScreen.show = true;
         };
-
-        $rootScope.$watch('fullScreen.show', function (newShow) {
-            if (newShow === false && $rootScope.fullScreen && $rootScope.fullScreen.scrollY > 0) {
-                $timeout(function () {
-                    $window.scrollTo(0, $rootScope.fullScreen.scrollY);
-                }, 0, false);
-            }
-        });
     }];
 

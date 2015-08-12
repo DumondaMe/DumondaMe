@@ -6,7 +6,12 @@ module.exports = {
 
             $scope.expand = function () {
                 $scope.expanded = true;
-                $scope.descriptionStyle = {'max-height': 'none'};
+                if ($scope.maxHeight) {
+                    $scope.descriptionStyle = {'max-height': $scope.maxHeight, 'overflow-y': 'auto'};
+                } else {
+                    $scope.descriptionStyle = {'max-height': 'none'};
+                }
+
             };
         }];
     }

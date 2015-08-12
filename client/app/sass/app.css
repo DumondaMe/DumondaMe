@@ -939,7 +939,13 @@ h1.website-structure-title {
         #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-text, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-text {
           margin-top: 10px;
           margin-bottom: 10px;
-          cursor: pointer; }
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 300;
+          overflow: hidden;
+          white-space: pre-line; }
+          #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-text .blog-text-image, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-text .blog-text-image {
+            max-height: 4.2em; }
         #home .home-pinwall-container .home-pinwall-container-column .home-pinwall-element .blog-image-preview, #home .home-pinwall-container .home-pinwall-blog-container .home-pinwall-element .blog-image-preview {
           margin-bottom: 20px;
           cursor: pointer; }
@@ -1059,7 +1065,8 @@ h1.website-structure-title {
       height: 100%;
       font-size: 14px;
       font-weight: 300;
-      overflow: auto; }
+      overflow: auto;
+      white-space: pre-line; }
 
 #home .home-pinwall-container .home-pinwall-blog-container {
   width: 100%;

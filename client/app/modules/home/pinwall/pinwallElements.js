@@ -88,8 +88,8 @@ module.exports = ['HomePinwallHeightCalculator',
                 pinwall.unshift({type: 'NoRecommendations'});
             }
 
-            setContacting(newPinwall);
             setNewMessages(newPinwall);
+            setContacting(newPinwall);
             setUserInfo(newPinwall);
 
             HomePinwallHeightCalculator.setHeightPinwallElements(pinwall);

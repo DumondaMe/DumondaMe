@@ -9,7 +9,8 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                description: '@'
+                description: '@',
+                maxHeight: '@'
             },
             templateUrl: 'app/modules/directives/expandText/template.html',
             controller: controller.directiveCtrl(),

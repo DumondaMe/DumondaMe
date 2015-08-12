@@ -145,6 +145,14 @@
           margin-top: 10px;
           margin-bottom: 10px;
           cursor: pointer;
+          font-size: 14px;
+          font-weight: 300;
+          overflow: hidden;
+          white-space: pre-line;
+
+          .blog-text-image {
+            max-height: 4.2em;
+          }
         }
         .blog-image-preview {
           margin-bottom: 20px;
