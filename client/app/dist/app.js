@@ -2758,11 +2758,11 @@ var setAdminActions = function ($scope) {
         {
             text: "L\u00f6schen",
             click: "removeBlog(element.blogId)"
-        },
+        }/*,
         {
             text: "Bearbeiten",
             click: "editBlog($scope)"
-        }
+        }*/
     ];
 };
 
@@ -3094,7 +3094,7 @@ var sortPinwall = function (tempPinwall) {
 };
 
 var setNewMessages = function (newPinwall) {
-    if (newPinwall.hasOwnProperty('messages')) {
+    if (newPinwall.hasOwnProperty('messages') && newPinwall.messages.length > 0) {
         pinwall.unshift({messages: newPinwall.messages, type: 'NewMessages'});
     }
 };

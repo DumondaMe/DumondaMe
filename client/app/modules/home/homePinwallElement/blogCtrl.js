@@ -6,11 +6,11 @@ var setAdminActions = function ($scope) {
         {
             text: "L\u00f6schen",
             click: "removeBlog(element.blogId)"
-        },
+        }/*,
         {
             text: "Bearbeiten",
             click: "editBlog($scope)"
-        }
+        }*/
     ];
 };
 

@@ -37,7 +37,7 @@ var sortPinwall = function (tempPinwall) {
 };
 
 var setNewMessages = function (newPinwall) {
-    if (newPinwall.hasOwnProperty('messages')) {
+    if (newPinwall.hasOwnProperty('messages') && newPinwall.messages.length > 0) {
         pinwall.unshift({messages: newPinwall.messages, type: 'NewMessages'});
     }
 };
