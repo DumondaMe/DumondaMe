@@ -1,16 +1,16 @@
-#home {
-  .home-pinwall-container {
-    .home-pinwall-blog-container {
-      @extend .home-pinwall-container-column;
+#ely-home {
+  .pinwall-container {
+    .pinwall-blog-container {
+      @extend .pinwall-container-column;
       width: 100%;
       margin-top: 20px;
     }
-    .home-pinwall-blog-input {
+    .blog-input {
       height: 5em;
       margin-top: 20px;
       margin-bottom: 20px;
     }
-    .home-pinwall-blog-send {
+    .blog-send {
       margin-bottom: 10px;
       button {
         font-weight: bold;
@@ -28,26 +28,26 @@
         margin-left: 15px;
       }
     }
-    .home-pinwall-element.home-pinwall-blog-element {
+    .pinwall-element.pinwall-blog-element {
       background-color: $primary-color-light;
       width: 420px;
     }
 
-    .home-pinwall-blog-element-extended {
-      @extend .home-pinwall-blog-element;
+    .pinwall-blog-element-extended {
+      @extend .pinwall-blog-element;
       position: relative;
       left: 0;
       -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
       transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), width .4s ease, left .4s ease, box-shadow .4s ease, margin .4s ease, border .4s ease;
 
-      .home-pinwall-blog-visibility {
+      .blog-visibility {
         margin-bottom: 15px;
         label {
           width: 70px;
           text-align: left;
           padding-right: 5px;
         }
-        .home-pinwall-blog-select-all {
+        .blog-select-all {
           margin-top: 5px;
           margin-left: 70px;
           input {
@@ -56,7 +56,7 @@
             margin-right: 3px;
           }
         }
-        .home-pinwall-blog-select-all.is-selected {
+        .blog-select-all.is-selected {
           display: inline-block;
           margin-left: 0px;
           input {
@@ -67,14 +67,14 @@
         }
       }
 
-      .home-pinwall-blog-attachment {
+      .blog-attachment {
         margin-bottom: 10px;
         label {
           width: 70px;
           text-align: left;
           padding-right: 5px;
         }
-        .home-pinwall-blog-attachment-element {
+        .blog-attachment-element {
           display: inline-block;
           vertical-align: top;
           cursor: pointer;
@@ -94,7 +94,7 @@
         }
       }
 
-      .home-pinwall-blog-photo-container {
+      .blog-photo-container {
         position: relative;
         margin-bottom: 10px;
         img {
@@ -105,7 +105,7 @@
         }
       }
 
-      .home-pinwall-blog-photo-container-commands {
+      .blog-photo-container-commands {
         background-color: #fff;
         border: 1px solid #d8d8d8;
         height: 46px;
@@ -123,34 +123,34 @@
         }
       }
 
-      .home-pinwall-load-photo {
+      .load-photo {
         height: 100px;
         display: block;
       }
 
-      .home-pinwall-blog-input {
+      .blog-input {
         -webkit-transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
         transition: cubic-bezier(0.250, 0.460, 0.450, 0.940), height .4s ease;
       }
     }
 
-    .home-pinwall-blog-element-extended.is-extended {
+    .pinwall-blog-element-extended.is-extended {
       width: 540px;
       margin-right: 30px;
       left: 160px;
       box-shadow: 0 2px 40px 0 rgba(0, 0, 0, .4);
 
-      .home-pinwall-blog-input {
+      .blog-input {
         height: 8em;
       }
     }
 
-    .home-pinwall-blog-element-extended.is-extended.one-column {
+    .pinwall-blog-element-extended.is-extended.one-column {
       width: 420px;
       left: 0px;
     }
 
-    .home-pinwall-blog-element-extended.is-extended.three-column {
+    .pinwall-blog-element-extended.is-extended.three-column {
       width: 780px;
       left: 250px;
     }

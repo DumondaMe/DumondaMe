@@ -1,13 +1,13 @@
 <div ng-controller="HomePinwallElementBlogCtrl">
-    <div class="pinwall-element-description"> Blog
+    <div class="description"> Blog
         <div class="options" ng-show="element.isAdmin" data-toggle="dropdown" aria-expanded="false" data-placement="bottom-right"
              bs-dropdown="user.actions"><img src="app/img/settings.png"></div>
     </div>
-    <img class="pinwall-element-profile-image img-circle" ng-src="{{cacheUrl(element.profileUrl)}}">
+    <img class="profile-image img-circle" ng-src="{{cacheUrl(element.profileUrl)}}">
 
-    <div class="pinwall-element-profile-description">
-        <div class="pinwall-element-profile-name">{{element.name}}</div>
-        <div class="pinwall-element-time">{{getFormattedDate(element.created, 'LLL')}}</div>
+    <div class="profile-description">
+        <div class="profile-name">{{element.name}}</div>
+        <div class="time">{{getFormattedDate(element.created, 'LLL')}}</div>
     </div>
     <div class="blog-text">
         <ely-expand-text class="blog-text-expand" description="{{element.text}}" ng-if="!element.hasOwnProperty('url')"

@@ -1,23 +1,22 @@
-#home {
-  width: 100%;
+#ely-home {
   padding-left: 230px;
   margin-top: 100px;
 
-  .home-pinwall-container {
+  .pinwall-container {
     margin: 0 auto;
-    .home-pinwall-container-column {
+    .pinwall-container-column {
       display: inline-block;
       vertical-align: top;
       width: 440px;
 
-      .home-pinwall-element {
+      .pinwall-element {
         margin: 0 10px 25px 10px;
         padding: 0 20px;
         background-color: #ffffff;
         border-radius: 3px;
         border: 1px solid #d8d8d8;
 
-        .pinwall-element-description {
+        .description {
           padding: 10px 0;
           margin-bottom: 10px;
           color: #999;
@@ -35,12 +34,12 @@
           }
         }
 
-        .pinwall-element-profile-messages {
+        .profile-messages {
           margin-bottom: 10px;
           cursor: pointer;
         }
 
-        .pinwall-element-profile-image {
+        .profile-image {
           display: inline-block;
           vertical-align: top;
           width: 35px;
@@ -49,10 +48,10 @@
           margin-right: 15px;
         }
 
-        .pinwall-element-profile-description {
+        .profile-description {
           display: inline-block;
           vertical-align: top;
-          .pinwall-element-profile-name {
+          .profile-name {
             font-size: 16px;
             color: $primary-color;
             max-width: 320px;
@@ -60,7 +59,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
           }
-          .pinwall-element-time {
+          .time {
             display: inline-block;
             vertical-align: top;
             color: #999;
@@ -68,21 +67,21 @@
             margin-top: 3px;
             margin-left: 5px;
           }
-          .pinwall-element-info {
+          .info {
             color: #999;
             font-size: 12px;
             margin-top: 3px;
           }
         }
 
-        .pinwall-element-comment {
+        .comment {
           cursor: pointer;
           font-size: 14px;
           font-weight: 300;
           margin-bottom: 20px;
         }
 
-        .pinwall-element-link {
+        .link {
           color: $primary-color;
           cursor: pointer;
           font-size: 12px;
@@ -95,29 +94,29 @@
           }
         }
 
-        .pinwall-element-content {
+        .content {
           margin-top: 20px;
           margin-bottom: 20px;
           cursor: pointer;
 
-          .pinwall-element-image {
+          .image {
             width: 120px;
             max-height: 200px;
           }
 
-          .pinwall-element-content-description {
+          .content-description {
             display: inline-block;
             vertical-align: top;
             margin-left: 10px;
             width: 230px;
-            .pinwall-element-title {
+            .title {
               color: $primary-color;
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
             }
 
-            .pinwall-element-rating-description {
+            .rating-description {
               display: inline-block;
               vertical-align: top;
               color: #999;
@@ -126,15 +125,15 @@
               margin-left: 5px;
             }
 
-            .pinwall-element-content-description-text {
+            .content-description-text {
               max-height: 120px;
               margin-top: 5px;
               overflow: hidden;
               font-weight: 300;
             }
           }
-          .pinwall-element-content-youtube-description {
-            @extend .pinwall-element-content-description;
+          .content-youtube-description {
+            @extend .content-description;
             margin-top: 10px;
             margin-left: 0px;
             width: 380px;

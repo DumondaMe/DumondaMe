@@ -1,26 +1,26 @@
 <div ng-controller="HomePinwallElementRecommendationCtrl">
-    <div class="pinwall-element-description"> {{category}} Bewertung</div>
-    <img class="pinwall-element-profile-image img-circle" ng-src="{{cacheUrl(element.profileUrl)}}">
+    <div class="description"> {{category}} Bewertung</div>
+    <img class="profile-image img-circle" ng-src="{{cacheUrl(element.profileUrl)}}">
 
-    <div class="pinwall-element-profile-description">
-        <div class="pinwall-element-profile-name">{{element.name}}</div>
+    <div class="profile-description">
+        <div class="profile-name">{{element.name}}</div>
         <ely-star-rating is-readonly="true" is-x-small="true" number-of-selected-stars-readonly="element.rating"></ely-star-rating>
-        <div class="pinwall-element-time">{{getFormattedDate(element.created, 'LLL')}}</div>
+        <div class="time">{{getFormattedDate(element.created, 'LLL')}}</div>
     </div>
-    <div class="pinwall-element-content" ng-click="openDetail(element.pageId, element.label)">
-        <img class="pinwall-element-image" ng-hide="element.label === 'Youtube'" ng-src="{{cacheUrl(element.url)}}">
+    <div class="content" ng-click="openDetail(element.pageId, element.label)">
+        <img class="image" ng-hide="element.label === 'Youtube'" ng-src="{{cacheUrl(element.url)}}">
         <ely-iframe width="380" height="300" secure-link="https://www.youtube.com/embed/" src="element.link"
                     ng-show="element.label === 'Youtube'"></ely-iframe>
 
-        <div ng-class="{'pinwall-element-content-description': element.label !== 'Youtube', 'pinwall-element-content-youtube-description': element.label === 'Youtube'}">
-            <div class="pinwall-element-title">{{element.title}}</div>
-            <ely-star-rating is-readonly="true" is-x-small="true" class="pinwall-element-rating"
+        <div ng-class="{'content-description': element.label !== 'Youtube', 'content-youtube-description': element.label === 'Youtube'}">
+            <div class="title">{{element.title}}</div>
+            <ely-star-rating is-readonly="true" is-x-small="true" class="rating"
                              number-of-selected-stars-readonly="element.ratingAllContacts"
                              ng-show="element.numberOfRatingsByContacts > 1"></ely-star-rating>
-            <div class="pinwall-element-rating-description"
+            <div class="rating-description"
                  ng-show="element.numberOfRatingsByContacts > 1">{{element.numberOfRatingsByContacts}} Bewertungen
             </div>
-            <div class="pinwall-element-content-description-text">{{element.description}}</div>
+            <div class="content-description-text">{{element.description}}</div>
         </div>
     </div>
 </div>
