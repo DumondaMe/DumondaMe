@@ -2166,36 +2166,6 @@ body {
 textarea {
   opacity: 0.99; }
 
-#userinfo {
-  float: left; }
-
-#nav-content {
-  position: fixed;
-  margin-top: 80px;
-  top: 0px;
-  left: 0px; }
-
-.navigation {
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  margin-left: -405px;
-  width: 810px; }
-
-#navigation-connections {
-  background-color: #FFBABA; }
-
-.navigation-second {
-  float: left; }
-
-#default-nav {
-  float: right;
-  min-width: 60px;
-  height: 60px; }
-
-#profileImage {
-  height: 60px; }
-
 #loginform {
   position: absolute;
   width: 400px;
@@ -2203,28 +2173,10 @@ textarea {
   left: 50%;
   margin-left: -200px; }
 
-.alert-input {
-  padding: 5px;
-  margin-bottom: 0px;
-  border: 1px solid transparent;
-  border-radius: 4px; }
-
-.control-label em {
-  font-weight: normal; }
-
 .innerCol {
   margin-top: 10px;
   padding-right: 10px;
   height: 100%; }
-
-.sortable-header {
-  cursor: pointer; }
-
-.img-table-preview {
-  float: left;
-  width: 48px;
-  height: 48px;
-  margin-right: 10px; }
 
 #no-javascript {
   position: fixed;
