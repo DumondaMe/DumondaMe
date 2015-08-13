@@ -446,6 +446,10 @@ h1.website-structure-title {
   font-variant: normal;
   font-weight: 100; }
 
+.ely-button {
+  text-transform: none;
+  margin-left: 0; }
+
 #content #content-page-contacting {
   width: 100%;
   height: 100%; }
@@ -1070,26 +1074,23 @@ h1.website-structure-title {
 #ely-home .pinwall-container .pinwall-blog-container {
   width: 100%;
   margin-top: 20px; }
-#ely-home .pinwall-container .blog-input {
-  height: 5em;
-  margin-top: 20px;
-  margin-bottom: 20px; }
+#ely-home .pinwall-container .blog-input-container {
+  margin-top: 5px; }
+  #ely-home .pinwall-container .blog-input-container .md-default-theme label {
+    color: #000000;
+    font-weight: 300; }
 #ely-home .pinwall-container .blog-send {
   margin-bottom: 10px; }
-  #ely-home .pinwall-container .blog-send button {
-    font-weight: bold; }
-  #ely-home .pinwall-container .blog-send .send-blog-button {
-    background-color: #009688;
-    color: #ffffff; }
   #ely-home .pinwall-container .blog-send .upload-blog-running {
     position: relative;
     display: inline-block;
     vertical-align: bottom;
     height: 30px;
     width: 30px;
-    margin-left: 15px; }
+    margin-left: 5px;
+    margin-bottom: 10px; }
 #ely-home .pinwall-container .pinwall-element.pinwall-blog-element, #ely-home .pinwall-container .pinwall-element.pinwall-blog-element-extended {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   width: 420px; }
 #ely-home .pinwall-container .pinwall-blog-element-extended {
   position: relative;

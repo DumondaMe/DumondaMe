@@ -36,11 +36,11 @@
             </div>
         </div>
         <div class="blog-send">
-            <button class="btn btn-default btn-sm send-blog-button" type="button" ng-click="sendBlog()"
-                    ng-disabled="!sendBlogAllowed || user.uploadBlogIsRunning">Posten
-            </button>
-            <button class="btn btn-default btn-sm" type="button" ng-click="abort()" ng-disabled="user.uploadBlogIsRunning">Abbrechen
-            </button>
+            <md-button class="md-raised md-primary ely-button" ng-click="sendBlog()"
+                       ng-disabled="!sendBlogAllowed || user.uploadBlogIsRunning">Posten
+            </md-button>
+            <md-button class="ely-button" ng-click="abort()" ng-disabled="user.uploadBlogIsRunning">Abbrechen
+            </md-button>
             <div class="upload-blog-running" ng-if="user.uploadBlogIsRunning">
                 <ely-spin size="small"></ely-spin>
             </div>

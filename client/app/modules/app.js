@@ -20,8 +20,8 @@ app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider) {
 
         $compileProvider.debugInfoEnabled(false);
 
@@ -66,6 +66,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         angular.extend($modalProvider.defaults, {
             html: true
         });
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('teal')
+            .accentPalette('light-green');
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;

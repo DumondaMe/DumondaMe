@@ -5,31 +5,31 @@
       width: 100%;
       margin-top: 20px;
     }
-    .blog-input {
-      height: 5em;
-      margin-top: 20px;
-      margin-bottom: 20px;
+
+    .blog-input-container {
+      margin-top: 5px;
+      .md-default-theme {
+        label {
+          color: #000000;
+          font-weight: 300;
+        }
+      }
     }
+
     .blog-send {
       margin-bottom: 10px;
-      button {
-        font-weight: bold;
-      }
-      .send-blog-button {
-        background-color: $primary-color;
-        color: #ffffff;
-      }
       .upload-blog-running {
         position: relative;
         display: inline-block;
         vertical-align: bottom;
         height: 30px;
         width: 30px;
-        margin-left: 15px;
+        margin-left: 5px;
+        margin-bottom: 10px;
       }
     }
     .pinwall-element.pinwall-blog-element {
-      background-color: $primary-color-light;
+      background-color: #ffffff;
       width: 420px;
     }
 

@@ -88,12 +88,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
-    "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><button class=\"btn btn-default btn-sm send-blog-button\" type=button ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</button> <button class=\"btn btn-default btn-sm\" type=button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
+    "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"pinwall-element pinwall-blog-element\" ng-class=\"{'pinwall-blog-element-extended': showExpand, 'pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><textarea class=\"form-control blog-input\" ng-model=user.blogText placeholder=\"Schreibe einen Beitrag\" ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"pinwall-element pinwall-blog-element\" ng-class=\"{'pinwall-blog-element-extended': showExpand, 'pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><div class=blog-input-container><md-input-container><label>Schreibe einen Beitrag...</label><textarea class=blog-input ng-model=user.blogText ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea></md-input-container></div><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
@@ -454,8 +454,8 @@ app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider) {
 
         $compileProvider.debugInfoEnabled(false);
 
@@ -500,6 +500,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         angular.extend($modalProvider.defaults, {
             html: true
         });
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('teal')
+            .accentPalette('light-green');
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;
@@ -2312,6 +2316,7 @@ module.exports = {
                     if (newValue) {
                         element.removeClass('ng-hide');
                         $animate.addClass(element, 'is-extended');
+                        element.find('.blog-input').focus();
                     }
                 }
             });

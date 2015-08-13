@@ -21,6 +21,7 @@ module.exports = {
                     if (newValue) {
                         element.removeClass('ng-hide');
                         $animate.addClass(element, 'is-extended');
+                        element.find('.blog-input').focus();
                     }
                 }
             });
