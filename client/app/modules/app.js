@@ -25,7 +25,8 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
         .primaryPalette('teal')
         .accentPalette('light-green');
 
-    $mdIconProvider.iconSet('system', 'app/img/system/system.svg', 24);
+    $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
+    $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',

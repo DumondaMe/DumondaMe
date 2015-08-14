@@ -143,7 +143,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\" ng-click=goToState(section.sref)><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><img ng-src={{section.url}} class=left-nav-image></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\"><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
+    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\" ng-click=goToState(section.sref)><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><md-icon md-svg-icon=nav:{{section.url}} class=left-nav-image aria-label=\"\"></md-icon></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\"><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
   );
 
 
@@ -459,7 +459,8 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
         .primaryPalette('teal')
         .accentPalette('light-green');
 
-    $mdIconProvider.iconSet('system', 'app/img/system/system.svg', 24);
+    $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
+    $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
@@ -1171,16 +1172,16 @@ module.exports = [
         this.event = 'elyoos.leftNav.changed';
 
         this.elements = [
-            {description: 'Meine Kontakte', url: 'app/img/address-book.png', color: '#009688', sref: 'contact.myContacts'},
-            {description: 'Mich als Kontakt', url: 'app/img/followMe.png', color: '#FFA000', sref: 'contact.contacting'},
+            {description: 'Meine Kontakte', url: 'contact', color: '#009688', sref: 'contact.myContacts'},
+            {description: 'Mich als Kontakt', url: 'contacting', color: '#FFA000', sref: 'contact.contacting'},
             {
                 description: 'Kontakt Details',
-                url: 'app/img/defaultProfile.png',
+                url: 'profile',
                 color: '#658092',
                 sref: 'contact.detail',
                 onlyShowSelected: true
             },
-            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
+            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
 },{}],26:[function(require,module,exports){
@@ -2864,10 +2865,10 @@ module.exports = [
         this.event = 'elyoos.leftNav.changed';
 
         this.elements = [
-            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'},
-            {description: 'Kontakte', url: 'app/img/home/contact.png', color: '#009688', sref: 'contact.myContacts'},
-            {description: 'Nachrichten', url: 'app/img/home/email.png', color: '#ce5043', sref: 'message.threads'},
-            {description: 'Empfehlungen', url: 'app/img/home/recommend.png', color: '#1aa1e1', sref: 'page.overview'}];
+            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'},
+            {description: 'Kontakte', url: 'contact', color: '#009688', sref: 'contact.myContacts'},
+            {description: 'Nachrichten', url: 'thread', color: '#ce5043', sref: 'message.threads'},
+            {description: 'Empfehlungen', url: 'recommendation', color: '#1aa1e1', sref: 'page.overview'}];
     }];
 
 },{}],80:[function(require,module,exports){
@@ -3122,22 +3123,22 @@ module.exports = [
         this.event = 'elyoos.leftNav.changed';
 
         this.elements = [
-            {description: '\u00dcbersicht', url: 'app/img/messages/threads.png', color: '#009688', sref: 'message.threads'},
+            {description: '\u00dcbersicht', url: 'thread', color: '#009688', sref: 'message.threads'},
             {
                 description: 'Chat',
-                url: 'app/img/messages/chat.png',
+                url: 'chat',
                 color: '#658092',
                 sref: 'message.threads.detail',
                 onlyShowSelected: true
             },
             {
                 description: 'Neuer Chat',
-                url: 'app/img/messages/newChat.png',
+                url: 'add',
                 color: '#FFA000',
                 sref: 'message.threads.create',
                 onlyShowSelected: true
             },
-            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
+            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
 },{}],87:[function(require,module,exports){
@@ -4509,25 +4510,25 @@ module.exports = [
         this.event = 'elyoos.leftNav.changed';
 
         this.elements = [
-            {description: 'Empfehlungen', url: 'app/img/page/overview.png', color: '#009688', sref: 'page.overview'},
+            {description: 'Empfehlungen', url: 'recommendation', color: '#009688', sref: 'page.overview'},
             {
                 description: 'Seite',
-                url: 'app/img/page/page.png',
+                url: 'page',
                 color: '#658092',
                 sref: 'page.detail',
                 onlyShowSelected: true
             },
             {
                 description: 'Seite bearbeiten',
-                url: 'app/img/page/pageEdit.png',
+                url: 'pageEdit',
                 color: '#658092',
                 sref: 'page.edit',
                 onlyShowSelected: true
             },
-            {description: 'Meine Bewertungen', url: 'app/img/page/pageMyRecommendation.png', color: '#ce5043', sref: 'page.userRecommendation'},
-            {description: 'Meine Seiten', url: 'app/img/page/pageAdmin.png', color: '#1aa1e1', sref: 'page.userPageAdmin'},
-            {description: 'Seite erstellen', url: 'app/img/page/pageCreate.png', color: '#FFA000', sref: 'page.create'},
-            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
+            {description: 'Meine Bewertungen', url: 'pageMyRecommendation', color: '#ce5043', sref: 'page.userRecommendation'},
+            {description: 'Meine Seiten', url: 'myPage', color: '#1aa1e1', sref: 'page.userPageAdmin'},
+            {description: 'Seite erstellen', url: 'add', color: '#FFA000', sref: 'page.create'},
+            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
 },{}],127:[function(require,module,exports){
@@ -5160,10 +5161,10 @@ module.exports = [
         this.event = 'elyoos.leftNav.changed';
 
         this.elements = [
-            {description: 'Profile', url: 'app/img/defaultProfile.png', color: '#009688', sref: 'settings.profile'},
-            {description: 'Privatsph\u00e4re', url: 'app/img/security.png', color: '#FFA000', sref: 'settings.privacy'},
-            {description: 'Password', url: 'app/img/security.png', color: '#ce5043', sref: 'settings.profile.changePassword', onlyShowSelected: true},
-            {description: 'Home', url: 'app/img/home.png', color: '#B3C833', sref: 'home'}];
+            {description: 'Profile', url: 'profile', color: '#009688', sref: 'settings.profile'},
+            {description: 'Privatsph\u00e4re', url: 'security', color: '#FFA000', sref: 'settings.privacy'},
+            {description: 'Password', url: 'security', color: '#ce5043', sref: 'settings.profile.changePassword', onlyShowSelected: true},
+            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
 },{}],149:[function(require,module,exports){

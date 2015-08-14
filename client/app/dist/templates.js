@@ -142,7 +142,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\" ng-click=goToState(section.sref)><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><img ng-src={{section.url}} class=left-nav-image></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\"><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
+    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\" ng-click=goToState(section.sref)><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><md-icon md-svg-icon=nav:{{section.url}} class=left-nav-image aria-label=\"\"></md-icon></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\"><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
   );
 
 
