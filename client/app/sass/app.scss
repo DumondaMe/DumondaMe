@@ -18,17 +18,17 @@
 
 html {
   background-color: $background-normal;
+  height: 100%;
 }
 
 body {
   background-color: $background-normal;
   font-family: Roboto, Arial, sans-serif;
+  height: auto;
 }
 
 #viewport {
   width: 100%;
-  height: 100%;
-  position: relative;
 }
 
 #content {
