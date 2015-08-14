@@ -93,12 +93,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/template.html',
-    "<div class=\"pinwall-element pinwall-blog-element\" ng-class=\"{'pinwall-blog-element-extended': showExpand, 'pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><div class=blog-input-container><md-input-container><label>Schreibe einen Beitrag...</label><textarea class=blog-input ng-model=user.blogText ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea></md-input-container></div><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
+    "<div class=\"card-element pinwall-blog-element\" ng-class=\"{'pinwall-blog-element-extended': showExpand, 'pinwall-blog-element-collapsed': !showExpand, 'one-column': numberOfRows === 1, 'three-column': numberOfRows === 3}\"><div class=blog-input-container><md-input-container><label>Schreibe einen Beitrag...</label><textarea class=blog-input ng-model=user.blogText ng-focus=expandBlog() ng-disabled=user.uploadBlogIsRunning></textarea></md-input-container></div><div ng-include=\"'app/modules/home/homePinwallBlog/blog.html'\" ng-if=showExpand></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/homePinwallElement/blog.html',
-    "<div ng-controller=HomePinwallElementBlogCtrl><div class=description>Blog<div class=options ng-show=element.isAdmin data-toggle=dropdown aria-expanded=false data-placement=bottom-right bs-dropdown=user.actions><img src=app/img/settings.png></div></div><img class=\"profile-image img-circle\" ng-src={{cacheUrl(element.profileUrl)}}><div class=profile-description><div class=profile-name>{{element.name}}</div><div class=time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text><ely-expand-text class=blog-text-expand description={{element.text}} ng-if=\"!element.hasOwnProperty('url')\" max-height=30em></ely-expand-text><div class=blog-text-image ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()>{{element.text}}</div></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{cacheUrl(element.url)}}></div></div>"
+    "<div ng-controller=HomePinwallElementBlogCtrl><div class=description>Blog<div class=options ng-show=element.isAdmin><md-menu><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button md-primary\" aria-label=Settings><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=removeBlog(element.blogId)>L&ouml;schen</md-button></md-menu-item></md-menu-content></md-menu></div></div><img class=\"profile-image img-circle\" ng-src={{cacheUrl(element.profileUrl)}}><div class=profile-description><div class=profile-name>{{element.name}}</div><div class=time>{{getFormattedDate(element.created, 'LLL')}}</div></div><div class=blog-text><ely-expand-text class=blog-text-expand description={{element.text}} ng-if=\"!element.hasOwnProperty('url')\" max-height=30em></ely-expand-text><div class=blog-text-image ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()>{{element.text}}</div></div><div class=blog-image-preview ng-if=\"element.hasOwnProperty('url')\" ng-click=openFullScreenDetail()><img ng-src={{cacheUrl(element.url)}}></div></div>"
   );
 
 
@@ -128,7 +128,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallElement/template.html',
-    "<div class=pinwall-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/blog.html'\" ng-if=\"element.type === 'Blog'\"></div></div>"
+    "<div class=card-element><div ng-include=\"'app/modules/home/homePinwallElement/recommendation.html'\" ng-if=\"element.type === 'Recommendation'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/noRecommendation.html'\" ng-if=\"element.type === 'NoRecommendations'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/newMessages.html'\" ng-if=\"element.type === 'NewMessages'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/contacting.html'\" ng-if=\"element.type === 'Contacting'\"></div><div ng-include=\"'app/modules/home/homePinwallElement/blog.html'\" ng-if=\"element.type === 'Blog'\"></div></div>"
   );
 
 
@@ -454,8 +454,18 @@ app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
 
+var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('light-green');
+
+    $mdIconProvider.iconSet('system', 'app/img/system/system.svg', 24);
+};
+
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider) {
+    '$mdIconProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider,
+              $mdIconProvider) {
 
         $compileProvider.debugInfoEnabled(false);
 
@@ -501,9 +511,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             html: true
         });
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('teal')
-            .accentPalette('light-green');
+        setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;

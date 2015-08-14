@@ -20,8 +20,18 @@ app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
 
+var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('light-green');
+
+    $mdIconProvider.iconSet('system', 'app/img/system/system.svg', 24);
+};
+
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider) {
+    '$mdIconProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider,
+              $mdIconProvider) {
 
         $compileProvider.debugInfoEnabled(false);
 
@@ -67,9 +77,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             html: true
         });
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('teal')
-            .accentPalette('light-green');
+        setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
     }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
     $rootScope.$state = $state;

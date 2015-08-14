@@ -3,7 +3,7 @@
 <head>
     <base href="/"/>
     <meta charset="utf-8">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <title>Elyoos</title>
     <link rel="stylesheet" href="app/sass/bootstrap.min.css"/>
     <link href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css" rel="stylesheet" type='text/css'>
@@ -15,7 +15,7 @@
 <div id="viewport">
     <div ng-include="'app/modules/navigation/leftNavCol.html'" ng-show="$state.current.hasNavigation"></div>
     <div ng-include="'app/modules/navigation/loggedInHeader.html'" ng-hide="$state.current.isPublic"></div>
-    <div id="content" ng-cloak >
+    <div id="content" ng-cloak>
         <div ui-view="content" id="content-container" ng-class="{'full-screen': fullScreen.show}"></div>
     </div>
     <div ng-include="fullScreen.template" ng-if="fullScreen.show"></div>
