@@ -955,17 +955,17 @@ h1.website-structure-title {
           #ely-home .pinwall-container .pinwall-container-column .card-element .blog-image-preview img, #ely-home .pinwall-container .pinwall-blog-container .card-element .blog-image-preview img {
             max-width: 380px;
             max-height: 600px; }
-      #ely-home .pinwall-container .pinwall-container-column .home-pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-blog-container .home-pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-container-column .home-pinwall-container-element.ng-move, #ely-home .pinwall-container .pinwall-blog-container .home-pinwall-container-element.ng-move {
+      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-move, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-move {
         -webkit-transition: 0.5s linear all;
         -moz-transition: 0.5s linear all;
         -o-transition: 0.5s linear all;
         transition: 0.5s linear all;
         opacity: 0; }
-      #ely-home .pinwall-container .pinwall-container-column .home-pinwall-container-element.ng-enter.ng-enter-active, #ely-home .pinwall-container .pinwall-blog-container .home-pinwall-container-element.ng-enter.ng-enter-active,
-      #ely-home .pinwall-container .pinwall-container-column .home-pinwall-container-element.ng-move.ng-move-active,
-      #ely-home .pinwall-container .pinwall-blog-container .home-pinwall-container-element.ng-move.ng-move-active {
+      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-enter.ng-enter-active, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-enter.ng-enter-active,
+      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-move.ng-move-active,
+      #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-move.ng-move-active {
         opacity: 1; }
-      #ely-home .pinwall-container .pinwall-container-column .home-pinwall-container-element.ng-leave, #ely-home .pinwall-container .pinwall-blog-container .home-pinwall-container-element.ng-leave {
+      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-leave, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-leave {
         -webkit-animation: 0.7s remove_animation;
         -moz-animation: 0.7s remove_animation;
         -o-animation: 0.7s remove_animation;
@@ -2140,7 +2140,7 @@ h1.website-structure-title {
         #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
           font-size: 16px;
           font-weight: 300;
-          padding-left: 5px;
+          padding-left: 10px;
           padding-top: 13px; }
 
 html {

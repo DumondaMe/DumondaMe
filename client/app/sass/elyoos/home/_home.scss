@@ -140,7 +140,7 @@
         }
       }
       //Animation
-      @include ng-repeat(home-pinwall-container-element);
+      @include ng-repeat(pinwall-container-element);
     }
   }
 }
