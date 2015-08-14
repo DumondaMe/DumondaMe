@@ -36,13 +36,15 @@
             white-space: nowrap;
             text-overflow: ellipsis;
           }
+          .user-rating {
+            margin-right: 5px;
+          }
           .time {
             display: inline-block;
             vertical-align: top;
             color: #999;
             font-size: 12px;
             margin-top: 3px;
-            margin-left: 5px;
           }
           .info {
             color: #999;

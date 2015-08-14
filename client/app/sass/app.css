@@ -881,13 +881,14 @@ h1.website-structure-title {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis; }
+          #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .user-rating, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .user-rating {
+            margin-right: 5px; }
           #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .time, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .time {
             display: inline-block;
             vertical-align: top;
             color: #999;
             font-size: 12px;
-            margin-top: 3px;
-            margin-left: 5px; }
+            margin-top: 3px; }
           #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .info, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .info {
             color: #999;
             font-size: 12px;
