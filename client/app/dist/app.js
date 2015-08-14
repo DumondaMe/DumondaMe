@@ -78,7 +78,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/directives/starRating/template.html',
-    "<div class=ely-star-rating ng-mouseleave=resetToSelected()><img ng-src={{star0}} ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star1}} ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star2}} ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star3}} ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"> <img ng-src={{star4}} ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></div>"
+    "<div class=ely-star-rating ng-mouseleave=resetToSelected()><md-icon md-svg-icon=rating:{{star0}} aria-label=\"\" ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></md-icon><md-icon md-svg-icon=rating:{{star1}} aria-label=\"\" ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></md-icon><md-icon md-svg-icon=rating:{{star2}} aria-label=\"\" ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></md-icon><md-icon md-svg-icon=rating:{{star3}} aria-label=\"\" ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></md-icon><md-icon md-svg-icon=rating:{{star4}} aria-label=\"\" ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\"></md-icon></div>"
   );
 
 
@@ -460,6 +460,7 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
         .accentPalette('light-green');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
+    $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
 };
 
@@ -1973,11 +1974,11 @@ var setStars = function (starValue, $scope) {
     var i;
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
-            $scope['star' + i] = 'app/img/starRating/starFull.png';
+            $scope['star' + i] = 'full';
         } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
-            $scope['star' + i] = 'app/img/starRating/starHalf.png';
+            $scope['star' + i] = 'half';
         } else {
-            $scope['star' + i] = 'app/img/starRating/starEmpty.png';
+            $scope['star' + i] = 'empty';
         }
     }
 };
@@ -1986,11 +1987,11 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
 
-            $scope.star0 = 'app/img/starRating/starEmpty.png';
-            $scope.star1 = 'app/img/starRating/starEmpty.png';
-            $scope.star2 = 'app/img/starRating/starEmpty.png';
-            $scope.star3 = 'app/img/starRating/starEmpty.png';
-            $scope.star4 = 'app/img/starRating/starEmpty.png';
+            $scope.star0 = 'empty';
+            $scope.star1 = 'empty';
+            $scope.star2 = 'empty';
+            $scope.star3 = 'empty';
+            $scope.star4 = 'empty';
 
             $scope.isReadonly = $scope.isReadonly === 'true';
             $scope.isSmall = $scope.isSmall === 'true';

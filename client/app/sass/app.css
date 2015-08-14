@@ -345,11 +345,11 @@
   cursor: pointer;
   display: inline-block; }
   .ely-star-rating .ely-star-rating-small {
+    width: 18px;
+    height: 18px; }
+  .ely-star-rating .ely-star-rating-x-small {
     width: 16px;
     height: 16px; }
-  .ely-star-rating .ely-star-rating-x-small {
-    width: 14px;
-    height: 14px; }
 
 .modal.center .modal-dialog {
   z-index: 101;

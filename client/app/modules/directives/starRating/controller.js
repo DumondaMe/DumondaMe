@@ -4,11 +4,11 @@ var setStars = function (starValue, $scope) {
     var i;
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
-            $scope['star' + i] = 'app/img/starRating/starFull.png';
+            $scope['star' + i] = 'full';
         } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
-            $scope['star' + i] = 'app/img/starRating/starHalf.png';
+            $scope['star' + i] = 'half';
         } else {
-            $scope['star' + i] = 'app/img/starRating/starEmpty.png';
+            $scope['star' + i] = 'empty';
         }
     }
 };
@@ -17,11 +17,11 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
 
-            $scope.star0 = 'app/img/starRating/starEmpty.png';
-            $scope.star1 = 'app/img/starRating/starEmpty.png';
-            $scope.star2 = 'app/img/starRating/starEmpty.png';
-            $scope.star3 = 'app/img/starRating/starEmpty.png';
-            $scope.star4 = 'app/img/starRating/starEmpty.png';
+            $scope.star0 = 'empty';
+            $scope.star1 = 'empty';
+            $scope.star2 = 'empty';
+            $scope.star3 = 'empty';
+            $scope.star4 = 'empty';
 
             $scope.isReadonly = $scope.isReadonly === 'true';
             $scope.isSmall = $scope.isSmall === 'true';

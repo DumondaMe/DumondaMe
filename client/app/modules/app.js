@@ -26,6 +26,7 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
         .accentPalette('light-green');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
+    $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
 };
 
