@@ -1181,6 +1181,13 @@ h1.website-structure-title {
   width: 780px;
   left: 250px; }
 
+#loginform {
+  position: absolute;
+  width: 400px;
+  top: 100px;
+  left: 50%;
+  margin-left: -200px; }
+
 #content-messages {
   width: 100%;
   height: 100%;
@@ -2168,13 +2175,6 @@ body {
 
 textarea {
   opacity: 0.99; }
-
-#loginform {
-  position: absolute;
-  width: 400px;
-  top: 100px;
-  left: 50%;
-  margin-left: -200px; }
 
 .innerCol {
   margin-top: 10px;
