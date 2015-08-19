@@ -1421,6 +1421,20 @@ h2.website-structure-title {
         border-bottom: 1px solid #e5e5e5; }
         #ely-page-detail #main-content .card-element .header-title .options {
           margin-right: 0px; }
+      #ely-page-detail #main-content .card-element .user-recommendation-element #user-recommendation {
+        display: inline-block;
+        padding-top: 1px;
+        margin-left: 10px;
+        font-size: 14px;
+        line-height: 16px;
+        vertical-align: middle;
+        font-weight: 300; }
+      #ely-page-detail #main-content .card-element .user-recommendation-element .user-recommendation-remove {
+        margin-left: 20px; }
+      #ely-page-detail #main-content .card-element .user-recommendation-element #user-recommendation-comment {
+        margin-top: 20px;
+        font-size: 14px;
+        word-break: break-all; }
 
 #ely-book-page .header {
   position: relative;
@@ -1456,25 +1470,6 @@ h2.website-structure-title {
     #ely-book-page .header .header-content .header-commands {
       position: absolute;
       bottom: 65px; }
-#ely-book-page .user-recommendation-element .page-detail-bottom-element-inner {
-  border-top: solid 1px #CCCCCC;
-  margin-top: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px; }
-#ely-book-page .user-recommendation-element #user-recommendation {
-  display: inline-block;
-  padding-top: 1px;
-  margin-left: 10px;
-  font-size: 14px;
-  line-height: 16px;
-  vertical-align: middle;
-  font-weight: 300; }
-#ely-book-page .user-recommendation-element .user-recommendation-remove {
-  margin-left: 20px; }
-#ely-book-page .user-recommendation-element #user-recommendation-comment {
-  margin-top: 20px;
-  font-size: 14px;
-  word-break: break-all; }
 
 #ely-page-detail .page-detail-commons {
   position: absolute;
@@ -1652,6 +1647,28 @@ h2.website-structure-title {
       width: 48px;
       height: 64px;
       margin-left: -5px; }
+
+#ely-youtube-page .header {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 10px; }
+  #ely-youtube-page .header .youtube-embedded {
+    display: block;
+    margin: 20px 0;
+    height: 400px;
+    width: 100%; }
+  #ely-youtube-page .header .header-content {
+    width: 100%;
+    height: 180px; }
+    #ely-youtube-page .header .header-content .youtube-title {
+      font-size: 24px;
+      font-weight: 100;
+      color: #009688;
+      max-height: 68px;
+      overflow: hidden; }
+    #ely-youtube-page .header .header-content .header-commands {
+      position: absolute;
+      bottom: 65px; }
 
 #content-page-overview {
   width: 100%;

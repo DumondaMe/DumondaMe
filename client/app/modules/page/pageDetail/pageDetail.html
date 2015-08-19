@@ -3,7 +3,6 @@
         <div class="card-element">
             <div class="header-title">{{category}}
                 <div class="options" ng-show="pageDetail.administrators.isAdmin">
-                    <!--<img src="app/img/settings.png">-->
                     <md-menu>
                         <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button md-primary" aria-label="Settings">
                             <md-icon md-svg-icon="system:setting"></md-icon>
@@ -17,6 +16,7 @@
                 </div>
             </div>
             <div ng-include="'app/modules/page/pageDetail/book.html'" ng-if="label === 'Book'"></div>
+            <div ng-include="'app/modules/page/pageDetail/youtube.html'" ng-if="label === 'Youtube'"></div>
         </div>
     </div>
 </div>

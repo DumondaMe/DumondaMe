@@ -1,13 +1,10 @@
-<div id="ely-book-page">
+<div id="ely-youtube-page">
     <div class="header">
-        <div class="book-image">
-            <img ng-src="{{pageDetail.page.titleUrl}}">
+        <div class="youtube-embedded">
+            <ely-iframe width="650" height="400" secure-link="https://www.youtube.com/embed/" src="pageDetail.page.link"></ely-iframe>
         </div>
         <div class="header-content">
-            <div class="book-title">{{pageDetail.page.title}}</div>
-            <div class="authors">von {{pageDetail.page.author.name}}
-                <div class="author" ng-repeat="author in pageDetail.page.author">{{author.name}}</div>
-            </div>
+            <div class="youtube-title">{{pageDetail.page.title}}</div>
             <div class="header-commands" ng-controller="AddRemoveRecommendationCtrl">
                 <md-button class="md-raised md-primary ely-button"
                            ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"

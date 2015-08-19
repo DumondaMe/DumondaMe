@@ -1,0 +1,27 @@
+<div>
+    <div class="page-element">
+        <h2 class="website-structure-title">Beschreibung</h2>
+
+        <ely-expand-text description="{{pageDetail.page.description}}"></ely-expand-text>
+    </div>
+    <div class="page-element" ng-show="pageDetail.recommendation.user">
+        <div class="user-recommendation-element" ng-controller="AddRemoveRecommendationCtrl">
+            <h2 class="website-structure-title">Meine Bewertung</h2>
+
+            <ely-star-rating is-readonly="true" is-small="true"
+                             number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
+            <div id="user-recommendation"> bewertet am {{pageDetail.recommendation.user.created}}</div>
+            <md-button class="md-primary md-raised ely-button user-recommendation-remove"
+                       ng-click="removeRecommendation(pageDetail, pageId, label)">Bewertung entfernen
+            </md-button>
+            <div id="user-recommendation-comment"> {{pageDetail.recommendation.user.comment}}</div>
+        </div>
+    </div>
+    <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings > 0 || pageDetail.recommendation.summary.all.numberOfRatings > 0 && startLoad">
+        <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"
+                         ng-if="pageDetail.recommendation.summary.contact.numberOfRatings > 0"></ely-page-review>
+        <ely-page-review only-contacts="false" title="Alle Bewertungen"
+                         ng-if="pageDetail.recommendation.summary.all.numberOfRatings > 0 && pageDetail.recommendation.summary.contact.numberOfRatings === 0">
+        </ely-page-review>
+    </div>
+</div>
