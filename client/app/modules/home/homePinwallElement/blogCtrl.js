@@ -1,26 +1,10 @@
 'use strict';
 
-var setAdminActions = function ($scope) {
-    $scope.user = {};
-    $scope.user.actions = [
-        {
-            text: "L\u00f6schen",
-            click: "removeBlog(element.blogId)"
-        }/*,
-        {
-            text: "Bearbeiten",
-            click: "editBlog($scope)"
-        }*/
-    ];
-};
-
 module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen', 'UrlCache',
     function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen, UrlCache) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
         $scope.cacheUrl = UrlCache.cacheUrl;
-
-        setAdminActions($scope);
 
         $scope.removeBlog = function (blogId) {
             PromiseModal.getModal({

@@ -1,0 +1,72 @@
+#ely-book-page {
+  .header {
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    //border-bottom: 1px solid #e5e5e5;
+    .book-image {
+      display: inline-block;
+      vertical-align: top;
+      height: 255px;
+      width: 160px;
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+    .header-content {
+      display: inline-block;
+      vertical-align: top;
+      width: 498px;
+      padding-left: 15px;
+      .book-title {
+        font-size: 24px;
+        font-weight: 100;
+        color: $primary-color;
+        max-height: 80px;
+      }
+      .authors {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 300;
+        .author {
+          display: inline-block;
+          margin-left: 5px;
+          font-size: 14px;
+          font-weight: 300;
+        }
+      }
+      .header-commands {
+        position: absolute;
+        bottom: 65px;
+      }
+    }
+  }
+  .user-recommendation-element {
+
+    .page-detail-bottom-element-inner {
+      border-top: solid 1px $divider-light;
+      margin-top: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    #user-recommendation {
+      display: inline-block;
+      padding-top: 1px;
+      margin-left: 10px;
+      font-size: 14px;
+      line-height: 16px;
+      vertical-align: middle;
+      font-weight: 300;
+    }
+    .user-recommendation-remove {
+      margin-left: 20px;
+    }
+    #user-recommendation-comment {
+      margin-top: 20px;
+      font-size: 14px;
+      word-break: break-all;
+    }
+  }
+}

@@ -1,14 +1,23 @@
 'use strict';
 
 var setStars = function (starValue, $scope) {
+
+    function setStar (index, iconName) {
+        if($scope.star.length < 5) {
+            $scope.star.push(iconName);
+        } else {
+            $scope.star[index] = iconName;
+        }
+    }
+
     var i;
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
-            $scope['star' + i] = 'full';
+            setStar(i, 'full');
         } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
-            $scope['star' + i] = 'half';
+            setStar(i, 'half');
         } else {
-            $scope['star' + i] = 'empty';
+            setStar(i, 'empty');
         }
     }
 };
@@ -17,15 +26,15 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
 
-            $scope.star0 = 'empty';
-            $scope.star1 = 'empty';
-            $scope.star2 = 'empty';
-            $scope.star3 = 'empty';
-            $scope.star4 = 'empty';
-
             $scope.isReadonly = $scope.isReadonly === 'true';
             $scope.isSmall = $scope.isSmall === 'true';
             $scope.isXSmall = $scope.isXSmall === 'true';
+
+            if (!$scope.isReadonly) {
+                $scope.star = ['empty', 'empty', 'empty', 'empty', 'empty'];
+            } else {
+                $scope.star = [];
+            }
 
             $scope.mouseOverStar = function (star) {
                 if (!$scope.isReadonly) {

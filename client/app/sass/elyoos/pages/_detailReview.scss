@@ -1,94 +1,97 @@
-#content-page-detail {
-  .page-rating-review {
+.page-rating-review {
+  height: 150px;
+  width: 658px;
+  margin-bottom: 20px;
+
+  .page-rating-review-summary {
     display: inline-block;
-    float: left;
-    width: 330px;
-    height: 150px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    height: 100%;
+    width: 165px;
+    text-align: center;
 
-    .page-rating-review-summary {
-      display: inline-block;
-      height: 100%;
-      width: 165px;
-      text-align: center;
-
-      .page-rating-review-number {
-        font-size: 64px;
-        line-height: 64px;
-        font-weight: 100;
-        margin-top: 20px;
-        margin-bottom: 5px;
-        color: #333;
-      }
-
-      .page-rating-review-total {
-        margin-top: 7px;
-        font-size: 12px;
-        font-weight: 300;
-      }
+    .page-rating-review-number {
+      font-size: 64px;
+      line-height: 64px;
+      font-weight: 100;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #333;
     }
 
-    .page-rating-review-diagram {
-      display: inline-block;
-      vertical-align: top;
-      padding-top: 15px;
-      width: 160px;
-      .page-rating-review-line {
+    .page-rating-review-total {
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+
+  .page-rating-review-diagram {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 15px;
+    width: 493px;
+    .page-rating-review-line {
+      height: 24px;
+      .page-rating-review-line-star {
+        display: inline-block;
+        vertical-align: middle;
+        height: 16px;
+        width: 16px;
+        margin-right: 3px;
+      }
+      .page-rating-review-line-number {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        font-size: 11px;
+        line-height: 11px;
+      }
+      .page-rating-review-line-block {
+        display: inline-block;
+        vertical-align: middle;
+        width: 350px;
         height: 24px;
-        .page-rating-review-line-star {
-          display: inline-block;
-          vertical-align: middle;
-          height: 12px;
-          width: 12px;
-        }
-        .page-rating-review-line-number {
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 5px;
+        .page-rating-review-line-block-5 {
           font-size: 11px;
-          line-height: 11px;
+          padding-top: 5px;
+          padding-left: 5px;
+          background-color: rgb(136, 177, 49);
+          width: 100%;
+          height: 100%;
         }
-        .page-rating-review-line-block {
-          display: inline-block;
-          vertical-align: middle;
-          width: 120px;
-          height: 24px;
-          .page-rating-review-line-block-5 {
-            font-size: 11px;
-            padding-top: 5px;
-            padding-left: 5px;
-            background-color: rgb(136, 177, 49);
-            width: 100%;
-            height: 100%;
-          }
-          .page-rating-review-line-block-4 {
-            @extend .page-rating-review-line-block-5;
-            background-color: rgb(153, 204, 0);
-          }
-          .page-rating-review-line-block-3 {
-            @extend .page-rating-review-line-block-5;
-            background-color: rgb(255, 207, 2);
-          }
-          .page-rating-review-line-block-2 {
-            @extend .page-rating-review-line-block-5;
-            background-color: rgb(255, 159, 2);
-          }
-          .page-rating-review-line-block-1 {
-            @extend .page-rating-review-line-block-5;
-            background-color: rgb(255, 111, 49);
-          }
+        .page-rating-review-line-block-4 {
+          @extend .page-rating-review-line-block-5;
+          background-color: rgb(153, 204, 0);
+        }
+        .page-rating-review-line-block-3 {
+          @extend .page-rating-review-line-block-5;
+          background-color: rgb(255, 207, 2);
+        }
+        .page-rating-review-line-block-2 {
+          @extend .page-rating-review-line-block-5;
+          background-color: rgb(255, 159, 2);
+        }
+        .page-rating-review-line-block-1 {
+          @extend .page-rating-review-line-block-5;
+          background-color: rgb(255, 111, 49);
         }
       }
     }
   }
-  .page-rating-comments {
-    width: 100%;
-    padding-left: 350px;
-    cursor: pointer;
-    min-height: 150px;
+}
+
+.page-rating-comments-detail {
+  width: 100%;
+  padding-left: 0;
+  display: table;
+
+  .page-rating-comments-previews {
+    width: 560px;
+    display: table-cell;
+    vertical-align: middle;
+
     .page-rating-comment-preview {
-      display: inline-block;
+      float: left;
       max-height: 120px;
       margin-right: 10px;
       margin-bottom: 10px;
@@ -130,12 +133,6 @@
             margin-top: 1px;
           }
         }
-        .ely-star-rating {
-          .ely-star-rating-x-small {
-            width: 11px;
-            height: 11px;
-          }
-        }
         .page-rating-comment-description {
           width: 210px;
           white-space: normal;
@@ -150,41 +147,24 @@
       }
     }
   }
-  .page-rating-comments-detail {
-    @extend .page-rating-comments;
-    width: 100%;
-    min-height: 150px;
-    white-space: nowrap;
-    padding-left: 0;
-    display: table-row;
-    .page-rating-comment-preview-wide {
-      @extend .page-rating-comment-preview;
-      width: 350px;
-      .page-rating-comment-right {
-        .page-rating-comment-description {
-          width: 320px;
-          max-height: inherit;
-        }
-      }
-    }
-    .page-rating-comments-previews {
-      //padding: 0 80px;
-      display: table-cell;
-    }
-    .page-rating-comment-preview {
-      //display: table-cell;
-      max-height: inherit;
-    }
-    .page-rating-comments-nav {
-      display: table-cell;
-      vertical-align: middle;
-      width: 64px;
-      height: 100%;
-      margin: auto 0;
-      img {
-        width: 64px;
-        height: 64px;
-      }
+
+  .comment-clear {
+    height: 0;
+    display:block;
+    clear:both;
+  }
+
+  button.page-rating-comments-nav {
+    width: 48px;
+    min-width: 48px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+    height: 100%;
+    .comments-nav-icon {
+      width: 48px;
+      height: 64px;
+      margin-left: -5px;
     }
   }
 }

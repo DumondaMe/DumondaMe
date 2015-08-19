@@ -426,25 +426,22 @@
       position: relative;
       display: inline-block; }
 
-.website-structure-header {
-  height: 50px; }
-  .website-structure-header .website-structure-header-title {
-    height: 40px;
-    border-bottom: 1px solid #141823;
-    margin: 0 0 10px 0; }
-    .website-structure-header .website-structure-header-title h2 {
-      font-size: 16px;
-      font-weight: bold;
-      margin: 0;
-      padding: 10px 0 0 0; }
-
 h1.website-structure-title {
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 20px;
   font-size: 28px;
   font-style: normal;
   font-variant: normal;
   font-weight: 100; }
+
+h2.website-structure-title {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #009688;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 300; }
 
 .ely-button {
   text-transform: none;
@@ -854,14 +851,14 @@ h1.website-structure-title {
           color: #999;
           font-size: 14px;
           border-bottom: 1px solid #e5e5e5; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .description .options, #ely-home .pinwall-container .pinwall-blog-container .card-element .description .options {
-            float: right;
-            cursor: pointer;
-            margin-top: -15px;
-            margin-right: -5px; }
-            #ely-home .pinwall-container .pinwall-container-column .card-element .description .options .md-icon-button, #ely-home .pinwall-container .pinwall-blog-container .card-element .description .options .md-icon-button {
-              width: 24px;
-              height: 24px; }
+        #ely-home .pinwall-container .pinwall-container-column .card-element .options, #ely-home .pinwall-container .pinwall-blog-container .card-element .options {
+          float: right;
+          cursor: pointer;
+          margin-top: -13px;
+          margin-right: -5px; }
+          #ely-home .pinwall-container .pinwall-container-column .card-element .options .md-icon-button, #ely-home .pinwall-container .pinwall-blog-container .card-element .options .md-icon-button {
+            width: 24px;
+            height: 24px; }
         #ely-home .pinwall-container .pinwall-container-column .card-element .profile-messages, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-messages {
           margin-bottom: 10px;
           cursor: pointer; }
@@ -1389,114 +1386,111 @@ h1.website-structure-title {
   #content-create-edit-youtube-page-common-area #inputYoutubeLink {
     width: 100%; }
 
-#content-page-detail {
-  display: block;
-  padding-top: 60px;
-  background-color: #f1f1f1; }
-  #content-page-detail #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 0px;
-    min-width: 1000px;
-    height: 100%; }
-    #content-page-detail #centerCol #page-detail-header {
-      padding-top: 25px;
-      padding-bottom: 35px;
-      background-color: #E0E0E0;
-      border-bottom: 2px solid #d6d6d6;
-      display: table;
-      width: 100%;
-      min-width: 1000px; }
-      @media (min-width: 992px) {
-        #content-page-detail #centerCol #page-detail-header {
-          min-width: 1000px; } }
-      #content-page-detail #centerCol #page-detail-header #page-detail-inner-header {
-        display: table-row;
-        width: 100%; }
-        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image {
-          padding-left: 280px;
-          display: table-cell;
-          vertical-align: top;
-          height: 300px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image img {
-            height: 300px;
-            max-width: 400px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-image .ely-iframe {
-            height: 300px;
-            width: 400px; }
-        #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list {
-          height: 300px;
-          width: 100%;
-          display: table-cell;
-          vertical-align: top;
-          position: relative;
-          padding-left: 20px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-title {
-            display: inline-block;
-            font-size: 30px;
-            font-weight: 100;
-            color: #009688;
-            min-width: 300px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 80px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-category {
-            font-size: 14px;
-            font-weight: 300;
-            height: 25px;
-            line-height: 25px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-contributor-title {
-            display: inline-block;
-            margin-right: 5px;
-            font-size: 14px;
-            font-weight: 300; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor, #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 14px;
-            font-weight: 300; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-contributor-with-Profile {
-            color: #0066c0;
-            cursor: pointer; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-commands {
-            position: absolute;
-            bottom: 55px; }
-          #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews {
-            position: absolute;
-            bottom: 0px; }
-            #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview {
-              margin-top: 5px; }
-              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-rating-overview-description, #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-no-rating-overview-description {
-                display: inline-block;
-                font-size: 12px;
-                font-weight: 300;
-                margin-left: 5px; }
-              #content-page-detail #centerCol #page-detail-header #page-detail-inner-header .page-detail-header-list .page-detail-header-rating-overviews .page-detail-header-rating-overview .page-detail-header-no-rating-overview-description {
-                margin-left: 0; }
-    #content-page-detail #centerCol .page-detail-bottom-element {
-      padding-top: 30px;
-      padding-right: 60px;
-      padding-left: 280px;
-      background-color: #f1f1f1; }
-      #content-page-detail #centerCol .page-detail-bottom-element .page-detail-bottom-element-inner {
-        border-top: solid 1px #CCCCCC;
-        margin-top: 10px;
-        padding-top: 20px;
-        padding-bottom: 20px; }
-      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-my-recommendation {
+#ely-page-detail {
+  height: 100%; }
+  #ely-page-detail #main-content {
+    padding-top: 100px;
+    margin-left: 250px;
+    width: 720px; }
+    #ely-page-detail #main-content .card-element {
+      margin: 0 10px 25px 10px;
+      padding: 0 20px;
+      background-color: #ffffff;
+      border-radius: 3px;
+      border: 1px solid #d8d8d8; }
+      #ely-page-detail #main-content .card-element .description {
+        padding: 15px 0 10px 0;
+        margin-bottom: 10px;
+        color: #999;
+        font-size: 14px;
+        border-bottom: 1px solid #e5e5e5; }
+      #ely-page-detail #main-content .card-element .options {
+        float: right;
+        cursor: pointer;
+        margin-top: -13px;
+        margin-right: -5px; }
+        #ely-page-detail #main-content .card-element .options .md-icon-button {
+          width: 24px;
+          height: 24px; }
+      #ely-page-detail #main-content .card-element .header-title {
+        margin: 10px 0;
+        padding-bottom: 5px;
+        color: #999;
+        font-size: 18px;
+        font-weight: 300;
+        border-bottom: 1px solid #e5e5e5; }
+        #ely-page-detail #main-content .card-element .header-title .options {
+          margin-right: 0px; }
+
+#ely-book-page .header {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 10px; }
+  #ely-book-page .header .book-image {
+    display: inline-block;
+    vertical-align: top;
+    height: 255px;
+    width: 160px; }
+    #ely-book-page .header .book-image img {
+      max-height: 100%;
+      max-width: 100%; }
+  #ely-book-page .header .header-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 498px;
+    padding-left: 15px; }
+    #ely-book-page .header .header-content .book-title {
+      font-size: 24px;
+      font-weight: 100;
+      color: #009688;
+      max-height: 80px; }
+    #ely-book-page .header .header-content .authors {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 300; }
+      #ely-book-page .header .header-content .authors .author {
         display: inline-block;
-        padding-top: 1px;
-        margin-left: 10px;
+        margin-left: 5px;
         font-size: 14px;
-        line-height: 16px;
-        vertical-align: middle;
         font-weight: 300; }
-      #content-page-detail #centerCol .page-detail-bottom-element .page-detail-my-recommendation-remove {
-        margin-left: 20px; }
-      #content-page-detail #centerCol .page-detail-bottom-element #page-detail-my-recommendation-comment {
-        margin-top: 20px;
-        font-size: 14px;
-        word-break: break-all; }
+    #ely-book-page .header .header-content .header-commands {
+      position: absolute;
+      bottom: 65px; }
+#ely-book-page .user-recommendation-element .page-detail-bottom-element-inner {
+  border-top: solid 1px #CCCCCC;
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+#ely-book-page .user-recommendation-element #user-recommendation {
+  display: inline-block;
+  padding-top: 1px;
+  margin-left: 10px;
+  font-size: 14px;
+  line-height: 16px;
+  vertical-align: middle;
+  font-weight: 300; }
+#ely-book-page .user-recommendation-element .user-recommendation-remove {
+  margin-left: 20px; }
+#ely-book-page .user-recommendation-element #user-recommendation-comment {
+  margin-top: 20px;
+  font-size: 14px;
+  word-break: break-all; }
+
+#ely-page-detail .page-detail-commons {
+  position: absolute;
+  bottom: 10px; }
+  #ely-page-detail .page-detail-commons .rating-overviews .rating-overview {
+    margin-top: 5px; }
+    #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .rating-overview-description, #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .no-rating-description {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 300;
+      margin-left: 5px; }
+    #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .no-rating-description {
+      margin-left: 0; }
+#ely-page-detail .page-element {
+  padding-bottom: 10px;
+  border-top: 1px solid #e5e5e5; }
 
 #content-page-detail .page-detail-header-preview {
   display: table-cell;
@@ -1528,146 +1522,136 @@ h1.website-structure-title {
       width: 245px;
       overflow: hidden; }
 
-#content-page-detail .page-rating-review {
-  display: inline-block;
-  float: left;
-  width: 330px;
+.page-rating-review {
   height: 150px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff; }
-  #content-page-detail .page-rating-review .page-rating-review-summary {
+  width: 658px;
+  margin-bottom: 20px; }
+  .page-rating-review .page-rating-review-summary {
     display: inline-block;
     height: 100%;
     width: 165px;
     text-align: center; }
-    #content-page-detail .page-rating-review .page-rating-review-summary .page-rating-review-number {
+    .page-rating-review .page-rating-review-summary .page-rating-review-number {
       font-size: 64px;
       line-height: 64px;
       font-weight: 100;
       margin-top: 20px;
       margin-bottom: 5px;
       color: #333; }
-    #content-page-detail .page-rating-review .page-rating-review-summary .page-rating-review-total {
+    .page-rating-review .page-rating-review-summary .page-rating-review-total {
       margin-top: 7px;
       font-size: 12px;
       font-weight: 300; }
-  #content-page-detail .page-rating-review .page-rating-review-diagram {
+  .page-rating-review .page-rating-review-diagram {
     display: inline-block;
     vertical-align: top;
     padding-top: 15px;
-    width: 160px; }
-    #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line {
+    width: 493px; }
+    .page-rating-review .page-rating-review-diagram .page-rating-review-line {
       height: 24px; }
-      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
+      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
         display: inline-block;
         vertical-align: middle;
-        height: 12px;
-        width: 12px; }
-      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-number {
+        height: 16px;
+        width: 16px;
+        margin-right: 3px; }
+      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-number {
         display: inline-block;
         vertical-align: middle;
         margin-right: 5px;
         font-size: 11px;
         line-height: 11px; }
-      #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
+      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
         display: inline-block;
         vertical-align: middle;
-        width: 120px;
+        width: 350px;
         height: 24px; }
-        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
+        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
           font-size: 11px;
           padding-top: 5px;
           padding-left: 5px;
           background-color: #88b131;
           width: 100%;
           height: 100%; }
-        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4 {
+        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4 {
           background-color: #99cc00; }
-        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3 {
+        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3 {
           background-color: #ffcf02; }
-        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2 {
+        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2 {
           background-color: #ff9f02; }
-        #content-page-detail .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
+        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
           background-color: #ff6f31; }
-#content-page-detail .page-rating-comments, #content-page-detail .page-rating-comments-detail {
+
+.page-rating-comments-detail {
   width: 100%;
-  padding-left: 350px;
-  cursor: pointer;
-  min-height: 150px; }
-  #content-page-detail .page-rating-comments .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
-    display: inline-block;
-    max-height: 120px;
-    margin-right: 10px;
-    margin-bottom: 10px; }
-    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-left, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-left {
-      display: inline-block;
-      width: 50px;
-      height: 100%; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-left .page-rating-comment-img {
-        width: 48px;
-        height: 48px;
-        padding: 5px; }
-    #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right {
-      display: inline-block;
-      vertical-align: top;
-      margin-left: 10px;
-      width: 210px;
-      height: 100%; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
-        display: inline-block;
-        vertical-align: top;
-        font-weight: 500;
-        font-size: 13px;
-        max-width: 120px;
-        height: 22px;
-        text-overflow: ellipsis;
-        overflow: hidden; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
-        display: inline-block;
-        vertical-align: top;
-        font-size: 11px;
-        font-weight: 300;
-        color: #AAAAAA;
-        line-height: 18px;
-        margin-left: 4px;
-        margin-top: 1px; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .ely-star-rating .ely-star-rating-x-small {
-        width: 11px;
-        height: 11px; }
-      #content-page-detail .page-rating-comments .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-description {
-        width: 210px;
-        white-space: normal;
-        margin-top: 5px;
-        padding-right: 20px;
-        max-height: 70px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 13px;
-        font-weight: 300; }
-#content-page-detail .page-rating-comments-detail {
-  width: 100%;
-  min-height: 150px;
-  white-space: nowrap;
   padding-left: 0;
-  display: table-row; }
-  #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
-    width: 350px; }
-    #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide .page-rating-comment-right .page-rating-comment-description {
-      width: 320px;
-      max-height: inherit; }
-  #content-page-detail .page-rating-comments-detail .page-rating-comments-previews {
-    display: table-cell; }
-  #content-page-detail .page-rating-comments-detail .page-rating-comment-preview, #content-page-detail .page-rating-comments-detail .page-rating-comment-preview-wide {
-    max-height: inherit; }
-  #content-page-detail .page-rating-comments-detail .page-rating-comments-nav {
+  display: table; }
+  .page-rating-comments-detail .page-rating-comments-previews {
+    width: 560px;
+    display: table-cell;
+    vertical-align: middle; }
+    .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview {
+      float: left;
+      max-height: 120px;
+      margin-right: 10px;
+      margin-bottom: 10px; }
+      .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-left {
+        display: inline-block;
+        width: 50px;
+        height: 100%; }
+        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img {
+          width: 48px;
+          height: 48px;
+          padding: 5px; }
+      .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 10px;
+        width: 210px;
+        height: 100%; }
+        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
+          display: inline-block;
+          vertical-align: top;
+          font-weight: 500;
+          font-size: 13px;
+          max-width: 120px;
+          height: 22px;
+          text-overflow: ellipsis;
+          overflow: hidden; }
+        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
+          display: inline-block;
+          vertical-align: top;
+          font-size: 11px;
+          font-weight: 300;
+          color: #AAAAAA;
+          line-height: 18px;
+          margin-left: 4px;
+          margin-top: 1px; }
+        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description {
+          width: 210px;
+          white-space: normal;
+          margin-top: 5px;
+          padding-right: 20px;
+          max-height: 70px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-size: 13px;
+          font-weight: 300; }
+  .page-rating-comments-detail .comment-clear {
+    height: 0;
+    display: block;
+    clear: both; }
+  .page-rating-comments-detail button.page-rating-comments-nav {
+    width: 48px;
+    min-width: 48px;
     display: table-cell;
     vertical-align: middle;
-    width: 64px;
-    height: 100%;
-    margin: auto 0; }
-    #content-page-detail .page-rating-comments-detail .page-rating-comments-nav img {
-      width: 64px;
-      height: 64px; }
+    margin: 0;
+    height: 100%; }
+    .page-rating-comments-detail button.page-rating-comments-nav .comments-nav-icon {
+      width: 48px;
+      height: 64px;
+      margin-left: -5px; }
 
 #content-page-overview {
   width: 100%;

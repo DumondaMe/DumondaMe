@@ -1,105 +1,22 @@
-<div id="content-page-detail">
-    <div id="centerCol">
-        <div id="page-detail-header">
-            <div id="page-detail-inner-header">
-                <div class="page-detail-header-image">
-                    <img ng-src="{{pageDetail.page.titleUrl}}" ng-show="label !== 'Youtube'">
-                    <ely-iframe width="400" height="300" secure-link="https://www.youtube.com/embed/" src="pageDetail.page.link"
-                                ng-if="label === 'Youtube'"></ely-iframe>
-                </div>
-                <div class="page-detail-header-list">
-                    <div class="page-detail-header-title">
-                        {{pageDetail.page.title}}
-                    </div>
-                    <div class="page-detail-header-category">
-                        Kategorie: {{category}}
-                    </div>
-                    <div ng-include="'app/modules/page/pageDetail/headerBookDetail.html'" ng-if="label === 'Book'"></div>
-                    <div class="page-detail-header-commands" ng-controller="AddRemoveRecommendationCtrl">
-                        <button class="btn btn-default" type="button"
-                                ng-click="addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)"
-                                ng-hide="pageDetail.recommendation.user">
-                            Bewerten
-                        </button>
-                        <button class="btn btn-default" type="button" ng-click="goEditPage(pageId, label)"
-                                ng-show="pageDetail.administrators.isAdmin"> Seite bearbeiten
-                        </button>
-                    </div>
-                    <div class="page-detail-header-rating-overviews">
-                        <div class="page-detail-header-rating-overview" ng-show="pageDetail.recommendation.summary.contact.numberOfRatings > 0">
-                            <ely-star-rating is-readonly="true" is-x-small="true"
-                                             number-of-selected-stars-readonly="pageDetail.recommendation.summary.contact.rating"></ely-star-rating>
-                            <div class="page-detail-header-rating-overview-description">
-                                (Kontakte {{pageDetail.recommendation.summary.contact.numberOfRatings}})
-                            </div>
-                        </div>
-                        <div class="page-detail-header-rating-overview"
-                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings > 0">
-                            <div class="page-detail-header-no-rating-overview-description">
-                                Noch keine Bewertungen durch deine Kontakte
-                            </div>
-                        </div>
-                        <div class="page-detail-header-rating-overview" ng-show="pageDetail.recommendation.summary.all.numberOfRatings > 0">
-                            <ely-star-rating is-readonly="true" is-x-small="true"
-                                             number-of-selected-stars-readonly="pageDetail.recommendation.summary.all.rating"></ely-star-rating>
-                            <div class="page-detail-header-rating-overview-description">
-                                (Alle {{pageDetail.recommendation.summary.all.numberOfRatings}})
-                            </div>
-                        </div>
-                        <div class="page-detail-header-rating-overview"
-                             ng-show="pageDetail.recommendation.summary.contact.numberOfRatings === 0 && pageDetail.recommendation.summary.all.numberOfRatings === 0">
-                            <div class="page-detail-header-no-rating-overview-description">
-                                Noch keine Bewertungen
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div ng-include="'app/modules/page/pageDetail/pageHeaderActivityPreview.html'" ng-if="label === 'Education'"></div>
-            </div>
-        </div>
-        <div class="page-detail-bottom-element">
-            <h1 class="website-structure-title">Beschreibung</h1>
-
-            <ely-expand-text description="{{pageDetail.page.description}}"></ely-expand-text>
-        </div>
-        <div ng-include="'app/modules/page/pageDetail/pageDetailEducation.html'" ng-if="label === 'Education'"></div>
-        <div class="page-detail-bottom-element" ng-show="pageDetail.recommendation.user">
-            <div class="page-detail-bottom-element-inner" ng-controller="AddRemoveRecommendationCtrl">
-                <h1 class="website-structure-title">Meine Bewertung</h1>
-
-                <ely-star-rating is-readonly="true" is-small="true"
-                                 number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
-                <div id="page-detail-my-recommendation"> bewertet am {{pageDetail.recommendation.user.created}}</div>
-                <button class="btn btn-default page-detail-my-recommendation-remove" type="button"
-                        ng-click="removeRecommendation(pageDetail, pageId, label)">Bewertung entfernen
-                </button>
-                <div id="page-detail-my-recommendation-comment"> {{pageDetail.recommendation.user.comment}}</div>
-            </div>
-        </div>
-        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings !== pageDetail.recommendation.summary.all.numberOfRatings && startLoad">
-            <ely-page-review only-contacts="true" title="Bewertungen deiner Kontakte"
-                             ng-if="pageDetail.recommendation.summary.contact.numberOfRatings > 0"></ely-page-review>
-            <ely-page-review only-contacts="false" title="Alle Bewertungen"
-                             ng-if="pageDetail.recommendation.summary.all.numberOfRatings > 0"></ely-page-review>
-        </div>
-        <div ng-if="pageDetail.recommendation.summary.contact.numberOfRatings === pageDetail.recommendation.summary.all.numberOfRatings &&
-        pageDetail.recommendation.summary.contact.numberOfRatings > 0 && startLoad">
-            <ely-page-review only-contacts="false" title="Bewertungen"></ely-page-review>
-        </div>
-        <div class="page-detail-bottom-element">
-            <div class="page-detail-bottom-element-inner">
-                <h1 class="website-structure-title">Administratoren</h1>
-
-                <div class="user-mini-preview" ng-repeat="admin in pageDetail.administrators.list" ng-click="openUserDetails(admin.userId)">
-                    <div class="user-mini-preview-content">
-                        <img ng-src="{{admin.profileUrl}}">
-
-                        <div class="user-mini-preview-name">
-                            <div class="name">{{admin.name}}</div>
-                        </div>
-                    </div>
+<div id="ely-page-detail">
+    <div id="main-content">
+        <div class="card-element">
+            <div class="header-title">{{category}}
+                <div class="options" ng-show="pageDetail.administrators.isAdmin">
+                    <!--<img src="app/img/settings.png">-->
+                    <md-menu>
+                        <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button md-primary" aria-label="Settings">
+                            <md-icon md-svg-icon="system:setting"></md-icon>
+                        </md-button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="goEditPage(pageId, label)">Seite Bearbeiten</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
             </div>
+            <div ng-include="'app/modules/page/pageDetail/book.html'" ng-if="label === 'Book'"></div>
         </div>
     </div>
 </div>

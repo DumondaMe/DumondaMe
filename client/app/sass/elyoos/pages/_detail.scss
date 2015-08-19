@@ -1,141 +1,22 @@
-#content-page-detail {
-
-  $detail-padding-left: 280px;
-  display: block;
-  padding-top: 60px;
-  background-color: $primary-color-light;
-
-  @include centerColumn(0px) {
-    min-width: 1000px;
-    height: 100%;
-
-    #page-detail-header {
-      padding-top: 25px;
-      padding-bottom: 35px;
-      background-color: $background-normal;
-      border-bottom: 2px solid #d6d6d6;
-      display: table;
-      width: 100%;
-      min-width: 1000px;
-
-      @include breakpoint(mediumDesktop) {
-        min-width: 1000px;
-      }
-      #page-detail-inner-header {
-        display: table-row;
-        width: 100%;
-        .page-detail-header-image {
-          padding-left: $detail-padding-left;
-          display: table-cell;
-          vertical-align: top;
-          height: 300px;
-          img {
-            height: 300px;
-            max-width: 400px;
-          }
-          .ely-iframe {
-            height: 300px;
-            width: 400px;
-          }
-        }
-        .page-detail-header-list {
-          height: 300px;
-          width: 100%;
-          display: table-cell;
-          vertical-align: top;
-          position: relative;
-          padding-left: 20px;
-          .page-detail-header-title {
-            display: inline-block;
-            font-size: 30px;
-            font-weight: 100;
-            color: $primary-color;
-            min-width: 300px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-height: 80px;
-          }
-          .page-detail-header-category {
-            font-size: 14px;
-            font-weight: 300;
-            height: 25px;
-            line-height: 25px;
-          }
-          .page-detail-contributor-title {
-            display: inline-block;
-            margin-right: 5px;
-            font-size: 14px;
-            font-weight: 300;
-          }
-          .page-detail-header-contributor {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 14px;
-            font-weight: 300;
-          }
-          .page-detail-header-contributor-with-Profile {
-            @extend .page-detail-header-contributor;
-            color: $link;
-            cursor: pointer;
-          }
-
-          .page-detail-header-commands {
-            position: absolute;
-            bottom: 55px;
-          }
-
-          .page-detail-header-rating-overviews {
-            position: absolute;
-            bottom: 0px;
-            .page-detail-header-rating-overview {
-              margin-top: 5px;
-              .page-detail-header-rating-overview-description {
-                display: inline-block;
-                font-size: 12px;
-                font-weight: 300;
-                margin-left: 5px;
-              }
-              .page-detail-header-no-rating-overview-description {
-                @extend .page-detail-header-rating-overview-description;
-                margin-left: 0;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .page-detail-bottom-element {
-      padding-top: 30px;
-      padding-right: 60px;
-      padding-left: $detail-padding-left;
-      background-color: $primary-color-light;
-
-      .page-detail-bottom-element-inner {
-        border-top: solid 1px $divider-light;
-        margin-top: 10px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
-
-      #page-detail-my-recommendation {
-        display: inline-block;
-        padding-top: 1px;
-        margin-left: 10px;
-        font-size: 14px;
-        line-height: 16px;
-        vertical-align: middle;
+#ely-page-detail {
+  height: 100%;
+  #main-content {
+    padding-top: 100px;
+    margin-left: 250px;
+    width: 720px;
+    @include cardElement() {
+      .header-title {
+        margin: 10px 0;
+        padding-bottom: 5px;
+        color: #999;
+        font-size: 18px;
         font-weight: 300;
-      }
-      .page-detail-my-recommendation-remove {
-        margin-left: 20px;
-      }
-      #page-detail-my-recommendation-comment {
-        margin-top: 20px;
-        font-size: 14px;
-        word-break: break-all;
+        border-bottom: 1px solid #e5e5e5;
+
+        .options {
+          margin-right: 0px;
+        }
       }
     }
-
   }
 }

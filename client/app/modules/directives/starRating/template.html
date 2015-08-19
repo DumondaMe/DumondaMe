@@ -1,7 +1,7 @@
 <div class="ely-star-rating" ng-mouseleave="resetToSelected()">
-    <md-icon md-svg-icon="rating:{{star0}}" aria-label="" ng-mouseover="mouseOverStar(0)" ng-mousedown="starSelected(1)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}"></md-icon>
-    <md-icon md-svg-icon="rating:{{star1}}" aria-label=""  ng-mouseover="mouseOverStar(1)" ng-mousedown="starSelected(2)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}"></md-icon>
-    <md-icon md-svg-icon="rating:{{star2}}" aria-label=""  ng-mouseover="mouseOverStar(2)" ng-mousedown="starSelected(3)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}"></md-icon>
-    <md-icon md-svg-icon="rating:{{star3}}" aria-label=""  ng-mouseover="mouseOverStar(3)" ng-mousedown="starSelected(4)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}"></md-icon>
-    <md-icon md-svg-icon="rating:{{star4}}" aria-label=""  ng-mouseover="mouseOverStar(4)" ng-mousedown="starSelected(5)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}"></md-icon>
+    <md-icon md-svg-icon="rating:{{star[0]}}" aria-label="" ng-mouseover="mouseOverStar(0)" ng-mousedown="starSelected(1)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}" ng-if="star.length === 5"></md-icon>
+    <md-icon md-svg-icon="rating:{{star[1]}}" aria-label=""  ng-mouseover="mouseOverStar(1)" ng-mousedown="starSelected(2)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}" ng-if="star.length === 5"></md-icon>
+    <md-icon md-svg-icon="rating:{{star[2]}}" aria-label=""  ng-mouseover="mouseOverStar(2)" ng-mousedown="starSelected(3)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}" ng-if="star.length === 5"></md-icon>
+    <md-icon md-svg-icon="rating:{{star[3]}}" aria-label=""  ng-mouseover="mouseOverStar(3)" ng-mousedown="starSelected(4)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}" ng-if="star.length === 5"></md-icon>
+    <md-icon md-svg-icon="rating:{{star[4]}}" aria-label=""  ng-mouseover="mouseOverStar(4)" ng-mousedown="starSelected(5)" ng-class="{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}" ng-if="star.length === 5"></md-icon>
 </div>
