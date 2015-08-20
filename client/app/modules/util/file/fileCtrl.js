@@ -2,7 +2,11 @@
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
 
-    $scope.imageForUploadPreview = null;
+    $scope.image = {
+        imageForUploadPreview: null,
+        imageForUpload: null
+    };
+    //$scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
     $scope.uploadFile = false;
     $scope.isLandscape = false;
@@ -32,11 +36,11 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
         }
     };
 
-    $scope.$watch('imageForUpload', function (newImage) {
+    $scope.$watch('image.imageForUpload', function (newImage) {
         if (newImage) {
             FileReader.onloadend = function () {
                 $scope.$apply(function () {
-                    $scope.imageForUploadPreview = FileReader.result;
+                    $scope.image.imageForUploadPreview = FileReader.result;
                 });
             };
             FileReader.readAsDataURL(newImage);

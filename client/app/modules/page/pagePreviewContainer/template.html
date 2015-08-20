@@ -1,13 +1,13 @@
 <div ng-show="pagePreviews.length > 0 && !hide" class="page-overview-container" ng-style="{'width': containerWidth + 'px'}">
     <div class="website-structure-header">
         <h1 class="website-structure-title">{{title}}</h1>
-        <button type="button" class="btn btn-default page-overview-expand" ng-click="startExpand()"
+        <md-button class="md-primary md-raised ely-button page-overview-expand" ng-click="startExpand()"
                 ng-show="!expand && numberOfElements < totalNumberOfPages">Mehr
-        </button>
+        </md-button>
     </div>
-    <div ng-class="{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}">
+    <div class="page-preview-container" ng-class="{'page-preview-expand-container': expand}">
         <div ng-repeat="pagePreview in pagePreviews" class="page-preview-inner-container">
-            <ely-page-preview page-preview="pagePreview" format="{{format}}" video-width="{{videoWidth}}"
+            <ely-page-preview page-preview="pagePreview" video-width="{{videoWidth}}"
                               video-height="{{videoHeight}}"></ely-page-preview>
         </div>
     </div>

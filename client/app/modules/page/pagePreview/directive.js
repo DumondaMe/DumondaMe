@@ -8,7 +8,6 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
                 pagePreview: '='

@@ -1,49 +1,26 @@
 <div>
-    <div ng-if="format !== 'cross'">
-        <div ng-class="{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}">
-            <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                <img ng-src="{{cacheUrl(pagePreview.url)}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
-                <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
-                            ng-show="pagePreview.label === 'Youtube'"></ely-iframe>
-            </div>
-            <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                {{pagePreview.title}}
-            </div>
-            <div class="page-preview-language" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                {{pagePreview.labelShow}}, {{pagePreview.languageShow}}
-            </div>
-            <div class="page-preview-contact" ng-if="format === 'long'" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                <div class="page-preview-contact-name">{{pagePreview.recommendation.contact.name}}</div>
-            </div>
-            <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating"
-                             ng-show="pagePreview.recommendation.summary.numberOfRatings > 0"
-                             number-of-selected-stars-readonly="pagePreview.recommendation.summary.rating"></ely-star-rating>
-            <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating" ng-show="pagePreview.recommendation.contact.rating"
-                             number-of-selected-stars-readonly="pagePreview.recommendation.contact.rating"
-                             ng-click="showComment(pagePreview.recommendation.contact)"></ely-star-rating>
-            <img src="app/img/comment.png" class="page-preview-rating-comment" ng-show="pagePreview.recommendation.contact.comment"
-                 ng-click="showComment(pagePreview.recommendation.contact)">
+    <div class="page-preview">
+        <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+            <img ng-src="{{cacheUrl(pagePreview.url)}}" class="page-preview-image" ng-hide="pagePreview.label === 'Youtube'">
+            <ely-iframe width="{{videoWidth}}" height="{{videoHeight}}" secure-link="https://www.youtube.com/embed/" src="pagePreview.link"
+                        ng-show="pagePreview.label === 'Youtube'"></ely-iframe>
         </div>
-    </div>
-    <div ng-if="format === 'cross'">
-        <div class="page-preview">
-            <div class="page-preview-image-container" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                <img ng-src="{{cacheUrl(pagePreview.url)}}" class="page-preview-image">
-            </div>
-            <div class="page-preview-content">
-                <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
-                    {{pagePreview.title}}
-                </div>
-                <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating"
-                                 ng-show="pagePreview.recommendation.contact.rating"
-                                 number-of-selected-stars-readonly="pagePreview.recommendation.contact.rating"></ely-star-rating>
-                <div class="page-preview-no-rating" ng-hide="pagePreview.recommendation.contact.rating">
-                    Noch keine Bewertung durch deine Kontakte
-                </div>
-                <div class="page-preview-description">
-                    {{pagePreview.description}}
-                </div>
-            </div>
+        <div class="page-preview-title" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+            {{pagePreview.title}}
         </div>
+        <div class="page-preview-language" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+            {{pagePreview.labelShow}}, {{pagePreview.languageShow}}
+        </div>
+        <div class="page-preview-contact" ng-if="format === 'long'" ng-click="openDetail(pagePreview.pageId, pagePreview.label)">
+            <div class="page-preview-contact-name">{{pagePreview.recommendation.contact.name}}</div>
+        </div>
+        <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating"
+                         ng-show="pagePreview.recommendation.summary.numberOfRatings > 0"
+                         number-of-selected-stars-readonly="pagePreview.recommendation.summary.rating"></ely-star-rating>
+        <ely-star-rating is-readonly="true" is-x-small="true" class="page-preview-rating" ng-show="pagePreview.recommendation.contact.rating"
+                         number-of-selected-stars-readonly="pagePreview.recommendation.contact.rating"
+                         ng-click="showComment(pagePreview.recommendation.contact)"></ely-star-rating>
+        <img src="app/img/comment.png" class="page-preview-rating-comment" ng-show="pagePreview.recommendation.contact.comment"
+             ng-click="showComment(pagePreview.recommendation.contact)">
     </div>
 </div>

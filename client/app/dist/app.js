@@ -168,12 +168,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/commonBook.html',
-    "<div><div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div><div id=content-create-edit-book-page-common-area><div id=content-create-edit-book-page-common-inner-area><div ng-controller=PageCommonBookCtrl><ely-form-text-input label=Autor input-name=inputAuthor input-placeholder=Autor profile-form=commonForm submit-model=page.authors max-length=255 ely-required=true></ely-form-text-input><ely-form-text-input label=Erscheinungsdatum input-name=inputPublicationDate input-placeholder=Erscheinungsdatum profile-form=commonForm submit-model=page.publishDate max-length=255 custom-error-description=\"Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})\"></ely-form-text-input></div></div></div></div>"
+    "<div><div ng-include=\"'app/modules/page/createEditPage/selectPicture.html'\"></div><div id=create-book-page><div ng-controller=PageCommonBookCtrl><md-input-container><label>Autor</label><input md-maxlength=255 required name=inputDescriptionArea aria-label=Autor ng-model=page.authors><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container><md-input-container><label>Erscheinungsdatum</label><input name=inputPublicationDate aria-label=Erscheinungsdatum ng-model=page.publishDate><div ng-messages=commonForm.inputPublicationDate.$error><div ng-message=custom>Gib ein g&#252ltiges Datum an (z.B. {{getDateExample()}})</div></div></md-input-container></div></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=page.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=content-create-edit-page-common ng-controller=PageCommonSectionCtrl ng-show=\"state.actual === 3\"><form name=commonForm class=form-horizontal role=form novalidate><div class=website-structure-header><h1 class=website-structure-title>Allgemeines</h1></div><div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div><div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div><div id=content-create-edit-page-common-description-area><textarea class=form-control placeholder=Beschreibung ng-maxlength=10000 maxlength=10000 ng-model=page.description required></textarea></div><div><button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=abortCreateEditPage()>Abbrechen</button> <button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=createPage() ng-class=\"{disabled: commonForm.$invalid}\" ng-hide=mode.edit>Seite erstellen</button> <button type=submit class=\"btn btn-default content-create-edit-page-common-commands\" ng-click=editPage() ng-class=\"{disabled: commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning}\" ng-show=mode.edit>Seite &aumlndern</button></div></form></div>"
+    "<div id=create-page-common ng-controller=PageCommonSectionCtrl><div class=card-element><form name=commonForm><div class=description>{{category.selectedCategory}}</div><div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div><div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div><div class=commands><md-button class=\"md-primary md-raised ely-button\" ng-click=createPage() ng-disabled=commonForm.$invalid ng-hide=mode.edit>Seite erstellen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=editPage() ng-disabled=\"commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning\" ng-show=mode.edit>Seite &aumlndern</md-button><md-button class=\"md-primary ely-button\" ng-click=abortCreateEditPage()>Abbrechen</md-button></div></form></div></div>"
   );
 
 
@@ -183,12 +183,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/createEditPage/pageCreateEdit.html',
-    "<div id=content-page-create-edit><div id=centerCol><div id=inner-centerCol ng-controller=PageSelectCategoryCtrl><h1 class=website-structure-title ng-hide=mode.edit>Kategorie ausw&aumlhlen</h1><h1 class=website-structure-title ng-show=mode.edit>Titel</h1><div id=content-create-edit-category><form class=form-horizontal name=categoryForm role=form novalidate><div class=form-group><button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedCategory name=inputCategory id=inputCategoryId bs-options=\"category as category for category in categories\" data-placeholder=\"Kategorie ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button> <button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedLanguage name=inputLanguage id=inputLanguageId bs-options=\"language.description as language.description for language in languages\" data-placeholder=\"Sprache der Seite ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button></div><div class=form-group><input name=inputTitle ng-model=category.title class=form-control id=inputTitleId placeholder=Titel maxlength=100></div><div class=\"form-group content-create-edit-category-element\"><div><button type=submit class=\"btn btn-default category-select-finished\" ng-click=categorySelectFinished() ng-class=\"{disabled: categoryFinishedButtonDisabled}\" ng-show=categoryFirstSelect>Weiter</button> <button type=submit class=\"btn btn-default category-select-finished\" ng-click=categorySelectFinished() ng-show=\"!categoryFirstSelect && state.actual === 1\">Weiter</button></div></div></form></div><div id=content-create-edit-page-suggestions ng-show=\"state.actual === 2\"><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=SearchPage service-parameter=SearchPageParameter hide=false not-request-init-service=true></ely-page-preview-container><div id=content-create-edit-page-suggestion-commands><button type=submit class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\" ng-click=abortCreateEditPage()>Seite Erstellen Abbrechen</button> <button type=submit class=\"btn btn-default content-create-edit-page-suggestion-commands-buttons\" ng-click=suggestionContinue()>Weiter</button></div></div><div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div></div></div></div>"
+    "<div id=content-page-create-edit><div id=centerCol><div id=inner-centerCol ng-controller=PageSelectCategoryCtrl><div class=card-element><div class=description>Kategorie ausw&aumlhlen</div><div id=content-create-edit-category layout=column><form name=categoryForm><div layout=row><button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedCategory name=inputCategory id=inputCategoryId bs-options=\"category as category for category in categories\" data-placeholder=\"Kategorie ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button> <button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=category.selectedLanguage name=inputLanguage id=inputLanguageId bs-options=\"language.description as language.description for language in languages\" data-placeholder=\"Sprache der Seite ausw&aumlhlen\" ng-class=\"{disabled: !categoryFirstSelect || mode.edit}\" bs-select><span class=caret></span></button></div><div layout=row><md-input-container id=inputTitleId><label>Titel</label><input ng-model=category.title md-maxlength=100></md-input-container></div><div layout=row class=content-create-edit-category-element><md-button class=\"md-primary md-raised ely-button category-select-finished\" ng-click=categorySelectFinished() ng-disabled=categoryFinishedButtonDisabled ng-show=categoryFirstSelect>Weiter</md-button><md-button class=\"md-primary md-raised ely-button category-select-finished\" ng-click=categorySelectFinished() ng-show=\"!categoryFirstSelect && state.actual === 1\">Weiter</md-button></div></form></div></div><div id=content-create-edit-page-suggestions ng-show=\"state.actual === 2\"><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=SearchPage service-parameter=SearchPageParameter hide=false not-request-init-service=true container-width=780></ely-page-preview-container><div id=content-create-edit-page-suggestion-commands><md-button class=\"md-primary md-raised ely-button content-create-edit-page-suggestion-commands-buttons\" ng-click=suggestionContinue()>Weiter</md-button><md-button class=\"md-primary ely-button content-create-edit-page-suggestion-commands-buttons\" ng-click=abortCreateEditPage()>Seite Erstellen Abbrechen</md-button></div></div><div ng-include=\"'app/modules/page/createEditPage/commonSection.html'\"></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/createEditPage/selectPicture.html',
-    "<div id=content-create-edit-page-common-picture-area><img ng-src={{page.imagePreview}} class=content-create-edit-page-common-picture><div><button type=button class=\"btn btn-default content-create-edit-page-common-get-picture\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/previewFile.html bs-modal=modal>Titelbild ausw&aumlhlen..</button></div></div>"
+    "<div id=picture-area><img ng-src={{page.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/previewFile.html bs-modal=modal>Titelbild ausw&aumlhlen..</md-button></div></div>"
   );
 
 
@@ -243,12 +243,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreview/template.html',
-    "<div><div ng-if=\"format !== 'cross'\"><div ng-class=\"{'page-preview': !format || format === 'normal', 'page-preview-long': format === 'long'}\"><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{cacheUrl(pagePreview.url)}} class=page-preview-image ng-hide=\"pagePreview.label === 'Youtube'\"><ely-iframe width={{videoWidth}} height={{videoHeight}} secure-link=\"https://www.youtube.com/embed/\" src=pagePreview.link ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe></div><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><div class=page-preview-language ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.labelShow}}, {{pagePreview.languageShow}}</div><div class=page-preview-contact ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><div class=page-preview-contact-name>{{pagePreview.recommendation.contact.name}}</div></div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\" number-of-selected-stars-readonly=pagePreview.recommendation.summary.rating></ely-star-rating><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating ng-click=showComment(pagePreview.recommendation.contact)></ely-star-rating><img src=app/img/comment.png class=page-preview-rating-comment ng-show=pagePreview.recommendation.contact.comment ng-click=showComment(pagePreview.recommendation.contact)></div></div><div ng-if=\"format === 'cross'\"><div class=page-preview><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{cacheUrl(pagePreview.url)}} class=page-preview-image></div><div class=page-preview-content><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating></ely-star-rating><div class=page-preview-no-rating ng-hide=pagePreview.recommendation.contact.rating>Noch keine Bewertung durch deine Kontakte</div><div class=page-preview-description>{{pagePreview.description}}</div></div></div></div></div>"
+    "<div><div class=page-preview><div class=page-preview-image-container ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><img ng-src={{cacheUrl(pagePreview.url)}} class=page-preview-image ng-hide=\"pagePreview.label === 'Youtube'\"><ely-iframe width={{videoWidth}} height={{videoHeight}} secure-link=\"https://www.youtube.com/embed/\" src=pagePreview.link ng-show=\"pagePreview.label === 'Youtube'\"></ely-iframe></div><div class=page-preview-title ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.title}}</div><div class=page-preview-language ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\">{{pagePreview.labelShow}}, {{pagePreview.languageShow}}</div><div class=page-preview-contact ng-if=\"format === 'long'\" ng-click=\"openDetail(pagePreview.pageId, pagePreview.label)\"><div class=page-preview-contact-name>{{pagePreview.recommendation.contact.name}}</div></div><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=\"pagePreview.recommendation.summary.numberOfRatings > 0\" number-of-selected-stars-readonly=pagePreview.recommendation.summary.rating></ely-star-rating><ely-star-rating is-readonly=true is-x-small=true class=page-preview-rating ng-show=pagePreview.recommendation.contact.rating number-of-selected-stars-readonly=pagePreview.recommendation.contact.rating ng-click=showComment(pagePreview.recommendation.contact)></ely-star-rating><img src=app/img/comment.png class=page-preview-rating-comment ng-show=pagePreview.recommendation.contact.comment ng-click=showComment(pagePreview.recommendation.contact)></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=page-overview-container ng-style=\"{'width': containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{title}}</h1><button type=button class=\"btn btn-default page-overview-expand\" ng-click=startExpand() ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr</button></div><div ng-class=\"{'page-preview-container': format === 'long' && !expand, 'page-preview-short-container': (!format || format === 'normal') && !expand, 'page-preview-expand-container': expand}\"><div ng-repeat=\"pagePreview in pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview format={{format}} video-width={{videoWidth}} video-height={{videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=nextPages() ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
+    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=page-overview-container ng-style=\"{'width': containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=startExpand() ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': expand}\"><div ng-repeat=\"pagePreview in pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{videoWidth}} video-height={{videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=nextPages() ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
   );
 
 
@@ -298,12 +298,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/util/file/previewFile.html',
-    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog id=modal-preview-file><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=0.62745 original-size=checkOriginalSize min-width=100 min-height=160></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">Bild auswählen...<input type=file ely-file-model=imageForUpload accept=\".jpg, .png, jpeg\"></span><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><button type=button class=\"btn btn-default\" ng-class=\"{disabled: uploadRunning}\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-class=\"{disabled: !imageForUploadPreview || uploadRunning || uploadError}\" ng-click=getPreview()>Auswählen</button></div></div></div></div>"
+    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog id=modal-preview-file><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=image.imageForUploadPreview image-result-data=imageResultData ratio=0.62745 original-size=checkOriginalSize min-width=100 min-height=160></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\" ng-disabled=uploadRunning>Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><md-button class=\"md-primary ely-button\" ng-disabled=uploadRunning ng-click=$hide()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!image.imageForUploadPreview || uploadRunning || uploadError\" ng-click=getPreview()>Auswählen</md-button></div></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/util/file/uploadFile.html',
-    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=1></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><span class=\"btn btn-default btn-file\" ng-class=\"{disabled: uploadRunning}\">Bild auswählen...<input type=file ely-file-model=imageForUpload accept=\".jpg, .png, jpeg\"></span><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><button type=button class=\"btn btn-default\" ng-class=\"{disabled: uploadRunning}\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-class=\"{disabled: !imageForUploadPreview || uploadRunning}\" ng-click=startUpload()>Hochladen</button></div></div></div></div>"
+    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=1></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\" ng-disabled=uploadRunning>Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><md-button class=\"md-primary ely-button\" ng-disabled=uploadRunning ng-click=$hide()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!image.imageForUploadPreview || uploadRunning || uploadError\" ng-click=startUpload()>Hochladen</md-button></div></div></div></div>"
   );
 
 
@@ -456,6 +456,7 @@ var app = angular.module('elyoosApp', [
     'ngCookies',
     'ngAnimate',
     'ngResource',
+    'ngMessages',
     'mgcrea.ngStrap',
     'infinite-scroll',
     'ngMaterial'
@@ -469,6 +470,8 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
         .accentPalette('light-green');
+
+    $mdThemingProvider.theme('error-toast');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
     $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
@@ -549,7 +552,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         template: ''
     };
 }]);
-},{"../../package.json":168,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
+},{"../../package.json":170,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {
@@ -3528,7 +3531,7 @@ var getPageId = function (pageId, resp) {
     return pageId;
 };
 
-var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal) {
+var uploadPage = function ($scope, $state, errorToast, fileUpload, api, pageId, PromiseModal) {
     var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
     if (!$scope.uploadRunning) {
@@ -3563,12 +3566,13 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
             }).
             error(function () {
                 $scope.uploadRunning = false;
+                errorToast.showError('Fehler! Seite konnte nicht hochgeladen werden');
             });
     }
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageCategories, PromiseModal) {
+module.exports = ['$scope', '$state', '$stateParams', 'errorToast', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
+    function ($scope, $state, $stateParams, errorToast, Languages, fileUpload, moment, PageCategories, PromiseModal) {
 
         var imageDefaultPath = 'app/img/default.jpg';
         $scope.page.imagePreview = imageDefaultPath;
@@ -3611,12 +3615,12 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         }
 
         $scope.createPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/create', $stateParams.pageId, PromiseModal);
+            uploadPage($scope, $state, errorToast, fileUpload, 'api/user/page/create', $stateParams.pageId, PromiseModal);
 
         };
 
         $scope.editPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/edit', $stateParams.pageId, PromiseModal);
+            uploadPage($scope, $state, errorToast, fileUpload, 'api/user/page/edit', $stateParams.pageId, PromiseModal);
         };
     }];
 
@@ -4271,9 +4275,9 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
+                containerWidth: '@',
                 title: '@',
                 notRequestInitService: '@',
                 hide: '=',
@@ -4298,7 +4302,9 @@ var maxScreenSize = 1900;
 
 var setContainerWidth = function($scope) {
     var containerSize, screenWidth = $(window).width();
-    if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+    if($scope.containerWidth) {
+        $scope.numberOfElements = Math.floor($scope.containerWidth / 190);
+    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
         $scope.numberOfElements = Math.floor(containerSize / 190);
     } else if(screenWidth < minScreenSize) {
@@ -4314,9 +4320,11 @@ var setContainerWidth = function($scope) {
 module.exports = {
     directiveLink: function () {
         return function ($scope) {
-            $(window).resize(function () {
-                setContainerWidth($scope);
-            });
+            if($scope.containerWidth) {
+                $(window).resize(function () {
+                    setContainerWidth($scope);
+                });
+            }
 
             setContainerWidth($scope);
         };
@@ -4374,7 +4382,6 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
                 pagePreview: '='
@@ -5256,7 +5263,11 @@ module.exports = [function () {
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
 
-    $scope.imageForUploadPreview = null;
+    $scope.image = {
+        imageForUploadPreview: null,
+        imageForUpload: null
+    };
+    //$scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
     $scope.uploadFile = false;
     $scope.isLandscape = false;
@@ -5286,11 +5297,11 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
         }
     };
 
-    $scope.$watch('imageForUpload', function (newImage) {
+    $scope.$watch('image.imageForUpload', function (newImage) {
         if (newImage) {
             FileReader.onloadend = function () {
                 $scope.$apply(function () {
-                    $scope.imageForUploadPreview = FileReader.result;
+                    $scope.image.imageForUploadPreview = FileReader.result;
                 });
             };
             FileReader.readAsDataURL(newImage);
@@ -5424,7 +5435,7 @@ app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
 app.service('UrlCache', require('./urlCache'));
 app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./moment":164,"./promiseModal":165,"./urlCache":166,"./waitingScreen/waitingScreen":167}],164:[function(require,module,exports){
+},{"./moment":164,"./promiseModal":165,"./urlCache":168,"./waitingScreen/waitingScreen":169}],164:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5472,6 +5483,42 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
 },{}],166:[function(require,module,exports){
 'use strict';
 
+var toastPosition = {
+    bottom: false,
+    top: true,
+    left: false,
+    right: true
+};
+
+var getToastPosition = function() {
+    return Object.keys(toastPosition)
+        .filter(function(pos) { return toastPosition[pos]; })
+        .join(' ');
+};
+
+module.exports = ['$mdToast', function ($mdToast) {
+
+    this.showError = function (errorMessage) {
+        var toast = $mdToast.simple()
+            .content(errorMessage)
+            .theme("error-toast")
+            .hideDelay(0)
+            .action('OK')
+            .highlightAction(false)
+            .position(getToastPosition());
+        $mdToast.show(toast);
+    };
+}];
+
+},{}],167:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+
+app.service('errorToast', require('./errorToast'));
+},{"./errorToast":166}],168:[function(require,module,exports){
+'use strict';
+
 module.exports = ['$log', function ($log) {
 
     var cache = {};
@@ -5500,7 +5547,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],167:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
@@ -5525,7 +5572,7 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
     };
 }];
 
-},{}],168:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5574,4 +5621,4 @@ module.exports={
   }
 }
 
-},{}]},{},[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,93,94,95,92,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,120,121,122,116,117,118,119,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167]);
+},{}]},{},[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,93,94,95,92,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,120,121,122,116,117,118,119,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169]);

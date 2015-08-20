@@ -5,7 +5,9 @@ var maxScreenSize = 1900;
 
 var setContainerWidth = function($scope) {
     var containerSize, screenWidth = $(window).width();
-    if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+    if($scope.containerWidth) {
+        $scope.numberOfElements = Math.floor($scope.containerWidth / 190);
+    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
         $scope.numberOfElements = Math.floor(containerSize / 190);
     } else if(screenWidth < minScreenSize) {
@@ -21,9 +23,11 @@ var setContainerWidth = function($scope) {
 module.exports = {
     directiveLink: function () {
         return function ($scope) {
-            $(window).resize(function () {
-                setContainerWidth($scope);
-            });
+            if($scope.containerWidth) {
+                $(window).resize(function () {
+                    setContainerWidth($scope);
+                });
+            }
 
             setContainerWidth($scope);
         };

@@ -15,7 +15,7 @@ var getPageId = function (pageId, resp) {
     return pageId;
 };
 
-var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal) {
+var uploadPage = function ($scope, $state, errorToast, fileUpload, api, pageId, PromiseModal) {
     var json = $scope.page[$scope.category.selectedCategoryType](), imageToUpload;
 
     if (!$scope.uploadRunning) {
@@ -50,12 +50,13 @@ var uploadPage = function ($scope, $state, fileUpload, api, pageId, PromiseModal
             }).
             error(function () {
                 $scope.uploadRunning = false;
+                errorToast.showError('Fehler! Seite konnte nicht hochgeladen werden');
             });
     }
 };
 
-module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
-    function ($scope, $state, $stateParams, Languages, fileUpload, moment, PageCategories, PromiseModal) {
+module.exports = ['$scope', '$state', '$stateParams', 'errorToast', 'Languages', 'fileUpload', 'moment', 'PageCategories', 'PromiseModal',
+    function ($scope, $state, $stateParams, errorToast, Languages, fileUpload, moment, PageCategories, PromiseModal) {
 
         var imageDefaultPath = 'app/img/default.jpg';
         $scope.page.imagePreview = imageDefaultPath;
@@ -98,11 +99,11 @@ module.exports = ['$scope', '$state', '$stateParams', 'Languages', 'fileUpload',
         }
 
         $scope.createPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/create', $stateParams.pageId, PromiseModal);
+            uploadPage($scope, $state, errorToast, fileUpload, 'api/user/page/create', $stateParams.pageId, PromiseModal);
 
         };
 
         $scope.editPage = function () {
-            uploadPage($scope, $state, fileUpload, 'api/user/page/edit', $stateParams.pageId, PromiseModal);
+            uploadPage($scope, $state, errorToast, fileUpload, 'api/user/page/edit', $stateParams.pageId, PromiseModal);
         };
     }];

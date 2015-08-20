@@ -8,65 +8,78 @@
     #inner-centerCol {
       position: relative;
       width: 800px;
-      @include breakpoint(largeDesktop) {
-        width: 1300px;
-      }
       margin: 0 auto;
 
-      #content-create-edit-category {
-        margin-top: 10px;
-        margin-left: 15px;
-        #inputTitleId {
-          width: 800px;
-          @include breakpoint(largeDesktop) {
-            width: 1300px;
-          }
-          padding-right: 10px;
-        }
-        .category-select-finished {
-          margin-top: 10px;
-        }
-        .content-create-edit-category-element {
-          margin-right: 10px;
-        }
-      }
+      @include cardElement() {
 
-      #content-create-edit-page-suggestion-commands {
-        margin-top: 20px;
-        .content-create-edit-page-suggestion-commands-buttons {
-          margin-right: 10px;
-        }
-      }
-
-      #content-create-edit-page-common {
-        #content-create-edit-page-common-picture-area {
-          margin-top: 10px;
-          margin-right: 20px;
-          float: left;
-          .content-create-edit-page-common-picture {
-            height: 200px;
+        #content-create-edit-category {
+          margin-top: 25px;
+          margin-bottom: 15px;
+          #inputTitleId {
+            width: 100%;
           }
-          .content-create-edit-page-common-get-picture {
+          .category-select-finished {
             margin-top: 10px;
           }
-        }
-
-        #content-create-edit-page-common-description-area {
-          float: left;
-          height: 250px;
-          width: 100%;
-          margin-top: 15px;
-
-          textarea {
-            height: 100%;
+          .content-create-edit-category-element {
+            margin-right: 10px;
           }
         }
 
-        .content-create-edit-page-common-commands {
-          float: left;
-          margin-top: 15px;
-          margin-bottom: 10px;
-          margin-right: 10px;
+        #content-create-edit-page-suggestion-commands {
+          margin-top: 20px;
+          .content-create-edit-page-suggestion-commands-buttons {
+            margin-right: 10px;
+          }
+        }
+      }
+      #create-page-common {
+        @include cardElement() {
+          #picture-area {
+            margin-top: 10px;
+            margin-right: 20px;
+            float: left;
+            .picture {
+              height: 200px;
+            }
+            .get-picture {
+              margin-top: 10px;
+            }
+          }
+          #description-area {
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+          }
+
+          .commands {
+            margin-bottom: 10px;
+          }
+        }
+      }
+      #content-create-edit-page-suggestions {
+        padding: 0 10px;
+        margin-bottom: 20px;
+      }
+      .page-overview-container {
+        position: relative;
+        display: block;
+        margin-bottom: 20px;
+        margin-right: 10px;
+        width: 100%;
+
+        .website-structure-title {
+          display: inline-block;
+        }
+        .page-preview-container {
+          height: 330px;
+        }
+        .page-overview-expand {
+          display: inline-block;
+          position: absolute;
+          right: 30px;
+          background-color: $primary-color;
+          color: #ffffff;
         }
       }
     }

@@ -9,9 +9,9 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                format: '@',
                 videoHeight: '@',
                 videoWidth: '@',
+                containerWidth: '@',
                 title: '@',
                 notRequestInitService: '@',
                 hide: '=',

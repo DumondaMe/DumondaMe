@@ -5,7 +5,7 @@
                 <div class="cropArea">
                     <ely-image-cropper ng-if="!uploadRunning"
                                        reset="resetImage"
-                                       image="imageForUploadPreview"
+                                       image="image.imageForUploadPreview"
                                        image-result-data="imageResultData"
                                        ratio="0.62745"
                                        original-size="checkOriginalSize" min-width="100" min-height="160"></ely-image-cropper>
@@ -13,22 +13,22 @@
                 <ely-spin ng-if="uploadRunning"></ely-spin>
             </div>
             <div class="modal-footer">
-                <span class="btn btn-default btn-file" ng-class="{disabled: uploadRunning}">
-                    Bild auswählen...<input type="file" ely-file-model="imageForUpload"
+                <md-button class="md-primary md-raised ely-button btn-file" ng-disabled="uploadRunning">
+                    Bild auswählen...<input type="file" ely-file-model="image.imageForUpload"
                                             accept=".jpg, .png, jpeg">
-                </span>
+                </md-button>
 
                 <div class="upload-file-error" ng-show="uploadError">
                     {{uploadError}}
                 </div>
-                <button type="button" class="btn btn-default"
-                        ng-class="{disabled: uploadRunning}" ng-click="$hide()">Abbrechen
-                </button>
-                <button type="button" class="btn btn-default"
-                        ng-class="{disabled: !imageForUploadPreview || uploadRunning || uploadError}"
+                <md-button class="md-primary ely-button"
+                        ng-disabled="uploadRunning" ng-click="$hide()">Abbrechen
+                </md-button>
+                <md-button class="md-primary md-raised ely-button"
+                        ng-disabled="!image.imageForUploadPreview || uploadRunning || uploadError"
                         ng-click="getPreview()">
                     Auswählen
-                </button>
+                </md-button>
             </div>
         </div>
     </div>

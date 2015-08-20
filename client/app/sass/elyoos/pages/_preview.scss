@@ -1,5 +1,5 @@
 .page-preview-container {
-  height: 400px;
+  height: 330px;
   overflow: hidden;
   .page-preview-inner-container {
     display: inline-block;
@@ -81,66 +81,6 @@
       height: 380px;
     }
   }
-  .page-preview-inner-cross-container {
-
-    .page-preview {
-      position: relative;
-      cursor: pointer;
-      width: 100%;
-      height: 120px;
-      margin-bottom: 30px;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
-      background: white;
-
-      .page-preview-image-container {
-        width: 120px;
-        height: 120px;
-        display: table-cell;
-        vertical-align: top;
-        .page-preview-image {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .page-preview-content {
-        display: table-cell;
-        position: relative;
-        padding-left: 20px;
-        padding-right: 20px;
-        .page-preview-title {
-          padding-top: 5px;
-          font-size: 15px;
-          width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          color: $primary-color;
-        }
-
-        .page-preview-no-rating {
-          font-size: 12px;
-          font-weight: 300;
-        }
-
-        .page-preview-description {
-          overflow: hidden;
-          height: 4.5em;
-          font-size: 14px;
-          font-weight: 300;
-          padding-top: 5px;
-          //font-style: italic;
-          //padding: 5px 10px;
-        }
-      }
-    }
-  }
-}
-
-.page-preview-short-container {
-  @extend .page-preview-container;
-  height: 360px;
 }
 
 .page-preview-expand-container {

@@ -11,6 +11,7 @@ var app = angular.module('elyoosApp', [
     'ngCookies',
     'ngAnimate',
     'ngResource',
+    'ngMessages',
     'mgcrea.ngStrap',
     'infinite-scroll',
     'ngMaterial'
@@ -24,6 +25,8 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
         .accentPalette('light-green');
+
+    $mdThemingProvider.theme('error-toast');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
     $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
