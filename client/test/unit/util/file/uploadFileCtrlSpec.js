@@ -30,15 +30,16 @@ describe('Tests of the upload file controller', function () {
         var mockFileReaderRead = sinon.mock(FileReader).expects('readAsDataURL');
         mockFileReaderRead.once();
 
-        scope.imageForUpload = {};
+        scope.image = {};
+        scope.image.imageForUpload = {};
         FileReader.result = 'test';
 
         uploadFileCtrl(scope, fileUpload, FileReader, FileReaderUtil);
-        scope.imageForUpload = 'change';
+        scope.image.imageForUpload = 'change';
         scope.$digest();
         FileReader.onloadend();
 
-        expect(scope.imageForUploadPreview).to.equal(FileReader.result);
+        expect(scope.image.imageForUploadPreview).to.equal(FileReader.result);
         mockFileReaderRead.verify();
     });
 
@@ -47,11 +48,12 @@ describe('Tests of the upload file controller', function () {
         var mockFileReaderRead = sinon.mock(FileReader).expects('readAsDataURL');
         mockFileReaderRead.never();
 
-        scope.imageForUpload = {};
+        scope.image = {};
+        scope.image.imageForUpload = {};
         FileReader.result = 'test';
 
         uploadFileCtrl(scope, fileUpload, FileReader, FileReaderUtil);
-        scope.imageForUpload = null;
+        scope.image.imageForUpload = null;
         scope.$digest();
 
         mockFileReaderRead.verify();
