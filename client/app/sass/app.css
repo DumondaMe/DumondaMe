@@ -1189,6 +1189,37 @@ h2.website-structure-title {
   top: 100px;
   left: 50%;
   margin-left: -200px; }
+  #loginform #error-message {
+    margin-left: 10px;
+    margin-right: 10px; }
+  #loginform .card-element {
+    margin: 0 10px 25px 10px;
+    padding: 0 20px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #d8d8d8;
+    padding-bottom: 20px; }
+    #loginform .card-element .description {
+      padding: 15px 0 10px 0;
+      margin-bottom: 10px;
+      color: #999;
+      font-size: 14px;
+      border-bottom: 1px solid #e5e5e5; }
+    #loginform .card-element .options {
+      float: right;
+      cursor: pointer;
+      margin-top: -13px;
+      margin-right: -5px; }
+      #loginform .card-element .options .md-icon-button {
+        width: 24px;
+        height: 24px; }
+    #loginform .card-element .input-element {
+      padding-bottom: 15px; }
+      #loginform .card-element .input-element input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+        text-shadow: none; }
+    #loginform .card-element button#login {
+      margin-top: 25px; }
 
 #content-messages {
   width: 100%;
@@ -1702,8 +1733,7 @@ h2.website-structure-title {
     height: 400px;
     width: 100%; }
   #ely-youtube-page .header .header-content {
-    width: 100%;
-    height: 180px; }
+    width: 100%; }
     #ely-youtube-page .header .header-content .youtube-title {
       font-size: 24px;
       font-weight: 100;
@@ -1711,8 +1741,11 @@ h2.website-structure-title {
       max-height: 68px;
       overflow: hidden; }
     #ely-youtube-page .header .header-content .header-commands {
-      position: absolute;
-      bottom: 65px; }
+      margin-top: 10px;
+      margin-bottom: 5px; }
+    #ely-youtube-page .header .header-content .page-detail-commons {
+      position: static;
+      bottom: 0; }
 
 #content-page-overview {
   width: 100%;
