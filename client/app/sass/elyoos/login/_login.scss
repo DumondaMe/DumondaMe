@@ -4,6 +4,28 @@
   top: 100px;
   left: 50%;
   margin-left: -200px;
+
+  #error-message {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @include cardElement() {
+    padding-bottom: 20px;
+
+    .input-element{
+      padding-bottom: 15px;
+
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+        text-shadow: none;
+      }
+
+    }
+    button#login {
+      margin-top: 25px;
+    }
+  }
 }
 
 

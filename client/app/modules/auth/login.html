@@ -1,35 +1,33 @@
 <div id="loginform">
+    <div class="card-element">
+        <div class="description">Login</div>
+        <form name="loginForm">
+            <md-input-container class="input-element">
+                <label>Email</label>
+                <input required="" type="email" name="username" id="id_username" aria-label="Email" autofocus="autofocus"
+                       ng-model="loginuser.email">
+
+                <div ng-messages="loginForm.username.$error">
+                    <div ng-message="required">Dieses Feld wird ben&ouml;tigt!</div>
+                    <div ng-message="email">Keine gültige E-Mail Adresse!</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="input-element">
+                <label>Passwort</label>
+                <input type="password" required="" name="password" id="id_password" aria-label="Passwort" autofocus="autofocus"
+                       ng-model="loginuser.password">
+
+                <div ng-messages="loginForm.password.$error">
+                    <div ng-message="required">Dieses Feld wird ben&ouml;tigt!</div>
+                </div>
+            </md-input-container>
+            <md-button id="login" type="submit" class="md-primary md-raised ely-button" ng-click="login()"
+                       ng-disabled="loginForm.$invalid">
+                Anmelden
+            </md-button>
+        </form>
+    </div>
     <div id="error-message" class="alert alert-danger" role="alert" ng-if="error">
         {{error}}
     </div>
-    <form class="form-horizontal" name="loginForm" role="form" novalidate="novalidate">
-        <div class="form-group">
-            <label for="id_username" class="col-sm-2 control-label">Email</label>
-
-            <div class="col-sm-10">
-                <input type="email" name="username" ng-model="loginuser.email"
-                       class="form-control" id="id_username" autofocus="autofocus"
-                       placeholder="Email" required>
-                <span class="error" ng-show="loginForm.inputEmail.$error.email">
-    Keine gültige E-Mail Adresse!</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="id_password" class="col-sm-2 control-label">Passwort</label>
-
-            <div class="col-sm-10">
-                <input type="password" ng-model="loginuser.password" class="form-control"
-                       id="id_password" name="password"
-                       placeholder="Passwort" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="login" type="submit" class="btn btn-default" ng-click="login()"
-                        ng-disabled="loginForm.$invalid">
-                    Anmelden
-                </button>
-            </div>
-        </div>
-    </form>
 </div>
