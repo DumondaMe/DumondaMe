@@ -8,7 +8,8 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
+            scope: {},
+            bindToController: {
                 videoHeight: '@',
                 videoWidth: '@',
                 containerWidth: '@',
@@ -16,10 +17,11 @@ module.exports = {
                 notRequestInitService: '@',
                 hide: '=',
                 service: '=',
-                serviceParameter: '='
+                pageRequestStart: '='
             },
             link: link.directiveLink(),
             controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
             templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
         };
     }],

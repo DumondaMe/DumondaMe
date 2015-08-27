@@ -64,8 +64,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/edit/{label}/{pageId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
-                    controller: 'PageEditCtrl'
+                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
                 }
             },
             hasNavigation: true
@@ -74,8 +73,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/create',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
-                    controller: 'PageCreateCtrl'
+                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
                 }
             },
             hasNavigation: true

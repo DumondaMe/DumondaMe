@@ -172,11 +172,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/createEditPage/commonSection.html',
-    "<div id=create-page-common ng-controller=PageCommonSectionCtrl ng-show=\"state.actual === 3\"><div class=card-element><form name=commonForm><div class=description>{{category.selectedCategory}}</div><div ng-include=\"'app/modules/page/createEditPage/commonBook.html'\" ng-if=\"category.selectedCategoryType === 'Book'\"></div><div ng-include=\"'app/modules/page/createEditPage/commonYoutube.html'\" ng-if=\"category.selectedCategoryType === 'Youtube'\"></div><div class=commands><md-button class=\"md-primary md-raised ely-button\" ng-click=createPage() ng-disabled=commonForm.$invalid ng-hide=mode.edit>Seite erstellen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=editPage() ng-disabled=\"commonForm.$invalid || (!editChanged && !editChangedTitle) || uploadRunning\" ng-show=mode.edit>Seite &aumlndern</md-button><md-button class=\"md-primary ely-button\" ng-click=abortCreateEditPage()>Abbrechen</md-button></div></form></div></div>"
-  );
-
-
   $templateCache.put('app/modules/page/createEditPage/commonYoutube.html',
     "<div><div id=content-create-edit-youtube-page-common-area ng-controller=PageCommonYoutubeCtrl><md-input-container><label>Link zum Youtube Video</label><input name=inputYoutubeLink required aria-label=\"Link zum Youtube Video\" ng-model=page.youtubeLink><div ng-messages=commonForm.inputYoutubeLink.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div><div ng-message=custom>Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v=\"</div></div></md-input-container><ely-iframe width=500 height=400 secure-link=\"https://www.youtube.com/embed/\" src=page.youtubeLinkFormatted ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe><img src=app/img/defaultVideo.png ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=page.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div></div>"
   );
@@ -189,6 +184,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/page/createEditPage/selectPicture.html',
     "<div id=picture-area><img ng-src={{page.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/previewFile.html bs-modal=modal>Titelbild ausw&aumlhlen..</md-button></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/page/handlingPages/categorySelection/template.html',
+    "<div id=page-category-selection><div class=card-element><div class=description aria-hidden=false>Kategorie</div><div id=content layout=column><form name=categoryForm><div layout=row layout-wrap=\"\" class=row-select-category><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Book aria-label=Buch ng-disabled=\"ctrl.isSingleSelectionDisabled && !ctrl.categories.Book\" ng-change=ctrl.categoriesSelectionChanged()>Buch</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Youtube aria-label=\"Video (Youtube)\" ng-disabled=\"ctrl.isSingleSelectionDisabled && !ctrl.categories.Youtube\" ng-change=ctrl.categoriesSelectionChanged()>Video (Youtube)</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Movie aria-label=Film ng-disabled=\"ctrl.isSingleSelectionDisabled && !ctrl.categories.Movie\" ng-change=ctrl.categoriesSelectionChanged()>Film</md-checkbox></div></div><div layout=row layout-wrap=\"\" class=row-select-category><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.School aria-label=Schule ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Schule</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Seminar aria-label=Seminar ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Seminar</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Practice aria-label=Praxis ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Praxis</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Shop aria-label=Shop ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Shop</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Events aria-label=Events ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Events</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.SeminarCenter aria-label=Seminarzentrum ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Seminarzentrum</md-checkbox></div><div flex=33><md-checkbox class=md-primary ng-model=ctrl.categories.Travel aria-label=Reisen ng-disabled=ctrl.isMultipleSelectionDisabled ng-change=ctrl.categoriesSelectionChanged()>Reisen</md-checkbox></div></div><div layout=row><button type=button class=\"btn btn-default content-create-edit-category-element\" ng-model=ctrl.selectedLanguage ng-change=ctrl.languageChanged() name=inputLanguage id=inputLanguageId bs-options=\"language.description as language.description for language in ctrl.languages\" data-placeholder=\"Sprache der Seite ausw&amp;aumlhlen\" ng-class=ctrl.isLanguageDisabled bs-select=\"\" tabindex=0 aria-invalid=false>Sprache der Seite auswählen&nbsp;<span class=caret></span></button></div><div layout=row><md-input-container id=inputTitleId><label>Titel</label><input ng-model=ctrl.title ng-change=ctrl.titleChanged() name=categoryTitle md-maxlength=100 required><div ng-messages=categoryForm.categoryTitle.$error><div ng-message=required>Dieses Feld wird benötigt!</div></div></md-input-container></div><div layout=row class=content-create-edit-category-element><md-button class=\"md-primary md-raised ely-button category-select-finished\" ng-show=ctrl.showContinueButton ng-click=ctrl.categorySelectFinished() ng-disabled=ctrl.isFinishDisabled aria-hidden=false aria-disabled=true disabled><span>Weiter</span></md-button></div></form></div></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/page/handlingPages/compareExistingPages/template.html',
+    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/page/handlingPages/template.html',
+    "<div id=page-handling><div id=centerCol><div id=inner-centerCol><ely-page-category-selection></ely-page-category-selection><ely-page-compare-existing-pages></ely-page-compare-existing-pages></div></div></div>"
   );
 
 
@@ -248,7 +258,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"pagePreviews.length > 0 && !hide\" class=page-overview-container ng-style=\"{'width': containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=startExpand() ng-show=\"!expand && numberOfElements < totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': expand}\"><div ng-repeat=\"pagePreview in pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{videoWidth}} video-height={{videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=nextPages() ng-show=\"expand && expandSkipPages + expandNumberOfPages < totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
+    "<div ng-show=\"ctrl.pagePreviews.length > 0 && !ctrl.hide\" class=page-overview-container ng-style=\"{'width': ctrl.containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{ctrl.title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=ctrl.startExpand() ng-show=\"!ctrl.expand && ctrl.numberOfElements < ctrl.totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': ctrl.expand}\"><div ng-repeat=\"pagePreview in ctrl.pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{ctrl.videoWidth}} video-height={{ctrl.videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=ctrl.nextPages() ng-show=\"ctrl.expand && ctrl.expandSkipPages + ctrl.expandNumberOfPages < ctrl.totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
   );
 
 
@@ -552,7 +562,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         template: ''
     };
 }]);
-},{"../../package.json":170,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
+},{"../../package.json":181,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":5,"templates":1}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', '$cookies', '$q', function ($http, $cookies, $q) {
@@ -3829,6 +3839,359 @@ module.exports = ['$scope', 'PageCategories', 'Languages', 'SearchPage',
 },{}],107:[function(require,module,exports){
 'use strict';
 
+var checkStateChanged = function (PageCategoryHandler, PageHandlingState) {
+    if (PageCategoryHandler.stateChanged()) {
+        PageHandlingState.goToState(1);
+    } else {
+        PageHandlingState.goToPreviousState();
+    }
+};
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['PageLeftNavElements', 'Languages', 'PageCategoryHandler', 'PageHandlingState',
+            function (PageLeftNavElements, Languages, PageCategoryHandler, PageHandlingState) {
+                this.categories = {};
+                this.isSingleSelectionDisabled = false;
+                this.isMultipleSelectionDisabled = false;
+                this.isFinishDisabled = true;
+                this.isLanguageDisabled = false;
+                this.languages = Languages.languages;
+                this.showContinueButton = true;
+
+                this.categoriesSelectionChanged = function () {
+                    this.isFinishDisabled = !PageCategoryHandler.setSelected(this.categories);
+                    var isDisabled = PageCategoryHandler.categoriesDisabled();
+                    this.isSingleSelectionDisabled = isDisabled.single;
+                    this.isMultipleSelectionDisabled = isDisabled.multiple;
+                    checkStateChanged(PageCategoryHandler, PageHandlingState);
+                };
+
+                this.languageChanged = function () {
+                    this.isFinishDisabled = !PageCategoryHandler.setLanguage(this.selectedLanguage);
+                    checkStateChanged(PageCategoryHandler, PageHandlingState);
+                };
+
+                this.titleChanged = function () {
+                    this.isFinishDisabled = !PageCategoryHandler.setTitle(this.title);
+                    checkStateChanged(PageCategoryHandler, PageHandlingState);
+                };
+
+                this.categorySelectFinished = function () {
+                    PageCategoryHandler.setPreviousState(this.title);
+                    PageHandlingState.goToState(2);
+                };
+
+                PageHandlingState.registerStateChange(this);
+                this.stateChanged = function (state) {
+                    this.showContinueButton = state === 1;
+                };
+            }];
+    }
+};
+
+},{}],108:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+
+            },
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
+            templateUrl: 'app/modules/page/handlingPages/categorySelection/template.html'
+        };
+    }],
+    name: 'elyPageCategorySelection'
+};
+
+},{"./controller.js":107}],109:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
+
+app.directive(directive.name, directive.directive);
+
+app.service('PageCategoryHandler', require('./services/categoryHandler'));
+},{"./directive.js":108,"./services/categoryHandler":110}],110:[function(require,module,exports){
+'use strict';
+
+var containsSelectedElements = function (selected) {
+    var isSelected = false;
+    angular.forEach(selected, function (value) {
+        if (value === true) {
+            isSelected = true;
+        }
+    });
+    return isSelected;
+};
+
+var isCategoryValid = function (actual) {
+    return containsSelectedElements(actual.selected) && actual.title && actual.title.trim() !== "" && actual.language;
+};
+
+module.exports = ['Languages',
+    function (Languages) {
+        var actual = {};
+        var previous;
+        var singleSelectedItems = ['Book', 'Youtube', 'Video'];
+
+        this.reset = function () {
+            actual = {};
+            previous = null;
+        };
+
+        this.setSelected = function (selectedValues) {
+            actual.selected = selectedValues;
+            return isCategoryValid(actual);
+        };
+
+        this.getSelected = function () {
+            var selectedItems = [];
+            angular.forEach(actual.selected, function (value, name) {
+                if (value === true) {
+                    selectedItems.push(name);
+                }
+            });
+            return selectedItems;
+        };
+
+        this.setLanguage = function (newLanguage) {
+            actual.language = newLanguage;
+            return isCategoryValid(actual);
+        };
+
+        this.getLanguageCode = function () {
+            return Languages.getCode(actual.language);
+        };
+
+        this.setTitle = function (newTitle) {
+            actual.title = newTitle;
+            return isCategoryValid(actual);
+        };
+
+        this.setPreviousState = function () {
+            previous = angular.copy(actual);
+        };
+
+        this.stateChanged = function () {
+            if (previous) {
+                return actual.title !== previous.title || actual.language !== previous.language || !angular.equals(actual.selected, previous.selected);
+            }
+            return false;
+        };
+
+        this.getTitle = function () {
+            return actual.title;
+        };
+
+        this.categoriesDisabled = function () {
+
+            function isSingleElement(selectedElement, name) {
+                return singleSelectedItems.indexOf(name) !== -1 && selectedElement === true;
+            }
+
+            function isMultipleElement(selectedElement, name) {
+                return singleSelectedItems.indexOf(name) === -1 && selectedElement === true;
+            }
+
+            var isDisabled = {single: false, multiple: false};
+            angular.forEach(actual.selected, function (selectedElement, name) {
+                if (isSingleElement(selectedElement, name)) {
+                    isDisabled = {single: true, multiple: true};
+                } else if (isMultipleElement(selectedElement, name)) {
+                    isDisabled = {single: true, multiple: false};
+                }
+            });
+            return isDisabled;
+        }
+    }];
+
+},{}],111:[function(require,module,exports){
+'use strict';
+
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['$scope', '$state', 'PageHandlingState', 'PageCategoryHandler', 'SearchPage',
+            function ($scope, $state, PageHandlingState, PageCategoryHandler, SearchPage) {
+                var ctrl = this;
+                this.showPreviews = false;
+                this.pageRequest = {};
+
+                this.continue = function () {
+
+                };
+
+                this.abortHandlingPage = function () {
+                    $state.go('page.overview');
+                };
+
+                this.SearchPage = SearchPage;
+                PageHandlingState.registerStateChange(this);
+
+                this.stateChanged = function (state) {
+                    if (state === 2) {
+                        ctrl.pageRequest.startRequested({
+                            search: PageCategoryHandler.getTitle(),
+                            filterType: PageCategoryHandler.getSelected(),
+                            filterLanguage: PageCategoryHandler.getLanguageCode(),
+                            isSuggestion: false
+                        });
+                    } else {
+                        ctrl.showPreviews = false;
+                    }
+                };
+
+                this.pageRequest.requestFinished = function (pages) {
+                    if (pages.length > 0) {
+                        ctrl.showPreviews = true;
+                    } else {
+                        ctrl.showPreviews = false;
+                        PageHandlingState.goToState(3);
+                    }
+                };
+
+                /*$scope.$on('page.preview.request.finished', function (event, pages) {
+                    if (pages.length > 0) {
+                        this.showPreviews = true;
+                    } else {
+                        this.showPreviews = false;
+                        PageHandlingState.goToState(3);
+                    }
+                });*/
+            }];
+    }
+};
+
+},{}],112:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+
+            },
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
+            templateUrl: 'app/modules/page/handlingPages/compareExistingPages/template.html'
+        };
+    }],
+    name: 'elyPageCompareExistingPages'
+};
+
+},{"./controller.js":111}],113:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
+
+app.directive(directive.name, directive.directive);
+},{"./directive.js":112}],114:[function(require,module,exports){
+'use strict';
+
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'PageLeftNavElements',
+            function ($scope, PageCategoryHandler, PageHandlingState, PageLeftNavElements) {
+
+                //Just temporary, shall be replaced with an observer
+                $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
+
+                PageCategoryHandler.reset();
+                PageHandlingState.reset();
+            }];
+    }
+};
+
+},{}],115:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+
+            },
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
+            templateUrl: 'app/modules/page/handlingPages/template.html'
+        };
+    }],
+    name: 'elyPageHandlingPages'
+};
+
+},{"./controller.js":114}],116:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
+
+app.directive(directive.name, directive.directive);
+
+app.service('PageHandlingState', require('./services/stateHandler'));
+},{"./directive.js":115,"./services/stateHandler":117}],117:[function(require,module,exports){
+'use strict';
+
+var notifyObservables = function (observables, selectedState) {
+    angular.forEach(observables, function (observable) {
+        observable.stateChanged(selectedState)
+    });
+};
+
+module.exports = [
+    function () {
+        var selectedState;
+        var previousState;
+        var observables = [];
+
+        this.reset = function () {
+            selectedState = 1;
+            previousState = 1;
+        };
+
+        this.goToPreviousState = function () {
+            var hasChanged = selectedState !== previousState;
+            selectedState = previousState;
+            if (hasChanged) {
+                notifyObservables(observables, selectedState);
+            }
+        };
+
+        this.goToState = function (stateNumber) {
+            if (stateNumber !== selectedState) {
+                previousState = selectedState;
+                selectedState = stateNumber;
+                notifyObservables(observables, selectedState);
+            }
+        };
+
+        this.registerStateChange = function (observable) {
+            observables.push(observable);
+        };
+
+    }];
+
+},{}],118:[function(require,module,exports){
+'use strict';
+
 var app = angular.module('elyoosApp');
 
 app.controller('PageCreateCtrl', require('./createEditPage/pageCreateCtrl'));
@@ -3893,8 +4256,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/edit/{label}/{pageId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
-                    controller: 'PageEditCtrl'
+                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
                 }
             },
             hasNavigation: true
@@ -3903,8 +4265,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/create',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/createEditPage/pageCreateEdit.html',
-                    controller: 'PageCreateCtrl'
+                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
                 }
             },
             hasNavigation: true
@@ -3930,7 +4291,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":100,"./createEditPage/commonBookCtrl":101,"./createEditPage/commonSectionCtrl":102,"./createEditPage/commonYoutubeCtrl":103,"./createEditPage/pageCreateCtrl":104,"./createEditPage/pageEditCtrl":105,"./createEditPage/selectCategoryCtrl":106,"./pageDetail/pageDetailCtrl":111,"./pageDetail/pageDetailEducationCtrl":112,"./pageDetail/pageHeaderActivityPreviewCtrl":113,"./pageDetail/services/pageDetailReview":114,"./pageOverviewCtrl":115,"./services/categories":123,"./services/leftNavElements":124,"./services/pageDetail":125,"./services/pageRecommendationAllContact":126,"./services/pageRecommendationOtherUser":127,"./services/pageSearchUserAdministratedPage":128,"./services/pageSearchUserRecommendation":129,"./services/pageUserAdministration":130,"./services/pageUserRecommendation":131,"./services/popularPages":132,"./services/searchPage":133,"./userPageAdministration/userPageAdministrationCtrl":134,"./userRecommendation/getPageAndExtendCtrl":135,"./userRecommendation/userRecommendationCtrl":136}],108:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":100,"./createEditPage/commonBookCtrl":101,"./createEditPage/commonSectionCtrl":102,"./createEditPage/commonYoutubeCtrl":103,"./createEditPage/pageCreateCtrl":104,"./createEditPage/pageEditCtrl":105,"./createEditPage/selectCategoryCtrl":106,"./pageDetail/pageDetailCtrl":122,"./pageDetail/pageDetailEducationCtrl":123,"./pageDetail/pageHeaderActivityPreviewCtrl":124,"./pageDetail/services/pageDetailReview":125,"./pageOverviewCtrl":126,"./services/categories":134,"./services/leftNavElements":135,"./services/pageDetail":136,"./services/pageRecommendationAllContact":137,"./services/pageRecommendationOtherUser":138,"./services/pageSearchUserAdministratedPage":139,"./services/pageSearchUserRecommendation":140,"./services/pageUserAdministration":141,"./services/pageUserRecommendation":142,"./services/popularPages":143,"./services/searchPage":144,"./userPageAdministration/userPageAdministrationCtrl":145,"./userRecommendation/getPageAndExtendCtrl":146,"./userRecommendation/userRecommendationCtrl":147}],119:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -4034,7 +4395,7 @@ module.exports = {
     }
 };
 
-},{}],109:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4055,9 +4416,9 @@ module.exports = {
     name: 'elyPageReview'
 };
 
-},{"./controller.js":108}],110:[function(require,module,exports){
+},{"./controller.js":119}],121:[function(require,module,exports){
 arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":109,"dup":30}],111:[function(require,module,exports){
+},{"./directive.js":120,"dup":30}],122:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
@@ -4107,7 +4468,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         });
     }];
 
-},{}],112:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope',
@@ -4122,7 +4483,7 @@ module.exports = ['$scope',
         });
     }];
 
-},{}],113:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -4136,14 +4497,14 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],114:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/review');
 }];
 
-},{}],115:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
@@ -4173,13 +4534,13 @@ module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageC
 
     }];
 
-},{}],116:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
-var resetPages = function ($scope) {
-    $scope.pagePreviews = [];
-    $scope.expandSkipPages = 0;
-    $scope.expand = false;
+var resetPages = function (ctrl) {
+    ctrl.pagePreviews = [];
+    ctrl.expandSkipPages = 0;
+    ctrl.expand = false;
 };
 
 var setCategories = function (pages, PageCategories) {
@@ -4198,15 +4559,15 @@ var containsPage = function (page, pagePreviews) {
     return exists;
 };
 
-var addPagePreview = function ($scope) {
-    angular.forEach($scope.pagePreviewsTemp.pages, function (page) {
-        if (!containsPage(page, $scope.pagePreviews)) {
-            $scope.pagePreviews.push(page);
+var addPagePreview = function (ctrl) {
+    angular.forEach(ctrl.pagePreviewsTemp.pages, function (page) {
+        if (!containsPage(page, ctrl.pagePreviews)) {
+            ctrl.pagePreviews.push(page);
         }
     });
 };
 
-var getPages = function ($scope, service, serviceParameter, PageCategories, limit, skip) {
+var getPages = function (ctrl, service, serviceParameter, PageCategories, limit, skip) {
     var params;
     if (service && serviceParameter) {
         params = {
@@ -4214,56 +4575,63 @@ var getPages = function ($scope, service, serviceParameter, PageCategories, limi
             skip: skip
         };
         angular.extend(params, serviceParameter);
-        $scope.pagePreviewsTemp = service.get(params, function () {
-            setCategories($scope.pagePreviewsTemp.pages, PageCategories);
-            addPagePreview($scope);
-            $scope.totalNumberOfPages = $scope.pagePreviewsTemp.totalNumberOfPages;
-            $scope.$emit('page.preview.request.finished', $scope.pagePreviews);
+        ctrl.pagePreviewsTemp = service.get(params, function () {
+            setCategories(ctrl.pagePreviewsTemp.pages, PageCategories);
+            addPagePreview(ctrl);
+            ctrl.totalNumberOfPages = ctrl.pagePreviewsTemp.totalNumberOfPages;
+            ctrl.pageRequestStart.requestFinished(ctrl.pagePreviews);
         });
     }
 };
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'PageCategories', function ($scope, PageCategories) {
+        return ['PageCategories', function (PageCategories) {
 
-            var init = true;
-            $scope.notRequestInitService = $scope.notRequestInitService === 'true';
-            resetPages($scope);
+            //var init = true;
+            var serviceParameter = {}, ctrl = this;
+            this.notRequestInitService = this.notRequestInitService === 'true';
+            resetPages(this);
 
-            $scope.$watch('service', function (newValue) {
-                if (newValue && !$scope.hide && !$scope.notRequestInitService) {
-                    getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
-                }
-            });
-
-            $scope.$watchCollection('serviceParameter', function (newValue) {
-                if (newValue) {
-                    if (!init && !$scope.hide) {
-                        resetPages($scope);
-                        getPages($scope, $scope.service, newValue, PageCategories, 9, 0);
-                    } else {
-                        init = false;
-                    }
-                }
-            });
-
-            $scope.startExpand = function () {
-                $scope.expandNumberOfPages = ($scope.numberOfElements * 2);
-                $scope.expandSkipPages = 0;
-                $scope.expand = true;
-                getPages($scope, $scope.service, $scope.serviceParameter, PageCategories, $scope.expandNumberOfPages, $scope.expandSkipPages);
+            this.pageRequestStart.startRequested = function (params) {
+                serviceParameter = params;
+                resetPages(ctrl);
+                getPages(ctrl, ctrl.service, params, PageCategories, 9, 0);
             };
 
-            $scope.nextPages = function () {
-                $scope.expandSkipPages += $scope.expandNumberOfPages;
-                getPages($scope, $scope.service, $scope.serviceParameter, PageCategories, $scope.expandNumberOfPages, $scope.expandSkipPages);
+            /*$scope.$watch('service', function (newValue) {
+             if (newValue && !$scope.hide && !$scope.notRequestInitService) {
+             getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
+             }
+             });*/
+
+            /*$scope.$watchCollection('serviceParameter', function (newValue) {
+             if (newValue) {
+             if (!init && !$scope.hide) {
+             resetPages($scope);
+             getPages($scope, $scope.service, newValue, PageCategories, 9, 0);
+             } else {
+             init = false;
+             }
+             }
+             });*/
+
+            this.startExpand = function () {
+                this.expandNumberOfPages = (this.numberOfElements * 2);
+                this.expandSkipPages = 0;
+                this.expand = true;
+                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
+            };
+
+            this.nextPages = function () {
+                this.expandSkipPages += this.expandNumberOfPages;
+                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
             };
         }];
     }
 };
 
-},{}],117:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 var link = require('./link.js');
@@ -4274,7 +4642,8 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
+            scope: {},
+            bindToController: {
                 videoHeight: '@',
                 videoWidth: '@',
                 containerWidth: '@',
@@ -4282,19 +4651,20 @@ module.exports = {
                 notRequestInitService: '@',
                 hide: '=',
                 service: '=',
-                serviceParameter: '='
+                pageRequestStart: '='
             },
             link: link.directiveLink(),
             controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
             templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
         };
     }],
     name: 'elyPagePreviewContainer'
 };
 
-},{"./controller.js":116,"./link.js":119}],118:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":117,"dup":30}],119:[function(require,module,exports){
+},{"./controller.js":127,"./link.js":130}],129:[function(require,module,exports){
+arguments[4][113][0].apply(exports,arguments)
+},{"./directive.js":128,"dup":113}],130:[function(require,module,exports){
 'use strict';
 
 var minScreenSize = 1000;
@@ -4331,7 +4701,7 @@ module.exports = {
     }
 };
 
-},{}],120:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4371,7 +4741,7 @@ module.exports = {
     }
 };
 
-},{}],121:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4393,16 +4763,16 @@ module.exports = {
     name: 'elyPagePreview'
 };
 
-},{"./controller.js":120}],122:[function(require,module,exports){
+},{"./controller.js":131}],133:[function(require,module,exports){
 arguments[4][30][0].apply(exports,arguments)
-},{"./directive.js":121,"dup":30}],123:[function(require,module,exports){
+},{"./directive.js":132,"dup":30}],134:[function(require,module,exports){
 'use strict';
 
 var categories = {
     Book: {description: 'Buch'},
-    Youtube: {description: 'Youtube'}/*,
+    Youtube: {description: 'Youtube'},
     Course: {description: 'Kurs'},
-    Education: {description: 'Ausbildung'}*/
+    Education: {description: 'Ausbildung'}
 };
 
 module.exports = [
@@ -4431,7 +4801,7 @@ module.exports = [
         };
     }];
 
-},{}],124:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -4460,70 +4830,70 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],125:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/detail');
 }];
 
-},{}],126:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationAllContact');
 }];
 
-},{}],127:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationOtherUser');
 }];
 
-},{}],128:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchAdministration');
 }];
 
-},{}],129:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchRecommendation');
 }];
 
-},{}],130:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/administrator');
 }];
 
-},{}],131:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/recommendation');
 }];
 
-},{}],132:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/popularPages');
 }];
 
-},{}],133:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/searchPage');
 }];
 
-},{}],134:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration', 'PageSearchUserAdministratedPage',
@@ -4536,7 +4906,7 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserAdministration', 'Pa
 
     }];
 
-},{}],135:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 'use strict';
 
 var addPagePreviews = function ($scope, paginationNumber) {
@@ -4631,7 +5001,7 @@ module.exports = ['$scope', function ($scope) {
     $scope.getPage(1);
 }];
 
-},{}],136:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'PageSearchUserRecommendation',
@@ -4643,7 +5013,7 @@ module.exports = ['$scope', 'PageLeftNavElements', 'PageUserRecommendation', 'Pa
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
     }];
 
-},{}],137:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4651,7 +5021,7 @@ var app = angular.module('elyoosApp');
 app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
-},{"./modalAddRecommendationCtrl":138,"./services/pageRecommendation":139}],138:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":149,"./services/pageRecommendation":150}],149:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
@@ -4677,7 +5047,7 @@ module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommen
     };
 }];
 
-},{}],139:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -4686,7 +5056,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],140:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -4718,7 +5088,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],141:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4778,7 +5148,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":140,"./passwordCtrl":142,"./privacyCtrl":143,"./profileCtrl":144,"./renamePrivacyCtrl":145,"./services/leftNavElements":146,"./services/password":147,"./services/privacy":148,"./services/profile":149}],142:[function(require,module,exports){
+},{"./deletePrivacyCtrl":151,"./passwordCtrl":153,"./privacyCtrl":154,"./profileCtrl":155,"./renamePrivacyCtrl":156,"./services/leftNavElements":157,"./services/password":158,"./services/privacy":159,"./services/profile":160}],153:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
@@ -4833,7 +5203,7 @@ module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($sco
     };
 }];
 
-},{}],143:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -4952,7 +5322,7 @@ module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scop
     };
 }];
 
-},{}],144:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
@@ -5038,7 +5408,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],145:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5082,7 +5452,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],146:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -5096,14 +5466,14 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],147:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],148:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5112,14 +5482,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],149:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],150:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -5153,14 +5523,14 @@ module.exports = function () {
     };
 };
 
-},{}],151:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":150,"./languages":152}],152:[function(require,module,exports){
+},{"./countryCodeConverter":161,"./languages":163}],163:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -5194,7 +5564,7 @@ module.exports = [
         };
     }];
 
-},{}],153:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -5234,19 +5604,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],154:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":153}],155:[function(require,module,exports){
+},{"./dateFormatter":164}],166:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":156}],156:[function(require,module,exports){
+},{"./profileImage":167}],167:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -5258,7 +5628,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],157:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
@@ -5336,7 +5706,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],158:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5365,14 +5735,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],159:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],160:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -5387,7 +5757,7 @@ module.exports = function () {
     };
 };
 
-},{}],161:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -5412,7 +5782,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],162:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5426,7 +5796,7 @@ app.service('FileReaderUtil', require('./fileReaderUtil'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":157,"./fileModel.js":158,"./fileReader":159,"./fileReaderUtil":160,"./fileUpload":161}],163:[function(require,module,exports){
+},{"./fileCtrl":168,"./fileModel.js":169,"./fileReader":170,"./fileReaderUtil":171,"./fileUpload":172}],174:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5435,7 +5805,7 @@ app.service('moment', require('./moment'));
 app.service('PromiseModal', require('./promiseModal'));
 app.service('UrlCache', require('./urlCache'));
 app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./moment":164,"./promiseModal":165,"./urlCache":168,"./waitingScreen/waitingScreen":169}],164:[function(require,module,exports){
+},{"./moment":175,"./promiseModal":176,"./urlCache":179,"./waitingScreen/waitingScreen":180}],175:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -5445,7 +5815,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":6}],165:[function(require,module,exports){
+},{"moment":6}],176:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
@@ -5480,7 +5850,7 @@ module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope
     };
 }];
 
-},{}],166:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 'use strict';
 
 var toastPosition = {
@@ -5510,13 +5880,13 @@ module.exports = ['$mdToast', function ($mdToast) {
     };
 }];
 
-},{}],167:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('errorToast', require('./errorToast'));
-},{"./errorToast":166}],168:[function(require,module,exports){
+},{"./errorToast":177}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -5547,7 +5917,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],169:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
@@ -5572,7 +5942,7 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
     };
 }];
 
-},{}],170:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -5581,7 +5951,8 @@ module.exports={
   "dependencies": {
   },
   "devDependencies": {
-    "browserify": "11.0.0",
+    "browserify": "11.0.1",
+    "babelify": "6.2.0",
     "phantomjs": "~1.9.13",
     "mocha": "~1.21.4",
     "karma": "~0.12.31",
@@ -5621,4 +5992,4 @@ module.exports={
   }
 }
 
-},{}]},{},[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,93,94,95,92,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,120,121,122,116,117,118,119,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169]);
+},{}]},{},[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,93,94,95,92,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,131,132,133,127,128,129,130,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180]);

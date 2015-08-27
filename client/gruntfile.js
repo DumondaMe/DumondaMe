@@ -11,6 +11,9 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         browserify: {
             client: {
+                options: {
+                    /*transform: [["babelify", { stage: 0 , ignore: ['/app/lib/']}]]*/
+                },
                 src: ['app/modules/**/*.js'],
                 dest: 'app/dist/app.js'
             }
