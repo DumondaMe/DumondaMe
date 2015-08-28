@@ -40,6 +40,8 @@
     "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",
     "angular-strap": "./app/lib/bootstrap/angular-strap.min.js",
     "angular-strap-tpl": "./app/lib/bootstrap/angular-strap.tpl.min.js",
+    "ui-bootstrap": "./app/lib/bootstrap/ui-bootstrap-custom.min.js",
+    "ui-bootstrap-tpls": "./app/lib/bootstrap/ui-bootstrap-custom-tpls.min.js",
     "moment": "./app/lib/moment/moment.js",
     "spin": "./app/lib/spin/spin.min.js",
     "infinit-scroll": "./app/lib/infiniteScroll/ng-infinite-scroll.min.js",

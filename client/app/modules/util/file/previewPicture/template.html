@@ -1,0 +1,25 @@
+<div class="modal-body">
+    <div class="cropArea">
+        <ely-image-cropper commands="ctrl.commands"
+                           image-result-data="ctrl.imageResultData"
+                           ratio="0.62745"
+                           original-size="ctrl.checkOriginalSize" min-width="100" min-height="160"></ely-image-cropper>
+    </div>
+</div>
+<div class="modal-footer">
+    <md-button class="md-primary md-raised ely-button btn-file">
+        Bild auswählen...<input type="file" ely-file-model="image.imageForUpload"
+                                accept=".jpg, .png, jpeg">
+    </md-button>
+
+    <div class="upload-file-error" ng-show="ctrl.uploadError">
+        {{ctrl.uploadError}}
+    </div>
+    <md-button class="md-primary ely-button" ng-click="ctrl.cancel()">Abbrechen
+    </md-button>
+    <md-button class="md-primary md-raised ely-button"
+               ng-disabled="!ctrl.imageForUploadPreview || uploadError"
+               ng-click="ctrl.continue()">
+        Auswählen
+    </md-button>
+</div>

@@ -9,56 +9,6 @@
       position: relative;
       width: 800px;
       margin: 0 auto;
-
-      #create-page-common {
-        @include cardElement() {
-          #picture-area {
-            margin-top: 10px;
-            margin-right: 20px;
-            float: left;
-            .picture {
-              height: 200px;
-            }
-            .get-picture {
-              margin-top: 10px;
-            }
-          }
-          #description-area {
-            width: 100%;
-            margin-top: 15px;
-            margin-bottom: 15px;
-          }
-
-          .commands {
-            margin-bottom: 10px;
-          }
-        }
-      }
-      #content-create-edit-page-suggestions {
-        padding: 0 10px;
-        margin-bottom: 20px;
-      }
-      .page-overview-container {
-        position: relative;
-        display: block;
-        margin-bottom: 20px;
-        margin-right: 10px;
-        width: 100%;
-
-        .website-structure-title {
-          display: inline-block;
-        }
-        .page-preview-container {
-          height: 330px;
-        }
-        .page-overview-expand {
-          display: inline-block;
-          position: absolute;
-          right: 30px;
-          background-color: $primary-color;
-          color: #ffffff;
-        }
-      }
     }
   }
 }

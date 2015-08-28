@@ -362,23 +362,6 @@
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%); }
 
-.modal-backdrop.am-fade {
-  opacity: .5;
-  transition: opacity .3s linear;
-  z-index: 101; }
-
-.modal-backdrop.am-fade.ng-enter {
-  opacity: 0; }
-
-.modal-backdrop.am-fade.ng-enter.ng-enter-active {
-  opacity: .5; }
-
-.modal-backdrop.am-fade.ng-leave {
-  opacity: .5; }
-
-.modal-backdrop.am-fade.ng-leave.ng-leave-active {
-  opacity: 0; }
-
 #modal-dialog-set-privacy {
   width: 350px; }
   #modal-dialog-set-privacy .privacy-selection {
@@ -1350,10 +1333,6 @@ h2.website-structure-title {
         padding: 5px 10px 0 10px;
         width: 800px; }
 
-#create-book-page {
-  width: 100%;
-  height: 250px; }
-
 #content-create-edit-youtube-page-common-area {
   margin-top: 10px;
   width: 100%; }
@@ -1894,6 +1873,44 @@ h2.website-structure-title {
   padding: 0 20px;
   margin-bottom: 20px; }
 
+#page-handling-details-book .card-element {
+  margin: 0 10px 25px 10px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 1px solid #d8d8d8; }
+  #page-handling-details-book .card-element .description {
+    padding: 15px 0 10px 0;
+    margin-bottom: 10px;
+    color: #999;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5; }
+  #page-handling-details-book .card-element .options {
+    float: right;
+    cursor: pointer;
+    margin-top: -13px;
+    margin-right: -5px; }
+    #page-handling-details-book .card-element .options .md-icon-button {
+      width: 24px;
+      height: 24px; }
+  #page-handling-details-book .card-element #create-book-page {
+    width: 100%;
+    height: 250px; }
+  #page-handling-details-book .card-element #picture-area {
+    margin-top: 10px;
+    margin-right: 20px;
+    float: left; }
+    #page-handling-details-book .card-element #picture-area .picture {
+      height: 200px; }
+    #page-handling-details-book .card-element #picture-area .get-picture {
+      margin-top: 10px; }
+  #page-handling-details-book .card-element #description-area {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px; }
+  #page-handling-details-book .card-element .commands {
+    margin-bottom: 10px; }
+
 #page-handling {
   width: 100%;
   height: 100%;
@@ -1906,59 +1923,6 @@ h2.website-structure-title {
       position: relative;
       width: 800px;
       margin: 0 auto; }
-      #page-handling #centerCol #inner-centerCol #create-page-common .card-element {
-        margin: 0 10px 25px 10px;
-        padding: 0 20px;
-        background-color: #ffffff;
-        border-radius: 3px;
-        border: 1px solid #d8d8d8; }
-        #page-handling #centerCol #inner-centerCol #create-page-common .card-element .description {
-          padding: 15px 0 10px 0;
-          margin-bottom: 10px;
-          color: #999;
-          font-size: 14px;
-          border-bottom: 1px solid #e5e5e5; }
-        #page-handling #centerCol #inner-centerCol #create-page-common .card-element .options {
-          float: right;
-          cursor: pointer;
-          margin-top: -13px;
-          margin-right: -5px; }
-          #page-handling #centerCol #inner-centerCol #create-page-common .card-element .options .md-icon-button {
-            width: 24px;
-            height: 24px; }
-        #page-handling #centerCol #inner-centerCol #create-page-common .card-element #picture-area {
-          margin-top: 10px;
-          margin-right: 20px;
-          float: left; }
-          #page-handling #centerCol #inner-centerCol #create-page-common .card-element #picture-area .picture {
-            height: 200px; }
-          #page-handling #centerCol #inner-centerCol #create-page-common .card-element #picture-area .get-picture {
-            margin-top: 10px; }
-        #page-handling #centerCol #inner-centerCol #create-page-common .card-element #description-area {
-          width: 100%;
-          margin-top: 15px;
-          margin-bottom: 15px; }
-        #page-handling #centerCol #inner-centerCol #create-page-common .card-element .commands {
-          margin-bottom: 10px; }
-      #page-handling #centerCol #inner-centerCol #content-create-edit-page-suggestions {
-        padding: 0 10px;
-        margin-bottom: 20px; }
-      #page-handling #centerCol #inner-centerCol .page-overview-container {
-        position: relative;
-        display: block;
-        margin-bottom: 20px;
-        margin-right: 10px;
-        width: 100%; }
-        #page-handling #centerCol #inner-centerCol .page-overview-container .website-structure-title {
-          display: inline-block; }
-        #page-handling #centerCol #inner-centerCol .page-overview-container .page-preview-container, #page-handling #centerCol #inner-centerCol .page-overview-container .page-preview-expand-container {
-          height: 330px; }
-        #page-handling #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
-          display: inline-block;
-          position: absolute;
-          right: 30px;
-          background-color: #009688;
-          color: #ffffff; }
 
 #modal-dialog-add-recommendation .modal-header .modal-dialog-add-recommendation-title {
   font-weight: bold;

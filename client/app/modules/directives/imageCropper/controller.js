@@ -2,13 +2,13 @@
 
 var previousHeight, previousWidth;
 
-var checkRatio = function ($scope, $image) {
+var checkRatio = function (ctrl, $image) {
     var size, ratio;
-    if ($scope.minRatio && $scope.maxRatio && previousHeight && previousWidth) {
+    if (ctrl.minRatio && ctrl.maxRatio && previousHeight && previousWidth) {
         size = $image.cropper('getCropBoxData');
         if (previousHeight !== size.height || previousWidth !== size.width) {
             ratio = size.height / size.width;
-            if (ratio < $scope.minRatio || ratio > $scope.maxRatio) {
+            if (ratio < ctrl.minRatio || ratio > ctrl.maxRatio) {
                 $image.cropper('setCropBoxData', {
                     left: size.left,
                     top: size.top,
@@ -24,9 +24,10 @@ var checkRatio = function ($scope, $image) {
 };
 
 module.exports = {
-    directiveLink: function () {
-        return function ($scope, element) {
-            var $image = $(element.find('img')[0]),
+    directiveCtrl: function () {
+        return ['$element', function ($element) {
+            var ctrl = this;
+            var $image = $($element.find('img')[0]),
                 cropperSettings = {
                     minCropBoxWidth: 200,
                     minCropBoxHeight: 200,
@@ -35,11 +36,11 @@ module.exports = {
                     rotatable: false,
                     built: function () {
                         var size = $image.cropper('getImageData'), cropWidth;
-                        if ($scope.originalSize) {
-                            $scope.originalSize(size.naturalWidth, size.naturalHeight);
+                        if (this.originalSize) {
+                            this.originalSize(size.naturalWidth, size.naturalHeight);
                         }
-                        if ($scope.minRatio && $scope.maxRatio) {
-                            cropWidth = size.height / $scope.maxRatio;
+                        if (this.minRatio && this.maxRatio) {
+                            cropWidth = size.height / this.maxRatio;
                             $image.cropper('setCropBoxData', {
                                 left: (size.width - cropWidth) / 2,
                                 top: 0,
@@ -51,27 +52,31 @@ module.exports = {
                         }
                     },
                     crop: function () {
-                        checkRatio($scope, $image);
+                        checkRatio(ctrl, $image);
                     }
                 };
 
-            if ($scope.ratio) {
-                cropperSettings.aspectRatio = $scope.ratio;
+            if (this.ratio) {
+                cropperSettings.aspectRatio = this.ratio;
             }
-            if ($scope.minWidth) {
-                cropperSettings.minCropBoxWidth = $scope.minWidth;
+            if (this.minWidth) {
+                cropperSettings.minCropBoxWidth = this.minWidth;
             }
-            if ($scope.minHeight) {
-                cropperSettings.minCropBoxHeight = $scope.minHeight;
+            if (this.minHeight) {
+                cropperSettings.minCropBoxHeight = this.minHeight;
             }
 
             $image.cropper(cropperSettings);
 
-            $scope.$on('image.cropper.get.data', function () {
-                $scope.imageResultData($image.cropper('getCroppedCanvas'));
-            });
+            this.commands.getData = function () {
+                ctrl.imageResultData($image.cropper('getCroppedCanvas'));
+            };
 
-            $scope.$on('image.cropper.set.ratio', function (event, ratio) {
+            this.commands.setImage = function (image) {
+                $image.cropper('reset', true).cropper('replace', image);
+            };
+
+            /*$scope.$on('image.cropper.set.ratio', function (event, ratio) {
                 $image.cropper('setAspectRatio', ratio);
             });
 
@@ -79,7 +84,7 @@ module.exports = {
                 if (newImage) {
                     $image.cropper('reset', true).cropper('replace', newImage);
                 }
-            });
-        };
+            });*/
+        }];
     }
 };

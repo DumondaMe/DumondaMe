@@ -3,6 +3,8 @@
 require('angular-ui-route');
 require('angular-strap');
 require('angular-strap-tpl');
+require('ui-bootstrap');
+require('ui-bootstrap-tpls');
 require('infinit-scroll');
 
 var app = angular.module('elyoosApp', [
@@ -12,7 +14,12 @@ var app = angular.module('elyoosApp', [
     'ngAnimate',
     'ngResource',
     'ngMessages',
-    'mgcrea.ngStrap',
+    'ui.bootstrap',
+    'mgcrea.ngStrap.select',
+    'mgcrea.ngStrap.popover',
+    'mgcrea.ngStrap.tooltip',
+    'mgcrea.ngStrap.helpers.dimensions',
+    'mgcrea.ngStrap.helpers.parseOptions',
     'infinite-scroll',
     'ngMaterial'
 ]);
@@ -33,9 +40,9 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
 };
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$modalProvider', '$compileProvider', '$mdThemingProvider',
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',
     '$mdIconProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $modalProvider, $compileProvider, $mdThemingProvider,
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $compileProvider, $mdThemingProvider,
               $mdIconProvider) {
 
         $compileProvider.debugInfoEnabled(false);
@@ -77,10 +84,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 }
             };
         }]);
-
-        angular.extend($modalProvider.defaults, {
-            html: true
-        });
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 

@@ -3,14 +3,14 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'PageHandlingState', 'PageCategoryHandler', 'SearchPage',
-            function ($scope, $state, PageHandlingState, PageCategoryHandler, SearchPage) {
+        return ['$state', 'PageHandlingState', 'PageCategoryHandler', 'SearchPage',
+            function ($state, PageHandlingState, PageCategoryHandler, SearchPage) {
                 var ctrl = this;
                 this.showPreviews = false;
                 this.pageRequest = {};
 
                 this.continue = function () {
-
+                    PageHandlingState.goToState(3);
                 };
 
                 this.abortHandlingPage = function () {
@@ -41,15 +41,6 @@ module.exports = {
                         PageHandlingState.goToState(3);
                     }
                 };
-
-                /*$scope.$on('page.preview.request.finished', function (event, pages) {
-                    if (pages.length > 0) {
-                        this.showPreviews = true;
-                    } else {
-                        this.showPreviews = false;
-                        PageHandlingState.goToState(3);
-                    }
-                });*/
             }];
     }
 };

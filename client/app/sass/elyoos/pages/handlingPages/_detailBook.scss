@@ -1,0 +1,29 @@
+#page-handling-details-book {
+  @include cardElement() {
+    #create-book-page {
+      width: 100%;
+      height: 250px;
+    }
+
+    #picture-area {
+      margin-top: 10px;
+      margin-right: 20px;
+      float: left;
+      .picture {
+        height: 200px;
+      }
+      .get-picture {
+        margin-top: 10px;
+      }
+    }
+    #description-area {
+      width: 100%;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .commands {
+      margin-bottom: 10px;
+    }
+  }
+}

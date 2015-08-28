@@ -1,6 +1,6 @@
 'use strict';
 
-var link = require('./link');
+var controller = require('./controller');
 
 module.exports = {
     directive: [function () {
@@ -8,9 +8,9 @@ module.exports = {
             restrict: 'E',
             replace: true,
             templateUrl: 'app/modules/directives/imageCropper/template.html',
-            scope: {
-                reset: '=',
-                image: '=',
+            scope: {},
+            bindToController: {
+                commands: '=',
                 imageResultData: '=',
                 originalSize: '=',
                 ratio: '@',
@@ -19,7 +19,8 @@ module.exports = {
                 minHeight: '@',
                 minWidth: '@'
             },
-            link: link.directiveLink()
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl'
         };
     }],
     name: 'elyImageCropper'

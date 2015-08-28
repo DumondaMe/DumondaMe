@@ -1,0 +1,45 @@
+<div id="page-handling-details-book">
+    <div class="card-element">
+        <form name="commonForm">
+            <div class="description">Buch</div>
+            <ely-page-handling-detail-select-picture></ely-page-handling-detail-select-picture>
+            <div id="create-book-page">
+                <div>
+                    <md-input-container>
+                        <label>Autor</label>
+                        <input md-maxlength="255" required="" name="inputAuthor" aria-label="Autor"
+                               ng-model="ctrl.authors">
+
+                        <div ng-messages="commonForm.inputAuthor.$error">
+                            <div ng-message="required">Dieses Feld wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Erscheinungsdatum</label>
+                        <input name="inputPublicationDate" aria-label="Erscheinungsdatum"
+                               ng-model="ctrl.publishDate" ng-change="ctrl.publishDateChanged()">
+
+                        <div ng-messages="commonForm.inputPublicationDate.$error">
+                            <div ng-message="custom">Gib ein gütiges Datum an (z.B. {{ctrl.getDateExample()}})</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div id="description-area">
+                <md-content>
+                    <md-input-container>
+                        <label>Beschreibung</label>
+                <textarea md-maxlength="10000" required="" name="inputDescriptionArea" aria-label="Beschreibung"
+                          ng-model="ctrl.description"></textarea>
+
+                        <div ng-messages="commonForm.inputDescriptionArea.$error">
+                            <div ng-message="required">Dieses Feld wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang!</div>
+                        </div>
+                    </md-input-container>
+                </md-content>
+            </div>
+        </form>
+    </div>
+</div>
