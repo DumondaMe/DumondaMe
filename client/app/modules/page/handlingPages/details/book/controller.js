@@ -6,9 +6,11 @@ var isDateValid = function (moment, date) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'moment',
-            function ($scope, PageCategoryHandler, PageHandlingState, moment) {
+        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'moment', 'PageHandlingUpload',
+            function ($scope, PageCategoryHandler, PageHandlingState, moment, PageHandlingUpload) {
                 var ctrl = this;
+
+                ctrl.pictureCommands = {};
 
                 PageHandlingState.registerStateChange(this);
 
@@ -22,7 +24,7 @@ module.exports = {
                 };
 
                 this.publishDateChanged = function () {
-                    if(ctrl.publishDate) {
+                    if (ctrl.publishDate) {
                         $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(moment, ctrl.publishDate));
                     } else if (!ctrl.publishDate || ctrl.publishDate.trim() === '') {
                         $scope.commonForm.inputPublicationDate.$setValidity('custom', true);
@@ -32,6 +34,21 @@ module.exports = {
                 this.getDateExample = function () {
                     var unixTimestamp = 385974036;
                     return moment.unix(unixTimestamp).format('l');
+                };
+
+                this.uploadPage = function () {
+                    var json = {
+                        bookPage: {
+                            language: PageCategoryHandler.getLanguageCode(),
+                            title: PageCategoryHandler.getTitle(),
+                            description: ctrl.description,
+                            author: ctrl.authors
+                        }
+                    };
+                    if (ctrl.publishDate) {
+                        json.bookPage.publishDate = ctrl.publishDate;
+                    }
+                    PageHandlingUpload.uploadPage(json, null, 'Book', ctrl.pictureCommands.getImageBlob(), false);
                 };
             }];
     }

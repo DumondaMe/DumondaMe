@@ -1,8 +1,11 @@
 #page-handling-details-book {
   @include cardElement() {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     #create-book-page {
       width: 100%;
-      height: 250px;
+      height: 260px;
+
     }
 
     #picture-area {
@@ -13,7 +16,7 @@
         height: 200px;
       }
       .get-picture {
-        margin-top: 10px;
+        margin-top: 20px;
       }
     }
     #description-area {

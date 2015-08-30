@@ -1,19 +1,21 @@
 'use strict';
 
-module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen', 'UrlCache',
-    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen, UrlCache) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'ElyModal', 'Blog', 'WaitingScreen', 'UrlCache',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, ElyModal, Blog, WaitingScreen, UrlCache) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
         $scope.cacheUrl = UrlCache.cacheUrl;
 
         $scope.removeBlog = function (blogId) {
-            PromiseModal.getModal({
-                title: 'Blog l\u00f6schen',
-                content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
+            ElyModal.show()({
+                scope: {
+                    title: 'Blog löschen',
+                    content: 'Willst Du diesen Blog wirklich löschen?'
+                },
                 templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
-                var finished = WaitingScreen.openScreen('Blog wird gel\u00f6scht...');
+                size: 'sm'
+            }).then(function () {
+                var finished = WaitingScreen.openScreen('Blog wird gelöscht...');
                 Blog.delete({
                     blogId: blogId
                 }, function () {

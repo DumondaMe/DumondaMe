@@ -1,24 +1,30 @@
 'use strict';
 
-module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
-    $scope.numberOfSelectedStars = -1;
+module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($modalInstance, PageRecommendation, pageId) {
+    var ctrl = this;
 
-    $scope.addRecommendation = function () {
+    ctrl.numberOfSelectedStars = -1;
+
+    ctrl.abort = function () {
+        $modalInstance.dismiss();
+    };
+
+    ctrl.addRecommendation = function () {
         var data = {
-            pageId: $scope.recommendation.pageId,
-            comment: $scope.recommendationDescription,
-            rating: $scope.numberOfSelectedStars
+            pageId: pageId,
+            comment: ctrl.recommendationDescription,
+            rating: ctrl.numberOfSelectedStars
         };
 
-        delete $scope.error;
+        delete ctrl.error;
         PageRecommendation.save(data, function (res) {
             data.profileUrl = res.profileUrl;
             data.recommendationId = res.recommendationId;
             data.recommendation = res.recommendation;
             data.created = res.created;
-            $scope.confirm(data);
+            $modalInstance.close(data);
         }, function () {
-            $scope.error = 'Bewertung konnte nicht gespeichert werden';
+            ctrl.error = 'Bewertung konnte nicht gespeichert werden';
         });
     };
 }];

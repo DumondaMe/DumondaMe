@@ -1,5 +1,5 @@
-<div id="page-handling-details" > <!--ng-show="ctrl.showPreviews"-->
-    <ely-page-handling-detail-book></ely-page-handling-detail-book> <!--ng-if="ctrl.selected.indexOf('Book') !== -1"-->
+<div id="page-handling-details" ng-show="ctrl.showPreviews">
+    <ely-page-handling-detail-book ng-if="ctrl.selected.indexOf('Book') !== -1"></ely-page-handling-detail-book>
     <!--<div class="card-element">
         <form name="commonForm">
             <div class="description">{{category.selectedCategory}}</div>

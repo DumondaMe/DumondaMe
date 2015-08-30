@@ -351,16 +351,25 @@
     width: 16px;
     height: 16px; }
 
-.modal.center .modal-dialog {
-  z-index: 101;
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  min-width: 320px;
-  max-width: 630px;
-  width: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%); }
+.modal {
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%; } }
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; }
+
+.modal-sm {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px; }
 
 #modal-dialog-set-privacy {
   width: 350px; }
@@ -372,9 +381,6 @@
     display: inline-block;
     max-width: 180px;
     word-wrap: normal; }
-
-#modal-yes-no-dialog {
-  width: 300px; }
 
 .cropArea-orientation {
   display: inline-block;
@@ -1644,23 +1650,6 @@ h2.website-structure-title {
       height: 100%;
       width: 100%;
       padding-left: 50px; }
-      #content-page-overview #centerCol #inner-centerCol .page-overview-container {
-        position: relative;
-        display: block;
-        margin-bottom: 20px;
-        width: 100%; }
-        #content-page-overview #centerCol #inner-centerCol .page-overview-container .website-structure-title {
-          display: inline-block; }
-        #content-page-overview #centerCol #inner-centerCol .page-overview-container .page-overview-expand {
-          display: inline-block;
-          position: absolute;
-          right: 30px;
-          background-color: #009688;
-          color: #ffffff; }
-      #content-page-overview #centerCol #inner-centerCol .page-overview-next {
-        width: 48px;
-        margin: 0 auto 0 auto;
-        cursor: pointer; }
   #content-page-overview #search-box-container {
     position: fixed;
     top: 60px;
@@ -1675,6 +1664,25 @@ h2.website-structure-title {
       width: 600px; }
     #content-page-overview #search-box-container .searchBoxForm {
       padding-left: 40px; }
+
+.page-overview-container {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  width: 100%; }
+  .page-overview-container .website-structure-title {
+    display: inline-block;
+    margin-bottom: 30px; }
+  .page-overview-container .page-overview-expand {
+    display: inline-block;
+    position: absolute;
+    top: -7px;
+    right: 23px; }
+
+.page-overview-next {
+  width: 48px;
+  margin: 0 auto 0 auto;
+  cursor: pointer; }
 
 .page-preview-container, .page-preview-expand-container {
   height: 330px;
@@ -1872,13 +1880,17 @@ h2.website-structure-title {
 #compare-existing-pages {
   padding: 0 20px;
   margin-bottom: 20px; }
+  #compare-existing-pages .commands {
+    margin-top: 20px; }
 
 #page-handling-details-book .card-element {
   margin: 0 10px 25px 10px;
   padding: 0 20px;
   background-color: #ffffff;
   border-radius: 3px;
-  border: 1px solid #d8d8d8; }
+  border: 1px solid #d8d8d8;
+  margin-bottom: 10px;
+  padding-bottom: 10px; }
   #page-handling-details-book .card-element .description {
     padding: 15px 0 10px 0;
     margin-bottom: 10px;
@@ -1895,7 +1907,7 @@ h2.website-structure-title {
       height: 24px; }
   #page-handling-details-book .card-element #create-book-page {
     width: 100%;
-    height: 250px; }
+    height: 260px; }
   #page-handling-details-book .card-element #picture-area {
     margin-top: 10px;
     margin-right: 20px;
@@ -1903,7 +1915,7 @@ h2.website-structure-title {
     #page-handling-details-book .card-element #picture-area .picture {
       height: 200px; }
     #page-handling-details-book .card-element #picture-area .get-picture {
-      margin-top: 10px; }
+      margin-top: 20px; }
   #page-handling-details-book .card-element #description-area {
     width: 100%;
     margin-top: 15px;
@@ -1924,12 +1936,12 @@ h2.website-structure-title {
       width: 800px;
       margin: 0 auto; }
 
-#modal-dialog-add-recommendation .modal-header .modal-dialog-add-recommendation-title {
+#modal-dialog-add-recommendation .modal-header .title {
   font-weight: bold;
   display: inline; }
-#modal-dialog-add-recommendation .modal-body .modal-dialog-add-recommendation-description textarea {
+#modal-dialog-add-recommendation .modal-body .description textarea {
   height: 300px; }
-#modal-dialog-add-recommendation .modal-footer .modal-dialog-add-recommendation-error {
+#modal-dialog-add-recommendation .modal-footer .error {
   float: left;
   text-align: left;
   max-width: 200px;

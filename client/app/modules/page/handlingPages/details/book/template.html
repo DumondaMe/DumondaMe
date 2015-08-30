@@ -2,7 +2,7 @@
     <div class="card-element">
         <form name="commonForm">
             <div class="description">Buch</div>
-            <ely-page-handling-detail-select-picture></ely-page-handling-detail-select-picture>
+            <ely-page-handling-detail-select-picture commands="ctrl.pictureCommands"></ely-page-handling-detail-select-picture>
             <div id="create-book-page">
                 <div>
                     <md-input-container>
@@ -30,8 +30,8 @@
                 <md-content>
                     <md-input-container>
                         <label>Beschreibung</label>
-                <textarea md-maxlength="10000" required="" name="inputDescriptionArea" aria-label="Beschreibung"
-                          ng-model="ctrl.description"></textarea>
+                        <textarea md-maxlength="10000" required="" name="inputDescriptionArea" aria-label="Beschreibung"
+                                  ng-model="ctrl.description"></textarea>
 
                         <div ng-messages="commonForm.inputDescriptionArea.$error">
                             <div ng-message="required">Dieses Feld wird benötigt!</div>
@@ -40,6 +40,12 @@
                     </md-input-container>
                 </md-content>
             </div>
+
+            <md-button class="md-primary md-raised ely-button"
+                       ng-click="ctrl.uploadPage()"
+                       ng-disabled="commonForm.$invalid">
+                Seite erstellen
+            </md-button>
         </form>
     </div>
 </div>

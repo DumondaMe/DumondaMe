@@ -1,5 +1,25 @@
 'use strict';
 
+var minScreenSize = 1000;
+var maxScreenSize = 1900;
+
+var setContainerWidth = function(ctrl, $scope) {
+    var containerSize, screenWidth = $(window).width();
+    if(ctrl.containerMaxWidth) {
+        ctrl.numberOfElements = Math.floor(ctrl.containerMaxWidth / 190);
+    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+        containerSize = screenWidth - 270;
+        ctrl.numberOfElements = Math.floor(containerSize / 190);
+    } else if(screenWidth < minScreenSize) {
+        ctrl.numberOfElements = 4;
+    } else if(screenWidth > maxScreenSize) {
+        ctrl.numberOfElements = 8;
+    }
+
+    ctrl.containerWidth = 190 * ctrl.numberOfElements;
+    $scope.$applyAsync();
+};
+
 var resetPages = function (ctrl) {
     ctrl.pagePreviews = [];
     ctrl.expandSkipPages = 0;
@@ -49,46 +69,35 @@ var getPages = function (ctrl, service, serviceParameter, PageCategories, limit,
 
 module.exports = {
     directiveCtrl: function () {
-        return ['PageCategories', function (PageCategories) {
-
-            //var init = true;
+        return ['$scope', 'PageCategories', function ($scope, PageCategories) {
             var serviceParameter = {}, ctrl = this;
-            this.notRequestInitService = this.notRequestInitService === 'true';
-            resetPages(this);
+            ctrl.notRequestInitService = ctrl.notRequestInitService === 'true';
+            resetPages(ctrl);
 
-            this.pageRequestStart.startRequested = function (params) {
+            if(!ctrl.containerMaxWidth) {
+                $(window).resize(function () {
+                    setContainerWidth(ctrl, $scope);
+                });
+            }
+
+            setContainerWidth(ctrl, $scope);
+
+            ctrl.pageRequestStart.startRequested = function (params) {
                 serviceParameter = params;
                 resetPages(ctrl);
                 getPages(ctrl, ctrl.service, params, PageCategories, 9, 0);
             };
 
-            /*$scope.$watch('service', function (newValue) {
-             if (newValue && !$scope.hide && !$scope.notRequestInitService) {
-             getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
-             }
-             });*/
-
-            /*$scope.$watchCollection('serviceParameter', function (newValue) {
-             if (newValue) {
-             if (!init && !$scope.hide) {
-             resetPages($scope);
-             getPages($scope, $scope.service, newValue, PageCategories, 9, 0);
-             } else {
-             init = false;
-             }
-             }
-             });*/
-
-            this.startExpand = function () {
-                this.expandNumberOfPages = (this.numberOfElements * 2);
-                this.expandSkipPages = 0;
-                this.expand = true;
-                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
+            ctrl.startExpand = function () {
+                ctrl.expandNumberOfPages = (ctrl.numberOfElements * 2);
+                ctrl.expandSkipPages = 0;
+                ctrl.expand = true;
+                getPages(ctrl, ctrl.service, serviceParameter, PageCategories, ctrl.expandNumberOfPages, ctrl.expandSkipPages);
             };
 
-            this.nextPages = function () {
-                this.expandSkipPages += this.expandNumberOfPages;
-                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
+            ctrl.nextPages = function () {
+                ctrl.expandSkipPages += ctrl.expandNumberOfPages;
+                getPages(ctrl, ctrl.service, serviceParameter, PageCategories, ctrl.expandNumberOfPages, ctrl.expandSkipPages);
             };
         }];
     }

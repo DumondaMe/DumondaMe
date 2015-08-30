@@ -13,29 +13,6 @@
       height: 100%;
       width: 100%;
       padding-left: 50px;
-
-      .page-overview-container {
-        position: relative;
-        display: block;
-        margin-bottom: 20px;
-        width: 100%;
-
-        .website-structure-title {
-          display: inline-block;
-        }
-        .page-overview-expand {
-          display: inline-block;
-          position: absolute;
-          right: 30px;
-          background-color: $primary-color;
-          color: #ffffff;
-        }
-      }
-      .page-overview-next {
-        width: 48px;
-        margin: 0 auto 0 auto;
-        cursor: pointer;
-      }
     }
   }
 

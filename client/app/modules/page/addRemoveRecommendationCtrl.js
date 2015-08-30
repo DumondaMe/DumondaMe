@@ -1,21 +1,21 @@
 'use strict';
 
-module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
-    function ($scope, PromiseModal, PageRecommendation, moment) {
+module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
+    function ($scope, ElyModal, PageRecommendation, moment) {
 
 
         $scope.addNewRecommendation = function (page, pageId, title) {
-            var modalScope = $scope.$new(false);
-            modalScope.recommendation = {
-                pageId: pageId
-            };
-            PromiseModal.getModal({
-                scope: modalScope,
-                title: title,
+            ElyModal.show({
+                scope: {title: " " + title},
                 templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
-                placement: 'center',
-                backdrop: 'static'
-            }).show().then(function (resp) {
+                controller: 'ModalAddRecommendationCtrl',
+                resolve: {
+                    pageId: function () {
+                        return pageId;
+                    }
+                }
+
+            }).then(function (resp) {
                 if (!page.recommendation) {
                     page.recommendation = {};
                 }
@@ -33,12 +33,14 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
         };
 
         $scope.removeRecommendation = function (page, pageId) {
-            PromiseModal.getModal({
-                title: 'Bewertung l\u00f6schen',
-                content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
-                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
+            ElyModal.show({
+                scope: {
+                    title: 'Bewertung löschen',
+                    content: 'Willst Du die Bewertung wirklich löschen?'
+                },
+                size: 'sm',
+                templateUrl: 'app/modules/util/dialog/yesNoDialog.html'
+            }).then(function () {
                 PageRecommendation.delete({
                     recommendationId: page.recommendation.user.recommendationId,
                     pageId: pageId

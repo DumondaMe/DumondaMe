@@ -5,13 +5,17 @@ module.exports = {
         return ['UtilFilePreviewPicture',
             function (UtilFilePreviewPicture) {
                 var ctrl = this;
-                this.imagePreview = 'app/img/default.jpg';
+                ctrl.imagePreview = 'app/img/default.jpg';
 
-                this.selectTitlePicture = function () {
+                ctrl.selectTitlePicture = function () {
                     UtilFilePreviewPicture.getPreviewPicture().then(function (picture) {
                         ctrl.imagePreview = picture.preview;
                         ctrl.imageCanvas = picture.blob;
                     });
+                };
+
+                ctrl.commands.getImageBlob = function () {
+                    return ctrl.imageCanvas;
                 };
             }];
     }

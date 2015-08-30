@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal', 'UrlCache',
-            function ($scope, $state, Languages, PageCategories, PromiseModal, UrlCache) {
+        return ['$scope', '$state', 'Languages', 'PageCategories', 'ElyModal', 'UrlCache',
+            function ($scope, $state, Languages, PageCategories, ElyModal, UrlCache) {
 
                 $scope.cacheUrl = UrlCache.cacheUrl;
 
@@ -22,15 +22,12 @@ module.exports = {
                 };
 
                 $scope.showComment = function (contact) {
-                    var modalScope = $scope.$new(false);
                     if (contact && contact.hasOwnProperty('comment') && contact.comment.trim() !== "" && contact.hasOwnProperty('url')) {
-                        modalScope.contact = contact;
-                        PromiseModal.getModal({
-                            scope: modalScope,
+                        ElyModal.show({
+                            scope: {contact: contact},
                             title: 'Kommentar zu ' + $scope.pagePreview.title,
-                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html',
-                            placement: 'center'
-                        }).show();
+                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html'
+                        });
                     }
                 };
             }];

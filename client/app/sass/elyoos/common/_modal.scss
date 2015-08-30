@@ -1,15 +1,28 @@
-.modal.center .modal-dialog {
-  z-index: 101;
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  min-width: 320px;
-  max-width: 630px;
-  width: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+.modal {
+  text-align: center;
 }
 
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-sm {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+}
 
 #modal-dialog-set-privacy {
   width: 350px;

@@ -9,6 +9,7 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
+                commands: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',

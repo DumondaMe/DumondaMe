@@ -192,22 +192,22 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/handlingPages/compareExistingPages/template.html',
-    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
+    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-max-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/book/template.html',
-    "<div id=page-handling-details-book><div class=card-element><form name=commonForm><div class=description>Buch</div><ely-page-handling-detail-select-picture></ely-page-handling-detail-select-picture><div id=create-book-page><div><md-input-container><label>Autor</label><input md-maxlength=255 required name=inputAuthor aria-label=Autor ng-model=ctrl.authors><div ng-messages=commonForm.inputAuthor.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container><md-input-container><label>Erscheinungsdatum</label><input name=inputPublicationDate aria-label=Erscheinungsdatum ng-model=ctrl.publishDate ng-change=ctrl.publishDateChanged()><div ng-messages=commonForm.inputPublicationDate.$error><div ng-message=custom>Gib ein gütiges Datum an (z.B. {{ctrl.getDateExample()}})</div></div></md-input-container></div></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=ctrl.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div></form></div></div>"
+    "<div id=page-handling-details-book><div class=card-element><form name=commonForm><div class=description>Buch</div><ely-page-handling-detail-select-picture commands=ctrl.pictureCommands></ely-page-handling-detail-select-picture><div id=create-book-page><div><md-input-container><label>Autor</label><input md-maxlength=255 required name=inputAuthor aria-label=Autor ng-model=ctrl.authors><div ng-messages=commonForm.inputAuthor.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container><md-input-container><label>Erscheinungsdatum</label><input name=inputPublicationDate aria-label=Erscheinungsdatum ng-model=ctrl.publishDate ng-change=ctrl.publishDateChanged()><div ng-messages=commonForm.inputPublicationDate.$error><div ng-message=custom>Gib ein gütiges Datum an (z.B. {{ctrl.getDateExample()}})</div></div></md-input-container></div></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=ctrl.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.uploadPage() ng-disabled=commonForm.$invalid>Seite erstellen</md-button></form></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/selectPicture/template.html',
-    "<div id=picture-area><img ng-src={{ctrl.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" ng-click=ctrl.selectTitlePicture()>Titelbild auswählen..</md-button></div></div>"
+    "<div id=picture-area><img ng-src={{ctrl.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" ng-click=ctrl.selectTitlePicture()>Titelbild ...</md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/template.html',
-    "<div id=page-handling-details><ely-page-handling-detail-book></ely-page-handling-detail-book></div>"
+    "<div id=page-handling-details ng-show=ctrl.showPreviews><ely-page-handling-detail-book ng-if=\"ctrl.selected.indexOf('Book') !== -1\"></ely-page-handling-detail-book></div>"
   );
 
 
@@ -217,7 +217,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageDetail/book.html',
-    "<div id=ely-book-page><div class=header><div class=book-image><img ng-src={{pageDetail.page.titleUrl}}></div><div class=header-content><div class=book-title>{{pageDetail.page.title}}</div><div class=authors>von {{pageDetail.page.author.name}}<div class=author ng-repeat=\"author in pageDetail.page.author\">{{author.name}}</div></div><div class=header-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
+    "<div id=ely-book-page><div class=header><div class=book-image><img ng-src={{pageDetail.page.titleUrl}}></div><div class=header-content><div class=book-title>{{pageDetail.page.title}}</div><div class=authors>von {{pageDetail.page.author.name}}<div class=author ng-repeat=\"author in pageDetail.page.author\">{{author.name}}</div></div><div class=header-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
   );
 
 
@@ -252,7 +252,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageDetail/youtube.html',
-    "<div id=ely-youtube-page><div class=header><div class=youtube-embedded><ely-iframe width=650 height=400 secure-link=\"https://www.youtube.com/embed/\" src=pageDetail.page.link></ely-iframe></div><div class=header-content><div class=youtube-title>{{pageDetail.page.title}}</div><div class=youtube-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
+    "<div id=ely-youtube-page><div class=header><div class=youtube-embedded><ely-iframe width=650 height=400 secure-link=\"https://www.youtube.com/embed/\" src=pageDetail.page.link></ely-iframe></div><div class=header-content><div class=youtube-title>{{pageDetail.page.title}}</div><div class=youtube-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
   );
 
 
@@ -272,7 +272,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"ctrl.pagePreviews.length > 0 && !ctrl.hide\" class=page-overview-container ng-style=\"{'width': ctrl.containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{ctrl.title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=ctrl.startExpand() ng-show=\"!ctrl.expand && ctrl.numberOfElements < ctrl.totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': ctrl.expand}\"><div ng-repeat=\"pagePreview in ctrl.pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{ctrl.videoWidth}} video-height={{ctrl.videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=ctrl.nextPages() ng-show=\"ctrl.expand && ctrl.expandSkipPages + ctrl.expandNumberOfPages < ctrl.totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
+    "<div ng-show=\"ctrl.pagePreviews.length > 0 && !ctrl.hide\" class=page-overview-container ng-style=\"{'width': ctrl.containerWidth + 'px', 'display': 'block'}\"><div class=website-structure-header><h1 class=website-structure-title>{{ctrl.title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=ctrl.startExpand() ng-show=\"!ctrl.expand && ctrl.numberOfElements < ctrl.totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': ctrl.expand}\"><div ng-repeat=\"pagePreview in ctrl.pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{ctrl.videoWidth}} video-height={{ctrl.videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=ctrl.nextPages() ng-show=\"ctrl.expand && ctrl.expandSkipPages + ctrl.expandNumberOfPages < ctrl.totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
   );
 
 
@@ -287,7 +287,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true ng-controller=ModalAddRecommendationCtrl><div id=modal-dialog-add-recommendation class=modal-dialog><div class=modal-content><div class=modal-header><h4 class=modal-title>Deine Bewertung für<div class=modal-dialog-add-recommendation-title>{{title}}</div></h4></div><div class=modal-body><div class=modal-dialog-add-recommendation-description><textarea class=form-control ng-model=recommendationDescription maxlength=1000></textarea></div></div><div class=modal-footer><ely-star-rating number-of-selected-stars=numberOfSelectedStars></ely-star-rating><div class=modal-dialog-add-recommendation-error ng-show=error>{{error}}</div><button type=button class=\"btn btn-default\" ng-click=abort()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-click=addRecommendation() ng-class=\"{disabled: numberOfSelectedStars === -1}\">Hinzufügen</button></div></div></div></div>"
+    "<div id=modal-dialog-add-recommendation><div class=modal-header><h4 class=modal-title>Deine Bewertung für<div class=title>{{ title}}</div></h4></div><div class=modal-body><div class=description><textarea class=form-control ng-model=ctrl.recommendationDescription maxlength=1000></textarea></div></div><div class=modal-footer><ely-star-rating number-of-selected-stars=ctrl.numberOfSelectedStars></ely-star-rating><div class=error ng-show=ctrl.error>{{ctrl.error}}</div><md-button class=\"md-primary ely-button\" ng-click=ctrl.abort()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.addRecommendation() ng-disabled=\"ctrl.numberOfSelectedStars === -1\">Hinzufügen</md-button></div></div>"
   );
 
 
@@ -317,7 +317,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-yes-no-dialog class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><md-button class=ely-button ng-click=confirm()>Ja</md-button><md-button class=ely-button ng-click=abort()>Nein</md-button></div></div></div></div>"
+    "<div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><md-button class=\"md-primary ely-button\" ng-click=ctrl.$dismiss()>Nein</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.$close()>Ja</md-button></div>"
   );
 
 

@@ -1,0 +1,23 @@
+.page-overview-container {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+
+  .website-structure-title {
+    display: inline-block;
+    margin-bottom: 30px;
+  }
+  .page-overview-expand {
+    display: inline-block;
+    position: absolute;
+    top: -7px;
+    right: 23px;
+  }
+}
+
+.page-overview-next {
+  width: 48px;
+  margin: 0 auto 0 auto;
+  cursor: pointer;
+}

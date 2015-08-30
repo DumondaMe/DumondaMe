@@ -193,22 +193,22 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/handlingPages/compareExistingPages/template.html',
-    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
+    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-max-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/book/template.html',
-    "<div id=page-handling-details-book><div class=card-element><form name=commonForm><div class=description>Buch</div><ely-page-handling-detail-select-picture></ely-page-handling-detail-select-picture><div id=create-book-page><div><md-input-container><label>Autor</label><input md-maxlength=255 required name=inputAuthor aria-label=Autor ng-model=ctrl.authors><div ng-messages=commonForm.inputAuthor.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container><md-input-container><label>Erscheinungsdatum</label><input name=inputPublicationDate aria-label=Erscheinungsdatum ng-model=ctrl.publishDate ng-change=ctrl.publishDateChanged()><div ng-messages=commonForm.inputPublicationDate.$error><div ng-message=custom>Gib ein gütiges Datum an (z.B. {{ctrl.getDateExample()}})</div></div></md-input-container></div></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=ctrl.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div></form></div></div>"
+    "<div id=page-handling-details-book><div class=card-element><form name=commonForm><div class=description>Buch</div><ely-page-handling-detail-select-picture commands=ctrl.pictureCommands></ely-page-handling-detail-select-picture><div id=create-book-page><div><md-input-container><label>Autor</label><input md-maxlength=255 required name=inputAuthor aria-label=Autor ng-model=ctrl.authors><div ng-messages=commonForm.inputAuthor.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container><md-input-container><label>Erscheinungsdatum</label><input name=inputPublicationDate aria-label=Erscheinungsdatum ng-model=ctrl.publishDate ng-change=ctrl.publishDateChanged()><div ng-messages=commonForm.inputPublicationDate.$error><div ng-message=custom>Gib ein gütiges Datum an (z.B. {{ctrl.getDateExample()}})</div></div></md-input-container></div></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=ctrl.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.uploadPage() ng-disabled=commonForm.$invalid>Seite erstellen</md-button></form></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/selectPicture/template.html',
-    "<div id=picture-area><img ng-src={{ctrl.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" ng-click=ctrl.selectTitlePicture()>Titelbild auswählen..</md-button></div></div>"
+    "<div id=picture-area><img ng-src={{ctrl.imagePreview}} class=picture><div><md-button class=\"md-primary md-raised ely-button get-picture\" ng-click=ctrl.selectTitlePicture()>Titelbild ...</md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/handlingPages/details/template.html',
-    "<div id=page-handling-details><ely-page-handling-detail-book></ely-page-handling-detail-book></div>"
+    "<div id=page-handling-details ng-show=ctrl.showPreviews><ely-page-handling-detail-book ng-if=\"ctrl.selected.indexOf('Book') !== -1\"></ely-page-handling-detail-book></div>"
   );
 
 
@@ -218,7 +218,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageDetail/book.html',
-    "<div id=ely-book-page><div class=header><div class=book-image><img ng-src={{pageDetail.page.titleUrl}}></div><div class=header-content><div class=book-title>{{pageDetail.page.title}}</div><div class=authors>von {{pageDetail.page.author.name}}<div class=author ng-repeat=\"author in pageDetail.page.author\">{{author.name}}</div></div><div class=header-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
+    "<div id=ely-book-page><div class=header><div class=book-image><img ng-src={{pageDetail.page.titleUrl}}></div><div class=header-content><div class=book-title>{{pageDetail.page.title}}</div><div class=authors>von {{pageDetail.page.author.name}}<div class=author ng-repeat=\"author in pageDetail.page.author\">{{author.name}}</div></div><div class=header-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
   );
 
 
@@ -253,7 +253,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageDetail/youtube.html',
-    "<div id=ely-youtube-page><div class=header><div class=youtube-embedded><ely-iframe width=650 height=400 secure-link=\"https://www.youtube.com/embed/\" src=pageDetail.page.link></ely-iframe></div><div class=header-content><div class=youtube-title>{{pageDetail.page.title}}</div><div class=youtube-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, label, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
+    "<div id=ely-youtube-page><div class=header><div class=youtube-embedded><ely-iframe width=650 height=400 secure-link=\"https://www.youtube.com/embed/\" src=pageDetail.page.link></ely-iframe></div><div class=header-content><div class=youtube-title>{{pageDetail.page.title}}</div><div class=youtube-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
   );
 
 
@@ -273,7 +273,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pagePreviewContainer/template.html',
-    "<div ng-show=\"ctrl.pagePreviews.length > 0 && !ctrl.hide\" class=page-overview-container ng-style=\"{'width': ctrl.containerWidth + 'px'}\"><div class=website-structure-header><h1 class=website-structure-title>{{ctrl.title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=ctrl.startExpand() ng-show=\"!ctrl.expand && ctrl.numberOfElements < ctrl.totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': ctrl.expand}\"><div ng-repeat=\"pagePreview in ctrl.pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{ctrl.videoWidth}} video-height={{ctrl.videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=ctrl.nextPages() ng-show=\"ctrl.expand && ctrl.expandSkipPages + ctrl.expandNumberOfPages < ctrl.totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
+    "<div ng-show=\"ctrl.pagePreviews.length > 0 && !ctrl.hide\" class=page-overview-container ng-style=\"{'width': ctrl.containerWidth + 'px', 'display': 'block'}\"><div class=website-structure-header><h1 class=website-structure-title>{{ctrl.title}}</h1><md-button class=\"md-primary md-raised ely-button page-overview-expand\" ng-click=ctrl.startExpand() ng-show=\"!ctrl.expand && ctrl.numberOfElements < ctrl.totalNumberOfPages\">Mehr</md-button></div><div class=page-preview-container ng-class=\"{'page-preview-expand-container': ctrl.expand}\"><div ng-repeat=\"pagePreview in ctrl.pagePreviews\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width={{ctrl.videoWidth}} video-height={{ctrl.videoHeight}}></ely-page-preview></div></div><div class=page-overview-next ng-click=ctrl.nextPages() ng-show=\"ctrl.expand && ctrl.expandSkipPages + ctrl.expandNumberOfPages < ctrl.totalNumberOfPages\"><img src=app/img/expand-down.png></div></div>"
   );
 
 
@@ -288,7 +288,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/recommendation/modalAddRecommendation.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true ng-controller=ModalAddRecommendationCtrl><div id=modal-dialog-add-recommendation class=modal-dialog><div class=modal-content><div class=modal-header><h4 class=modal-title>Deine Bewertung für<div class=modal-dialog-add-recommendation-title>{{title}}</div></h4></div><div class=modal-body><div class=modal-dialog-add-recommendation-description><textarea class=form-control ng-model=recommendationDescription maxlength=1000></textarea></div></div><div class=modal-footer><ely-star-rating number-of-selected-stars=numberOfSelectedStars></ely-star-rating><div class=modal-dialog-add-recommendation-error ng-show=error>{{error}}</div><button type=button class=\"btn btn-default\" ng-click=abort()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-click=addRecommendation() ng-class=\"{disabled: numberOfSelectedStars === -1}\">Hinzufügen</button></div></div></div></div>"
+    "<div id=modal-dialog-add-recommendation><div class=modal-header><h4 class=modal-title>Deine Bewertung für<div class=title>{{ title}}</div></h4></div><div class=modal-body><div class=description><textarea class=form-control ng-model=ctrl.recommendationDescription maxlength=1000></textarea></div></div><div class=modal-footer><ely-star-rating number-of-selected-stars=ctrl.numberOfSelectedStars></ely-star-rating><div class=error ng-show=ctrl.error>{{ctrl.error}}</div><md-button class=\"md-primary ely-button\" ng-click=ctrl.abort()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.addRecommendation() ng-disabled=\"ctrl.numberOfSelectedStars === -1\">Hinzufügen</md-button></div></div>"
   );
 
 
@@ -318,7 +318,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-yes-no-dialog class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><md-button class=ely-button ng-click=confirm()>Ja</md-button><md-button class=ely-button ng-click=abort()>Nein</md-button></div></div></div></div>"
+    "<div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><md-button class=\"md-primary ely-button\" ng-click=ctrl.$dismiss()>Nein</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.$close()>Ja</md-button></div>"
   );
 
 
@@ -2436,20 +2436,22 @@ module.exports = {
 },{}],66:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'PromiseModal', 'Blog', 'WaitingScreen', 'UrlCache',
-    function ($scope, $rootScope, $window, $timeout, dateFormatter, PromiseModal, Blog, WaitingScreen, UrlCache) {
+module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'ElyModal', 'Blog', 'WaitingScreen', 'UrlCache',
+    function ($scope, $rootScope, $window, $timeout, dateFormatter, ElyModal, Blog, WaitingScreen, UrlCache) {
 
         $scope.getFormattedDate = dateFormatter.formatRelativeTimes;
         $scope.cacheUrl = UrlCache.cacheUrl;
 
         $scope.removeBlog = function (blogId) {
-            PromiseModal.getModal({
-                title: 'Blog l\u00f6schen',
-                content: 'Willst Du diesen Blog wirklich l\u00f6schen?',
+            ElyModal.show()({
+                scope: {
+                    title: 'Blog löschen',
+                    content: 'Willst Du diesen Blog wirklich löschen?'
+                },
                 templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
-                var finished = WaitingScreen.openScreen('Blog wird gel\u00f6scht...');
+                size: 'sm'
+            }).then(function () {
+                var finished = WaitingScreen.openScreen('Blog wird gelöscht...');
                 Blog.delete({
                     blogId: blogId
                 }, function () {
@@ -3455,22 +3457,22 @@ module.exports = ['$resource', function ($resource) {
 },{}],101:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
-    function ($scope, PromiseModal, PageRecommendation, moment) {
+module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
+    function ($scope, ElyModal, PageRecommendation, moment) {
 
 
         $scope.addNewRecommendation = function (page, pageId, title) {
-            var modalScope = $scope.$new(false);
-            modalScope.recommendation = {
-                pageId: pageId
-            };
-            PromiseModal.getModal({
-                scope: modalScope,
-                title: title,
+            ElyModal.show({
+                scope: {title: " " + title},
                 templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
-                placement: 'center',
-                backdrop: 'static'
-            }).show().then(function (resp) {
+                controller: 'ModalAddRecommendationCtrl',
+                resolve: {
+                    pageId: function () {
+                        return pageId;
+                    }
+                }
+
+            }).then(function (resp) {
                 if (!page.recommendation) {
                     page.recommendation = {};
                 }
@@ -3488,12 +3490,14 @@ module.exports = ['$scope', 'PromiseModal', 'PageRecommendation', 'moment',
         };
 
         $scope.removeRecommendation = function (page, pageId) {
-            PromiseModal.getModal({
-                title: 'Bewertung l\u00f6schen',
-                content: 'Willst Du die Bewertung wirklich l\u00f6schen?',
-                templateUrl: 'app/modules/util/dialog/yesNoDialog.html',
-                placement: 'center'
-            }).show().then(function () {
+            ElyModal.show({
+                scope: {
+                    title: 'Bewertung löschen',
+                    content: 'Willst Du die Bewertung wirklich löschen?'
+                },
+                size: 'sm',
+                templateUrl: 'app/modules/util/dialog/yesNoDialog.html'
+            }).then(function () {
                 PageRecommendation.delete({
                     recommendationId: page.recommendation.user.recommendationId,
                     pageId: pageId
@@ -4161,9 +4165,11 @@ var isDateValid = function (moment, date) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'moment',
-            function ($scope, PageCategoryHandler, PageHandlingState, moment) {
+        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'moment', 'PageHandlingUpload',
+            function ($scope, PageCategoryHandler, PageHandlingState, moment, PageHandlingUpload) {
                 var ctrl = this;
+
+                ctrl.pictureCommands = {};
 
                 PageHandlingState.registerStateChange(this);
 
@@ -4177,7 +4183,7 @@ module.exports = {
                 };
 
                 this.publishDateChanged = function () {
-                    if(ctrl.publishDate) {
+                    if (ctrl.publishDate) {
                         $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(moment, ctrl.publishDate));
                     } else if (!ctrl.publishDate || ctrl.publishDate.trim() === '') {
                         $scope.commonForm.inputPublicationDate.$setValidity('custom', true);
@@ -4187,6 +4193,21 @@ module.exports = {
                 this.getDateExample = function () {
                     var unixTimestamp = 385974036;
                     return moment.unix(unixTimestamp).format('l');
+                };
+
+                this.uploadPage = function () {
+                    var json = {
+                        bookPage: {
+                            language: PageCategoryHandler.getLanguageCode(),
+                            title: PageCategoryHandler.getTitle(),
+                            description: ctrl.description,
+                            author: ctrl.authors
+                        }
+                    };
+                    if (ctrl.publishDate) {
+                        json.bookPage.publishDate = ctrl.publishDate;
+                    }
+                    PageHandlingUpload.uploadPage(json, null, 'Book', ctrl.pictureCommands.getImageBlob(), false);
                 };
             }];
     }
@@ -4268,13 +4289,17 @@ module.exports = {
         return ['UtilFilePreviewPicture',
             function (UtilFilePreviewPicture) {
                 var ctrl = this;
-                this.imagePreview = 'app/img/default.jpg';
+                ctrl.imagePreview = 'app/img/default.jpg';
 
-                this.selectTitlePicture = function () {
+                ctrl.selectTitlePicture = function () {
                     UtilFilePreviewPicture.getPreviewPicture().then(function (picture) {
                         ctrl.imagePreview = picture.preview;
                         ctrl.imageCanvas = picture.blob;
                     });
+                };
+
+                ctrl.commands.getImageBlob = function () {
+                    return ctrl.imageCanvas;
                 };
             }];
     }
@@ -4292,6 +4317,7 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
+                commands: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
@@ -4333,7 +4359,8 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('PageHandlingState', require('./services/stateHandler'));
-},{"./directive.js":125,"./services/stateHandler":127}],127:[function(require,module,exports){
+app.service('PageHandlingUpload', require('./services/uploadPage'));
+},{"./directive.js":125,"./services/stateHandler":127,"./services/uploadPage":128}],127:[function(require,module,exports){
 'use strict';
 
 var notifyObservables = function (observables, selectedState) {
@@ -4376,6 +4403,66 @@ module.exports = [
     }];
 
 },{}],128:[function(require,module,exports){
+'use strict';
+
+var goToPageDetail = function (pageId, $state, categoryType) {
+    $state.go('page.detail', {
+        label: categoryType,
+        pageId: pageId
+    });
+};
+
+var getPageId = function (pageId, resp) {
+    if (!pageId) {
+        return resp.pageId;
+    }
+    return pageId;
+};
+
+var getApi = function (isEditMode) {
+    if (isEditMode) {
+        return 'api/user/page/edit';
+    }
+    return 'api/user/page/create';
+};
+
+var recommendPage = function (ElyModal, $state, pageId, categoryType) {
+    ElyModal.show({
+        templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
+        controller: 'ModalAddRecommendationCtrl',
+        resolve: {
+            pageId: function () {
+                return pageId;
+            }
+        }
+    }).then(function () {
+        goToPageDetail(pageId, $state, categoryType);
+    });
+};
+
+module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
+    function ($state, errorToast, fileUpload, ElyModal) {
+
+        this.uploadPage = function (json, pageId, categoryType, imageToUpload, isEditMode) {
+            var api = getApi(isEditMode);
+
+            fileUpload.uploadFileAndJson(imageToUpload, json, api)
+                .success(function (resp) {
+                    pageId = getPageId(pageId, resp);
+                    if (isEditMode) {
+                        goToPageDetail(pageId, $state, categoryType);
+                    } else {
+                        recommendPage(ElyModal, $state, pageId, categoryType);
+                    }
+                })
+                .error(function () {
+                    errorToast.showError('Fehler! Seite konnte nicht hochgeladen werden');
+                });
+        };
+
+    }];
+
+},{}],129:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4477,7 +4564,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":101,"./createEditPage/commonBookCtrl":102,"./createEditPage/commonSectionCtrl":103,"./createEditPage/commonYoutubeCtrl":104,"./createEditPage/pageCreateCtrl":105,"./createEditPage/pageEditCtrl":106,"./createEditPage/selectCategoryCtrl":107,"./pageDetail/pageDetailCtrl":132,"./pageDetail/pageDetailEducationCtrl":133,"./pageDetail/pageHeaderActivityPreviewCtrl":134,"./pageDetail/services/pageDetailReview":135,"./pageOverviewCtrl":136,"./services/categories":144,"./services/leftNavElements":145,"./services/pageDetail":146,"./services/pageRecommendationAllContact":147,"./services/pageRecommendationOtherUser":148,"./services/pageSearchUserAdministratedPage":149,"./services/pageSearchUserRecommendation":150,"./services/pageUserAdministration":151,"./services/pageUserRecommendation":152,"./services/popularPages":153,"./services/searchPage":154,"./userPageAdministration/userPageAdministrationCtrl":155,"./userRecommendation/getPageAndExtendCtrl":156,"./userRecommendation/userRecommendationCtrl":157}],129:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":101,"./createEditPage/commonBookCtrl":102,"./createEditPage/commonSectionCtrl":103,"./createEditPage/commonYoutubeCtrl":104,"./createEditPage/pageCreateCtrl":105,"./createEditPage/pageEditCtrl":106,"./createEditPage/selectCategoryCtrl":107,"./pageDetail/pageDetailCtrl":133,"./pageDetail/pageDetailEducationCtrl":134,"./pageDetail/pageHeaderActivityPreviewCtrl":135,"./pageDetail/services/pageDetailReview":136,"./pageOverviewCtrl":137,"./services/categories":144,"./services/leftNavElements":145,"./services/pageDetail":146,"./services/pageRecommendationAllContact":147,"./services/pageRecommendationOtherUser":148,"./services/pageSearchUserAdministratedPage":149,"./services/pageSearchUserRecommendation":150,"./services/pageUserAdministration":151,"./services/pageUserRecommendation":152,"./services/popularPages":153,"./services/searchPage":154,"./userPageAdministration/userPageAdministrationCtrl":155,"./userRecommendation/getPageAndExtendCtrl":156,"./userRecommendation/userRecommendationCtrl":157}],130:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -4581,7 +4668,7 @@ module.exports = {
     }
 };
 
-},{}],130:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4602,9 +4689,9 @@ module.exports = {
     name: 'elyPageReview'
 };
 
-},{"./controller.js":129}],131:[function(require,module,exports){
+},{"./controller.js":130}],132:[function(require,module,exports){
 arguments[4][32][0].apply(exports,arguments)
-},{"./directive.js":130,"dup":32}],132:[function(require,module,exports){
+},{"./directive.js":131,"dup":32}],133:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
@@ -4654,7 +4741,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         });
     }];
 
-},{}],133:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope',
@@ -4669,7 +4756,7 @@ module.exports = ['$scope',
         });
     }];
 
-},{}],134:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -4683,14 +4770,14 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],135:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/review');
 }];
 
-},{}],136:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageCategories', 'PopularPages', 'PageLeftNavElements',
@@ -4720,8 +4807,28 @@ module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageC
 
     }];
 
-},{}],137:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 'use strict';
+
+var minScreenSize = 1000;
+var maxScreenSize = 1900;
+
+var setContainerWidth = function(ctrl, $scope) {
+    var containerSize, screenWidth = $(window).width();
+    if(ctrl.containerMaxWidth) {
+        ctrl.numberOfElements = Math.floor(ctrl.containerMaxWidth / 190);
+    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+        containerSize = screenWidth - 270;
+        ctrl.numberOfElements = Math.floor(containerSize / 190);
+    } else if(screenWidth < minScreenSize) {
+        ctrl.numberOfElements = 4;
+    } else if(screenWidth > maxScreenSize) {
+        ctrl.numberOfElements = 8;
+    }
+
+    ctrl.containerWidth = 190 * ctrl.numberOfElements;
+    $scope.$applyAsync();
+};
 
 var resetPages = function (ctrl) {
     ctrl.pagePreviews = [];
@@ -4772,55 +4879,43 @@ var getPages = function (ctrl, service, serviceParameter, PageCategories, limit,
 
 module.exports = {
     directiveCtrl: function () {
-        return ['PageCategories', function (PageCategories) {
-
-            //var init = true;
+        return ['$scope', 'PageCategories', function ($scope, PageCategories) {
             var serviceParameter = {}, ctrl = this;
-            this.notRequestInitService = this.notRequestInitService === 'true';
-            resetPages(this);
+            ctrl.notRequestInitService = ctrl.notRequestInitService === 'true';
+            resetPages(ctrl);
 
-            this.pageRequestStart.startRequested = function (params) {
+            if(!ctrl.containerMaxWidth) {
+                $(window).resize(function () {
+                    setContainerWidth(ctrl, $scope);
+                });
+            }
+
+            setContainerWidth(ctrl, $scope);
+
+            ctrl.pageRequestStart.startRequested = function (params) {
                 serviceParameter = params;
                 resetPages(ctrl);
                 getPages(ctrl, ctrl.service, params, PageCategories, 9, 0);
             };
 
-            /*$scope.$watch('service', function (newValue) {
-             if (newValue && !$scope.hide && !$scope.notRequestInitService) {
-             getPages($scope, newValue, $scope.serviceParameter, PageCategories, 9, 0);
-             }
-             });*/
-
-            /*$scope.$watchCollection('serviceParameter', function (newValue) {
-             if (newValue) {
-             if (!init && !$scope.hide) {
-             resetPages($scope);
-             getPages($scope, $scope.service, newValue, PageCategories, 9, 0);
-             } else {
-             init = false;
-             }
-             }
-             });*/
-
-            this.startExpand = function () {
-                this.expandNumberOfPages = (this.numberOfElements * 2);
-                this.expandSkipPages = 0;
-                this.expand = true;
-                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
+            ctrl.startExpand = function () {
+                ctrl.expandNumberOfPages = (ctrl.numberOfElements * 2);
+                ctrl.expandSkipPages = 0;
+                ctrl.expand = true;
+                getPages(ctrl, ctrl.service, serviceParameter, PageCategories, ctrl.expandNumberOfPages, ctrl.expandSkipPages);
             };
 
-            this.nextPages = function () {
-                this.expandSkipPages += this.expandNumberOfPages;
-                getPages(this, this.service, serviceParameter, PageCategories, this.expandNumberOfPages, this.expandSkipPages);
+            ctrl.nextPages = function () {
+                ctrl.expandSkipPages += ctrl.expandNumberOfPages;
+                getPages(ctrl, ctrl.service, serviceParameter, PageCategories, ctrl.expandNumberOfPages, ctrl.expandSkipPages);
             };
         }];
     }
 };
 
-},{}],138:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
-var link = require('./link.js');
 var controller = require('./controller.js');
 
 module.exports = {
@@ -4832,14 +4927,13 @@ module.exports = {
             bindToController: {
                 videoHeight: '@',
                 videoWidth: '@',
-                containerWidth: '@',
+                containerMaxWidth: '@',
                 title: '@',
                 notRequestInitService: '@',
                 hide: '=',
                 service: '=',
                 pageRequestStart: '='
             },
-            link: link.directiveLink(),
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/page/pagePreviewContainer/template.html'
@@ -4848,52 +4942,15 @@ module.exports = {
     name: 'elyPagePreviewContainer'
 };
 
-},{"./controller.js":137,"./link.js":140}],139:[function(require,module,exports){
+},{"./controller.js":138}],140:[function(require,module,exports){
 arguments[4][114][0].apply(exports,arguments)
-},{"./directive.js":138,"dup":114}],140:[function(require,module,exports){
-'use strict';
-
-var minScreenSize = 1000;
-var maxScreenSize = 1900;
-
-var setContainerWidth = function($scope) {
-    var containerSize, screenWidth = $(window).width();
-    if($scope.containerWidth) {
-        $scope.numberOfElements = Math.floor($scope.containerWidth / 190);
-    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
-        containerSize = screenWidth - 270;
-        $scope.numberOfElements = Math.floor(containerSize / 190);
-    } else if(screenWidth < minScreenSize) {
-        $scope.numberOfElements = 4;
-    } else if(screenWidth > maxScreenSize) {
-        $scope.numberOfElements = 8;
-    }
-
-    $scope.containerWidth = 190 * $scope.numberOfElements;
-    $scope.$applyAsync();
-};
-
-module.exports = {
-    directiveLink: function () {
-        return function ($scope) {
-            if($scope.containerWidth) {
-                $(window).resize(function () {
-                    setContainerWidth($scope);
-                });
-            }
-
-            setContainerWidth($scope);
-        };
-    }
-};
-
-},{}],141:[function(require,module,exports){
+},{"./directive.js":139,"dup":114}],141:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', 'Languages', 'PageCategories', 'PromiseModal', 'UrlCache',
-            function ($scope, $state, Languages, PageCategories, PromiseModal, UrlCache) {
+        return ['$scope', '$state', 'Languages', 'PageCategories', 'ElyModal', 'UrlCache',
+            function ($scope, $state, Languages, PageCategories, ElyModal, UrlCache) {
 
                 $scope.cacheUrl = UrlCache.cacheUrl;
 
@@ -4912,15 +4969,12 @@ module.exports = {
                 };
 
                 $scope.showComment = function (contact) {
-                    var modalScope = $scope.$new(false);
                     if (contact && contact.hasOwnProperty('comment') && contact.comment.trim() !== "" && contact.hasOwnProperty('url')) {
-                        modalScope.contact = contact;
-                        PromiseModal.getModal({
-                            scope: modalScope,
+                        ElyModal.show({
+                            scope: {contact: contact},
                             title: 'Kommentar zu ' + $scope.pagePreview.title,
-                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html',
-                            placement: 'center'
-                        }).show();
+                            templateUrl: 'app/modules/page/pagePreview/commentDialog.html'
+                        });
                     }
                 };
             }];
@@ -5210,25 +5264,31 @@ app.service('PageRecommendation', require('./services/pageRecommendation'));
 },{"./modalAddRecommendationCtrl":159,"./services/pageRecommendation":160}],159:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', 'PageRecommendation', function ($scope, PageRecommendation) {
-    $scope.numberOfSelectedStars = -1;
+module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($modalInstance, PageRecommendation, pageId) {
+    var ctrl = this;
 
-    $scope.addRecommendation = function () {
+    ctrl.numberOfSelectedStars = -1;
+
+    ctrl.abort = function () {
+        $modalInstance.dismiss();
+    };
+
+    ctrl.addRecommendation = function () {
         var data = {
-            pageId: $scope.recommendation.pageId,
-            comment: $scope.recommendationDescription,
-            rating: $scope.numberOfSelectedStars
+            pageId: pageId,
+            comment: ctrl.recommendationDescription,
+            rating: ctrl.numberOfSelectedStars
         };
 
-        delete $scope.error;
+        delete ctrl.error;
         PageRecommendation.save(data, function (res) {
             data.profileUrl = res.profileUrl;
             data.recommendationId = res.recommendationId;
             data.recommendation = res.recommendation;
             data.created = res.created;
-            $scope.confirm(data);
+            $modalInstance.close(data);
         }, function () {
-            $scope.error = 'Bewertung konnte nicht gespeichert werden';
+            ctrl.error = 'Bewertung konnte nicht gespeichert werden';
         });
     };
 }];
@@ -6058,10 +6118,39 @@ module.exports = ['$modal',
 var app = angular.module('elyoosApp');
 
 app.service('moment', require('./moment'));
-app.service('PromiseModal', require('./promiseModal'));
+app.service('ElyModal', require('./modal'));
 app.service('UrlCache', require('./urlCache'));
 app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./moment":188,"./promiseModal":189,"./urlCache":192,"./waitingScreen/waitingScreen":193}],188:[function(require,module,exports){
+},{"./modal":188,"./moment":189,"./urlCache":192,"./waitingScreen/waitingScreen":193}],188:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
+
+    this.show = function (modalParams) {
+
+        var scope;
+        modalParams.animation = true;
+        modalParams.controllerAs = 'ctrl';
+        modalParams.bindToController = true;
+        modalParams.backdrop = 'static';
+
+        if (modalParams.hasOwnProperty('scope')) {
+            scope = $rootScope.$new();
+            angular.extend(scope, modalParams.scope);
+            modalParams.scope = scope;
+        }
+
+        if (!modalParams.hasOwnProperty('controller')) {
+            modalParams.controller = function () {
+            };
+        }
+
+
+        return $modal.open(modalParams).result;
+    };
+}];
+
+},{}],189:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6071,42 +6160,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":8}],189:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$modal', '$q', '$rootScope', function ($modal, $q, $rootScope) {
-
-    this.getModal = function (modalParams) {
-        var confirm, deferred, parentShow;
-        if (!modalParams.scope) {
-            modalParams.scope = $rootScope.$new(false);
-        }
-
-        modalParams.scope.confirm = function (res) {
-            deferred.resolve(res);
-            confirm.hide();
-        };
-        modalParams.scope.abort = function (res) {
-            deferred.reject(res);
-            confirm.hide();
-        };
-
-        modalParams.show = false;
-        modalParams.html = true;
-        confirm = $modal(modalParams);
-        parentShow = confirm.show;
-
-        confirm.show = function () {
-            deferred = $q.defer();
-            confirm.$promise.then(parentShow);
-            return deferred.promise;
-        };
-
-        return confirm;
-    };
-}];
-
-},{}],190:[function(require,module,exports){
+},{"moment":8}],190:[function(require,module,exports){
 'use strict';
 
 var toastPosition = {
@@ -6250,4 +6304,4 @@ module.exports={
   }
 }
 
-},{}]},{},[10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,94,95,96,93,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,141,142,143,137,138,139,140,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193]);
+},{}]},{},[10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,94,95,96,93,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,141,142,143,138,139,140,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193]);
