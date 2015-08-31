@@ -193,7 +193,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/handlingPages/compareExistingPages/template.html',
-    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false not-request-init-service=true container-max-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
+    "<div id=compare-existing-pages ng-show=ctrl.showPreviews><ely-page-preview-container video-width=160 video-height=255 title=\"Existiert die Seite bereits?\" service=ctrl.SearchPage page-request-start=ctrl.pageRequest hide=false container-max-width=780></ely-page-preview-container><div class=commands><md-button class=\"md-primary md-raised ely-button command-buttons\" ng-click=ctrl.continue()>Weiter</md-button><md-button class=\"md-primary ely-button command-buttons\" ng-click=ctrl.abortHandlingPage()>Seite Erstellen Abbrechen</md-button></div></div>"
   );
 
 
@@ -258,7 +258,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/pageOverview.html',
-    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage service-parameter=SearchPageParameter hide=!hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos deiner Kontakte\" service=PopularPages service-parameter=\"{onlyContacts: true, category: 'Youtube'}\" hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Book'}\" hide=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos\" service=PopularPages service-parameter=\"{onlyContacts: false, category: 'Youtube'}\" hide=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
+    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage page-request-start=searchPageRequest hide=!hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher deiner Kontakte\" service=PopularPages page-request-start=popularBooksContact hide=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos deiner Kontakte\" service=PopularPages page-request-start=popularYoutubeContact hide=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste B&uuml;cher\" service=PopularPages page-request-start=popularBooksAll hide=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos\" service=PopularPages page-request-start=popularYoutubeAll hide=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 
 
@@ -4788,18 +4788,22 @@ module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageC
 
         $scope.PageRecommendationAllContact = PageRecommendationAllContact;
         $scope.SearchPage = SearchPage;
-        $scope.SearchPageParameter = {};
         $scope.PopularPages = PopularPages;
+        $scope.searchPageRequest = {};
+        $scope.popularBooksContact = {initParams: {onlyContacts: true, category: 'Book'}};
+        $scope.popularYoutubeContact = {initParams: {onlyContacts: true, category: 'Youtube'}};
+        $scope.popularBooksAll = {initParams: {onlyContacts: false, category: 'Book'}};
+        $scope.popularYoutubeAll = {initParams: {onlyContacts: false, category: 'Youtube'}};
 
         $scope.$emit(PageLeftNavElements.event, PageLeftNavElements.elements);
 
         $scope.searchPage = function (searchValue) {
             if (searchValue && searchValue.trim().length > 0) {
                 $scope.hide = true;
-                $scope.SearchPageParameter = {
+                $scope.searchPageRequest.startRequested({
                     search: searchValue,
                     isSuggestion: false
-                };
+                });
             } else {
                 $scope.hide = false;
             }
@@ -4813,16 +4817,16 @@ module.exports = ['$scope', 'PageRecommendationAllContact', 'SearchPage', 'PageC
 var minScreenSize = 1000;
 var maxScreenSize = 1900;
 
-var setContainerWidth = function(ctrl, $scope) {
+var setContainerWidth = function (ctrl, $scope) {
     var containerSize, screenWidth = $(window).width();
-    if(ctrl.containerMaxWidth) {
+    if (ctrl.containerMaxWidth) {
         ctrl.numberOfElements = Math.floor(ctrl.containerMaxWidth / 190);
-    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+    } else if (screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
         ctrl.numberOfElements = Math.floor(containerSize / 190);
-    } else if(screenWidth < minScreenSize) {
+    } else if (screenWidth < minScreenSize) {
         ctrl.numberOfElements = 4;
-    } else if(screenWidth > maxScreenSize) {
+    } else if (screenWidth > maxScreenSize) {
         ctrl.numberOfElements = 8;
     }
 
@@ -4872,7 +4876,9 @@ var getPages = function (ctrl, service, serviceParameter, PageCategories, limit,
             setCategories(ctrl.pagePreviewsTemp.pages, PageCategories);
             addPagePreview(ctrl);
             ctrl.totalNumberOfPages = ctrl.pagePreviewsTemp.totalNumberOfPages;
-            ctrl.pageRequestStart.requestFinished(ctrl.pagePreviews);
+            if (ctrl.pageRequestStart.hasOwnProperty('requestFinished')) {
+                ctrl.pageRequestStart.requestFinished(ctrl.pagePreviews);
+            }
         });
     }
 };
@@ -4884,7 +4890,7 @@ module.exports = {
             ctrl.notRequestInitService = ctrl.notRequestInitService === 'true';
             resetPages(ctrl);
 
-            if(!ctrl.containerMaxWidth) {
+            if (!ctrl.containerMaxWidth) {
                 $(window).resize(function () {
                     setContainerWidth(ctrl, $scope);
                 });
@@ -4897,6 +4903,10 @@ module.exports = {
                 resetPages(ctrl);
                 getPages(ctrl, ctrl.service, params, PageCategories, 9, 0);
             };
+
+            if (ctrl.pageRequestStart.hasOwnProperty('initParams')) {
+                ctrl.pageRequestStart.startRequested(ctrl.pageRequestStart.initParams);
+            }
 
             ctrl.startExpand = function () {
                 ctrl.expandNumberOfPages = (ctrl.numberOfElements * 2);
@@ -4929,7 +4939,6 @@ module.exports = {
                 videoWidth: '@',
                 containerMaxWidth: '@',
                 title: '@',
-                notRequestInitService: '@',
                 hide: '=',
                 service: '=',
                 pageRequestStart: '='

@@ -3,16 +3,16 @@
 var minScreenSize = 1000;
 var maxScreenSize = 1900;
 
-var setContainerWidth = function(ctrl, $scope) {
+var setContainerWidth = function (ctrl, $scope) {
     var containerSize, screenWidth = $(window).width();
-    if(ctrl.containerMaxWidth) {
+    if (ctrl.containerMaxWidth) {
         ctrl.numberOfElements = Math.floor(ctrl.containerMaxWidth / 190);
-    } else if(screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
+    } else if (screenWidth > minScreenSize && screenWidth <= maxScreenSize) {
         containerSize = screenWidth - 270;
         ctrl.numberOfElements = Math.floor(containerSize / 190);
-    } else if(screenWidth < minScreenSize) {
+    } else if (screenWidth < minScreenSize) {
         ctrl.numberOfElements = 4;
-    } else if(screenWidth > maxScreenSize) {
+    } else if (screenWidth > maxScreenSize) {
         ctrl.numberOfElements = 8;
     }
 
@@ -62,7 +62,9 @@ var getPages = function (ctrl, service, serviceParameter, PageCategories, limit,
             setCategories(ctrl.pagePreviewsTemp.pages, PageCategories);
             addPagePreview(ctrl);
             ctrl.totalNumberOfPages = ctrl.pagePreviewsTemp.totalNumberOfPages;
-            ctrl.pageRequestStart.requestFinished(ctrl.pagePreviews);
+            if (ctrl.pageRequestStart.hasOwnProperty('requestFinished')) {
+                ctrl.pageRequestStart.requestFinished(ctrl.pagePreviews);
+            }
         });
     }
 };
@@ -74,7 +76,7 @@ module.exports = {
             ctrl.notRequestInitService = ctrl.notRequestInitService === 'true';
             resetPages(ctrl);
 
-            if(!ctrl.containerMaxWidth) {
+            if (!ctrl.containerMaxWidth) {
                 $(window).resize(function () {
                     setContainerWidth(ctrl, $scope);
                 });
@@ -87,6 +89,10 @@ module.exports = {
                 resetPages(ctrl);
                 getPages(ctrl, ctrl.service, params, PageCategories, 9, 0);
             };
+
+            if (ctrl.pageRequestStart.hasOwnProperty('initParams')) {
+                ctrl.pageRequestStart.startRequested(ctrl.pageRequestStart.initParams);
+            }
 
             ctrl.startExpand = function () {
                 ctrl.expandNumberOfPages = (ctrl.numberOfElements * 2);

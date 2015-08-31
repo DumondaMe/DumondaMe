@@ -13,7 +13,6 @@ module.exports = {
                 videoWidth: '@',
                 containerMaxWidth: '@',
                 title: '@',
-                notRequestInitService: '@',
                 hide: '=',
                 service: '=',
                 pageRequestStart: '='
