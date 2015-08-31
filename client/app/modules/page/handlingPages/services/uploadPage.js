@@ -38,7 +38,9 @@ var recommendPage = function (ElyModal, $state, pageId, categoryType) {
 module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
     function ($state, errorToast, fileUpload, ElyModal) {
 
-        this.uploadPage = function (json, pageId, categoryType, imageToUpload, isEditMode) {
+        var ctrl = this;
+
+        ctrl.uploadPage = function (json, pageId, categoryType, imageToUpload, isEditMode) {
             var api = getApi(isEditMode);
 
             fileUpload.uploadFileAndJson(imageToUpload, json, api)

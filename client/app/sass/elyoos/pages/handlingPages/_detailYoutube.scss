@@ -1,0 +1,16 @@
+#page-handling-details-youtube{
+  @include cardElement() {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    .ely-form-text-input {
+      padding: 0 15px;
+    }
+
+    #inputYoutubeLink {
+      width: 100%;
+      //margin: 0 -15px 25px 15px;
+    }
+  }
+}

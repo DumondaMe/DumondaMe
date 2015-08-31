@@ -1,10 +1,4 @@
 <div id="page-handling-details" ng-show="ctrl.showPreviews">
     <ely-page-handling-detail-book ng-if="ctrl.selected.indexOf('Book') !== -1"></ely-page-handling-detail-book>
-    <!--<div class="card-element">
-        <form name="commonForm">
-            <div class="description">{{category.selectedCategory}}</div>
-            <div ng-include="'app/modules/page/createEditPage/common/book.html'" ng-if="ctrl.selected.Book"></div>
-            <div ng-include="'app/modules/page/createEditPage/common/youtube.html'" ng-if="ctrl.selected.Youtube"></div>
-        </form>
-    </div>-->
+    <ely-page-handling-detail-youtube ng-if="ctrl.selected.indexOf('Youtube') !== -1"></ely-page-handling-detail-youtube>
 </div>

@@ -207,7 +207,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/handlingPages/details/template.html',
-    "<div id=page-handling-details ng-show=ctrl.showPreviews><ely-page-handling-detail-book ng-if=\"ctrl.selected.indexOf('Book') !== -1\"></ely-page-handling-detail-book></div>"
+    "<div id=page-handling-details ng-show=ctrl.showPreviews><ely-page-handling-detail-book ng-if=\"ctrl.selected.indexOf('Book') !== -1\"></ely-page-handling-detail-book><ely-page-handling-detail-youtube ng-if=\"ctrl.selected.indexOf('Youtube') !== -1\"></ely-page-handling-detail-youtube></div>"
+  );
+
+
+  $templateCache.put('app/modules/page/handlingPages/details/youtube/template.html',
+    "<div id=page-handling-details-youtube><div class=card-element><form name=commonForm><div class=description>Buch</div><div><md-input-container><label>Link zum Youtube Video</label><input name=inputYoutubeLink required aria-label=\"Link zum Youtube Video\" ng-model=ctrl.youtubeLink ng-change=ctrl.youtubeLinkChanged()><div ng-messages=commonForm.inputYoutubeLink.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=custom>Der Link muss folgende Sequenz enthalten: https://www.youtube.com/embed/ oder https://www.youtube.com/watch?v=\"</div></div></md-input-container><ely-iframe width=500 height=400 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.youtubeLinkFormatted ng-show=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></ely-iframe><img src=app/img/defaultVideo.png ng-hide=\"commonForm.inputYoutubeLink.$valid && commonForm.inputYoutubeLink.$dirty\"></div><div id=description-area><md-content><md-input-container><label>Beschreibung</label><textarea md-maxlength=10000 required name=inputDescriptionArea aria-label=Beschreibung ng-model=ctrl.description></textarea><div ng-messages=commonForm.inputDescriptionArea.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang!</div></div></md-input-container></md-content></div><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.uploadPage() ng-disabled=commonForm.$invalid>Seite erstellen</md-button></form></div></div>"
   );
 
 

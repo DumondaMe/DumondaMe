@@ -2,22 +2,23 @@
 
 var notifyObservables = function (observables, selectedState) {
     angular.forEach(observables, function (observable) {
-        observable.stateChanged(selectedState)
+        observable.stateChanged(selectedState);
     });
 };
 
 module.exports = [
     function () {
+        var ctrl = this;
         var selectedState;
         var previousState;
         var observables = [];
 
-        this.reset = function () {
+        ctrl.reset = function () {
             selectedState = 1;
             previousState = 1;
         };
 
-        this.goToPreviousState = function () {
+        ctrl.goToPreviousState = function () {
             var hasChanged = selectedState !== previousState;
             selectedState = previousState;
             if (hasChanged) {
@@ -25,7 +26,7 @@ module.exports = [
             }
         };
 
-        this.goToState = function (stateNumber) {
+        ctrl.goToState = function (stateNumber) {
             if (stateNumber !== selectedState) {
                 previousState = selectedState;
                 selectedState = stateNumber;
@@ -33,7 +34,7 @@ module.exports = [
             }
         };
 
-        this.registerStateChange = function (observable) {
+        ctrl.registerStateChange = function (observable) {
             observables.push(observable);
         };
 
