@@ -6,8 +6,8 @@ var isDateValid = function (moment, date) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'PageCategoryHandler', 'PageHandlingState', 'moment', 'PageHandlingUpload',
-            function ($scope, PageCategoryHandler, PageHandlingState, moment, PageHandlingUpload) {
+        return ['$scope', 'PageHandlingState', 'moment', 'UploadBookPage',
+            function ($scope, PageHandlingState, moment, UploadBookPage) {
                 var ctrl = this;
 
                 ctrl.pictureCommands = {};
@@ -17,7 +17,6 @@ module.exports = {
                 this.stateChanged = function (state) {
                     if (state === 3) {
                         ctrl.showPreviews = true;
-                        ctrl.selected = PageCategoryHandler.getSelected();
                     } else {
                         ctrl.showPreviews = false;
                     }
@@ -37,18 +36,7 @@ module.exports = {
                 };
 
                 this.uploadPage = function () {
-                    var json = {
-                        bookPage: {
-                            language: PageCategoryHandler.getLanguageCode(),
-                            title: PageCategoryHandler.getTitle(),
-                            description: ctrl.description,
-                            author: ctrl.authors
-                        }
-                    };
-                    if (ctrl.publishDate) {
-                        json.bookPage.publishDate = ctrl.publishDate;
-                    }
-                    PageHandlingUpload.uploadPage(json, null, 'Book', ctrl.pictureCommands.getImageBlob(), false);
+                    UploadBookPage.uploadPage(ctrl.description, ctrl.authors, ctrl.publishDate, ctrl.pictureCommands.getImageBlob());
                 };
             }];
     }
