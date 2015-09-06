@@ -6,21 +6,21 @@ module.exports = {
         return ['$state', 'PageHandlingState', 'PageCategoryHandler', 'SearchPage',
             function ($state, PageHandlingState, PageCategoryHandler, SearchPage) {
                 var ctrl = this;
-                this.showPreviews = false;
-                this.pageRequest = {};
+                ctrl.showPreviews = false;
+                ctrl.pageRequest = {};
 
-                this.continue = function () {
+                ctrl.continue = function () {
                     PageHandlingState.goToState(3);
                 };
 
-                this.abortHandlingPage = function () {
+                ctrl.abortHandlingPage = function () {
                     $state.go('page.overview');
                 };
 
-                this.SearchPage = SearchPage;
-                PageHandlingState.registerStateChange(this);
+                ctrl.SearchPage = SearchPage;
+                PageHandlingState.registerStateChange(ctrl);
 
-                this.stateChanged = function (state) {
+                ctrl.stateChanged = function (state) {
                     if (state === 2) {
                         ctrl.pageRequest.startRequested({
                             search: PageCategoryHandler.getTitle(),
@@ -33,7 +33,7 @@ module.exports = {
                     }
                 };
 
-                this.pageRequest.requestFinished = function (pages) {
+                ctrl.pageRequest.requestFinished = function (pages) {
                     if (pages.length > 0) {
                         ctrl.showPreviews = true;
                     } else {

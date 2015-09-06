@@ -9,9 +9,9 @@ module.exports = {
                 ctrl.showPreviews = false;
                 ctrl.selected = [];
 
-                PageHandlingState.registerStateChange(this);
+                PageHandlingState.registerStateChange(ctrl);
 
-                this.stateChanged = function (state) {
+                ctrl.stateChanged = function (state) {
                     if (state === 3) {
                         ctrl.showPreviews = true;
                         ctrl.selected = PageCategoryHandler.getSelected();

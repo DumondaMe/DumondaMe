@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
-    function (PageCategoryHandler, PageHandlingUpload) {
+module.exports = ['PageCategoryHandler', 'PageHandlingUpload', 'moment',
+    function (PageCategoryHandler, PageHandlingUpload, moment) {
         var ctrl = this;
 
-        ctrl.uploadPage = function (description, authors, publishDate, imageData) {
+        ctrl.uploadPage = function (description, authors, publishDate, imageData, pageId) {
             var json = {
                 bookPage: {
                     language: PageCategoryHandler.getLanguageCode(),
@@ -14,8 +14,11 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
                 }
             };
             if (publishDate) {
-                json.bookPage.publishDate = publishDate;
+                json.bookPage.publishDate = moment.utc(publishDate, 'l', moment.locale(), true).valueOf() / 1000;
             }
-            PageHandlingUpload.uploadPage(json, null, 'Book', imageData, false);
+            if (pageId) {
+                json.bookPage.pageId = pageId;
+            }
+            PageHandlingUpload.uploadPage(json, pageId, 'Book', imageData);
         };
     }];

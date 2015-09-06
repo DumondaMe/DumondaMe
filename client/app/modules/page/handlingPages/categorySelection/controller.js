@@ -8,44 +8,66 @@ var checkStateChanged = function (PageCategoryHandler, PageHandlingState) {
     }
 };
 
+var handleEditMode = function($stateParams, PageLoader, ctrl, Languages, PageCategoryHandler, PageHandlingState, PageEditModeService) {
+    if ($stateParams.pageId) {
+        PageLoader.load($stateParams.label, $stateParams.pageId).then(function () {
+            ctrl.categories = PageLoader.getCategories();
+            ctrl.title = PageLoader.getTitle();
+            ctrl.selectedLanguage = Languages.getLanguage(PageLoader.getLanguage());
+            PageCategoryHandler.setSelected(ctrl.categories);
+            PageCategoryHandler.setTitle(ctrl.title);
+            PageCategoryHandler.setLanguage(ctrl.selectedLanguage);
+            PageHandlingState.goToState(3);
+        });
+        ctrl.isEditMode = true;
+        ctrl.isSingleSelectionDisabled = true;
+        ctrl.isMultipleSelectionDisabled = true;
+        PageEditModeService.setEditMode();
+    }
+};
+
 module.exports = {
     directiveCtrl: function () {
-        return ['PageLeftNavElements', 'Languages', 'PageCategoryHandler', 'PageHandlingState',
-            function (PageLeftNavElements, Languages, PageCategoryHandler, PageHandlingState) {
-                this.categories = {};
-                this.isSingleSelectionDisabled = false;
-                this.isMultipleSelectionDisabled = false;
-                this.isFinishDisabled = true;
-                this.isLanguageDisabled = false;
-                this.languages = Languages.languages;
-                this.showContinueButton = true;
+        return ['$stateParams', 'PageLeftNavElements', 'Languages', 'PageCategoryHandler', 'PageHandlingState', 'PageLoader', 'PageEditModeService',
+            function ($stateParams, PageLeftNavElements, Languages, PageCategoryHandler, PageHandlingState, PageLoader, PageEditModeService) {
+                var ctrl = this;
+                ctrl.categories = {};
+                ctrl.isEditMode = false;
+                ctrl.isSingleSelectionDisabled = false;
+                ctrl.isMultipleSelectionDisabled = false;
+                ctrl.isFinishDisabled = true;
+                ctrl.isLanguageDisabled = false;
+                ctrl.languages = Languages.languages;
+                ctrl.showContinueButton = true;
 
-                this.categoriesSelectionChanged = function () {
-                    this.isFinishDisabled = !PageCategoryHandler.setSelected(this.categories);
+                handleEditMode($stateParams, PageLoader, ctrl, Languages, PageCategoryHandler, PageHandlingState, PageEditModeService);
+
+                ctrl.categoriesSelectionChanged = function () {
                     var isDisabled = PageCategoryHandler.categoriesDisabled();
-                    this.isSingleSelectionDisabled = isDisabled.single;
-                    this.isMultipleSelectionDisabled = isDisabled.multiple;
+                    ctrl.isFinishDisabled = !PageCategoryHandler.setSelected(ctrl.categories);
+                    ctrl.isSingleSelectionDisabled = isDisabled.single;
+                    ctrl.isMultipleSelectionDisabled = isDisabled.multiple;
                     checkStateChanged(PageCategoryHandler, PageHandlingState);
                 };
 
-                this.languageChanged = function () {
-                    this.isFinishDisabled = !PageCategoryHandler.setLanguage(this.selectedLanguage);
+                ctrl.languageChanged = function () {
+                    ctrl.isFinishDisabled = !PageCategoryHandler.setLanguage(ctrl.selectedLanguage);
                     checkStateChanged(PageCategoryHandler, PageHandlingState);
                 };
 
-                this.titleChanged = function () {
-                    this.isFinishDisabled = !PageCategoryHandler.setTitle(this.title);
+                ctrl.titleChanged = function () {
+                    ctrl.isFinishDisabled = !PageCategoryHandler.setTitle(ctrl.title);
                     checkStateChanged(PageCategoryHandler, PageHandlingState);
                 };
 
-                this.categorySelectFinished = function () {
-                    PageCategoryHandler.setPreviousState(this.title);
+                ctrl.categorySelectFinished = function () {
+                    PageCategoryHandler.setPreviousState(ctrl.title);
                     PageHandlingState.goToState(2);
                 };
 
-                PageHandlingState.registerStateChange(this);
-                this.stateChanged = function (state) {
-                    this.showContinueButton = state === 1;
+                PageHandlingState.registerStateChange(ctrl);
+                ctrl.stateChanged = function (state) {
+                    ctrl.showContinueButton = state === 1;
                 };
             }];
     }

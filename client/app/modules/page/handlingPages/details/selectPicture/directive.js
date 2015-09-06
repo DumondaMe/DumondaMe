@@ -9,7 +9,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                commands: '='
+                imageChanged: '=',
+                imagePreviewUrl: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',

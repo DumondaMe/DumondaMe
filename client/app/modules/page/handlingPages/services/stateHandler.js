@@ -37,5 +37,4 @@ module.exports = [
         ctrl.registerStateChange = function (observable) {
             observables.push(observable);
         };
-
     }];

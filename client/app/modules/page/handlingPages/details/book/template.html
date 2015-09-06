@@ -2,13 +2,14 @@
     <div class="card-element">
         <form name="commonForm">
             <div class="description">Buch</div>
-            <ely-page-handling-detail-select-picture commands="ctrl.pictureCommands"></ely-page-handling-detail-select-picture>
+            <ely-page-handling-detail-select-picture image-changed="ctrl.editDataHasChanged"
+                                                     image-preview-url="ctrl.imagePreview"></ely-page-handling-detail-select-picture>
             <div id="create-book-page">
                 <div>
                     <md-input-container>
                         <label>Autor</label>
                         <input md-maxlength="255" required="" name="inputAuthor" aria-label="Autor"
-                               ng-model="ctrl.authors">
+                               ng-model="ctrl.authors" ng-change="ctrl.editDataHasChanged()">
 
                         <div ng-messages="commonForm.inputAuthor.$error">
                             <div ng-message="required">Dieses Feld wird benötigt!</div>
@@ -31,7 +32,7 @@
                     <md-input-container>
                         <label>Beschreibung</label>
                         <textarea md-maxlength="10000" required="" name="inputDescriptionArea" aria-label="Beschreibung"
-                                  ng-model="ctrl.description"></textarea>
+                                  ng-model="ctrl.description" ng-change="ctrl.editDataHasChanged()"></textarea>
 
                         <div ng-messages="commonForm.inputDescriptionArea.$error">
                             <div ng-message="required">Dieses Feld wird benötigt!</div>
@@ -43,8 +44,15 @@
 
             <md-button class="md-primary md-raised ely-button"
                        ng-click="ctrl.uploadPage()"
-                       ng-disabled="commonForm.$invalid">
+                       ng-disabled="commonForm.$invalid"
+                       ng-hide="ctrl.isEditMode">
                 Seite erstellen
+            </md-button>
+            <md-button class="md-primary md-raised ely-button"
+                       ng-click="ctrl.uploadPage()"
+                       ng-disabled="commonForm.$invalid || !ctrl.editDataChanged"
+                       ng-show="ctrl.isEditMode">
+                Änderung speichern
             </md-button>
         </form>
     </div>

@@ -6,20 +6,21 @@
                 <div layout="row" layout-wrap="" class="row-select-category">
                     <div flex="33">
                         <md-checkbox class="md-primary" ng-model="ctrl.categories.Book"
-                                     aria-label="Buch" ng-disabled="ctrl.isSingleSelectionDisabled && !ctrl.categories.Book"
+                                     aria-label="Buch" ng-disabled="(ctrl.isSingleSelectionDisabled && !ctrl.categories.Book) || ctrl.isEditMode"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Buch
                         </md-checkbox>
                     </div>
                     <div flex="33">
                         <md-checkbox class="md-primary" ng-model="ctrl.categories.Youtube"
-                                     aria-label="Video (Youtube)" ng-disabled="ctrl.isSingleSelectionDisabled && !ctrl.categories.Youtube"
+                                     aria-label="Video (Youtube)"
+                                     ng-disabled="(ctrl.isSingleSelectionDisabled && !ctrl.categories.Youtube) || ctrl.isEditMode"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Video
                             (Youtube)
                         </md-checkbox>
                     </div>
                     <div flex="33">
                         <md-checkbox class="md-primary" ng-model="ctrl.categories.Movie"
-                                     aria-label="Film" ng-disabled="ctrl.isSingleSelectionDisabled && !ctrl.categories.Movie"
+                                     aria-label="Film" ng-disabled="(ctrl.isSingleSelectionDisabled && !ctrl.categories.Movie) || ctrl.isEditMode"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Film
                         </md-checkbox>
                     </div>
@@ -73,22 +74,23 @@
                     <button type="button" class="btn btn-default content-create-edit-category-element"
                             ng-model="ctrl.selectedLanguage" ng-change="ctrl.languageChanged()" name="inputLanguage" id="inputLanguageId"
                             bs-options="language.description as language.description for language in ctrl.languages"
-                            data-placeholder="Sprache der Seite auswählen" ng-class="ctrl.isLanguageDisabled"
-                            bs-select=""
-                            tabindex="0" aria-invalid="false">Sprache der Seite auswählen<span class="caret"></span></button>
+                            data-placeholder="Sprache der Seite auswählen" ng-class="ctrl.isLanguageDisabled" ng-disabled="ctrl.isEditMode"
+                            bs-select="" tabindex="0" aria-invalid="false">Sprache der Seite auswählen<span class="caret"></span></button>
                 </div>
                 <div layout="row">
                     <md-input-container id="inputTitleId">
                         <label>Titel</label>
-                        <input ng-model="ctrl.title" ng-change="ctrl.titleChanged()" name="categoryTitle" md-maxlength="100" required="">
+                        <input ng-model="ctrl.title" ng-change="ctrl.titleChanged()" name="categoryTitle" md-maxlength="100" required=""
+                               ng-disabled="ctrl.isEditMode">
 
-                        <div ng-messages="categoryForm.categoryTitle.$error">
+                        <div ng-messages="categoryForm.categoryTitle.$error" ng-hide="ctrl.isEditMode">
                             <div ng-message="required">Dieses Feld wird benötigt!</div>
                         </div>
                     </md-input-container>
                 </div>
                 <div layout="row" class="content-create-edit-category-element">
                     <md-button class="md-primary md-raised ely-button category-select-finished" ng-show="ctrl.showContinueButton"
+                               ng-hide="ctrl.isEditMode"
                                ng-click="ctrl.categorySelectFinished()" ng-disabled="ctrl.isFinishDisabled"
                                aria-hidden="false" aria-disabled="true" disabled="disabled"><span>Weiter</span></md-button>
                 </div>

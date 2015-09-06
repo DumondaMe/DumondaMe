@@ -82,6 +82,7 @@ describe('Integration Tests for getting book page detail', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
+                res.body.page.pageId.should.equals('0');
                 res.body.page.title.should.equals('bookPage1Title');
                 res.body.page.description.should.equals('bookPage1');
                 res.body.page.language.should.equals('de');

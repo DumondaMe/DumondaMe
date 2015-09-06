@@ -24,7 +24,7 @@
                     <md-input-container>
                         <label>Beschreibung</label>
                 <textarea md-maxlength="10000" required="" name="inputDescriptionArea" aria-label="Beschreibung"
-                          ng-model="ctrl.description"></textarea>
+                          ng-model="ctrl.description" ng-change="ctrl.descriptionChanged()"></textarea>
 
                         <div ng-messages="commonForm.inputDescriptionArea.$error">
                             <div ng-message="required">Dieses Feld wird benötigt!</div>
@@ -35,8 +35,15 @@
             </div>
             <md-button class="md-primary md-raised ely-button"
                        ng-click="ctrl.uploadPage()"
-                       ng-disabled="commonForm.$invalid">
+                       ng-disabled="commonForm.$invalid"
+                       ng-hide="ctrl.isEditMode">
                 Seite erstellen
+            </md-button>
+            <md-button class="md-primary md-raised ely-button"
+                       ng-click="ctrl.uploadPage()"
+                       ng-disabled="commonForm.$invalid || !ctrl.editDataChanged"
+                       ng-show="ctrl.isEditMode">
+                Änderung speichern
             </md-button>
         </form>
     </div>

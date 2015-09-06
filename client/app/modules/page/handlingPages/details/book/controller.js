@@ -6,23 +6,26 @@ var isDateValid = function (moment, date) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'PageHandlingState', 'moment', 'UploadBookPage',
-            function ($scope, PageHandlingState, moment, UploadBookPage) {
+        return ['$scope', 'PageEditModeService', 'PageLoader', 'moment', 'UploadBookPage', 'EditBookService',
+            function ($scope, PageEditModeService, PageLoader, moment, UploadBookPage, EditBookService) {
                 var ctrl = this;
 
-                ctrl.pictureCommands = {};
+                ctrl.imagePreview = 'app/img/default.jpg';
+                ctrl.isEditMode = PageEditModeService.isEditMode();
+                ctrl.editDataChanged = false;
 
-                PageHandlingState.registerStateChange(this);
-
-                this.stateChanged = function (state) {
-                    if (state === 3) {
-                        ctrl.showPreviews = true;
-                    } else {
-                        ctrl.showPreviews = false;
+                ctrl.editDataHasChanged = function (imagePreview, imageData) {
+                    if (imagePreview && imageData) {
+                        ctrl.imagePreview = imagePreview;
+                        ctrl.imagePreviewData = imageData;
                     }
+                    ctrl.editDataChanged = PageEditModeService.hasChanged(ctrl, EditBookService.getPreviousValues(),
+                        EditBookService.getElementsToCompare());
                 };
 
-                this.publishDateChanged = function () {
+                ctrl.publishDateChanged = function () {
+                    ctrl.editDataChanged = PageEditModeService.hasChanged(ctrl, EditBookService.getPreviousValues(),
+                        EditBookService.getElementsToCompare());
                     if (ctrl.publishDate) {
                         $scope.commonForm.inputPublicationDate.$setValidity('custom', isDateValid(moment, ctrl.publishDate));
                     } else if (!ctrl.publishDate || ctrl.publishDate.trim() === '') {
@@ -30,14 +33,18 @@ module.exports = {
                     }
                 };
 
-                this.getDateExample = function () {
+                ctrl.getDateExample = function () {
                     var unixTimestamp = 385974036;
                     return moment.unix(unixTimestamp).format('l');
                 };
 
-                this.uploadPage = function () {
-                    UploadBookPage.uploadPage(ctrl.description, ctrl.authors, ctrl.publishDate, ctrl.pictureCommands.getImageBlob());
+                ctrl.uploadPage = function () {
+                    UploadBookPage.uploadPage(ctrl.description, ctrl.authors, ctrl.publishDate, ctrl.imagePreviewData, ctrl.pageId);
                 };
+
+                if (ctrl.isEditMode) {
+                    angular.merge(ctrl, EditBookService.getValues());
+                }
             }];
     }
 };

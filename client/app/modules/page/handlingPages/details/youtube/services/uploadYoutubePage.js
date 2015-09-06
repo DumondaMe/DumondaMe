@@ -10,12 +10,10 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
                     language: PageCategoryHandler.getLanguageCode(),
                     title: PageCategoryHandler.getTitle(),
                     description: description,
-                    link: link
+                    link: link,
+                    pageId: pageId
                 }
             };
-            if (pageId) {
-                json.youtubePage.pageId = pageId;
-            }
-            PageHandlingUpload.uploadPage(json, null, 'Youtube', null, false);
+            PageHandlingUpload.uploadPage(json, pageId, 'Youtube', null);
         };
     }];

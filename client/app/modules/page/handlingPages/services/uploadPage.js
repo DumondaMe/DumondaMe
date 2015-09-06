@@ -21,6 +21,15 @@ var getApi = function (isEditMode) {
     return 'api/user/page/create';
 };
 
+/**
+ * Returns if the upload is in edit mode. When a page Id is present the upload will be as edit mode
+ * @param pageId
+ * @returns {boolean}
+ */
+var isEditMode = function (pageId) {
+    return pageId !== undefined || pageId !== null;
+};
+
 var recommendPage = function (ElyModal, $state, pageId, categoryType) {
     ElyModal.show({
         templateUrl: 'app/modules/recommendation/modalAddRecommendation.html',
@@ -40,13 +49,14 @@ module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
 
         var ctrl = this;
 
-        ctrl.uploadPage = function (json, pageId, categoryType, imageToUpload, isEditMode) {
-            var api = getApi(isEditMode);
+        ctrl.uploadPage = function (json, pageId, categoryType, imageToUpload) {
+            var api, editMode = isEditMode(pageId);
+            api = getApi(editMode);
 
             fileUpload.uploadFileAndJson(imageToUpload, json, api)
                 .success(function (resp) {
                     pageId = getPageId(pageId, resp);
-                    if (isEditMode) {
+                    if (editMode) {
                         goToPageDetail(pageId, $state, categoryType);
                     } else {
                         recommendPage(ElyModal, $state, pageId, categoryType);
