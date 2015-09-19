@@ -7,7 +7,7 @@ module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter'
         $scope.cacheUrl = UrlCache.cacheUrl;
 
         $scope.removeBlog = function (blogId) {
-            ElyModal.show()({
+            ElyModal.show({
                 scope: {
                     title: 'Blog löschen',
                     content: 'Willst Du diesen Blog wirklich löschen?'

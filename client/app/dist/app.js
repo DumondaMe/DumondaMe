@@ -348,7 +348,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/util/waitingScreen/waitingScreen.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-waiting-screen class=modal-dialog><div class=modal-content><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div></div>"
+    "<div id=modal-waiting-screen><div class=modal-body><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div>"
   );
 
 }]);
@@ -2448,7 +2448,7 @@ module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter'
         $scope.cacheUrl = UrlCache.cacheUrl;
 
         $scope.removeBlog = function (blogId) {
-            ElyModal.show()({
+            ElyModal.show({
                 scope: {
                     title: 'Blog löschen',
                     content: 'Willst Du diesen Blog wirklich löschen?'
@@ -6563,16 +6563,14 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
         var confirm, modalParams = {}, finished;
 
         modalParams.scope = $rootScope.$new(false);
-        modalParams.show = true;
-        modalParams.html = true;
+        modalParams.scope.title = loadingText;
         modalParams.templateUrl = 'app/modules/util/waitingScreen/waitingScreen.html';
-        modalParams.placement = 'center';
+        modalParams.animation = true;
         modalParams.backdrop = 'static';
-        modalParams.title = loadingText;
-        confirm = $modal(modalParams);
+        confirm = $modal.open(modalParams);
 
         finished = function () {
-            confirm.hide();
+            confirm.close();
         };
 
         return finished;

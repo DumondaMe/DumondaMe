@@ -6,16 +6,14 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
         var confirm, modalParams = {}, finished;
 
         modalParams.scope = $rootScope.$new(false);
-        modalParams.show = true;
-        modalParams.html = true;
+        modalParams.scope.title = loadingText;
         modalParams.templateUrl = 'app/modules/util/waitingScreen/waitingScreen.html';
-        modalParams.placement = 'center';
+        modalParams.animation = true;
         modalParams.backdrop = 'static';
-        modalParams.title = loadingText;
-        confirm = $modal(modalParams);
+        confirm = $modal.open(modalParams);
 
         finished = function () {
-            confirm.hide();
+            confirm.close();
         };
 
         return finished;
