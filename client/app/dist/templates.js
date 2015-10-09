@@ -201,6 +201,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/page/overview/template.html',
+    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=ctrl.SearchPage page-request-start=ctrl.searchPageRequest hide-preview=!ctrl.hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste Bücher deiner Kontakte\" service=ctrl.PopularPages page-request-start=ctrl.popularBooksContact hide-preview=ctrl.hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos deiner Kontakte\" service=ctrl.PopularPages page-request-start=ctrl.popularYoutubeContact hide-preview=ctrl.hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste Bücher\" service=ctrl.PopularPages page-request-start=ctrl.popularBooksAll hide-preview=ctrl.hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos\" service=ctrl.PopularPages page-request-start=ctrl.popularYoutubeAll hide-preview=ctrl.hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=ctrl.query get-query-suggestion=ctrl.getUserSuggestion get-query=ctrl.searchPage></ely-search-box></div></div></div></div>"
+  );
+
+
   $templateCache.put('app/modules/page/pageDetail/book.html',
     "<div id=ely-book-page><div class=header><div class=book-image><img ng-src={{pageDetail.page.titleUrl}}></div><div class=header-content><div class=book-title>{{pageDetail.page.title}}</div><div class=authors>von {{pageDetail.page.author.name}}<div class=author ng-repeat=\"author in pageDetail.page.author\">{{author.name}}</div></div><div class=header-commands ng-controller=AddRemoveRecommendationCtrl><md-button class=\"md-raised md-primary ely-button\" ng-click=\"addNewRecommendation(pageDetail, pageId, pageDetail.page.title)\" ng-hide=pageDetail.recommendation.user>Bewerten</md-button></div><div ng-include=\"'app/modules/page/pageDetail/common/ratingOverview.html'\"></div></div></div><div ng-include=\"'app/modules/page/pageDetail/common/commonBody.html'\"></div></div>"
   );
@@ -241,11 +246,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/pageOverview.html',
-    "<div id=content-page-overview><div id=centerCol><div id=inner-centerCol><ely-page-preview-container video-width=160 video-height=255 title=Suchergebnisse service=SearchPage page-request-start=searchPageRequest hide-preview=!hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste Bücher deiner Kontakte\" service=PopularPages page-request-start=popularBooksContact hide-preview=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos deiner Kontakte\" service=PopularPages page-request-start=popularYoutubeContact hide-preview=hide></ely-page-preview-container><ely-page-preview-container title=\"Beliebteste Bücher\" service=PopularPages page-request-start=popularBooksAll hide-preview=hide></ely-page-preview-container><ely-page-preview-container video-width=160 video-height=255 title=\"Beliebteste Youtube Videos\" service=PopularPages page-request-start=popularYoutubeAll hide-preview=hide></ely-page-preview-container><div id=search-box-container><ely-search-box description=\"Suche nach Seite...\" query=query get-query-suggestion=getUserSuggestion get-query=searchPage></ely-search-box></div></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/page/pagePreview/commentDialog.html',
     "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-comment-dialog class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body><img ng-src={{contact.url}} class=\"modal-body-profile-img img-circle\"><div class=modal-body-user-info><div class=modal-body-name>{{contact.name}}</div><ely-star-rating is-readonly=true is-x-small=true class=modal-body-rating number-of-selected-stars-readonly=contact.rating></ely-star-rating></div><div class=modal-body-comment>{{contact.comment}}</div></div><div class=modal-footer><button type=button class=\"btn btn-default\" ng-click=confirm()>Ok</button></div></div></div></div>"
   );
@@ -261,7 +261,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/page/userPageAdministration/userPageAdministration.html',
+  $templateCache.put('app/modules/page/userAdministrator/template.html',
     "<div id=content-page-user-administration><div id=centerCol><div id=inner-centerCol ng-controller=GetPageAndExtendCtrl><div ng-show=\"noSearchResult && !noPage\"><div class=website-structure-header><h1 class=website-structure-title>Keine Suchergebnisse</h1></div><div><b>{{query}}</b> liefert kein Suchresultat</div></div><div ng-show=noPage><div class=website-structure-header><h1 class=website-structure-title>Du hast noch keine eigene Seite erstellt</h1></div><div>Um Seiten zu bewerten gehe zu <a ui-sref=page.create>Seite erstellen</a></div></div><div class=page-preview-expand-container ng-hide=noSearchResult><div ng-repeat=\"pagePreview in pagePreviews.pages\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width=160 video-height=255></ely-page-preview></div></div><button type=button class=\"btn btn-default page-user-recommendation-expand\" ng-click=getNextPages() ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr</button><div class=page-user-recommendation-expand></div><div id=search-box-container><ely-search-box description=\"Suche nach Seite von welcher Du Administrator bist...\" query=query get-query-suggestion=searchSuggestionPage get-query=searchPage></ely-search-box></div></div></div></div>"
   );
 

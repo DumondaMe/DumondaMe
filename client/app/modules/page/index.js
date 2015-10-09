@@ -4,9 +4,7 @@ var app = angular.module('elyoosApp');
 
 app.controller('UserRecommendationCtrl', require('./userRecommendation/userRecommendationCtrl'));
 app.controller('GetPageAndExtendCtrl', require('./userRecommendation/getPageAndExtendCtrl'));
-app.controller('UserPageAdministrationCtrl', require('./userPageAdministration/userPageAdministrationCtrl'));
 
-app.controller('PageOverviewCtrl', require('./pageOverviewCtrl'));
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
 app.controller('PageDetailEducationCtrl', require('./pageDetail/pageDetailEducationCtrl'));
 app.controller('pageHeaderActivityPreviewCtrl', require('./pageDetail/pageHeaderActivityPreviewCtrl'));
@@ -38,8 +36,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/overview',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/pageOverview.html',
-                    controller: 'PageOverviewCtrl'
+                    template: '<ely-page-overview></ely-page-overview>'
                 }
             },
             hasNavigation: true
@@ -86,8 +83,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/user/admin',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/userPageAdministration/userPageAdministration.html',
-                    controller: 'UserPageAdministrationCtrl'
+                    template: '<ely-page-user-administrator></ely-page-user-administrator>'
                 }
             },
             hasNavigation: true
