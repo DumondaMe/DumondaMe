@@ -2,12 +2,6 @@
 
 var app = angular.module('elyoosApp');
 
-app.controller('PageCreateCtrl', require('./createEditPage/pageCreateCtrl'));
-app.controller('PageEditCtrl', require('./createEditPage/pageEditCtrl'));
-app.controller('PageSelectCategoryCtrl', require('./createEditPage/selectCategoryCtrl'));
-app.controller('PageCommonSectionCtrl', require('./createEditPage/commonSectionCtrl'));
-app.controller('PageCommonBookCtrl', require('./createEditPage/commonBookCtrl'));
-app.controller('PageCommonYoutubeCtrl', require('./createEditPage/commonYoutubeCtrl'));
 app.controller('UserRecommendationCtrl', require('./userRecommendation/userRecommendationCtrl'));
 app.controller('GetPageAndExtendCtrl', require('./userRecommendation/getPageAndExtendCtrl'));
 app.controller('UserPageAdministrationCtrl', require('./userPageAdministration/userPageAdministrationCtrl'));
