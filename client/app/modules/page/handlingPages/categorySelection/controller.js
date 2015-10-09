@@ -43,8 +43,9 @@ module.exports = {
                 handleEditMode($stateParams, PageLoader, ctrl, Languages, PageCategoryHandler, PageHandlingState, PageEditModeService);
 
                 ctrl.categoriesSelectionChanged = function () {
-                    var isDisabled = PageCategoryHandler.categoriesDisabled();
+                    var isDisabled;
                     ctrl.isFinishDisabled = !PageCategoryHandler.setSelected(ctrl.categories);
+                    isDisabled = PageCategoryHandler.categoriesDisabled();
                     ctrl.isSingleSelectionDisabled = isDisabled.single;
                     ctrl.isMultipleSelectionDisabled = isDisabled.multiple;
                     checkStateChanged(PageCategoryHandler, PageHandlingState);

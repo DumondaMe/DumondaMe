@@ -1,9 +1,9 @@
 <div id="page-category-selection">
     <div class="card-element">
         <div class="description" aria-hidden="false">Kategorie</div>
-        <div id="content" layout="column">
+        <div id="content">
             <form name="categoryForm">
-                <div layout="row" layout-wrap="" class="row-select-category">
+                <div layout="row" class="row-select-category" layout-wrap>
                     <div flex="33">
                         <md-checkbox class="md-primary" ng-model="ctrl.categories.Book"
                                      aria-label="Buch" ng-disabled="(ctrl.isSingleSelectionDisabled && !ctrl.categories.Book) || ctrl.isEditMode"
@@ -18,40 +18,40 @@
                             (Youtube)
                         </md-checkbox>
                     </div>
-                    <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.Movie"
+                    <!--<div flex="33">
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.Movie"
                                      aria-label="Film" ng-disabled="(ctrl.isSingleSelectionDisabled && !ctrl.categories.Movie) || ctrl.isEditMode"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Film
                         </md-checkbox>
-                    </div>
+                    </div>-->
                 </div>
-                <div layout="row" layout-wrap="" class="row-select-category">
-                    <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.School"
+                <!--<div layout="row" layout-wrap class="row-select-category">
+                    <div flex="50">
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.School"
                                      aria-label="Schule" ng-disabled="ctrl.isMultipleSelectionDisabled"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Schule
                         </md-checkbox>
                     </div>
-                    <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.Seminar"
+                    <div flex="50">
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.Seminar"
                                      aria-label="Seminar" ng-disabled="ctrl.isMultipleSelectionDisabled"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Seminar
                         </md-checkbox>
                     </div>
-                    <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.Practice"
+                    <div flex="50">
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.Practice"
                                      aria-label="Praxis" ng-disabled="ctrl.isMultipleSelectionDisabled"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Praxis
                         </md-checkbox>
                     </div>
                     <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.Shop"
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.Shop"
                                      aria-label="Shop" ng-disabled="ctrl.isMultipleSelectionDisabled"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Shop
                         </md-checkbox>
                     </div>
                     <div flex="33">
-                        <md-checkbox class="md-primary" ng-model="ctrl.categories.Events"
+                        <md-checkbox class="md-primary md-align-top-left" ng-model="ctrl.categories.Events"
                                      aria-label="Events" ng-disabled="ctrl.isMultipleSelectionDisabled"
                                      ng-change="ctrl.categoriesSelectionChanged()"> Events
                         </md-checkbox>
@@ -69,7 +69,7 @@
                                      ng-change="ctrl.categoriesSelectionChanged()"> Reisen
                         </md-checkbox>
                     </div>
-                </div>
+                </div>-->
                 <div layout="row">
                     <button type="button" class="btn btn-default content-create-edit-category-element"
                             ng-model="ctrl.selectedLanguage" ng-change="ctrl.languageChanged()" name="inputLanguage" id="inputLanguageId"

@@ -73,7 +73,6 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'PageCategories', function ($scope, PageCategories) {
             var serviceParameter = {}, ctrl = this;
-            ctrl.notRequestInitService = ctrl.notRequestInitService === 'true';
             resetPages(ctrl);
 
             if (!ctrl.containerMaxWidth) {

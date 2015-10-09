@@ -27,7 +27,7 @@ var getApi = function (isEditMode) {
  * @returns {boolean}
  */
 var isEditMode = function (pageId) {
-    return pageId !== undefined || pageId !== null;
+    return pageId !== undefined && pageId !== null;
 };
 
 var recommendPage = function (ElyModal, $state, pageId, categoryType) {
