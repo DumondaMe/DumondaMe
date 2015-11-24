@@ -2,7 +2,6 @@
 
 var app = angular.module('elyoosApp');
 
-app.controller('UserRecommendationCtrl', require('./userRecommendation/userRecommendationCtrl'));
 app.controller('GetPageAndExtendCtrl', require('./userRecommendation/getPageAndExtendCtrl'));
 
 app.controller('PageDetailCtrl', require('./pageDetail/pageDetailCtrl'));
@@ -73,8 +72,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/user/recommendation',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/userRecommendation/userRecommendation.html',
-                    controller: 'UserRecommendationCtrl'
+                    template: '<ely-page-user-recommendation></ely-page-user-recommendation>'
                 }
             },
             hasNavigation: true

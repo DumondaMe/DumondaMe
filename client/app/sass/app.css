@@ -1745,16 +1745,16 @@ h2.website-structure-title {
 .page-preview-expand-container {
   height: initial; }
 
-#modal-comment-dialog .modal-content .modal-body .modal-body-profile-img {
+#modal-comment-dialog .modal-body .modal-body-profile-img {
   display: inline-block;
   vertical-align: top;
   width: 35px;
   height: 35px;
   margin-right: 10px;
   margin-top: 3px; }
-#modal-comment-dialog .modal-content .modal-body .modal-body-user-info {
+#modal-comment-dialog .modal-body .modal-body-user-info {
   display: inline-block; }
-  #modal-comment-dialog .modal-content .modal-body .modal-body-user-info .modal-body-name {
+  #modal-comment-dialog .modal-body .modal-body-user-info .modal-body-name {
     font-size: 14px;
     font-weight: bold;
     color: #009688;
@@ -1762,7 +1762,7 @@ h2.website-structure-title {
     overflow-y: hidden;
     text-overflow: ellipsis;
     max-height: 40px; }
-#modal-comment-dialog .modal-content .modal-body .modal-body-comment {
+#modal-comment-dialog .modal-body .modal-body-comment {
   margin-top: 10px;
   word-break: break-all; }
 

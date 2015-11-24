@@ -11,8 +11,9 @@
             <ely-star-rating is-readonly="true" is-small="true"
                              number-of-selected-stars-readonly="pageDetail.recommendation.user.rating"></ely-star-rating>
             <div id="user-recommendation"> bewertet am {{pageDetail.recommendation.user.created}}</div>
-            <md-button class="md-primary md-raised ely-button user-recommendation-remove"
-                       ng-click="removeRecommendation(pageDetail, pageId, label)">Bewertung entfernen
+            <md-button class="md-fab md-mini md-primary user-recommendation-remove" aria-label="Bewertung entfernen"
+                       ng-click="removeRecommendation(pageDetail, pageId, label)">
+                <md-icon md-svg-icon="system:delete" aria-label=""></md-icon>
             </md-button>
             <div id="user-recommendation-comment"> {{pageDetail.recommendation.user.comment}}</div>
         </div>

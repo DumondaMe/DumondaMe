@@ -89,34 +89,32 @@
 }
 
 #modal-comment-dialog {
-  .modal-content {
-    .modal-body {
+  .modal-body {
 
-      .modal-body-profile-img {
-        display: inline-block;
-        vertical-align: top;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-        margin-top: 3px;
+    .modal-body-profile-img {
+      display: inline-block;
+      vertical-align: top;
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+      margin-top: 3px;
+    }
+    .modal-body-user-info {
+      display: inline-block;
+      .modal-body-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: $primary-color;
+        cursor: pointer;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        max-height: 40px;
       }
-      .modal-body-user-info {
-        display: inline-block;
-        .modal-body-name {
-          font-size: 14px;
-          font-weight: bold;
-          color: $primary-color;
-          cursor: pointer;
-          overflow-y: hidden;
-          text-overflow: ellipsis;
-          max-height: 40px;
-        }
-      }
+    }
 
-      .modal-body-comment {
-        margin-top: 10px;
-        word-break: break-all;
-      }
+    .modal-body-comment {
+      margin-top: 10px;
+      word-break: break-all;
     }
   }
 }
