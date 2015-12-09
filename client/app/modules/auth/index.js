@@ -2,7 +2,6 @@
 
 var app = angular.module('elyoosApp');
 
-app.controller('LoginCtrl', require('./loginCtrl'));
 app.controller('RegisterCtrl', require('./registerCtrl'));
 
 app.factory('Register', require('./register'));
@@ -16,8 +15,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/login',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/auth/login.html',
-                    controller: 'LoginCtrl'
+                    template: '<ely-login></ely-login>'
                 }
             },
             isPublic: true
