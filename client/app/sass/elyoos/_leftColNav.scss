@@ -45,3 +45,36 @@
     }
   }
 }
+
+.sidnav-header {
+  height: 65px;
+}
+
+.ely-divider {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.left-nav-content {
+  //padding-top: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+  .nav-element {
+    cursor: pointer;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    .icon{
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      margin-right: 32px;
+    }
+    .description {
+      display: inline-block;
+    }
+  }
+  .nav-element:focus {
+    outline: 0;
+  }
+}

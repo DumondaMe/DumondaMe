@@ -1,16 +1,26 @@
-<div id="leftCol">
-    <div class="left-nav-element-container" ng-repeat="section in sectionsDisply" ng-style="containerStyle">
-        <div class="left-nav-element" ng-style="isFirst($first, section.color)" ng-click="goToState(section.sref)">
-            <div class="left-nav-image-container" ng-style="{'background-color': section.color }">
-                <!--<img ng-src="{{section.url}}" class="left-nav-image">-->
-                <md-icon md-svg-icon="nav:{{section.url}}" class="left-nav-image" aria-label=""></md-icon>
+<div>
+    <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2">
+        <div class="sidnav-header"></div>
+        <md-content class="left-nav-content">
+            <div class="nav-element">
+                <md-icon md-svg-icon="nav:contact" class="icon"></md-icon>
+                <div class="description md-body-2">Kontakte</div>
             </div>
-            <div class="left-nav-description-container" ng-mouseenter="containerStyle={'background-color': section.color, 'color': '#fff' }"
-                 ng-mouseleave="containerStyle={}">
-                <div class="left-nav-description">
-                    {{section.description}}
-                </div>
+            <div class="nav-element">
+                <md-icon md-svg-icon="nav:thread" class="icon"></md-icon>
+                <div class="description md-body-2">Nachrichten</div>
             </div>
-        </div>
-    </div>
+        </md-content>
+        <md-divider class="ely-divider"></md-divider>
+        <md-content class="left-nav-content">
+            <div class="nav-element">
+                <md-icon md-svg-icon="nav:profile" class="icon"></md-icon>
+                <div class="description md-body-2">Profil</div>
+            </div>
+            <div class="nav-element" ng-click="ctrl.logout()">
+                <md-icon md-svg-icon="nav:logout" class="icon"></md-icon>
+                <div class="description md-body-2">Logout</div>
+            </div>
+        </md-content>
+    </md-sidenav>
 </div>

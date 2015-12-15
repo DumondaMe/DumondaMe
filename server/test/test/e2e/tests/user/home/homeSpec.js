@@ -457,4 +457,120 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.user.profileUrl.should.equals('profileImage/1/profilePreview.jpg');
             });
     });
+
+    it('Getting user blogs, contact blogs and recommendations', function () {
+
+        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 506, blogId: '4'})").end().getCommand());
+
+        //Recommendations
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+
+        //Privacy settings
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1']")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['3']")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .set("u", {lastLogin: startTime + 100})
+            .end().getCommand());
+
+        //Contact connections
+        commands.push(db.cypher().match("(b:User {userId: '1'}), (a:User {userId: '2'})")
+            .createUnique("(b)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy)-[:IS_CONTACT {contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(b:User {userId: '1'}), (a:User {userId: '3'})")
+            .createUnique("(b)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy)-[:IS_CONTACT {contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(b:User {userId: '2'}), (a:User {userId: '1'})")
+            .createUnique("(b)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy)-[:IS_CONTACT {contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+        //Blogs
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})-[:HAS_PRIVACY {type: 'Freund'}]->(privacy:Privacy)")
+            .createUnique("(b)-[:WRITTEN]->(a)-[:IS_VISIBLE]->(privacy)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:User {userId: '2'}) ")
+            .createUnique("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '3'}), (b:User {userId: '1'}) ")
+            .createUnique("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '3'}) ")
+            .createUnique("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10,
+                    timestamp: 500
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(6);
+                res.body.pinwall[0].pinwallType.should.equals('Blog');
+                res.body.pinwall[0].blogId.should.equals('4');
+                res.body.pinwall[0].name.should.equals('user Meier3');
+                res.body.pinwall[0].title.should.equals('blogTitle4');
+                res.body.pinwall[0].created.should.equals(506);
+                res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+                should.not.exist(res.body.pinwall[0].url);
+                should.not.exist(res.body.pinwall[0].urlFull);
+                res.body.pinwall[0].text.should.equals('blogText4');
+                res.body.pinwall[0].isAdmin.should.equals(false);
+
+                res.body.pinwall[1].pinwallType.should.equals('Blog');
+                res.body.pinwall[1].blogId.should.equals('3');
+                res.body.pinwall[1].name.should.equals('user Meier');
+                res.body.pinwall[1].title.should.equals('blogTitle3');
+                res.body.pinwall[1].created.should.equals(505);
+                res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                should.not.exist(res.body.pinwall[1].url);
+                should.not.exist(res.body.pinwall[1].urlFull);
+                res.body.pinwall[1].text.should.equals('blogText3');
+                res.body.pinwall[1].isAdmin.should.equals(true);
+
+                res.body.pinwall[2].pinwallType.should.equals('Recommendation');
+                res.body.pinwall[2].label.should.equals('Book');
+                res.body.pinwall[2].pageId.should.equals('1');
+                res.body.pinwall[2].name.should.equals('user Meier2');
+                res.body.pinwall[2].title.should.equals('bookPage2Title');
+                res.body.pinwall[2].rating.should.equals(4);
+                res.body.pinwall[2].ratingAllContacts.should.equals(4);
+                res.body.pinwall[2].numberOfRatingsByContacts.should.equals(4);
+                res.body.pinwall[2].created.should.equals(504);
+                res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                res.body.pinwall[2].url.should.equals('pages/1/pagePreview.jpg');
+                res.body.pinwall[2].comment.should.equals('irgendwas2');
+                res.body.pinwall[2].description.should.equals('bookPage2');
+            });
+    });
 });

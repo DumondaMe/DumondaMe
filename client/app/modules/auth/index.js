@@ -11,7 +11,7 @@ app.service('Auth', require('./auth'));
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
-        .state('public.login', {
+        .state('login', {
             url: '/login',
             views: {
                 'content@': {

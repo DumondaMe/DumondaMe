@@ -5,20 +5,18 @@
     <meta charset="utf-8">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <title>Elyoos</title>
-    <!--<link rel="stylesheet" href="app/sass/bootstrap.min.css"/>-->
-    <link href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc6/angular-material.min.css" rel="stylesheet" type='text/css'>
+    <link href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" rel="stylesheet" type='text/css'>
     <link href="app/sass/app.css" rel="stylesheet" type="text/css"/>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,400italic,500,700,300' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="app/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 <div id="viewport">
-    <div ng-include="'app/modules/navigation/leftNavCol.html'" ng-show="$state.current.hasNavigation"></div>
-    <div ng-include="'app/modules/navigation/loggedInHeader.html'" ng-hide="$state.current.isPublic"></div>
-    <div id="content" ng-cloak>
-        <div ui-view="content" id="content-container" ng-class="{'full-screen': fullScreen.show}"></div>
-    </div>
-    <div ng-include="fullScreen.template" ng-if="fullScreen.show"></div>
+    <!--<div ng-include="'app/modules/navigation/leftNavCol.html'" ng-show="$state.current.hasNavigation"></div>
+    <div ng-include="'app/modules/navigation/loggedInHeader.html'" ng-hide="$state.current.isPublic"></div>-->
+    <ely-toolbar id="toolbar-header"></ely-toolbar>
+    <ely-left-nav></ely-left-nav>
+    <div id="content" ui-view="content" ng-cloak></div>
+    <!--<div ng-include="fullScreen.template" ng-if="fullScreen.show"></div>-->
 </div>
 
 <script src="app/lib/jquery/jquery.min.js"></script>
@@ -34,7 +32,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
 
 <!--Angular Material Design-->
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc6/angular-material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
 <script src="app/dist/app.js" charset="UTF-8"></script>
 

@@ -1,8 +1,8 @@
 angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('app/modules/auth/login.html',
-    "<div id=loginform><div class=card-element><div class=description>Login</div><form name=loginForm><md-input-container class=input-element><label>Email</label><input required type=email name=username id=id_username aria-label=Email autofocus ng-model=loginuser.email><div ng-messages=loginForm.username.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div><div ng-message=email>Keine gültige E-Mail Adresse!</div></div></md-input-container><md-input-container class=input-element><label>Passwort</label><input type=password required name=password id=id_password aria-label=Passwort autofocus ng-model=loginuser.password><div ng-messages=loginForm.password.$error><div ng-message=required>Dieses Feld wird ben&ouml;tigt!</div></div></md-input-container><md-button id=login type=submit class=\"md-primary md-raised ely-button\" ng-click=login() ng-disabled=loginForm.$invalid>Anmelden</md-button></form></div><div id=error-message class=\"alert alert-danger\" role=alert ng-if=error>{{error}}</div></div>"
+  $templateCache.put('app/modules/auth/checkLoginState/template.html',
+    "<div id=check-login layout=column layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=100></md-progress-circular></div>"
   );
 
 
@@ -146,8 +146,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/leftNav/element/template.html',
+    "<div class=nav-element ng-click=ctrl.goToState()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div id=leftCol><div class=left-nav-element-container ng-repeat=\"section in sectionsDisply\" ng-style=containerStyle><div class=left-nav-element ng-style=\"isFirst($first, section.color)\" ng-click=goToState(section.sref)><div class=left-nav-image-container ng-style=\"{'background-color': section.color }\"><md-icon md-svg-icon=nav:{{section.url}} class=left-nav-image aria-label=\"\"></md-icon></div><div class=left-nav-description-container ng-mouseenter=\"containerStyle={'background-color': section.color, 'color': '#fff' }\" ng-mouseleave=\"containerStyle={}\"><div class=left-nav-description>{{section.description}}</div></div></div></div></div>"
+    "<div><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\"><div class=sidnav-header></div><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:contact class=icon></md-icon><div class=\"description md-body-2\">Kontakte</div></div><div class=nav-element><md-icon md-svg-icon=nav:thread class=icon></md-icon><div class=\"description md-body-2\">Nachrichten</div></div></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:profile class=icon></md-icon><div class=\"description md-body-2\">Profil</div></div><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></md-sidenav></div>"
   );
 
 
@@ -168,6 +173,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/navigation/publicHeader.html',
     "<div id=public-header></div>"
+  );
+
+
+  $templateCache.put('app/modules/navigation/toolbar/template.html',
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div></md-toolbar></div>"
   );
 
 

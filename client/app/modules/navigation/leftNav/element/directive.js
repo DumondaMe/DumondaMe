@@ -8,12 +8,12 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                sections: '='
+                state: '@'
             },
-            templateUrl: 'app/modules/navigation/leftNav/template.html',
+            templateUrl: 'app/modules/navigation/leftNav/element/template.html',
             controllerAs: 'ctrl',
             controller: controller.directiveCtrl()
         };
     }],
-    name: 'elyLeftNav'
+    name: 'elyLeftNavElement'
 };

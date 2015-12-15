@@ -2,8 +2,7 @@
 
 var user = require('./../../../models/user/user'),
     auth = require('./../../../lib/auth'),
-    logger = requireLogger.getLogger(__filename),
-    exceptions = require('./../../../lib/error/exceptions');
+    logger = requireLogger.getLogger(__filename);
 
 module.exports = function (router) {
 

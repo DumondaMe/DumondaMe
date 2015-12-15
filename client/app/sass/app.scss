@@ -15,49 +15,27 @@
 @import 'elyoos/_index';
 @import 'elyoos/_leftColNav';
 
-html {
+body, html {
   background-color: $background-normal;
-  height: 100%;
-}
-
-body {
-  background-color: $background-normal;
-  font-family: Roboto, Arial, sans-serif;
-  height: auto;
   height: 100%;
 }
 
 #viewport {
-  width: 100%;
-  height: 100%;
+  padding-top: 64px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #content {
-  display: block;
-  height: 100%;
-
-  #content-container {
-    display: block;
-    height: 100%;
-  }
-  #content-container.full-screen {
-    overflow-y: hidden;
-  }
-}
-
-textarea {
-  opacity: 0.99;
-}
-
-.innerCol {
-  margin-top: 10px;
-  padding-right: 10px;
   height: 100%;
 }
 
 #no-javascript {
   position: fixed;
-  top: 20px;
+  top: 100px;
   left: 10px;
   font-size: 16px;
   font-weight: bold;

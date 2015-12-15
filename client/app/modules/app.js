@@ -57,27 +57,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                     content: {
                         templateUrl: 'app/modules/home/home.html',
                         controller: 'HomeCtrl'
-                    },
-                    header: {
-                        templateUrl: 'app/modules/navigation/loggedInHeader.html',
-                        controller: 'LoggedInHeaderCtrl'
                     }
-                },
-                hasNavigation: true
+                }
             })
-            .state('public', {
-                abstract: true,
+            .state('checkLoginState', {
+                url: '/{next}',
                 views: {
-                    header: {templateUrl: 'app/modules/navigation/publicHeader.html'}
+                    content: {
+                        template: '<ely-check-login-state></ely-check-login-state>'
+                    }
                 }
             });
 
         $locationProvider.html5Mode(true);
 
-        $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
+        $httpProvider.interceptors.push(['$q', '$location', 'loginStateHandler', function ($q, $location, loginStateHandler) {
             return {
                 'responseError': function (response) {
                     if (response.status === 401 || response.status === 403) {
+                        loginStateHandler.logoutEvent();
                         $location.path('/login');
                     }
                     return $q.reject(response);
@@ -87,26 +85,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
-    }]).run(['$rootScope', '$state', '$window', 'Auth', function ($rootScope, $state, $window, Auth) {
-    $rootScope.$state = $state;
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-        if (!Auth.authorize(toState.isPublic)) {
+    }]).run(['$rootScope', '$state', function ($rootScope, $state) {
+    var firstRun = true;
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+        if (firstRun) {
+            firstRun = false;
             event.preventDefault();
-            $state.go('login');
-        } else if ($rootScope.fullScreen.show) {
-            event.preventDefault();
-            $rootScope.fullScreen.show = false;
-            $state.go(fromState);
-        } else if (!toState.isPublic) {
-            if ($rootScope.isLoggedIn) {
-                $rootScope.isLoggedIn();
-            }
+            $state.go('checkLoginState', {next: toState.name}, {location: false});
         }
     });
-
-    //Settings for full screen detail view
-    $rootScope.fullScreen = {
-        show: false,
-        template: ''
-    };
 }]);

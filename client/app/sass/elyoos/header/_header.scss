@@ -1,39 +1,6 @@
-#public-header {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 60px;
-  padding-right: 30px;
+#toolbar-header {
+  position: relative;
   width: 100%;
+  margin-top: -64px;
   z-index: 100;
-  background-color: $primary-color-light;
-
-  .leftHeaderNavElement {
-    float: right;
-    padding-top: 10px;
-
-    img {
-      cursor: pointer;
-      float: left;
-      height: 40px;
-      width: 40px;
-      padding: 5px;
-      margin-left: 10px;
-    }
-
-    #header-user-name {
-      float: left;
-      font-weight: bold;
-      color: black;
-      height: 40px;
-      padding-top: 10px;
-      margin-left: 5px;
-      font-size: 14px;
-      vertical-align: middle;
-      max-width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
 }

@@ -2,43 +2,16 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
+        return ['Auth', '$state', '$mdSidenav', function (Auth, $state, $mdSidenav) {
+            var ctrl = this;
 
-            $scope.originalSection = [];
-
-            $scope.setSections = function (selectedState) {
-                $scope.sectionsDisply = [];
-                angular.forEach($scope.originalSection, function (section) {
-                    if(section.sref === selectedState) {
-                        $scope.sectionsDisply.unshift(section);
-                    } else if(!section.onlyShowSelected){
-                        $scope.sectionsDisply.push(section);
-                    }
+            ctrl.logout = function () {
+                Auth.logout().then(function () {
+                    $mdSidenav("left").close();
+                    $state.go('login');
                 });
             };
 
-            $scope.goToState = function (selectedState) {
-                $scope.setSections(selectedState);
-                $state.go(selectedState);
-            };
-
-            $scope.$watch('sections', function (newSection) {
-                if (newSection && !angular.equals(newSection, $scope.originalSection)) {
-                    angular.copy(newSection, $scope.originalSection);
-                    $scope.setSections($state.current.name);
-                }
-            });
-
-            $scope.isFirst = function(first, color) {
-                if(first) {
-                    return {'background-color': color, 'color': '#fff' };
-                }
-                return {};
-            };
-
-            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                $scope.setSections(toState.name);
-            });
         }];
     }
 };
