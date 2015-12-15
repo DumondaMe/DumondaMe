@@ -9,6 +9,8 @@ require('./lib/jsonValidation');
 var Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
+Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
+
 var kraken = require('kraken-js');
 var app = require('express')();
 var options = require('./lib/spec')(app);
