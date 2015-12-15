@@ -178,7 +178,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button><span flex></span></div></md-toolbar></div>"
   );
 
 
@@ -3507,23 +3507,37 @@ module.exports = ['$resource', function ($resource) {
 },{}],110:[function(require,module,exports){
 'use strict';
 
-module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', function (Auth, $mdSidenav, loginStateHandler) {
-    var ctrl = this;
-    loginStateHandler.register(ctrl);
-    ctrl.isLoggedIn = false;
-
-    ctrl.openLeftNav = function () {
-        $mdSidenav("left").toggle();
-    };
-
-    ctrl.loginEvent = function () {
-        ctrl.isLoggedIn = true;
-    };
-
-    ctrl.logoutEvent = function () {
+module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', 'UserInfo', '$interval', 'Modification',
+    function (Auth, $mdSidenav, loginStateHandler, UserInfo, $interval, Modification) {
+        var ctrl = this, modificationInfo;
+        loginStateHandler.register(ctrl);
         ctrl.isLoggedIn = false;
-    };
-}];
+
+        ctrl.openLeftNav = function () {
+            $mdSidenav("left").toggle();
+        };
+
+        ctrl.loginEvent = function () {
+            ctrl.isLoggedIn = true;
+            if(!ctrl.userHeaderInfo) {
+                ctrl.userHeaderInfo = UserInfo.get(null, function () {
+                    modificationInfo = $interval(function () {
+                        var modification = Modification.get(null, function () {
+                            if (modification.hasChanged) {
+
+                            }
+                        });
+                    }, 30000);
+                });
+            }
+        };
+
+        ctrl.logoutEvent = function () {
+            ctrl.isLoggedIn = false;
+            delete ctrl.userHeaderInfo;
+            $interval.cancel(modificationInfo);
+        };
+    }];
 },{}],111:[function(require,module,exports){
 'use strict';
 
