@@ -7,43 +7,11 @@ var pagePreview = require('./../../page/pagePreview');
 var cdn = require('../../util/cdn');
 var _ = require('underscore');
 
-function compare(a, b) {
-    return b.created - a.created;
-}
-
-var addBlogUrl = function (blogs) {
-    _.each(blogs, function (blog) {
-        if (blog.hasOwnProperty('heightPreviewImage')) {
-            blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
-            blog.urlFull = cdn.getUrl('blog/' + blog.blogId + '/normal.jpg');
-        }
-    });
-};
-
-var getBlog = function (userId, limit, skip) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)-[written:WRITTEN]->(blog:Blog)")
-        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)")
-        .with("user, contact, blog, written, isContact, '.*' + isContact.type + '.*' AS type")
-        .where("written.visible =~ type OR written.visible IS NULL")
-        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
-        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
-        .with("user, contact, blog, written, rContact, v, vr")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("contact.userId AS userId, contact.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
-        "blog.text AS text, blog.heightPreviewImage AS heightPreviewImage, false AS isAdmin, " +
-        "v.profile AS profileVisible, v.image AS imageVisible")
-        .orderBy("created DESC")
-        .skip("{skip}")
-        .limit("{limit}")
-        .unionAll()
-        .match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog)")
-        .return("user.userId AS userId, user.name AS name, blog.blogId AS blogId, blog.title AS title, blog.created AS created," +
-        "blog.text AS text, blog.heightPreviewImage AS heightPreviewImage, true AS isAdmin, " +
-        "true AS profileVisible, true AS imageVisible")
-        .orderBy("created DESC")
-        .skip("{skip}")
-        .limit("{limit}")
-        .end({userId: userId, limit: limit, skip: skip});
+var addBlogUrl = function (blog, heightPreviewImage) {
+    if (heightPreviewImage) {
+        blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
+        blog.urlFull = cdn.getUrl('blog/' + blog.blogId + '/normal.jpg');
+    }
 };
 
 var getContacting = function (userId) {
@@ -55,7 +23,7 @@ var getContacting = function (userId) {
         .with("contacting, relContacting, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("contacting.userId AS userId, contacting.name AS name, relContacting.contactAdded AS contactAdded, " +
-        "v.profile AS profileVisible, v.image AS imageVisible")
+            "v.profile AS profileVisible, v.image AS imageVisible")
         .orderBy("contactAdded DESC")
         .limit("3")
         .end({userId: userId});
@@ -75,48 +43,100 @@ var getUserInfos = function (userId) {
         .end({userId: userId});
 };
 
+var addProfileUrl = function (element, pinwallElement) {
+    if (pinwallElement.hasOwnProperty('contact')) {
+        element.name = pinwallElement.contact.name;
+        if (pinwallElement.hasOwnProperty('privacy')) {
+            element.profileUrl = userInfo.getImageForPreview(
+                {
+                    userId: pinwallElement.contact.userId,
+                    profileVisible: pinwallElement.privacy.profile,
+                    imageVisible: pinwallElement.privacy.image
+                }, 'thumbnail.jpg');
+        } else {
+            element.profileUrl = userInfo.getImageForPreview(
+                {
+                    userId: pinwallElement.contact.userId,
+                    profileVisible: pinwallElement.privacyNoContact.profile,
+                    imageVisible: pinwallElement.privacyNoContact.image
+                }, 'thumbnail.jpg');
+        }
+    } else {
+        element.name = pinwallElement.user.name;
+        element.profileUrl = userInfo.getImageForPreview({
+            userId: pinwallElement.user.userId, profileVisible: true, imageVisible: true
+        }, 'thumbnail.jpg');
+    }
+};
+
+var getPinwallElements = function (pinwallElements) {
+    var result = [];
+    _.each(pinwallElements, function (pinwallElement) {
+        var element = {};
+        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
+            element.pinwallType = 'Blog';
+            element.blogId = pinwallElement.pinwall.blogId;
+            element.title = pinwallElement.pinwall.title;
+            element.text = pinwallElement.pinwall.text;
+            element.created = pinwallElement.pinwall.created;
+            element.isAdmin = pinwallElement.isAdmin;
+            addProfileUrl(element, pinwallElement);
+            addBlogUrl(element, pinwallElement.pinwall.heightPreviewImage);
+        }
+        if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {
+            element.pinwallType = 'Recommendation';
+            element.rating = pinwallElement.pinwall.rating;
+            element.comment = pinwallElement.pinwall.comment;
+            element.created = pinwallElement.pinwall.created;
+            element.label = pinwallElement.pinwallData.label;
+            element.pageId = pinwallElement.pinwallData.pageId;
+            element.description = pinwallElement.pinwallData.description;
+            element.title = pinwallElement.pinwallData.title;
+            element.link = pinwallElement.pinwallData.link;
+            element.isAdmin = pinwallElement.isAdmin;
+            addProfileUrl(element, pinwallElement);
+            pagePreview.addPageUrl([element]);
+        }
+        result.push(element);
+    });
+    return result;
+};
+
 var getPinwall = function (userId, request) {
     var commands = [];
 
     commands.push(unread.getUnreadMessages(userId).getCommand());
     commands.push(getContacting(userId).getCommand());
     commands.push(getNumberOfContacting(userId).getCommand());
-    commands.push(getBlog(userId, request.maxItems, request.skip).getCommand());
     commands.push(getUserInfos(userId).getCommand());
 
-    return db.cypher().match("(:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page:Page)")
-        .where("rec.created <= {timestamp}")
-        .with("page, max(rec.created) AS created, avg(rec.rating) AS ratingAllContacts, count(rec) AS numberOfRatingsByContacts")
-        .match("(user:User {userId: {userId}})-[:IS_CONTACT]->(contact:User)" +
-        "-[:RECOMMENDS]->(rec:Recommendation)-[:RECOMMENDS]->(page)")
-        .where("rec.created = created")
-        .with("contact, rec, page, ratingAllContacts, numberOfRatingsByContacts, user")
-        .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
-        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
-        .with("contact, rec, page, ratingAllContacts, numberOfRatingsByContacts, rContact, v, vr")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("contact.name AS name, contact.userId AS userId, rec.rating AS rating, rec.created AS created, rec.comment AS comment, " +
-        "page.label AS label, page.title AS title, page.pageId AS pageId, page.description AS description, page.link AS link, " +
-        "ratingAllContacts, numberOfRatingsByContacts, v.profile AS profileVisible, v.image AS imageVisible")
-        .orderBy("rec.created DESC")
+    return db.cypher().match("(pinwall:PinwallElement), (user:User {userId: {userId}})")
+        .where("(user)-[]->(pinwall) OR (user)-[:IS_CONTACT]->(:User)-[]->(pinwall)")
+        .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
+        .optionalMatch("(user)-[:IS_CONTACT]->(contact:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
+        .where("(user)-[:IS_CONTACT]->(contact)-[]->(pinwall)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact:User)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("(user)-[:IS_CONTACT]->(contact)-[]->(pinwall) AND isContact.type = relPrivacy.type")
+        .with("user, pinwall, pinwallData, contact, isContact, privacy, privacyNoContact, EXISTS((user)-[]->(pinwall)) AS isAdmin")
+        .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .end({userId: userId, skip: request.skip, maxItems: request.maxItems, timestamp: request.timestamp})
+        .match("(pinwall)")
+        .where("((user)-[]->(pinwall) OR (EXISTS((user)-[:IS_CONTACT]->(contact)) AND NOT EXISTS(pinwall.privacy)) " +
+            "OR (EXISTS((user)-[:IS_CONTACT]->(contact)) AND pinwall.privacy = isContact.type)) " +
+            "AND NOT EXISTS((contact)-[:IS_BLOCKED]->(user))")
+        .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
+        .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
         .send(commands)
         .then(function (resp) {
             userInfo.addImageForThumbnail(resp[0]);
             userInfo.addImageForThumbnail(resp[1]);
-            userInfo.addImageForThumbnail(resp[3]);
-            userInfo.addImageForThumbnail(resp[5]);
-            pagePreview.addPageUrl(resp[5]);
-            addBlogUrl(resp[3]);
 
             return {
-                pinwall: resp[5],
                 messages: resp[0],
                 contacting: {users: resp[1], numberOfContacting: resp[2][0].numberOfContacting},
-                blog: resp[3].sort(compare),
-                user: {privacyTypes: resp[4], profileUrl: cdn.getUrl('profileImage/' + userId + '/profilePreview.jpg')}
+                pinwall: getPinwallElements(resp[4]),
+                user: {privacyTypes: resp[3], profileUrl: cdn.getUrl('profileImage/' + userId + '/profilePreview.jpg')}
             };
         });
 };
