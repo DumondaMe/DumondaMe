@@ -8,10 +8,11 @@
             <span class="md-subhead">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
         </md-card-header-text>
     </md-card-header>
-    <div class="blog-image-container" ng-if="ctrl.element.url">
+    <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
     <md-card-content>
-        <div class="md-body-1 blog-text">{{ctrl.previewText}}</div>
+        <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
     </md-card-content>
+    <md-divider></md-divider>
 </md-card>

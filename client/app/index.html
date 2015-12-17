@@ -12,12 +12,9 @@
 </head>
 <body>
 <div id="viewport">
-    <!--<div ng-include="'app/modules/navigation/leftNavCol.html'" ng-show="$state.current.hasNavigation"></div>
-    <div ng-include="'app/modules/navigation/loggedInHeader.html'" ng-hide="$state.current.isPublic"></div>-->
     <ely-toolbar id="toolbar-header"></ely-toolbar>
     <ely-left-nav></ely-left-nav>
     <div id="content" ui-view="content" ng-cloak></div>
-    <!--<div ng-include="fullScreen.template" ng-if="fullScreen.show"></div>-->
 </div>
 
 <script src="app/lib/jquery/jquery.min.js"></script>

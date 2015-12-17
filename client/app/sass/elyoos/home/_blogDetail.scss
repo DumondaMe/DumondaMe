@@ -1,0 +1,31 @@
+#blog-detail {
+  z-index: 150;
+
+  #blog-header {
+    height: 72px;
+    width: 100%;
+    padding: 16px;
+    .user-avatar {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      margin-right: 12px;
+    }
+    .title-container {
+      .title {
+        font-size: 14px;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: rgba(0,0,0,0.54);
+      }
+    }
+  }
+
+  .detail-image {
+    max-width: 100%;
+  }
+  .blog-text {
+    padding: 16px;
+  }
+}

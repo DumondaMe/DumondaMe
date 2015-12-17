@@ -763,8 +763,7 @@ h2.website-structure-title {
 #toolbar-header {
   position: relative;
   width: 100%;
-  margin-top: -56px;
-  z-index: 100; }
+  margin-top: -56px; }
 
 .user-icon {
   height: 24px;
@@ -803,10 +802,34 @@ h2.website-structure-title {
       #popover-profile-preview .popover-content #profile-preview-commands #profile-preview-logout {
         float: right; }
 
-.pinwall-blog-card .blog-image-container {
-  width: 100%;
-  height: 200px;
-  overflow: hidden; }
+.pinwall-blog-card {
+  max-width: 400px;
+  min-width: 280px; }
+  .pinwall-blog-card .blog-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden; }
+
+#blog-detail {
+  z-index: 150; }
+  #blog-detail #blog-header {
+    height: 72px;
+    width: 100%;
+    padding: 16px; }
+    #blog-detail #blog-header .user-avatar {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      margin-right: 12px; }
+    #blog-detail #blog-header .title-container .title {
+      font-size: 14px; }
+    #blog-detail #blog-header .title-container .subtitle {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+  #blog-detail .detail-image {
+    max-width: 100%; }
+  #blog-detail .blog-text {
+    padding: 16px; }
 
 #ely-home {
   height: 100%;
