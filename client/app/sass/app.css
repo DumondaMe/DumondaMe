@@ -763,8 +763,12 @@ h2.website-structure-title {
 #toolbar-header {
   position: relative;
   width: 100%;
-  margin-top: -64px;
+  margin-top: -56px;
   z-index: 100; }
+
+.user-icon {
+  height: 24px;
+  width: 24px; }
 
 #popover-profile-preview {
   max-width: 100%; }
@@ -799,250 +803,15 @@ h2.website-structure-title {
       #popover-profile-preview .popover-content #profile-preview-commands #profile-preview-logout {
         float: right; }
 
-#ely-home {
-  padding-left: 230px;
-  padding-top: 100px; }
-  #ely-home .pinwall-container {
-    margin: 0 auto;
-    position: relative; }
-    #ely-home .pinwall-container .pinwall-container-column, #ely-home .pinwall-container .pinwall-blog-container {
-      display: inline-block;
-      vertical-align: top;
-      width: 440px; }
-      #ely-home .pinwall-container .pinwall-container-column .card-element, #ely-home .pinwall-container .pinwall-blog-container .card-element {
-        margin: 0 10px 25px 10px;
-        padding: 0 20px;
-        background-color: #ffffff;
-        border-radius: 3px;
-        border: 1px solid #d8d8d8; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .description, #ely-home .pinwall-container .pinwall-blog-container .card-element .description {
-          padding: 15px 0 10px 0;
-          margin-bottom: 10px;
-          color: #999;
-          font-size: 14px;
-          border-bottom: 1px solid #e5e5e5; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .options, #ely-home .pinwall-container .pinwall-blog-container .card-element .options {
-          float: right;
-          cursor: pointer;
-          margin-top: -13px;
-          margin-right: -5px; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .options .md-icon-button, #ely-home .pinwall-container .pinwall-blog-container .card-element .options .md-icon-button {
-            width: 24px;
-            height: 24px; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .profile-messages, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-messages {
-          margin-bottom: 10px;
-          cursor: pointer; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .profile-image, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-image {
-          display: inline-block;
-          vertical-align: top;
-          width: 35px;
-          height: 35px;
-          margin-top: 2px;
-          margin-right: 15px; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description {
-          display: inline-block;
-          vertical-align: top; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .profile-name, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .profile-name {
-            font-size: 16px;
-            color: #009688;
-            max-width: 320px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .user-rating, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .user-rating {
-            margin-right: 5px; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .time, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .time {
-            display: inline-block;
-            vertical-align: top;
-            color: #999;
-            font-size: 12px;
-            margin-top: 3px; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .profile-description .info, #ely-home .pinwall-container .pinwall-blog-container .card-element .profile-description .info {
-            color: #999;
-            font-size: 12px;
-            margin-top: 3px; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .comment, #ely-home .pinwall-container .pinwall-blog-container .card-element .comment {
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 300;
-          margin-bottom: 20px; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .link, #ely-home .pinwall-container .pinwall-blog-container .card-element .link {
-          color: #009688;
-          cursor: pointer;
-          font-size: 12px;
-          margin-top: 20px;
-          margin-left: 50px;
-          margin-bottom: 10px; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .link:hover, #ely-home .pinwall-container .pinwall-blog-container .card-element .link:hover {
-            text-decoration: underline; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .content, #ely-home .pinwall-container .pinwall-blog-container .card-element .content {
-          margin-top: 20px;
-          margin-bottom: 20px;
-          cursor: pointer; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .content .image, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .image {
-            width: 120px;
-            max-height: 200px; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-description, #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-youtube-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-youtube-description {
-            display: inline-block;
-            vertical-align: top;
-            margin-left: 10px;
-            width: 230px; }
-            #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-description .title, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-description .title, #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-youtube-description .title, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-youtube-description .title {
-              color: #009688;
-              overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis; }
-            #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-description .rating-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-description .rating-description, #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-youtube-description .rating-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-youtube-description .rating-description {
-              display: inline-block;
-              vertical-align: top;
-              color: #999;
-              font-size: 12px;
-              margin-top: 3px;
-              margin-left: 5px; }
-            #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-description .content-description-text, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-description .content-description-text, #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-youtube-description .content-description-text, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-youtube-description .content-description-text {
-              max-height: 120px;
-              margin-top: 5px;
-              overflow: hidden;
-              font-weight: 300; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .content .content-youtube-description, #ely-home .pinwall-container .pinwall-blog-container .card-element .content .content-youtube-description {
-            margin-top: 10px;
-            margin-left: 0px;
-            width: 380px; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .blog-text, #ely-home .pinwall-container .pinwall-blog-container .card-element .blog-text {
-          margin-top: 10px;
-          margin-bottom: 10px;
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 300;
-          overflow: hidden;
-          white-space: pre-line; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .blog-text .blog-text-image, #ely-home .pinwall-container .pinwall-blog-container .card-element .blog-text .blog-text-image {
-            max-height: 4.2em; }
-        #ely-home .pinwall-container .pinwall-container-column .card-element .blog-image-preview, #ely-home .pinwall-container .pinwall-blog-container .card-element .blog-image-preview {
-          margin-bottom: 20px;
-          cursor: pointer; }
-          #ely-home .pinwall-container .pinwall-container-column .card-element .blog-image-preview img, #ely-home .pinwall-container .pinwall-blog-container .card-element .blog-image-preview img {
-            max-width: 380px;
-            max-height: 600px; }
-      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-enter, #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-move, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-move {
-        -webkit-transition: 0.5s linear all;
-        -moz-transition: 0.5s linear all;
-        -o-transition: 0.5s linear all;
-        transition: 0.5s linear all;
-        opacity: 0; }
-      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-enter.ng-enter-active, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-enter.ng-enter-active,
-      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-move.ng-move-active,
-      #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-move.ng-move-active {
-        opacity: 1; }
-      #ely-home .pinwall-container .pinwall-container-column .pinwall-container-element.ng-leave, #ely-home .pinwall-container .pinwall-blog-container .pinwall-container-element.ng-leave {
-        -webkit-animation: 0.7s remove_animation;
-        -moz-animation: 0.7s remove_animation;
-        -o-animation: 0.7s remove_animation;
-        animation: 0.7s remove_animation; }
-@keyframes remove_animation {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-@-webkit-keyframes remove_animation {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-@-moz-keyframes remove_animation {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-@-o-keyframes remove_animation {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-#blog-detail-container {
-  position: fixed;
-  left: 0;
-  top: 0;
+.pinwall-blog-card .blog-image-container {
   width: 100%;
-  height: 100%;
-  background-color: #000000;
-  z-index: 1001; }
-  #blog-detail-container .image-container {
-    position: fixed;
-    width: 60%;
-    height: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px; }
-    #blog-detail-container .image-container .image-inner-container {
-      height: 100%; }
-      #blog-detail-container .image-container .image-inner-container img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        max-height: 100%; }
-  #blog-detail-container .info-container {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 40%;
-    min-width: 350px;
-    height: 100%;
-    background-color: #FFFFFF;
-    padding: 0 50px 20px 30px; }
-    #blog-detail-container .info-container .close-full-screen {
-      position: absolute;
-      cursor: pointer;
-      right: 25px;
-      top: 27px;
-      height: 16px;
-      width: 16px;
-      z-index: 20;
-      background: #ffffff url("../img/close.png") no-repeat right top; }
-      #blog-detail-container .info-container .close-full-screen:hover {
-        background: #ffffff url("../img/closeHover.png") no-repeat right top; }
-    #blog-detail-container .info-container .header {
-      position: relative;
-      background-color: #ffffff;
-      z-index: 10;
-      padding-top: 20px;
-      padding-bottom: 10px; }
-      #blog-detail-container .info-container .header .image-blogger {
-        float: left;
-        width: 46px;
-        height: 46px;
-        vertical-align: top; }
-      #blog-detail-container .info-container .header .profile-description {
-        margin-left: 60px;
-        margin-top: 4px;
-        display: block;
-        width: 100%;
-        vertical-align: top; }
-        #blog-detail-container .info-container .header .profile-description .user-name {
-          font-size: 16px;
-          padding-right: 60px;
-          color: #009688;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis; }
-        #blog-detail-container .info-container .header .profile-description .timestamp {
-          color: #999;
-          font-size: 12px; }
-    #blog-detail-container .info-container .blog-text {
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      padding-top: 90px;
-      padding-right: 40px;
-      padding-bottom: 20px;
-      height: 100%;
-      font-size: 14px;
-      font-weight: 300;
-      overflow: auto;
-      white-space: pre-line; }
+  height: 200px;
+  overflow: hidden; }
 
-#ely-home .pinwall-container .pinwall-blog-container {
-  width: 100%;
-  margin-top: 20px; }
+#ely-home {
+  height: 100%;
+  background-color: #E0E0E0; }
+
 #ely-home .pinwall-container .blog-input-container {
   margin-top: 5px; }
   #ely-home .pinwall-container .blog-input-container .md-default-theme label {
@@ -1359,10 +1128,6 @@ h2.website-structure-title {
       display: inline-block; }
   .left-nav-content .nav-element:focus {
     outline: 0; }
-
-.user-icon {
-  height: 24px;
-  width: 24px; }
 
 #ely-page-detail {
   height: 100%; }
@@ -2186,7 +1951,7 @@ body, html {
   height: 100%; }
 
 #viewport {
-  padding-top: 64px;
+  padding-top: 56px;
   position: absolute;
   top: 0;
   bottom: 0;

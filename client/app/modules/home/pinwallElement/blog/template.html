@@ -1,0 +1,17 @@
+<md-card class="pinwall-blog-card">
+    <md-card-header>
+        <md-card-avatar>
+            <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
+        </md-card-avatar>
+        <md-card-header-text>
+            <span class="md-title">{{ctrl.element.name}}</span>
+            <span class="md-subhead">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
+        </md-card-header-text>
+    </md-card-header>
+    <div class="blog-image-container" ng-if="ctrl.element.url">
+        <img ng-src="{{ctrl.element.url}}" class="md-card-image">
+    </div>
+    <md-card-content>
+        <div class="md-body-1 blog-text">{{ctrl.previewText}}</div>
+    </md-card-content>
+</md-card>

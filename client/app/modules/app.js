@@ -55,8 +55,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 url: '/home/{cache}',
                 views: {
                     content: {
-                        templateUrl: 'app/modules/home/home.html',
-                        controller: 'HomeCtrl'
+                        template: '<ely-home></ely-home>'
                     }
                 }
             })

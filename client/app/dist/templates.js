@@ -86,11 +86,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/home/home.html',
-    "<div id=ely-home><div class=pinwall-container ng-style=\"{'width': containerWidth + 'px'}\"><div infinite-scroll=nextPinwallInfo() infinite-scroll-distance=1><div class=pinwall-blog-container><ely-home-pinwall-blog show-expand=true is-expand=isExpanded user-info=userInfo blog-added=blogAdded number-of-rows=numberOfRows></ely-home-pinwall-blog></div><div class=pinwall-container-column><ely-home-pinwall-blog show-expand=false is-expand=isExpanded></ely-home-pinwall-blog><div ng-repeat=\"pinwallElement in pinwallElements[0]\" class=pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=pinwall-container-column ng-if=\"numberOfRows > 1\"><div ng-repeat=\"pinwallElement in pinwallElements[1]\" class=pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div><div class=pinwall-container-column ng-if=\"numberOfRows > 2\"><div ng-repeat=\"pinwallElement in pinwallElements[2]\" class=pinwall-container-element><ely-home-pinwall-element element=pinwallElement element-removed=elementRemoved></ely-home-pinwall-element></div></div></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
     "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
@@ -136,6 +131,21 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/pinwallElement/blog/template.html',
+    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text><span class=md-title>{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\">{{ctrl.previewText}}</div></md-card-content></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/home/pinwallElement/template.html',
+    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog></div>"
+  );
+
+
+  $templateCache.put('app/modules/home/template.html',
+    "<md-content id=ely-home class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div></md-content>"
+  );
+
+
   $templateCache.put('app/modules/messages/conversation.html',
     "<div id=content-messages><div ng-controller=ConversationActionsCtrl><div id=centerCol><div id=inner-centerCol><div class=add-message ng-style=settings.textInputWrapperStyle><div class=input-group><textarea class=form-control placeholder=Nachricht ng-style=settings.textInputStyle ng-keyup=settings.checkHeightOfInput($event) ng-maxlength=1000 ng-model=settings.newMessage></textarea><span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=sendMessage() ng-style=settings.textInputStyle ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden</button></span></div></div><div ng-repeat=\"message in settings.thread.messages\" class=message-view><div class=message-inner-view><div class=message-view-image><img ng-src={{message.profileUrl}} class=img-rounded></div><div class=message-view-content><div class=message-view-title><div class=message-view-name>{{message.name}}</div><div class=message-view-timestamp>{{getFormattedDate(message.timestamp)}}</div></div><div class=message-view-text>{{message.text}}</div></div></div></div><div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=settings.thread.numberOfMessages items-per-page={{settings.itemsPerPage}} get-pagination-set=settings.getThread></ely-pagination-next-previous></div></div></div></div></div>"
   );
@@ -156,23 +166,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/navigation/leftNavCol.html',
-    "<div ng-controller=LeftNavColCtrl id=leftColNav><ely-left-nav sections=sections></ely-left-nav></div>"
-  );
-
-
-  $templateCache.put('app/modules/navigation/loggedInHeader.html',
-    "<div id=public-header ng-controller=LoggedInHeaderCtrl><div><div class=leftHeaderNavElement><div id=header-user-name>{{userHeaderInfo.name}}</div><img ng-src={{userHeaderInfo.profileImagePreview}} class=img-circle data-placement=bottom-right data-template-url=app/modules/navigation/profilePreview/profilePreviewPopover.html data-auto-close=true data-trigger=click bs-popover></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/navigation/profilePreview/profilePreviewPopover.html',
     "<div class=popover id=popover-profile-preview ng-controller=ProfilePreviewPopoverCtrl><div class=arrow></div><div class=popover-content><div id=profile-preview-content><img ng-src={{userHeaderInfo.profileImagePreview}} id=profile-preview-image class=img-rounded><div id=profile-preview-description><div id=profile-preview-name>{{userHeaderInfo.name}}</div><div id=profile-preview-email>{{userHeaderInfo.email}}</div></div></div><div id=profile-preview-commands><button class=\"btn btn-default\" id=profile-preview-change type=button ng-click=openProfileEdit($hide)>Profil bearbeiten</button> <button class=\"btn btn-default\" id=profile-preview-logout type=button ng-click=logout()>Abmelden</button></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/navigation/publicHeader.html',
-    "<div id=public-header></div>"
   );
 
 

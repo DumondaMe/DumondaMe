@@ -2,7 +2,6 @@
 
 var skip,
     itemsPerPage,
-    timestamp,
     requestPinwallElements,
     requestPinwallElementsRunning;
 
@@ -25,7 +24,6 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
     function ($q, moment, Home, HomePinwallElements) {
 
         this.resetCache = function () {
-            timestamp = Math.floor(moment.utc().valueOf() / 1000);
             skip = 0;
             itemsPerPage = 30;
             HomePinwallElements.reset();
@@ -39,7 +37,7 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
             var deferred = $q.defer(), newPinwall;
             if (requestPinwallElements && !requestPinwallElementsRunning) {
                 requestPinwallElementsRunning = true;
-                newPinwall = Home.get({maxItems: itemsPerPage, skip: skip, timestamp: timestamp}, function () {
+                newPinwall = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
 
                     var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
 
