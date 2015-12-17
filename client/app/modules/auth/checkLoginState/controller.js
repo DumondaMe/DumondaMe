@@ -5,7 +5,11 @@ module.exports = ['$state', '$stateParams', 'IsAuth', 'loginStateHandler', funct
     var isAuth = IsAuth.get(null, function () {
         if (isAuth.isLoggedIn) {
             loginStateHandler.loginEvent();
-            $state.go($stateParams.next);
+            if($stateParams.next !== 'login' && $stateParams.next !== 'checkLoginState' ) {
+                $state.go($stateParams.next);
+            } else {
+                $state.go('home');
+            }
         } else {
             loginStateHandler.logoutEvent();
             $state.go('login');
