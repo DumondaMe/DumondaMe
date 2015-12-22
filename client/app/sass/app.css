@@ -831,114 +831,40 @@ h2.website-structure-title {
   #blog-detail .blog-text {
     padding: 16px; }
 
+#blog-create {
+  min-width: 310px; }
+  #blog-create .content {
+    width: 100%;
+    margin-top: 10px;
+    padding: 16px; }
+    #blog-create .content .blog-input-container {
+      width: 100%;
+      padding: 0; }
+      #blog-create .content .blog-input-container label {
+        color: #000;
+        font-weight: 500; }
+      #blog-create .content .blog-input-container .blog-input {
+        height: 80px; }
+
 #ely-home {
   height: 100%;
   background-color: #E0E0E0; }
+  #ely-home .pinwall-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; }
+    #ely-home .pinwall-container .pinwall-gab {
+      height: 60px;
+      width: 100%; }
+  #ely-home .create-blog-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0; }
 
-#ely-home .pinwall-container .blog-input-container {
-  margin-top: 5px; }
-  #ely-home .pinwall-container .blog-input-container .md-default-theme label {
-    color: #000000;
-    font-weight: 300; }
-#ely-home .pinwall-container .blog-send {
-  margin-bottom: 10px; }
-  #ely-home .pinwall-container .blog-send .upload-blog-running {
-    position: relative;
-    display: inline-block;
-    vertical-align: bottom;
-    height: 30px;
-    width: 30px;
-    margin-left: 5px;
-    margin-bottom: 10px; }
-#ely-home .pinwall-container .card-element.pinwall-blog-element, #ely-home .pinwall-container .card-element.pinwall-blog-element-extended {
-  background-color: #ffffff;
-  width: 420px; }
-#ely-home .pinwall-container .pinwall-blog-element-extended {
-  position: relative;
-  left: 0;
-  -webkit-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.4s ease, left 0.4s ease, box-shadow 0.4s ease, margin 0.4s ease, border 0.4s ease;
-  transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.4s ease, left 0.4s ease, box-shadow 0.4s ease, margin 0.4s ease, border 0.4s ease; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility {
-    margin-bottom: 15px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility label {
-      width: 70px;
-      text-align: left;
-      padding-right: 5px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility .blog-select-all {
-      margin-top: 5px;
-      margin-left: 70px; }
-      #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility .blog-select-all input {
-        position: relative;
-        top: 2px;
-        margin-right: 3px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility .blog-select-all.is-selected {
-      display: inline-block;
-      margin-left: 0px; }
-      #ely-home .pinwall-container .pinwall-blog-element-extended .blog-visibility .blog-select-all.is-selected input {
-        position: relative;
-        top: 2px;
-        margin-right: 3px; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .blog-attachment {
-    margin-bottom: 10px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-attachment label {
-      width: 70px;
-      text-align: left;
-      padding-right: 5px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-attachment .blog-attachment-element {
-      display: inline-block;
-      vertical-align: top;
-      cursor: pointer; }
-      #ely-home .pinwall-container .pinwall-blog-element-extended .blog-attachment .blog-attachment-element img {
-        height: 20px;
-        width: 20px;
-        margin-right: 5px; }
-      #ely-home .pinwall-container .pinwall-blog-element-extended .blog-attachment .blog-attachment-element .attachment-text {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 2px;
-        color: #737373;
-        font-size: 12px;
-        font-weight: bold; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .blog-photo-container {
-    position: relative;
-    margin-bottom: 10px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-photo-container img {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%;
-      max-height: 1500px; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .blog-photo-container-commands {
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
-    height: 46px;
-    margin-bottom: 15px; }
-    #ely-home .pinwall-container .pinwall-blog-element-extended .blog-photo-container-commands .command-element {
-      cursor: pointer;
-      display: inline-block;
-      width: 46px;
-      height: 46px;
-      padding: 12px 15px; }
-      #ely-home .pinwall-container .pinwall-blog-element-extended .blog-photo-container-commands .command-element img {
-        height: 20px; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .load-photo {
-    height: 100px;
-    display: block; }
-  #ely-home .pinwall-container .pinwall-blog-element-extended .blog-input {
-    -webkit-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), height 0.4s ease;
-    transition: cubic-bezier(0.25, 0.46, 0.45, 0.94), height 0.4s ease; }
-#ely-home .pinwall-container .pinwall-blog-element-extended.is-extended {
-  width: 540px;
-  margin-right: 30px;
-  left: 160px;
-  box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.4); }
-  #ely-home .pinwall-container .pinwall-blog-element-extended.is-extended .blog-input {
-    height: 8em; }
-#ely-home .pinwall-container .pinwall-blog-element-extended.is-extended.one-column {
-  width: 420px;
-  left: 0px; }
-#ely-home .pinwall-container .pinwall-blog-element-extended.is-extended.three-column {
-  width: 780px;
-  left: 250px; }
+.pinwall-recommendation-card {
+  max-width: 400px;
+  min-width: 280px;
+  height: 200px; }
 
 #loginform {
   height: 100%; }

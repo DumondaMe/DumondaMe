@@ -1,5 +1,20 @@
-<md-content id="ely-home" class="md-padding" layout-wrap layout="row">
-    <div flex="100" ng-repeat="pinwallElement in ctrl.home.pinwall">
+<md-content id="ely-home">
+    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo()">
+        <div class="md-padding" layout-wrap layout="row">
+            <div flex="100" ng-repeat="pinwallElement in ctrl.home.pinwall">
+                <ely-pinwall-element element="pinwallElement"></ely-pinwall-element>
+            </div>
+            <div class="pinwall-gab"></div>
+        </div>
+    </div>
+    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.createBlog()">
+        <md-icon md-svg-icon="navFAB:add"></md-icon>
+    </md-button>
+</md-content>
+
+<!--
+<md-virtual-repeat-container id="vertical-container">
+    <div flex="100" ng-virtual-repeat="pinwallElement in ctrl.home.pinwall" md-on-demand>
         <ely-pinwall-element element="pinwallElement"></ely-pinwall-element>
     </div>
-</md-content>
+</md-virtual-repeat-container>-->

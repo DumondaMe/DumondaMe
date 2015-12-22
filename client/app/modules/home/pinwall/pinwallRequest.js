@@ -6,18 +6,7 @@ var skip,
     requestPinwallElementsRunning;
 
 var checkRequestPinwall = function (pinwall, requestedNumberOfElements) {
-    function countElements(pinwallElements, type) {
-        var count = 0;
-        angular.forEach(pinwallElements, function (pinwallElement) {
-            if (pinwallElement.type === type) {
-                count++;
-            }
-        });
-        return count;
-    }
-
-    return !(countElements(pinwall, 'Blog') < requestedNumberOfElements &&
-    countElements(pinwall, 'Recommendation') < requestedNumberOfElements );
+    return pinwall.length === requestedNumberOfElements;
 };
 
 module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
@@ -25,25 +14,29 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
 
         this.resetCache = function () {
             skip = 0;
-            itemsPerPage = 30;
-            HomePinwallElements.reset();
+            itemsPerPage = 10;
+            //HomePinwallElements.reset();
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
-        };
+        }();
 
-        this.resetCache();
+        /*        this.resetCache();*/
 
-        this.requestPinwall = function () {
+        this.requestPinwall = function (previousPinwall) {
             var deferred = $q.defer(), newPinwall;
             if (requestPinwallElements && !requestPinwallElementsRunning) {
+                if (!previousPinwall) {
+                    previousPinwall = [];
+                }
                 requestPinwallElementsRunning = true;
                 newPinwall = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
 
-                    var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
+                    newPinwall.pinwall = previousPinwall.concat(newPinwall.pinwall);
+                    //var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
 
-                    requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
+                    requestPinwallElements = checkRequestPinwall(newPinwall.pinwall, skip);
                     requestPinwallElementsRunning = false;
-                    deferred.resolve({});
+                    deferred.resolve(newPinwall);
                 }, function () {
                     requestPinwallElementsRunning = false;
                     deferred.reject();

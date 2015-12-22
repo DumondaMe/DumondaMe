@@ -15,3 +15,5 @@ app.service('HomePinwall', require('./pinwall/pinwall'));
 app.service('HomePinwallHeightCalculator', require('./pinwall/heightCalculator'));
 
 app.service('WatchRootScope', require('./services/watchRootScope'));
+
+app.controller('HomePinwallCreateBlog', require('./createBlog/createBlogCtrl'));

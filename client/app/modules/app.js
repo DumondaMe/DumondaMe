@@ -5,7 +5,6 @@ require('angular-strap');
 require('angular-strap-tpl');
 require('ui-bootstrap');
 require('ui-bootstrap-tpls');
-require('infinit-scroll');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
@@ -20,7 +19,6 @@ var app = angular.module('elyoosApp', [
     'mgcrea.ngStrap.tooltip',
     'mgcrea.ngStrap.helpers.dimensions',
     'mgcrea.ngStrap.helpers.parseOptions',
-    'infinite-scroll',
     'ngMaterial'
 ]);
 
@@ -31,13 +29,15 @@ require('templates');
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
-        .accentPalette('light-green');
+        .accentPalette('red');
 
     $mdThemingProvider.theme('error-toast');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
     $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
+    $mdIconProvider.iconSet('navFAB', 'app/img/fabNavigation.svg', 24);
+    $mdIconProvider.iconSet('createBlog', 'app/img/createBlog.svg', 24);
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',

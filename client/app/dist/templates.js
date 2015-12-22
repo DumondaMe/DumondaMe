@@ -86,6 +86,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/createBlog/createBlog.html',
+    "<md-dialog id=blog-create flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><form name=createBlogForm><md-dialog-content flex class=content><md-input-container class=blog-input-container><label>Schreibe einen Blog Beitrag...</label><textarea name=blogText class=blog-input ng-model=ctrl.blogText required md-maxlength=10000></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions><md-button class=md-icon-button aria-label=\"Add Image\" ng-click=ctrl.addImage()><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></md-button><md-checkbox ng-model=ctrl.isPublic aria-label=\"Ist Öffentlich sichtbar\">Sichtbar für Alle</md-checkbox></div></md-dialog-content></form></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
     "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
@@ -132,7 +137,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/pinwallElement/blog/detail/detail.html',
-    "<md-dialog id=blog-detail flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><div id=blog-header layout=row flex=none><img ng-src={{ctrl.element.profileUrl}} class=user-avatar flex=none><div class=title-container flex><div class=\"title md-title\">{{ctrl.element.name}}</div><div class=\"subtitle md-subhead\">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><md-button class=md-icon-button flex=none aria-label=\"Close Detail\" ng-click=ctrl.cancel()><md-icon md-svg-icon=nav:close class=icon></md-icon></md-button></div><md-dialog-content flex><img ng-src={{ctrl.element.urlFull}} class=detail-image ng-show=ctrl.element.urlFull><div class=blog-text>{{ctrl.element.text}}</div></md-dialog-content></md-dialog>"
+    "<md-dialog id=blog-detail flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><div id=blog-header layout=row flex=none><img ng-src={{ctrl.element.profileUrl}} class=user-avatar flex=none><div class=title-container flex><div class=\"title md-title\">{{ctrl.element.name}}</div><div class=\"subtitle md-subhead\">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><md-button class=\"md-icon-button md-primary\" aria-label=\"Close Detail\" ng-click=ctrl.cancel()><md-icon md-svg-icon=nav:close class=icon></md-icon></md-button></div><md-dialog-content flex><img ng-src={{ctrl.element.urlFull}} class=detail-image ng-show=ctrl.element.urlFull><div class=blog-text>{{ctrl.element.text}}</div></md-dialog-content></md-dialog>"
   );
 
 
@@ -141,13 +146,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/pinwallElement/recommendation/template.html',
+    "<md-card class=pinwall-recommendation-card>Recommendation</md-card>"
+  );
+
+
   $templateCache.put('app/modules/home/pinwallElement/template.html',
-    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog></div>"
+    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog><ely-pinwall-recommendation element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Recommendation'\"></ely-pinwall-recommendation></div>"
   );
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab></div></div></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
   );
 
 

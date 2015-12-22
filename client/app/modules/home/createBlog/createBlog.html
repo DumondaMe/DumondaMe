@@ -1,0 +1,22 @@
+<md-dialog id="blog-create" flex="90" aria-label="Detail Blog" ng-cloak layout="column">
+    <form name="createBlogForm">
+        <md-dialog-content flex class="content">
+            <md-input-container class="blog-input-container">
+                <label>Schreibe einen Blog Beitrag...</label>
+                <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000"></textarea>
+                <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
+                    <div ng-message="required">Wird benötigt!</div>
+                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                </div>
+            </md-input-container>
+            <div class="actions">
+                <md-button class="md-icon-button" aria-label="Add Image" ng-click="ctrl.addImage()">
+                    <md-icon md-svg-icon="createBlog:addPhoto" class="icon"></md-icon>
+                </md-button>
+                <md-checkbox ng-model="ctrl.isPublic" aria-label="Ist Öffentlich sichtbar"> Sichtbar für Alle
+
+                </md-checkbox>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

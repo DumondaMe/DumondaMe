@@ -3,17 +3,18 @@
 var controller = require('./controller.js');
 
 module.exports = {
-    directive: [ function () {
+    directive: [function () {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
+            scope: {},
+            bindToController: {
+                element: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: true,
-            templateUrl: 'app/modules/home/template.html'
+            templateUrl: 'app/modules/home/pinwallElement/recommendation/template.html'
         };
     }],
-    name: 'elyHome'
+    name: 'elyPinwallRecommendation'
 };

@@ -1,0 +1,24 @@
+#blog-create {
+  min-width: 310px;
+
+  .content {
+    width: 100%;
+    margin-top: 10px;
+    padding: 16px;
+    .blog-input-container {
+      width: 100%;
+      padding: 0;
+
+      label {
+        color: #000;
+        font-weight: 500;
+      }
+      .blog-input {
+        height: 80px;
+      }
+    }
+    .actions {
+
+    }
+  }
+}

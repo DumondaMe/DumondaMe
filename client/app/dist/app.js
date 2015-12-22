@@ -87,6 +87,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/createBlog/createBlog.html',
+    "<md-dialog id=blog-create flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><form name=createBlogForm><md-dialog-content flex class=content><md-input-container class=blog-input-container><label>Schreibe einen Blog Beitrag...</label><textarea name=blogText class=blog-input ng-model=ctrl.blogText required md-maxlength=10000></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions><md-button class=md-icon-button aria-label=\"Add Image\" ng-click=ctrl.addImage()><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></md-button><md-checkbox ng-model=ctrl.isPublic aria-label=\"Ist Öffentlich sichtbar\">Sichtbar für Alle</md-checkbox></div></md-dialog-content></form></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
     "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
@@ -133,7 +138,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/pinwallElement/blog/detail/detail.html',
-    "<md-dialog id=blog-detail flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><div id=blog-header layout=row flex=none><img ng-src={{ctrl.element.profileUrl}} class=user-avatar flex=none><div class=title-container flex><div class=\"title md-title\">{{ctrl.element.name}}</div><div class=\"subtitle md-subhead\">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><md-button class=md-icon-button flex=none aria-label=\"Close Detail\" ng-click=ctrl.cancel()><md-icon md-svg-icon=nav:close class=icon></md-icon></md-button></div><md-dialog-content flex><img ng-src={{ctrl.element.urlFull}} class=detail-image ng-show=ctrl.element.urlFull><div class=blog-text>{{ctrl.element.text}}</div></md-dialog-content></md-dialog>"
+    "<md-dialog id=blog-detail flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><div id=blog-header layout=row flex=none><img ng-src={{ctrl.element.profileUrl}} class=user-avatar flex=none><div class=title-container flex><div class=\"title md-title\">{{ctrl.element.name}}</div><div class=\"subtitle md-subhead\">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><md-button class=\"md-icon-button md-primary\" aria-label=\"Close Detail\" ng-click=ctrl.cancel()><md-icon md-svg-icon=nav:close class=icon></md-icon></md-button></div><md-dialog-content flex><img ng-src={{ctrl.element.urlFull}} class=detail-image ng-show=ctrl.element.urlFull><div class=blog-text>{{ctrl.element.text}}</div></md-dialog-content></md-dialog>"
   );
 
 
@@ -142,13 +147,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/home/pinwallElement/recommendation/template.html',
+    "<md-card class=pinwall-recommendation-card>Recommendation</md-card>"
+  );
+
+
   $templateCache.put('app/modules/home/pinwallElement/template.html',
-    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog></div>"
+    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog><ely-pinwall-recommendation element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Recommendation'\"></ely-pinwall-recommendation></div>"
   );
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab></div></div></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
   );
 
 
@@ -397,9 +407,6 @@ angular.module("ui.bootstrap",["ui.bootstrap.tpls","ui.bootstrap.modal"]),angula
  */
 angular.module("ui.bootstrap",["ui.bootstrap.modal"]),angular.module("ui.bootstrap.modal",[]).factory("$$stackedMap",function(){return{createNew:function(){var e=[];return{add:function(n,t){e.push({key:n,value:t})},get:function(n){for(var t=0;t<e.length;t++)if(n==e[t].key)return e[t]},keys:function(){for(var n=[],t=0;t<e.length;t++)n.push(e[t].key);return n},top:function(){return e[e.length-1]},remove:function(n){for(var t=-1,a=0;a<e.length;a++)if(n==e[a].key){t=a;break}return e.splice(t,1)[0]},removeTop:function(){return e.splice(e.length-1,1)[0]},length:function(){return e.length}}}}}).directive("modalBackdrop",["$animate","$injector","$modalStack",function(e,n,t){function a(n,a,r){r.modalInClass&&(o?o(a,{addClass:r.modalInClass}).start():e.addClass(a,r.modalInClass),n.$on(t.NOW_CLOSING_EVENT,function(n,t){var l=t();o?o(a,{removeClass:r.modalInClass}).start().then(l):e.removeClass(a,r.modalInClass).then(l)}))}var o=null;return n.has("$animateCss")&&(o=n.get("$animateCss")),{restrict:"EA",replace:!0,templateUrl:"template/modal/backdrop.html",compile:function(e,n){return e.addClass(n.backdropClass),a}}}]).directive("modalWindow",["$modalStack","$q","$animate","$injector",function(e,n,t,a){var o=null;return a.has("$animateCss")&&(o=a.get("$animateCss")),{restrict:"EA",scope:{index:"@"},replace:!0,transclude:!0,templateUrl:function(e,n){return n.templateUrl||"template/modal/window.html"},link:function(a,r,l){r.addClass(l.windowClass||""),a.size=l.size,a.close=function(n){var t=e.getTop();t&&t.value.backdrop&&"static"!=t.value.backdrop&&n.target===n.currentTarget&&(n.preventDefault(),n.stopPropagation(),e.dismiss(t.key,"backdrop click"))},a.$isRendered=!0;var s=n.defer();l.$observe("modalRender",function(e){"true"==e&&s.resolve()}),s.promise.then(function(){l.modalInClass&&(o?o(r,{addClass:l.modalInClass}).start():t.addClass(r,l.modalInClass),a.$on(e.NOW_CLOSING_EVENT,function(e,n){var a=n();o?o(r,{removeClass:l.modalInClass}).start().then(a):t.removeClass(r,l.modalInClass).then(a)}));var n=r[0].querySelectorAll("[autofocus]");n.length?n[0].focus():r[0].focus();var s=e.getTop();s&&e.modalRendered(s.key)})}}}]).directive("modalAnimationClass",[function(){return{compile:function(e,n){n.modalAnimation&&e.addClass(n.modalAnimationClass)}}}]).directive("modalTransclude",function(){return{link:function(e,n,t,a,o){o(e.$parent,function(e){n.empty(),n.append(e)})}}}).factory("$modalStack",["$animate","$timeout","$document","$compile","$rootScope","$q","$injector","$$stackedMap",function(e,n,t,a,o,r,l,s){function i(){for(var e=-1,n=g.keys(),t=0;t<n.length;t++)g.get(n[t]).value.backdrop&&(e=t);return e}function d(e,n){var a=t.find("body").eq(0),o=g.get(e).value;g.remove(e),u(o.modalDomEl,o.modalScope,function(){a.toggleClass(e.openedClass||$,g.length()>0)}),c(),n&&n.focus?n.focus():a.focus()}function c(){if(p&&-1==i()){var e=v;u(p,v,function(){e=null}),p=void 0,v=void 0}}function u(n,t,a){function o(){o.done||(o.done=!0,f?f(n,{event:"leave"}).start().then(function(){n.remove()}):e.leave(n),t.$destroy(),a&&a())}var l,s=null,i=function(){return l||(l=r.defer(),s=l.promise),function(){l.resolve()}};return t.$broadcast(b.NOW_CLOSING_EVENT,i),r.when(s).then(o)}function m(e,n,t){return!e.value.modalScope.$broadcast("modal.closing",n,t).defaultPrevented}var f=null;l.has("$animateCss")&&(f=l.get("$animateCss"));var p,v,h,$="modal-open",g=s.createNew(),b={NOW_CLOSING_EVENT:"modal.stack.now-closing"},C=0,k="a[href], area[href], input:not([disabled]), button:not([disabled]),select:not([disabled]), textarea:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable=true]";return o.$watch(i,function(e){v&&(v.index=e)}),t.bind("keydown",function(e){if(e.isDefaultPrevented())return e;var n=g.top();if(n&&n.value.keyboard)switch(e.which){case 27:e.preventDefault(),o.$apply(function(){b.dismiss(n.key,"escape key press")});break;case 9:b.loadFocusElementList(n);var t=!1;e.shiftKey?b.isFocusInFirstItem(e)&&(t=b.focusLastFocusableElement()):b.isFocusInLastItem(e)&&(t=b.focusFirstFocusableElement()),t&&(e.preventDefault(),e.stopPropagation())}}),b.open=function(e,n){var r=t[0].activeElement;g.add(e,{deferred:n.deferred,renderDeferred:n.renderDeferred,modalScope:n.scope,backdrop:n.backdrop,keyboard:n.keyboard,openedClass:n.openedClass});var l=t.find("body").eq(0),s=i();if(s>=0&&!p){v=o.$new(!0),v.index=s;var d=angular.element('<div modal-backdrop="modal-backdrop"></div>');d.attr("backdrop-class",n.backdropClass),n.animation&&d.attr("modal-animation","true"),p=a(d)(v),l.append(p)}var c=angular.element('<div modal-window="modal-window"></div>');c.attr({"template-url":n.windowTemplateUrl,"window-class":n.windowClass,size:n.size,index:g.length()-1,animate:"animate"}).html(n.content),n.animation&&c.attr("modal-animation","true");var u=a(c)(n.scope);g.top().value.modalDomEl=u,g.top().value.modalOpener=r,l.append(u),l.addClass(n.openedClass||$),b.clearFocusListCache()},b.close=function(e,n){var t=g.get(e);return t&&m(t,n,!0)?(t.value.modalScope.$$uibDestructionScheduled=!0,t.value.deferred.resolve(n),d(e,t.value.modalOpener),!0):!t},b.dismiss=function(e,n){var t=g.get(e);return t&&m(t,n,!1)?(t.value.modalScope.$$uibDestructionScheduled=!0,t.value.deferred.reject(n),d(e,t.value.modalOpener),!0):!t},b.dismissAll=function(e){for(var n=this.getTop();n&&this.dismiss(n.key,e);)n=this.getTop()},b.getTop=function(){return g.top()},b.modalRendered=function(e){var n=g.get(e);n&&n.value.renderDeferred.resolve()},b.focusFirstFocusableElement=function(){return h.length>0?(h[0].focus(),!0):!1},b.focusLastFocusableElement=function(){return h.length>0?(h[h.length-1].focus(),!0):!1},b.isFocusInFirstItem=function(e){return h.length>0?(e.target||e.srcElement)==h[0]:!1},b.isFocusInLastItem=function(e){return h.length>0?(e.target||e.srcElement)==h[h.length-1]:!1},b.clearFocusListCache=function(){h=[],C=0},b.loadFocusElementList=function(e){if((void 0===h||!h.length0)&&e){var n=e.value.modalDomEl;n&&n.length&&(h=n[0].querySelectorAll(k))}},b}]).provider("$modal",function(){var e={options:{animation:!0,backdrop:!0,keyboard:!0},$get:["$injector","$rootScope","$q","$templateRequest","$controller","$modalStack",function(n,t,a,o,r,l){function s(e){return e.template?a.when(e.template):o(angular.isFunction(e.templateUrl)?e.templateUrl():e.templateUrl)}function i(e){var t=[];return angular.forEach(e,function(e){angular.isFunction(e)||angular.isArray(e)?t.push(a.when(n.invoke(e))):angular.isString(e)&&t.push(a.when(n.get(e)))}),t}var d={};return d.open=function(n){var o=a.defer(),d=a.defer(),c=a.defer(),u={result:o.promise,opened:d.promise,rendered:c.promise,close:function(e){return l.close(u,e)},dismiss:function(e){return l.dismiss(u,e)}};if(n=angular.extend({},e.options,n),n.resolve=n.resolve||{},!n.template&&!n.templateUrl)throw new Error("One of template or templateUrl options is required.");var m=a.all([s(n)].concat(i(n.resolve)));return m.then(function(e){var a=(n.scope||t).$new();a.$close=u.close,a.$dismiss=u.dismiss,a.$on("$destroy",function(){a.$$uibDestructionScheduled||a.$dismiss("$uibUnscheduledDestruction")});var s,i={},d=1;n.controller&&(i.$scope=a,i.$modalInstance=u,angular.forEach(n.resolve,function(n,t){i[t]=e[d++]}),s=r(n.controller,i),n.controllerAs&&(n.bindToController&&angular.extend(s,a),a[n.controllerAs]=s)),l.open(u,{scope:a,deferred:o,renderDeferred:c,content:e[0],animation:n.animation,backdrop:n.backdrop,keyboard:n.keyboard,backdropClass:n.backdropClass,windowClass:n.windowClass,windowTemplateUrl:n.windowTemplateUrl,size:n.size,openedClass:n.openedClass})},function(e){o.reject(e)}),m.then(function(){d.resolve(!0)},function(e){d.reject(e)}),u},d}]};return e});
 },{}],7:[function(require,module,exports){
-/* ng-infinite-scroll - v1.2.0 - 2015-02-14 */
-var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECONDS",null),mod.directive("infiniteScroll",["$rootScope","$window","$interval","THROTTLE_MILLISECONDS",function(a,b,c,d){return{scope:{infiniteScroll:"&",infiniteScrollContainer:"=",infiniteScrollDistance:"=",infiniteScrollDisabled:"=",infiniteScrollUseDocumentBottom:"=",infiniteScrollListenForEvent:"@"},link:function(e,f,g){var h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y;return y=angular.element(b),t=null,u=null,i=null,j=null,q=!0,x=!1,w=null,p=function(a){return a=a[0]||a,isNaN(a.offsetHeight)?a.document.documentElement.clientHeight:a.offsetHeight},r=function(a){return a[0].getBoundingClientRect&&!a.css("none")?a[0].getBoundingClientRect().top+s(a):void 0},s=function(a){return a=a[0]||a,isNaN(window.pageYOffset)?a.document.documentElement.scrollTop:a.ownerDocument.defaultView.pageYOffset},o=function(){var b,c,d,g,h;return j===y?(b=p(j)+s(j[0].document.documentElement),d=r(f)+p(f)):(b=p(j),c=0,void 0!==r(j)&&(c=r(j)),d=r(f)-c+p(f)),x&&(d=p((f[0].ownerDocument||f[0].document).documentElement)),g=d-b,h=g<=p(j)*t+1,h?(i=!0,u?e.$$phase||a.$$phase?e.infiniteScroll():e.$apply(e.infiniteScroll):void 0):i=!1},v=function(a,b){var d,e,f;return f=null,e=0,d=function(){var b;return e=(new Date).getTime(),c.cancel(f),f=null,a.call(),b=null},function(){var g,h;return g=(new Date).getTime(),h=b-(g-e),0>=h?(clearTimeout(f),c.cancel(f),f=null,e=g,a.call()):f?void 0:f=c(d,h,1)}},null!=d&&(o=v(o,d)),e.$on("$destroy",function(){return j.unbind("scroll",o),null!=w?(w(),w=null):void 0}),m=function(a){return t=parseFloat(a)||0},e.$watch("infiniteScrollDistance",m),m(e.infiniteScrollDistance),l=function(a){return u=!a,u&&i?(i=!1,o()):void 0},e.$watch("infiniteScrollDisabled",l),l(e.infiniteScrollDisabled),n=function(a){return x=a},e.$watch("infiniteScrollUseDocumentBottom",n),n(e.infiniteScrollUseDocumentBottom),h=function(a){return null!=j&&j.unbind("scroll",o),j=a,null!=a?j.bind("scroll",o):void 0},h(y),e.infiniteScrollListenForEvent&&(w=a.$on(e.infiniteScrollListenForEvent,o)),k=function(a){if(null!=a&&0!==a.length){if(a instanceof HTMLElement?a=angular.element(a):"function"==typeof a.append?a=angular.element(a[a.length-1]):"string"==typeof a&&(a=angular.element(document.querySelector(a))),null!=a)return h(a);throw new Exception("invalid infinite-scroll-container attribute.")}},e.$watch("infiniteScrollContainer",k),k(e.infiniteScrollContainer||[]),null!=g.infiniteScrollParent&&h(angular.element(f.parent())),null!=g.infiniteScrollImmediateCheck&&(q=e.$eval(g.infiniteScrollImmediateCheck)),c(function(){return q?o():void 0},0,1)}}}]);
-},{}],8:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.3
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -486,11 +493,11 @@ var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECOND
         "၆":"6","၇":"7","၈":"8","၉":"9","၀":"0"},Wf=(nf.defineLocale("my",{months:"ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ".split("_"),monthsShort:"ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ".split("_"),weekdays:"တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ".split("_"),weekdaysShort:"နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ".split("_"),weekdaysMin:"နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ".split("_"),longDateFormat:{LT:"HH:mm",LTS:"HH:mm:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[ယနေ.] LT [မှာ]",nextDay:"[မနက်ဖြန်] LT [မှာ]",nextWeek:"dddd LT [မှာ]",lastDay:"[မနေ.က] LT [မှာ]",lastWeek:"[ပြီးခဲ့သော] dddd LT [မှာ]",sameElse:"L"},relativeTime:{future:"လာမည့် %s မှာ",past:"လွန်ခဲ့သော %s က",s:"စက္ကန်.အနည်းငယ်",m:"တစ်မိနစ်",mm:"%d မိနစ်",h:"တစ်နာရီ",hh:"%d နာရီ",d:"တစ်ရက်",dd:"%d ရက်",M:"တစ်လ",MM:"%d လ",y:"တစ်နှစ်",yy:"%d နှစ်"},preparse:function(a){return a.replace(/[၁၂၃၄၅၆၇၈၉၀]/g,function(a){return Vf[a]})},postformat:function(a){return a.replace(/\d/g,function(a){return Uf[a]})},week:{dow:1,doy:4}}),nf.defineLocale("nb",{months:"januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),monthsShort:"jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),weekdays:"søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),weekdaysShort:"søn_man_tirs_ons_tors_fre_lør".split("_"),weekdaysMin:"sø_ma_ti_on_to_fr_lø".split("_"),longDateFormat:{LT:"H.mm",LTS:"LT.ss",L:"DD.MM.YYYY",LL:"D. MMMM YYYY",LLL:"D. MMMM YYYY [kl.] LT",LLLL:"dddd D. MMMM YYYY [kl.] LT"},calendar:{sameDay:"[i dag kl.] LT",nextDay:"[i morgen kl.] LT",nextWeek:"dddd [kl.] LT",lastDay:"[i går kl.] LT",lastWeek:"[forrige] dddd [kl.] LT",sameElse:"L"},relativeTime:{future:"om %s",past:"for %s siden",s:"noen sekunder",m:"ett minutt",mm:"%d minutter",h:"en time",hh:"%d timer",d:"en dag",dd:"%d dager",M:"en måned",MM:"%d måneder",y:"ett år",yy:"%d år"},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:4}}),{1:"१",2:"२",3:"३",4:"४",5:"५",6:"६",7:"७",8:"८",9:"९",0:"०"}),Xf={"१":"1","२":"2","३":"3","४":"4","५":"5","६":"6","७":"7","८":"8","९":"9","०":"0"},Yf=(nf.defineLocale("ne",{months:"जनवरी_फेब्रुवरी_मार्च_अप्रिल_मई_जुन_जुलाई_अगष्ट_सेप्टेम्बर_अक्टोबर_नोभेम्बर_डिसेम्बर".split("_"),monthsShort:"जन._फेब्रु._मार्च_अप्रि._मई_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.".split("_"),weekdays:"आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार".split("_"),weekdaysShort:"आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.".split("_"),weekdaysMin:"आइ._सो._मङ्_बु._बि._शु._श.".split("_"),longDateFormat:{LT:"Aको h:mm बजे",LTS:"Aको h:mm:ss बजे",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY, LT",LLLL:"dddd, D MMMM YYYY, LT"},preparse:function(a){return a.replace(/[१२३४५६७८९०]/g,function(a){return Xf[a]})},postformat:function(a){return a.replace(/\d/g,function(a){return Wf[a]})},meridiemParse:/राती|बिहान|दिउँसो|बेलुका|साँझ|राती/,meridiemHour:function(a,b){return 12===a&&(a=0),"राती"===b?3>a?a:a+12:"बिहान"===b?a:"दिउँसो"===b?a>=10?a:a+12:"बेलुका"===b||"साँझ"===b?a+12:void 0},meridiem:function(a,b,c){return 3>a?"राती":10>a?"बिहान":15>a?"दिउँसो":18>a?"बेलुका":20>a?"साँझ":"राती"},calendar:{sameDay:"[आज] LT",nextDay:"[भोली] LT",nextWeek:"[आउँदो] dddd[,] LT",lastDay:"[हिजो] LT",lastWeek:"[गएको] dddd[,] LT",sameElse:"L"},relativeTime:{future:"%sमा",past:"%s अगाडी",s:"केही समय",m:"एक मिनेट",mm:"%d मिनेट",h:"एक घण्टा",hh:"%d घण्टा",d:"एक दिन",dd:"%d दिन",M:"एक महिना",MM:"%d महिना",y:"एक बर्ष",yy:"%d बर्ष"},week:{dow:1,doy:7}}),"jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_")),Zf="jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec".split("_"),$f=(nf.defineLocale("nl",{months:"januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december".split("_"),monthsShort:function(a,b){return/-MMM-/.test(b)?Zf[a.month()]:Yf[a.month()]},weekdays:"zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag".split("_"),weekdaysShort:"zo._ma._di._wo._do._vr._za.".split("_"),weekdaysMin:"Zo_Ma_Di_Wo_Do_Vr_Za".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD-MM-YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[vandaag om] LT",nextDay:"[morgen om] LT",nextWeek:"dddd [om] LT",lastDay:"[gisteren om] LT",lastWeek:"[afgelopen] dddd [om] LT",sameElse:"L"},relativeTime:{future:"over %s",past:"%s geleden",s:"een paar seconden",m:"één minuut",mm:"%d minuten",h:"één uur",hh:"%d uur",d:"één dag",dd:"%d dagen",M:"één maand",MM:"%d maanden",y:"één jaar",yy:"%d jaar"},ordinalParse:/\d{1,2}(ste|de)/,ordinal:function(a){return a+(1===a||8===a||a>=20?"ste":"de")},week:{dow:1,doy:4}}),nf.defineLocale("nn",{months:"januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),monthsShort:"jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),weekdays:"sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag".split("_"),weekdaysShort:"sun_mån_tys_ons_tor_fre_lau".split("_"),weekdaysMin:"su_må_ty_on_to_fr_lø".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[I dag klokka] LT",nextDay:"[I morgon klokka] LT",nextWeek:"dddd [klokka] LT",lastDay:"[I går klokka] LT",lastWeek:"[Føregåande] dddd [klokka] LT",sameElse:"L"},relativeTime:{future:"om %s",past:"for %s sidan",s:"nokre sekund",m:"eit minutt",mm:"%d minutt",h:"ein time",hh:"%d timar",d:"ein dag",dd:"%d dagar",M:"ein månad",MM:"%d månader",y:"eit år",yy:"%d år"},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:4}}),"styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_")),_f="stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia".split("_"),ag=(nf.defineLocale("pl",{months:function(a,b){return""===b?"("+_f[a.month()]+"|"+$f[a.month()]+")":/D MMMM/.test(b)?_f[a.month()]:$f[a.month()]},monthsShort:"sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),weekdays:"niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),weekdaysShort:"nie_pon_wt_śr_czw_pt_sb".split("_"),weekdaysMin:"N_Pn_Wt_Śr_Cz_Pt_So".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd, D MMMM YYYY LT"},calendar:{sameDay:"[Dziś o] LT",nextDay:"[Jutro o] LT",nextWeek:"[W] dddd [o] LT",lastDay:"[Wczoraj o] LT",lastWeek:function(){switch(this.day()){case 0:return"[W zeszłą niedzielę o] LT";case 3:return"[W zeszłą środę o] LT";case 6:return"[W zeszłą sobotę o] LT";default:return"[W zeszły] dddd [o] LT"}},sameElse:"L"},relativeTime:{future:"za %s",past:"%s temu",s:"kilka sekund",m:rd,mm:rd,h:rd,hh:rd,d:"1 dzień",dd:"%d dni",M:"miesiąc",MM:rd,y:"rok",yy:rd},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:4}}),nf.defineLocale("pt-br",{months:"Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),monthsShort:"Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez".split("_"),weekdays:"Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado".split("_"),weekdaysShort:"Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),weekdaysMin:"Dom_2ª_3ª_4ª_5ª_6ª_Sáb".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D [de] MMMM [de] YYYY",LLL:"D [de] MMMM [de] YYYY [às] LT",LLLL:"dddd, D [de] MMMM [de] YYYY [às] LT"},calendar:{sameDay:"[Hoje às] LT",nextDay:"[Amanhã às] LT",nextWeek:"dddd [às] LT",lastDay:"[Ontem às] LT",lastWeek:function(){return 0===this.day()||6===this.day()?"[Último] dddd [às] LT":"[Última] dddd [às] LT"},sameElse:"L"},relativeTime:{future:"em %s",past:"%s atrás",s:"segundos",m:"um minuto",mm:"%d minutos",h:"uma hora",hh:"%d horas",d:"um dia",dd:"%d dias",M:"um mês",MM:"%d meses",y:"um ano",yy:"%d anos"},ordinalParse:/\d{1,2}º/,ordinal:"%dº"}),nf.defineLocale("pt",{months:"Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),monthsShort:"Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez".split("_"),weekdays:"Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado".split("_"),weekdaysShort:"Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),weekdaysMin:"Dom_2ª_3ª_4ª_5ª_6ª_Sáb".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D [de] MMMM [de] YYYY",LLL:"D [de] MMMM [de] YYYY LT",LLLL:"dddd, D [de] MMMM [de] YYYY LT"},calendar:{sameDay:"[Hoje às] LT",nextDay:"[Amanhã às] LT",nextWeek:"dddd [às] LT",lastDay:"[Ontem às] LT",lastWeek:function(){return 0===this.day()||6===this.day()?"[Último] dddd [às] LT":"[Última] dddd [às] LT"},sameElse:"L"},relativeTime:{future:"em %s",past:"há %s",s:"segundos",m:"um minuto",mm:"%d minutos",h:"uma hora",hh:"%d horas",d:"um dia",dd:"%d dias",M:"um mês",MM:"%d meses",y:"um ano",yy:"%d anos"},ordinalParse:/\d{1,2}º/,ordinal:"%dº",week:{dow:1,doy:4}}),nf.defineLocale("ro",{months:"ianuarie_februarie_martie_aprilie_mai_iunie_iulie_august_septembrie_octombrie_noiembrie_decembrie".split("_"),monthsShort:"ian._febr._mart._apr._mai_iun._iul._aug._sept._oct._nov._dec.".split("_"),weekdays:"duminică_luni_marți_miercuri_joi_vineri_sâmbătă".split("_"),weekdaysShort:"Dum_Lun_Mar_Mie_Joi_Vin_Sâm".split("_"),weekdaysMin:"Du_Lu_Ma_Mi_Jo_Vi_Sâ".split("_"),longDateFormat:{LT:"H:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY H:mm",LLLL:"dddd, D MMMM YYYY H:mm"},calendar:{sameDay:"[azi la] LT",nextDay:"[mâine la] LT",nextWeek:"dddd [la] LT",lastDay:"[ieri la] LT",lastWeek:"[fosta] dddd [la] LT",sameElse:"L"},relativeTime:{future:"peste %s",past:"%s în urmă",s:"câteva secunde",m:"un minut",mm:sd,h:"o oră",hh:sd,d:"o zi",dd:sd,M:"o lună",MM:sd,y:"un an",yy:sd},week:{dow:1,doy:7}}),nf.defineLocale("ru",{months:vd,monthsShort:wd,weekdays:xd,weekdaysShort:"вс_пн_вт_ср_чт_пт_сб".split("_"),weekdaysMin:"вс_пн_вт_ср_чт_пт_сб".split("_"),monthsParse:[/^янв/i,/^фев/i,/^мар/i,/^апр/i,/^ма[й|я]/i,/^июн/i,/^июл/i,/^авг/i,/^сен/i,/^окт/i,/^ноя/i,/^дек/i],longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY г.",LLL:"D MMMM YYYY г., LT",LLLL:"dddd, D MMMM YYYY г., LT"},calendar:{sameDay:"[Сегодня в] LT",nextDay:"[Завтра в] LT",lastDay:"[Вчера в] LT",nextWeek:function(){return 2===this.day()?"[Во] dddd [в] LT":"[В] dddd [в] LT"},lastWeek:function(a){if(a.week()===this.week())return 2===this.day()?"[Во] dddd [в] LT":"[В] dddd [в] LT";switch(this.day()){case 0:return"[В прошлое] dddd [в] LT";case 1:case 2:case 4:return"[В прошлый] dddd [в] LT";case 3:case 5:case 6:return"[В прошлую] dddd [в] LT"}},sameElse:"L"},relativeTime:{future:"через %s",past:"%s назад",s:"несколько секунд",m:ud,mm:ud,h:"час",hh:ud,d:"день",dd:ud,M:"месяц",MM:ud,y:"год",yy:ud},meridiemParse:/ночи|утра|дня|вечера/i,isPM:function(a){return/^(дня|вечера)$/.test(a)},meridiem:function(a,b,c){return 4>a?"ночи":12>a?"утра":17>a?"дня":"вечера"},ordinalParse:/\d{1,2}-(й|го|я)/,ordinal:function(a,b){switch(b){case"M":case"d":case"DDD":return a+"-й";case"D":return a+"-го";case"w":case"W":return a+"-я";default:return a}},week:{dow:1,doy:7}}),nf.defineLocale("si",{months:"ජනවාරි_පෙබරවාරි_මාර්තු_අප්‍රේල්_මැයි_ජූනි_ජූලි_අගෝස්තු_සැප්තැම්බර්_ඔක්තෝබර්_නොවැම්බර්_දෙසැම්බර්".split("_"),monthsShort:"ජන_පෙබ_මාර්_අප්_මැයි_ජූනි_ජූලි_අගෝ_සැප්_ඔක්_නොවැ_දෙසැ".split("_"),weekdays:"ඉරිදා_සඳුදා_අඟහරුවාදා_බදාදා_බ්‍රහස්පතින්දා_සිකුරාදා_සෙනසුරාදා".split("_"),weekdaysShort:"ඉරි_සඳු_අඟ_බදා_බ්‍රහ_සිකු_සෙන".split("_"),weekdaysMin:"ඉ_ස_අ_බ_බ්‍ර_සි_සෙ".split("_"),longDateFormat:{LT:"a h:mm",LTS:"a h:mm:ss",L:"YYYY/MM/DD",LL:"YYYY MMMM D",LLL:"YYYY MMMM D, LT",LLLL:"YYYY MMMM D [වැනි] dddd, LTS"},calendar:{sameDay:"[අද] LT[ට]",nextDay:"[හෙට] LT[ට]",nextWeek:"dddd LT[ට]",lastDay:"[ඊයේ] LT[ට]",lastWeek:"[පසුගිය] dddd LT[ට]",sameElse:"L"},relativeTime:{future:"%sකින්",past:"%sකට පෙර",s:"තත්පර කිහිපය",m:"මිනිත්තුව",mm:"මිනිත්තු %d",h:"පැය",hh:"පැය %d",d:"දිනය",dd:"දින %d",M:"මාසය",MM:"මාස %d",y:"වසර",yy:"වසර %d"},ordinalParse:/\d{1,2} වැනි/,ordinal:function(a){return a+" වැනි"},meridiem:function(a,b,c){return a>11?c?"ප.ව.":"පස් වරු":c?"පෙ.ව.":"පෙර වරු"}}),"január_február_marec_apríl_máj_jún_júl_august_september_október_november_december".split("_")),bg="jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec".split("_"),cg=(nf.defineLocale("sk",{months:ag,monthsShort:bg,monthsParse:function(a,b){var c,d=[];for(c=0;12>c;c++)d[c]=new RegExp("^"+a[c]+"$|^"+b[c]+"$","i");return d}(ag,bg),weekdays:"nedeľa_pondelok_utorok_streda_štvrtok_piatok_sobota".split("_"),weekdaysShort:"ne_po_ut_st_št_pi_so".split("_"),weekdaysMin:"ne_po_ut_st_št_pi_so".split("_"),longDateFormat:{LT:"H:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D. MMMM YYYY",LLL:"D. MMMM YYYY LT",LLLL:"dddd D. MMMM YYYY LT"},calendar:{sameDay:"[dnes o] LT",nextDay:"[zajtra o] LT",nextWeek:function(){switch(this.day()){case 0:return"[v nedeľu o] LT";case 1:case 2:return"[v] dddd [o] LT";case 3:return"[v stredu o] LT";case 4:return"[vo štvrtok o] LT";case 5:return"[v piatok o] LT";case 6:return"[v sobotu o] LT"}},lastDay:"[včera o] LT",lastWeek:function(){switch(this.day()){case 0:return"[minulú nedeľu o] LT";case 1:case 2:return"[minulý] dddd [o] LT";case 3:return"[minulú stredu o] LT";case 4:case 5:return"[minulý] dddd [o] LT";case 6:return"[minulú sobotu o] LT"}},sameElse:"L"},relativeTime:{future:"za %s",past:"pred %s",s:zd,m:zd,mm:zd,h:zd,hh:zd,d:zd,dd:zd,M:zd,MM:zd,y:zd,yy:zd},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:4}}),nf.defineLocale("sl",{months:"januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december".split("_"),monthsShort:"jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),weekdays:"nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota".split("_"),weekdaysShort:"ned._pon._tor._sre._čet._pet._sob.".split("_"),weekdaysMin:"ne_po_to_sr_če_pe_so".split("_"),longDateFormat:{LT:"H:mm",LTS:"LT:ss",L:"DD. MM. YYYY",LL:"D. MMMM YYYY",LLL:"D. MMMM YYYY LT",LLLL:"dddd, D. MMMM YYYY LT"},calendar:{sameDay:"[danes ob] LT",nextDay:"[jutri ob] LT",nextWeek:function(){switch(this.day()){case 0:return"[v] [nedeljo] [ob] LT";case 3:return"[v] [sredo] [ob] LT";case 6:return"[v] [soboto] [ob] LT";case 1:case 2:case 4:case 5:return"[v] dddd [ob] LT"}},lastDay:"[včeraj ob] LT",lastWeek:function(){switch(this.day()){case 0:return"[prejšnjo] [nedeljo] [ob] LT";case 3:return"[prejšnjo] [sredo] [ob] LT";case 6:return"[prejšnjo] [soboto] [ob] LT";case 1:case 2:case 4:case 5:return"[prejšnji] dddd [ob] LT"}},sameElse:"L"},relativeTime:{future:"čez %s",past:"pred %s",s:Ad,m:Ad,mm:Ad,h:Ad,hh:Ad,d:Ad,dd:Ad,M:Ad,MM:Ad,y:Ad,yy:Ad},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:7}}),nf.defineLocale("sq",{months:"Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor".split("_"),monthsShort:"Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj".split("_"),weekdays:"E Diel_E Hënë_E Martë_E Mërkurë_E Enjte_E Premte_E Shtunë".split("_"),weekdaysShort:"Die_Hën_Mar_Mër_Enj_Pre_Sht".split("_"),weekdaysMin:"D_H_Ma_Më_E_P_Sh".split("_"),meridiemParse:/PD|MD/,isPM:function(a){return"M"===a.charAt(0)},meridiem:function(a,b,c){return 12>a?"PD":"MD"},longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd, D MMMM YYYY LT"},calendar:{sameDay:"[Sot në] LT",nextDay:"[Nesër në] LT",nextWeek:"dddd [në] LT",lastDay:"[Dje në] LT",lastWeek:"dddd [e kaluar në] LT",sameElse:"L"},relativeTime:{future:"në %s",past:"%s më parë",s:"disa sekonda",m:"një minutë",mm:"%d minuta",h:"një orë",hh:"%d orë",d:"një ditë",dd:"%d ditë",M:"një muaj",MM:"%d muaj",y:"një vit",yy:"%d vite"},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:4}}),{words:{m:["један минут","једне минуте"],mm:["минут","минуте","минута"],h:["један сат","једног сата"],hh:["сат","сата","сати"],dd:["дан","дана","дана"],MM:["месец","месеца","месеци"],yy:["година","године","година"]},correctGrammaticalCase:function(a,b){return 1===a?b[0]:a>=2&&4>=a?b[1]:b[2]},translate:function(a,b,c){var d=cg.words[c];return 1===c.length?b?d[0]:d[1]:a+" "+cg.correctGrammaticalCase(a,d)}}),dg=(nf.defineLocale("sr-cyrl",{months:["јануар","фебруар","март","април","мај","јун","јул","август","септембар","октобар","новембар","децембар"],monthsShort:["јан.","феб.","мар.","апр.","мај","јун","јул","авг.","сеп.","окт.","нов.","дец."],weekdays:["недеља","понедељак","уторак","среда","четвртак","петак","субота"],weekdaysShort:["нед.","пон.","уто.","сре.","чет.","пет.","суб."],weekdaysMin:["не","по","ут","ср","че","пе","су"],longDateFormat:{LT:"H:mm",LTS:"LT:ss",L:"DD. MM. YYYY",LL:"D. MMMM YYYY",LLL:"D. MMMM YYYY LT",LLLL:"dddd, D. MMMM YYYY LT"},calendar:{sameDay:"[данас у] LT",nextDay:"[сутра у] LT",nextWeek:function(){switch(this.day()){case 0:return"[у] [недељу] [у] LT";case 3:return"[у] [среду] [у] LT";case 6:return"[у] [суботу] [у] LT";case 1:case 2:case 4:case 5:return"[у] dddd [у] LT"}},lastDay:"[јуче у] LT",lastWeek:function(){var a=["[прошле] [недеље] [у] LT","[прошлог] [понедељка] [у] LT","[прошлог] [уторка] [у] LT","[прошле] [среде] [у] LT","[прошлог] [четвртка] [у] LT","[прошлог] [петка] [у] LT","[прошле] [суботе] [у] LT"];return a[this.day()]},sameElse:"L"},relativeTime:{future:"за %s",past:"пре %s",s:"неколико секунди",m:cg.translate,mm:cg.translate,h:cg.translate,hh:cg.translate,d:"дан",dd:cg.translate,M:"месец",MM:cg.translate,y:"годину",yy:cg.translate},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:7}}),{words:{m:["jedan minut","jedne minute"],mm:["minut","minute","minuta"],h:["jedan sat","jednog sata"],hh:["sat","sata","sati"],dd:["dan","dana","dana"],MM:["mesec","meseca","meseci"],yy:["godina","godine","godina"]},correctGrammaticalCase:function(a,b){return 1===a?b[0]:a>=2&&4>=a?b[1]:b[2]},translate:function(a,b,c){var d=dg.words[c];return 1===c.length?b?d[0]:d[1]:a+" "+dg.correctGrammaticalCase(a,d)}}),eg=(nf.defineLocale("sr",{months:["januar","februar","mart","april","maj","jun","jul","avgust","septembar","oktobar","novembar","decembar"],monthsShort:["jan.","feb.","mar.","apr.","maj","jun","jul","avg.","sep.","okt.","nov.","dec."],weekdays:["nedelja","ponedeljak","utorak","sreda","četvrtak","petak","subota"],weekdaysShort:["ned.","pon.","uto.","sre.","čet.","pet.","sub."],weekdaysMin:["ne","po","ut","sr","če","pe","su"],longDateFormat:{LT:"H:mm",LTS:"LT:ss",L:"DD. MM. YYYY",LL:"D. MMMM YYYY",LLL:"D. MMMM YYYY LT",LLLL:"dddd, D. MMMM YYYY LT"},calendar:{sameDay:"[danas u] LT",nextDay:"[sutra u] LT",nextWeek:function(){switch(this.day()){case 0:return"[u] [nedelju] [u] LT";case 3:return"[u] [sredu] [u] LT";case 6:return"[u] [subotu] [u] LT";case 1:case 2:case 4:case 5:return"[u] dddd [u] LT"}},lastDay:"[juče u] LT",lastWeek:function(){var a=["[prošle] [nedelje] [u] LT","[prošlog] [ponedeljka] [u] LT","[prošlog] [utorka] [u] LT","[prošle] [srede] [u] LT","[prošlog] [četvrtka] [u] LT","[prošlog] [petka] [u] LT","[prošle] [subote] [u] LT"];return a[this.day()]},sameElse:"L"},relativeTime:{future:"za %s",past:"pre %s",s:"nekoliko sekundi",m:dg.translate,mm:dg.translate,h:dg.translate,hh:dg.translate,d:"dan",dd:dg.translate,M:"mesec",MM:dg.translate,y:"godinu",yy:dg.translate},ordinalParse:/\d{1,2}\./,ordinal:"%d.",week:{dow:1,doy:7}}),nf.defineLocale("sv",{months:"januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december".split("_"),monthsShort:"jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec".split("_"),weekdays:"söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag".split("_"),weekdaysShort:"sön_mån_tis_ons_tor_fre_lör".split("_"),weekdaysMin:"sö_må_ti_on_to_fr_lö".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"YYYY-MM-DD",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[Idag] LT",nextDay:"[Imorgon] LT",lastDay:"[Igår] LT",nextWeek:"[På] dddd LT",lastWeek:"[I] dddd[s] LT",sameElse:"L"},relativeTime:{future:"om %s",past:"för %s sedan",s:"några sekunder",m:"en minut",mm:"%d minuter",h:"en timme",hh:"%d timmar",d:"en dag",dd:"%d dagar",M:"en månad",MM:"%d månader",y:"ett år",yy:"%d år"},ordinalParse:/\d{1,2}(e|a)/,ordinal:function(a){var b=a%10,c=1===~~(a%100/10)?"e":1===b?"a":2===b?"a":"e";return a+c},week:{dow:1,doy:4}}),nf.defineLocale("ta",{months:"ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்".split("_"),monthsShort:"ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்".split("_"),weekdays:"ஞாயிற்றுக்கிழமை_திங்கட்கிழமை_செவ்வாய்கிழமை_புதன்கிழமை_வியாழக்கிழமை_வெள்ளிக்கிழமை_சனிக்கிழமை".split("_"),weekdaysShort:"ஞாயிறு_திங்கள்_செவ்வாய்_புதன்_வியாழன்_வெள்ளி_சனி".split("_"),weekdaysMin:"ஞா_தி_செ_பு_வி_வெ_ச".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY, LT",LLLL:"dddd, D MMMM YYYY, LT"},calendar:{sameDay:"[இன்று] LT",nextDay:"[நாளை] LT",nextWeek:"dddd, LT",lastDay:"[நேற்று] LT",lastWeek:"[கடந்த வாரம்] dddd, LT",sameElse:"L"},relativeTime:{future:"%s இல்",past:"%s முன்",s:"ஒரு சில விநாடிகள்",m:"ஒரு நிமிடம்",mm:"%d நிமிடங்கள்",h:"ஒரு மணி நேரம்",hh:"%d மணி நேரம்",d:"ஒரு நாள்",dd:"%d நாட்கள்",M:"ஒரு மாதம்",MM:"%d மாதங்கள்",y:"ஒரு வருடம்",yy:"%d ஆண்டுகள்"},ordinalParse:/\d{1,2}வது/,ordinal:function(a){return a+"வது"},meridiemParse:/யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,meridiem:function(a,b,c){return 2>a?" யாமம்":6>a?" வைகறை":10>a?" காலை":14>a?" நண்பகல்":18>a?" எற்பாடு":22>a?" மாலை":" யாமம்"},meridiemHour:function(a,b){return 12===a&&(a=0),"யாமம்"===b?2>a?a:a+12:"வைகறை"===b||"காலை"===b?a:"நண்பகல்"===b&&a>=10?a:a+12},week:{dow:0,doy:6}}),nf.defineLocale("th",{months:"มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม".split("_"),monthsShort:"มกรา_กุมภา_มีนา_เมษา_พฤษภา_มิถุนา_กรกฎา_สิงหา_กันยา_ตุลา_พฤศจิกา_ธันวา".split("_"),weekdays:"อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัสบดี_ศุกร์_เสาร์".split("_"),weekdaysShort:"อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์".split("_"),weekdaysMin:"อา._จ._อ._พ._พฤ._ศ._ส.".split("_"),longDateFormat:{LT:"H นาฬิกา m นาที",LTS:"LT s วินาที",L:"YYYY/MM/DD",LL:"D MMMM YYYY",LLL:"D MMMM YYYY เวลา LT",LLLL:"วันddddที่ D MMMM YYYY เวลา LT"},meridiemParse:/ก่อนเที่ยง|หลังเที่ยง/,isPM:function(a){return"หลังเที่ยง"===a},meridiem:function(a,b,c){return 12>a?"ก่อนเที่ยง":"หลังเที่ยง"},calendar:{sameDay:"[วันนี้ เวลา] LT",nextDay:"[พรุ่งนี้ เวลา] LT",nextWeek:"dddd[หน้า เวลา] LT",lastDay:"[เมื่อวานนี้ เวลา] LT",lastWeek:"[วัน]dddd[ที่แล้ว เวลา] LT",sameElse:"L"},relativeTime:{future:"อีก %s",past:"%sที่แล้ว",s:"ไม่กี่วินาที",m:"1 นาที",mm:"%d นาที",h:"1 ชั่วโมง",hh:"%d ชั่วโมง",d:"1 วัน",dd:"%d วัน",M:"1 เดือน",MM:"%d เดือน",y:"1 ปี",yy:"%d ปี"}}),nf.defineLocale("tl-ph",{months:"Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Oktubre_Nobyembre_Disyembre".split("_"),monthsShort:"Ene_Peb_Mar_Abr_May_Hun_Hul_Ago_Set_Okt_Nob_Dis".split("_"),weekdays:"Linggo_Lunes_Martes_Miyerkules_Huwebes_Biyernes_Sabado".split("_"),weekdaysShort:"Lin_Lun_Mar_Miy_Huw_Biy_Sab".split("_"),weekdaysMin:"Li_Lu_Ma_Mi_Hu_Bi_Sab".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"MM/D/YYYY",LL:"MMMM D, YYYY",LLL:"MMMM D, YYYY LT",LLLL:"dddd, MMMM DD, YYYY LT"},calendar:{sameDay:"[Ngayon sa] LT",nextDay:"[Bukas sa] LT",nextWeek:"dddd [sa] LT",lastDay:"[Kahapon sa] LT",lastWeek:"dddd [huling linggo] LT",sameElse:"L"},relativeTime:{future:"sa loob ng %s",past:"%s ang nakalipas",s:"ilang segundo",m:"isang minuto",mm:"%d minuto",h:"isang oras",hh:"%d oras",d:"isang araw",dd:"%d araw",M:"isang buwan",MM:"%d buwan",y:"isang taon",yy:"%d taon"},ordinalParse:/\d{1,2}/,ordinal:function(a){return a},week:{dow:1,doy:4}}),{1:"'inci",5:"'inci",8:"'inci",70:"'inci",80:"'inci",2:"'nci",7:"'nci",20:"'nci",50:"'nci",3:"'üncü",4:"'üncü",100:"'üncü",6:"'ncı",9:"'uncu",10:"'uncu",30:"'uncu",60:"'ıncı",90:"'ıncı"}),fg=(nf.defineLocale("tr",{months:"Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık".split("_"),monthsShort:"Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara".split("_"),weekdays:"Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi".split("_"),weekdaysShort:"Paz_Pts_Sal_Çar_Per_Cum_Cts".split("_"),weekdaysMin:"Pz_Pt_Sa_Ça_Pe_Cu_Ct".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd, D MMMM YYYY LT"},calendar:{sameDay:"[bugün saat] LT",nextDay:"[yarın saat] LT",nextWeek:"[haftaya] dddd [saat] LT",lastDay:"[dün] LT",lastWeek:"[geçen hafta] dddd [saat] LT",sameElse:"L"},relativeTime:{future:"%s sonra",past:"%s önce",s:"birkaç saniye",m:"bir dakika",mm:"%d dakika",h:"bir saat",hh:"%d saat",d:"bir gün",dd:"%d gün",M:"bir ay",MM:"%d ay",y:"bir yıl",yy:"%d yıl"},ordinalParse:/\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,ordinal:function(a){if(0===a)return a+"'ıncı";var b=a%10,c=a%100-b,d=a>=100?100:null;return a+(eg[b]||eg[c]||eg[d])},week:{dow:1,doy:7}}),nf.defineLocale("tzm-latn",{months:"innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),monthsShort:"innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),weekdays:"asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),weekdaysShort:"asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),weekdaysMin:"asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[asdkh g] LT",nextDay:"[aska g] LT",nextWeek:"dddd [g] LT",lastDay:"[assant g] LT",lastWeek:"dddd [g] LT",sameElse:"L"},relativeTime:{future:"dadkh s yan %s",past:"yan %s",s:"imik",m:"minuḍ",mm:"%d minuḍ",h:"saɛa",hh:"%d tassaɛin",d:"ass",dd:"%d ossan",M:"ayowr",MM:"%d iyyirn",y:"asgas",yy:"%d isgasn"},week:{dow:6,doy:12}}),nf.defineLocale("tzm",{months:"ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),monthsShort:"ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),weekdays:"ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),weekdaysShort:"ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),weekdaysMin:"ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"dddd D MMMM YYYY LT"},calendar:{sameDay:"[ⴰⵙⴷⵅ ⴴ] LT",nextDay:"[ⴰⵙⴽⴰ ⴴ] LT",nextWeek:"dddd [ⴴ] LT",lastDay:"[ⴰⵚⴰⵏⵜ ⴴ] LT",lastWeek:"dddd [ⴴ] LT",sameElse:"L"},relativeTime:{future:"ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ %s",past:"ⵢⴰⵏ %s",s:"ⵉⵎⵉⴽ",m:"ⵎⵉⵏⵓⴺ",mm:"%d ⵎⵉⵏⵓⴺ",h:"ⵙⴰⵄⴰ",hh:"%d ⵜⴰⵙⵙⴰⵄⵉⵏ",d:"ⴰⵙⵙ",dd:"%d oⵙⵙⴰⵏ",M:"ⴰⵢoⵓⵔ",MM:"%d ⵉⵢⵢⵉⵔⵏ",y:"ⴰⵙⴳⴰⵙ",yy:"%d ⵉⵙⴳⴰⵙⵏ"},week:{dow:6,doy:12}}),nf.defineLocale("uk",{months:Dd,monthsShort:"січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),weekdays:Ed,weekdaysShort:"нд_пн_вт_ср_чт_пт_сб".split("_"),weekdaysMin:"нд_пн_вт_ср_чт_пт_сб".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD.MM.YYYY",LL:"D MMMM YYYY р.",LLL:"D MMMM YYYY р., LT",LLLL:"dddd, D MMMM YYYY р., LT"},calendar:{sameDay:Fd("[Сьогодні "),nextDay:Fd("[Завтра "),lastDay:Fd("[Вчора "),nextWeek:Fd("[У] dddd ["),lastWeek:function(){switch(this.day()){case 0:case 3:case 5:case 6:return Fd("[Минулої] dddd [").call(this);case 1:case 2:case 4:return Fd("[Минулого] dddd [").call(this)}},sameElse:"L"},relativeTime:{future:"за %s",past:"%s тому",s:"декілька секунд",m:Cd,mm:Cd,h:"годину",hh:Cd,d:"день",dd:Cd,M:"місяць",MM:Cd,y:"рік",yy:Cd},meridiemParse:/ночі|ранку|дня|вечора/,isPM:function(a){return/^(дня|вечора)$/.test(a)},meridiem:function(a,b,c){return 4>a?"ночі":12>a?"ранку":17>a?"дня":"вечора"},ordinalParse:/\d{1,2}-(й|го)/,ordinal:function(a,b){switch(b){case"M":case"d":case"DDD":case"w":case"W":return a+"-й";case"D":return a+"-го";default:return a}},week:{dow:1,doy:7}}),nf.defineLocale("uz",{months:"январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь".split("_"),monthsShort:"янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),weekdays:"Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба".split("_"),weekdaysShort:"Якш_Душ_Сеш_Чор_Пай_Жум_Шан".split("_"),weekdaysMin:"Як_Ду_Се_Чо_Па_Жу_Ша".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY LT",LLLL:"D MMMM YYYY, dddd LT"},calendar:{sameDay:"[Бугун соат] LT [да]",nextDay:"[Эртага] LT [да]",nextWeek:"dddd [куни соат] LT [да]",lastDay:"[Кеча соат] LT [да]",lastWeek:"[Утган] dddd [куни соат] LT [да]",sameElse:"L"},relativeTime:{future:"Якин %s ичида",past:"Бир неча %s олдин",s:"фурсат",m:"бир дакика",mm:"%d дакика",h:"бир соат",hh:"%d соат",d:"бир кун",dd:"%d кун",M:"бир ой",MM:"%d ой",y:"бир йил",yy:"%d йил"},week:{dow:1,doy:7}}),nf.defineLocale("vi",{months:"tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12".split("_"),monthsShort:"Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12".split("_"),weekdays:"chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy".split("_"),weekdaysShort:"CN_T2_T3_T4_T5_T6_T7".split("_"),weekdaysMin:"CN_T2_T3_T4_T5_T6_T7".split("_"),longDateFormat:{LT:"HH:mm",LTS:"LT:ss",L:"DD/MM/YYYY",LL:"D MMMM [năm] YYYY",LLL:"D MMMM [năm] YYYY LT",LLLL:"dddd, D MMMM [năm] YYYY LT",l:"DD/M/YYYY",ll:"D MMM YYYY",lll:"D MMM YYYY LT",llll:"ddd, D MMM YYYY LT"},calendar:{sameDay:"[Hôm nay lúc] LT",nextDay:"[Ngày mai lúc] LT",nextWeek:"dddd [tuần tới lúc] LT",lastDay:"[Hôm qua lúc] LT",lastWeek:"dddd [tuần rồi lúc] LT",sameElse:"L"},relativeTime:{future:"%s tới",past:"%s trước",s:"vài giây",m:"một phút",mm:"%d phút",h:"một giờ",hh:"%d giờ",d:"một ngày",dd:"%d ngày",M:"một tháng",MM:"%d tháng",y:"một năm",yy:"%d năm"},ordinalParse:/\d{1,2}/,ordinal:function(a){return a},week:{dow:1,doy:4}}),nf.defineLocale("zh-cn",{months:"一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),monthsShort:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),weekdays:"星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),weekdaysShort:"周日_周一_周二_周三_周四_周五_周六".split("_"),weekdaysMin:"日_一_二_三_四_五_六".split("_"),longDateFormat:{LT:"Ah点mm分",LTS:"Ah点m分s秒",L:"YYYY-MM-DD",LL:"YYYY年MMMD日",LLL:"YYYY年MMMD日LT",LLLL:"YYYY年MMMD日ddddLT",l:"YYYY-MM-DD",ll:"YYYY年MMMD日",lll:"YYYY年MMMD日LT",llll:"YYYY年MMMD日ddddLT"},meridiemParse:/凌晨|早上|上午|中午|下午|晚上/,meridiemHour:function(a,b){return 12===a&&(a=0),"凌晨"===b||"早上"===b||"上午"===b?a:"下午"===b||"晚上"===b?a+12:a>=11?a:a+12},meridiem:function(a,b,c){var d=100*a+b;return 600>d?"凌晨":900>d?"早上":1130>d?"上午":1230>d?"中午":1800>d?"下午":"晚上"},calendar:{sameDay:function(){return 0===this.minutes()?"[今天]Ah[点整]":"[今天]LT"},nextDay:function(){return 0===this.minutes()?"[明天]Ah[点整]":"[明天]LT"},lastDay:function(){return 0===this.minutes()?"[昨天]Ah[点整]":"[昨天]LT"},nextWeek:function(){var a,b;return a=nf().startOf("week"),b=this.unix()-a.unix()>=604800?"[下]":"[本]",0===this.minutes()?b+"dddAh点整":b+"dddAh点mm"},lastWeek:function(){var a,b;return a=nf().startOf("week"),b=this.unix()<a.unix()?"[上]":"[本]",0===this.minutes()?b+"dddAh点整":b+"dddAh点mm"},sameElse:"LL"},ordinalParse:/\d{1,2}(日|月|周)/,ordinal:function(a,b){switch(b){case"d":case"D":case"DDD":return a+"日";case"M":return a+"月";case"w":case"W":return a+"周";default:return a}},relativeTime:{future:"%s内",past:"%s前",s:"几秒",m:"1 分钟",mm:"%d 分钟",h:"1 小时",hh:"%d 小时",d:"1 天",dd:"%d 天",M:"1 个月",MM:"%d 个月",y:"1 年",yy:"%d 年"},week:{dow:1,doy:4}}),nf.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),monthsShort:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),weekdays:"星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),weekdaysShort:"週日_週一_週二_週三_週四_週五_週六".split("_"),weekdaysMin:"日_一_二_三_四_五_六".split("_"),longDateFormat:{LT:"Ah點mm分",LTS:"Ah點m分s秒",L:"YYYY年MMMD日",LL:"YYYY年MMMD日",LLL:"YYYY年MMMD日LT",LLLL:"YYYY年MMMD日ddddLT",l:"YYYY年MMMD日",ll:"YYYY年MMMD日",lll:"YYYY年MMMD日LT",llll:"YYYY年MMMD日ddddLT"},meridiemParse:/早上|上午|中午|下午|晚上/,meridiemHour:function(a,b){return 12===a&&(a=0),"早上"===b||"上午"===b?a:"中午"===b?a>=11?a:a+12:"下午"===b||"晚上"===b?a+12:void 0},meridiem:function(a,b,c){var d=100*a+b;
 
         return 900>d?"早上":1130>d?"上午":1230>d?"中午":1800>d?"下午":"晚上"},calendar:{sameDay:"[今天]LT",nextDay:"[明天]LT",nextWeek:"[下]ddddLT",lastDay:"[昨天]LT",lastWeek:"[上]ddddLT",sameElse:"L"},ordinalParse:/\d{1,2}(日|月|週)/,ordinal:function(a,b){switch(b){case"d":case"D":case"DDD":return a+"日";case"M":return a+"月";case"w":case"W":return a+"週";default:return a}},relativeTime:{future:"%s內",past:"%s前",s:"幾秒",m:"一分鐘",mm:"%d分鐘",h:"一小時",hh:"%d小時",d:"一天",dd:"%d天",M:"一個月",MM:"%d個月",y:"一年",yy:"%d年"}}),nf);return fg});
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 //fgnass.github.com/spin.js#v2.0.1
 !function(a,b){"object"==typeof exports?module.exports=b():"function"==typeof define&&define.amd?define(b):a.Spinner=b()}(this,function(){"use strict";function a(a,b){var c,d=document.createElement(a||"div");for(c in b)d[c]=b[c];return d}function b(a){for(var b=1,c=arguments.length;c>b;b++)a.appendChild(arguments[b]);return a}function c(a,b,c,d){var e=["opacity",b,~~(100*a),c,d].join("-"),f=.01+c/d*100,g=Math.max(1-(1-a)/b*(100-f),a),h=j.substring(0,j.indexOf("Animation")).toLowerCase(),i=h&&"-"+h+"-"||"";return l[e]||(m.insertRule("@"+i+"keyframes "+e+"{0%{opacity:"+g+"}"+f+"%{opacity:"+a+"}"+(f+.01)+"%{opacity:1}"+(f+b)%100+"%{opacity:"+a+"}100%{opacity:"+g+"}}",m.cssRules.length),l[e]=1),e}function d(a,b){var c,d,e=a.style;for(b=b.charAt(0).toUpperCase()+b.slice(1),d=0;d<k.length;d++)if(c=k[d]+b,void 0!==e[c])return c;return void 0!==e[b]?b:void 0}function e(a,b){for(var c in b)a.style[d(a,c)||c]=b[c];return a}function f(a){for(var b=1;b<arguments.length;b++){var c=arguments[b];for(var d in c)void 0===a[d]&&(a[d]=c[d])}return a}function g(a,b){return"string"==typeof a?a:a[b%a.length]}function h(a){this.opts=f(a||{},h.defaults,n)}function i(){function c(b,c){return a("<"+b+' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">',c)}m.addRule(".spin-vml","behavior:url(#default#VML)"),h.prototype.lines=function(a,d){function f(){return e(c("group",{coordsize:k+" "+k,coordorigin:-j+" "+-j}),{width:k,height:k})}function h(a,h,i){b(m,b(e(f(),{rotation:360/d.lines*a+"deg",left:~~h}),b(e(c("roundrect",{arcsize:d.corners}),{width:j,height:d.width,left:d.radius,top:-d.width>>1,filter:i}),c("fill",{color:g(d.color,a),opacity:d.opacity}),c("stroke",{opacity:0}))))}var i,j=d.length+d.width,k=2*j,l=2*-(d.width+d.length)+"px",m=e(f(),{position:"absolute",top:l,left:l});if(d.shadow)for(i=1;i<=d.lines;i++)h(i,-2,"progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");for(i=1;i<=d.lines;i++)h(i);return b(a,m)},h.prototype.opacity=function(a,b,c,d){var e=a.firstChild;d=d.shadow&&d.lines||0,e&&b+d<e.childNodes.length&&(e=e.childNodes[b+d],e=e&&e.firstChild,e=e&&e.firstChild,e&&(e.opacity=c))}}var j,k=["webkit","Moz","ms","O"],l={},m=function(){var c=a("style",{type:"text/css"});return b(document.getElementsByTagName("head")[0],c),c.sheet||c.styleSheet}(),n={lines:12,length:7,width:5,radius:10,rotate:0,corners:1,color:"#000",direction:1,speed:1,trail:100,opacity:.25,fps:20,zIndex:2e9,className:"spinner",top:"50%",left:"50%",position:"absolute"};h.defaults={},f(h.prototype,{spin:function(b){this.stop();{var c=this,d=c.opts,f=c.el=e(a(0,{className:d.className}),{position:d.position,width:0,zIndex:d.zIndex});d.radius+d.length+d.width}if(e(f,{left:d.left,top:d.top}),b&&b.insertBefore(f,b.firstChild||null),f.setAttribute("role","progressbar"),c.lines(f,c.opts),!j){var g,h=0,i=(d.lines-1)*(1-d.direction)/2,k=d.fps,l=k/d.speed,m=(1-d.opacity)/(l*d.trail/100),n=l/d.lines;!function o(){h++;for(var a=0;a<d.lines;a++)g=Math.max(1-(h+(d.lines-a)*n)%l*m,d.opacity),c.opacity(f,a*d.direction+i,g,d);c.timeout=c.el&&setTimeout(o,~~(1e3/k))}()}return c},stop:function(){var a=this.el;return a&&(clearTimeout(this.timeout),a.parentNode&&a.parentNode.removeChild(a),this.el=void 0),this},lines:function(d,f){function h(b,c){return e(a(),{position:"absolute",width:f.length+f.width+"px",height:f.width+"px",background:b,boxShadow:c,transformOrigin:"left",transform:"rotate("+~~(360/f.lines*k+f.rotate)+"deg) translate("+f.radius+"px,0)",borderRadius:(f.corners*f.width>>1)+"px"})}for(var i,k=0,l=(f.lines-1)*(1-f.direction)/2;k<f.lines;k++)i=e(a(),{position:"absolute",top:1+~(f.width/2)+"px",transform:f.hwaccel?"translate3d(0,0,0)":"",opacity:f.opacity,animation:j&&c(f.opacity,f.trail,l+k*f.direction,f.lines)+" "+1/f.speed+"s linear infinite"}),f.shadow&&b(i,e(h("#000","0 0 4px #000"),{top:"2px"})),b(d,b(i,h(g(f.color,k),"0 0 1px rgba(0,0,0,.1)")));return d},opacity:function(a,b,c){b<a.childNodes.length&&(a.childNodes[b].style.opacity=c)}});var o=e(a("group"),{behavior:"url(#default#VML)"});return!d(o,"transform")&&o.adj?i():j=d(o,"animation"),h});
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 require('angular-ui-route');
@@ -498,7 +505,6 @@ require('angular-strap');
 require('angular-strap-tpl');
 require('ui-bootstrap');
 require('ui-bootstrap-tpls');
-require('infinit-scroll');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
@@ -513,7 +519,6 @@ var app = angular.module('elyoosApp', [
     'mgcrea.ngStrap.tooltip',
     'mgcrea.ngStrap.helpers.dimensions',
     'mgcrea.ngStrap.helpers.parseOptions',
-    'infinite-scroll',
     'ngMaterial'
 ]);
 
@@ -524,13 +529,15 @@ require('templates');
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
-        .accentPalette('light-green');
+        .accentPalette('red');
 
     $mdThemingProvider.theme('error-toast');
 
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
     $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
+    $mdIconProvider.iconSet('navFAB', 'app/img/fabNavigation.svg', 24);
+    $mdIconProvider.iconSet('createBlog', 'app/img/createBlog.svg', 24);
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',
@@ -587,7 +594,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         }
     });
 }]);
-},{"../../package.json":224,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"infinit-scroll":7,"templates":1,"ui-bootstrap":6,"ui-bootstrap-tpls":5}],11:[function(require,module,exports){
+},{"../../package.json":230,"angular-strap":3,"angular-strap-tpl":4,"angular-ui-route":2,"templates":1,"ui-bootstrap":6,"ui-bootstrap-tpls":5}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
@@ -610,7 +617,7 @@ module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStat
     };
 }];
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$state', '$stateParams', 'IsAuth', 'loginStateHandler', function ($state, $stateParams, IsAuth, loginStateHandler) {
@@ -629,7 +636,7 @@ module.exports = ['$state', '$stateParams', 'IsAuth', 'loginStateHandler', funct
         }
     });
 }];
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -646,7 +653,7 @@ module.exports = {
     name: 'elyCheckLoginState'
 };
 
-},{"./controller.js":12}],14:[function(require,module,exports){
+},{"./controller.js":11}],13:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -656,14 +663,14 @@ app.service('IsAuth', require('./isAuth'));
 
 app.directive(directive.name, directive.directive);
 
-},{"./directive.js":13,"./isAuth":15}],15:[function(require,module,exports){
+},{"./directive.js":12,"./isAuth":14}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/auth');
 }];
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -696,7 +703,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./auth":11,"./register":20,"./registerCtrl":21}],17:[function(require,module,exports){
+},{"./auth":10,"./register":19,"./registerCtrl":20}],16:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Auth', 'UrlCache', function ($scope, $state, Auth, UrlCache) {
@@ -716,7 +723,7 @@ module.exports = ['$scope', '$state', 'Auth', 'UrlCache', function ($scope, $sta
         });
     };
 }];
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -733,7 +740,7 @@ module.exports = {
     name: 'elyLogin'
 };
 
-},{"./controller.js":17}],19:[function(require,module,exports){
+},{"./controller.js":16}],18:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -741,14 +748,14 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-},{"./directive.js":18}],20:[function(require,module,exports){
+},{"./directive.js":17}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/register');
 }];
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Register', 'moment', 'CountryCodeConverter',
@@ -807,7 +814,7 @@ module.exports = ['$scope', 'Register', 'moment', 'CountryCodeConverter',
         });
     }];
 
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 var setContactActions = function ($scope) {
@@ -855,7 +862,7 @@ module.exports = {
     }
 };
 
-},{}],23:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var controller = require('./contactPreviewCtrl');
@@ -879,7 +886,7 @@ module.exports = {
     name: 'elyContactPreview'
 };
 
-},{"./contactPreviewCtrl":22}],24:[function(require,module,exports){
+},{"./contactPreviewCtrl":21}],23:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -887,7 +894,7 @@ var elyContactPreviewDirective = require('./directive.js');
 
 app.directive(elyContactPreviewDirective.name, elyContactPreviewDirective.directive);
 
-},{"./directive.js":23}],25:[function(require,module,exports){
+},{"./directive.js":22}],24:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -976,7 +983,7 @@ module.exports = ['$scope', 'Contacting', 'ContactLeftNavElements', function ($s
     };
 }];
 
-},{"moment":8}],26:[function(require,module,exports){
+},{"moment":7}],25:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', function ($scope) {
@@ -996,7 +1003,7 @@ module.exports = ['$scope', function ($scope) {
     ];
 }];
 
-},{}],27:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment', 'CountryCodeConverter',
@@ -1070,7 +1077,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
         };
     }];
 
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -1134,7 +1141,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./contactPreview":24,"./contactingCtrl":25,"./descriptionCounterCtrl":26,"./detailContactCtrl":27,"./myContactCtrl":29,"./services/contact":30,"./services/contactDetail":31,"./services/contacting":32,"./services/leftNavElements":33,"./services/searchUsers":34,"./services/userActions":35}],29:[function(require,module,exports){
+},{"./contactPreview":23,"./contactingCtrl":24,"./descriptionCounterCtrl":25,"./detailContactCtrl":26,"./myContactCtrl":28,"./services/contact":29,"./services/contactDetail":30,"./services/contacting":31,"./services/leftNavElements":32,"./services/searchUsers":33,"./services/userActions":34}],28:[function(require,module,exports){
 'use strict';
 
 var getRequestForSelectedTypes = function ($scope, Contact, paginationNumber) {
@@ -1250,7 +1257,7 @@ module.exports = ['$scope', 'SearchUsers', 'Contact', 'ContactLeftNavElements',
         $scope.selectedAllContacts();
     }];
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -1260,7 +1267,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],31:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -1268,7 +1275,7 @@ module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/contact/detail', null, {});
 }];
 
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -1276,7 +1283,7 @@ module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/contact/contacting', null, {});
 }];
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -1296,7 +1303,7 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],34:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -1304,7 +1311,7 @@ module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/contact/search');
 }];
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 var setConnectionState = function ($scope, moment) {
@@ -1494,7 +1501,7 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
         };
     }];
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -1514,7 +1521,7 @@ module.exports = {
     }
 };
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -1537,9 +1544,9 @@ module.exports = {
     name: 'elyExpandText'
 };
 
-},{"./controller.js":36,"./link.js":39}],38:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":37,"dup":19}],39:[function(require,module,exports){
+},{"./controller.js":35,"./link.js":38}],37:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":36,"dup":18}],38:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -1559,7 +1566,7 @@ module.exports = {
     }
 };
 
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 var setShowError = function ($scope) {
@@ -1614,7 +1621,7 @@ module.exports = {
     }
 };
 
-},{}],41:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -1643,9 +1650,9 @@ module.exports = {
     name: 'elyFormTextInput'
 };
 
-},{"./controller.js":40}],42:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":41,"dup":19}],43:[function(require,module,exports){
+},{"./controller.js":39}],41:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":40,"dup":18}],42:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -1668,9 +1675,9 @@ module.exports = {
     name: 'elyIframe'
 };
 
-},{"./link":45}],44:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":43,"dup":19}],45:[function(require,module,exports){
+},{"./link":44}],43:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":42,"dup":18}],44:[function(require,module,exports){
 'use strict';
 
 
@@ -1688,7 +1695,7 @@ module.exports = {
     }
 };
 
-},{}],46:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 var previousHeight, previousWidth;
@@ -1780,7 +1787,7 @@ module.exports = {
     }
 };
 
-},{}],47:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller');
@@ -1809,9 +1816,44 @@ module.exports = {
     name: 'elyImageCropper'
 };
 
-},{"./controller":46}],48:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":47,"dup":19}],49:[function(require,module,exports){
+},{"./controller":45}],47:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":46,"dup":18}],48:[function(require,module,exports){
+'use strict';
+
+var link = require('./link.js');
+
+module.exports = {
+    directive: [ function () {
+        return {
+            scope: {elyInfiniteScroll: '&'},
+            link: link.directiveLink()
+        };
+    }],
+    name: 'elyInfiniteScroll'
+};
+
+},{"./link.js":50}],49:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":48,"dup":18}],50:[function(require,module,exports){
+'use strict';
+
+
+module.exports = {
+    directiveLink: function () {
+        return function (scope, elm) {
+            var raw = elm[0];
+
+            elm.bind('scroll', function () {
+                if ((raw.scrollTop * 1.2 ) + raw.offsetHeight >= raw.scrollHeight) {
+                    return scope.$apply(scope.elyInfiniteScroll);
+                }
+            });
+        };
+    }
+};
+
+},{}],51:[function(require,module,exports){
 'use strict';
 
 var resetPagination = function ($scope, totalItems) {
@@ -1857,7 +1899,7 @@ module.exports = {
     }
 };
 
-},{}],50:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 'use strict';
 var controller = require('./controller.js');
 
@@ -1878,9 +1920,9 @@ module.exports = {
     name: 'elyPaginationNextPrevious'
 };
 
-},{"./controller.js":49}],51:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":50,"dup":19}],52:[function(require,module,exports){
+},{"./controller.js":51}],53:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":52,"dup":18}],54:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -1899,7 +1941,7 @@ module.exports = {
     }
 };
 
-},{}],53:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -1922,9 +1964,9 @@ module.exports = {
     name: 'elySearchBox'
 };
 
-},{"./controller.js":52}],54:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":53,"dup":19}],55:[function(require,module,exports){
+},{"./controller.js":54}],56:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":55,"dup":18}],57:[function(require,module,exports){
 'use strict';
 
 var resetMessageNotification = function ($scope) {
@@ -1987,7 +2029,7 @@ module.exports = {
     }
 };
 
-},{}],56:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2010,9 +2052,9 @@ module.exports = {
     name: 'elySendButton'
 };
 
-},{"./controller.js":55}],57:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":56,"dup":19}],58:[function(require,module,exports){
+},{"./controller.js":57}],59:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":58,"dup":18}],60:[function(require,module,exports){
 'use strict';
 
 var link = require('./link');
@@ -2032,9 +2074,9 @@ module.exports = {
     name: 'elySpin'
 };
 
-},{"./link":60}],59:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":58,"dup":19}],60:[function(require,module,exports){
+},{"./link":62}],61:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":60,"dup":18}],62:[function(require,module,exports){
 'use strict';
 
 var Spinner = require('spin');
@@ -2075,7 +2117,7 @@ module.exports = {
     }
 };
 
-},{"spin":9}],61:[function(require,module,exports){
+},{"spin":8}],63:[function(require,module,exports){
 'use strict';
 
 var setStars = function (starValue, $scope) {
@@ -2142,7 +2184,7 @@ module.exports = {
     }
 };
 
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2166,9 +2208,9 @@ module.exports = {
     name: 'elyStarRating'
 };
 
-},{"./controller.js":61}],63:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":62,"dup":19}],64:[function(require,module,exports){
+},{"./controller.js":63}],65:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":64,"dup":18}],66:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -2183,14 +2225,14 @@ module.exports = function () {
     };
 };
 
-},{}],65:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 
 app.filter('fromTo', require('./fromToFilter'));
-},{"./fromToFilter":64}],66:[function(require,module,exports){
+},{"./fromToFilter":66}],68:[function(require,module,exports){
 'use strict';
 
 var itemsPerPage = 30;
@@ -2198,20 +2240,79 @@ var skip = 0;
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Home', function (Home) {
+        return ['$scope', 'Home', '$mdDialog', 'HomePinwallRequest', function ($scope, Home, $mdDialog, HomePinwallRequest) {
             var ctrl = this;
+            ctrl.home = {};
 
-            ctrl.home = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
+            /*ctrl.home = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
+             }, function () {
+             });*/
 
-            }, function () {
+            ctrl.createBlog = function () {
+                $mdDialog.show({
+                    templateUrl: 'app/modules/home/createBlog/createBlog.html',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true,
+                    controller: 'HomePinwallCreateBlog',
+                    locals: {element: ctrl.element},
+                    bindToController: true,
+                    controllerAs: 'ctrl'
+                });
+            };
 
-            });
+            ctrl.nextPinwallInfo = function () {
+                HomePinwallRequest.requestPinwall(ctrl.home.pinwall).then(function (pinwall) {
+                    ctrl.home = pinwall;
+                });
+            };
+
+            ctrl.nextPinwallInfo();
+
+            /*            ctrl.pinwallItems = {
+             numLoaded_: 0,
+             toLoad_: 0,
+             getItemAtIndex: function(index) {
+             if (index > this.numLoaded_) {
+             this.fetchMoreItems_(index);
+             return null;
+             }
+             return index;
+             },
+             // Required.
+             // For infinite scroll behavior, we always return a slightly higher
+             // number than the previously loaded items.
+             getLength: function() {
+             return this.numLoaded_ + 5;
+             },
+             fetchMoreItems_: function(index) {
+             if (this.toLoad_ < index) {
+             this.toLoad_ += 10;
+             $timeout(angular.noop, 300).then(angular.bind(this, function() {
+             this.numLoaded_ = this.toLoad_;
+             }));
+             }
+             }
+             };*/
         }];
     }
 };
 
 
-},{}],67:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
+'use strict';
+
+module.exports = ['dateFormatter', '$mdDialog', function (dateFormatter, $mdDialog) {
+    var ctrl = this;
+    ctrl.isPublic = true;
+    ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+
+    ctrl.cancel = function() {
+        $mdDialog.cancel();
+    };
+}];
+
+
+},{}],70:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2225,13 +2326,14 @@ module.exports = {
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
+            bindToController: true,
             templateUrl: 'app/modules/home/template.html'
         };
     }],
     name: 'elyHome'
 };
 
-},{"./controller.js":66}],68:[function(require,module,exports){
+},{"./controller.js":68}],71:[function(require,module,exports){
 'use strict';
 
 var isSendBlogAllowed = function (selectedPrivacyType, blogText, selectPublic, imageLoading) {
@@ -2335,7 +2437,7 @@ module.exports = ['$scope', 'FileReader', 'fileUpload', 'FileReaderUtil', functi
 }];
 
 
-},{}],69:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2347,7 +2449,7 @@ module.exports = {
 };
 
 
-},{}],70:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2373,7 +2475,7 @@ module.exports = {
     name: 'elyHomePinwallBlog'
 };
 
-},{"./controller.js":69,"./link.js":72}],71:[function(require,module,exports){
+},{"./controller.js":72,"./link.js":75}],74:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -2382,7 +2484,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.controller('BlogExtendedCtrl', require('./blogExtendedCtrl'));
-},{"./blogExtendedCtrl":68,"./directive.js":70}],72:[function(require,module,exports){
+},{"./blogExtendedCtrl":71,"./directive.js":73}],75:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2436,7 +2538,7 @@ module.exports = {
     }
 };
 
-},{}],73:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter', 'ElyModal', 'Blog', 'WaitingScreen', 'UrlCache',
@@ -2475,7 +2577,7 @@ module.exports = ['$scope', '$rootScope', '$window', '$timeout', 'dateFormatter'
     }];
 
 
-},{}],74:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'dateFormatter',
@@ -2484,7 +2586,7 @@ module.exports = ['$scope', 'dateFormatter',
     }];
 
 
-},{}],75:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'dateFormatter', '$state', 'UrlCache', function ($scope, dateFormatter, $state, UrlCache) {
@@ -2503,7 +2605,7 @@ module.exports = ['$scope', 'dateFormatter', '$state', 'UrlCache', function ($sc
 }];
 
 
-},{}],76:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2521,7 +2623,7 @@ module.exports = {
     name: 'elyHomePinwallElement'
 };
 
-},{}],77:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -2535,7 +2637,7 @@ app.controller('HomePinwallElementBlogDetailCtrl', require('./blogDetail/blogDet
 
 app.directive(directive.name, directive.directive);
 
-},{"./blogCtrl":73,"./blogDetail/blogDetailCtrl":74,"./contactingCtrl":75,"./directive.js":76,"./newMessageCtrl":78,"./recommendationCtrl":79}],78:[function(require,module,exports){
+},{"./blogCtrl":76,"./blogDetail/blogDetailCtrl":77,"./contactingCtrl":78,"./directive.js":79,"./newMessageCtrl":81,"./recommendationCtrl":82}],81:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'UrlCache', function ($scope, $state, UrlCache) {
@@ -2552,7 +2654,7 @@ module.exports = ['$scope', '$state', 'UrlCache', function ($scope, $state, UrlC
     };
 }];
 
-},{}],79:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', 'UrlCache',
@@ -2572,7 +2674,7 @@ module.exports = ['$scope', 'dateFormatter', '$state', 'PageCategories', 'UrlCac
     }];
 
 
-},{}],80:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -2591,7 +2693,9 @@ app.service('HomePinwallHeightCalculator', require('./pinwall/heightCalculator')
 
 app.service('WatchRootScope', require('./services/watchRootScope'));
 
-},{"./directive.js":67,"./pinwall/heightCalculator":88,"./pinwall/pinwall":89,"./pinwall/pinwallElements":90,"./pinwall/pinwallRequest":91,"./services/blog":92,"./services/home":93,"./services/leftNavElements":94,"./services/watchRootScope":95}],81:[function(require,module,exports){
+app.controller('HomePinwallCreateBlog', require('./createBlog/createBlogCtrl'));
+
+},{"./createBlog/createBlogCtrl":69,"./directive.js":70,"./pinwall/heightCalculator":94,"./pinwall/pinwall":95,"./pinwall/pinwallElements":96,"./pinwall/pinwallRequest":97,"./services/blog":98,"./services/home":99,"./services/leftNavElements":100,"./services/watchRootScope":101}],84:[function(require,module,exports){
 'use strict';
 
 var getPreviewText = function (text) {
@@ -2625,20 +2729,19 @@ module.exports = {
                         templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose: true,
-                        //fullscreen: true,
                         controller: 'HomePinwallBlogDetail',
                         locals: {element: ctrl.element},
                         bindToController: true,
                         controllerAs: 'ctrl'
                     });
                 }
-            }
+            };
         }];
     }
 };
 
 
-},{}],82:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 module.exports = ['dateFormatter', '$mdDialog', function (dateFormatter, $mdDialog) {
@@ -2651,7 +2754,7 @@ module.exports = ['dateFormatter', '$mdDialog', function (dateFormatter, $mdDial
 }];
 
 
-},{}],83:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2673,7 +2776,7 @@ module.exports = {
     name: 'elyPinwallBlog'
 };
 
-},{"./controller.js":81}],84:[function(require,module,exports){
+},{"./controller.js":84}],87:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -2682,7 +2785,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.controller('HomePinwallBlogDetail', require('./detail/blogDetailCtrl'));
-},{"./detail/blogDetailCtrl":82,"./directive.js":83}],85:[function(require,module,exports){
+},{"./detail/blogDetailCtrl":85,"./directive.js":86}],88:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2694,7 +2797,7 @@ module.exports = {
 };
 
 
-},{}],86:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -2716,7 +2819,7 @@ module.exports = {
     name: 'elyPinwallElement'
 };
 
-},{"./controller.js":85}],87:[function(require,module,exports){
+},{"./controller.js":88}],90:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -2724,7 +2827,33 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-},{"./directive.js":86}],88:[function(require,module,exports){
+},{"./directive.js":89}],91:[function(require,module,exports){
+arguments[4][88][0].apply(exports,arguments)
+},{"dup":88}],92:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            bindToController: {
+                element: '='
+            },
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
+            templateUrl: 'app/modules/home/pinwallElement/recommendation/template.html'
+        };
+    }],
+    name: 'elyPinwallRecommendation'
+};
+
+},{"./controller.js":91}],93:[function(require,module,exports){
+arguments[4][90][0].apply(exports,arguments)
+},{"./directive.js":92,"dup":90}],94:[function(require,module,exports){
 'use strict';
 
 var setMessageContacting = function (element, collectionName) {
@@ -2766,7 +2895,7 @@ module.exports = [
         };
     }];
 
-},{}],89:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 
 var pinwallElements,
@@ -2861,7 +2990,7 @@ module.exports = ['HomePinwallElements', '$log',
         };
     }];
 
-},{}],90:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 'use strict';
 
 var pinwall,
@@ -2981,7 +3110,7 @@ module.exports = ['HomePinwallHeightCalculator',
         };
     }];
 
-},{}],91:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 var skip,
@@ -2990,18 +3119,7 @@ var skip,
     requestPinwallElementsRunning;
 
 var checkRequestPinwall = function (pinwall, requestedNumberOfElements) {
-    function countElements(pinwallElements, type) {
-        var count = 0;
-        angular.forEach(pinwallElements, function (pinwallElement) {
-            if (pinwallElement.type === type) {
-                count++;
-            }
-        });
-        return count;
-    }
-
-    return !(countElements(pinwall, 'Blog') < requestedNumberOfElements &&
-    countElements(pinwall, 'Recommendation') < requestedNumberOfElements );
+    return pinwall.length === requestedNumberOfElements;
 };
 
 module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
@@ -3009,25 +3127,29 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
 
         this.resetCache = function () {
             skip = 0;
-            itemsPerPage = 30;
-            HomePinwallElements.reset();
+            itemsPerPage = 10;
+            //HomePinwallElements.reset();
             requestPinwallElements = true;
             requestPinwallElementsRunning = false;
-        };
+        }();
 
-        this.resetCache();
+        /*        this.resetCache();*/
 
-        this.requestPinwall = function () {
+        this.requestPinwall = function (previousPinwall) {
             var deferred = $q.defer(), newPinwall;
             if (requestPinwallElements && !requestPinwallElementsRunning) {
+                if (!previousPinwall) {
+                    previousPinwall = [];
+                }
                 requestPinwallElementsRunning = true;
                 newPinwall = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
 
-                    var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
+                    newPinwall.pinwall = previousPinwall.concat(newPinwall.pinwall);
+                    //var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
 
-                    requestPinwallElements = checkRequestPinwall(tempPinwall, itemsPerPage);
+                    requestPinwallElements = checkRequestPinwall(newPinwall.pinwall, skip);
                     requestPinwallElementsRunning = false;
-                    deferred.resolve({});
+                    deferred.resolve(newPinwall);
                 }, function () {
                     requestPinwallElementsRunning = false;
                     deferred.reject();
@@ -3040,14 +3162,14 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
         };
     }];
 
-},{}],92:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/blog', null, {'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}});
 }];
 
-},{}],93:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -3056,7 +3178,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],94:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -3070,7 +3192,7 @@ module.exports = [
             {description: 'Empfehlungen', url: 'recommendation', color: '#1aa1e1', sref: 'page.overview'}];
     }];
 
-},{}],95:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 'use strict';
 
 var initialized = false;
@@ -3113,7 +3235,7 @@ module.exports = ['$state', '$timeout', '$window',
         };
     }];
 
-},{}],96:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'Conversation',
@@ -3161,7 +3283,7 @@ module.exports = ['$scope', '$state', 'Message', 'Conversation',
         };
     }];
 
-},{}],97:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter', 'MessageLeftNavElements',
@@ -3214,7 +3336,7 @@ module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateForm
         };
     }];
 
-},{}],98:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'MessageLeftNavElements',
@@ -3247,7 +3369,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message',
         };
     }];
 
-},{}],99:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3307,14 +3429,14 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./conversationActionsCtrl":96,"./conversationCtrl":97,"./createConversationCtrl":98,"./services/conversation":100,"./services/leftNavElements":101,"./services/message":102,"./services/searchThread":103,"./services/searchUserToSendMessage":104,"./threadsCtrl":105}],100:[function(require,module,exports){
+},{"./conversationActionsCtrl":102,"./conversationCtrl":103,"./createConversationCtrl":104,"./services/conversation":106,"./services/leftNavElements":107,"./services/message":108,"./services/searchThread":109,"./services/searchUserToSendMessage":110,"./threadsCtrl":111}],106:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/conversation');
 }];
 
-},{}],101:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -3340,28 +3462,28 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],102:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages');
 }];
 
-},{}],103:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('/api/user/messages/singleThread');
 }];
 
-},{}],104:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/search');
 }];
 
-},{}],105:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter', 'MessageLeftNavElements',
@@ -3427,7 +3549,7 @@ module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dat
         };
     }];
 
-},{}],106:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3437,7 +3559,7 @@ app.controller('ProfilePreviewPopoverCtrl', require('./profilePreview/profilePre
 app.factory('UserInfo', require('./services/userInfo'));
 app.factory('Modification', require('./services/modification'));
 
-},{"./profilePreview/profilePreviewPopoverCtrl":113,"./services/modification":114,"./services/userInfo":115}],107:[function(require,module,exports){
+},{"./profilePreview/profilePreviewPopoverCtrl":119,"./services/modification":120,"./services/userInfo":121}],113:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -3456,7 +3578,7 @@ module.exports = {
     }
 };
 
-},{}],108:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3477,7 +3599,7 @@ module.exports = {
     name: 'elyLeftNav'
 };
 
-},{"./controller.js":107}],109:[function(require,module,exports){
+},{"./controller.js":113}],115:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -3493,7 +3615,7 @@ module.exports = {
     }
 };
 
-},{}],110:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3514,11 +3636,11 @@ module.exports = {
     name: 'elyLeftNavElement'
 };
 
-},{"./controller.js":109}],111:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":110,"dup":19}],112:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":108,"dup":19}],113:[function(require,module,exports){
+},{"./controller.js":115}],117:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":116,"dup":18}],118:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":114,"dup":18}],119:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -3530,21 +3652,21 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],114:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],115:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],116:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', 'UserInfo', '$interval', 'Modification',
@@ -3578,7 +3700,7 @@ module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', 'UserInfo', '$inter
             $interval.cancel(modificationInfo);
         };
     }];
-},{}],117:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -3595,9 +3717,9 @@ module.exports = {
     name: 'elyToolbar'
 };
 
-},{"./controller.js":116}],118:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":117,"dup":19}],119:[function(require,module,exports){
+},{"./controller.js":122}],124:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":123,"dup":18}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
@@ -3654,7 +3776,7 @@ module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
         };
     }];
 
-},{}],120:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 var checkStateChanged = function (PageCategoryHandler, PageHandlingState) {
@@ -3731,7 +3853,7 @@ module.exports = {
     }
 };
 
-},{}],121:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3752,7 +3874,7 @@ module.exports = {
     name: 'elyPageCategorySelection'
 };
 
-},{"./controller.js":120}],122:[function(require,module,exports){
+},{"./controller.js":126}],128:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3762,7 +3884,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('PageCategoryHandler', require('./services/categoryHandler'));
 app.service('PageLoader', require('./services/pageLoader'));
-},{"./directive.js":121,"./services/categoryHandler":123,"./services/pageLoader":124}],123:[function(require,module,exports){
+},{"./directive.js":127,"./services/categoryHandler":129,"./services/pageLoader":130}],129:[function(require,module,exports){
 'use strict';
 
 var containsSelectedElements = function (selected) {
@@ -3856,7 +3978,7 @@ module.exports = ['Languages',
         };
     }];
 
-},{}],124:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$q', 'PageDetail',
@@ -3898,7 +4020,7 @@ module.exports = ['$q', 'PageDetail',
         };
     }];
 
-},{}],125:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 
@@ -3946,7 +4068,7 @@ module.exports = {
     }
 };
 
-},{}],126:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3967,14 +4089,14 @@ module.exports = {
     name: 'elyPageCompareExistingPages'
 };
 
-},{"./controller.js":125}],127:[function(require,module,exports){
+},{"./controller.js":131}],133:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
-},{"./directive.js":126}],128:[function(require,module,exports){
+},{"./directive.js":132}],134:[function(require,module,exports){
 'use strict';
 
 
@@ -3994,7 +4116,7 @@ module.exports = {
     }
 };
 
-},{}],129:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 var isDateValid = function (moment, date) {
@@ -4046,7 +4168,7 @@ module.exports = {
     }
 };
 
-},{}],130:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4065,7 +4187,7 @@ module.exports = {
     name: 'elyPageHandlingDetailBook'
 };
 
-},{"./controller.js":129}],131:[function(require,module,exports){
+},{"./controller.js":135}],137:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4075,7 +4197,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('UploadBookPage', require('./services/uploadBookPage'));
 app.service('EditBookService', require('./services/editBookService'));
-},{"./directive.js":130,"./services/editBookService":132,"./services/uploadBookPage":133}],132:[function(require,module,exports){
+},{"./directive.js":136,"./services/editBookService":138,"./services/uploadBookPage":139}],138:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageLoader', 'moment',
@@ -4105,7 +4227,7 @@ module.exports = ['PageLoader', 'moment',
         };
     }];
 
-},{}],133:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageCategoryHandler', 'PageHandlingUpload', 'moment',
@@ -4131,7 +4253,7 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload', 'moment',
         };
     }];
 
-},{}],134:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 
@@ -4157,7 +4279,7 @@ module.exports = {
     }
 };
 
-},{}],135:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4176,9 +4298,9 @@ module.exports = {
     name: 'elyPageHandlingDetails'
 };
 
-},{"./controller.js":134}],136:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":135,"dup":127}],137:[function(require,module,exports){
+},{"./controller.js":140}],142:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":141,"dup":133}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4203,7 +4325,7 @@ module.exports = {
     }
 };
 
-},{}],138:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4226,9 +4348,9 @@ module.exports = {
     name: 'elyPageHandlingDetailSelectPicture'
 };
 
-},{"./controller.js":137}],139:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":138,"dup":127}],140:[function(require,module,exports){
+},{"./controller.js":143}],145:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":144,"dup":133}],146:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4261,7 +4383,7 @@ module.exports = {
     }
 };
 
-},{}],141:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4280,7 +4402,7 @@ module.exports = {
     name: 'elyPageHandlingDetailYoutube'
 };
 
-},{"./controller.js":140}],142:[function(require,module,exports){
+},{"./controller.js":146}],148:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4291,7 +4413,7 @@ app.directive(directive.name, directive.directive);
 app.service('EditYoutubeService', require('./services/editYoutubeService'));
 app.service('PageYoutubeLink', require('./services/youtubeLink'));
 app.service('UploadYoutubePage', require('./services/uploadYoutubePage'));
-},{"./directive.js":141,"./services/editYoutubeService":143,"./services/uploadYoutubePage":144,"./services/youtubeLink":145}],143:[function(require,module,exports){
+},{"./directive.js":147,"./services/editYoutubeService":149,"./services/uploadYoutubePage":150,"./services/youtubeLink":151}],149:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageLoader',
@@ -4318,7 +4440,7 @@ module.exports = ['PageLoader',
         };
     }];
 
-},{}],144:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
@@ -4339,7 +4461,7 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
         };
     }];
 
-},{}],145:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -4366,7 +4488,7 @@ module.exports = [
         };
     }];
 
-},{}],146:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4387,7 +4509,7 @@ module.exports = {
     name: 'elyPageHandlingPages'
 };
 
-},{"./controller.js":128}],147:[function(require,module,exports){
+},{"./controller.js":134}],153:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4398,7 +4520,7 @@ app.directive(directive.name, directive.directive);
 app.service('PageEditModeService', require('./services/editModeService'));
 app.service('PageHandlingState', require('./services/stateHandler'));
 app.service('PageHandlingUpload', require('./services/uploadPage'));
-},{"./directive.js":146,"./services/editModeService":148,"./services/stateHandler":149,"./services/uploadPage":150}],148:[function(require,module,exports){
+},{"./directive.js":152,"./services/editModeService":154,"./services/stateHandler":155,"./services/uploadPage":156}],154:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -4432,7 +4554,7 @@ module.exports = [
 
     }];
 
-},{}],149:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 'use strict';
 
 var notifyObservables = function (observables, selectedState) {
@@ -4474,7 +4596,7 @@ module.exports = [
         };
     }];
 
-},{}],150:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 'use strict';
 
 var goToPageDetail = function (pageId, $state, categoryType) {
@@ -4546,7 +4668,7 @@ module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
 
     }];
 
-},{}],151:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4636,7 +4758,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":119,"./pageDetail/pageDetailCtrl":158,"./pageDetail/pageDetailEducationCtrl":159,"./pageDetail/pageHeaderActivityPreviewCtrl":160,"./pageDetail/services/pageDetailReview":161,"./services/categories":168,"./services/leftNavElements":169,"./services/pageDetail":170,"./services/pageRecommendationAllContact":171,"./services/pageRecommendationOtherUser":172,"./services/pageSearchUserAdministratedPage":173,"./services/pageSearchUserRecommendation":174,"./services/pageUserAdministration":175,"./services/pageUserRecommendation":176,"./services/popularPages":177,"./services/searchPage":178,"./userRecommendation/getPageAndExtendCtrl":184}],152:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":125,"./pageDetail/pageDetailCtrl":164,"./pageDetail/pageDetailEducationCtrl":165,"./pageDetail/pageHeaderActivityPreviewCtrl":166,"./pageDetail/services/pageDetailReview":167,"./services/categories":174,"./services/leftNavElements":175,"./services/pageDetail":176,"./services/pageRecommendationAllContact":177,"./services/pageRecommendationOtherUser":178,"./services/pageSearchUserAdministratedPage":179,"./services/pageSearchUserRecommendation":180,"./services/pageUserAdministration":181,"./services/pageUserRecommendation":182,"./services/popularPages":183,"./services/searchPage":184,"./userRecommendation/getPageAndExtendCtrl":190}],158:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -4674,7 +4796,7 @@ module.exports = {
     }
 };
 
-},{}],153:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4693,9 +4815,9 @@ module.exports = {
     name: 'elyPageOverview'
 };
 
-},{"./controller.js":152}],154:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":153,"dup":127}],155:[function(require,module,exports){
+},{"./controller.js":158}],160:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":159,"dup":133}],161:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -4799,7 +4921,7 @@ module.exports = {
     }
 };
 
-},{}],156:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4820,9 +4942,9 @@ module.exports = {
     name: 'elyPageReview'
 };
 
-},{"./controller.js":155}],157:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":156,"dup":19}],158:[function(require,module,exports){
+},{"./controller.js":161}],163:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":162,"dup":18}],164:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
@@ -4872,7 +4994,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         });
     }];
 
-},{}],159:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope',
@@ -4887,7 +5009,7 @@ module.exports = ['$scope',
         });
     }];
 
-},{}],160:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -4901,14 +5023,14 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],161:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/review');
 }];
 
-},{}],162:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 'use strict';
 
 var minScreenSize = 1000;
@@ -5019,7 +5141,7 @@ module.exports = {
     }
 };
 
-},{}],163:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5047,9 +5169,9 @@ module.exports = {
     name: 'elyPagePreviewContainer'
 };
 
-},{"./controller.js":162}],164:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":163,"dup":127}],165:[function(require,module,exports){
+},{"./controller.js":168}],170:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":169,"dup":133}],171:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5086,7 +5208,7 @@ module.exports = {
     }
 };
 
-},{}],166:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5108,9 +5230,9 @@ module.exports = {
     name: 'elyPagePreview'
 };
 
-},{"./controller.js":165}],167:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"./directive.js":166,"dup":19}],168:[function(require,module,exports){
+},{"./controller.js":171}],173:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"./directive.js":172,"dup":18}],174:[function(require,module,exports){
 'use strict';
 
 var categories = {
@@ -5146,7 +5268,7 @@ module.exports = [
         };
     }];
 
-},{}],169:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -5175,70 +5297,70 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],170:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/detail');
 }];
 
-},{}],171:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationAllContact');
 }];
 
-},{}],172:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationOtherUser');
 }];
 
-},{}],173:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchAdministration');
 }];
 
-},{}],174:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchRecommendation');
 }];
 
-},{}],175:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/administrator');
 }];
 
-},{}],176:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/recommendation');
 }];
 
-},{}],177:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/popularPages');
 }];
 
-},{}],178:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/searchPage');
 }];
 
-},{}],179:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -5254,7 +5376,7 @@ module.exports = {
     }
 };
 
-},{}],180:[function(require,module,exports){
+},{}],186:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5273,9 +5395,9 @@ module.exports = {
     name: 'elyPageUserAdministrator'
 };
 
-},{"./controller.js":179}],181:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":180,"dup":127}],182:[function(require,module,exports){
+},{"./controller.js":185}],187:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":186,"dup":133}],188:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -5290,7 +5412,7 @@ module.exports = {
     }
 };
 
-},{}],183:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5309,7 +5431,7 @@ module.exports = {
     name: 'elyPageUserRecommendation'
 };
 
-},{"./controller.js":182}],184:[function(require,module,exports){
+},{"./controller.js":188}],190:[function(require,module,exports){
 'use strict';
 
 var addPagePreviews = function ($scope, paginationNumber) {
@@ -5404,9 +5526,9 @@ module.exports = ['$scope', function ($scope) {
     $scope.getPage(1);
 }];
 
-},{}],185:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"./directive.js":183,"dup":127}],186:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
+arguments[4][133][0].apply(exports,arguments)
+},{"./directive.js":189,"dup":133}],192:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5414,7 +5536,7 @@ var app = angular.module('elyoosApp');
 app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
-},{"./modalAddRecommendationCtrl":187,"./services/pageRecommendation":188}],187:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":193,"./services/pageRecommendation":194}],193:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($modalInstance, PageRecommendation, pageId) {
@@ -5446,7 +5568,7 @@ module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($m
     };
 }];
 
-},{}],188:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5455,7 +5577,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],189:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5487,7 +5609,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],190:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5547,7 +5669,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":189,"./passwordCtrl":191,"./privacyCtrl":192,"./profileCtrl":193,"./renamePrivacyCtrl":194,"./services/leftNavElements":195,"./services/password":196,"./services/privacy":197,"./services/profile":198}],191:[function(require,module,exports){
+},{"./deletePrivacyCtrl":195,"./passwordCtrl":197,"./privacyCtrl":198,"./profileCtrl":199,"./renamePrivacyCtrl":200,"./services/leftNavElements":201,"./services/password":202,"./services/privacy":203,"./services/profile":204}],197:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
@@ -5602,7 +5724,7 @@ module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($sco
     };
 }];
 
-},{}],192:[function(require,module,exports){
+},{}],198:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -5721,7 +5843,7 @@ module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scop
     };
 }];
 
-},{}],193:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
@@ -5807,7 +5929,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],194:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -5851,7 +5973,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],195:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -5865,14 +5987,14 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],196:[function(require,module,exports){
+},{}],202:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],197:[function(require,module,exports){
+},{}],203:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -5881,14 +6003,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],198:[function(require,module,exports){
+},{}],204:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],199:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -5922,14 +6044,14 @@ module.exports = function () {
     };
 };
 
-},{}],200:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":199,"./languages":201}],201:[function(require,module,exports){
+},{"./countryCodeConverter":205,"./languages":207}],207:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -5963,7 +6085,7 @@ module.exports = [
         };
     }];
 
-},{}],202:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -6003,19 +6125,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],203:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":202}],204:[function(require,module,exports){
+},{"./dateFormatter":208}],210:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":205}],205:[function(require,module,exports){
+},{"./profileImage":211}],211:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6027,7 +6149,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],206:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
@@ -6105,7 +6227,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],207:[function(require,module,exports){
+},{}],213:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6134,14 +6256,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],208:[function(require,module,exports){
+},{}],214:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],209:[function(require,module,exports){
+},{}],215:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -6156,7 +6278,7 @@ module.exports = function () {
     };
 };
 
-},{}],210:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -6181,7 +6303,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],211:[function(require,module,exports){
+},{}],217:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6195,7 +6317,7 @@ app.service('FileReaderUtil', require('./fileReaderUtil'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":206,"./fileModel.js":207,"./fileReader":208,"./fileReaderUtil":209,"./fileUpload":210}],212:[function(require,module,exports){
+},{"./fileCtrl":212,"./fileModel.js":213,"./fileReader":214,"./fileReaderUtil":215,"./fileUpload":216}],218:[function(require,module,exports){
 'use strict';
 
 
@@ -6236,14 +6358,14 @@ module.exports = ['$scope', '$modalInstance', 'FileReader', 'FileReaderUtil',
         });
     }];
 
-},{}],213:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.controller('UtilFilePreviewPictureCtrl', require('./controller.js'));
 app.service('UtilFilePreviewPicture', require('./service.js'));
-},{"./controller.js":212,"./service.js":214}],214:[function(require,module,exports){
+},{"./controller.js":218,"./service.js":220}],220:[function(require,module,exports){
 'use strict';
 
 
@@ -6265,7 +6387,7 @@ module.exports = ['$modal',
         }
     }];
 
-},{}],215:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6274,7 +6396,7 @@ app.service('moment', require('./moment'));
 app.service('ElyModal', require('./modal'));
 app.service('UrlCache', require('./urlCache'));
 app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./modal":216,"./moment":217,"./urlCache":222,"./waitingScreen/waitingScreen":223}],216:[function(require,module,exports){
+},{"./modal":222,"./moment":223,"./urlCache":228,"./waitingScreen/waitingScreen":229}],222:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
@@ -6303,7 +6425,7 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
     };
 }];
 
-},{}],217:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -6313,13 +6435,13 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":8}],218:[function(require,module,exports){
+},{"moment":7}],224:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('loginStateHandler', require('./loginStateHandler'));
-},{"./loginStateHandler":219}],219:[function(require,module,exports){
+},{"./loginStateHandler":225}],225:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6345,7 +6467,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],220:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 'use strict';
 
 var toastPosition = {
@@ -6375,13 +6497,13 @@ module.exports = ['$mdToast', function ($mdToast) {
     };
 }];
 
-},{}],221:[function(require,module,exports){
+},{}],227:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('errorToast', require('./errorToast'));
-},{"./errorToast":220}],222:[function(require,module,exports){
+},{"./errorToast":226}],228:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -6412,7 +6534,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],223:[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
@@ -6435,7 +6557,7 @@ module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
     };
 }];
 
-},{}],224:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -6482,9 +6604,8 @@ module.exports={
     "ui-bootstrap-tpls": "./app/lib/bootstrap/ui-bootstrap-custom-tpls.min.js",
     "moment": "./app/lib/moment/moment.js",
     "spin": "./app/lib/spin/spin.min.js",
-    "infinit-scroll": "./app/lib/infiniteScroll/ng-infinite-scroll.min.js",
     "templates": "./app/dist/templates.js"
   }
 }
 
-},{}]},{},[10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,88,89,90,91,81,82,83,84,85,86,87,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,165,166,167,162,163,164,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223]);
+},{}]},{},[9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,94,95,96,97,84,85,86,87,88,89,90,91,92,93,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,171,172,173,168,169,170,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229]);

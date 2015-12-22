@@ -31,14 +31,13 @@ module.exports = {
                         templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose: true,
-                        //fullscreen: true,
                         controller: 'HomePinwallBlogDetail',
                         locals: {element: ctrl.element},
                         bindToController: true,
                         controllerAs: 'ctrl'
                     });
                 }
-            }
+            };
         }];
     }
 };
