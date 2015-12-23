@@ -1,9 +1,9 @@
 'use strict';
 
-var skip = 0,
-    itemsPerPage = 30,
-    requestPinwallElements = true,
-    requestPinwallElementsRunning = false;
+var skip,
+    itemsPerPage,
+    requestPinwallElements,
+    requestPinwallElementsRunning;
 
 var checkRequestPinwall = function (pinwall, requestedNumberOfElements) {
     return pinwall.length === requestedNumberOfElements;
@@ -11,6 +11,15 @@ var checkRequestPinwall = function (pinwall, requestedNumberOfElements) {
 
 module.exports = ['$q', 'moment', 'Home',
     function ($q, moment, Home) {
+
+        this.reset = function () {
+            skip = 0;
+            itemsPerPage = 30;
+            requestPinwallElements = true;
+            requestPinwallElementsRunning = false;
+        };
+
+        this.reset();
 
         this.requestPinwall = function (previousPinwall) {
             var deferred = $q.defer(), newPinwall;

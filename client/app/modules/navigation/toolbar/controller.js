@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', 'UserInfo', '$interval', 'Modification',
-    function (Auth, $mdSidenav, loginStateHandler, UserInfo, $interval, Modification) {
-        var ctrl = this, modificationInfo;
+module.exports = ['$mdSidenav', 'loginStateHandler',
+    function ($mdSidenav, loginStateHandler) {
+        var ctrl = this;
         loginStateHandler.register(ctrl);
         ctrl.isLoggedIn = false;
 
@@ -12,22 +12,9 @@ module.exports = ['Auth', '$mdSidenav', 'loginStateHandler', 'UserInfo', '$inter
 
         ctrl.loginEvent = function () {
             ctrl.isLoggedIn = true;
-            if(!ctrl.userHeaderInfo) {
-                ctrl.userHeaderInfo = UserInfo.get(null, function () {
-                    modificationInfo = $interval(function () {
-                        var modification = Modification.get(null, function () {
-                            if (modification.hasChanged) {
-
-                            }
-                        });
-                    }, 30000);
-                });
-            }
         };
 
         ctrl.logoutEvent = function () {
             ctrl.isLoggedIn = false;
-            delete ctrl.userHeaderInfo;
-            $interval.cancel(modificationInfo);
         };
     }];

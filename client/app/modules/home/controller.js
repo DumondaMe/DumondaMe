@@ -10,13 +10,15 @@ module.exports = {
                 $mdDialog.show({
                     templateUrl: 'app/modules/home/createBlog/createBlog.html',
                     parent: angular.element(document.body),
-                    clickOutsideToClose: true,
+                    clickOutsideToClose: false,
                     controller: 'HomePinwallCreateBlog',
                     locals: {element: ctrl.element},
                     bindToController: true,
                     controllerAs: 'ctrl'
                 });
             };
+
+            HomePinwallRequest.reset();
 
             ctrl.nextPinwallInfo = function () {
                 HomePinwallRequest.requestPinwall(ctrl.home.pinwall).then(function (pinwall) {

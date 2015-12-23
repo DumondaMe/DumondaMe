@@ -84,8 +84,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
-    }]).run(['$rootScope', '$state', function ($rootScope, $state) {
+    }]).run(['$rootScope', '$state', 'loginStateHandler', 'userInfo', function ($rootScope, $state, loginStateHandler, userInfo) {
     var firstRun = true;
+
+    loginStateHandler.register(userInfo);
+
     $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (firstRun) {
             firstRun = false;
