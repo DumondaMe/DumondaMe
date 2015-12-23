@@ -2,8 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Home', function (Home) {
+        return ['dateFormatter', function (dateFormatter) {
             var ctrl = this;
+
+            ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
         }];
     }
 };

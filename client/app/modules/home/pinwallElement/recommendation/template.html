@@ -1,3 +1,4 @@
 <md-card class="pinwall-recommendation-card">
-    Recommendation
+    <div ng-include="'app/modules/home/pinwallElement/recommendation/book.html'" ng-if="ctrl.element.label === 'Book'"></div>
+    <div ng-include="'app/modules/home/pinwallElement/recommendation/youtube.html'" ng-if="ctrl.element.label === 'Youtube'"></div>
 </md-card>

@@ -1,26 +1,16 @@
 'use strict';
 
-var skip,
-    itemsPerPage,
-    requestPinwallElements,
-    requestPinwallElementsRunning;
+var skip = 0,
+    itemsPerPage = 30,
+    requestPinwallElements = true,
+    requestPinwallElementsRunning = false;
 
 var checkRequestPinwall = function (pinwall, requestedNumberOfElements) {
     return pinwall.length === requestedNumberOfElements;
 };
 
-module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
-    function ($q, moment, Home, HomePinwallElements) {
-
-        this.resetCache = function () {
-            skip = 0;
-            itemsPerPage = 10;
-            //HomePinwallElements.reset();
-            requestPinwallElements = true;
-            requestPinwallElementsRunning = false;
-        }();
-
-        /*        this.resetCache();*/
+module.exports = ['$q', 'moment', 'Home',
+    function ($q, moment, Home) {
 
         this.requestPinwall = function (previousPinwall) {
             var deferred = $q.defer(), newPinwall;
@@ -32,7 +22,6 @@ module.exports = ['$q', 'moment', 'Home', 'HomePinwallElements',
                 newPinwall = Home.get({maxItems: itemsPerPage, skip: skip}, function () {
 
                     newPinwall.pinwall = previousPinwall.concat(newPinwall.pinwall);
-                    //var tempPinwall = HomePinwallElements.setPinwallElements(newPinwall);
 
                     requestPinwallElements = checkRequestPinwall(newPinwall.pinwall, skip);
                     requestPinwallElementsRunning = false;

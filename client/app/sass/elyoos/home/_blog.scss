@@ -1,6 +1,11 @@
 .pinwall-blog-card {
   max-width: 400px;
-  min-width: 280px;
+  min-width: 288px;
+  .user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .blog-image-container {
     width: 100%;
     height: 200px;
