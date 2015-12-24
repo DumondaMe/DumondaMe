@@ -20,7 +20,7 @@
     "karma-chai": "~0.1.0",
     "karma-sinon": "~1.0.4",
     "karma-junit-reporter": "~0.3.8",
-    "karma-coverage": "~0.5.3",
+    "karma-coverage": "0.2.6",
     "karma-ng-html2js-preprocessor": "~0.2.0",
     "browserify-istanbul": "0.2.1",
     "protractor": "~3.0.0",
