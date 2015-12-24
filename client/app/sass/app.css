@@ -837,52 +837,74 @@ h2.website-structure-title {
 
 #blog-create {
   min-width: 310px;
-  max-width: 450px; }
-  #blog-create .header {
-    padding: 16px; }
-    #blog-create .header .user-avatar {
-      border-radius: 50%;
-      height: 32px;
-      width: 32px;
-      margin-right: 10px; }
-    #blog-create .header .header-content .user-name {
-      color: #000;
-      font-weight: 500;
-      font-size: 14px; }
-    #blog-create .header .header-content .visibility {
-      color: #4285f4;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500; }
-    #blog-create .header .header-content .divider {
-      display: inline-block;
-      vertical-align: bottom; }
-  #blog-create .content {
-    width: 100%;
-    margin-top: 10px;
-    padding: 16px; }
-    #blog-create .content .blog-input-container {
-      width: 100%; }
-      #blog-create .content .blog-input-container label {
+  max-width: 450px;
+  width: 100%; }
+  #blog-create .blog-create-container {
+    width: 100%; }
+    #blog-create .blog-create-container .header {
+      padding: 16px; }
+      #blog-create .blog-create-container .header .user-avatar {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        margin-right: 10px; }
+      #blog-create .blog-create-container .header .header-content .user-name {
         color: #000;
+        font-weight: 500;
+        font-size: 14px; }
+      #blog-create .blog-create-container .header .header-content .visibility {
+        color: #4285f4;
+        cursor: pointer;
+        font-size: 14px;
         font-weight: 500; }
-    #blog-create .content .actions .action-icon {
-      padding: 0;
-      margin: 0;
-      height: 24px;
-      width: 24px; }
-    #blog-create .content .actions-2 {
-      margin-top: 10px; }
-      #blog-create .content .actions-2 .post-button {
-        margin-right: 0; }
-    #blog-create .content .load-preview-photo {
-      height: 100px;
+      #blog-create .blog-create-container .header .header-content .divider {
+        display: inline-block;
+        vertical-align: bottom; }
+    #blog-create .blog-create-container .content-form {
       width: 100%; }
-    #blog-create .content .preview-photo-container {
-      width: 100%; }
-      #blog-create .content .preview-photo-container .preview-photo {
-        max-width: 100%;
-        border-radius: 2px; }
+      #blog-create .blog-create-container .content-form .content {
+        margin-top: 10px;
+        padding: 16px; }
+        #blog-create .blog-create-container .content-form .content .blog-input-container {
+          width: 100%; }
+          #blog-create .blog-create-container .content-form .content .blog-input-container label {
+            color: #000;
+            font-weight: 500; }
+        #blog-create .blog-create-container .content-form .content .actions .action-icon {
+          padding: 0;
+          margin: 0;
+          height: 24px;
+          width: 24px; }
+        #blog-create .blog-create-container .content-form .content .actions-2 {
+          margin-top: 10px; }
+          #blog-create .blog-create-container .content-form .content .actions-2 .post-button {
+            margin-right: 0; }
+        #blog-create .blog-create-container .content-form .content .load-preview-photo {
+          height: 100px;
+          width: 100%; }
+        #blog-create .blog-create-container .content-form .content .preview-photo-container {
+          width: 100%; }
+          #blog-create .blog-create-container .content-form .content .preview-photo-container .preview-photo {
+            max-width: 100%;
+            border-radius: 2px; }
+    #blog-create .blog-create-container .visibility-container .header {
+      height: 40px; }
+      #blog-create .blog-create-container .visibility-container .header .title {
+        line-height: 40px;
+        font-size: 16px;
+        font-weight: 500; }
+      #blog-create .blog-create-container .visibility-container .header .done {
+        float: right;
+        margin-top: 3px; }
+    #blog-create .blog-create-container .visibility-container .public {
+      padding: 16px; }
+      #blog-create .blog-create-container .visibility-container .public .box {
+        margin-top: 5px;
+        margin-bottom: 5px; }
+    #blog-create .blog-create-container .visibility-container .section-types {
+      padding: 16px; }
+      #blog-create .blog-create-container .visibility-container .section-types .type {
+        margin: 10px 0; }
 
 #ely-home {
   height: 100%;

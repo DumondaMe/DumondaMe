@@ -88,7 +88,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/createBlog/createBlog.html',
-    "<md-dialog id=blog-create flex=90 aria-label=\"Detail Blog\" ng-cloak layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility>{{ctrl.visibility}}</span></div></div><form name=createBlogForm><md-dialog-content flex class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=!ctrl.sendBlogAllowed>Posten</md-button></div></md-dialog-content></form></md-dialog>"
+    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=!ctrl.sendBlogAllowed>Posten</md-button></div></div></form></div>"
+  );
+
+
+  $templateCache.put('app/modules/home/createBlog/main.html',
+    "<md-dialog id=blog-create aria-label=\"Create Blog\" ng-cloak layout=row><div ng-include=\"'app/modules/home/createBlog/createBlog.html'\" ng-if=ctrl.mainView class=blog-create-container></div><div ng-include=\"'app/modules/home/createBlog/selectVisibility.html'\" ng-if=!ctrl.mainView class=blog-create-container></div></md-dialog>"
+  );
+
+
+  $templateCache.put('app/modules/home/createBlog/selectVisibility.html',
+    "<div class=visibility-container><div class=header><span class=title>Sichtbarkeit des Blog</span><md-button class=\"md-raised md-primary done\" aria-label=done ng-click=ctrl.closeVisibility() ng-disabled=\"\">Fertig</md-button></div><md-divider></md-divider><div class=public><md-checkbox ng-model=ctrl.isPublic aria-label=\"Visible to Public\" class=box>Alle</md-checkbox></div><md-divider></md-divider><div class=section-types><div class=type ng-repeat=\"privacyTypes in ctrl.privacyTypesSelected\"><md-checkbox ng-model=privacyTypes.selected aria-label=\"Visible to {{privacyTypes.type}}\" ng-disabled=ctrl.isPublic>{{privacyTypes.type}}</md-checkbox></div></div></div>"
   );
 
 
@@ -2251,7 +2261,7 @@ module.exports = {
 
             ctrl.createBlog = function () {
                 $mdDialog.show({
-                    templateUrl: 'app/modules/home/createBlog/createBlog.html',
+                    templateUrl: 'app/modules/home/createBlog/main.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     controller: 'HomePinwallCreateBlog',
@@ -2289,14 +2299,39 @@ module.exports = ['$scope', 'dateFormatter', '$mdDialog', 'userInfo', 'FileReade
     function ($scope, dateFormatter, $mdDialog, userInfo, FileReader, FileReaderUtil) {
         var ctrl = this;
         ctrl.isPublic = true;
+        ctrl.mainView = true;
         ctrl.visibility = "Alle";
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
         ctrl.userInfo = userInfo.getUserInfo();
+        ctrl.privacyTypesSelected = [];
         ctrl.sendBlogAllowed = false;
+
+        angular.forEach(ctrl.userInfo.privacyTypes, function (privacyType) {
+            ctrl.privacyTypesSelected.push({type: privacyType, selected: false});
+        });
 
         ctrl.cancel = function () {
             FileReader.abort();
             $mdDialog.cancel();
+        };
+
+        ctrl.openVisibility = function () {
+            ctrl.mainView = false;
+        };
+
+        ctrl.closeVisibility = function () {
+            ctrl.mainView = true;
+            if (ctrl.isPublic) {
+                ctrl.visibility = "Alle";
+            } else {
+                ctrl.visibility = "";
+                angular.forEach(ctrl.privacyTypesSelected, function (privacyType) {
+                    if (privacyType.selected) {
+                        ctrl.visibility = ctrl.visibility.concat(privacyType.type + ", ");
+                    }
+                });
+                ctrl.visibility = ctrl.visibility.substring(0, ctrl.visibility.length - 2);
+            }
         };
 
         $scope.$watch('blogText', function (newBlogText) {
@@ -6605,33 +6640,34 @@ module.exports={
   "dependencies": {
   },
   "devDependencies": {
-    "browserify": "11.0.1",
-    "babelify": "6.2.0",
-    "phantomjs": "~1.9.13",
-    "mocha": "~1.21.4",
-    "karma": "~0.12.31",
-    "karma-browserify": "4.2.1",
-    "karma-chrome-launcher": "^0.1.4",
+    "browserify": "12.0.1",
+    "phantomjs": "~1.9.19",
+    "chai": "3.4.1",
+    "mocha": "~2.3.4",
+    "karma": "~0.13.15",
+    "sinon": "1.17.2",
+    "karma-browserify": "4.4.2",
+    "karma-chrome-launcher": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-firefox-launcher": "^0.1.4",
-    "karma-mocha": "~0.1.10",
+    "karma-mocha": "~0.2.1",
     "karma-chai": "~0.1.0",
     "karma-sinon": "~1.0.4",
-    "karma-junit-reporter": "~0.2.2",
-    "karma-coverage": "~0.2.6",
-    "karma-ng-html2js-preprocessor": "~0.1.2",
-    "browserify-istanbul": "0.1.2",
-    "protractor": "~1.3.1",
+    "karma-junit-reporter": "~0.3.8",
+    "karma-coverage": "0.2.6",
+    "karma-ng-html2js-preprocessor": "~0.2.0",
+    "browserify-istanbul": "0.2.1",
+    "protractor": "~3.0.0",
     "selenium": "~2.20.0",
-    "chromedriver": "~2.12.0",
-    "underscore": "~1.7.0",
-    "matchdep": "~0.3.0",
+    "chromedriver": "~2.20.0",
+    "underscore": "~1.8.3",
+    "matchdep": "~1.0.0",
     "grunt": "~0.4.5",
-    "grunt-browserify": "~3.8.0",
-    "grunt-contrib-uglify": "~0.9.1",
-    "grunt-karma": "~0.9.0",
-    "grunt-sonar-runner": "~2.4.2",
-    "grunt-angular-templates": "~0.5.7",
+    "grunt-browserify": "~4.0.1",
+    "grunt-contrib-uglify": "~0.11.0",
+    "grunt-karma": "~0.12.1",
+    "grunt-sonar-runner": "~2.4.4",
+    "grunt-angular-templates": "~0.5.9",
     "grunt-contrib-cssmin": "~0.10.0",
     "grunt-contrib-clean": "~0.6.0"
   },

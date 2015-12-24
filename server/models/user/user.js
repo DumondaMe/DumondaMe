@@ -42,7 +42,7 @@ module.exports = {
 
         return db.cypher().match('(u:User {userId: {id}})')
             .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
-            'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
+                'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
             .end({id: id})
             .send()
             .then(function (resp) {
@@ -73,7 +73,10 @@ module.exports = {
     },
     getUserInfo: function (id, req) {
         return db.cypher().match('(u:User {userId: {id}})')
-            .return('u.name AS name, u.email AS email')
+            .optionalMatch("(u)-[relPrivacy:HAS_PRIVACY]->(:Privacy)")
+            .with("u, relPrivacy")
+            .orderBy("relPrivacy.type")
+            .return('u.name AS name, u.email AS email, collect(relPrivacy.type) AS privacyTypes')
             .end({id: id})
             .send()
             .then(function (resp) {

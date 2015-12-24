@@ -3,7 +3,6 @@
 var db = require('./../../neo4j');
 var uuid = require('./../../lib/uuid');
 var time = require('./../../lib/time');
-var underscore = require('underscore');
 var cdn = require('../util/cdn');
 var recommendation = require('../page/detail/recommendation');
 var exceptions = require('./../../lib/error/exceptions');

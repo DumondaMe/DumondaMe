@@ -1,4 +1,4 @@
-<md-dialog id="blog-create" flex="90" aria-label="Detail Blog" ng-cloak layout="column">
+<div layout="column">
     <div class="header" layout="row">
         <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
         <div class="header-content">
@@ -6,11 +6,11 @@
             <svg width="18px" height="18px" viewBox="0 0 48 48" fill="#757575" class="divider">
                 <path d="M20 34l10-10 -10-10z"></path>
             </svg>
-            <span class="visibility"> {{ctrl.visibility}}</span>
+            <span class="visibility" ng-click="ctrl.openVisibility()"> {{ctrl.visibility}}</span>
         </div>
     </div>
-    <form name="createBlogForm">
-        <md-dialog-content flex class="content">
+    <form name="createBlogForm" class="content-form">
+        <div class="content">
             <md-input-container class="blog-input-container">
                 <label>Schreibe einen Beitrag...</label>
                 <textarea name="blogText" class="blog-input" ng-model="blogText" required md-maxlength="10000"></textarea>
@@ -38,6 +38,6 @@
                 <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
                 <md-button class="md-raised md-primary post-button" aria-label="post" ng-disabled="!ctrl.sendBlogAllowed">Posten</md-button>
             </div>
-        </md-dialog-content>
+        </div>
     </form>
-</md-dialog>
+</div>
