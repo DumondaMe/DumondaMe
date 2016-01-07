@@ -24,6 +24,24 @@ var createProblem = function (userId, description, tags) {
         });
 };
 
+var getProblems = function (userId, limit, skip) {
+
+    return db.cypher().match("(problem:Problem)")
+        .optionalMatch("(problem)<-[:BELONGS]-(:Action)<-[implements:IMPLEMENTS]-(user:User)")
+        .return("problem.problemId AS problemId, problem.description AS description, problem.created AS created, problem.tag AS tag, " +
+            "COUNT(implements) AS numberOfImplementations, " +
+            "EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(problem)) AS isAdmin")
+        .orderBy("numberOfImplementations DESC")
+        .skip("{skip}")
+        .limit("{limit}")
+        .end({
+            userId: userId,
+            skip: skip,
+            limit: limit
+        })
+        .send();
+};
+
 var getProblem = function (userId, problemId) {
 
     return db.cypher().match("(problem:Problem {problemId: {problemId}})")
@@ -41,5 +59,6 @@ var getProblem = function (userId, problemId) {
 
 module.exports = {
     createProblem: createProblem,
+    getProblems: getProblems,
     getProblem: getProblem
 };

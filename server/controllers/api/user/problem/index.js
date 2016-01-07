@@ -10,9 +10,10 @@ var schemaRequestGetProblemDescription = {
     name: 'getProblemReport',
     type: 'object',
     additionalProperties: false,
-    required: ['id'],
+    required: ['limit', 'skip'],
     properties: {
-        id: {type: 'string', format: 'notEmptyString', maxLength: 30}
+        limit: {type: 'integer', minimum: 1, maximum: 50},
+        skip: {type: 'integer', minimum: 0}
     }
 };
 
@@ -34,16 +35,15 @@ var schemaAddProblem = {
 
 module.exports = function (router) {
 
-
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return controllerErrors('Getting Problem Description failed', req, res, logger, function () {
+        return controllerErrors('Getting Problem Descriptions failed', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestGetProblemDescription, logger)
                 .then(function (request) {
-                    logger.info("User requests a problem Description", req);
-                    return problem.getProblem(req.user.id, request.id);
+                    logger.info("User requests problem Descriptions", req);
+                    return problem.getProblems(req.user.id, request.limit, request.skip);
                 }).then(function (problem) {
-                    if(_.isObject(problem)) {
+                    if (_.isObject(problem)) {
                         res.status(200).json(problem);
                     } else {
                         res.status(404).end();
