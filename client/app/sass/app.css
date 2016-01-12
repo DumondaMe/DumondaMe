@@ -1169,6 +1169,8 @@ h2.website-structure-title {
       display: inline-block; }
   .ely-sidnav .left-nav-content .nav-element:focus {
     outline: 0; }
+  .ely-sidnav .left-nav-content .highlighted {
+    color: #FF5252; }
 
 #ely-page-detail {
   height: 100%; }

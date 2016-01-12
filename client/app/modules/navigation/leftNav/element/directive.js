@@ -7,8 +7,12 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                state: '@'
+            scope: {},
+            bindToController: {
+                state: '@',
+                baseState: '@',
+                icon: '@',
+                description: '@'
             },
             templateUrl: 'app/modules/navigation/leftNav/element/template.html',
             controllerAs: 'ctrl',

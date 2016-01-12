@@ -192,12 +192,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/leftNav/element/template.html',
-    "<div class=nav-element ng-click=ctrl.goToState()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div>"
+    "<div class=nav-element ng-click=ctrl.goToState() ng-class=\"{'highlighted': ctrl.$state.includes(ctrl.baseState)}\"><md-icon md-svg-icon={{ctrl.icon}} class=icon ng-style=ctrl.highlightedStyle></md-icon><div class=\"description md-body-2\">{{ctrl.description}}</div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/leftNav/leftNav.html',
-    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:contact class=icon></md-icon><div class=\"description md-body-2\">Kontakte</div></div><div class=nav-element><md-icon md-svg-icon=nav:thread class=icon></md-icon><div class=\"description md-body-2\">Nachrichten</div></div></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
+    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><ely-left-nav-element state=home base-state=home icon=nav:home description=Home></ely-left-nav-element><ely-left-nav-element state=contact.myContacts base-state=contact icon=nav:contact description=Kontakte></ely-left-nav-element><ely-left-nav-element state=message.threads base-state=message icon=nav:thread description=Nachrichten></ely-left-nav-element></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
   );
 
 
