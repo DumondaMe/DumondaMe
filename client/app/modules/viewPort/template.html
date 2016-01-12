@@ -1,0 +1,13 @@
+<div class="viewport">
+    <ely-toolbar id="toolbar-header" ng-if="!ctrl.$mdMedia('gt-md')"></ely-toolbar>
+    <ely-left-nav ng-if="!ctrl.$mdMedia('gt-md')"></ely-left-nav>
+    <div class="content" ui-view="content" ng-cloak ng-if="!ctrl.$mdMedia('gt-md')"></div>
+
+    <div ng-if="ctrl.$mdMedia('gt-md')" layout="row" class="ely-gt-md-content">
+        <ely-left-nav flex="none" ng-show="ctrl.showLeftNav" ng-cloak></ely-left-nav>
+        <div class="ely-gt-md-content-container" ng-style="ctrl.loginStyle">
+            <ely-toolbar id="toolbar-header"></ely-toolbar>
+            <div class="content" ui-view="content" ng-cloak></div>
+        </div>
+    </div>
+</div>

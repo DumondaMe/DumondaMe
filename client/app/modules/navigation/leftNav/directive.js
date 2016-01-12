@@ -7,9 +7,7 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                sections: '='
-            },
+            scope: {},
             templateUrl: 'app/modules/navigation/leftNav/template.html',
             controllerAs: 'ctrl',
             controller: controller.directiveCtrl()

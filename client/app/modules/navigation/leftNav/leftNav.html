@@ -1,0 +1,32 @@
+<div>
+    <div class="sidnav-header" layout="column">
+        <div layout="row">
+            <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none"/>
+            <div class="header-commands" layout="row" layout-align="end none" flex="grow">
+                <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header"></md-icon>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">{{ctrl.userInfo.name}}</div>
+            <div class="user-email">{{ctrl.userInfo.email}}</div>
+        </div>
+    </div>
+    <md-divider class="ely-divider"></md-divider>
+    <md-content class="left-nav-content">
+        <div class="nav-element">
+            <md-icon md-svg-icon="nav:contact" class="icon"></md-icon>
+            <div class="description md-body-2">Kontakte</div>
+        </div>
+        <div class="nav-element">
+            <md-icon md-svg-icon="nav:thread" class="icon"></md-icon>
+            <div class="description md-body-2">Nachrichten</div>
+        </div>
+    </md-content>
+    <md-divider class="ely-divider"></md-divider>
+    <md-content class="left-nav-content">
+        <div class="nav-element" ng-click="ctrl.logout()">
+            <md-icon md-svg-icon="nav:logout" class="icon"></md-icon>
+            <div class="description md-body-2">Logout</div>
+        </div>
+    </md-content>
+</div>

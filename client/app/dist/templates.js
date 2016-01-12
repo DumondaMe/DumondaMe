@@ -196,13 +196,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/leftNav/leftNav.html',
+    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:contact class=icon></md-icon><div class=\"description md-body-2\">Kontakte</div></div><div class=nav-element><md-icon md-svg-icon=nav:thread class=icon></md-icon><div class=\"description md-body-2\">Nachrichten</div></div></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\"><div class=sidnav-header></div><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:contact class=icon></md-icon><div class=\"description md-body-2\">Kontakte</div></div><div class=nav-element><md-icon md-svg-icon=nav:thread class=icon></md-icon><div class=\"description md-body-2\">Nachrichten</div></div></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element><md-icon md-svg-icon=nav:profile class=icon></md-icon><div class=\"description md-body-2\">Profil</div></div><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></md-sidenav></div>"
+    "<div ng-class=\"{'ely-left-nav-expanded': ctrl.$mdMedia('gt-md')}\"><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2 ely-sidnav\" ng-if=\"!ctrl.$mdMedia('gt-md')\"><div ng-include=\"'app/modules/navigation/leftNav/leftNav.html'\"></div></md-sidenav><div ng-include=\"'app/modules/navigation/leftNav/leftNav.html'\" class=ely-sidnav ng-if=\"ctrl.$mdMedia('gt-md')\"></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button><span flex></span></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn hide-gt-md><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button><span flex></span></div></md-toolbar></div>"
   );
 
 
@@ -368,6 +373,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/util/waitingScreen/waitingScreen.html',
     "<div id=modal-waiting-screen><div class=modal-body><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/viewPort/template.html',
+    "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><ely-left-nav ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-left-nav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><ely-left-nav flex=none ng-show=ctrl.showLeftNav ng-cloak></ely-left-nav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
   );
 
 }]);

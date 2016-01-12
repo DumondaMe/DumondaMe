@@ -1,80 +1,66 @@
-#leftColNav {
-  position: fixed;
-  left: 0;
-  top: 60px;
-  width: 230px;
-  z-index: 100;
-  background-color: $primary-color-light;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+.ely-left-nav-expanded{
+  width: 250px;
+  height: 100%;
+  background-color: #ffffff;
+}
 
-  .left-nav-element-container {
-    height: 48px;
-    width: 230px;
-    cursor: pointer;
-
-    .left-nav-element {
-      height: 100%;
-      width: 100%;
-
-      .left-nav-image-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 65px;
-        height: 100%;
-        padding-top: 10px;
-        .left-nav-image {
-          margin-right: 13px;
-          margin-top: 2px;
-          float: right;
-          height: 24px;
-          width: 24px;
-        }
-      }
-      .left-nav-description-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 160px;
-        height: 100%;
-        .left-nav-description {
-          font-size: 16px;
-          font-weight: 300;
-          padding-left: 10px;
-          padding-top: 13px;
-        }
-      }
+.ely-sidnav {
+  .sidnav-header {
+    background-color: #ffffff;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+    .user-preview {
+      height: 50px;
+      width: 50px;
+      margin: 0 10px 10px 10px;
+      border-radius: 50%;
     }
-  }
-}
-
-.sidnav-header {
-  height: 65px;
-}
-
-.ely-divider {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.left-nav-content {
-  //padding-top: 20px;
-  padding-left: 16px;
-  padding-right: 16px;
-  .nav-element {
-    cursor: pointer;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    width: 100%;
-    .icon{
-      display: inline-block;
+    .header-commands {
       height: 24px;
-      width: 24px;
-      margin-right: 32px;
+      padding-right: 5px;
+      .icon-header {
+        margin: 0 5px 0 5px;
+        cursor: pointer;
+      }
     }
-    .description {
-      display: inline-block;
+    .user-info {
+      color: #000000;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 10px
+    }
+    .user-email {
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 400;
     }
   }
-  .nav-element:focus {
-    outline: 0;
+
+  .ely-divider {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .left-nav-content {
+    padding-left: 16px;
+    padding-right: 16px;
+    .nav-element {
+      cursor: pointer;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      width: 100%;
+      .icon {
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        margin-right: 32px;
+      }
+      .description {
+        display: inline-block;
+      }
+    }
+    .nav-element:focus {
+      outline: 0;
+    }
   }
 }

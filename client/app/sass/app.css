@@ -764,6 +764,9 @@ h2.website-structure-title {
   position: relative;
   width: 100%;
   margin-top: -56px; }
+  @media screen and (min-width: 1280px) {
+    #toolbar-header {
+      margin-top: -64px; } }
 
 .user-icon {
   height: 24px;
@@ -920,6 +923,10 @@ h2.website-structure-title {
     position: fixed;
     bottom: 0;
     right: 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-home .create-blog-fab {
+        bottom: 15px;
+        right: 20px; } }
 
 .pinwall-recommendation-card {
   max-width: 400px;
@@ -1113,67 +1120,54 @@ h2.website-structure-title {
         padding: 5px 10px 0 10px;
         width: 800px; }
 
-#leftColNav {
-  position: fixed;
-  left: 0;
-  top: 60px;
-  width: 230px;
-  z-index: 100;
-  background-color: #f1f1f1;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1); }
-  #leftColNav .left-nav-element-container {
-    height: 48px;
-    width: 230px;
-    cursor: pointer; }
-    #leftColNav .left-nav-element-container .left-nav-element {
-      height: 100%;
-      width: 100%; }
-      #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 65px;
-        height: 100%;
-        padding-top: 10px; }
-        #leftColNav .left-nav-element-container .left-nav-element .left-nav-image-container .left-nav-image {
-          margin-right: 13px;
-          margin-top: 2px;
-          float: right;
-          height: 24px;
-          width: 24px; }
-      #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container {
-        display: inline-block;
-        vertical-align: top;
-        width: 160px;
-        height: 100%; }
-        #leftColNav .left-nav-element-container .left-nav-element .left-nav-description-container .left-nav-description {
-          font-size: 16px;
-          font-weight: 300;
-          padding-left: 10px;
-          padding-top: 13px; }
+.ely-left-nav-expanded {
+  width: 250px;
+  height: 100%;
+  background-color: #ffffff; }
 
-.sidnav-header {
-  height: 65px; }
-
-.ely-divider {
+.ely-sidnav .sidnav-header {
+  background-color: #ffffff;
+  padding: 10px 5px;
+  margin-bottom: 10px; }
+  .ely-sidnav .sidnav-header .user-preview {
+    height: 50px;
+    width: 50px;
+    margin: 0 10px 10px 10px;
+    border-radius: 50%; }
+  .ely-sidnav .sidnav-header .header-commands {
+    height: 24px;
+    padding-right: 5px; }
+    .ely-sidnav .sidnav-header .header-commands .icon-header {
+      margin: 0 5px 0 5px;
+      cursor: pointer; }
+  .ely-sidnav .sidnav-header .user-info {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 10px; }
+  .ely-sidnav .sidnav-header .user-email {
+    margin-top: 3px;
+    font-size: 12px;
+    font-weight: 400; }
+.ely-sidnav .ely-divider {
   margin-top: 8px;
   margin-bottom: 8px; }
-
-.left-nav-content {
+.ely-sidnav .left-nav-content {
   padding-left: 16px;
   padding-right: 16px; }
-  .left-nav-content .nav-element {
+  .ely-sidnav .left-nav-content .nav-element {
     cursor: pointer;
     padding-top: 12px;
     padding-bottom: 12px;
     width: 100%; }
-    .left-nav-content .nav-element .icon {
+    .ely-sidnav .left-nav-content .nav-element .icon {
       display: inline-block;
       height: 24px;
       width: 24px;
       margin-right: 32px; }
-    .left-nav-content .nav-element .description {
+    .ely-sidnav .left-nav-content .nav-element .description {
       display: inline-block; }
-  .left-nav-content .nav-element:focus {
+  .ely-sidnav .left-nav-content .nav-element:focus {
     outline: 0; }
 
 #ely-page-detail {
@@ -1997,15 +1991,30 @@ body, html {
   background-color: #E0E0E0;
   height: 100%; }
 
-#viewport {
+.viewport {
   padding-top: 56px;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0; }
+  @media screen and (min-width: 1280px) {
+    .viewport {
+      padding-top: 0; } }
 
-#content {
+.ely-gt-md-content {
+  height: 100%;
+  position: relative; }
+
+.ely-gt-md-content-container {
+  padding-top: 64px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 250px;
+  right: 0; }
+
+.content {
   height: 100%; }
 
 #no-javascript {

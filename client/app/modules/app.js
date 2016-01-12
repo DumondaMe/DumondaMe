@@ -36,6 +36,7 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdIconProvider.iconSet('system', 'app/img/system.svg', 24);
     $mdIconProvider.iconSet('rating', 'app/img/rating.svg', 24);
     $mdIconProvider.iconSet('nav', 'app/img/navigation.svg', 24);
+    $mdIconProvider.iconSet('sidenavHeader', 'app/img/sideNavHeader.svg', 24);
     $mdIconProvider.iconSet('navFAB', 'app/img/fabNavigation.svg', 24);
     $mdIconProvider.iconSet('createBlog', 'app/img/createBlog.svg', 24);
 };

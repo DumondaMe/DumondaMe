@@ -19,8 +19,13 @@ body, html {
   height: 100%;
 }
 
-#viewport {
+.viewport {
   padding-top: 56px;
+  @media screen and (min-width: $gt-md){
+    padding-top: 0;
+    //padding-top: 64px;
+    //margin-top: -64px;
+  }
   position: absolute;
   top: 0;
   bottom: 0;
@@ -28,7 +33,22 @@ body, html {
   right: 0;
 }
 
-#content {
+.ely-gt-md-content {
+  height: 100%;
+  position: relative;
+}
+
+.ely-gt-md-content-container {
+  padding-top: 64px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 250px;
+  right: 0;
+
+}
+
+.content {
   height: 100%;
 }
 

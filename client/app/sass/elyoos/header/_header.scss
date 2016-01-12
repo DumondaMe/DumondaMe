@@ -2,6 +2,10 @@
   position: relative;
   width: 100%;
   margin-top: -56px;
+  @media screen and (min-width: $gt-md){
+    margin-top: -64px;
+    //top: 64px;
+  }
 }
 
 .user-icon {
