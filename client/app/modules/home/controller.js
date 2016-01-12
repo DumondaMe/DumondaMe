@@ -8,7 +8,7 @@ module.exports = {
 
             ctrl.createBlog = function () {
                 $mdDialog.show({
-                    templateUrl: 'app/modules/home/createBlog/main.html',
+                    templateUrl: 'app/modules/home/createBlog/template.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     controller: 'HomePinwallCreateBlog',
