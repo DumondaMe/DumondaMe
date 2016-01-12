@@ -10,13 +10,14 @@ var getHighlightedStyle = function ($state, baseState) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$state', '$rootScope', function ($state, $rootScope) {
+        return ['$state', '$rootScope', '$mdSidenav', function ($state, $rootScope, $mdSidenav) {
 
             var ctrl = this;
 
             ctrl.$state = $state;
 
             ctrl.goToState = function () {
+                $mdSidenav("left").close();
                 $state.go(ctrl.state);
             };
 
