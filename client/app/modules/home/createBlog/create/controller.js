@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'userInfo', 'CreateBlogVisibility', '$mdDialog', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck',
-            function ($scope, userInfo, CreateBlogVisibility, $mdDialog, FileReader, FileReaderUtil, CreateBlogCheck) {
+        return ['$scope', 'userInfo', 'CreateBlogVisibility', '$mdDialog', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
+            function ($scope, userInfo, CreateBlogVisibility, $mdDialog, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
                 var ctrl = this;
                 ctrl.userInfo = userInfo.getUserInfo();
                 ctrl.visibility = "Alle";
@@ -28,6 +28,15 @@ module.exports = {
                     }
                 };
 
+                ctrl.uploadBlog = function () {
+                    if (ctrl.sendBlogAllowed && !ctrl.blogUploadStarted) {
+                        ctrl.blogUploadStarted = true;
+                        UploadBlog.upload($scope.blogText, ctrl.imageForUploadPreviewData).then(function (resp) {
+                            $mdDialog.hide(resp);
+                        });
+                    }
+                };
+
                 $scope.$watch('blogText', function (newBlogText) {
                     ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(newBlogText, ctrl.imageForUploadPreviewStart);
                 });
@@ -37,12 +46,14 @@ module.exports = {
                         FileReader.onloadend = function () {
                             $scope.$apply(function () {
                                 ctrl.imageForUploadPreviewStart = false;
+                                ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed($scope.blogText, ctrl.imageForUploadPreviewStart);
                                 ctrl.imageForUploadPreview = FileReader.result;
                                 ctrl.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.imageForUploadPreview);
                             });
                         };
                         FileReader.onloadstart = function () {
                             $scope.$apply(function () {
+                                ctrl.sendBlogAllowed = false;
                                 ctrl.imageForUploadPreviewStart = true;
                             });
                         };

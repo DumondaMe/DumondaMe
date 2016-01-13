@@ -15,6 +15,8 @@ module.exports = {
                     locals: {element: ctrl.element},
                     bindToController: true,
                     controllerAs: 'ctrl'
+                }).then(function (resp) {
+                    ctrl.home.pinwall.unshift(resp);
                 });
             };
 
