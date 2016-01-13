@@ -1,8 +1,8 @@
 'use strict';
 
 
-module.exports = [
-    function () {
+module.exports = [ 'HomePinwallRequest',
+    function (HomePinwallRequest) {
 
         this.removeBlog = function (pinwall, blogId) {
             var elementToRemove;
@@ -13,6 +13,12 @@ module.exports = [
             });
             if (elementToRemove) {
                 pinwall.splice(pinwall.indexOf(elementToRemove), 1);
+                HomePinwallRequest.removedElement();
             }
+        };
+
+        this.addBlog = function (pinwall, blog) {
+            pinwall.unshift(blog);
+            HomePinwallRequest.addedElement();
         };
     }];

@@ -18,7 +18,7 @@ module.exports = {
                         bindToController: true,
                         controllerAs: 'ctrl'
                     }).then(function (resp) {
-                        ctrl.home.pinwall.unshift(resp);
+                        HomePinwall.addBlog(ctrl.home.pinwall, resp);
                     });
                 };
 
