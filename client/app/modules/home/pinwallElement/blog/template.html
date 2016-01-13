@@ -14,5 +14,9 @@
     <md-card-content>
         <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
     </md-card-content>
+    <md-card-actions layout="row" lauout-align="end center" ng-if="ctrl.element.isAdmin">
+        <md-button ng-click="ctrl.deleteBlog()" ng-disabled="ctrl.requestBlogDeleteRunning">Löschen</md-button>
+    </md-card-actions>
     <md-divider></md-divider>
+    <md-progress-linear ng-if="ctrl.requestBlogDeleteRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

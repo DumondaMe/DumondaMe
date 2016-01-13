@@ -17,7 +17,9 @@ module.exports = {
                 };
 
                 ctrl.openVisibility = function () {
-                    ctrl.onOpenVisibilityEvent();
+                    if (!ctrl.blogUploadStarted) {
+                        ctrl.onOpenVisibilityEvent();
+                    }
                 };
 
                 ctrl.internalCommands.activateVisibility = function () {

@@ -420,8 +420,9 @@
 
 md-toast.md-error-toast-theme {
   position: fixed;
-  top: 70px;
-  background-color: #a94442; }
+  top: 70px; }
+  md-toast.md-error-toast-theme .md-toast-content {
+    background-color: #a94442; }
 
 h1.website-structure-title {
   margin-top: 0;
@@ -807,7 +808,9 @@ h2.website-structure-title {
 
 .pinwall-blog-card {
   max-width: 400px;
-  min-width: 288px; }
+  min-width: 288px;
+  width: 100%;
+  margin: 8px 0; }
   .pinwall-blog-card .user-name {
     white-space: nowrap;
     overflow: hidden;
@@ -930,7 +933,9 @@ h2.website-structure-title {
 
 .pinwall-recommendation-card {
   max-width: 400px;
-  min-width: 280px; }
+  min-width: 280px;
+  width: 100%;
+  margin: 8px 0; }
   .pinwall-recommendation-card .youtube-recommendation .user-name {
     white-space: nowrap;
     overflow: hidden;

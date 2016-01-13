@@ -16,29 +16,53 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', function (dateFormatter, $mdDialog) {
-            var ctrl = this, hasDetail;
+        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast',
+            function (dateFormatter, $mdDialog, Blog, errorToast) {
+                var ctrl = this, hasDetail;
 
-            ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+                ctrl.requestBlogDeleteRunning = false;
 
-            ctrl.previewText = getPreviewText(ctrl.element.text);
+                ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-            hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+                ctrl.previewText = getPreviewText(ctrl.element.text);
 
-            ctrl.openDetail = function () {
-                if (hasDetail) {
-                    $mdDialog.show({
-                        templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        controller: 'HomePinwallBlogDetail',
-                        locals: {element: ctrl.element},
-                        bindToController: true,
-                        controllerAs: 'ctrl'
+                hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+
+                ctrl.openDetail = function () {
+                    if (hasDetail) {
+                        $mdDialog.show({
+                            templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose: true,
+                            controller: 'HomePinwallBlogDetail',
+                            locals: {element: ctrl.element},
+                            bindToController: true,
+                            controllerAs: 'ctrl'
+                        });
+                    }
+                };
+
+                ctrl.deleteBlog = function () {
+                    var confirm = $mdDialog.confirm()
+                        .title("Blog löschen")
+                        .textContent("Willst Du diesen Blog wirklich löschen?")
+                        .ariaLabel("Delete Blog")
+                        .ok("Löschen")
+                        .cancel("Abbrechen");
+                    $mdDialog.show(confirm).then(function () {
+                        ctrl.requestBlogDeleteRunning = true;
+                        Blog.delete({
+                            blogId: ctrl.element.blogId
+                        }, function () {
+                            ctrl.requestBlogDeleteRunning = false;
+                            ctrl.onBlogRemoved(ctrl.element.blogId);
+                        }, function () {
+                            ctrl.requestBlogDeleteRunning = false;
+                            errorToast.showError("Fehler beim Löschen des Blogs");
+                        });
                     });
-                }
-            };
-        }];
+                };
+            }];
     }
 };
 

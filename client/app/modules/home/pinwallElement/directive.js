@@ -9,7 +9,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                onBlogRemoved: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',

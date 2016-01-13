@@ -88,7 +88,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/createBlog/create/template.html',
-    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form></div>"
+    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\" ng-if=!ctrl.blogUploadStarted></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
@@ -153,7 +153,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/pinwallElement/blog/template.html',
-    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-divider></md-divider></md-card>"
+    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-card-actions layout=row lauout-align=\"end center\" ng-if=ctrl.element.isAdmin><md-button ng-click=ctrl.deleteBlog() ng-disabled=ctrl.requestBlogDeleteRunning>Löschen</md-button></md-card-actions><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
   );
 
 
@@ -173,12 +173,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/pinwallElement/template.html',
-    "<div><ely-pinwall-blog element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog><ely-pinwall-recommendation element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Recommendation'\"></ely-pinwall-recommendation></div>"
+    "<div><ely-pinwall-blog element=ctrl.element on-blog-removed=ctrl.onBlogRemoved ng-if=\"ctrl.element.pinwallType === 'Blog'\"></ely-pinwall-blog><ely-pinwall-recommendation element=ctrl.element ng-if=\"ctrl.element.pinwallType === 'Recommendation'\"></ely-pinwall-recommendation></div>"
   );
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab></div></div></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.home.pinwall\"><ely-pinwall-element on-blog-removed=ctrl.blogRemoved element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab></div></div></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
   );
 
 
@@ -344,11 +344,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/settings/profile.html',
     "<div id=content-settings-profile><div id=centerCol><div id=inner-centerCol><div id=manage-profile-photo-container><div><img class=\"img-rounded img-responsive\" ng-src=\"{{userDataToChange.profileImage}}\"></div><button id=change-profile-image type=button class=\"btn btn-default\" data-animation=am-fade-and-scale data-placement=center data-backdrop=static data-template-url=app/modules/util/file/uploadFile.html bs-modal=modal>Foto ändern..</button></div><div id=manage-profile><form class=form-horizontal name=profileForm role=form novalidate><div class=form-group><label for=inputEmail class=\"col-sm-4 control-label\">E-Mail</label><div class=col-sm-8><input name=inputEmail ng-model=userDataToChange.email class=form-control id=inputEmail ng-disabled=true></div></div><div class=form-group><div class=col-sm-4></div><div class=col-sm-5><a ui-sref=settings.profile.changePassword><button id=change-profile-password type=button class=\"btn btn-default\">Passwort ändern..</button></a></div></div><ely-form-text-input label=Vorname input-name=inputForename input-placeholder=Vorname profile-form=profileForm submit-model=userDataToChange.forename max-length=30 ely-required=true></ely-form-text-input><ely-form-text-input label=Nachname input-name=inputSurename input-placeholder=Nachname profile-form=profileForm submit-model=userDataToChange.surname max-length=50 ely-required=true></ely-form-text-input><ely-form-text-input label=Geburtstag input-name=inputBirthday input-placeholder=\"z.B {{getDateExample()}}\" profile-form=profileForm submit-model=userDataToChange.birthday ely-required=true custom-error-description=\"Gib einen gültigen Geburtstag ein (z.B. {{getDateExample()}})\"></ely-form-text-input><ely-form-text-input label=Strasse input-name=inputStreet input-placeholder=Strasse profile-form=profileForm submit-model=userDataToChange.street max-length=80></ely-form-text-input><ely-form-text-input label=Ort input-name=inputPlace input-placeholder=Ort profile-form=profileForm submit-model=userDataToChange.place max-length=80></ely-form-text-input><div class=form-group ng-class=\"{'has-error': profileForm.inputCountry.$invalid && (visitedCountry || submitFailed)}\"><label for=inputCountryId class=\"col-sm-4 control-label\">Land</label><div class=col-sm-8><button type=button class=\"btn btn-default\" ng-model=selectedCountryCode name=inputCountry id=inputCountryId bs-options=\"countryCode.country as countryCode.country for countryCode in countryCodes\" data-placeholder=Land bs-select>Action <span class=caret></span></button></div></div><div class=form-group><label for=inputGender class=\"col-sm-4 control-label\">Geschlecht</label><div class=col-sm-8><div class=btn-group id=inputGender><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = true; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female === true}\">Frau</label><label class=\"btn btn-default\" ng-click=\"userDataToChange.female = false; profileForm.$setDirty()\" ng-class=\"{'active': userDataToChange.female === false}\">Mann</label></div></div></div><div class=form-group><div class=\"col-sm-offset-4 col-sm-8\"><div><ely-send-button button-description=\"Profil ändern\" send-data=submitProfileData error-placement=right model=userDataToChange></ely-send-button></div></div></div></form></div></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/util/dialog/yesNoDialog.html',
-    "<div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body ng-bind=content></div><div class=modal-footer><md-button class=\"md-primary ely-button\" ng-click=ctrl.$dismiss()>Nein</md-button><md-button class=\"md-primary md-raised ely-button\" ng-click=ctrl.$close()>Ja</md-button></div>"
   );
 
 
@@ -2266,34 +2261,40 @@ app.filter('fromTo', require('./fromToFilter'));
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Home', '$mdDialog', 'HomePinwallRequest', function ($scope, Home, $mdDialog, HomePinwallRequest) {
-            var ctrl = this;
-            ctrl.home = {};
+        return ['$scope', 'Home', '$mdDialog', 'HomePinwallRequest', 'HomePinwall',
+            function ($scope, Home, $mdDialog, HomePinwallRequest, HomePinwall) {
+                var ctrl = this;
+                ctrl.home = {};
 
-            ctrl.createBlog = function () {
-                $mdDialog.show({
-                    templateUrl: 'app/modules/home/createBlog/template.html',
-                    parent: angular.element(document.body),
-                    clickOutsideToClose: false,
-                    controller: 'HomePinwallCreateBlog',
-                    locals: {element: ctrl.element},
-                    bindToController: true,
-                    controllerAs: 'ctrl'
-                }).then(function (resp) {
-                    ctrl.home.pinwall.unshift(resp);
-                });
-            };
+                ctrl.createBlog = function () {
+                    $mdDialog.show({
+                        templateUrl: 'app/modules/home/createBlog/template.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false,
+                        escapeToClose: false,
+                        controller: 'HomePinwallCreateBlog',
+                        locals: {element: ctrl.element},
+                        bindToController: true,
+                        controllerAs: 'ctrl'
+                    }).then(function (resp) {
+                        ctrl.home.pinwall.unshift(resp);
+                    });
+                };
 
-            HomePinwallRequest.reset();
+                HomePinwallRequest.reset();
 
-            ctrl.nextPinwallInfo = function () {
-                HomePinwallRequest.requestPinwall(ctrl.home.pinwall).then(function (pinwall) {
-                    ctrl.home = pinwall;
-                });
-            };
+                ctrl.nextPinwallInfo = function () {
+                    HomePinwallRequest.requestPinwall(ctrl.home.pinwall).then(function (pinwall) {
+                        ctrl.home = pinwall;
+                    });
+                };
 
-            ctrl.nextPinwallInfo();
-        }];
+                ctrl.blogRemoved = function (blogId) {
+                    HomePinwall.removeBlog(ctrl.home.pinwall, blogId);
+                };
+
+                ctrl.nextPinwallInfo();
+            }];
     }
 };
 
@@ -2338,7 +2339,9 @@ module.exports = {
                 };
 
                 ctrl.openVisibility = function () {
-                    ctrl.onOpenVisibilityEvent();
+                    if (!ctrl.blogUploadStarted) {
+                        ctrl.onOpenVisibilityEvent();
+                    }
                 };
 
                 ctrl.internalCommands.activateVisibility = function () {
@@ -3003,29 +3006,53 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', function (dateFormatter, $mdDialog) {
-            var ctrl = this, hasDetail;
+        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast',
+            function (dateFormatter, $mdDialog, Blog, errorToast) {
+                var ctrl = this, hasDetail;
 
-            ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+                ctrl.requestBlogDeleteRunning = false;
 
-            ctrl.previewText = getPreviewText(ctrl.element.text);
+                ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-            hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+                ctrl.previewText = getPreviewText(ctrl.element.text);
 
-            ctrl.openDetail = function () {
-                if (hasDetail) {
-                    $mdDialog.show({
-                        templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        controller: 'HomePinwallBlogDetail',
-                        locals: {element: ctrl.element},
-                        bindToController: true,
-                        controllerAs: 'ctrl'
+                hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+
+                ctrl.openDetail = function () {
+                    if (hasDetail) {
+                        $mdDialog.show({
+                            templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose: true,
+                            controller: 'HomePinwallBlogDetail',
+                            locals: {element: ctrl.element},
+                            bindToController: true,
+                            controllerAs: 'ctrl'
+                        });
+                    }
+                };
+
+                ctrl.deleteBlog = function () {
+                    var confirm = $mdDialog.confirm()
+                        .title("Blog löschen")
+                        .textContent("Willst Du diesen Blog wirklich löschen?")
+                        .ariaLabel("Delete Blog")
+                        .ok("Löschen")
+                        .cancel("Abbrechen");
+                    $mdDialog.show(confirm).then(function () {
+                        ctrl.requestBlogDeleteRunning = true;
+                        Blog.delete({
+                            blogId: ctrl.element.blogId
+                        }, function () {
+                            ctrl.requestBlogDeleteRunning = false;
+                            ctrl.onBlogRemoved(ctrl.element.blogId);
+                        }, function () {
+                            ctrl.requestBlogDeleteRunning = false;
+                            errorToast.showError("Fehler beim Löschen des Blogs");
+                        });
                     });
-                }
-            };
-        }];
+                };
+            }];
     }
 };
 
@@ -3055,7 +3082,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                onBlogRemoved: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
@@ -3079,8 +3107,8 @@ app.controller('HomePinwallBlogDetail', require('./detail/blogDetailCtrl'));
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Home', function (Home) {
-            var ctrl = this;
+        return [function () {
+
         }];
     }
 };
@@ -3098,7 +3126,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                onBlogRemoved: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
@@ -3193,95 +3222,20 @@ module.exports = [
 },{}],105:[function(require,module,exports){
 'use strict';
 
-var pinwallElements,
-    numberOfRows = 1;
 
-var resetPinwallElements = function () {
-    pinwallElements = [[], [], []];
-};
+module.exports = [
+    function () {
 
-var nextColumnIndex = function (heightColumns) {
-    var index = 0, smallest = Number.MAX_VALUE;
-    angular.forEach(heightColumns, function (heightColumn, key) {
-        if (heightColumn < smallest) {
-            smallest = heightColumn;
-            index = key;
-        }
-    });
-    return index;
-};
-
-var addPinwallElementsToColumns = function (pinwall, log) {
-    var heightColumns = [], i, index;
-
-    for (i = 0; i < numberOfRows; i++) {
-        heightColumns.push(0);
-    }
-
-    angular.forEach(pinwall, function (pinwallElement) {
-        if (pinwallElement.type === 'NewMessages' || pinwallElement.type === 'Contacting') {
-            pinwallElements[numberOfRows - 1].unshift(pinwallElement);
-            heightColumns[numberOfRows - 1] += pinwallElement.pinwallHeight;
-        } else {
-            index = nextColumnIndex(heightColumns);
-            if (pinwallElement.hasOwnProperty('pinwallHeight')) {
-                heightColumns[index] += pinwallElement.pinwallHeight;
-            } else {
-                log.warn("Element has no pinwall height");
-            }
-            pinwallElements[index].push(pinwallElement);
-        }
-    });
-};
-
-module.exports = ['HomePinwallElements', '$log',
-    function (HomePinwallElements, $log) {
-
-
-        var updatePinwall = function () {
-            resetPinwallElements();
-            addPinwallElementsToColumns(HomePinwallElements.getPinwall(), $log);
-            return {
-                pinwallElements: pinwallElements,
-                userInfo: HomePinwallElements.getUserInfo()
-            };
-        };
-
-        resetPinwallElements();
-
-        this.setNumberOfRows = function (newNumber) {
-            numberOfRows = newNumber;
-        };
-
-        this.updatePinwall = updatePinwall;
-
-        this.elementRemoved = function (element) {
-            function removeElement(container, elementToRemove) {
-                var indexToRemove = null;
-                angular.forEach(container, function (containerElement, key) {
-                    if (angular.equals(containerElement, elementToRemove)) {
-                        indexToRemove = key;
-                    }
-                });
-                if (indexToRemove !== null) {
-                    container.splice(indexToRemove, 1);
+        this.removeBlog = function (pinwall, blogId) {
+            var elementToRemove;
+            angular.forEach(pinwall, function (pinwallElement) {
+                if (pinwallElement.pinwallType === "Blog" && pinwallElement.blogId === blogId) {
+                    elementToRemove = pinwallElement;
                 }
+            });
+            if (elementToRemove) {
+                pinwall.splice(pinwall.indexOf(elementToRemove), 1);
             }
-
-            removeElement(HomePinwallElements.getPinwall(), element);
-            removeElement(pinwallElements[0], element);
-            removeElement(pinwallElements[1], element);
-            removeElement(pinwallElements[2], element);
-        };
-
-        this.blogAdded = function (blog) {
-            HomePinwallElements.addBlog(blog);
-            updatePinwall();
-        };
-
-        this.messageChanged = function (newMessages) {
-            HomePinwallElements.messageChanged(newMessages);
-            updatePinwall();
         };
     }];
 

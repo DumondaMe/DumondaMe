@@ -1,4 +1,4 @@
 <div>
-    <ely-pinwall-blog element="ctrl.element" ng-if="ctrl.element.pinwallType === 'Blog'"></ely-pinwall-blog>
+    <ely-pinwall-blog element="ctrl.element" on-blog-removed="ctrl.onBlogRemoved" ng-if="ctrl.element.pinwallType === 'Blog'"></ely-pinwall-blog>
     <ely-pinwall-recommendation element="ctrl.element" ng-if="ctrl.element.pinwallType === 'Recommendation'"></ely-pinwall-recommendation>
 </div>

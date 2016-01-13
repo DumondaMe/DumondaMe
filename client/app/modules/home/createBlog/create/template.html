@@ -13,7 +13,8 @@
         <div class="content">
             <md-input-container class="blog-input-container">
                 <label>Schreibe einen Beitrag...</label>
-                <textarea name="blogText" class="blog-input" ng-model="blogText" required md-maxlength="10000"></textarea>
+                <textarea name="blogText" class="blog-input" ng-model="blogText" required md-maxlength="10000"
+                          ng-disabled="ctrl.blogUploadStarted"></textarea>
                 <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
                     <div ng-message="required">Wird benötigt!</div>
                     <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -32,10 +33,10 @@
                     </label>
                 </md-button>
                 <input type="file" ely-file-model="imageForUpload" id="upload-photo" ng-hide="true"
-                       accept=".jpg, .png, jpeg" ng-disabled="user.uploadBlogIsRunning">
+                       accept=".jpg, .png, jpeg" ng-if="!ctrl.blogUploadStarted">
             </div>
             <div class="actions-2" layout="row" layout-align="end center">
-                <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
+                <md-button aria-label="abort" ng-click="ctrl.cancel()" ng-disabled="ctrl.blogUploadStarted">Abbrechen</md-button>
                 <md-button class="md-raised md-primary post-button" aria-label="post" ng-disabled="!ctrl.sendBlogAllowed || ctrl.blogUploadStarted"
                            ng-click="ctrl.uploadBlog()">
                     Posten
@@ -43,4 +44,5 @@
             </div>
         </div>
     </form>
+    <md-progress-linear ng-if="ctrl.blogUploadStarted" md-mode="indeterminate"></md-progress-linear>
 </div>

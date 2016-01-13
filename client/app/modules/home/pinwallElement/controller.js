@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Home', function (Home) {
-            var ctrl = this;
+        return [function () {
+
         }];
     }
 };
