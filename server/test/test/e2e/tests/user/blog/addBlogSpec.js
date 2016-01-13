@@ -56,7 +56,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.heightPreviewImage);
-                return db.cypher().match("(b:Blog {text: 'testBlog1'})")
+                return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created')
                     .end().send();
             }).then(function (blog) {
@@ -100,7 +100,7 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
-                return db.cypher().match("(b:Blog {text: 'testBlog1'})")
+                return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created, b.heightPreviewImage as heightPreviewImage')
                     .end().send();
             }).then(function (blog) {
@@ -144,7 +144,7 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
-                return db.cypher().match("(b:Blog {text: 'testBlog1'})")
+                return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created')
                     .end().send();
             }).then(function (blog) {
@@ -182,7 +182,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.url);
                 should.not.exist(res.body.urlFull);
-                return db.cypher().match("()-[w:WRITTEN]->(b:Blog {text: 'testBlog1'})")
+                return db.cypher().match("()-[w:WRITTEN]->(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.created as created, w.visible as visible')
                     .end().send();
             }).then(function (blog) {

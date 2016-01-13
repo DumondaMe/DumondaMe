@@ -23,7 +23,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             commands.push(db.cypher().create("(:Recommendation {created: 500, rating: 3, comment: 'irgendwas', recommendationId: '0'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'}), (c:User {userId: '2'})")
-                .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a)")
+                .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
                 .create("(a)-[:IS_CONTACT]->(b)")
@@ -32,7 +32,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             commands.push(db.cypher().create("(:Recommendation {created: 499, rating: 4, comment: 'irgendwas2', recommendationId: '1'})")
                 .end().getCommand());
             return db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '1'}), (c:User {userId: '1'})")
-                .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a)")
+                .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)")
                 .end().send(commands);
 
         });
@@ -70,6 +70,11 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             resp[0].rating.should.equals(5);
             resp[0].comment.should.equals('irgendwas');
             resp[0].recommendationId.should.equals(recommendationId);
+            return db.cypher().match("(:Recommendation:PinwallElement {recommendationId: {recommendationId}})-[:PINWALL_DATA]->(page:Page)")
+                .return('page')
+                .end({recommendationId: recommendationId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
         });
     });
 

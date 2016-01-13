@@ -32,7 +32,7 @@ describe('Integration Tests for removing a blog', function () {
         stubCDN.deleteFolder.reset();
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:WRITTEN]->(:Blog {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})")
+            .create("(u)-[:WRITTEN]->(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})")
             .end().getCommand());
 
         return db.cypher().match("(u:User {userId: '1'})")
@@ -64,7 +64,7 @@ describe('Integration Tests for removing a blog', function () {
         stubCDN.deleteFolder.reset();
 
         commands.push(db.cypher().match("(u:User {userId: '2'})")
-            .create("(u)-[:WRITTEN]->(:Blog {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})")
+            .create("(u)-[:WRITTEN]->(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400})")
             .end().getCommand());
 
         return db.cypher().match("(u:User {userId: '1'})")

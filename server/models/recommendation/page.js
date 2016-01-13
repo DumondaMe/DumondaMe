@@ -42,8 +42,8 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
 
         var commands = [];
 
-        commands.push(db.cypher().match("(user:User {userId: {userId}})-[rel:RECOMMENDS]->" +
-            "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2:RECOMMENDS]->(page:Page)")
+        commands.push(db.cypher().match("(:User {userId: {userId}})-[rel:RECOMMENDS]->" +
+                "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2]->(page:Page)")
             .delete("rel, rec, rel2")
             .end({
                 userId: userId,
@@ -73,8 +73,10 @@ var addRecommendation = function (userId, pageId, comment, rating, req) {
         var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:Page {pageId: {pageId}})")
-            .create("(user)-[:RECOMMENDS]->(:Recommendation {created: {created}, rating: {rating}, comment: {comment}, " +
-            "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
+            .create("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, rating: {rating}, " +
+                "comment: {comment}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
+            .with("recommendation, page")
+            .create("(recommendation)-[:PINWALL_DATA]->(page)")
             .end({
                 userId: userId,
                 pageId: pageId,

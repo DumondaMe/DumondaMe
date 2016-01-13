@@ -3,7 +3,6 @@
 var db = require('./../../../neo4j');
 var blogImage = require('./blogImages');
 var _ = require('underscore');
-var Promise = require('bluebird').Promise;
 var time = require('./../../../lib/time');
 var uuid = require('./../../../lib/uuid');
 var exceptions = require('./../../../lib/error/exceptions');
@@ -69,17 +68,17 @@ var addBlog = function (userId, request, filePath, req) {
         return uploadFile(filePath, blogId)
             .then(function (height) {
                 return db.cypher().match("(user:User {userId: {userId}})")
-                    .create("(user)-[:WRITTEN {visible: {visibility}}]->(blog:Blog {text: {text}, created: {timestamp}, blogId: {blogId}, " +
-                    "heightPreviewImage: {heightPreviewImage}})")
+                    .create("(user)-[:WRITTEN {visible: {visibility}}]->(blog:Blog:PinwallElement {text: {text}, created: {timestamp}, " +
+                        "blogId: {blogId}, heightPreviewImage: {heightPreviewImage}})")
                     .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name, " +
-                    "blog.heightPreviewImage AS heightPreviewImage")
+                        "blog.heightPreviewImage AS heightPreviewImage")
                     .end({
                         userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, blogId: blogId, text: request.text,
                         heightPreviewImage: height
                     })
                     .send(commands);
             }).then(function (resp) {
-                if(resp[0].hasOwnProperty('heightPreviewImage')) {
+                if (resp[0].hasOwnProperty('heightPreviewImage')) {
                     resp[0].url = cdn.getUrl('blog/' + blogId + '/preview.jpg');
                     resp[0].urlFull = cdn.getUrl('blog/' + blogId + '/normal.jpg');
                 }
