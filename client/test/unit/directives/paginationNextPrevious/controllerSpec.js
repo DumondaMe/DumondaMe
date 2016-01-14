@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = require('../../../../app/modules/directives/paginationNextPrevious/controller').directiveCtrl()[1];
+var controller = require('../../../../app/modules/common/paginationNextPrevious/controller').directiveCtrl()[1];
 
 describe('Tests of controller of the ely-pagination-next-previous directive', function () {
     var scope, rootScope;

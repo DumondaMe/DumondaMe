@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = require('../../../../app/modules/directives/searchBox/controller').directiveCtrl()[1];
+var controller = require('../../../../app/modules/common/searchBox/controller').directiveCtrl()[1];
 
 describe('Tests of controller of the search-box directive', function () {
     var scope;
