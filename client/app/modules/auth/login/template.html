@@ -31,9 +31,10 @@
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
             <md-button id="login" class="md-primary" type="submit" ng-click="ctrl.login()"
-                       ng-disabled="loginForm.$invalid">
+                       ng-disabled="loginForm.$invalid || ctrl.loginRunning">
                 Anmelden
             </md-button>
         </md-card-actions>
+        <md-progress-linear ng-if="ctrl.loginRunning" md-mode="indeterminate"></md-progress-linear>
     </md-card>
 </div>

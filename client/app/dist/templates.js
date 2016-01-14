@@ -7,7 +7,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/auth/login/template.html',
-    "<div id=loginform layout=column layout-align=\"center center\"><md-card id=login-card><md-card-header><md-card-header-text class=md-headline>Login</md-card-header-text></md-card-header><md-card-content layout-padding><form name=loginForm><md-input-container class=\"input-element md-block\"><label>Email</label><input required type=email name=username id=id_username aria-label=Email ng-model=ctrl.loginuser.email><div ng-messages=loginForm.username.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=email>Keine gültige E-Mail Adresse!</div></div></md-input-container><md-input-container class=\"input-element md-block\"><label>Passwort</label><input type=password required name=password id=id_password aria-label=Passwort md-autofocus ng-model=ctrl.loginuser.password><div ng-messages=loginForm.password.$error><div ng-message=required>Dieses Feld wird benötigt!</div></div></md-input-container></form><div class=\"error-message alert alert-danger\" role=alert ng-show=ctrl.error>{{ctrl.error}}</div></md-card-content><md-card-actions layout=row layout-align=\"end center\"><md-button id=login class=md-primary type=submit ng-click=ctrl.login() ng-disabled=loginForm.$invalid>Anmelden</md-button></md-card-actions></md-card></div>"
+    "<div id=loginform layout=column layout-align=\"center center\"><md-card id=login-card><md-card-header><md-card-header-text class=md-headline>Login</md-card-header-text></md-card-header><md-card-content layout-padding><form name=loginForm><md-input-container class=\"input-element md-block\"><label>Email</label><input required type=email name=username id=id_username aria-label=Email ng-model=ctrl.loginuser.email><div ng-messages=loginForm.username.$error><div ng-message=required>Dieses Feld wird benötigt!</div><div ng-message=email>Keine gültige E-Mail Adresse!</div></div></md-input-container><md-input-container class=\"input-element md-block\"><label>Passwort</label><input type=password required name=password id=id_password aria-label=Passwort md-autofocus ng-model=ctrl.loginuser.password><div ng-messages=loginForm.password.$error><div ng-message=required>Dieses Feld wird benötigt!</div></div></md-input-container></form><div class=\"error-message alert alert-danger\" role=alert ng-show=ctrl.error>{{ctrl.error}}</div></md-card-content><md-card-actions layout=row layout-align=\"end center\"><md-button id=login class=md-primary type=submit ng-click=ctrl.login() ng-disabled=\"loginForm.$invalid || ctrl.loginRunning\">Anmelden</md-button></md-card-actions><md-progress-linear ng-if=ctrl.loginRunning md-mode=indeterminate></md-progress-linear></md-card></div>"
   );
 
 
@@ -156,17 +156,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/home/pinwallElement/recommendation/book.html',
+  $templateCache.put('app/modules/home/pinwallElement/recommendation/book/template.html',
     "<div layout=row class=book-recommendation><img flex=none class=preview-img ng-src={{ctrl.element.url}}><div class=content-container flex><div class=title>{{ctrl.element.title}}</div><div class=recommended>Bewertet {{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}} von</div><div layout=row><img class=user-avatar ng-src={{ctrl.element.profileUrl}} felx=\"none\"><div flex><div class=user-name>{{ctrl.element.name}}</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating></div></div><div class=actions></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/home/pinwallElement/recommendation/template.html',
-    "<md-card class=pinwall-recommendation-card><div ng-include=\"'app/modules/home/pinwallElement/recommendation/book.html'\" ng-if=\"ctrl.element.label === 'Book'\"></div><div ng-include=\"'app/modules/home/pinwallElement/recommendation/youtube.html'\" ng-if=\"ctrl.element.label === 'Youtube'\"></div></md-card>"
+    "<md-card class=pinwall-recommendation-card><ely-pinwall-recommendation-book element=ctrl.element ng-if=\"ctrl.element.label === 'Book'\"></ely-pinwall-recommendation-book><ely-pinwall-recommendation-youtube element=ctrl.element ng-if=\"ctrl.element.label === 'Youtube'\"></ely-pinwall-recommendation-youtube></md-card>"
   );
 
 
-  $templateCache.put('app/modules/home/pinwallElement/recommendation/youtube.html',
+  $templateCache.put('app/modules/home/pinwallElement/recommendation/youtube/template.html',
     "<div class=youtube-recommendation><md-card-header><md-card-avatar><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>Bewertet {{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=content-container><div layout=column><ely-iframe flex=100 height=230 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.element.link></ely-iframe><div class=description flex><div class=page-title>{{ctrl.element.title}}</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating></div></div></div></div>"
   );
 
