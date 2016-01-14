@@ -18,8 +18,8 @@ describe('Integration Tests for getting Problem Detail Report', function () {
                 .end().getCommand());
 
             return db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:Problem {problemId: '0', description: 'test', created: 500, tag: {tag}})")
-                .end({tag: ['test1', 'test2']}).send(commands);
+                .create("(u)-[:IS_ADMIN]->(:Problem {problemId: '0', description: 'test', created: 500})")
+                .end().send(commands);
 
         });
     });
@@ -39,7 +39,6 @@ describe('Integration Tests for getting Problem Detail Report', function () {
             res.status.should.equal(200);
             res.body.description.should.equals('test');
             res.body.created.should.equals(500);
-            res.body.tag.length.should.equals(2);
             res.body.isAdmin.should.equals(true);
         });
     });

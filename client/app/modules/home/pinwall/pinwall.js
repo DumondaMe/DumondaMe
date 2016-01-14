@@ -1,8 +1,8 @@
 'use strict';
 
 
-module.exports = [ 'HomePinwallRequest',
-    function (HomePinwallRequest) {
+module.exports = [ 'ScrollRequest',
+    function (ScrollRequest) {
 
         this.removeBlog = function (pinwall, blogId) {
             var elementToRemove;
@@ -13,12 +13,12 @@ module.exports = [ 'HomePinwallRequest',
             });
             if (elementToRemove) {
                 pinwall.splice(pinwall.indexOf(elementToRemove), 1);
-                HomePinwallRequest.removedElement();
+                ScrollRequest.removedElement('home');
             }
         };
 
         this.addBlog = function (pinwall, blog) {
             pinwall.unshift(blog);
-            HomePinwallRequest.addedElement();
+            ScrollRequest.addedElement('home');
         };
     }];

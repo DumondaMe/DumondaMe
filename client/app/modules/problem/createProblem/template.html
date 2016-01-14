@@ -1,0 +1,35 @@
+<md-dialog id="problem-create" aria-label="Create Problem" ng-cloak layout="row">
+    <div layout="column" class="problem-create-container">
+        <div class="header" layout="row">
+            <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
+            <div class="header-content">
+                <span class="user-name">{{ctrl.userInfo.name}}</span>
+            </div>
+        </div>
+        <form name="createProblemForm" class="content-form">
+            <div class="content">
+                <md-input-container class="problem-input-container">
+                    <label>Erstelle eine neue Problemstellung...</label>
+                <textarea name="problemText" class="blog-input" ng-model="problemText" required md-maxlength="160"
+                          ng-disabled="ctrl.blogUploadStarted"></textarea>
+                    <div ng-messages="createProblemForm.problemText.$error" ng-show="createProblemForm.problemText.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <div class="actions" layout="row">
+
+                </div>
+                <div class="actions-2" layout="row" layout-align="end center">
+                    <md-button aria-label="abort" ng-click="ctrl.cancel()" ng-disabled="ctrl.blogUploadStarted">Abbrechen</md-button>
+                    <md-button class="md-raised md-primary upload-button" aria-label="post"
+                               ng-disabled="!ctrl.sendBlogAllowed || ctrl.blogUploadStarted"
+                               ng-click="ctrl.uploadProblem()">
+                        Erstellen
+                    </md-button>
+                </div>
+            </div>
+        </form>
+        <md-progress-linear ng-if="ctrl.blogUploadStarted" md-mode="indeterminate"></md-progress-linear>
+    </div>
+</md-dialog>

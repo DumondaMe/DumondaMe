@@ -4,20 +4,18 @@ var db = require('./../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../lib/uuid');
 
-var createProblem = function (userId, description, tags) {
+var createProblem = function (userId, description) {
 
     var timeCreatedProblem = Math.floor(moment.utc().valueOf() / 1000),
         problemId = uuid.generateUUID();
     return db.cypher().match("(u:User {userId: {userId}})")
-        .createUnique("(u)-[:IS_ADMIN]->(problem:Problem {problemId: {problemId}, description: {description}, created: {timeCreatedProblem}, " +
-            "tag: {tags}})")
+        .createUnique("(u)-[:IS_ADMIN]->(problem:Problem {problemId: {problemId}, description: {description}, created: {timeCreatedProblem}})")
         .return("problem.problemId AS problemId")
         .end({
             userId: userId,
             description: description,
             timeCreatedProblem: timeCreatedProblem,
-            problemId: problemId,
-            tags: tags
+            problemId: problemId
         })
         .send().then(function (resp) {
             return {problemId: resp[0].problemId};
@@ -28,7 +26,7 @@ var getProblems = function (userId, limit, skip) {
 
     return db.cypher().match("(problem:Problem)")
         .optionalMatch("(problem)<-[:BELONGS]-(:Action)<-[implements:IMPLEMENTS]-(user:User)")
-        .return("problem.problemId AS problemId, problem.description AS description, problem.created AS created, problem.tag AS tag, " +
+        .return("problem.problemId AS problemId, problem.description AS description, problem.created AS created, " +
             "COUNT(implements) AS numberOfImplementations, " +
             "EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(problem)) AS isAdmin")
         .orderBy("numberOfImplementations DESC")
@@ -39,13 +37,15 @@ var getProblems = function (userId, limit, skip) {
             skip: skip,
             limit: limit
         })
-        .send();
+        .send().then(function (resp) {
+            return {problems: resp};
+        });
 };
 
 var getProblem = function (userId, problemId) {
 
     return db.cypher().match("(problem:Problem {problemId: {problemId}})")
-        .return("problem.description AS description, problem.created AS created, problem.tag AS tag, " +
+        .return("problem.description AS description, problem.created AS created, " +
             "EXISTS((:User {userId: {userId}})-[:IS_ADMIN]->(problem)) AS isAdmin")
         .end({
             problemId: problemId,

@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Home', '$mdDialog', 'HomePinwallRequest', 'HomePinwall',
-            function ($scope, Home, $mdDialog, HomePinwallRequest, HomePinwall) {
+        return [ 'Home', '$mdDialog', 'ScrollRequest', 'HomePinwall','HomeScrollRequestResponseHandler',
+            function (Home, $mdDialog, ScrollRequest, HomePinwall, HomeScrollRequestResponseHandler) {
                 var ctrl = this;
                 ctrl.home = {};
 
@@ -22,10 +22,10 @@ module.exports = {
                     });
                 };
 
-                HomePinwallRequest.reset();
+                ScrollRequest.reset('home', Home.get, HomeScrollRequestResponseHandler);
 
                 ctrl.nextPinwallInfo = function () {
-                    HomePinwallRequest.requestPinwall(ctrl.home.pinwall).then(function (pinwall) {
+                    ScrollRequest.nextRequest('home', ctrl.home.pinwall).then(function (pinwall) {
                         ctrl.home = pinwall;
                     });
                 };

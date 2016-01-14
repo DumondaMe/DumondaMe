@@ -16,6 +16,46 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/common/expandText/template.html',
+    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><div class=ely-expand-expand ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</div></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/formTextInput/template.html',
+    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\"><label for={{inputName}} class=\"col-sm-4 control-label\" ng-hide=showWithoutLabel>{{label}} <em ng-show=\"elyRequired !== 'true'\">(optional)</em></label><div ng-class=\"{'col-sm-8': !showWithoutLabel}\"><input name={{inputName}} ng-model=submitModel class=form-control id={{inputName}} placeholder={{inputPlaceholder}} ng-blur=\"visited = true\" ng-maxlength={{maxLength}} ng-required=\"{{elyRequired === 'true'}}\"><div class=ely-input-error-wrapper><div class=ely-input-image-error ng-show=\"showError && (visited || submitFailed)\" data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement=left data-container=body bs-tooltip=errorDescription><img src=\"app/img/error.png\"></div></div></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/iframe/template.html',
+    "<div class=ely-iframe layout=column><iframe width={{width}} height={{height}} ng-src={{link}} ng-if=width></iframe><iframe flex height={{height}} ng-src={{link}} ng-if=!width></iframe></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/imageCropper/template.html',
+    "<div class=cropper-outer-container><img src=\"\" ng-show=\"image && image.trim() !== ''\"></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/paginationNextPrevious/template.html',
+    "<div class=paginationNextPrevious><div class=paginationNextPrevious-wrapper><div class=paginationElement ng-class=\"{disabled: currentPagination === 1}\" ng-click=clickPrevious()><img src=app/img/arrow-previous.png></div><div class=paginationElement ng-class=\"{disabled: currentPagination === currentPaginationRange}\" ng-click=clickNext()><img src=app/img/arrow-next.png></div></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/searchBox/template.html',
+    "<div class=searchBoxForm><div class=input-group><input class=form-control placeholder={{description}} ng-model=query ng-keypress=sendGetQuery($event) bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\" data-trigger=click bs-typeahead> <span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=getQuery(query)><span class=\"glyphicon glyphicon-search\" aria-hidden=true></span></button></span></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/sendButton/template.html',
+    "<div class=ely-submit-button><button type=submit class=\"btn btn-default\" ng-click=sendAllData() ng-class=\"{disabled: categoryFinishedButtonDisabled}\">{{buttonDescription}}</button><div class=ely-submit-button-error ng-show=showError><img src=app/img/error.png ng-show=showError data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement={{errorPlacement}} bs-tooltip=\"errorDescription\"></div><div class=ely-submit-button-success ng-show=showSuccess><img src=app/img/success.png ng-show=\"showSuccess\"></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/common/starRating/template.html',
+    "<div class=ely-star-rating ng-mouseleave=resetToSelected()><md-icon md-svg-icon=rating:{{star[0]}} aria-label=\"\" ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[1]}} aria-label=\"\" ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[2]}} aria-label=\"\" ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[3]}} aria-label=\"\" ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[4]}} aria-label=\"\" ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon></div>"
+  );
+
+
   $templateCache.put('app/modules/contact/contactPreview/template.html',
     "<div class=contact-preview><img ng-src={{cacheUrl(contact.profileUrl)}} ng-click=openUserDetails()><div class=contact-preview-content><div class=contact-preview-name-container><div ng-click=openUserDetails() class=contact-preview-name>{{contact.name}}</div><div class=description-container><div class=description ng-click=openModalUpdateType($scope) ng-show=\"!contact.blocked && contact.type\">({{contact.type}})</div></div><div class=blocked-description ng-show=contact.blocked>BLOCKIERT</div></div><div class=command-icons><button type=button class=\"btn btn-default btn-xs dropdown-toggle left\" data-toggle=dropdown aria-expanded=false bs-dropdown=contact.actions ng-show=\"!contact.blocked && contact.type\">Aktionen <span class=caret></span></button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=\"!contact.blocked && !contact.type\" ng-click=openModalAddNewContact($scope)><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Als Kontakt hinzufügen</button> <button type=button class=\"btn btn-default btn-xs left\" aria-expanded=false ng-show=contact.blocked ng-click=unblockContact($scope)>Blockierung aufheben</button><div class=command-connection-state ng-hide=\"contact.connected === 'none'\" data-trigger=hover data-delay=600 data-title={{tooltipConnectionState.title}} bs-tooltip><img ng-src={{contact.connectionImage}}></div></div></div></div>"
   );
@@ -41,53 +81,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/directives/expandText/template.html',
-    "<div class=ely-expand-text><div class=ely-expand-text-description ng-style=descriptionStyle>{{description}}</div><div class=ely-expand-expand ng-click=expand() ng-show=\"showExpand && !expanded\">Mehr lesen</div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/formTextInput/template.html',
-    "<div class=\"form-group ely-form-text-input\" ng-class=\"{'has-error': showError && (visited || submitFailed)}\"><label for={{inputName}} class=\"col-sm-4 control-label\" ng-hide=showWithoutLabel>{{label}} <em ng-show=\"elyRequired !== 'true'\">(optional)</em></label><div ng-class=\"{'col-sm-8': !showWithoutLabel}\"><input name={{inputName}} ng-model=submitModel class=form-control id={{inputName}} placeholder={{inputPlaceholder}} ng-blur=\"visited = true\" ng-maxlength={{maxLength}} ng-required=\"{{elyRequired === 'true'}}\"><div class=ely-input-error-wrapper><div class=ely-input-image-error ng-show=\"showError && (visited || submitFailed)\" data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement=left data-container=body bs-tooltip=errorDescription><img src=\"app/img/error.png\"></div></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/iframe/template.html',
-    "<div class=ely-iframe layout=column><iframe width={{width}} height={{height}} ng-src={{link}} ng-if=width></iframe><iframe flex height={{height}} ng-src={{link}} ng-if=!width></iframe></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/imageCropper/template.html',
-    "<div class=cropper-outer-container><img src=\"\" ng-show=\"image && image.trim() !== ''\"></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/paginationNextPrevious/template.html',
-    "<div class=paginationNextPrevious><div class=paginationNextPrevious-wrapper><div class=paginationElement ng-class=\"{disabled: currentPagination === 1}\" ng-click=clickPrevious()><img src=app/img/arrow-previous.png></div><div class=paginationElement ng-class=\"{disabled: currentPagination === currentPaginationRange}\" ng-click=clickNext()><img src=app/img/arrow-next.png></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/searchBox/template.html',
-    "<div class=searchBoxForm><div class=input-group><input class=form-control placeholder={{description}} ng-model=query ng-keypress=sendGetQuery($event) bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\" data-trigger=click bs-typeahead> <span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=getQuery(query)><span class=\"glyphicon glyphicon-search\" aria-hidden=true></span></button></span></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/sendButton/template.html',
-    "<div class=ely-submit-button><button type=submit class=\"btn btn-default\" ng-click=sendAllData() ng-class=\"{disabled: categoryFinishedButtonDisabled}\">{{buttonDescription}}</button><div class=ely-submit-button-error ng-show=showError><img src=app/img/error.png ng-show=showError data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement={{errorPlacement}} bs-tooltip=\"errorDescription\"></div><div class=ely-submit-button-success ng-show=showSuccess><img src=app/img/success.png ng-show=\"showSuccess\"></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/spin/template.html',
-    "<div class=spin><div id=spinner-content></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/directives/starRating/template.html',
-    "<div class=ely-star-rating ng-mouseleave=resetToSelected()><md-icon md-svg-icon=rating:{{star[0]}} aria-label=\"\" ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[1]}} aria-label=\"\" ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[2]}} aria-label=\"\" ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[3]}} aria-label=\"\" ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[4]}} aria-label=\"\" ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon></div>"
-  );
-
-
   $templateCache.put('app/modules/home/createBlog/create/template.html',
-    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\" ng-if=!ctrl.blogUploadStarted></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
+    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\"></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
@@ -102,7 +97,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/homePinwallBlog/blog.html',
-    "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendBlogAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
+    "<div><div ng-controller=BlogExtendedCtrl><div class=load-photo ng-if=imageForUploadPreviewStart><ely-spin></ely-spin></div><div class=blog-photo-container ng-if=imageForUploadPreview><div><img ng-src={{imageForUploadPreview}}></div></div><div class=blog-photo-container-commands ng-if=imageForUploadPreview><div class=command-element ng-click=deletePicture() ng-disabled=user.uploadBlogIsRunning><img id=trash src=app/img/trash.png></div></div><div class=blog-attachment><label>Anhang:</label><div class=blog-attachment-element ng-click=attachPhoto()><img src=\"app/img/home/blog/photos.png\"><div class=attachment-text>Photo</div></div><input type=file ely-file-model=imageForUpload id=select-file-dialog ng-hide=true accept=\".jpg, .png, jpeg\" ng-disabled=user.uploadBlogIsRunning></div><div class=blog-visibility><label>Sichtbar:</label><button type=button class=\"btn btn-default\" ng-model=selectedPrivacyType data-html=1 data-multiple=1 data-animation=am-flip-x bs-options=\"privacyType.type for privacyType in userInfo.privacyTypes\" data-max-length=3 data-max-length-html=ausgew&auml;hlt data-placeholder=Gruppe data-sort=false bs-select ng-hide=selectPublic>Action <span class=caret></span></button><div class=blog-select-all ng-class=\"{'is-selected': selectPublic}\"><input type=checkbox ng-model=selectPublic ng-disabled=user.uploadBlogIsRunning> F&uuml;r Alle</div></div><div class=blog-send><md-button class=\"md-raised md-primary ely-button\" ng-click=sendBlog() ng-disabled=\"!sendProblemAllowed || user.uploadBlogIsRunning\">Posten</md-button><md-button class=ely-button ng-click=abort() ng-disabled=user.uploadBlogIsRunning>Abbrechen</md-button><div class=upload-blog-running ng-if=user.uploadBlogIsRunning><ely-spin size=small></ely-spin></div></div></div></div>"
   );
 
 
@@ -191,18 +186,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/leftNav/container/template.html',
+    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><ely-left-nav-element state=home base-state=home icon=nav:home description=Home></ely-left-nav-element><ely-left-nav-element state=contact.myContacts base-state=contact icon=nav:contact description=Kontakte></ely-left-nav-element><ely-left-nav-element state=message.threads base-state=message icon=nav:thread description=Nachrichten></ely-left-nav-element><ely-left-nav-element state=problem.home base-state=problem icon=nav:problem description=Problemstellungen></ely-left-nav-element></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/leftNav/element/template.html',
     "<div class=nav-element ng-click=ctrl.goToState() ng-class=\"{'highlighted': ctrl.$state.includes(ctrl.baseState)}\"><md-icon md-svg-icon={{ctrl.icon}} class=icon ng-style=ctrl.highlightedStyle></md-icon><div class=\"description md-body-2\">{{ctrl.description}}</div></div>"
   );
 
 
-  $templateCache.put('app/modules/navigation/leftNav/leftNav.html',
-    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><ely-left-nav-element state=home base-state=home icon=nav:home description=Home></ely-left-nav-element><ely-left-nav-element state=contact.myContacts base-state=contact icon=nav:contact description=Kontakte></ely-left-nav-element><ely-left-nav-element state=message.threads base-state=message icon=nav:thread description=Nachrichten></ely-left-nav-element></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
-  );
-
-
   $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div ng-class=\"{'ely-left-nav-expanded': ctrl.$mdMedia('gt-md')}\"><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2 ely-sidnav\" ng-if=\"!ctrl.$mdMedia('gt-md')\"><div ng-include=\"'app/modules/navigation/leftNav/leftNav.html'\"></div></md-sidenav><div ng-include=\"'app/modules/navigation/leftNav/leftNav.html'\" class=ely-sidnav ng-if=\"ctrl.$mdMedia('gt-md')\"></div></div>"
+    "<div ng-class=\"{'ely-left-nav-expanded': ctrl.$mdMedia('gt-md')}\"><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\" ng-if=\"!ctrl.$mdMedia('gt-md')\"><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><ely-left-nav-container class=ely-sidnav ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-left-nav-container></div>"
   );
 
 
@@ -313,6 +308,26 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/page/userRecommendation/template.html',
     "<div id=content-page-user-recommendation><div id=centerCol><div id=inner-centerCol ng-controller=GetPageAndExtendCtrl><div ng-show=\"noSearchResult && !noPage\"><div class=website-structure-header><h1 class=website-structure-title>Keine Suchergebnisse</h1></div><div><b>{{query}}</b> liefert kein Suchresultat</div></div><div ng-show=noPage><div class=website-structure-header><h1 class=website-structure-title>Du hast noch keine Seite bewertet</h1></div><div>Um Seiten zu bewerten gehe zu <a ui-sref=page.overview>Empfehlungen</a></div></div><div class=page-preview-expand-container ng-hide=noSearchResult><div ng-repeat=\"pagePreview in pagePreviews.pages\" class=page-preview-inner-container><ely-page-preview page-preview=pagePreview video-width=160 video-height=255></ely-page-preview></div></div><button type=button class=\"btn btn-default page-user-recommendation-expand\" ng-click=getNextPages() ng-show=\"pagePreviews.pages.length < pagePreviews.totalNumberOfPages\">Mehr</button><div class=page-user-recommendation-expand></div><div id=search-box-container><ely-search-box description=\"Suche nach Seite mit einer Bewertung von Dir...\" query=query get-query-suggestion=searchSuggestionPage get-query=searchPage></ely-search-box></div></div></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/problem/createProblem/template.html',
+    "<md-dialog id=problem-create aria-label=\"Create Problem\" ng-cloak layout=row><div layout=column class=problem-create-container><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span></div></div><form name=createProblemForm class=content-form><div class=content><md-input-container class=problem-input-container><label>Erstelle eine neue Problemstellung...</label><textarea name=problemText class=blog-input ng-model=problemText required md-maxlength=160 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createProblemForm.problemText.$error ng-show=createProblemForm.problemText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions layout=row></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary upload-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadProblem()>Erstellen</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div></md-dialog>"
+  );
+
+
+  $templateCache.put('app/modules/problem/overview/element/template.html',
+    "<md-card class=overview-element><div class=description>{{ctrl.element.description}}</div></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/problem/overview/template.html',
+    "<md-content id=ely-problem-overview><div class=problem-overview-container ely-infinite-scroll=ctrl.nextOverview()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"problem in ctrl.overview.problems\"><ely-problem-overview-element element=problem></ely-problem-overview-element></div></div></div></md-content>"
+  );
+
+
+  $templateCache.put('app/modules/problem/template.html',
+    "<md-content id=ely-problem><ely-problem-overview></ely-problem-overview><md-button class=\"md-fab create-problem-fab\" aria-label=\"Create Problem\" ng-click=ctrl.createProblem()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
   );
 
 

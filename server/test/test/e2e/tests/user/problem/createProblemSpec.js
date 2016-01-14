@@ -31,8 +31,7 @@ describe('Integration Tests for creating Problem Reports', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/problem', {
-                description: description,
-                tag: ['health', 'socialChange']
+                description: description
             }, requestAgent);
         }).then(function (res) {
             problemId = res.body.problemId;
@@ -43,7 +42,6 @@ describe('Integration Tests for creating Problem Reports', function () {
         }).then(function (problem) {
             problem.length.should.equals(1);
             problem[0].problem.description.should.equals(description);
-            problem[0].problem.tag.length.should.equals(2);
         });
     });
 

@@ -2,7 +2,7 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['CreateBlogVisibility', 'Home', '$mdDialog', 'HomePinwallRequest', function (CreateBlogVisibility, Home, $mdDialog, HomePinwallRequest) {
+        return ['CreateBlogVisibility', function (CreateBlogVisibility) {
             var ctrl = this;
             ctrl.validVisibility = CreateBlogVisibility.isValidVisibility();
             ctrl.isPublic = CreateBlogVisibility.isPublic();

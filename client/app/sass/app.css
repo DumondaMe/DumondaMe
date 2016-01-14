@@ -1794,6 +1794,66 @@ h2.website-structure-title {
       width: 800px;
       margin: 0 auto; }
 
+#problem-create {
+  min-width: 310px;
+  max-width: 450px;
+  width: 100%; }
+  #problem-create .problem-create-container {
+    width: 100%; }
+    #problem-create .problem-create-container .header {
+      padding: 16px; }
+      #problem-create .problem-create-container .header .user-avatar {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        margin-right: 10px; }
+      #problem-create .problem-create-container .header .header-content .user-name {
+        color: #000;
+        font-weight: 500;
+        font-size: 14px; }
+      #problem-create .problem-create-container .header .header-content .visibility {
+        color: #4285f4;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500; }
+      #problem-create .problem-create-container .header .header-content .divider {
+        display: inline-block;
+        vertical-align: bottom; }
+    #problem-create .problem-create-container .content-form {
+      width: 100%; }
+      #problem-create .problem-create-container .content-form .content {
+        margin-top: 10px;
+        padding: 16px; }
+        #problem-create .problem-create-container .content-form .content .problem-input-container {
+          width: 100%; }
+        #problem-create .problem-create-container .content-form .content .actions-2 .upload-button {
+          margin-right: 0; }
+
+#ely-problem {
+  height: 100%; }
+  #ely-problem #ely-problem-overview {
+    height: 100%;
+    width: 100%;
+    background-color: #E0E0E0; }
+    #ely-problem #ely-problem-overview .problem-overview-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto; }
+  #ely-problem .create-problem-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-problem .create-problem-fab {
+        bottom: 15px;
+        right: 20px; } }
+
+#ely-problem .overview-element {
+  padding: 10px; }
+  #ely-problem .overview-element .description {
+    font-size: 14px;
+    font-weight: 500; }
+
 #modal-dialog-add-recommendation .modal-header .title {
   font-weight: bold;
   display: inline; }

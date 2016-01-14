@@ -4,14 +4,14 @@
 @import 'mixins/_card';
 @import 'mixins/_screen';
 @import 'mixins/_util';
-@import 'directives/_cropper';
-@import 'directives/_expandText';
-@import 'directives/_formTextInput';
-@import 'directives/_iFrame';
-@import 'directives/_searchBox';
-@import 'directives/_paginationNextPrevious';
-@import 'directives/_sendButton';
-@import 'directives/_starRating';
+@import 'common/_cropper';
+@import 'common/_expandText';
+@import 'common/_formTextInput';
+@import 'common/_iFrame';
+@import 'common/_searchBox';
+@import 'common/_paginationNextPrevious';
+@import 'common/_sendButton';
+@import 'common/_starRating';
 @import 'elyoos/_index';
 
 body, html {

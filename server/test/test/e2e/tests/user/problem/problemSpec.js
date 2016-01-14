@@ -68,29 +68,29 @@ describe('Integration Tests for getting Problem Reports', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/problem', {
-                limit: 10,
+                maxItems: 10,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.length.should.equals(3);
-            res.body[0].problemId.should.equals('0');
-            res.body[0].description.should.equals('description0');
-            res.body[0].isAdmin.should.equals(false);
-            res.body[0].created.should.equals(503);
-            res.body[0].numberOfImplementations.should.equals(3);
+            res.body.problems.length.should.equals(3);
+            res.body.problems[0].problemId.should.equals('0');
+            res.body.problems[0].description.should.equals('description0');
+            res.body.problems[0].isAdmin.should.equals(false);
+            res.body.problems[0].created.should.equals(503);
+            res.body.problems[0].numberOfImplementations.should.equals(3);
 
-            res.body[1].problemId.should.equals('1');
-            res.body[1].description.should.equals('description1');
-            res.body[1].isAdmin.should.equals(false);
-            res.body[1].created.should.equals(502);
-            res.body[1].numberOfImplementations.should.equals(2);
+            res.body.problems[1].problemId.should.equals('1');
+            res.body.problems[1].description.should.equals('description1');
+            res.body.problems[1].isAdmin.should.equals(false);
+            res.body.problems[1].created.should.equals(502);
+            res.body.problems[1].numberOfImplementations.should.equals(2);
 
-            res.body[2].problemId.should.equals('2');
-            res.body[2].description.should.equals('description2');
-            res.body[2].isAdmin.should.equals(false);
-            res.body[2].created.should.equals(501);
-            res.body[2].numberOfImplementations.should.equals(0);
+            res.body.problems[2].problemId.should.equals('2');
+            res.body.problems[2].description.should.equals('description2');
+            res.body.problems[2].isAdmin.should.equals(false);
+            res.body.problems[2].created.should.equals(501);
+            res.body.problems[2].numberOfImplementations.should.equals(0);
         });
     });
 
@@ -99,18 +99,18 @@ describe('Integration Tests for getting Problem Reports', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/problem', {
-                limit: 1,
+                maxItems: 1,
                 skip: 1
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.length.should.equals(1);
+            res.body.problems.length.should.equals(1);
 
-            res.body[0].problemId.should.equals('1');
-            res.body[0].description.should.equals('description1');
-            res.body[0].isAdmin.should.equals(false);
-            res.body[0].created.should.equals(502);
-            res.body[0].numberOfImplementations.should.equals(2);
+            res.body.problems[0].problemId.should.equals('1');
+            res.body.problems[0].description.should.equals('description1');
+            res.body.problems[0].isAdmin.should.equals(false);
+            res.body.problems[0].created.should.equals(502);
+            res.body.problems[0].numberOfImplementations.should.equals(2);
         });
     });
 

@@ -8,6 +8,7 @@ module.exports = {
                 ctrl.userInfo = userInfo.getUserInfo();
                 ctrl.visibility = "Alle";
                 ctrl.internalCommands = ctrl.commands || {};
+                ctrl.blogUploadStarted = false;
 
                 CreateBlogVisibility.reset();
 

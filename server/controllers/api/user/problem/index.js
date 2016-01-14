@@ -10,9 +10,9 @@ var schemaRequestGetProblemDescription = {
     name: 'getProblemReport',
     type: 'object',
     additionalProperties: false,
-    required: ['limit', 'skip'],
+    required: ['maxItems', 'skip'],
     properties: {
-        limit: {type: 'integer', minimum: 1, maximum: 50},
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0}
     }
 };
@@ -21,15 +21,9 @@ var schemaAddProblem = {
     name: 'createProblem',
     type: 'object',
     additionalProperties: false,
-    required: ['description', 'tag'],
+    required: ['description'],
     properties: {
-        description: {type: 'string', format: 'notEmptyString', maxLength: 160},
-        tag: {
-            type: 'array',
-            items: {enum: ['personalDevelopment', 'health', 'spiritual', 'socialChange', 'pollution']},
-            minItems: 1,
-            uniqueItems: true
-        }
+        description: {type: 'string', format: 'notEmptyString', maxLength: 160}
     }
 };
 
@@ -41,7 +35,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaRequestGetProblemDescription, logger)
                 .then(function (request) {
                     logger.info("User requests problem Descriptions", req);
-                    return problem.getProblems(req.user.id, request.limit, request.skip);
+                    return problem.getProblems(req.user.id, request.maxItems, request.skip);
                 }).then(function (problem) {
                     if (_.isObject(problem)) {
                         res.status(200).json(problem);
@@ -57,7 +51,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when creating a Problem', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddProblem, logger).then(function (request) {
                 logger.info("User created a problem Description", req);
-                return problem.createProblem(req.user.id, request.description, request.tag);
+                return problem.createProblem(req.user.id, request.description);
             }).then(function (data) {
                 res.status(200).json(data);
             });

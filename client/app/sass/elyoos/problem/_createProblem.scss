@@ -1,0 +1,52 @@
+#problem-create {
+  min-width: 310px;
+  max-width: 450px;
+  width: 100%;
+  .problem-create-container {
+    width: 100%;
+    .header {
+      padding: 16px;
+      .user-avatar {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        margin-right: 10px;
+      }
+      .header-content {
+        .user-name {
+          color: #000;
+          font-weight: 500;
+          font-size: 14px;
+        }
+        .visibility {
+          color: #4285f4;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .divider {
+          display: inline-block;
+          vertical-align: bottom;
+        }
+      }
+    }
+
+    .content-form {
+      width: 100%;
+      .content {
+        margin-top: 10px;
+        padding: 16px;
+
+        .problem-input-container {
+          width: 100%;
+        }
+
+        .actions-2 {
+          .upload-button {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
