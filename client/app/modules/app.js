@@ -61,7 +61,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 }
             })
             .state('checkLoginState', {
-                url: '/{next}',
+                url: '/',
                 views: {
                     content: {
                         template: '<ely-check-login-state></ely-check-login-state>'
@@ -85,16 +85,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
-    }]).run(['$rootScope', '$state', 'loginStateHandler', 'userInfo', function ($rootScope, $state, loginStateHandler, userInfo) {
-    var firstRun = true;
+    }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'loginStateHandler', 'userInfo',
+    function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo) {
+        var firstRun = true;
 
-    loginStateHandler.register(userInfo);
+        loginStateHandler.register(userInfo);
 
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
-        if (firstRun) {
-            firstRun = false;
-            event.preventDefault();
-            $state.go('checkLoginState', {next: toState.name}, {location: false});
-        }
-    });
-}]);
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+            if (firstRun) {
+                firstRun = false;
+                event.preventDefault();
+                CheckLoginStateParamsContainer.setParams(toState.name, toParams);
+                $state.go('checkLoginState', null, {location: false});
+            }
+        });
+    }]);

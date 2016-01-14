@@ -1,12 +1,13 @@
 'use strict';
 
-module.exports = ['$state', '$stateParams', 'IsAuth', 'loginStateHandler', function ($state, $stateParams, IsAuth, loginStateHandler) {
+module.exports = ['$state', 'IsAuth', 'loginStateHandler', 'CheckLoginStateParamsContainer',
+    function ($state, IsAuth, loginStateHandler, CheckLoginStateParamsContainer) {
 
     var isAuth = IsAuth.get(null, function () {
         if (isAuth.isLoggedIn) {
             loginStateHandler.loginEvent();
-            if($stateParams.next !== 'login' && $stateParams.next !== 'checkLoginState' ) {
-                $state.go($stateParams.next);
+            if(CheckLoginStateParamsContainer.getNext() !== 'login' && CheckLoginStateParamsContainer.getNext() !== 'checkLoginState' ) {
+                $state.go(CheckLoginStateParamsContainer.getNext(), CheckLoginStateParamsContainer.getParams());
             } else {
                 $state.go('home');
             }
