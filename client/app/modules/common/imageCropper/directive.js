@@ -7,7 +7,7 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'app/modules/directives/imageCropper/template.html',
+            templateUrl: 'app/modules/common/imageCropper/template.html',
             scope: {},
             bindToController: {
                 commands: '=',

@@ -13,7 +13,7 @@ module.exports = {
                 getQuerySuggestion: '=',
                 getQuery: '='
             },
-            templateUrl: 'app/modules/directives/searchBox/template.html',
+            templateUrl: 'app/modules/common/searchBox/template.html',
             controller: controller.directiveCtrl()
         };
     }],

@@ -14,7 +14,7 @@ module.exports = {
                 numberOfSelectedStars: '=',
                 numberOfSelectedStarsReadonly: '&'
             },
-            templateUrl: 'app/modules/directives/starRating/template.html',
+            templateUrl: 'app/modules/common/starRating/template.html',
             controller: controller.directiveCtrl()
         };
     }],

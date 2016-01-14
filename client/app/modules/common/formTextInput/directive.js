@@ -19,7 +19,7 @@ module.exports = {
                 elyRequired: '@',
                 customErrorDescription: '@'
             },
-            templateUrl: 'app/modules/directives/formTextInput/template.html',
+            templateUrl: 'app/modules/common/formTextInput/template.html',
             controller: controller.directiveCtrl()
         };
     }],

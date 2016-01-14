@@ -12,7 +12,7 @@ module.exports = {
                 description: '@',
                 maxHeight: '@'
             },
-            templateUrl: 'app/modules/directives/expandText/template.html',
+            templateUrl: 'app/modules/common/expandText/template.html',
             controller: controller.directiveCtrl(),
             link: link.directiveLink()
         };

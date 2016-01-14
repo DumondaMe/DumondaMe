@@ -11,7 +11,7 @@ module.exports = {
                 itemsPerPage: '@',
                 getPaginationSet: '='
             },
-            templateUrl: 'app/modules/directives/paginationNextPrevious/template.html',
+            templateUrl: 'app/modules/common/paginationNextPrevious/template.html',
             controller: controller.directiveCtrl()
         };
     }],

@@ -7,7 +7,7 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'app/modules/directives/iframe/template.html',
+            templateUrl: 'app/modules/common/iframe/template.html',
             scope: {
                 secureLink: '@',
                 width: '@',

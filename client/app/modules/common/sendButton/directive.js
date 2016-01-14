@@ -13,7 +13,7 @@ module.exports = {
                 sendData: '=',
                 model: '='
             },
-            templateUrl: 'app/modules/directives/sendButton/template.html',
+            templateUrl: 'app/modules/common/sendButton/template.html',
             controller: controller.directiveCtrl()
         };
     }],
