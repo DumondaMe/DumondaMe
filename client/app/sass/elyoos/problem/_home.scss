@@ -13,13 +13,7 @@
   }
 
   .create-problem-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    @media screen and (min-width: $gt-md) {
-      bottom: 15px;
-      right: 20px;
-    }
+    @include ely-fab-button();
   }
 }
 

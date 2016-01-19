@@ -1,30 +1,4 @@
 @mixin cardElement() {
-  .card-element {
-
-    margin: 0 10px 25px 10px;
-    padding: 0 20px;
-    background-color: #ffffff;
-    border-radius: 3px;
-    border: 1px solid #d8d8d8;
-
-    .description {
-      padding: 15px 0 10px 0;
-      margin-bottom: 10px;
-      color: #999;
-      font-size: 14px;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .options {
-      float: right;
-      cursor: pointer;
-      margin-top: -13px;
-      margin-right: -5px;
-      .md-icon-button {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    @content;
-  }
+  max-width: 400px;
+  min-width: 280px;
 }

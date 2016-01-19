@@ -1,0 +1,16 @@
+#ely-problem-detail {
+  height: 100%;
+  background-color: $background-normal;
+  .detail-tabs {
+    height: 100%;
+    md-tabs-wrapper {
+      background-color: #ffffff;
+    }
+
+    .detail-container {
+      background-color: $background-normal;
+    }
+  }
+}
+
+

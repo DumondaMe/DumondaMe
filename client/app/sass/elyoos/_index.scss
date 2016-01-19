@@ -1,6 +1,5 @@
 @import 'common/_modal';
 @import 'common/_modalFilePreview';
-@import 'common/_modaWaitingScreen';
 @import 'common/_toast';
 @import 'common/_websiteStructure';
 
@@ -41,8 +40,12 @@
 @import 'pages/_index';
 
 @import 'problem/_createProblem';
+@import 'problem/_createReason';
+@import 'problem/_detail';
 @import 'problem/_home';
 @import 'problem/_homeElement';
+@import 'problem/_overviewReason';
+@import 'problem/_overviewReasonElement';
 
 @import 'recommendation/_modal';
 

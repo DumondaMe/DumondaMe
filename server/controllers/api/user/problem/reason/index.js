@@ -10,10 +10,10 @@ var schemaRequestGetReasons = {
     name: 'getReasons',
     type: 'object',
     additionalProperties: false,
-    required: ['problemId', 'limit', 'skip'],
+    required: ['problemId', 'maxItems', 'skip'],
     properties: {
         problemId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        limit: {type: 'integer', minimum: 1, maximum: 50},
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0}
     }
 };
@@ -51,7 +51,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaRequestGetReasons, logger)
                 .then(function (request) {
                     logger.info("User requests reasons for problem", req);
-                    return reason.getReasons(req.user.id, request.problemId, request.limit, request.skip);
+                    return reason.getReasons(req.user.id, request.problemId, request.maxItems, request.skip);
                 }).then(function (action) {
                     if (_.isObject(action)) {
                         res.status(200).json(action);

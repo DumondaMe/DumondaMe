@@ -1,0 +1,18 @@
+#ely-problem-overview-reason {
+  .card-problem-description {
+    @include cardElement();
+    .problem-description {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .no-reason {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .create-reason-fab {
+    @include ely-fab-button();
+  }
+}
+
+

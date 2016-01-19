@@ -398,26 +398,6 @@
 #modal-preview-file {
   width: 580px; }
 
-#modal-waiting-screen {
-  width: 300px;
-  height: 100px; }
-  #modal-waiting-screen .modal-body {
-    height: 100px; }
-    #modal-waiting-screen .modal-body .description {
-      display: inline-block;
-      vertical-align: top;
-      padding-top: 25px;
-      font-size: 16px;
-      font-weight: 300;
-      margin-left: 25px;
-      height: 100%; }
-    #modal-waiting-screen .modal-body .waiting-spin {
-      margin-left: 20px;
-      width: 30px;
-      height: 100%;
-      position: relative;
-      display: inline-block; }
-
 md-toast.md-error-toast-theme {
   position: fixed;
   top: 70px; }
@@ -444,6 +424,9 @@ h2.website-structure-title {
 .ely-button {
   text-transform: none;
   margin-left: 0; }
+
+.ely-input-container {
+  margin: 9px 0; }
 
 #content #content-page-contacting {
   width: 100%;
@@ -808,7 +791,7 @@ h2.website-structure-title {
 
 .pinwall-blog-card {
   max-width: 400px;
-  min-width: 288px;
+  min-width: 280px;
   width: 100%;
   margin: 8px 0; }
   .pinwall-blog-card .user-name {
@@ -1183,49 +1166,29 @@ h2.website-structure-title {
     padding-top: 100px;
     margin-left: 250px;
     width: 720px; }
-    #ely-page-detail #main-content .card-element {
-      margin: 0 10px 25px 10px;
-      padding: 0 20px;
-      background-color: #ffffff;
-      border-radius: 3px;
-      border: 1px solid #d8d8d8; }
-      #ely-page-detail #main-content .card-element .description {
-        padding: 15px 0 10px 0;
-        margin-bottom: 10px;
-        color: #999;
-        font-size: 14px;
-        border-bottom: 1px solid #e5e5e5; }
-      #ely-page-detail #main-content .card-element .options {
-        float: right;
-        cursor: pointer;
-        margin-top: -13px;
-        margin-right: -5px; }
-        #ely-page-detail #main-content .card-element .options .md-icon-button {
-          width: 24px;
-          height: 24px; }
-      #ely-page-detail #main-content .card-element .header-title {
-        margin: 10px 0;
-        padding-bottom: 5px;
-        color: #999;
-        font-size: 18px;
-        font-weight: 300;
-        border-bottom: 1px solid #e5e5e5; }
-        #ely-page-detail #main-content .card-element .header-title .options {
-          margin-right: 0px; }
-      #ely-page-detail #main-content .card-element .user-recommendation-element #user-recommendation {
-        display: inline-block;
-        padding-top: 1px;
-        margin-left: 10px;
-        font-size: 14px;
-        line-height: 16px;
-        vertical-align: middle;
-        font-weight: 300; }
-      #ely-page-detail #main-content .card-element .user-recommendation-element .user-recommendation-remove {
-        margin-left: 20px; }
-      #ely-page-detail #main-content .card-element .user-recommendation-element #user-recommendation-comment {
-        margin-top: 20px;
-        font-size: 14px;
-        word-break: break-all; }
+    #ely-page-detail #main-content .header-title {
+      margin: 10px 0;
+      padding-bottom: 5px;
+      color: #999;
+      font-size: 18px;
+      font-weight: 300;
+      border-bottom: 1px solid #e5e5e5; }
+      #ely-page-detail #main-content .header-title .options {
+        margin-right: 0px; }
+    #ely-page-detail #main-content .user-recommendation-element #user-recommendation {
+      display: inline-block;
+      padding-top: 1px;
+      margin-left: 10px;
+      font-size: 14px;
+      line-height: 16px;
+      vertical-align: middle;
+      font-weight: 300; }
+    #ely-page-detail #main-content .user-recommendation-element .user-recommendation-remove {
+      margin-left: 20px; }
+    #ely-page-detail #main-content .user-recommendation-element #user-recommendation-comment {
+      margin-top: 20px;
+      font-size: 14px;
+      word-break: break-all; }
 
 #ely-book-page .header {
   position: relative;
@@ -1668,44 +1631,24 @@ h2.website-structure-title {
     #content #content-page-user-administration #search-box-container .searchBoxForm {
       padding-left: 40px; }
 
-#page-category-selection .card-element {
-  margin: 0 10px 25px 10px;
-  padding: 0 20px;
-  background-color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid #d8d8d8; }
-  #page-category-selection .card-element .description {
-    padding: 15px 0 10px 0;
+#page-category-selection #content {
+  margin-top: 25px;
+  margin-bottom: 15px; }
+  #page-category-selection #content .row-select-category {
+    padding-bottom: 5px;
     margin-bottom: 10px;
-    color: #999;
-    font-size: 14px;
     border-bottom: 1px solid #e5e5e5; }
-  #page-category-selection .card-element .options {
-    float: right;
-    cursor: pointer;
-    margin-top: -13px;
-    margin-right: -5px; }
-    #page-category-selection .card-element .options .md-icon-button {
-      width: 24px;
-      height: 24px; }
-  #page-category-selection .card-element #content {
-    margin-top: 25px;
-    margin-bottom: 15px; }
-    #page-category-selection .card-element #content .row-select-category {
-      padding-bottom: 5px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #e5e5e5; }
-    #page-category-selection .card-element #content #inputTitleId {
-      width: 100%; }
-    #page-category-selection .card-element #content .category-select-finished {
-      margin-top: 10px; }
-    #page-category-selection .card-element #content .content-create-edit-category-element {
-      margin-top: 15px;
-      margin-right: 10px; }
-  #page-category-selection .card-element #content-create-edit-page-suggestion-commands {
-    margin-top: 20px; }
-    #page-category-selection .card-element #content-create-edit-page-suggestion-commands .content-create-edit-page-suggestion-commands-buttons {
-      margin-right: 10px; }
+  #page-category-selection #content #inputTitleId {
+    width: 100%; }
+  #page-category-selection #content .category-select-finished {
+    margin-top: 10px; }
+  #page-category-selection #content .content-create-edit-category-element {
+    margin-top: 15px;
+    margin-right: 10px; }
+#page-category-selection #content-create-edit-page-suggestion-commands {
+  margin-top: 20px; }
+  #page-category-selection #content-create-edit-page-suggestion-commands .content-create-edit-page-suggestion-commands-buttons {
+    margin-right: 10px; }
 
 #compare-existing-pages {
   padding: 0 20px;
@@ -1713,72 +1656,34 @@ h2.website-structure-title {
   #compare-existing-pages .commands {
     margin-top: 20px; }
 
-#page-handling-details-book .card-element {
-  margin: 0 10px 25px 10px;
-  padding: 0 20px;
-  background-color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid #d8d8d8;
+#page-handling-details-book {
   margin-bottom: 10px;
   padding-bottom: 10px; }
-  #page-handling-details-book .card-element .description {
-    padding: 15px 0 10px 0;
-    margin-bottom: 10px;
-    color: #999;
-    font-size: 14px;
-    border-bottom: 1px solid #e5e5e5; }
-  #page-handling-details-book .card-element .options {
-    float: right;
-    cursor: pointer;
-    margin-top: -13px;
-    margin-right: -5px; }
-    #page-handling-details-book .card-element .options .md-icon-button {
-      width: 24px;
-      height: 24px; }
-  #page-handling-details-book .card-element #create-book-page {
+  #page-handling-details-book #create-book-page {
     width: 100%;
     height: 260px; }
-  #page-handling-details-book .card-element #picture-area {
+  #page-handling-details-book #picture-area {
     margin-top: 10px;
     margin-right: 20px;
     float: left; }
-    #page-handling-details-book .card-element #picture-area .picture {
+    #page-handling-details-book #picture-area .picture {
       height: 200px; }
-    #page-handling-details-book .card-element #picture-area .get-picture {
+    #page-handling-details-book #picture-area .get-picture {
       margin-top: 20px; }
-  #page-handling-details-book .card-element #description-area {
+  #page-handling-details-book #description-area {
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px; }
-  #page-handling-details-book .card-element .commands {
+  #page-handling-details-book .commands {
     margin-bottom: 10px; }
 
-#page-handling-details-youtube .card-element {
-  margin: 0 10px 25px 10px;
-  padding: 0 20px;
-  background-color: #ffffff;
-  border-radius: 3px;
-  border: 1px solid #d8d8d8;
+#page-handling-details-youtube {
   margin-top: 10px;
   margin-bottom: 10px;
   padding-bottom: 10px; }
-  #page-handling-details-youtube .card-element .description {
-    padding: 15px 0 10px 0;
-    margin-bottom: 10px;
-    color: #999;
-    font-size: 14px;
-    border-bottom: 1px solid #e5e5e5; }
-  #page-handling-details-youtube .card-element .options {
-    float: right;
-    cursor: pointer;
-    margin-top: -13px;
-    margin-right: -5px; }
-    #page-handling-details-youtube .card-element .options .md-icon-button {
-      width: 24px;
-      height: 24px; }
-  #page-handling-details-youtube .card-element .ely-form-text-input {
+  #page-handling-details-youtube .ely-form-text-input {
     padding: 0 15px; }
-  #page-handling-details-youtube .card-element #inputYoutubeLink {
+  #page-handling-details-youtube #inputYoutubeLink {
     width: 100%; }
 
 #page-handling {
@@ -1800,34 +1705,48 @@ h2.website-structure-title {
   width: 100%; }
   #problem-create .problem-create-container {
     width: 100%; }
-    #problem-create .problem-create-container .header {
-      padding: 16px; }
-      #problem-create .problem-create-container .header .user-avatar {
-        border-radius: 50%;
-        height: 32px;
-        width: 32px;
-        margin-right: 10px; }
-      #problem-create .problem-create-container .header .header-content .user-name {
-        color: #000;
-        font-weight: 500;
-        font-size: 14px; }
-      #problem-create .problem-create-container .header .header-content .visibility {
-        color: #4285f4;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500; }
-      #problem-create .problem-create-container .header .header-content .divider {
-        display: inline-block;
-        vertical-align: bottom; }
+    #problem-create .problem-create-container .header-title {
+      color: #009688;
+      font-size: 16px;
+      padding: 20px 16px; }
     #problem-create .problem-create-container .content-form {
       width: 100%; }
       #problem-create .problem-create-container .content-form .content {
         margin-top: 10px;
         padding: 16px; }
-        #problem-create .problem-create-container .content-form .content .problem-input-container {
+        #problem-create .problem-create-container .content-form .content .ely-input-container {
           width: 100%; }
         #problem-create .problem-create-container .content-form .content .actions-2 .upload-button {
           margin-right: 0; }
+
+#reason-create {
+  min-width: 310px;
+  max-width: 450px;
+  width: 100%; }
+  #reason-create .reason-create-container {
+    width: 100%; }
+    #reason-create .reason-create-container .header-title {
+      color: #009688;
+      font-size: 16px;
+      padding: 20px 16px; }
+    #reason-create .reason-create-container .content-form {
+      width: 100%; }
+      #reason-create .reason-create-container .content-form .content {
+        padding: 0 16px 16px 16px; }
+        #reason-create .reason-create-container .content-form .content .ely-input-container {
+          width: 100%; }
+        #reason-create .reason-create-container .content-form .content .actions-2 .upload-button {
+          margin-right: 0; }
+
+#ely-problem-detail {
+  height: 100%;
+  background-color: #E0E0E0; }
+  #ely-problem-detail .detail-tabs {
+    height: 100%; }
+    #ely-problem-detail .detail-tabs md-tabs-wrapper {
+      background-color: #ffffff; }
+    #ely-problem-detail .detail-tabs .detail-container {
+      background-color: #E0E0E0; }
 
 #ely-problem {
   height: 100%; }
@@ -1853,6 +1772,28 @@ h2.website-structure-title {
   #ely-problem .overview-element .description {
     font-size: 14px;
     font-weight: 500; }
+
+#ely-problem-overview-reason .card-problem-description {
+  max-width: 400px;
+  min-width: 280px; }
+  #ely-problem-overview-reason .card-problem-description .problem-description {
+    font-size: 14px;
+    font-weight: 500; }
+#ely-problem-overview-reason .no-reason {
+  font-size: 14px;
+  font-weight: 400; }
+#ely-problem-overview-reason .create-reason-fab {
+  position: fixed;
+  bottom: 0;
+  right: 0; }
+  @media screen and (min-width: 1280px) {
+    #ely-problem-overview-reason .create-reason-fab {
+      bottom: 15px;
+      right: 20px; } }
+
+.reason-overview-element {
+  max-width: 400px;
+  min-width: 280px; }
 
 #modal-dialog-add-recommendation .modal-header .title {
   font-weight: bold;

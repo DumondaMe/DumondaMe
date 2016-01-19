@@ -6,7 +6,6 @@ module.exports = ['$scope', 'userInfo', '$mdDialog', 'CreateProblemCheck', 'Uplo
         ctrl.userInfo = userInfo.getUserInfo();
 
         ctrl.cancel = function () {
-            FileReader.abort();
             $mdDialog.cancel();
         };
 

@@ -21,5 +21,13 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-problem></ely-problem>'
                 }
             }
+        })
+        .state('problem.detail', {
+            url: '/detail/:problemId',
+            views: {
+                'content@': {
+                    template: '<ely-problem-detail></ely-problem-detail>'
+                }
+            }
         });
 }]);

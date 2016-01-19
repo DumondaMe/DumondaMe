@@ -62,29 +62,29 @@ describe('Integration Tests for getting Reasons to a Problem', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/problem/reason', {
                 problemId: '0',
-                limit: 10,
+                maxItems: 10,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.length.should.equals(3);
-            res.body[0].reasonId.should.equals('1');
-            res.body[0].title.should.equals('title1');
-            res.body[0].description.should.equals('description1');
-            res.body[0].ratedByUser.should.equals(true);
-            res.body[0].numberOfRatings.should.equals(3);
+            res.body.reasons.length.should.equals(3);
+            res.body.reasons[0].reasonId.should.equals('1');
+            res.body.reasons[0].title.should.equals('title1');
+            res.body.reasons[0].description.should.equals('description1');
+            res.body.reasons[0].ratedByUser.should.equals(true);
+            res.body.reasons[0].numberOfRatings.should.equals(3);
 
-            res.body[1].reasonId.should.equals('0');
-            res.body[1].title.should.equals('title0');
-            res.body[1].description.should.equals('description0');
-            res.body[1].ratedByUser.should.equals(true);
-            res.body[1].numberOfRatings.should.equals(1);
+            res.body.reasons[1].reasonId.should.equals('0');
+            res.body.reasons[1].title.should.equals('title0');
+            res.body.reasons[1].description.should.equals('description0');
+            res.body.reasons[1].ratedByUser.should.equals(true);
+            res.body.reasons[1].numberOfRatings.should.equals(1);
 
-            res.body[2].reasonId.should.equals('2');
-            res.body[2].title.should.equals('title2');
-            res.body[2].description.should.equals('description2');
-            res.body[2].ratedByUser.should.equals(false);
-            res.body[2].numberOfRatings.should.equals(0);
+            res.body.reasons[2].reasonId.should.equals('2');
+            res.body.reasons[2].title.should.equals('title2');
+            res.body.reasons[2].description.should.equals('description2');
+            res.body.reasons[2].ratedByUser.should.equals(false);
+            res.body.reasons[2].numberOfRatings.should.equals(0);
         });
     });
 
@@ -94,17 +94,17 @@ describe('Integration Tests for getting Reasons to a Problem', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/problem/reason', {
                 problemId: '0',
-                limit: 1,
+                maxItems: 1,
                 skip: 1
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.length.should.equals(1);
-            res.body[0].reasonId.should.equals('0');
-            res.body[0].title.should.equals('title0');
-            res.body[0].description.should.equals('description0');
-            res.body[0].ratedByUser.should.equals(true);
-            res.body[0].numberOfRatings.should.equals(1);
+            res.body.reasons.length.should.equals(1);
+            res.body.reasons[0].reasonId.should.equals('0');
+            res.body.reasons[0].title.should.equals('title0');
+            res.body.reasons[0].description.should.equals('description0');
+            res.body.reasons[0].ratedByUser.should.equals(true);
+            res.body.reasons[0].numberOfRatings.should.equals(1);
         });
     });
 

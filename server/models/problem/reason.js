@@ -3,6 +3,7 @@
 var db = require('./../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../lib/uuid');
+var _ = require('underscore');
 
 var createReason = function (userId, problemId, title, description) {
 
@@ -44,8 +45,11 @@ var getReasons = function (userId, problemId, limit, skip) {
             userId: userId,
             skip: skip,
             limit: limit
-        })
-        .send();
+        }).send().then(function (resp) {
+            if (_.isObject(resp)) {
+                return {reasons: resp};
+            }
+        });
 };
 
 

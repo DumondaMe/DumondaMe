@@ -4,38 +4,36 @@
     padding-top: 100px;
     margin-left: 250px;
     width: 720px;
-    @include cardElement() {
-      .header-title {
-        margin: 10px 0;
-        padding-bottom: 5px;
-        color: #999;
-        font-size: 18px;
-        font-weight: 300;
-        border-bottom: 1px solid #e5e5e5;
+    .header-title {
+      margin: 10px 0;
+      padding-bottom: 5px;
+      color: #999;
+      font-size: 18px;
+      font-weight: 300;
+      border-bottom: 1px solid #e5e5e5;
 
-        .options {
-          margin-right: 0px;
-        }
+      .options {
+        margin-right: 0px;
       }
+    }
 
-      .user-recommendation-element {
-        #user-recommendation {
-          display: inline-block;
-          padding-top: 1px;
-          margin-left: 10px;
-          font-size: 14px;
-          line-height: 16px;
-          vertical-align: middle;
-          font-weight: 300;
-        }
-        .user-recommendation-remove {
-          margin-left: 20px;
-        }
-        #user-recommendation-comment {
-          margin-top: 20px;
-          font-size: 14px;
-          word-break: break-all;
-        }
+    .user-recommendation-element {
+      #user-recommendation {
+        display: inline-block;
+        padding-top: 1px;
+        margin-left: 10px;
+        font-size: 14px;
+        line-height: 16px;
+        vertical-align: middle;
+        font-weight: 300;
+      }
+      .user-recommendation-remove {
+        margin-left: 20px;
+      }
+      #user-recommendation-comment {
+        margin-top: 20px;
+        font-size: 14px;
+        word-break: break-all;
       }
     }
   }

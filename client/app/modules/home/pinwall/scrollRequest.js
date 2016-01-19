@@ -2,6 +2,14 @@
 
 var scrollRequests = {};
 
+var getParams = function (maxItems, skip, additionalParams) {
+    var params = {maxItems: maxItems, skip: skip};
+    if (additionalParams) {
+        angular.extend(params, additionalParams);
+    }
+    return params;
+};
+
 module.exports = ['$q', function ($q) {
 
     this.reset = function (serviceName, requestService, responseHandler) {
@@ -10,23 +18,20 @@ module.exports = ['$q', function ($q) {
             request: requestService,
             responseHandler: responseHandler,
             skip: 0,
-            itemsPerPage: 5,
+            itemsPerPage: 30,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
     };
 
-    this.nextRequest = function (serviceName, previousPinwall) {
+    this.nextRequest = function (serviceName, previousPinwall, additionalParams) {
         var deferred = $q.defer(), newPinwall, scrollRequest = scrollRequests[serviceName];
         if (scrollRequest.requestPinwallElements && !scrollRequest.requestPinwallElementsRunning) {
             if (!previousPinwall) {
                 previousPinwall = [];
             }
             scrollRequest.requestPinwallElementsRunning = true;
-            newPinwall = scrollRequest.request({
-                maxItems: scrollRequest.itemsPerPage,
-                skip: scrollRequest.skip
-            }, function () {
+            newPinwall = scrollRequest.request(getParams(scrollRequest.itemsPerPage, scrollRequest.skip, additionalParams), function () {
 
                 scrollRequest.responseHandler.handlingResponse(newPinwall, previousPinwall);
                 scrollRequest.requestPinwallElements = scrollRequest.responseHandler.checkRequestPinwall(newPinwall, scrollRequest.skip);

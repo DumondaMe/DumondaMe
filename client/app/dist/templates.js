@@ -312,12 +312,32 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/problem/createProblem/template.html',
-    "<md-dialog id=problem-create aria-label=\"Create Problem\" ng-cloak layout=row><div layout=column class=problem-create-container><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span></div></div><form name=createProblemForm class=content-form><div class=content><md-input-container class=problem-input-container><label>Erstelle eine neue Problemstellung...</label><textarea name=problemText class=blog-input ng-model=problemText required md-maxlength=160 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createProblemForm.problemText.$error ng-show=createProblemForm.problemText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions layout=row></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary upload-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadProblem()>Erstellen</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div></md-dialog>"
+    "<md-dialog id=problem-create aria-label=\"Create Problem\" ng-cloak layout=row><div layout=column class=problem-create-container><div class=\"header-title md-title\">Erstelle eine neue Problemstellung</div><form name=createProblemForm class=content-form><div class=content><md-input-container class=ely-input-container><label>Beschreibung der Problemstellung...</label><textarea name=problemText class=blog-input ng-model=problemText required md-maxlength=160 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createProblemForm.problemText.$error ng-show=createProblemForm.problemText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions layout=row></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary upload-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadProblem()>Erstellen</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div></md-dialog>"
+  );
+
+
+  $templateCache.put('app/modules/problem/detail/reason/create/template.html',
+    "<md-dialog id=reason-create aria-label=\"Create Reason\" ng-cloak layout=row><div layout=column class=reason-create-container><div class=\"header-title md-title\">Erstelle eine neuen Grund</div><form name=createReasonForm class=content-form><div class=content><md-input-container class=ely-input-container><label>Titel</label><textarea name=titleReason ng-model=titleReason required md-maxlength=160 ng-disabled=ctrl.uploadStarted></textarea><div ng-messages=createReasonForm.titleReason.$error ng-show=createReasonForm.titleReason.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=ely-input-container><label>Beschreibung</label><textarea name=descriptionReason ng-model=descriptionReason required md-maxlength=1000 ng-disabled=ctrl.uploadStarted></textarea><div ng-messages=createReasonForm.descriptionReason.$error ng-show=createReasonForm.descriptionReason.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=actions layout=row></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.uploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary upload-button\" aria-label=post ng-disabled=\"!ctrl.sendReasonAllowed || ctrl.uploadStarted\" ng-click=ctrl.uploadReason()>Erstellen</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div></md-dialog>"
+  );
+
+
+  $templateCache.put('app/modules/problem/detail/reason/overviewElement/template.html',
+    "<md-card class=reason-overview-element><div class=title>{{ctrl.element.title}}</div></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/problem/detail/reason/template.html',
+    "<div id=ely-problem-overview-reason><md-card class=card-problem-description><md-card-content><div class=problem-description>{{ctrl.problemDescription}}</div></md-card-content></md-card><div class=overview-container ely-infinite-scroll=ctrl.nextReasons() ng-if=\"ctrl.overview.reasons.length !== 0\"><div layout-wrap layout=row><div flex=100 ng-repeat=\"reason in ctrl.overview.reasons\"><ely-problem-reason-overview-element element=reason></ely-problem-reason-overview-element></div></div></div><md-card ng-if=\"ctrl.overview.reasons.length === 0\"><md-card-content><div class=no-reason>Für dieses Problem wurde noch kein Grund erstellt</div></md-card-content></md-card><md-button class=\"md-fab create-reason-fab\" aria-label=\"Create Reason\" ng-click=ctrl.createReason()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
+  );
+
+
+  $templateCache.put('app/modules/problem/detail/template.html',
+    "<div id=ely-problem-detail><md-tabs md-border-bottom md-center-tabs class=detail-tabs><md-tab label=Gründe><md-content class=detail-container><ely-problem-overview-reason problem-description={{ctrl.detail.description}}></ely-problem-overview-reason></md-content></md-tab><md-tab label=Lösungen><md-content class=detail-container></md-content></md-tab></md-tabs></div>"
   );
 
 
   $templateCache.put('app/modules/problem/overview/element/template.html',
-    "<md-card class=overview-element><div class=description>{{ctrl.element.description}}</div></md-card>"
+    "<md-card class=overview-element><div class=description ng-click=ctrl.openDetail(ctrl.element.problemId)>{{ctrl.element.description}}</div></md-card>"
   );
 
 

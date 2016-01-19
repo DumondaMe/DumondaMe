@@ -2,10 +2,15 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [
-            function () {
+        return ['$state',
+            function ($state) {
                 var ctrl = this;
 
+                ctrl.openDetail = function (problemId) {
+                    $state.go('problem.detail', {
+                        problemId: problemId
+                    });
+                };
             }];
     }
 };

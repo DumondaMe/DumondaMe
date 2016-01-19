@@ -1,15 +1,10 @@
 <md-dialog id="problem-create" aria-label="Create Problem" ng-cloak layout="row">
     <div layout="column" class="problem-create-container">
-        <div class="header" layout="row">
-            <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
-            <div class="header-content">
-                <span class="user-name">{{ctrl.userInfo.name}}</span>
-            </div>
-        </div>
+        <div class="header-title md-title">Erstelle eine neue Problemstellung</div>
         <form name="createProblemForm" class="content-form">
             <div class="content">
-                <md-input-container class="problem-input-container">
-                    <label>Erstelle eine neue Problemstellung...</label>
+                <md-input-container class="ely-input-container">
+                    <label>Beschreibung der Problemstellung...</label>
                 <textarea name="problemText" class="blog-input" ng-model="problemText" required md-maxlength="160"
                           ng-disabled="ctrl.blogUploadStarted"></textarea>
                     <div ng-messages="createProblemForm.problemText.$error" ng-show="createProblemForm.problemText.$dirty">

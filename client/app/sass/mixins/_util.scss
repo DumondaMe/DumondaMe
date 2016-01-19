@@ -4,6 +4,16 @@
   -ms-user-select: none;
 }
 
+@mixin ely-fab-button() {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  @media screen and (min-width: $gt-md) {
+    bottom: 15px;
+    right: 20px;
+  }
+}
+
 .img-circle {
   border-radius: 50%;
 }
