@@ -50,6 +50,7 @@ describe('Integration Tests for rating a Reason to a Problem', function () {
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.numberOfRatings.should.equals(1);
             return db.cypher().match("(:User {userId: '1'})-[:POSITIVE_RATING]->(reason:Reason {reasonId: {reasonId}})-[:BELONGS]->(:Problem {problemId: '0'})")
                 .return('reason')
                 .end({reasonId: '1'}).send();
@@ -69,6 +70,7 @@ describe('Integration Tests for rating a Reason to a Problem', function () {
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.numberOfRatings.should.equals(1);
             return requestHandler.post('/api/user/problem/reason', {
                 positiveRate: {
                     reasonId: '1'

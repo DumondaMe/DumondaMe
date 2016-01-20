@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$stateParams', 'ScrollRequest', 'ProblemReason', 'ScrollProblemReasonService', '$mdDialog',
-            function ($stateParams, ScrollRequest, ProblemReason, ScrollProblemReasonService, $mdDialog) {
+        return ['$stateParams', 'ScrollRequest', 'ProblemReason', 'ScrollProblemReasonService', '$mdDialog', 'SortProblemReasonService',
+            function ($stateParams, ScrollRequest, ProblemReason, ScrollProblemReasonService, $mdDialog, SortProblemReasonService) {
                 var ctrl = this;
                 ctrl.overview = {reasons: []};
 
@@ -30,6 +30,10 @@ module.exports = {
                     }).then(function (resp) {
 
                     });
+                };
+
+                ctrl.sortRequest = function () {
+                    SortProblemReasonService.sort(ctrl.overview.reasons);
                 };
             }];
     }

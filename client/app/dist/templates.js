@@ -322,12 +322,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/problem/detail/reason/overviewElement/template.html',
-    "<md-card class=reason-overview-element><div class=title>{{ctrl.element.title}}</div></md-card>"
+    "<md-card class=reason-overview-element><md-card-header><md-card-header-text class=\"md-title title\">{{ctrl.element.title}}</md-card-header-text><div class=number-of-rating ng-show=\"ctrl.element.numberOfRatings > 0\">+{{ctrl.element.numberOfRatings}}</div><div class=number-of-rating ng-show=\"ctrl.element.numberOfRatings === 0\">0</div></md-card-header><md-card-actions><md-card-icon-actions layout=row><md-button class=md-icon-button aria-label=like ng-if=!ctrl.element.ratedByUser ng-click=ctrl.rateReason()><md-icon md-svg-icon=cardActions:thumbUp></md-icon></md-button><md-button class=md-icon-button aria-label=like ng-if=ctrl.element.ratedByUser ng-click=ctrl.removeRatingReason()><md-icon md-svg-icon=cardActions:thumbDown></md-icon></md-button></md-card-icon-actions></md-card-actions></md-card>"
   );
 
 
   $templateCache.put('app/modules/problem/detail/reason/template.html',
-    "<div id=ely-problem-overview-reason><md-card class=card-problem-description><md-card-content><div class=problem-description>{{ctrl.problemDescription}}</div></md-card-content></md-card><div class=overview-container ely-infinite-scroll=ctrl.nextReasons() ng-if=\"ctrl.overview.reasons.length !== 0\"><div layout-wrap layout=row><div flex=100 ng-repeat=\"reason in ctrl.overview.reasons\"><ely-problem-reason-overview-element element=reason></ely-problem-reason-overview-element></div></div></div><md-card ng-if=\"ctrl.overview.reasons.length === 0\"><md-card-content><div class=no-reason>Für dieses Problem wurde noch kein Grund erstellt</div></md-card-content></md-card><md-button class=\"md-fab create-reason-fab\" aria-label=\"Create Reason\" ng-click=ctrl.createReason()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
+    "<div id=ely-problem-overview-reason><md-card class=card-problem-description><md-card-content><div class=\"problem-description md-title\">{{ctrl.problemDescription}}</div></md-card-content></md-card><div class=overview-container ely-infinite-scroll=ctrl.nextReasons() ng-if=\"ctrl.overview.reasons.length !== 0\"><div layout-wrap layout=row><div flex=100 ng-repeat=\"reason in ctrl.overview.reasons\"><ely-problem-reason-overview-element element=reason sort-request=ctrl.sortRequest()></ely-problem-reason-overview-element></div><div class=pinwall-gab></div></div></div><md-card ng-if=\"ctrl.overview.reasons.length === 0\"><md-card-content><div class=no-reason>Für dieses Problem wurde noch kein Grund erstellt</div></md-card-content></md-card><md-button class=\"md-fab create-reason-fab\" aria-label=\"Create Reason\" ng-click=ctrl.createReason()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
   );
 
 

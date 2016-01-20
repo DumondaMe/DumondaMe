@@ -1,9 +1,9 @@
 #ely-problem-overview-reason {
   .card-problem-description {
+    background-color: #B2DFDB;
     @include cardElement();
     .problem-description {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 16px;
     }
   }
   .no-reason {

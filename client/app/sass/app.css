@@ -428,6 +428,10 @@ h2.website-structure-title {
 .ely-input-container {
   margin: 9px 0; }
 
+.pinwall-gab {
+  height: 60px;
+  width: 100%; }
+
 #content #content-page-contacting {
   width: 100%;
   height: 100%; }
@@ -902,9 +906,6 @@ h2.website-structure-title {
     width: 100%;
     height: 100%;
     overflow-y: auto; }
-    #ely-home .pinwall-container .pinwall-gab {
-      height: 60px;
-      width: 100%; }
   #ely-home .create-blog-fab {
     position: fixed;
     bottom: 0;
@@ -1774,11 +1775,11 @@ h2.website-structure-title {
     font-weight: 500; }
 
 #ely-problem-overview-reason .card-problem-description {
+  background-color: #B2DFDB;
   max-width: 400px;
   min-width: 280px; }
   #ely-problem-overview-reason .card-problem-description .problem-description {
-    font-size: 14px;
-    font-weight: 500; }
+    font-size: 16px; }
 #ely-problem-overview-reason .no-reason {
   font-size: 14px;
   font-weight: 400; }
@@ -1794,6 +1795,14 @@ h2.website-structure-title {
 .reason-overview-element {
   max-width: 400px;
   min-width: 280px; }
+  .reason-overview-element .title {
+    font-size: 16px; }
+  .reason-overview-element .number-of-rating {
+    margin-left: 10px;
+    color: #009688;
+    line-height: 24px;
+    font-size: 24px;
+    font-weight: 700; }
 
 #modal-dialog-add-recommendation .modal-header .title {
   font-weight: bold;

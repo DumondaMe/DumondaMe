@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                element: '='
+                element: '=',
+                sortRequest: '&'
             },
             templateUrl: 'app/modules/problem/detail/reason/overviewElement/template.html'
         };
