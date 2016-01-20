@@ -789,7 +789,7 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./auth":9,"./register":19,"./registerCtrl":20}],16:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'Auth', 'UrlCache', function ($scope, $state, Auth, UrlCache) {
+module.exports = ['$scope', '$state', 'Auth', 'UrlCache', 'IsAuth', function ($scope, $state, Auth, UrlCache, IsAuth) {
     var ctrl = this;
 
     ctrl.loginRunning = false;
@@ -797,17 +797,22 @@ module.exports = ['$scope', '$state', 'Auth', 'UrlCache', function ($scope, $sta
     ctrl.login = function () {
         delete ctrl.error;
         ctrl.loginRunning = true;
-        Auth.login({
-            username: ctrl.loginuser.email,
-            password: ctrl.loginuser.password
-        }).then(function () {
-            ctrl.loginRunning = false;
-            UrlCache.reset();
-            $scope.$broadcast('elyoos.login');
-            $state.go('home');
+        IsAuth.get(null, function () {
+            Auth.login({
+                username: ctrl.loginuser.email,
+                password: ctrl.loginuser.password
+            }).then(function () {
+                ctrl.loginRunning = false;
+                UrlCache.reset();
+                $scope.$broadcast('elyoos.login');
+                $state.go('home');
+            }, function () {
+                ctrl.loginRunning = false;
+                ctrl.error = "Benuztername existiert nicht oder das Passwort ist falsch!";
+            });
         }, function () {
             ctrl.loginRunning = false;
-            ctrl.error = "Benuztername existiert nicht oder das Passwort ist falsch!";
+            ctrl.error = "Unbekannter Fehler beim Anmelden. Versuche es später noch einmal.";
         });
     };
 }];
