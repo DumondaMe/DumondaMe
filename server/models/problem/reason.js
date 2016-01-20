@@ -4,6 +4,7 @@ var db = require('./../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../lib/uuid');
 var _ = require('underscore');
+var check = require('./check/reason');
 
 var createReason = function (userId, problemId, title, description) {
 
@@ -27,6 +28,51 @@ var createReason = function (userId, problemId, title, description) {
             }
             return null;
         });
+};
+
+var positiveRateReason = function (userId, reasonId, req) {
+
+    var created = Math.floor(moment.utc().valueOf() / 1000);
+    return check.checkAllowedPositiveRateReason(userId, reasonId, req).then(function () {
+        return db.cypher().match("(u:User {userId: {userId}}), (reason:Reason {reasonId: {reasonId}})")
+            .createUnique("(u)-[rating:POSITIVE_RATING {created: {created}}]->(reason)")
+            .return("rating.created AS created")
+            .end({
+                userId: userId,
+                reasonId: reasonId,
+                created: created
+            })
+            .send().then(function (resp) {
+                if (resp.length === 1) {
+                    return {created: resp[0].created};
+                }
+                return null;
+            });
+    });
+};
+
+var countRatingReason = function () {
+    return db.cypher().match("(:User)-[:POSITIVE_RATING]->(:Reason)")
+        .return("count(*) AS numberOfRatings").end();
+
+};
+
+var removeRatingReasonCommand = function (userId, reasonId) {
+    return db.cypher().match("(u:User {userId: {userId}})-[rating:POSITIVE_RATING]->(reason:Reason {reasonId: {reasonId}})")
+        .delete("rating")
+        .end({
+            userId: userId,
+            reasonId: reasonId
+        }).getCommand();
+};
+
+var removeRatingReason = function (userId, reasonId, req) {
+
+    return check.checkAllowedRemoveRating(userId, reasonId, req).then(function () {
+        return countRatingReason().send([removeRatingReasonCommand(userId, reasonId)]).then(function (resp) {
+            return {numberOfRatings: resp[1][0].numberOfRatings};
+        });
+    });
 };
 
 var getReasons = function (userId, problemId, limit, skip) {
@@ -55,5 +101,7 @@ var getReasons = function (userId, problemId, limit, skip) {
 
 module.exports = {
     createReason: createReason,
+    positiveRateReason: positiveRateReason,
+    removeRatingReason: removeRatingReason,
     getReasons: getReasons
 };

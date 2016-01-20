@@ -33,11 +33,20 @@ var schemaReason = {
                 description: {type: 'string', format: 'notEmptyString', maxLength: 1000}
             }
         },
-        rateReason: {
+        positiveRate: {
             type: 'object',
             additionalProperties: false,
-            required: [],
+            required: ['reasonId'],
             properties: {
+                reasonId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+            }
+        },
+        removePositiveRate: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['reasonId'],
+            properties: {
+                reasonId: {type: 'string', format: 'notEmptyString', maxLength: 30}
             }
         }
     }
@@ -64,12 +73,16 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return controllerErrors('Error occurs when creating a reason for a problem', req, res, logger, function () {
+        return controllerErrors('Error occurs for post request reason for a problem', req, res, logger, function () {
             return validation.validateRequest(req, schemaReason, logger).then(function (request) {
                 logger.info("User created a problem reason", req);
                 if (request.hasOwnProperty('createReason')) {
                     return reason.createReason(req.user.id, request.createReason.problemId, request.createReason.title,
                         request.createReason.description);
+                } else if (request.hasOwnProperty('positiveRate')) {
+                    return reason.positiveRateReason(req.user.id, request.positiveRate.reasonId, req);
+                } else if (request.hasOwnProperty('removePositiveRate')) {
+                    return reason.removeRatingReason(req.user.id, request.removePositiveRate.reasonId, req);
                 }
             }).then(function (action) {
                 if (_.isObject(action)) {
