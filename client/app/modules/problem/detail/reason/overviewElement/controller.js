@@ -7,19 +7,23 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.rateReason = function () {
-                    ProblemReason.save({positiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
-                        ctrl.element.ratedByUser = true;
-                        ctrl.element.numberOfRatings = resp.numberOfRatings;
-                        ctrl.sortRequest();
-                    });
+                    if (!ctrl.element.ratedByUser) {
+                        ProblemReason.save({positiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
+                            ctrl.element.ratedByUser = true;
+                            ctrl.element.numberOfRatings = resp.numberOfRatings;
+                            ctrl.sortRequest();
+                        });
+                    }
                 };
 
                 ctrl.removeRatingReason = function () {
-                    ProblemReason.save({removePositiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
-                        ctrl.element.ratedByUser = false;
-                        ctrl.element.numberOfRatings = resp.numberOfRatings;
-                        ctrl.sortRequest();
-                    });
+                    if (ctrl.element.ratedByUser) {
+                        ProblemReason.save({removePositiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
+                            ctrl.element.ratedByUser = false;
+                            ctrl.element.numberOfRatings = resp.numberOfRatings;
+                            ctrl.sortRequest();
+                        });
+                    }
                 };
             }];
     }

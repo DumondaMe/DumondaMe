@@ -323,7 +323,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/problem/detail/reason/overviewElement/template.html',
-    "<md-card class=reason-overview-element><md-card-header><md-card-header-text class=\"md-title title\">{{ctrl.element.title}}</md-card-header-text><div class=number-of-rating ng-show=\"ctrl.element.numberOfRatings > 0\">+{{ctrl.element.numberOfRatings}}</div><div class=number-of-rating ng-show=\"ctrl.element.numberOfRatings === 0\">0</div></md-card-header><md-card-actions><md-card-icon-actions layout=row><md-button class=md-icon-button aria-label=like ng-if=!ctrl.element.ratedByUser ng-click=ctrl.rateReason()><md-icon md-svg-icon=cardActions:thumbUp></md-icon></md-button><md-button class=md-icon-button aria-label=like ng-if=ctrl.element.ratedByUser ng-click=ctrl.removeRatingReason()><md-icon md-svg-icon=cardActions:thumbDown></md-icon></md-button></md-card-icon-actions></md-card-actions></md-card>"
+    "<md-card class=reason-overview-element><md-card-header><div class=rating-container layout=column layout-align=\"start center\" ng-click=ctrl.rateReason()><md-button class=\"md-icon-button arrow\" aria-label=like><md-icon md-svg-icon=cardActions:arrowUp ng-class=\"{'enabled': !ctrl.element.ratedByUser}\"></md-icon></md-button><div class=number-of-rating>{{ctrl.element.numberOfRatings}}</div><md-button class=\"md-icon-button arrow\" aria-label=dislike ng-click=ctrl.removeRatingReason()><md-icon md-svg-icon=cardActions:arrowDown ng-class=\"{'enabled': ctrl.element.ratedByUser}\"></md-icon></md-button></div><md-card-header-text class=\"md-title title\">{{ctrl.element.title}}</md-card-header-text></md-card-header></md-card>"
   );
 
 
@@ -797,6 +797,7 @@ module.exports = ['$scope', '$state', 'Auth', 'UrlCache', 'IsAuth', function ($s
     ctrl.login = function () {
         delete ctrl.error;
         ctrl.loginRunning = true;
+        //First do a get request to get the correct csrf token
         IsAuth.get(null, function () {
             Auth.login({
                 username: ctrl.loginuser.email,
@@ -6197,19 +6198,23 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.rateReason = function () {
-                    ProblemReason.save({positiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
-                        ctrl.element.ratedByUser = true;
-                        ctrl.element.numberOfRatings = resp.numberOfRatings;
-                        ctrl.sortRequest();
-                    });
+                    if (!ctrl.element.ratedByUser) {
+                        ProblemReason.save({positiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
+                            ctrl.element.ratedByUser = true;
+                            ctrl.element.numberOfRatings = resp.numberOfRatings;
+                            ctrl.sortRequest();
+                        });
+                    }
                 };
 
                 ctrl.removeRatingReason = function () {
-                    ProblemReason.save({removePositiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
-                        ctrl.element.ratedByUser = false;
-                        ctrl.element.numberOfRatings = resp.numberOfRatings;
-                        ctrl.sortRequest();
-                    });
+                    if (ctrl.element.ratedByUser) {
+                        ProblemReason.save({removePositiveRate: {reasonId: ctrl.element.reasonId}}, function (resp) {
+                            ctrl.element.ratedByUser = false;
+                            ctrl.element.numberOfRatings = resp.numberOfRatings;
+                            ctrl.sortRequest();
+                        });
+                    }
                 };
             }];
     }

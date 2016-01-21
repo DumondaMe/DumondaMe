@@ -1,17 +1,15 @@
 <md-card class="reason-overview-element">
     <md-card-header>
+        <div class="rating-container" layout="column" layout-align="start center" ng-click="ctrl.rateReason()">
+            <md-button class="md-icon-button arrow" aria-label="like">
+                <md-icon md-svg-icon="cardActions:arrowUp" ng-class="{'enabled': !ctrl.element.ratedByUser}"></md-icon>
+            </md-button>
+            <div class="number-of-rating">{{ctrl.element.numberOfRatings}}</div>
+            <md-button class="md-icon-button arrow" aria-label="dislike" ng-click="ctrl.removeRatingReason()">
+                <md-icon md-svg-icon="cardActions:arrowDown" ng-class="{'enabled': ctrl.element.ratedByUser}"
+                ></md-icon>
+            </md-button>
+        </div>
         <md-card-header-text class="md-title title">{{ctrl.element.title}}</md-card-header-text>
-        <div class="number-of-rating" ng-show="ctrl.element.numberOfRatings > 0">+{{ctrl.element.numberOfRatings}}</div>
-        <div class="number-of-rating" ng-show="ctrl.element.numberOfRatings === 0">0</div>
     </md-card-header>
-    <md-card-actions>
-        <md-card-icon-actions layout="row">
-            <md-button class="md-icon-button" aria-label="like" ng-if="!ctrl.element.ratedByUser" ng-click="ctrl.rateReason()">
-                <md-icon md-svg-icon="cardActions:thumbUp"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="like" ng-if="ctrl.element.ratedByUser" ng-click="ctrl.removeRatingReason()">
-                <md-icon md-svg-icon="cardActions:thumbDown"></md-icon>
-            </md-button>
-        </md-card-icon-actions>
-    </md-card-actions>
 </md-card>
