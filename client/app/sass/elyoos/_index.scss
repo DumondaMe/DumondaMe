@@ -39,9 +39,11 @@
 @import 'pages/_userAdministration';
 @import 'pages/_index';
 
+@import 'problem/_mixins';
 @import 'problem/_createProblem';
 @import 'problem/_createReason';
 @import 'problem/_detail';
+@import 'problem/_detailReason';
 @import 'problem/_home';
 @import 'problem/_homeElement';
 @import 'problem/_overviewReason';

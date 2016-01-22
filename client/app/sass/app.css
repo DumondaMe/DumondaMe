@@ -1749,6 +1749,47 @@ h2.website-structure-title {
     #ely-problem-detail .detail-tabs .detail-container {
       background-color: #E0E0E0; }
 
+#ely-problem-reason-detail {
+  height: 100%;
+  background-color: #E0E0E0; }
+  #ely-problem-reason-detail #detail-container {
+    max-width: 400px;
+    min-width: 280px; }
+    #ely-problem-reason-detail #detail-container .rating-container {
+      margin-right: 10px; }
+      #ely-problem-reason-detail #detail-container .rating-container .enabled {
+        color: #009688; }
+      #ely-problem-reason-detail #detail-container .rating-container .arrow {
+        height: 24px;
+        min-height: 24px;
+        padding-top: 0;
+        padding-bottom: 0; }
+      #ely-problem-reason-detail #detail-container .rating-container .arrow-down {
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 5px; }
+      #ely-problem-reason-detail #detail-container .rating-container .number-of-rating {
+        line-height: 16px;
+        font-size: 16px;
+        font-weight: 400; }
+    #ely-problem-reason-detail #detail-container .title {
+      font-size: 16px; }
+    #ely-problem-reason-detail #detail-container .description {
+      margin-bottom: 15px; }
+    #ely-problem-reason-detail #detail-container .caption-problem {
+      margin-top: 15px; }
+    #ely-problem-reason-detail #detail-container .text-problem {
+      margin-top: 10px;
+      cursor: pointer; }
+  #ely-problem-reason-detail .edit-mode-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-problem-reason-detail .edit-mode-fab {
+        bottom: 15px;
+        right: 20px; } }
+
 #ely-problem {
   height: 100%; }
   #ely-problem #ely-problem-overview {

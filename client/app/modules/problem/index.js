@@ -29,5 +29,17 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-problem-detail></ely-problem-detail>'
                 }
             }
+        })
+        .state('problem.reason', {
+            abstract: true,
+            url: '/reason'
+        })
+        .state('problem.reason.detail', {
+            url: '/detail/:reasonId',
+            views: {
+                'content@': {
+                    template: '<ely-problem-reason-detail></ely-problem-reason-detail>'
+                }
+            }
         });
 }]);

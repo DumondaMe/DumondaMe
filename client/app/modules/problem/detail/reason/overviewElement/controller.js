@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['ProblemReason',
-            function (ProblemReason) {
+        return ['ProblemReason', '$state',
+            function (ProblemReason, $state) {
                 var ctrl = this;
 
                 ctrl.rateReason = function () {
@@ -24,6 +24,10 @@ module.exports = {
                             ctrl.sortRequest();
                         });
                     }
+                };
+
+                ctrl.openReasonDetail = function () {
+                    $state.go("problem.reason.detail", {reasonId: ctrl.element.reasonId});
                 };
             }];
     }
