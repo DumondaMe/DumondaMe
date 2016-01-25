@@ -42,6 +42,12 @@ describe('Integration Tests for getting Reason Detail', function () {
             commands.push(db.cypher().match("(reason:Reason {reasonId: '0'}), (user:User {userId: '2'})")
                 .createUnique("(user)-[:IS_ADMIN]->(:ReasonExplanation {reasonExplanationId: '2', created: 506})<-[:HAS_EXPLANATION]-(reason)")
                 .end().getCommand());
+            commands.push(db.cypher().match("(reason:Reason {reasonId: '0'}), (user:User {userId: '1'})")
+                .createUnique("(user)-[:IS_ADMIN]->(:ReasonExplanation {reasonExplanationId: '3', created: 507})<-[:HAS_EXPLANATION]-(reason)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(reason:Reason {reasonId: '0'}), (user:User {userId: '2'})")
+                .createUnique("(user)-[:IS_ADMIN]->(:ReasonExplanation {reasonExplanationId: '4', created: 508})<-[:HAS_EXPLANATION]-(reason)")
+                .end().getCommand());
 
             //Create Links
             commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '1'}), (user:User {userId: '1'})")
@@ -51,7 +57,21 @@ describe('Integration Tests for getting Reason Detail', function () {
                 .createUnique("(user)-[:IS_ADMIN]->(:Link {linkId: '2', link: 'www.link2.com', title: 'titleLink2', description: 'descriptionLink2'})<-[:REFERENCES]-(reasonExplanation)")
                 .end().getCommand());
 
+            //Create Pages
+            commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '3'}), (user:User {userId: '1'})")
+                .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: '1', label: 'Book', title: 'titlePage1', description: 'descriptionPage1'})<-[:REFERENCES]-(reasonExplanation)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '4'}), (user:User {userId: '1'})")
+                .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: '2', label: 'Youtube', title: 'titlePage2', description: 'descriptionPage2'})<-[:REFERENCES]-(reasonExplanation)")
+                .end().getCommand());
+
             //Create positive rated Explanations
+            commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '3'}), (user:User {userId: '1'})")
+                .createUnique("(user)-[:POSITIVE_RATING]->(reasonExplanation)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '3'}), (user:User {userId: '2'})")
+                .createUnique("(user)-[:POSITIVE_RATING]->(reasonExplanation)")
+                .end().getCommand());
             commands.push(db.cypher().match("(reasonExplanation:ReasonExplanation {reasonExplanationId: '1'}), (user:User {userId: '1'})")
                 .createUnique("(user)-[:POSITIVE_RATING]->(reasonExplanation)")
                 .end().getCommand());
@@ -105,6 +125,24 @@ describe('Integration Tests for getting Reason Detail', function () {
             res.body.links[1].numberOfRatings.should.equals(1);
             res.body.links[1].ratedByUser.should.equals(false);
             res.body.links[1].isAdmin.should.equals(false);
+
+            //getting all pages
+            res.body.pages.length.should.equals(2);
+            res.body.pages[0].page.pageId.should.equals('1');
+            res.body.pages[0].page.title.should.equals('titlePage1');
+            res.body.pages[0].page.description.should.equals('descriptionPage1');
+            res.body.pages[0].page.label.should.equals('Book');
+            res.body.pages[0].numberOfRatings.should.equals(2);
+            res.body.pages[0].ratedByUser.should.equals(true);
+            res.body.pages[0].isAdmin.should.equals(true);
+
+            res.body.pages[1].page.pageId.should.equals('2');
+            res.body.pages[1].page.title.should.equals('titlePage2');
+            res.body.pages[1].page.description.should.equals('descriptionPage2');
+            res.body.pages[1].page.label.should.equals('Youtube');
+            res.body.pages[1].numberOfRatings.should.equals(0);
+            res.body.pages[1].ratedByUser.should.equals(false);
+            res.body.pages[1].isAdmin.should.equals(false);
         });
     });
 

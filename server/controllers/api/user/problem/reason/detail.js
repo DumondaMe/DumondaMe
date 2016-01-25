@@ -1,7 +1,7 @@
 'use strict';
 var auth = require('./../../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var reasonDetail = require('./../../../../../models/problem/detail/reason');
+var reasonDetail = require('./../../../../../models/problem/reason/detail');
 var controllerErrors = require('./../../../../../lib/error/controllerErrors');
 var validation = require('./../../../../../lib/jsonValidation');
 var _ = require("underscore");

@@ -1,7 +1,7 @@
 'use strict';
 var auth = require('./../../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var reason = require('./../../../../../models/problem/reason');
+var reason = require('./../../../../../models/problem/reason/reason');
 var controllerErrors = require('./../../../../../lib/error/controllerErrors');
 var validation = require('./../../../../../lib/jsonValidation');
 var _ = require("underscore");
@@ -48,6 +48,15 @@ var schemaReason = {
             properties: {
                 reasonId: {type: 'string', format: 'notEmptyString', maxLength: 30}
             }
+        },
+        addPage: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['reasonId', 'pageId'],
+            properties: {
+                reasonId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+                pageId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+            }
         }
     }
 };
@@ -83,6 +92,8 @@ module.exports = function (router) {
                     return reason.positiveRateReason(req.user.id, request.positiveRate.reasonId, req);
                 } else if (request.hasOwnProperty('removePositiveRate')) {
                     return reason.removeRatingReason(req.user.id, request.removePositiveRate.reasonId, req);
+                } else if (request.hasOwnProperty('addPage')) {
+                    return reason.addPage(req.user.id, request.addPage.reasonId, request.addPage.pageId, req);
                 }
             }).then(function (action) {
                 if (_.isObject(action)) {

@@ -1,7 +1,7 @@
 'use strict';
 
-var db = require('./../../../neo4j/index');
-var exceptions = require('./../../../lib/error/exceptions');
+var db = require('./../../../../neo4j/index');
+var exceptions = require('./../../../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
 
@@ -41,7 +41,24 @@ var checkAllowedRemoveRating = function (userId, reasonId, req) {
         });
 };
 
+var checkPageToReasonExist = function (reasonId, pageId, req) {
+    function checkReasonExplanationNotExists(resp) {
+        return resp.length > 0;
+    }
+
+    return db.cypher()
+        .match("(reason:Reason {reasonId: {reasonId}})-[:HAS_EXPLANATION]->(explanation:ReasonExplanation)-[:REFERENCES]->(:Page {pageId: {pageId}})")
+        .return("explanation")
+        .end({reasonId: reasonId, pageId: pageId}).send()
+        .then(function (resp) {
+            if (checkReasonExplanationNotExists(resp)) {
+                return exceptions.getInvalidOperation('Page is already' + reasonId, logger, req);
+            }
+        });
+};
+
 module.exports = {
     checkAllowedPositiveRateReason: checkAllowedPositiveRateReason,
-    checkAllowedRemoveRating: checkAllowedRemoveRating
+    checkAllowedRemoveRating: checkAllowedRemoveRating,
+    checkPageToReasonExist: checkPageToReasonExist
 };
