@@ -311,12 +311,12 @@
       float: left;
       width: 50px;
       height: 50px;
-      border: solid 2px #009688;
+      border: solid 2px #3F51B5;
       border-radius: 50%;
-      box-shadow: inset 0 0 2px #009688;
+      box-shadow: inset 0 0 2px #3F51B5;
       cursor: pointer; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement:hover {
-        background-color: #f1f1f1; }
+        background-color: #7986CB; }
       .paginationNextPrevious .paginationNextPrevious-wrapper .paginationElement img {
         margin: 3px;
         width: 40px;
@@ -416,7 +416,7 @@ h2.website-structure-title {
   margin-top: 20px;
   margin-bottom: 15px;
   font-size: 18px;
-  color: #009688;
+  color: #3F51B5;
   font-style: normal;
   font-variant: normal;
   font-weight: 300; }
@@ -467,12 +467,12 @@ h2.website-structure-title {
     padding-left: 0px; }
     #content-page-contact-details #centerCol #inner-centerCol {
       height: 100%;
-      background-color: #f1f1f1; }
+      background-color: #7986CB; }
       #content-page-contact-details #centerCol #inner-centerCol .profile-detail-content-group {
         width: 100%;
         padding-top: 10px;
         padding-left: 280px;
-        background-color: #f1f1f1;
+        background-color: #7986CB;
         padding-bottom: 10px; }
         #content-page-contact-details #centerCol #inner-centerCol .profile-detail-content-group .profile-detail-content-group-inner {
           margin-top: 20px; }
@@ -500,7 +500,7 @@ h2.website-structure-title {
             #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-data-name {
               font-size: 30px;
               font-weight: 100;
-              color: #009688;
+              color: #3F51B5;
               display: inline-block; }
             #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-connection-type {
               font-size: 14px;
@@ -624,7 +624,7 @@ h2.website-structure-title {
       .contact-preview .contact-preview-content .contact-preview-name-container .contact-preview-name {
         font-size: 14px;
         font-weight: bold;
-        color: #009688;
+        color: #3F51B5;
         cursor: pointer;
         overflow-y: hidden;
         text-overflow: ellipsis;
@@ -723,7 +723,7 @@ h2.website-structure-title {
       padding: 5px 15px; }
       #my-contact-statistic #contact-counter .list-group-item .badge {
         cursor: pointer;
-        background-color: #009688; }
+        background-color: #3F51B5; }
       #my-contact-statistic #contact-counter .list-group-item .contact-description-count {
         white-space: nowrap;
         width: 130px;
@@ -747,18 +747,6 @@ h2.website-structure-title {
       height: 24px;
       width: 24px;
       cursor: pointer; }
-
-#toolbar-header {
-  position: relative;
-  width: 100%;
-  margin-top: -56px; }
-  @media screen and (min-width: 1280px) {
-    #toolbar-header {
-      margin-top: -64px; } }
-
-.user-icon {
-  height: 24px;
-  width: 24px; }
 
 #popover-profile-preview {
   max-width: 100%; }
@@ -792,6 +780,39 @@ h2.website-structure-title {
       padding-top: 10px; }
       #popover-profile-preview .popover-content #profile-preview-commands #profile-preview-logout {
         float: right; }
+
+#toolbar-header {
+  position: relative;
+  width: 100%;
+  margin-top: -56px; }
+  @media screen and (min-width: 1280px) {
+    #toolbar-header {
+      margin-top: -64px; } }
+  #toolbar-header md-toolbar .md-toolbar-tools {
+    padding: 0 8px 0 0; }
+
+#ely-toolbar-search {
+  height: 100%;
+  width: 100%;
+  padding: 7px; }
+  #ely-toolbar-search .search-container {
+    height: 100%;
+    width: 100%;
+    background-color: #7986CB;
+    border-radius: 2px; }
+    #ely-toolbar-search .search-container .search-icon {
+      margin-left: 10px; }
+    #ely-toolbar-search .search-container .search-input {
+      background-color: #7986CB;
+      color: white;
+      border: none;
+      width: 100%;
+      padding-left: 10px;
+      margin-right: 10px;
+      font-size: 16px;
+      font-weight: 400; }
+    #ely-toolbar-search .search-container .search-input:focus {
+      outline: none; }
 
 .pinwall-blog-card {
   max-width: 400px;
@@ -930,7 +951,7 @@ h2.website-structure-title {
       font-weight: 500;
       padding-left: 2px;
       font-size: 14px;
-      color: #009688; }
+      color: #3F51B5; }
   .pinwall-recommendation-card .book-recommendation .preview-img {
     width: 100px;
     height: 159px;
@@ -942,7 +963,7 @@ h2.website-structure-title {
       font-weight: 500;
       padding-left: 2px;
       font-size: 14px;
-      color: #009688; }
+      color: #3F51B5; }
     .pinwall-recommendation-card .book-recommendation .content-container .recommended {
       margin-top: 5px;
       margin-bottom: 20px;
@@ -1049,7 +1070,7 @@ h2.website-structure-title {
         -moz-user-select: none;
         -ms-user-select: none; }
         #content-threads #centerCol #inner-centerCol .thread-preview:hover, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
-          background-color: #f1f1f1; }
+          background-color: #7986CB; }
         #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image {
           float: left;
           margin-left: 10px;
@@ -1211,7 +1232,7 @@ h2.website-structure-title {
     #ely-book-page .header .header-content .book-title {
       font-size: 24px;
       font-weight: 100;
-      color: #009688;
+      color: #3F51B5;
       max-height: 80px; }
     #ely-book-page .header .header-content .authors {
       display: inline-block;
@@ -1249,7 +1270,7 @@ h2.website-structure-title {
   #content-page-detail .page-detail-header-preview .page-detail-header-preview-title {
     font-size: 30px;
     font-weight: 100;
-    color: #009688;
+    color: #3F51B5;
     margin-bottom: 10px; }
   #content-page-detail .page-detail-header-preview .page-detail-activity {
     width: 350px;
@@ -1417,7 +1438,7 @@ h2.website-structure-title {
     #ely-youtube-page .header .header-content .youtube-title {
       font-size: 24px;
       font-weight: 100;
-      color: #009688;
+      color: #3F51B5;
       max-height: 68px;
       overflow: hidden; }
     #ely-youtube-page .header .header-content .header-commands {
@@ -1515,7 +1536,7 @@ h2.website-structure-title {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        color: #009688; }
+        color: #3F51B5; }
       .page-preview-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-language {
         margin-left: 10px;
         font-size: 12px;
@@ -1559,7 +1580,7 @@ h2.website-structure-title {
   #modal-comment-dialog .modal-body .modal-body-user-info .modal-body-name {
     font-size: 14px;
     font-weight: bold;
-    color: #009688;
+    color: #3F51B5;
     cursor: pointer;
     overflow-y: hidden;
     text-overflow: ellipsis;
@@ -1707,7 +1728,7 @@ h2.website-structure-title {
   #problem-create .problem-create-container {
     width: 100%; }
     #problem-create .problem-create-container .header-title {
-      color: #009688;
+      color: #3F51B5;
       font-size: 16px;
       padding: 20px 16px; }
     #problem-create .problem-create-container .content-form {
@@ -1727,7 +1748,7 @@ h2.website-structure-title {
   #reason-create .reason-create-container {
     width: 100%; }
     #reason-create .reason-create-container .header-title {
-      color: #009688;
+      color: #3F51B5;
       font-size: 16px;
       padding: 20px 16px; }
     #reason-create .reason-create-container .content-form {
@@ -1758,7 +1779,7 @@ h2.website-structure-title {
     #ely-problem-reason-detail #detail-container .rating-container {
       margin-right: 16px; }
       #ely-problem-reason-detail #detail-container .rating-container .enabled {
-        color: #009688; }
+        color: #3F51B5; }
       #ely-problem-reason-detail #detail-container .rating-container .arrow {
         height: 24px;
         min-height: 24px;
@@ -1841,7 +1862,7 @@ h2.website-structure-title {
   .reason-overview-element .rating-container {
     margin-right: 16px; }
     .reason-overview-element .rating-container .enabled {
-      color: #009688; }
+      color: #3F51B5; }
     .reason-overview-element .rating-container .arrow {
       height: 24px;
       min-height: 24px;

@@ -20,7 +20,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-problem></ely-problem>'
                 }
-            }
+            },
+            hasSearch: true
         })
         .state('problem.detail', {
             url: '/detail/:problemId',

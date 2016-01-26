@@ -1,0 +1,13 @@
+#toolbar-header {
+  position: relative;
+  width: 100%;
+  margin-top: -56px;
+  @media screen and (min-width: $gt-md) {
+    margin-top: -64px;
+  }
+  md-toolbar {
+    .md-toolbar-tools {
+      padding: 0 8px 0 0;
+    }
+  }
+}

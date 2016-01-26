@@ -201,8 +201,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/toolbar/search/template.html',
+    "<div id=ely-toolbar-search><div class=search-container layout=row><md-icon md-svg-icon=system:search class=search-icon flex=none></md-icon><input ng-model=ctrl.search class=search-input flex></div></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn hide-gt-md><md-button class=md-icon-button aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button><span flex></span></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><div flex=none><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav() hide-gt-md><md-icon md-svg-icon=system:menu></md-icon></md-button></div><ely-toolbar-search flex=grow ng-if=ctrl.hasSearch></ely-toolbar-search><span flex></span></div></md-toolbar></div>"
   );
 
 

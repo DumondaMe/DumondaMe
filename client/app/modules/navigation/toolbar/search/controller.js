@@ -1,11 +1,10 @@
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler',
-    function ($rootScope, $mdSidenav, loginStateHandler) {
+module.exports = ['$mdSidenav', 'loginStateHandler',
+    function ($mdSidenav, loginStateHandler) {
         var ctrl = this;
         loginStateHandler.register(ctrl);
         ctrl.isLoggedIn = false;
-        ctrl.hasSearch = false;
 
         ctrl.openLeftNav = function () {
             $mdSidenav("left").toggle();
@@ -18,8 +17,4 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler',
         ctrl.logoutEvent = function () {
             ctrl.isLoggedIn = false;
         };
-
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            ctrl.hasSearch = toState.hasSearch;
-        });
     }];

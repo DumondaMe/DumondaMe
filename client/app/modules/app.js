@@ -18,7 +18,7 @@ require('templates');
 
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
-        .primaryPalette('teal')
+        .primaryPalette('indigo')
         .accentPalette('red');
 
     $mdThemingProvider.theme('error-toast');
