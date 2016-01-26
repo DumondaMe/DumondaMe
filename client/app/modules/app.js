@@ -1,10 +1,6 @@
 'use strict';
 
 require('angular-ui-route');
-require('angular-strap');
-require('angular-strap-tpl');
-require('ui-bootstrap');
-require('ui-bootstrap-tpls');
 
 var app = angular.module('elyoosApp', [
     'ui.router',
@@ -13,12 +9,6 @@ var app = angular.module('elyoosApp', [
     'ngAnimate',
     'ngResource',
     'ngMessages',
-    'ui.bootstrap',
-    'mgcrea.ngStrap.select',
-    'mgcrea.ngStrap.popover',
-    'mgcrea.ngStrap.tooltip',
-    'mgcrea.ngStrap.helpers.dimensions',
-    'mgcrea.ngStrap.helpers.parseOptions',
     'ngMaterial'
 ]);
 

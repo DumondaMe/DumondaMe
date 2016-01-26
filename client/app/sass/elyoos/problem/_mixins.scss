@@ -1,6 +1,6 @@
 @mixin cardRating() {
   .rating-container {
-    margin-right: 10px;
+    margin-right: 16px;
     .enabled {
       color: $primary-color;
     }
@@ -18,7 +18,7 @@
     .number-of-rating {
       line-height: 16px;
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 500;
     }
   }
 }

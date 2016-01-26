@@ -110,6 +110,7 @@ describe('Integration Tests for getting Reason Detail', function () {
             res.body.links.length.should.equals(2);
             res.body.links[0].created.should.equals(505);
             res.body.links[0].link.linkId.should.equals('1');
+            res.body.links[0].link.reasonExplanationId.should.equals('1');
             res.body.links[0].link.link.should.equals('www.link.com');
             res.body.links[0].link.title.should.equals('titleLink1');
             res.body.links[0].link.description.should.equals('descriptionLink1');
@@ -119,6 +120,7 @@ describe('Integration Tests for getting Reason Detail', function () {
 
             res.body.links[1].created.should.equals(506);
             res.body.links[1].link.linkId.should.equals('2');
+            res.body.links[1].link.reasonExplanationId.should.equals('2');
             res.body.links[1].link.link.should.equals('www.link2.com');
             res.body.links[1].link.title.should.equals('titleLink2');
             res.body.links[1].link.description.should.equals('descriptionLink2');
@@ -129,6 +131,7 @@ describe('Integration Tests for getting Reason Detail', function () {
             //getting all pages
             res.body.pages.length.should.equals(2);
             res.body.pages[0].page.pageId.should.equals('1');
+            res.body.pages[0].page.reasonExplanationId.should.equals('3');
             res.body.pages[0].page.title.should.equals('titlePage1');
             res.body.pages[0].page.description.should.equals('descriptionPage1');
             res.body.pages[0].page.label.should.equals('Book');
@@ -137,6 +140,7 @@ describe('Integration Tests for getting Reason Detail', function () {
             res.body.pages[0].isAdmin.should.equals(true);
 
             res.body.pages[1].page.pageId.should.equals('2');
+            res.body.pages[1].page.reasonExplanationId.should.equals('4');
             res.body.pages[1].page.title.should.equals('titlePage2');
             res.body.pages[1].page.description.should.equals('descriptionPage2');
             res.body.pages[1].page.label.should.equals('Youtube');

@@ -21,7 +21,19 @@
             <div class="md-body-1 text-problem" ng-click="ctrl.goToProblem()">{{ctrl.detail.reason.problem.description}}</div>
         </md-card-content>
     </md-card>
-    <md-button class="md-fab edit-mode-fab" aria-label="Change to Edit Mode" ng-click="ctrl.edit()">
-        <md-icon md-svg-icon="navFAB:edit"></md-icon>
-    </md-button>
+    <md-fab-speed-dial md-direction="up" class="md-fling edit-mode-fab">
+        <md-fab-trigger>
+            <md-button class="md-fab" aria-label="Change to Edit Mode" ng-click="ctrl.edit()">
+                <md-icon md-svg-icon="navFAB:add"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="Add new Page" class="md-fab md-raised md-mini">
+                <md-icon md-svg-src="navFAB:pageAction" aria-label="Add new Page"></md-icon>
+            </md-button>
+            <md-button aria-label="Add new Link" class="md-fab md-raised md-mini">
+                <md-icon md-svg-src="navFAB:linkAction" aria-label="Add new Link"></md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
 </md-content>

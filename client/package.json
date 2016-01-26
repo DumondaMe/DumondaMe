@@ -38,13 +38,16 @@
     "grunt-contrib-clean": "~0.6.0"
   },
   "browser": {
+    "angular": "./app/lib/angular/angular-index.js",
+    "angular-cookies": "./app/lib/angular/angular-cookies.min.js",
+    "angular-animate": "./app/lib/angular/angular-animate.min.js",
+    "angular-aria": "./app/lib/angular/angular-aria.min.js",
+    "angular-resource": "./app/lib/angular/angular-resource.min.js",
+    "angular-sanitize": "./app/lib/angular/angular-sanitize.min.js",
+    "angular-messages": "./app/lib/angular/angular-messages.min.js",
+    "angular-material": "./app/lib/angular/angular-material.min.js",
     "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",
-    "angular-strap": "./app/lib/bootstrap/angular-strap.min.js",
-    "angular-strap-tpl": "./app/lib/bootstrap/angular-strap.tpl.min.js",
-    "ui-bootstrap": "./app/lib/bootstrap/ui-bootstrap-custom.min.js",
-    "ui-bootstrap-tpls": "./app/lib/bootstrap/ui-bootstrap-custom-tpls.min.js",
     "moment": "./app/lib/moment/moment.js",
-    "spin": "./app/lib/spin/spin.min.js",
     "templates": "./app/dist/templates.js"
   }
 }

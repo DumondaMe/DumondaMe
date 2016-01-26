@@ -1756,7 +1756,7 @@ h2.website-structure-title {
     max-width: 400px;
     min-width: 280px; }
     #ely-problem-reason-detail #detail-container .rating-container {
-      margin-right: 10px; }
+      margin-right: 16px; }
       #ely-problem-reason-detail #detail-container .rating-container .enabled {
         color: #009688; }
       #ely-problem-reason-detail #detail-container .rating-container .arrow {
@@ -1771,7 +1771,7 @@ h2.website-structure-title {
       #ely-problem-reason-detail #detail-container .rating-container .number-of-rating {
         line-height: 16px;
         font-size: 16px;
-        font-weight: 400; }
+        font-weight: 500; }
     #ely-problem-reason-detail #detail-container .title {
       font-size: 16px; }
     #ely-problem-reason-detail #detail-container .description {
@@ -1839,7 +1839,7 @@ h2.website-structure-title {
   .reason-overview-element .title {
     font-size: 16px; }
   .reason-overview-element .rating-container {
-    margin-right: 10px; }
+    margin-right: 16px; }
     .reason-overview-element .rating-container .enabled {
       color: #009688; }
     .reason-overview-element .rating-container .arrow {
@@ -1854,7 +1854,7 @@ h2.website-structure-title {
     .reason-overview-element .rating-container .number-of-rating {
       line-height: 16px;
       font-size: 16px;
-      font-weight: 400; }
+      font-weight: 500; }
 
 #modal-dialog-add-recommendation .modal-header .title {
   font-weight: bold;
