@@ -23,7 +23,7 @@ var getTotalNumberOfContactsPerType = function (userId, types) {
 var getContactStatisticsCommand = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
         .return('r.type AS type, count(*) AS count')
-        .orderBy("type")
+        .orderBy("count DESC")
         .end({
             userId: userId
         });
