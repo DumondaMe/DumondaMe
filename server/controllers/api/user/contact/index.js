@@ -3,7 +3,6 @@
 var validation = require('./../../../../lib/jsonValidation'),
     contact = require('./../../../../models/contact/contact'),
     auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
     controllerErrors = require('./../../../../lib/error/controllerErrors'),
     logger = requireLogger.getLogger(__filename);
 
@@ -11,9 +10,9 @@ var schemaRequestGetContact = {
     name: 'getContacts',
     type: 'object',
     additionalProperties: false,
-    required: ['itemsPerPage', 'skip'],
+    required: ['maxItems', 'skip'],
     properties: {
-        itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0},
         types: {
             type: 'array',
@@ -69,13 +68,13 @@ module.exports = function (router) {
         return validation.validateQueryRequest(req, schemaRequestGetContact, logger)
             .then(function (request) {
                 if (!req.query.types) {
-                    return contact.getContactsNormal(req.user.id, request.itemsPerPage, request.skip)
+                    return contact.getContactsNormal(req.user.id, request.maxItems, request.skip)
                         .then(function (contacts) {
                             logger.info("Get contacts for user in normal mode", req);
                             res.status(200).json(contacts);
                         });
                 }
-                return contact.getContactForTypes(req.user.id, request.itemsPerPage, request.skip, req.query.types)
+                return contact.getContactForTypes(req.user.id, request.maxItems, request.skip, req.query.types)
                     .then(function (contacts) {
                         logger.info("Get contacts for user in types mode", req);
                         res.status(200).json(contacts);

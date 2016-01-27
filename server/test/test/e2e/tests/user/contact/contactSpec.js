@@ -1,10 +1,8 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
-var should = require('chai').should();
 var moment = require('moment');
 
 describe('Integration Tests for handling contacts', function () {
@@ -105,7 +103,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.numberOfContacts.should.equals(4);
             res.status.should.equal(200);
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 5,
+                maxItems: 5,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
@@ -160,7 +158,7 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 5,
+                maxItems: 5,
                 skip: 0,
                 types: 'Freund'
             }, requestAgent);
@@ -172,7 +170,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts[2].connected.should.equal('both');
             res.body.contactsForPagination.should.equal(3);
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 5,
+                maxItems: 5,
                 skip: 0,
                 types: 'Familie'
             }, requestAgent);
@@ -181,7 +179,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts.length.should.equal(1);
             res.body.contactsForPagination.should.equal(1);
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 5,
+                maxItems: 5,
                 skip: 0,
                 types: 'Freund,Familie'
             }, requestAgent);
@@ -204,7 +202,7 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 2,
+                maxItems: 2,
                 skip: 2
             }, requestAgent);
         }).then(function (res) {

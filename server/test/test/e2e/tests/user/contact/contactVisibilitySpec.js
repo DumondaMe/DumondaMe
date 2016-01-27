@@ -144,7 +144,7 @@ describe('Integration Tests for handling the profile privacy setting when return
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
