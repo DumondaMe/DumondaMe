@@ -1,6 +1,6 @@
 'use strict';
 
 var app = angular.module('elyoosApp');
-var elyContactPreviewDirective = require('./directive.js');
+var directive = require('./directive.js');
 
-app.directive(elyContactPreviewDirective.name, elyContactPreviewDirective.directive);
+app.directive(directive.name, directive.directive);

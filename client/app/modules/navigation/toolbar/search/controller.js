@@ -1,20 +1,18 @@
 'use strict';
 
-module.exports = ['$mdSidenav', 'loginStateHandler',
-    function ($mdSidenav, loginStateHandler) {
+module.exports = [
+    function () {
         var ctrl = this;
-        loginStateHandler.register(ctrl);
-        ctrl.isLoggedIn = false;
 
-        ctrl.openLeftNav = function () {
-            $mdSidenav("left").toggle();
+        ctrl.isExpanded = false;
+
+        ctrl.closeExpand = function () {
+            ctrl.isExpanded = false;
+            ctrl.searchClose();
         };
 
-        ctrl.loginEvent = function () {
-            ctrl.isLoggedIn = true;
-        };
-
-        ctrl.logoutEvent = function () {
-            ctrl.isLoggedIn = false;
+        ctrl.openExpand = function () {
+            ctrl.isExpanded = true;
+            ctrl.searchOpen();
         };
     }];

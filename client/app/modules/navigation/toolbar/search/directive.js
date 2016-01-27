@@ -8,7 +8,11 @@ module.exports = {
             scope: {},
             templateUrl: 'app/modules/navigation/toolbar/search/template.html',
             controllerAs: 'ctrl',
-            controller: require('./controller.js')
+            controller: require('./controller.js'),
+            bindToController: {
+                searchOpen: '&',
+                searchClose: '&'
+            }
         };
     }],
     name: 'elyToolbarSearch'

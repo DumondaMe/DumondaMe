@@ -1,0 +1,57 @@
+<div class="contact-preview">
+    <img ng-src="{{cacheUrl(contact.profileUrl)}}" ng-click="openUserDetails()">
+
+    <div class="contact-preview-content">
+        <div class="contact-preview-name-container">
+            <div ng-click="openUserDetails()" class="contact-preview-name">
+                {{contact.name}}
+            </div>
+            <div class="description-container">
+                <div class="description" ng-click="openModalUpdateType($scope)" ng-show="!contact.blocked && contact.type">
+                    ({{contact.type}})
+                </div>
+            </div>
+            <div class="blocked-description" ng-show="contact.blocked">
+                BLOCKIERT
+            </div>
+        </div>
+        <div class="command-icons">
+            <button type="button"
+                    class="btn btn-default btn-xs dropdown-toggle left"
+                    data-toggle="dropdown" aria-expanded="false"
+                    bs-dropdown="contact.actions"
+                    ng-show="!contact.blocked && contact.type">
+                Aktionen <span class="caret"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-xs left"
+                    aria-expanded="false"
+                    ng-show="!contact.blocked && !contact.type"
+                    ng-click="openModalAddNewContact($scope)">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Als Kontakt hinzufügen
+            </button>
+            <button type="button" class="btn btn-default btn-xs left"
+                    aria-expanded="false"
+                    ng-show="contact.blocked"
+                    ng-click="unblockContact($scope)">
+                Blockierung aufheben
+            </button>
+            <div class="command-connection-state" ng-hide="contact.connected === 'none'"
+                 data-trigger="hover" data-delay="600" data-title="{{tooltipConnectionState.title}}"
+                 bs-tooltip>
+                <img ng-src="{{contact.connectionImage}}">
+            </div>
+            <!--<div class="command-connection-block"
+                 ng-show="!contact.blocked && (contact.connected === 'none' || contact.connected === 'contactToUser')"
+                 data-trigger="hover" data-delay="600" data-title="User blockieren"
+                 bs-tooltip ng-click="blockContact($scope)">
+                <img src="/app/img/block.png">
+            </div>-->
+        </div>
+    </div>
+    <!--<div class="select-user" ng-show="enableSelect !== 'false'">
+        <div class="s2">
+            <input type="checkbox" ng-model="contact.selected">
+        </div>
+    </div>-->
+</div>

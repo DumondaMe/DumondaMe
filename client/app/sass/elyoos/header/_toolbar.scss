@@ -5,9 +5,16 @@
   @media screen and (min-width: $gt-md) {
     margin-top: -64px;
   }
-  md-toolbar {
-    .md-toolbar-tools {
-      padding: 0 8px 0 0;
-    }
+  .ely-toolbar-menu {
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
+#ely-toolbar-sub-nav {
+  padding-left: 5px;
+  font-size: 16px;
+  .md-select-value {
+    border-bottom-color: $primary-color;
+    color: white;
   }
 }

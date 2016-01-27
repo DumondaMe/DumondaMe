@@ -432,6 +432,14 @@ h2.website-structure-title {
   height: 60px;
   width: 100%; }
 
+#ely-contact {
+  height: 100%;
+  background-color: #E0E0E0; }
+  #ely-contact .contact-tabs {
+    height: 100%; }
+    #ely-contact .contact-tabs md-tabs-wrapper {
+      background-color: #ffffff; }
+
 #content #content-page-contacting {
   width: 100%;
   height: 100%; }
@@ -456,6 +464,14 @@ h2.website-structure-title {
       #content #content-page-contacting #centerCol #inner-centerCol h1.website-structure-title {
         padding-left: 10px;
         margin-bottom: 30px; }
+
+#ely-contact-overview {
+  height: 100%;
+  background-color: #E0E0E0; }
+
+.ely-contact-preview {
+  max-width: 400px;
+  min-width: 280px; }
 
 #content-page-contact-details {
   width: 100%;
@@ -530,75 +546,6 @@ h2.website-structure-title {
         margin-bottom: 20px;
         font-size: 14px;
         font-weight: 300; }
-
-.user-mini-preview-container {
-  width: 820px; }
-  .user-mini-preview-container .user-mini-preview {
-    display: inline-block;
-    position: relative;
-    margin-right: 15px;
-    margin-bottom: 5px; }
-    .user-mini-preview-container .user-mini-preview .user-mini-preview-content {
-      display: inline-block;
-      width: 100px;
-      height: 100px;
-      cursor: pointer; }
-      .user-mini-preview-container .user-mini-preview .user-mini-preview-content img {
-        width: 100%;
-        height: 100%; }
-      .user-mini-preview-container .user-mini-preview .user-mini-preview-content .user-mini-preview-name {
-        background: #000;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0% 0% transparent;
-        background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-        position: absolute;
-        display: block;
-        bottom: 0px;
-        left: 0px;
-        width: 100%;
-        word-wrap: break-word;
-        color: #FFF; }
-        .user-mini-preview-container .user-mini-preview .user-mini-preview-content .user-mini-preview-name .name {
-          margin: 5px;
-          font-size: 12px; }
-  .user-mini-preview-container .profile-contact-expander-container {
-    width: 790px; }
-    .user-mini-preview-container .profile-contact-expander-container .profile-contact-expander {
-      width: 28px;
-      height: 28px;
-      margin: 10px auto 0 auto;
-      cursor: pointer; }
-      .user-mini-preview-container .profile-contact-expander-container .profile-contact-expander img {
-        width: 100%;
-        height: 100%; }
-
-#content #content-page-contact {
-  width: 100%;
-  height: 100%; }
-  #content #content-page-contact .pagination {
-    width: 100%;
-    clear: both; }
-  #content #content-page-contact .no-contact-description {
-    margin: 0 0 0 50px; }
-  #content #content-page-contact #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 230px; }
-    #content #content-page-contact #centerCol #inner-centerCol {
-      position: relative;
-      min-width: 800px;
-      padding-left: 50px;
-      margin-top: 150px; }
-  #content #content-page-contact #search-box-container {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 48px;
-    background-color: #ffffff; }
-    #content #content-page-contact #search-box-container .searchBoxForm {
-      display: inline-block;
-      padding-left: 60px;
-      margin-top: 2px;
-      width: 600px; }
 
 .contact-preview {
   float: left;
@@ -788,31 +735,49 @@ h2.website-structure-title {
   @media screen and (min-width: 1280px) {
     #toolbar-header {
       margin-top: -64px; } }
-  #toolbar-header md-toolbar .md-toolbar-tools {
-    padding: 0 8px 0 0; }
+  #toolbar-header .ely-toolbar-menu {
+    padding-left: 0;
+    margin-left: 0; }
 
-#ely-toolbar-search {
+#ely-toolbar-sub-nav {
+  padding-left: 5px;
+  font-size: 16px; }
+  #ely-toolbar-sub-nav .md-select-value {
+    border-bottom-color: #3F51B5;
+    color: white; }
+
+.ely-toolbar-search-expanded {
   height: 100%;
-  width: 100%;
-  padding: 7px; }
-  #ely-toolbar-search .search-container {
+  width: 100%; }
+  .ely-toolbar-search-expanded #ely-toolbar-search {
     height: 100%;
     width: 100%;
-    background-color: #7986CB;
-    border-radius: 2px; }
-    #ely-toolbar-search .search-container .search-icon {
-      margin-left: 10px; }
-    #ely-toolbar-search .search-container .search-input {
-      background-color: #7986CB;
-      color: white;
-      border: none;
+    padding: 7px; }
+    .ely-toolbar-search-expanded #ely-toolbar-search .search-container {
+      height: 100%;
       width: 100%;
-      padding-left: 10px;
-      margin-right: 10px;
-      font-size: 16px;
-      font-weight: 400; }
-    #ely-toolbar-search .search-container .search-input:focus {
-      outline: none; }
+      background-color: #7986CB;
+      border-radius: 2px; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+        margin-left: 10px; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+        margin-right: 5px; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-input {
+        background-color: #7986CB;
+        color: white;
+        border: none;
+        width: 100%;
+        padding-left: 10px;
+        margin-right: 10px;
+        font-size: 16px;
+        font-weight: 400; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-input:focus {
+        outline: none; }
+
+.ely-toolbar-search-collapse {
+  width: 40px; }
+  .ely-toolbar-search-collapse .ely-toolbar-menu {
+    width: 40px; }
 
 .pinwall-blog-card {
   max-width: 400px;

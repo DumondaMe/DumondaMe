@@ -1,6 +1,14 @@
-<div id="ely-toolbar-search">
-    <div class="search-container" layout="row">
-        <md-icon md-svg-icon="system:search" class="search-icon" flex="none"></md-icon>
-        <input ng-model="ctrl.search" class="search-input" type="text" flex>
+<div ng-class="{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}">
+    <div id="ely-toolbar-search" ng-if="ctrl.isExpanded">
+        <div class="search-container" layout="row">
+            <md-icon md-svg-icon="system:search" class="search-icon" flex="none"></md-icon>
+            <input ng-model="ctrl.search" class="search-input" type="text" flex>
+            <md-icon md-svg-icon="system:close" class="search-close-icon" flex="none" ng-click="ctrl.closeExpand()"></md-icon>
+        </div>
+    </div>
+    <div ng-if="!ctrl.isExpanded" class="ely-toolbar-menu">
+        <md-button class="md-icon-button" aria-label="Search" ng-click="ctrl.openExpand()">
+            <md-icon md-svg-icon="system:search"></md-icon>
+        </md-button>
     </div>
 </div>

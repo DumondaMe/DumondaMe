@@ -5,4 +5,4 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.controller('BlogExtendedCtrl', require('./blogExtendedCtrl'));
+app.service('ContactOverviewResponseHandler', require('./services/scrollRequestResponseHandler'));

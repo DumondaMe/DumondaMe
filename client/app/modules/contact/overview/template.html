@@ -1,0 +1,10 @@
+<md-content id="ely-contact-overview">
+    <div class="contact-overview-container" ely-infinite-scroll="ctrl.nextOverview()">
+        <div class="md-padding" layout-wrap layout="row">
+            <div flex="100" ng-repeat="contact in ctrl.overview.contacts">
+                <ely-contact-preview contact="contact"></ely-contact-preview>
+            </div>
+            <!--<div class="pinwall-gab"></div>-->
+        </div>
+    </div>
+</md-content>

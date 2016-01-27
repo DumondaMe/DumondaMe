@@ -1,27 +1,41 @@
-#ely-toolbar-search {
+.ely-toolbar-search-expanded {
   height: 100%;
   width: 100%;
-  padding: 7px;
-  .search-container {
+  #ely-toolbar-search {
     height: 100%;
     width: 100%;
-    background-color: $primary-color-light;
-    border-radius: 2px;
-    .search-icon {
-      margin-left: 10px;
-    }
-    .search-input {
-      background-color: $primary-color-light;
-      color: white;
-      border: none;
+    padding: 7px;
+    .search-container {
+      height: 100%;
       width: 100%;
-      padding-left: 10px;
-      margin-right: 10px;
-      font-size: 16px;
-      font-weight: 400;
+      background-color: $primary-color-light;
+      border-radius: 2px;
+      .search-icon {
+        margin-left: 10px;
+      }
+      .search-close-icon {
+        margin-right: 5px;
+      }
+      .search-input {
+        background-color: $primary-color-light;
+        color: white;
+        border: none;
+        width: 100%;
+        padding-left: 10px;
+        margin-right: 10px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .search-input:focus {
+        outline: none;
+      }
     }
-    .search-input:focus {
-      outline: none;
-    }
+  }
+}
+
+.ely-toolbar-search-collapse {
+  width: 40px;
+  .ely-toolbar-menu {
+    width: 40px;
   }
 }

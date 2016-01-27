@@ -10,11 +10,9 @@ module.exports = {
             scope: {},
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: {
-                contact: '='
-            },
-            templateUrl: 'app/modules/contact/contactPreview/template.html'
+            bindToController: true,
+            templateUrl: 'app/modules/contact/overview/template.html'
         };
     }],
-    name: 'elyContactPreview'
+    name: 'elyContactOverview'
 };
