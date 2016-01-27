@@ -3,7 +3,6 @@
 var validation = require('./../../../../lib/jsonValidation'),
     contactDetails = require('./../../../../models/contact/contactDetails'),
     auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
     controllerErrors = require('./../../../../lib/error/controllerErrors'),
     logger = requireLogger.getLogger(__filename);
 

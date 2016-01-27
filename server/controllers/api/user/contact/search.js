@@ -1,12 +1,10 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    search = require('./../../../../models/user/searchUser'),
-    contact = require('./../../../../models/contact/contact'),
-    auth = require('./../../../../lib/auth'),
-    exceptions = require('./../../../../lib/error/exceptions'),
-    controllerErrors = require('./../../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var search = require('./../../../../models/user/searchUser');
+var auth = require('./../../../../lib/auth');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestSearchUser = {
     name: 'requestSearchUser',

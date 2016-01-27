@@ -91,7 +91,7 @@ var getContactDetails = function (userId, contactId, contactsPerPage, skipContac
 
     var commands = [];
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
     commands.push(privacySettings.getPrivacySettings(userId).getCommand());
 
     return db.cypher().match('(contact:User {userId: {contactId}}), (user:User {userId: {userId}})')

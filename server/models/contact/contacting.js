@@ -57,7 +57,7 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
         skip: skip
     }, "user.userId = {userId}").getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
     commands.push(privacySettings.getPrivacySettings(userId).getCommand());
 
     return getContactingStatistics(userId)

@@ -4,28 +4,9 @@ var db = require('./../../neo4j');
 var exceptions = require('./../../lib/error/exceptions');
 var contactStatistic = require('./contactStatistic');
 var privacySettings = require('./privacySettings');
-var Promise = require('bluebird').Promise;
 var logger = requireLogger.getLogger(__filename);
 var moment = require('moment');
 var userInfo = require('./../user/userInfo');
-
-var getTotalNumberOfContacts = function (userId) {
-    return db.cypher().match('(u:User {userId: {userId}})-[:IS_CONTACT]->(:User)')
-        .return('count(*) AS numberOfContacts')
-        .end({
-            userId: userId
-        });
-};
-
-var getTotalNumberOfContactsPerType = function (userId, types) {
-    return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
-        .where('r.type IN {types}')
-        .return('count(*) AS contactsForPagination')
-        .end({
-            userId: userId,
-            types: types
-        });
-};
 
 var returnStatistics = function (result, errorDescription, req) {
     if (result.length === 3) {
@@ -54,9 +35,9 @@ var addContact = function (userId, contactIds, type, req) {
         })
         .getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
-    return getTotalNumberOfContacts(userId)
+    return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
             return returnStatistics(result, 'adding', req);
@@ -76,9 +57,9 @@ var deleteContact = function (userId, contactIds, req) {
         })
         .getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
-    return getTotalNumberOfContacts(userId)
+    return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
             return returnStatistics(result, 'delete', req);
@@ -100,9 +81,9 @@ var blockContact = function (userId, blockedUserIds, req) {
         })
         .getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
-    return getTotalNumberOfContacts(userId)
+    return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
             return returnStatistics(result, 'block', req);
@@ -121,9 +102,9 @@ var unblockContact = function (userId, blockedUserIds, req) {
         })
         .getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
-    return getTotalNumberOfContacts(userId)
+    return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (result) {
             return returnStatistics(result, 'unblock', req);
@@ -143,7 +124,7 @@ var changeContactState = function (userId, contactIds, type, req) {
             contactIds: contactIds
         }).getCommand());
 
-    return contactStatistic.getContactStatistics(userId)
+    return contactStatistic.getContactStatisticsCommand(userId)
         .send(commands)
         .then(function (rel) {
             if (rel[0].length === contactIds.length) {
@@ -181,10 +162,10 @@ var getContactsNormal = function (userId, itemsPerPage, skip) {
         skip: skip
     }, "user.userId = {userId}").getCommand());
 
-    commands.push(contactStatistic.getContactStatistics(userId).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
     commands.push(privacySettings.getPrivacySettings(userId).getCommand());
 
-    return getTotalNumberOfContacts(userId)
+    return contactStatistic.getTotalNumberOfContacts(userId)
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0]);
@@ -208,7 +189,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types) {
         types: types
     }, "user.userId = {userId} AND r.type IN {types}").getCommand());
 
-    return getTotalNumberOfContactsPerType(userId, types)
+    return contactStatistic.getTotalNumberOfContactsPerType(userId, types)
         .send(commands)
         .then(function (resp) {
             var data = {};
