@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                contact: '='
+                title: '@',
+                count: '@'
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };

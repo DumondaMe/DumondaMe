@@ -1,3 +1,71 @@
 .ely-contact-preview {
-  @include cardElement;
+  width: 100%;
+  max-width: 700px;
+  cursor: pointer;
+  margin: 0 auto;
+  .type-preview {
+    height: 72px;
+    background-color: white;
+    border-bottom: 1px solid $divider;
+    @include noneSelect;
+
+    .type {
+      line-height: 72px;
+      font-size: 16px;
+      vertical-align: middle;
+      margin: 0 16px;
+    }
+    .type:focus {
+      outline: none;
+    }
+    .count {
+      line-height: 72px;
+      font-size: 14px;
+      vertical-align: middle;
+      color: $secondary-text;
+    }
+    .count:focus {
+      outline: none;
+    }
+    .setting {
+      margin-top: 16px;
+    }
+    .ely-spacer:focus {
+      outline: none;
+    }
+  }
+  .contact-previews {
+    max-width: 700px;
+    background-color: white;
+    border-bottom: 1px solid $divider;
+    cursor: pointer;
+    margin: 0 auto 20px auto;
+    .contact-preview {
+      width: 100%;
+      height: 72px;
+      border-bottom: 1px solid $divider;
+
+      .profile-img {
+        margin: 12px 16px;
+        height: 48px;
+        border-radius: 50%;
+      }
+      .name {
+        font-size: 14px;
+        color: $primary-color;
+        line-height: 72px;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        @media screen and (min-width: $gt-md) {
+          max-width: 400px;
+        }
+      }
+      .setting-contact {
+        margin-top: 16px;
+      }
+    }
+  }
 }

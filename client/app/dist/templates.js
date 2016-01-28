@@ -82,12 +82,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<md-card class=ely-contact-preview>{{ctrl.contact.name}}</md-card>"
+    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=ctrl.title>{{ctrl.title}}</div><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=!ctrl.title>Alle</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand()>{{ctrl.count}} Kontakte</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-button class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button></div><div class=contact-previews ng-show=ctrl.isExpanded><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-button class=\"md-icon-button setting-contact\" aria-label=\"Setting Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button></div></div></div>"
   );
 
 
   $templateCache.put('app/modules/contact/overview/template.html',
-    "<md-content id=ely-contact-overview><div class=contact-overview-container ely-infinite-scroll=ctrl.nextOverview()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"contact in ctrl.overview.contacts\"><ely-contact-preview contact=contact></ely-contact-preview></div></div></div></md-content>"
+    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview title={{statistic.type}} count={{statistic.count}}></ely-contact-preview></div></md-content>"
   );
 
 

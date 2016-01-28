@@ -9,10 +9,11 @@ $background-left-column-bottom: rgba(238,238,238,0.95);
 $background-left-column: #F2F2F2;
 $background-normal: #E0E0E0;
 
-$divider: #141823;
+$divider: rgba(0, 0, 0, 0.12);
 $divider-light: #CCCCCC;
 
 $disabled-text: lighten(#000, 60%);
+$secondary-text: #9197a3;
 
 $tooltip-error: #a94442;
 $tooltip-error-background: #f2dede;

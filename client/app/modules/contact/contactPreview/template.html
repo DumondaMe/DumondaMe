@@ -1,3 +1,21 @@
-<md-card class="ely-contact-preview">
-    {{ctrl.contact.name}}
-</md-card>
+<div class="ely-contact-preview">
+    <div class="type-preview" layout="row">
+        <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="ctrl.title">{{ctrl.title}}</div>
+        <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="!ctrl.title">Alle</div>
+        <div class="count md-subhead" ng-click="ctrl.toggleExpand()">{{ctrl.count}} Kontakte</div>
+        <span flex ng-click="ctrl.toggleExpand()" class="ely-spacer"></span>
+        <md-button class="md-icon-button setting" aria-label="Settings Gruppe">
+            <md-icon md-svg-icon="system:moreVert"></md-icon>
+        </md-button>
+    </div>
+    <div class="contact-previews" ng-show="ctrl.isExpanded">
+        <div class="contact-preview" ng-repeat="contact in ctrl.overview.contacts" layout="row">
+            <img class="profile-img" ng-src="{{contact.profileUrl}}"/>
+            <div class="md-title name">{{contact.name}}</div>
+            <span flex class="ely-spacer"></span>
+            <md-button class="md-icon-button setting-contact" aria-label="Setting Contact">
+                <md-icon md-svg-icon="system:moreVert"></md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>

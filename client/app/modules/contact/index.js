@@ -6,6 +6,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.factory('Contact', require('./services/contact'));
+app.factory('ContactStatistic', require('./services/contactStatistic'));
 app.factory('ContactDetail', require('./services/contactDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
