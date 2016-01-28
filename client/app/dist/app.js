@@ -83,7 +83,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=ctrl.title>{{ctrl.title}}</div><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=!ctrl.title>Alle</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand()>{{ctrl.count}} Kontakte</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-button class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button></div><div class=contact-previews ng-show=ctrl.isExpanded><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-button class=\"md-icon-button setting-contact\" aria-label=\"Setting Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button></div></div></div>"
+    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=ctrl.title>{{ctrl.title}}</div><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=!ctrl.title>Alle</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand()>{{ctrl.count}} Kontakte</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=ctrl.isExpanded><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.contactId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.contactId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
   );
 
 
@@ -98,7 +98,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs></md-content>"
   );
 
 
@@ -2117,6 +2117,18 @@ module.exports = {
                     ScrollRequest.nextRequest(scrollRequestName, ctrl.overview.contacts, params).then(function (overview) {
                         ctrl.overview = overview;
                     });
+                };
+
+                ctrl.changeGroupName = function () {
+
+                };
+
+                ctrl.deleteGroup = function () {
+
+                };
+
+                ctrl.openGroupSetting = function () {
+
                 };
             }];
     }

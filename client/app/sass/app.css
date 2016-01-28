@@ -408,6 +408,9 @@ h2.website-structure-title {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
       background-color: #ffffff; }
+    #ely-contact .contact-tabs .add-new-group {
+      padding-right: 16px;
+      background-color: #E0E0E0; }
 
 #content #content-page-contacting {
   width: 100%;
@@ -437,7 +440,7 @@ h2.website-structure-title {
 #ely-contact-overview {
   height: 100%;
   background-color: #E0E0E0;
-  padding: 16px; }
+  padding: 16px 16px 0 16px; }
 
 .ely-contact-preview {
   width: 100%;
@@ -466,7 +469,7 @@ h2.website-structure-title {
     .ely-contact-preview .type-preview .count:focus {
       outline: none; }
     .ely-contact-preview .type-preview .setting {
-      margin-top: 16px; }
+      margin-top: 8px; }
     .ely-contact-preview .type-preview .ely-spacer:focus {
       outline: none; }
   .ely-contact-preview .contact-previews {
@@ -496,7 +499,7 @@ h2.website-structure-title {
           .ely-contact-preview .contact-previews .contact-preview .name {
             max-width: 400px; } }
       .ely-contact-preview .contact-previews .contact-preview .setting-contact {
-        margin-top: 16px; }
+        margin-top: 8px; }
 
 #content-page-contact-details {
   width: 100%;

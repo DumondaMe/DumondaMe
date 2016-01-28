@@ -31,6 +31,18 @@ module.exports = {
                         ctrl.overview = overview;
                     });
                 };
+
+                ctrl.changeGroupName = function () {
+
+                };
+
+                ctrl.deleteGroup = function () {
+
+                };
+
+                ctrl.openGroupSetting = function () {
+
+                };
             }];
     }
 };
