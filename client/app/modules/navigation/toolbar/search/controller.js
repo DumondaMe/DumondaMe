@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = [
-    function () {
+module.exports = ['$rootScope',
+    function ($rootScope) {
         var ctrl = this;
 
         ctrl.isExpanded = false;
@@ -15,4 +15,13 @@ module.exports = [
             ctrl.isExpanded = true;
             ctrl.searchOpen();
         };
+
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+
+            ctrl.isExpanded = false;
+
+            if (toState.hasOwnProperty('data') && toState.data.hasOwnProperty('searchServiceName')) {
+                    ctrl.serviceName = toState.data.searchServiceName;
+            }
+        });
     }];

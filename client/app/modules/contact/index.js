@@ -11,6 +11,8 @@ app.factory('ContactDetail', require('./services/contactDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
 
+app.service('ContactSuggestionSearch', require('./services/contactSuggestionSearch'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
@@ -25,7 +27,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-contact></ely-contact>'
                 }
             },
-            data: {hasSearch: true}
+            data: {hasSearch: true, searchServiceName: 'contact'}
         })
         .state('contact.contacting', {
             url: '/contacting',

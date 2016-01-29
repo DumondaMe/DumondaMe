@@ -1,3 +1,5 @@
+$search-boarder-radius: 5px;
+
 .ely-toolbar-search-expanded {
   height: 100%;
   width: 100%;
@@ -6,31 +8,83 @@
     width: 100%;
     padding: 7px;
     .search-container {
+      position: relative;
       height: 100%;
       width: 100%;
       background-color: $primary-color-light;
-      border-radius: 2px;
+      border-radius: $search-boarder-radius;
       .search-icon {
-        margin-left: 10px;
+        position: absolute;
+        z-index: 100;
+        top:9px;
+        left: 5px;
+        @media screen and (min-width: $gt-xxs) {
+          top:5px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          top:13px;
+        }
       }
       .search-close-icon {
-        margin-right: 5px;
+        position: absolute;
+        z-index: 100;
+        top:9px;
+        right: 5px;
+        @media screen and (min-width: $gt-xxs) {
+          top:5px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          top:13px;
+        }
       }
-      .search-input {
-        background-color: $primary-color-light;
-        color: white;
-        border: none;
+      md-autocomplete {
         width: 100%;
-        padding-left: 10px;
-        margin-right: 10px;
-        font-size: 16px;
-        font-weight: 400;
-      }
-      .search-input:focus {
-        outline: none;
+        height: 100%;
+        min-width: 120px;
+        box-shadow: none;
+        background-color: $primary-color-light;
+        border-radius: $search-boarder-radius;
+        md-autocomplete-wrap {
+          box-shadow: none;
+          width: 100%;
+          border-radius: $search-boarder-radius;
+          #toolbar-search-input {
+            border-radius: $search-boarder-radius;
+            background-color: $primary-color-light;
+            color: white;
+            border: none;
+            width: 100%;
+            padding-left: 35px;
+            padding-right: 35px;
+            font-size: 16px;
+            font-weight: 400;
+            max-width: none;
+
+            height: 42px;
+            line-height: 42px;
+            @media screen and (min-width: $gt-xxs) {
+              height: 34px;
+              line-height: 34px;
+            }
+            @media screen and (min-width: $gt-sm) {
+              height: 50px;
+              line-height: 50px;
+            }
+          }
+          #toolbar-search-input:focus {
+            outline: none;
+          }
+          button {
+            display: none !important;
+          }
+        }
       }
     }
   }
+}
+
+.toolbar-search-preview {
+  width: 300px;
 }
 
 .ely-toolbar-search-collapse {

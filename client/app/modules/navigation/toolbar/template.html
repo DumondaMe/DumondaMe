@@ -10,7 +10,7 @@
                 <md-option ng-value="view" ng-repeat="view in ctrl.subViews">{{view.name}}</md-option>
             </md-select>
             <span flex></span>
-            <ely-toolbar-search ng-if="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"></ely-toolbar-search>
+            <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"></ely-toolbar-search>
         </div>
     </md-toolbar>
 </div>

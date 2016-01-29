@@ -91,11 +91,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/services/userActionsModalDescription.html',
-    "<div class=modal tabindex=-1 role=dialog aria-hidden=true><div id=modal-dialog-set-privacy class=modal-dialog><div class=modal-content><div class=modal-header ng-show=title><h4 class=modal-title ng-bind=title></h4></div><div class=modal-body><button type=button class=\"btn btn-default privacy-selection\" ng-model=contact.selectedPrivacySetting trigger=click bs-options=\"privacySetting.type as privacySetting.type for privacySetting in contact.privacySettings\" data-placeholder=\"\" bs-select>Action <span class=caret></span></button><div class=privacy-description>Wähle eine Privatsphären Einstellung</div></div><div class=modal-footer><button type=button class=\"btn btn-default\" ng-click=$hide()>Abbrechen</button> <button type=button class=\"btn btn-default\" ng-click=\"send($scope, $hide)\">{{actionDescription}}</button></div></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/contact/template.html',
     "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs></md-content>"
   );
@@ -176,13 +171,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
+    "<div><md-autocomplete ng-disabled=false md-no-cache=true md-delay=50 md-min-length=2 md-search-text-change=ctrl.searchTextChange(ctrl.searchText) md-search-text=ctrl.searchText md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/toolbar/search/template.html',
-    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container layout=row><md-icon md-svg-icon=system:search class=search-icon flex=none></md-icon><input ng-model=ctrl.search class=search-input flex><md-icon md-svg-icon=system:close class=search-close-icon flex=none ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
+    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\"></ely-toolbar-contact-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav() hide-gt-md><md-icon md-svg-icon=system:menu></md-icon></md-button></div><md-select ng-model=ctrl.selectedSubNav id=ely-toolbar-sub-nav ng-if=ctrl.hasSubNav aria-label=\"Select Navigation\"><md-option ng-value=view ng-repeat=\"view in ctrl.subViews\">{{view.name}}</md-option></md-select><span flex></span><ely-toolbar-search ng-if=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav() hide-gt-md><md-icon md-svg-icon=system:menu></md-icon></md-button></div><md-select ng-model=ctrl.selectedSubNav id=ely-toolbar-sub-nav ng-if=ctrl.hasSubNav aria-label=\"Select Navigation\"><md-option ng-value=view ng-repeat=\"view in ctrl.subViews\">{{view.name}}</md-option></md-select><span flex></span><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
   );
 
 
