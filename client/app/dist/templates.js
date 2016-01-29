@@ -36,6 +36,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/common/loadScreen/template.html',
+    "<div id=ely-loading-screen layout-align=\"center center\" layout=row><md-progress-circular md-mode=indeterminate md-diameter=72></md-progress-circular></div>"
+  );
+
+
   $templateCache.put('app/modules/common/paginationNextPrevious/template.html',
     "<div class=paginationNextPrevious><div class=paginationNextPrevious-wrapper><div class=paginationElement ng-class=\"{disabled: currentPagination === 1}\" ng-click=clickPrevious()><img src=app/img/arrow-previous.png></div><div class=paginationElement ng-class=\"{disabled: currentPagination === currentPaginationRange}\" ng-click=clickNext()><img src=app/img/arrow-next.png></div></div></div>"
   );
@@ -92,7 +97,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=!ctrl.requestRunning><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen></md-content>"
   );
 
 
@@ -172,7 +177,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
-    "<div><md-autocomplete ng-disabled=false md-no-cache=true md-delay=50 md-min-length=2 md-search-text-change=ctrl.searchTextChange(ctrl.searchText) md-search-text=ctrl.searchText md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
+    "<div><md-autocomplete ng-disabled=false md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
   );
 
 

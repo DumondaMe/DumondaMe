@@ -11,7 +11,7 @@ app.factory('ContactDetail', require('./services/contactDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
 
-app.service('ContactSuggestionSearch', require('./services/contactSuggestionSearch'));
+app.service('SearchUserService', require('./services/searchUserService'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

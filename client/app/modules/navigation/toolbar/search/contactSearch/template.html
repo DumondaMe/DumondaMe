@@ -3,11 +3,13 @@
                      md-no-cache="true"
                      md-delay="50"
                      md-min-length="2"
-                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
                      md-search-text="ctrl.searchText"
+                     md-selected-item-change="ctrl.selectedItemChanged()"
                      md-items="item in ctrl.querySearch(ctrl.searchText)"
+                     md-item-text="item.name"
                      md-input-id="toolbar-search-input"
-                     md-menu-class="toolbar-search-preview">
+                     md-menu-class="toolbar-search-preview"
+                     ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
             {{item.name}}
         </md-item-template>
