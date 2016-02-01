@@ -8,6 +8,10 @@ module.exports = ['$scope', 'SearchUserService',
 
         ctrl.querySearch = SearchUserService.querySuggestion;
 
+        ctrl.commands.abortSearch = function () {
+            SearchUserService.abortSearch();
+        };
+
         ctrl.selectedItemChanged = function () {
             SearchUserService.startUserSearchRequest(ctrl.searchText);
         };

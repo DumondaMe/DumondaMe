@@ -91,13 +91,28 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/contact/contactPreviewSquare/template.html',
+    "<md-card class=ely-contact-preview-square layout=column layout-align=\"none center\"><img ng-src={{ctrl.user.profileUrl}} class=\"md-card-image user-preview-img\" alt=\"Washed Out\"><div class=user-name>{{ctrl.user.name}}</div><div class=contact-type>{{ctrl.user.type}}</div><div class=user-commands><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=!ctrl.user.type ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Remove contact\" ng-if=ctrl.user.type ng-click=ctrl.deleteContact()><md-icon md-svg-icon=cardActions:removeContact></md-icon></md-button></div></md-card>"
+  );
+
+
   $templateCache.put('app/modules/contact/overview/template.html',
     "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview title={{statistic.type}} count={{statistic.count}}></ely-contact-preview></div></md-content>"
   );
 
 
+  $templateCache.put('app/modules/contact/overviewSearchUser/template.html',
+    "<md-content id=ely-user-search-overview><div class=preview-container ng-repeat=\"user in ctrl.users\"><ely-contact-preview-square user=user></ely-contact-preview-square></div></md-content>"
+  );
+
+
+  $templateCache.put('app/modules/contact/services/modal/selectGroup/template.html',
+    "<md-dialog id=select-contact-group aria-label=\"Select Contact Group\" ng-cloak><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> den Kontakten hinzufügen</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}}>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept()>Hinzufügen</md-button></md-dialog-actions></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=!ctrl.requestRunning><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\"><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary>Neue Gruppe</md-button></div></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
   );
 
 
@@ -177,12 +192,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
-    "<div><md-autocomplete ng-disabled=false md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
+    "<div><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/template.html',
-    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\"></ely-toolbar-contact-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
+    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\" commands=ctrl.commands></ely-toolbar-contact-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
   );
 
 

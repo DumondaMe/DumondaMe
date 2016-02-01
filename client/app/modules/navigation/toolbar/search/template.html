@@ -2,7 +2,7 @@
     <div id="ely-toolbar-search" ng-if="ctrl.isExpanded">
         <div class="search-container">
             <md-icon md-svg-icon="system:search" class="search-icon"></md-icon>
-            <ely-toolbar-contact-search ng-if="ctrl.serviceName === 'contact'"></ely-toolbar-contact-search>
+            <ely-toolbar-contact-search ng-if="ctrl.serviceName === 'contact'" commands="ctrl.commands"></ely-toolbar-contact-search>
             <md-icon md-svg-icon="system:close" class="search-close-icon" ng-click="ctrl.closeExpand()"></md-icon>
         </div>
     </div>

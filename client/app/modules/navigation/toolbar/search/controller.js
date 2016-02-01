@@ -3,11 +3,12 @@
 module.exports = ['$rootScope',
     function ($rootScope) {
         var ctrl = this;
-
+        ctrl.commands = {};
         ctrl.isExpanded = false;
 
         ctrl.closeExpand = function () {
             ctrl.isExpanded = false;
+            ctrl.commands.abortSearch();
             ctrl.searchClose();
         };
 

@@ -74,6 +74,21 @@ $search-boarder-radius: 5px;
           #toolbar-search-input:focus {
             outline: none;
           }
+          #toolbar-search-input::-webkit-input-placeholder {
+            color: white;
+          }
+          #toolbar-search-input:-moz-placeholder {
+            color: white;
+          }
+          #toolbar-search-input::-moz-placeholder {
+            color: white;
+          }
+          #toolbar-search-input:-ms-input-placeholder {
+            color: white;
+          }
+          #toolbar-search-input:placeholder-shown {
+            color: white;
+          }
           button {
             display: none !important;
           }
@@ -84,7 +99,7 @@ $search-boarder-radius: 5px;
 }
 
 .toolbar-search-preview {
-  width: 300px;
+
 }
 
 .ely-toolbar-search-collapse {

@@ -1,0 +1,37 @@
+.ely-contact-preview-square {
+  position: relative;
+  width: 180px;
+  height: 210px;
+  margin: 8px auto;
+
+  .user-preview-img {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+  }
+  .user-name {
+    font-size: 16px;
+    font-weight: 500;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 16px;
+  }
+  .contact-type {
+    height: 20px;
+    min-width: 1px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $secondary-text;
+    padding: 0 16px;
+  }
+  .user-commands {
+  }
+}

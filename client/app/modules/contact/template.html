@@ -1,5 +1,5 @@
 <md-content id="ely-contact">
-    <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning">
+    <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery">
         <md-tab label="Kontakte">
             <md-content class="contact-tab-content">
                 <ely-contact-overview></ely-contact-overview>
@@ -16,4 +16,6 @@
         </md-tab>
     </md-tabs>
     <ely-load-screen ng-if="ctrl.requestRunning"></ely-load-screen>
+    <ely-contact-search-user-overview ng-if="!ctrl.requestRunning && ctrl.showUserQuery"
+                                      users="ctrl.userQueryResult"></ely-contact-search-user-overview>
 </md-content>

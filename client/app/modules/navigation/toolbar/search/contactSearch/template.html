@@ -1,5 +1,6 @@
 <div>
     <md-autocomplete ng-disabled="false"
+                     md-autofocus="true"
                      md-no-cache="true"
                      md-delay="50"
                      md-min-length="2"
@@ -9,6 +10,7 @@
                      md-item-text="item.name"
                      md-input-id="toolbar-search-input"
                      md-menu-class="toolbar-search-preview"
+                     placeholder="Suche Person"
                      ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
             {{item.name}}

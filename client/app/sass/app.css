@@ -505,6 +505,43 @@ h2.website-structure-title {
       .ely-contact-preview .contact-previews .contact-preview .setting-contact {
         margin-top: 8px; }
 
+.ely-contact-preview-square {
+  position: relative;
+  width: 180px;
+  height: 210px;
+  margin: 8px auto; }
+  .ely-contact-preview-square .user-preview-img {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%; }
+  .ely-contact-preview-square .user-name {
+    font-size: 16px;
+    font-weight: 500;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 16px; }
+  .ely-contact-preview-square .contact-type {
+    height: 20px;
+    min-width: 1px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #9197a3;
+    padding: 0 16px; }
+
+#select-contact-group .title {
+  font-size: 16px;
+  margin-bottom: 32px; }
+  #select-contact-group .title .name {
+    color: #3F51B5; }
+
 #content-page-contact-details {
   width: 100%;
   height: 100%;
@@ -578,6 +615,11 @@ h2.website-structure-title {
         margin-bottom: 20px;
         font-size: 14px;
         font-weight: 300; }
+
+#ely-user-search-overview {
+  height: 100%;
+  background-color: #E0E0E0;
+  padding: 0 6px; }
 
 #toolbar-header {
   position: relative;
@@ -669,11 +711,18 @@ h2.website-structure-title {
                 line-height: 50px; } }
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
             outline: none; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
+            color: white; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
+            color: white; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
+            color: white; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
+            color: white; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
+            color: white; }
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap button {
             display: none !important; }
-
-.toolbar-search-preview {
-  width: 300px; }
 
 .ely-toolbar-search-collapse {
   width: 40px; }
@@ -788,11 +837,8 @@ h2.website-structure-title {
 
 #ely-home {
   height: 100%;
-  background-color: #E0E0E0; }
-  #ely-home .pinwall-container {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto; }
+  background-color: #E0E0E0;
+  padding: 0 6px; }
   #ely-home .create-blog-fab {
     position: fixed;
     bottom: 0;

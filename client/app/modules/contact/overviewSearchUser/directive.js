@@ -1,18 +1,20 @@
 'use strict';
 
+var controller = require('./controller.js');
+
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'app/modules/navigation/toolbar/search/contactSearch/template.html',
             scope: {},
+            controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                commands: '='
+                users: '='
             },
-            controller: require('./controller.js')
+            templateUrl: 'app/modules/contact/overviewSearchUser/template.html'
         };
     }],
-    name: 'elyToolbarContactSearch'
+    name: 'elyContactSearchUserOverview'
 };

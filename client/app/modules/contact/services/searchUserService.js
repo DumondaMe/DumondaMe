@@ -32,4 +32,8 @@ module.exports = ['SearchUsers', function (SearchUsers) {
             });
         }
     };
+
+    this.abortSearch = function () {
+        observable.abortSearch();
+    };
 }];
