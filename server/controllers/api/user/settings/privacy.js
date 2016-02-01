@@ -1,8 +1,7 @@
 'use strict';
 var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var privacy = require('./../../../../models/user/privacy');
-var exceptions = require('./../../../../lib/error/exceptions');
+var privacy = require('./../../../../models/user/privacy/privacy');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var validation = require('./../../../../lib/jsonValidation');
 

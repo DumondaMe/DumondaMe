@@ -117,15 +117,18 @@ var Cypher = function (connectionUrl) {
         return this;
     };
 
-    this.setArray = function (ref, arrayToSet) {
-        if (underscore.isArray(arrayToSet) && arrayToSet.length > 0) {
-            chainedQuery += ' SET ' + ref + ' = [';
-            arrayToSet.forEach(function (entry) {
-                chainedQuery += entry + ',';
-            });
-            chainedQuery = chainedQuery.slice(0, -1);
-            chainedQuery += ']';
+    this.replaceArrayElement = function (ref, propertyName, oldElementValue, newElementValue, hasPreviousWhere) {
+        var array = ref + '.' + propertyName;
+        var oldValueName = propertyName + 'old';
+        var newValueName = propertyName + 'new';
+        var whereCondition = ' WHERE {' + oldValueName + '} IN ' + array;
+        var setCondition = ' SET ' + array + ' = filter(x in ' + array + ' WHERE not(x={' + oldValueName + '})) + {' + newValueName + '}';
+        if (hasPreviousWhere) {
+            whereCondition = ' AND {' + oldValueName + '} IN ' + array;
         }
+        paramsToSend[oldValueName] = oldElementValue;
+        paramsToSend[newValueName] = newElementValue;
+        chainedQuery = chainedQuery + whereCondition + setCondition;
         return this;
     };
 

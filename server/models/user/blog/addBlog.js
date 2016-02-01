@@ -11,9 +11,9 @@ var logger = requireLogger.getLogger(__filename);
 
 var MAX_BLOG_PER_HOUR = 50;
 
-var getVisibilityAsString = function (visibility) {
+var getVisibility = function (visibility) {
     if (_.isArray(visibility)) {
-        return visibility.join(";");
+        return visibility;
     }
     return null;
 };
@@ -62,14 +62,14 @@ var uploadFile = function (filePath, blogId) {
 };
 
 var addBlog = function (userId, request, filePath, req) {
-    var commands = [], visibility = getVisibilityAsString(request.visibility), blogId = uuid.generateUUID();
+    var commands = [], visibility = getVisibility(request.visibility), blogId = uuid.generateUUID();
 
     return security(userId, request.visibility, req).then(function () {
         return uploadFile(filePath, blogId)
             .then(function (height) {
                 return db.cypher().match("(user:User {userId: {userId}})")
-                    .create("(user)-[:WRITTEN {visible: {visibility}}]->(blog:Blog:PinwallElement {text: {text}, created: {timestamp}, " +
-                        "blogId: {blogId}, heightPreviewImage: {heightPreviewImage}})")
+                    .create("(user)-[:WRITTEN]->(blog:Blog:PinwallElement {text: {text}, created: {timestamp}, " +
+                        "blogId: {blogId}, heightPreviewImage: {heightPreviewImage}, visible: {visibility}})")
                     .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name, " +
                         "blog.heightPreviewImage AS heightPreviewImage")
                     .end({

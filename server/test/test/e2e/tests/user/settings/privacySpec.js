@@ -3,9 +3,9 @@
 var libUser = require('../../../../../../lib/user')();
 var requestHandler = require('../../util/request');
 var users = require('../../util/user');
-var should = require('chai').should();
 var db = require('../../util/db');
 var moment = require('moment');
+var should = require('chai').should();
 
 describe('Integration Tests for the privacy settings', function () {
 
@@ -19,6 +19,7 @@ describe('Integration Tests for the privacy settings', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier3', userId: '3'})").end().getCommand());
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier4', userId: '4'})").end().getCommand());
 
+            //Add Contacts
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
                 .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
                 .end({contactAdded: startTime - 86401}).getCommand());
@@ -28,6 +29,17 @@ describe('Integration Tests for the privacy settings', function () {
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '4'})")
                 .create("(u)-[:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(u2)")
                 .end({contactAdded: startTime - 86401}).getCommand());
+
+            //Add Blogs for privacy test
+            commands.push(db.cypher().match("(u:User {userId: '1'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}})")
+                .end({visibility: ['Freund', 'Familie']}).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '1'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', visible: {visibility}})")
+                .end({visibility: ['Familie']}).getCommand());
+            //Visible to the public
+            commands.push(db.cypher().match("(u:User {userId: '1'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true})")
@@ -152,7 +164,7 @@ describe('Integration Tests for the privacy settings', function () {
         });
     });
 
-    it('Rename a privacy type and rename the corresponding contact connections- Return a 200', function () {
+    it('Rename a privacy type and rename the corresponding -> (contact, blog) - Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             var data = {
                 renamePrivacy: {
@@ -183,6 +195,26 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[1].count.should.equals(1);
             contactType[2].type.should.equals('Bekannter');
             contactType[2].count.should.equals(1);
+            return db.cypher().match("(blog:Blog {blogId: '1'})")
+                .return('blog.visible AS visible')
+                .end().send();
+        }).then(function (blog) {
+            blog.length.should.equals(1);
+            blog[0].visible.length.should.equals(2);
+            blog[0].visible[0].should.equals('Familie');
+            blog[0].visible[1].should.equals('Freund2');
+            return db.cypher().match("(blog:Blog {blogId: '2'})")
+                .return('blog.visible AS visible')
+                .end().send();
+        }).then(function (blog) {
+            blog.length.should.equals(1);
+            blog[0].visible.length.should.equals(1);
+            return db.cypher().match("(blog:Blog {blogId: '3'})")
+                .return('blog.visible AS visible')
+                .end().send();
+        }).then(function (blog) {
+            blog.length.should.equals(1);
+            should.not.exist(blog[0].visible);
         });
     });
 

@@ -36,12 +36,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
@@ -74,12 +73,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
@@ -118,12 +116,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
@@ -154,23 +151,23 @@ describe('Integration Tests for adding a blog', function () {
             });
     });
 
-    it('User adds a new blog without picture uploaded and with visibility only to Freund', function () {
+    it('User adds a new blog without picture uploaded and with visibility only to group Freund and Bekannter', function () {
 
         var startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})," +
+                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
             .end().send()
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         text: 'testBlog1',
-                        visibility: ['Freund']
+                        visibility: ['Freund', 'Bekannter']
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -182,13 +179,15 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.url);
                 should.not.exist(res.body.urlFull);
-                return db.cypher().match("()-[w:WRITTEN]->(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.created as created, w.visible as visible')
+                return db.cypher().match("()-[:WRITTEN]->(b:Blog:PinwallElement {text: 'testBlog1'})")
+                    .return('b.text as text, b.created as created, b.visible as visible')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
                 blog[0].text.should.equals('testBlog1');
-                blog[0].visible.should.equals('Freund');
+                blog[0].visible.length.should.equals(2);
+                blog[0].visible[0].should.equals('Freund');
+                blog[0].visible[1].should.equals('Bekannter');
                 blog[0].created.should.least(startTime);
             });
     });
@@ -197,12 +196,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send()
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
@@ -234,12 +232,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
@@ -270,12 +267,11 @@ describe('Integration Tests for adding a blog', function () {
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-            "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
+            }).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {

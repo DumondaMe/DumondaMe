@@ -124,7 +124,8 @@ describe('Unit Test controllers/api/user/contact/index', function () {
 
         request.req.body = {
             contactIds: ['12seefegbh12seefegbh12seefegbh'],
-            mode: 'addContact'
+            mode: 'addContact',
+            description: 'Test'
         };
 
         var stubResponse = sandbox.stub(request.res, 'status');

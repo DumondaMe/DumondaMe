@@ -22,13 +22,13 @@ describe('Integration Tests for getting education page details', function () {
                 "website: 'wwww.website1.com', street:'Strasse 2', place:'Bern', postalCode:'3006', country:'ch'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'coursePage1Title', label: 'Course', description: 'coursePage1', language: 'de', created: 501, pageId: '1'," +
                 "website: 'wwww.website2.com'})").end().getCommand());
-            commands.push(db.cypher().create("(:Activity { website: 'wwww.website3.com', startTime: " + startTime + ", endTime: " + (startTime + 3) + "})").end().getCommand());
-            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website3.com'})").setArray("p.times", [startTime, startTime + 1, startTime + 2, startTime + 3]).end().getCommand());
-            commands.push(db.cypher().create("(:Activity { website: 'wwww.website4.com', startTime: " + (startTime + 4) + ", endTime: " + (startTime + 7) + "})").end().getCommand());
-            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website4.com'})").setArray("p.times", [startTime + 4, startTime + 5, startTime + 6, startTime + 7]).end().getCommand());
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website3.com', startTime: " + startTime + ", endTime: " + (startTime + 3) + ", " +
+                "times: {times}})").end({times: [startTime, startTime + 1, startTime + 2, startTime + 3]}).getCommand());
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website4.com', startTime: " + (startTime + 4) + ", endTime: " + (startTime + 7) + ", " +
+                "times: {times}})").end({times: [startTime + 4, startTime + 5, startTime + 6, startTime + 7]}).getCommand());
             startTime -= 100;
-            commands.push(db.cypher().create("(:Activity { website: 'wwww.website5.com', startTime: " + (startTime - 4) + ", endTime: " + (startTime - 1) + "})").end().getCommand());
-            commands.push(db.cypher().match("(p:Activity { website: 'wwww.website5.com'})").setArray("p.times", [startTime - 4, startTime - 3, startTime - 2, startTime - 1]).end().getCommand());
+            commands.push(db.cypher().create("(:Activity { website: 'wwww.website5.com', startTime: " + (startTime - 4) + ", endTime: " + (startTime - 1) + "," +
+                "times: {times}})").end({times: [startTime - 4, startTime - 3, startTime - 2, startTime - 1]}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'coursePage2Title', label: 'Course', description: 'coursePage2', language: 'de', created: 501, pageId: '2'," +
                 "website: 'wwww.website6.com', street:'Strasse 1', place:'Winkel', postalCode:'8185', country:'ch'})").end().getCommand());
             return db.cypher().create("(:Page {title: 'coursePage3Title', label: 'Course', description: 'coursePage3', language: 'de', created: 501, pageId: '3'," +
