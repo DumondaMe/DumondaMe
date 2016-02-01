@@ -13,35 +13,47 @@ var returnStatistics = function (result, errorDescription, req) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
     var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription +
-    ' result not as expected [' + result.length + ']');
+        ' result not as expected [' + result.length + ']');
     logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
+};
+
+var validAddContactCommand = function (userId, type, req) {
+    return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->()')
+        .return("r")
+        .end({userId: userId, type: type}).send().then(function (resp) {
+            if (resp.length === 0) {
+                return exceptions.getInvalidOperation('Type [' + type + '] does not exist for userId [' + userId + ']', logger, req);
+            }
+        });
 };
 
 var addContact = function (userId, contactIds, type, req) {
 
     var commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
-    commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
-        .where('u2.userId IN {contactIds} AND NOT (u)-[:IS_CONTACT]->(u2)')
-        .createUnique('(u)-[:IS_CONTACT {type: {type}, contactAdded: {contactAdded}}]->(u2)')
-        .with('u, u2')
-        .match('(u)-[r:IS_BLOCKED]->(u2)')
-        .delete('r')
-        .end({
-            userId: userId,
-            contactIds: contactIds,
-            type: type,
-            contactAdded: timeAddedContact
-        })
-        .getCommand());
+    return validAddContactCommand(userId, type, req).then(function () {
+        commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
+            .where('u2.userId IN {contactIds} AND NOT (u)-[:IS_CONTACT]->(u2)')
+            .createUnique('(u)-[:IS_CONTACT {type: {type}, contactAdded: {contactAdded}}]->(u2)')
+            .with('u, u2')
+            .match('(u)-[r:IS_BLOCKED]->(u2)')
+            .delete('r')
+            .end({
+                userId: userId,
+                contactIds: contactIds,
+                type: type,
+                contactAdded: timeAddedContact
+            })
+            .getCommand());
 
-    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
+        commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
-    return contactStatistic.getTotalNumberOfContacts(userId)
-        .send(commands)
-        .then(function (result) {
-            return returnStatistics(result, 'adding', req);
-        });
+        return contactStatistic.getTotalNumberOfContacts(userId)
+            .send(commands)
+            .then(function (result) {
+                return returnStatistics(result, 'adding', req);
+            });
+    });
 };
 
 var deleteContact = function (userId, contactIds, req) {
@@ -148,7 +160,7 @@ var getContact = function (params, where) {
         .with("contact, rContact, user, r, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("r.type AS type, r.contactAdded AS contactAdded, rContact.type AS contactType, rContact.contactAdded As userAdded, " +
-        "contact.name AS name, contact.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible")
+            "contact.name AS name, contact.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible")
         .end(params);
 };
 

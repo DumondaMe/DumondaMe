@@ -1,8 +1,6 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
 var db = require('./../../neo4j');
-var underscore = require('underscore');
 var userInfo = require('./userInfo');
 
 var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {

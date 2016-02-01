@@ -58,11 +58,11 @@ describe('Integration Tests for handling contacts', function () {
                 description: 'Freund'
             }, requestAgent);
         }).then(function (res) {
+            res.status.should.equal(200);
             res.body.statistic.length.should.equals(1);
             res.body.statistic[0].type.should.equals('Freund');
             res.body.statistic[0].count.should.equals(1);
             res.body.numberOfContacts.should.equals(1);
-            res.status.should.equal(200);
             return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
                 .return('r.type as type, r.contactAdded as contactAdded')
                 .end().send();
@@ -70,6 +70,43 @@ describe('Integration Tests for handling contacts', function () {
             user.length.should.equals(1);
             user[0].type.should.equals('Freund');
             user[0].contactAdded.should.least(startTime);
+        });
+    });
+
+    it('Invalid Adding a contact because missing type - Return 400', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['5'],
+                mode: 'addContact'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
+                .return('r.type as type, r.contactAdded as contactAdded')
+                .end().send();
+        }).then(function (user) {
+            user.length.should.equals(0);
+        });
+    });
+
+    it('Invalid Adding a contact because type does not exist - Return 400', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/contact', {
+                contactIds: ['5'],
+                mode: 'addContact',
+                description: 'Freund1'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(u:User {userId: '1'})-[r:IS_CONTACT]->(u2:User {userId: '5'})")
+                .return('r.type as type, r.contactAdded as contactAdded')
+                .end().send();
+        }).then(function (user) {
+            user.length.should.equals(0);
         });
     });
 
@@ -84,11 +121,11 @@ describe('Integration Tests for handling contacts', function () {
                 description: 'Freund'
             }, requestAgent);
         }).then(function (res) {
+            res.status.should.equal(200);
             res.body.statistic.length.should.equals(1);
             res.body.statistic[0].type.should.equals('Freund');
             res.body.statistic[0].count.should.equals(3);
             res.body.numberOfContacts.should.equals(3);
-            res.status.should.equal(200);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['4'],
                 mode: 'addContact',
@@ -237,7 +274,7 @@ describe('Integration Tests for handling contacts', function () {
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
                 mode: 'addContact',
-                description: 'Freun'
+                description: 'Bekannter'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -275,7 +312,8 @@ describe('Integration Tests for handling contacts', function () {
             rel.length.should.equals(1);
             return requestHandler.post('/api/user/contact', {
                 contactIds: ['2'],
-                mode: 'addContact'
+                mode: 'addContact',
+                description: 'Freund'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -288,7 +326,7 @@ describe('Integration Tests for handling contacts', function () {
                 .send();
         }).then(function (rel) {
             rel.length.should.equals(0);
-            return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User {userId: {contact}})')
+            return db.cypher().match("(u:User {userId: {userId}})-[r:IS_CONTACT {type: 'Freund'}]->(u2:User {userId: {contact}})")
                 .return('r')
                 .end({
                     userId: '1',

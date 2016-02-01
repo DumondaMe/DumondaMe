@@ -11,134 +11,44 @@ describe('Integration Tests for finding other users', function () {
     var requestAgent, startTime;
 
     before(function () {
-        var createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
-            return db.cypher().create(createUser)
-                .end({
-                    email: 'user@irgendwo.ch',
-                    password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                    name: 'user Meier',
-                    userId: '1'
-                }).send()
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo2.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'user2 Meier2',
-                            userId: '2'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '2'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo3.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'user2 Meier3',
-                            userId: '3'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '3'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo4.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'user Meier4',
-                            userId: '4'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '4'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo5.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'user Meier5',
-                            userId: '5'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '5'})")
-                                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
-                                .end().send();
-                        })
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '5'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo6.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'user Meier6',
-                            userId: '6'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '6'})")
-                                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
-                                .end().send();
-                        })
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '6'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().create(createUser)
-                        .end({
-                            email: 'user@irgendwo7.ch',
-                            password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
-                            name: 'etwasganzanderes nochwas anderes',
-                            userId: '7'
-                        }).send()
-                        .then(function () {
-                            return db.cypher().match("(u:User {userId: '7'})")
-                                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})")
-                                .end().send();
-                        });
-                })
-                .then(function () {
-                    return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'2'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(b)")
-                        .end({contactAdded: startTime})
-                        .send();
-                })
-                .then(function () {
-                    return db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'6'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
-                        .end({contactAdded: startTime})
-                        .send();
-                })
-                .then(function () {
-                    return db.cypher().match("(a:User {userId:'6'}), (b:User {userId:'1'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
-                        .end({contactAdded: startTime})
-                        .send();
-                })
-                .then(function () {
-                    return db.cypher().match("(a:User {userId:'5'}), (b:User {userId:'1'})")
-                        .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)")
-                        .end({contactAdded: startTime})
-                        .send();
-                });
+
+            var commands = [];
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', name: 'user2 Meier2', userId: '2'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', name: 'user2 Meier3', userId: '3'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', name: 'user Meier4', userId: '4'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo5.ch', name: 'user Meier5', userId: '5'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo6.ch', name: 'user Meier6', userId: '6'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {email: 'user@irgendwo7.ch', name: 'etwasganzanderes nochwas anderes', userId: '7'})").end().getCommand());
+
+            commands.push(db.cypher().match("(u:User {userId: '2'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '3'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '4'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '5'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '5'})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: false})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '6'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '6'})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '7'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
+
+            commands.push(db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'2'})")
+                .create("(a)-[r:IS_CONTACT {type: 'Familie', contactAdded: {contactAdded}}]->(b)").end({contactAdded: startTime}).getCommand());
+            commands.push(db.cypher().match("(a:User {userId:'1'}), (b:User {userId:'6'})")
+                .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)").end({contactAdded: startTime}).getCommand());
+            commands.push(db.cypher().match("(a:User {userId:'6'}), (b:User {userId:'1'})")
+                .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)").end({contactAdded: startTime}).getCommand());
+            return db.cypher().match("(a:User {userId:'5'}), (b:User {userId:'1'})")
+                .create("(a)-[r:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(b)").end({contactAdded: startTime}).send(commands);
+
         });
     });
 

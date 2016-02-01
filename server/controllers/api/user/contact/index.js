@@ -1,10 +1,11 @@
 'use strict';
 
-var validation = require('./../../../../lib/jsonValidation'),
-    contact = require('./../../../../models/contact/contact'),
-    auth = require('./../../../../lib/auth'),
-    controllerErrors = require('./../../../../lib/error/controllerErrors'),
-    logger = requireLogger.getLogger(__filename);
+var validation = require('./../../../../lib/jsonValidation');
+var contact = require('./../../../../models/contact/contact');
+var exceptions = require('./../../../../lib/error/exceptions');
+var auth = require('./../../../../lib/auth');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestGetContact = {
     name: 'getContacts',
@@ -91,7 +92,7 @@ module.exports = function (router) {
             return validation.validateRequest(req, schemaRequestContact, logger).then(function (request) {
                 if (request.mode === 'addContact') {
                     if (!request.description) {
-                        request.description = '';
+                        return exceptions.getInvalidOperation('Invalid Add Contact command. Missing type', logger, req);
                     }
                     logger.info("User has added " + request.contactIds + " as " + request.description + " to the contact list", req);
                     return contact.addContact(req.user.id, request.contactIds, request.description, req);
