@@ -88,7 +88,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=ctrl.title>{{ctrl.title}}</div><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=!ctrl.title>Alle</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand()>{{ctrl.count}} Kontakte</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=ctrl.isExpanded><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.contactId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.contactId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
+    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=ctrl.title>{{ctrl.title}}</div><div class=\"type md-title\" ng-click=ctrl.toggleExpand() ng-if=!ctrl.title>Alle</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand() ng-if=\"ctrl.count > 0\">{{ctrl.count}} Kontakte</div><div class=\"count md-subhead\" ng-if=\"ctrl.count === 0\">leer</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=ctrl.isExpanded><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.userId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.userId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
   );
 
 
@@ -98,7 +98,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overview/template.html',
-    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview title={{statistic.type}} count={{statistic.count}}></ely-contact-preview></div></md-content>"
+    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview title=statistic.type count=statistic.count></ely-contact-preview></div></md-content>"
   );
 
 
@@ -2180,10 +2180,16 @@ app.directive(directive.name, directive.directive);
 },{"./directive.js":59}],61:[function(require,module,exports){
 'use strict';
 
+var reduceCount = function (ctrl) {
+    if (ctrl.count > 0) {
+        ctrl.count = ctrl.count - 1;
+    }
+};
+
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler) {
+        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService) {
                 var ctrl = this;
                 var scrollRequestName = 'ContactOverview' + ctrl.title;
                 var requestedContacts = false;
@@ -2223,6 +2229,22 @@ module.exports = {
                 ctrl.openGroupSetting = function () {
 
                 };
+
+                ctrl.blockContact = function (contactId) {
+                    UserStateService.blockContact(contactId).then(function () {
+                        UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                        ScrollRequest.removedElement(scrollRequestName);
+                        reduceCount(ctrl);
+                    });
+                };
+
+                ctrl.deleteContact = function (contactId) {
+                    UserStateService.deleteContact(contactId).then(function () {
+                        UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                        ScrollRequest.removedElement(scrollRequestName);
+                        reduceCount(ctrl);
+                    });
+                };
             }];
     }
 };
@@ -2242,8 +2264,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                title: '@',
-                count: '@'
+                title: '=',
+                count: '='
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };
@@ -2595,9 +2617,8 @@ module.exports = ['Contact', '$q', '$mdDialog',
                         return selectedPrivacyType;
                     });
                 });
-            } else {
-                return $q.reject();
             }
+            return $q.reject();
         };
 
         this.deleteContact = function (contactId) {
@@ -2605,27 +2626,40 @@ module.exports = ['Contact', '$q', '$mdDialog',
                 return Contact.delete({
                     contactIds: [contactId]
                 }).$promise;
-            } else {
-                return $q.reject();
             }
+            return $q.reject();
         };
 
-        this.blockContact = function ($scope) {
-            var contact = Contact.save({
-                mode: 'blockContact',
-                contactIds: [$scope.contact.userId]
-            }, function () {
-
-            });
+        this.blockContact = function (contactId) {
+            if (angular.isString(contactId)) {
+                return Contact.save({
+                    mode: 'blockContact',
+                    contactIds: [contactId]
+                }).$promise;
+            }
+            return $q.reject();
         };
 
-        this.unblockContact = function ($scope) {
-            var contact = Contact.save({
-                mode: 'unblockContact',
-                contactIds: [$scope.contact.userId]
-            }, function () {
+        this.unblockContact = function (contactId) {
+            if (angular.isString(contactId)) {
+                return Contact.save({
+                    mode: 'unblockContact',
+                    contactIds: [contactId]
+                }).$promise;
+            }
+            return $q.reject();
+        };
 
+        this.removeContact = function (overviewCollection, contactId) {
+            var elementToRemove;
+            angular.forEach(overviewCollection, function (contactPreview) {
+                if (contactPreview.userId === contactId) {
+                    elementToRemove = contactPreview;
+                }
             });
+            if (elementToRemove) {
+                overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
+            }
         };
     }];
 

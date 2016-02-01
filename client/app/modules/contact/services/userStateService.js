@@ -26,9 +26,8 @@ module.exports = ['Contact', '$q', '$mdDialog',
                         return selectedPrivacyType;
                     });
                 });
-            } else {
-                return $q.reject();
             }
+            return $q.reject();
         };
 
         this.deleteContact = function (contactId) {
@@ -36,26 +35,39 @@ module.exports = ['Contact', '$q', '$mdDialog',
                 return Contact.delete({
                     contactIds: [contactId]
                 }).$promise;
-            } else {
-                return $q.reject();
             }
+            return $q.reject();
         };
 
-        this.blockContact = function ($scope) {
-            var contact = Contact.save({
-                mode: 'blockContact',
-                contactIds: [$scope.contact.userId]
-            }, function () {
-
-            });
+        this.blockContact = function (contactId) {
+            if (angular.isString(contactId)) {
+                return Contact.save({
+                    mode: 'blockContact',
+                    contactIds: [contactId]
+                }).$promise;
+            }
+            return $q.reject();
         };
 
-        this.unblockContact = function ($scope) {
-            var contact = Contact.save({
-                mode: 'unblockContact',
-                contactIds: [$scope.contact.userId]
-            }, function () {
+        this.unblockContact = function (contactId) {
+            if (angular.isString(contactId)) {
+                return Contact.save({
+                    mode: 'unblockContact',
+                    contactIds: [contactId]
+                }).$promise;
+            }
+            return $q.reject();
+        };
 
+        this.removeContact = function (overviewCollection, contactId) {
+            var elementToRemove;
+            angular.forEach(overviewCollection, function (contactPreview) {
+                if (contactPreview.userId === contactId) {
+                    elementToRemove = contactPreview;
+                }
             });
+            if (elementToRemove) {
+                overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
+            }
         };
     }];

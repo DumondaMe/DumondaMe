@@ -2,7 +2,8 @@
     <div class="type-preview" layout="row">
         <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="ctrl.title">{{ctrl.title}}</div>
         <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="!ctrl.title">Alle</div>
-        <div class="count md-subhead" ng-click="ctrl.toggleExpand()">{{ctrl.count}} Kontakte</div>
+        <div class="count md-subhead" ng-click="ctrl.toggleExpand()" ng-if="ctrl.count > 0">{{ctrl.count}} Kontakte</div>
+        <div class="count md-subhead" ng-if="ctrl.count === 0">leer</div>
         <span flex ng-click="ctrl.toggleExpand()" class="ely-spacer"></span>
         <md-menu md-position-mode="target-right target">
             <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting" aria-label="Settings Gruppe">
@@ -32,10 +33,10 @@
                 </md-button>
                 <md-menu-content>
                     <md-menu-item>
-                        <md-button ng-click="ctrl.blockContact(contact.contactId)">Kontakt blockieren</md-button>
+                        <md-button ng-click="ctrl.blockContact(contact.userId)">Kontakt blockieren</md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button ng-click="ctrl.deleteContact(contact.contactId)">Als Kontakt entfernen</md-button>
+                        <md-button ng-click="ctrl.deleteContact(contact.userId)">Als Kontakt entfernen</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>

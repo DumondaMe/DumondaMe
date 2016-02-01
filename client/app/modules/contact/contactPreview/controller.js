@@ -1,9 +1,15 @@
 'use strict';
 
+var reduceCount = function (ctrl) {
+    if (ctrl.count > 0) {
+        ctrl.count = ctrl.count - 1;
+    }
+};
+
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler) {
+        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService) {
                 var ctrl = this;
                 var scrollRequestName = 'ContactOverview' + ctrl.title;
                 var requestedContacts = false;
@@ -42,6 +48,22 @@ module.exports = {
 
                 ctrl.openGroupSetting = function () {
 
+                };
+
+                ctrl.blockContact = function (contactId) {
+                    UserStateService.blockContact(contactId).then(function () {
+                        UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                        ScrollRequest.removedElement(scrollRequestName);
+                        reduceCount(ctrl);
+                    });
+                };
+
+                ctrl.deleteContact = function (contactId) {
+                    UserStateService.deleteContact(contactId).then(function () {
+                        UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                        ScrollRequest.removedElement(scrollRequestName);
+                        reduceCount(ctrl);
+                    });
                 };
             }];
     }
