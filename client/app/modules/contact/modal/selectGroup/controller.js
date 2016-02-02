@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ContactStatisticTypes', '$mdDialog', 'CreateProblemCheck', 'UploadProblem',
-    function (ContactStatisticTypes, $mdDialog, CreateProblemCheck, UploadProblem) {
+module.exports = ['ContactStatisticTypes', '$mdDialog',
+    function (ContactStatisticTypes, $mdDialog) {
         var ctrl = this;
 
         ctrl.types = ContactStatisticTypes.getTypes();

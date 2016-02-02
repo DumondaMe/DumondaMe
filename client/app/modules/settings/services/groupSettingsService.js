@@ -1,33 +1,20 @@
 'use strict';
 
-module.exports = ['Contact', '$q', '$mdDialog',
-    function (Contact, $q, $mdDialog) {
+module.exports = ['Privacy', '$q', '$mdDialog',
+    function (Privacy, $q, $mdDialog) {
 
-        this.addContact = function (contactId, name) {
-            if (angular.isString(contactId)) {
+        this.addGroup = function () {
 
-                var selectedPrivacyType;
-                return $mdDialog.show({
-                    templateUrl: 'app/modules/contact/modal/selectGroup/template.html',
-                    parent: angular.element(document.body),
-                    clickOutsideToClose: false,
-                    escapeToClose: false,
-                    controller: 'SelectContactGroupController',
-                    locals: {name: name},
-                    bindToController: true,
-                    controllerAs: 'ctrl'
-                }).then(function (privacyType) {
-                    selectedPrivacyType = privacyType;
-                    return Contact.save({
-                        contactIds: [contactId],
-                        mode: 'addContact',
-                        description: privacyType
-                    }).$promise.then(function () {
-                        return selectedPrivacyType;
-                    });
-                });
-            }
-            return $q.reject();
+            return $mdDialog.show({
+                templateUrl: 'app/modules/settings/modal/addGroup/template.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                escapeToClose: false,
+                controller: 'AddGroupController',
+                //locals: {name: name},
+                bindToController: true,
+                controllerAs: 'ctrl'
+            });
         };
 
         this.deleteContact = function (contactId) {
@@ -70,4 +57,5 @@ module.exports = ['Contact', '$q', '$mdDialog',
                 overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
             }
         };
-    }];
+    }]
+;

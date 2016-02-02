@@ -26,7 +26,7 @@ module.exports = {
                     ctrl.requestRunning = false;
                     ctrl.showUserQuery = false;
                     ctrl.userQueryResult = null;
-                }
+                };
             }];
     }
 };

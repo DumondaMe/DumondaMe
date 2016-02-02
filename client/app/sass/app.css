@@ -412,9 +412,6 @@ h2.website-structure-title {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
       background-color: #ffffff; }
-    #ely-contact .contact-tabs .add-new-group {
-      padding-right: 16px;
-      background-color: #E0E0E0; }
 
 #content #content-page-contacting {
   width: 100%;
@@ -445,6 +442,11 @@ h2.website-structure-title {
   height: 100%;
   background-color: #E0E0E0;
   padding: 16px 16px 0 16px; }
+  #ely-contact-overview .add-new-group {
+    width: 100%;
+    max-width: 700px;
+    cursor: pointer;
+    margin: 0 auto; }
 
 .ely-contact-preview {
   width: 100%;
@@ -1809,6 +1811,18 @@ h2.website-structure-title {
 #modal-dialog-add-recommendation .modal-footer .ely-star-rating {
   float: left;
   margin-left: 5px; }
+
+#add-group {
+  max-width: 500px; }
+  #add-group .ely-dialog-content {
+    padding-bottom: 0; }
+    #add-group .ely-dialog-content .title {
+      font-size: 18px;
+      margin-bottom: 16px; }
+    #add-group .ely-dialog-content .ely-input-container {
+      width: 100%; }
+    #add-group .ely-dialog-content .select-privacy {
+      margin-bottom: 24px; }
 
 #content-settings-password {
   width: 100%;

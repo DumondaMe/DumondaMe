@@ -2,4 +2,8 @@
     <div class="preview-container" ng-repeat="statistic in ctrl.statistics.statistic">
         <ely-contact-preview title="statistic.type" count="statistic.count"></ely-contact-preview>
     </div>
+    <div layout="row" class="add-new-group">
+        <span flex></span>
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.newGroup()">Neue Gruppe</md-button>
+    </div>
 </md-content>

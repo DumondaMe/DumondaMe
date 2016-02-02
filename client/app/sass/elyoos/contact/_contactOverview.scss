@@ -2,4 +2,10 @@
   height: 100%;
   background-color: $background-normal;
   padding: 16px 16px 0 16px;
+  .add-new-group {
+    width: 100%;
+    max-width: 700px;
+    cursor: pointer;
+    margin: 0 auto;
+  }
 }

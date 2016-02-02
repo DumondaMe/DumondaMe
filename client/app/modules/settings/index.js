@@ -12,7 +12,7 @@ app.factory('Profile', require('./services/profile'));
 app.factory('Privacy', require('./services/privacy'));
 app.factory('Password', require('./services/password'));
 
-app.service('SettingLeftNavElements', require('./services/leftNavElements'));
+app.service('GroupSettingsService', require('./services/groupSettingsService'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

@@ -1,7 +1,6 @@
 <div class="ely-contact-preview">
     <div class="type-preview" layout="row">
-        <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="ctrl.title">{{ctrl.title}}</div>
-        <div class="type md-title" ng-click="ctrl.toggleExpand()" ng-if="!ctrl.title">Alle</div>
+        <div class="type md-title" ng-click="ctrl.toggleExpand()">{{ctrl.title}}</div>
         <div class="count md-subhead" ng-click="ctrl.toggleExpand()" ng-if="ctrl.count > 0">{{ctrl.count}} Kontakte</div>
         <div class="count md-subhead" ng-if="ctrl.count === 0">leer</div>
         <span flex ng-click="ctrl.toggleExpand()" class="ely-spacer"></span>
@@ -22,7 +21,7 @@
             </md-menu-content>
         </md-menu>
     </div>
-    <div class="contact-previews" ng-show="ctrl.isExpanded">
+    <div class="contact-previews" ng-show="ctrl.isExpanded && ctrl.overview.contacts.length > 0">
         <div class="contact-preview" ng-repeat="contact in ctrl.overview.contacts" layout="row">
             <img class="profile-img" ng-src="{{contact.profileUrl}}"/>
             <div class="md-title name">{{contact.name}}</div>
