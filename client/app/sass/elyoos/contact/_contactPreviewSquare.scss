@@ -32,6 +32,13 @@
     color: $secondary-text;
     padding: 0 16px;
   }
+  .user-blocked {
+    height: 20px;
+    min-width: 1px;
+    font-size: 14px;
+    color: rgb(255,87,34);
+    padding: 0 16px;
+  }
   .user-commands {
   }
 }

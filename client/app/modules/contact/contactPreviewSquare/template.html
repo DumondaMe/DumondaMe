@@ -1,13 +1,15 @@
 <md-card class="ely-contact-preview-square" layout="column" layout-align="none center">
     <img ng-src="{{ctrl.user.profileUrl}}" class="md-card-image user-preview-img" alt="Washed Out">
     <div class="user-name">{{ctrl.user.name}}</div>
-    <div class="contact-type">{{ctrl.user.type}}</div>
+    <div class="contact-type" ng-if="!ctrl.user.blocked">{{ctrl.user.type}}</div>
+    <div class="user-blocked" ng-if="ctrl.user.blocked">BLOCKIERT</div>
     <div class="user-commands">
-        <md-button class="md-icon-button" aria-label="Add to contact" ng-if="!ctrl.user.type" ng-click="ctrl.addContact()">
+        <md-button class="md-icon-button" aria-label="Add to contact" ng-if="!ctrl.user.type && !ctrl.user.blocked" ng-click="ctrl.addContact()">
             <md-icon md-svg-icon="cardActions:addContact"></md-icon>
         </md-button>
-        <md-button class="md-icon-button" aria-label="Remove contact" ng-if="ctrl.user.type" ng-click="ctrl.deleteContact()">
+        <md-button class="md-icon-button" aria-label="Remove contact" ng-if="ctrl.user.type && !ctrl.user.blocked" ng-click="ctrl.deleteContact()">
             <md-icon md-svg-icon="cardActions:removeContact"></md-icon>
         </md-button>
+        <md-button class="md-warn" ng-if="ctrl.user.blocked" ng-click="ctrl.unblockContact()">aufheben</md-button>
     </div>
 </md-card>

@@ -535,6 +535,12 @@ h2.website-structure-title {
     text-overflow: ellipsis;
     color: #9197a3;
     padding: 0 16px; }
+  .ely-contact-preview-square .user-blocked {
+    height: 20px;
+    min-width: 1px;
+    font-size: 14px;
+    color: #ff5722;
+    padding: 0 16px; }
 
 #select-contact-group .title {
   font-size: 16px;

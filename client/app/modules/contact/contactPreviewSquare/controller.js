@@ -17,6 +17,12 @@ module.exports = {
                         delete ctrl.user.type;
                     });
                 };
+
+                ctrl.unblockContact = function () {
+                    UserStateService.unblockContact(ctrl.user.userId).then(function () {
+                        delete ctrl.user.blocked;
+                    });
+                };
             }];
     }
 };
