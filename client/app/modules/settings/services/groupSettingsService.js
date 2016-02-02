@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Privacy', '$q', '$mdDialog',
-    function (Privacy, $q, $mdDialog) {
+module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
+    function (Privacy, $q, $mdDialog, ContactStatisticTypes) {
 
         this.addGroup = function () {
 
@@ -11,50 +11,26 @@ module.exports = ['Privacy', '$q', '$mdDialog',
                 clickOutsideToClose: false,
                 escapeToClose: false,
                 controller: 'AddGroupController',
-                //locals: {name: name},
                 bindToController: true,
                 controllerAs: 'ctrl'
             });
         };
 
-        this.deleteContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.delete({
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.blockContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.save({
-                    mode: 'blockContact',
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.unblockContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.save({
-                    mode: 'unblockContact',
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.removeContact = function (overviewCollection, contactId) {
-            var elementToRemove;
-            angular.forEach(overviewCollection, function (contactPreview) {
-                if (contactPreview.userId === contactId) {
-                    elementToRemove = contactPreview;
+        this.deleteGroup = function (groupName, numberOfContacts) {
+            var types = ContactStatisticTypes.getTypes();
+            if (types.length > 0) {
+                if (numberOfContacts === 0) {
+                    return Privacy.delete({
+                        privacyDescription: groupName,
+                        newPrivacyDescription: types[0]
+                    }).$promise.then(function () {
+                        ContactStatisticTypes.removeType(groupName);
+                    });
+                } else {
+                    //Modal
                 }
-            });
-            if (elementToRemove) {
-                overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
+            } else {
+                return $q.reject();
             }
         };
     }]

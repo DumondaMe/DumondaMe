@@ -16,4 +16,16 @@ module.exports = [
             });
             return types;
         };
+
+        this.removeType = function (type) {
+            var elementToRemove;
+            angular.forEach(statistic, function (statisticElement) {
+                if (type === statisticElement.type) {
+                    elementToRemove = statisticElement;
+                }
+            });
+            if (elementToRemove) {
+                statistic.splice(statistic.indexOf(elementToRemove), 1);
+            }
+        };
     }];

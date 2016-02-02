@@ -88,7 +88,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand()>{{ctrl.title}}</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand() ng-if=\"ctrl.count > 0\">{{ctrl.count}} Kontakte</div><div class=\"count md-subhead\" ng-if=\"ctrl.count === 0\">leer</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=\"ctrl.isExpanded && ctrl.overview.contacts.length > 0\"><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.userId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.userId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
+    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand()>{{ctrl.statistic.type}}</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand() ng-if=\"ctrl.statistic.count > 0\">{{ctrl.statistic.count}} Kontakte</div><div class=\"count md-subhead\" ng-if=\"ctrl.statistic.count === 0\">leer</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=\"ctrl.isExpanded && ctrl.overview.contacts.length > 0\"><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.userId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.userId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
   );
 
 
@@ -103,7 +103,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overview/template.html',
-    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview title=statistic.type count=statistic.count></ely-contact-preview></div><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary ng-click=ctrl.newGroup()>Neue Gruppe</md-button></div></md-content>"
+    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview statistic=statistic delete-group=ctrl.deleteGroup(name)></ely-contact-preview></div><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary ng-click=ctrl.newGroup()>Neue Gruppe</md-button></div></md-content>"
   );
 
 
@@ -412,11 +412,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/util/waitingScreen/waitingScreen.html',
-    "<div id=modal-waiting-screen><div class=modal-body><div class=waiting-spin><ely-spin size=small></ely-spin></div><div class=description>{{title}}</div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/viewPort/template.html',
     "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><ely-left-nav ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-left-nav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><ely-left-nav flex=none ng-show=ctrl.showLeftNav ng-cloak></ely-left-nav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
   );
@@ -612,7 +607,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         });
     }]);
-},{"../../package.json":302,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
+},{"../../package.json":301,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
@@ -2199,10 +2194,10 @@ var reduceCount = function (ctrl) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService) {
+        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService) {
                 var ctrl = this;
-                var scrollRequestName = 'ContactOverview' + ctrl.title;
+                var scrollRequestName = 'ContactOverview' + ctrl.statistic.type;
                 var requestedContacts = false;
                 ctrl.overview = {contacts: []};
                 ctrl.isExpanded = false;
@@ -2221,8 +2216,8 @@ module.exports = {
 
                 ctrl.nextOverview = function () {
                     var params;
-                    if (ctrl.title) {
-                        params = {types: [ctrl.title]};
+                    if (ctrl.statistic.type) {
+                        params = {types: [ctrl.statistic.type]};
                     }
                     ScrollRequest.nextRequest(scrollRequestName, ctrl.overview.contacts, params).then(function (overview) {
                         ctrl.overview = overview;
@@ -2234,7 +2229,7 @@ module.exports = {
                 };
 
                 ctrl.deleteGroup = function () {
-
+                    GroupSettingsService.deleteGroup(ctrl.statistic.type, ctrl.statistic.count);
                 };
 
                 ctrl.openGroupSetting = function () {
@@ -2275,8 +2270,7 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                title: '=',
-                count: '='
+                statistic: '='
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };
@@ -2501,6 +2495,10 @@ module.exports = {
                         ctrl.statistics.statistic.push({type: groupName, count: 0});
                     });
                 };
+
+                ctrl.deleteGroup = function(name) {
+
+                };
             }];
     }
 };
@@ -2557,6 +2555,18 @@ module.exports = [
                 types.push(statisticElement.type);
             });
             return types;
+        };
+
+        this.removeType = function (type) {
+            var elementToRemove;
+            angular.forEach(statistic, function (statisticElement) {
+                if (type === statisticElement.type) {
+                    elementToRemove = statisticElement;
+                }
+            });
+            if (elementToRemove) {
+                statistic.splice(statistic.indexOf(elementToRemove), 1);
+            }
         };
     }];
 
@@ -7170,8 +7180,8 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
 },{}],264:[function(require,module,exports){
 'use strict';
 
-module.exports = ['Privacy', '$q', '$mdDialog',
-    function (Privacy, $q, $mdDialog) {
+module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
+    function (Privacy, $q, $mdDialog, ContactStatisticTypes) {
 
         this.addGroup = function () {
 
@@ -7181,50 +7191,26 @@ module.exports = ['Privacy', '$q', '$mdDialog',
                 clickOutsideToClose: false,
                 escapeToClose: false,
                 controller: 'AddGroupController',
-                //locals: {name: name},
                 bindToController: true,
                 controllerAs: 'ctrl'
             });
         };
 
-        this.deleteContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.delete({
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.blockContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.save({
-                    mode: 'blockContact',
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.unblockContact = function (contactId) {
-            if (angular.isString(contactId)) {
-                return Contact.save({
-                    mode: 'unblockContact',
-                    contactIds: [contactId]
-                }).$promise;
-            }
-            return $q.reject();
-        };
-
-        this.removeContact = function (overviewCollection, contactId) {
-            var elementToRemove;
-            angular.forEach(overviewCollection, function (contactPreview) {
-                if (contactPreview.userId === contactId) {
-                    elementToRemove = contactPreview;
+        this.deleteGroup = function (groupName, numberOfContacts) {
+            var types = ContactStatisticTypes.getTypes();
+            if (types.length > 0) {
+                if (numberOfContacts === 0) {
+                    return Privacy.delete({
+                        privacyDescription: groupName,
+                        newPrivacyDescription: types[0]
+                    }).$promise.then(function () {
+                        ContactStatisticTypes.removeType(groupName);
+                    });
+                } else {
+                    //Modal
                 }
-            });
-            if (elementToRemove) {
-                overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
+            } else {
+                return $q.reject();
             }
         };
     }]
@@ -7638,8 +7624,7 @@ var app = angular.module('elyoosApp');
 app.service('moment', require('./moment'));
 app.service('ElyModal', require('./modal'));
 app.service('UrlCache', require('./urlCache'));
-app.service('WaitingScreen', require('./waitingScreen/waitingScreen'));
-},{"./modal":285,"./moment":286,"./urlCache":293,"./waitingScreen/waitingScreen":298}],285:[function(require,module,exports){
+},{"./modal":285,"./moment":286,"./urlCache":293}],285:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
@@ -7923,29 +7908,6 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
 },{}],298:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
-
-    this.openScreen = function (loadingText) {
-        var confirm, modalParams = {}, finished;
-
-        modalParams.scope = $rootScope.$new(false);
-        modalParams.scope.title = loadingText;
-        modalParams.templateUrl = 'app/modules/util/waitingScreen/waitingScreen.html';
-        modalParams.animation = true;
-        modalParams.backdrop = 'static';
-        confirm = $modal.open(modalParams);
-
-        finished = function () {
-            confirm.close();
-        };
-
-        return finished;
-    };
-}];
-
-},{}],299:[function(require,module,exports){
-'use strict';
-
 module.exports = {
     directiveCtrl: function () {
         return ['$mdMedia', 'loginStateHandler', function ($mdMedia, loginStateHandler) {
@@ -7971,7 +7933,7 @@ module.exports = {
 };
 
 
-},{}],300:[function(require,module,exports){
+},{}],299:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -7992,9 +7954,9 @@ module.exports = {
     name: 'elyViewPort'
 };
 
-},{"./controller.js":299}],301:[function(require,module,exports){
+},{"./controller.js":298}],300:[function(require,module,exports){
 arguments[4][97][0].apply(exports,arguments)
-},{"./directive.js":300,"dup":97}],302:[function(require,module,exports){
+},{"./directive.js":299,"dup":97}],301:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -8041,4 +8003,4 @@ module.exports={
   }
 }
 
-},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,61,62,63,64,58,59,60,65,66,67,68,69,73,74,75,70,71,72,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,115,116,117,118,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,195,196,197,192,193,194,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301]);
+},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,61,62,63,64,58,59,60,65,66,67,68,69,73,74,75,70,71,72,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,115,116,117,118,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,195,196,197,192,193,194,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300]);

@@ -15,6 +15,10 @@ module.exports = {
                         ctrl.statistics.statistic.push({type: groupName, count: 0});
                     });
                 };
+
+                ctrl.deleteGroup = function(name) {
+
+                };
             }];
     }
 };

@@ -8,10 +8,10 @@ var reduceCount = function (ctrl) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService) {
+        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService) {
                 var ctrl = this;
-                var scrollRequestName = 'ContactOverview' + ctrl.title;
+                var scrollRequestName = 'ContactOverview' + ctrl.statistic.type;
                 var requestedContacts = false;
                 ctrl.overview = {contacts: []};
                 ctrl.isExpanded = false;
@@ -30,8 +30,8 @@ module.exports = {
 
                 ctrl.nextOverview = function () {
                     var params;
-                    if (ctrl.title) {
-                        params = {types: [ctrl.title]};
+                    if (ctrl.statistic.type) {
+                        params = {types: [ctrl.statistic.type]};
                     }
                     ScrollRequest.nextRequest(scrollRequestName, ctrl.overview.contacts, params).then(function (overview) {
                         ctrl.overview = overview;
@@ -43,7 +43,7 @@ module.exports = {
                 };
 
                 ctrl.deleteGroup = function () {
-
+                    GroupSettingsService.deleteGroup(ctrl.statistic.type, ctrl.statistic.count);
                 };
 
                 ctrl.openGroupSetting = function () {
