@@ -32,7 +32,10 @@
                 </md-button>
                 <md-menu-content>
                     <md-menu-item>
-                        <md-button ng-click="ctrl.deleteContact(contact.userId)">Als Kontakt entfernen</md-button>
+                        <md-button ng-click="ctrl.moveContact(contact.userId, contact.name)">Gruppe wechseln</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="ctrl.deleteContact(contact.userId)">Kontakt entfernen</md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-button ng-click="ctrl.blockContact(contact.userId)">Kontakt blockieren</md-button>

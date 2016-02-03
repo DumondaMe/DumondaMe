@@ -4,7 +4,7 @@ module.exports = ['Contact', '$q', '$mdDialog',
     function (Contact, $q, $mdDialog) {
 
         this.addContact = function (contactId, name) {
-            if (angular.isString(contactId)) {
+            if (angular.isString(contactId) && angular.isString(name)) {
 
                 return $mdDialog.show({
                     templateUrl: 'app/modules/contact/modal/addContact/template.html',
@@ -59,5 +59,22 @@ module.exports = ['Contact', '$q', '$mdDialog',
             if (elementToRemove) {
                 overviewCollection.splice(overviewCollection.indexOf(elementToRemove), 1);
             }
+        };
+
+        this.moveContact = function (contactId, name, previousType) {
+            if (angular.isString(contactId) && angular.isString(name)) {
+
+                return $mdDialog.show({
+                    templateUrl: 'app/modules/contact/modal/moveContact/template.html',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: false,
+                    escapeToClose: false,
+                    controller: 'MoveContactController',
+                    locals: {name: name, contactId: contactId, previousType: previousType},
+                    bindToController: true,
+                    controllerAs: 'ctrl'
+                });
+            }
+            return $q.reject();
         };
     }];

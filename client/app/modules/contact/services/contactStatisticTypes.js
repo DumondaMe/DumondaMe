@@ -1,13 +1,13 @@
 'use strict';
 
-var getStatisticToRemove = function (elements, type) {
-    var statisticToRemove = null;
-    angular.forEach(elements, function (statisticElement) {
+var getStatistic = function (statistics, type) {
+    var result = null;
+    angular.forEach(statistics, function (statisticElement) {
         if (type === statisticElement.type) {
-            statisticToRemove = statisticElement;
+            result = statisticElement;
         }
     });
-    return statisticToRemove;
+    return result;
 };
 
 var addCountToNewStatistic = function (elements, oldStatisticCount, newStatisticType) {
@@ -23,13 +23,13 @@ var addCountToNewStatistic = function (elements, oldStatisticCount, newStatistic
 module.exports = [
     function () {
 
-        var statistic;
+        var statistic, service = this;
 
-        this.setStatistic = function (newStatistic) {
+        service.setStatistic = function (newStatistic) {
             statistic = newStatistic;
         };
 
-        this.getTypes = function (excludedGroup) {
+        service.getTypes = function (excludedGroup) {
             var types = [];
             angular.forEach(statistic, function (statisticElement) {
                 if (excludedGroup !== statisticElement.type) {
@@ -39,11 +39,26 @@ module.exports = [
             return types;
         };
 
-        this.removeType = function (type, newType) {
-            var elementToRemove = getStatisticToRemove(statistic, type);
+        service.removeType = function (type, newType) {
+            var elementToRemove = getStatistic(statistic, type);
             addCountToNewStatistic(statistic, elementToRemove.count, newType);
             if (elementToRemove) {
                 statistic.splice(statistic.indexOf(elementToRemove), 1);
+            }
+        };
+
+        service.removeContact = function (statistic) {
+            if (statistic.count > 0) {
+                statistic.count = statistic.count - 1;
+            }
+        };
+
+        service.moveContact = function (previousStatistic, newGroupName) {
+            var newStatistic = getStatistic(statistic, newGroupName);
+            service.removeContact(previousStatistic);
+            newStatistic.count = newStatistic.count + 1;
+            if (newStatistic.hasOwnProperty('reloadContact')) {
+                newStatistic.reloadContact();
             }
         };
     }];

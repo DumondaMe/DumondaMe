@@ -1,15 +1,9 @@
 'use strict';
 
-var reduceCount = function (ctrl) {
-    if (ctrl.count > 0) {
-        ctrl.count = ctrl.count - 1;
-    }
-};
-
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService) {
+        return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService', 'ContactStatisticTypes',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService, ContactStatisticTypes) {
                 var ctrl = this;
                 var scrollRequestName = 'ContactOverview' + ctrl.statistic.type;
                 var requestedContacts = false;
@@ -29,13 +23,16 @@ module.exports = {
                 ScrollRequest.reset(scrollRequestName, Contact.get, ContactOverviewResponseHandler);
 
                 ctrl.nextOverview = function () {
-                    var params;
-                    if (ctrl.statistic.type) {
-                        params = {types: [ctrl.statistic.type]};
-                    }
+                    var params = {types: [ctrl.statistic.type]};
                     ScrollRequest.nextRequest(scrollRequestName, ctrl.overview.contacts, params).then(function (overview) {
                         ctrl.overview = overview;
                     });
+                };
+
+                ctrl.statistic.reloadContact = function () {
+                    ctrl.overview = {contacts: []};
+                    ScrollRequest.reset(scrollRequestName, Contact.get, ContactOverviewResponseHandler);
+                    ctrl.nextOverview();
                 };
 
                 ctrl.changeGroupName = function () {
@@ -54,7 +51,7 @@ module.exports = {
                     UserStateService.blockContact(contactId).then(function () {
                         UserStateService.removeContact(ctrl.overview.contacts, contactId);
                         ScrollRequest.removedElement(scrollRequestName);
-                        reduceCount(ctrl);
+                        ContactStatisticTypes.removeContact(ctrl.statistic);
                     });
                 };
 
@@ -62,7 +59,15 @@ module.exports = {
                     UserStateService.deleteContact(contactId).then(function () {
                         UserStateService.removeContact(ctrl.overview.contacts, contactId);
                         ScrollRequest.removedElement(scrollRequestName);
-                        reduceCount(ctrl);
+                        ContactStatisticTypes.removeContact(ctrl.statistic);
+                    });
+                };
+
+                ctrl.moveContact = function (contactId, name) {
+                    UserStateService.moveContact(contactId, name, ctrl.statistic.type).then(function (newGroup) {
+                        UserStateService.removeContact(ctrl.overview.contacts, contactId);
+                        ScrollRequest.removedElement(scrollRequestName);
+                        ContactStatisticTypes.moveContact(ctrl.statistic, newGroup);
                     });
                 };
             }];

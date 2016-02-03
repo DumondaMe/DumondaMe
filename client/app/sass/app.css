@@ -418,6 +418,12 @@ h2.website-structure-title {
   #add-contact .title .name {
     color: #3F51B5; }
 
+#move-contact .title {
+  font-size: 16px;
+  margin-bottom: 32px; }
+  #move-contact .title .name {
+    color: #3F51B5; }
+
 #ely-contact {
   height: 100%;
   background-color: #E0E0E0; }
