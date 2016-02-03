@@ -27,7 +27,18 @@ module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
                         ContactStatisticTypes.removeType(groupName);
                     });
                 } else {
-                    //Modal
+                    return $mdDialog.show({
+                        templateUrl: 'app/modules/settings/modal/deleteGroup/template.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false,
+                        escapeToClose: false,
+                        controller: 'DeleteGroupController',
+                        locals: {groupName: groupName},
+                        bindToController: true,
+                        controllerAs: 'ctrl'
+                    }).then(function (newGroupName) {
+                        ContactStatisticTypes.removeType(groupName, newGroupName);
+                    });
                 }
             } else {
                 return $q.reject();

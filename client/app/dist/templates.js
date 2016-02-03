@@ -371,6 +371,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/modal/deleteGroup/template.html',
+    "<md-dialog id=delete-group aria-label=\"Delete Group\" ng-cloak><form name=ctrl.deleteGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Gruppe <span class=name>{{ctrl.groupName}}</span> löschen</div><div class=\"md-body-1 description\">Kontakte werden in folgende Gruppe verschoben:</div><md-radio-group ng-model=ctrl.selectedGroup><md-radio-button ng-repeat=\"group in ctrl.groups\" value={{group}} aria-label={{group}} ng-disable=ctrl.uploadStarted>{{group}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\" ctrl.uploadStarted\">Löschen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/settings/popoverDeletePrivacy.html',
     "<div class=popover ng-controller=DeletePrivacyCtrl><div class=arrow></div><div class=popover-content><form name=popoverForm><div class=popover-element-description>Kontakte <b>{{privacy.type}}</b> werden beim löschen der Privatsphären Einstellung verschoben nach:</div><button type=button class=\"btn btn-default popover-element-right\" ng-model=otherPrivacySettingType bs-options=\"privacyType for privacyType in otherPrivacySettingTypes\" bs-select>Action <span class=caret></span></button><div class=popover-element-divider></div><div class=popover-element-right><button type=submit class=\"btn btn-default\" ng-click=deletePrivacySetting()>Löschen</button></div><div class=popover-element><button type=submit class=\"btn btn-default\" ng-click=$hide()>Abbrechen</button></div></form></div></div>"
   );
