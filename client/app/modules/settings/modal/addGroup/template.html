@@ -12,25 +12,29 @@
                     <div ng-message="ely-types-exist">Diese Gruppe existiert bereits</div>
                 </div>
             </md-input-container>
-            <md-checkbox ng-model="ctrl.profileVisible" aria-label="Profile visible" class="select-privacy">
+            <md-checkbox ng-model="ctrl.profileVisible" aria-label="Profile visible" class="select-privacy" ng-disabled="ctrl.uploadStarted">
                 Mein Profil ist sichtbar
             </md-checkbox>
-            <md-checkbox ng-model="ctrl.contactsVisible" ng-disabled="!ctrl.profileVisible" aria-label="Contacts visible" class="select-privacy">
+            <md-checkbox ng-model="ctrl.contactsVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Contacts visible"
+                         class="select-privacy">
                 Meine Kontakte sind sichtbar
             </md-checkbox>
-            <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="!ctrl.profileVisible" aria-label="Image visible" class="select-privacy">
+            <md-checkbox ng-model="ctrl.imageVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Image visible"
+                         class="select-privacy">
                 Mein Profilbild ist sichtbar
             </md-checkbox>
-            <md-checkbox ng-model="ctrl.profileDataVisible" ng-disabled="!ctrl.profileVisible" aria-label="Profile Data visible"
+            <md-checkbox ng-model="ctrl.profileDataVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Profile Data visible"
                          class="select-privacy">
                 Meine Profildaten sind sichtbar
             </md-checkbox>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-click="ctrl.accept()" ng-disabled="!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid">
+            <md-button class="md-primary" ng-click="ctrl.accept()"
+                       ng-disabled="!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted">
                 Hinzufügen
             </md-button>
         </md-dialog-actions>
     </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

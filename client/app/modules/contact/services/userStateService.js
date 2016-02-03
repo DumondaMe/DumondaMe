@@ -6,25 +6,15 @@ module.exports = ['Contact', '$q', '$mdDialog',
         this.addContact = function (contactId, name) {
             if (angular.isString(contactId)) {
 
-                var selectedPrivacyType;
                 return $mdDialog.show({
-                    templateUrl: 'app/modules/contact/modal/selectGroup/template.html',
+                    templateUrl: 'app/modules/contact/modal/addContact/template.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     escapeToClose: false,
-                    controller: 'SelectContactGroupController',
-                    locals: {name: name},
+                    controller: 'AddContactController',
+                    locals: {name: name, contactId: contactId},
                     bindToController: true,
                     controllerAs: 'ctrl'
-                }).then(function (privacyType) {
-                    selectedPrivacyType = privacyType;
-                    return Contact.save({
-                        contactIds: [contactId],
-                        mode: 'addContact',
-                        description: privacyType
-                    }).$promise.then(function () {
-                        return selectedPrivacyType;
-                    });
                 });
             }
             return $q.reject();

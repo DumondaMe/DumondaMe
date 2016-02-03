@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService',
-    function (Privacy, $mdDialog, CheckGroupNameService) {
+module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
+    function (Privacy, $mdDialog, CheckGroupNameService, errorToast) {
         var ctrl = this;
         ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
@@ -32,6 +32,7 @@ module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService',
             }, function () {
                 $mdDialog.hide(ctrl.groupName);
             }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
                 ctrl.uploadStarted = false;
             });
         };

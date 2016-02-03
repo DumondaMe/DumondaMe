@@ -88,7 +88,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreview/template.html',
-    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand()>{{ctrl.statistic.type}}</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand() ng-if=\"ctrl.statistic.count > 0\">{{ctrl.statistic.count}} Kontakte</div><div class=\"count md-subhead\" ng-if=\"ctrl.statistic.count === 0\">leer</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=\"ctrl.isExpanded && ctrl.overview.contacts.length > 0\"><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.blockContact(contact.userId)>Kontakt blockieren</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.userId)>Als Kontakt entfernen</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
+    "<div class=ely-contact-preview><div class=type-preview layout=row><div class=\"type md-title\" ng-click=ctrl.toggleExpand()>{{ctrl.statistic.type}}</div><div class=\"count md-subhead\" ng-click=ctrl.toggleExpand() ng-if=\"ctrl.statistic.count > 0\">{{ctrl.statistic.count}} Kontakte</div><div class=\"count md-subhead\" ng-if=\"ctrl.statistic.count === 0\">leer</div><span flex ng-click=ctrl.toggleExpand() class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting\" aria-label=\"Settings Gruppe\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.openGroupSetting()>Gruppen Settings</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.changeGroupName()>Gruppe umbennen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.deleteGroup()>Gruppe löschen</md-button></md-menu-item></md-menu-content></md-menu></div><div class=contact-previews ng-show=\"ctrl.isExpanded && ctrl.overview.contacts.length > 0\"><div class=contact-preview ng-repeat=\"contact in ctrl.overview.contacts\" layout=row><img class=profile-img ng-src=\"{{contact.profileUrl}}\"><div class=\"md-title name\">{{contact.name}}</div><span flex class=ely-spacer></span><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=system:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.deleteContact(contact.userId)>Als Kontakt entfernen</md-button></md-menu-item><md-menu-item><md-button ng-click=ctrl.blockContact(contact.userId)>Kontakt blockieren</md-button></md-menu-item></md-menu-content></md-menu></div></div></div>"
   );
 
 
@@ -97,8 +97,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/modal/selectGroup/template.html',
-    "<md-dialog id=select-contact-group aria-label=\"Select Contact Group\" ng-cloak><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> den Kontakten hinzufügen</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}}>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept()>Hinzufügen</md-button></md-dialog-actions></md-dialog>"
+  $templateCache.put('app/modules/contact/modal/addContact/template.html',
+    "<md-dialog id=add-contact aria-label=\"Select Contact Group\" ng-cloak><form name=ctrl.addContactForm><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> den Kontakten hinzufügen</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}} ng-disable=ctrl.uploadStarted>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disable=ctrl.uploadStarted>Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -368,7 +368,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/modal/addGroup/template.html',
-    "<md-dialog id=add-group aria-label=\"Add Group\" ng-cloak><form name=ctrl.createGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Neue Gruppe erstellen</div><md-input-container class=ely-input-container><label>Name</label><input name=groupName class=blog-input ng-model=ctrl.groupName required md-maxlength=30 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.createGroupForm.groupName.$error ng-show=ctrl.createGroupForm.groupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container><md-checkbox ng-model=ctrl.profileVisible aria-label=\"Profile visible\" class=select-privacy>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.contactsVisible ng-disabled=!ctrl.profileVisible aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.imageVisible ng-disabled=!ctrl.profileVisible aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.profileDataVisible ng-disabled=!ctrl.profileVisible aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid\">Hinzufügen</md-button></md-dialog-actions></form></md-dialog>"
+    "<md-dialog id=add-group aria-label=\"Add Group\" ng-cloak><form name=ctrl.createGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Neue Gruppe erstellen</div><md-input-container class=ely-input-container><label>Name</label><input name=groupName class=blog-input ng-model=ctrl.groupName required md-maxlength=30 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.createGroupForm.groupName.$error ng-show=ctrl.createGroupForm.groupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container><md-checkbox ng-model=ctrl.profileVisible aria-label=\"Profile visible\" class=select-privacy ng-disabled=ctrl.uploadStarted>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.contactsVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.imageVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.profileDataVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted\">Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -2412,15 +2412,8 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./directive.js":66,"./services/contact":76,"./services/contactDetail":77,"./services/contactStatistic":78,"./services/contactStatisticTypes":79,"./services/contacting":80,"./services/searchUserService":81,"./services/searchUsers":82,"./services/userStateService":83}],68:[function(require,module,exports){
 'use strict';
 
-var app = angular.module('elyoosApp');
-
-app.controller('SelectContactGroupController', require('./selectGroup/controller'));
-
-},{"./selectGroup/controller":69}],69:[function(require,module,exports){
-'use strict';
-
-module.exports = ['ContactStatisticTypes', '$mdDialog',
-    function (ContactStatisticTypes, $mdDialog) {
+module.exports = ['ContactStatisticTypes', '$mdDialog', 'Contact', 'errorToast',
+    function (ContactStatisticTypes, $mdDialog, Contact, errorToast) {
         var ctrl = this;
 
         ctrl.types = ContactStatisticTypes.getTypes();
@@ -2433,13 +2426,30 @@ module.exports = ['ContactStatisticTypes', '$mdDialog',
         };
 
         ctrl.accept = function () {
-            $mdDialog.hide(ctrl.selectedType);
+            ctrl.uploadStarted = true;
+            Contact.save({
+                contactIds: [ctrl.contactId],
+                mode: 'addContact',
+                description: ctrl.selectedType
+            },function () {
+                $mdDialog.hide(ctrl.selectedType);
+            }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
+                ctrl.uploadStarted = false;
+            });
         };
 
     }];
 
 
-},{}],70:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+
+app.controller('AddContactController', require('./addContact/controller'));
+
+},{"./addContact/controller":68}],70:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -2624,25 +2634,15 @@ module.exports = ['Contact', '$q', '$mdDialog',
         this.addContact = function (contactId, name) {
             if (angular.isString(contactId)) {
 
-                var selectedPrivacyType;
                 return $mdDialog.show({
-                    templateUrl: 'app/modules/contact/modal/selectGroup/template.html',
+                    templateUrl: 'app/modules/contact/modal/addContact/template.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     escapeToClose: false,
-                    controller: 'SelectContactGroupController',
-                    locals: {name: name},
+                    controller: 'AddContactController',
+                    locals: {name: name, contactId: contactId},
                     bindToController: true,
                     controllerAs: 'ctrl'
-                }).then(function (privacyType) {
-                    selectedPrivacyType = privacyType;
-                    return Contact.save({
-                        contactIds: [contactId],
-                        mode: 'addContact',
-                        description: privacyType
-                    }).$promise.then(function () {
-                        return selectedPrivacyType;
-                    });
                 });
             }
             return $q.reject();
@@ -6804,8 +6804,8 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./deletePrivacyCtrl":255,"./passwordCtrl":260,"./privacyCtrl":261,"./profileCtrl":262,"./renamePrivacyCtrl":263,"./services/groupSettingsService":264,"./services/password":265,"./services/privacy":266,"./services/profile":267}],257:[function(require,module,exports){
 'use strict';
 
-module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService',
-    function (Privacy, $mdDialog, CheckGroupNameService) {
+module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
+    function (Privacy, $mdDialog, CheckGroupNameService, errorToast) {
         var ctrl = this;
         ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
@@ -6836,6 +6836,7 @@ module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService',
             }, function () {
                 $mdDialog.hide(ctrl.groupName);
             }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
                 ctrl.uploadStarted = false;
             });
         };

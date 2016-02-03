@@ -1,0 +1,17 @@
+<md-dialog id="add-contact" aria-label="Select Contact Group" ng-cloak>
+    <form name="ctrl.addContactForm">
+        <md-dialog-content class="md-dialog-content">
+            <div class="md-title title"><span class="name">{{ctrl.name}}</span> den Kontakten hinzufügen</div>
+            <md-radio-group ng-model="ctrl.selectedType">
+                <md-radio-button ng-repeat="typeValue in ctrl.types" value="{{typeValue}}" aria-label="{{typeValue}}" ng-disable="ctrl.uploadStarted">
+                    {{typeValue}}
+                </md-radio-button>
+            </md-radio-group>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary" ng-click="ctrl.accept()" ng-disable="ctrl.uploadStarted">Hinzufügen</md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

@@ -1,14 +1,15 @@
 @import 'common/_modal';
+@import 'common/_modalError';
 @import 'common/_modalFilePreview';
 @import 'common/_toast';
 @import 'common/_websiteStructure';
 
+@import 'contact/modal/_addContact';
 @import 'contact/_contact';
 @import 'contact/_contacting';
 @import 'contact/_contactOverview';
 @import 'contact/_contactPreview';
 @import 'contact/_contactPreviewSquare';
-@import 'contact/_contactSelectGroup';
 @import 'contact/_details';
 @import 'contact/_searchUserOverview';
 
