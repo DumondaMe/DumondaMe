@@ -14,7 +14,7 @@ var getTotalNumberOfContacts = function (userId) {
 var getTotalNumberOfContactsPerType = function (userId, types) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
         .where('r.type IN {types}')
-        .return('count(*) AS contactsForPagination')
+        .return('count(*) AS numberOfContacts')
         .end({
             userId: userId,
             types: types

@@ -205,7 +205,7 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts[0].connected.should.equal('userToContact');
             res.body.contacts[1].connected.should.equal('userToContact');
             res.body.contacts[2].connected.should.equal('both');
-            res.body.contactsForPagination.should.equal(3);
+            res.body.numberOfContacts.should.equal(3);
             return requestHandler.getWithData('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
@@ -214,7 +214,7 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(1);
-            res.body.contactsForPagination.should.equal(1);
+            res.body.numberOfContacts.should.equal(1);
             return requestHandler.getWithData('/api/user/contact', {
                 maxItems: 5,
                 skip: 0,
@@ -223,7 +223,7 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(4);
-            res.body.contactsForPagination.should.equal(4);
+            res.body.numberOfContacts.should.equal(4);
         });
     });
 

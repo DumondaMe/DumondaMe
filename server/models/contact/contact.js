@@ -207,7 +207,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types) {
             var data = {};
             userInfo.addContactPreviewInfos(resp[0]);
             data.contacts = resp[0];
-            data.contactsForPagination = resp[1][0].contactsForPagination;
+            data.numberOfContacts = resp[1][0].numberOfContacts;
             return data;
         });
 };

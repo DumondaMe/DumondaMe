@@ -24,6 +24,10 @@ module.exports = ['$q', function ($q) {
         };
     };
 
+    this.hasNext = function (serviceName) {
+        return scrollRequests[serviceName].requestPinwallElements;
+    };
+
     this.nextRequest = function (serviceName, previousPinwall, additionalParams) {
         var deferred = $q.defer(), newPinwall, scrollRequest = scrollRequests[serviceName];
         if (scrollRequest.requestPinwallElements && !scrollRequest.requestPinwallElementsRunning) {

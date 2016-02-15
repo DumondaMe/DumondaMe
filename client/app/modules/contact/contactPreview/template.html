@@ -43,5 +43,10 @@
                 </md-menu-content>
             </md-menu>
         </div>
+        <div class="next-contacts" ng-show="ctrl.hasNext" layout="row" layout-align="center center">
+            <div flex="nogrow">
+                <md-button ng-click="ctrl.nextOverview()">Mehr Kontakte</md-button>
+            </div>
+        </div>
     </div>
 </div>

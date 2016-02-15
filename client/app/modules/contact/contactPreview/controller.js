@@ -9,6 +9,7 @@ module.exports = {
                 var requestedContacts = false;
                 ctrl.overview = {contacts: []};
                 ctrl.isExpanded = false;
+                ctrl.hasNext = false;
 
                 ctrl.toggleExpand = function () {
                     if (!requestedContacts && !ctrl.isExpanded) {
@@ -24,8 +25,10 @@ module.exports = {
 
                 ctrl.nextOverview = function () {
                     var params = {types: [ctrl.statistic.type]};
+                    ctrl.hasNext = false;
                     ScrollRequest.nextRequest(scrollRequestName, ctrl.overview.contacts, params).then(function (overview) {
                         ctrl.overview = overview;
+                        ctrl.hasNext = ScrollRequest.hasNext(scrollRequestName);
                     });
                 };
 

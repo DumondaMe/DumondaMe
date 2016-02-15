@@ -525,6 +525,8 @@ h2.website-structure-title {
             max-width: 400px; } }
       .ely-contact-preview .contact-previews .contact-preview .setting-contact {
         margin-top: 8px; }
+    .ely-contact-preview .contact-previews .next-contacts {
+      height: 64px; }
 
 .ely-contact-preview-square {
   position: relative;
