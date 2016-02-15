@@ -1,10 +1,8 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
-var should = require('chai').should();
 var moment = require('moment');
 
 describe('Integration Tests for contacting privacy settings', function () {
@@ -60,7 +58,7 @@ describe('Integration Tests for contacting privacy settings', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/contacting', {
-                itemsPerPage: 5,
+                maxItems: 5,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {

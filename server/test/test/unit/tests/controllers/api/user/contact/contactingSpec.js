@@ -2,10 +2,7 @@
 
 var testee = require('../../../../../../../../controllers/api/user/contact/contacting');
 var contacting = require('./../../../../../../../../models/contact/contacting');
-var validation = require('./../../../../../../../../lib/jsonValidation');
 var request = require('../../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
@@ -49,7 +46,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('skip is missing - Return a 400', function () {
 
         request.req.query = {
-            itemsPerPage: '5'
+            maxItems: '5'
         };
 
         return checkInvalidGetRequest(request);
@@ -58,7 +55,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('skip is to small - Return a 400', function () {
 
         request.req.query = {
-            itemsPerPage: '5',
+            maxItems: '5',
             skip: '-1'
         };
 
@@ -68,7 +65,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('itemsPerPage is to small - Return a 400', function () {
 
         request.req.query = {
-            itemsPerPage: '-1',
+            maxItems: '-1',
             skip: '1'
         };
 
@@ -78,7 +75,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('itemsPerPage is to big - Return a 400', function () {
 
         request.req.query = {
-            itemsPerPage: '51',
+            maxItems: '51',
             skip: '1'
         };
 
@@ -88,7 +85,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('itemsPerPage is not a number - Return a 400', function () {
 
         request.req.query = {
-            itemsPerPage: 'asb',
+            maxItems: 'asb',
             skip: '1'
         };
 
@@ -98,7 +95,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
     it('Error occurred while getting contacting- Return a 500', function () {
 
         request.req.query = {
-            itemsPerPage: '5',
+            maxItems: '5',
             skip: '0'
         };
 

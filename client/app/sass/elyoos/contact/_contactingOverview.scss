@@ -1,0 +1,17 @@
+#ely-contacting-overview {
+  height: 100%;
+  background-color: $background-normal;
+  padding: 16px 16px 0 16px;
+
+  #overview-text {
+    width: 180px;
+    margin: 8px auto;
+    .number-of-contacting {
+      font-size: 14px;
+      .number {
+        font-weight: 700;
+        color: $primary-color;
+      }
+    }
+  }
+}

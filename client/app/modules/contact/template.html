@@ -1,13 +1,13 @@
 <md-content id="ely-contact">
     <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery">
-        <md-tab label="Kontakte">
-            <md-content class="contact-tab-content">
+        <md-tab label="Kontakte" md-on-select="ctrl.contactSelect = true" md-on-deselect="ctrl.contactSelect = false">
+            <md-content class="contact-tab-content" ng-if="ctrl.contactSelect">
                 <ely-contact-overview></ely-contact-overview>
             </md-content>
         </md-tab>
-        <md-tab label="Follower">
-            <md-content class="contact-tab-content">
-
+        <md-tab label="Follower" md-on-select="ctrl.contactingSelect = true" md-on-deselect="ctrl.contactingSelect = false">
+            <md-content class="contact-tab-content" ng-if="ctrl.contactingSelect">
+                <ely-contacting-overview></ely-contacting-overview>
             </md-content>
         </md-tab>
     </md-tabs>

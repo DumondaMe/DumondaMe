@@ -111,8 +111,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/overviewFollowers/template.html',
-    "<md-content id=ely-user-search-overview><div class=preview-container ng-repeat=\"user in ctrl.users\"><ely-contact-preview-square user=user></ely-contact-preview-square></div></md-content>"
+  $templateCache.put('app/modules/contact/overviewContacting/template.html',
+    "<md-content id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting()><div class=md-padding layout-wrap layout=row><div flex=100><md-card id=overview-text><md-card-content><div class=number-of-contacting ng-if=\"ctrl.users.numberOfAllContactings > 0\"><span class=number>{{ctrl.users.numberOfAllContactings}}</span> Personen haben Dich als Kontakt</div><div class=number-of-contacting ng-if=\"ctrl.users.numberOfAllContactings === 0\">Noch niemand hat Dich in seine Kontaktliste aufgenommen</div></md-card-content></md-card></div><div flex=100 ng-repeat=\"contactingUsers in ctrl.users.contactingUsers\"><ely-contact-preview-square user=contactingUsers></ely-contact-preview-square></div></div></div></md-content>"
   );
 
 
@@ -122,7 +122,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\"><md-tab label=Kontakte><md-content class=contact-tab-content><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower><md-content class=contact-tab-content></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\"><md-tab label=Kontakte md-on-select=\"ctrl.contactSelect = true\" md-on-deselect=\"ctrl.contactSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactSelect><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower md-on-select=\"ctrl.contactingSelect = true\" md-on-deselect=\"ctrl.contactingSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactingSelect><ely-contacting-overview></ely-contacting-overview></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
   );
 
 

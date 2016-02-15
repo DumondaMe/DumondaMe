@@ -432,30 +432,18 @@ h2.website-structure-title {
     #ely-contact .contact-tabs md-tabs-wrapper {
       background-color: #ffffff; }
 
-#content #content-page-contacting {
-  width: 100%;
-  height: 100%; }
-  #content #content-page-contacting .contacting-info {
-    width: 100%;
-    height: 40px;
-    clear: both; }
-    #content #content-page-contacting .contacting-info .contacting-inner-info {
-      font-size: 14px;
-      font-weight: bold;
-      border-bottom: 1px solid #00796B;
-      margin: 6px 10px 10px 10px; }
-  #content #content-page-contacting #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 230px; }
-    #content #content-page-contacting #centerCol #inner-centerCol {
-      position: relative;
-      min-width: 800px;
-      padding-left: 50px;
-      margin-top: 80px; }
-      #content #content-page-contacting #centerCol #inner-centerCol h1.website-structure-title {
-        padding-left: 10px;
-        margin-bottom: 30px; }
+#ely-contacting-overview {
+  height: 100%;
+  background-color: #E0E0E0;
+  padding: 16px 16px 0 16px; }
+  #ely-contacting-overview #overview-text {
+    width: 180px;
+    margin: 8px auto; }
+    #ely-contacting-overview #overview-text .number-of-contacting {
+      font-size: 14px; }
+      #ely-contacting-overview #overview-text .number-of-contacting .number {
+        font-weight: 700;
+        color: #3F51B5; }
 
 #ely-contact-overview {
   height: 100%;

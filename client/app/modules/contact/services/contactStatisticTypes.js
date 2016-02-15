@@ -47,10 +47,22 @@ module.exports = [
             }
         };
 
-        service.removeContact = function (statistic) {
-            if (statistic.count > 0) {
-                statistic.count = statistic.count - 1;
+        service.removeContact = function (statisticObject) {
+            if (statisticObject.count > 0) {
+                statisticObject.count = statisticObject.count - 1;
             }
+        };
+
+        service.removeContactByName = function (statisticName) {
+            var statisticObject = getStatistic(statistic, statisticName);
+            if (statisticObject.count > 0) {
+                statisticObject.count = statisticObject.count - 1;
+            }
+        };
+
+        service.addContactByName = function (statisticName) {
+            var statisticObject = getStatistic(statistic, statisticName);
+            statisticObject.count = statisticObject.count + 1;
         };
 
         service.moveContact = function (previousStatistic, newGroupName) {

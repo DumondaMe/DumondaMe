@@ -10,9 +10,9 @@ var schemaRequestConnecting = {
     name: 'requestContacting',
     type: 'object',
     additionalProperties: false,
-    required: ['itemsPerPage', 'skip'],
+    required: ['maxItems', 'skip'],
     properties: {
-        itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0}
     }
 };
@@ -24,7 +24,7 @@ module.exports = function (router) {
         return controllerErrors('Error when getting contacting information', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaRequestConnecting, logger).then(function (request) {
                 logger.info("User requests contacting information", req);
-                return contacting.getContacting(req.user.id, request.itemsPerPage, request.skip);
+                return contacting.getContacting(req.user.id, request.maxItems, request.skip);
             }).then(function (users) {
                 res.status(200).json(users);
             });
