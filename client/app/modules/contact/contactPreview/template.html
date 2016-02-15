@@ -15,7 +15,7 @@
                 <md-menu-item>
                     <md-button ng-click="ctrl.changeGroupName()">Gruppe umbennen</md-button>
                 </md-menu-item>
-                <md-menu-item>
+                <md-menu-item ng-if="ctrl.statistics.length > 1">
                     <md-button ng-click="ctrl.deleteGroup()">Gruppe löschen</md-button>
                 </md-menu-item>
             </md-menu-content>

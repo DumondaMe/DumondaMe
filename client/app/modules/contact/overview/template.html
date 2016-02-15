@@ -1,6 +1,6 @@
 <md-content id="ely-contact-overview">
     <div class="preview-container" ng-repeat="statistic in ctrl.statistics.statistic">
-        <ely-contact-preview statistic="statistic" delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
+        <ely-contact-preview statistic="statistic" statistics="ctrl.statistics.statistic" delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
     </div>
     <div layout="row" class="add-new-group">
         <span flex></span>
