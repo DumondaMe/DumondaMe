@@ -56,6 +56,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.connected.should.equals('none');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
@@ -89,6 +90,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('none');
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
@@ -122,6 +124,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('none');
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
@@ -159,6 +162,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.user.connected.should.equals('userToContact');
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
@@ -196,6 +200,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 res.body.user.connected.should.equals('userToContact');
+                res.body.user.blocked.should.equals(false);
 
                 //Contacts
                 res.body.contacts.length.should.equals(0);
@@ -311,6 +316,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.user.connected.should.equals('contactToUser');
                 should.not.exist(res.body.user.type);
+                res.body.user.blocked.should.equals(false);
                 //Contacts
                 res.body.contacts.length.should.equals(5);
                 res.body.contacts[0].name.should.equals('user3 Meier3');
@@ -368,6 +374,7 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('contactToUser');
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
@@ -406,6 +413,7 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.type);
                 res.body.contacts.length.should.equals(0);
                 res.body.user.connected.should.equals('contactToUser');
+                res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
