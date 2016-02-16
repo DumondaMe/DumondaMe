@@ -7,7 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.factory('Contact', require('./services/contact'));
 app.factory('ContactStatistic', require('./services/contactStatistic'));
-app.factory('ContactDetail', require('./services/contactDetail'));
+app.factory('UserDetail', require('./services/userDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
 
@@ -31,21 +31,11 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             data: {hasSearch: true, searchServiceName: 'contact'}
         })
-        .state('contact.contacting', {
-            url: '/contacting',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/contact/contacting.html',
-                    controller: 'ContactingCtrl'
-                }
-            }
-        })
         .state('contact.detail', {
             url: '/details/{userId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/contact/userDetail.html',
-                    controller: 'DetailContactCtrl'
+                    template: '<ely-user-detail></ely-user-detail>'
                 }
             }
         });

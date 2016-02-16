@@ -23,9 +23,9 @@
     </div>
     <div class="contact-previews" ng-show="ctrl.isExpanded && ctrl.overview.contacts.length > 0">
         <div class="contact-preview" ng-repeat="contact in ctrl.overview.contacts" layout="row">
-            <img class="profile-img" ng-src="{{contact.profileUrl}}"/>
-            <div class="md-title name">{{contact.name}}</div>
-            <span flex class="ely-spacer"></span>
+            <img class="profile-img" ng-src="{{contact.profileUrl}}" ng-click="ctrl.goToDetail(contact.userId)"/>
+            <div class="md-title name" ng-click="ctrl.goToDetail(contact.userId)">{{contact.name}}</div>
+            <span flex class="ely-spacer" ng-click="ctrl.goToDetail(contact.userId)"></span>
             <md-menu md-position-mode="target-right target">
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button setting-contact" aria-label="Settings Contact">
                     <md-icon md-svg-icon="system:moreVert"></md-icon>

@@ -2,5 +2,5 @@
 
 module.exports = ['$resource', function ($resource) {
 
-    return $resource('/api/user/contact/detail', null, {});
+    return $resource('/api/user/detail', null, {});
 }];

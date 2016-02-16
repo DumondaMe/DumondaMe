@@ -1,7 +1,6 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var _ = require('underscore');
 
 var getTotalNumberOfContacts = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[:IS_CONTACT]->(:User)')
@@ -24,33 +23,20 @@ var getTotalNumberOfContactsPerType = function (userId, types) {
 var getContactStatisticsCommand = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(:User)')
         .return('r.type AS type, count(*) AS count')
-        .orderBy("count DESC")
+        .union()
+        .match('(u:User {userId: {userId}})-[privacy:HAS_PRIVACY]->(:Privacy)')
+        .where('NOT (u)-[:IS_CONTACT {type: privacy.type}]->(:User)')
+        .return('privacy.type AS type, 0 AS count')
+        .orderBy("count DESC, type")
         .end({
             userId: userId
         });
 };
 
-var getAllContactTypesCommand = function (userId) {
-    return db.cypher().match('(u:User {userId: {userId}})-[privacy:HAS_PRIVACY]->(:Privacy)')
-        .return('privacy.type AS type')
-        .end({
-            userId: userId
-        }).getCommand();
-};
-
-var addUnusedTypes = function (statistic, allTypes) {
-    _.each(allTypes, function (type) {
-        if (!_.findWhere(statistic, type)) {
-            statistic.push({type: type.type, count: 0});
-        }
-    });
-    return statistic;
-};
-
 var getContactStatistics = function (userId) {
     return getContactStatisticsCommand(userId)
-        .send([getTotalNumberOfContacts(userId).getCommand(), getAllContactTypesCommand(userId)]).then(function (resp) {
-            return {numberOfContacts: resp[0][0].numberOfContacts, statistic: addUnusedTypes(resp[2], resp[1])};
+        .send([getTotalNumberOfContacts(userId).getCommand()]).then(function (resp) {
+            return {numberOfContacts: resp[0][0].numberOfContacts, statistic: resp[1]};
         });
 };
 

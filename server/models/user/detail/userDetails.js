@@ -4,13 +4,15 @@ var db = require('./../../../neo4j');
 var cdn = require('../../util/cdn');
 var userInfo = require('../userInfo');
 var contact = require('./contact');
+var contactStatistic = require('../../contact/contactStatistic');
 var _ = require("lodash");
 var logger = requireLogger.getLogger(__filename);
 
 var returnContactDetails = function (resp, userId, detailUserId, req) {
-    var detailUserData = resp[0];
-    var detailUserPrivacy = resp[0].privacy;
+    var detailUserData = resp[1][0];
+    var detailUserPrivacy = resp[1][0].privacy;
     var detailUser = {
+        userId: detailUserId,
         name: detailUserData.detailUser.name,
         female: detailUserData.detailUser.female,
         type: detailUserData.type,
@@ -36,6 +38,7 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
             logger.debug('Get detail of user ' + detailUserId + ' with contacts', req);
             return contact.getContacts(userId, detailUserId, 9, 0).then(function (contact) {
                 contact.user = _.omitBy(detailUser, _.isUndefined);
+                contact.contactTypeStatistic = resp[0];
                 return contact;
             });
         }
@@ -44,12 +47,14 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
     }
     logger.debug('Get detail of user ' + detailUserId + ' without contacts', req);
     detailUser = _.omitBy(detailUser, _.isUndefined);
-    return {user: detailUser, contacts: []};
+    return {user: detailUser, contacts: [], contactTypeStatistic: resp[0]};
 };
 
 var getUserDetails = function (userId, requestUserDetailId, req) {
 
     var commands = [];
+
+    commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 
     return db.cypher().match('(detailUser:User {userId: {requestUserDetailId}}), (user:User {userId: {userId}})')
         .optionalMatch('(user)-[isContact:IS_CONTACT]->(detailUser)')

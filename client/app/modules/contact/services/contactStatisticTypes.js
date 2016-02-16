@@ -55,7 +55,7 @@ module.exports = [
 
         service.removeContactByName = function (statisticName) {
             var statisticObject = getStatistic(statistic, statisticName);
-            if (statisticObject.count > 0) {
+            if (statisticObject && statisticObject.count > 0) {
                 statisticObject.count = statisticObject.count - 1;
             }
         };

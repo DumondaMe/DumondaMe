@@ -3,7 +3,8 @@
 module.exports = {
     directiveCtrl: function () {
         return ['ScrollRequest', 'Contact', 'ContactOverviewResponseHandler', 'UserStateService', 'GroupSettingsService', 'ContactStatisticTypes',
-            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService, ContactStatisticTypes) {
+            '$state',
+            function (ScrollRequest, Contact, ContactOverviewResponseHandler, UserStateService, GroupSettingsService, ContactStatisticTypes, $state) {
                 var ctrl = this;
                 var scrollRequestName = 'ContactOverview' + ctrl.statistic.type;
                 var requestedContacts = false;
@@ -72,6 +73,10 @@ module.exports = {
                         ScrollRequest.removedElement(scrollRequestName);
                         ContactStatisticTypes.moveContact(ctrl.statistic, newGroup);
                     });
+                };
+
+                ctrl.goToDetail = function (userId) {
+                    $state.go('contact.detail', {userId: userId});
                 };
             }];
     }

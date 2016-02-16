@@ -424,6 +424,33 @@ h2.website-structure-title {
   #move-contact .title .name {
     color: #3F51B5; }
 
+#ely-user-detail {
+  height: 100%;
+  background-color: #E0E0E0;
+  padding: 0 6px; }
+
+#ely-user-detail-profile {
+  width: 100%;
+  max-width: 400px; }
+  #ely-user-detail-profile .profile-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-bottom: 16px; }
+  #ely-user-detail-profile .name {
+    font-size: 18px;
+    font-weight: 500; }
+  #ely-user-detail-profile .type {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #9197a3; }
+  #ely-user-detail-profile .blocked {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #ff5722; }
+
 #ely-contact {
   height: 100%;
   background-color: #E0E0E0; }
@@ -552,80 +579,6 @@ h2.website-structure-title {
     font-size: 14px;
     color: #ff5722;
     padding: 0 16px; }
-
-#content-page-contact-details {
-  width: 100%;
-  height: 100%;
-  padding-top: 60px; }
-  #content-page-contact-details #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 0px; }
-    #content-page-contact-details #centerCol #inner-centerCol {
-      height: 100%;
-      background-color: #7986CB; }
-      #content-page-contact-details #centerCol #inner-centerCol .profile-detail-content-group {
-        width: 100%;
-        padding-top: 10px;
-        padding-left: 280px;
-        background-color: #7986CB;
-        padding-bottom: 10px; }
-        #content-page-contact-details #centerCol #inner-centerCol .profile-detail-content-group .profile-detail-content-group-inner {
-          margin-top: 20px; }
-      #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header {
-        background-color: #E0E0E0;
-        border-bottom: 2px solid #d6d6d6;
-        min-width: 1000px;
-        padding: 25px 0 35px 280px;
-        margin-bottom: 10px; }
-        #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-image {
-          display: inline-block;
-          vertical-align: top;
-          width: 250px;
-          height: 250px; }
-          #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-image img {
-            height: 100%;
-            width: 100%; }
-        #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data {
-          display: inline-block;
-          margin-left: 60px;
-          height: 250px; }
-          #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview {
-            height: 216px;
-            max-height: 216px; }
-            #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-data-name {
-              font-size: 30px;
-              font-weight: 100;
-              color: #3F51B5;
-              display: inline-block; }
-            #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-connection-type {
-              font-size: 14px;
-              font-weight: 300;
-              font-style: italic;
-              margin-bottom: 10px; }
-              #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-connection-type:hover {
-                text-decoration: underline;
-                cursor: pointer; }
-            #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-connection-state {
-              height: 25px;
-              width: 25px;
-              margin-left: 10px;
-              display: inline-block;
-              cursor: pointer; }
-              #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview #profile-connection-state img {
-                height: 100%;
-                width: 100%;
-                border: none;
-                margin-bottom: 5px; }
-            #content-page-contact-details #centerCol #inner-centerCol #profile-detail-header #profile-data #profile-data-overview .profile-data-description {
-              font-size: 16px;
-              font-weight: 300;
-              margin-bottom: 4px; }
-      #content-page-contact-details #centerCol #inner-centerCol .profile-contacts-description {
-        margin-top: -10px;
-        margin-bottom: 20px;
-        font-size: 14px;
-        font-weight: 300; }
 
 #ely-user-search-overview {
   height: 100%;

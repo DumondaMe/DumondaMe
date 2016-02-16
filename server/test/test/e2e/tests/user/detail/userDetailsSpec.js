@@ -56,6 +56,8 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.connected.should.equals('none');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -87,6 +89,8 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('none');
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -118,6 +122,8 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('none');
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -153,6 +159,8 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.user.connected.should.equals('userToContact');
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -191,6 +199,8 @@ describe('Integration Tests for getting user details', function () {
 
                 //Contacts
                 res.body.contacts.length.should.equals(0);
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -321,6 +331,8 @@ describe('Integration Tests for getting user details', function () {
 
                 res.body.numberOfContacts.should.equals(6);
                 res.body.numberOfSameContacts.should.equals(2);
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -356,6 +368,8 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.connected.should.equals('contactToUser');
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 
@@ -392,6 +406,8 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.type);
                 res.body.contacts.length.should.equals(0);
                 res.body.user.connected.should.equals('contactToUser');
+
+                res.body.contactTypeStatistic.length.should.equals(2);
             });
     });
 });
