@@ -46,6 +46,7 @@ var getUserInfos = function (userId) {
 var addProfileUrl = function (element, pinwallElement) {
     if (pinwallElement.hasOwnProperty('contact')) {
         element.name = pinwallElement.contact.name;
+        element.userId = pinwallElement.contact.userId;
         if (pinwallElement.hasOwnProperty('privacy')) {
             element.profileUrl = userInfo.getImageForPreview(
                 {
@@ -63,6 +64,7 @@ var addProfileUrl = function (element, pinwallElement) {
         }
     } else {
         element.name = pinwallElement.user.name;
+        element.userId = pinwallElement.user.userId;
         element.profileUrl = userInfo.getImageForPreview({
             userId: pinwallElement.user.userId, profileVisible: true, imageVisible: true
         }, 'thumbnail.jpg');

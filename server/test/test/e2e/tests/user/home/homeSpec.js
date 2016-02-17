@@ -574,6 +574,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].pinwallType.should.equals('Blog');
                 res.body.pinwall[0].blogId.should.equals('4');
                 res.body.pinwall[0].name.should.equals('user Meier3');
+                res.body.pinwall[0].userId.should.equals('3');
                 res.body.pinwall[0].title.should.equals('blogTitle4');
                 res.body.pinwall[0].created.should.equals(506);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
@@ -585,6 +586,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].blogId.should.equals('3');
                 res.body.pinwall[1].name.should.equals('user Meier');
+                res.body.pinwall[1].userId.should.equals('1');
                 res.body.pinwall[1].title.should.equals('blogTitle3');
                 res.body.pinwall[1].created.should.equals(505);
                 res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
@@ -597,6 +599,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[2].label.should.equals('Youtube');
                 res.body.pinwall[2].pageId.should.equals('1');
                 res.body.pinwall[2].name.should.equals('user Meier2');
+                res.body.pinwall[2].userId.should.equals('2');
                 res.body.pinwall[2].title.should.equals('bookPage2Title');
                 res.body.pinwall[2].rating.should.equals(4);
                 res.body.pinwall[2].created.should.equals(504);
@@ -610,6 +613,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].label.should.equals('Book');
                 res.body.pinwall[3].pageId.should.equals('0');
                 res.body.pinwall[3].name.should.equals('user Meier');
+                res.body.pinwall[3].userId.should.equals('1');
                 res.body.pinwall[3].title.should.equals('bookPage1Title');
                 res.body.pinwall[3].rating.should.equals(1);
                 res.body.pinwall[3].created.should.equals(503);
@@ -622,6 +626,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[4].pinwallType.should.equals('Blog');
                 res.body.pinwall[4].blogId.should.equals('2');
                 res.body.pinwall[4].name.should.equals('user Meier2');
+                res.body.pinwall[4].userId.should.equals('2');
                 res.body.pinwall[4].title.should.equals('blogTitle2');
                 res.body.pinwall[4].created.should.equals(502);
                 res.body.pinwall[4].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -633,6 +638,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[5].pinwallType.should.equals('Blog');
                 res.body.pinwall[5].blogId.should.equals('1');
                 res.body.pinwall[5].name.should.equals('user Meier2');
+                res.body.pinwall[5].userId.should.equals('2');
                 res.body.pinwall[5].title.should.equals('blogTitle1');
                 res.body.pinwall[5].created.should.equals(501);
                 res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
