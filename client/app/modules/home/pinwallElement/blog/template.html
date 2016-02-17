@@ -1,9 +1,9 @@
 <md-card class="pinwall-blog-card">
     <md-card-header>
-        <md-card-avatar>
+        <md-card-avatar ng-click="ctrl.openUserDetail()">
             <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
         </md-card-avatar>
-        <md-card-header-text>
+        <md-card-header-text ng-click="ctrl.openUserDetail()">
             <span class="md-title user-name">{{ctrl.element.name}}</span>
             <span class="md-subhead">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
         </md-card-header-text>

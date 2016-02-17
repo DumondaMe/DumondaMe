@@ -158,7 +158,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/pinwallElement/blog/template.html',
-    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-card-actions layout=row lauout-align=\"end center\" ng-if=ctrl.element.isAdmin><md-button ng-click=ctrl.deleteBlog() ng-disabled=ctrl.requestBlogDeleteRunning>Löschen</md-button></md-card-actions><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
+    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-card-actions layout=row lauout-align=\"end center\" ng-if=ctrl.element.isAdmin><md-button ng-click=ctrl.deleteBlog() ng-disabled=ctrl.requestBlogDeleteRunning>Löschen</md-button></md-card-actions><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
   );
 
 
@@ -223,7 +223,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav() hide-gt-md><md-icon md-svg-icon=system:menu></md-icon></md-button></div><md-select ng-model=ctrl.selectedSubNav id=ely-toolbar-sub-nav ng-if=ctrl.hasSubNav aria-label=\"Select Navigation\"><md-option ng-value=view ng-repeat=\"view in ctrl.subViews\">{{view.name}}</md-option></md-select><span flex></span><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none hide-gt-md><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div><div flex=none ng-if=ctrl.hasBackNav hide-gt-md><md-button class=md-icon-button aria-label=Back ng-click=ctrl.navigateBack()><md-icon md-svg-icon=system:arrowBack></md-icon></md-button></div><md-select ng-model=ctrl.selectedSubNav id=ely-toolbar-sub-nav ng-if=ctrl.hasSubNav aria-label=\"Select Navigation\"><md-option ng-value=view ng-repeat=\"view in ctrl.subViews\">{{view.name}}</md-option></md-select><span flex></span><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
   );
 
 
@@ -590,7 +590,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                     content: {
                         template: '<ely-home></ely-home>'
                     }
-                }
+                },
+                data: {hasBackNav: false}
             })
             .state('checkLoginState', {
                 url: '/',
@@ -2554,7 +2555,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-user-detail></ely-user-detail>'
                 }
-            }
+            },
+            data: {hasBackNav: true, backNavToState: true}
         });
 }]);
 },{"./directive.js":72,"./services/contact":87,"./services/contactStatistic":88,"./services/contactStatisticTypes":89,"./services/contacting":90,"./services/searchUserService":91,"./services/searchUsers":92,"./services/userDetail":93,"./services/userStateService":94}],74:[function(require,module,exports){
@@ -3432,8 +3434,8 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast',
-            function (dateFormatter, $mdDialog, Blog, errorToast) {
+        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', '$state',
+            function (dateFormatter, $mdDialog, Blog, errorToast, $state) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;
@@ -3443,6 +3445,10 @@ module.exports = {
                 ctrl.previewText = getPreviewText(ctrl.element.text);
 
                 hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+
+                ctrl.openUserDetail = function() {
+                    $state.go('contact.detail', {userId: ctrl.element.userId});
+                };
 
                 ctrl.openDetail = function () {
                     if (hasDetail) {
@@ -4326,13 +4332,13 @@ arguments[4][14][0].apply(exports,arguments)
 },{"./directive.js":146,"dup":14}],151:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler',
-    function ($rootScope, $mdSidenav, loginStateHandler) {
-        var ctrl = this;
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state) {
+        var ctrl = this, previousBackNav = false, previousState, previousParams, backNavToState;
         loginStateHandler.register(ctrl);
         ctrl.isLoggedIn = false;
         ctrl.hasSearch = false;
-        ctrl.hasSubNav = false;
+        ctrl.hasBackNav = true;
 
         ctrl.openLeftNav = function () {
             $mdSidenav("left").toggle();
@@ -4347,29 +4353,43 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler',
         };
 
         ctrl.searchOpen = function () {
-            if(ctrl.hasSearch && ctrl.hasOwnProperty('subViews')) {
-                ctrl.hasSubNav = false;
+            if (ctrl.hasBackNav) {
+                previousBackNav = true;
+                ctrl.hasBackNav = false;
             }
         };
 
         ctrl.searchClose = function () {
-            if(ctrl.hasSearch && ctrl.hasOwnProperty('subViews')) {
-                ctrl.hasSubNav = true;
+            if (previousBackNav) {
+                previousBackNav = false;
+                ctrl.hasBackNav = true;
             }
         };
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        ctrl.navigateBack = function () {
+            if (backNavToState && previousState) {
+                $state.go(previousState, previousParams);
+            } else {
+                $state.go('home');
+            }
+        };
+
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             ctrl.hasSearch = false;
-            ctrl.hasSubNav = false;
+            ctrl.hasBackNav = true;
+            backNavToState = false;
 
-            if(toState.hasOwnProperty('data')) {
+            if (fromState.name !== 'checkLoginState' && !fromState.abstract) {
+                previousState = fromState;
+                previousParams = fromParams;
+            }
+
+            if (toState.hasOwnProperty('data')) {
                 ctrl.hasSearch = toState.data.hasSearch;
-
-                if(toState.data.hasOwnProperty('subViews')) {
-                    ctrl.hasSubNav = true;
-                    ctrl.subViews = toState.data.subViews;
-                    ctrl.selectedSubNav = toState.data.subViews[0];
+                if (toState.data.hasOwnProperty('hasBackNav')) {
+                    ctrl.hasBackNav = toState.data.hasBackNav;
                 }
+                backNavToState = toState.data.backNavToState;
             }
         });
     }];

@@ -49,7 +49,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                     content: {
                         template: '<ely-home></ely-home>'
                     }
-                }
+                },
+                data: {hasBackNav: false}
             })
             .state('checkLoginState', {
                 url: '/',

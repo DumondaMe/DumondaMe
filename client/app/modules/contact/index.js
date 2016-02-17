@@ -37,6 +37,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-user-detail></ely-user-detail>'
                 }
-            }
+            },
+            data: {hasBackNav: true, backNavToState: true}
         });
 }]);

@@ -16,8 +16,8 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast',
-            function (dateFormatter, $mdDialog, Blog, errorToast) {
+        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', '$state',
+            function (dateFormatter, $mdDialog, Blog, errorToast, $state) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;
@@ -27,6 +27,10 @@ module.exports = {
                 ctrl.previewText = getPreviewText(ctrl.element.text);
 
                 hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
+
+                ctrl.openUserDetail = function() {
+                    $state.go('contact.detail', {userId: ctrl.element.userId});
+                };
 
                 ctrl.openDetail = function () {
                     if (hasDetail) {
