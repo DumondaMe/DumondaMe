@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes',
-            function (UserStateService, ContactStatisticTypes) {
+        return ['UserStateService', 'ContactStatisticTypes', '$state',
+            function (UserStateService, ContactStatisticTypes, $state) {
                 var ctrl = this;
 
                 ctrl.addContact = function () {
@@ -24,6 +24,10 @@ module.exports = {
                     UserStateService.unblockContact(ctrl.user.userId).then(function () {
                         delete ctrl.user.blocked;
                     });
+                };
+
+                ctrl.goToDetail = function () {
+                    $state.go('contact.detail', {userId: ctrl.user.userId});
                 };
             }];
     }

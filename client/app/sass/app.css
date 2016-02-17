@@ -588,10 +588,7 @@ h2.website-structure-title {
 #toolbar-header {
   position: relative;
   width: 100%;
-  margin-top: -56px;
-  /*@media screen and (min-width: $gt-xxs) {
-    margin-top: -48px;
-  }*/ }
+  margin-top: -56px; }
   @media screen and (min-width: 1280px) {
     #toolbar-header {
       margin-top: -64px; } }
@@ -612,7 +609,7 @@ h2.website-structure-title {
   .ely-toolbar-search-expanded #ely-toolbar-search {
     height: 100%;
     width: 100%;
-    padding: 7px; }
+    padding: 7px 0; }
     .ely-toolbar-search-expanded #ely-toolbar-search .search-container {
       position: relative;
       height: 100%;
@@ -641,52 +638,54 @@ h2.website-structure-title {
         @media screen and (min-width: 960px) {
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
             top: 13px; } }
-      .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete {
-        width: 100%;
-        height: 100%;
-        min-width: 120px;
-        box-shadow: none;
-        background-color: #7986CB;
-        border-radius: 5px; }
-        .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap {
-          box-shadow: none;
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container {
+        height: 100%; }
+        .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete {
           width: 100%;
+          height: 100%;
+          min-width: 120px;
+          box-shadow: none;
+          background-color: #7986CB;
           border-radius: 5px; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-            border-radius: 5px;
-            background-color: #7986CB;
-            color: white;
-            border: none;
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
+            box-shadow: none;
             width: 100%;
-            padding-left: 35px;
-            padding-right: 35px;
-            font-size: 16px;
-            font-weight: 400;
-            max-width: none;
-            height: 42px;
-            line-height: 42px; }
-            @media screen and (min-width: 480px) {
-              .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-                height: 34px;
-                line-height: 34px; } }
-            @media screen and (min-width: 960px) {
-              .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-                height: 50px;
-                line-height: 50px; } }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
-            outline: none; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
-            color: white; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
-            color: white; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
-            color: white; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
-            color: white; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
-            color: white; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container md-autocomplete md-autocomplete-wrap button {
-            display: none !important; }
+            border-radius: 5px; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+              border-radius: 5px;
+              background-color: #7986CB;
+              color: white;
+              border: none;
+              width: 100%;
+              padding-left: 35px;
+              padding-right: 35px;
+              font-size: 16px;
+              font-weight: 400;
+              max-width: none;
+              height: 42px;
+              line-height: 42px; }
+              @media screen and (min-width: 480px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 34px;
+                  line-height: 34px; } }
+              @media screen and (min-width: 960px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 50px;
+                  line-height: 50px; } }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
+              outline: none; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap button {
+              display: none !important; }
 
 .ely-toolbar-search-collapse {
   width: 40px; }

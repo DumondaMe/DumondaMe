@@ -5,6 +5,13 @@ module.exports = {
         return ['UserStateService', 'ContactStatisticTypes',
             function (UserStateService, ContactStatisticTypes) {
                 var ctrl = this;
+
+                ctrl.moveContact = function () {
+                    UserStateService.moveContact(ctrl.detail.user.userId, ctrl.detail.user.name, ctrl.detail.user.type).then(function (newGroup) {
+                        ctrl.detail.user.type = newGroup;
+                    });
+                };
+
                 ctrl.addContact = function () {
                     UserStateService.addContact(ctrl.detail.user.userId, ctrl.detail.user.name).then(function (type) {
                         ctrl.detail.user.type = type;

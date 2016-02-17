@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                detail: '='
+                detail: '=',
+                numberOfGroups: '='
             },
             templateUrl: 'app/modules/contact/detail/profile/template.html'
         };

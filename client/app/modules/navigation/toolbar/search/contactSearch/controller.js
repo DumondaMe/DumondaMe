@@ -17,7 +17,7 @@ module.exports = ['$scope', 'SearchUserService',
         };
 
         ctrl.keyPressed = function ($event) {
-            if ($event.charCode === charCodeEnter) {
+            if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
                 $scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
                 SearchUserService.startUserSearchRequest(ctrl.searchText);
             }

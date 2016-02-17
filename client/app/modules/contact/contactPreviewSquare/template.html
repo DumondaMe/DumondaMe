@@ -1,6 +1,6 @@
 <md-card class="ely-contact-preview-square" layout="column" layout-align="none center">
-    <img ng-src="{{ctrl.user.profileUrl}}" class="md-card-image user-preview-img">
-    <div class="user-name">{{ctrl.user.name}}</div>
+    <img ng-src="{{ctrl.user.profileUrl}}" class="md-card-image user-preview-img" ng-click="ctrl.goToDetail()">
+    <div class="user-name" ng-click="ctrl.goToDetail()">{{ctrl.user.name}}</div>
     <div class="contact-type" ng-if="!ctrl.user.blocked">{{ctrl.user.type}}</div>
     <div class="user-blocked" ng-if="ctrl.user.blocked">BLOCKIERT</div>
     <div class="user-commands">

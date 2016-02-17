@@ -93,17 +93,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/contactPreviewSquare/template.html',
-    "<md-card class=ely-contact-preview-square layout=column layout-align=\"none center\"><img ng-src={{ctrl.user.profileUrl}} class=\"md-card-image user-preview-img\"><div class=user-name>{{ctrl.user.name}}</div><div class=contact-type ng-if=!ctrl.user.blocked>{{ctrl.user.type}}</div><div class=user-blocked ng-if=ctrl.user.blocked>BLOCKIERT</div><div class=user-commands><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.user.type && !ctrl.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Remove contact\" ng-if=\"ctrl.user.type && !ctrl.user.blocked\" ng-click=ctrl.deleteContact()><md-icon md-svg-icon=cardActions:removeContact></md-icon></md-button><md-button class=md-warn ng-if=ctrl.user.blocked ng-click=ctrl.unblockContact()>aufheben</md-button></div></md-card>"
+    "<md-card class=ely-contact-preview-square layout=column layout-align=\"none center\"><img ng-src={{ctrl.user.profileUrl}} class=\"md-card-image user-preview-img\" ng-click=ctrl.goToDetail()><div class=user-name ng-click=ctrl.goToDetail()>{{ctrl.user.name}}</div><div class=contact-type ng-if=!ctrl.user.blocked>{{ctrl.user.type}}</div><div class=user-blocked ng-if=ctrl.user.blocked>BLOCKIERT</div><div class=user-commands><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.user.type && !ctrl.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Remove contact\" ng-if=\"ctrl.user.type && !ctrl.user.blocked\" ng-click=ctrl.deleteContact()><md-icon md-svg-icon=cardActions:removeContact></md-icon></md-button><md-button class=md-warn ng-if=ctrl.user.blocked ng-click=ctrl.unblockContact()>aufheben</md-button></div></md-card>"
   );
 
 
   $templateCache.put('app/modules/contact/detail/profile/template.html',
-    "<md-card id=ely-user-detail-profile><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.detail.user.profileUrl}} class=profile-image><div class=name>{{ctrl.detail.user.name}}</div><div class=type ng-if=\"ctrl.detail.user.type && !ctrl.detail.user.blocked\">{{ctrl.detail.user.type}}</div><div class=blocked ng-if=ctrl.detail.user.blocked>BLOCKIERT</div></div></md-card-content><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.detail.user.type && !ctrl.detail.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open chat\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openChat()><md-icon md-svg-icon=cardActions:chat></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open info\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openInfo()><md-icon md-svg-icon=cardActions:info></md-icon></md-button></md-card-icon-actions><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item ng-if=ctrl.detail.user.type><md-button ng-click=\"ctrl.moveContact(contact.userId, contact.name)\">Gruppe wechseln</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.type><md-button ng-click=ctrl.deleteContact()>Kontakt entfernen</md-button></md-menu-item><md-menu-item ng-if=!ctrl.detail.user.blocked><md-button ng-click=ctrl.blockContact()>Kontakt blockieren</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.blocked><md-button ng-click=ctrl.unblockContact()>Blockierung aufheben</md-button></md-menu-item></md-menu-content></md-menu></md-card-actions></md-card>"
+    "<md-card id=ely-user-detail-profile><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.detail.user.profileUrl}} class=profile-image><div class=name>{{ctrl.detail.user.name}}</div><div class=type ng-if=\"ctrl.detail.user.type && !ctrl.detail.user.blocked\">{{ctrl.detail.user.type}}</div><div class=blocked ng-if=ctrl.detail.user.blocked>BLOCKIERT</div></div></md-card-content><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.detail.user.type && !ctrl.detail.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open chat\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openChat()><md-icon md-svg-icon=cardActions:chat></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open info\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openInfo()><md-icon md-svg-icon=cardActions:info></md-icon></md-button></md-card-icon-actions><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item ng-if=\"ctrl.detail.user.type && ctrl.numberOfGroups > 1\"><md-button ng-click=ctrl.moveContact()>Gruppe wechseln</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.type><md-button ng-click=ctrl.deleteContact()>Kontakt entfernen</md-button></md-menu-item><md-menu-item ng-if=!ctrl.detail.user.blocked><md-button ng-click=ctrl.blockContact()>Benutzter blockieren</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.blocked><md-button ng-click=ctrl.unblockContact()>Blockierung aufheben</md-button></md-menu-item></md-menu-content></md-menu></md-card-actions></md-card>"
   );
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile detail=ctrl.userDetail></ely-user-detail-profile></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile></div></md-content>"
   );
 
 
@@ -213,7 +213,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
-    "<div><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
+    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
   );
 
 
@@ -2153,8 +2153,8 @@ module.exports = ['$state', '$modal', 'SearchThread', 'Contact', 'moment',
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes',
-            function (UserStateService, ContactStatisticTypes) {
+        return ['UserStateService', 'ContactStatisticTypes', '$state',
+            function (UserStateService, ContactStatisticTypes, $state) {
                 var ctrl = this;
 
                 ctrl.addContact = function () {
@@ -2175,6 +2175,10 @@ module.exports = {
                     UserStateService.unblockContact(ctrl.user.userId).then(function () {
                         delete ctrl.user.blocked;
                     });
+                };
+
+                ctrl.goToDetail = function () {
+                    $state.go('contact.detail', {userId: ctrl.user.userId});
                 };
             }];
     }
@@ -2382,18 +2386,15 @@ module.exports = {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'ContactStatistic',
-            function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, ContactStatistic) {
+        return ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes',
+            function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes) {
                 var ctrl = this;
 
                 ctrl.$mdMedia = $mdMedia;
 
-                ctrl.statistics = ContactStatistic.get(function () {
-                    ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
-                });
-
                 ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
                     ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
+                    ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
                 });
             }];
     }
@@ -2430,6 +2431,13 @@ module.exports = {
         return ['UserStateService', 'ContactStatisticTypes',
             function (UserStateService, ContactStatisticTypes) {
                 var ctrl = this;
+
+                ctrl.moveContact = function () {
+                    UserStateService.moveContact(ctrl.detail.user.userId, ctrl.detail.user.name, ctrl.detail.user.type).then(function (newGroup) {
+                        ctrl.detail.user.type = newGroup;
+                    });
+                };
+
                 ctrl.addContact = function () {
                     UserStateService.addContact(ctrl.detail.user.userId, ctrl.detail.user.name).then(function (type) {
                         ctrl.detail.user.type = type;
@@ -2475,7 +2483,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                detail: '='
+                detail: '=',
+                numberOfGroups: '='
             },
             templateUrl: 'app/modules/contact/detail/profile/template.html'
         };
@@ -4403,7 +4412,7 @@ module.exports = ['$scope', 'SearchUserService',
         };
 
         ctrl.keyPressed = function ($event) {
-            if ($event.charCode === charCodeEnter) {
+            if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
                 $scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
                 SearchUserService.startUserSearchRequest(ctrl.searchText);
             }

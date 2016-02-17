@@ -27,14 +27,14 @@
                 <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
             </md-button>
             <md-menu-content>
-                <md-menu-item ng-if="ctrl.detail.user.type">
-                    <md-button ng-click="ctrl.moveContact(contact.userId, contact.name)">Gruppe wechseln</md-button>
+                <md-menu-item ng-if="ctrl.detail.user.type && ctrl.numberOfGroups > 1">
+                    <md-button ng-click="ctrl.moveContact()">Gruppe wechseln</md-button>
                 </md-menu-item>
                 <md-menu-item ng-if="ctrl.detail.user.type">
                     <md-button ng-click="ctrl.deleteContact()">Kontakt entfernen</md-button>
                 </md-menu-item>
                 <md-menu-item ng-if="!ctrl.detail.user.blocked">
-                    <md-button ng-click="ctrl.blockContact()">Kontakt blockieren</md-button>
+                    <md-button ng-click="ctrl.blockContact()">Benutzter blockieren</md-button>
                 </md-menu-item>
                 <md-menu-item ng-if="ctrl.detail.user.blocked">
                     <md-button ng-click="ctrl.unblockContact()">Blockierung aufheben</md-button>
