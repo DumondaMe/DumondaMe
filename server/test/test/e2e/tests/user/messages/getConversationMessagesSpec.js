@@ -105,7 +105,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages/conversation', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0,
                 threadId: '1',
                 isGroupThread: false
@@ -149,7 +149,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages/conversation', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0,
                 threadId: '1',
                 isGroupThread: true
@@ -193,7 +193,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages/conversation', {
-                itemsPerPage: 2,
+                maxItems: 2,
                 skip: 1,
                 threadId: '1',
                 isGroupThread: false
@@ -222,7 +222,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages/conversation', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0,
                 threadId: '2',
                 isGroupThread: false

@@ -10,9 +10,9 @@ var schemaRequestGetMessages = {
     name: 'getConversationMessages',
     type: 'object',
     additionalProperties: false,
-    required: ['itemsPerPage', 'skip', 'threadId', 'isGroupThread'],
+    required: ['maxItems', 'skip', 'threadId', 'isGroupThread'],
     properties: {
-        itemsPerPage: {type: 'integer', minimum: 1, maximum: 50},
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         skip: {type: 'integer', minimum: 0},
         threadId: {type: 'string', format: 'notEmptyString', maxLength: 50},
         isGroupThread: {type: 'boolean'}
@@ -84,7 +84,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaRequestGetMessages, logger)
                 .then(function (request) {
                     logger.info("User requests thread " + request.threadId + " [skip] " + request.skip, req);
-                    return conversation.getMessages(req.user.id, request.threadId, request.itemsPerPage, request.skip,
+                    return conversation.getMessages(req.user.id, request.threadId, request.maxItems, request.skip,
                         request.isGroupThread, req.session, req);
                 }).then(function (threads) {
                     res.status(200).json(threads);

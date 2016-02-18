@@ -114,7 +114,7 @@ describe('Integration Tests for getting all threads of a user', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0
             }, requestAgent);
         }).then(function (res) {
@@ -154,7 +154,7 @@ describe('Integration Tests for getting all threads of a user', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/messages', {
-                itemsPerPage: 2,
+                maxItems: 2,
                 skip: 1
             }, requestAgent);
         }).then(function (res) {
