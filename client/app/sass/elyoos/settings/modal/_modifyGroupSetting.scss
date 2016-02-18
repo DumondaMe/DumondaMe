@@ -1,0 +1,16 @@
+#modify-group-setting {
+  max-width: 500px;
+  .ely-dialog-content {
+    padding-bottom: 0;
+    .title {
+      font-size: 18px;
+      margin-bottom: 32px;
+      .group {
+        color: $primary-color;
+      }
+    }
+    .select-privacy {
+      margin-bottom: 24px;
+    }
+  }
+}

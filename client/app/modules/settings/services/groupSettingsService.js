@@ -44,5 +44,18 @@ module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
                 return $q.reject();
             }
         };
+
+        this.modifyGroupSetting = function (groupName) {
+            return $mdDialog.show({
+                templateUrl: 'app/modules/settings/modal/modifyGroupSettings/template.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                escapeToClose: false,
+                controller: 'ModifyGroupSettingController',
+                locals: {groupName: groupName},
+                bindToController: true,
+                controllerAs: 'ctrl'
+            });
+        }
     }]
 ;

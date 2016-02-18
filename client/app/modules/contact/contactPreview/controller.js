@@ -48,7 +48,7 @@ module.exports = {
                 };
 
                 ctrl.openGroupSetting = function () {
-
+                    GroupSettingsService.modifyGroupSetting(ctrl.statistic.type);
                 };
 
                 ctrl.blockContact = function (contactId) {
