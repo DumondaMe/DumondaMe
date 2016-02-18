@@ -2,7 +2,7 @@
   "name": "elyoos",
   "version": "1.0.0",
   "dependencies": {
-    "express": "4.13.3",
+    "express": "4.13.4",
     "kraken-js": "1.0.6",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
@@ -29,7 +29,7 @@
     "biguint-format": "1.0.0",
     "flake-idgen": "1.0.0",
     "csurf": "1.8.3",
-    "aws-sdk": "2.2.24",
+    "aws-sdk": "2.2.36",
     "tmp": "0.0.27",
     "connect-redis": "3.0.1"
   },

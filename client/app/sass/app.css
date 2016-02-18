@@ -737,7 +737,8 @@ h2.website-structure-title {
   max-width: 400px;
   min-width: 280px;
   width: 100%;
-  margin: 8px 0; }
+  margin: 8px 0;
+  cursor: pointer; }
   .pinwall-blog-card .user-name {
     white-space: nowrap;
     overflow: hidden;
@@ -751,18 +752,21 @@ h2.website-structure-title {
   z-index: 150; }
   #blog-detail #blog-header {
     height: 72px;
-    width: 100%;
+    min-width: 300px;
     padding: 16px; }
     #blog-detail #blog-header .user-avatar {
+      cursor: pointer;
       border-radius: 50%;
       height: 40px;
       width: 40px;
       margin-right: 12px; }
-    #blog-detail #blog-header .title-container .title {
-      font-size: 14px; }
-    #blog-detail #blog-header .title-container .subtitle {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
+    #blog-detail #blog-header .title-container {
+      cursor: pointer; }
+      #blog-detail #blog-header .title-container .title {
+        font-size: 14px; }
+      #blog-detail #blog-header .title-container .subtitle {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54); }
   #blog-detail .detail-image {
     max-width: 100%; }
   #blog-detail .blog-text {
