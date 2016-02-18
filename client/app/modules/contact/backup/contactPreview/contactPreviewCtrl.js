@@ -37,7 +37,7 @@ module.exports = {
                 ContactUserActions.setConnectionState($scope);
 
                 $scope.openUserDetails = function () {
-                    $state.go('contact.detail', {
+                    $state.go('user.detail', {
                         userId: $scope.contact.userId
                     });
                 };

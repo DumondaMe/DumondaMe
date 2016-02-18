@@ -29,7 +29,7 @@ module.exports = {
                 hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
 
                 ctrl.openUserDetail = function() {
-                    $state.go('contact.detail', {userId: ctrl.element.userId});
+                    $state.go('user.detail', {userId: ctrl.element.userId});
                 };
 
                 ctrl.openDetail = function () {

@@ -1,0 +1,47 @@
+#ely-user-detail-contact-preview {
+  max-width: 292px;
+  min-width: 292px;
+  .header {
+    padding: 16px;
+    .title {
+      font-weight: 500;
+      font-size: 16px;
+      vertical-align: bottom;
+      line-height: 16px;
+      margin-right: 8px;
+      .number-contact {
+        color: $primary-color;
+      }
+    }
+    .subtitle {
+      font-size: 14px;
+      vertical-align: bottom;
+      line-height: 14px;
+      font-weight: 400;
+      color: $secondary-text;
+    }
+  }
+  .preview-container {
+    padding: 0 12px 16px 16px;
+    .preview-image {
+      position: relative;
+      display: inline-block;
+      margin-right: 4px;
+      cursor: pointer;
+      .image {
+        height: 84px;
+        width: 84px;
+      }
+      .name {
+        position: absolute;
+        padding: 5px;
+        font-size: 12px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #ffffff;
+        background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+      }
+    }
+  }
+}

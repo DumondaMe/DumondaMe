@@ -23,7 +23,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         };
 
         $scope.openUserDetails = function (userId) {
-            $state.go('contact.detail', {
+            $state.go('user.detail', {
                 userId: userId
             });
         };

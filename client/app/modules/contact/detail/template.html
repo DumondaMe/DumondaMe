@@ -1,5 +1,7 @@
 <md-content id="ely-user-detail">
-    <div class="container" layout="row" layout-align="center" ng-if="ctrl.$mdMedia('xs')">
-        <ely-user-detail-profile detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile>
+    <div class="container" layout="row" layout-align="center" layout-wrap ng-if="ctrl.$mdMedia('xs')">
+        <ely-user-detail-profile flex="100" detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile>
+        <ely-user-detail-contacts-preview flex="100" detail="ctrl.userDetail"
+                                          ng-if="ctrl.userDetail.contacts.length > 0"></ely-user-detail-contacts-preview>
     </div>
 </md-content>

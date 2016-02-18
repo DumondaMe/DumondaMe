@@ -424,14 +424,53 @@ h2.website-structure-title {
   #move-contact .title .name {
     color: #3F51B5; }
 
+#ely-user-detail-contact-preview {
+  max-width: 292px;
+  min-width: 292px; }
+  #ely-user-detail-contact-preview .header {
+    padding: 16px; }
+    #ely-user-detail-contact-preview .header .title {
+      font-weight: 500;
+      font-size: 16px;
+      vertical-align: bottom;
+      line-height: 16px;
+      margin-right: 8px; }
+      #ely-user-detail-contact-preview .header .title .number-contact {
+        color: #3F51B5; }
+    #ely-user-detail-contact-preview .header .subtitle {
+      font-size: 14px;
+      vertical-align: bottom;
+      line-height: 14px;
+      font-weight: 400;
+      color: #9197a3; }
+  #ely-user-detail-contact-preview .preview-container {
+    padding: 0 12px 16px 16px; }
+    #ely-user-detail-contact-preview .preview-container .preview-image {
+      position: relative;
+      display: inline-block;
+      margin-right: 4px;
+      cursor: pointer; }
+      #ely-user-detail-contact-preview .preview-container .preview-image .image {
+        height: 84px;
+        width: 84px; }
+      #ely-user-detail-contact-preview .preview-container .preview-image .name {
+        position: absolute;
+        padding: 5px;
+        font-size: 12px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #ffffff;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)); }
+
 #ely-user-detail {
   height: 100%;
   background-color: #E0E0E0;
   padding: 0 6px; }
 
 #ely-user-detail-profile {
-  width: 100%;
-  max-width: 400px; }
+  max-width: 292px;
+  min-width: 292px; }
   #ely-user-detail-profile .profile-image {
     width: 180px;
     height: 180px;

@@ -27,7 +27,7 @@ module.exports = {
                 };
 
                 ctrl.goToDetail = function () {
-                    $state.go('contact.detail', {userId: ctrl.user.userId});
+                    $state.go('user.detail', {userId: ctrl.user.userId});
                 };
             }];
     }

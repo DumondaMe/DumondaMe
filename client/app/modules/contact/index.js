@@ -31,7 +31,11 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             data: {hasSearch: true, searchServiceName: 'contact'}
         })
-        .state('contact.detail', {
+        .state('user', {
+            abstract: true,
+            url: '/user'
+        })
+        .state('user.detail', {
             url: '/details/{userId}',
             views: {
                 'content@': {

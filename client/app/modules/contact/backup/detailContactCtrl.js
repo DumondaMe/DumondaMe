@@ -65,7 +65,7 @@ module.exports = ['$scope', '$state', '$stateParams', 'ContactDetail', 'moment',
         };
 
         $scope.openUserDetails = function (userId) {
-            $state.go('contact.detail', {
+            $state.go('user.detail', {
                 userId: userId
             });
         };
