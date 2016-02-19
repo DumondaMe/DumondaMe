@@ -1,29 +1,41 @@
 'use strict';
 
 var app = angular.module('elyoosApp');
-var directive = require('./directive.js');
 
-app.directive(directive.name, directive.directive);
+/*
+app.controller('ThreadsCtrl', require('./threadsCtrl'));
+app.controller('ConversationCtrl', require('./conversationCtrl'));
+app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
+app.controller('ConversationActionsCtrl', require('./conversationActionsCtrl'));
 
 app.factory('Message', require('./services/message'));
 app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
 
+app.service('MessageLeftNavElements', require('./services/leftNavElements'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
         .state('message', {
             abstract: true,
-            url: '/message'
+            url: '/message',
+            views: {
+                header: {
+                    templateUrl: 'app/modules/navigation/loggedInHeader.html'
+                }
+            }
         })
         .state('message.threads', {
             url: '/threads',
             views: {
                 'content@': {
-                    template: '<ely-messages-overview></ely-messages-overview>'
+                    templateUrl: 'app/modules/messages/threads.html',
+                    controller: 'ThreadsCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('message.threads.detail', {
             url: '/conversation/{isGroupThread}/{threadId}',
@@ -32,7 +44,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/messages/conversation.html',
                     controller: 'ConversationCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         })
         .state('message.threads.create', {
             url: '/single/create/{userId}/{name}',
@@ -41,6 +54,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     templateUrl: 'app/modules/messages/conversation.html',
                     controller: 'CreateConversationCtrl'
                 }
-            }
+            },
+            hasNavigation: true
         });
-}]);
+}]);*/
