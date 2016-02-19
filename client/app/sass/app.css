@@ -749,7 +749,8 @@ h2.website-structure-title {
     overflow: hidden; }
 
 #blog-detail {
-  z-index: 150; }
+  z-index: 150;
+  min-width: 300px; }
   #blog-detail #blog-header {
     height: 72px;
     min-width: 300px;
@@ -921,50 +922,52 @@ h2.website-structure-title {
 #check-login {
   height: 100%; }
 
-#content-messages {
-  width: 100%;
+#ely-messages {
   height: 100%;
-  padding-top: 60px; }
-  #content-messages #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 230px; }
-    #content-messages #centerCol #inner-centerCol {
-      position: relative; }
-      #content-messages #centerCol #inner-centerCol .add-message {
-        height: 48px;
-        padding-top: 2px;
-        background-color: #ffffff; }
-        #content-messages #centerCol #inner-centerCol .add-message .input-group {
-          margin: 5px 10px 0 30px; }
-          #content-messages #centerCol #inner-centerCol .add-message .input-group textarea {
-            z-index: 0;
-            height: 34px; }
-      #content-messages #centerCol #inner-centerCol .message-view {
-        margin: 20px 0 15px 30px; }
-        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image {
-          display: inline-block;
-          vertical-align: top;
-          margin-right: 10px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-image img {
-            height: 40px;
-            width: 40px; }
-        #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content {
-          display: inline-block;
-          max-width: 80%; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-name {
-            display: inline-block;
-            font-weight: bold;
-            font-size: 14px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-title .message-view-timestamp {
-            display: inline-block;
-            font-style: italic;
-            font-size: 12px; }
-          #content-messages #centerCol #inner-centerCol .message-view .message-inner-view .message-view-content .message-view-text {
-            white-space: pre-line; }
-      #content-messages #centerCol #inner-centerCol .pagination {
-        width: 100%;
-        clear: both; }
+  background-color: #ffffff;
+  padding: 0 6px; }
+
+.thread {
+  width: 100%; }
+  .thread .thread-container {
+    margin: 8px 0;
+    width: 100%;
+    cursor: pointer; }
+    .thread .thread-container .image-preview {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      margin-right: 16px; }
+    .thread .thread-container .text {
+      overflow: hidden; }
+      .thread .thread-container .text .description {
+        font-size: 14px;
+        font-weight: 400;
+        color: #3F51B5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      .thread .thread-container .text .preview-text {
+        font-size: 12px;
+        font-weight: 400;
+        color: #9197a3;
+        margin-top: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      .thread .thread-container .text .unread-messages {
+        font-weight: 700; }
+    .thread .thread-container .info .date {
+      font-size: 14px;
+      width: 74px;
+      margin-left: 8px; }
+    .thread .thread-container .info .count {
+      margin-top: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      color: #ffffff;
+      background-color: #FFA000;
+      border-radius: 6px; }
 
 #content-threads {
   width: 100%;

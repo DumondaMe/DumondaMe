@@ -24,7 +24,7 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
                         modificationInfo = $interval(function () {
                             var modification = Modification.get(null, function () {
                                 if (modification.hasChanged) {
-
+                                    notifyObervables(observables, "userInfoChanged");
                                 }
                             });
                         }, 30000);

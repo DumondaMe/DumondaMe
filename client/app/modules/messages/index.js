@@ -21,7 +21,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/threads',
             views: {
                 'content@': {
-                    template: '<ely-messages-overview></ely-messages-overview>'
+                    template: '<ely-messages></ely-messages>'
                 }
             }
         })
