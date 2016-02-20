@@ -1,0 +1,11 @@
+<md-content id="ely-conversation">
+    <ely-conversation-create-message is-group-thread="ctrl.isGroupThread" thread-id="ctrl.threadId"
+                                     message-sent="ctrl.newMessageSent"></ely-conversation-create-message>
+    <div class="conversation-container" ely-infinite-scroll="ctrl.nextMessages()">
+        <div class="md-padding" layout-wrap layout="row">
+            <div flex="100" ng-repeat="message in ctrl.thread.messages">
+                <ely-message message="message"></ely-message>
+            </div>
+        </div>
+    </div>
+</md-content>

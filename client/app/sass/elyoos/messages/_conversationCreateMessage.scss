@@ -1,0 +1,50 @@
+#ely-conversation-message-create {
+  .add-message {
+    border-bottom: 1px solid $divider;
+    background-color: $background-normal;
+    height: 61px;
+    .message-input-container {
+      padding: 16px 0 0 16px;
+      .message-input {
+        width: 100%;
+        height: 100%;
+        background-color: $background-normal;
+        border: none;
+        overflow: auto;
+        outline: none;
+        resize: none;
+
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+      .message-input::-webkit-input-placeholder {
+        color: #000000;
+      }
+      .message-input:-moz-placeholder  {
+        color: #000000;
+        opacity:  1;
+      }
+      .message-input::-moz-placeholder  {
+        color: #000000;
+        opacity:  1;
+      }
+      .message-input:-ms-input-placeholder {
+        color: #000000;
+      }
+      .message-input:placeholder-shown{
+        color: #000000;
+      }
+    }
+    .send-button-container {
+      width: 48px;
+      .send-button-height {
+        height: 40px;
+        .send-button {
+          margin: 0;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

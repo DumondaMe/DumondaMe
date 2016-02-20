@@ -2,11 +2,15 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter',
-            function (dateFormatter) {
+        return ['dateFormatter', '$state',
+            function (dateFormatter, $state) {
                 var ctrl = this;
 
                 ctrl.getFormattedDate = dateFormatter.format;
+
+                ctrl.goToConversation = function () {
+                    $state.go('message.threads.detail', {isGroupThread: ctrl.thread.isGroupThread, threadId: ctrl.thread.threadId});
+                };
             }];
     }
 };

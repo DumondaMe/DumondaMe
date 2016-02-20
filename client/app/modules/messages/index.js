@@ -29,10 +29,10 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/conversation/{isGroupThread}/{threadId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/messages/conversation.html',
-                    controller: 'ConversationCtrl'
+                    template: '<ely-conversation></ely-conversation>'
                 }
-            }
+            },
+            data: {hasBackNav: true, backNavToState: true}
         })
         .state('message.threads.create', {
             url: '/single/create/{userId}/{name}',

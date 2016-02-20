@@ -7,11 +7,13 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
+                ctrl.initLoad = true;
 
                 ScrollRequest.reset('threadOverview', Message.get, ThreadOverviewScrollRequestResponseHandler);
 
                 ctrl.nextThreads = function () {
                     ScrollRequest.nextRequest('threadOverview', ctrl.messages.threads).then(function (messages) {
+                        ctrl.initLoad = false;
                         ctrl.messages = messages;
                     });
                 };

@@ -176,18 +176,33 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/messages/conversation/createMessage/template.html',
+    "<md-content id=ely-conversation-message-create><div class=add-message ng-style=ctrl.textInputWrapperStyle layout=row><div flex=grow class=message-input-container><textarea class=message-input placeholder=\"Nachricht schreiben\" ng-style=ctrl.textInputStyle ng-keyup=ctrl.checkHeightOfInput($event) maxlength=1000 ng-model=ctrl.newMessage></textarea></div><div flex=none class=send-button-container layout=row layout-align=\"center center\"><div class=send-button-height><md-button class=\"md-icon-button send-button md-primary\" ng-click=ctrl.sendMessage() aria-label=\"Send Message\" ng-disabled=\"ctrl.newMessage.trim() === '' || ctrl.newMessage.length > 1000 || ctrl.uploadStarted\"><md-icon md-svg-icon=system:send></md-icon></md-button></div></div></div><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-content>"
+  );
+
+
+  $templateCache.put('app/modules/messages/conversation/message/template.html',
+    "<div class=ely-message>{{ctrl.message.text}}</div>"
+  );
+
+
+  $templateCache.put('app/modules/messages/conversation/template.html',
+    "<md-content id=ely-conversation><ely-conversation-create-message is-group-thread=ctrl.isGroupThread thread-id=ctrl.threadId message-sent=ctrl.newMessageSent></ely-conversation-create-message><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><ely-message message=message></ely-message></div></div></div></md-content>"
+  );
+
+
   $templateCache.put('app/modules/messages/template.html',
     "<md-content id=ely-messages><ely-messages-overview></ely-messages-overview></md-content>"
   );
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\"><ely-messages-thread thread=thread></ely-messages-thread></div><div class=pinwall-gab></div></div></div></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\"><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
   );
 
 
   $templateCache.put('app/modules/messages/threadOverview/thread/template.html',
-    "<div class=thread><div layout=row class=thread-container><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex=grow><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.previewText}}</div></div><div flex=none class=info layout=column layout-align=\"start center\"><div class=date>{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div></div><md-divider></md-divider></div>"
+    "<div class=thread><div layout=row class=thread-container ng-click=ctrl.goToConversation()><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.previewText}}</div></div><div flex=none class=info layout=column layout-align=\"start center\"><div class=date>{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div></div><md-divider></md-divider></div>"
   );
 
 

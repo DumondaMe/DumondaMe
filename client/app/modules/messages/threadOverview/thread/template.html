@@ -1,7 +1,7 @@
 <div class="thread">
-    <div layout="row" class="thread-container">
+    <div layout="row" class="thread-container" ng-click="ctrl.goToConversation()">
         <img ng-src="{{ctrl.thread.profileUrl}}" class="image-preview" flex="none">
-        <div class="text" flex="grow">
+        <div class="text" flex>
             <div class="description" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">{{ctrl.thread.description}}</div>
             <div class="preview-text" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">{{ctrl.thread.previewText}}</div>
         </div>

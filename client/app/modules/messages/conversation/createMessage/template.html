@@ -1,0 +1,21 @@
+<md-content id="ely-conversation-message-create">
+    <div class="add-message" ng-style="ctrl.textInputWrapperStyle" layout="row">
+        <div flex="grow" class="message-input-container">
+            <textarea class="message-input" placeholder="Nachricht schreiben"
+                      ng-style="ctrl.textInputStyle"
+                      ng-keyup="ctrl.checkHeightOfInput($event)"
+                      maxlength="1000"
+                      ng-model="ctrl.newMessage"></textarea>
+        </div>
+        <div flex="none" class="send-button-container" layout="row" layout-align="center center">
+            <div class="send-button-height">
+                <md-button class="md-icon-button send-button md-primary" ng-click="ctrl.sendMessage()"
+                           aria-label="Send Message"
+                           ng-disabled="ctrl.newMessage.trim() === '' || ctrl.newMessage.length > 1000 || ctrl.uploadStarted">
+                    <md-icon md-svg-icon="system:send"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</md-content>

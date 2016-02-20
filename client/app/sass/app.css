@@ -922,6 +922,48 @@ h2.website-structure-title {
 #check-login {
   height: 100%; }
 
+#ely-conversation {
+  height: 100%;
+  background-color: #ffffff;
+  position: relative; }
+
+#ely-conversation-message-create .add-message {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #E0E0E0;
+  height: 61px; }
+  #ely-conversation-message-create .add-message .message-input-container {
+    padding: 16px 0 0 16px; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input {
+      width: 100%;
+      height: 100%;
+      background-color: #E0E0E0;
+      border: none;
+      overflow: auto;
+      outline: none;
+      resize: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input::-webkit-input-placeholder {
+      color: #000000; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input:-moz-placeholder {
+      color: #000000;
+      opacity: 1; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input::-moz-placeholder {
+      color: #000000;
+      opacity: 1; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input:-ms-input-placeholder {
+      color: #000000; }
+    #ely-conversation-message-create .add-message .message-input-container .message-input:placeholder-shown {
+      color: #000000; }
+  #ely-conversation-message-create .add-message .send-button-container {
+    width: 48px; }
+    #ely-conversation-message-create .add-message .send-button-container .send-button-height {
+      height: 40px; }
+      #ely-conversation-message-create .add-message .send-button-container .send-button-height .send-button {
+        margin: 0;
+        height: 100%; }
+
 #ely-messages {
   height: 100%;
   background-color: #ffffff;
@@ -963,95 +1005,17 @@ h2.website-structure-title {
       margin-left: 8px; }
     .thread .thread-container .info .count {
       margin-top: 4px;
+      font-weight: 700;
       padding: 2px 6px;
       font-size: 12px;
       color: #ffffff;
       background-color: #FFA000;
       border-radius: 6px; }
 
-#content-threads {
-  width: 100%;
-  height: 100%; }
-  #content-threads #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 240px; }
-    #content-threads #centerCol #inner-centerCol {
-      position: relative;
-      width: 800px;
-      padding-top: 130px;
-      margin: 0px auto 0 auto; }
-      #content-threads #centerCol #inner-centerCol .thread-preview, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread {
-        cursor: pointer;
-        display: inline-block;
-        width: 800px;
-        height: 50px;
-        margin: 0 auto;
-        padding: 5px 0;
-        border-bottom: 1px solid #CCCCCC;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none; }
-        #content-threads #centerCol #inner-centerCol .thread-preview:hover, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
-          background-color: #7986CB; }
-        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image {
-          float: left;
-          margin-left: 10px;
-          margin-right: 20px; }
-          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-image img, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-image img {
-            width: 40px;
-            height: 40px; }
-        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text {
-          float: left; }
-          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description-center, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description-center {
-            font-size: 14px;
-            font-weight: bold; }
-          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-description-center, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-description-center {
-            margin-top: 10px;
-            width: 300px;
-            overflow: hidden; }
-          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewText, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewText, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewTextBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewTextBold {
-            font-size: 12px;
-            font-style: italic;
-            max-width: 300px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis; }
-          #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-text .thread-preview-previewTextBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-text .thread-preview-previewTextBold {
-            font-weight: bold; }
-        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-date, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-date, #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-dateBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-dateBold {
-          padding-top: 11px;
-          margin-right: 20px;
-          float: right;
-          font-size: 14px; }
-        #content-threads #centerCol #inner-centerCol .thread-preview .thread-preview-dateBold, #content-threads #centerCol #inner-centerCol .thread-preview-add-thread .thread-preview-dateBold {
-          font-weight: bold; }
-      #content-threads #centerCol #inner-centerCol .pagination {
-        width: 100%;
-        clear: both; }
-      #content-threads #centerCol #inner-centerCol .thread-preview-add-thread:hover {
-        background-color: white; }
-  #content-threads #search-box-container {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 48px;
-    background-color: #ffffff;
-    left: 230px;
-    padding-left: 230px; }
-    #content-threads #search-box-container .searchBoxForm {
-      display: inline-block;
-      padding-left: 60px;
-      margin-top: 2px;
-      width: 600px; }
-    #content-threads #search-box-container #search-box-container-inner {
-      position: relative;
-      width: 800px;
-      margin: 0 auto; }
-      #content-threads #search-box-container #search-box-container-inner .searchBoxForm {
-        margin-left: -230px;
-        padding: 5px 10px 0 10px;
-        width: 800px; }
+#ely-thread-overview .thread-container .no-thread {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 400; }
 
 .ely-left-nav-expanded {
   width: 250px;
