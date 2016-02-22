@@ -34,6 +34,10 @@ body, html {
 .ely-gt-md-content {
   height: 100%;
   position: relative;
+  .ely-sidnav-expanded {
+    width: 250px;
+    height: 100%;
+  }
 }
 
 .ely-gt-md-content-container {

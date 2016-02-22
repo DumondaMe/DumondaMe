@@ -1,11 +1,16 @@
-<md-content id="ely-conversation">
-    <ely-conversation-create-message is-group-thread="ctrl.isGroupThread" thread-id="ctrl.threadId"
-                                     message-sent="ctrl.newMessageSent"></ely-conversation-create-message>
-    <div class="conversation-container" ely-infinite-scroll="ctrl.nextMessages()">
-        <div class="md-padding" layout-wrap layout="row">
-            <div flex="100" ng-repeat="message in ctrl.thread.messages">
-                <ely-message message="message"></ely-message>
+<div id="ely-conversation" layout="row">
+    <md-content id="ely-conversation-content" flex>
+        <ely-conversation-create-message is-group-thread="ctrl.isGroupThread" thread-id="ctrl.threadId"
+                                         message-sent="ctrl.newMessageSent"></ely-conversation-create-message>
+        <div class="conversation-container" ely-infinite-scroll="ctrl.nextMessages()">
+            <div class="md-padding" layout-wrap layout="row">
+                <div flex="100" ng-repeat="message in ctrl.thread.messages">
+                    <ely-message message="message"></ely-message>
+                </div>
             </div>
         </div>
-    </div>
-</md-content>
+    </md-content>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')">
+        <ely-messages-overview></ely-messages-overview>
+    </md-sidenav>
+</div>

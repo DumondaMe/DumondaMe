@@ -926,6 +926,8 @@ h2.website-structure-title {
   height: 100%;
   background-color: #ffffff;
   position: relative; }
+  #ely-conversation #ely-conversation-content {
+    height: 100%; }
 
 #ely-conversation-message-create .add-message {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -1017,57 +1019,55 @@ h2.website-structure-title {
   font-size: 14px;
   font-weight: 400; }
 
-.ely-left-nav-expanded {
+.ely-sidnav {
   width: 250px;
-  height: 100%;
-  background-color: #ffffff; }
-
-.ely-sidnav .sidnav-header {
-  background-color: #ffffff;
-  padding: 10px 5px;
-  margin-bottom: 10px; }
-  .ely-sidnav .sidnav-header .user-preview {
-    height: 50px;
-    width: 50px;
-    margin: 0 10px 10px 10px;
-    border-radius: 50%; }
-  .ely-sidnav .sidnav-header .header-commands {
-    height: 24px;
-    padding-right: 5px; }
-    .ely-sidnav .sidnav-header .header-commands .icon-header {
-      margin: 0 5px 0 5px;
-      cursor: pointer; }
-  .ely-sidnav .sidnav-header .user-info {
-    color: #000000;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0 10px; }
-  .ely-sidnav .sidnav-header .user-email {
-    margin-top: 3px;
-    font-size: 12px;
-    font-weight: 400; }
-.ely-sidnav .ely-divider {
-  margin-top: 8px;
-  margin-bottom: 8px; }
-.ely-sidnav .left-nav-content {
-  padding-left: 16px;
-  padding-right: 16px; }
-  .ely-sidnav .left-nav-content .nav-element {
-    cursor: pointer;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    width: 100%; }
-    .ely-sidnav .left-nav-content .nav-element .icon {
-      display: inline-block;
+  height: 100%; }
+  .ely-sidnav .sidnav-header {
+    background-color: #ffffff;
+    padding: 10px 5px;
+    margin-bottom: 10px; }
+    .ely-sidnav .sidnav-header .user-preview {
+      height: 50px;
+      width: 50px;
+      margin: 0 10px 10px 10px;
+      border-radius: 50%; }
+    .ely-sidnav .sidnav-header .header-commands {
       height: 24px;
-      width: 24px;
-      margin-right: 32px; }
-    .ely-sidnav .left-nav-content .nav-element .description {
-      display: inline-block; }
-  .ely-sidnav .left-nav-content .nav-element:focus {
-    outline: 0; }
-  .ely-sidnav .left-nav-content .highlighted {
-    color: #FF5252; }
+      padding-right: 5px; }
+      .ely-sidnav .sidnav-header .header-commands .icon-header {
+        margin: 0 5px 0 5px;
+        cursor: pointer; }
+    .ely-sidnav .sidnav-header .user-info {
+      color: #000000;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 10px; }
+    .ely-sidnav .sidnav-header .user-email {
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 400; }
+  .ely-sidnav .ely-divider {
+    margin-top: 8px;
+    margin-bottom: 8px; }
+  .ely-sidnav .left-nav-content {
+    padding-left: 16px;
+    padding-right: 16px; }
+    .ely-sidnav .left-nav-content .nav-element {
+      cursor: pointer;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      width: 100%; }
+      .ely-sidnav .left-nav-content .nav-element .icon {
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        margin-right: 32px; }
+      .ely-sidnav .left-nav-content .nav-element .description {
+        display: inline-block; }
+    .ely-sidnav .left-nav-content .nav-element:focus {
+      outline: 0; }
+    .ely-sidnav .left-nav-content .highlighted {
+      color: #FF5252; }
 
 #ely-page-detail {
   height: 100%; }
@@ -2016,6 +2016,9 @@ body, html {
 .ely-gt-md-content {
   height: 100%;
   position: relative; }
+  .ely-gt-md-content .ely-sidnav-expanded {
+    width: 250px;
+    height: 100%; }
 
 .ely-gt-md-content-container {
   padding-top: 64px;

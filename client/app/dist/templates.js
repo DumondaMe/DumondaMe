@@ -187,7 +187,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/template.html',
-    "<md-content id=ely-conversation><ely-conversation-create-message is-group-thread=ctrl.isGroupThread thread-id=ctrl.threadId message-sent=ctrl.newMessageSent></ely-conversation-create-message><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><ely-message message=message></ely-message></div></div></div></md-content>"
+    "<div id=ely-conversation layout=row><md-content id=ely-conversation-content flex><ely-conversation-create-message is-group-thread=ctrl.isGroupThread thread-id=ctrl.threadId message-sent=ctrl.newMessageSent></ely-conversation-create-message><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><ely-message message=message></ely-message></div></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-messages-overview></ely-messages-overview></md-sidenav></div>"
   );
 
 
@@ -213,11 +213,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/navigation/leftNav/element/template.html',
     "<div class=nav-element ng-click=ctrl.goToState() ng-class=\"{'highlighted': ctrl.$state.includes(ctrl.baseState)}\"><md-icon md-svg-icon={{ctrl.icon}} class=icon ng-style=ctrl.highlightedStyle></md-icon><div class=\"description md-body-2\">{{ctrl.description}}</div></div>"
-  );
-
-
-  $templateCache.put('app/modules/navigation/leftNav/template.html',
-    "<div ng-class=\"{'ely-left-nav-expanded': ctrl.$mdMedia('gt-md')}\"><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\" ng-if=\"!ctrl.$mdMedia('gt-md')\"><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><ely-left-nav-container class=ely-sidnav ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-left-nav-container></div>"
   );
 
 
@@ -452,7 +447,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/viewPort/template.html',
-    "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><ely-left-nav ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-left-nav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><ely-left-nav flex=none ng-show=ctrl.showLeftNav ng-cloak></ely-left-nav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
+    "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\" md-is-locked-open=false ng-if=\"!ctrl.$mdMedia('gt-md')\"><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><md-sidenav flex=none md-component-id=left class=\"md-sidenav-left md-whiteframe-z2 ely-sidnav-expanded\" md-is-locked-open=true><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
   );
 
 }]);
