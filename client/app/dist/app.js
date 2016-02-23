@@ -203,7 +203,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/thread/template.html',
-    "<div class=thread><div layout=row class=thread-container ng-click=ctrl.goToConversation()><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.previewText}}</div></div><div flex=none class=info layout=column layout-align=\"start center\"><div class=date>{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div></div><md-divider></md-divider></div>"
+    "<div class=thread><div layout=row class=thread-container ng-click=ctrl.goToConversation()><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.previewText}}</div></div><div flex=none class=info layout=column layout-align=\"start center\"><div class=date ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div></div><md-divider></md-divider></div>"
   );
 
 

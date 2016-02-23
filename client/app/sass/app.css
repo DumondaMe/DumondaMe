@@ -1014,6 +1014,8 @@ h2.website-structure-title {
       color: #ffffff;
       background-color: #7986CB;
       border-radius: 6px; }
+    .thread .thread-container .unread-messages {
+      font-weight: 700; }
 
 #ely-thread-overview {
   background-color: #E0E0E0;
