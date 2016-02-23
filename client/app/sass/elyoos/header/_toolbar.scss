@@ -5,11 +5,10 @@
   @media screen and (min-width: $gt-md) {
     margin-top: -64px;
   }
-  .ely-toolbar-menu {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
+  .title {
+    margin-left: 16px;
+    font-size: 24px;
+    color: white;
   }
 }
 #ely-toolbar-sub-nav {

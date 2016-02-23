@@ -465,7 +465,7 @@ h2.website-structure-title {
 
 #ely-user-detail {
   height: 100%;
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   padding: 0 6px; }
 
 #ely-user-detail-profile {
@@ -492,7 +492,7 @@ h2.website-structure-title {
 
 #ely-contact {
   height: 100%;
-  background-color: #F5F5F5; }
+  background-color: #E0E0E0; }
   #ely-contact .contact-tabs {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
@@ -500,7 +500,7 @@ h2.website-structure-title {
 
 #ely-contacting-overview {
   height: 100%;
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   padding: 16px 16px 0 16px; }
   #ely-contacting-overview #overview-text {
     width: 180px;
@@ -513,7 +513,7 @@ h2.website-structure-title {
 
 #ely-contact-overview {
   height: 100%;
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   padding: 16px 16px 0 16px; }
   #ely-contact-overview .add-new-group {
     width: 100%;
@@ -529,7 +529,7 @@ h2.website-structure-title {
   .ely-contact-preview .type-preview {
     height: 72px;
     background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none; }
@@ -554,13 +554,13 @@ h2.website-structure-title {
   .ely-contact-preview .contact-previews {
     max-width: 700px;
     background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     cursor: pointer;
     margin: 0 auto 20px auto; }
     .ely-contact-preview .contact-previews .contact-preview {
       width: 100%;
       height: 72px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.38); }
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
       .ely-contact-preview .contact-previews .contact-preview .profile-img {
         margin: 12px 16px;
         height: 48px;
@@ -621,7 +621,7 @@ h2.website-structure-title {
 
 #ely-user-search-overview {
   height: 100%;
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   padding: 0 6px; }
 
 #toolbar-header {
@@ -631,11 +631,10 @@ h2.website-structure-title {
   @media screen and (min-width: 1280px) {
     #toolbar-header {
       margin-top: -64px; } }
-  #toolbar-header .ely-toolbar-menu {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0; }
+  #toolbar-header .title {
+    margin-left: 16px;
+    font-size: 24px;
+    color: white; }
 
 #ely-toolbar-sub-nav {
   padding-left: 5px;
@@ -846,7 +845,7 @@ h2.website-structure-title {
 
 #ely-home {
   height: 100%;
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   padding: 0 6px; }
   #ely-home .create-blog-fab {
     position: fixed;
@@ -930,7 +929,7 @@ h2.website-structure-title {
     height: 100%; }
 
 #ely-conversation-message-create .add-message {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   background-color: #C5CAE9;
   height: 61px; }
   #ely-conversation-message-create .add-message .message-input-container {
@@ -972,7 +971,8 @@ h2.website-structure-title {
 
 .thread {
   width: 100%;
-  max-width: 600px; }
+  max-width: 600px;
+  background-color: #ffffff; }
   .thread .thread-container {
     margin: 8px 0;
     padding: 0 16px;
@@ -1015,10 +1015,13 @@ h2.website-structure-title {
       background-color: #7986CB;
       border-radius: 6px; }
 
-#ely-thread-overview .thread-container .no-thread {
-  padding: 16px;
-  font-size: 14px;
-  font-weight: 400; }
+#ely-thread-overview {
+  background-color: #E0E0E0;
+  height: 100%; }
+  #ely-thread-overview .thread-container .no-thread {
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 400; }
 
 .ely-sidnav {
   width: 250px;
@@ -1111,17 +1114,17 @@ h2.website-structure-title {
 
 #ely-problem-detail {
   height: 100%;
-  background-color: #F5F5F5; }
+  background-color: #E0E0E0; }
   #ely-problem-detail .detail-tabs {
     height: 100%; }
     #ely-problem-detail .detail-tabs md-tabs-wrapper {
       background-color: #ffffff; }
     #ely-problem-detail .detail-tabs .detail-container {
-      background-color: #F5F5F5; }
+      background-color: #E0E0E0; }
 
 #ely-problem-reason-detail {
   height: 100%;
-  background-color: #F5F5F5; }
+  background-color: #E0E0E0; }
   #ely-problem-reason-detail #detail-container {
     max-width: 400px;
     min-width: 280px; }
@@ -1165,7 +1168,7 @@ h2.website-structure-title {
   #ely-problem #ely-problem-overview {
     height: 100%;
     width: 100%;
-    background-color: #F5F5F5; }
+    background-color: #E0E0E0; }
     #ely-problem #ely-problem-overview .problem-overview-container {
       width: 100%;
       height: 100%;
@@ -1261,7 +1264,7 @@ h2.website-structure-title {
       margin-bottom: 24px; }
 
 body, html {
-  background-color: #F5F5F5;
+  background-color: #E0E0E0;
   height: 100%; }
 
 .viewport {

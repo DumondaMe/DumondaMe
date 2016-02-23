@@ -11,9 +11,7 @@
                     <md-icon md-svg-icon="system:arrowBack"></md-icon>
                 </md-button>
             </div>
-            <md-select ng-model="ctrl.selectedSubNav" id="ely-toolbar-sub-nav" ng-if="ctrl.hasSubNav" aria-label="Select Navigation">
-                <md-option ng-value="view" ng-repeat="view in ctrl.subViews">{{view.name}}</md-option>
-            </md-select>
+            <div flex class="title" ng-if="ctrl.title" hide-md hide-sm hide-xs>{{ctrl.title}}</div>
             <span flex></span>
             <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"></ely-toolbar-search>
         </div>

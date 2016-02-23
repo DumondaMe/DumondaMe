@@ -23,7 +23,8 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-messages></ely-messages>'
                 }
-            }
+            },
+            data: {title: 'Nachrichten'}
         })
         .state('message.threads.detail', {
             url: '/conversation/{isGroupThread}/{threadId}',
