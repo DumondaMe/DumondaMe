@@ -47,16 +47,8 @@ var getMessagesOfThreads = function (params, setTime, isGroupThread) {
         "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
         .set('active', setTime)
         .with("user, message, writer")
-        .optionalMatch("(writer)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
-        .where('writer.userId <> user.userId')
-        .with("user, message, writer, vr, v")
-        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(writer)")
-        .where('writer.userId <> user.userId')
-        .with("user, message, writer, vr, v, rContact")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY') OR " +
-        "writer.userId = user.userId")
         .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS userId, writer.name AS name," +
-        "v.profile AS profileVisible, v.image AS imageVisible")
+        "(writer.userId = {userId}) AS isUser")
         .orderBy("message.messageAdded DESC")
         .skip("{skip}")
         .limit("{limit}")
