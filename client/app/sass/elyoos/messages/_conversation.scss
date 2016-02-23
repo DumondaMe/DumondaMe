@@ -1,8 +1,52 @@
 #ely-conversation {
   height: 100%;
-  background-color: #ffffff;
   position: relative;
   #ely-conversation-content {
     height: 100%;
+    background-color: $background-normal;
+    .conversation-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding-top: 48px;
+      background-color: $background-normal;
+      .date-container {
+        width: 80px;
+        margin: 8px auto;
+        padding: 8px;
+        background-color: $primary-color-light;
+        color: $primary-white-text;
+        border-radius: 4px;
+        .date {
+          display: inline-block;
+          text-align: center;
+          width: 80px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .conversation-description {
+    z-index: 10;
+    position: absolute;
+    padding-left: 32px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: $primary-color-light;
+    .description {
+      color: $primary-white-text;
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+  .create-message-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    @media screen and (min-width: $gt-md){
+      bottom: 15px;
+      right: 20px;
+    }
   }
 }

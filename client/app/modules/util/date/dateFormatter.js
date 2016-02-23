@@ -20,7 +20,7 @@ module.exports = ['moment', function (moment) {
         return dateValue.format('l');
     };
 
-    this.formatRelativeTimes =  function (dateValue) {
+    this.formatRelativeTimes = function (dateValue) {
         return moment.unix(dateValue).fromNow();
     };
 
@@ -32,6 +32,10 @@ module.exports = ['moment', function (moment) {
             return dateValue.format('H:mm');
         }
         return dateValue.format('H:mm l');
+    };
+
+    this.getTime = function (dateValue) {
+        return moment.unix(dateValue).format('H:mm');
     };
 
     return this;

@@ -14,5 +14,5 @@ module.exports = {
             templateUrl: 'app/modules/messages/threadOverview/template.html'
         };
     }],
-    name: 'elyMessagesOverview'
+    name: 'elyThreadOverview'
 };

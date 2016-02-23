@@ -2,9 +2,11 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [
-            function () {
+        return ['dateFormatter',
+            function (dateFormatter) {
                 var ctrl = this;
+
+                ctrl.dateFormatter = dateFormatter;
 
             }];
     }

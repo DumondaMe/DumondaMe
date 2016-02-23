@@ -654,7 +654,7 @@ h2.website-structure-title {
       position: relative;
       height: 100%;
       width: 100%;
-      background-color: #C5CAE9;
+      background-color: #7986CB;
       border-radius: 5px; }
       .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
         position: absolute;
@@ -685,7 +685,7 @@ h2.website-structure-title {
           height: 100%;
           min-width: 120px;
           box-shadow: none;
-          background-color: #C5CAE9;
+          background-color: #7986CB;
           border-radius: 5px; }
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
             box-shadow: none;
@@ -693,7 +693,7 @@ h2.website-structure-title {
             border-radius: 5px; }
             .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
               border-radius: 5px;
-              background-color: #C5CAE9;
+              background-color: #7986CB;
               color: white;
               border: none;
               width: 100%;
@@ -923,21 +923,59 @@ h2.website-structure-title {
 
 #ely-conversation {
   height: 100%;
-  background-color: #ffffff;
   position: relative; }
   #ely-conversation #ely-conversation-content {
-    height: 100%; }
+    height: 100%;
+    background-color: #E0E0E0; }
+    #ely-conversation #ely-conversation-content .conversation-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding-top: 48px;
+      background-color: #E0E0E0; }
+      #ely-conversation #ely-conversation-content .conversation-container .date-container {
+        width: 80px;
+        margin: 8px auto;
+        padding: 8px;
+        background-color: #7986CB;
+        color: white;
+        border-radius: 4px; }
+        #ely-conversation #ely-conversation-content .conversation-container .date-container .date {
+          display: inline-block;
+          text-align: center;
+          width: 80px;
+          font-size: 16px; }
+  #ely-conversation .conversation-description {
+    z-index: 10;
+    position: absolute;
+    padding-left: 32px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: #7986CB; }
+    #ely-conversation .conversation-description .description {
+      color: white;
+      font-weight: 500;
+      font-size: 16px; }
+  #ely-conversation .create-message-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-conversation .create-message-fab {
+        bottom: 15px;
+        right: 20px; } }
 
 #ely-conversation-message-create .add-message {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #C5CAE9;
+  background-color: #7986CB;
   height: 61px; }
   #ely-conversation-message-create .add-message .message-input-container {
     padding: 16px 0 0 16px; }
     #ely-conversation-message-create .add-message .message-input-container .message-input {
       width: 100%;
       height: 100%;
-      background-color: #C5CAE9;
+      background-color: #7986CB;
       border: none;
       overflow: auto;
       outline: none;
@@ -965,6 +1003,50 @@ h2.website-structure-title {
         margin: 0;
         height: 100%; }
 
+.ely-conversation-message {
+  padding: 8px 16px; }
+  .ely-conversation-message .chat-bubble {
+    margin: 0;
+    padding-bottom: 8px;
+    background-color: white;
+    position: relative;
+    width: 200px;
+    height: auto;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px; }
+    .ely-conversation-message .chat-bubble .text {
+      padding: 8px; }
+    .ely-conversation-message .chat-bubble .time {
+      position: absolute;
+      font-size: 12px;
+      right: 8px;
+      bottom: 4px; }
+  .ely-conversation-message .right-in {
+    float: right; }
+  .ely-conversation-message .right-in:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -15px;
+    top: 10px;
+    bottom: auto;
+    border: 8px solid;
+    border-color: white transparent transparent white; }
+  .ely-conversation-message .left-in:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: auto;
+    left: -15px;
+    top: 10px;
+    bottom: auto;
+    border: 8px solid;
+    border-color: white white transparent transparent; }
+
 #ely-messages {
   height: 100%;
   background-color: #ffffff; }
@@ -974,7 +1056,7 @@ h2.website-structure-title {
   max-width: 600px;
   background-color: #ffffff; }
   .thread .thread-container {
-    margin: 8px 0;
+    margin: 12px 0;
     padding: 0 16px;
     width: 100%;
     cursor: pointer; }

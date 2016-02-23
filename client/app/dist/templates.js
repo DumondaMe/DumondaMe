@@ -182,17 +182,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/message/template.html',
-    "<div class=ely-message>{{ctrl.message.text}}</div>"
+    "<div class=ely-conversation-message><div class=chat-bubble ng-class=\"{'right-in': ctrl.message.isUser, 'left-in': !ctrl.message.isUser}\"><div class=\"text md-body-1\">{{ctrl.message.text}}</div><div class=time>{{ctrl.dateFormatter.getTime(ctrl.message.timestamp)}}</div></div></div>"
   );
 
 
   $templateCache.put('app/modules/messages/conversation/template.html',
-    "<div id=ely-conversation layout=row><md-content id=ely-conversation-content flex><ely-conversation-create-message is-group-thread=ctrl.isGroupThread thread-id=ctrl.threadId message-sent=ctrl.newMessageSent></ely-conversation-create-message><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><ely-message message=message></ely-message></div></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-messages-overview></ely-messages-overview></md-sidenav></div>"
+    "<div id=ely-conversation layout=row><div class=conversation-description layout=row layout-align=\"start center\"><div class=description>{{ctrl.thread.threadDescription}}</div></div><md-content id=ely-conversation-content flex><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><div class=date-container ng-if=\"ctrl.checkIsNewDay($index, ctrl.thread.messages)\"><div class=date>{{ctrl.format(message.timestamp)}}</div></div><ely-message message=message></ely-message></div></div><div class=pinwall-gab></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-thread-overview ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-thread-overview></md-sidenav><md-button class=\"md-fab create-message-fab\" aria-label=\"Create Message\" ng-click=ctrl.createMessage()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
   );
 
 
   $templateCache.put('app/modules/messages/template.html',
-    "<md-content id=ely-messages><ely-messages-overview></ely-messages-overview></md-content>"
+    "<md-content id=ely-messages><ely-thread-overview></ely-thread-overview></md-content>"
   );
 
 

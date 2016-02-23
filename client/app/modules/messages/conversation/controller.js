@@ -2,10 +2,15 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams',
-            function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams) {
+        return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
+            'dateFormatter',
+            function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
+                      dateFormatter) {
                 var ctrl = this;
                 ctrl.initLoad = true;
+                ctrl.$mdMedia = $mdMedia;
+                ctrl.checkIsNewDay = MessageNextDayService.checkIsNewDay;
+                ctrl.format = dateFormatter.format;
 
                 ctrl.thread = {messages: []};
                 ctrl.threadId = $stateParams.threadId;
