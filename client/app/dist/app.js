@@ -198,7 +198,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\"><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
   );
 
 
@@ -448,7 +448,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/viewPort/template.html',
-    "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\" md-is-locked-open=false ng-if=\"!ctrl.$mdMedia('gt-md')\"><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><md-sidenav flex=none md-component-id=left class=\"md-sidenav-left md-whiteframe-z2 ely-sidnav-expanded\" md-is-locked-open=true><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
+    "<div class=viewport><ely-toolbar id=toolbar-header ng-if=\"!ctrl.$mdMedia('gt-md')\"></ely-toolbar><md-sidenav md-component-id=left class=\"md-sidenav-left md-whiteframe-z2\" md-is-locked-open=false ng-if=\"!ctrl.$mdMedia('gt-md')\"><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=content ui-view=content ng-cloak ng-if=\"!ctrl.$mdMedia('gt-md')\"></div><div ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row class=ely-gt-md-content><md-sidenav flex=none md-component-id=left class=\"md-sidenav-left md-whiteframe-z2 ely-sidnav-expanded\" md-is-locked-open=true ng-if=ctrl.showLeftNav><ely-left-nav-container class=ely-sidnav></ely-left-nav-container></md-sidenav><div class=ely-gt-md-content-container ng-style=ctrl.loginStyle><ely-toolbar id=toolbar-header></ely-toolbar><div class=content ui-view=content ng-cloak></div></div></div></div>"
   );
 
 }]);
@@ -4149,7 +4149,7 @@ arguments[4][14][0].apply(exports,arguments)
 var getHighlightedStyle = function ($state, baseState) {
 
     if ($state.includes(baseState)) {
-        return {'color': '#FF5252'};
+        return {'color': '#3F51B5'};
     }
     return {};
 };

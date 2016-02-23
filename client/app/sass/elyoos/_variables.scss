@@ -1,28 +1,24 @@
-$primary-color-darker: #00796B;
+$primary-color-dark: #303F9F;
 $primary-color: #3F51B5;
-$primary-color-light: #7986CB;
+$primary-color-light: #C5CAE9;
 
-$secondary-color: #FFA000;
-$secondary-color-light: #FFCA28;
+$secondary-color: #009688;
 
-$background-left-column-bottom: rgba(238,238,238,0.95);
-$background-left-column: #F2F2F2;
-$background-normal: #E0E0E0;
+$background-normal: #F5F5F5;
 
-$divider: rgba(0, 0, 0, 0.12);
-$divider-light: #CCCCCC;
+$divider: rgba(0, 0, 0, 0.38);
 
-$disabled-text: lighten(#000, 60%);
-$secondary-text: #9197a3;
+$disabled-text: rgba(0, 0, 0, 0.38);
+$secondary-text: rgba(0, 0, 0, 0.54);
+$primary-text: rgba(0, 0, 0, 0.87);
+
+$disabled-white-text: rgba(255, 255, 255, 1);
+$secondary-white-text: rgba(255, 255, 255, 0.7);
+$primary-white-text: rgba(255, 255, 255, 0.5);
 
 $tooltip-error: #a94442;
-$error-text: rgb(255,87,34);
+$error-text: rgb(255, 87, 34);
 $tooltip-error-background: #f2dede;
-
-$selected-element: #B3C833;
-
-$link: #0066c0;
-
 
 $gt-xxs: 480px;
 $gt-sm: 960px;

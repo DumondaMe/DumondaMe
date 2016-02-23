@@ -3,7 +3,7 @@
 var getHighlightedStyle = function ($state, baseState) {
 
     if ($state.includes(baseState)) {
-        return {'color': '#FF5252'};
+        return {'color': '#3F51B5'};
     }
     return {};
 };

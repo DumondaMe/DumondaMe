@@ -1,7 +1,9 @@
 .thread {
   width: 100%;
+  max-width: 600px;
   .thread-container {
     margin: 8px 0;
+    padding: 0 16px;
     width: 100%;
     cursor: pointer;
     .image-preview {
@@ -15,7 +17,7 @@
       .description {
         font-size: 14px;
         font-weight: 400;
-        color: $primary-color;
+        color: $primary-text;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -45,7 +47,7 @@
         padding: 2px 6px;
         font-size: 12px;
         color: #ffffff;
-        background-color: $secondary-color;
+        background-color: #7986CB;
         border-radius: 6px;
       }
     }

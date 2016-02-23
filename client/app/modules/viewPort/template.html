@@ -6,7 +6,8 @@
     <div class="content" ui-view="content" ng-cloak ng-if="!ctrl.$mdMedia('gt-md')"></div>
 
     <div ng-if="ctrl.$mdMedia('gt-md')" layout="row" class="ely-gt-md-content">
-        <md-sidenav flex="none" md-component-id="left" class="md-sidenav-left md-whiteframe-z2 ely-sidnav-expanded" md-is-locked-open="true">
+        <md-sidenav flex="none" md-component-id="left" class="md-sidenav-left md-whiteframe-z2 ely-sidnav-expanded" md-is-locked-open="true"
+                    ng-if="ctrl.showLeftNav">
             <ely-left-nav-container class="ely-sidnav"></ely-left-nav-container>
         </md-sidenav>
         <div class="ely-gt-md-content-container" ng-style="ctrl.loginStyle">

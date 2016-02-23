@@ -442,7 +442,7 @@ h2.website-structure-title {
       vertical-align: bottom;
       line-height: 14px;
       font-weight: 400;
-      color: #9197a3; }
+      color: rgba(0, 0, 0, 0.54); }
   #ely-user-detail-contact-preview .preview-container {
     padding: 0 12px 16px 16px; }
     #ely-user-detail-contact-preview .preview-container .preview-image {
@@ -465,7 +465,7 @@ h2.website-structure-title {
 
 #ely-user-detail {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   padding: 0 6px; }
 
 #ely-user-detail-profile {
@@ -483,7 +483,7 @@ h2.website-structure-title {
     margin: 5px 0 0 0;
     font-size: 14px;
     font-weight: 400;
-    color: #9197a3; }
+    color: rgba(0, 0, 0, 0.54); }
   #ely-user-detail-profile .blocked {
     margin: 5px 0 0 0;
     font-size: 14px;
@@ -492,7 +492,7 @@ h2.website-structure-title {
 
 #ely-contact {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #F5F5F5; }
   #ely-contact .contact-tabs {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
@@ -500,7 +500,7 @@ h2.website-structure-title {
 
 #ely-contacting-overview {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   padding: 16px 16px 0 16px; }
   #ely-contacting-overview #overview-text {
     width: 180px;
@@ -513,7 +513,7 @@ h2.website-structure-title {
 
 #ely-contact-overview {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   padding: 16px 16px 0 16px; }
   #ely-contact-overview .add-new-group {
     width: 100%;
@@ -529,7 +529,7 @@ h2.website-structure-title {
   .ely-contact-preview .type-preview {
     height: 72px;
     background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none; }
@@ -544,7 +544,7 @@ h2.website-structure-title {
       line-height: 72px;
       font-size: 14px;
       vertical-align: middle;
-      color: #9197a3; }
+      color: rgba(0, 0, 0, 0.54); }
     .ely-contact-preview .type-preview .count:focus {
       outline: none; }
     .ely-contact-preview .type-preview .setting {
@@ -554,13 +554,13 @@ h2.website-structure-title {
   .ely-contact-preview .contact-previews {
     max-width: 700px;
     background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
     cursor: pointer;
     margin: 0 auto 20px auto; }
     .ely-contact-preview .contact-previews .contact-preview {
       width: 100%;
       height: 72px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+      border-bottom: 1px solid rgba(0, 0, 0, 0.38); }
       .ely-contact-preview .contact-previews .contact-preview .profile-img {
         margin: 12px 16px;
         height: 48px;
@@ -610,7 +610,7 @@ h2.website-structure-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #9197a3;
+    color: rgba(0, 0, 0, 0.54);
     padding: 0 16px; }
   .ely-contact-preview-square .user-blocked {
     height: 20px;
@@ -621,7 +621,7 @@ h2.website-structure-title {
 
 #ely-user-search-overview {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   padding: 0 6px; }
 
 #toolbar-header {
@@ -655,7 +655,7 @@ h2.website-structure-title {
       position: relative;
       height: 100%;
       width: 100%;
-      background-color: #7986CB;
+      background-color: #C5CAE9;
       border-radius: 5px; }
       .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
         position: absolute;
@@ -686,7 +686,7 @@ h2.website-structure-title {
           height: 100%;
           min-width: 120px;
           box-shadow: none;
-          background-color: #7986CB;
+          background-color: #C5CAE9;
           border-radius: 5px; }
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
             box-shadow: none;
@@ -694,7 +694,7 @@ h2.website-structure-title {
             border-radius: 5px; }
             .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
               border-radius: 5px;
-              background-color: #7986CB;
+              background-color: #C5CAE9;
               color: white;
               border: none;
               width: 100%;
@@ -846,7 +846,7 @@ h2.website-structure-title {
 
 #ely-home {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   padding: 0 6px; }
   #ely-home .create-blog-fab {
     position: fixed;
@@ -930,15 +930,15 @@ h2.website-structure-title {
     height: 100%; }
 
 #ely-conversation-message-create .add-message {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #E0E0E0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+  background-color: #C5CAE9;
   height: 61px; }
   #ely-conversation-message-create .add-message .message-input-container {
     padding: 16px 0 0 16px; }
     #ely-conversation-message-create .add-message .message-input-container .message-input {
       width: 100%;
       height: 100%;
-      background-color: #E0E0E0;
+      background-color: #C5CAE9;
       border: none;
       overflow: auto;
       outline: none;
@@ -968,13 +968,14 @@ h2.website-structure-title {
 
 #ely-messages {
   height: 100%;
-  background-color: #ffffff;
-  padding: 0 6px; }
+  background-color: #ffffff; }
 
 .thread {
-  width: 100%; }
+  width: 100%;
+  max-width: 600px; }
   .thread .thread-container {
     margin: 8px 0;
+    padding: 0 16px;
     width: 100%;
     cursor: pointer; }
     .thread .thread-container .image-preview {
@@ -987,14 +988,14 @@ h2.website-structure-title {
       .thread .thread-container .text .description {
         font-size: 14px;
         font-weight: 400;
-        color: #3F51B5;
+        color: rgba(0, 0, 0, 0.87);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
       .thread .thread-container .text .preview-text {
         font-size: 12px;
         font-weight: 400;
-        color: #9197a3;
+        color: rgba(0, 0, 0, 0.54);
         margin-top: 5px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -1011,7 +1012,7 @@ h2.website-structure-title {
       padding: 2px 6px;
       font-size: 12px;
       color: #ffffff;
-      background-color: #FFA000;
+      background-color: #7986CB;
       border-radius: 6px; }
 
 #ely-thread-overview .thread-container .no-thread {
@@ -1038,7 +1039,7 @@ h2.website-structure-title {
         margin: 0 5px 0 5px;
         cursor: pointer; }
     .ely-sidnav .sidnav-header .user-info {
-      color: #000000;
+      color: rgba(0, 0, 0, 0.87);
       font-size: 14px;
       font-weight: 500;
       padding: 0 10px; }
@@ -1067,546 +1068,7 @@ h2.website-structure-title {
     .ely-sidnav .left-nav-content .nav-element:focus {
       outline: 0; }
     .ely-sidnav .left-nav-content .highlighted {
-      color: #FF5252; }
-
-#ely-page-detail {
-  height: 100%; }
-  #ely-page-detail #main-content {
-    padding-top: 100px;
-    margin-left: 250px;
-    width: 720px; }
-    #ely-page-detail #main-content .header-title {
-      margin: 10px 0;
-      padding-bottom: 5px;
-      color: #999;
-      font-size: 18px;
-      font-weight: 300;
-      border-bottom: 1px solid #e5e5e5; }
-      #ely-page-detail #main-content .header-title .options {
-        margin-right: 0px; }
-    #ely-page-detail #main-content .user-recommendation-element #user-recommendation {
-      display: inline-block;
-      padding-top: 1px;
-      margin-left: 10px;
-      font-size: 14px;
-      line-height: 16px;
-      vertical-align: middle;
-      font-weight: 300; }
-    #ely-page-detail #main-content .user-recommendation-element .user-recommendation-remove {
-      margin-left: 20px; }
-    #ely-page-detail #main-content .user-recommendation-element #user-recommendation-comment {
-      margin-top: 20px;
-      font-size: 14px;
-      word-break: break-all; }
-
-#ely-book-page .header {
-  position: relative;
-  padding-bottom: 10px;
-  margin-bottom: 10px; }
-  #ely-book-page .header .book-image {
-    display: inline-block;
-    vertical-align: top;
-    height: 255px;
-    width: 160px; }
-    #ely-book-page .header .book-image img {
-      max-height: 100%;
-      max-width: 100%; }
-  #ely-book-page .header .header-content {
-    display: inline-block;
-    vertical-align: top;
-    width: 498px;
-    padding-left: 15px; }
-    #ely-book-page .header .header-content .book-title {
-      font-size: 24px;
-      font-weight: 100;
-      color: #3F51B5;
-      max-height: 80px; }
-    #ely-book-page .header .header-content .authors {
-      display: inline-block;
-      font-size: 14px;
-      font-weight: 300; }
-      #ely-book-page .header .header-content .authors .author {
-        display: inline-block;
-        margin-left: 5px;
-        font-size: 14px;
-        font-weight: 300; }
-    #ely-book-page .header .header-content .header-commands {
-      position: absolute;
-      bottom: 65px; }
-
-#ely-page-detail .page-detail-commons {
-  position: absolute;
-  bottom: 10px; }
-  #ely-page-detail .page-detail-commons .rating-overviews .rating-overview {
-    margin-top: 5px; }
-    #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .rating-overview-description, #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .no-rating-description {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 300;
-      margin-left: 5px; }
-    #ely-page-detail .page-detail-commons .rating-overviews .rating-overview .no-rating-description {
-      margin-left: 0; }
-#ely-page-detail .page-element {
-  padding-bottom: 10px;
-  border-top: 1px solid #e5e5e5; }
-
-#content-page-detail .page-detail-header-preview {
-  display: table-cell;
-  position: relative;
-  padding-left: 20px; }
-  #content-page-detail .page-detail-header-preview .page-detail-header-preview-title {
-    font-size: 30px;
-    font-weight: 100;
-    color: #3F51B5;
-    margin-bottom: 10px; }
-  #content-page-detail .page-detail-header-preview .page-detail-activity {
-    width: 350px;
-    height: 30px;
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    padding-left: 10px;
-    background-color: #ffffff;
-    cursor: pointer; }
-    #content-page-detail .page-detail-header-preview .page-detail-activity .page-detail-activity-time {
-      margin-right: 10px;
-      vertical-align: middle;
-      width: 80px;
-      display: inline-block; }
-    #content-page-detail .page-detail-header-preview .page-detail-activity .page-detail-activity-title {
-      display: inline-block;
-      vertical-align: middle;
-      width: 245px;
-      overflow: hidden; }
-
-.page-rating-review {
-  height: 150px;
-  width: 658px;
-  margin-bottom: 20px; }
-  .page-rating-review .page-rating-review-summary {
-    display: inline-block;
-    height: 100%;
-    width: 165px;
-    text-align: center; }
-    .page-rating-review .page-rating-review-summary .page-rating-review-number {
-      font-size: 64px;
-      line-height: 64px;
-      font-weight: 100;
-      margin-top: 20px;
-      margin-bottom: 5px;
-      color: #333; }
-    .page-rating-review .page-rating-review-summary .page-rating-review-total {
-      margin-top: 7px;
-      font-size: 12px;
-      font-weight: 300; }
-  .page-rating-review .page-rating-review-diagram {
-    display: inline-block;
-    vertical-align: top;
-    padding-top: 15px;
-    width: 493px; }
-    .page-rating-review .page-rating-review-diagram .page-rating-review-line {
-      height: 24px; }
-      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
-        display: inline-block;
-        vertical-align: middle;
-        height: 16px;
-        width: 16px;
-        margin-right: 3px; }
-      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-number {
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 5px;
-        font-size: 11px;
-        line-height: 11px; }
-      .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
-        display: inline-block;
-        vertical-align: middle;
-        width: 350px;
-        height: 24px; }
-        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
-          font-size: 11px;
-          padding-top: 5px;
-          padding-left: 5px;
-          background-color: #88b131;
-          width: 100%;
-          height: 100%; }
-        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4 {
-          background-color: #99cc00; }
-        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3 {
-          background-color: #ffcf02; }
-        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2 {
-          background-color: #ff9f02; }
-        .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
-          background-color: #ff6f31; }
-
-.page-rating-comments-detail {
-  width: 100%;
-  padding-left: 0;
-  display: table; }
-  .page-rating-comments-detail .page-rating-comments-previews {
-    width: 560px;
-    display: table-cell;
-    vertical-align: middle; }
-    .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview {
-      float: left;
-      max-height: 120px;
-      margin-right: 10px;
-      margin-bottom: 10px; }
-      .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-left {
-        display: inline-block;
-        width: 50px;
-        height: 100%; }
-        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-left .page-rating-comment-img {
-          width: 48px;
-          height: 48px;
-          padding: 5px; }
-      .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right {
-        display: inline-block;
-        vertical-align: top;
-        margin-left: 10px;
-        width: 210px;
-        height: 100%; }
-        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-name {
-          display: inline-block;
-          vertical-align: top;
-          font-weight: 500;
-          font-size: 13px;
-          max-width: 120px;
-          height: 22px;
-          text-overflow: ellipsis;
-          overflow: hidden; }
-        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-header .page-rating-comment-created {
-          display: inline-block;
-          vertical-align: top;
-          font-size: 11px;
-          font-weight: 300;
-          color: #AAAAAA;
-          line-height: 18px;
-          margin-left: 4px;
-          margin-top: 1px; }
-        .page-rating-comments-detail .page-rating-comments-previews .page-rating-comment-preview .page-rating-comment-right .page-rating-comment-description {
-          width: 210px;
-          white-space: normal;
-          margin-top: 5px;
-          padding-right: 20px;
-          max-height: 70px;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          font-size: 13px;
-          font-weight: 300; }
-  .page-rating-comments-detail .comment-clear {
-    height: 0;
-    display: block;
-    clear: both; }
-  .page-rating-comments-detail button.page-rating-comments-nav {
-    width: 48px;
-    min-width: 48px;
-    display: table-cell;
-    vertical-align: middle;
-    margin: 0;
-    height: 100%; }
-    .page-rating-comments-detail button.page-rating-comments-nav .comments-nav-icon {
-      width: 48px;
-      height: 64px;
-      margin-left: -5px; }
-
-#ely-youtube-page .header {
-  position: relative;
-  padding-bottom: 10px;
-  margin-bottom: 10px; }
-  #ely-youtube-page .header .youtube-embedded {
-    display: block;
-    margin: 20px 0;
-    height: 400px;
-    width: 100%; }
-  #ely-youtube-page .header .header-content {
-    width: 100%; }
-    #ely-youtube-page .header .header-content .youtube-title {
-      font-size: 24px;
-      font-weight: 100;
-      color: #3F51B5;
-      max-height: 68px;
-      overflow: hidden; }
-    #ely-youtube-page .header .header-content .header-commands {
-      margin-top: 10px;
-      margin-bottom: 5px; }
-    #ely-youtube-page .header .header-content .page-detail-commons {
-      position: static;
-      bottom: 0; }
-
-#content-page-overview {
-  width: 100%;
-  height: 100%;
-  min-width: 1000px;
-  padding-top: 140px; }
-  #content-page-overview #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 220px; }
-    #content-page-overview #centerCol #inner-centerCol {
-      position: relative;
-      display: inline-block;
-      min-width: 800px;
-      max-width: 1600px;
-      height: 100%;
-      width: 100%;
-      padding-left: 50px; }
-  #content-page-overview #search-box-container {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 48px;
-    background-color: #ffffff;
-    left: 230px; }
-    #content-page-overview #search-box-container .searchBoxForm {
-      display: inline-block;
-      padding-left: 60px;
-      margin-top: 2px;
-      width: 600px; }
-    #content-page-overview #search-box-container .searchBoxForm {
-      padding-left: 40px; }
-
-.page-overview-container {
-  position: relative;
-  display: block;
-  margin-bottom: 20px;
-  width: 100%; }
-  .page-overview-container .website-structure-title {
-    display: inline-block;
-    margin-bottom: 30px; }
-  .page-overview-container .page-overview-expand {
-    display: inline-block;
-    position: absolute;
-    top: -7px;
-    right: 23px; }
-
-.page-overview-next {
-  width: 48px;
-  margin: 0 auto 0 auto;
-  cursor: pointer; }
-
-.page-preview-container, .page-preview-expand-container {
-  height: 330px;
-  overflow: hidden; }
-  .page-preview-container .page-preview-inner-container, .page-preview-expand-container .page-preview-inner-container {
-    display: inline-block;
-    vertical-align: top;
-    width: 160px;
-    overflow: hidden;
-    margin-right: 30px;
-    margin-bottom: 20px; }
-    .page-preview-container .page-preview-inner-container .page-preview, .page-preview-expand-container .page-preview-inner-container .page-preview, .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-expand-container .page-preview-inner-container .page-preview-long {
-      position: relative;
-      cursor: pointer;
-      width: 160px;
-      height: 330px;
-      margin-bottom: 30px;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
-      background: white; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container {
-        width: 160px;
-        height: 255px;
-        display: table-cell;
-        vertical-align: middle; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container .page-preview-image, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container .page-preview-image {
-          width: 100%;
-          max-height: 255px; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-image-container .ely-iframe, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-image-container .ely-iframe {
-          height: 255px; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-title, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-title, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-title {
-        margin-top: 10px;
-        padding: 0 10px;
-        font-size: 15px;
-        width: 160px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: #3F51B5; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-language, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-language, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-language {
-        margin-left: 10px;
-        font-size: 12px;
-        font-weight: 300; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-contact, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-contact {
-        position: absolute;
-        bottom: 25px; }
-        .page-preview-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-contact .page-preview-contact-name, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-contact .page-preview-contact-name {
-          display: inline-block;
-          vertical-align: middle;
-          font-size: 14px;
-          font-weight: 300;
-          margin-left: 10px;
-          width: 140px;
-          max-height: 40px;
-          overflow: hidden; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-rating, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-rating, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-rating {
-        position: absolute;
-        bottom: 5px;
-        left: 10px; }
-      .page-preview-container .page-preview-inner-container .page-preview .page-preview-rating-comment, .page-preview-expand-container .page-preview-inner-container .page-preview .page-preview-rating-comment, .page-preview-container .page-preview-inner-container .page-preview-long .page-preview-rating-comment, .page-preview-expand-container .page-preview-inner-container .page-preview-long .page-preview-rating-comment {
-        position: absolute;
-        height: 16px;
-        bottom: 7px;
-        right: 10px; }
-    .page-preview-container .page-preview-inner-container .page-preview-long, .page-preview-expand-container .page-preview-inner-container .page-preview-long {
-      height: 380px; }
-
-.page-preview-expand-container {
-  height: initial; }
-
-#modal-comment-dialog .modal-body .modal-body-profile-img {
-  display: inline-block;
-  vertical-align: top;
-  width: 35px;
-  height: 35px;
-  margin-right: 10px;
-  margin-top: 3px; }
-#modal-comment-dialog .modal-body .modal-body-user-info {
-  display: inline-block; }
-  #modal-comment-dialog .modal-body .modal-body-user-info .modal-body-name {
-    font-size: 14px;
-    font-weight: bold;
-    color: #3F51B5;
-    cursor: pointer;
-    overflow-y: hidden;
-    text-overflow: ellipsis;
-    max-height: 40px; }
-#modal-comment-dialog .modal-body .modal-body-comment {
-  margin-top: 10px;
-  word-break: break-all; }
-
-#content #content-page-user-recommendation {
-  width: 100%;
-  height: 100%;
-  min-width: 1000px;
-  padding-top: 140px; }
-  #content #content-page-user-recommendation #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 220px; }
-    #content #content-page-user-recommendation #centerCol #inner-centerCol {
-      position: relative;
-      display: inline-block;
-      min-width: 800px;
-      max-width: 1600px;
-      height: 100%;
-      width: 100%;
-      padding-left: 50px; }
-  #content #content-page-user-recommendation #search-box-container {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 48px;
-    background-color: #ffffff;
-    left: 230px; }
-    #content #content-page-user-recommendation #search-box-container .searchBoxForm {
-      display: inline-block;
-      padding-left: 60px;
-      margin-top: 2px;
-      width: 600px; }
-    #content #content-page-user-recommendation #search-box-container .searchBoxForm {
-      padding-left: 40px; }
-
-#content #content-page-user-administration {
-  width: 100%;
-  height: 100%;
-  min-width: 1000px;
-  padding-top: 140px; }
-  #content #content-page-user-administration #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 220px; }
-    #content #content-page-user-administration #centerCol #inner-centerCol {
-      position: relative;
-      display: inline-block;
-      min-width: 800px;
-      max-width: 1600px;
-      height: 100%;
-      width: 100%;
-      padding-left: 50px; }
-  #content #content-page-user-administration #search-box-container {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 48px;
-    background-color: #ffffff;
-    left: 230px; }
-    #content #content-page-user-administration #search-box-container .searchBoxForm {
-      display: inline-block;
-      padding-left: 60px;
-      margin-top: 2px;
-      width: 600px; }
-    #content #content-page-user-administration #search-box-container .searchBoxForm {
-      padding-left: 40px; }
-
-#page-category-selection #content {
-  margin-top: 25px;
-  margin-bottom: 15px; }
-  #page-category-selection #content .row-select-category {
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #e5e5e5; }
-  #page-category-selection #content #inputTitleId {
-    width: 100%; }
-  #page-category-selection #content .category-select-finished {
-    margin-top: 10px; }
-  #page-category-selection #content .content-create-edit-category-element {
-    margin-top: 15px;
-    margin-right: 10px; }
-#page-category-selection #content-create-edit-page-suggestion-commands {
-  margin-top: 20px; }
-  #page-category-selection #content-create-edit-page-suggestion-commands .content-create-edit-page-suggestion-commands-buttons {
-    margin-right: 10px; }
-
-#compare-existing-pages {
-  padding: 0 20px;
-  margin-bottom: 20px; }
-  #compare-existing-pages .commands {
-    margin-top: 20px; }
-
-#page-handling-details-book {
-  margin-bottom: 10px;
-  padding-bottom: 10px; }
-  #page-handling-details-book #create-book-page {
-    width: 100%;
-    height: 260px; }
-  #page-handling-details-book #picture-area {
-    margin-top: 10px;
-    margin-right: 20px;
-    float: left; }
-    #page-handling-details-book #picture-area .picture {
-      height: 200px; }
-    #page-handling-details-book #picture-area .get-picture {
-      margin-top: 20px; }
-  #page-handling-details-book #description-area {
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 15px; }
-  #page-handling-details-book .commands {
-    margin-bottom: 10px; }
-
-#page-handling-details-youtube {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 10px; }
-  #page-handling-details-youtube .ely-form-text-input {
-    padding: 0 15px; }
-  #page-handling-details-youtube #inputYoutubeLink {
-    width: 100%; }
-
-#page-handling {
-  width: 100%;
-  height: 100%;
-  padding-top: 95px; }
-  #page-handling #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 240px; }
-    #page-handling #centerCol #inner-centerCol {
-      position: relative;
-      width: 800px;
-      margin: 0 auto; }
+      color: #3F51B5; }
 
 #problem-create {
   min-width: 310px;
@@ -1649,17 +1111,17 @@ h2.website-structure-title {
 
 #ely-problem-detail {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #F5F5F5; }
   #ely-problem-detail .detail-tabs {
     height: 100%; }
     #ely-problem-detail .detail-tabs md-tabs-wrapper {
       background-color: #ffffff; }
     #ely-problem-detail .detail-tabs .detail-container {
-      background-color: #E0E0E0; }
+      background-color: #F5F5F5; }
 
 #ely-problem-reason-detail {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #F5F5F5; }
   #ely-problem-reason-detail #detail-container {
     max-width: 400px;
     min-width: 280px; }
@@ -1703,7 +1165,7 @@ h2.website-structure-title {
   #ely-problem #ely-problem-overview {
     height: 100%;
     width: 100%;
-    background-color: #E0E0E0; }
+    background-color: #F5F5F5; }
     #ely-problem #ely-problem-overview .problem-overview-container {
       width: 100%;
       height: 100%;
@@ -1764,21 +1226,6 @@ h2.website-structure-title {
       font-size: 16px;
       font-weight: 500; }
 
-#modal-dialog-add-recommendation .modal-header .title {
-  font-weight: bold;
-  display: inline; }
-#modal-dialog-add-recommendation .modal-body .description textarea {
-  height: 300px; }
-#modal-dialog-add-recommendation .modal-footer .error {
-  float: left;
-  text-align: left;
-  max-width: 200px;
-  margin-left: 10px;
-  color: red; }
-#modal-dialog-add-recommendation .modal-footer .ely-star-rating {
-  float: left;
-  margin-left: 5px; }
-
 #add-group {
   max-width: 500px; }
   #add-group .ely-dialog-content {
@@ -1813,193 +1260,8 @@ h2.website-structure-title {
     #modify-group-setting .ely-dialog-content .select-privacy {
       margin-bottom: 24px; }
 
-#content-settings-password {
-  width: 100%;
-  height: 100%; }
-  #content-settings-password #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 250px; }
-    #content-settings-password #centerCol #inner-centerCol {
-      position: relative;
-      width: 500px;
-      margin-left: 50px;
-      padding-top: 120px; }
-      #content-settings-password #centerCol #inner-centerCol #label-password-confirm {
-        padding-top: 0px; }
-
-#content-settings-profile {
-  width: 100%;
-  height: 100%; }
-  #content-settings-profile #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 80px; }
-    #content-settings-profile #centerCol #inner-centerCol {
-      position: relative;
-      width: 800px;
-      margin: 100px auto 0 auto; }
-      #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container {
-        float: left;
-        margin: 0 10px 0 20px; }
-        #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container img {
-          width: 250px;
-          height: 250px; }
-        #content-settings-profile #centerCol #inner-centerCol #manage-profile-photo-container #change-profile-image {
-          margin-top: 10px;
-          display: block; }
-      #content-settings-profile #centerCol #inner-centerCol #manage-profile {
-        float: left;
-        width: 500px; }
-      #content-settings-profile #centerCol #inner-centerCol #change-profile-password {
-        margin-bottom: 20px; }
-      #content-settings-profile #centerCol #inner-centerCol .select.dropdown-menu {
-        max-height: 200px;
-        overflow: auto; }
-
-.upload-file-error {
-  float: left;
-  margin-right: 5px;
-  margin-left: 10px;
-  color: red;
-  max-width: 200px;
-  text-align: left; }
-
-.btn-file {
-  float: left;
-  position: relative;
-  overflow: hidden; }
-
-.btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  background: white;
-  cursor: inherit;
-  display: block; }
-
-#content-settings-security {
-  width: 100%;
-  height: 100%; }
-  #content-settings-security #centerCol {
-    display: block;
-    height: 100%;
-    padding-left: 230px; }
-    #content-settings-security #centerCol #inner-centerCol {
-      position: relative;
-      width: 800px;
-      margin: 100px auto 0 auto; }
-      #content-settings-security #centerCol #inner-centerCol .header-privacy {
-        height: 50px; }
-        #content-settings-security #centerCol #inner-centerCol .header-privacy .header-privacy-title {
-          height: 40px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-          margin: 0 0 10px 0; }
-          #content-settings-security #centerCol #inner-centerCol .header-privacy .header-privacy-title h2 {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0;
-            padding: 10px 0 0 0; }
-      #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-button-row {
-        margin-left: 20px;
-        padding-top: 20px;
-        height: 54px; }
-      #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row {
-        width: 100%;
-        height: 60px; }
-        #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings {
-          margin-top: 15px;
-          margin-bottom: 10px; }
-          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-description {
-            margin-left: 20px;
-            margin-top: 2px;
-            font-size: 14px;
-            font-style: italic;
-            display: block;
-            word-wrap: normal; }
-          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text, #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text-disabled {
-            margin-left: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            display: block; }
-          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings .select-privacy-settings-text-disabled {
-            color: #999999;
-            font-weight: normal; }
-          #content-settings-security #centerCol #inner-centerCol .content-privacy .privacy-setting-row .select-privacy-settings input {
-            float: left; }
-  #content-settings-security #privacy-setting-overview {
-    position: fixed;
-    display: inline-block;
-    vertical-align: top;
-    top: 204px;
-    width: 230px;
-    background-color: rgba(238, 238, 238, 0.95);
-    box-shadow: 1px 6px 6px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid #CCCCCC;
-    padding-top: 20px; }
-    #content-settings-security #privacy-setting-overview ul {
-      width: 100%;
-      padding: 0 10px; }
-      #content-settings-security #privacy-setting-overview ul .list-group-item {
-        height: 30px;
-        padding: 5px 15px; }
-        #content-settings-security #privacy-setting-overview ul .list-group-item .privacy-type-description {
-          width: 110px;
-          overflow: hidden;
-          cursor: pointer; }
-        #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container {
-          width: 30px;
-          padding-left: 10px;
-          float: right; }
-          #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .list-group-item-icons {
-            height: 20px;
-            width: 20px;
-            cursor: pointer; }
-          #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover {
-            width: 276px; }
-            #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content {
-              padding: 9px 14px; }
-              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-description {
-                margin: 5px 10px; }
-              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-divider {
-                clear: both;
-                width: 100%;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-                margin: 5px 0 0 0; }
-              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element-right {
-                float: right;
-                margin: 8px 10px; }
-              #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element {
-                float: left;
-                margin: 8px 10px; }
-                #content-settings-security #privacy-setting-overview ul .list-group-item .list-group-item-container .popover .popover-content .popover-element input {
-                  width: 130px; }
-      #content-settings-security #privacy-setting-overview ul .list-group-item.group-selected {
-        background-color: #E0E0E0; }
-      #content-settings-security #privacy-setting-overview ul .active a {
-        color: #FFFFFF; }
-      #content-settings-security #privacy-setting-overview ul a {
-        color: #000000; }
-      #content-settings-security #privacy-setting-overview ul .privacy-adding {
-        margin-top: 10px;
-        padding-left: 15px; }
-      #content-settings-security #privacy-setting-overview ul .privacy-adding-input input {
-        margin: 15px 0 10px 0; }
-      #content-settings-security #privacy-setting-overview ul .privacy-adding-input button {
-        float: right; }
-      #content-settings-security #privacy-setting-overview ul .privacy-adding-input .privacy-abort-adding {
-        float: left;
-        margin-bottom: 10px; }
-
 body, html {
-  background-color: #E0E0E0;
+  background-color: #F5F5F5;
   height: 100%; }
 
 .viewport {

@@ -36,19 +36,6 @@
 
 @import 'navigation/_leftColNav';
 
-@import 'pages/_detail';
-@import 'pages/_detailBook';
-@import 'pages/_detailCommon';
-@import 'pages/_detailEducation';
-@import 'pages/_detailReview';
-@import 'pages/_detailYoutube';
-@import 'pages/_overview';
-@import 'pages/_previewContainer';
-@import 'pages/_preview';
-@import 'pages/_userRecommendation';
-@import 'pages/_userAdministration';
-@import 'pages/_index';
-
 @import 'problem/_mixins';
 @import 'problem/_createProblem';
 @import 'problem/_createReason';
@@ -59,11 +46,6 @@
 @import 'problem/_overviewReason';
 @import 'problem/_overviewReasonElement';
 
-@import 'recommendation/_modal';
-
 @import 'settings/modal/_addGroup';
 @import 'settings/modal/_deleteGroup';
 @import 'settings/modal/_modifyGroupSetting';
-@import 'settings/_password';
-@import 'settings/_profile';
-@import 'settings/_privacy';

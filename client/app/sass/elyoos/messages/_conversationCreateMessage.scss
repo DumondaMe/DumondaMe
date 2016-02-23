@@ -1,14 +1,14 @@
 #ely-conversation-message-create {
   .add-message {
     border-bottom: 1px solid $divider;
-    background-color: $background-normal;
+    background-color: $primary-color-light;
     height: 61px;
     .message-input-container {
       padding: 16px 0 0 16px;
       .message-input {
         width: 100%;
         height: 100%;
-        background-color: $background-normal;
+        background-color: $primary-color-light;
         border: none;
         overflow: auto;
         outline: none;
