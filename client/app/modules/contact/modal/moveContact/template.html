@@ -10,7 +10,7 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-click="ctrl.accept()" ng-disable="ctrl.uploadStarted">Verschieben</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.accept()" ng-disable="ctrl.uploadStarted">Verschieben</md-button>
         </md-dialog-actions>
     </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>

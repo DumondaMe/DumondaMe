@@ -1,27 +1,43 @@
 'use strict';
 
-module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
+module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
 
-    this.show = function (modalParams) {
+    var preventStateChange = false;
 
-        var scope;
-        modalParams.animation = true;
-        modalParams.controllerAs = 'ctrl';
-        modalParams.bindToController = true;
-        modalParams.backdrop = 'static';
+    this.show = function (controller, template, locals) {
 
-        if (modalParams.hasOwnProperty('scope')) {
-            scope = $rootScope.$new();
-            angular.extend(scope, modalParams.scope);
-            modalParams.scope = scope;
-        }
+        var modalParams = {
+            parent: angular.element(document.body),
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            bindToController: true,
+            controllerAs: 'ctrl',
+            controller: controller,
+            templateUrl: template,
+            locals: locals
+        };
 
-        if (!modalParams.hasOwnProperty('controller')) {
-            modalParams.controller = function () {
-            };
-        }
-
-
-        return $modal.open(modalParams).result;
+        preventStateChange = true;
+        return $mdDialog.show(modalParams).then(function (resp) {
+            preventStateChange = false;
+            return resp;
+        });
     };
+
+    this.hide = function (resp) {
+        preventStateChange = false;
+        $mdDialog.hide(resp);
+    };
+
+    this.cancel = function() {
+        preventStateChange = false;
+        $mdDialog.cancel();
+    };
+
+    $rootScope.$on('$stateChangeStart',
+        function (event) {
+            if(preventStateChange) {
+                event.preventDefault();
+            }
+        });
 }];

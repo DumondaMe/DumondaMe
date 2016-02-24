@@ -12,13 +12,12 @@
                     <ely-message message="message"></ely-message>
                 </div>
             </div>
-            <div class="pinwall-gab"></div>
         </div>
     </md-content>
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')">
         <ely-thread-overview ng-if="ctrl.$mdMedia('gt-md')"></ely-thread-overview>
     </md-sidenav>
-    <md-button class="md-fab create-message-fab" aria-label="Create Message" ng-click="ctrl.createMessage()">
+    <md-button class="md-fab md-mini create-message-fab" aria-label="Create Message" ng-click="ctrl.createMessage()">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
     </md-button>
 </div>

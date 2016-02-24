@@ -921,6 +921,14 @@ h2.website-structure-title {
 #check-login {
   height: 100%; }
 
+#ely-conversation-message-create .title {
+  font-size: 16px;
+  margin-bottom: 8px; }
+  #ely-conversation-message-create .title .name {
+    color: #3F51B5; }
+#ely-conversation-message-create .message-input-container {
+  width: 100%; }
+
 #ely-conversation {
   height: 100%;
   position: relative; }
@@ -958,13 +966,9 @@ h2.website-structure-title {
       font-weight: 500;
       font-size: 16px; }
   #ely-conversation .create-message-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0; }
-    @media screen and (min-width: 1280px) {
-      #ely-conversation .create-message-fab {
-        bottom: 15px;
-        right: 20px; } }
+    position: absolute;
+    top: 22px;
+    right: 8px; }
 
 #ely-conversation-message-create .add-message {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -1010,7 +1014,7 @@ h2.website-structure-title {
     padding-bottom: 8px;
     background-color: white;
     position: relative;
-    width: 200px;
+    max-width: 80%;
     height: auto;
     border-radius: 7px;
     -webkit-border-radius: 7px;

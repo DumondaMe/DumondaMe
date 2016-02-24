@@ -1,21 +1,23 @@
-<md-content id="ely-conversation-message-create">
-    <div class="add-message" ng-style="ctrl.textInputWrapperStyle" layout="row">
-        <div flex="grow" class="message-input-container">
-            <textarea class="message-input" placeholder="Nachricht schreiben"
-                      ng-style="ctrl.textInputStyle"
-                      ng-keyup="ctrl.checkHeightOfInput($event)"
-                      maxlength="1000"
-                      ng-model="ctrl.newMessage"></textarea>
-        </div>
-        <div flex="none" class="send-button-container" layout="row" layout-align="center center">
-            <div class="send-button-height">
-                <md-button class="md-icon-button send-button md-primary" ng-click="ctrl.sendMessage()"
-                           aria-label="Send Message"
-                           ng-disabled="ctrl.newMessage.trim() === '' || ctrl.newMessage.length > 1000 || ctrl.uploadStarted">
-                    <md-icon md-svg-icon="system:send"></md-icon>
-                </md-button>
-            </div>
-        </div>
-    </div>
+<md-dialog aria-label="Send new Message" ng-cloak id="ely-conversation-message-create">
+    <form name="createMessageForm" class="content-form">
+        <md-dialog-content class="md-dialog-content">
+            <div class="md-title title">Nachricht an <span class="name">{{ctrl.description}}</span> schreiben</div>
+            <md-input-container class="message-input-container">
+                <label>Schreibe einen Beitrag...</label>
+                <textarea name="messageText" class="message-input" ng-model="ctrl.newMessage" required md-maxlength="1000"
+                          ng-disabled="ctrl.uploadStarted" ng-change="ctrl.messageTextChanged()"></textarea>
+                <div ng-messages="createMessageForm.messageText.$error" ng-show="createMessageForm.messageText.$dirty">
+                    <div ng-message="required">Wird benötigt!</div>
+                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()" ng-disabled="ctrl.uploadStarted">Abbrechen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.sendMessage()"
+                       ng-disabled="ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed">Senden
+            </md-button>
+        </md-dialog-actions>
+    </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
-</md-content>
+</md-dialog>

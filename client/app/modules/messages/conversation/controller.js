@@ -3,9 +3,9 @@
 module.exports = {
     directiveCtrl: function () {
         return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
-            'dateFormatter',
+            'dateFormatter', 'ElyModal',
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter) {
+                      dateFormatter, ElyModal) {
                 var ctrl = this;
                 ctrl.initLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -30,8 +30,12 @@ module.exports = {
 
                 ctrl.nextMessages();
 
-                ctrl.newMessageSent = function (newMessage) {
-                    ctrl.thread.messages.unshift(newMessage);
+                ctrl.createMessage = function () {
+                    ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
+                        {threadId: ctrl.threadId, isGroupThread: ctrl.isGroupThread, description: ctrl.thread.threadDescription})
+                        .then(function (newMessage) {
+                            ctrl.thread.messages.unshift(newMessage);
+                        });
                 };
             }];
     }

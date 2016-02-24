@@ -1,8 +1,8 @@
 'use strict';
 
 var app = angular.module('elyoosApp');
-var directive = require('./directive.js');
-
-app.directive(directive.name, directive.directive);
 
 app.service('ConversationMessageService', require('./services/conversationMessage'));
+app.service('CreateMessageCheck', require('./services/createMessageCheck'));
+
+app.controller('CreateMessageCtrl', require('./controller'));

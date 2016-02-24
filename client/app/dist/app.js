@@ -88,12 +88,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/modal/addContact/template.html',
-    "<md-dialog id=add-contact aria-label=\"Select Contact Group\" ng-cloak><form name=ctrl.addContactForm><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> den Kontakten hinzufügen</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}} ng-disable=ctrl.uploadStarted>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disable=ctrl.uploadStarted>Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog id=add-contact aria-label=\"Select Contact Group\" ng-cloak><form name=ctrl.addContactForm><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> den Kontakten hinzufügen</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}} ng-disable=ctrl.uploadStarted>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.accept() ng-disable=ctrl.uploadStarted>Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
   $templateCache.put('app/modules/contact/modal/moveContact/template.html',
-    "<md-dialog id=move-contact aria-label=\"Move Contact\" ng-cloak><form name=ctrl.moveContactForm><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> in neue Gruppe verschieben</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}} ng-disable=ctrl.uploadStarted>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disable=ctrl.uploadStarted>Verschieben</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog id=move-contact aria-label=\"Move Contact\" ng-cloak><form name=ctrl.moveContactForm><md-dialog-content class=md-dialog-content><div class=\"md-title title\"><span class=name>{{ctrl.name}}</span> in neue Gruppe verschieben</div><md-radio-group ng-model=ctrl.selectedType><md-radio-button ng-repeat=\"typeValue in ctrl.types\" value={{typeValue}} aria-label={{typeValue}} ng-disable=ctrl.uploadStarted>{{typeValue}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.accept() ng-disable=ctrl.uploadStarted>Verschieben</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -178,7 +178,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/createMessage/template.html',
-    "<md-content id=ely-conversation-message-create><div class=add-message ng-style=ctrl.textInputWrapperStyle layout=row><div flex=grow class=message-input-container><textarea class=message-input placeholder=\"Nachricht schreiben\" ng-style=ctrl.textInputStyle ng-keyup=ctrl.checkHeightOfInput($event) maxlength=1000 ng-model=ctrl.newMessage></textarea></div><div flex=none class=send-button-container layout=row layout-align=\"center center\"><div class=send-button-height><md-button class=\"md-icon-button send-button md-primary\" ng-click=ctrl.sendMessage() aria-label=\"Send Message\" ng-disabled=\"ctrl.newMessage.trim() === '' || ctrl.newMessage.length > 1000 || ctrl.uploadStarted\"><md-icon md-svg-icon=system:send></md-icon></md-button></div></div></div><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-content>"
+    "<md-dialog aria-label=\"Send new Message\" ng-cloak id=ely-conversation-message-create><form name=createMessageForm class=content-form><md-dialog-content class=md-dialog-content><div class=\"md-title title\">Nachricht an <span class=name>{{ctrl.description}}</span> schreiben</div><md-input-container class=message-input-container><label>Schreibe einen Beitrag...</label><textarea name=messageText class=message-input ng-model=ctrl.newMessage required md-maxlength=1000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.messageTextChanged()></textarea><div ng-messages=createMessageForm.messageText.$error ng-show=createMessageForm.messageText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel() ng-disabled=ctrl.uploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.sendMessage() ng-disabled=\"ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed\">Senden</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -188,7 +188,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/template.html',
-    "<div id=ely-conversation layout=row><div class=conversation-description layout=row layout-align=\"start center\"><div class=description>{{ctrl.thread.threadDescription}}</div></div><md-content id=ely-conversation-content flex><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><div class=date-container ng-if=\"ctrl.checkIsNewDay($index, ctrl.thread.messages)\"><div class=date>{{ctrl.format(message.timestamp)}}</div></div><ely-message message=message></ely-message></div></div><div class=pinwall-gab></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-thread-overview ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-thread-overview></md-sidenav><md-button class=\"md-fab create-message-fab\" aria-label=\"Create Message\" ng-click=ctrl.createMessage()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
+    "<div id=ely-conversation layout=row><div class=conversation-description layout=row layout-align=\"start center\"><div class=description>{{ctrl.thread.threadDescription}}</div></div><md-content id=ely-conversation-content flex><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><div class=date-container ng-if=\"ctrl.checkIsNewDay($index, ctrl.thread.messages)\"><div class=date>{{ctrl.format(message.timestamp)}}</div></div><ely-message message=message></ely-message></div></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-thread-overview ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-thread-overview></md-sidenav><md-button class=\"md-fab md-mini create-message-fab\" aria-label=\"Create Message\" ng-click=ctrl.createMessage()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
   );
 
 
@@ -3697,9 +3697,9 @@ module.exports = {
 module.exports = {
     directiveCtrl: function () {
         return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
-            'dateFormatter',
+            'dateFormatter', 'ElyModal',
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter) {
+                      dateFormatter, ElyModal) {
                 var ctrl = this;
                 ctrl.initLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -3724,8 +3724,12 @@ module.exports = {
 
                 ctrl.nextMessages();
 
-                ctrl.newMessageSent = function (newMessage) {
-                    ctrl.thread.messages.unshift(newMessage);
+                ctrl.createMessage = function () {
+                    ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
+                        {threadId: ctrl.threadId, isGroupThread: ctrl.isGroupThread, description: ctrl.thread.threadDescription})
+                        .then(function (newMessage) {
+                            ctrl.thread.messages.unshift(newMessage);
+                        });
                 };
             }];
     }
@@ -3735,75 +3739,46 @@ module.exports = {
 },{}],136:[function(require,module,exports){
 'use strict';
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['Conversation', 'ConversationMessageService',
-            function ( Conversation, ConversationMessageService) {
-                var ctrl = this;
-                ctrl.newMessage = '';
+module.exports =
+    ['Conversation', 'ConversationMessageService', 'ElyModal', 'CreateMessageCheck',
+        function (Conversation, ConversationMessageService, ElyModal, CreateMessageCheck) {
+            var ctrl = this;
+            ctrl.newMessage = '';
+            ctrl.uploadAllowed = false;
 
-                ctrl.checkHeightOfInput = function ($event) {
-                    if ($event.target.offsetHeight < 110) {
-                        if ($event.target.offsetHeight < $event.target.scrollHeight) {
-                            ctrl.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
-                            ctrl.textInputWrapperStyle = {height: $event.target.scrollHeight + 24 + 'px'};
-                        }
-                    } else if ($event.target.offsetHeight < 144) {
-                        ctrl.textInputWrapperStyle = {height: '144px'};
-                    }
-                };
+            ctrl.messageTextChanged = function () {
+                ctrl.uploadAllowed = CreateMessageCheck.isSendMessageAllowed(ctrl.newMessage);
+            };
 
-                ctrl.sendMessage = function () {
-                    var message;
-                    if (ctrl.newMessage.trim() !== '' && ctrl.newMessage.length <= 1000) {
-                        message = ConversationMessageService.getMessage(ctrl.isGroupThread, ctrl.threadId, ctrl.newMessage);
-                        ctrl.uploadStarted = true;
-                        Conversation.save(message, function (resp) {
-                            ctrl.messageSent(resp.message);
-                            ctrl.uploadStarted = false;
-                        });
-                    }
-                };
-            }];
-    }
-};
+            ctrl.cancel = function () {
+                ElyModal.cancel();
+            };
+
+            ctrl.sendMessage = function () {
+                var message;
+                if (ctrl.uploadAllowed) {
+                    message = ConversationMessageService.getMessage(ctrl.isGroupThread, ctrl.threadId, ctrl.newMessage);
+                    ctrl.uploadStarted = true;
+                    Conversation.save(message, function (resp) {
+                        ctrl.uploadStarted = false;
+                        resp.message.isUser = true;
+                        ElyModal.hide(resp.message);
+                    });
+                }
+            };
+        }];
 
 
 },{}],137:[function(require,module,exports){
 'use strict';
 
-var controller = require('./controller.js');
-
-module.exports = {
-    directive: [function () {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {},
-            controller: controller.directiveCtrl(),
-            controllerAs: 'ctrl',
-            bindToController: {
-                isGroupThread: '=',
-                threadId: '=',
-                messageSent: '='
-
-            },
-            templateUrl: 'app/modules/messages/conversation/createMessage/template.html'
-        };
-    }],
-    name: 'elyConversationCreateMessage'
-};
-
-},{"./controller.js":136}],138:[function(require,module,exports){
-'use strict';
-
 var app = angular.module('elyoosApp');
-var directive = require('./directive.js');
-
-app.directive(directive.name, directive.directive);
 
 app.service('ConversationMessageService', require('./services/conversationMessage'));
-},{"./directive.js":137,"./services/conversationMessage":139}],139:[function(require,module,exports){
+app.service('CreateMessageCheck', require('./services/createMessageCheck'));
+
+app.controller('CreateMessageCtrl', require('./controller'));
+},{"./controller":136,"./services/conversationMessage":138,"./services/createMessageCheck":139}],138:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -3829,6 +3804,21 @@ module.exports = [function () {
     };
 
 }];
+
+},{}],139:[function(require,module,exports){
+'use strict';
+
+
+module.exports = [
+    function () {
+
+        this.isSendMessageAllowed = function (messageText) {
+            if (messageText) {
+                return messageText.trim() !== '' && messageText.length <= 1000;
+            }
+            return false;
+        };
+    }];
 
 },{}],140:[function(require,module,exports){
 'use strict';
@@ -8051,30 +8041,46 @@ app.service('UrlCache', require('./urlCache'));
 },{"./modal":317,"./moment":318,"./urlCache":325}],317:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$modal', '$rootScope', function ($modal, $rootScope) {
+module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
 
-    this.show = function (modalParams) {
+    var preventStateChange = false;
 
-        var scope;
-        modalParams.animation = true;
-        modalParams.controllerAs = 'ctrl';
-        modalParams.bindToController = true;
-        modalParams.backdrop = 'static';
+    this.show = function (controller, template, locals) {
 
-        if (modalParams.hasOwnProperty('scope')) {
-            scope = $rootScope.$new();
-            angular.extend(scope, modalParams.scope);
-            modalParams.scope = scope;
-        }
+        var modalParams = {
+            parent: angular.element(document.body),
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            bindToController: true,
+            controllerAs: 'ctrl',
+            controller: controller,
+            templateUrl: template,
+            locals: locals
+        };
 
-        if (!modalParams.hasOwnProperty('controller')) {
-            modalParams.controller = function () {
-            };
-        }
-
-
-        return $modal.open(modalParams).result;
+        preventStateChange = true;
+        return $mdDialog.show(modalParams).then(function (resp) {
+            preventStateChange = false;
+            return resp;
+        });
     };
+
+    this.hide = function (resp) {
+        preventStateChange = false;
+        $mdDialog.hide(resp);
+    };
+
+    this.cancel = function() {
+        preventStateChange = false;
+        $mdDialog.cancel();
+    };
+
+    $rootScope.$on('$stateChangeStart',
+        function (event) {
+            if(preventStateChange) {
+                event.preventDefault();
+            }
+        });
 }];
 
 },{}],318:[function(require,module,exports){

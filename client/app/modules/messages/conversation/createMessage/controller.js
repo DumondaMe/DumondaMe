@@ -1,35 +1,31 @@
 'use strict';
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['Conversation', 'ConversationMessageService',
-            function ( Conversation, ConversationMessageService) {
-                var ctrl = this;
-                ctrl.newMessage = '';
+module.exports =
+    ['Conversation', 'ConversationMessageService', 'ElyModal', 'CreateMessageCheck',
+        function (Conversation, ConversationMessageService, ElyModal, CreateMessageCheck) {
+            var ctrl = this;
+            ctrl.newMessage = '';
+            ctrl.uploadAllowed = false;
 
-                ctrl.checkHeightOfInput = function ($event) {
-                    if ($event.target.offsetHeight < 110) {
-                        if ($event.target.offsetHeight < $event.target.scrollHeight) {
-                            ctrl.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
-                            ctrl.textInputWrapperStyle = {height: $event.target.scrollHeight + 24 + 'px'};
-                        }
-                    } else if ($event.target.offsetHeight < 144) {
-                        ctrl.textInputWrapperStyle = {height: '144px'};
-                    }
-                };
+            ctrl.messageTextChanged = function () {
+                ctrl.uploadAllowed = CreateMessageCheck.isSendMessageAllowed(ctrl.newMessage);
+            };
 
-                ctrl.sendMessage = function () {
-                    var message;
-                    if (ctrl.newMessage.trim() !== '' && ctrl.newMessage.length <= 1000) {
-                        message = ConversationMessageService.getMessage(ctrl.isGroupThread, ctrl.threadId, ctrl.newMessage);
-                        ctrl.uploadStarted = true;
-                        Conversation.save(message, function (resp) {
-                            ctrl.messageSent(resp.message);
-                            ctrl.uploadStarted = false;
-                        });
-                    }
-                };
-            }];
-    }
-};
+            ctrl.cancel = function () {
+                ElyModal.cancel();
+            };
+
+            ctrl.sendMessage = function () {
+                var message;
+                if (ctrl.uploadAllowed) {
+                    message = ConversationMessageService.getMessage(ctrl.isGroupThread, ctrl.threadId, ctrl.newMessage);
+                    ctrl.uploadStarted = true;
+                    Conversation.save(message, function (resp) {
+                        ctrl.uploadStarted = false;
+                        resp.message.isUser = true;
+                        ElyModal.hide(resp.message);
+                    });
+                }
+            };
+        }];
 
