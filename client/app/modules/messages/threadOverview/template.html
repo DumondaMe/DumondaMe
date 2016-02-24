@@ -4,7 +4,9 @@
             <div flex="100" ng-repeat="thread in ctrl.messages.threads" layout="row" layout-align="center">
                 <ely-messages-thread thread="thread"></ely-messages-thread>
             </div>
-            <div class="no-thread" ng-if="ctrl.messages.threads.length === 0">Du hast noch keine Nachrichten erhalten oder verschickt.</div>
+            <div class="no-thread" ng-if="ctrl.messages.threads.length === 0 && !ctrl.initLoad">Du hast noch keine Nachrichten erhalten oder
+                verschickt.
+            </div>
             <div class="pinwall-gab"></div>
         </div>
     </div>

@@ -1,18 +1,5 @@
 'use strict';
 
-var toastPosition = {
-    bottom: false,
-    top: true,
-    left: false,
-    right: true
-};
-
-var getToastPosition = function() {
-    return Object.keys(toastPosition)
-        .filter(function(pos) { return toastPosition[pos]; })
-        .join(' ');
-};
-
 module.exports = ['$mdToast', function ($mdToast) {
 
     this.showError = function (errorMessage) {
@@ -22,7 +9,7 @@ module.exports = ['$mdToast', function ($mdToast) {
             .hideDelay(0)
             .action('OK')
             .highlightAction(false)
-            .position(getToastPosition());
+            .position('bottom left');
         $mdToast.show(toast);
     };
 }];

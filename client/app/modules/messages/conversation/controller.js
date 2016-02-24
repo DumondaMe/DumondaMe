@@ -20,8 +20,7 @@ module.exports = {
 
                 ctrl.nextMessages = function () {
                     ScrollRequest.nextRequest('messages', ctrl.thread.messages, {
-                        threadId: ctrl.threadId,
-                        isGroupThread: ctrl.isGroupThread
+                        threadId: ctrl.threadId
                     }).then(function (thread) {
                         ctrl.initLoad = false;
                         ctrl.thread = thread;
@@ -32,7 +31,7 @@ module.exports = {
 
                 ctrl.createMessage = function () {
                     ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
-                        {threadId: ctrl.threadId, isGroupThread: ctrl.isGroupThread, description: ctrl.thread.threadDescription})
+                        {threadId: ctrl.threadId, description: ctrl.thread.threadDescription})
                         .then(function (newMessage) {
                             ctrl.thread.messages.unshift(newMessage);
                         });

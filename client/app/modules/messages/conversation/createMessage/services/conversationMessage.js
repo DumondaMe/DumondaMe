@@ -2,18 +2,19 @@
 
 module.exports = [function () {
 
-    this.getMessage = function (isGroupThread, threadId, newMessage) {
+
+    this.getMessage = function (destinationUserId, threadId, newMessage) {
         var message;
-        if (isGroupThread) {
+        if (destinationUserId) {
             message = {
-                addGroupMessage: {
-                    threadId: threadId,
+                addMessageUser: {
+                    userId: destinationUserId,
                     text: newMessage
                 }
             };
         } else {
             message = {
-                addMessageToThread: {
+                addMessageThread: {
                     threadId: threadId,
                     text: newMessage
                 }

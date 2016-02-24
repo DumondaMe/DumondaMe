@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/messages');
+    return $resource('api/user/messages/thread');
 }];

@@ -178,7 +178,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/createMessage/template.html',
-    "<md-dialog aria-label=\"Send new Message\" ng-cloak id=ely-conversation-message-create><form name=createMessageForm class=content-form><md-dialog-content class=md-dialog-content><div class=\"md-title title\">Nachricht an <span class=name>{{ctrl.description}}</span> schreiben</div><md-input-container class=message-input-container><label>Schreibe einen Beitrag...</label><textarea name=messageText class=message-input ng-model=ctrl.newMessage required md-maxlength=1000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.messageTextChanged()></textarea><div ng-messages=createMessageForm.messageText.$error ng-show=createMessageForm.messageText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel() ng-disabled=ctrl.uploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.sendMessage() ng-disabled=\"ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed\">Senden</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog aria-label=\"Send new Message\" ng-cloak id=ely-conversation-message-create><form name=createMessageForm class=content-form><md-dialog-content class=md-dialog-content><div class=\"md-title title\">Nachricht an <span class=name>{{ctrl.description}}</span> schreiben</div><md-input-container class=message-input-container><label>Nachricht...</label><textarea name=messageText class=message-input ng-model=ctrl.newMessage required md-maxlength=1000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.messageTextChanged()></textarea><div ng-messages=createMessageForm.messageText.$error ng-show=createMessageForm.messageText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel() ng-disabled=ctrl.uploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.sendMessage() ng-disabled=\"ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed\">Senden</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -198,7 +198,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.initLoad\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
   );
 
 
@@ -3714,8 +3714,7 @@ module.exports = {
 
                 ctrl.nextMessages = function () {
                     ScrollRequest.nextRequest('messages', ctrl.thread.messages, {
-                        threadId: ctrl.threadId,
-                        isGroupThread: ctrl.isGroupThread
+                        threadId: ctrl.threadId
                     }).then(function (thread) {
                         ctrl.initLoad = false;
                         ctrl.thread = thread;
@@ -3726,7 +3725,7 @@ module.exports = {
 
                 ctrl.createMessage = function () {
                     ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
-                        {threadId: ctrl.threadId, isGroupThread: ctrl.isGroupThread, description: ctrl.thread.threadDescription})
+                        {threadId: ctrl.threadId, description: ctrl.thread.threadDescription})
                         .then(function (newMessage) {
                             ctrl.thread.messages.unshift(newMessage);
                         });
@@ -3740,8 +3739,8 @@ module.exports = {
 'use strict';
 
 module.exports =
-    ['Conversation', 'ConversationMessageService', 'ElyModal', 'CreateMessageCheck',
-        function (Conversation, ConversationMessageService, ElyModal, CreateMessageCheck) {
+    ['Conversation', 'ConversationMessageService', 'ElyModal', 'CreateMessageCheck', 'errorToast',
+        function (Conversation, ConversationMessageService, ElyModal, CreateMessageCheck, errorToast) {
             var ctrl = this;
             ctrl.newMessage = '';
             ctrl.uploadAllowed = false;
@@ -3757,12 +3756,15 @@ module.exports =
             ctrl.sendMessage = function () {
                 var message;
                 if (ctrl.uploadAllowed) {
-                    message = ConversationMessageService.getMessage(ctrl.isGroupThread, ctrl.threadId, ctrl.newMessage);
+                    message = ConversationMessageService.getMessage(ctrl.destinationUserId, ctrl.threadId, ctrl.newMessage);
                     ctrl.uploadStarted = true;
                     Conversation.save(message, function (resp) {
                         ctrl.uploadStarted = false;
                         resp.message.isUser = true;
                         ElyModal.hide(resp.message);
+                    }, function() {
+                        ctrl.uploadStarted = false;
+                        errorToast.showError('Beim Senden der Nachricht ist ein Fehler aufgetretten!');
                     });
                 }
             };
@@ -3783,18 +3785,19 @@ app.controller('CreateMessageCtrl', require('./controller'));
 
 module.exports = [function () {
 
-    this.getMessage = function (isGroupThread, threadId, newMessage) {
+
+    this.getMessage = function (destinationUserId, threadId, newMessage) {
         var message;
-        if (isGroupThread) {
+        if (destinationUserId) {
             message = {
-                addGroupMessage: {
-                    threadId: threadId,
+                addMessageUser: {
+                    userId: destinationUserId,
                     text: newMessage
                 }
             };
         } else {
             message = {
-                addMessage: {
+                addMessageThread: {
                     threadId: threadId,
                     text: newMessage
                 }
@@ -3948,7 +3951,7 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.factory('Message', require('./services/message'));
+app.factory('ThreadOverview', require('./services/thread'));
 app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
@@ -3988,27 +3991,32 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./directive.js":147,"./services/conversation":149,"./services/message":150,"./services/searchThread":151,"./services/searchUserToSendMessage":152}],149:[function(require,module,exports){
+},{"./directive.js":147,"./services/conversation":149,"./services/searchThread":150,"./services/searchUserToSendMessage":151,"./services/thread":152}],149:[function(require,module,exports){
 arguments[4][128][0].apply(exports,arguments)
 },{"dup":128}],150:[function(require,module,exports){
-arguments[4][130][0].apply(exports,arguments)
-},{"dup":130}],151:[function(require,module,exports){
 arguments[4][131][0].apply(exports,arguments)
-},{"dup":131}],152:[function(require,module,exports){
+},{"dup":131}],151:[function(require,module,exports){
 arguments[4][132][0].apply(exports,arguments)
-},{"dup":132}],153:[function(require,module,exports){
+},{"dup":132}],152:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/user/messages/thread');
+}];
+
+},{}],153:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchUserService', 'Message', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler',
-            function (SearchUserService, Message, ScrollRequest, ThreadOverviewScrollRequestResponseHandler) {
+        return ['SearchUserService', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler',
+            function (SearchUserService, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler) {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
                 ctrl.initLoad = true;
 
-                ScrollRequest.reset('threadOverview', Message.get, ThreadOverviewScrollRequestResponseHandler);
+                ScrollRequest.reset('threadOverview', ThreadOverview.get, ThreadOverviewScrollRequestResponseHandler);
 
                 ctrl.nextThreads = function () {
                     ScrollRequest.nextRequest('threadOverview', ctrl.messages.threads).then(function (messages) {
@@ -8201,19 +8209,6 @@ module.exports = [function () {
 },{}],323:[function(require,module,exports){
 'use strict';
 
-var toastPosition = {
-    bottom: false,
-    top: true,
-    left: false,
-    right: true
-};
-
-var getToastPosition = function() {
-    return Object.keys(toastPosition)
-        .filter(function(pos) { return toastPosition[pos]; })
-        .join(' ');
-};
-
 module.exports = ['$mdToast', function ($mdToast) {
 
     this.showError = function (errorMessage) {
@@ -8223,7 +8218,7 @@ module.exports = ['$mdToast', function ($mdToast) {
             .hideDelay(0)
             .action('OK')
             .highlightAction(false)
-            .position(getToastPosition());
+            .position('bottom left');
         $mdToast.show(toast);
     };
 }];

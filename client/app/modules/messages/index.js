@@ -5,7 +5,7 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.factory('Message', require('./services/message'));
+app.factory('ThreadOverview', require('./services/thread'));
 app.factory('SearchThread', require('./services/searchThread'));
 app.factory('Conversation', require('./services/conversation'));
 app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
