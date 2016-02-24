@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes',
-            function (UserStateService, ContactStatisticTypes) {
+        return ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$state',
+            function (UserStateService, ContactStatisticTypes, ElyModal, $state) {
                 var ctrl = this;
 
                 ctrl.moveContact = function () {
@@ -37,6 +37,14 @@ module.exports = {
                         delete ctrl.detail.user.blocked;
                         delete ctrl.detail.user.type;
                     });
+                };
+
+                ctrl.writeMessage = function () {
+                    ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
+                        {destinationUserId: ctrl.detail.user.userId, description: ctrl.detail.user.name})
+                        .then(function (newMessage) {
+                            $state.go('message.threads.detail', {threadId: newMessage.threadId});
+                        });
                 };
             }];
     }

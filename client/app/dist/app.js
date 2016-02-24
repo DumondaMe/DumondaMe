@@ -78,7 +78,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/profile/template.html',
-    "<md-card id=ely-user-detail-profile><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.detail.user.profileUrl}} class=profile-image><div class=name>{{ctrl.detail.user.name}}</div><div class=type ng-if=\"ctrl.detail.user.type && !ctrl.detail.user.blocked\">{{ctrl.detail.user.type}}</div><div class=blocked ng-if=ctrl.detail.user.blocked>BLOCKIERT</div></div></md-card-content><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.detail.user.type && !ctrl.detail.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open chat\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openChat()><md-icon md-svg-icon=cardActions:chat></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open info\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openInfo()><md-icon md-svg-icon=cardActions:info></md-icon></md-button></md-card-icon-actions><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item ng-if=\"ctrl.detail.user.type && ctrl.numberOfGroups > 1\"><md-button ng-click=ctrl.moveContact()>Gruppe wechseln</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.type><md-button ng-click=ctrl.deleteContact()>Kontakt entfernen</md-button></md-menu-item><md-menu-item ng-if=!ctrl.detail.user.blocked><md-button ng-click=ctrl.blockContact()>Benutzter blockieren</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.blocked><md-button ng-click=ctrl.unblockContact()>Blockierung aufheben</md-button></md-menu-item></md-menu-content></md-menu></md-card-actions></md-card>"
+    "<md-card id=ely-user-detail-profile><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.detail.user.profileUrl}} class=profile-image><div class=name>{{ctrl.detail.user.name}}</div><div class=type ng-if=\"ctrl.detail.user.type && !ctrl.detail.user.blocked\">{{ctrl.detail.user.type}}</div><div class=blocked ng-if=ctrl.detail.user.blocked>BLOCKIERT</div></div></md-card-content><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=md-icon-button aria-label=\"Add to contact\" ng-if=\"!ctrl.detail.user.type && !ctrl.detail.user.blocked\" ng-click=ctrl.addContact()><md-icon md-svg-icon=cardActions:addContact></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open chat\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.writeMessage()><md-icon md-svg-icon=cardActions:chat></md-icon></md-button><md-button class=md-icon-button aria-label=\"Open info\" ng-if=!ctrl.detail.user.blocked ng-click=ctrl.openInfo()><md-icon md-svg-icon=cardActions:info></md-icon></md-button></md-card-icon-actions><md-menu md-position-mode=\"target-right target\"><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button setting-contact\" aria-label=\"Settings Contact\"><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item ng-if=\"ctrl.detail.user.type && ctrl.numberOfGroups > 1\"><md-button ng-click=ctrl.moveContact()>Gruppe wechseln</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.type><md-button ng-click=ctrl.deleteContact()>Kontakt entfernen</md-button></md-menu-item><md-menu-item ng-if=!ctrl.detail.user.blocked><md-button ng-click=ctrl.blockContact()>Benutzter blockieren</md-button></md-menu-item><md-menu-item ng-if=ctrl.detail.user.blocked><md-button ng-click=ctrl.unblockContact()>Blockierung aufheben</md-button></md-menu-item></md-menu-content></md-menu></md-card-actions></md-card>"
   );
 
 
@@ -1885,8 +1885,8 @@ arguments[4][14][0].apply(exports,arguments)
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes',
-            function (UserStateService, ContactStatisticTypes) {
+        return ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$state',
+            function (UserStateService, ContactStatisticTypes, ElyModal, $state) {
                 var ctrl = this;
 
                 ctrl.moveContact = function () {
@@ -1920,6 +1920,14 @@ module.exports = {
                         delete ctrl.detail.user.blocked;
                         delete ctrl.detail.user.type;
                     });
+                };
+
+                ctrl.writeMessage = function () {
+                    ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
+                        {destinationUserId: ctrl.detail.user.userId, description: ctrl.detail.user.name})
+                        .then(function (newMessage) {
+                            $state.go('message.threads.detail', {threadId: newMessage.threadId});
+                        });
                 };
             }];
     }
@@ -3973,7 +3981,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             data: {title: 'Nachrichten'}
         })
         .state('message.threads.detail', {
-            url: '/conversation/{isGroupThread}/{threadId}',
+            url: '/conversation/{threadId}',
             views: {
                 'content@': {
                     template: '<ely-conversation></ely-conversation>'
@@ -4100,7 +4108,7 @@ module.exports = {
                 ctrl.getFormattedDate = dateFormatter.format;
 
                 ctrl.goToConversation = function () {
-                    $state.go('message.threads.detail', {isGroupThread: ctrl.thread.isGroupThread, threadId: ctrl.thread.threadId});
+                    $state.go('message.threads.detail', {threadId: ctrl.thread.threadId});
                 };
             }];
     }

@@ -9,7 +9,7 @@ module.exports = {
                 ctrl.getFormattedDate = dateFormatter.format;
 
                 ctrl.goToConversation = function () {
-                    $state.go('message.threads.detail', {isGroupThread: ctrl.thread.isGroupThread, threadId: ctrl.thread.threadId});
+                    $state.go('message.threads.detail', {threadId: ctrl.thread.threadId});
                 };
             }];
     }

@@ -27,7 +27,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             data: {title: 'Nachrichten'}
         })
         .state('message.threads.detail', {
-            url: '/conversation/{isGroupThread}/{threadId}',
+            url: '/conversation/{threadId}',
             views: {
                 'content@': {
                     template: '<ely-conversation></ely-conversation>'
