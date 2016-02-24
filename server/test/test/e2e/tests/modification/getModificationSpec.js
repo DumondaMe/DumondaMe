@@ -49,20 +49,22 @@ describe('Integration Tests for getting modification info', function () {
 
             // User 3
             commands.push(db.cypher().create("(:User {name: 'user3 Meier3', userId: '3'})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '3'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true})")
+                .end({}).getCommand());
 
-            //Create GroupThread with messages between user 1 + 2 + 3
-            return db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'})")
-                .create("(thread:GroupThread {threadId: '1', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
+            //Create Thread with messages between user 1 + 3
+            return db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
+                .create("(thread:Thread {threadId: '2'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                 "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
                 "(message)-[:WRITTEN]->(u)," +
                 "(message2)-[:WRITTEN]->(u2)," +
                 "(message3)-[:WRITTEN]->(u)," +
-                "(message4)-[:WRITTEN]->(u3)," +
+                "(message4)-[:WRITTEN]->(u2)," +
                 "(u)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
-                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
-                "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)")
+                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)")
                 .end({
                     messageAdded: startTime - 300,
                     messageAdded2: startTime - 400,
@@ -88,7 +90,7 @@ describe('Integration Tests for getting modification info', function () {
         }).then(function (agent) {
             requestAgent2 = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessageToThread: {
+                addMessageThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
@@ -102,15 +104,13 @@ describe('Integration Tests for getting modification info', function () {
             res.body.hasChanged.should.be.true;
             res.body.messages.length.should.equals(2);
             res.body.messages[0].threadId.should.equals('1');
-            res.body.messages[0].isGroupThread.should.equals(false);
             res.body.messages[0].name.should.equals('user2 Meier2');
             res.body.messages[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
             res.body.messages[0].numberOfUnreadMessages.should.equals(3);
 
-            res.body.messages[1].threadId.should.equals('1');
-            res.body.messages[1].isGroupThread.should.equals(true);
-            res.body.messages[1].name.should.equals('TestChat');
-            res.body.messages[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+            res.body.messages[1].threadId.should.equals('2');
+            res.body.messages[1].name.should.equals('user3 Meier3');
+            res.body.messages[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.messages[1].numberOfUnreadMessages.should.equals(1);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
@@ -137,7 +137,7 @@ describe('Integration Tests for getting modification info', function () {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessageToThread: {
+                addMessageThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
@@ -158,12 +158,12 @@ describe('Integration Tests for getting modification info', function () {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
             return requestHandler.getWithData('/api/user/messages/conversation', {
-                itemsPerPage: 10,
+                maxItems: 10,
                 skip: 0,
-                threadId: '1',
-                isGroupThread: 'true'
+                threadId: '1'
             }, requestAgent);
-        }).then(function () {
+        }).then(function (res) {
+            res.status.should.equal(200);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
