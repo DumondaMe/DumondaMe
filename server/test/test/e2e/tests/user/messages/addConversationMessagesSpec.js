@@ -60,6 +60,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
                 .end({
                     messageAdded: startTime - 299
                 }).getCommand());
+
             // User 4
             commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
             //Create Thread with messages between user 1 + 4 but user 1 is blocked by user 4
@@ -79,46 +80,13 @@ describe('Integration Tests for sending messages to a conversation and adding th
                 .create("(u2)-[:IS_BLOCKED]->(u)")
                 .end({}).getCommand());
 
-            //Create GroupThread with messages between user 1 + 2 + 3
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'}), (u3:User {userId: '3'})")
-                .create("(thread:GroupThread {threadId: '1', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-                "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-                "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
-                "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                "(message)-[:WRITTEN]->(u2)," +
-                "(message2)-[:WRITTEN]->(u)," +
-                "(message3)-[:WRITTEN]->(u)," +
-                "(message4)-[:WRITTEN]->(u)," +
-                "(u)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
-                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
-                "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)")
-                .end({
-                    messageAdded: startTime - 300,
-                    messageAdded2: startTime - 400,
-                    messageAdded3: startTime - 600,
-                    messageAdded4: startTime - 3602,
-                    lastTimeVisited: startTime - 300
-                }).getCommand());
+            // User 5
+            commands.push(db.cypher().create("(:User {name: 'user5 Meier5', userId: '5'})").end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '5'})")
+                .create("(u2)-[:IS_BLOCKED]->(u)")
+                .end({}).getCommand());
 
-            //Create GroupThread with messages between user 2 + 3
-            return db.cypher().match("(u2:User {userId: '2'}), (u3:User {userId: '3'})")
-                .create("(thread:GroupThread {threadId: '2', description: 'TestChat'})-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-                "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-                "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
-                "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                "(message)-[:WRITTEN]->(u2)," +
-                "(message2)-[:WRITTEN]->(u2)," +
-                "(message3)-[:WRITTEN]->(u3)," +
-                "(message4)-[:WRITTEN]->(u3)," +
-                "(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)," +
-                "(u3)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread)")
-                .end({
-                    messageAdded: startTime - 300,
-                    messageAdded2: startTime - 400,
-                    messageAdded3: startTime - 600,
-                    messageAdded4: startTime - 700,
-                    lastTimeVisited: startTime - 300
-                }).send(commands);
+            return db.cypher().create("(:User {name: 'user6 Meier6', userId: '6'})").end().send(commands);
         });
     });
 
@@ -126,11 +94,11 @@ describe('Integration Tests for sending messages to a conversation and adding th
         return requestHandler.logout();
     });
 
-    it('Sending a new message to a single thread - Return 200', function () {
+    it('Sending a new message to a thread - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessage: {
+                addMessageThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
@@ -140,7 +108,6 @@ describe('Integration Tests for sending messages to a conversation and adding th
             res.body.message.name.should.equal("user Meier");
             res.body.message.text.should.equal("messageAdded");
             res.body.message.timestamp.should.be.at.least(startTime);
-            res.body.message.profileUrl.should.equal("profileImage/1/profilePreview.jpg");
             return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
                 .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
@@ -157,7 +124,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessage: {
+                addMessageToThread: {
                     threadId: '2',
                     text: 'messageAdded'
                 }
@@ -167,11 +134,11 @@ describe('Integration Tests for sending messages to a conversation and adding th
         });
     });
 
-    it('Sending a new message to a single thread to contact which has blocked user- Return 400', function () {
+    it('Sending a new message to a thread to contact which has blocked user- Return 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessage: {
+                addMessageToThread: {
                     threadId: '3',
                     text: 'messageAdded'
                 }
@@ -181,18 +148,22 @@ describe('Integration Tests for sending messages to a conversation and adding th
         });
     });
 
-    it('Sending a new message to a group thread - Return 200', function () {
+    it('Sending a new message to a user with existing thread - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addGroupMessage: {
-                    threadId: '1',
+                addMessageUser: {
+                    userId: '2',
                     text: 'messageAdded'
                 }
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:GroupThread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
+            res.body.message.name.should.equal("user Meier");
+            res.body.message.text.should.equal("messageAdded");
+            res.body.message.timestamp.should.be.at.least(startTime);
+            res.body.message.threadId.should.equal("1");
+            return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
                 .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
         }).then(function (thread) {
@@ -204,12 +175,52 @@ describe('Integration Tests for sending messages to a conversation and adding th
         });
     });
 
-    it('Sending a new message to a group thread one which the user does not participate- Return 400', function () {
+    it('Sending a new message to a user with no existing thread - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addGroupMessage: {
-                    threadId: '2',
+                addMessageUser: {
+                    userId: '6',
+                    text: 'messageAdded'
+                }
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.message.name.should.equal("user Meier");
+            res.body.message.text.should.equal("messageAdded");
+            res.body.message.timestamp.should.be.at.least(startTime);
+            return db.cypher().match("(user:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '" + res.body.message.threadId + "'})-[:NEXT_MESSAGE]->(message:Message)-[:WRITTEN]->(written:User)")
+                .return('message.messageAdded AS messageAdded, message.text AS text, written.userId as userId, active.lastTimeVisited AS lastTimeVisited')
+                .end().send();
+        }).then(function (thread) {
+            thread.length.should.equals(1);
+            thread[0].messageAdded.should.be.at.least(startTime);
+            thread[0].lastTimeVisited.should.be.at.least(startTime);
+            thread[0].text.should.be.equals("messageAdded");
+            thread[0].userId.should.be.equals("1");
+        });
+    });
+
+    it('Sending a new message to another user which has blocked user (without Thread)- Return 400', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/messages/conversation', {
+                addMessageUser: {
+                    userId: '5',
+                    text: 'messageAdded'
+                }
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+        });
+    });
+
+    it('Sending a new message to another user which has blocked user (with Thread)- Return 400', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/messages/conversation', {
+                addMessageUser: {
+                    userId: '4',
                     text: 'messageAdded'
                 }
             }, requestAgent);

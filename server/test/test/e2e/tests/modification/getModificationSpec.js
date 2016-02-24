@@ -88,7 +88,7 @@ describe('Integration Tests for getting modification info', function () {
         }).then(function (agent) {
             requestAgent2 = agent;
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessage: {
+                addMessageToThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }
@@ -137,7 +137,7 @@ describe('Integration Tests for getting modification info', function () {
             res.status.should.equal(200);
             should.not.exist(res.body.hasChanged);
             return requestHandler.post('/api/user/messages/conversation', {
-                addMessage: {
+                addMessageToThread: {
                     threadId: '1',
                     text: 'messageAdded'
                 }

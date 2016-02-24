@@ -17,8 +17,7 @@ var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
 
     function addNumberOfUnreadMessages(thread) {
         var unreadMessagesOfThread = underscore.findWhere(unreadMessagesPerType, {
-            threadId: thread.threadId,
-            isGroupThread: thread.isGroupThread
+            threadId: thread.threadId
         });
         if (unreadMessagesOfThread) {
             thread.numberOfUnreadMessages = unreadMessagesOfThread.numberOfUnreadMessages;
@@ -40,8 +39,8 @@ var totalUnreadMessages = function (messageInfos) {
     return total;
 };
 
-var getThreads = function (cypher) {
-    return cypher.match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)")
+var getThreads = function (params) {
+    return db.cypher().match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)")
         .optionalMatch("(contact:User)-[:ACTIVE]->(thread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("contact.userId <> {userId}")
         .with("user, contact, active, thread, message")
@@ -49,50 +48,37 @@ var getThreads = function (cypher) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("user, contact, active, thread, message, rContact, privacyR, privacy")
         .where("(rContact IS NULL AND type(privacyR) = 'HAS_PRIVACY_NO_CONTACT') OR " +
-        "(rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
+            "(rContact.type = privacyR.type AND type(privacyR) = 'HAS_PRIVACY')")
         .return("message.text AS previewText, contact.name AS description, message.messageAdded AS lastUpdate, " +
-        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, privacy.profile AS profileVisible, " +
-        "privacy.image AS imageVisible, contact.userId AS userId, false AS isGroupThread")
-        .orderBy("lastUpdate DESC");
-};
-
-var getGroupThreads = function (cypher) {
-    return cypher.match("(:User {userId: {userId}})-[active:ACTIVE]->(thread:GroupThread)")
-        .optionalMatch("(thread)-[:NEXT_MESSAGE]->(message:Message)")
-        .return("message.text AS previewText, thread.description AS description, message.messageAdded AS lastUpdate, " +
-        "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, null AS profileVisible, " +
-        "null AS imageVisible, null AS userId, true AS isGroupThread")
-        .orderBy("lastUpdate DESC");
+            "active.lastTimeVisited AS lastTimeVisited, thread.threadId AS threadId, privacy.profile AS profileVisible, " +
+            "privacy.image AS imageVisible, contact.userId AS userId")
+        .orderBy("lastUpdate DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .end(params);
 };
 
 var getNumberOfThreads = function (userId) {
     return db.cypher()
-        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread)")
-        .where("thread:Thread OR thread:GroupThread")
-        .return("COUNT(thread.threadId) AS numberOfThreads")
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)")
+        .return("COUNT(*) AS numberOfThreads")
         .end({userId: userId});
 };
 
-var getAllThreads = function (params) {
-    var cypher = db.cypher();
-    cypher = getThreads(cypher).unionAll();
-    return getGroupThreads(cypher)
-        .end(params);
-};
-
-var getMessageThreads = function (userId, itemsPerPage, skip) {
+var getMessageThreads = function (userId, maxItems, skip) {
 
     var commands = [];
 
     commands.push(unreadMessages.getUnreadMessages(userId).getCommand());
     commands.push(getNumberOfThreads(userId).getCommand());
 
-    return getAllThreads({
-        userId: userId
+    return getThreads({
+        userId: userId,
+        maxItems: maxItems,
+        skip: skip
     })
         .send(commands)
         .then(function (resp) {
-            resp[2] = resp[2].slice(skip, skip + itemsPerPage);
             addHasNotReadMessages(resp[2], resp[0]);
             userInfo.addImageForPreview(resp[2]);
             return {
@@ -119,7 +105,7 @@ var createSingleThread = function (userId, contactId, text, session, req) {
     return messageThreadExists(userId, contactId)
         .then(function (threadId) {
             if (threadId) {
-                return conversation.addMessage(userId, threadId, text, false, session)
+                return conversation.addMessageToThread(userId, threadId, text, false, session)
                     .then(function () {
                         return {threadId: threadId};
                     });
@@ -130,7 +116,7 @@ var createSingleThread = function (userId, contactId, text, session, req) {
                     return db.cypher()
                         .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
                         .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +
-                        "<-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]-(contact)")
+                            "<-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]-(contact)")
                         .with("user, thread, contact")
                         .createUnique("(thread)-[:NEXT_MESSAGE]->(:Message {text: {text}, messageAdded: {lastTimeVisited}})-[:WRITTEN]->(user)")
                         .return("thread.threadId AS threadId")

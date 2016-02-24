@@ -5,9 +5,9 @@ var underscore = require('underscore');
 var exceptions = require('./../../lib/error/exceptions');
 var modification = require('./../modification/modification');
 var userInfo = require('./../user/userInfo');
-var threadCondition = require('./util/threadCondition');
 var security = require('./util/security');
 var time = require('./../../lib/time');
+var uuid = require('./../../lib/uuid');
 var logger = requireLogger.getLogger(__filename);
 
 var addWriterInfo = function (userId, messages) {
@@ -19,68 +19,59 @@ var addWriterInfo = function (userId, messages) {
     });
 };
 
-var getThreadInfos = function (params, isGroupThread) {
-    var threadInfo;
-    if (isGroupThread) {
-        threadInfo = db.cypher()
-            .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread {threadId: {threadId}})")
-            .return("thread.description AS description, HEAD(LABELS(thread)) AS threadType");
-    } else {
-        threadInfo = db.cypher()
-            .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
-            .return("contact.name AS description, HEAD(LABELS(thread)) AS threadType");
-    }
-    return threadInfo.end(params);
+var getThreadInfos = function (params) {
+    return db.cypher()
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
+        .return("contact.name AS description").end(params);
 };
 
-var getNumberOfMessages = function (params, isGroupThread) {
+var getNumberOfMessages = function (params) {
     return db.cypher()
-        .match("(:User {userId: {userId}})-[:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) +
-        " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread" +
+            " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
         .return("COUNT(message) AS numberOfMessages")
         .end(params);
 };
 
-var getMessagesOfThreads = function (params, setTime, isGroupThread) {
+var getMessagesOfThreads = function (params, setTime) {
     return db.cypher()
-        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) + " {threadId: {threadId}})" +
-        "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread{threadId: {threadId}})" +
+            "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
         .set('active', setTime)
         .with("user, message, writer")
         .return("message.text AS text, message.messageAdded AS timestamp, writer.userId AS userId, writer.name AS name," +
-        "(writer.userId = {userId}) AS isUser")
+            "(writer.userId = {userId}) AS isUser")
         .orderBy("message.messageAdded DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end(params);
 };
 
-var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread, session, req) {
+var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) {
 
     var commands = [], now = time.getNowUtcTimestamp();
 
     commands.push(getThreadInfos({
         userId: userId,
         threadId: threadId
-    }, isGroupThread).getCommand());
-    commands.push(getNumberOfMessages({userId: userId, threadId: threadId}, isGroupThread).getCommand());
+    }).getCommand());
+    commands.push(getNumberOfMessages({userId: userId, threadId: threadId}).getCommand());
 
     return getMessagesOfThreads({
         userId: userId,
         threadId: threadId,
         skip: skip,
         limit: itemsPerPage
-    }, {lastTimeVisited: now}, isGroupThread)
+    }, {lastTimeVisited: now})
         .send(commands)
         .then(function (resp) {
-            if (resp[0][0] && resp[0][0].description && resp[0][0].threadType) {
+            if (resp[0][0] && resp[0][0].description) {
                 addWriterInfo(userId, resp[2]);
                 userInfo.addImageForPreview(resp[2]);
-                modification.resetModificationForThread(threadId, isGroupThread, session);
+                modification.resetModificationForThread(threadId, session);
                 return {
                     messages: resp[2],
                     threadDescription: resp[0][0].description,
-                    isGroupThread: resp[0][0].threadType === 'GroupThread',
                     numberOfMessages: resp[1][0].numberOfMessages
                 };
             }
@@ -88,24 +79,23 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, isGroupThread,
         });
 };
 
-var addMessage = function (userId, threadId, text, isGroupThread, session, req) {
+var addMessageToThread = function (userId, threadId, text, session, req) {
 
-    return security.checkAllowedToAddMessage(userId, threadId, isGroupThread, req)
+    return security.checkAllowedToAddMessage(userId, threadId, req)
         .then(function () {
             var now = time.getNowUtcTimestamp();
             return db.cypher()
-                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(" + threadCondition.getThreadCondition(isGroupThread) +
-                "{threadId: {threadId}})-[:NEXT_MESSAGE]->(messagePrevious:Message)")
+                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread " +
+                    "{threadId: {threadId}})-[:NEXT_MESSAGE]->(messagePrevious:Message)")
                 .create("(thread)-[:NEXT_MESSAGE]->(newMessage:Message {messageAdded: {now}, text: {text}})-[:NEXT_MESSAGE]->(messagePrevious)," +
-                "(newMessage)-[:WRITTEN]->(user)")
+                    "(newMessage)-[:WRITTEN]->(user)")
                 .with("thread, messagePrevious, user, newMessage, active")
                 .match('(thread)-[r:NEXT_MESSAGE]->(messagePrevious)')
                 .delete('r')
                 .with("thread, messagePrevious, user, newMessage, active")
                 .set('active', {lastTimeVisited: now})
                 .with("thread, messagePrevious, user, newMessage")
-                .return("user.userId AS userId, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp, " +
-                "true AS profileVisible, true AS imageVisible")
+                .return("user.userId AS userId, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp")
                 .end({
                     userId: userId,
                     threadId: threadId,
@@ -113,14 +103,61 @@ var addMessage = function (userId, threadId, text, isGroupThread, session, req) 
                     now: now
                 }).send()
                 .then(function (resp) {
-                    userInfo.addImageForPreview(resp);
-                    modification.resetModificationForThread(threadId, isGroupThread, session);
+                    modification.resetModificationForThread(threadId, session);
                     return {message: resp[0]};
+                });
+        });
+};
+
+var messageThreadExists = function (userId, contactId) {
+    return db.cypher()
+        .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(:User {userId: {contactId}})")
+        .return("thread.threadId AS threadId")
+        .end({userId: userId, contactId: contactId}).send()
+        .then(function (resp) {
+            if (resp.length > 0) {
+                return resp[0].threadId;
+            }
+        });
+};
+
+var addMessageToUser = function (userId, contactId, text, session, req) {
+    return messageThreadExists(userId, contactId)
+        .then(function (threadId) {
+            if (threadId) {
+                return addMessageToThread(userId, threadId, text, session, req)
+                    .then(function (resp) {
+                        resp.message.threadId = threadId;
+                        return resp;
+                    });
+            }
+            return security.checkAllowedToCreateThread(userId, contactId, req)
+                .then(function () {
+                    var now = time.getNowUtcTimestamp();
+                    return db.cypher()
+                        .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
+                        .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +
+                            "<-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]-(contact)")
+                        .with("user, thread, contact")
+                        .createUnique("(thread)-[:NEXT_MESSAGE]->(message:Message {text: {text}, messageAdded: {lastTimeVisited}})-[:WRITTEN]->(user)")
+                        .return("thread.threadId AS threadId, user.name AS name, message.text AS text, message.messageAdded AS timestamp" )
+                        .end({
+                            userId: userId,
+                            contactId: contactId,
+                            lastTimeVisited: now,
+                            lastTimeVisited2: now - 1,
+                            text: text,
+                            threadId: uuid.generateUUID()
+                        }).send()
+                        .then(function (resp) {
+                            return {message: resp[0]};
+                        });
                 });
         });
 };
 
 module.exports = {
     getMessages: getMessages,
-    addMessage: addMessage
+    addMessageToThread: addMessageToThread,
+    addMessageToUser: addMessageToUser
 };

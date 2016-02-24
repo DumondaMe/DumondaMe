@@ -13,7 +13,7 @@ module.exports = [function () {
             };
         } else {
             message = {
-                addMessage: {
+                addMessageToThread: {
                     threadId: threadId,
                     text: newMessage
                 }

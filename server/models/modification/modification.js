@@ -32,9 +32,9 @@ var hasModification = function (userId, session) {
     });
 };
 
-var resetModificationForThread = function (threadId, isGroupThread, session) {
+var resetModificationForThread = function (threadId, session) {
     session.userData.unreadMessages = underscore.filter(session.userData.unreadMessages, function (messageState) {
-        return !(messageState.threadId === threadId && messageState.isGroupThread === isGroupThread);
+        return messageState.threadId === threadId;
     });
 };
 
