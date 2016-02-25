@@ -6,6 +6,7 @@ var exceptions = require('./../../lib/error/exceptions');
 var modification = require('./../modification/modification');
 var userInfo = require('./../user/userInfo');
 var security = require('./util/security');
+var unread = require('./util/unreadMessages');
 var time = require('./../../lib/time');
 var uuid = require('./../../lib/uuid');
 var logger = requireLogger.getLogger(__filename);
@@ -56,14 +57,14 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
         threadId: threadId
     }).getCommand());
     commands.push(getNumberOfMessages({userId: userId, threadId: threadId}).getCommand());
-
-    return getMessagesOfThreads({
+    commands.push(getMessagesOfThreads({
         userId: userId,
         threadId: threadId,
         skip: skip,
         limit: itemsPerPage
-    }, {lastTimeVisited: now})
-        .send(commands)
+    }, {lastTimeVisited: now}).getCommand());
+
+    return unread.getTotalNumberOfUnreadMessages(userId).send(commands)
         .then(function (resp) {
             if (resp[0][0] && resp[0][0].description) {
                 addWriterInfo(userId, resp[2]);
@@ -72,7 +73,8 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
                 return {
                     messages: resp[2],
                     threadDescription: resp[0][0].description,
-                    numberOfMessages: resp[1][0].numberOfMessages
+                    numberOfMessages: resp[1][0].numberOfMessages,
+                    totalUnreadMessages: resp[3][0].totalUnreadMessages
                 };
             }
             return exceptions.getInvalidOperation('User ' + userId + ' tried to access not participating thread ' + threadId, logger, req);

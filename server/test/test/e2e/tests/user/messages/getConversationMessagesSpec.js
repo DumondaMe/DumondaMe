@@ -67,9 +67,37 @@ describe('Integration Tests for getting messages of a conversation for a user', 
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false}), " +
                 "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                 .end({}).getCommand());
-            return db.cypher().match("(u:User), (u2:User)")
+            commands.push(db.cypher().match("(u:User), (u2:User)")
                 .where("u.userId = '1' AND u2.userId = '3'")
                 .create("(u2)-[:IS_CONTACT {type: 'Freund'}]->(u)")
+                .end({}).getCommand());
+
+            // User 4
+            commands.push(db.cypher().create("(:User {name: 'user4 Meier4', userId: '4'})").end().getCommand());
+            //Create Thread with messages between user 1 + 4
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '4'})")
+                .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '3'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
+                .end({
+                    lastTimeVisited: startTime - 500,
+                    lastTimeVisited2: startTime - 400
+                }).getCommand());
+            commands.push(db.cypher().match("(thread:Thread {threadId: '3'}), (u:User {userId: '1'}), (u2:User {userId: '4'})")
+                .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
+                    "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
+                    "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
+                    "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
+                    "(message)-[:WRITTEN]->(u)," +
+                    "(message2)-[:WRITTEN]->(u)," +
+                    "(message3)-[:WRITTEN]->(u2)," +
+                    "(message4)-[:WRITTEN]->(u)")
+                .end({
+                    messageAdded: startTime - 299,
+                    messageAdded2: startTime - 400,
+                    messageAdded3: startTime - 600,
+                    messageAdded4: startTime - 700
+                }).getCommand());
+            return db.cypher().match("(u:User {userId: '4'})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false})")
                 .end({}).send(commands);
         });
     });
@@ -111,6 +139,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.numberOfMessages.should.equal(4);
+            res.body.totalUnreadMessages.should.equal(2);
             return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})")
                 .return('active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
@@ -145,6 +174,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.numberOfMessages.should.equal(4);
+            res.body.totalUnreadMessages.should.equal(2);
         });
     });
 
