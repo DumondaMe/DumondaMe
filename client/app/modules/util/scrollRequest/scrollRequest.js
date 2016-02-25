@@ -61,4 +61,7 @@ module.exports = ['$q', function ($q) {
     this.addedElement = function (serviceName) {
         scrollRequests[serviceName].skip = scrollRequests[serviceName].skip + 1;
     };
+    this.addedMultibleElements = function (serviceName, count) {
+        scrollRequests[serviceName].skip = scrollRequests[serviceName].skip + count;
+    };
 }];

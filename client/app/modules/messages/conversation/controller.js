@@ -2,10 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
-            'dateFormatter', 'ElyModal', 'ToolbarService',
-            function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter, ElyModal, ToolbarService) {
+        return ['$scope', 'ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia',
+            'MessageNextDayService', 'dateFormatter', 'ElyModal', 'ToolbarService', 'userInfo', 'ConversationModificationUpdate',
+            function ($scope, ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
+                      dateFormatter, ElyModal, ToolbarService, userInfo, ConversationModificationUpdate) {
                 var ctrl = this;
                 ctrl.showLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -35,8 +35,27 @@ module.exports = {
                         {threadId: ctrl.threadId, description: ctrl.thread.threadDescription})
                         .then(function (newMessage) {
                             ctrl.thread.messages.unshift(newMessage);
+                            ScrollRequest.addedElement('messages');
                         });
                 };
+
+                //Connect to modification change
+                userInfo.register('conversation', ctrl);
+
+                ctrl.modificationChanged = function (modification) {
+                    ConversationModificationUpdate.update(ctrl.threadId, modification.messages).then(function (newMessages) {
+                        if (newMessages && newMessages.hasOwnProperty('messages')) {
+                            ctrl.thread.messages = newMessages.messages.concat(ctrl.thread.messages);
+                            ScrollRequest.addedMultibleElements('messages', newMessages.messages.length);
+                            ToolbarService.setUnreadMessage(newMessages.totalUnreadMessages);
+                        }
+                    });
+                };
+
+                $scope.$on("$destroy", function () {
+                    userInfo.remove('conversation');
+                });
+                //--------------------------------------------
             }];
     }
 };
