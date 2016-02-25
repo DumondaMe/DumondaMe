@@ -19,6 +19,15 @@ var getUnreadMessages = function (userId) {
         .end({userId: userId});
 };
 
+var getTotalNumberOfUnreadMessages = function (userId) {
+    return db.cypher()
+        .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)-[:NEXT_MESSAGE*0..20]->(message:Message)")
+        .where("active.lastTimeVisited < message.messageAdded")
+        .return("COUNT(*) AS totalUnreadMessages")
+        .end({userId: userId});
+};
+
 module.exports = {
-    getUnreadMessages: getUnreadMessages
+    getUnreadMessages: getUnreadMessages,
+    getTotalNumberOfUnreadMessages: getTotalNumberOfUnreadMessages
 };

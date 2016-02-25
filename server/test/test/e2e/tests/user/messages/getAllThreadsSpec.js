@@ -137,6 +137,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[2].threadId.should.equal('2');
 
             res.body.numberOfThreads.should.equal(3);
+            res.body.totalUnreadMessages.should.equal(5);
         });
     });
 
@@ -166,6 +167,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].threadId.should.equal('2');
 
             res.body.numberOfThreads.should.equal(3);
+            res.body.totalUnreadMessages.should.equal(5);
         });
     });
 

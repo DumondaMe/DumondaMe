@@ -1,6 +1,5 @@
 'use strict';
 
-var app = require('../../../../../server');
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
@@ -112,6 +111,7 @@ describe('Integration Tests for getting modification info', function () {
             res.body.messages[1].name.should.equals('user3 Meier3');
             res.body.messages[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.messages[1].numberOfUnreadMessages.should.equals(1);
+            res.body.totalUnreadMessages.should.equal(4);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);

@@ -24,11 +24,13 @@ var checkNewUnreadMessages = function (unreadMessages, session) {
 };
 
 var hasModification = function (userId, session) {
-    return unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
-        var hasChanged;
+    var commands = [];
+    commands.push(unread.getTotalNumberOfUnreadMessages(userId).getCommand());
+    return unread.getUnreadMessages(userId).send(commands).then(function (resp) {
+        var hasChanged, unreadMessages = resp[1];
         userInfo.addImageForThumbnail(unreadMessages);
         hasChanged = checkNewUnreadMessages(unreadMessages, session);
-        return {hasChanged: hasChanged, messages: unreadMessages};
+        return {hasChanged: hasChanged, messages: unreadMessages, totalUnreadMessages: resp[0][0].totalUnreadMessages};
     });
 };
 
