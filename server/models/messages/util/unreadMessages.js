@@ -8,14 +8,14 @@ var getUnreadMessages = function (userId) {
         .where("active.lastTimeVisited < message.messageAdded")
         .with("user, thread, COUNT(thread.threadId) AS numberOfUnreadMessages")
         .orderBy("numberOfUnreadMessages DESC")
-        .match("(user)-[:ACTIVE]->(thread)<-[:ACTIVE]-(contact:User)")
-        .with("contact, user, thread, numberOfUnreadMessages")
+        .match("(user)-[:ACTIVE]->(thread)<-[:ACTIVE]-(contact:User), (thread)-[:NEXT_MESSAGE]->(message:Message)")
+        .with("contact, user, thread, numberOfUnreadMessages, message")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
-        .with("contact, thread, numberOfUnreadMessages, rContact, v, vr")
+        .with("contact, thread, numberOfUnreadMessages, message, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("numberOfUnreadMessages, thread.threadId AS threadId, contact.name AS name, contact.userId AS userId, " +
-        "v.profile AS profileVisible, v.image AS imageVisible")
+        "message.text AS previewText, message.messageAdded AS lastUpdate, v.profile AS profileVisible, v.image AS imageVisible")
         .end({userId: userId});
 };
 
