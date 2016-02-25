@@ -14,7 +14,7 @@ var getUnreadMessages = function (userId) {
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
         .with("contact, thread, numberOfUnreadMessages, message, rContact, v, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("numberOfUnreadMessages, thread.threadId AS threadId, contact.name AS name, contact.userId AS userId, " +
+        .return("numberOfUnreadMessages, thread.threadId AS threadId, contact.name AS description, contact.userId AS userId, " +
         "message.text AS previewText, message.messageAdded AS lastUpdate, v.profile AS profileVisible, v.image AS imageVisible")
         .end({userId: userId});
 };

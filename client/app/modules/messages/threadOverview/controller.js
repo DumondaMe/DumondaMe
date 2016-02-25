@@ -2,8 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchService', 'SearchThread', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler', 'ToolbarService',
-            function (SearchService, SearchThread, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler, ToolbarService) {
+        return ['$scope', 'SearchService', 'SearchThread', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler',
+            'ToolbarService', 'userInfo', 'ThreadsModificationUpdate',
+            function ($scope, SearchService, SearchThread, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler,
+                      ToolbarService, userInfo, ThreadsModificationUpdate) {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
@@ -22,6 +24,7 @@ module.exports = {
 
                 ctrl.nextThreads();
 
+                //Functions for handling Search
                 SearchService.register(ctrl, SearchThread.query, SearchThread.get);
 
                 ctrl.requestStarted = function () {
@@ -39,6 +42,18 @@ module.exports = {
                     ctrl.showThreadSearch = false;
                     delete ctrl.threadSearchResult;
                 };
+
+                //Connect to modification change
+                userInfo.register('threadOverview', ctrl);
+
+                ctrl.modificationChanged = function (modification) {
+                    ThreadsModificationUpdate.update(ctrl.messages.threads, modification.messages);
+                };
+
+                $scope.$on("$destroy", function () {
+                    userInfo.remove('threadOverview');
+                });
+                //--------------------------------------------
             }];
     }
 };

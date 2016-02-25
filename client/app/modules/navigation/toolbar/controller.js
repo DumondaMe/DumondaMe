@@ -40,11 +40,15 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         };
 
         ctrl.modificationChanged = function (modification) {
-            ctrl.count = modification.totalUnreadMessages;
+            if (modification) {
+                ctrl.count = modification.totalUnreadMessages;
+            }
         };
 
         ctrl.userInfoChanged = function (userInfo) {
-            ctrl.count = userInfo.totalUnreadMessages;
+            if (userInfo) {
+                ctrl.count = userInfo.totalUnreadMessages;
+            }
         };
 
         //Functions for toolbarService

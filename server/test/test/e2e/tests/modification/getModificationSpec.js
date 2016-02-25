@@ -103,14 +103,14 @@ describe('Integration Tests for getting modification info', function () {
             res.body.hasChanged.should.be.true;
             res.body.messages.length.should.equals(2);
             res.body.messages[0].threadId.should.equals('1');
-            res.body.messages[0].name.should.equals('user2 Meier2');
+            res.body.messages[0].description.should.equals('user2 Meier2');
             res.body.messages[0].previewText.should.equals('messageAdded');
             res.body.messages[0].lastUpdate.should.least(startTime);
             res.body.messages[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
             res.body.messages[0].numberOfUnreadMessages.should.equals(3);
 
             res.body.messages[1].threadId.should.equals('2');
-            res.body.messages[1].name.should.equals('user3 Meier3');
+            res.body.messages[1].description.should.equals('user3 Meier3');
             res.body.messages[1].previewText.should.equals('message1');
             res.body.messages[1].lastUpdate.should.equals(startTime - 300);
             res.body.messages[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');

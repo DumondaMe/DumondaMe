@@ -3,9 +3,10 @@
   height: 100%;
   .thread-container {
     .no-thread {
-      padding: 16px;
-      font-size: 14px;
-      font-weight: 400;
+      padding: 32px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $primary-text;
     }
   }
 }

@@ -17,6 +17,12 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
             observables.push({name: name, observable: observable});
         };
 
+        this.remove = function (name) {
+            observables = observables.filter(function(observable) {
+                return observable.name !== name;
+            });
+        };
+
         this.loginEvent = function () {
             isLoggedIn = true;
             if (!userInfo) {
