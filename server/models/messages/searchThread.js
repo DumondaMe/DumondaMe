@@ -14,43 +14,44 @@ var getPrivacyString = function (withCondition) {
 };
 
 var searchQuery = function (userId, query, maxItems, isSuggestion) {
-    var queryRegEx = '(?i).*'.concat(query, '.*'), returnThread, returnGroupThread, returnContact, orderBy;
+    var queryRegEx = '(?i).*'.concat(query, '.*'), returnThread, returnContact, returnUser;
 
 
     if (!isSuggestion) {
-        returnThread = "thread.threadId AS threadId, false AS isGroupThread, user2.name AS description, " +
-        "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
-        returnGroupThread = "thread.threadId AS threadId, true AS isGroupThread, thread.description AS description, " +
-        "null AS userId, false AS profileVisible, false AS imageVisible, message.text AS previewText";
-        returnContact = "null AS threadId, null AS isGroupThread, user2.name AS description, " +
-        "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
-        orderBy = "user2.name";
+        returnThread = "thread.threadId AS threadId, user2.name AS description, contact.type AS type, " +
+            "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
+        returnContact = "null AS threadId, user2.name AS description, contact.type AS type, " +
+            "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
+        returnUser = "null AS threadId, user2.name AS description, null AS type, " +
+            "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
     } else {
-        returnThread = "user2.name AS name";
-        returnGroupThread = "thread.description AS name";
+        returnThread = "user2.name AS description";
         returnContact = returnThread;
-        orderBy = "name";
+        returnUser = returnThread;
     }
 
     return db.cypher()
         .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(user2:User), (thread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("user2.name =~ {queryRegEx}")
-        .addCommand(getPrivacyString(',thread, message'))
+        .optionalMatch("(user)-[contact:IS_CONTACT]->(user2)")
+        .addCommand(getPrivacyString(',thread, message, contact'))
         .return(returnThread)
         .orderBy("user2.name")
         .limit("{maxItems}")
         .unionAll()
-        .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:GroupThread)-[:NEXT_MESSAGE]->(message:Message)")
-        .where("thread.description =~ {queryRegEx}")
-        .return(returnGroupThread)
-        .orderBy("thread.description")
-        .limit("{maxItems}")
-        .unionAll()
-        .match("(user:User {userId: {userId}})-[:IS_CONTACT]->(user2:User)")
+        .match("(user:User {userId: {userId}})-[contact:IS_CONTACT]->(user2:User)")
         .where("user2.name =~ {queryRegEx} AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2)")
-        .addCommand(getPrivacyString(''))
+        .addCommand(getPrivacyString(',contact'))
         .return(returnContact)
         .orderBy("user2.name")
+        .limit("{maxItems}")
+        .unionAll()
+        .match("(user2:User), (user:User {userId: {userId}})")
+        .where("user2.name =~ {queryRegEx} AND user2.userId <> {userId} AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2) " +
+            "AND NOT (user)-[:IS_CONTACT]->(user2)")
+        .addCommand(getPrivacyString(''))
+        .return(returnUser)
+        .orderBy("user2.name ")
         .limit("{maxItems}")
         .end({userId: userId, queryRegEx: queryRegEx, maxItems: maxItems});
 };
