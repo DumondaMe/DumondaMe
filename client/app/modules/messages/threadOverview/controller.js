@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchUserService', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler', 'ToolbarService',
-            function (SearchUserService, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler, ToolbarService) {
+        return ['SearchService', 'SearchThread', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler', 'ToolbarService',
+            function (SearchService, SearchThread, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler, ToolbarService) {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
@@ -21,7 +21,7 @@ module.exports = {
 
                 ctrl.nextThreads();
 
-                SearchUserService.register(ctrl);
+                SearchService.register(ctrl, SearchThread.query, SearchThread.get);
 
                 ctrl.requestStarted = function () {
 

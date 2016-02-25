@@ -2,24 +2,24 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['$scope', 'SearchUserService',
-    function ($scope, SearchUserService) {
+module.exports = ['$scope', 'SearchService',
+    function ($scope, SearchService) {
         var ctrl = this;
 
-        ctrl.querySearch = SearchUserService.querySuggestion;
+        ctrl.querySearch = SearchService.querySuggestion;
 
         ctrl.commands.abortSearch = function () {
-            SearchUserService.abortSearch();
+            SearchService.abortSearch();
         };
 
         ctrl.selectedItemChanged = function () {
-            SearchUserService.startUserSearchRequest(ctrl.searchText);
+            SearchService.startSearchRequest(ctrl.searchText);
         };
 
         ctrl.keyPressed = function ($event) {
             if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
                 $scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
-                SearchUserService.startUserSearchRequest(ctrl.searchText);
+                SearchService.startSearchRequest(ctrl.searchText);
             }
         };
     }];

@@ -1,16 +1,18 @@
 'use strict';
 
-module.exports = ['SearchUsers', function (SearchUsers) {
+module.exports = [function () {
 
-    var observable;
+    var observable, serviceSuggestion, serviceSearch;
 
-    this.register = function (newObservable) {
+    this.register = function (newObservable, newServiceSuggestion, newServiceSearch) {
         observable = newObservable;
+        serviceSuggestion = newServiceSuggestion;
+        serviceSearch = newServiceSearch;
     };
 
     this.querySuggestion = function (text) {
         if (text && text.trim().length > 0) {
-            return SearchUsers.query({
+            return serviceSuggestion({
                 search: text,
                 maxItems: 7,
                 isSuggestion: true
@@ -18,10 +20,10 @@ module.exports = ['SearchUsers', function (SearchUsers) {
         }
     };
 
-    this.startUserSearchRequest = function (query) {
+    this.startSearchRequest = function (query) {
         if (query && query.trim().length > 0) {
             observable.requestStarted();
-            SearchUsers.query({
+            serviceSearch({
                 search: query,
                 maxItems: 40,
                 isSuggestion: false

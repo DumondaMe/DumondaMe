@@ -11,7 +11,6 @@ app.factory('UserDetail', require('./services/userDetail'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
 
-app.service('SearchUserService', require('./services/searchUserService'));
 app.service('UserStateService', require('./services/userStateService'));
 app.service('ContactStatisticTypes', require('./services/contactStatisticTypes'));
 

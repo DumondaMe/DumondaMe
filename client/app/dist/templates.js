@@ -217,7 +217,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/template.html',
-    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\" commands=ctrl.commands></ely-toolbar-contact-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
+    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\" commands=ctrl.commands></ely-toolbar-contact-search><ely-toolbar-thread-search ng-if=\"ctrl.serviceName === 'threads'\" commands=ctrl.commands></ely-toolbar-thread-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
+  );
+
+
+  $templateCache.put('app/modules/navigation/toolbar/search/threadSearch/template.html',
+    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.description md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.description}}</md-item-template></md-autocomplete></div>"
   );
 
 

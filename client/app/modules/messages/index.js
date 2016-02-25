@@ -24,7 +24,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-messages></ely-messages>'
                 }
             },
-            data: {title: 'Nachrichten'}
+            data: {title: 'Nachrichten', hasSearch: true, searchServiceName: 'threads'}
         })
         .state('message.threads.detail', {
             url: '/conversation/{threadId}',

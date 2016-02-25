@@ -2,13 +2,13 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchUserService',
-            function (SearchUserService) {
+        return ['SearchService', 'SearchUsers',
+            function (SearchService, SearchUsers) {
                 var ctrl = this;
                 ctrl.requestRunning = false;
                 ctrl.showUserQuery = false;
 
-                SearchUserService.register(ctrl);
+                SearchService.register(ctrl, SearchUsers.query, SearchUsers.query);
 
                 ctrl.requestStarted = function () {
                     ctrl.requestRunning = true;
