@@ -34,14 +34,5 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             data: {hasBackNav: true, backNavToState: true}
-        })
-        .state('message.threads.create', {
-            url: '/single/create/{userId}/{name}',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/messages/conversation.html',
-                    controller: 'CreateConversationCtrl'
-                }
-            }
         });
 }]);

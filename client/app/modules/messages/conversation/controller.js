@@ -3,9 +3,9 @@
 module.exports = {
     directiveCtrl: function () {
         return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
-            'dateFormatter', 'ElyModal',
+            'dateFormatter', 'ElyModal', 'ToolbarService',
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter, ElyModal) {
+                      dateFormatter, ElyModal, ToolbarService) {
                 var ctrl = this;
                 ctrl.initLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -24,6 +24,7 @@ module.exports = {
                     }).then(function (thread) {
                         ctrl.initLoad = false;
                         ctrl.thread = thread;
+                        ToolbarService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
                     });
                 };
 

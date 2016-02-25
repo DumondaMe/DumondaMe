@@ -6,7 +6,7 @@ module.exports = {
             var ctrl = this;
 
             ctrl.userInfo = userInfo.getUserInfo();
-            userInfo.register(ctrl);
+            userInfo.register('leftNav', ctrl);
 
             ctrl.userInfoChanged = function () {
                 ctrl.userInfo = userInfo.getUserInfo();

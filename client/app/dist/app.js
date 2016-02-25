@@ -167,16 +167,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/messages/backup/conversation.html',
-    "<div id=content-messages><div ng-controller=ConversationActionsCtrl><div id=centerCol><div id=inner-centerCol><div class=add-message ng-style=settings.textInputWrapperStyle><div class=input-group><textarea class=form-control placeholder=Nachricht ng-style=settings.textInputStyle ng-keyup=settings.checkHeightOfInput($event) ng-maxlength=1000 ng-model=settings.newMessage></textarea><span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=sendMessage() ng-style=settings.textInputStyle ng-class=\"{'disabled': settings.newMessage.trim() === ''}\">Senden</button></span></div></div><div ng-repeat=\"message in settings.thread.messages\" class=message-view><div class=message-inner-view><div class=message-view-image><img ng-src={{message.profileUrl}} class=img-rounded></div><div class=message-view-content><div class=message-view-title><div class=message-view-name>{{message.name}}</div><div class=message-view-timestamp>{{getFormattedDate(message.timestamp)}}</div></div><div class=message-view-text>{{message.text}}</div></div></div></div><div ng-show=\"settings.thread.numberOfMessages > settings.itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=settings.thread.numberOfMessages items-per-page={{settings.itemsPerPage}} get-pagination-set=settings.getThread></ely-pagination-next-previous></div></div></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/messages/backup/threads.html',
-    "<div id=content-threads><div id=centerCol><div id=inner-centerCol><div ng-if=!search><div ng-repeat=\"thread in threads.threads\" class=thread-preview ng-click=\"openThread(thread.threadId, thread.isGroupThread)\"><div class=thread-preview-image><img ng-src={{thread.profileUrl}} class=img-circle></div><div class=thread-preview-text><div class=thread-preview-description>{{thread.description}}</div><div ng-class=\"{'thread-preview-previewText': !thread.hasNotReadMessages, 'thread-preview-previewTextBold': thread.hasNotReadMessages}\">{{thread.previewText}}</div></div><div ng-class=\"{'thread-preview-date': !thread.hasNotReadMessages, 'thread-preview-dateBold': thread.hasNotReadMessages}\">{{getFormattedDate(thread.lastUpdate)}}</div></div><div ng-show=\"threads.numberOfThreads > itemsPerPage\" class=pagination><ely-pagination-next-previous total-items=threads.numberOfThreads items-per-page={{itemsPerPage}} get-pagination-set=getThreads></ely-pagination-next-previous></div></div><div ng-if=\"search.threads.length > 0\"><div ng-repeat=\"thread in search.threads\" class=thread-preview ng-class=\"{'thread-preview-add-thread': !thread.previewText, 'thread-preview': thread.previewText}\" ng-click=\"openThread(thread.threadId, thread.isGroupThread)\"><div class=thread-preview-image><img ng-src={{thread.profileUrl}} class=img-circle></div><div class=thread-preview-text><div ng-class=\"{'thread-preview-description': thread.previewText, 'thread-preview-description-center': !thread.previewText}\">{{thread.description}}</div><div class=thread-preview-previewText ng-if=thread.previewText>{{thread.previewText}}</div></div><div id=add-new-single-thread ng-if=!thread.previewText><button class=\"btn btn-default\" type=button ng-click=\"addNewSingleThread(thread.userId, thread.description)\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=true></span> Konversation starten</button></div></div></div><div ng-if=\"search.threads.length === 0\">Es konnte leider keiner deiner Kontakte mit dem Namen {{query}} gefunden werden. Du kannst nur Nachrichten an Personen senden, welche du als Kontakt hinzugefügt hast.</div><div id=search-box-container><div id=search-box-container-inner><ely-search-box description=\"Nachricht an...\" query=query get-query-suggestion=getSuggestion get-query=getThreadsOrContacts></ely-search-box></div></div></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/messages/conversation/createMessage/template.html',
     "<md-dialog aria-label=\"Send new Message\" ng-cloak id=ely-conversation-message-create><form name=createMessageForm class=content-form><md-dialog-content class=md-dialog-content><div class=\"md-title title\">Nachricht an <span class=name>{{ctrl.description}}</span> schreiben</div><md-input-container class=message-input-container><label>Nachricht...</label><textarea name=messageText class=message-input ng-model=ctrl.newMessage required md-maxlength=1000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.messageTextChanged()></textarea><div ng-messages=createMessageForm.messageText.$error ng-show=createMessageForm.messageText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel() ng-disabled=ctrl.uploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary\" ng-click=ctrl.sendMessage() ng-disabled=\"ctrl.uploadStarted || createMessageForm.$invalid || !ctrl.uploadAllowed\">Senden</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
@@ -217,6 +207,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/navigation/toolbar/messageInfo/template.html',
+    "<div class=ely-message-info><md-button class=md-icon-button aria-label=\"Open Thread Overview\" ng-click=ctrl.openThreadOverview()><md-icon md-svg-icon=system:chat></md-icon></md-button><div class=number layout=row layout-align=\"center center\" ng-if=\"ctrl.count > 0\"><div>{{ctrl.count}}</div></div></div>"
+  );
+
+
   $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
     "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
   );
@@ -228,7 +223,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none hide-gt-md><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div><div flex=none ng-if=ctrl.hasBackNav hide-gt-md><md-button class=md-icon-button aria-label=Back ng-click=ctrl.navigateBack()><md-icon md-svg-icon=system:arrowBack></md-icon></md-button></div><div flex class=title ng-if=ctrl.title hide-md hide-sm hide-xs>{{ctrl.title}}</div><span flex></span><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
+    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none hide-gt-md><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div><div flex=none ng-if=\"ctrl.hasBackNav && !ctrl.searchExpanded\" hide-gt-md><md-button class=md-icon-button aria-label=Back ng-click=ctrl.navigateBack()><md-icon md-svg-icon=system:arrowBack></md-icon></md-button></div><div flex class=title ng-if=ctrl.title hide-md hide-sm hide-xs>{{ctrl.title}}</div><span flex></span><ely-toolbar-message-info ng-if=!ctrl.searchExpanded count=ctrl.count></ely-toolbar-message-info><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
   );
 
 
@@ -643,7 +638,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         });
     }]);
-},{"../../package.json":333,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
+},{"../../package.json":326,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
@@ -3372,322 +3367,6 @@ module.exports = ['$resource', function ($resource) {
 },{}],124:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$scope', '$state', 'Message', 'Conversation',
-    function ($scope, $state, Message, Conversation) {
-
-        $scope.settings.getThread = function (paginationNumber) {
-            var skip = (paginationNumber - 1) * $scope.settings.itemsPerPage;
-            $scope.settings.currentPagination = paginationNumber;
-            $scope.settings.thread = Conversation.get({
-                itemsPerPage: $scope.settings.itemsPerPage,
-                skip: skip,
-                threadId: $scope.settings.selectedThreadId,
-                isGroupThread: $scope.settings.selectedIsGroupThread
-            }, function () {
-                $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
-            });
-        };
-        if ($scope.settings.getThreadAtInit) {
-            $scope.settings.getThread($scope.settings.currentPagination);
-        }
-
-        $scope.settings.openThread = function (threadId, isGroupThread) {
-            if ($scope.settings.selectedIsGroupThread === isGroupThread && threadId === $scope.settings.selectedThreadId) {
-                $scope.settings.getThread(1);
-            } else {
-                $state.go('message.threads.detail', {
-                    threadId: threadId,
-                    isGroupThread: isGroupThread
-                });
-            }
-        };
-
-        $scope.settings.checkHeightOfInput = function ($event) {
-            if ($event.target.offsetHeight < 110) {
-                $scope.settings.textInputStyle = {height: $event.target.scrollHeight + 2 + 'px'};
-                $scope.settings.textInputWrapperStyle = {height: $event.target.scrollHeight + 18 + 'px'};
-            } else if ($event.target.offsetHeight < 144) {
-                $scope.settings.textInputWrapperStyle = {height: '144px'};
-            }
-        };
-
-        $scope.settings.resetTextInputStyle = function () {
-            $scope.settings.textInputStyle = {};
-            $scope.settings.textInputWrapperStyle = {};
-        };
-    }];
-
-},{}],125:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$scope', '$stateParams', 'Conversation', 'Message', 'dateFormatter', 'MessageLeftNavElements',
-    function ($scope, $stateParams, Conversation, Message, dateFormatter, MessageLeftNavElements) {
-
-        $scope.settings = {};
-        $scope.settings.itemsPerPage = 30;
-        $scope.settings.selectedThreadId = $stateParams.threadId;
-        $scope.settings.selectedIsGroupThread = $stateParams.isGroupThread === 'true';
-        $scope.settings.currentPagination = 1;
-        $scope.settings.getThreadAtInit = true;
-        $scope.settings.newMessage = '';
-
-        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
-
-        $scope.$on('message.changed', function () {
-            if ($scope.settings.currentPagination === 1) {
-                $scope.settings.getThread($scope.settings.currentPagination);
-            } else {
-                $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
-            }
-        });
-
-        $scope.getFormattedDate = dateFormatter.formatExact;
-
-        $scope.sendMessage = function () {
-            var message;
-            if ($scope.settings.newMessage.trim() !== '') {
-                if ($scope.settings.selectedIsGroupThread) {
-                    message = {
-                        addGroupMessage: {
-                            threadId: $scope.settings.selectedThreadId,
-                            text: $scope.settings.newMessage
-                        }
-                    };
-                } else {
-                    message = {
-                        addMessage: {
-                            threadId: $scope.settings.selectedThreadId,
-                            text: $scope.settings.newMessage
-                        }
-                    };
-                }
-                Conversation.save(message, function (resp) {
-                    $scope.settings.thread.messages.unshift(resp.message);
-                    $scope.settings.newMessage = '';
-                    $scope.settings.resetTextInputStyle($scope);
-                });
-            }
-        };
-    }];
-
-},{}],126:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$scope', '$state', '$stateParams', 'Conversation', 'Message', 'MessageLeftNavElements',
-    function ($scope, $state, $stateParams, Conversation, Message, MessageLeftNavElements) {
-
-        $scope.settings = {};
-        $scope.settings.getThreadAtInit = false;
-        $scope.settings.thread = {threadDescription: $stateParams.name};
-
-        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
-
-        $scope.settings.threads = Message.get({itemsPerPage: 30, skip: 0});
-
-        $scope.sendMessage = function () {
-            var message;
-            if ($scope.settings.newMessage.trim() !== '') {
-                message = {
-                    newSingleThread: {
-                        contactId: $stateParams.userId,
-                        text: $scope.settings.newMessage
-                    }
-                };
-                Conversation.save(message, function (resp) {
-                    $state.go('message.threads.detail', {
-                        threadId: resp.threadId,
-                        isGroupThread: false
-                    });
-                });
-            }
-        };
-    }];
-
-},{}],127:[function(require,module,exports){
-'use strict';
-
-var app = angular.module('elyoosApp');
-
-/*
-app.controller('ThreadsCtrl', require('./threadsCtrl'));
-app.controller('ConversationCtrl', require('./conversationCtrl'));
-app.controller('CreateConversationCtrl', require('./createConversationCtrl'));
-app.controller('ConversationActionsCtrl', require('./conversationActionsCtrl'));
-
-app.factory('Message', require('./services/message'));
-app.factory('SearchThread', require('./services/searchThread'));
-app.factory('Conversation', require('./services/conversation'));
-app.factory('SearchUserToSendMessage', require('./services/searchUserToSendMessage'));
-
-app.service('MessageLeftNavElements', require('./services/leftNavElements'));
-
-app.config(['$stateProvider', function ($stateProvider) {
-
-    $stateProvider
-        .state('message', {
-            abstract: true,
-            url: '/message',
-            views: {
-                header: {
-                    templateUrl: 'app/modules/navigation/loggedInHeader.html'
-                }
-            }
-        })
-        .state('message.threads', {
-            url: '/threads',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/messages/threads.html',
-                    controller: 'ThreadsCtrl'
-                }
-            },
-            hasNavigation: true
-        })
-        .state('message.threads.detail', {
-            url: '/conversation/{isGroupThread}/{threadId}',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/messages/conversation.html',
-                    controller: 'ConversationCtrl'
-                }
-            },
-            hasNavigation: true
-        })
-        .state('message.threads.create', {
-            url: '/single/create/{userId}/{name}',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/messages/conversation.html',
-                    controller: 'CreateConversationCtrl'
-                }
-            },
-            hasNavigation: true
-        });
-}]);*/
-
-},{}],128:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/messages/conversation');
-}];
-
-},{}],129:[function(require,module,exports){
-'use strict';
-
-module.exports = [
-    function () {
-        this.event = 'elyoos.leftNav.changed';
-
-        this.elements = [
-            {description: '\u00dcbersicht', url: 'thread', color: '#009688', sref: 'message.threads'},
-            {
-                description: 'Chat',
-                url: 'chat',
-                color: '#658092',
-                sref: 'message.threads.detail',
-                onlyShowSelected: true
-            },
-            {
-                description: 'Neuer Chat',
-                url: 'add',
-                color: '#FFA000',
-                sref: 'message.threads.create',
-                onlyShowSelected: true
-            },
-            {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
-    }];
-
-},{}],130:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/messages');
-}];
-
-},{}],131:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$resource', function ($resource) {
-    return $resource('/api/user/messages/singleThread');
-}];
-
-},{}],132:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/messages/search');
-}];
-
-},{}],133:[function(require,module,exports){
-'use strict';
-
-module.exports = ['$scope', '$state', 'Message', 'SearchUserToSendMessage', 'dateFormatter', 'MessageLeftNavElements',
-    function ($scope, $state, Message, SearchUserToSendMessage, dateFormatter, MessageLeftNavElements) {
-
-        var currentPagination = 1;
-        $scope.itemsPerPage = 30;
-
-        $scope.$emit(MessageLeftNavElements.event, MessageLeftNavElements.elements);
-
-        $scope.getThreads = function (paginationNumber) {
-            currentPagination = paginationNumber;
-            var skip = (paginationNumber - 1) * $scope.itemsPerPage;
-            $scope.threads = Message.get({itemsPerPage: $scope.itemsPerPage, skip: skip});
-        };
-        $scope.getThreads(currentPagination);
-
-        $scope.getFormattedDate = dateFormatter.format;
-
-        $scope.openThread = function (threadId, isGroupThread) {
-            if (threadId) {
-                $state.go('message.threads.detail', {
-                    threadId: threadId,
-                    isGroupThread: isGroupThread
-                });
-            }
-        };
-
-        $scope.$on('message.changed', function () {
-            $scope.getThreads(currentPagination);
-        });
-
-        $scope.getSuggestion = function (searchValue) {
-            if (searchValue && searchValue.trim().length > 0) {
-                return SearchUserToSendMessage.query({
-                    search: searchValue,
-                    maxItems: 7,
-                    isSuggestion: true
-                }).$promise;
-            }
-            delete $scope.search;
-        };
-
-        $scope.getThreadsOrContacts = function (searchValue) {
-            if (searchValue && searchValue.trim().length > 0) {
-                $scope.search = SearchUserToSendMessage.get({
-                    search: searchValue,
-                    maxItems: 20,
-                    isSuggestion: false
-                });
-            } else {
-                delete $scope.search;
-            }
-        };
-
-        $scope.addNewSingleThread = function (userId, name) {
-            if (userId) {
-                $state.go('message.threads.create', {
-                    userId: userId,
-                    name: name
-                });
-            }
-        };
-    }];
-
-},{}],134:[function(require,module,exports){
-'use strict';
-
 module.exports = {
     directiveCtrl: function () {
         return [
@@ -3699,15 +3378,15 @@ module.exports = {
 };
 
 
-},{}],135:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     directiveCtrl: function () {
         return ['ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia', 'MessageNextDayService',
-            'dateFormatter', 'ElyModal',
+            'dateFormatter', 'ElyModal', 'ToolbarService',
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter, ElyModal) {
+                      dateFormatter, ElyModal, ToolbarService) {
                 var ctrl = this;
                 ctrl.initLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -3726,6 +3405,7 @@ module.exports = {
                     }).then(function (thread) {
                         ctrl.initLoad = false;
                         ctrl.thread = thread;
+                        ToolbarService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
                     });
                 };
 
@@ -3743,7 +3423,7 @@ module.exports = {
 };
 
 
-},{}],136:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 module.exports =
@@ -3779,7 +3459,7 @@ module.exports =
         }];
 
 
-},{}],137:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3788,7 +3468,7 @@ app.service('ConversationMessageService', require('./services/conversationMessag
 app.service('CreateMessageCheck', require('./services/createMessageCheck'));
 
 app.controller('CreateMessageCtrl', require('./controller'));
-},{"./controller":136,"./services/conversationMessage":138,"./services/createMessageCheck":139}],138:[function(require,module,exports){
+},{"./controller":126,"./services/conversationMessage":128,"./services/createMessageCheck":129}],128:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -3816,7 +3496,7 @@ module.exports = [function () {
 
 }];
 
-},{}],139:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 'use strict';
 
 
@@ -3831,7 +3511,7 @@ module.exports = [
         };
     }];
 
-},{}],140:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3851,7 +3531,7 @@ module.exports = {
     name: 'elyConversation'
 };
 
-},{"./controller.js":135}],141:[function(require,module,exports){
+},{"./controller.js":125}],131:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3861,7 +3541,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('MessagesScrollRequestResponseHandler', require('./services/scrollRequestResponseHandler'));
 app.service('MessageNextDayService', require('./services/messageNextDay'));
-},{"./directive.js":140,"./services/messageNextDay":145,"./services/scrollRequestResponseHandler":146}],142:[function(require,module,exports){
+},{"./directive.js":130,"./services/messageNextDay":135,"./services/scrollRequestResponseHandler":136}],132:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -3877,7 +3557,7 @@ module.exports = {
 };
 
 
-},{}],143:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3899,9 +3579,9 @@ module.exports = {
     name: 'elyMessage'
 };
 
-},{"./controller.js":142}],144:[function(require,module,exports){
+},{"./controller.js":132}],134:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":143,"dup":14}],145:[function(require,module,exports){
+},{"./directive.js":133,"dup":14}],135:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -3917,7 +3597,7 @@ module.exports = ['moment', function (moment) {
     };
 }];
 
-},{}],146:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -3931,7 +3611,7 @@ module.exports = [function () {
     };
 }];
 
-},{}],147:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -3951,7 +3631,7 @@ module.exports = {
     name: 'elyMessages'
 };
 
-},{"./controller.js":134}],148:[function(require,module,exports){
+},{"./controller.js":124}],138:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -3988,37 +3668,43 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             data: {hasBackNav: true, backNavToState: true}
-        })
-        .state('message.threads.create', {
-            url: '/single/create/{userId}/{name}',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/messages/conversation.html',
-                    controller: 'CreateConversationCtrl'
-                }
-            }
         });
 }]);
-},{"./directive.js":147,"./services/conversation":149,"./services/searchThread":150,"./services/searchUserToSendMessage":151,"./services/thread":152}],149:[function(require,module,exports){
-arguments[4][128][0].apply(exports,arguments)
-},{"dup":128}],150:[function(require,module,exports){
-arguments[4][131][0].apply(exports,arguments)
-},{"dup":131}],151:[function(require,module,exports){
-arguments[4][132][0].apply(exports,arguments)
-},{"dup":132}],152:[function(require,module,exports){
+},{"./directive.js":137,"./services/conversation":139,"./services/searchThread":140,"./services/searchUserToSendMessage":141,"./services/thread":142}],139:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/user/messages/conversation');
+}];
+
+},{}],140:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('/api/user/messages/singleThread');
+}];
+
+},{}],141:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$resource', function ($resource) {
+    return $resource('api/user/messages/search');
+}];
+
+},{}],142:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/messages/thread');
 }];
 
-},{}],153:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchUserService', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler',
-            function (SearchUserService, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler) {
+        return ['SearchUserService', 'ThreadOverview', 'ScrollRequest', 'ThreadOverviewScrollRequestResponseHandler', 'ToolbarService',
+            function (SearchUserService, ThreadOverview, ScrollRequest, ThreadOverviewScrollRequestResponseHandler, ToolbarService) {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
@@ -4030,6 +3716,7 @@ module.exports = {
                     ScrollRequest.nextRequest('threadOverview', ctrl.messages.threads).then(function (messages) {
                         ctrl.initLoad = false;
                         ctrl.messages = messages;
+                        ToolbarService.setUnreadMessage(ctrl.messages.totalUnreadMessages);
                     });
                 };
 
@@ -4053,7 +3740,7 @@ module.exports = {
 };
 
 
-},{}],154:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4073,7 +3760,7 @@ module.exports = {
     name: 'elyThreadOverview'
 };
 
-},{"./controller.js":153}],155:[function(require,module,exports){
+},{"./controller.js":143}],145:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4082,7 +3769,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('ThreadOverviewScrollRequestResponseHandler', require('./services/scrollRequestResponseHandler'));
-},{"./directive.js":154,"./services/scrollRequestResponseHandler":156}],156:[function(require,module,exports){
+},{"./directive.js":144,"./services/scrollRequestResponseHandler":146}],146:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -4096,7 +3783,7 @@ module.exports = [function () {
     };
 }];
 
-},{}],157:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4115,7 +3802,7 @@ module.exports = {
 };
 
 
-},{}],158:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4137,9 +3824,9 @@ module.exports = {
     name: 'elyMessagesThread'
 };
 
-},{"./controller.js":157}],159:[function(require,module,exports){
+},{"./controller.js":147}],149:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":158,"dup":49}],160:[function(require,module,exports){
+},{"./directive.js":148,"dup":49}],150:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4148,7 +3835,7 @@ module.exports = {
             var ctrl = this;
 
             ctrl.userInfo = userInfo.getUserInfo();
-            userInfo.register(ctrl);
+            userInfo.register('leftNav', ctrl);
 
             ctrl.userInfoChanged = function () {
                 ctrl.userInfo = userInfo.getUserInfo();
@@ -4165,7 +3852,7 @@ module.exports = {
     }
 };
 
-},{}],161:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4184,9 +3871,9 @@ module.exports = {
     name: 'elyLeftNavContainer'
 };
 
-},{"./controller.js":160}],162:[function(require,module,exports){
+},{"./controller.js":150}],152:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":161,"dup":14}],163:[function(require,module,exports){
+},{"./directive.js":151,"dup":14}],153:[function(require,module,exports){
 'use strict';
 
 var getHighlightedStyle = function ($state, baseState) {
@@ -4217,7 +3904,7 @@ module.exports = {
     }
 };
 
-},{}],164:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4242,19 +3929,21 @@ module.exports = {
     name: 'elyLeftNavElement'
 };
 
-},{"./controller.js":163}],165:[function(require,module,exports){
+},{"./controller.js":153}],155:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":164,"dup":14}],166:[function(require,module,exports){
+},{"./directive.js":154,"dup":14}],156:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService) {
-        var ctrl = this, previousBackNav = false, previousState, previousParams, backNavToState;
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
+        var ctrl = this, previousState, previousParams, backNavToState;
         loginStateHandler.register(ctrl);
         ToolbarService.registerToolbar(ctrl);
+        userInfo.register('toolbar', ctrl);
         ctrl.isLoggedIn = false;
         ctrl.hasSearch = false;
         ctrl.hasBackNav = true;
+        ctrl.searchExpanded = false;
 
         ctrl.openLeftNav = function () {
             $mdSidenav("left").toggle();
@@ -4269,17 +3958,11 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         };
 
         ctrl.searchOpen = function () {
-            if (ctrl.hasBackNav) {
-                previousBackNav = true;
-                ctrl.hasBackNav = false;
-            }
+            ctrl.searchExpanded = true;
         };
 
         ctrl.searchClose = function () {
-            if (previousBackNav) {
-                previousBackNav = false;
-                ctrl.hasBackNav = true;
-            }
+            ctrl.searchExpanded = false;
         };
 
         ctrl.navigateBack = function () {
@@ -4290,15 +3973,28 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             }
         };
 
+        ctrl.modificationChanged = function (modification) {
+            ctrl.count = modification.totalUnreadMessages;
+        };
+
+        ctrl.userInfoChanged = function (userInfo) {
+            ctrl.count = userInfo.totalUnreadMessages;
+        };
+
         //Functions for toolbarService
         ctrl.setTitle = function (title) {
             ctrl.title = title;
+        };
+
+        ctrl.setUnreadMessage = function (count) {
+            ctrl.count = count;
         };
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             ctrl.hasSearch = false;
             ctrl.hasBackNav = true;
             backNavToState = false;
+            ctrl.searchExpanded = false;
 
             if (fromState.name !== 'checkLoginState' && !fromState.abstract) {
                 previousState = fromState;
@@ -4315,7 +4011,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             }
         });
     }];
-},{}],167:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4332,7 +4028,7 @@ module.exports = {
     name: 'elyToolbar'
 };
 
-},{"./controller.js":166}],168:[function(require,module,exports){
+},{"./controller.js":156}],158:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4342,7 +4038,40 @@ app.service('ToolbarService', require('./services/toolbarService'));
 
 app.directive(directive.name, directive.directive);
 
-},{"./directive.js":167,"./services/toolbarService":175}],169:[function(require,module,exports){
+},{"./directive.js":157,"./services/toolbarService":168}],159:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$state',
+    function ($state) {
+        var ctrl = this;
+
+        ctrl.openThreadOverview = function () {
+            $state.go('message.threads');
+        };
+    }];
+},{}],160:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl: 'app/modules/navigation/toolbar/messageInfo/template.html',
+            controllerAs: 'ctrl',
+            controller: require('./controller.js'),
+            bindToController: {
+                count: '='
+            }
+        };
+    }],
+    name: 'elyToolbarMessageInfo'
+};
+
+},{"./controller.js":159}],161:[function(require,module,exports){
+arguments[4][14][0].apply(exports,arguments)
+},{"./directive.js":160,"dup":14}],162:[function(require,module,exports){
 'use strict';
 
 var charCodeEnter = 13;
@@ -4368,7 +4097,7 @@ module.exports = ['$scope', 'SearchUserService',
             }
         };
     }];
-},{}],170:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4388,9 +4117,9 @@ module.exports = {
     name: 'elyToolbarContactSearch'
 };
 
-},{"./controller.js":169}],171:[function(require,module,exports){
+},{"./controller.js":162}],164:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":170,"dup":14}],172:[function(require,module,exports){
+},{"./directive.js":163,"dup":14}],165:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$rootScope',
@@ -4419,7 +4148,7 @@ module.exports = ['$rootScope',
             }
         });
     }];
-},{}],173:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -4440,9 +4169,9 @@ module.exports = {
     name: 'elyToolbarSearch'
 };
 
-},{"./controller.js":172}],174:[function(require,module,exports){
+},{"./controller.js":165}],167:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":173,"dup":14}],175:[function(require,module,exports){
+},{"./directive.js":166,"dup":14}],168:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -4457,9 +4186,13 @@ module.exports = [
         service.setTitle = function (title) {
             toolbar.setTitle(title);
         };
+
+        service.setUnreadMessage = function (count) {
+            toolbar.setUnreadMessage(count);
+        };
     }];
 
-},{}],176:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
@@ -4516,7 +4249,7 @@ module.exports = ['$scope', 'ElyModal', 'PageRecommendation', 'moment',
         };
     }];
 
-},{}],177:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 'use strict';
 
 var checkStateChanged = function (PageCategoryHandler, PageHandlingState) {
@@ -4593,7 +4326,7 @@ module.exports = {
     }
 };
 
-},{}],178:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4614,7 +4347,7 @@ module.exports = {
     name: 'elyPageCategorySelection'
 };
 
-},{"./controller.js":177}],179:[function(require,module,exports){
+},{"./controller.js":170}],172:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4624,7 +4357,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('PageCategoryHandler', require('./services/categoryHandler'));
 app.service('PageLoader', require('./services/pageLoader'));
-},{"./directive.js":178,"./services/categoryHandler":180,"./services/pageLoader":181}],180:[function(require,module,exports){
+},{"./directive.js":171,"./services/categoryHandler":173,"./services/pageLoader":174}],173:[function(require,module,exports){
 'use strict';
 
 var containsSelectedElements = function (selected) {
@@ -4718,7 +4451,7 @@ module.exports = ['Languages',
         };
     }];
 
-},{}],181:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$q', 'PageDetail',
@@ -4760,7 +4493,7 @@ module.exports = ['$q', 'PageDetail',
         };
     }];
 
-},{}],182:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 'use strict';
 
 
@@ -4808,7 +4541,7 @@ module.exports = {
     }
 };
 
-},{}],183:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4829,9 +4562,9 @@ module.exports = {
     name: 'elyPageCompareExistingPages'
 };
 
-},{"./controller.js":182}],184:[function(require,module,exports){
+},{"./controller.js":175}],177:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":183,"dup":49}],185:[function(require,module,exports){
+},{"./directive.js":176,"dup":49}],178:[function(require,module,exports){
 'use strict';
 
 
@@ -4851,7 +4584,7 @@ module.exports = {
     }
 };
 
-},{}],186:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 'use strict';
 
 var isDateValid = function (moment, date) {
@@ -4903,7 +4636,7 @@ module.exports = {
     }
 };
 
-},{}],187:[function(require,module,exports){
+},{}],180:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -4922,7 +4655,7 @@ module.exports = {
     name: 'elyPageHandlingDetailBook'
 };
 
-},{"./controller.js":186}],188:[function(require,module,exports){
+},{"./controller.js":179}],181:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -4932,7 +4665,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('UploadBookPage', require('./services/uploadBookPage'));
 app.service('EditBookService', require('./services/editBookService'));
-},{"./directive.js":187,"./services/editBookService":189,"./services/uploadBookPage":190}],189:[function(require,module,exports){
+},{"./directive.js":180,"./services/editBookService":182,"./services/uploadBookPage":183}],182:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageLoader', 'moment',
@@ -4962,7 +4695,7 @@ module.exports = ['PageLoader', 'moment',
         };
     }];
 
-},{}],190:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageCategoryHandler', 'PageHandlingUpload', 'moment',
@@ -4988,7 +4721,7 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload', 'moment',
         };
     }];
 
-},{}],191:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 'use strict';
 
 
@@ -5014,7 +4747,7 @@ module.exports = {
     }
 };
 
-},{}],192:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5033,9 +4766,9 @@ module.exports = {
     name: 'elyPageHandlingDetails'
 };
 
-},{"./controller.js":191}],193:[function(require,module,exports){
+},{"./controller.js":184}],186:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":192,"dup":49}],194:[function(require,module,exports){
+},{"./directive.js":185,"dup":49}],187:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5060,7 +4793,7 @@ module.exports = {
     }
 };
 
-},{}],195:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5083,9 +4816,9 @@ module.exports = {
     name: 'elyPageHandlingDetailSelectPicture'
 };
 
-},{"./controller.js":194}],196:[function(require,module,exports){
+},{"./controller.js":187}],189:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":195,"dup":49}],197:[function(require,module,exports){
+},{"./directive.js":188,"dup":49}],190:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5118,7 +4851,7 @@ module.exports = {
     }
 };
 
-},{}],198:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5137,7 +4870,7 @@ module.exports = {
     name: 'elyPageHandlingDetailYoutube'
 };
 
-},{"./controller.js":197}],199:[function(require,module,exports){
+},{"./controller.js":190}],192:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5148,7 +4881,7 @@ app.directive(directive.name, directive.directive);
 app.service('EditYoutubeService', require('./services/editYoutubeService'));
 app.service('PageYoutubeLink', require('./services/youtubeLink'));
 app.service('UploadYoutubePage', require('./services/uploadYoutubePage'));
-},{"./directive.js":198,"./services/editYoutubeService":200,"./services/uploadYoutubePage":201,"./services/youtubeLink":202}],200:[function(require,module,exports){
+},{"./directive.js":191,"./services/editYoutubeService":193,"./services/uploadYoutubePage":194,"./services/youtubeLink":195}],193:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageLoader',
@@ -5175,7 +4908,7 @@ module.exports = ['PageLoader',
         };
     }];
 
-},{}],201:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 'use strict';
 
 module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
@@ -5196,7 +4929,7 @@ module.exports = ['PageCategoryHandler', 'PageHandlingUpload',
         };
     }];
 
-},{}],202:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -5223,7 +4956,7 @@ module.exports = [
         };
     }];
 
-},{}],203:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5244,7 +4977,7 @@ module.exports = {
     name: 'elyPageHandlingPages'
 };
 
-},{"./controller.js":185}],204:[function(require,module,exports){
+},{"./controller.js":178}],197:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5255,7 +4988,7 @@ app.directive(directive.name, directive.directive);
 app.service('PageEditModeService', require('./services/editModeService'));
 app.service('PageHandlingState', require('./services/stateHandler'));
 app.service('PageHandlingUpload', require('./services/uploadPage'));
-},{"./directive.js":203,"./services/editModeService":205,"./services/stateHandler":206,"./services/uploadPage":207}],205:[function(require,module,exports){
+},{"./directive.js":196,"./services/editModeService":198,"./services/stateHandler":199,"./services/uploadPage":200}],198:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -5289,7 +5022,7 @@ module.exports = [
 
     }];
 
-},{}],206:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 'use strict';
 
 var notifyObservables = function (observables, selectedState) {
@@ -5331,7 +5064,7 @@ module.exports = [
         };
     }];
 
-},{}],207:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 'use strict';
 
 var goToPageDetail = function (pageId, $state, categoryType) {
@@ -5403,7 +5136,7 @@ module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
 
     }];
 
-},{}],208:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -5493,7 +5226,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./addRemoveRecommendationCtrl":176,"./pageDetail/pageDetailCtrl":215,"./pageDetail/pageDetailEducationCtrl":216,"./pageDetail/pageHeaderActivityPreviewCtrl":217,"./pageDetail/services/pageDetailReview":218,"./services/categories":225,"./services/leftNavElements":226,"./services/pageDetail":227,"./services/pageRecommendationAllContact":228,"./services/pageRecommendationOtherUser":229,"./services/pageSearchUserAdministratedPage":230,"./services/pageSearchUserRecommendation":231,"./services/pageUserAdministration":232,"./services/pageUserRecommendation":233,"./services/popularPages":234,"./services/searchPage":235,"./userRecommendation/getPageAndExtendCtrl":241}],209:[function(require,module,exports){
+},{"./addRemoveRecommendationCtrl":169,"./pageDetail/pageDetailCtrl":208,"./pageDetail/pageDetailEducationCtrl":209,"./pageDetail/pageHeaderActivityPreviewCtrl":210,"./pageDetail/services/pageDetailReview":211,"./services/categories":218,"./services/leftNavElements":219,"./services/pageDetail":220,"./services/pageRecommendationAllContact":221,"./services/pageRecommendationOtherUser":222,"./services/pageSearchUserAdministratedPage":223,"./services/pageSearchUserRecommendation":224,"./services/pageUserAdministration":225,"./services/pageUserRecommendation":226,"./services/popularPages":227,"./services/searchPage":228,"./userRecommendation/getPageAndExtendCtrl":234}],202:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -5531,7 +5264,7 @@ module.exports = {
     }
 };
 
-},{}],210:[function(require,module,exports){
+},{}],203:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5550,9 +5283,9 @@ module.exports = {
     name: 'elyPageOverview'
 };
 
-},{"./controller.js":209}],211:[function(require,module,exports){
+},{"./controller.js":202}],204:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":210,"dup":49}],212:[function(require,module,exports){
+},{"./directive.js":203,"dup":49}],205:[function(require,module,exports){
 'use strict';
 
 var initRating = function ($scope) {
@@ -5656,7 +5389,7 @@ module.exports = {
     }
 };
 
-},{}],213:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5677,9 +5410,9 @@ module.exports = {
     name: 'elyPageReview'
 };
 
-},{"./controller.js":212}],214:[function(require,module,exports){
+},{"./controller.js":205}],207:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":213,"dup":14}],215:[function(require,module,exports){
+},{"./directive.js":206,"dup":14}],208:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', 'PageLeftNavElements', 'moment', 'PageCategories',
@@ -5729,7 +5462,7 @@ module.exports = ['$scope', '$window', '$state', '$stateParams', 'PageDetail', '
         });
     }];
 
-},{}],216:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope',
@@ -5744,7 +5477,7 @@ module.exports = ['$scope',
         });
     }];
 
-},{}],217:[function(require,module,exports){
+},{}],210:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$state',
@@ -5758,14 +5491,14 @@ module.exports = ['$scope', '$state',
         };
     }];
 
-},{}],218:[function(require,module,exports){
+},{}],211:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/review');
 }];
 
-},{}],219:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 'use strict';
 
 var minScreenSize = 1000;
@@ -5876,7 +5609,7 @@ module.exports = {
     }
 };
 
-},{}],220:[function(require,module,exports){
+},{}],213:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5904,9 +5637,9 @@ module.exports = {
     name: 'elyPagePreviewContainer'
 };
 
-},{"./controller.js":219}],221:[function(require,module,exports){
+},{"./controller.js":212}],214:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":220,"dup":49}],222:[function(require,module,exports){
+},{"./directive.js":213,"dup":49}],215:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -5943,7 +5676,7 @@ module.exports = {
     }
 };
 
-},{}],223:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -5965,9 +5698,9 @@ module.exports = {
     name: 'elyPagePreview'
 };
 
-},{"./controller.js":222}],224:[function(require,module,exports){
+},{"./controller.js":215}],217:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"./directive.js":223,"dup":14}],225:[function(require,module,exports){
+},{"./directive.js":216,"dup":14}],218:[function(require,module,exports){
 'use strict';
 
 var categories = {
@@ -6003,7 +5736,7 @@ module.exports = [
         };
     }];
 
-},{}],226:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -6032,70 +5765,70 @@ module.exports = [
             {description: 'Home', url: 'home', color: '#B3C833', sref: 'home'}];
     }];
 
-},{}],227:[function(require,module,exports){
+},{}],220:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/detail');
 }];
 
-},{}],228:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationAllContact');
 }];
 
-},{}],229:[function(require,module,exports){
+},{}],222:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/recommendationOtherUser');
 }];
 
-},{}],230:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchAdministration');
 }];
 
-},{}],231:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/searchRecommendation');
 }];
 
-},{}],232:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/administrator');
 }];
 
-},{}],233:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/page/recommendation');
 }];
 
-},{}],234:[function(require,module,exports){
+},{}],227:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/popularPages');
 }];
 
-},{}],235:[function(require,module,exports){
+},{}],228:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/page/searchPage');
 }];
 
-},{}],236:[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -6111,7 +5844,7 @@ module.exports = {
     }
 };
 
-},{}],237:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6130,9 +5863,9 @@ module.exports = {
     name: 'elyPageUserAdministrator'
 };
 
-},{"./controller.js":236}],238:[function(require,module,exports){
+},{"./controller.js":229}],231:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":237,"dup":49}],239:[function(require,module,exports){
+},{"./directive.js":230,"dup":49}],232:[function(require,module,exports){
 'use strict';
 module.exports = {
     directiveCtrl: function () {
@@ -6147,7 +5880,7 @@ module.exports = {
     }
 };
 
-},{}],240:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6166,7 +5899,7 @@ module.exports = {
     name: 'elyPageUserRecommendation'
 };
 
-},{"./controller.js":239}],241:[function(require,module,exports){
+},{"./controller.js":232}],234:[function(require,module,exports){
 'use strict';
 
 var addPagePreviews = function ($scope, paginationNumber) {
@@ -6261,9 +5994,9 @@ module.exports = ['$scope', function ($scope) {
     $scope.getPage(1);
 }];
 
-},{}],242:[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":240,"dup":49}],243:[function(require,module,exports){
+},{"./directive.js":233,"dup":49}],236:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6291,7 +6024,7 @@ module.exports = {
 };
 
 
-},{}],244:[function(require,module,exports){
+},{}],237:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'userInfo', '$mdDialog', 'CreateProblemCheck', 'UploadProblem',
@@ -6319,7 +6052,7 @@ module.exports = ['$scope', 'userInfo', '$mdDialog', 'CreateProblemCheck', 'Uplo
     }];
 
 
-},{}],245:[function(require,module,exports){
+},{}],238:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6330,7 +6063,7 @@ app.service('UploadProblem', require('./services/uploadProblem'));
 
 app.service('CreateProblemCheck', require('./services/createProblemCheck'));
 
-},{"./controller":244,"./services/createProblemCheck":246,"./services/uploadProblem":247}],246:[function(require,module,exports){
+},{"./controller":237,"./services/createProblemCheck":239,"./services/uploadProblem":240}],239:[function(require,module,exports){
 'use strict';
 
 
@@ -6345,7 +6078,7 @@ module.exports = [
         };
     }];
 
-},{}],247:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 'use strict';
 
 
@@ -6372,7 +6105,7 @@ module.exports = ['CreateProblemCheck', 'Problem', '$q',
         };
     }];
 
-},{}],248:[function(require,module,exports){
+},{}],241:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6388,7 +6121,7 @@ module.exports = {
 };
 
 
-},{}],249:[function(require,module,exports){
+},{}],242:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6408,7 +6141,7 @@ module.exports = {
     name: 'elyProblemDetail'
 };
 
-},{"./controller.js":248}],250:[function(require,module,exports){
+},{"./controller.js":241}],243:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6417,7 +6150,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('ProblemDetail', require('./services/problemDetail'));
-},{"./directive.js":249,"./services/problemDetail":268}],251:[function(require,module,exports){
+},{"./directive.js":242,"./services/problemDetail":261}],244:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6460,7 +6193,7 @@ module.exports = {
 };
 
 
-},{}],252:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'userInfo', '$mdDialog', 'CreateProblemReasonCheck', 'UploadReason', '$stateParams',
@@ -6492,7 +6225,7 @@ module.exports = ['$scope', 'userInfo', '$mdDialog', 'CreateProblemReasonCheck',
     }];
 
 
-},{}],253:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6502,7 +6235,7 @@ app.controller('CreateReasonController', require('./controller'));
 app.service('UploadReason', require('./services/uploadReason'));
 app.service('CreateProblemReasonCheck', require('./services/createProblemReasonCheck'));
 
-},{"./controller":252,"./services/createProblemReasonCheck":254,"./services/uploadReason":255}],254:[function(require,module,exports){
+},{"./controller":245,"./services/createProblemReasonCheck":247,"./services/uploadReason":248}],247:[function(require,module,exports){
 'use strict';
 
 
@@ -6517,7 +6250,7 @@ module.exports = [
         };
     }];
 
-},{}],255:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 'use strict';
 
 
@@ -6544,7 +6277,7 @@ module.exports = ['CreateProblemReasonCheck', 'ProblemReason', '$q',
         };
     }];
 
-},{}],256:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6567,7 +6300,7 @@ module.exports = {
 };
 
 
-},{}],257:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6588,7 +6321,7 @@ module.exports = {
     name: 'elyProblemReasonDetail'
 };
 
-},{"./controller.js":256}],258:[function(require,module,exports){
+},{"./controller.js":249}],251:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6597,14 +6330,14 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('ProblemReasonDetail', require('./services/problemReasonDetail'));
-},{"./directive.js":257,"./services/problemReasonDetail":259}],259:[function(require,module,exports){
+},{"./directive.js":250,"./services/problemReasonDetail":252}],252:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/problem/reason/detail', null, {'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}});
 }];
 
-},{}],260:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6626,7 +6359,7 @@ module.exports = {
     name: 'elyProblemOverviewReason'
 };
 
-},{"./controller.js":251}],261:[function(require,module,exports){
+},{"./controller.js":244}],254:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6637,7 +6370,7 @@ app.directive(directive.name, directive.directive);
 app.service('ScrollProblemReasonService', require('./services/scrollProblemReasonService'));
 app.service('SortProblemReasonService', require('./services/sortProblemReasonService'));
 app.service('ProblemReason', require('./services/problemReason'));
-},{"./directive.js":260,"./services/problemReason":265,"./services/scrollProblemReasonService":266,"./services/sortProblemReasonService":267}],262:[function(require,module,exports){
+},{"./directive.js":253,"./services/problemReason":258,"./services/scrollProblemReasonService":259,"./services/sortProblemReasonService":260}],255:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6674,7 +6407,7 @@ module.exports = {
 };
 
 
-},{}],263:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6697,21 +6430,21 @@ module.exports = {
     name: 'elyProblemReasonOverviewElement'
 };
 
-},{"./controller.js":262}],264:[function(require,module,exports){
+},{"./controller.js":255}],257:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
-},{"./directive.js":263}],265:[function(require,module,exports){
+},{"./directive.js":256}],258:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/problem/reason', null, {'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}});
 }];
 
-},{}],266:[function(require,module,exports){
+},{}],259:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6725,7 +6458,7 @@ module.exports = [function () {
     };
 }];
 
-},{}],267:[function(require,module,exports){
+},{}],260:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6747,14 +6480,14 @@ module.exports = [function () {
 
 }];
 
-},{}],268:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/problem/detail', null, {'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}});
 }];
 
-},{}],269:[function(require,module,exports){
+},{}],262:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6774,7 +6507,7 @@ module.exports = {
     name: 'elyProblem'
 };
 
-},{"./controller.js":243}],270:[function(require,module,exports){
+},{"./controller.js":236}],263:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6822,7 +6555,7 @@ app.config(['$stateProvider', function ($stateProvider) {
         });
 }]);
 
-},{"./directive.js":269,"./services/problem":278}],271:[function(require,module,exports){
+},{"./directive.js":262,"./services/problem":271}],264:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6846,7 +6579,7 @@ module.exports = {
 };
 
 
-},{}],272:[function(require,module,exports){
+},{}],265:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6866,7 +6599,7 @@ module.exports = {
     name: 'elyProblemOverview'
 };
 
-},{"./controller.js":271}],273:[function(require,module,exports){
+},{"./controller.js":264}],266:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6885,7 +6618,7 @@ module.exports = {
 };
 
 
-},{}],274:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -6907,9 +6640,9 @@ module.exports = {
     name: 'elyProblemOverviewElement'
 };
 
-},{"./controller.js":273}],275:[function(require,module,exports){
+},{"./controller.js":266}],268:[function(require,module,exports){
 arguments[4][100][0].apply(exports,arguments)
-},{"./directive.js":274,"dup":100}],276:[function(require,module,exports){
+},{"./directive.js":267,"dup":100}],269:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6919,7 +6652,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('ProblemScrollRequestResponseHandler', require('./services/scrollRequestResponseHandler'));
 
-},{"./directive.js":272,"./services/scrollRequestResponseHandler":277}],277:[function(require,module,exports){
+},{"./directive.js":265,"./services/scrollRequestResponseHandler":270}],270:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -6933,14 +6666,14 @@ module.exports = [function () {
     };
 }];
 
-},{}],278:[function(require,module,exports){
+},{}],271:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/problem', null, {'delete': {method: 'POST', headers: {'X-HTTP-Method-Override': 'DELETE'}}});
 }];
 
-},{}],279:[function(require,module,exports){
+},{}],272:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -6948,7 +6681,7 @@ var app = angular.module('elyoosApp');
 app.controller('ModalAddRecommendationCtrl', require('./modalAddRecommendationCtrl'));
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
-},{"./modalAddRecommendationCtrl":280,"./services/pageRecommendation":281}],280:[function(require,module,exports){
+},{"./modalAddRecommendationCtrl":273,"./services/pageRecommendation":274}],273:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($modalInstance, PageRecommendation, pageId) {
@@ -6980,7 +6713,7 @@ module.exports = ['$modalInstance', 'PageRecommendation', 'pageId', function ($m
     };
 }];
 
-},{}],281:[function(require,module,exports){
+},{}],274:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -6989,7 +6722,7 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],282:[function(require,module,exports){
+},{}],275:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -7021,7 +6754,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     };
 }];
 
-},{}],283:[function(require,module,exports){
+},{}],276:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -7081,7 +6814,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             hasNavigation: true
         });
 }]);
-},{"./deletePrivacyCtrl":282,"./passwordCtrl":292,"./privacyCtrl":293,"./profileCtrl":294,"./renamePrivacyCtrl":295,"./services/groupSettingsService":296,"./services/password":297,"./services/privacy":298,"./services/profile":299}],284:[function(require,module,exports){
+},{"./deletePrivacyCtrl":275,"./passwordCtrl":285,"./privacyCtrl":286,"./profileCtrl":287,"./renamePrivacyCtrl":288,"./services/groupSettingsService":289,"./services/password":290,"./services/privacy":291,"./services/profile":292}],277:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
@@ -7124,7 +6857,7 @@ module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
     }];
 
 
-},{}],285:[function(require,module,exports){
+},{}],278:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -7133,7 +6866,7 @@ app.service('CheckGroupNameService', require('./services/checkGroupName'));
 
 app.controller('AddGroupController', require('./controller'));
 
-},{"./controller":284,"./services/checkGroupName":286}],286:[function(require,module,exports){
+},{"./controller":277,"./services/checkGroupName":279}],279:[function(require,module,exports){
 'use strict';
 
 module.exports = ['ContactStatisticTypes',
@@ -7154,7 +6887,7 @@ module.exports = ['ContactStatisticTypes',
     }]
 ;
 
-},{}],287:[function(require,module,exports){
+},{}],280:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$mdDialog', 'ContactStatisticTypes', 'errorToast',
@@ -7184,14 +6917,14 @@ module.exports = ['Privacy', '$mdDialog', 'ContactStatisticTypes', 'errorToast',
     }];
 
 
-},{}],288:[function(require,module,exports){
+},{}],281:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.controller('DeleteGroupController', require('./controller'));
 
-},{"./controller":287}],289:[function(require,module,exports){
+},{"./controller":280}],282:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$mdDialog', 'errorToast', 'ModifyGroupNameService',
@@ -7235,7 +6968,7 @@ module.exports = ['Privacy', '$mdDialog', 'errorToast', 'ModifyGroupNameService'
     }];
 
 
-},{}],290:[function(require,module,exports){
+},{}],283:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -7244,7 +6977,7 @@ app.service('ModifyGroupNameService', require('./services/groupSetting'));
 
 app.controller('ModifyGroupSettingController', require('./controller'));
 
-},{"./controller":289,"./services/groupSetting":291}],291:[function(require,module,exports){
+},{"./controller":282,"./services/groupSetting":284}],284:[function(require,module,exports){
 'use strict';
 
 module.exports = [
@@ -7275,7 +7008,7 @@ module.exports = [
     }]
 ;
 
-},{}],292:[function(require,module,exports){
+},{}],285:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($scope, Password, SettingLeftNavElements) {
@@ -7330,7 +7063,7 @@ module.exports = ['$scope', 'Password', 'SettingLeftNavElements', function ($sco
     };
 }];
 
-},{}],293:[function(require,module,exports){
+},{}],286:[function(require,module,exports){
 'use strict';
 
 var sendUpdatePrivacySetting = function (Privacy, $scope, updatePrivacySetting, privacySettings) {
@@ -7449,7 +7182,7 @@ module.exports = ['$scope', 'Privacy', 'SettingLeftNavElements', function ($scop
     };
 }];
 
-},{}],294:[function(require,module,exports){
+},{}],287:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeConverter', 'SettingLeftNavElements',
@@ -7535,7 +7268,7 @@ module.exports = ['$scope', 'Profile', 'profileImage', 'moment', 'CountryCodeCon
         });
     }];
 
-},{}],295:[function(require,module,exports){
+},{}],288:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
@@ -7579,7 +7312,7 @@ module.exports = ['$scope', 'Privacy', function ($scope, Privacy) {
     });
 }];
 
-},{}],296:[function(require,module,exports){
+},{}],289:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
@@ -7642,14 +7375,14 @@ module.exports = ['Privacy', '$q', '$mdDialog', 'ContactStatisticTypes',
     }]
 ;
 
-},{}],297:[function(require,module,exports){
+},{}],290:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],298:[function(require,module,exports){
+},{}],291:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7658,14 +7391,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],299:[function(require,module,exports){
+},{}],292:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],300:[function(require,module,exports){
+},{}],293:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -7699,14 +7432,14 @@ module.exports = function () {
     };
 };
 
-},{}],301:[function(require,module,exports){
+},{}],294:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":300,"./languages":302}],302:[function(require,module,exports){
+},{"./countryCodeConverter":293,"./languages":295}],295:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -7740,7 +7473,7 @@ module.exports = [
         };
     }];
 
-},{}],303:[function(require,module,exports){
+},{}],296:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -7784,19 +7517,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],304:[function(require,module,exports){
+},{}],297:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":303}],305:[function(require,module,exports){
+},{"./dateFormatter":296}],298:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":306}],306:[function(require,module,exports){
+},{"./profileImage":299}],299:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -7808,7 +7541,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],307:[function(require,module,exports){
+},{}],300:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
@@ -7886,7 +7619,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],308:[function(require,module,exports){
+},{}],301:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -7915,14 +7648,14 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],309:[function(require,module,exports){
+},{}],302:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],310:[function(require,module,exports){
+},{}],303:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -7937,7 +7670,7 @@ module.exports = function () {
     };
 };
 
-},{}],311:[function(require,module,exports){
+},{}],304:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -7962,7 +7695,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],312:[function(require,module,exports){
+},{}],305:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -7976,7 +7709,7 @@ app.service('FileReaderUtil', require('./fileReaderUtil'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":307,"./fileModel.js":308,"./fileReader":309,"./fileReaderUtil":310,"./fileUpload":311}],313:[function(require,module,exports){
+},{"./fileCtrl":300,"./fileModel.js":301,"./fileReader":302,"./fileReaderUtil":303,"./fileUpload":304}],306:[function(require,module,exports){
 'use strict';
 
 
@@ -8017,14 +7750,14 @@ module.exports = ['$scope', '$modalInstance', 'FileReader', 'FileReaderUtil',
         });
     }];
 
-},{}],314:[function(require,module,exports){
+},{}],307:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.controller('UtilFilePreviewPictureCtrl', require('./controller.js'));
 app.service('UtilFilePreviewPicture', require('./service.js'));
-},{"./controller.js":313,"./service.js":315}],315:[function(require,module,exports){
+},{"./controller.js":306,"./service.js":308}],308:[function(require,module,exports){
 'use strict';
 
 
@@ -8046,7 +7779,7 @@ module.exports = ['$modal',
         }
     }];
 
-},{}],316:[function(require,module,exports){
+},{}],309:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8054,7 +7787,7 @@ var app = angular.module('elyoosApp');
 app.service('moment', require('./moment'));
 app.service('ElyModal', require('./modal'));
 app.service('UrlCache', require('./urlCache'));
-},{"./modal":317,"./moment":318,"./urlCache":325}],317:[function(require,module,exports){
+},{"./modal":310,"./moment":311,"./urlCache":318}],310:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
@@ -8099,7 +7832,7 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
         });
 }];
 
-},{}],318:[function(require,module,exports){
+},{}],311:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -8109,14 +7842,14 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":3}],319:[function(require,module,exports){
+},{"moment":3}],312:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('ScrollRequest', require('./scrollRequest'));
 
-},{"./scrollRequest":320}],320:[function(require,module,exports){
+},{"./scrollRequest":313}],313:[function(require,module,exports){
 'use strict';
 
 var scrollRequests = {};
@@ -8182,13 +7915,13 @@ module.exports = ['$q', function ($q) {
     };
 }];
 
-},{}],321:[function(require,module,exports){
+},{}],314:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('loginStateHandler', require('./loginStateHandler'));
-},{"./loginStateHandler":322}],322:[function(require,module,exports){
+},{"./loginStateHandler":315}],315:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -8214,7 +7947,7 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],323:[function(require,module,exports){
+},{}],316:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdToast', function ($mdToast) {
@@ -8231,13 +7964,13 @@ module.exports = ['$mdToast', function ($mdToast) {
     };
 }];
 
-},{}],324:[function(require,module,exports){
+},{}],317:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('errorToast', require('./errorToast'));
-},{"./errorToast":323}],325:[function(require,module,exports){
+},{"./errorToast":316}],318:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -8268,7 +8001,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],326:[function(require,module,exports){
+},{}],319:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8278,26 +8011,28 @@ app.factory('Modification', require('./services/modification'));
 
 app.service('userInfo', require('./userInfo'));
 
-},{"./services/modification":327,"./services/userInfoRequest":328,"./userInfo":329}],327:[function(require,module,exports){
+},{"./services/modification":320,"./services/userInfoRequest":321,"./userInfo":322}],320:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],328:[function(require,module,exports){
+},{}],321:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],329:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 'use strict';
 
-var notifyObervables = function (observables, functionName) {
+var notifyObervables = function (observables, functionName, functionParam) {
     angular.forEach(observables, function (observable) {
-        observable[functionName]();
+        if (observable.observable.hasOwnProperty(functionName)) {
+            observable.observable[functionName](functionParam);
+        }
     });
 };
 
@@ -8306,20 +8041,20 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
 
         var isLoggedIn = false, userInfo, modificationInfo, observables = [];
 
-        this.register = function (observable) {
-            observables.push(observable);
+        this.register = function (name, observable) {
+            observables.push({name: name, observable: observable});
         };
 
         this.loginEvent = function () {
             isLoggedIn = true;
             if (!userInfo) {
                 userInfo = UserInfoRequest.get(null, function () {
-                    notifyObervables(observables, "userInfoChanged");
+                    notifyObervables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {
                             var modification = Modification.get(null, function () {
                                 if (modification.hasChanged) {
-                                    notifyObervables(observables, "userInfoChanged");
+                                    notifyObervables(observables, "modificationChanged", modification);
                                 }
                             });
                         }, 30000);
@@ -8342,7 +8077,7 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
         return this;
     }];
 
-},{}],330:[function(require,module,exports){
+},{}],323:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8370,7 +8105,7 @@ module.exports = {
 };
 
 
-},{}],331:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8391,9 +8126,9 @@ module.exports = {
     name: 'elyViewPort'
 };
 
-},{"./controller.js":330}],332:[function(require,module,exports){
+},{"./controller.js":323}],325:[function(require,module,exports){
 arguments[4][100][0].apply(exports,arguments)
-},{"./directive.js":331,"dup":100}],333:[function(require,module,exports){
+},{"./directive.js":324,"dup":100}],326:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -8440,4 +8175,4 @@ module.exports={
   }
 }
 
-},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,50,51,52,53,47,48,49,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,76,77,78,69,70,71,72,73,74,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,118,119,120,121,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,222,223,224,219,220,221,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332]);
+},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,50,51,52,53,47,48,49,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,76,77,78,69,70,71,72,73,74,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,118,119,120,121,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,215,216,217,212,213,214,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325]);

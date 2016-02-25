@@ -12,4 +12,8 @@ module.exports = [
         service.setTitle = function (title) {
             toolbar.setTitle(title);
         };
+
+        service.setUnreadMessage = function (count) {
+            toolbar.setUnreadMessage(count);
+        };
     }];

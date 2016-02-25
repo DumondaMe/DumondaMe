@@ -643,6 +643,20 @@ h2.website-structure-title {
     border-bottom-color: #3F51B5;
     color: white; }
 
+.ely-message-info {
+  position: relative; }
+  .ely-message-info .number {
+    font-size: 11px;
+    font-weight: 700;
+    height: 18px;
+    min-width: 18px;
+    color: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    background-color: #dc0d17; }
+
 .ely-toolbar-search-expanded {
   height: 100%;
   width: 100%; }
@@ -1090,7 +1104,6 @@ h2.website-structure-title {
         font-weight: 700; }
     .thread .thread-container .info .date {
       font-size: 14px;
-      width: 74px;
       margin-left: 8px; }
     .thread .thread-container .info .count {
       margin-top: 4px;

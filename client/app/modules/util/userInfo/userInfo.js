@@ -1,8 +1,10 @@
 'use strict';
 
-var notifyObervables = function (observables, functionName) {
+var notifyObervables = function (observables, functionName, functionParam) {
     angular.forEach(observables, function (observable) {
-        observable[functionName]();
+        if (observable.observable.hasOwnProperty(functionName)) {
+            observable.observable[functionName](functionParam);
+        }
     });
 };
 
@@ -11,20 +13,20 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
 
         var isLoggedIn = false, userInfo, modificationInfo, observables = [];
 
-        this.register = function (observable) {
-            observables.push(observable);
+        this.register = function (name, observable) {
+            observables.push({name: name, observable: observable});
         };
 
         this.loginEvent = function () {
             isLoggedIn = true;
             if (!userInfo) {
                 userInfo = UserInfoRequest.get(null, function () {
-                    notifyObervables(observables, "userInfoChanged");
+                    notifyObervables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {
                             var modification = Modification.get(null, function () {
                                 if (modification.hasChanged) {
-                                    notifyObervables(observables, "userInfoChanged");
+                                    notifyObervables(observables, "modificationChanged", modification);
                                 }
                             });
                         }, 30000);

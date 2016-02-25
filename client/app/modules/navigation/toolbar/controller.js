@@ -1,13 +1,15 @@
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService) {
-        var ctrl = this, previousBackNav = false, previousState, previousParams, backNavToState;
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
+        var ctrl = this, previousState, previousParams, backNavToState;
         loginStateHandler.register(ctrl);
         ToolbarService.registerToolbar(ctrl);
+        userInfo.register('toolbar', ctrl);
         ctrl.isLoggedIn = false;
         ctrl.hasSearch = false;
         ctrl.hasBackNav = true;
+        ctrl.searchExpanded = false;
 
         ctrl.openLeftNav = function () {
             $mdSidenav("left").toggle();
@@ -22,17 +24,11 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         };
 
         ctrl.searchOpen = function () {
-            if (ctrl.hasBackNav) {
-                previousBackNav = true;
-                ctrl.hasBackNav = false;
-            }
+            ctrl.searchExpanded = true;
         };
 
         ctrl.searchClose = function () {
-            if (previousBackNav) {
-                previousBackNav = false;
-                ctrl.hasBackNav = true;
-            }
+            ctrl.searchExpanded = false;
         };
 
         ctrl.navigateBack = function () {
@@ -43,15 +39,28 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             }
         };
 
+        ctrl.modificationChanged = function (modification) {
+            ctrl.count = modification.totalUnreadMessages;
+        };
+
+        ctrl.userInfoChanged = function (userInfo) {
+            ctrl.count = userInfo.totalUnreadMessages;
+        };
+
         //Functions for toolbarService
         ctrl.setTitle = function (title) {
             ctrl.title = title;
+        };
+
+        ctrl.setUnreadMessage = function (count) {
+            ctrl.count = count;
         };
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             ctrl.hasSearch = false;
             ctrl.hasBackNav = true;
             backNavToState = false;
+            ctrl.searchExpanded = false;
 
             if (fromState.name !== 'checkLoginState' && !fromState.abstract) {
                 previousState = fromState;
