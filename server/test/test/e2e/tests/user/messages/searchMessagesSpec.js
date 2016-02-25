@@ -159,31 +159,39 @@ describe('Integration Tests for searching messages or user contacts', function (
             res.body.threads.length.should.equal(5);
             res.body.threads[0].description.should.equal("user2 Meier2");
             res.body.threads[0].threadId.should.equal("1");
+            res.body.threads[0].lastUpdate.should.equal(startTime - 299);
             should.not.exist(res.body.threads[0].type);
             res.body.threads[0].previewText.should.equal("message1");
             res.body.threads[0].profileUrl.should.equal("profileImage/default/profilePreview.jpg");
 
             res.body.threads[1].description.should.equal("user3 Meier3");
             res.body.threads[1].threadId.should.equal("2");
+            res.body.threads[1].lastUpdate.should.equal(startTime - 299);
             res.body.threads[1].type.should.equal('Freund');
             res.body.threads[1].previewText.should.equal("message1");
             res.body.threads[1].profileUrl.should.equal('profileImage/3/profilePreview.jpg');
 
             res.body.threads[2].description.should.equal("user5 Meier5");
             res.body.threads[2].userId.should.equal("5");
+            should.not.exist(res.body.threads[2].threadId);
+            should.not.exist(res.body.threads[2].lastUpdate);
             res.body.threads[2].type.should.equal("Freund");
             res.body.threads[2].profileUrl.should.equal("profileImage/5/profilePreview.jpg");
-            should.not.exist(res.body.threads[3].previewText);
+            should.not.exist(res.body.threads[2].previewText);
 
             res.body.threads[3].description.should.equal("Meier1");
             res.body.threads[3].userId.should.equal("8");
             should.not.exist(res.body.threads[3].type);
+            should.not.exist(res.body.threads[3].threadId);
+            should.not.exist(res.body.threads[3].lastUpdate);
             res.body.threads[3].profileUrl.should.equal("profileImage/8/profilePreview.jpg");
             should.not.exist(res.body.threads[3].previewText);
 
             res.body.threads[4].description.should.equal("irgenwas Meier7");
             res.body.threads[4].userId.should.equal("7");
             should.not.exist(res.body.threads[4].type);
+            should.not.exist(res.body.threads[4].threadId);
+            should.not.exist(res.body.threads[4].lastUpdate);
             res.body.threads[4].profileUrl.should.equal("profileImage/default/profilePreview.jpg");
             should.not.exist(res.body.threads[4].previewText);
         });

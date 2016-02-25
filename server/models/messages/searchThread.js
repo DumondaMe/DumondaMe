@@ -18,11 +18,11 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
 
 
     if (!isSuggestion) {
-        returnThread = "thread.threadId AS threadId, user2.name AS description, contact.type AS type, " +
+        returnThread = "thread.threadId AS threadId, user2.name AS description, contact.type AS type, message.messageAdded AS lastUpdate, " +
             "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, message.text AS previewText";
-        returnContact = "null AS threadId, user2.name AS description, contact.type AS type, " +
+        returnContact = "null AS threadId, user2.name AS description, contact.type AS type, null AS lastUpdate, " +
             "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
-        returnUser = "null AS threadId, user2.name AS description, null AS type, " +
+        returnUser = "null AS threadId, user2.name AS description, null AS type, null AS lastUpdate, " +
             "user2.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS previewText";
     } else {
         returnThread = "user2.name AS description";
