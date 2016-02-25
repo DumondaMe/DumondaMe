@@ -1100,6 +1100,9 @@ h2.website-structure-title {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
+      .thread .thread-container .text .contact {
+        color: #3F51B5;
+        font-weight: 500; }
       .thread .thread-container .text .unread-messages {
         font-weight: 700; }
     .thread .thread-container .info .date {

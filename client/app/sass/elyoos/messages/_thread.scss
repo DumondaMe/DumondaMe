@@ -32,6 +32,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .contact {
+        color: $primary-color;
+        font-weight: 500;
+      }
       .unread-messages {
         font-weight: 700;
       }

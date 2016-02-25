@@ -188,12 +188,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads()><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.initLoad\">Du hast noch keine Nachrichten erhalten oder verschickt.</div><div class=pinwall-gab></div></div></div><ely-load-screen ng-if=ctrl.initLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads() ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\">Du hast noch keine Nachrichten erhalten oder verschickt.</div></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
   );
 
 
   $templateCache.put('app/modules/messages/threadOverview/thread/template.html',
-    "<div class=thread><div layout=row class=thread-container ng-click=ctrl.goToConversation()><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.previewText}}</div></div><div flex=none class=info layout=column layout-align=\"start center\"><div class=date ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div></div><md-divider></md-divider></div>"
+    "<div class=thread><div layout=row class=thread-container ng-click=ctrl.goToConversation()><img ng-src={{ctrl.thread.profileUrl}} class=image-preview flex=none><div class=text flex><div class=description ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.thread.description}}</div><div class=preview-text ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\" ng-if=!ctrl.thread.type>{{ctrl.thread.previewText}}</div><div class=\"preview-text contact\" ng-if=ctrl.thread.type>{{ctrl.thread.type}}</div></div><div flex=none class=info layout=column layout-align=\"start center\" ng-if=ctrl.thread.lastUpdate><div class=date ng-class=\"{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}\">{{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}</div><div class=count ng-if=\"ctrl.thread.numberOfUnreadMessages > 0\">{{ctrl.thread.numberOfUnreadMessages}}</div></div><div flex=none class=action layout=column layout-align=\"center center\" ng-if=!ctrl.thread.lastUpdate><md-button class=md-icon-button aria-label=\"Open chat\" ng-click=ctrl.writeMessage()><md-icon md-svg-icon=cardActions:chat></md-icon></md-button></div></div><md-divider></md-divider></div>"
   );
 
 
@@ -3351,7 +3351,7 @@ module.exports = {
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
                       dateFormatter, ElyModal, ToolbarService) {
                 var ctrl = this;
-                ctrl.initLoad = true;
+                ctrl.showLoad = true;
                 ctrl.$mdMedia = $mdMedia;
                 ctrl.checkIsNewDay = MessageNextDayService.checkIsNewDay;
                 ctrl.format = dateFormatter.format;
@@ -3366,7 +3366,7 @@ module.exports = {
                     ScrollRequest.nextRequest('messages', ctrl.thread.messages, {
                         threadId: ctrl.threadId
                     }).then(function (thread) {
-                        ctrl.initLoad = false;
+                        ctrl.showLoad = false;
                         ctrl.thread = thread;
                         ToolbarService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
                     });
@@ -3671,13 +3671,14 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
-                ctrl.initLoad = true;
+                ctrl.showLoad = true;
+                ctrl.showThreadSearch = false;
 
                 ScrollRequest.reset('threadOverview', ThreadOverview.get, ThreadOverviewScrollRequestResponseHandler);
 
                 ctrl.nextThreads = function () {
                     ScrollRequest.nextRequest('threadOverview', ctrl.messages.threads).then(function (messages) {
-                        ctrl.initLoad = false;
+                        ctrl.showLoad = false;
                         ctrl.messages = messages;
                         ToolbarService.setUnreadMessage(ctrl.messages.totalUnreadMessages);
                     });
@@ -3688,15 +3689,19 @@ module.exports = {
                 SearchService.register(ctrl, SearchThread.query, SearchThread.get);
 
                 ctrl.requestStarted = function () {
-
+                    ctrl.showLoad = true;
                 };
 
                 ctrl.requestFinished = function (resp) {
-
+                    ctrl.showLoad = false;
+                    ctrl.showThreadSearch = true;
+                    ctrl.threadSearchResult = resp;
                 };
 
                 ctrl.abortSearch = function () {
-
+                    ctrl.showLoad = false;
+                    ctrl.showThreadSearch = false;
+                    delete ctrl.threadSearchResult;
                 };
             }];
     }
@@ -3751,14 +3756,22 @@ module.exports = [function () {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$state',
-            function (dateFormatter, $state) {
+        return ['dateFormatter', '$state', 'ElyModal',
+            function (dateFormatter, $state, ElyModal) {
                 var ctrl = this;
 
                 ctrl.getFormattedDate = dateFormatter.format;
 
                 ctrl.goToConversation = function () {
                     $state.go('message.threads.detail', {threadId: ctrl.thread.threadId});
+                };
+
+                ctrl.writeMessage = function () {
+                    ElyModal.show('CreateMessageCtrl', 'app/modules/messages/conversation/createMessage/template.html',
+                        {destinationUserId: ctrl.thread.userId, description: ctrl.thread.description})
+                        .then(function (newMessage) {
+                            $state.go('message.threads.detail', {threadId: newMessage.threadId});
+                        });
                 };
             }];
     }

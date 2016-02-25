@@ -7,13 +7,14 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.messages = {threads: []};
-                ctrl.initLoad = true;
+                ctrl.showLoad = true;
+                ctrl.showThreadSearch = false;
 
                 ScrollRequest.reset('threadOverview', ThreadOverview.get, ThreadOverviewScrollRequestResponseHandler);
 
                 ctrl.nextThreads = function () {
                     ScrollRequest.nextRequest('threadOverview', ctrl.messages.threads).then(function (messages) {
-                        ctrl.initLoad = false;
+                        ctrl.showLoad = false;
                         ctrl.messages = messages;
                         ToolbarService.setUnreadMessage(ctrl.messages.totalUnreadMessages);
                     });
@@ -24,15 +25,19 @@ module.exports = {
                 SearchService.register(ctrl, SearchThread.query, SearchThread.get);
 
                 ctrl.requestStarted = function () {
-
+                    ctrl.showLoad = true;
                 };
 
                 ctrl.requestFinished = function (resp) {
-
+                    ctrl.showLoad = false;
+                    ctrl.showThreadSearch = true;
+                    ctrl.threadSearchResult = resp;
                 };
 
                 ctrl.abortSearch = function () {
-
+                    ctrl.showLoad = false;
+                    ctrl.showThreadSearch = false;
+                    delete ctrl.threadSearchResult;
                 };
             }];
     }

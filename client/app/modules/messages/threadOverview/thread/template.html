@@ -3,13 +3,22 @@
         <img ng-src="{{ctrl.thread.profileUrl}}" class="image-preview" flex="none">
         <div class="text" flex>
             <div class="description" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">{{ctrl.thread.description}}</div>
-            <div class="preview-text" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">{{ctrl.thread.previewText}}</div>
+            <div class="preview-text" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}" ng-if="!ctrl.thread.type">
+                {{ctrl.thread.previewText}}
+            </div>
+            <div class="preview-text contact" ng-if="ctrl.thread.type">{{ctrl.thread.type}}</div>
         </div>
-        <div flex="none" class="info" layout="column" layout-align="start center">
+        <div flex="none" class="info" layout="column" layout-align="start center" ng-if="ctrl.thread.lastUpdate">
             <div class="date" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">
                 {{ctrl.getFormattedDate(ctrl.thread.lastUpdate)}}
             </div>
             <div class="count" ng-if="ctrl.thread.numberOfUnreadMessages > 0">{{ctrl.thread.numberOfUnreadMessages}}</div>
+        </div>
+        <div flex="none" class="action" layout="column" layout-align="center center" ng-if="!ctrl.thread.lastUpdate">
+            <md-button class="md-icon-button" aria-label="Open chat"
+                       ng-click="ctrl.writeMessage()">
+                <md-icon md-svg-icon="cardActions:chat"></md-icon>
+            </md-button>
         </div>
     </div>
     <md-divider></md-divider>

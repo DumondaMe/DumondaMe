@@ -7,7 +7,7 @@ module.exports = {
             function (ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
                       dateFormatter, ElyModal, ToolbarService) {
                 var ctrl = this;
-                ctrl.initLoad = true;
+                ctrl.showLoad = true;
                 ctrl.$mdMedia = $mdMedia;
                 ctrl.checkIsNewDay = MessageNextDayService.checkIsNewDay;
                 ctrl.format = dateFormatter.format;
@@ -22,7 +22,7 @@ module.exports = {
                     ScrollRequest.nextRequest('messages', ctrl.thread.messages, {
                         threadId: ctrl.threadId
                     }).then(function (thread) {
-                        ctrl.initLoad = false;
+                        ctrl.showLoad = false;
                         ctrl.thread = thread;
                         ToolbarService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
                     });
