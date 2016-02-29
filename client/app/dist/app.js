@@ -208,7 +208,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/messageInfo/template.html',
-    "<div class=ely-message-info><md-button class=md-icon-button aria-label=\"Open Thread Overview\" ng-click=ctrl.openThreadOverview()><md-icon md-svg-icon=system:chat></md-icon></md-button><div class=number layout=row layout-align=\"center center\" ng-if=\"ctrl.count > 0\"><div>{{ctrl.count}}</div></div></div>"
+    "<div class=ely-message-info><md-button class=md-icon-button aria-label=\"Open Thread Overview\" ng-click=ctrl.openThreadOverview()><md-icon md-svg-icon=system:chat></md-icon></md-button><div class=number layout=row layout-align=\"center center\" ng-if=\"ctrl.count > 0\" ng-click=ctrl.openThreadOverview()><div>{{ctrl.count}}</div></div></div>"
   );
 
 

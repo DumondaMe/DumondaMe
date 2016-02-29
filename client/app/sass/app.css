@@ -656,6 +656,8 @@ h2.website-structure-title {
     top: 3px;
     right: 5px;
     background-color: #dc0d17; }
+  .ely-message-info .number:focus {
+    outline: none; }
 
 .ely-toolbar-search-expanded {
   height: 100%;
