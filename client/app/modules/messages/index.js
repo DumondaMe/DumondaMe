@@ -33,6 +33,6 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-conversation></ely-conversation>'
                 }
             },
-            data: {hasBackNav: true, backNavToState: true}
+            data: {hasBackNav: true, backNavToState: true, hasSearch: false}
         });
 }]);

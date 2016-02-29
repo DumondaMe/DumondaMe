@@ -6,6 +6,9 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
 
     this.show = function (controller, template, locals) {
 
+        if (!locals) {
+            locals = {};
+        }
         var modalParams = {
             parent: angular.element(document.body),
             clickOutsideToClose: false,
@@ -29,14 +32,14 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
         $mdDialog.hide(resp);
     };
 
-    this.cancel = function() {
+    this.cancel = function () {
         preventStateChange = false;
         $mdDialog.cancel();
     };
 
     $rootScope.$on('$stateChangeStart',
         function (event) {
-            if(preventStateChange) {
+            if (preventStateChange) {
                 event.preventDefault();
             }
         });
