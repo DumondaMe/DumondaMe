@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ContactStatisticTypes', '$mdDialog', 'Contact', 'errorToast',
-    function (ContactStatisticTypes, $mdDialog, Contact, errorToast) {
+module.exports = ['ContactStatisticTypes', 'ElyModal', 'Contact', 'errorToast',
+    function (ContactStatisticTypes, ElyModal, Contact, errorToast) {
         var ctrl = this;
 
         ctrl.types = ContactStatisticTypes.getTypes();
@@ -10,7 +10,7 @@ module.exports = ['ContactStatisticTypes', '$mdDialog', 'Contact', 'errorToast',
         }
 
         ctrl.cancel = function () {
-            $mdDialog.cancel();
+            ElyModal.cancel();
         };
 
         ctrl.accept = function () {
@@ -20,7 +20,7 @@ module.exports = ['ContactStatisticTypes', '$mdDialog', 'Contact', 'errorToast',
                 mode: 'addContact',
                 description: ctrl.selectedType
             },function () {
-                $mdDialog.hide(ctrl.selectedType);
+                ElyModal.hide(ctrl.selectedType);
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');
                 ctrl.uploadStarted = false;

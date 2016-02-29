@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
-    function (Privacy, $mdDialog, CheckGroupNameService, errorToast) {
+module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
+    function (Privacy, ElyModal, CheckGroupNameService, errorToast) {
         var ctrl = this;
         ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
@@ -15,7 +15,7 @@ module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
         };
 
         ctrl.cancel = function () {
-            $mdDialog.cancel();
+            ElyModal.cancel();
         };
 
         ctrl.accept = function () {
@@ -30,7 +30,7 @@ module.exports = ['Privacy', '$mdDialog', 'CheckGroupNameService', 'errorToast',
                     }, privacyDescription: ctrl.groupName
                 }
             }, function () {
-                $mdDialog.hide(ctrl.groupName);
+                ElyModal.hide(ctrl.groupName);
             }, function () {
                 errorToast.showError('Es ist ein Fehler aufgetretten!');
                 ctrl.uploadStarted = false;
