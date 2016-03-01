@@ -624,130 +624,6 @@ h2.website-structure-title {
   background-color: #E0E0E0;
   padding: 0 6px; }
 
-#toolbar-header {
-  position: relative;
-  width: 100%;
-  margin-top: -56px; }
-  @media screen and (min-width: 1280px) {
-    #toolbar-header {
-      margin-top: -64px; } }
-  #toolbar-header .title {
-    margin-left: 16px;
-    font-size: 24px;
-    color: white; }
-
-#ely-toolbar-sub-nav {
-  padding-left: 5px;
-  font-size: 16px; }
-  #ely-toolbar-sub-nav .md-select-value {
-    border-bottom-color: #3F51B5;
-    color: white; }
-
-.ely-message-info {
-  position: relative; }
-  .ely-message-info .number {
-    font-size: 11px;
-    font-weight: 700;
-    height: 18px;
-    min-width: 18px;
-    color: white;
-    border-radius: 4px;
-    position: absolute;
-    top: 3px;
-    right: 5px;
-    background-color: #dc0d17; }
-  .ely-message-info .number:focus {
-    outline: none; }
-
-.ely-toolbar-search-expanded {
-  height: 100%;
-  width: 100%; }
-  .ely-toolbar-search-expanded #ely-toolbar-search {
-    height: 100%;
-    width: 100%;
-    padding: 7px 0 7px 10px; }
-    .ely-toolbar-search-expanded #ely-toolbar-search .search-container {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      background-color: #7986CB;
-      border-radius: 5px; }
-      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
-        position: absolute;
-        z-index: 100;
-        top: 9px;
-        left: 5px; }
-        @media screen and (min-width: 480px) {
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
-            top: 5px; } }
-        @media screen and (min-width: 960px) {
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
-            top: 13px; } }
-      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
-        position: absolute;
-        z-index: 100;
-        top: 9px;
-        right: 5px; }
-        @media screen and (min-width: 480px) {
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
-            top: 5px; } }
-        @media screen and (min-width: 960px) {
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
-            top: 13px; } }
-      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container {
-        height: 100%; }
-        .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete {
-          width: 100%;
-          height: 100%;
-          min-width: 120px;
-          box-shadow: none;
-          background-color: #7986CB;
-          border-radius: 5px; }
-          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
-            box-shadow: none;
-            width: 100%;
-            border-radius: 5px; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-              border-radius: 5px;
-              background-color: #7986CB;
-              color: white;
-              border: none;
-              width: 100%;
-              padding-left: 35px;
-              padding-right: 35px;
-              font-size: 16px;
-              font-weight: 400;
-              max-width: none;
-              height: 42px;
-              line-height: 42px; }
-              @media screen and (min-width: 480px) {
-                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-                  height: 34px;
-                  line-height: 34px; } }
-              @media screen and (min-width: 960px) {
-                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
-                  height: 50px;
-                  line-height: 50px; } }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
-              outline: none; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
-              color: white; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
-              color: white; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
-              color: white; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
-              color: white; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
-              color: white; }
-            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap button {
-              display: none !important; }
-
-.ely-toolbar-search-collapse {
-  width: 40px; }
-  .ely-toolbar-search-collapse .ely-toolbar-menu {
-    width: 40px; }
-
 .pinwall-blog-card {
   max-width: 400px;
   min-width: 280px;
@@ -1180,6 +1056,130 @@ h2.website-structure-title {
     .ely-sidnav .left-nav-content .highlighted {
       color: #3F51B5; }
 
+#toolbar-header {
+  position: relative;
+  width: 100%;
+  margin-top: -56px; }
+  @media screen and (min-width: 1280px) {
+    #toolbar-header {
+      margin-top: -64px; } }
+  #toolbar-header .title {
+    margin-left: 16px;
+    font-size: 24px;
+    color: white; }
+
+#ely-toolbar-sub-nav {
+  padding-left: 5px;
+  font-size: 16px; }
+  #ely-toolbar-sub-nav .md-select-value {
+    border-bottom-color: #3F51B5;
+    color: white; }
+
+.ely-message-info {
+  position: relative; }
+  .ely-message-info .number {
+    font-size: 11px;
+    font-weight: 700;
+    height: 18px;
+    min-width: 18px;
+    color: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    background-color: #dc0d17; }
+  .ely-message-info .number:focus {
+    outline: none; }
+
+.ely-toolbar-search-expanded {
+  height: 100%;
+  width: 100%; }
+  .ely-toolbar-search-expanded #ely-toolbar-search {
+    height: 100%;
+    width: 100%;
+    padding: 7px 0 7px 10px; }
+    .ely-toolbar-search-expanded #ely-toolbar-search .search-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      background-color: #7986CB;
+      border-radius: 5px; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+        position: absolute;
+        z-index: 100;
+        top: 9px;
+        left: 5px; }
+        @media screen and (min-width: 480px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+            top: 5px; } }
+        @media screen and (min-width: 960px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+            top: 13px; } }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+        position: absolute;
+        z-index: 100;
+        top: 9px;
+        right: 5px; }
+        @media screen and (min-width: 480px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+            top: 5px; } }
+        @media screen and (min-width: 960px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+            top: 13px; } }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container {
+        height: 100%; }
+        .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete {
+          width: 100%;
+          height: 100%;
+          min-width: 120px;
+          box-shadow: none;
+          background-color: #7986CB;
+          border-radius: 5px; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
+            box-shadow: none;
+            width: 100%;
+            border-radius: 5px; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+              border-radius: 5px;
+              background-color: #7986CB;
+              color: white;
+              border: none;
+              width: 100%;
+              padding-left: 35px;
+              padding-right: 35px;
+              font-size: 16px;
+              font-weight: 400;
+              max-width: none;
+              height: 42px;
+              line-height: 42px; }
+              @media screen and (min-width: 480px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 34px;
+                  line-height: 34px; } }
+              @media screen and (min-width: 960px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 50px;
+                  line-height: 50px; } }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
+              outline: none; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap button {
+              display: none !important; }
+
+.ely-toolbar-search-collapse {
+  width: 40px; }
+  .ely-toolbar-search-collapse .ely-toolbar-menu {
+    width: 40px; }
+
 #problem-create {
   min-width: 310px;
   max-width: 450px;
@@ -1369,6 +1369,9 @@ h2.website-structure-title {
         color: #3F51B5; }
     #modify-group-setting .ely-dialog-content .select-privacy {
       margin-bottom: 24px; }
+
+#ely-setting-profile {
+  height: 100%; }
 
 body, html {
   background-color: #E0E0E0;

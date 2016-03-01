@@ -3,7 +3,7 @@
         <div layout="row">
             <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none"/>
             <div class="header-commands" layout="row" layout-align="end none" flex="grow">
-                <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header"></md-icon>
+                <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header" ng-click="ctrl.goToProfile()"></md-icon>
             </div>
         </div>
         <div class="user-info">

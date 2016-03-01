@@ -19,6 +19,10 @@ module.exports = {
                 });
             };
 
+            ctrl.goToProfile = function () {
+                $mdSidenav("left").close();
+                $state.go('settings.profile');
+            };
         }];
     }
 };

@@ -16,10 +16,6 @@
 @import 'contact/_contactPreviewSquare';
 @import 'contact/_searchUserOverview';
 
-@import 'header/_toolbar';
-@import 'header/_toolbarMessageInfo';
-@import 'header/_toolbarSearch';
-
 @import 'home/_blog';
 @import 'home/_blogDetail';
 @import 'home/_createBlog';
@@ -37,6 +33,9 @@
 @import 'messages/_threadOverview';
 
 @import 'navigation/_leftColNav';
+@import 'navigation/_toolbar';
+@import 'navigation/_toolbarMessageInfo';
+@import 'navigation/_toolbarSearch';
 
 @import 'problem/_mixins';
 @import 'problem/_createProblem';
@@ -51,3 +50,4 @@
 @import 'settings/modal/_addGroup';
 @import 'settings/modal/_deleteGroup';
 @import 'settings/modal/_modifyGroupSetting';
+@import 'settings/_profile';
