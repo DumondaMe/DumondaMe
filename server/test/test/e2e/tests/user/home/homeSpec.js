@@ -103,12 +103,12 @@ describe('Integration Tests for getting home screen information for a user', fun
 
                 res.body.messages.length.should.equals(2);
                 res.body.messages[0].threadId.should.equals('1');
-                res.body.messages[0].name.should.equals('user Meier2');
+                res.body.messages[0].description.should.equals('user Meier2');
                 res.body.messages[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.messages[0].numberOfUnreadMessages.should.equals(2);
 
                 res.body.messages[1].threadId.should.equals('2');
-                res.body.messages[1].name.should.equals('user Meier3');
+                res.body.messages[1].description.should.equals('user Meier3');
                 res.body.messages[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                 res.body.messages[1].numberOfUnreadMessages.should.equals(1);
             });
