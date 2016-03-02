@@ -1,3 +1,15 @@
 #ely-setting-profile {
   height: 100%;
+  background-color: $background-normal;
+  .container {
+    height: 100%;
+    #ely-setting-profile-image {
+      width: 300px;
+      background-color: white;
+    }
+    .profile-image {
+      width: 100%;
+      height: 300px;
+    }
+  }
 }

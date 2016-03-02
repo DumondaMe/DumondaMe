@@ -1,0 +1,11 @@
+#ely-upload-crop-image {
+  min-width: 300px;
+  .cropArea {
+    width: 100%;
+    .unsupported-file {
+      padding: 16px;
+      font-size: 14px;
+      color: $error-text;
+    }
+  }
+}

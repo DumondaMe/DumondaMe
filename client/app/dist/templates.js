@@ -426,8 +426,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/profile/image/template.html',
+    "<md-card id=ely-setting-profile-image><md-card-header><md-card-header-text><span class=md-title>Profilbild</span></md-card-header-text></md-card-header><img ng-src={{ctrl.profile.profileImage}} class=\"md-card-image profile-image\" alt=Profilbild><md-card-actions layout=row layout-align=\"end center\"><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></md-card-actions></md-card>"
+  );
+
+
   $templateCache.put('app/modules/settings/profile/template.html',
-    "<md-content id=ely-setting-profile></md-content>"
+    "<md-content id=ely-setting-profile><div class=container layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image></div></md-content>"
   );
 
 
@@ -441,8 +446,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/util/file/uploadFile.html',
-    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=1></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\" ng-disabled=uploadRunning>Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><md-button class=\"md-primary ely-button\" ng-disabled=uploadRunning ng-click=$hide()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!image.imageForUploadPreview || uploadRunning || uploadError\" ng-click=startUpload()>Hochladen</md-button></div></div></div></div>"
+  $templateCache.put('app/modules/util/file/uploadCropImage/template.html',
+    "<md-dialog id=ely-upload-crop-image><div class=cropArea layout=row layout-align=\"center center\"><ely-image-cropper commands=ctrl.commands image=ctrl.imageForUploadPreview image-result-data=ctrl.startImageUpload ratio={{ctrl.ratio}} min-width=100 min-height=100 ng-if=!ctrl.unsupportedFile></ely-image-cropper><div class=unsupported-file ng-if=ctrl.unsupportedFile>Dieser File Type kann nicht hochgeladen werden</div></div><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg , .png , jpeg\"></md-card-icon-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-disabled=\"ctrl.running || !ctrl.hasImage\" ng-click=ctrl.uploadImage()>Hochladen</md-button></md-card-actions><md-progress-linear ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 

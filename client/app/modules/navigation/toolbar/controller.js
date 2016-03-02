@@ -3,7 +3,7 @@
 module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
     function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
         var ctrl = this, previousState, previousParams, backNavToState;
-        loginStateHandler.register(ctrl);
+        loginStateHandler.register('toolbar', ctrl);
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
         ctrl.isLoggedIn = false;

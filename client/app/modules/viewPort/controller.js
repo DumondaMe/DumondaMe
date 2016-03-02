@@ -5,7 +5,7 @@ module.exports = {
         return ['$mdMedia', 'loginStateHandler', function ($mdMedia, loginStateHandler) {
             var ctrl = this;
 
-            loginStateHandler.register(ctrl);
+            loginStateHandler.register('viewPort', ctrl);
 
             ctrl.loginStyle = {left: 0};
             ctrl.showLeftNav = false;

@@ -2,10 +2,21 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [
-            function () {
+        return ['$scope', 'Profile', 'UploadProfileImageState',
+            function ($scope, Profile, UploadProfileImageState) {
                 var ctrl = this;
 
+                UploadProfileImageState.register('profilePreview', ctrl);
+
+                ctrl.profileImageChangedEvent = function () {
+                    ctrl.profile = Profile.get();
+                };
+
+                ctrl.profile = Profile.get();
+
+                $scope.$on("$destroy", function () {
+                    UploadProfileImageState.remove('profilePreview');
+                });
             }];
     }
 };

@@ -427,8 +427,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/profile/image/template.html',
+    "<md-card id=ely-setting-profile-image><md-card-header><md-card-header-text><span class=md-title>Profilbild</span></md-card-header-text></md-card-header><img ng-src={{ctrl.profile.profileImage}} class=\"md-card-image profile-image\" alt=Profilbild><md-card-actions layout=row layout-align=\"end center\"><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></md-card-actions></md-card>"
+  );
+
+
   $templateCache.put('app/modules/settings/profile/template.html',
-    "<md-content id=ely-setting-profile></md-content>"
+    "<md-content id=ely-setting-profile><div class=container layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image></div></md-content>"
   );
 
 
@@ -442,8 +447,8 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/util/file/uploadFile.html',
-    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=imageForUploadPreview image-result-data=imageResultData ratio=1></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\" ng-disabled=uploadRunning>Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><md-button class=\"md-primary ely-button\" ng-disabled=uploadRunning ng-click=$hide()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!image.imageForUploadPreview || uploadRunning || uploadError\" ng-click=startUpload()>Hochladen</md-button></div></div></div></div>"
+  $templateCache.put('app/modules/util/file/uploadCropImage/template.html',
+    "<md-dialog id=ely-upload-crop-image><div class=cropArea layout=row layout-align=\"center center\"><ely-image-cropper commands=ctrl.commands image=ctrl.imageForUploadPreview image-result-data=ctrl.startImageUpload ratio={{ctrl.ratio}} min-width=100 min-height=100 ng-if=!ctrl.unsupportedFile></ely-image-cropper><div class=unsupported-file ng-if=ctrl.unsupportedFile>Dieser File Type kann nicht hochgeladen werden</div></div><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg , .png , jpeg\"></md-card-icon-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-disabled=\"ctrl.running || !ctrl.hasImage\" ng-click=ctrl.uploadImage()>Hochladen</md-button></md-card-actions><md-progress-linear ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -638,7 +643,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
     function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo) {
         var firstRun = true;
 
-        loginStateHandler.register(userInfo);
+        loginStateHandler.register('userInfo', userInfo);
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             if (firstRun) {
@@ -649,7 +654,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         });
     }]);
-},{"../../package.json":333,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
+},{"../../package.json":341,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
@@ -1127,15 +1132,18 @@ var checkRatio = function (ctrl, $image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$element', function ($element) {
+        return ['$element', 'FileReaderUtil', function ($element, FileReaderUtil) {
             var ctrl = this;
             var $image = $($element.find('img')[0]),
                 cropperSettings = {
-                    minCropBoxWidth: 200,
-                    minCropBoxHeight: 200,
+                    minCropBoxWidth: 10,
+                    minCropBoxHeight: 10,
                     guides: false,
                     zoomable: false,
+                    scalable: false,
                     rotatable: false,
+                    background: false,
+                    viewMode: 1,
                     built: function () {
                         var size = $image.cropper('getImageData'), cropWidth;
                         if (this.originalSize) {
@@ -1158,35 +1166,37 @@ module.exports = {
                     }
                 };
 
-            if (this.ratio) {
-                cropperSettings.aspectRatio = this.ratio;
+            if (ctrl.ratio) {
+                cropperSettings.aspectRatio = parseInt(ctrl.ratio);
             }
-            if (this.minWidth) {
-                cropperSettings.minCropBoxWidth = this.minWidth;
+            if (ctrl.minWidth) {
+                cropperSettings.minCropBoxWidth = ctrl.minWidth;
             }
-            if (this.minHeight) {
-                cropperSettings.minCropBoxHeight = this.minHeight;
+            if (ctrl.minHeight) {
+                cropperSettings.minCropBoxHeight = ctrl.minHeight;
             }
 
             $image.cropper(cropperSettings);
 
-            this.commands.getData = function () {
-                ctrl.imageResultData($image.cropper('getCroppedCanvas'));
+            ctrl.commands.getData = function () {
+                var dataCanvas = $image.cropper('getCroppedCanvas');
+                if ('toDataURL' in dataCanvas) {
+                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataCanvas.toDataURL()));
+                } else {
+                    ctrl.imageResultData();
+                }
             };
 
-            this.commands.setImage = function (image) {
+            ctrl.commands.setImage = function (image) {
                 $image.cropper('reset', true).cropper('replace', image);
             };
 
-            /*$scope.$on('image.cropper.set.ratio', function (event, ratio) {
-                $image.cropper('setAspectRatio', ratio);
-            });
-
-            $scope.$watch('image', function (newImage) {
-                if (newImage) {
-                    $image.cropper('reset', true).cropper('replace', newImage);
-                }
-            });*/
+            ctrl.commands.enable = function () {
+                $image.cropper('enable');
+            };
+            ctrl.commands.disable = function () {
+                $image.cropper('disable');
+            };
         }];
     }
 };
@@ -3919,28 +3929,30 @@ arguments[4][49][0].apply(exports,arguments)
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Auth', '$state', '$mdSidenav', 'userInfo', function (Auth, $state, $mdSidenav, userInfo) {
-            var ctrl = this;
+        return ['Auth', '$state', '$mdSidenav', 'userInfo',
+            function (Auth, $state, $mdSidenav, userInfo) {
+                var ctrl = this;
 
-            ctrl.userInfo = userInfo.getUserInfo();
-            userInfo.register('leftNav', ctrl);
-
-            ctrl.userInfoChanged = function () {
                 ctrl.userInfo = userInfo.getUserInfo();
-            };
+                userInfo.register('leftNav', ctrl);
 
-            ctrl.logout = function () {
-                Auth.logout().then(function () {
+                ctrl.userInfoChanged = function () {
+                    ctrl.userInfo = userInfo.getUserInfo();
+                };
+
+                ctrl.logout = function () {
+                    Auth.logout().then(function () {
+                        $mdSidenav("left").close();
+                        delete ctrl.userInfo;
+                        $state.go('login');
+                    });
+                };
+
+                ctrl.goToProfile = function () {
                     $mdSidenav("left").close();
-                    $state.go('login');
-                });
-            };
-
-            ctrl.goToProfile = function () {
-                $mdSidenav("left").close();
-                $state.go('settings.profile');
-            };
-        }];
+                    $state.go('settings.profile');
+                };
+            }];
     }
 };
 
@@ -4029,7 +4041,7 @@ arguments[4][14][0].apply(exports,arguments)
 module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
     function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
         var ctrl = this, previousState, previousParams, backNavToState;
-        loginStateHandler.register(ctrl);
+        loginStateHandler.register('toolbar', ctrl);
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
         ctrl.isLoggedIn = false;
@@ -7212,7 +7224,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./services/groupSettingsService":295,"./services/password":296,"./services/privacy":297,"./services/profile":298}],284:[function(require,module,exports){
+},{"./services/groupSettingsService":299,"./services/password":300,"./services/privacy":301,"./services/profile":302}],284:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
@@ -7407,8 +7419,31 @@ module.exports = [
 ;
 
 },{}],292:[function(require,module,exports){
-arguments[4][123][0].apply(exports,arguments)
-},{"dup":123}],293:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['$scope', 'Profile', 'UploadProfileImageState',
+            function ($scope, Profile, UploadProfileImageState) {
+                var ctrl = this;
+
+                UploadProfileImageState.register('profilePreview', ctrl);
+
+                ctrl.profileImageChangedEvent = function () {
+                    ctrl.profile = Profile.get();
+                };
+
+                ctrl.profile = Profile.get();
+
+                $scope.$on("$destroy", function () {
+                    UploadProfileImageState.remove('profilePreview');
+                });
+            }];
+    }
+};
+
+
+},{}],293:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -7429,8 +7464,79 @@ module.exports = {
 };
 
 },{"./controller.js":292}],294:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['ElyModal', 'UploadProfileImageState',
+            function (ElyModal, UploadProfileImageState) {
+                var ctrl = this;
+
+                ctrl.uploadProfileImage = function () {
+                    ElyModal.show('UtilFileUploadCropImageCtrl', 'app/modules/util/file/uploadCropImage/template.html',
+                        {ratio: 1, uploadUrl: '/api/user/settings/uploadProfileImage', }).then(function () {
+                        UploadProfileImageState.profileImageChanged();
+                    });
+                };
+            }];
+    }
+};
+
+
+},{}],295:[function(require,module,exports){
+'use strict';
+
+var controller = require('./controller.js');
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            controller: controller.directiveCtrl(),
+            controllerAs: 'ctrl',
+            bindToController: {
+                profile: '='
+            },
+            templateUrl: 'app/modules/settings/profile/image/template.html'
+        };
+    }],
+    name: 'elySettingsProfileImage'
+};
+
+},{"./controller.js":294}],296:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
+
+app.directive(directive.name, directive.directive);
+
+app.service('UploadProfileImageState', require('./services/uploadProfileImageState'));
+},{"./directive.js":295,"./services/uploadProfileImageState":297}],297:[function(require,module,exports){
+'use strict';
+
+module.exports = ['Observables', function (Observables) {
+
+    var service = this, observables = [];
+
+    service.register = function (name, observable) {
+        Observables.register(observables, name, observable);
+    };
+
+    service.remove = function (name) {
+        observables = Observables.remove(observables, name);
+    };
+
+    service.profileImageChanged = function () {
+        Observables.notifyObservables(observables, "profileImageChangedEvent");
+    };
+}];
+
+},{}],298:[function(require,module,exports){
 arguments[4][49][0].apply(exports,arguments)
-},{"./directive.js":293,"dup":49}],295:[function(require,module,exports){
+},{"./directive.js":293,"dup":49}],299:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
@@ -7468,14 +7574,14 @@ module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
     }]
 ;
 
-},{}],296:[function(require,module,exports){
+},{}],300:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],297:[function(require,module,exports){
+},{}],301:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -7484,14 +7590,14 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],298:[function(require,module,exports){
+},{}],302:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],299:[function(require,module,exports){
+},{}],303:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -7525,14 +7631,14 @@ module.exports = function () {
     };
 };
 
-},{}],300:[function(require,module,exports){
+},{}],304:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('Languages', require('./languages'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./countryCodeConverter":299,"./languages":301}],301:[function(require,module,exports){
+},{"./countryCodeConverter":303,"./languages":305}],305:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -7566,7 +7672,7 @@ module.exports = [
         };
     }];
 
-},{}],302:[function(require,module,exports){
+},{}],306:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -7610,19 +7716,19 @@ module.exports = ['moment', function (moment) {
     return this;
 }];
 
-},{}],303:[function(require,module,exports){
+},{}],307:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('dateFormatter', require('./dateFormatter'));
-},{"./dateFormatter":302}],304:[function(require,module,exports){
+},{"./dateFormatter":306}],308:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('profileImage', require('./profileImage'));
-},{"./profileImage":305}],305:[function(require,module,exports){
+},{"./profileImage":309}],309:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -7634,7 +7740,24 @@ module.exports = [function () {
     return this;
 }];
 
-},{}],306:[function(require,module,exports){
+},{}],310:[function(require,module,exports){
+'use strict';
+
+module.exports = [function () {
+
+    this.isValidFileFormat = function (fileName, supportedFiles) {
+        var extension, isValid = false;
+        if (angular.isString(fileName) && angular.isString(supportedFiles)) {
+            extension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+            if (supportedFiles.indexOf(extension) >= 0) {
+                isValid = true;
+            }
+        }
+        return isValid;
+    };
+}];
+
+},{}],311:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
@@ -7712,7 +7835,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],307:[function(require,module,exports){
+},{}],312:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -7741,21 +7864,19 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],308:[function(require,module,exports){
+},{}],313:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],309:[function(require,module,exports){
+},{}],314:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     this.dataURItoBlob = function (dataURI) {
-        var binary = window.atob(dataURI.split(',')[1]),
-            array = [],
-            i;
+        var binary = window.atob(dataURI.split(',')[1]), array = [], i;
         for (i = 0; i < binary.length; i = i + 1) {
             array.push(binary.charCodeAt(i));
         }
@@ -7763,7 +7884,7 @@ module.exports = function () {
     };
 };
 
-},{}],310:[function(require,module,exports){
+},{}],315:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -7788,13 +7909,14 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],311:[function(require,module,exports){
+},{}],316:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 var fileModel = require('./fileModel.js');
 
 app.service('fileUpload', require('./fileUpload'));
+app.service('CheckFileFormat', require('./checkFileFormat'));
 
 app.factory('FileReader', require('./fileReader'));
 app.service('FileReaderUtil', require('./fileReaderUtil'));
@@ -7802,7 +7924,7 @@ app.service('FileReaderUtil', require('./fileReaderUtil'));
 app.controller('FileCtrl', require('./fileCtrl'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileCtrl":306,"./fileModel.js":307,"./fileReader":308,"./fileReaderUtil":309,"./fileUpload":310}],312:[function(require,module,exports){
+},{"./checkFileFormat":310,"./fileCtrl":311,"./fileModel.js":312,"./fileReader":313,"./fileReaderUtil":314,"./fileUpload":315}],317:[function(require,module,exports){
 'use strict';
 
 
@@ -7843,14 +7965,14 @@ module.exports = ['$scope', '$modalInstance', 'FileReader', 'FileReaderUtil',
         });
     }];
 
-},{}],313:[function(require,module,exports){
+},{}],318:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.controller('UtilFilePreviewPictureCtrl', require('./controller.js'));
 app.service('UtilFilePreviewPicture', require('./service.js'));
-},{"./controller.js":312,"./service.js":314}],314:[function(require,module,exports){
+},{"./controller.js":317,"./service.js":319}],319:[function(require,module,exports){
 'use strict';
 
 
@@ -7872,16 +7994,88 @@ module.exports = ['$modal',
         }
     }];
 
-},{}],315:[function(require,module,exports){
+},{}],320:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 'errorToast', 'CheckFileFormat',
+    function ($scope, $timeout, FileReader, ElyModal, fileUpload, errorToast, CheckFileFormat) {
+        var ctrl = this;
+        ctrl.commands = {};
+        ctrl.hasImage = false;
+        ctrl.unsupportedFile = false;
+
+        ctrl.cancel = function () {
+            ElyModal.cancel();
+        };
+
+        ctrl.uploadImage = function () {
+            ctrl.running = true;
+            ctrl.commands.disable();
+            $timeout(ctrl.commands.getData());
+        };
+
+        ctrl.startImageUpload = function (blob) {
+            if (blob instanceof Blob) {
+                fileUpload.uploadFileToUrl(blob, ctrl.uploadUrl).success(function () {
+                    ElyModal.hide();
+                }).error(function () {
+                    ctrl.commands.enable();
+                    ctrl.running = false;
+                    errorToast.showError('Beim Senden des Bildes ist ein Fehler aufgetreten!');
+                });
+            } else {
+                ctrl.commands.enable();
+                ctrl.running = false;
+                errorToast.showError('Diese Datei kann nicht hochgeladen werden');
+            }
+        };
+
+        $scope.$watch('imageForUpload', function (newImage) {
+            if (newImage) {
+                FileReader.onloadend = function () {
+                    $scope.$apply(function () {
+                        ctrl.hasImage = true;
+                        ctrl.running = false;
+                        ctrl.commands.setImage(FileReader.result);
+                    });
+                };
+                FileReader.onloadstart = function () {
+                    $scope.$apply(function () {
+                        ctrl.running = true;
+                    });
+                };
+                ctrl.hasImage = false;
+                ctrl.unsupportedFile = false;
+                if (CheckFileFormat.isValidFileFormat(newImage.name, '.png .jpg .jpeg')) {
+                    FileReader.readAsDataURL(newImage);
+                } else {
+                    ctrl.unsupportedFile = true;
+                }
+
+            }
+        });
+    }
+];
+
+
+
+},{}],321:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+
+app.controller('UtilFileUploadCropImageCtrl', require('./controller'));
+},{"./controller":320}],322:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('moment', require('./moment'));
+app.service('Observables', require('./observables'));
 app.service('ElyModal', require('./modal'));
 app.service('SearchService', require('./searchService'));
 app.service('UrlCache', require('./urlCache'));
-},{"./modal":316,"./moment":317,"./searchService":320,"./urlCache":325}],316:[function(require,module,exports){
+},{"./modal":323,"./moment":324,"./observables":325,"./searchService":328,"./urlCache":333}],323:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
@@ -7929,7 +8123,7 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
         });
 }];
 
-},{}],317:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -7939,14 +8133,40 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":3}],318:[function(require,module,exports){
+},{"moment":3}],325:[function(require,module,exports){
+'use strict';
+
+module.exports = ['$log', function ($log) {
+
+    this.register = function (observables, name, observable) {
+        observables.push({name: name, observable: observable});
+    };
+
+    this.remove = function (observables, name) {
+        return observables.filter(function (observable) {
+            return observable.name !== name;
+        });
+    };
+
+    this.notifyObservables = function (observables, functionName, functionParam) {
+        angular.forEach(observables, function (observable) {
+            if (observable.hasOwnProperty('observable') && observable.observable.hasOwnProperty(functionName)) {
+                observable.observable[functionName](functionParam);
+            } else {
+                $log.warn('observable property is missing or registered observable misses function');
+            }
+        });
+    };
+}];
+
+},{}],326:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('ScrollRequest', require('./scrollRequest'));
 
-},{"./scrollRequest":319}],319:[function(require,module,exports){
+},{"./scrollRequest":327}],327:[function(require,module,exports){
 'use strict';
 
 var scrollRequests = {};
@@ -8015,7 +8235,7 @@ module.exports = ['$q', function ($q) {
     };
 }];
 
-},{}],320:[function(require,module,exports){
+},{}],328:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -8058,39 +8278,33 @@ module.exports = [function () {
     };
 }];
 
-},{}],321:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('loginStateHandler', require('./loginStateHandler'));
-},{"./loginStateHandler":322}],322:[function(require,module,exports){
+},{"./loginStateHandler":330}],330:[function(require,module,exports){
 'use strict';
 
-module.exports = [function () {
+module.exports = ['Observables', function (Observables) {
 
     var observables = [];
 
-    this.register = function (observable) {
-        observables.push(observable);
+    this.register = function (name, observable) {
+        Observables.register(observables, name, observable);
     };
 
     this.loginEvent = function () {
-      angular.forEach(observables, function (observable) {
-          observable.loginEvent();
-      });
+        Observables.notifyObservables(observables, 'loginEvent');
     };
 
     this.logoutEvent = function () {
-        angular.forEach(observables, function (observable) {
-            observable.logoutEvent();
-        });
+        Observables.notifyObservables(observables, 'logoutEvent');
     };
-
-    return this;
 }];
 
-},{}],323:[function(require,module,exports){
+},{}],331:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdToast', function ($mdToast) {
@@ -8107,13 +8321,13 @@ module.exports = ['$mdToast', function ($mdToast) {
     };
 }];
 
-},{}],324:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('errorToast', require('./errorToast'));
-},{"./errorToast":323}],325:[function(require,module,exports){
+},{"./errorToast":331}],333:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -8144,7 +8358,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],326:[function(require,module,exports){
+},{}],334:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8154,56 +8368,46 @@ app.factory('Modification', require('./services/modification'));
 
 app.service('userInfo', require('./userInfo'));
 
-},{"./services/modification":327,"./services/userInfoRequest":328,"./userInfo":329}],327:[function(require,module,exports){
+},{"./services/modification":335,"./services/userInfoRequest":336,"./userInfo":337}],335:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],328:[function(require,module,exports){
+},{}],336:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],329:[function(require,module,exports){
+},{}],337:[function(require,module,exports){
 'use strict';
 
-var notifyObervables = function (observables, functionName, functionParam) {
-    angular.forEach(observables, function (observable) {
-        if (observable.observable.hasOwnProperty(functionName)) {
-            observable.observable[functionName](functionParam);
-        }
-    });
-};
+module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState',
+    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState) {
 
-module.exports = ['UserInfoRequest', '$interval', 'Modification',
-    function (UserInfoRequest, $interval, Modification) {
+        var isLoggedIn = false, userInfo, modificationInfo, observables = [], service = this;
 
-        var isLoggedIn = false, userInfo, modificationInfo, observables = [];
-
-        this.register = function (name, observable) {
-            observables.push({name: name, observable: observable});
+        service.register = function (name, observable) {
+            Observables.register(observables, name, observable);
         };
 
-        this.remove = function (name) {
-            observables = observables.filter(function(observable) {
-                return observable.name !== name;
-            });
+        service.remove = function (name) {
+            observables = Observables.remove(observables, name);
         };
 
-        this.loginEvent = function () {
+        service.loginEvent = function () {
             isLoggedIn = true;
             if (!userInfo) {
                 userInfo = UserInfoRequest.get(null, function () {
-                    notifyObervables(observables, "userInfoChanged", userInfo);
+                    Observables.notifyObservables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {
                             var modification = Modification.get(null, function () {
                                 if (modification.hasChanged) {
-                                    notifyObervables(observables, "modificationChanged", modification);
+                                    Observables.notifyObservables(observables, "modificationChanged", modification);
                                 }
                             });
                         }, 30000);
@@ -8212,21 +8416,27 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
             }
         };
 
-        this.logoutEvent = function () {
+        service.logoutEvent = function () {
             isLoggedIn = false;
             userInfo = undefined;
-            notifyObervables(observables, "userInfoChanged");
+            Observables.notifyObservables(observables, "userInfoChanged");
             $interval.cancel(modificationInfo);
         };
 
-        this.getUserInfo = function () {
+        service.getUserInfo = function () {
             return userInfo;
         };
 
-        return this;
+        UploadProfileImageState.register('userInfo', service);
+
+        service.profileImageChangedEvent = function () {
+            userInfo = UserInfoRequest.get(null, function () {
+                Observables.notifyObservables(observables, "userInfoChanged", userInfo);
+            });
+        };
     }];
 
-},{}],330:[function(require,module,exports){
+},{}],338:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8234,7 +8444,7 @@ module.exports = {
         return ['$mdMedia', 'loginStateHandler', function ($mdMedia, loginStateHandler) {
             var ctrl = this;
 
-            loginStateHandler.register(ctrl);
+            loginStateHandler.register('viewPort', ctrl);
 
             ctrl.loginStyle = {left: 0};
             ctrl.showLeftNav = false;
@@ -8254,7 +8464,7 @@ module.exports = {
 };
 
 
-},{}],331:[function(require,module,exports){
+},{}],339:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8275,9 +8485,9 @@ module.exports = {
     name: 'elyViewPort'
 };
 
-},{"./controller.js":330}],332:[function(require,module,exports){
+},{"./controller.js":338}],340:[function(require,module,exports){
 arguments[4][99][0].apply(exports,arguments)
-},{"./directive.js":331,"dup":99}],333:[function(require,module,exports){
+},{"./directive.js":339,"dup":99}],341:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -8324,4 +8534,4 @@ module.exports={
   }
 }
 
-},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,50,51,52,53,47,48,49,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,76,77,78,69,70,71,72,73,74,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,117,118,119,120,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,219,220,215,216,217,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332]);
+},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,50,51,52,53,47,48,49,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,76,77,78,69,70,71,72,73,74,75,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,117,118,119,120,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,219,220,215,216,217,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340]);

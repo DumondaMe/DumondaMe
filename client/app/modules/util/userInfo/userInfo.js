@@ -1,38 +1,28 @@
 'use strict';
 
-var notifyObervables = function (observables, functionName, functionParam) {
-    angular.forEach(observables, function (observable) {
-        if (observable.observable.hasOwnProperty(functionName)) {
-            observable.observable[functionName](functionParam);
-        }
-    });
-};
+module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState',
+    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState) {
 
-module.exports = ['UserInfoRequest', '$interval', 'Modification',
-    function (UserInfoRequest, $interval, Modification) {
+        var isLoggedIn = false, userInfo, modificationInfo, observables = [], service = this;
 
-        var isLoggedIn = false, userInfo, modificationInfo, observables = [];
-
-        this.register = function (name, observable) {
-            observables.push({name: name, observable: observable});
+        service.register = function (name, observable) {
+            Observables.register(observables, name, observable);
         };
 
-        this.remove = function (name) {
-            observables = observables.filter(function(observable) {
-                return observable.name !== name;
-            });
+        service.remove = function (name) {
+            observables = Observables.remove(observables, name);
         };
 
-        this.loginEvent = function () {
+        service.loginEvent = function () {
             isLoggedIn = true;
             if (!userInfo) {
                 userInfo = UserInfoRequest.get(null, function () {
-                    notifyObervables(observables, "userInfoChanged", userInfo);
+                    Observables.notifyObservables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {
                             var modification = Modification.get(null, function () {
                                 if (modification.hasChanged) {
-                                    notifyObervables(observables, "modificationChanged", modification);
+                                    Observables.notifyObservables(observables, "modificationChanged", modification);
                                 }
                             });
                         }, 30000);
@@ -41,16 +31,22 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification',
             }
         };
 
-        this.logoutEvent = function () {
+        service.logoutEvent = function () {
             isLoggedIn = false;
             userInfo = undefined;
-            notifyObervables(observables, "userInfoChanged");
+            Observables.notifyObservables(observables, "userInfoChanged");
             $interval.cancel(modificationInfo);
         };
 
-        this.getUserInfo = function () {
+        service.getUserInfo = function () {
             return userInfo;
         };
 
-        return this;
+        UploadProfileImageState.register('userInfo', service);
+
+        service.profileImageChangedEvent = function () {
+            userInfo = UserInfoRequest.get(null, function () {
+                Observables.notifyObservables(observables, "userInfoChanged", userInfo);
+            });
+        };
     }];

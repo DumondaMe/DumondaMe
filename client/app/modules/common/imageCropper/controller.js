@@ -25,15 +25,18 @@ var checkRatio = function (ctrl, $image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$element', function ($element) {
+        return ['$element', 'FileReaderUtil', function ($element, FileReaderUtil) {
             var ctrl = this;
             var $image = $($element.find('img')[0]),
                 cropperSettings = {
-                    minCropBoxWidth: 200,
-                    minCropBoxHeight: 200,
+                    minCropBoxWidth: 10,
+                    minCropBoxHeight: 10,
                     guides: false,
                     zoomable: false,
+                    scalable: false,
                     rotatable: false,
+                    background: false,
+                    viewMode: 1,
                     built: function () {
                         var size = $image.cropper('getImageData'), cropWidth;
                         if (this.originalSize) {
@@ -56,35 +59,37 @@ module.exports = {
                     }
                 };
 
-            if (this.ratio) {
-                cropperSettings.aspectRatio = this.ratio;
+            if (ctrl.ratio) {
+                cropperSettings.aspectRatio = parseInt(ctrl.ratio);
             }
-            if (this.minWidth) {
-                cropperSettings.minCropBoxWidth = this.minWidth;
+            if (ctrl.minWidth) {
+                cropperSettings.minCropBoxWidth = ctrl.minWidth;
             }
-            if (this.minHeight) {
-                cropperSettings.minCropBoxHeight = this.minHeight;
+            if (ctrl.minHeight) {
+                cropperSettings.minCropBoxHeight = ctrl.minHeight;
             }
 
             $image.cropper(cropperSettings);
 
-            this.commands.getData = function () {
-                ctrl.imageResultData($image.cropper('getCroppedCanvas'));
+            ctrl.commands.getData = function () {
+                var dataCanvas = $image.cropper('getCroppedCanvas');
+                if ('toDataURL' in dataCanvas) {
+                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataCanvas.toDataURL()));
+                } else {
+                    ctrl.imageResultData();
+                }
             };
 
-            this.commands.setImage = function (image) {
+            ctrl.commands.setImage = function (image) {
                 $image.cropper('reset', true).cropper('replace', image);
             };
 
-            /*$scope.$on('image.cropper.set.ratio', function (event, ratio) {
-                $image.cropper('setAspectRatio', ratio);
-            });
-
-            $scope.$watch('image', function (newImage) {
-                if (newImage) {
-                    $image.cropper('reset', true).cropper('replace', newImage);
-                }
-            });*/
+            ctrl.commands.enable = function () {
+                $image.cropper('enable');
+            };
+            ctrl.commands.disable = function () {
+                $image.cropper('disable');
+            };
         }];
     }
 };

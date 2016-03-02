@@ -1,24 +1,18 @@
 'use strict';
 
-module.exports = [function () {
+module.exports = ['Observables', function (Observables) {
 
     var observables = [];
 
-    this.register = function (observable) {
-        observables.push(observable);
+    this.register = function (name, observable) {
+        Observables.register(observables, name, observable);
     };
 
     this.loginEvent = function () {
-      angular.forEach(observables, function (observable) {
-          observable.loginEvent();
-      });
+        Observables.notifyObservables(observables, 'loginEvent');
     };
 
     this.logoutEvent = function () {
-        angular.forEach(observables, function (observable) {
-            observable.logoutEvent();
-        });
+        Observables.notifyObservables(observables, 'logoutEvent');
     };
-
-    return this;
 }];

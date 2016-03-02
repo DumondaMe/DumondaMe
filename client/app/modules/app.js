@@ -81,7 +81,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
     function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo) {
         var firstRun = true;
 
-        loginStateHandler.register(userInfo);
+        loginStateHandler.register('userInfo', userInfo);
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             if (firstRun) {
