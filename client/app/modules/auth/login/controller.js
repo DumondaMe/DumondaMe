@@ -16,7 +16,6 @@ module.exports = ['$scope', '$state', 'Auth', 'UrlCache', 'IsAuth', function ($s
             }).then(function () {
                 ctrl.loginRunning = false;
                 UrlCache.reset();
-                $scope.$broadcast('elyoos.login');
                 $state.go('home');
             }, function () {
                 ctrl.loginRunning = false;
