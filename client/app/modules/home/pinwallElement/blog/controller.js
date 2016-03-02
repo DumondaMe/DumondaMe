@@ -6,8 +6,8 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', '$state', 'BlogPreviewTextService', 'UserDetailNavigation',
-            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, $state, BlogPreviewTextService, UserDetailNavigation) {
+        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'BlogPreviewTextService', 'UserDetailNavigation',
+            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, BlogPreviewTextService, UserDetailNavigation) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;

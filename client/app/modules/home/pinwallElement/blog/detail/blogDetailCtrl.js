@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['dateFormatter', 'ElyModal', '$state', function (dateFormatter, ElyModal, $state) {
+module.exports = ['dateFormatter', 'ElyModal', 'UserDetailNavigation', function (dateFormatter, ElyModal, UserDetailNavigation) {
     var ctrl = this;
     ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
@@ -10,7 +10,7 @@ module.exports = ['dateFormatter', 'ElyModal', '$state', function (dateFormatter
 
     ctrl.openUserDetail = function () {
         ElyModal.cancel();
-        $state.go('user.detail', {userId: ctrl.element.userId});
+        UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.isAdmin);
     };
 }];
 
