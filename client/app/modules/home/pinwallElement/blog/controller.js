@@ -1,30 +1,20 @@
 'use strict';
 
-var getPreviewText = function (text) {
-    var previewText = text;
-    if (text) {
-        if (text.length > 120) {
-            previewText = text.substring(0, 120) + "...";
-        }
-    }
-    return previewText;
-};
-
 var checkHasDetail = function (text, image) {
     return (angular.isString(text) && text.length > 120) || angular.isString(image);
 };
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', '$state',
-            function (dateFormatter, $mdDialog, Blog, errorToast, $state) {
+        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', '$state', 'BlogPreviewTextService',
+            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, $state, BlogPreviewTextService) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-                ctrl.previewText = getPreviewText(ctrl.element.text);
+                ctrl.previewText = BlogPreviewTextService.getPreviewText(ctrl.element.text);
 
                 hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
 
@@ -34,15 +24,7 @@ module.exports = {
 
                 ctrl.openDetail = function () {
                     if (hasDetail) {
-                        $mdDialog.show({
-                            templateUrl: 'app/modules/home/pinwallElement/blog/detail/detail.html',
-                            parent: angular.element(document.body),
-                            clickOutsideToClose: true,
-                            controller: 'HomePinwallBlogDetail',
-                            locals: {element: ctrl.element},
-                            bindToController: true,
-                            controllerAs: 'ctrl'
-                        });
+                        ElyModal.show('HomePinwallBlogDetail', 'app/modules/home/pinwallElement/blog/detail/detail.html', {element: ctrl.element});
                     }
                 };
 
