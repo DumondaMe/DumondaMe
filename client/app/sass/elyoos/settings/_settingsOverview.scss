@@ -3,7 +3,6 @@
   .title {
     position: relative;
     height: 48px;
-    margin-left: 5px;
     border-bottom: 1px solid $divider;
     .setting-icon-left {
       position: absolute;
@@ -27,16 +26,19 @@
       }
     }
   }
-  .setting {
-    height: 36px;
-    border-bottom: 1px solid $divider;
-    cursor: pointer;
-    .setting-description {
-      font-size: 16px;
-      font-weight: 500;
+  .content {
+
+    .setting {
+      height: 36px;
+      border-bottom: 1px solid $divider;
+      cursor: pointer;
+      .setting-description {
+        font-size: 16px;
+        font-weight: 500;
+      }
     }
-  }
-  .setting:hover {
-    background-color: $hover;
+    .setting:hover {
+      background-color: $hover;
+    }
   }
 }

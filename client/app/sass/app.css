@@ -1415,23 +1415,20 @@ h2.website-structure-title {
 #ely-setting-profile {
   height: 100%;
   background-color: #E0E0E0; }
-  #ely-setting-profile .container {
-    height: 100%; }
-    #ely-setting-profile .container #ely-setting-profile-image {
-      width: 95%;
-      max-width: 300px;
-      background-color: white; }
-    #ely-setting-profile .container .profile-image {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%; }
+  #ely-setting-profile .container #ely-setting-profile-image {
+    width: 95%;
+    max-width: 300px;
+    background-color: white; }
+  #ely-setting-profile .container .profile-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; }
 
 #ely-setting-overview {
   width: 300px; }
   #ely-setting-overview .title {
     position: relative;
     height: 48px;
-    margin-left: 5px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
     #ely-setting-overview .title .setting-icon-left {
       position: absolute;
@@ -1450,14 +1447,14 @@ h2.website-structure-title {
         font-size: 18px;
         font-weight: 500;
         color: #3F51B5; }
-  #ely-setting-overview .setting {
+  #ely-setting-overview .content .setting {
     height: 36px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     cursor: pointer; }
-    #ely-setting-overview .setting .setting-description {
+    #ely-setting-overview .content .setting .setting-description {
       font-size: 16px;
       font-weight: 500; }
-  #ely-setting-overview .setting:hover {
+  #ely-setting-overview .content .setting:hover {
     background-color: #C5CAE9; }
 
 #ely-upload-crop-image {
