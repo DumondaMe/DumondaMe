@@ -416,6 +416,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/modal/changePassword/template.html',
+    "<md-dialog id=change-password aria-label=\"Delete Group\" ng-cloak><form name=ctrl.changePasswordForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Passwort ändern</div><md-input-container class=ely-input-container><label>Altes Passwort</label><input name=oldPassword class=blog-input ng-model=ctrl.oldPassword required type=password ng-disabled=\"ctrl.running\"><div ng-messages=ctrl.changePasswordForm.oldPassword.$error ng-show=ctrl.changePasswordForm.oldPassword.$dirty><div ng-message=required>Wird benötigt!</div></div></md-input-container><md-input-container class=ely-input-container><label>Neues Passwort</label><input name=newPassword class=blog-input ng-model=ctrl.newPassword required type=password ng-disabled=ctrl.running ng-change=\"ctrl.newPasswordChanged()\"><div ng-messages=ctrl.changePasswordForm.newPassword.$error ng-show=ctrl.changePasswordForm.newPassword.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=ely-min-length>Das Passwort muss mindestens 8 Zeichen lang sein</div><div ng-message=ely-char-missing>Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div></div></md-input-container><md-input-container class=ely-input-container><label>Neues Passwort bestätigen</label><input name=confirmNewPassword class=blog-input ng-model=ctrl.confirmNewPassword required type=password ng-disabled=ctrl.running ng-change=\"ctrl.confirmNewPasswordChanged()\"><div ng-messages=ctrl.changePasswordForm.confirmNewPassword.$error ng-show=ctrl.changePasswordForm.confirmNewPassword.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=ely-compare>Die Passwörter stimmen nicht überein</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.changePassword() ng-disabled=\"ctrl.running || !ctrl.uploadValid || ctrl.changePasswordForm.$invalid\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/settings/modal/deleteGroup/template.html',
     "<md-dialog id=delete-group aria-label=\"Delete Group\" ng-cloak><form name=ctrl.deleteGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Gruppe <span class=name>{{ctrl.groupName}}</span> löschen</div><div class=\"md-body-1 description\">Kontakte werden in folgende Gruppe verschoben:</div><md-radio-group ng-model=ctrl.selectedGroup><md-radio-button ng-repeat=\"group in ctrl.groups\" value={{group}} aria-label={{group}} ng-disable=ctrl.uploadStarted>{{group}}</md-radio-button></md-radio-group></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\" ctrl.uploadStarted\">Löschen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
@@ -427,12 +432,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/profile/image/template.html',
-    "<md-card id=ely-setting-profile-image><md-card-header><md-card-header-text><span class=md-title>Profilbild</span></md-card-header-text></md-card-header><img ng-src={{ctrl.profile.profileImage}} class=\"md-card-image profile-image\" alt=Profilbild><md-card-actions layout=row layout-align=\"end center\"><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></md-card-actions></md-card>"
+    "<md-card id=ely-setting-profile-image><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.profile.profileImage}} class=profile-image><div><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></div></div></md-card-content></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/settings/profile/settingsOverview/template.html',
+    "<md-card id=ely-setting-overview><div class=title ng-click=\"ctrl.colapsed = !ctrl.colapsed\"><md-icon md-svg-icon=cardActions:setting class=setting-icon-left></md-icon><div class=description-container layout=row layout-align=\"center center\"><div class=description>Einstellungen</div></div><span flex></span><md-icon ng-if=ctrl.colapsed md-svg-icon=cardActions:arrowDown class=setting-icon-right></md-icon><md-icon ng-if=!ctrl.colapsed md-svg-icon=cardActions:arrowUp class=setting-icon-right></md-icon></div><div ng-if=!ctrl.colapsed><div class=setting layout=row layout-align=\"center center\"><div class=setting-description>Profil</div></div><div class=setting layout=row layout-align=\"center center\" ng-click=ctrl.openChangePassword()><div class=setting-description>Passwort ändern</div></div><div class=setting layout=row layout-align=\"center center\"><div class=setting-description>Privatsphäre</div></div></div></md-card>"
   );
 
 
   $templateCache.put('app/modules/settings/profile/template.html',
-    "<md-content id=ely-setting-profile><div class=container layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image></div></md-content>"
+    "<md-content id=ely-setting-profile><div class=container layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image><ely-settings-overview></ely-settings-overview></div></md-content>"
   );
 
 

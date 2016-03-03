@@ -9,7 +9,7 @@ module.exports = ['$mdToast', function ($mdToast) {
             .hideDelay(0)
             .action('OK')
             .highlightAction(false)
-            .position('bottom left');
+            .position('left bottom');
         $mdToast.show(toast);
     };
 }];

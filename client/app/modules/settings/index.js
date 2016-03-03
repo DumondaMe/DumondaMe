@@ -22,14 +22,5 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-settings-profile></ely-settings-profile>'
                 }
             }
-        })
-        .state('settings.privacy', {
-            url: '/privacy',
-            views: {
-                'content@': {
-                    templateUrl: 'app/modules/settings/privacy.html',
-                    controller: 'PrivacyCtrl'
-                }
-            }
         });
 }]);

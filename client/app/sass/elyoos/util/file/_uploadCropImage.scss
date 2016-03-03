@@ -1,5 +1,8 @@
 #ely-upload-crop-image {
   min-width: 300px;
+  max-width: 600px;
+  width: 90%;
+  //height: 90%;
   .cropArea {
     width: 100%;
     .unsupported-file {
