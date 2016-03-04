@@ -9,7 +9,7 @@
         <md-icon ng-if="!ctrl.colapsed" md-svg-icon="cardActions:arrowUp" class="setting-icon-right"></md-icon>
     </div>
     <div ng-if="!ctrl.colapsed" class="content">
-        <div class="setting" layout="row" layout-align="center center">
+        <div class="setting" layout="row" layout-align="center center" ng-click="ctrl.openChangeProfileData()">
             <div class="setting-description">Profil</div>
         </div>
         <div class="setting" layout="row" layout-align="center center" ng-click="ctrl.openChangePassword()">

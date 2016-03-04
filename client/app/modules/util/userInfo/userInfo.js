@@ -49,4 +49,10 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables',
                 Observables.notifyObservables(observables, "userInfoChanged", userInfo);
             });
         };
+
+        service.profileDataChangedEvent = function () {
+            userInfo = UserInfoRequest.get(null, function () {
+                Observables.notifyObservables(observables, "userInfoChanged", userInfo);
+            });
+        };
     }];

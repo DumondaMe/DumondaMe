@@ -31,6 +31,6 @@ module.exports = [
 
         service.checkNewPasswordEqual = function (newPassword, confirmNewPassword) {
             return newPassword === confirmNewPassword;
-        }
+        };
     }]
 ;

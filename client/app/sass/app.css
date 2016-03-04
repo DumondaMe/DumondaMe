@@ -1390,6 +1390,19 @@ h2.website-structure-title {
       width: 100%;
       margin: 0; }
 
+#change-profile-data {
+  max-width: 300px; }
+  #change-profile-data .ely-dialog-content {
+    padding-bottom: 0; }
+    #change-profile-data .ely-dialog-content .title {
+      font-size: 18px;
+      margin-bottom: 32px; }
+    #change-profile-data .ely-dialog-content .ely-input-container {
+      width: 100%;
+      margin: 0; }
+    #change-profile-data .ely-dialog-content .select-gender {
+      margin: 24px 0 16px 0; }
+
 #delete-group .ely-dialog-content {
   padding-bottom: 0; }
   #delete-group .ely-dialog-content .title {
