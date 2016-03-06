@@ -15,6 +15,10 @@ module.exports = {
                 ctrl.openChangeProfileData = function () {
                     ElyModal.show('SettingChangeProfileDataCtrl', 'app/modules/settings/modal/changeProfileData/template.html');
                 };
+
+                ctrl.openPrivacyOverview = function () {
+                    ElyModal.show('OverviewGroupSettingController', 'app/modules/settings/modal/overviewGroupSettings/template.html');
+                };
             }];
     }
 };

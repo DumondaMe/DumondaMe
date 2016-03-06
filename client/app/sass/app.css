@@ -1414,7 +1414,8 @@ h2.website-structure-title {
     margin-bottom: 16px; }
 
 #modify-group-setting {
-  max-width: 500px; }
+  max-width: 500px;
+  padding: 0 24px; }
   #modify-group-setting .ely-dialog-content {
     padding-bottom: 0; }
     #modify-group-setting .ely-dialog-content .title {
@@ -1424,6 +1425,28 @@ h2.website-structure-title {
         color: #3F51B5; }
     #modify-group-setting .ely-dialog-content .select-privacy {
       margin-bottom: 24px; }
+
+#modify-group-setting-dialog {
+  max-width: 500px; }
+
+#overview-group-setting {
+  max-width: 500px; }
+  #overview-group-setting .ely-dialog-content {
+    padding-bottom: 0; }
+    #overview-group-setting .ely-dialog-content .title {
+      font-size: 18px;
+      margin-bottom: 16px; }
+    #overview-group-setting .ely-dialog-content .privacy-description {
+      font-size: 14px;
+      margin-bottom: 16px; }
+    #overview-group-setting .ely-dialog-content .privacy-container .title-container .title {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #3F51B5; }
+    #overview-group-setting .ely-dialog-content .privacy-container .title-container .change-button {
+      width: 40px; }
+    #overview-group-setting .ely-dialog-content .privacy-container .description {
+      font-size: 14px; }
 
 #ely-setting-profile {
   height: 100%;

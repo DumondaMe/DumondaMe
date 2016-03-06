@@ -19,6 +19,10 @@ module.exports = [
             return setting;
         };
 
+        this.setLastSetting = function(newLastSetting) {
+            lastSetting = angular.copy(newLastSetting);
+        };
+
         this.settingHasChanged = function (setting) {
             if (setting && lastSetting) {
                 return !angular.equals(setting, lastSetting);

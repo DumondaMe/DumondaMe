@@ -1,5 +1,6 @@
 #modify-group-setting {
   max-width: 500px;
+  padding: 0 24px;
   .ely-dialog-content {
     padding-bottom: 0;
     .title {
@@ -13,4 +14,8 @@
       margin-bottom: 24px;
     }
   }
+}
+
+#modify-group-setting-dialog {
+  max-width: 500px;
 }

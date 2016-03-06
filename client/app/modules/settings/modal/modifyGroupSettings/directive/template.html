@@ -1,0 +1,39 @@
+<div id="modify-group-setting" ng-cloak>
+    <form name="ctrl.modifyGroupForm">
+        <md-dialog-content class="md-dialog-content ely-dialog-content">
+            <div class="md-title title" ng-if="ctrl.setting.type">Gruppe <span class="group">{{ctrl.setting.type}}</span> bearbeiten</div>
+            <div class="md-title title" ng-if="!ctrl.setting.type">Privatspähren Einstellung für Personen die kein Kontakt sind</div>
+
+            <md-checkbox ng-model="ctrl.setting.profileVisible" aria-label="Profile visible" class="select-privacy" ng-change="ctrl.selectChanged()"
+                         ng-disabled="ctrl.uploadStarted">
+                Mein Profil ist sichtbar
+            </md-checkbox>
+            <md-checkbox ng-model="ctrl.setting.contactsVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                         ng-change="ctrl.selectChanged()"
+                         aria-label="Contacts visible"
+                         class="select-privacy">
+                Meine Kontakte sind sichtbar
+            </md-checkbox>
+            <md-checkbox ng-model="ctrl.setting.imageVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                         ng-change="ctrl.selectChanged()"
+                         aria-label="Image visible"
+                         class="select-privacy">
+                Mein Profilbild ist sichtbar
+            </md-checkbox>
+            <md-checkbox ng-model="ctrl.setting.profileDataVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                         ng-change="ctrl.selectChanged()"
+                         aria-label="Profile Data visible"
+                         class="select-privacy">
+                Meine Profildaten sind sichtbar
+            </md-checkbox>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary" ng-click="ctrl.accept()"
+                       ng-disabled="ctrl.uploadStarted || !ctrl.uploadAllowed">
+                Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</div>
