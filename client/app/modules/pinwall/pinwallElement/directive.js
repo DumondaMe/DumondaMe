@@ -14,7 +14,7 @@ module.exports = {
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/home/pinwallElement/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/template.html'
         };
     }],
     name: 'elyPinwallElement'

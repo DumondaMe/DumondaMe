@@ -24,7 +24,7 @@ module.exports = {
 
                 ctrl.openDetail = function () {
                     if (hasDetail) {
-                        ElyModal.show('HomePinwallBlogDetail', 'app/modules/home/pinwallElement/blog/detail/detail.html', {element: ctrl.element});
+                        ElyModal.show('HomePinwallBlogDetail', 'app/modules/pinwall/pinwallElement/blog/detail/detail.html', {element: ctrl.element});
                     }
                 };
 

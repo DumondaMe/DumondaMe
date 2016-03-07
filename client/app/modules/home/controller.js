@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [ 'Home', '$mdDialog', 'ScrollRequest', 'HomePinwall','HomeScrollRequestResponseHandler',
-            function (Home, $mdDialog, ScrollRequest, HomePinwall, HomeScrollRequestResponseHandler) {
+        return [ 'Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService','HomeScrollRequestResponseHandler',
+            function (Home, $mdDialog, ScrollRequest, PinwallBlogService, HomeScrollRequestResponseHandler) {
                 var ctrl = this;
                 ctrl.home = {};
 
@@ -18,7 +18,7 @@ module.exports = {
                         bindToController: true,
                         controllerAs: 'ctrl'
                     }).then(function (resp) {
-                        HomePinwall.addBlog(ctrl.home.pinwall, resp);
+                        PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
                     });
                 };
 
@@ -28,10 +28,6 @@ module.exports = {
                     ScrollRequest.nextRequest('home', ctrl.home.pinwall).then(function (pinwall) {
                         ctrl.home = pinwall;
                     });
-                };
-
-                ctrl.blogRemoved = function (blogId) {
-                    HomePinwall.removeBlog(ctrl.home.pinwall, blogId);
                 };
 
                 ctrl.nextPinwallInfo();

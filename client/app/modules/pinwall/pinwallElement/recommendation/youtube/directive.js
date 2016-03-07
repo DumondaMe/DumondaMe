@@ -9,13 +9,12 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '=',
-                onBlogRemoved: '='
+                element: '='
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/home/pinwallElement/blog/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/youtube/template.html'
         };
     }],
-    name: 'elyPinwallBlog'
+    name: 'elyPinwallRecommendationYoutube'
 };

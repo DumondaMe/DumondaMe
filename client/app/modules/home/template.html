@@ -1,11 +1,6 @@
 <md-content id="ely-home">
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo()">
-        <div class="md-padding" layout-wrap layout="row">
-            <div flex="100" ng-repeat="pinwallElement in ctrl.home.pinwall">
-                <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"></ely-pinwall-element>
-            </div>
-            <div class="pinwall-gab"></div>
-        </div>
+        <ely-pinwall pinwall="ctrl.home.pinwall"></ely-pinwall>
     </div>
     <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.createBlog()">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
