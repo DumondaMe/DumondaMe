@@ -2,10 +2,11 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [ 'Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService','HomeScrollRequestResponseHandler',
-            function (Home, $mdDialog, ScrollRequest, PinwallBlogService, HomeScrollRequestResponseHandler) {
+        return [ 'Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService','PinwallScrollRequestResponseHandler',
+            function (Home, $mdDialog, ScrollRequest, PinwallBlogService, PinwallScrollRequestResponseHandler) {
                 var ctrl = this;
                 ctrl.home = {};
+                ctrl.noPinwall = false;
 
                 ctrl.createBlog = function () {
                     $mdDialog.show({
@@ -22,11 +23,14 @@ module.exports = {
                     });
                 };
 
-                ScrollRequest.reset('home', Home.get, HomeScrollRequestResponseHandler);
+                ScrollRequest.reset('home', Home.get, PinwallScrollRequestResponseHandler);
 
                 ctrl.nextPinwallInfo = function () {
                     ScrollRequest.nextRequest('home', ctrl.home.pinwall).then(function (pinwall) {
                         ctrl.home = pinwall;
+                        if (pinwall.pinwall.length === 0) {
+                            ctrl.noPinwall = true;
+                        }
                     });
                 };
 

@@ -655,46 +655,6 @@ h2.website-structure-title {
   background-color: #E0E0E0;
   padding: 0 6px; }
 
-.pinwall-blog-card {
-  max-width: 400px;
-  min-width: 280px;
-  width: 100%;
-  margin: 8px 0;
-  cursor: pointer; }
-  .pinwall-blog-card .user-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
-  .pinwall-blog-card .blog-image-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden; }
-
-#blog-detail {
-  z-index: 150;
-  min-width: 300px; }
-  #blog-detail #blog-header {
-    height: 72px;
-    min-width: 300px;
-    padding: 16px; }
-    #blog-detail #blog-header .user-avatar {
-      cursor: pointer;
-      border-radius: 50%;
-      height: 40px;
-      width: 40px;
-      margin-right: 12px; }
-    #blog-detail #blog-header .title-container {
-      cursor: pointer; }
-      #blog-detail #blog-header .title-container .title {
-        font-size: 14px; }
-      #blog-detail #blog-header .title-container .subtitle {
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.54); }
-  #blog-detail .detail-image {
-    max-width: 100%; }
-  #blog-detail .blog-text {
-    padding: 16px; }
-
 #blog-create {
   min-width: 310px;
   max-width: 450px;
@@ -778,51 +738,6 @@ h2.website-structure-title {
       #ely-home .create-blog-fab {
         bottom: 15px;
         right: 20px; } }
-
-.pinwall-recommendation-card {
-  max-width: 400px;
-  min-width: 280px;
-  width: 100%;
-  margin: 8px 0; }
-  .pinwall-recommendation-card .youtube-recommendation .user-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
-  .pinwall-recommendation-card .youtube-recommendation .description {
-    padding: 10px 16px; }
-    .pinwall-recommendation-card .youtube-recommendation .description .page-title {
-      font-weight: 500;
-      padding-left: 2px;
-      font-size: 14px;
-      color: #3F51B5; }
-  .pinwall-recommendation-card .book-recommendation .preview-img {
-    width: 100px;
-    height: 159px;
-    border-radius: 2px; }
-  .pinwall-recommendation-card .book-recommendation .content-container {
-    position: relative;
-    padding: 10px 16px; }
-    .pinwall-recommendation-card .book-recommendation .content-container .title {
-      font-weight: 500;
-      padding-left: 2px;
-      font-size: 14px;
-      color: #3F51B5; }
-    .pinwall-recommendation-card .book-recommendation .content-container .recommended {
-      margin-top: 5px;
-      margin-bottom: 20px;
-      font-weight: 300;
-      font-size: 14px;
-      color: #999; }
-    .pinwall-recommendation-card .book-recommendation .content-container .user-avatar {
-      border-radius: 50%;
-      height: 34px;
-      width: 34px;
-      margin-right: 10px; }
-    .pinwall-recommendation-card .book-recommendation .content-container .user-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 14px; }
 
 #loginform {
   height: 100%; }
@@ -1211,6 +1126,107 @@ h2.website-structure-title {
   .ely-toolbar-search-collapse .ely-toolbar-menu {
     width: 40px; }
 
+.pinwall-blog-card {
+  max-width: 400px;
+  min-width: 280px;
+  width: 100%;
+  margin: 8px 0;
+  cursor: pointer; }
+  .pinwall-blog-card .user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .pinwall-blog-card .blog-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden; }
+
+#blog-detail {
+  z-index: 150;
+  min-width: 300px; }
+  #blog-detail #blog-header {
+    height: 72px;
+    min-width: 300px;
+    padding: 16px; }
+    #blog-detail #blog-header .user-avatar {
+      cursor: pointer;
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      margin-right: 12px; }
+    #blog-detail #blog-header .title-container {
+      cursor: pointer; }
+      #blog-detail #blog-header .title-container .title {
+        font-size: 14px; }
+      #blog-detail #blog-header .title-container .subtitle {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54); }
+  #blog-detail .detail-image {
+    max-width: 100%; }
+  #blog-detail .blog-text {
+    padding: 16px; }
+
+.pinwall-no-element {
+  max-width: 400px;
+  min-width: 280px;
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  cursor: pointer; }
+  .pinwall-no-element .no-pinwall-title {
+    font-size: 16px;
+    margin-bottom: 4px; }
+  .pinwall-no-element .action {
+    margin-top: 8px;
+    font-size: 14px; }
+    .pinwall-no-element .action .link {
+      color: #3F51B5; }
+
+.pinwall-recommendation-card {
+  max-width: 400px;
+  min-width: 280px;
+  width: 100%;
+  margin: 8px 0; }
+  .pinwall-recommendation-card .youtube-recommendation .user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .pinwall-recommendation-card .youtube-recommendation .description {
+    padding: 10px 16px; }
+    .pinwall-recommendation-card .youtube-recommendation .description .page-title {
+      font-weight: 500;
+      padding-left: 2px;
+      font-size: 14px;
+      color: #3F51B5; }
+  .pinwall-recommendation-card .book-recommendation .preview-img {
+    width: 100px;
+    height: 159px;
+    border-radius: 2px; }
+  .pinwall-recommendation-card .book-recommendation .content-container {
+    position: relative;
+    padding: 10px 16px; }
+    .pinwall-recommendation-card .book-recommendation .content-container .title {
+      font-weight: 500;
+      padding-left: 2px;
+      font-size: 14px;
+      color: #3F51B5; }
+    .pinwall-recommendation-card .book-recommendation .content-container .recommended {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      font-weight: 300;
+      font-size: 14px;
+      color: #999; }
+    .pinwall-recommendation-card .book-recommendation .content-container .user-avatar {
+      border-radius: 50%;
+      height: 34px;
+      width: 34px;
+      margin-right: 10px; }
+    .pinwall-recommendation-card .book-recommendation .content-container .user-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px; }
+
 #problem-create {
   min-width: 310px;
   max-width: 450px;
@@ -1450,10 +1466,12 @@ h2.website-structure-title {
 
 #ely-setting-profile {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #E0E0E0;
+  padding: 0 6px; }
   #ely-setting-profile .container #ely-setting-profile-image {
-    width: 95%;
+    width: 100%;
     max-width: 300px;
+    margin: 8px 0;
     background-color: white; }
   #ely-setting-profile .container .profile-image {
     width: 180px;
@@ -1461,7 +1479,8 @@ h2.website-structure-title {
     border-radius: 50%; }
 
 #ely-setting-overview {
-  width: 300px; }
+  width: 300px;
+  margin: 0; }
   #ely-setting-overview .title {
     position: relative;
     height: 48px;
@@ -1492,6 +1511,13 @@ h2.website-structure-title {
       font-weight: 500; }
   #ely-setting-overview .content .setting:hover {
     background-color: #C5CAE9; }
+
+#setting-user-pinwall .title {
+  margin-top: 16px;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54); }
 
 #ely-upload-crop-image {
   min-width: 300px;

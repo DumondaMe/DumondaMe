@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                pinwall: '='
+                pinwall: '=',
+                gap: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

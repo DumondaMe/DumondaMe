@@ -1,0 +1,20 @@
+.pinwall-no-element {
+  @include cardElement();
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  .no-pinwall-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .action {
+    margin-top: 8px;
+    font-size: 14px;
+    .link {
+      color: $primary-color;
+    }
+  }
+}
+
+

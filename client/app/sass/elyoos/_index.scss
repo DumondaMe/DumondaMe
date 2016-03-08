@@ -16,11 +16,8 @@
 @import 'contact/_contactPreviewSquare';
 @import 'contact/_searchUserOverview';
 
-@import 'home/_blog';
-@import 'home/_blogDetail';
 @import 'home/_createBlog';
 @import 'home/_home';
-@import 'home/_recommendation';
 
 @import 'login/_login';
 
@@ -36,6 +33,11 @@
 @import 'navigation/_toolbar';
 @import 'navigation/_toolbarMessageInfo';
 @import 'navigation/_toolbarSearch';
+
+@import 'pinwall/_blog';
+@import 'pinwall/_blogDetail';
+@import 'pinwall/_noPinwallElement';
+@import 'pinwall/_recommendation';
 
 @import 'problem/_mixins';
 @import 'problem/_createProblem';
@@ -55,5 +57,6 @@
 @import 'settings/modal/_overviewGroupSetting';
 @import 'settings/_profile';
 @import 'settings/_settingsOverview';
+@import 'settings/_userPinwall';
 
 @import 'util/file/_uploadCropImage';

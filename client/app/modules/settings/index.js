@@ -5,6 +5,7 @@ var app = angular.module('elyoosApp');
 app.factory('Profile', require('./services/profile'));
 app.factory('Privacy', require('./services/privacy'));
 app.factory('Password', require('./services/password'));
+app.factory('UserPinwall', require('./services/userPinwall'));
 
 app.service('GroupSettingsService', require('./services/groupSettingsService'));
 
