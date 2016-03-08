@@ -1,6 +1,5 @@
 'use strict';
 
-var app = require('../../../../../../server');
 var libUser = require('../../../../../../lib/user')();
 var users = require('../../util/user');
 var requestHandler = require('../../util/request');

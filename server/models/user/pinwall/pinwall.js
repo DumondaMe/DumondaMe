@@ -2,17 +2,9 @@
 
 var db = require('./../../../neo4j');
 var userInfo = require('./../userInfo');
+var pinwallElement = require('./pinwallElement/pinwallElement');
 var unread = require('../../messages/util/unreadMessages');
-var pagePreview = require('./../../page/pagePreview');
 var cdn = require('../../util/cdn');
-var _ = require('underscore');
-
-var addBlogUrl = function (blog, heightPreviewImage) {
-    if (heightPreviewImage) {
-        blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
-        blog.urlFull = cdn.getUrl('blog/' + blog.blogId + '/normal.jpg');
-    }
-};
 
 var getContacting = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
@@ -43,65 +35,19 @@ var getUserInfos = function (userId) {
         .end({userId: userId});
 };
 
-var addProfileUrl = function (element, pinwallElement) {
-    if (pinwallElement.hasOwnProperty('contact')) {
-        element.name = pinwallElement.contact.name;
-        element.userId = pinwallElement.contact.userId;
-        if (pinwallElement.hasOwnProperty('privacy')) {
-            element.profileUrl = userInfo.getImageForPreview(
-                {
-                    userId: pinwallElement.contact.userId,
-                    profileVisible: pinwallElement.privacy.profile,
-                    imageVisible: pinwallElement.privacy.image
-                }, 'thumbnail.jpg');
-        } else {
-            element.profileUrl = userInfo.getImageForPreview(
-                {
-                    userId: pinwallElement.contact.userId,
-                    profileVisible: pinwallElement.privacyNoContact.profile,
-                    imageVisible: pinwallElement.privacyNoContact.image
-                }, 'thumbnail.jpg');
-        }
-    } else {
-        element.name = pinwallElement.user.name;
-        element.userId = pinwallElement.user.userId;
-        element.profileUrl = userInfo.getImageForPreview({
-            userId: pinwallElement.user.userId, profileVisible: true, imageVisible: true
-        }, 'thumbnail.jpg');
-    }
-};
-
-var getPinwallElements = function (pinwallElements) {
-    var result = [];
-    _.each(pinwallElements, function (pinwallElement) {
-        var element = {};
-        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
-            element.pinwallType = 'Blog';
-            element.blogId = pinwallElement.pinwall.blogId;
-            element.title = pinwallElement.pinwall.title;
-            element.text = pinwallElement.pinwall.text;
-            element.created = pinwallElement.pinwall.created;
-            element.isAdmin = pinwallElement.isAdmin;
-            addProfileUrl(element, pinwallElement);
-            addBlogUrl(element, pinwallElement.pinwall.heightPreviewImage);
-        }
-        if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {
-            element.pinwallType = 'Recommendation';
-            element.rating = pinwallElement.pinwall.rating;
-            element.comment = pinwallElement.pinwall.comment;
-            element.created = pinwallElement.pinwall.created;
-            element.label = pinwallElement.pinwallData.label;
-            element.pageId = pinwallElement.pinwallData.pageId;
-            element.description = pinwallElement.pinwallData.description;
-            element.title = pinwallElement.pinwallData.title;
-            element.link = pinwallElement.pinwallData.link;
-            element.isAdmin = pinwallElement.isAdmin;
-            addProfileUrl(element, pinwallElement);
-            pagePreview.addPageUrl([element]);
-        }
-        result.push(element);
-    });
-    return result;
+var getPinwallOfUser = function (userId, request) {
+    return db.cypher().match("(pinwall:PinwallElement), (user:User {userId: {userId}})")
+        .where("(user)-[:WRITTEN|:RECOMMENDS]->(pinwall)")
+        .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
+        .return("user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, true AS isAdmin")
+        .orderBy("pinwall.created DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
+        .send()
+        .then(function (resp) {
+            return {pinwall: pinwallElement.getPinwallElements(resp)};
+        });
 };
 
 var getPinwall = function (userId, request) {
@@ -137,12 +83,13 @@ var getPinwall = function (userId, request) {
             return {
                 messages: resp[0],
                 contacting: {users: resp[1], numberOfContacting: resp[2][0].numberOfContacting},
-                pinwall: getPinwallElements(resp[4]),
+                pinwall: pinwallElement.getPinwallElements(resp[4]),
                 user: {privacyTypes: resp[3], profileUrl: cdn.getUrl('profileImage/' + userId + '/profilePreview.jpg')}
             };
         });
 };
 
 module.exports = {
-    getPinwall: getPinwall
+    getPinwall: getPinwall,
+    getPinwallOfUser: getPinwallOfUser
 };

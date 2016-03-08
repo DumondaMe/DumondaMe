@@ -1,11 +1,10 @@
 'use strict';
 
-var user = require('./../../../../models/user/user');
-var auth = require('./../../../../lib/auth');
+var user = require('./../../../../../models/user/user');
+var auth = require('./../../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var exceptions = require('./../../../../lib/error/exceptions');
-var controllerErrors = require('./../../../../lib/error/controllerErrors');
-var validation = require('./../../../../lib/jsonValidation');
+var controllerErrors = require('./../../../../../lib/error/controllerErrors');
+var validation = require('./../../../../../lib/jsonValidation');
 
 var schemaPostNewProfileData = {
     name: 'newProfileData',

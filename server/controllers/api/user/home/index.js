@@ -2,7 +2,7 @@
 
 var validation = require('./../../../../lib/jsonValidation');
 var auth = require('./../../../../lib/auth');
-var pinwall = require('./../../../../models/user/home/pinwall');
+var pinwall = require('./../../../../models/user/pinwall/pinwall');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
 
