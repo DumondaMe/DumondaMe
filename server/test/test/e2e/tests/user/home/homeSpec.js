@@ -38,17 +38,17 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '2'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '3'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true, pinwall: true})")
             .end().getCommand());
 
 
@@ -224,12 +224,12 @@ describe('Integration Tests for getting home screen information for a user', fun
             });
     });
 
-    it('Showing recommendations which has correct privacy for contact type', function () {
+    it('Showing recommendations which has correct visible for contact type', function () {
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0', privacy:'Freund'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -237,9 +237,9 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1','2']")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})," +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: false}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})," +
+                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true, pinwall: false})")
             .end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
@@ -269,12 +269,12 @@ describe('Integration Tests for getting home screen information for a user', fun
             });
     });
 
-    it('Not showing recommendations which has incorrect privacy for contact', function () {
+    it('Showing recommendations which has correct visible for no contact visible setting', function () {
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0', privacy:'Bekannter'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -282,17 +282,58 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1','2']")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})," +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: false})")
             .end().getCommand());
 
-        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
-            .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
             .end({contactAdded: startTime}).getCommand());
+
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(1);
+            });
+    });
+
+    it('Not showing recommendations which has incorrect visible for contact', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: false})," +
+                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true, pinwall: true})")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
 
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
@@ -316,7 +357,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
     it('Not showing recommendation because contact has user blocked', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        var commands = [];
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
@@ -327,17 +368,16 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1','2']")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})," +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
             .end().getCommand());
 
         commands.push(db.cypher().match("(b:User {userId: '1'}), (a:User {userId: '2'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
-            .end({contactAdded: startTime}).getCommand());
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_BLOCKED]->(a)")
-            .end({contactAdded: startTime}).getCommand());
+            .end().getCommand());
 
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
@@ -359,11 +399,97 @@ describe('Integration Tests for getting home screen information for a user', fun
             });
     });
 
-    it('Showing blog which has correct privacy for contact type', function () {
+    it('Not showing recommendation because visible profile setting is false', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true, pinwall: true})")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(b:User {userId: '1'}), (a:User {userId: '2'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(b:User {userId: '2'}), (a:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
+
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+            });
+    });
+
+    it('Not showing recommendation because visible no contact profile setting is false', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(b:User {userId: '1'}), (a:User {userId: '2'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: 500}]->(a)")
+            .end().getCommand());
+
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(0);
+            });
+    });
+
+    it('Showing blog which has correct visible for contact type', function () {
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', privacy:'Freund'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', visible: {visible}})")
+            .end({visible: ['Freund']}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
@@ -402,11 +528,52 @@ describe('Integration Tests for getting home screen information for a user', fun
             });
     });
 
-    it('Not showing blog which has incorrect privacy for contact', function () {
+    it('Showing blog which is set to public', function () {
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', privacy:'Bekannter'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1'})").end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+            .createUnique("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1','2']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})," +
+                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime}).getCommand());
+
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skip: 0,
+                    maxItems: 10
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(1);
+            });
+    });
+
+    it('Not showing blog which has incorrect visible for contact', function () {
+
+        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', visible:{visible}})")
+            .end({visible: ['Familie']}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
@@ -492,7 +659,8 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, privacy:'Freund'})").end().getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, visible: {visible}})")
+            .end({visible: ['Freund']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2'})").end().getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3'})").end().getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 506, blogId: '4'})").end().getCommand());
@@ -515,7 +683,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1','2']")
             .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1']")
@@ -524,7 +692,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             .end().getCommand());
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['3']")
-            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true})")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '1'})")
             .set("u", {lastLogin: startTime + 100})

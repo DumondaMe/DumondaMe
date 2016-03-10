@@ -5,7 +5,7 @@ var exceptions = require('./exceptions');
 var getErrorHandling = function (description, req, res, logger, controllerCode) {
     return controllerCode().catch(exceptions.InvalidJsonRequest, function () {
         res.status(400).end();
-    }).catch(exceptions.invalidOperation, function (e) {
+    }).catch({name: 'invalidOperation'}, function (e) {
         if (e && e.elyoosErrorCode) {
             res.status(400).json({errorCode: e.elyoosErrorCode});
         } else {

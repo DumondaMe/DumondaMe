@@ -13,7 +13,7 @@ var privacySettingCheck = function (id, privacySettingType, req, failCondition) 
         }).send()
         .then(function (result) {
             if (failCondition(result.length)) {
-                var invalidJsonException = new exceptions.invalidOperation('For user ' + id + 'is privacy setting ' +
+                var invalidJsonException = new exceptions.InvalidOperation('For user ' + id + 'is privacy setting ' +
                     privacySettingType + ' operation failed');
                 logger.warn(invalidJsonException.message, req, {});
                 return Promise.reject(invalidJsonException);

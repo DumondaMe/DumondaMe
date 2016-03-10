@@ -1,12 +1,13 @@
 'use strict';
 
-var Promise = require('bluebird').Promise;
+var Promise = require('bluebird');
 
 function invalidJsonRequest(message) {
     this.message = message;
-    this.name = "InvalidJsonRequest";
+    this.name = "invalidJsonRequest";
 }
 invalidJsonRequest.prototype = Object.create(Error.prototype);
+invalidJsonRequest.prototype.constructor = invalidJsonRequest;
 
 function invalidOperation(message, errorCode) {
     this.message = message;
@@ -14,6 +15,7 @@ function invalidOperation(message, errorCode) {
     this.elyoosErrorCode = errorCode;
 }
 invalidOperation.prototype = Object.create(Error.prototype);
+invalidOperation.prototype.constructor = invalidOperation;
 
 function getInvalidOperation(message, logger, req, errorCode) {
     var invalidOperationException = new invalidOperation(message, errorCode);
@@ -23,6 +25,6 @@ function getInvalidOperation(message, logger, req, errorCode) {
 
 module.exports = {
     InvalidJsonRequest: invalidJsonRequest,
-    invalidOperation: invalidOperation,
+    InvalidOperation: invalidOperation,
     getInvalidOperation: getInvalidOperation
 };

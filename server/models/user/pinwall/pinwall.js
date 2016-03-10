@@ -36,8 +36,7 @@ var getUserInfos = function (userId) {
 };
 
 var getPinwallOfUser = function (userId, request) {
-    return db.cypher().match("(pinwall:PinwallElement), (user:User {userId: {userId}})")
-        .where("(user)-[:WRITTEN|:RECOMMENDS]->(pinwall)")
+    return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .return("user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, true AS isAdmin")
         .orderBy("pinwall.created DESC")
@@ -50,30 +49,66 @@ var getPinwallOfUser = function (userId, request) {
         });
 };
 
+var getPinwallOfDetailUser = function (userId, request) {
+
+    return db.cypher().match("(user:User {userId: {userId}}), " +
+            "(privacyNoContact:Privacy)<-[:HAS_PRIVACY_NO_CONTACT]-(otherUser:User {userId: {detailUserId}})" +
+            "-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
+        .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(otherUser)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("isContact.type = relPrivacy.type")
+        .with("user, pinwall, pinwallData, otherUser, isContact, privacy, privacyNoContact, false AS isAdmin")
+        .match("(pinwall)")
+        .where("(NOT EXISTS(pinwall.visible) AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog')) " +
+            "OR (ANY(v IN pinwall.visible WHERE v = isContact.type) AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog')) " +
+            "OR ((NONE(l IN LABELS(pinwall) WHERE l = 'Blog') AND " +
+            "(privacy.pinwall = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND " +
+            "(privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)))) " +
+            "AND NOT (otherUser)-[:IS_BLOCKED]->(user)")
+        .return("user, pinwall, pinwallData, otherUser AS contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
+        .orderBy("pinwall.created DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .end({userId: userId, detailUserId: request.userId, skip: request.skip, maxItems: request.maxItems})
+        .send()
+        .then(function (resp) {
+            return {pinwall: pinwallElement.getPinwallElements(resp)};
+        });
+};
+
+
 var getPinwall = function (userId, request) {
     var commands = [];
+
+    var showWhenUserPinwallElement = "(user)-[]->(pinwall) ";
+    var showBlogOtherUserWhenPublic = "((user)-[:IS_CONTACT]->(contact) AND NOT EXISTS(pinwall.visible) AND " +
+        "ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))";
+    var showBlogOtherUserPrivacySet = "((user)-[:IS_CONTACT]->(contact) AND ANY(v IN pinwall.visible WHERE v = isContact.type)" +
+        " AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))";
+    var showOtherUserPinwallElements = "((user)-[:IS_CONTACT]->(contact) AND NONE(l IN LABELS(pinwall) WHERE l = 'Blog') AND " +
+        "(privacy.pinwall = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND " +
+        "(privacy.profile = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)))";
+    var notShowWhenUserIsBlocked = "NOT (contact)-[:IS_BLOCKED]->(user)";
 
     commands.push(unread.getUnreadMessages(userId).getCommand());
     commands.push(getContacting(userId).getCommand());
     commands.push(getNumberOfContacting(userId).getCommand());
     commands.push(getUserInfos(userId).getCommand());
 
-    return db.cypher().match("(pinwall:PinwallElement), (user:User {userId: {userId}})")
-        .where("(user)-[]->(pinwall) OR (user)-[:IS_CONTACT]->(:User)-[]->(pinwall)")
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN|:RECOMMENDS*0..2]->(pinwall:PinwallElement)")
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .optionalMatch("(user)-[:IS_CONTACT]->(contact:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
-        .where("(user)-[:IS_CONTACT]->(contact)-[]->(pinwall)")
+        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact:User)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
-        .where("(user)-[:IS_CONTACT]->(contact)-[]->(pinwall) AND isContact.type = relPrivacy.type")
-        .with("user, pinwall, pinwallData, contact, isContact, privacy, privacyNoContact, EXISTS((user)-[]->(pinwall)) AS isAdmin")
+        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall) AND isContact.type = relPrivacy.type")
+        .with("user, pinwall, pinwallData, contact, isContact, privacy, privacyNoContact, " +
+            "EXISTS((user)-[:WRITTEN|:RECOMMENDS]->(pinwall)) AS isAdmin")
+        .where("( " + showWhenUserPinwallElement + " OR " + showBlogOtherUserWhenPublic + " OR " + showBlogOtherUserPrivacySet + " OR " +
+            showOtherUserPinwallElements + ") AND " + notShowWhenUserIsBlocked)
+        .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .match("(pinwall)")
-        .where("((user)-[]->(pinwall) OR (EXISTS((user)-[:IS_CONTACT]->(contact)) AND NOT EXISTS(pinwall.privacy)) " +
-            "OR (EXISTS((user)-[:IS_CONTACT]->(contact)) AND pinwall.privacy = isContact.type)) " +
-            "AND NOT EXISTS((contact)-[:IS_BLOCKED]->(user))")
-        .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
         .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
         .send(commands)
         .then(function (resp) {
@@ -91,5 +126,6 @@ var getPinwall = function (userId, request) {
 
 module.exports = {
     getPinwall: getPinwall,
-    getPinwallOfUser: getPinwallOfUser
+    getPinwallOfUser: getPinwallOfUser,
+    getPinwallOfDetailUser: getPinwallOfDetailUser
 };

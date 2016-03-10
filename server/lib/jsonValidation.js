@@ -1,9 +1,9 @@
 'use strict';
 
 var tv4 = require('tv4');
-var Promise = require('bluebird').Promise;
 var exceptions = require('./error/exceptions');
 var formats = require('tv4-formats');
+var Promise = require('bluebird');
 
 tv4.addFormat(formats);
 

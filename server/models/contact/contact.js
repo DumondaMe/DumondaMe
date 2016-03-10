@@ -12,7 +12,7 @@ var returnStatistics = function (result, errorDescription, req) {
     if (result.length === 3) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
-    var invalidOperationException = new exceptions.invalidOperation('Length of ' + errorDescription +
+    var invalidOperationException = new exceptions.InvalidOperation('Length of ' + errorDescription +
         ' result not as expected [' + result.length + ']');
     logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
@@ -142,7 +142,7 @@ var changeContactState = function (userId, contactIds, type, req) {
             if (rel[0].length === contactIds.length) {
                 return {statistic: rel[1]};
             }
-            var invalidOperationException = new exceptions.invalidOperation('Not all contact connections are updated');
+            var invalidOperationException = new exceptions.InvalidOperation('Not all contact connections are updated');
             logger.warn(invalidOperationException.message, req, {error: ''});
             return Promise.reject(invalidOperationException);
         });
