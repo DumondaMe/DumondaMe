@@ -13,7 +13,6 @@ module.exports = {
                 CreateBlogVisibility.reset();
 
                 ctrl.cancel = function () {
-                    FileReader.abort();
                     $mdDialog.cancel();
                 };
 

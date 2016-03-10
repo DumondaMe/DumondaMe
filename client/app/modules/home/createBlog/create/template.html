@@ -36,7 +36,7 @@
                        accept=".jpg, .png, jpeg">
             </div>
             <div class="actions-2" layout="row" layout-align="end center">
-                <md-button aria-label="abort" ng-click="ctrl.cancel()" ng-disabled="ctrl.blogUploadStarted">Abbrechen</md-button>
+                <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
                 <md-button class="md-raised md-primary post-button" aria-label="post" ng-disabled="!ctrl.sendBlogAllowed || ctrl.blogUploadStarted"
                            ng-click="ctrl.uploadBlog()">
                     Posten

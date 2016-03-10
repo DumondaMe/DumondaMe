@@ -118,7 +118,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/createBlog/create/template.html',
-    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\"></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel() ng-disabled=ctrl.blogUploadStarted>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
+    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\"></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
@@ -133,7 +133,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.createBlog()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></md-content>"
   );
 
 
@@ -168,7 +168,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/leftNav/container/template.html',
-    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=\"none\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header ng-click=ctrl.goToProfile()></md-icon></div></div><div class=user-info><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><ely-left-nav-element state=home base-state=home icon=nav:home description=Home></ely-left-nav-element><ely-left-nav-element state=contact.overview base-state=contact icon=nav:contact description=Kontakte></ely-left-nav-element><ely-left-nav-element state=message.threads base-state=message icon=nav:thread description=Nachrichten></ely-left-nav-element><ely-left-nav-element state=problem.home base-state=problem icon=nav:problem description=Problemstellungen></ely-left-nav-element></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
+    "<div><div class=sidnav-header layout=column><div layout=row><img ng-src={{ctrl.userInfo.profileImagePreview}} class=user-preview flex=none ng-click=\"ctrl.goToProfile()\"><div class=header-commands layout=row layout-align=\"end none\" flex=grow><md-icon md-svg-icon=sidenavHeader:edit class=icon-header ng-click=ctrl.goToProfile()></md-icon></div></div><div class=user-info ng-click=ctrl.goToProfile()><div class=user-name>{{ctrl.userInfo.name}}</div><div class=user-email>{{ctrl.userInfo.email}}</div></div></div><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><ely-left-nav-element state=home base-state=home icon=nav:home description=Home></ely-left-nav-element><ely-left-nav-element state=contact.overview base-state=contact icon=nav:contact description=Kontakte></ely-left-nav-element><ely-left-nav-element state=message.threads base-state=message icon=nav:thread description=Nachrichten></ely-left-nav-element></md-content><md-divider class=ely-divider></md-divider><md-content class=left-nav-content><div class=nav-element ng-click=ctrl.logout()><md-icon md-svg-icon=nav:logout class=icon></md-icon><div class=\"description md-body-2\">Logout</div></div></md-content></div>"
   );
 
 
@@ -2508,10 +2508,10 @@ app.filter('fromTo', require('./fromToFilter'));
 
 module.exports = {
     directiveCtrl: function () {
-        return [ 'Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService','PinwallScrollRequestResponseHandler',
+        return ['Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService', 'PinwallScrollRequestResponseHandler',
             function (Home, $mdDialog, ScrollRequest, PinwallBlogService, PinwallScrollRequestResponseHandler) {
                 var ctrl = this;
-                ctrl.home = {};
+                ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
 
                 ctrl.createBlog = function () {
@@ -2582,7 +2582,6 @@ module.exports = {
                 CreateBlogVisibility.reset();
 
                 ctrl.cancel = function () {
-                    FileReader.abort();
                     $mdDialog.cancel();
                 };
 
@@ -3063,7 +3062,7 @@ module.exports = ['$resource', function ($resource) {
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/home', null, {
-        'get': {method: 'GET', cache: true}
+        'get': {method: 'GET'}
     });
 }];
 

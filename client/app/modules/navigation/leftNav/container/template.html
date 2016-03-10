@@ -1,12 +1,12 @@
 <div>
     <div class="sidnav-header" layout="column">
         <div layout="row">
-            <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none"/>
+            <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none" ng-click="ctrl.goToProfile()"/>
             <div class="header-commands" layout="row" layout-align="end none" flex="grow">
                 <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header" ng-click="ctrl.goToProfile()"></md-icon>
             </div>
         </div>
-        <div class="user-info">
+        <div class="user-info" ng-click="ctrl.goToProfile()">
             <div class="user-name">{{ctrl.userInfo.name}}</div>
             <div class="user-email">{{ctrl.userInfo.email}}</div>
         </div>
@@ -16,7 +16,7 @@
         <ely-left-nav-element state="home" base-state="home" icon="nav:home" description="Home"></ely-left-nav-element>
         <ely-left-nav-element state="contact.overview" base-state="contact" icon="nav:contact" description="Kontakte"></ely-left-nav-element>
         <ely-left-nav-element state="message.threads" base-state="message" icon="nav:thread" description="Nachrichten"></ely-left-nav-element>
-        <ely-left-nav-element state="problem.home" base-state="problem" icon="nav:problem" description="Problemstellungen"></ely-left-nav-element>
+        <!--<ely-left-nav-element state="problem.home" base-state="problem" icon="nav:problem" description="Problemstellungen"></ely-left-nav-element>-->
     </md-content>
     <md-divider class="ely-divider"></md-divider>
     <md-content class="left-nav-content">

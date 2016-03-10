@@ -2,6 +2,6 @@
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/home', null, {
-        'get': {method: 'GET', cache: true}
+        'get': {method: 'GET'}
     });
 }];

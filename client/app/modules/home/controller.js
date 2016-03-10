@@ -2,10 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return [ 'Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService','PinwallScrollRequestResponseHandler',
+        return ['Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService', 'PinwallScrollRequestResponseHandler',
             function (Home, $mdDialog, ScrollRequest, PinwallBlogService, PinwallScrollRequestResponseHandler) {
                 var ctrl = this;
-                ctrl.home = {};
+                ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
 
                 ctrl.createBlog = function () {

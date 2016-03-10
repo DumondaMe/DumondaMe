@@ -2,7 +2,7 @@
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo()">
         <ely-pinwall pinwall="ctrl.home.pinwall" gap="true"></ely-pinwall>
     </div>
-    <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall">
+    <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall && ctrl.home.pinwall.length === 0">
         <md-content>
             <div class="no-pinwall-title">Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div>
             <ul>
