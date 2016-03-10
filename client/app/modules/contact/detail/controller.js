@@ -11,6 +11,7 @@ module.exports = {
                 ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
                     ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
                     ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
+                    ctrl.userName = ctrl.userDetail.user.name;
                 });
             }];
     }

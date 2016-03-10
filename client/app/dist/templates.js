@@ -82,7 +82,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-pinwall user-name=ctrl.userName></ely-user-detail-pinwall></div></md-content>"
+  );
+
+
+  $templateCache.put('app/modules/contact/detail/userPinwall/template.html',
+    "<div id=detail-user-pinwall><div class=title>{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Diese Person hat keine Einträge die Du sehen kannst</div></md-content></md-card></div>"
   );
 
 

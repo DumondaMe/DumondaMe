@@ -1,0 +1,23 @@
+'use strict';
+
+module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'ScrollRequest', '$stateParams',
+    function (UserDetailPinwall, PinwallScrollRequestResponseHandler, ScrollRequest, $stateParams) {
+        var ctrl = this;
+
+        ctrl.user = {pinwall: []};
+        ctrl.noPinwall = false;
+
+        ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
+
+        ctrl.nextPinwallInfo = function () {
+            ScrollRequest.nextRequest('UserDetailPinwall', ctrl.user.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
+                ctrl.user = pinwall;
+                if (pinwall.pinwall.length === 0) {
+                    ctrl.noPinwall = true;
+                }
+            });
+        };
+
+        ctrl.nextPinwallInfo();
+    }];
+
