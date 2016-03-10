@@ -27,10 +27,10 @@ describe('Integration Tests for getting the pinwall of the user', function () {
 
             //Add Blogs
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}, title: 'blogTitle', created: 506, text: 'blogText'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}, title: 'blogTitle', created: 507, text: 'blogText'})")
                 .end({visibility: ['Freund']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 505, text: 'blogText2', heightPreviewImage: 400})").end().getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 506, text: 'blogText2', heightPreviewImage: 400})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'})")
                 .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3'})").end().getCommand());
 
@@ -100,7 +100,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].name.should.equals('user Meier');
             res.body.pinwall[0].userId.should.equals('1');
             res.body.pinwall[0].title.should.equals('blogTitle');
-            res.body.pinwall[0].created.should.equals(506);
+            res.body.pinwall[0].created.should.equals(507);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             should.not.exist(res.body.pinwall[0].url);
             should.not.exist(res.body.pinwall[0].urlFull);
@@ -112,7 +112,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].name.should.equals('user Meier');
             res.body.pinwall[1].userId.should.equals('1');
             res.body.pinwall[1].title.should.equals('blogTitle2');
-            res.body.pinwall[1].created.should.equals(505);
+            res.body.pinwall[1].created.should.equals(506);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[1].url.should.equals('blog/2/preview.jpg');
             res.body.pinwall[1].urlFull.should.equals('blog/2/normal.jpg');
@@ -161,7 +161,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].name.should.equals('user Meier');
             res.body.pinwall[0].userId.should.equals('1');
             res.body.pinwall[0].title.should.equals('blogTitle2');
-            res.body.pinwall[0].created.should.equals(505);
+            res.body.pinwall[0].created.should.equals(506);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[0].url.should.equals('blog/2/preview.jpg');
             res.body.pinwall[0].urlFull.should.equals('blog/2/normal.jpg');
