@@ -2,25 +2,14 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['Home', '$mdDialog', 'ScrollRequest', 'PinwallBlogService', 'PinwallScrollRequestResponseHandler',
-            function (Home, $mdDialog, ScrollRequest, PinwallBlogService, PinwallScrollRequestResponseHandler) {
+        return ['$scope', 'Home', '$mdSidenav', 'ScrollRequest', 'PinwallScrollRequestResponseHandler', 'ToolbarService',
+            function ($scope, Home, $mdSidenav, ScrollRequest, PinwallScrollRequestResponseHandler, ToolbarService) {
                 var ctrl = this;
                 ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
 
-                ctrl.createBlog = function () {
-                    $mdDialog.show({
-                        templateUrl: 'app/modules/home/createBlog/template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: false,
-                        escapeToClose: false,
-                        controller: 'HomePinwallCreateBlog',
-                        locals: {element: ctrl.element},
-                        bindToController: true,
-                        controllerAs: 'ctrl'
-                    }).then(function (resp) {
-                        PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
-                    });
+                ctrl.openSideNavRight = function () {
+                    $mdSidenav('rightHomeNav').open();
                 };
 
                 ScrollRequest.reset('home', Home.get, PinwallScrollRequestResponseHandler);
@@ -35,6 +24,16 @@ module.exports = {
                 };
 
                 ctrl.nextPinwallInfo();
+
+                $scope.isSideNavOpen = false;
+
+                $scope.$watch('isSideNavOpen', function (isOpen) {
+                    if (isOpen) {
+                        ToolbarService.disable();
+                    } else {
+                        ToolbarService.enable();
+                    }
+                });
             }];
     }
 };

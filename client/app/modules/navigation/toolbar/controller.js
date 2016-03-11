@@ -10,9 +10,12 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         ctrl.hasSearch = false;
         ctrl.hasBackNav = true;
         ctrl.searchExpanded = false;
+        ctrl.isEnabled = true;
 
         ctrl.openLeftNav = function () {
-            $mdSidenav("left").toggle();
+            if (ctrl.isEnabled) {
+                $mdSidenav("left").toggle();
+            }
         };
 
         ctrl.loginEvent = function () {
@@ -58,6 +61,14 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
 
         ctrl.setUnreadMessage = function (count) {
             ctrl.count = count;
+        };
+
+        ctrl.enabled = function () {
+            ctrl.isEnabled = true;
+        };
+
+        ctrl.disabled = function () {
+            ctrl.isEnabled = false;
         };
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

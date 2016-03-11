@@ -1,0 +1,16 @@
+<md-dialog id="create-book-page" aria-label="Create Book Page" ng-cloak>
+    <form name="ctrl.deleteGroupForm">
+        <md-dialog-content class="md-dialog-content ely-dialog-content">
+            <div class="md-title title">Seite für ein Buch erstellen</div>
+
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary" ng-click="ctrl.accept()"
+                       ng-disabled=" ctrl.uploadStarted">
+                Erstellen
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+</md-dialog>

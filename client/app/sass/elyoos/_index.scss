@@ -19,6 +19,7 @@
 
 @import 'home/_createBlog';
 @import 'home/_home';
+@import 'home/_rightSidenav';
 
 @import 'login/_login';
 
@@ -34,6 +35,8 @@
 @import 'navigation/_toolbar';
 @import 'navigation/_toolbarMessageInfo';
 @import 'navigation/_toolbarSearch';
+
+@import 'page/modal/_createBookPage';
 
 @import 'pinwall/_blog';
 @import 'pinwall/_blogDetail';

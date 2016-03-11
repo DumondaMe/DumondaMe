@@ -746,6 +746,27 @@ h2.website-structure-title {
         bottom: 15px;
         right: 20px; } }
 
+#ely-home-right-sidenav {
+  height: 100%; }
+  #ely-home-right-sidenav .title {
+    font-size: 18px;
+    padding: 16px; }
+  #ely-home-right-sidenav .page-title {
+    font-size: 16px;
+    padding: 16px; }
+  #ely-home-right-sidenav .create-action {
+    margin: 16px 0; }
+    #ely-home-right-sidenav .create-action .image {
+      margin-left: 16px;
+      margin-right: 16px;
+      height: 24px;
+      width: 24px; }
+    #ely-home-right-sidenav .create-action .text {
+      line-height: 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+
 #loginform {
   height: 100%; }
   #loginform .error-message {
@@ -1132,6 +1153,12 @@ h2.website-structure-title {
   width: 40px; }
   .ely-toolbar-search-collapse .ely-toolbar-menu {
     width: 40px; }
+
+#create-book-page .ely-dialog-content {
+  padding-bottom: 0; }
+  #create-book-page .ely-dialog-content .title {
+    font-size: 18px;
+    margin-bottom: 16px; }
 
 .pinwall-blog-card {
   max-width: 400px;

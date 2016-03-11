@@ -11,7 +11,10 @@
             </ul>
         </md-content>
     </md-card>
-    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.createBlog()">
+    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openSideNavRight()">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
     </md-button>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="rightHomeNav" md-is-open="isSideNavOpen">
+        <ely-home-right-sidenav pinwall="ctrl.home.pinwall"></ely-home-right-sidenav>
+    </md-sidenav>
 </md-content>

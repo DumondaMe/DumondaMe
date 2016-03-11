@@ -16,4 +16,12 @@ module.exports = [
         service.setUnreadMessage = function (count) {
             toolbar.setUnreadMessage(count);
         };
+
+        service.disable = function () {
+            toolbar.disabled();
+        };
+
+        service.enable = function () {
+            toolbar.enabled();
+        };
     }];
