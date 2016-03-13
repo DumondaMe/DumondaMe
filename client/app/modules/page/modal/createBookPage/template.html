@@ -1,16 +1,69 @@
-<md-dialog id="create-book-page" aria-label="Create Book Page" ng-cloak>
-    <form name="ctrl.deleteGroupForm">
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div class="md-title title">Seite für ein Buch erstellen</div>
-
+<md-dialog id="create-book-page" aria-label="Create Book Page" ng-cloak ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
+    <form name="ctrl.createBookPageForm" ng-show="!ctrl.selectImage">
+        <div class="md-title title">Seite für ein Buch erstellen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
+                <div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow">
+                            <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true">Titelbild hinzufügen...
+                            </md-button>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow">
+                            <img class="preview-image" ng-src="{{ctrl.dataUri}}" ng-show="ctrl.dataUri">
+                        </div>
+                    </div>
+                </div>
+                <div flex-offset-gt-sm="10">
+                    <md-input-container class="input-container">
+                        <label>Titel</label>
+                        <input name="title" ng-model="ctrl.title" required md-maxlength="100"
+                               ng-disabled="ctrl.uploadStarted"/>
+                        <div ng-messages="ctrl.createBookPageForm.title.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-container">
+                        <label>Beschreibung</label>
+                <textarea name="description" ng-model="ctrl.description" required md-maxlength="10000"
+                          ng-disabled="ctrl.uploadStarted"></textarea>
+                        <div ng-messages="ctrl.createBookPageForm.description.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-container">
+                        <label>Autor</label>
+                        <input name="author" ng-model="ctrl.author" required md-maxlength="255"
+                               ng-disabled="ctrl.uploadStarted"/>
+                        <div ng-messages="ctrl.createBookPageForm.author.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-container">
+                        <label>Erscheinungsdatum (optional)</label>
+                        <input name="publishDate" ng-model="ctrl.publishDate" ng-disabled="ctrl.uploadStarted" ng-change="ctrl.publishDateChanged()"/>
+                        <div ng-messages="ctrl.createBookPageForm.publishDate.$error">
+                            <div ng-message="ely-date">Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-click="ctrl.accept()"
-                       ng-disabled=" ctrl.uploadStarted">
+            <md-button class="md-primary md-raised" ng-click="ctrl.createBook()"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.createBookPageForm.$invalid">
                 Erstellen
             </md-button>
         </md-dialog-actions>
     </form>
-    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-if="ctrl.uploadStarted && !ctrl.selectImage" md-mode="indeterminate"></md-progress-linear>
+
+    <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
+                         ng-show="ctrl.selectImage"></ely-preview-picture>
 </md-dialog>

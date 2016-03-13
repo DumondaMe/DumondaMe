@@ -1,25 +1,30 @@
 <md-dialog id="ely-upload-crop-image">
-    <div class="cropArea" layout="row" layout-align="center center">
-        <ely-image-cropper commands="ctrl.commands"
-                           image="ctrl.imageForUploadPreview"
-                           image-result-data="ctrl.startImageUpload"
-                           ratio="{{ctrl.ratio}}"
-                           min-width="100" min-height="100"
-                           ng-if="!ctrl.unsupportedFile"></ely-image-cropper>
-        <div class="unsupported-file" ng-if="ctrl.unsupportedFile">Dieser File Type kann nicht hochgeladen werden</div>
+    <div id="ely-preview-picture">
+        <div class="crop-area-container">
+            <div class="cropArea" layout="row" layout-align="center center">
+                <ely-image-cropper commands="ctrl.commands"
+                                   image="ctrl.imageForUploadPreview"
+                                   image-result-data="ctrl.startImageUpload"
+                                   ratio="{{ctrl.ratio}}"
+                                   min-width="100" min-height="100"
+                                   ng-if="!ctrl.unsupportedFile"></ely-image-cropper>
+                <div class="unsupported-file" ng-if="ctrl.unsupportedFile">Dieser File Type kann nicht hochgeladen werden</div>
+            </div>
+        </div>
+        <div layout="row" layout-align="start center" class="action-commands">
+            <div class="action-icon-container">
+                <md-button class="action-icon md-icon-button" aria-label="Add Photo">
+                    <label for="upload-photo">
+                        <md-icon md-svg-icon="createBlog:addPhoto" class="icon"></md-icon>
+                    </label>
+                </md-button>
+                <input type="file" ely-file-model="imageForUpload" id="upload-photo" ng-hide="true"
+                       accept=".jpg , .png , jpeg">
+            </div>
+            <span flex></span>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.uploadImage()">Hochladen</md-button>
+        </div>
+        <md-progress-linear class="progress-bar" ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
     </div>
-    <md-card-actions layout="row" layout-align="start center">
-        <md-card-icon-actions>
-            <md-button class="action-icon md-icon-button" aria-label="Add Photo">
-                <label for="upload-photo">
-                    <md-icon md-svg-icon="createBlog:addPhoto" class="icon"></md-icon>
-                </label>
-            </md-button>
-            <input type="file" ely-file-model="imageForUpload" id="upload-photo" ng-hide="true"
-                   accept=".jpg , .png , jpeg">
-        </md-card-icon-actions>
-        <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-        <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.uploadImage()">Hochladen</md-button>
-    </md-card-actions>
-    <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

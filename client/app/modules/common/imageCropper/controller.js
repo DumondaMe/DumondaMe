@@ -60,7 +60,7 @@ module.exports = {
                 };
 
             if (ctrl.ratio) {
-                cropperSettings.aspectRatio = parseInt(ctrl.ratio);
+                cropperSettings.aspectRatio = ctrl.ratio;
             }
             if (ctrl.minWidth) {
                 cropperSettings.minCropBoxWidth = ctrl.minWidth;
@@ -72,9 +72,10 @@ module.exports = {
             $image.cropper(cropperSettings);
 
             ctrl.commands.getData = function () {
-                var dataCanvas = $image.cropper('getCroppedCanvas');
+                var dataCanvas = $image.cropper('getCroppedCanvas'), dataUrl;
                 if ('toDataURL' in dataCanvas) {
-                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataCanvas.toDataURL()));
+                    dataUrl = dataCanvas.toDataURL();
+                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataUrl), dataUrl);
                 } else {
                     ctrl.imageResultData();
                 }

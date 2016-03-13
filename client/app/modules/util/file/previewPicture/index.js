@@ -1,6 +1,6 @@
 'use strict';
 
 var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
 
-app.controller('UtilFilePreviewPictureCtrl', require('./controller.js'));
-app.service('UtilFilePreviewPicture', require('./service.js'));
+app.directive(directive.name, directive.directive);

@@ -20,10 +20,12 @@
 .cropArea {
   background: #E4E4E4;
   overflow: hidden;
-  min-height: 300px; }
+  min-height: 300px;
+  height: 100%; }
 
 .cropper-outer-container {
   width: 100%;
+  height: 100%;
   min-height: 300px; }
 
 .cropper-container {
@@ -755,6 +757,7 @@ h2.website-structure-title {
     font-size: 16px;
     padding: 16px; }
   #ely-home-right-sidenav .create-action {
+    cursor: pointer;
     margin: 16px 0; }
     #ely-home-right-sidenav .create-action .image {
       margin-left: 16px;
@@ -1154,11 +1157,25 @@ h2.website-structure-title {
   .ely-toolbar-search-collapse .ely-toolbar-menu {
     width: 40px; }
 
-#create-book-page .ely-dialog-content {
-  padding-bottom: 0; }
-  #create-book-page .ely-dialog-content .title {
+#create-book-page {
+  width: 100%;
+  min-width: 300px;
+  max-width: 800px; }
+  #create-book-page .title {
     font-size: 18px;
-    margin-bottom: 16px; }
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #create-book-page .ely-dialog-content {
+    padding-bottom: 0; }
+    #create-book-page .ely-dialog-content .input-container {
+      width: 100%;
+      margin: 0px; }
+    #create-book-page .ely-dialog-content .preview-image {
+      width: 100px; }
+
+.create-book-page-preview-image {
+  max-width: 600px;
+  height: 90%; }
 
 .pinwall-blog-card {
   max-width: 400px;
@@ -1553,16 +1570,41 @@ h2.website-structure-title {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.54); }
 
+#ely-preview-picture {
+  height: 100%;
+  position: relative; }
+  #ely-preview-picture .crop-area-container {
+    height: 100%; }
+    #ely-preview-picture .crop-area-container .cropArea {
+      padding-bottom: 52px; }
+      #ely-preview-picture .crop-area-container .cropArea .unsupported-file {
+        padding: 16px;
+        font-size: 14px;
+        color: #ff5722; }
+  #ely-preview-picture .action-commands {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background-color: white;
+    z-index: 10; }
+    #ely-preview-picture .action-commands .action-icon {
+      cursor: pointer; }
+      #ely-preview-picture .action-commands .action-icon .icon {
+        cursor: pointer; }
+  #ely-preview-picture .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 11; }
+
 #ely-upload-crop-image {
   min-width: 300px;
   max-width: 600px;
-  width: 90%; }
-  #ely-upload-crop-image .cropArea {
-    width: 100%; }
-    #ely-upload-crop-image .cropArea .unsupported-file {
-      padding: 16px;
-      font-size: 14px;
-      color: #ff5722; }
+  width: 100%;
+  height: 100%; }
 
 body, html {
   background-color: #E0E0E0;

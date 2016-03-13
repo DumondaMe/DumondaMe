@@ -1,39 +1,46 @@
 'use strict';
 
 
-module.exports = ['$scope', '$modalInstance', 'FileReader', 'FileReaderUtil',
-    function ($scope, $modalInstance, FileReader, FileReaderUtil) {
+module.exports = ['$scope', 'FileReader', 'CheckFileFormat',
+    function ($scope, FileReader, CheckFileFormat) {
         var ctrl = this;
+        ctrl.commands = {};
+        ctrl.hasImage = false;
+        ctrl.unsupportedFile = false;
 
-        this.cancel = function () {
-            $modalInstance.dismiss();
-        };
-
-        this.continue = function () {
-            ctrl.commands.getData();
-        };
-
-        this.imageResultData = function (data) {
-            var blob;
-            if (data && angular.isFunction(data.toDataURL)) {
-                blob = FileReaderUtil.dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
-                $modalInstance.close({preview: data.toDataURL("image/jpeg", 1.0), blob: blob});
+        ctrl.selected = function () {
+            if (ctrl.hasImage) {
+                ctrl.commands.getData();
             }
         };
 
-        this.commands = {};
+        ctrl.imagePreviewFinish = function (blob, dataUri) {
+            ctrl.finish(blob, dataUri);
+        };
 
-        $scope.image = {};
-        $scope.image.imageForUpload = null;
-        $scope.$watch('image.imageForUpload', function (newImage) {
+        $scope.$watch('imageForUpload', function (newImage) {
             if (newImage) {
                 FileReader.onloadend = function () {
                     $scope.$apply(function () {
-                        ctrl.imageForUploadPreview = FileReader.result;
+                        ctrl.hasImage = true;
+                        ctrl.running = false;
                         ctrl.commands.setImage(FileReader.result);
                     });
                 };
-                FileReader.readAsDataURL(newImage);
+                FileReader.onloadstart = function () {
+                    $scope.$apply(function () {
+                        ctrl.running = true;
+                    });
+                };
+                ctrl.hasImage = false;
+                ctrl.unsupportedFile = false;
+                if (CheckFileFormat.isValidFileFormat(newImage.name, '.png .jpg .jpeg')) {
+                    FileReader.readAsDataURL(newImage);
+                } else {
+                    ctrl.unsupportedFile = true;
+                }
+
             }
         });
-    }];
+    }
+];

@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'userInfo', 'CreateBlogVisibility', '$mdDialog', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
-            function ($scope, userInfo, CreateBlogVisibility, $mdDialog, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
+        return ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
+            function ($scope, userInfo, CreateBlogVisibility, ElyModal, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
                 var ctrl = this;
                 ctrl.userInfo = userInfo.getUserInfo();
                 ctrl.visibility = "Alle";
@@ -13,7 +13,7 @@ module.exports = {
                 CreateBlogVisibility.reset();
 
                 ctrl.cancel = function () {
-                    $mdDialog.cancel();
+                    ElyModal.cancel();
                 };
 
                 ctrl.openVisibility = function () {
@@ -34,7 +34,7 @@ module.exports = {
                     if (ctrl.sendBlogAllowed && !ctrl.blogUploadStarted) {
                         ctrl.blogUploadStarted = true;
                         UploadBlog.upload($scope.blogText, ctrl.imageForUploadPreviewData).then(function (resp) {
-                            $mdDialog.hide(resp);
+                            ElyModal.hide(resp);
                         });
                     }
                 };

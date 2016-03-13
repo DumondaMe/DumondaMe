@@ -1,25 +1,27 @@
-<div class="modal-body">
-    <div class="cropArea">
-        <ely-image-cropper commands="ctrl.commands"
-                           image-result-data="ctrl.imageResultData"
-                           ratio="0.62745"
-                           original-size="ctrl.checkOriginalSize" min-width="100" min-height="160"></ely-image-cropper>
+<div id="ely-preview-picture">
+    <div class="crop-area-container">
+        <div class="cropArea" layout="row" layout-align="center center" flex="grow">
+            <ely-image-cropper commands="ctrl.commands"
+                               image-result-data="ctrl.imagePreviewFinish"
+                               ratio="{{ctrl.ratio}}"
+                               min-width="100" min-height="100"
+                               ng-if="!ctrl.unsupportedFile"></ely-image-cropper>
+            <div class="unsupported-file" ng-if="ctrl.unsupportedFile">Dieser File Type kann nicht hochgeladen werden</div>
+        </div>
     </div>
-</div>
-<div class="modal-footer">
-    <md-button class="md-primary md-raised ely-button btn-file">
-        Bild auswählen...<input type="file" ely-file-model="image.imageForUpload"
-                                accept=".jpg, .png, jpeg">
-    </md-button>
-
-    <div class="upload-file-error" ng-show="ctrl.uploadError">
-        {{ctrl.uploadError}}
+    <div layout="row" layout-align="start center" class="action-commands">
+        <div class="action-icon-container">
+            <md-button class="action-icon md-icon-button" aria-label="Add Photo">
+                <label for="upload-photo">
+                    <md-icon md-svg-icon="createBlog:addPhoto" class="icon"></md-icon>
+                </label>
+            </md-button>
+            <input type="file" ely-file-model="imageForUpload" id="upload-photo" ng-hide="true"
+                   accept=".jpg , .png , jpeg">
+        </div>
+        <span flex></span>
+        <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+        <md-button class="md-primary" ng-disabled="ctrl.running || !ctrl.hasImage" ng-click="ctrl.selected()">Auswählen</md-button>
     </div>
-    <md-button class="md-primary ely-button" ng-click="ctrl.cancel()">Abbrechen
-    </md-button>
-    <md-button class="md-primary md-raised ely-button"
-               ng-disabled="!ctrl.imageForUploadPreview || uploadError"
-               ng-click="ctrl.continue()">
-        Auswählen
-    </md-button>
+    <md-progress-linear class="progress-bar" ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
 </div>

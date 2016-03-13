@@ -138,7 +138,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/rightSidenav/template.html',
-    "<div id=ely-home-right-sidenav><div class=\"md-title title\">Was möchtest Du Erstellen?</div><md-divider></md-divider><div class=create-action layout=row ng-click=ctrl.createBlog()><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Blog</div></div><md-divider></md-divider><div class=\"md-title page-title\">Seiten</div><md-divider></md-divider><div class=create-action layout=row><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Buch</div></div><div class=create-action layout=row><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Youtube</div></div><div class=create-action layout=row><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Link</div></div></div>"
+    "<div id=ely-home-right-sidenav><div class=\"md-title title\">Was möchtest Du Erstellen?</div><md-divider></md-divider><div class=create-action layout=row ng-click=ctrl.createBlog()><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Blog</div></div><md-divider></md-divider><div class=\"md-title page-title\">Seiten</div><md-divider></md-divider><div class=create-action layout=row ng-click=ctrl.createBookPage()><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Buch</div></div><div class=create-action layout=row><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Youtube</div></div><div class=create-action layout=row><div class=image flex=none><md-icon md-svg-icon=nav:add></md-icon></div><div class=text>Link</div></div></div>"
   );
 
 
@@ -318,7 +318,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/modal/createBookPage/template.html',
-    "<md-dialog id=create-book-page aria-label=\"Create Book Page\" ng-cloak><form name=ctrl.deleteGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Seite für ein Buch erstellen</div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\" ctrl.uploadStarted\">Erstellen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog id=create-book-page aria-label=\"Create Book Page\" ng-cloak ng-class=\"{'create-book-page-preview-image': ctrl.selectImage}\"><form name=ctrl.createBookPageForm ng-show=!ctrl.selectImage><div class=\"md-title title\">Seite für ein Buch erstellen</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=column layout-gt-sm=row><div><div layout=row layout-align=\"center center\"><div flex=nogrow><md-button class=md-primary ng-disabled=ctrl.uploadStarted ng-click=\"ctrl.selectImage = true\">Titelbild hinzufügen...</md-button></div></div><div layout=row layout-align=\"center center\"><div flex=nogrow><img class=preview-image ng-src={{ctrl.dataUri}} ng-show=ctrl.dataUri></div></div></div><div flex-offset-gt-sm=10><md-input-container class=input-container><label>Titel</label><input name=title ng-model=ctrl.title required md-maxlength=100 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.createBookPageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted></textarea><div ng-messages=ctrl.createBookPageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Autor</label><input name=author ng-model=ctrl.author required md-maxlength=255 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.createBookPageForm.author.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Erscheinungsdatum (optional)</label><input name=publishDate ng-model=ctrl.publishDate ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.publishDateChanged()\"><div ng-messages=ctrl.createBookPageForm.publishDate.$error><div ng-message=ely-date>Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createBook() ng-disabled=\" ctrl.uploadStarted || ctrl.createBookPageForm.$invalid\">Erstellen</md-button></md-dialog-actions></form><md-progress-linear ng-if=\"ctrl.uploadStarted && !ctrl.selectImage\" md-mode=indeterminate></md-progress-linear><ely-preview-picture ratio=0.62745 cancel=ctrl.cancelPreviewImage finish=ctrl.setPreviewImage ng-show=ctrl.selectImage></ely-preview-picture></md-dialog>"
   );
 
 
@@ -467,18 +467,13 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/util/file/previewFile.html',
-    "<div class=modal tabindex=-1 role=dialog ng-controller=FileCtrl><div class=modal-dialog id=modal-preview-file><div class=modal-content><div class=modal-body><div class=cropArea><ely-image-cropper ng-if=!uploadRunning reset=resetImage image=image.imageForUploadPreview image-result-data=imageResultData ratio=0.62745 original-size=checkOriginalSize min-width=100 min-height=160></ely-image-cropper></div><ely-spin ng-if=uploadRunning></ely-spin></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\" ng-disabled=uploadRunning>Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=uploadError>{{uploadError}}</div><md-button class=\"md-primary ely-button\" ng-disabled=uploadRunning ng-click=$hide()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!image.imageForUploadPreview || uploadRunning || uploadError\" ng-click=getPreview()>Auswählen</md-button></div></div></div></div>"
-  );
-
-
   $templateCache.put('app/modules/util/file/previewPicture/template.html',
-    "<div class=modal-body><div class=cropArea><ely-image-cropper commands=ctrl.commands image-result-data=ctrl.imageResultData ratio=0.62745 original-size=ctrl.checkOriginalSize min-width=100 min-height=160></ely-image-cropper></div></div><div class=modal-footer><md-button class=\"md-primary md-raised ely-button btn-file\">Bild auswählen...<input type=file ely-file-model=image.imageForUpload accept=\".jpg, .png, jpeg\"></md-button><div class=upload-file-error ng-show=ctrl.uploadError>{{ctrl.uploadError}}</div><md-button class=\"md-primary ely-button\" ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised ely-button\" ng-disabled=\"!ctrl.imageForUploadPreview || uploadError\" ng-click=ctrl.continue()>Auswählen</md-button></div>"
+    "<div id=ely-preview-picture><div class=crop-area-container><div class=cropArea layout=row layout-align=\"center center\" flex=grow><ely-image-cropper commands=ctrl.commands image-result-data=ctrl.imagePreviewFinish ratio={{ctrl.ratio}} min-width=100 min-height=100 ng-if=!ctrl.unsupportedFile></ely-image-cropper><div class=unsupported-file ng-if=ctrl.unsupportedFile>Dieser File Type kann nicht hochgeladen werden</div></div></div><div layout=row layout-align=\"start center\" class=action-commands><div class=action-icon-container><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg , .png , jpeg\"></div><span flex></span><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-disabled=\"ctrl.running || !ctrl.hasImage\" ng-click=ctrl.selected()>Auswählen</md-button></div><md-progress-linear class=progress-bar ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
   $templateCache.put('app/modules/util/file/uploadCropImage/template.html',
-    "<md-dialog id=ely-upload-crop-image><div class=cropArea layout=row layout-align=\"center center\"><ely-image-cropper commands=ctrl.commands image=ctrl.imageForUploadPreview image-result-data=ctrl.startImageUpload ratio={{ctrl.ratio}} min-width=100 min-height=100 ng-if=!ctrl.unsupportedFile></ely-image-cropper><div class=unsupported-file ng-if=ctrl.unsupportedFile>Dieser File Type kann nicht hochgeladen werden</div></div><md-card-actions layout=row layout-align=\"start center\"><md-card-icon-actions><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg , .png , jpeg\"></md-card-icon-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-disabled=\"ctrl.running || !ctrl.hasImage\" ng-click=ctrl.uploadImage()>Hochladen</md-button></md-card-actions><md-progress-linear ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog id=ely-upload-crop-image><div id=ely-preview-picture><div class=crop-area-container><div class=cropArea layout=row layout-align=\"center center\"><ely-image-cropper commands=ctrl.commands image=ctrl.imageForUploadPreview image-result-data=ctrl.startImageUpload ratio={{ctrl.ratio}} min-width=100 min-height=100 ng-if=!ctrl.unsupportedFile></ely-image-cropper><div class=unsupported-file ng-if=ctrl.unsupportedFile>Dieser File Type kann nicht hochgeladen werden</div></div></div><div layout=row layout-align=\"start center\" class=action-commands><div class=action-icon-container><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg , .png , jpeg\"></div><span flex></span><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-disabled=\"ctrl.running || !ctrl.hasImage\" ng-click=ctrl.uploadImage()>Hochladen</md-button></div><md-progress-linear class=progress-bar ng-if=ctrl.running md-mode=indeterminate></md-progress-linear></div></md-dialog>"
   );
 
 
@@ -1191,7 +1186,7 @@ module.exports = {
                 };
 
             if (ctrl.ratio) {
-                cropperSettings.aspectRatio = parseInt(ctrl.ratio);
+                cropperSettings.aspectRatio = ctrl.ratio;
             }
             if (ctrl.minWidth) {
                 cropperSettings.minCropBoxWidth = ctrl.minWidth;
@@ -1203,9 +1198,10 @@ module.exports = {
             $image.cropper(cropperSettings);
 
             ctrl.commands.getData = function () {
-                var dataCanvas = $image.cropper('getCroppedCanvas');
+                var dataCanvas = $image.cropper('getCroppedCanvas'), dataUrl;
                 if ('toDataURL' in dataCanvas) {
-                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataCanvas.toDataURL()));
+                    dataUrl = dataCanvas.toDataURL();
+                    ctrl.imageResultData(FileReaderUtil.dataURItoBlob(dataUrl), dataUrl);
                 } else {
                     ctrl.imageResultData();
                 }
@@ -2565,7 +2561,6 @@ module.exports = {
                 ctrl.noPinwall = false;
 
                 ctrl.openSideNavRight = function () {
-                    ToolbarService.disable();
                     $mdSidenav('rightHomeNav').open();
                 };
 
@@ -2585,7 +2580,7 @@ module.exports = {
                 $scope.isSideNavOpen = false;
 
                 $scope.$watch('isSideNavOpen', function (isOpen) {
-                    if(isOpen) {
+                    if (isOpen) {
                         ToolbarService.disable();
                     } else {
                         ToolbarService.enable();
@@ -2621,8 +2616,8 @@ module.exports = [
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'userInfo', 'CreateBlogVisibility', '$mdDialog', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
-            function ($scope, userInfo, CreateBlogVisibility, $mdDialog, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
+        return ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
+            function ($scope, userInfo, CreateBlogVisibility, ElyModal, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
                 var ctrl = this;
                 ctrl.userInfo = userInfo.getUserInfo();
                 ctrl.visibility = "Alle";
@@ -2632,7 +2627,7 @@ module.exports = {
                 CreateBlogVisibility.reset();
 
                 ctrl.cancel = function () {
-                    $mdDialog.cancel();
+                    ElyModal.cancel();
                 };
 
                 ctrl.openVisibility = function () {
@@ -2653,7 +2648,7 @@ module.exports = {
                     if (ctrl.sendBlogAllowed && !ctrl.blogUploadStarted) {
                         ctrl.blogUploadStarted = true;
                         UploadBlog.upload($scope.blogText, ctrl.imageForUploadPreviewData).then(function (resp) {
-                            $mdDialog.hide(resp);
+                            ElyModal.hide(resp);
                         });
                     }
                 };
@@ -3105,25 +3100,21 @@ module.exports = ['HomePinwallHeightCalculator',
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$mdDialog', '$mdSidenav', 'PinwallBlogService', 'ToolbarService',
-            function ($mdDialog, $mdSidenav, PinwallBlogService, ToolbarService) {
+        return ['ElyModal', '$mdSidenav', 'PinwallBlogService',
+            function (ElyModal, $mdSidenav, PinwallBlogService) {
                 var ctrl = this;
 
                 ctrl.createBlog = function () {
                     $mdSidenav('rightHomeNav').close();
-                    ToolbarService.enable();
-                    $mdDialog.show({
-                        templateUrl: 'app/modules/home/createBlog/template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: false,
-                        escapeToClose: false,
-                        controller: 'HomePinwallCreateBlog',
-                        locals: {element: ctrl.element},
-                        bindToController: true,
-                        controllerAs: 'ctrl'
-                    }).then(function (resp) {
-                        PinwallBlogService.addBlog(ctrl.pinwall, resp);
-                    });
+                    ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
+                        .then(function (resp) {
+                            PinwallBlogService.addBlog(ctrl.pinwall, resp);
+                        });
+                };
+
+                ctrl.createBookPage = function () {
+                    $mdSidenav('rightHomeNav').close();
+                    ElyModal.show('CreateBookPageCtrl', 'app/modules/page/modal/createBookPage/template.html');
                 };
             }];
     }
@@ -5913,30 +5904,34 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{}],217:[function(require,module,exports){
 'use strict';
 
-module.exports = ['Privacy', 'ElyModal', 'ContactStatisticTypes', 'errorToast',
-    function (Privacy, ElyModal, ContactStatisticTypes, errorToast) {
+module.exports = ['ElyModal', 'DateFormatCheckService',
+    function (ElyModal, DateFormatCheckService) {
         var ctrl = this;
+        ctrl.selectImage = false;
 
-        ctrl.groups = ContactStatisticTypes.getTypes(ctrl.groupName);
-        ctrl.selectedGroup = ctrl.groups[0];
+        ctrl.getDateExample = DateFormatCheckService.getDateExample;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
 
-        ctrl.accept = function () {
-            ctrl.uploadStarted = true;
-            Privacy.delete({
-                privacyDescription: ctrl.groupName,
-                newPrivacyDescription: ctrl.selectedGroup
-            }, function () {
-                ElyModal.hide(ctrl.selectedGroup);
-            }, function () {
-                errorToast.showError('Es ist ein Fehler aufgetretten!');
-                ctrl.uploadStarted = false;
-            });
+        ctrl.cancelPreviewImage = function () {
+            ctrl.selectImage = false;
         };
 
+        ctrl.setPreviewImage = function (blob, dataUri) {
+            ctrl.selectImage = false;
+            ctrl.dataUri = dataUri;
+            ctrl.blob = blob;
+        };
+
+        ctrl.publishDateChanged = function () {
+            if (ctrl.publishDate && ctrl.publishDate.trim() !== "") {
+                ctrl.createBookPageForm.publishDate.$setValidity('ely-date', DateFormatCheckService.isDateValid(ctrl.publishDate));
+            } else {
+                ctrl.createBookPageForm.publishDate.$setValidity('ely-date', true);
+            }
+        };
     }];
 
 
@@ -7293,8 +7288,36 @@ module.exports = ['moment', 'CountryCodeConverter',
 ;
 
 },{}],289:[function(require,module,exports){
-arguments[4][217][0].apply(exports,arguments)
-},{"dup":217}],290:[function(require,module,exports){
+'use strict';
+
+module.exports = ['Privacy', 'ElyModal', 'ContactStatisticTypes', 'errorToast',
+    function (Privacy, ElyModal, ContactStatisticTypes, errorToast) {
+        var ctrl = this;
+
+        ctrl.groups = ContactStatisticTypes.getTypes(ctrl.groupName);
+        ctrl.selectedGroup = ctrl.groups[0];
+
+        ctrl.cancel = function () {
+            ElyModal.cancel();
+        };
+
+        ctrl.accept = function () {
+            ctrl.uploadStarted = true;
+            Privacy.delete({
+                privacyDescription: ctrl.groupName,
+                newPrivacyDescription: ctrl.selectedGroup
+            }, function () {
+                ElyModal.hide(ctrl.selectedGroup);
+            }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
+                ctrl.uploadStarted = false;
+            });
+        };
+
+    }];
+
+
+},{}],290:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8010,23 +8033,6 @@ app.service('dateFormatter', require('./dateFormatter'));
 },{"./dateFormatCheck":325,"./dateFormatter":326}],328:[function(require,module,exports){
 'use strict';
 
-module.exports = [function () {
-
-    this.isValidFileFormat = function (fileName, supportedFiles) {
-        var extension, isValid = false;
-        if (angular.isString(fileName) && angular.isString(supportedFiles)) {
-            extension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
-            if (supportedFiles.indexOf(extension) >= 0) {
-                isValid = true;
-            }
-        }
-        return isValid;
-    };
-}];
-
-},{}],329:[function(require,module,exports){
-'use strict';
-
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
 
     $scope.image = {
@@ -8102,7 +8108,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],330:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8131,14 +8137,117 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],331:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+var fileModel = require('./fileModel.js');
+
+app.service('fileUpload', require('./services/fileUpload'));
+app.service('CheckFileFormat', require('./services/checkFileFormat'));
+
+app.factory('FileReader', require('./services/fileReader'));
+app.service('FileReaderUtil', require('./services/fileReaderUtil'));
+
+app.directive(fileModel.name, fileModel.directive);
+},{"./fileModel.js":329,"./services/checkFileFormat":334,"./services/fileReader":335,"./services/fileReaderUtil":336,"./services/fileUpload":337}],331:[function(require,module,exports){
+'use strict';
+
+
+module.exports = ['$scope', 'FileReader', 'CheckFileFormat',
+    function ($scope, FileReader, CheckFileFormat) {
+        var ctrl = this;
+        ctrl.commands = {};
+        ctrl.hasImage = false;
+        ctrl.unsupportedFile = false;
+
+        ctrl.selected = function () {
+            if (ctrl.hasImage) {
+                ctrl.commands.getData();
+            }
+        };
+
+        ctrl.imagePreviewFinish = function (blob, dataUri) {
+            ctrl.finish(blob, dataUri);
+        };
+
+        $scope.$watch('imageForUpload', function (newImage) {
+            if (newImage) {
+                FileReader.onloadend = function () {
+                    $scope.$apply(function () {
+                        ctrl.hasImage = true;
+                        ctrl.running = false;
+                        ctrl.commands.setImage(FileReader.result);
+                    });
+                };
+                FileReader.onloadstart = function () {
+                    $scope.$apply(function () {
+                        ctrl.running = true;
+                    });
+                };
+                ctrl.hasImage = false;
+                ctrl.unsupportedFile = false;
+                if (CheckFileFormat.isValidFileFormat(newImage.name, '.png .jpg .jpeg')) {
+                    FileReader.readAsDataURL(newImage);
+                } else {
+                    ctrl.unsupportedFile = true;
+                }
+
+            }
+        });
+    }
+];
+
+},{}],332:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    directive: [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl: 'app/modules/util/file/previewPicture/template.html',
+            controllerAs: 'ctrl',
+            bindToController: {
+                ratio: '@',
+                unsupportedFile: '@',
+                cancel: '=',
+                finish: '='
+            },
+            controller: require('./controller.js')
+        };
+    }],
+    name: 'elyPreviewPicture'
+};
+
+},{"./controller.js":331}],333:[function(require,module,exports){
+arguments[4][49][0].apply(exports,arguments)
+},{"./directive.js":332,"dup":49}],334:[function(require,module,exports){
+'use strict';
+
+module.exports = [function () {
+
+    this.isValidFileFormat = function (fileName, supportedFiles) {
+        var extension, isValid = false;
+        if (angular.isString(fileName) && angular.isString(supportedFiles)) {
+            extension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+            if (supportedFiles.indexOf(extension) >= 0) {
+                isValid = true;
+            }
+        }
+        return isValid;
+    };
+}];
+
+},{}],335:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],332:[function(require,module,exports){
+},{}],336:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -8151,7 +8260,7 @@ module.exports = function () {
     };
 };
 
-},{}],333:[function(require,module,exports){
+},{}],337:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -8175,91 +8284,6 @@ module.exports = ['$http', function ($http) {
         });
     };
 }];
-
-},{}],334:[function(require,module,exports){
-'use strict';
-
-var app = angular.module('elyoosApp');
-var fileModel = require('./fileModel.js');
-
-app.service('fileUpload', require('./fileUpload'));
-app.service('CheckFileFormat', require('./checkFileFormat'));
-
-app.factory('FileReader', require('./fileReader'));
-app.service('FileReaderUtil', require('./fileReaderUtil'));
-
-app.controller('FileCtrl', require('./fileCtrl'));
-
-app.directive(fileModel.name, fileModel.directive);
-},{"./checkFileFormat":328,"./fileCtrl":329,"./fileModel.js":330,"./fileReader":331,"./fileReaderUtil":332,"./fileUpload":333}],335:[function(require,module,exports){
-'use strict';
-
-
-module.exports = ['$scope', '$modalInstance', 'FileReader', 'FileReaderUtil',
-    function ($scope, $modalInstance, FileReader, FileReaderUtil) {
-        var ctrl = this;
-
-        this.cancel = function () {
-            $modalInstance.dismiss();
-        };
-
-        this.continue = function () {
-            ctrl.commands.getData();
-        };
-
-        this.imageResultData = function (data) {
-            var blob;
-            if (data && angular.isFunction(data.toDataURL)) {
-                blob = FileReaderUtil.dataURItoBlob(data.toDataURL("image/jpeg", 1.0));
-                $modalInstance.close({preview: data.toDataURL("image/jpeg", 1.0), blob: blob});
-            }
-        };
-
-        this.commands = {};
-
-        $scope.image = {};
-        $scope.image.imageForUpload = null;
-        $scope.$watch('image.imageForUpload', function (newImage) {
-            if (newImage) {
-                FileReader.onloadend = function () {
-                    $scope.$apply(function () {
-                        ctrl.imageForUploadPreview = FileReader.result;
-                        ctrl.commands.setImage(FileReader.result);
-                    });
-                };
-                FileReader.readAsDataURL(newImage);
-            }
-        });
-    }];
-
-},{}],336:[function(require,module,exports){
-'use strict';
-
-var app = angular.module('elyoosApp');
-
-app.controller('UtilFilePreviewPictureCtrl', require('./controller.js'));
-app.service('UtilFilePreviewPicture', require('./service.js'));
-},{"./controller.js":335,"./service.js":337}],337:[function(require,module,exports){
-'use strict';
-
-
-module.exports = ['$modal',
-    function ($modal) {
-
-        this.getPreviewPicture = function () {
-            var modalInstance = $modal.open({
-                animation: true,
-                templateUrl: 'app/modules/util/file/previewPicture/template.html',
-                controller: 'UtilFilePreviewPictureCtrl',
-                controllerAs: 'ctrl',
-                bindToController: true,
-                backdrop: 'static',
-                windowClass: 'center-modal'
-            });
-
-            return modalInstance.result;
-        }
-    }];
 
 },{}],338:[function(require,module,exports){
 'use strict';

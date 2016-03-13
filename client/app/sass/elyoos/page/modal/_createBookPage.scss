@@ -1,9 +1,25 @@
 #create-book-page {
+  width: 100%;
+  min-width: 300px;
+  max-width: 800px;
+  .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid $divider;
+  }
   .ely-dialog-content {
+    //padding-top: 8px;
     padding-bottom: 0;
-    .title {
-      font-size: 18px;
-      margin-bottom: 16px;
+    .input-container {
+      width: 100%;
+      margin: 0px;
+    }
+    .preview-image {
+      width: 100px;
     }
   }
+}
+.create-book-page-preview-image {
+  max-width: 600px;
+  height: 90%;
 }

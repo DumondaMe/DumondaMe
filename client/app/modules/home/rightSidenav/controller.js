@@ -2,24 +2,21 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$mdDialog', '$mdSidenav', 'PinwallBlogService',
-            function ($mdDialog, $mdSidenav, PinwallBlogService) {
+        return ['ElyModal', '$mdSidenav', 'PinwallBlogService',
+            function (ElyModal, $mdSidenav, PinwallBlogService) {
                 var ctrl = this;
 
                 ctrl.createBlog = function () {
                     $mdSidenav('rightHomeNav').close();
-                    $mdDialog.show({
-                        templateUrl: 'app/modules/home/createBlog/template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: false,
-                        escapeToClose: false,
-                        controller: 'HomePinwallCreateBlog',
-                        locals: {element: ctrl.element},
-                        bindToController: true,
-                        controllerAs: 'ctrl'
-                    }).then(function (resp) {
-                        PinwallBlogService.addBlog(ctrl.pinwall, resp);
-                    });
+                    ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
+                        .then(function (resp) {
+                            PinwallBlogService.addBlog(ctrl.pinwall, resp);
+                        });
+                };
+
+                ctrl.createBookPage = function () {
+                    $mdSidenav('rightHomeNav').close();
+                    ElyModal.show('CreateBookPageCtrl', 'app/modules/page/modal/createBookPage/template.html');
                 };
             }];
     }
