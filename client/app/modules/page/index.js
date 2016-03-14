@@ -2,6 +2,17 @@
 
 var app = angular.module('elyoosApp');
 
+app.service('PageRecommendationAllContact', require('./services/pageRecommendationAllContact'));
+app.service('PageRecommendationOtherUser', require('./services/pageRecommendationOtherUser'));
+app.service('PageDetail', require('./services/pageDetail'));
+app.service('SearchPage', require('./services/searchPage'));
+app.service('PopularPages', require('./services/popularPages'));
+app.service('PageCategories', require('./services/categories'));
+app.service('PageUserRecommendation', require('./services/pageUserRecommendation'));
+app.service('PageUserAdministration', require('./services/pageUserAdministration'));
+app.service('PageSearchUserRecommendation', require('./services/pageSearchUserRecommendation'));
+app.service('PageSearchUserAdministratedPage', require('./services/pageSearchUserAdministratedPage'));
+app.service('UploadPage', require('./services/uploadPage'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -25,22 +36,6 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     templateUrl: 'app/modules/page/pageDetail/pageDetail.html',
                     controller: 'PageDetailCtrl'
-                }
-            }
-        })
-        .state('page.edit', {
-            url: '/edit/{label}/{pageId}',
-            views: {
-                'content@': {
-                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
-                }
-            }
-        })
-        .state('page.create', {
-            url: '/create',
-            views: {
-                'content@': {
-                    template: '<ely-page-handling-pages></ely-page-handling-pages>'
                 }
             }
         })

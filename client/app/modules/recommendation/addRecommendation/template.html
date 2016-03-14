@@ -1,0 +1,25 @@
+<div id="ely-add-recommendation">
+    <form name="ctrl.recommendationForm">
+        <div class="md-title title">Bewertung für {{ctrl.title}}</div>
+        <div class="description-container" layout="column" layout-align="none end">
+            <md-input-container class="input-container">
+                <label>Beschreibung</label>
+                <input name="description" ng-model="ctrl.description" md-maxlength="1000"
+                       ng-disabled="ctrl.uploadStarted"/>
+                <div ng-messages="ctrl.recommendationForm.description.$error">
+                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                </div>
+            </md-input-container>
+            <ely-star-rating class="star-rating" number-of-selected-stars="ctrl.numberOfSelectedStars" show-xs hide-gt-xs></ely-star-rating>
+        </div>
+        <div layout="row" layout-align="start center" class="action-commands">
+            <ely-star-rating class="star-rating-commands" number-of-selected-stars="ctrl.numberOfSelectedStars" hide-xs show-gt-xs></ely-star-rating>
+            <span flex></span>
+            <md-button ng-click="ctrl.finish()">Abbrechen</md-button>
+            <md-button class="md-primary" ng-disabled="ctrl.running || ctrl.recommendationForm.$invalid || ctrl.numberOfSelectedStars === -1"
+                       ng-click="ctrl.uploadRecommendation()">Bewerten
+            </md-button>
+        </div>
+    </form>
+    <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+</div>

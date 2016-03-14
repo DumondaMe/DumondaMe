@@ -21,11 +21,6 @@ var getApi = function (isEditMode) {
     return 'api/user/page/create';
 };
 
-/**
- * Returns if the upload is in edit mode. When a page Id is present the upload will be as edit mode
- * @param pageId
- * @returns {boolean}
- */
 var isEditMode = function (pageId) {
     return pageId !== undefined && pageId !== null;
 };
@@ -63,7 +58,7 @@ module.exports = ['$state', 'errorToast', 'fileUpload', 'ElyModal',
                     }
                 })
                 .error(function () {
-                    errorToast.showError('Fehler! Seite konnte nicht hochgeladen werden');
+                    errorToast.showError('Seite konnte nicht hochgeladen werden!');
                 });
         };
 

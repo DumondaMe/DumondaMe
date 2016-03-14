@@ -8,8 +8,17 @@
     border-bottom: 1px solid $divider;
   }
   .ely-dialog-content {
-    //padding-top: 8px;
     padding-bottom: 0;
+    .select-category {
+      .md-select-value {
+        span {
+          max-width: 95%;
+          .md-text {
+            white-space: normal;
+          }
+        }
+      }
+    }
     .input-container {
       width: 100%;
       margin: 0px;
@@ -19,6 +28,7 @@
     }
   }
 }
+
 .create-book-page-preview-image {
   max-width: 600px;
   height: 90%;

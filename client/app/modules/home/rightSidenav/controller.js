@@ -16,7 +16,7 @@ module.exports = {
 
                 ctrl.createBookPage = function () {
                     $mdSidenav('rightHomeNav').close();
-                    ElyModal.show('CreateBookPageCtrl', 'app/modules/page/modal/createBookPage/template.html');
+                    ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html');
                 };
             }];
     }

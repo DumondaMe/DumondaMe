@@ -2,7 +2,7 @@
 
 var languages = [{description: 'Deutsch', code: 'de'},
     {description: 'Englisch', code: 'en'},
-    {description: 'Franz\u00f6sisch', code: 'fr'},
+    {description: 'Französisch', code: 'fr'},
     {description: 'Italienisch', code: 'it'},
     {description: 'Spanisch', code: 'es'}];
 

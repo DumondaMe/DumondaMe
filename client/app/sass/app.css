@@ -1167,6 +1167,10 @@ h2.website-structure-title {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   #create-book-page .ely-dialog-content {
     padding-bottom: 0; }
+    #create-book-page .ely-dialog-content .select-category .md-select-value span {
+      max-width: 95%; }
+      #create-book-page .ely-dialog-content .select-category .md-select-value span .md-text {
+        white-space: normal; }
     #create-book-page .ely-dialog-content .input-container {
       width: 100%;
       margin: 0px; }
@@ -1433,6 +1437,19 @@ h2.website-structure-title {
       line-height: 16px;
       font-size: 16px;
       font-weight: 500; }
+
+#ely-add-recommendation {
+  width: 100%; }
+  #ely-add-recommendation .description-container {
+    padding: 16px 24px; }
+    #ely-add-recommendation .description-container .input-container {
+      width: 100%;
+      margin: 0; }
+    #ely-add-recommendation .description-container .star-rating {
+      margin-top: 24px; }
+  #ely-add-recommendation .star-rating-commands {
+    margin-left: 24px;
+    margin-bottom: 4px; }
 
 #add-group {
   max-width: 500px; }
