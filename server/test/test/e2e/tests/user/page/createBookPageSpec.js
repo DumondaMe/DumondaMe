@@ -33,7 +33,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                language: 'de',
+                category: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -48,18 +48,22 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.equals("de");
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);
             page[0].description.should.equals("description");
             page[0].author.should.equals("Hans Muster");
             page[0].publishDate.should.equals(500);
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('spiritual');
+
         });
     });
 
@@ -67,7 +71,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                language: 'de',
+                category: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster'
@@ -81,18 +85,21 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.equals("de");
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);
             page[0].description.should.equals("description");
             page[0].author.should.equals("Hans Muster");
             should.not.exist(page[0].publishDate);
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('spiritual');
         });
     });
 
@@ -100,7 +107,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                language: 'de',
+                category: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -115,18 +122,21 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.language AS language, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.be.at.least(startTime);
-            page[0].language.should.equals("de");
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);
             page[0].description.should.equals("description");
             page[0].author.should.equals("Hans Muster");
             page[0].publishDate.should.equals(500);
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('spiritual');
         });
     });
 
@@ -134,7 +144,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                language: 'de',
+                category: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -159,7 +169,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                language: 'de',
+                category: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',

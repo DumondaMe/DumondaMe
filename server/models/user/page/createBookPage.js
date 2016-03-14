@@ -13,7 +13,7 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
     return commonBookPage.checkImageSize(titlePicturePath, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})")
             .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, " +
-            "publishDate: {publishDate}, modified: {modified}, language: {language}, label: 'Book'})")
+            "publishDate: {publishDate}, modified: {modified}, category: {category}, label: 'Book'})")
             .end(params)
             .send();
     }).then(function () {

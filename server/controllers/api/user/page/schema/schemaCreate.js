@@ -1,16 +1,16 @@
 'use strict';
 
 module.exports = {
-    name: 'createEditPage',
+    name: 'createPage',
     type: 'object',
     additionalProperties: false,
     properties: {
         bookPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['language', 'title', 'description', 'author'],
+            required: ['category', 'title', 'description', 'author'],
             properties: {
-                language: {'$ref': '#/definitions/language'},
+                category: {'$ref': '#/definitions/category'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 author: {type: 'string', format: 'notEmptyString', maxLength: 100},
@@ -20,9 +20,9 @@ module.exports = {
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['language', 'title','description', 'link'],
+            required: ['category', 'title', 'description', 'link'],
             properties: {
-                language: {'$ref': '#/definitions/language'},
+                category: {'$ref': '#/definitions/category'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 link: {'$ref': '#/definitions/link'}
@@ -31,7 +31,12 @@ module.exports = {
     },
     definitions: {
         id: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        language: {enum: ['de', 'en', 'fr', 'it', 'es']},
+        category: {
+            type: 'array',
+            minItems: 1,
+            items: {enum: ['health', 'environmental', 'spiritual', 'personalDevelopment', 'socialDevelopment', 'education']},
+            uniqueItems: true
+        },
         title: {type: 'string', format: 'notEmptyString', maxLength: 255},
         description: {type: 'string', format: 'notEmptyString', maxLength: 10000},
         link: {type: 'string', format: 'url', maxLength: 1000}

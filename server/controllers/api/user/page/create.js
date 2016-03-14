@@ -1,7 +1,7 @@
 'use strict';
 
 var validation = require('./../../../../lib/jsonValidation');
-var schema = require('./schemaCreateEdit');
+var schema = require('./schema/schemaCreate');
 var underscore = require('underscore');
 var createBookPage = require('./../../../../models/user/page/createBookPage');
 var createVideoPage = require('./../../../../models/user/page/createVideoPage');
@@ -19,7 +19,7 @@ module.exports = function (router) {
                 if (req.files && req.files.file) {
                     filePath = req.files.file.path;
                 }
-                if (request.bookPage) {
+                if (request.hasOwnProperty('bookPage')) {
                     underscore.defaults(request.bookPage, {publishDate: null});
                     return createBookPage.createBookPage(req.user.id, request.bookPage, filePath, req);
                 } else if(request.youtubePage) {

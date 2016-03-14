@@ -12,10 +12,9 @@ var editBookPage = function (userId, params, titlePicturePath, req) {
     }).then(function () {
         return db.cypher().match("(page:Page {pageId: {pageId}})")
             .set('page', {
-                language: params.language,
+                category: params.category,
                 description: params.description,
                 author: params.author,
-                title: params.title,
                 publishDate: params.publishDate,
                 modified: time.getNowUtcTimestamp()
             })
