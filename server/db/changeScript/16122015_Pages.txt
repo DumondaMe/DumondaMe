@@ -2,3 +2,5 @@ MATCH (n:Recommendation) SET n :PinwallElement;
 MATCH (n:Blog) SET n :PinwallElement;
 
 MATCH (rec:Recommendation)-[:RECOMMENDS]->(page:Page) CREATE (rec)-[:PINWALL_DATA]->(page);
+
+MATCH (privacy:Privacy) SET privacy.pinwall = true;
