@@ -1,0 +1,58 @@
+.pinwall-recommendation-card {
+  @include cardElement();
+  width: 100%;
+  margin: 8px 0;
+
+  .book-recommendation {
+
+    .header {
+      .user-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .category-description {
+      padding: 0 16px;
+      .category-type {
+        font-size: 14px;
+        font-weight: 400;
+        height: 24px;
+        line-height: 24px;
+        vertical-align: middle;
+        padding: 2px 4px;
+        border-radius: 4px;
+        color: white;
+      }
+      .spiritual {
+        background-color: #43A047;
+      }
+    }
+
+    .content-container {
+      .title {
+        font-weight: 500;
+        font-size: 16px;
+        max-height: 38px;
+        overflow: hidden;
+      }
+      .description {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 16px;
+        max-height: 48px;
+        overflow: hidden;
+        color: $secondary-text;
+      }
+      .forename {
+        margin-top: 12px;
+        font-weight: 400;
+        font-size: 14px;
+        color: $primary-text;
+      }
+    }
+  }
+}
+
+

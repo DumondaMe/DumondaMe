@@ -1,18 +1,26 @@
-<div layout="row" class="book-recommendation">
-    <img flex="none" class="preview-img" ng-src="{{ctrl.element.url}}">
-    <div class="content-container" flex>
-        <div class="title">{{ctrl.element.title}}</div>
-        <div class="recommended">Bewertet {{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}} von</div>
-        <div layout="row">
-            <img class="user-avatar" ng-src="{{ctrl.element.profileUrl}}" felx="none"/>
-            <div flex>
-                <div class="user-name">{{ctrl.element.name}}</div>
-                <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
-            </div>
-        </div>
-        <div class="actions">
-
-        </div>
+<div class="book-recommendation">
+    <md-card-header class="header">
+        <md-card-avatar ng-click="ctrl.openUserDetail()">
+            <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
+        </md-card-avatar>
+        <md-card-header-text ng-click="ctrl.openUserDetail()">
+            <span class="md-title user-name">{{ctrl.element.name}}</span>
+            <span class="md-subhead">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
+        </md-card-header-text>
+    </md-card-header>
+    <div class="category-description">
+        <md-icon md-svg-icon="cardActions:book" aria-label="Book"></md-icon>
+        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider"></md-icon>
+        <span class="category-type" ng-class="ctrl.getCategoryClass(category)"
+              ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}</span>
     </div>
+    <md-card-content>
+        <div class="content-container">
+            <div class="title">{{ctrl.element.title}}</div>
+            <div class="description">{{ctrl.element.description}}</div>
+            <div class="forename">{{ctrl.element.forename}}'s Bewertung</div>
+            <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
+                             number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
+        </div>
+    </md-card-content>
 </div>

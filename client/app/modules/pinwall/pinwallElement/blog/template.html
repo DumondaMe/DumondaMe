@@ -7,6 +7,17 @@
             <span class="md-title user-name">{{ctrl.element.name}}</span>
             <span class="md-subhead">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
         </md-card-header-text>
+        <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.element.isAdmin"
+                 ng-disabled="ctrl.requestBlogDeleteRunning">
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
+                <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.deleteBlog()">Löschen</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </md-card-header>
     <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
@@ -14,9 +25,6 @@
     <md-card-content>
         <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
     </md-card-content>
-    <md-card-actions layout="row" lauout-align="end center" ng-if="ctrl.element.isAdmin">
-        <md-button ng-click="ctrl.deleteBlog()" ng-disabled="ctrl.requestBlogDeleteRunning">Löschen</md-button>
-    </md-card-actions>
     <md-divider></md-divider>
     <md-progress-linear ng-if="ctrl.requestBlogDeleteRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

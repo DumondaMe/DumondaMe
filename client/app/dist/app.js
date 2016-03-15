@@ -328,12 +328,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/pinwall/pinwallElement/blog/template.html',
-    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-card-actions layout=row lauout-align=\"end center\" ng-if=ctrl.element.isAdmin><md-button ng-click=ctrl.deleteBlog() ng-disabled=ctrl.requestBlogDeleteRunning>Löschen</md-button></md-card-actions><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
+    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.element.isAdmin ng-disabled=ctrl.requestBlogDeleteRunning><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.deleteBlog()>Löschen</md-button></md-menu-item></md-menu-content></md-menu></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
   );
 
 
   $templateCache.put('app/modules/pinwall/pinwallElement/recommendation/book/template.html',
-    "<div layout=row class=book-recommendation><img flex=none class=preview-img ng-src={{ctrl.element.url}}><div class=content-container flex><div class=title>{{ctrl.element.title}}</div><div class=recommended>Bewertet {{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}} von</div><div layout=row><img class=user-avatar ng-src={{ctrl.element.profileUrl}} felx=\"none\"><div flex><div class=user-name>{{ctrl.element.name}}</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating></div></div><div class=actions></div></div></div>"
+    "<div class=book-recommendation><md-card-header class=header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=category-description><md-icon md-svg-icon=cardActions:book aria-label=Book></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider></md-icon><span class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.element.category\">{{ctrl.getCategory(category)}}</span></div><md-card-content><div class=content-container><div class=title>{{ctrl.element.title}}</div><div class=description>{{ctrl.element.description}}</div><div class=forename>{{ctrl.element.forename}}'s Bewertung</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating></div></md-card-content></div>"
   );
 
 
@@ -6164,11 +6164,24 @@ arguments[4][101][0].apply(exports,arguments)
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', function (dateFormatter) {
-            var ctrl = this;
+        return ['$mdDialog', 'dateFormatter', 'Categories', 'UserDetailNavigation',
+            function ($mdDialog, dateFormatter, Categories, UserDetailNavigation) {
+                var ctrl = this;
 
-            ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
-        }];
+                ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+
+                ctrl.getCategory = Categories.getCategory;
+
+                ctrl.openUserDetail = function () {
+                    UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.isAdmin);
+                };
+
+                ctrl.getCategoryClass = function (category) {
+                    var categoryClass = {};
+                    categoryClass[category] = true;
+                    return categoryClass;
+                };
+            }];
     }
 };
 
@@ -6221,8 +6234,20 @@ module.exports = {
 },{}],234:[function(require,module,exports){
 arguments[4][101][0].apply(exports,arguments)
 },{"./directive.js":233,"dup":101}],235:[function(require,module,exports){
-arguments[4][230][0].apply(exports,arguments)
-},{"dup":230}],236:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+    directiveCtrl: function () {
+        return ['dateFormatter', function (dateFormatter) {
+            var ctrl = this;
+
+            ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+        }];
+    }
+};
+
+
+},{}],236:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
