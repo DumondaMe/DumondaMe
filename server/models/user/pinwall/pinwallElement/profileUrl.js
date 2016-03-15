@@ -5,6 +5,7 @@ var userInfo = require('./../../userInfo');
 var addProfileUrl = function (element, pinwallElement) {
     if (pinwallElement.hasOwnProperty('contact')) {
         element.name = pinwallElement.contact.name;
+        element.forename = pinwallElement.contact.forename;
         element.userId = pinwallElement.contact.userId;
         if (pinwallElement.hasOwnProperty('privacy')) {
             element.profileUrl = userInfo.getImageForPreview(
@@ -23,6 +24,7 @@ var addProfileUrl = function (element, pinwallElement) {
         }
     } else {
         element.name = pinwallElement.user.name;
+        element.forename = pinwallElement.user.forename;
         element.userId = pinwallElement.user.userId;
         element.profileUrl = userInfo.getImageForPreview({
             userId: pinwallElement.user.userId, profileVisible: true, imageVisible: true

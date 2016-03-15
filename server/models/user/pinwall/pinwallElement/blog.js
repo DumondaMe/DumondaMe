@@ -19,6 +19,7 @@ var getPinwallElement = function (pinwallElement) {
     element.text = pinwallElement.pinwall.text;
     element.created = pinwallElement.pinwall.created;
     element.isAdmin = pinwallElement.isAdmin;
+    element.category = pinwallElement.pinwall.category;
     profileUrl.addProfileUrl(element, pinwallElement);
     addBlogUrl(element, pinwallElement.pinwall.heightPreviewImage);
     return element;

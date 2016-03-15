@@ -14,6 +14,7 @@ var getPinwallElement = function (pinwallElement) {
     element.description = pinwallElement.pinwallData.description;
     element.title = pinwallElement.pinwallData.title;
     element.link = pinwallElement.pinwallData.link;
+    element.category = pinwallElement.pinwallData.category;
     element.isAdmin = pinwallElement.isAdmin;
     profileUrl.addProfileUrl(element, pinwallElement);
     pagePreview.addPageUrl([element]);
