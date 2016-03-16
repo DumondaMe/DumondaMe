@@ -9,10 +9,10 @@
         </md-card-header-text>
     </md-card-header>
     <div class="category-description">
-        <md-icon md-svg-icon="cardActions:book" aria-label="Book"></md-icon>
-        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider"></md-icon>
-        <span class="category-type" ng-class="ctrl.getCategoryClass(category)"
-              ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}</span>
+        <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon"></md-icon>
+        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
+        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}</div>
     </div>
     <md-card-content ng-click="ctrl.openPageDetail()">
         <div class="content-container">

@@ -356,6 +356,36 @@
     width: 16px;
     height: 16px; }
 
+.category-description {
+  padding: 0 16px;
+  width: 100%; }
+  .category-description .category-icon {
+    margin-bottom: 8px; }
+  .category-description .category-type {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 4px;
+    margin-bottom: 4px; }
+  .category-description .spiritual {
+    background-color: #BA68C8; }
+  .category-description .health {
+    background-color: #039BE5; }
+  .category-description .environmental {
+    background-color: #43A047; }
+  .category-description .education {
+    background-color: #A1887F; }
+  .category-description .personalDevelopment {
+    background-color: #7986CB; }
+  .category-description .socialDevelopment {
+    background-color: #009688; }
+
 .modal {
   text-align: center; }
 
@@ -1252,20 +1282,6 @@ h2.website-structure-title {
     max-width: 100%; }
   #blog-detail .blog-text {
     padding: 16px; }
-
-.category-description {
-  padding: 0 16px; }
-  .category-description .category-type {
-    font-size: 14px;
-    font-weight: 400;
-    height: 24px;
-    line-height: 24px;
-    vertical-align: middle;
-    padding: 2px 4px;
-    border-radius: 4px;
-    color: white; }
-  .category-description .spiritual {
-    background-color: #43A047; }
 
 .pinwall-no-element {
   max-width: 400px;

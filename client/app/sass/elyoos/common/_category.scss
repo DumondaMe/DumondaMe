@@ -1,0 +1,40 @@
+.category-description {
+  padding: 0 16px;
+  width: 100%;
+  .category-icon {
+    margin-bottom: 8px;
+  }
+  .category-type {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  .spiritual {
+    background-color: #BA68C8;
+  }
+  .health {
+    background-color: #039BE5;
+  }
+  .environmental {
+    background-color: #43A047;
+  }
+  .education {
+    background-color: #A1887F;
+  }
+  .personalDevelopment {
+    background-color: #7986CB;
+  }
+  .socialDevelopment {
+    background-color: #009688;
+  }
+}
+
+

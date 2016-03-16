@@ -20,10 +20,10 @@
             </md-menu>
         </div>
         <div class="category-description">
-            <md-icon md-svg-icon="cardActions:book" aria-label="Book"></md-icon>
-            <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider"></md-icon>
-            <span class="category-type" ng-class="ctrl.getCategoryClass(category)"
-                  ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}</span>
+            <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon"></md-icon>
+            <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
+            <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+                  ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}</div>
         </div>
         <div class="image-description-container">
             <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}">
