@@ -318,7 +318,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/book/main/template.html',
-    "<md-card id=ely-book-page-main-detail><md-card-content><div class=title-container layout=row><div><div class=\"md-title title\">{{ctrl.pageDetail.page.title}}</div><div class=authors>von <span class=author ng-repeat=\"author in ctrl.pageDetail.page.author\"><span ng-if=!$first>,</span>{{author.name}}</span></div></div><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.pageDetail.administrators.isAdmin><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.modifyPage()>Seite Bearbeiten</md-button></md-menu-item></md-menu-content></md-menu></div><div class=category-description><md-icon md-svg-icon=cardActions:book aria-label=Book></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider></md-icon><span class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.pageDetail.page.category\">{{ctrl.getCategory(category)}}</span></div><div class=image-description-container><img class=image ng-src={{ctrl.pageDetail.page.titleUrl}}><ely-expand-text class=description description={{ctrl.pageDetail.page.description}} length=300></ely-expand-text></div></md-card-content></md-card>"
+    "<md-card id=ely-book-page-main-detail><md-card-content><div class=title-container layout=row><div><div class=\"md-title title\">{{ctrl.pageDetail.page.title}}</div><div class=authors>von <span class=author ng-repeat=\"author in ctrl.pageDetail.page.author\"><span ng-if=!$first>,</span>{{author.name}}</span></div></div><span flex></span><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.pageDetail.administrators.isAdmin><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.modifyPage()>Seite Bearbeiten</md-button></md-menu-item></md-menu-content></md-menu></div><div class=category-description><md-icon md-svg-icon=cardActions:book aria-label=Book></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider></md-icon><span class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.pageDetail.page.category\">{{ctrl.getCategory(category)}}</span></div><div class=image-description-container><img class=image ng-src={{ctrl.pageDetail.page.titleUrl}}><ely-expand-text class=description description={{ctrl.pageDetail.page.description}} length=300></ely-expand-text></div></md-card-content></md-card>"
   );
 
 
@@ -333,7 +333,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/modal/manageBookPage/template.html',
-    "<md-dialog id=create-book-page aria-label=\"Create Book Page\" ng-cloak ng-class=\"{'create-book-page-preview-image': ctrl.selectImage}\"><form name=ctrl.createBookPageForm ng-show=\"!ctrl.selectImage && !ctrl.recommendPage\"><div class=\"md-title title\">Seite für ein Buch erstellen</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=column layout-gt-sm=row><div><div layout=row layout-align=\"center center\"><div flex=nogrow><md-button class=md-primary ng-disabled=ctrl.uploadStarted ng-click=\"ctrl.selectImage = true\">Titelbild hinzufügen...</md-button></div></div><div layout=row layout-align=\"center center\"><div flex=nogrow><img class=preview-image ng-src={{ctrl.dataUri}} ng-show=ctrl.dataUri></div></div></div><div flex-offset-gt-sm=10><md-select ng-model=ctrl.selectedCategories multiple placeholder=Kategorie required class=select-category><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><md-input-container class=input-container><label>Titel</label><input name=title ng-model=ctrl.title required md-maxlength=100 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.createBookPageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted></textarea><div ng-messages=ctrl.createBookPageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Autor</label><input name=author ng-model=ctrl.author required md-maxlength=255 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.createBookPageForm.author.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Erscheinungsdatum (optional)</label><input name=publishDate ng-model=ctrl.publishDate ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.publishDateChanged()\"><div ng-messages=ctrl.createBookPageForm.publishDate.$error><div ng-message=ely-date>Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createBook() ng-disabled=\" ctrl.uploadStarted || ctrl.createBookPageForm.$invalid\">Erstellen</md-button></md-dialog-actions></form><md-progress-linear ng-if=\"ctrl.uploadStarted && !ctrl.selectImage\" md-mode=indeterminate></md-progress-linear><ely-preview-picture ratio=0.62745 cancel=ctrl.cancelPreviewImage finish=ctrl.setPreviewImage ng-show=\"ctrl.selectImage && !ctrl.recommendPage\"></ely-preview-picture><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
+    "<md-dialog id=manage-book-page aria-label=\"Manage Book Page\" ng-cloak ng-class=\"{'create-book-page-preview-image': ctrl.selectImage}\"><form name=ctrl.manageBookPageForm ng-show=\"!ctrl.selectImage && !ctrl.recommendPage\"><div class=\"md-title title\" ng-if=!ctrl.isEditMode>Seite für ein Buch erstellen</div><div class=\"md-title title\" ng-if=ctrl.isEditMode>Buch <span class=title-modify>{{ctrl.data.title}}</span> bearbeiten</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=column layout-gt-sm=row><div><div layout=row layout-align=\"center center\"><div flex=nogrow><img class=preview-image ng-src={{ctrl.data.dataUri}} ng-show=ctrl.data.dataUri></div></div><div layout=row layout-align=\"center center\"><div flex=nogrow><md-button class=md-primary ng-disabled=ctrl.uploadStarted ng-click=\"ctrl.selectImage = true\" aria-label=\"Add Picture\"><span ng-if=!ctrl.data.dataUri>Titelbild hinzufügen</span> <span ng-if=ctrl.data.dataUri>Titelbild ändern</span></md-button></div></div></div><div flex-offset-gt-sm=10><md-select ng-model=ctrl.data.selectedCategories multiple placeholder=Kategorie required class=select-category ng-change=ctrl.changeData()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><md-input-container class=input-container ng-if=!ctrl.isEditMode><label>Titel</label><input name=title ng-model=ctrl.data.title required md-maxlength=100 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.changeData()\"><div ng-messages=ctrl.manageBookPageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.data.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.changeData()></textarea><div ng-messages=ctrl.manageBookPageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Autor</label><input name=author ng-model=ctrl.data.author required md-maxlength=255 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.changeData()\"><div ng-messages=ctrl.manageBookPageForm.author.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Erscheinungsdatum (optional)</label><input name=publishDate ng-model=ctrl.data.publishDate ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.publishDateChanged()\"><div ng-messages=ctrl.manageBookPageForm.publishDate.$error><div ng-message=ely-date>Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createBook() ng-if=!ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid\">Erstellen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.modifyBook() ng-if=ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=\"ctrl.uploadStarted && !ctrl.selectImage\" md-mode=indeterminate></md-progress-linear><ely-preview-picture ratio=0.62745 cancel=ctrl.cancelPreviewImage finish=ctrl.setPreviewImage ng-show=\"ctrl.selectImage && !ctrl.recommendPage\"></ely-preview-picture><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
   );
 
 
@@ -5700,12 +5700,34 @@ app.directive(directive.name, directive.directive);
 },{"./directive.js":206}],208:[function(require,module,exports){
 'use strict';
 
-module.exports = ['Categories',
-    function (Categories) {
+module.exports = ['Categories', 'ElyModal',
+    function (Categories, ElyModal) {
         var ctrl = this;
 
         ctrl.getCategory = Categories.getCategory;
         ctrl.getCategoryClass = Categories.getCategoryClass;
+
+        ctrl.modifyPage = function () {
+            ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html',
+                {
+                    data: {
+                        pageId: ctrl.pageDetail.page.pageId,
+                        title: ctrl.pageDetail.page.title,
+                        description: ctrl.pageDetail.page.description,
+                        author: ctrl.pageDetail.page.author[0].name,
+                        publishDate: ctrl.pageDetail.page.publishDate,
+                        selectedCategories: ctrl.pageDetail.page.category,
+                        dataUri: ctrl.pageDetail.page.titleUrl
+                    },
+                    isEditMode: true
+                }).then(function (data) {
+                ctrl.pageDetail.page.description = data.description;
+                ctrl.pageDetail.page.author[0].name = data.author;
+                ctrl.pageDetail.page.publishDate = data.publishDate;
+                ctrl.pageDetail.page.category = Categories.getCodes(data.selectedCategories);
+                ctrl.pageDetail.page.titleUrl = data.dataUri;
+            });
+        };
     }];
 
 
@@ -5832,9 +5854,21 @@ app.config(['$stateProvider', function ($stateProvider) {
 },{"./services/categories":218,"./services/pageDetail":219,"./services/pageRecommendationAllContact":220,"./services/pageRecommendationOtherUser":221,"./services/pageSearchUserAdministratedPage":222,"./services/pageSearchUserRecommendation":223,"./services/pageUserAdministration":224,"./services/pageUserRecommendation":225,"./services/popularPages":226,"./services/searchPage":227,"./services/uploadPage":228}],215:[function(require,module,exports){
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast) {
+module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast', 'moment',
+    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment) {
         var ctrl = this;
+
+        if(ctrl.isEditMode) {
+            if (angular.isNumber(ctrl.data.publishDate)) {
+                ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
+            }
+            ctrl.data.selectedCategories = Categories.getCategories(ctrl.data.selectedCategories);
+            ctrl.dataOnServer = angular.copy(ctrl.data);
+            ctrl.dataHasChanged = false;
+        } else {
+            ctrl.data = {};
+        }
+
         ctrl.selectImage = false;
         ctrl.recommendPage = false;
 
@@ -5851,20 +5885,25 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
 
         ctrl.setPreviewImage = function (blob, dataUri) {
             ctrl.selectImage = false;
-            ctrl.dataUri = dataUri;
+            ctrl.data.dataUri = dataUri;
             ctrl.blob = blob;
+            ctrl.changeData();
+        };
+
+        ctrl.changeData = function () {
+            ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
         };
 
         ctrl.publishDateChanged = function () {
-            if (ctrl.publishDate && ctrl.publishDate.trim() !== "") {
-                ctrl.createBookPageForm.publishDate.$setValidity('ely-date', DateFormatCheckService.isDateValid(ctrl.publishDate));
+            if (ctrl.data.publishDate && ctrl.data.publishDate.trim() !== "") {
+                ctrl.manageBookPageForm.publishDate.$setValidity('ely-date', DateFormatCheckService.isDateValid(ctrl.data.publishDate));
             } else {
-                ctrl.createBookPageForm.publishDate.$setValidity('ely-date', true);
+                ctrl.manageBookPageForm.publishDate.$setValidity('ely-date', true);
             }
         };
 
         ctrl.createBook = function () {
-            var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl);
+            var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
             ctrl.uploadStarted = true;
 
             fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create')
@@ -5876,6 +5915,20 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
                 .error(function () {
                     ctrl.uploadStarted = false;
                     errorToast.showError('Seite konnte nicht hochgeladen werden!');
+                });
+        };
+
+        ctrl.modifyBook = function () {
+            var message = BookPageCreateMessageService.getModifyBookPageMessage(ctrl.data);
+            ctrl.uploadStarted = true;
+
+            fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/edit')
+                .success(function () {
+                    ElyModal.hide(ctrl.data);
+                })
+                .error(function () {
+                    ctrl.uploadStarted = false;
+                    errorToast.showError('Seite konnte nicht verändert werden!');
                 });
         };
 
@@ -5897,15 +5950,7 @@ app.service('BookPageCreateMessageService', require('./services/createMessage'))
 },{"./controller":215,"./services/createMessage":217}],217:[function(require,module,exports){
 'use strict';
 
-var getCategories = function (selectedCategories) {
-    var categories = [];
-    angular.forEach(selectedCategories, function (category) {
-        categories.push(category.code);
-    });
-    return categories;
-};
-
-module.exports = ['DateConverter', function (DateConverter) {
+module.exports = ['DateConverter', 'Categories', function (DateConverter, Categories) {
 
     this.getCreateBookPageMessage = function (data) {
         return {
@@ -5914,7 +5959,19 @@ module.exports = ['DateConverter', function (DateConverter) {
                 description: data.description,
                 author: data.author,
                 publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                category: getCategories(data.selectedCategories)
+                category: Categories.getCodes(data.selectedCategories)
+            }
+        };
+    };
+
+    this.getModifyBookPageMessage = function (data) {
+        return {
+            bookPage: {
+                pageId: data.pageId,
+                description: data.description,
+                author: data.author,
+                publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
+                category: Categories.getCodes(data.selectedCategories)
             }
         };
     };
@@ -8061,8 +8118,8 @@ var categories = [{description: 'Gesundheit', code: 'health'},
     {description: 'Persönliche Entwicklung', code: 'personalDevelopment'},
     {description: 'Gesellschaftliche Entwicklung', code: 'socialDevelopment'}];
 
-module.exports = [
-    function () {
+module.exports = ['$log',
+    function ($log) {
         var service = this;
         service.categories = categories;
 
@@ -8083,6 +8140,34 @@ module.exports = [
                     result = category.description;
                 }
             });
+            return result;
+        };
+
+        service.getCategories = function (codes) {
+            var result = [];
+            if (angular.isArray(codes)) {
+                angular.forEach(codes, function (code) {
+                    angular.forEach(categories, function (category) {
+                        if (category.code === code) {
+                            result.push(category);
+                        }
+                    });
+                });
+            }
+            return result;
+        };
+
+        service.getCodes = function (categories) {
+            var result = [];
+            if (angular.isArray(categories)) {
+                angular.forEach(categories, function (category) {
+                    if (category.hasOwnProperty('code')) {
+                        result.push(category.code);
+                    } else {
+                        $log.warn('property code does not exit!');
+                    }
+                });
+            }
             return result;
         };
 
@@ -8237,8 +8322,6 @@ module.exports = ['moment', function (moment) {
     this.getTime = function (dateValue) {
         return moment.unix(dateValue).format('H:mm');
     };
-
-    return this;
 }];
 
 },{}],340:[function(require,module,exports){

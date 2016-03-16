@@ -7,8 +7,8 @@ var categories = [{description: 'Gesundheit', code: 'health'},
     {description: 'Persönliche Entwicklung', code: 'personalDevelopment'},
     {description: 'Gesellschaftliche Entwicklung', code: 'socialDevelopment'}];
 
-module.exports = [
-    function () {
+module.exports = ['$log',
+    function ($log) {
         var service = this;
         service.categories = categories;
 
@@ -29,6 +29,34 @@ module.exports = [
                     result = category.description;
                 }
             });
+            return result;
+        };
+
+        service.getCategories = function (codes) {
+            var result = [];
+            if (angular.isArray(codes)) {
+                angular.forEach(codes, function (code) {
+                    angular.forEach(categories, function (category) {
+                        if (category.code === code) {
+                            result.push(category);
+                        }
+                    });
+                });
+            }
+            return result;
+        };
+
+        service.getCodes = function (categories) {
+            var result = [];
+            if (angular.isArray(categories)) {
+                angular.forEach(categories, function (category) {
+                    if (category.hasOwnProperty('code')) {
+                        result.push(category.code);
+                    } else {
+                        $log.warn('property code does not exit!');
+                    }
+                });
+            }
             return result;
         };
 

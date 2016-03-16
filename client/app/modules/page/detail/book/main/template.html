@@ -7,6 +7,7 @@
                     <span class="author" ng-repeat="author in ctrl.pageDetail.page.author"><span ng-if="!$first">,</span>{{author.name}}</span>
                 </div>
             </div>
+            <span flex></span>
             <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
                     <md-icon md-svg-icon="cardActions:moreVert"></md-icon>

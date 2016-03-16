@@ -1,4 +1,4 @@
-#create-book-page {
+#manage-book-page {
   width: 100%;
   min-width: 300px;
   max-width: 800px;
@@ -6,6 +6,9 @@
     font-size: 18px;
     padding: 16px 24px;
     border-bottom: 1px solid $divider;
+    .title-modify {
+      color: $primary-color;
+    }
   }
   .ely-dialog-content {
     padding-bottom: 0;

@@ -1183,24 +1183,26 @@ h2.website-structure-title {
     height: 165px;
     margin-right: 16px; }
 
-#create-book-page {
+#manage-book-page {
   width: 100%;
   min-width: 300px;
   max-width: 800px; }
-  #create-book-page .title {
+  #manage-book-page .title {
     font-size: 18px;
     padding: 16px 24px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  #create-book-page .ely-dialog-content {
+    #manage-book-page .title .title-modify {
+      color: #3F51B5; }
+  #manage-book-page .ely-dialog-content {
     padding-bottom: 0; }
-    #create-book-page .ely-dialog-content .select-category .md-select-value span {
+    #manage-book-page .ely-dialog-content .select-category .md-select-value span {
       max-width: 95%; }
-      #create-book-page .ely-dialog-content .select-category .md-select-value span .md-text {
+      #manage-book-page .ely-dialog-content .select-category .md-select-value span .md-text {
         white-space: normal; }
-    #create-book-page .ely-dialog-content .input-container {
+    #manage-book-page .ely-dialog-content .input-container {
       width: 100%;
       margin: 0px; }
-    #create-book-page .ely-dialog-content .preview-image {
+    #manage-book-page .ely-dialog-content .preview-image {
       width: 100px; }
 
 .create-book-page-preview-image {

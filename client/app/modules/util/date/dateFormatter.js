@@ -37,6 +37,4 @@ module.exports = ['moment', function (moment) {
     this.getTime = function (dateValue) {
         return moment.unix(dateValue).format('H:mm');
     };
-
-    return this;
 }];
