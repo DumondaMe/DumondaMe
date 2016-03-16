@@ -2,22 +2,21 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$mdDialog', 'dateFormatter', 'Categories', 'UserDetailNavigation',
-            function ($mdDialog, dateFormatter, Categories, UserDetailNavigation) {
+        return ['$mdDialog', '$state', 'dateFormatter', 'Categories', 'UserDetailNavigation',
+            function ($mdDialog, $state, dateFormatter, Categories, UserDetailNavigation) {
                 var ctrl = this;
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
                 ctrl.getCategory = Categories.getCategory;
+                ctrl.getCategoryClass = Categories.getCategoryClass;
 
                 ctrl.openUserDetail = function () {
                     UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.isAdmin);
                 };
 
-                ctrl.getCategoryClass = function (category) {
-                    var categoryClass = {};
-                    categoryClass[category] = true;
-                    return categoryClass;
+                ctrl.openPageDetail = function () {
+                    $state.go('page.detail', {label: ctrl.element.label, pageId: ctrl.element.pageId});
                 };
             }];
     }

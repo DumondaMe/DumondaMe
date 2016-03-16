@@ -1,19 +1,17 @@
 'use strict';
+
 module.exports = {
-    directive: [function () {
+    directive: [ function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {
-                description: '@'
             },
-            templateUrl: 'app/modules/common/expandText/template.html',
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            bindToController: {
-                length: '@'
-            }
+            bindToController: true,
+            templateUrl: 'app/modules/page/detail/template.html'
         };
     }],
-    name: 'elyExpandText'
+    name: 'elyPageDetail'
 };

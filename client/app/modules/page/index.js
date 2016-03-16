@@ -34,8 +34,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/detail/{label}/{pageId}',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/page/pageDetail/pageDetail.html',
-                    controller: 'PageDetailCtrl'
+                    template: '<ely-page-detail></ely-page-detail>'
                 }
             }
         })

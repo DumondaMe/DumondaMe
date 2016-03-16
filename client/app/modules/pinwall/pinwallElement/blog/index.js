@@ -6,5 +6,3 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.controller('HomePinwallBlogDetail', require('./detail/blogDetailCtrl'));
-
-app.service('BlogPreviewTextService', require('./services/blogPreviewTextService'));

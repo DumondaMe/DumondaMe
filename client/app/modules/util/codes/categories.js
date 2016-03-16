@@ -31,4 +31,10 @@ module.exports = [
             });
             return result;
         };
+
+        service.getCategoryClass = function (category) {
+            var categoryClass = {};
+            categoryClass[category] = true;
+            return categoryClass;
+        };
     }];

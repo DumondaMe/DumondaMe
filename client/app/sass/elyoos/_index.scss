@@ -36,10 +36,13 @@
 @import 'navigation/_toolbarMessageInfo';
 @import 'navigation/_toolbarSearch';
 
+@import 'page/detail/_detail';
+@import 'page/detail/_book';
 @import 'page/modal/_createBookPage';
 
 @import 'pinwall/_blog';
 @import 'pinwall/_blogDetail';
+@import 'pinwall/_category';
 @import 'pinwall/_noPinwallElement';
 @import 'pinwall/_recommendationBook';
 @import 'pinwall/_recommendationYoutube';

@@ -289,9 +289,8 @@
 
 .ely-expand-text .ely-expand-text-description {
   font-size: 14px;
-  font-weight: 300;
-  max-height: 4.2em;
-  overflow: hidden; }
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.54); }
 .ely-expand-text .ely-expand-expand {
   margin-top: 10px;
   font-size: 12px;
@@ -1157,6 +1156,33 @@ h2.website-structure-title {
   .ely-toolbar-search-collapse .ely-toolbar-menu {
     width: 40px; }
 
+#ely-page-detail {
+  background-color: #E0E0E0;
+  height: 100%; }
+
+#ely-book-page-detail #ely-book-page-main-detail {
+  max-width: 600px; }
+  #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
+    font-size: 16px;
+    max-height: 57px;
+    overflow: hidden; }
+  #ely-book-page-detail #ely-book-page-main-detail .title-container .authors {
+    margin-top: 2px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+  #ely-book-page-detail #ely-book-page-main-detail .title-container .button-settings-container {
+    padding: 0; }
+    #ely-book-page-detail #ely-book-page-main-detail .title-container .button-settings-container .button-settings {
+      margin: 0; }
+  #ely-book-page-detail #ely-book-page-main-detail .category-description {
+    padding: 0;
+    margin: 8px 0 16px 0; }
+  #ely-book-page-detail #ely-book-page-main-detail .image-description-container .image {
+    float: left;
+    width: 100px;
+    height: 165px;
+    margin-right: 16px; }
+
 #create-book-page {
   width: 100%;
   min-width: 300px;
@@ -1225,6 +1251,20 @@ h2.website-structure-title {
   #blog-detail .blog-text {
     padding: 16px; }
 
+.category-description {
+  padding: 0 16px; }
+  .category-description .category-type {
+    font-size: 14px;
+    font-weight: 400;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: white; }
+  .category-description .spiritual {
+    background-color: #43A047; }
+
 .pinwall-no-element {
   max-width: 400px;
   min-width: 280px;
@@ -1250,19 +1290,6 @@ h2.website-structure-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
-  .pinwall-recommendation-card .book-recommendation .category-description {
-    padding: 0 16px; }
-    .pinwall-recommendation-card .book-recommendation .category-description .category-type {
-      font-size: 14px;
-      font-weight: 400;
-      height: 24px;
-      line-height: 24px;
-      vertical-align: middle;
-      padding: 2px 4px;
-      border-radius: 4px;
-      color: white; }
-    .pinwall-recommendation-card .book-recommendation .category-description .spiritual {
-      background-color: #43A047; }
   .pinwall-recommendation-card .book-recommendation .content-container .title {
     font-weight: 500;
     font-size: 16px;

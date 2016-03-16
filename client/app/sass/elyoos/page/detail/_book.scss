@@ -1,0 +1,38 @@
+#ely-book-page-detail {
+  #ely-book-page-main-detail {
+    max-width: 600px;
+
+    .title-container {
+      .title {
+        font-size: 16px;
+        max-height: 57px;
+        overflow: hidden;
+      }
+      .authors {
+        margin-top: 2px;
+        font-size: 14px;
+        color: $secondary-text;
+      }
+      .button-settings-container {
+        padding: 0;
+        .button-settings {
+          margin: 0;
+        }
+      }
+    }
+
+    .category-description {
+      padding: 0;
+      margin: 8px 0 16px 0;
+    }
+
+    .image-description-container {
+      .image {
+        float: left;
+        width: 100px;
+        height: 165px;
+        margin-right: 16px;
+      }
+    }
+  }
+}

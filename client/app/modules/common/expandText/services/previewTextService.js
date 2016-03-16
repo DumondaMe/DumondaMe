@@ -3,11 +3,11 @@
 
 module.exports = [
     function () {
-        this.getPreviewText = function (text) {
+        this.getPreviewText = function (text, length) {
             var previewText = text;
             if (text) {
-                if (text.length > 120) {
-                    previewText = text.substring(0, 120) + "...";
+                if (text.length > length) {
+                    previewText = text.substring(0, length) + "...";
                 }
             }
             return previewText;

@@ -1,18 +1,20 @@
 'use strict';
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['$scope', function ($scope) {
+module.exports = ['$scope', 'PreviewTextService', function ($scope, PreviewTextService) {
 
-            $scope.expand = function () {
-                $scope.expanded = true;
-                if ($scope.maxHeight) {
-                    $scope.descriptionStyle = {'max-height': $scope.maxHeight, 'overflow-y': 'auto'};
-                } else {
-                    $scope.descriptionStyle = {'max-height': 'none'};
-                }
+    var ctrl = this;
 
-            };
-        }];
-    }
-};
+    ctrl.expanded = false;
+    ctrl.expand = function () {
+        ctrl.expanded = true;
+        ctrl.showText = $scope.description;
+    };
+
+    ctrl.showText = PreviewTextService.getPreviewText($scope.description, ctrl.length);
+
+    $scope.$watch('description', function (description) {
+        if (!ctrl.expanded) {
+            ctrl.showText = PreviewTextService.getPreviewText(description, ctrl.length);
+        }
+    });
+}];

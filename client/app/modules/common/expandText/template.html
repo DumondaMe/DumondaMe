@@ -1,7 +1,7 @@
 <div class="ely-expand-text">
-    <div class="ely-expand-text-description" ng-style="descriptionStyle">{{description}}</div>
-    <div class="ely-expand-expand" ng-click="expand()"
-            ng-show="showExpand && !expanded">
+    <div class="ely-expand-text-description">{{ctrl.showText}}</div>
+    <div class="ely-expand-expand" ng-click="ctrl.expand()"
+            ng-show="!ctrl.expanded">
         Mehr lesen
     </div>
 </div>
