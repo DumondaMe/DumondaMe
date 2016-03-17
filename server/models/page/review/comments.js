@@ -1,10 +1,9 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var pageFilter = require('./../pageFilter');
 var userInfo = require('../../user/userInfo');
 
-var getMatchQuery = function (label, onlyContacts) {
+var getMatchQuery = function (onlyContacts) {
     var matchQuery = "(page:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
     if (onlyContacts) {
         matchQuery = matchQuery.concat("<-[IS_CONTACT]-(user:User {userId: {userId}})");
@@ -12,11 +11,12 @@ var getMatchQuery = function (label, onlyContacts) {
         matchQuery = matchQuery.concat(", (user:User {userId: {userId}})");
     }
 
-    return db.cypher().match(matchQuery).where(pageFilter.getFilterQuery([label]));
+    return db.cypher().match(matchQuery);
 };
 
-var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
-    var matchQuery = getMatchQuery(label, onlyContacts);
+var getComments = function (userId, requestParams) {
+
+    var matchQuery = getMatchQuery(requestParams.onlyContacts);
 
     return matchQuery
         .with("page, rec, user, otherUser")
@@ -27,32 +27,18 @@ var getReviews = function (label, onlyContacts, userId, pageId, skip, limit) {
         .with("page, rec, otherUser, rContact, vr, privacy")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("otherUser.userId AS userId, otherUser.name AS name, rec.rating AS rating, rec.comment AS comment, rec.created AS created," +
-        "privacy.profile AS profileVisible, privacy.image AS imageVisible")
+            "privacy.profile AS profileVisible, privacy.image AS imageVisible")
         .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end({
-            pageId: pageId, userId: userId, skip: skip, limit: limit
-        }).getCommand();
-};
-
-var getReview = function (userId, requestParams) {
-
-    var matchQuery = getMatchQuery(requestParams.label, requestParams.onlyContacts), commands = [];
-
-    commands.push(getReviews(requestParams.label,
-        requestParams.onlyContacts, userId, requestParams.pageId, requestParams.skip, requestParams.maxItems));
-
-    return matchQuery
-        .return("rec.rating AS rating, count(*) AS numberOfRatings")
-        .orderBy("rating")
-        .end({pageId: requestParams.pageId, userId: userId}).send(commands)
-        .then(function (resp) {
-            userInfo.addImageForThumbnail(resp[0]);
-            return {ratings: resp[1], reviews: resp[0]};
+            pageId: requestParams.pageId, userId: userId, skip: requestParams.skip, limit: requestParams.maxItems
+        }).send().then(function (resp) {
+            userInfo.addImageForThumbnail(resp);
+            return {comments: resp};
         });
 };
 
 module.exports = {
-    getReview: getReview
+    getComments: getComments
 };
