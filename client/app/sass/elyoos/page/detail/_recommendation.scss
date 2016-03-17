@@ -4,6 +4,7 @@
     position: relative;
     .title {
       font-size: 16px;
+      font-weight: 400;
       margin-bottom: 16px;
     }
     .user-rating-date {
@@ -17,14 +18,15 @@
       right: -5px;
     }
     .user-comment {
-      margin-top: 8px;
+      margin: 8px 0;
       font-size: 14px;
       color: $secondary-text;
     }
     .add-recommendation-container {
-      height: 24px;
-      .add-recommendation {
-      }
+      height: 64px;
     }
+  }
+  .overview-rating-tabs {
+    min-height: 200px;
   }
 }

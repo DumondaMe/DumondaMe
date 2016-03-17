@@ -17,11 +17,26 @@
                 </div>
                 <div class="user-comment">{{ctrl.recommendation.user.comment}}</div>
             </div>
-            <div ng-show="!ctrl.recommendation.user" layout="row" layout-align="center center" class="add-recommendation-container">
+            <div ng-show="!ctrl.recommendation.user" layout="row" layout-align="center start" class="add-recommendation-container">
                 <div class="add-recommendation">
-                    <md-button class="md-primary" ng-click="ctrl.addRecommendation()">Bewerten</md-button>
+                    <md-button class="md-primary md-raised" ng-click="ctrl.addRecommendation()">Bewerten</md-button>
                 </div>
             </div>
         </div>
+        <md-divider></md-divider>
+        <md-tabs md-border-bottom md-center-tabs class="overview-rating-tabs"
+                 ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0">
+            <md-tab label="Alle">
+                <md-content class="rating-tab-content">
+                    <ely-page-detail-rating-overview only-contact="false"></ely-page-detail-rating-overview>
+                </md-content>
+            </md-tab>
+            <md-tab label="Kontakte" ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
+            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings">
+                <md-content class="rating-tab-content">
+                    <ely-page-detail-rating-overview only-contact="true"></ely-page-detail-rating-overview>
+                </md-content>
+            </md-tab>
+        </md-tabs>
     </md-card-content>
 </md-card>
