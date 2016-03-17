@@ -1196,6 +1196,13 @@ h2.website-structure-title {
     font-size: 16px;
     max-height: 57px;
     overflow: hidden; }
+  #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container {
+    margin: 2px 0; }
+    #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container .page-rating-number {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .authors {
     margin-top: 2px;
     font-size: 14px;
@@ -1212,6 +1219,28 @@ h2.website-structure-title {
     width: 100px;
     height: 165px;
     margin-right: 16px; }
+
+#ely-page-recommendation {
+  max-width: 600px; }
+  #ely-page-recommendation .user-recommendation {
+    position: relative; }
+    #ely-page-recommendation .user-recommendation .title {
+      font-size: 16px;
+      margin-bottom: 16px; }
+    #ely-page-recommendation .user-recommendation .user-rating-date {
+      margin-top: 4px;
+      margin-left: 8px;
+      font-size: 14px; }
+    #ely-page-recommendation .user-recommendation .button-delete {
+      position: absolute;
+      top: -10px;
+      right: -5px; }
+    #ely-page-recommendation .user-recommendation .user-comment {
+      margin-top: 8px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+    #ely-page-recommendation .user-recommendation .add-recommendation-container {
+      height: 24px; }
 
 #manage-book-page {
   width: 100%;
@@ -1308,23 +1337,25 @@ h2.website-structure-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
-  .pinwall-recommendation-card .book-recommendation .content-container .title {
-    font-weight: 500;
-    font-size: 16px;
-    max-height: 38px;
-    overflow: hidden; }
-  .pinwall-recommendation-card .book-recommendation .content-container .description {
-    margin-top: 8px;
-    font-size: 14px;
-    line-height: 16px;
-    max-height: 48px;
-    overflow: hidden;
-    color: rgba(0, 0, 0, 0.54); }
-  .pinwall-recommendation-card .book-recommendation .content-container .forename {
-    margin-top: 12px;
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.87); }
+  .pinwall-recommendation-card .book-recommendation .content-container {
+    cursor: pointer; }
+    .pinwall-recommendation-card .book-recommendation .content-container .title {
+      font-weight: 500;
+      font-size: 16px;
+      max-height: 38px;
+      overflow: hidden; }
+    .pinwall-recommendation-card .book-recommendation .content-container .description {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 16px;
+      max-height: 48px;
+      overflow: hidden;
+      color: rgba(0, 0, 0, 0.54); }
+    .pinwall-recommendation-card .book-recommendation .content-container .forename {
+      margin-top: 12px;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87); }
 
 .pinwall-recommendation-card {
   max-width: 400px;
@@ -1501,6 +1532,12 @@ h2.website-structure-title {
 
 #ely-add-recommendation {
   width: 100%; }
+  #ely-add-recommendation .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    #ely-add-recommendation .title .title-modify {
+      color: #3F51B5; }
   #ely-add-recommendation .description-container {
     padding: 16px 24px; }
     #ely-add-recommendation .description-container .input-container {
@@ -1511,6 +1548,10 @@ h2.website-structure-title {
   #ely-add-recommendation .star-rating-commands {
     margin-left: 24px;
     margin-bottom: 4px; }
+
+#ely-add-recommendation-dialog {
+  min-width: 300px;
+  max-width: 600px; }
 
 #add-group {
   max-width: 500px; }

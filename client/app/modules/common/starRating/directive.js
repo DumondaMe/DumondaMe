@@ -8,7 +8,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {
-                isReadonly: '@',
+                isReadonly: '=',
                 isSmall: '@',
                 isXSmall: '@',
                 numberOfSelectedStars: '=',

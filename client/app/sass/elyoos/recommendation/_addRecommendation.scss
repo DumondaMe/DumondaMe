@@ -1,5 +1,13 @@
 #ely-add-recommendation {
   width: 100%;
+  .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid $divider;
+    .title-modify {
+      color: $primary-color;
+    }
+  }
   .description-container {
     padding: 16px 24px;
 
@@ -15,4 +23,9 @@
     margin-left: 24px;
     margin-bottom: 4px;
   }
+}
+
+#ely-add-recommendation-dialog {
+  min-width: 300px;
+  max-width: 600px;
 }

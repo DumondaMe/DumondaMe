@@ -11,9 +11,10 @@ module.exports = {
             bindToController: {
                 title: '=',
                 pageId: '=',
+                abort: '=',
                 finish: '='
             },
-            templateUrl: 'app/modules/recommendation/addRecommendation/template.html'
+            templateUrl: 'app/modules/recommendation/addRecommendation/directive/template.html'
         };
     }],
     name: 'elyAddRecommendation'

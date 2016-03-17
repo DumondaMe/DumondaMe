@@ -1,0 +1,27 @@
+<md-card id="ely-page-recommendation">
+    <md-card-content>
+        <div class="user-recommendation">
+            <div ng-show="ctrl.recommendation.user">
+                <div>
+                    <div class="md-title title">Deine Bewertung</div>
+                    <div class="button-delete">
+                        <md-button class="md-icon-button" aria-label="Delete Recommendation" ng-click="ctrl.deleteRecommendation()">
+                            <md-icon md-svg-icon="cardActions:delete"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <ely-star-rating class="user-rating" is-readonly="true" is-x-small="true" flex="none"
+                                     number-of-selected-stars-readonly="ctrl.recommendation.user.rating"></ely-star-rating>
+                    <div class="user-rating-date">bewertet am {{ctrl.recommendation.user.created}}</div>
+                </div>
+                <div class="user-comment">{{ctrl.recommendation.user.comment}}</div>
+            </div>
+            <div ng-show="!ctrl.recommendation.user" layout="row" layout-align="center center" class="add-recommendation-container">
+                <div class="add-recommendation">
+                    <md-button class="md-primary" ng-click="ctrl.addRecommendation()">Bewerten</md-button>
+                </div>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

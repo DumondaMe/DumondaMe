@@ -6,6 +6,11 @@
                 <div class="authors">von
                     <span class="author" ng-repeat="author in ctrl.pageDetail.page.author"><span ng-if="!$first">,</span>{{author.name}}</span>
                 </div>
+                <div class="page-rating-container">
+                    <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
+                                     number-of-selected-stars-readonly="ctrl.pageDetail.recommendation.summary.all.rating"></ely-star-rating>
+                    <div class="page-rating-number">({{ctrl.pageDetail.recommendation.summary.all.numberOfRatings}})</div>
+                </div>
             </div>
             <span flex></span>
             <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
@@ -23,7 +28,8 @@
             <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon"></md-icon>
             <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
             <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-                  ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}</div>
+                 ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}
+            </div>
         </div>
         <div class="image-description-container">
             <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}">

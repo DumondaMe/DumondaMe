@@ -26,7 +26,6 @@ module.exports = {
     directiveCtrl: function () {
         return ['$scope', function ($scope) {
 
-            $scope.isReadonly = $scope.isReadonly === 'true';
             $scope.isSmall = $scope.isSmall === 'true';
             $scope.isXSmall = $scope.isXSmall === 'true';
 

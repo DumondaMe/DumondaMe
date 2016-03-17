@@ -1,0 +1,30 @@
+#ely-page-recommendation {
+  max-width: 600px;
+  .user-recommendation {
+    position: relative;
+    .title {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    .user-rating-date {
+      margin-top: 4px;
+      margin-left: 8px;
+      font-size: 14px;
+    }
+    .button-delete {
+      position: absolute;
+      top: -10px;
+      right: -5px;
+    }
+    .user-comment {
+      margin-top: 8px;
+      font-size: 14px;
+      color: $secondary-text;
+    }
+    .add-recommendation-container {
+      height: 24px;
+      .add-recommendation {
+      }
+    }
+  }
+}

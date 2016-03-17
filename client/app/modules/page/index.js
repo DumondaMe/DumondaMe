@@ -12,7 +12,6 @@ app.service('PageUserRecommendation', require('./services/pageUserRecommendation
 app.service('PageUserAdministration', require('./services/pageUserAdministration'));
 app.service('PageSearchUserRecommendation', require('./services/pageSearchUserRecommendation'));
 app.service('PageSearchUserAdministratedPage', require('./services/pageSearchUserAdministratedPage'));
-app.service('UploadPage', require('./services/uploadPage'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
