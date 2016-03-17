@@ -29,7 +29,7 @@
       max-width: 300px;
       .page-rating-review-line {
         height: 24px;
-        width: 100%;
+        width: 90%;
         .page-rating-review-line-star {
           height: 12px;
           width: 12px;
@@ -42,8 +42,12 @@
           line-height: 24px;
         }
         .page-rating-review-line-block {
+          position: relative;
           height: 24px;
           .page-rating-review-line-block-5 {
+            position: absolute;
+            top: 0;
+            left: 0;
             font-size: 11px;
             line-height: 24px;
             padding-left: 5px;

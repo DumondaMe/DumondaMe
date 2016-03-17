@@ -14,8 +14,8 @@ var setCreateDate = function (reviews, moment) {
     });
 };
 
-module.exports = ['PageDetailReview', '$stateParams', 'moment', 'PageRatingOverviewCalcService',
-    function (PageDetailReview, $stateParams, moment, PageRatingOverviewCalcService) {
+module.exports = ['PageDetailRatings', '$stateParams', 'moment', 'PageRatingOverviewCalcService',
+    function (PageDetailRatings, $stateParams, moment, PageRatingOverviewCalcService) {
         var ctrl = this;
 
         if (angular.isObject(ctrl.commands)) {
@@ -25,17 +25,14 @@ module.exports = ['PageDetailReview', '$stateParams', 'moment', 'PageRatingOverv
         }
 
         ctrl.getPageDetailReview = function () {
-            ctrl.review = PageDetailReview.get({
-                skip: 0,
-                maxItems: 2,
+            ctrl.review = PageDetailRatings.get({
                 onlyContacts: ctrl.onlyContact,
-                pageId: $stateParams.pageId,
-                label: $stateParams.label
+                pageId: $stateParams.pageId
             }, function () {
                 initRating(ctrl);
                 PageRatingOverviewCalcService.calculateSummaryRating(ctrl);
                 PageRatingOverviewCalcService.calculateDiagramBlockWidth(ctrl);
-                setCreateDate(ctrl.review.reviews, moment);
+                //setCreateDate(ctrl.review.reviews, moment);
             });
         };
         ctrl.getPageDetailReview();

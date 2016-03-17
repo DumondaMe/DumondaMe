@@ -1191,7 +1191,8 @@ h2.website-structure-title {
   height: 100%; }
 
 #ely-book-page-detail #ely-book-page-main-detail {
-  max-width: 600px; }
+  max-width: 600px;
+  min-width: 300px; }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
     font-size: 16px;
     max-height: 57px;
@@ -1244,7 +1245,7 @@ h2.website-structure-title {
       max-width: 300px; }
       #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line {
         height: 24px;
-        width: 100%; }
+        width: 90%; }
         #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
           height: 12px;
           width: 12px;
@@ -1255,8 +1256,12 @@ h2.website-structure-title {
           font-size: 11px;
           line-height: 24px; }
         #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
+          position: relative;
           height: 24px; }
           #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
             font-size: 11px;
             line-height: 24px;
             padding-left: 5px;
@@ -1273,7 +1278,8 @@ h2.website-structure-title {
             background-color: #ff6f31; }
 
 #ely-page-recommendation {
-  max-width: 600px; }
+  max-width: 600px;
+  min-width: 300px; }
   #ely-page-recommendation .user-recommendation {
     position: relative; }
     #ely-page-recommendation .user-recommendation .title {

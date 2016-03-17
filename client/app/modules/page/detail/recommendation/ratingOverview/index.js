@@ -5,5 +5,5 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.service('PageDetailReview', require('./services/pageDetailReview'));
+app.service('PageDetailRatings', require('./services/pageDetailRatings'));
 app.service('PageRatingOverviewCalcService', require('./services/calculator'));
