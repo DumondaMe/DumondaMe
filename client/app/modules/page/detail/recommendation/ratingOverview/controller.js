@@ -18,18 +18,26 @@ module.exports = ['PageDetailReview', '$stateParams', 'moment', 'PageRatingOverv
     function (PageDetailReview, $stateParams, moment, PageRatingOverviewCalcService) {
         var ctrl = this;
 
-        initRating(ctrl);
+        if (angular.isObject(ctrl.commands)) {
+            ctrl.commands.reload = function () {
+                ctrl.getPageDetailReview();
+            };
+        }
 
-        ctrl.review = PageDetailReview.get({
-            skip: 0,
-            maxItems: 2,
-            onlyContacts: ctrl.onlyContact,
-            pageId: $stateParams.pageId,
-            label: $stateParams.label
-        }, function () {
-            PageRatingOverviewCalcService.calculateSummaryRating(ctrl);
-            PageRatingOverviewCalcService.calculateDiagramBlockWidth(ctrl);
-            setCreateDate(ctrl.review.reviews, moment);
-        });
+        ctrl.getPageDetailReview = function () {
+            ctrl.review = PageDetailReview.get({
+                skip: 0,
+                maxItems: 2,
+                onlyContacts: ctrl.onlyContact,
+                pageId: $stateParams.pageId,
+                label: $stateParams.label
+            }, function () {
+                initRating(ctrl);
+                PageRatingOverviewCalcService.calculateSummaryRating(ctrl);
+                PageRatingOverviewCalcService.calculateDiagramBlockWidth(ctrl);
+                setCreateDate(ctrl.review.reviews, moment);
+            });
+        };
+        ctrl.getPageDetailReview();
     }];
 

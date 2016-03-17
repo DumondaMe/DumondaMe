@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                onlyContact: '='
+                onlyContact: '=',
+                commands: '='
             },
             templateUrl: 'app/modules/page/detail/recommendation/ratingOverview/template.html'
         };

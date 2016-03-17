@@ -28,13 +28,14 @@
                  ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0">
             <md-tab label="Alle">
                 <md-content class="rating-tab-content">
-                    <ely-page-detail-rating-overview only-contact="false"></ely-page-detail-rating-overview>
+                    <ely-page-detail-rating-overview only-contact="false" commands="ctrl.ratingOverviewAllCommands"></ely-page-detail-rating-overview>
                 </md-content>
             </md-tab>
             <md-tab label="Kontakte" ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
             ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings">
                 <md-content class="rating-tab-content">
-                    <ely-page-detail-rating-overview only-contact="true"></ely-page-detail-rating-overview>
+                    <ely-page-detail-rating-overview only-contact="true"
+                                                     commands="ctrl.ratingOverviewContactCommands"></ely-page-detail-rating-overview>
                 </md-content>
             </md-tab>
         </md-tabs>

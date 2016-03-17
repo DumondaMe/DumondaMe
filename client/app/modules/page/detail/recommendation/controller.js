@@ -1,8 +1,20 @@
 'use strict';
 
+var reloadRatingOverview = function (allCommand, contactCommand) {
+    if(allCommand.hasOwnProperty('reload')) {
+        allCommand.reload();
+    }
+    if(contactCommand.hasOwnProperty('reload')) {
+        contactCommand.reload();
+    }
+};
+
 module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast',
     function (PageUserRecommendation, ElyModal, $mdDialog, errorToast) {
         var ctrl = this;
+
+        ctrl.ratingOverviewAllCommands = {};
+        ctrl.ratingOverviewContactCommands = {};
 
         ctrl.deleteRecommendation = function () {
             var confirm = $mdDialog.confirm()
@@ -18,6 +30,7 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
                 }, function (resp) {
                     ctrl.recommendation.summary = resp.recommendation;
                     delete ctrl.recommendation.user;
+                    reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
                 }, function () {
                     errorToast.showError("Fehler beim Löschen der Bewertung");
                 });
@@ -28,6 +41,7 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
             ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
                 {pageId: ctrl.pageId, title: ctrl.title}).then(function (data) {
                 ctrl.recommendation = data.recommendation;
+                reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
             });
         };
     }];
