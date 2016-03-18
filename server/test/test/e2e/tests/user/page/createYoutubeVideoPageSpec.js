@@ -32,10 +32,10 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         var createPage = {
             youtubePage: {
-                language: 'de',
+                category: ['environmental', 'education'],
                 title: 'title',
                 description: 'description',
-                link: 'https://www.youtube.com/embed/Test',
+                link: 'https://www.youtube.com/embed/Test'
             }
         }, pageId;
 
@@ -46,18 +46,21 @@ describe('Integration Tests for creating new youtube pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.language AS language, page.description AS description, page.link AS link, ' +
-                'page.modified AS modified, page.created AS created, page.label AS label')
+                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
+                    'page.modified AS modified, page.created AS created, page.label AS label')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].modified.should.at.least(startTime);
             page[0].created.should.at.least(startTime);
-            page[0].language.should.equals("de");
             page[0].pageId.should.equals(pageId);
             page[0].description.should.equals("description");
             page[0].link.should.equals("https://www.youtube.com/embed/Test");
             page[0].label.should.equals("Youtube");
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('environmental');
+            page[0].category[1].should.equals('education');
         });
     });
 });
