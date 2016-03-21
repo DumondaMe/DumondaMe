@@ -1217,25 +1217,29 @@ h2.website-structure-title {
     height: 165px;
     margin-right: 16px; }
 
-#ely-page-comments .ely-page-comments-detail {
-  height: 100%; }
-  #ely-page-comments .ely-page-comments-detail .ely-page-comment {
-    margin-top: 16px;
-    width: 250px; }
-    #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 16px; }
-    #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
-      font-size: 14px; }
-    #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
-    #ely-page-comments .ely-page-comments-detail .ely-page-comment .description {
-      margin-top: 8px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
+#ely-page-comments {
+  min-width: 300px; }
+  #ely-page-comments .ely-page-comments-detail {
+    height: 100%; }
+    #ely-page-comments .ely-page-comments-detail .ely-page-comment {
+      margin-top: 16px;
+      width: 250px; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 16px; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
+        font-size: 14px; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54); }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .description {
+        margin-top: 8px;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54); }
+    #ely-page-comments .ely-page-comments-detail .pagination {
+      margin-top: 8px; }
 
 #ely-page-detail {
   background-color: #E0E0E0;

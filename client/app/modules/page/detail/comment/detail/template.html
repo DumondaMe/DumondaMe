@@ -11,4 +11,14 @@
         </div>
         <ely-expand-text class="description" description="{{comment.comment}}" length="160"></ely-expand-text>
     </div>
+    <div class="pagination" flex="100" layout="row" layout-align="center center">
+        <md-button class="md-fab md-mini md-primary" aria-label="Delete Recommendation" ng-click="ctrl.getPrevious()"
+                   ng-disabled="ctrl.running" ng-show="ctrl.skip > 0">
+            <md-icon md-svg-icon="cardActions:arrowLeft"></md-icon>
+        </md-button>
+        <md-button class="md-fab md-mini md-primary" aria-label="Delete Recommendation" ng-click="ctrl.getNext()"
+                   ng-disabled="ctrl.running" ng-hide="ctrl.skip + ctrl.maxItems >= ctrl.comments.totalNumberOfComments">
+            <md-icon md-svg-icon="cardActions:arrowRight"></md-icon>
+        </md-button>
+    </div>
 </div>

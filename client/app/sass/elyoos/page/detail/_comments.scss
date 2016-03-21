@@ -1,4 +1,5 @@
 #ely-page-comments {
+  min-width: 300px;
   .ely-page-comments-detail {
     height: 100%;
     .ely-page-comment {
@@ -26,6 +27,9 @@
         font-size: 14px;
         color: $secondary-text;
       }
+    }
+    .pagination {
+      margin-top: 8px;
     }
   }
 }
