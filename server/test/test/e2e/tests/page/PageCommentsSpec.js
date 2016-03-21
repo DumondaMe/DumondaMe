@@ -114,6 +114,7 @@ describe('Integration Tests for getting page comments', function () {
                 }).then(function (res) {
                     res.status.should.equal(200);
 
+                    res.body.totalNumberOfComments.should.equals(6);
                     res.body.comments.length.should.equals(6);
 
                     res.body.comments[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -209,6 +210,7 @@ describe('Integration Tests for getting page comments', function () {
                 }).then(function (res) {
                     res.status.should.equal(200);
 
+                    res.body.totalNumberOfComments.should.equals(7);
                     res.body.comments.length.should.equals(7);
 
                     res.body.comments[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');

@@ -14,9 +14,18 @@ var getMatchQuery = function (onlyContacts) {
     return db.cypher().match(matchQuery);
 };
 
+var getTotalNumberOfComments = function (userId, pageId, onlyContacts) {
+    return getMatchQuery(onlyContacts)
+        .where("otherUser.userId <> {userId}")
+        .return("count(*) AS totalNumberOfComments")
+        .end({userId: userId, pageId: pageId}).getCommand();
+};
+
 var getComments = function (userId, requestParams) {
 
-    var matchQuery = getMatchQuery(requestParams.onlyContacts);
+    var matchQuery = getMatchQuery(requestParams.onlyContacts), commands = [];
+
+    commands.push(getTotalNumberOfComments(userId, requestParams.pageId, requestParams.onlyContacts));
 
     return matchQuery
         .with("page, rec, user, otherUser")
@@ -33,9 +42,9 @@ var getComments = function (userId, requestParams) {
         .limit("{limit}")
         .end({
             pageId: requestParams.pageId, userId: userId, skip: requestParams.skip, limit: requestParams.maxItems
-        }).send().then(function (resp) {
-            userInfo.addImageForThumbnail(resp);
-            return {comments: resp};
+        }).send(commands).then(function (resp) {
+            userInfo.addImageForThumbnail(resp[1]);
+            return {totalNumberOfComments: resp[0][0].totalNumberOfComments, comments: resp[1]};
         });
 };
 
