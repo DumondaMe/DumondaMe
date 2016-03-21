@@ -14,7 +14,7 @@ module.exports = {
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
-                ctrl.previewText = PreviewTextService.getPreviewText(ctrl.element.text, 120);
+                ctrl.previewText = PreviewTextService.getPreviewText(ctrl.element.text, 120).text;
 
                 hasDetail = checkHasDetail(ctrl.element.text, ctrl.element.url);
 

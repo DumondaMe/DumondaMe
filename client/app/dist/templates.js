@@ -17,7 +17,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/common/expandText/template.html',
-    "<div class=ely-expand-text><div class=ely-expand-text-description>{{ctrl.showText}}</div><div class=ely-expand-expand ng-click=ctrl.expand() ng-show=!ctrl.expanded>Mehr lesen</div></div>"
+    "<div class=ely-expand-text><div class=ely-expand-text-description>{{ctrl.text.text}}</div><div class=ely-expand-expand ng-click=ctrl.expand() ng-show=\"!ctrl.expanded && ctrl.text.cropped\">Mehr lesen</div></div>"
   );
 
 
@@ -322,12 +322,19 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/book/template.html',
-    "<div id=ely-book-page-detail><ely-page-detail-main-book page-detail=ctrl.pageDetail></ely-page-detail-main-book><ely-page-detail-recommendation page-id=ctrl.pageDetail.page.pageId recommendation=ctrl.pageDetail.recommendation title=ctrl.pageDetail.page.title></ely-page-detail-recommendation></div>"
+    "<div id=ely-book-page-detail><ely-page-detail-main-book page-detail=ctrl.pageDetail></ely-page-detail-main-book><ely-page-detail-recommendation page-id=ctrl.pageDetail.page.pageId recommendation=ctrl.pageDetail.recommendation title=ctrl.pageDetail.page.title></ely-page-detail-recommendation><ely-page-detail-user-comments recommendation=ctrl.pageDetail.recommendation></ely-page-detail-user-comments></div>"
+  );
+
+
+  $templateCache.put('app/modules/page/detail/comment/detail/template.html',
+    "<div class=ely-page-comments-detail layout=row layout-align=\"center start\" layout-wrap><div class=ely-page-comment ng-repeat=\"comment in ctrl.comments.comments\"><div class=header layout=row><img ng-src={{comment.profileUrl}} class=profile-preview layout=none><div class=profile-container><div class=\"name md-title\">{{comment.name}}</div><div class=date>{{ctrl.getDate(comment.created)}}</div><ely-star-rating class=user-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=comment.rating></ely-star-rating></div></div><ely-expand-text class=description description={{comment.comment}} length=160></ely-expand-text></div></div>"
   );
 
 
   $templateCache.put('app/modules/page/detail/comment/template.html',
-    "<md-card id=ely-page-recommendation><md-card-content></md-card-content></md-card>"
+    "<md-card id=ely-page-comments><md-card-content><md-tabs md-border-bottom md-dynamic-height md-center-tabs class=overview-rating-tabs ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0\"><md-tab label=Alle><md-content class=md-padding><ely-page-detail-user-comments-detail only-contact=false></ely-page-detail-user-comments-detail></md-content></md-tab><md-tab label=Kontakte ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 &&\r" +
+    "\n" +
+    "            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings\"><md-content class=md-padding><ely-page-detail-user-comments-detail only-contact=true></ely-page-detail-user-comments-detail></md-content></md-tab></md-tabs></md-card-content></md-card>"
   );
 
 
@@ -337,7 +344,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/recommendation/template.html',
-    "<md-card id=ely-page-recommendation><md-card-content><div class=user-recommendation><div ng-show=ctrl.recommendation.user><div><div class=\"md-title title\">Deine Bewertung</div><div class=button-delete><md-button class=md-icon-button aria-label=\"Delete Recommendation\" ng-click=ctrl.deleteRecommendation()><md-icon md-svg-icon=cardActions:delete></md-icon></md-button></div></div><div layout=row><ely-star-rating class=user-rating is-readonly=true is-x-small=true flex=none number-of-selected-stars-readonly=ctrl.recommendation.user.rating></ely-star-rating><div class=user-rating-date>bewertet am {{ctrl.recommendation.user.created}}</div></div><div class=user-comment>{{ctrl.recommendation.user.comment}}</div></div><div ng-show=!ctrl.recommendation.user layout=row layout-align=\"center start\" class=add-recommendation-container><div class=add-recommendation><md-button class=\"md-primary md-raised\" ng-click=ctrl.addRecommendation()>Bewerten</md-button></div></div></div><md-divider></md-divider><md-tabs md-border-bottom md-center-tabs class=overview-rating-tabs ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0\"><md-tab label=Alle><md-content class=rating-tab-content><ely-page-detail-rating-overview only-contact=false commands=ctrl.ratingOverviewAllCommands></ely-page-detail-rating-overview></md-content></md-tab><md-tab label=Kontakte ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 &&\r" +
+    "<md-card id=ely-page-recommendation><md-card-content><div class=user-recommendation><div ng-show=ctrl.recommendation.user><div><div class=\"md-title title\">Deine Bewertung</div><div class=button-delete><md-button class=md-icon-button aria-label=\"Delete Recommendation\" ng-click=ctrl.deleteRecommendation()><md-icon md-svg-icon=cardActions:delete></md-icon></md-button></div></div><div layout=row><ely-star-rating class=user-rating is-readonly=true is-x-small=true flex=none number-of-selected-stars-readonly=ctrl.recommendation.user.rating></ely-star-rating><div class=user-rating-date>bewertet am {{ctrl.recommendation.user.created}}</div></div><ely-expand-text class=user-comment description={{ctrl.recommendation.user.comment}} length=160></ely-expand-text></div><div ng-show=!ctrl.recommendation.user layout=row layout-align=\"center start\" class=add-recommendation-container><div class=add-recommendation><md-button class=\"md-primary md-raised\" ng-click=ctrl.addRecommendation()>Bewerten</md-button></div></div></div><md-divider></md-divider><md-tabs md-border-bottom md-center-tabs class=overview-rating-tabs ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0\"><md-tab label=Alle><md-content class=rating-tab-content><ely-page-detail-rating-overview only-contact=false commands=ctrl.ratingOverviewAllCommands></ely-page-detail-rating-overview></md-content></md-tab><md-tab label=Kontakte ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 &&\r" +
     "\n" +
     "            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings\"><md-content class=rating-tab-content><ely-page-detail-rating-overview only-contact=true commands=ctrl.ratingOverviewContactCommands></ely-page-detail-rating-overview></md-content></md-tab></md-tabs></md-card-content></md-card>"
   );

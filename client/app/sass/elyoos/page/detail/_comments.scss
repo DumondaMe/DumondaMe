@@ -1,0 +1,31 @@
+#ely-page-comments {
+  .ely-page-comments-detail {
+    height: 100%;
+    .ely-page-comment {
+      margin-top: 16px;
+      width: 250px;
+      .header {
+        .profile-preview {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 16px;
+        }
+        .profile-container {
+          .name {
+            font-size: 14px;
+          }
+          .date {
+            font-size: 14px;
+            color: $secondary-text;
+          }
+        }
+      }
+      .description {
+        margin-top: 8px;
+        font-size: 14px;
+        color: $secondary-text;
+      }
+    }
+  }
+}

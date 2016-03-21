@@ -9,10 +9,10 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                recommendation: '='
+                onlyContact: '='
             },
-            templateUrl: 'app/modules/page/detail/comment/template.html'
+            templateUrl: 'app/modules/page/detail/comment/detail/template.html'
         };
     }],
-    name: 'elyPageDetailUserComments'
+    name: 'elyPageDetailUserCommentsDetail'
 };

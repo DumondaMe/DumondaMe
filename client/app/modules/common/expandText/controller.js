@@ -7,14 +7,14 @@ module.exports = ['$scope', 'PreviewTextService', function ($scope, PreviewTextS
     ctrl.expanded = false;
     ctrl.expand = function () {
         ctrl.expanded = true;
-        ctrl.showText = $scope.description;
+        ctrl.text.text = $scope.description;
     };
 
-    ctrl.showText = PreviewTextService.getPreviewText($scope.description, ctrl.length);
+    ctrl.text = PreviewTextService.getPreviewText($scope.description, ctrl.length);
 
     $scope.$watch('description', function (description) {
         if (!ctrl.expanded) {
-            ctrl.showText = PreviewTextService.getPreviewText(description, ctrl.length);
+            ctrl.text = PreviewTextService.getPreviewText(description, ctrl.length);
         }
     });
 }];

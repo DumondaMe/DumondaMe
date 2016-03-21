@@ -1,5 +1,18 @@
 <md-card id="ely-page-comments">
     <md-card-content>
-
+        <md-tabs md-border-bottom md-dynamic-height md-center-tabs class="overview-rating-tabs"
+                 ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0">
+            <md-tab label="Alle">
+                <md-content class="md-padding">
+                    <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
+                </md-content>
+            </md-tab>
+            <md-tab label="Kontakte" ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
+            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings">
+                <md-content class="md-padding">
+                    <ely-page-detail-user-comments-detail only-contact="true"></ely-page-detail-user-comments-detail>
+                </md-content>
+            </md-tab>
+        </md-tabs>
     </md-card-content>
 </md-card>

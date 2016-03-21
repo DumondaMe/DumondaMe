@@ -15,7 +15,7 @@
                                      number-of-selected-stars-readonly="ctrl.recommendation.user.rating"></ely-star-rating>
                     <div class="user-rating-date">bewertet am {{ctrl.recommendation.user.created}}</div>
                 </div>
-                <div class="user-comment">{{ctrl.recommendation.user.comment}}</div>
+                <ely-expand-text class="user-comment" description="{{ctrl.recommendation.user.comment}}" length="160"></ely-expand-text>
             </div>
             <div ng-show="!ctrl.recommendation.user" layout="row" layout-align="center start" class="add-recommendation-container">
                 <div class="add-recommendation">

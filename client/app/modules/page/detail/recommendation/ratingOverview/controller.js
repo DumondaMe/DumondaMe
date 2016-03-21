@@ -8,12 +8,6 @@ var initRating = function (ctrl) {
     }
 };
 
-var setCreateDate = function (reviews, moment) {
-    angular.forEach(reviews, function (review) {
-        review.created = moment.unix(review.created).format('LL');
-    });
-};
-
 module.exports = ['PageDetailRatings', '$stateParams', 'moment', 'PageRatingOverviewCalcService',
     function (PageDetailRatings, $stateParams, moment, PageRatingOverviewCalcService) {
         var ctrl = this;
@@ -32,7 +26,6 @@ module.exports = ['PageDetailRatings', '$stateParams', 'moment', 'PageRatingOver
                 initRating(ctrl);
                 PageRatingOverviewCalcService.calculateSummaryRating(ctrl);
                 PageRatingOverviewCalcService.calculateDiagramBlockWidth(ctrl);
-                //setCreateDate(ctrl.review.reviews, moment);
             });
         };
         ctrl.getPageDetailReview();

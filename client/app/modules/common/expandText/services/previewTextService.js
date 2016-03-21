@@ -4,12 +4,16 @@
 module.exports = [
     function () {
         this.getPreviewText = function (text, length) {
-            var previewText = text;
+            var previewText = text, cropped = false;
             if (text) {
                 if (text.length > length) {
                     previewText = text.substring(0, length) + "...";
+                    cropped = true;
                 }
             }
-            return previewText;
+            return {
+                text: previewText,
+                cropped: cropped
+            };
         };
     }];
