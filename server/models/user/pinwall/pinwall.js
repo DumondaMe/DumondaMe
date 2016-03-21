@@ -95,16 +95,16 @@ var getPinwall = function (userId, request) {
     commands.push(getNumberOfContacting(userId).getCommand());
     commands.push(getUserInfos(userId).getCommand());
 
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN|:RECOMMENDS*0..2]->(pinwall:PinwallElement)")
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN|:RECOMMENDS*1..2]->(pinwall:PinwallElement)")
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .optionalMatch("(user)-[:IS_CONTACT]->(contact:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
-        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall)")
+        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall) AND " + notShowWhenUserIsBlocked)
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact:User)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall) AND isContact.type = relPrivacy.type")
         .with("user, pinwall, pinwallData, contact, isContact, privacy, privacyNoContact, " +
             "EXISTS((user)-[:WRITTEN|:RECOMMENDS]->(pinwall)) AS isAdmin")
         .where("( " + showWhenUserPinwallElement + " OR " + showBlogOtherUserWhenPublic + " OR " + showBlogOtherUserPrivacySet + " OR " +
-            showOtherUserPinwallElements + ") AND " + notShowWhenUserIsBlocked)
+            showOtherUserPinwallElements + ")")
         .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
