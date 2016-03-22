@@ -21,8 +21,7 @@ var schemaSearchPage = {
             items: {enum: ['Book', 'Youtube']},
             minItems: 1,
             uniqueItems: true
-        },
-        filterLanguage: {enum: ['de', 'en', 'fr', 'it']}
+        }
     }
 };
 
@@ -38,7 +37,7 @@ module.exports = function (router) {
             return validation.validateQueryRequest(req, schemaSearchPage, logger).then(function (request) {
                 logger.info('Search for a page: ' + request.search, req);
                 return searchPage.searchPage(req.user.id,
-                    request.search, request.filterType, request.filterLanguage, request.skip, request.maxItems, request.isSuggestion);
+                    request.search, request.filterType, request.skip, request.maxItems, request.isSuggestion);
             }).then(function (page) {
                 res.status(200).json(page);
             });

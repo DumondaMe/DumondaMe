@@ -5,20 +5,15 @@ var underscore = require('underscore');
 var pagePreview = require('./pagePreview');
 var pageFilter = require('./pageFilter');
 
-var searchPage = function (userId, search, filterType, filterLanguage, skip, limit) {
+var searchPage = function (userId, search, filterType, skip, limit) {
 
     var orderBy = "page.modified DESC",
         startQuery = db.cypher(),
         searchRegEx = '(?i).*'.concat(search, '.*'),
-        filterQuery = pageFilter.getFilterQuery(filterType),
-        filterLanguageQuery = '';
-
-    if (filterLanguage) {
-        filterLanguageQuery = "AND page.language = '" + filterLanguage + "'";
-    }
+        filterQuery = pageFilter.getFilterQuery(filterType);
 
     startQuery.match("(page)")
-        .where("(" + filterQuery + ") AND page.title =~ {search} " + filterLanguageQuery)
+        .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
         .with("page")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
         .with("page, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
