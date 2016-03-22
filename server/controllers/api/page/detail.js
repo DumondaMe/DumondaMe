@@ -13,15 +13,13 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['Book', 'Youtube', 'Education', 'Course']}
+        label: {enum: ['Book', 'Youtube']}
     }
 };
 
 var detail = {
     Book: require('./../../../models/page/detail/bookDetail'),
-    Youtube: require('./../../../models/page/detail/videoDetail'),
-    Course: require('./../../../models/page/detail/courseDetail'),
-    Education: require('./../../../models/page/detail/educationDetail')
+    Youtube: require('./../../../models/page/detail/videoDetail')
 };
 
 module.exports = function (router) {
