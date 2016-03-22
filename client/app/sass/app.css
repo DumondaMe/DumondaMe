@@ -1437,7 +1437,7 @@ h2.website-structure-title {
       overflow: hidden;
       color: rgba(0, 0, 0, 0.54); }
     .pinwall-recommendation-card .book-recommendation .content-container .forename {
-      margin-top: 12px;
+      margin-bottom: 4px;
       font-weight: 400;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87); }
@@ -1767,7 +1767,7 @@ h2.website-structure-title {
   #ely-setting-overview .content .setting:hover {
     background-color: #C5CAE9; }
 
-#setting-user-pinwall .title {
+#setting-user-pinwall .setting-title {
   margin-top: 16px;
   margin-left: 10px;
   font-size: 16px;
