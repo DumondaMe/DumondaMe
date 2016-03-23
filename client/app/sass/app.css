@@ -357,8 +357,7 @@
     height: 16px; }
 
 .category-description {
-  padding: 0 16px;
-  width: 100%; }
+  padding: 0 16px; }
   .category-description .category-icon {
     margin-bottom: 8px; }
   .category-description .category-type {
@@ -1441,51 +1440,34 @@ h2.website-structure-title {
     .pinwall-no-element .action .link {
       color: #3F51B5; }
 
-.pinwall-recommendation-card {
+.card-recommendation {
   max-width: 400px;
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
-  .pinwall-recommendation-card .book-recommendation .header .user-name {
+  .card-recommendation .header .user-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
-  .pinwall-recommendation-card .book-recommendation .content-container {
+  .card-recommendation .content-container {
     cursor: pointer; }
-    .pinwall-recommendation-card .book-recommendation .content-container .title {
+    .card-recommendation .content-container .title {
       font-weight: 500;
       font-size: 16px;
       max-height: 38px;
       overflow: hidden; }
-    .pinwall-recommendation-card .book-recommendation .content-container .description {
+    .card-recommendation .content-container .description {
       margin-top: 8px;
       font-size: 14px;
       line-height: 16px;
       max-height: 48px;
       overflow: hidden;
       color: rgba(0, 0, 0, 0.54); }
-    .pinwall-recommendation-card .book-recommendation .content-container .forename {
+    .card-recommendation .content-container .forename {
       margin-bottom: 4px;
       font-weight: 400;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87); }
-
-.pinwall-recommendation-card {
-  max-width: 400px;
-  min-width: 280px;
-  width: 100%;
-  margin: 8px 0; }
-  .pinwall-recommendation-card .youtube-recommendation .user-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
-  .pinwall-recommendation-card .youtube-recommendation .description {
-    padding: 10px 16px; }
-    .pinwall-recommendation-card .youtube-recommendation .description .page-title {
-      font-weight: 500;
-      padding-left: 2px;
-      font-size: 14px;
-      color: #3F51B5; }
 
 #problem-create {
   min-width: 310px;

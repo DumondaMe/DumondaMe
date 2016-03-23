@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$mdDialog', '$state', 'dateFormatter', 'Categories', 'UserDetailNavigation',
-            function ($mdDialog, $state, dateFormatter, Categories, UserDetailNavigation) {
+        return ['$state', 'dateFormatter', 'Categories', 'UserDetailNavigation',
+            function ($state, dateFormatter, Categories, UserDetailNavigation) {
                 var ctrl = this;
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
