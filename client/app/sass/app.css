@@ -1326,6 +1326,30 @@ h2.website-structure-title {
   #ely-page-recommendation .overview-rating-tabs {
     min-height: 200px; }
 
+#ely-youtube-page-detail #ely-youtube-page-main-detail {
+  max-width: 600px;
+  min-width: 300px; }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
+    font-size: 16px;
+    max-height: 57px;
+    overflow: hidden; }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container {
+    margin: 2px 0; }
+    #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container .page-rating-number {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container {
+    padding: 0; }
+    #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container .button-settings {
+      margin: 0; }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .description {
+    margin-top: 8px; }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .category-description {
+    padding: 0;
+    margin: 8px 0 16px 0; }
+
 .manage-page {
   width: 100%;
   min-width: 300px;

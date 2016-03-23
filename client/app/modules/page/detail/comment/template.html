@@ -1,7 +1,8 @@
-<md-card id="ely-page-comments">
+<md-card id="ely-page-comments"
+         ng-if="(ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0) &&
+         !(ctrl.recommendation.summary.all.numberOfRatings === 1 && ctrl.recommendation.user)">
     <md-card-content>
-        <md-tabs md-border-bottom md-dynamic-height md-center-tabs class="overview-rating-tabs"
-                 ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0">
+        <md-tabs md-border-bottom md-dynamic-height md-center-tabs class="overview-rating-tabs">
             <md-tab label="Alle">
                 <md-content class="md-padding">
                     <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>

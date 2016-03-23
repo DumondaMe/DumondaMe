@@ -1,0 +1,38 @@
+#ely-youtube-page-detail {
+  #ely-youtube-page-main-detail {
+    max-width: 600px;
+    min-width: 300px;
+    .title-container {
+      .title {
+        font-size: 16px;
+        max-height: 57px;
+        overflow: hidden;
+      }
+      .page-rating-container {
+        margin: 2px 0;
+        .page-rating-number {
+          display: inline-block;
+          margin-left: 4px;
+          font-size: 14px;
+          color: $secondary-text;
+        }
+      }
+      .button-settings-container {
+        padding: 0;
+        .button-settings {
+          margin: 0;
+        }
+      }
+    }
+
+    .description {
+      margin-top: 8px;
+    }
+
+    .category-description {
+      padding: 0;
+      margin: 8px 0 16px 0;
+    }
+
+  }
+}

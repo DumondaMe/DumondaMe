@@ -332,7 +332,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/comment/template.html',
-    "<md-card id=ely-page-comments><md-card-content><md-tabs md-border-bottom md-dynamic-height md-center-tabs class=overview-rating-tabs ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0\"><md-tab label=Alle><md-content class=md-padding><ely-page-detail-user-comments-detail only-contact=false></ely-page-detail-user-comments-detail></md-content></md-tab><md-tab label=Kontakte ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 &&\r" +
+    "<md-card id=ely-page-comments ng-if=\"(ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0) &&\r" +
+    "\n" +
+    "         !(ctrl.recommendation.summary.all.numberOfRatings === 1 && ctrl.recommendation.user)\"><md-card-content><md-tabs md-border-bottom md-dynamic-height md-center-tabs class=overview-rating-tabs><md-tab label=Alle><md-content class=md-padding><ely-page-detail-user-comments-detail only-contact=false></ely-page-detail-user-comments-detail></md-content></md-tab><md-tab label=Kontakte ng-if=\"ctrl.recommendation.summary.contact.numberOfRatings > 0 &&\r" +
     "\n" +
     "            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings\"><md-content class=md-padding><ely-page-detail-user-comments-detail only-contact=true></ely-page-detail-user-comments-detail></md-content></md-tab></md-tabs></md-card-content></md-card>"
   );
@@ -351,7 +353,17 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/template.html',
-    "<md-content id=ely-page-detail><ely-page-detail-book page-detail=ctrl.pageDetail ng-if=\"ctrl.label = 'Book'\"></ely-page-detail-book></md-content>"
+    "<md-content id=ely-page-detail><ely-page-detail-book page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Book'\"></ely-page-detail-book><ely-page-detail-youtube page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Youtube'\"></ely-page-detail-youtube></md-content>"
+  );
+
+
+  $templateCache.put('app/modules/page/detail/youtube/main/template.html',
+    "<md-card id=ely-youtube-page-main-detail><md-card-content><div class=title-container layout=row><div><div class=\"md-title title\">{{ctrl.pageDetail.page.title}}</div><div class=page-rating-container><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.pageDetail.recommendation.summary.all.rating></ely-star-rating><div class=page-rating-number>({{ctrl.pageDetail.recommendation.summary.all.numberOfRatings}})</div></div></div><span flex></span><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.pageDetail.administrators.isAdmin><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.modifyPage()>Seite Bearbeiten</md-button></md-menu-item></md-menu-content></md-menu></div><div class=category-description><md-icon md-svg-icon=cardActions:video aria-label=Video class=category-icon></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider class=category-icon></md-icon><div class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.pageDetail.page.category\">{{ctrl.getCategory(category)}}</div></div><ely-iframe width=270 height=200 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.pageDetail.page.link layout=row layout-align=\"center center\" hide-gt-sm></ely-iframe><ely-iframe width=568 height=400 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.pageDetail.page.link layout=row layout-align=\"center center\" hide show-gt-sm></ely-iframe><ely-expand-text class=description description={{ctrl.pageDetail.page.description}} length=200></ely-expand-text></md-card-content></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/page/detail/youtube/template.html',
+    "<div id=ely-youtube-page-detail><ely-page-detail-main-youtube page-detail=ctrl.pageDetail></ely-page-detail-main-youtube><ely-page-detail-recommendation page-id=ctrl.pageDetail.page.pageId recommendation=ctrl.pageDetail.recommendation title=ctrl.pageDetail.page.title></ely-page-detail-recommendation><ely-page-detail-user-comments recommendation=ctrl.pageDetail.recommendation></ely-page-detail-user-comments></div>"
   );
 
 
@@ -381,7 +393,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/pinwall/pinwallElement/recommendation/template.html',
-    "<md-card class=card-recommendation><md-card-header class=header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=category-description-container><div class=category-description><md-icon md-svg-icon=cardActions:book aria-label=Book class=category-icon ng-hide=\"ctrl.element.label !== 'Book'\"></md-icon><md-icon md-svg-icon=cardActions:video aria-label=Video class=category-icon ng-hide=\"ctrl.element.label !== 'Youtube'\"></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider class=category-icon></md-icon><div class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.element.category\">{{ctrl.getCategory(category)}}</div></div></div><md-card-content ng-click=ctrl.openPageDetail()><div class=content-container><div class=forename>{{ctrl.element.forename}}'s Bewertung für</div><div class=title>{{ctrl.element.title}}</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating><div class=description>{{ctrl.element.description}}</div></div></md-card-content></md-card>"
+    "<md-card class=card-recommendation><md-card-header class=header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><md-card-header-text ng-click=ctrl.openUserDetail()><span class=\"md-title user-name\">{{ctrl.element.name}}</span> <span class=md-subhead>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span></md-card-header-text></md-card-header><div class=category-description><md-icon md-svg-icon=cardActions:book aria-label=Book class=category-icon ng-hide=\"ctrl.element.label !== 'Book'\"></md-icon><md-icon md-svg-icon=cardActions:video aria-label=Video class=category-icon ng-hide=\"ctrl.element.label !== 'Youtube'\"></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider class=category-icon></md-icon><div class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.element.category\">{{ctrl.getCategory(category)}}</div></div><md-card-content ng-click=ctrl.openPageDetail()><div class=content-container><div class=forename>{{ctrl.element.forename}}'s Bewertung für</div><div class=title>{{ctrl.element.title}}</div><ely-star-rating class=page-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=ctrl.element.rating></ely-star-rating><div class=description>{{ctrl.element.description}}</div></div></md-card-content></md-card>"
   );
 
 

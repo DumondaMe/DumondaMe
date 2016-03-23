@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Categories', function (DateConverter, Categories) {
+module.exports = ['DateConverter', 'Categories', 'PageYoutubeLink', function (DateConverter, Categories, PageYoutubeLink) {
 
     this.getCreateYoutubePageMessage = function (data) {
         return {
             youtubePage: {
                 title: data.title,
                 description: data.description,
-                link: data.link,
+                link: PageYoutubeLink.getYoutubeLink(data.link),
                 category: Categories.getCodes(data.selectedCategories)
             }
         };
