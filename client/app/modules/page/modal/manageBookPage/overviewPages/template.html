@@ -1,0 +1,18 @@
+<div id="ely-page-overview">
+    <div class="md-title title">Folgende Seiten existieren bereits</div>
+    <div class="page-element-container">
+        <div ng-repeat="page in ctrl.pages" class="page-overview-element" layout="row">
+            <img ng-src="{{page.url}}" class="page-image-preview" flex="none">
+            <div class="page-container" flex>
+                <div class="md-title page-title">{{page.title}}</div>
+                <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="page.recommendation.summary.rating"></ely-star-rating>
+                <div class="page-description">{{page.description}}</div>
+            </div>
+        </div>
+    </div>
+    <md-dialog-actions>
+        <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+        <md-button class="md-primary md-raised" ng-click="ctrl.finish()">Weiter</md-button>
+    </md-dialog-actions>
+</div>

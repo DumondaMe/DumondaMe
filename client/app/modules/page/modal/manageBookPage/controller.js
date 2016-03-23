@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast', 'moment',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment) {
+    'CheckPageExists',
+    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment, CheckPageExists) {
         var ctrl = this;
 
-        if(ctrl.isEditMode) {
+        if (ctrl.isEditMode) {
             if (angular.isNumber(ctrl.data.publishDate)) {
                 ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
             }
@@ -17,6 +18,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
 
         ctrl.selectImage = false;
         ctrl.recommendPage = false;
+        CheckPageExists.reset();
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
         ctrl.categories = Categories.categories;
@@ -36,6 +38,23 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
             ctrl.changeData();
         };
 
+        ctrl.titleHasChanged = function () {
+            if (ctrl.data.title && ctrl.data.title.length > 10) {
+                ctrl.checkPageExists();
+            }
+        };
+
+        ctrl.titleLostFocus = function () {
+            ctrl.checkPageExists();
+        };
+
+        ctrl.checkPageExists = function () {
+            return CheckPageExists.checkPageExists(ctrl.data.title, 'Book').then(function (result) {
+                ctrl.searchResult = result.searchResult;
+                ctrl.pageExists = result.pageExists;
+            });
+        };
+
         ctrl.changeData = function () {
             ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
         };
@@ -46,6 +65,10 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
             } else {
                 ctrl.manageBookPageForm.publishDate.$setValidity('ely-date', true);
             }
+        };
+
+        ctrl.closeOverviewPages = function () {
+            ctrl.showExistingPages = false;
         };
 
         ctrl.createBook = function () {

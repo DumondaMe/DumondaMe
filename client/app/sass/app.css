@@ -1345,13 +1345,36 @@ h2.website-structure-title {
         white-space: normal; }
     #manage-book-page .ely-dialog-content .input-container {
       width: 100%;
-      margin: 0px; }
+      margin: 0; }
+    #manage-book-page .ely-dialog-content .page-exists-warning {
+      cursor: pointer;
+      color: #EF6C00;
+      font-size: 14px;
+      margin-bottom: 12px; }
     #manage-book-page .ely-dialog-content .preview-image {
       width: 100px; }
 
 .create-book-page-preview-image {
   max-width: 600px;
   height: 90%; }
+
+#ely-page-overview .page-element-container {
+  margin-bottom: 16px; }
+  #ely-page-overview .page-element-container .page-overview-element {
+    padding: 8px 16px; }
+    #ely-page-overview .page-element-container .page-overview-element .page-image-preview {
+      height: 60px;
+      max-width: 38px;
+      margin-right: 8px; }
+    #ely-page-overview .page-element-container .page-overview-element .page-container .page-title {
+      font-size: 16px; }
+    #ely-page-overview .page-element-container .page-overview-element .page-container .page-description {
+      margin-top: 4px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
 
 .pinwall-blog-card {
   max-width: 400px;

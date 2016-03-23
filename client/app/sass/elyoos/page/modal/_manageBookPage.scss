@@ -24,7 +24,13 @@
     }
     .input-container {
       width: 100%;
-      margin: 0px;
+      margin: 0;
+    }
+    .page-exists-warning {
+      cursor: pointer;
+      color: $warning;
+      font-size: 14px;
+      margin-bottom: 12px;
     }
     .preview-image {
       width: 100px;

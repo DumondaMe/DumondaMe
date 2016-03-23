@@ -1,5 +1,5 @@
 <md-dialog id="manage-book-page" aria-label="Manage Book Page" ng-cloak ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
-    <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage">
+    <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages">
         <div class="md-title title" ng-if="!ctrl.isEditMode">Seite für ein Buch erstellen</div>
         <div class="md-title title" ng-if="ctrl.isEditMode">Buch <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
@@ -25,15 +25,20 @@
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
                     </md-select>
-                    <md-input-container class="input-container" ng-if="!ctrl.isEditMode">
-                        <label>Titel</label>
-                        <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
-                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
-                        <div ng-messages="ctrl.manageBookPageForm.title.$error">
-                            <div ng-message="required">Wird benötigt!</div>
-                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                    <div ng-if="!ctrl.isEditMode">
+                        <md-input-container class="input-container" flex>
+                            <label>Titel</label>
+                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
+                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()" ng-blur="ctrl.titleLostFocus()"/>
+                            <div ng-messages="ctrl.manageBookPageForm.title.$error">
+                                <div ng-message="required">Wird benötigt!</div>
+                                <div ng-message="md-maxlength">Text ist zu lang</div>
+                            </div>
+                        </md-input-container>
+                        <div class="page-exists-warning" ng-if="ctrl.pageExists" ng-click="ctrl.showExistingPages = true">Diese Seite existiert
+                            möglicherweise bereits. Hier klicken...
                         </div>
-                    </md-input-container>
+                    </div>
                     <md-input-container class="input-container">
                         <label>Beschreibung</label>
                         <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="10000"
@@ -77,6 +82,9 @@
 
     <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
                          ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+
+    <ely-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-page-overview>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.title" page-id="ctrl.pageId"
                             finish="ctrl.recommendationFinish" abort="ctrl.recommendationFinish"></ely-add-recommendation>
