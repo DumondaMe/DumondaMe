@@ -10,7 +10,7 @@ module.exports = ['SearchPage', '$q', function (SearchPage, $q) {
 
     this.checkPageExists = function (search, filter) {
         var searchResult, deferred = $q.defer();
-        if (previousSearch !== search) {
+        if (angular.isString(search) && search.trim() !== '' && previousSearch !== search) {
             previousSearch = search;
             searchResult = SearchPage.get({search: search, filterType: filter, isSuggestion: false, skip: 0, maxItems: 10});
             return searchResult.$promise.then(function (result) {

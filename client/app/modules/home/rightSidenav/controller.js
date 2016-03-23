@@ -18,6 +18,11 @@ module.exports = {
                     $mdSidenav('rightHomeNav').close();
                     ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html');
                 };
+
+                ctrl.createYoutubePage = function () {
+                    $mdSidenav('rightHomeNav').close();
+                    ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html');
+                };
             }];
     }
 };

@@ -1,4 +1,5 @@
-<md-dialog id="manage-book-page" aria-label="Manage Book Page" ng-cloak ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
+<md-dialog id="manage-book-page" aria-label="Manage Book Page" class="manage-page" ng-cloak
+           ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
     <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages">
         <div class="md-title title" ng-if="!ctrl.isEditMode">Seite für ein Buch erstellen</div>
         <div class="md-title title" ng-if="ctrl.isEditMode">Buch <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
@@ -83,8 +84,8 @@
     <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
                          ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
 
-    <ely-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
-                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-page-overview>
+    <ely-existing-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.title" page-id="ctrl.pageId"
                             finish="ctrl.recommendationFinish" abort="ctrl.recommendationFinish"></ely-add-recommendation>

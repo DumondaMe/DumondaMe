@@ -1,0 +1,72 @@
+<md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" ng-cloak class="manage-page">
+    <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages">
+        <div class="md-title title" ng-if="!ctrl.isEditMode">Seite für ein Youtube Video erstellen</div>
+        <div class="md-title title" ng-if="ctrl.isEditMode">Video <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="row">
+                <div class="youtube-preview" flex="none" hide show-gt-sm>
+                    <ely-iframe width="270" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
+                                ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty"
+                                layout="row" layout-align="center center"></ely-iframe>
+                </div>
+                <div flex>
+                    <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Kategorie" required class="select-category"
+                               ng-change="ctrl.changeData()">
+                        <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
+                    </md-select>
+                    <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
+                        <md-input-container class="input-container">
+                            <label>Titel</label>
+                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
+                                   ng-disabled="ctrl.uploadStarted"/>
+                            <div ng-messages="ctrl.manageYoutubePageForm.title.$error">
+                                <div ng-message="required">Wird benötigt!</div>
+                                <div ng-message="md-maxlength">Text ist zu lang</div>
+                            </div>
+                        </md-input-container>
+                        <ely-iframe width="270" height="180" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
+                                    ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty"
+                                    layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
+                        <md-input-container class="input-container">
+                            <label>Link</label>
+                            <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
+                                   ng-change="ctrl.linkHasChanged()" ng-blur="ctrl.lostFocus()" required/>
+                            <div ng-messages="ctrl.manageYoutubePageForm.link.$error">
+                                <div ng-message="required">Wird benötigt!</div>
+                                <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
+                            </div>
+                        </md-input-container>
+                        <div class="page-exists-warning" ng-if="ctrl.pageExists" ng-click="ctrl.showExistingPages = true">Diese Seite existiert
+                            möglicherweise bereits. Hier klicken...
+                        </div>
+                    </div>
+                    <md-input-container class="input-container">
+                        <label>Beschreibung</label>
+                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="10000"
+                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                        <div ng-messages="ctrl.manageYoutubePageForm.description.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.createYoutube()" ng-if="!ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid">Erstellen
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyYoutube()" ng-if="ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid || !ctrl.dataHasChanged">Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+
+    <ely-existing-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview>
+
+    <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.title" page-id="ctrl.pageId"
+                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationFinish"></ely-add-recommendation>
+</md-dialog>

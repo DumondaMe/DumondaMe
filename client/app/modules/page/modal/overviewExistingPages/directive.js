@@ -13,8 +13,8 @@ module.exports = {
                 cancel: '=',
                 finish: '='
             },
-            templateUrl: 'app/modules/page/modal/manageBookPage/overviewPages/template.html'
+            templateUrl: 'app/modules/page/modal/overviewExistingPages/template.html'
         };
     }],
-    name: 'elyPageOverview'
+    name: 'elyExistingPageOverview'
 };
