@@ -6202,8 +6202,9 @@ app.service('CheckPageExists', require('./services/checkPageExists'));
 'use strict';
 
 module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast', 'moment',
-    'CheckPageExists',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment, CheckPageExists) {
+    'CheckPageExists', 'UploadPageService',
+    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment, CheckPageExists,
+              UploadPageService) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -6212,13 +6213,10 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
             }
             ctrl.data.selectedCategories = Categories.getCategories(ctrl.data.selectedCategories);
             ctrl.dataOnServer = angular.copy(ctrl.data);
-            ctrl.dataHasChanged = false;
         } else {
             ctrl.data = {};
         }
 
-        ctrl.selectImage = false;
-        ctrl.recommendPage = false;
         CheckPageExists.reset();
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
@@ -6274,32 +6272,12 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
 
         ctrl.createBook = function () {
             var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
-            ctrl.uploadStarted = true;
-
-            fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create')
-                .success(function (resp) {
-                    ctrl.uploadStarted = false;
-                    ctrl.pageId = resp.pageId;
-                    ctrl.recommendPage = true;
-                })
-                .error(function () {
-                    ctrl.uploadStarted = false;
-                    errorToast.showError('Seite konnte nicht hochgeladen werden!');
-                });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyBook = function () {
             var message = BookPageCreateMessageService.getModifyBookPageMessage(ctrl.data);
-            ctrl.uploadStarted = true;
-
-            fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/edit')
-                .success(function () {
-                    ElyModal.hide(ctrl.data);
-                })
-                .error(function () {
-                    ctrl.uploadStarted = false;
-                    errorToast.showError('Seite konnte nicht verändert werden!');
-                });
+            UploadPageService.uploadModifyPage(message, ctrl);
         };
 
         ctrl.recommendationFinish = function () {
