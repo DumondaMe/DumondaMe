@@ -77,6 +77,7 @@ describe('Integration Tests for searching Pages', function () {
 
                     res.body.pages.length.should.equals(1);
                     res.body.pages[0].title.should.equals('page1Title');
+                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
@@ -115,16 +116,19 @@ describe('Integration Tests for searching Pages', function () {
 
                     res.body.pages.length.should.equals(3);
                     res.body.pages[0].title.should.equals('page1Title');
+                    res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');
                     res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
 
                     res.body.pages[1].title.should.equals('page1Title');
+                    res.body.pages[1].description.should.equals('page3');
                     res.body.pages[1].pageId.should.equals('2');
                     res.body.pages[1].label.should.equals('Book');
                     res.body.pages[1].url.should.equals('pages/2/pagePreview.jpg');
 
                     res.body.pages[2].title.should.equals('page1Title');
+                    res.body.pages[2].description.should.equals('page4');
                     res.body.pages[2].pageId.should.equals('3');
                     res.body.pages[2].label.should.equals('Youtube');
                     res.body.pages[2].link.should.equals('www.youtube.com');
@@ -159,6 +163,7 @@ describe('Integration Tests for searching Pages', function () {
 
                     res.body.pages.length.should.equals(1);
                     res.body.pages[0].title.should.equals('page5Title');
+                    res.body.pages[0].description.should.equals('page4');
                     res.body.pages[0].pageId.should.equals('3');
                     res.body.pages[0].label.should.equals('Youtube');
                     res.body.pages[0].link.should.equals('www.youtube.com');

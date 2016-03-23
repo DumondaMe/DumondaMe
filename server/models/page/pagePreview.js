@@ -58,9 +58,9 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());
 
     return startQuery
-        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, numberOfRatings, rating, " +
-        "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        .return("page.pageId AS pageId, page.title AS title, page.description AS description, page.label AS label, page.language AS language, " +
+            "page.link AS link, numberOfRatings, rating, " +
+            "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
         .limit("{limit}")
