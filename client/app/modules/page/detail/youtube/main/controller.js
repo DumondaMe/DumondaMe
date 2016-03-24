@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Categories', 'ElyModal',
-    function (Categories, ElyModal) {
+module.exports = ['Categories', 'ElyModal', '$mdDialog', 'UserPage', 'errorToast', '$state',
+    function (Categories, ElyModal, $mdDialog, UserPage, errorToast, $state) {
         var ctrl = this;
 
         ctrl.getCategory = Categories.getCategory;
@@ -20,6 +20,26 @@ module.exports = ['Categories', 'ElyModal',
                 }).then(function (data) {
                 ctrl.pageDetail.page.description = data.description;
                 ctrl.pageDetail.page.category = Categories.getCodes(data.selectedCategories);
+            });
+        };
+
+        ctrl.deletePage = function () {
+            var confirm = $mdDialog.confirm()
+                .title("Seite löschen")
+                .textContent("Willst Du diese Seite wirklich löschen?")
+                .ariaLabel("Delete Page")
+                .ok("Löschen")
+                .cancel("Abbrechen");
+            $mdDialog.show(confirm).then(function () {
+                ctrl.deleteRequestRunning = true;
+                UserPage.delete({
+                    pageId: ctrl.pageDetail.page.pageId
+                }, function () {
+                    $state.go('home');
+                }, function () {
+                    ctrl.deleteRequestRunning = false;
+                    errorToast.showError("Die Seite konnte nicht gelöscht werden");
+                });
             });
         };
     }];
