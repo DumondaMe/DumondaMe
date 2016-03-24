@@ -31,88 +31,7 @@ describe('Integration Tests for getting home screen information for a user', fun
     afterEach(function () {
         return requestHandler.logout();
     });
-
-
-    it('Getting the message sent to the user and not read', function () {
-
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
-
-        commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true, pinwall: true})")
-            .end().getCommand());
-        commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
-            .end().getCommand());
-        commands.push(db.cypher().match("(u:User {userId: '2'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
-            .end().getCommand());
-        commands.push(db.cypher().match("(u:User {userId: '3'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: true, contacts: true, pinwall: true})")
-            .end().getCommand());
-
-
-        //Create Thread with messages between user 1 + 2
-        commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
-            .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '1'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-            .end({
-                lastTimeVisited: startTime - 500,
-                lastTimeVisited2: startTime - 400
-            }).getCommand());
-        commands.push(db.cypher().match("(thread:Thread {threadId: '1'}), (u:User {userId: '1'}), (u2:User {userId: '2'})")
-            .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
-                "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
-                "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})," +
-                "(message)-[:WRITTEN]->(u2)," +
-                "(message2)-[:WRITTEN]->(u)," +
-                "(message3)-[:WRITTEN]->(u2)")
-            .end({
-                messageAdded: startTime - 299,
-                messageAdded2: startTime - 400,
-                messageAdded3: startTime - 600
-            }).getCommand());
-
-        //Create Thread with messages between user 1 + 3
-        commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
-            .create("(u2)-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]->(:Thread {threadId: '2'})<-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]-(u)")
-            .end({
-                lastTimeVisited: startTime - 300,
-                lastTimeVisited2: startTime - 300
-            }).getCommand());
-        commands.push(db.cypher().match("(thread:Thread {threadId: '2'}), (u:User {userId: '1'}), (u2:User {userId: '3'})")
-            .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})," +
-                "(message)-[:WRITTEN]->(u2)")
-            .end({
-                messageAdded: startTime - 299
-            }).getCommand());
-
-        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
-                    maxItems: 10
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-
-                res.body.messages.length.should.equals(2);
-                res.body.messages[0].threadId.should.equals('1');
-                res.body.messages[0].description.should.equals('user Meier2');
-                res.body.messages[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                res.body.messages[0].numberOfUnreadMessages.should.equals(2);
-
-                res.body.messages[1].threadId.should.equals('2');
-                res.body.messages[1].description.should.equals('user Meier3');
-                res.body.messages[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
-                res.body.messages[1].numberOfUnreadMessages.should.equals(1);
-            });
-    });
+    
 
     it('Getting the contacts who have added user since last login', function () {
 
@@ -190,39 +109,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.contacting.numberOfContacting.should.equals(4);
             });
     });
-
-    it('Getting the info which are needed for write a new blog', function () {
-
-        var commands = [];
-
-        commands.push(db.cypher().match("(u:User {userId: '1'})")
-            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
-            .end().getCommand());
-
-        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
-            .then(function () {
-                return requestHandler.login(users.validUser);
-            }).
-            then(function (agent) {
-                requestAgent = agent;
-                return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
-                    maxItems: 10
-                }, requestAgent);
-            }).then(function (res) {
-                res.status.should.equal(200);
-
-                res.body.user.privacyTypes.length.should.equals(2);
-                res.body.user.privacyTypes[0].type.should.equals('Bekannter');
-                res.body.user.privacyTypes[1].type.should.equals('Freund');
-
-                res.body.user.profileUrl.should.equals('profileImage/1/profilePreview.jpg');
-            });
-    });
+    
 
     it('Showing recommendations which has correct visible for contact type', function () {
 
@@ -378,7 +265,6 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_BLOCKED]->(a)")
             .end().getCommand());
-
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")

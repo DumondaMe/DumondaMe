@@ -1,6 +1,6 @@
 <md-content id="ely-home">
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo()">
-        <ely-pinwall pinwall="ctrl.home.pinwall" gap="true"></ely-pinwall>
+        <ely-pinwall contacting="ctrl.home.contacting" pinwall="ctrl.home.pinwall" gap="true"></ely-pinwall>
     </div>
     <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall && ctrl.home.pinwall.length === 0">
         <md-content>

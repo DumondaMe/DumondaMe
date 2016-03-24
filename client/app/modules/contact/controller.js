@@ -2,11 +2,15 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['SearchService', 'SearchUsers',
-            function (SearchService, SearchUsers) {
+        return ['SearchService', 'SearchUsers', '$stateParams',
+            function (SearchService, SearchUsers, $stateParams) {
                 var ctrl = this;
                 ctrl.requestRunning = false;
                 ctrl.showUserQuery = false;
+
+                if ($stateParams.showContacting) {
+                    ctrl.selectedTab = 1;
+                }
 
                 SearchService.register(ctrl, SearchUsers.query, SearchUsers.query);
 

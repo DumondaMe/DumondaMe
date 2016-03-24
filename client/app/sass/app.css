@@ -1448,6 +1448,34 @@ h2.website-structure-title {
   #blog-detail .blog-text {
     padding: 16px; }
 
+#ely-pinwall-contacting {
+  max-width: 400px;
+  min-width: 280px;
+  width: 100%;
+  margin: 8px 0; }
+  #ely-pinwall-contacting .card-title {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 12px; }
+  #ely-pinwall-contacting .contacting-user {
+    margin-bottom: 8px; }
+    #ely-pinwall-contacting .contacting-user .profile-image {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%; }
+    #ely-pinwall-contacting .contacting-user .user-name {
+      margin-left: 12px;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: 500; }
+  #ely-pinwall-contacting .number-of-contacting {
+    margin-top: 24px;
+    font-size: 14px;
+    font-weight: 500; }
+    #ely-pinwall-contacting .number-of-contacting .number {
+      font-weight: 500;
+      color: #3F51B5; }
+
 .pinwall-no-element {
   max-width: 400px;
   min-width: 280px;

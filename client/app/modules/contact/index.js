@@ -22,7 +22,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/contact'
         })
         .state('contact.overview', {
-            url: '/overview',
+            url: '/overview/{showContacting}',
             views: {
                 'content@': {
                     template: '<ely-contact></ely-contact>'

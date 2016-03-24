@@ -117,7 +117,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\"><md-tab label=Kontakte md-on-select=\"ctrl.contactSelect = true\" md-on-deselect=\"ctrl.contactSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactSelect><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower md-on-select=\"ctrl.contactingSelect = true\" md-on-deselect=\"ctrl.contactingSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactingSelect><ely-contacting-overview></ely-contacting-overview></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\" md-selected=ctrl.selectedTab><md-tab label=Kontakte md-on-select=\"ctrl.contactSelect = true\" md-on-deselect=\"ctrl.contactSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactSelect><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower md-on-select=\"ctrl.contactingSelect = true\" md-on-deselect=\"ctrl.contactingSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactingSelect><ely-contacting-overview></ely-contacting-overview></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
   );
 
 
@@ -142,7 +142,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall contacting=ctrl.home.contacting pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
   );
 
 
@@ -384,6 +384,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/pinwall/contacting/template.html',
+    "<md-card id=ely-pinwall-contacting ng-click=ctrl.goToContacting()><md-card-content><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting === 1\">Person die Dich kürzlich als Kontakt hinzugefügt hat:</div><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting > 1\">Personen die Dich kürzlich als Kontakt hinzugefügt haben:</div><div class=contacting-user ng-repeat=\"user in ctrl.contacting.users\" layout=row><img ng-src={{user.profileUrl}} class=profile-image><div class=user-name>{{user.name}}</div></div><div class=number-of-contacting ng-if=\"ctrl.contacting.numberOfContacting > 3\">+ <span class=number>{{ctrl.contacting.numberOfContacting - 3}}</span> weitere Personen</div></md-card-content></md-card>"
+  );
+
+
   $templateCache.put('app/modules/pinwall/pinwallElement/blog/detail/detail.html',
     "<md-dialog id=blog-detail aria-label=\"Detail Blog\" ng-cloak><div id=blog-header layout=row flex=none><img ng-src={{ctrl.element.profileUrl}} class=user-avatar flex=none ng-click=ctrl.openUserDetail()><div class=title-container flex ng-click=ctrl.openUserDetail()><div class=\"title md-title\">{{ctrl.element.name}}</div><div class=\"subtitle md-subhead\">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><md-button class=\"md-icon-button md-primary\" aria-label=\"Close Detail\" ng-click=ctrl.cancel()><md-icon md-svg-icon=nav:close class=icon></md-icon></md-button></div><md-dialog-content><img ng-src={{ctrl.element.urlFull}} class=detail-image ng-show=ctrl.element.urlFull><div class=blog-text>{{ctrl.element.text}}</div></md-dialog-content></md-dialog>"
   );
@@ -405,7 +410,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/pinwall/template.html',
-    "<div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"pinwallElement in ctrl.pinwall\"><ely-pinwall-element on-blog-removed=ctrl.blogRemoved element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab ng-if=\"ctrl.gap && ctrl.pinwall.length > 0\"></div></div>"
+    "<div class=md-padding layout-wrap layout=row><ely-pinwall-contacting contacting=ctrl.contacting ng-if=ctrl.contacting></ely-pinwall-contacting><div flex=100 ng-repeat=\"pinwallElement in ctrl.pinwall\"><ely-pinwall-element on-blog-removed=ctrl.blogRemoved element=pinwallElement></ely-pinwall-element></div><div class=pinwall-gab ng-if=\"ctrl.gap && ctrl.pinwall.length > 0\"></div></div>"
   );
 
 

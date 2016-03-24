@@ -1,5 +1,5 @@
 <md-content id="ely-contact">
-    <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery">
+    <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery" md-selected="ctrl.selectedTab">
         <md-tab label="Kontakte" md-on-select="ctrl.contactSelect = true" md-on-deselect="ctrl.contactSelect = false">
             <md-content class="contact-tab-content" ng-if="ctrl.contactSelect">
                 <ely-contact-overview></ely-contact-overview>

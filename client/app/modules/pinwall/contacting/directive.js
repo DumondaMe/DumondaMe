@@ -7,14 +7,12 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                pinwall: '=',
-                contacting: '=',
-                gap: '='
+                contacting: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/template.html'
+            templateUrl: 'app/modules/pinwall/contacting/template.html'
         };
     }],
-    name: 'elyPinwall'
+    name: 'elyPinwallContacting'
 };
