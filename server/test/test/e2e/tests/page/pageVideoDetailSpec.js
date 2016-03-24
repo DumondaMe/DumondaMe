@@ -15,8 +15,8 @@ describe('Integration Tests for getting youtube page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', language: 'de', link: 'www.link.com', " +
-                "created: 500, modified: 501, pageId: '0'})").send(commands);
+            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', link: 'www.link.com', " +
+                "created: 500, modified: 501, pageId: '0', category: {category}})").end({category: ['environmental', 'spiritual']}).send(commands);
 
         });
     });
@@ -85,11 +85,14 @@ describe('Integration Tests for getting youtube page detail', function () {
                 res.body.page.pageId.should.equals('0');
                 res.body.page.title.should.equals('pageTitle');
                 res.body.page.description.should.equals('page');
-                res.body.page.language.should.equals('de');
                 res.body.page.created.should.equals(500);
                 res.body.page.modified.should.equals(501);
                 res.body.page.link.should.equals('www.link.com');
                 res.body.page.label.should.equals('Youtube');
+                
+                res.body.page.category.length.should.equals(2);
+                res.body.page.category[0].should.equals('environmental');
+                res.body.page.category[1].should.equals('spiritual');
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');
