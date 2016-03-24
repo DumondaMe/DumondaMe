@@ -1,7 +1,7 @@
 <md-card id="ely-pinwall-contacting" ng-click="ctrl.goToContacting()">
     <md-card-content>
-        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting === 1">Person die Dich kürzlich als Kontakt hinzugefügt hat:</div>
-        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting > 1">Personen die Dich kürzlich als Kontakt hinzugefügt haben:</div>
+        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting === 1">Person die Dich kürzlich als Kontakt hinzufügte:</div>
+        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting > 1">Personen die Dich kürzlich als Kontakt hinzufügten:</div>
         <div class="contacting-user" ng-repeat="user in ctrl.contacting.users" layout="row">
             <img ng-src="{{user.profileUrl}}" class="profile-image">
             <div class="user-name">{{user.name}}</div>

@@ -386,7 +386,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/pinwall/contacting/template.html',
-    "<md-card id=ely-pinwall-contacting ng-click=ctrl.goToContacting()><md-card-content><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting === 1\">Person die Dich kürzlich als Kontakt hinzugefügt hat:</div><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting > 1\">Personen die Dich kürzlich als Kontakt hinzugefügt haben:</div><div class=contacting-user ng-repeat=\"user in ctrl.contacting.users\" layout=row><img ng-src={{user.profileUrl}} class=profile-image><div class=user-name>{{user.name}}</div></div><div class=number-of-contacting ng-if=\"ctrl.contacting.numberOfContacting > 3\">+ <span class=number>{{ctrl.contacting.numberOfContacting - 3}}</span> weitere Personen</div></md-card-content></md-card>"
+    "<md-card id=ely-pinwall-contacting ng-click=ctrl.goToContacting()><md-card-content><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting === 1\">Person die Dich kürzlich als Kontakt hinzufügte:</div><div class=card-title ng-if=\"ctrl.contacting.numberOfContacting > 1\">Personen die Dich kürzlich als Kontakt hinzufügten:</div><div class=contacting-user ng-repeat=\"user in ctrl.contacting.users\" layout=row><img ng-src={{user.profileUrl}} class=profile-image><div class=user-name>{{user.name}}</div></div><div class=number-of-contacting ng-if=\"ctrl.contacting.numberOfContacting > 3\">+ <span class=number>{{ctrl.contacting.numberOfContacting - 3}}</span> weitere Personen</div></md-card-content></md-card>"
   );
 
 
