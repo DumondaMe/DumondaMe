@@ -10,9 +10,10 @@ var schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems'],
+    required: ['skipBlog', 'skipRecommendation', 'maxItems'],
     properties: {
-        skip: {type: 'integer', minimum: 0},
+        skipBlog: {type: 'integer', minimum: 0},
+        skipRecommendation: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50}
     }
 };

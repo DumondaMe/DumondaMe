@@ -10,3 +10,4 @@ app.factory('Blog', require('./services/blog'));
 
 app.service('HomePinwallElements', require('./pinwall/pinwallElements'));
 app.service('HomePinwallHeightCalculator', require('./pinwall/heightCalculator'));
+app.service('HomeScrollRequest', require('./services/scrollRequest'));

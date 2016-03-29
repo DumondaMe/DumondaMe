@@ -1,15 +1,15 @@
 #ely-home {
   height: 100%;
   background-color: $background-normal;
-  padding: 0 6px;
   .pinwall-container {
-
+    height: 100%;
+    overflow: scroll;
   }
   .create-blog-fab {
     position: fixed;
     bottom: 0;
     right: 0;
-    @media screen and (min-width: $gt-md){
+    @media screen and (min-width: $gt-md) {
       bottom: 15px;
       right: 20px;
     }

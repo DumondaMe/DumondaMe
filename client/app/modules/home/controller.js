@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Home', '$mdSidenav', 'ScrollRequest', 'PinwallScrollRequestResponseHandler', 'ToolbarService',
-            function ($scope, Home, $mdSidenav, ScrollRequest, PinwallScrollRequestResponseHandler, ToolbarService) {
+        return ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService',
+            function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService) {
                 var ctrl = this;
                 ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
@@ -12,10 +12,10 @@ module.exports = {
                     $mdSidenav('rightHomeNav').open();
                 };
 
-                ScrollRequest.reset('home', Home.get, PinwallScrollRequestResponseHandler);
+                HomeScrollRequest.reset();
 
                 ctrl.nextPinwallInfo = function () {
-                    ScrollRequest.nextRequest('home', ctrl.home.pinwall).then(function (pinwall) {
+                    HomeScrollRequest.nextRequest(ctrl.home.pinwall).then(function (pinwall) {
                         ctrl.home = pinwall;
                         if (pinwall.pinwall.length === 0) {
                             ctrl.noPinwall = true;

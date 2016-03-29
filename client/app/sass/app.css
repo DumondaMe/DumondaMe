@@ -765,8 +765,10 @@ h2.website-structure-title {
 
 #ely-home {
   height: 100%;
-  background-color: #E0E0E0;
-  padding: 0 6px; }
+  background-color: #E0E0E0; }
+  #ely-home .pinwall-container {
+    height: 100%;
+    overflow: scroll; }
   #ely-home .create-blog-fab {
     position: fixed;
     bottom: 0;
@@ -1410,10 +1412,20 @@ h2.website-structure-title {
   width: 100%;
   margin: 8px 0;
   cursor: pointer; }
-  .pinwall-blog-card .user-name {
+  .pinwall-blog-card .blog-header .user-name {
+    line-height: 16px;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
+  .pinwall-blog-card .blog-header .blog-created {
+    line-height: 16px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+  .pinwall-blog-card .blog-header .public-type {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3F51B5; }
   .pinwall-blog-card .button-settings-container {
     padding: 0; }
     .pinwall-blog-card .button-settings-container .button-settings {

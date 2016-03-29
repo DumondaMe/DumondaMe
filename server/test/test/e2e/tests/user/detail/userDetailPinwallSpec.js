@@ -87,7 +87,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
         return requestHandler.logout();
     });
 
-    it('Getting the pinwall of the another user - Return a 200', function () {
+    it('Getting the pinwall of another user - Return a 200', function () {
         var commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: true})")

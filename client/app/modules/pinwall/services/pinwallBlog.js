@@ -1,9 +1,15 @@
 'use strict';
 
 
-module.exports = [ 'ScrollRequest',
-    function (ScrollRequest) {
+module.exports = [ 'Observables',
+    function (Observables) {
 
+        var observables = [];
+
+        this.register = function (name, observable) {
+            Observables.register(observables, name, observable);
+        };
+        
         this.removeBlog = function (pinwall, blogId) {
             var elementToRemove;
             angular.forEach(pinwall, function (pinwallElement) {
@@ -13,12 +19,12 @@ module.exports = [ 'ScrollRequest',
             });
             if (elementToRemove) {
                 pinwall.splice(pinwall.indexOf(elementToRemove), 1);
-                ScrollRequest.removedElement('home');
+                Observables.notifyObservables(observables, 'removedBlog');
             }
         };
 
         this.addBlog = function (pinwall, blog) {
             pinwall.unshift(blog);
-            ScrollRequest.addedElement('home');
+            Observables.notifyObservables(observables, 'addedBlog');
         };
     }];

@@ -84,7 +84,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -146,7 +147,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -187,7 +189,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -232,7 +235,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -275,7 +279,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -319,7 +324,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -360,7 +366,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -404,7 +411,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -444,7 +452,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -488,7 +497,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -531,7 +541,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {
@@ -547,9 +558,10 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, visible: {visible}, category: {category}})")
             .end({visible: ['Freund'], category: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 506, blogId: '4', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, blogId: '5', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
 
         //Recommendations
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
@@ -564,21 +576,35 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 502, rating: 4, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '2'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '3'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 4, comment: 'irgendwas2', recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '3'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
 
         //Privacy settings
         commands.push(db.cypher().match("(u:User)")
-            .where("u.userId IN ['1','2']")
-            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
+            .where("u.userId IN ['1','2','3']")
+            .createUnique("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, pinwall: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['1']")
-            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
-                "(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .createUnique("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
+            .end().getCommand());
+        commands.push(db.cypher().match("(u:User)")
+            .where("u.userId IN ['1', '2']")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User)")
             .where("u.userId IN ['3']")
-            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true})")
+            .createUnique("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: false})")
             .end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '1'})")
             .set("u", {lastLogin: startTime + 100})
@@ -608,6 +634,9 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '3'}) ")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '5'}), (b:User {userId: '3'}) ")
+            .createUnique("(b)-[:WRITTEN]->(a)")
+            .end({contactAdded: startTime}).getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
@@ -618,7 +647,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/user/home', {
-                    skip: 0,
+                    skipBlog: 0,
+                    skipRecommendation: 0,
                     maxItems: 10
                 }, requestAgent);
             }).then(function (res) {

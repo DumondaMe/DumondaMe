@@ -3,6 +3,7 @@
 var db = require('./../../../neo4j');
 var userInfo = require('./../userInfo');
 var pinwallElement = require('./pinwallElement/pinwallElement');
+var pinwallSelector = require('./pinwallSelector');
 
 var getContacting = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
@@ -67,45 +68,72 @@ var getPinwallOfDetailUser = function (userId, request) {
         });
 };
 
+var getBlogs = function (userId, request) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)")
+        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("isContact.type = relPrivacy.type")
+        .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
+        .where("privacy is NULL")
+        .with("user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, " +
+            "EXISTS((user)-[:WRITTEN|:RECOMMENDS]->(pinwall)) AS isAdmin")
+        .where("((user)-[:WRITTEN]->(pinwall) OR (NOT contact is null AND NOT EXISTS(pinwall.visible)) OR " +
+            "(NOT contact is null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)")
+        .return("user, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
+        .orderBy("pinwall.created DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .end({userId: userId, skip: request.skipBlog, maxItems: request.maxItems});
+};
+
+var getRecommendationPrivacyString = function (withCondition) {
+    return db.cypher()
+        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("isContact.type = relPrivacy.type")
+        .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
+        .where("isContact is NULL")
+        .with("user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact" + withCondition)
+        .where("((user)-[:RECOMMENDS]->(pinwall) OR " +
+            "(privacy.pinwall = true OR (privacy is null AND privacyNoContact.pinwall = true)) AND " +
+            "(privacy.profile = true OR (privacy is null AND privacyNoContact.profile = true))) AND NOT (contact)-[:IS_BLOCKED]->(user)")
+        .getCommandString();
+};
+
+var getRecommendations = function (userId, request) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
+        .addCommand(getRecommendationPrivacyString(''))
+        .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
+        .orderBy("created DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
+        .where("pinwall.created = created")
+        .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
+        .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, " +
+            "EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS isAdmin")
+        .end({userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems});
+};
+
 
 var getPinwall = function (userId, request) {
     var commands = [];
 
-    var showWhenUserPinwallElement = "(user)-[]->(pinwall) ";
-    var showBlogOtherUserWhenPublic = "((user)-[:IS_CONTACT]->(contact) AND NOT EXISTS(pinwall.visible) AND " +
-        "ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))";
-    var showBlogOtherUserPrivacySet = "((user)-[:IS_CONTACT]->(contact) AND ANY(v IN pinwall.visible WHERE v = isContact.type)" +
-        " AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))";
-    var showOtherUserPinwallElements = "((user)-[:IS_CONTACT]->(contact) AND NONE(l IN LABELS(pinwall) WHERE l = 'Blog') AND " +
-        "(privacy.pinwall = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND " +
-        "(privacy.profile = true OR (NOT (contact)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)))";
-    var notShowWhenUserIsBlocked = "NOT (contact)-[:IS_BLOCKED]->(user)";
-
     commands.push(getContacting(userId).getCommand());
     commands.push(getNumberOfContacting(userId).getCommand());
+    commands.push(getBlogs(userId, request).getCommand());
 
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN|:RECOMMENDS*1..2]->(pinwall:PinwallElement)")
-        .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
-        .optionalMatch("(user)-[:IS_CONTACT]->(contact:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
-        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall) AND " + notShowWhenUserIsBlocked)
-        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact:User)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
-        .where("(user)-[:IS_CONTACT]->(contact)-[:WRITTEN|:RECOMMENDS]->(pinwall) AND isContact.type = relPrivacy.type")
-        .with("user, pinwall, pinwallData, contact, isContact, privacy, privacyNoContact, " +
-            "EXISTS((user)-[:WRITTEN|:RECOMMENDS]->(pinwall)) AS isAdmin")
-        .where("( " + showWhenUserPinwallElement + " OR " + showBlogOtherUserWhenPublic + " OR " + showBlogOtherUserPrivacySet + " OR " +
-            showOtherUserPinwallElements + ")")
-        .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
-        .orderBy("pinwall.created DESC")
-        .skip("{skip}")
-        .limit("{maxItems}")
-        .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
+    return getRecommendations(userId, request)
         .send(commands)
         .then(function (resp) {
+            var pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], request.skipRecommendation, request.skipBlog, request.maxItems);
             userInfo.addImageForThumbnail(resp[0]);
 
             return {
                 contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
-                pinwall: pinwallElement.getPinwallElements(resp[2])
+                pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
+                skipRecommendation: pinwall.skipRecommendation,
+                skipBlog: pinwall.skipBlog
             };
         });
 };
