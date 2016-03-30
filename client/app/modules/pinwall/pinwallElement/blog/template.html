@@ -11,8 +11,8 @@
                         <path d="M20 34l10-10 -10-10z"></path>
                     </svg>
                 </div>
-                <div class="public-type" ng-if="!ctrl.element.isPrivate">Öffentlich</div>
-                <div class="public-type" ng-if="ctrl.element.isPrivate">Privat</div>
+                <div class="public-type" ng-if="ctrl.element.isPublic">Öffentlich</div>
+                <div class="public-type" ng-if="!ctrl.element.isPublic">Privat</div>
             </div>
             <div class="blog-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
         </div>
