@@ -1515,7 +1515,7 @@ h2.website-structure-title {
     text-overflow: ellipsis; }
   .card-recommendation .content-container {
     cursor: pointer; }
-    .card-recommendation .content-container .title {
+    .card-recommendation .content-container .page-title {
       font-weight: 500;
       font-size: 16px;
       max-height: 38px;
