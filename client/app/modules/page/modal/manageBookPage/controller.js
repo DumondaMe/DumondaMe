@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast', 'moment',
+module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'moment',
     'CheckPageExists', 'UploadPageService',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment, CheckPageExists,
+    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
               UploadPageService) {
         var ctrl = this;
 

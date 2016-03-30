@@ -37,4 +37,15 @@
   }
 }
 
+.ely-select-category {
+  .md-select-value {
+    span {
+      max-width: 95%;
+      .md-text {
+        white-space: normal;
+      }
+    }
+  }
+}
+
 

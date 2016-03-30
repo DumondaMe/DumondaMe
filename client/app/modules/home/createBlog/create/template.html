@@ -11,10 +11,14 @@
     </div>
     <form name="createBlogForm" class="content-form">
         <div class="content">
+            <md-select ng-model="ctrl.selectedCategories" multiple="true" placeholder="Kategorie" required class="ely-select-category"
+                       ng-change="ctrl.dataChanged()">
+                <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
+            </md-select>
             <md-input-container class="blog-input-container">
                 <label>Schreibe einen Beitrag...</label>
-                <textarea name="blogText" class="blog-input" ng-model="blogText" required md-maxlength="10000"
-                          ng-disabled="ctrl.blogUploadStarted"></textarea>
+                <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000"
+                          ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
                 <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
                     <div ng-message="required">Wird benötigt!</div>
                     <div ng-message="md-maxlength">Text ist zu lang</div>

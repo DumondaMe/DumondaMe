@@ -385,6 +385,11 @@
   .category-description .socialDevelopment {
     background-color: #009688; }
 
+.ely-select-category .md-select-value span {
+  max-width: 95%; }
+  .ely-select-category .md-select-value span .md-text {
+    white-space: normal; }
+
 .modal {
   text-align: center; }
 
@@ -1364,10 +1369,6 @@ h2.website-structure-title {
       color: #3F51B5; }
   .manage-page .ely-dialog-content {
     padding-bottom: 0; }
-    .manage-page .ely-dialog-content .select-category .md-select-value span {
-      max-width: 95%; }
-      .manage-page .ely-dialog-content .select-category .md-select-value span .md-text {
-        white-space: normal; }
     .manage-page .ely-dialog-content .input-container {
       width: 100%;
       margin: 0; }

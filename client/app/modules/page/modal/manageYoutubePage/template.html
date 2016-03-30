@@ -10,7 +10,7 @@
                                 layout="row" layout-align="center center"></ely-iframe>
                 </div>
                 <div flex>
-                    <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Kategorie" required class="select-category"
+                    <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Kategorie" required class="ely-select-category"
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
                     </md-select>

@@ -123,7 +123,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/createBlog/create/template.html',
-    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\"></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
+    "<div layout=column><div class=header layout=row><img class=user-avatar ng-src={{ctrl.userInfo.profileImagePreview}} flex=none><div class=header-content><span class=user-name>{{ctrl.userInfo.name}}</span> <svg width=18px height=18px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg> <span class=visibility ng-click=ctrl.openVisibility()>{{ctrl.visibility}}</span></div></div><form name=createBlogForm class=content-form><div class=content><md-select ng-model=ctrl.selectedCategories multiple placeholder=Kategorie required class=ely-select-category ng-change=ctrl.dataChanged()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><md-input-container class=blog-input-container><label>Schreibe einen Beitrag...</label><textarea name=blogText class=blog-input ng-model=ctrl.blogText required md-maxlength=10000 ng-disabled=ctrl.blogUploadStarted ng-change=ctrl.dataChanged()></textarea><div ng-messages=createBlogForm.blogText.$error ng-show=createBlogForm.blogText.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=load-preview-photo ng-if=ctrl.imageForUploadPreviewStart layout layout-align=\"center center\"><md-progress-circular md-mode=indeterminate md-diameter=60></md-progress-circular></div><div class=preview-photo-container ng-if=ctrl.imageForUploadPreview><img ng-src={{ctrl.imageForUploadPreview}} class=preview-photo></div><div class=actions layout=row><md-button class=\"action-icon md-icon-button\" aria-label=\"Add Photo\"><label for=upload-photo><md-icon md-svg-icon=createBlog:addPhoto class=icon></md-icon></label></md-button><input type=file ely-file-model=imageForUpload id=upload-photo ng-hide=true accept=\".jpg, .png, jpeg\"></div><div class=actions-2 layout=row layout-align=\"end center\"><md-button aria-label=abort ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-raised md-primary post-button\" aria-label=post ng-disabled=\"!ctrl.sendBlogAllowed || ctrl.blogUploadStarted\" ng-click=ctrl.uploadBlog()>Posten</md-button></div></div></form><md-progress-linear ng-if=ctrl.blogUploadStarted md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
@@ -371,12 +371,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/modal/manageBookPage/template.html',
-    "<md-dialog id=manage-book-page aria-label=\"Manage Book Page\" class=manage-page ng-cloak ng-class=\"{'create-book-page-preview-image': ctrl.selectImage}\"><form name=ctrl.manageBookPageForm ng-show=\"!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages\"><div class=\"md-title title\" ng-if=!ctrl.isEditMode>Seite für ein Buch erstellen</div><div class=\"md-title title\" ng-if=ctrl.isEditMode>Buch <span class=title-modify>{{ctrl.data.title}}</span> bearbeiten</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=column layout-gt-sm=row><div><div layout=row layout-align=\"center center\"><div flex=nogrow><img class=preview-image ng-src={{ctrl.data.dataUri}} ng-show=ctrl.data.dataUri></div></div><div layout=row layout-align=\"center center\"><div flex=nogrow><md-button class=md-primary ng-disabled=ctrl.uploadStarted ng-click=\"ctrl.selectImage = true\" aria-label=\"Add Picture\"><span ng-if=!ctrl.data.dataUri>Titelbild hinzufügen</span> <span ng-if=ctrl.data.dataUri>Titelbild ändern</span></md-button></div></div></div><div flex-offset-gt-sm=10><md-select ng-model=ctrl.data.selectedCategories multiple placeholder=Kategorie required class=select-category ng-change=ctrl.changeData()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><div ng-if=!ctrl.isEditMode><md-input-container class=input-container flex><label>Titel</label><input name=title ng-model=ctrl.data.title required md-maxlength=100 ng-disabled=ctrl.uploadStarted ng-change=ctrl.titleHasChanged() ng-blur=\"ctrl.titleLostFocus()\"><div ng-messages=ctrl.manageBookPageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=page-exists-warning ng-if=ctrl.pageExists ng-click=\"ctrl.showExistingPages = true\">Diese Seite existiert möglicherweise bereits. Hier klicken...</div></div><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.data.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.changeData()></textarea><div ng-messages=ctrl.manageBookPageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Autor</label><input name=author ng-model=ctrl.data.author required md-maxlength=255 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.changeData()\"><div ng-messages=ctrl.manageBookPageForm.author.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Erscheinungsdatum (optional)</label><input name=publishDate ng-model=ctrl.data.publishDate ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.publishDateChanged()\"><div ng-messages=ctrl.manageBookPageForm.publishDate.$error><div ng-message=ely-date>Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createBook() ng-if=!ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid\">Erstellen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.modifyBook() ng-if=ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=\"ctrl.uploadStarted && !ctrl.selectImage\" md-mode=indeterminate></md-progress-linear><ely-preview-picture ratio=0.62745 cancel=ctrl.cancelPreviewImage finish=ctrl.setPreviewImage ng-show=\"ctrl.selectImage && !ctrl.recommendPage\"></ely-preview-picture><ely-existing-page-overview pages=ctrl.searchResult.pages ng-if=\"ctrl.showExistingPages && !ctrl.recommendPage\" cancel=ctrl.cancel finish=ctrl.closeOverviewPages></ely-existing-page-overview><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish abort=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
+    "<md-dialog id=manage-book-page aria-label=\"Manage Book Page\" class=manage-page ng-cloak ng-class=\"{'create-book-page-preview-image': ctrl.selectImage}\"><form name=ctrl.manageBookPageForm ng-show=\"!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages\"><div class=\"md-title title\" ng-if=!ctrl.isEditMode>Seite für ein Buch erstellen</div><div class=\"md-title title\" ng-if=ctrl.isEditMode>Buch <span class=title-modify>{{ctrl.data.title}}</span> bearbeiten</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=column layout-gt-sm=row><div><div layout=row layout-align=\"center center\"><div flex=nogrow><img class=preview-image ng-src={{ctrl.data.dataUri}} ng-show=ctrl.data.dataUri></div></div><div layout=row layout-align=\"center center\"><div flex=nogrow><md-button class=md-primary ng-disabled=ctrl.uploadStarted ng-click=\"ctrl.selectImage = true\" aria-label=\"Add Picture\"><span ng-if=!ctrl.data.dataUri>Titelbild hinzufügen</span> <span ng-if=ctrl.data.dataUri>Titelbild ändern</span></md-button></div></div></div><div flex-offset-gt-sm=10><md-select ng-model=ctrl.data.selectedCategories multiple placeholder=Kategorie required class=ely-select-category ng-change=ctrl.changeData()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><div ng-if=!ctrl.isEditMode><md-input-container class=input-container flex><label>Titel</label><input name=title ng-model=ctrl.data.title required md-maxlength=100 ng-disabled=ctrl.uploadStarted ng-change=ctrl.titleHasChanged() ng-blur=\"ctrl.titleLostFocus()\"><div ng-messages=ctrl.manageBookPageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><div class=page-exists-warning ng-if=ctrl.pageExists ng-click=\"ctrl.showExistingPages = true\">Diese Seite existiert möglicherweise bereits. Hier klicken...</div></div><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.data.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.changeData()></textarea><div ng-messages=ctrl.manageBookPageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Autor</label><input name=author ng-model=ctrl.data.author required md-maxlength=255 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.changeData()\"><div ng-messages=ctrl.manageBookPageForm.author.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><md-input-container class=input-container><label>Erscheinungsdatum (optional)</label><input name=publishDate ng-model=ctrl.data.publishDate ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.publishDateChanged()\"><div ng-messages=ctrl.manageBookPageForm.publishDate.$error><div ng-message=ely-date>Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createBook() ng-if=!ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid\">Erstellen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.modifyBook() ng-if=ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=\"ctrl.uploadStarted && !ctrl.selectImage\" md-mode=indeterminate></md-progress-linear><ely-preview-picture ratio=0.62745 cancel=ctrl.cancelPreviewImage finish=ctrl.setPreviewImage ng-show=\"ctrl.selectImage && !ctrl.recommendPage\"></ely-preview-picture><ely-existing-page-overview pages=ctrl.searchResult.pages ng-if=\"ctrl.showExistingPages && !ctrl.recommendPage\" cancel=ctrl.cancel finish=ctrl.closeOverviewPages></ely-existing-page-overview><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish abort=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
   );
 
 
   $templateCache.put('app/modules/page/modal/manageYoutubePage/template.html',
-    "<md-dialog id=manage-youtube-page aria-label=\"Manage Youtube Page\" ng-cloak class=manage-page><form name=ctrl.manageYoutubePageForm ng-show=\"!ctrl.recommendPage && !ctrl.showExistingPages\"><div class=\"md-title title\" ng-if=!ctrl.isEditMode>Seite für ein Youtube Video erstellen</div><div class=\"md-title title\" ng-if=ctrl.isEditMode>Video <span class=title-modify>{{ctrl.data.title}}</span> bearbeiten</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=row><div class=youtube-preview flex=none hide show-gt-sm><ely-iframe width=270 height=200 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.youtubeLinkFormatted ng-show=\"ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty\" layout=row layout-align=\"center center\"></ely-iframe></div><div flex><md-select ng-model=ctrl.data.selectedCategories multiple placeholder=Kategorie required class=select-category ng-change=ctrl.changeData()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><div ng-if=!ctrl.isEditMode layout=column layout-align=\"center none\"><md-input-container class=input-container><label>Titel</label><input name=title ng-model=ctrl.data.title required md-maxlength=100 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.manageYoutubePageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><ely-iframe width=270 height=180 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.youtubeLinkFormatted ng-show=\"ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty\" layout=row layout-align=\"center center\" hide-gt-sm></ely-iframe><md-input-container class=input-container><label>Link</label><input name=link ng-model=ctrl.data.link ng-disabled=ctrl.uploadStarted ng-change=ctrl.linkHasChanged() ng-blur=ctrl.lostFocus() required><div ng-messages=ctrl.manageYoutubePageForm.link.$error><div ng-message=required>Wird benötigt!</div><div ng-message=ely-invalid-link>Ungültiger Youtube Link</div></div></md-input-container><div class=page-exists-warning ng-if=ctrl.pageExists ng-click=\"ctrl.showExistingPages = true\">Diese Seite existiert möglicherweise bereits. Hier klicken...</div></div><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.data.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.changeData()></textarea><div ng-messages=ctrl.manageYoutubePageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createYoutube() ng-if=!ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid\">Erstellen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.modifyYoutube() ng-if=ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid || !ctrl.dataHasChanged\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear><ely-existing-page-overview pages=ctrl.searchResult.pages ng-if=\"ctrl.showExistingPages && !ctrl.recommendPage\" cancel=ctrl.cancel finish=ctrl.closeOverviewPages></ely-existing-page-overview><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish abort=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
+    "<md-dialog id=manage-youtube-page aria-label=\"Manage Youtube Page\" ng-cloak class=manage-page><form name=ctrl.manageYoutubePageForm ng-show=\"!ctrl.recommendPage && !ctrl.showExistingPages\"><div class=\"md-title title\" ng-if=!ctrl.isEditMode>Seite für ein Youtube Video erstellen</div><div class=\"md-title title\" ng-if=ctrl.isEditMode>Video <span class=title-modify>{{ctrl.data.title}}</span> bearbeiten</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\" layout=row><div class=youtube-preview flex=none hide show-gt-sm><ely-iframe width=270 height=200 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.youtubeLinkFormatted ng-show=\"ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty\" layout=row layout-align=\"center center\"></ely-iframe></div><div flex><md-select ng-model=ctrl.data.selectedCategories multiple placeholder=Kategorie required class=ely-select-category ng-change=ctrl.changeData()><md-option ng-value=category ng-repeat=\"category in ctrl.categories\">{{ category.description }}</md-option></md-select><div ng-if=!ctrl.isEditMode layout=column layout-align=\"center none\"><md-input-container class=input-container><label>Titel</label><input name=title ng-model=ctrl.data.title required md-maxlength=100 ng-disabled=\"ctrl.uploadStarted\"><div ng-messages=ctrl.manageYoutubePageForm.title.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container><ely-iframe width=270 height=180 secure-link=\"https://www.youtube.com/embed/\" src=ctrl.youtubeLinkFormatted ng-show=\"ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty\" layout=row layout-align=\"center center\" hide-gt-sm></ely-iframe><md-input-container class=input-container><label>Link</label><input name=link ng-model=ctrl.data.link ng-disabled=ctrl.uploadStarted ng-change=ctrl.linkHasChanged() ng-blur=ctrl.lostFocus() required><div ng-messages=ctrl.manageYoutubePageForm.link.$error><div ng-message=required>Wird benötigt!</div><div ng-message=ely-invalid-link>Ungültiger Youtube Link</div></div></md-input-container><div class=page-exists-warning ng-if=ctrl.pageExists ng-click=\"ctrl.showExistingPages = true\">Diese Seite existiert möglicherweise bereits. Hier klicken...</div></div><md-input-container class=input-container><label>Beschreibung</label><textarea name=description ng-model=ctrl.data.description required md-maxlength=10000 ng-disabled=ctrl.uploadStarted ng-change=ctrl.changeData()></textarea><div ng-messages=ctrl.manageYoutubePageForm.description.$error><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div></div></md-input-container></div></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.createYoutube() ng-if=!ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid\">Erstellen</md-button><md-button class=\"md-primary md-raised\" ng-click=ctrl.modifyYoutube() ng-if=ctrl.isEditMode ng-disabled=\" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid || !ctrl.dataHasChanged\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear><ely-existing-page-overview pages=ctrl.searchResult.pages ng-if=\"ctrl.showExistingPages && !ctrl.recommendPage\" cancel=ctrl.cancel finish=ctrl.closeOverviewPages></ely-existing-page-overview><ely-add-recommendation ng-if=ctrl.recommendPage title=ctrl.title page-id=ctrl.pageId finish=ctrl.recommendationFinish abort=ctrl.recommendationFinish></ely-add-recommendation></md-dialog>"
   );
 
 
@@ -2700,12 +2700,15 @@ module.exports = [
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'FileReader', 'FileReaderUtil', 'CreateBlogCheck', 'UploadBlog',
-            function ($scope, userInfo, CreateBlogVisibility, ElyModal, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog) {
+            'Categories', 'errorToast',
+            function ($scope, userInfo, CreateBlogVisibility, ElyModal, FileReader, FileReaderUtil, CreateBlogCheck, UploadBlog, Categories,
+                      errorToast) {
                 var ctrl = this;
                 ctrl.userInfo = userInfo.getUserInfo();
                 ctrl.visibility = "Alle";
                 ctrl.internalCommands = ctrl.commands || {};
                 ctrl.blogUploadStarted = false;
+                ctrl.categories = Categories.categories;
 
                 CreateBlogVisibility.reset();
 
@@ -2730,22 +2733,27 @@ module.exports = {
                 ctrl.uploadBlog = function () {
                     if (ctrl.sendBlogAllowed && !ctrl.blogUploadStarted) {
                         ctrl.blogUploadStarted = true;
-                        UploadBlog.upload($scope.blogText, ctrl.imageForUploadPreviewData).then(function (resp) {
-                            ElyModal.hide(resp);
+                        UploadBlog.upload(ctrl.blogText, Categories.getCodes(ctrl.selectedCategories), ctrl.imageForUploadPreviewData)
+                            .then(function (resp) {
+                                ElyModal.hide(resp);
+                            }).catch(function () {
+                            ctrl.blogUploadStarted = false;
+                            errorToast.showError('Blog konnte nicht hochgeladen werden');
                         });
                     }
                 };
 
-                $scope.$watch('blogText', function (newBlogText) {
-                    ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(newBlogText, ctrl.imageForUploadPreviewStart);
-                });
+                ctrl.dataChanged = function () {
+                    ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.selectedCategories, ctrl.imageForUploadPreviewStart);
+                };
 
                 $scope.$watch('imageForUpload', function (newImage) {
                     if (newImage) {
                         FileReader.onloadend = function () {
                             $scope.$apply(function () {
                                 ctrl.imageForUploadPreviewStart = false;
-                                ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed($scope.blogText, ctrl.imageForUploadPreviewStart);
+                                ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed($scope.blogText, ctrl.selectedCategories,
+                                    ctrl.imageForUploadPreviewStart);
                                 ctrl.imageForUploadPreview = FileReader.result;
                                 ctrl.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.imageForUploadPreview);
                             });
@@ -2800,8 +2808,8 @@ app.service('UploadBlog', require('./services/uploadBlog'));
 },{"./directive.js":94,"./services/uploadBlog":96}],96:[function(require,module,exports){
 'use strict';
 
-var getParams = function (CreateBlogVisibility, blogText) {
-    var params = {addBlog: {text: blogText}}, visibility = [];
+var getParams = function (CreateBlogVisibility, blogText, selectedCategories) {
+    var params = {addBlog: {text: blogText, category: selectedCategories}}, visibility = [];
     if (!CreateBlogVisibility.isPublic()) {
         angular.forEach(CreateBlogVisibility.getPrivacyTypesSelected(), function (type) {
             visibility.push(type.type);
@@ -2815,21 +2823,23 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
     function (CreateBlogVisibility, CreateBlogCheck, fileUpload, $q) {
 
         var uploadBlogIsRunning = false;
-        this.upload = function (blogText, blogImage) {
+        this.upload = function (blogText, selectedCategories, blogImage) {
             var deferred = $q.defer();
-            if (CreateBlogCheck.isSendBlogAllowed(blogText, false) && !uploadBlogIsRunning) {
+            if (CreateBlogCheck.isSendBlogAllowed(blogText, selectedCategories, false) && !uploadBlogIsRunning) {
                 uploadBlogIsRunning = true;
-                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText), 'api/user/blog').success(function (resp) {
-                    uploadBlogIsRunning = false;
-                    resp.isAdmin = true;
-                    resp.pinwallType = "Blog";
-                    deferred.resolve(resp);
-                }).error(function () {
+                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, selectedCategories), 'api/user/blog')
+                    .success(function (resp) {
+                        uploadBlogIsRunning = false;
+                        resp.isAdmin = true;
+                        resp.pinwallType = "Blog";
+                        resp.isPublic = CreateBlogVisibility.isPublic();
+                        deferred.resolve(resp);
+                    }).error(function () {
                     uploadBlogIsRunning = false;
                     deferred.reject({});
                 });
             } else {
-                deferred.reject({});
+                return $q.reject({});
             }
             return deferred.promise;
         };
@@ -2852,8 +2862,14 @@ app.controller('HomePinwallCreateBlog', require('./controller'));
 module.exports = [
     function () {
 
-        this.isSendBlogAllowed = function (blogText, imageLoading) {
-            if (!imageLoading && blogText) {
+        var service = this;
+
+        service.isValidCategorySelected = function (selectedCategories) {
+            return angular.isArray(selectedCategories) && selectedCategories.length > 0;
+        };
+
+        service.isSendBlogAllowed = function (blogText, selectedCategories, imageLoading) {
+            if (!imageLoading && blogText && service.isValidCategorySelected(selectedCategories)) {
                 return blogText.trim() !== '';
             }
             return false;
@@ -6362,9 +6378,9 @@ app.service('CheckPageExists', require('./services/checkPageExists'));
 },{"./services/checkPageExists":247,"./services/uploadPage":248}],237:[function(require,module,exports){
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'errorToast', 'moment',
+module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'moment',
     'CheckPageExists', 'UploadPageService',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, errorToast, moment, CheckPageExists,
+    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
               UploadPageService) {
         var ctrl = this;
 
