@@ -396,7 +396,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/pinwall/pinwallElement/blog/template.html',
-    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><div ng-click=ctrl.openUserDetail() class=blog-header><div layout=row layout-wrap><div class=\"md-title user-name\">{{ctrl.element.name}}</div><div><svg width=16px height=16px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg></div><div class=public-type ng-if=ctrl.element.isPublic>Öffentlich</div><div class=public-type ng-if=!ctrl.element.isPublic>Privat</div></div><div class=blog-created>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><span flex></span><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.element.isAdmin ng-disabled=ctrl.requestBlogDeleteRunning><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.deleteBlog()>Löschen</md-button></md-menu-item></md-menu-content></md-menu></md-card-header><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
+    "<md-card class=pinwall-blog-card><md-card-header><md-card-avatar ng-click=ctrl.openUserDetail()><img class=md-user-avatar ng-src=\"{{ctrl.element.profileUrl}}\"></md-card-avatar><div ng-click=ctrl.openUserDetail() class=blog-header><div layout=row layout-wrap><div class=\"md-title user-name\">{{ctrl.element.name}}</div><div><svg width=16px height=16px viewbox=\"0 0 48 48\" fill=#757575 class=divider><path d=\"M20 34l10-10 -10-10z\"></path></svg></div><div class=public-type ng-if=ctrl.element.isPublic>Öffentlich</div><div class=public-type ng-if=!ctrl.element.isPublic>Privat</div></div><div class=blog-created>{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div></div><span flex></span><md-menu md-position-mode=\"target-right target\" class=button-settings-container ng-if=ctrl.element.isAdmin ng-disabled=ctrl.requestBlogDeleteRunning><md-button ng-click=$mdOpenMenu($event) class=\"md-icon-button button-settings\" aria-label=Settings><md-icon md-svg-icon=cardActions:moreVert></md-icon></md-button><md-menu-content><md-menu-item><md-button ng-click=ctrl.deleteBlog()>Löschen</md-button></md-menu-item></md-menu-content></md-menu></md-card-header><div class=category-description><md-icon md-svg-icon=cardActions:blog aria-label=Book class=category-icon></md-icon><md-icon md-svg-icon=cardActions:menuRight aria-label=Divider class=category-icon></md-icon><div class=category-type ng-class=ctrl.getCategoryClass(category) ng-repeat=\"category in ctrl.element.category\">{{ctrl.getCategory(category)}}</div></div><div class=blog-image-container ng-if=ctrl.element.url ng-click=ctrl.openDetail()><img ng-src={{ctrl.element.url}} class=md-card-image></div><md-card-content><div class=\"md-body-1 blog-text\" ng-click=ctrl.openDetail()>{{ctrl.previewText}}</div></md-card-content><md-divider></md-divider><md-progress-linear ng-if=ctrl.requestBlogDeleteRunning md-mode=indeterminate></md-progress-linear></md-card>"
   );
 
 
@@ -6902,13 +6902,16 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation',
-            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation) {
+        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'Categories',
+            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation, Categories) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
+
+                ctrl.getCategory = Categories.getCategory;
+                ctrl.getCategoryClass = Categories.getCategoryClass;
 
                 ctrl.previewText = PreviewTextService.getPreviewText(ctrl.element.text, 120).text;
 
