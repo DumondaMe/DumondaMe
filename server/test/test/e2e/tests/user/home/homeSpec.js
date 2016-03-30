@@ -697,10 +697,11 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[2].rating.should.equals(4);
                 res.body.pinwall[2].created.should.equals(504);
                 res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                res.body.pinwall[2].link.should.equals('www.test.ch');
                 res.body.pinwall[2].comment.should.equals('irgendwas2');
                 res.body.pinwall[2].description.should.equals('bookPage2');
-                res.body.pinwall[2].isAdmin.should.equals(false);
+                res.body.pinwall[2].userHasRecommended.should.equals(false);
+                res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
+                res.body.pinwall[2].numberOfSamePinwallData.should.equals(1);
                 res.body.pinwall[2].category.length.should.equals(2);
                 res.body.pinwall[2].category[0].should.equals('health');
                 res.body.pinwall[2].category[1].should.equals('personalDevelopment');
@@ -715,10 +716,11 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].rating.should.equals(1);
                 res.body.pinwall[3].created.should.equals(503);
                 res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.pinwall[3].url.should.equals('pages/0/pagePreview.jpg');
                 res.body.pinwall[3].comment.should.equals('irgendwas');
                 res.body.pinwall[3].description.should.equals('bookPage1');
-                res.body.pinwall[3].isAdmin.should.equals(true);
+                res.body.pinwall[3].userHasRecommended.should.equals(true);
+                res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
+                res.body.pinwall[3].numberOfSamePinwallData.should.equals(2);
                 res.body.pinwall[3].category.length.should.equals(2);
                 res.body.pinwall[3].category[0].should.equals('health');
                 res.body.pinwall[3].category[1].should.equals('personalDevelopment');

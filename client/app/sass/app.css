@@ -1526,12 +1526,19 @@ h2.website-structure-title {
       line-height: 16px;
       max-height: 48px;
       overflow: hidden;
-      color: rgba(0, 0, 0, 0.54); }
+      color: rgba(0, 0, 0, 0.54);
+      margin-bottom: 8px; }
     .card-recommendation .content-container .forename {
-      margin-bottom: 4px;
       font-weight: 400;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87); }
+    .card-recommendation .content-container .page-rating {
+      margin-bottom: 8px; }
+    .card-recommendation .content-container .recommendation-container {
+      font-size: 14px; }
+      .card-recommendation .content-container .recommendation-container .number {
+        color: #3F51B5;
+        font-weight: 500; }
 
 #problem-create {
   min-width: 310px;

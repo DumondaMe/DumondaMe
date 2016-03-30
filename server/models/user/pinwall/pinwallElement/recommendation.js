@@ -1,7 +1,6 @@
 'use strict';
 
 var profileUrl = require('./profileUrl');
-var pagePreview = require('./../../../page/pagePreview');
 
 var getPinwallElement = function (pinwallElement) {
     var element = {};
@@ -13,11 +12,11 @@ var getPinwallElement = function (pinwallElement) {
     element.pageId = pinwallElement.pinwallData.pageId;
     element.description = pinwallElement.pinwallData.description;
     element.title = pinwallElement.pinwallData.title;
-    element.link = pinwallElement.pinwallData.link;
     element.category = pinwallElement.pinwallData.category;
-    element.isAdmin = pinwallElement.isAdmin;
+    element.userHasRecommended = pinwallElement.userHasRecommended;
+    element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
+    element.numberOfSamePinwallData = pinwallElement.numberOfSamePinwallData;
     profileUrl.addProfileUrl(element, pinwallElement);
-    pagePreview.addPageUrl([element]);
     return element;
 };
 

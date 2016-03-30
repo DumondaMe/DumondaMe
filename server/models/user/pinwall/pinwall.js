@@ -76,7 +76,7 @@ var getBlogs = function (userId, request) {
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("privacy is NULL")
         .with("user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, " +
-            "EXISTS((user)-[:WRITTEN|:RECOMMENDS]->(pinwall)) AS isAdmin")
+            "EXISTS((user)-[:WRITTEN]->(pinwall)) AS isAdmin")
         .where("((user)-[:WRITTEN]->(pinwall) OR (NOT contact is null AND NOT EXISTS(pinwall.visible)) OR " +
             "(NOT contact is null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)")
         .return("user, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
@@ -111,7 +111,8 @@ var getRecommendations = function (userId, request) {
         .where("pinwall.created = created")
         .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
         .return("user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, " +
-            "EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS isAdmin")
+            "EXISTS((user)-[:RECOMMENDS]->()-[:RECOMMENDS]->(pinwallData)) AS userHasRecommended," +
+            "EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser")
         .end({userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems});
 };
 

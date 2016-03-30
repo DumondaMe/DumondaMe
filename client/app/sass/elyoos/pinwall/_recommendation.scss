@@ -25,12 +25,22 @@
       max-height: 48px;
       overflow: hidden;
       color: $secondary-text;
+      margin-bottom: 8px;
     }
     .forename {
-      margin-bottom: 4px;
       font-weight: 400;
       font-size: 14px;
       color: $primary-text;
+    }
+    .page-rating {
+      margin-bottom: 8px;
+    }
+    .recommendation-container {
+      font-size: 14px;
+      .number {
+        color: $primary-color;
+        font-weight: 500;
+      }
     }
   }
 }
