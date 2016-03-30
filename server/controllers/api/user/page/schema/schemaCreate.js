@@ -1,5 +1,7 @@
 'use strict';
 
+var definitions = require("./schemaDefinitions");
+
 module.exports = {
     name: 'createPage',
     type: 'object',
@@ -29,16 +31,5 @@ module.exports = {
             }
         }
     },
-    definitions: {
-        id: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        category: {
-            type: 'array',
-            minItems: 1,
-            items: {enum: ['health', 'environmental', 'spiritual', 'personalDevelopment', 'socialDevelopment', 'education']},
-            uniqueItems: true
-        },
-        title: {type: 'string', format: 'notEmptyString', maxLength: 255},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 10000},
-        link: {type: 'string', format: 'url', maxLength: 1000}
-    }
+    definitions: definitions
 };

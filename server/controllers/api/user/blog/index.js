@@ -6,6 +6,7 @@ var exceptions = require('./../../../../lib/error/exceptions');
 var addBlog = require('./../../../../models/user/blog/addBlog');
 var removeBlog = require('./../../../../models/user/blog/removeBlog');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var category = require("../../../schema/category");
 var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestBlog = {
@@ -17,7 +18,7 @@ var schemaRequestBlog = {
         addBlog: {
             type: 'object',
             additionalProperties: false,
-            required: ['text'],
+            required: ['text', 'category'],
             properties: {
                 text: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 10000},
                 visibility: {
@@ -26,7 +27,8 @@ var schemaRequestBlog = {
                     minItems: 1,
                     maxItems: 10,
                     uniqueItems: true
-                }
+                },
+                category: category.category,
             }
         }
     }

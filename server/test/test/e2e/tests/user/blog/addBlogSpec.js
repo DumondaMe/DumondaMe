@@ -44,7 +44,8 @@ describe('Integration Tests for adding a blog', function () {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
-                        text: 'testBlog1'
+                        text: 'testBlog1',
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -56,12 +57,15 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.heightPreviewImage);
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.created as created')
+                    .return('b.text as text, b.created as created, b.category AS category')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
                 blog[0].text.should.equals('testBlog1');
                 blog[0].created.should.least(startTime);
+                blog[0].category.length.should.equals(2);
+                blog[0].category[0].should.equals('environmental');
+                blog[0].category[1].should.equals('spiritual');
             });
     });
 
@@ -81,7 +85,8 @@ describe('Integration Tests for adding a blog', function () {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
-                        text: 'testBlog1'
+                        text: 'testBlog1',
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
             }).then(function (res) {
@@ -99,12 +104,15 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.created as created, b.heightPreviewImage as heightPreviewImage')
+                    .return('b.text as text, b.created as created, b.heightPreviewImage as heightPreviewImage, b.category as category')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
                 blog[0].text.should.equals('testBlog1');
                 blog[0].created.should.least(startTime);
+                blog[0].category.length.should.equals(2);
+                blog[0].category[0].should.equals('environmental');
+                blog[0].category[1].should.equals('spiritual');
             });
     });
 
@@ -124,7 +132,8 @@ describe('Integration Tests for adding a blog', function () {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
-                        text: 'testBlog1'
+                        text: 'testBlog1',
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent, './test/test/e2e/tests/user/blog/testPortrait.jpg');
             }).then(function (res) {
@@ -142,12 +151,16 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.created as created')
+                    .return('b.text as text, b.created as created, b.category as category')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
                 blog[0].text.should.equals('testBlog1');
                 blog[0].created.should.least(startTime);
+
+                blog[0].category.length.should.equals(2);
+                blog[0].category[0].should.equals('environmental');
+                blog[0].category[1].should.equals('spiritual');
             });
     });
 
@@ -167,7 +180,8 @@ describe('Integration Tests for adding a blog', function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         text: 'testBlog1',
-                        visibility: ['Freund', 'Bekannter']
+                        visibility: ['Freund', 'Bekannter'],
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -180,7 +194,7 @@ describe('Integration Tests for adding a blog', function () {
                 should.not.exist(res.body.url);
                 should.not.exist(res.body.urlFull);
                 return db.cypher().match("()-[:WRITTEN]->(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.created as created, b.visible as visible')
+                    .return('b.text as text, b.created as created, b.visible as visible, b.category as category')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
@@ -189,6 +203,10 @@ describe('Integration Tests for adding a blog', function () {
                 blog[0].visible[0].should.equals('Freund');
                 blog[0].visible[1].should.equals('Bekannter');
                 blog[0].created.should.least(startTime);
+
+                blog[0].category.length.should.equals(2);
+                blog[0].category[0].should.equals('environmental');
+                blog[0].category[1].should.equals('spiritual');
             });
     });
 
@@ -205,7 +223,8 @@ describe('Integration Tests for adding a blog', function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         text: 'testBlog1',
-                        visibility: ['Bekannter']
+                        visibility: ['Bekannter'],
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -240,7 +259,8 @@ describe('Integration Tests for adding a blog', function () {
                 requestAgent = agent;
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
-                        text: 'testBlog1'
+                        text: 'testBlog1',
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -276,7 +296,8 @@ describe('Integration Tests for adding a blog', function () {
                 return requestHandler.post('/api/user/blog', {
                     addBlog: {
                         text: 'testBlog1',
-                        visibility: ['Freund']
+                        visibility: ['Freund'],
+                        category: ['environmental', 'spiritual']
                     }
                 }, requestAgent);
             }).then(function (res) {
