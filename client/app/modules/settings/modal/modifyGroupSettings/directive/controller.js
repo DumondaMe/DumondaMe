@@ -19,13 +19,13 @@ module.exports = ['Privacy', 'ElyModal', 'errorToast', 'ModifyGroupNameService',
 
         ctrl.accept = function () {
             ctrl.uploadStarted = true;
-            Privacy.save(ModifyGroupMessageService.getMessage(ctrl.setting)
-            , function () {
-                ctrl.finish();
-            }, function () {
-                errorToast.showError('Es ist ein Fehler aufgetretten!');
-                ctrl.uploadStarted = false;
-            });
+            Privacy.save(ModifyGroupMessageService.getMessage(ctrl.setting),
+                function () {
+                    ctrl.finish();
+                }, function () {
+                    errorToast.showError('Es ist ein Fehler aufgetretten!');
+                    ctrl.uploadStarted = false;
+                });
         };
 
     }];

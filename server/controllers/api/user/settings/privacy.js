@@ -51,12 +51,13 @@ var schemaPostNewPrivacy = {
         privacySettings: {
             type: 'object',
             additionalProperties: false,
-            required: ['profileVisible', 'profileDataVisible', 'imageVisible', 'contactsVisible'],
+            required: ['profileVisible', 'profileDataVisible', 'imageVisible', 'contactsVisible', 'pinwallVisible'],
             properties: {
                 profileVisible: {type: 'boolean'},
                 profileDataVisible: {type: 'boolean'},
                 imageVisible: {type: 'boolean'},
-                contactsVisible: {type: 'boolean'}
+                contactsVisible: {type: 'boolean'},
+                pinwallVisible: {type: 'boolean'}
             }
         },
         privacyDescription: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30}

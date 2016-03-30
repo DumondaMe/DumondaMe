@@ -42,16 +42,16 @@ describe('Integration Tests for the privacy settings', function () {
                 .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true, pinwall: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Familie'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: true})")
                 .end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, profileData: false, contacts: false, image: true})")
+                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, profileData: false, contacts: false, image: true, pinwall: false})")
                 .end().getCommand());
             return db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: false, contacts: false, image: false})")
+                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: false, contacts: false, image: false, pinwall: false})")
                 .end().send(commands);
         });
     });
@@ -71,22 +71,26 @@ describe('Integration Tests for the privacy settings', function () {
             res.body.normal[0].profileDataVisible.should.be.false;
             res.body.normal[0].imageVisible.should.be.true;
             res.body.normal[0].contactsVisible.should.be.false;
+            res.body.normal[0].pinwallVisible.should.be.false;
             res.body.normal[1].type.should.equal('Familie');
             res.body.normal[1].profileVisible.should.be.true;
             res.body.normal[1].profileDataVisible.should.be.true;
             res.body.normal[1].imageVisible.should.be.true;
             res.body.normal[1].contactsVisible.should.be.true;
+            res.body.normal[1].pinwallVisible.should.be.true;
             res.body.normal[2].type.should.equal('Freund');
             res.body.normal[2].profileVisible.should.be.true;
             res.body.normal[2].profileDataVisible.should.be.true;
             res.body.normal[2].imageVisible.should.be.true;
             res.body.normal[2].contactsVisible.should.be.false;
+            res.body.normal[2].pinwallVisible.should.be.true;
 
 
             res.body.noContact.profileVisible.should.be.false;
             res.body.noContact.profileDataVisible.should.be.false;
             res.body.noContact.imageVisible.should.be.false;
             res.body.noContact.contactsVisible.should.be.false;
+            res.body.noContact.pinwallVisible.should.be.false;
         });
     });
 
@@ -98,7 +102,8 @@ describe('Integration Tests for the privacy settings', function () {
                         profileVisible: false,
                         profileDataVisible: false,
                         imageVisible: false,
-                        contactsVisible: false
+                        contactsVisible: false,
+                        pinwallVisible:false
                     },
                     privacyDescription: 'Familie'
                 }
@@ -107,14 +112,15 @@ describe('Integration Tests for the privacy settings', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[:HAS_PRIVACY {type:'Familie'}]->(privacy:Privacy)")
-                .return('privacy.profile as profile, privacy.profileData as profileData, privacy.contacts as contacts, privacy.image as image')
+                .return('privacy as privacy')
                 .end().send();
         }).then(function (privacy) {
             privacy.length.should.equals(1);
-            privacy[0].profile.should.be.false;
-            privacy[0].profileData.should.be.false;
-            privacy[0].contacts.should.be.false;
-            privacy[0].image.should.be.false;
+            privacy[0].privacy.profile.should.be.false;
+            privacy[0].privacy.profileData.should.be.false;
+            privacy[0].privacy.contacts.should.be.false;
+            privacy[0].privacy.image.should.be.false;
+            privacy[0].privacy.pinwall.should.be.false;
         });
     });
 
@@ -126,7 +132,8 @@ describe('Integration Tests for the privacy settings', function () {
                         profileVisible: false,
                         profileDataVisible: false,
                         imageVisible: false,
-                        contactsVisible: false
+                        contactsVisible: false,
+                        pinwallVisible:false
                     },
                     privacyDescription: 'Famili'
                 }
@@ -145,7 +152,8 @@ describe('Integration Tests for the privacy settings', function () {
                         profileVisible: true,
                         profileDataVisible: true,
                         imageVisible: true,
-                        contactsVisible: true
+                        contactsVisible: true,
+                        pinwallVisible:true
                     }
                 }
             };
@@ -153,14 +161,15 @@ describe('Integration Tests for the privacy settings', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[:HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-                .return('privacy.profile as profile, privacy.profileData as profileData, privacy.contacts as contacts, privacy.image as image')
+                .return('privacy as privacy')
                 .end().send();
         }).then(function (privacy) {
             privacy.length.should.equals(1);
-            privacy[0].profile.should.be.true;
-            privacy[0].profileData.should.be.true;
-            privacy[0].contacts.should.be.true;
-            privacy[0].image.should.be.true;
+            privacy[0].privacy.profile.should.be.true;
+            privacy[0].privacy.profileData.should.be.true;
+            privacy[0].privacy.contacts.should.be.true;
+            privacy[0].privacy.image.should.be.true;
+            privacy[0].privacy.pinwall.should.be.true;
         });
     });
 
@@ -261,7 +270,8 @@ describe('Integration Tests for the privacy settings', function () {
                         profileVisible: true,
                         profileDataVisible: true,
                         imageVisible: true,
-                        contactsVisible: true
+                        contactsVisible: true,
+                        pinwallVisible:true
                     }
                 }
             };
@@ -270,13 +280,14 @@ describe('Integration Tests for the privacy settings', function () {
             res.status.should.equal(200);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(privacy:Privacy)")
                 .return('r.type as type, count(r.type) as count, privacy.profile as profile, privacy.profileData as profileData, ' +
-                'privacy.contacts as contacts, privacy.image as image')
+                'privacy.contacts as contacts, privacy.image as image, privacy.pinwall as pinwall')
+                .orderBy("r.type")
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(4);
-            contactType[0].type.should.equals('Familie');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
-            contactType[1].type.should.equals('Bekannter');
+            contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
             contactType[2].type.should.equals('Freund');
             contactType[2].count.should.equals(1);
@@ -286,6 +297,7 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[3].profileData.should.be.true;
             contactType[3].image.should.be.true;
             contactType[3].contacts.should.be.true;
+            contactType[3].pinwall.should.be.true;
         });
     });
 
@@ -298,7 +310,8 @@ describe('Integration Tests for the privacy settings', function () {
                         profileVisible: false,
                         profileDataVisible: false,
                         imageVisible: false,
-                        contactsVisible: false
+                        contactsVisible: false,
+                        pinwallVisible:false
                     }
                 }
             };
@@ -307,13 +320,14 @@ describe('Integration Tests for the privacy settings', function () {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[r:HAS_PRIVACY]->(privacy:Privacy)")
                 .return('r.type as type, count(r.type) as count, privacy.profile as profile, privacy.profileData as profileData, ' +
-                'privacy.contacts as contacts, privacy.image as image')
+                'privacy.contacts as contacts, privacy.image as image, privacy.pinwall as pinwall')
+                .orderBy("r.type")
                 .end().send();
         }).then(function (contactType) {
             contactType.length.should.equals(3);
-            contactType[0].type.should.equals('Familie');
+            contactType[0].type.should.equals('Bekannter');
             contactType[0].count.should.equals(1);
-            contactType[1].type.should.equals('Bekannter');
+            contactType[1].type.should.equals('Familie');
             contactType[1].count.should.equals(1);
             contactType[2].type.should.equals('Freund');
             contactType[2].count.should.equals(1);
@@ -321,6 +335,7 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[2].profileData.should.be.true;
             contactType[2].image.should.be.true;
             contactType[2].contacts.should.be.false;
+            contactType[2].pinwall.should.be.true;
         });
     });
 

@@ -13,10 +13,11 @@ module.exports = [
                             profileVisible: setting.profileVisible,
                             contactsVisible: setting.contactsVisible,
                             imageVisible: setting.imageVisible,
-                            profileDataVisible: setting.profileDataVisible
+                            profileDataVisible: setting.profileDataVisible,
+                            pinwallVisible: setting.pinwallVisible
                         }
                     }
-                }
+                };
             } else {
                 message = {
                     changePrivacySetting: {
@@ -24,12 +25,13 @@ module.exports = [
                             profileVisible: setting.profileVisible,
                             contactsVisible: setting.contactsVisible,
                             imageVisible: setting.imageVisible,
-                            profileDataVisible: setting.profileDataVisible
+                            profileDataVisible: setting.profileDataVisible,
+                            pinwallVisible: setting.pinwallVisible
                         }, privacyDescription: setting.type
                     }
-                }
+                };
             }
-            return message
+            return message;
         };
     }]
 ;

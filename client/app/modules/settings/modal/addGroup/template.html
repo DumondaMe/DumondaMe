@@ -27,6 +27,10 @@
                          class="select-privacy">
                 Meine Profildaten sind sichtbar
             </md-checkbox>
+            <md-checkbox ng-model="ctrl.pinwallVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Pinwall visible"
+                         class="select-privacy">
+                Meine Pinwand ist sichtbar
+            </md-checkbox>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>

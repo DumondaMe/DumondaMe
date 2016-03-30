@@ -37,7 +37,7 @@ var getPrivacySettings = function (id) {
     var commands = [], returnCommand;
 
     returnCommand = "privacy.profile AS profileVisible, privacy.profileData AS profileDataVisible, " +
-        "privacy.image AS imageVisible, privacy.contacts AS contactsVisible, r.type AS type";
+        "privacy.image AS imageVisible, privacy.contacts AS contactsVisible, privacy.pinwall AS pinwallVisible, r.type AS type";
 
     commands.push(db.cypher().match("(user:User {userId: {userId}})-[r:HAS_PRIVACY]->(privacy:Privacy)")
         .return(returnCommand)
@@ -64,7 +64,8 @@ var changePrivacySettings = function (id, privacySettingType, privacySettings, r
                     profile: privacySettings.profileVisible,
                     profileData: privacySettings.profileDataVisible,
                     image: privacySettings.imageVisible,
-                    contacts: privacySettings.contactsVisible
+                    contacts: privacySettings.contactsVisible,
+                    pinwall: privacySettings.pinwallVisible
                 })
                 .end({
                     userId: id,
@@ -79,7 +80,8 @@ var changePrivacySettingsNoContact = function (id, privacySettings) {
             profile: privacySettings.profileVisible,
             profileData: privacySettings.profileDataVisible,
             image: privacySettings.imageVisible,
-            contacts: privacySettings.contactsVisible
+            contacts: privacySettings.contactsVisible,
+            pinwall: privacySettings.pinwallVisible
         })
         .end({
             userId: id
@@ -119,7 +121,7 @@ var addNewPrivacySetting = function (id, privacySettingType, privacySettings) {
             privacySettings.type = privacySettingType;
             return db.cypher().match('(u:User {userId: {userId}})')
                 .create("(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profileVisible}, " +
-                    "profileData: {profileDataVisible}, contacts: {contactsVisible}, image: {imageVisible}})")
+                    "profileData: {profileDataVisible}, contacts: {contactsVisible}, image: {imageVisible}, pinwall: {pinwallVisible}})")
                 .end(privacySettings).send();
         });
 };

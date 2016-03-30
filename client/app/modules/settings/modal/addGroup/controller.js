@@ -6,6 +6,7 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
         ctrl.imageVisible = true;
+        ctrl.pinwallVisible = true;
         ctrl.profileDataVisible = true;
         ctrl.uploadAllowed = false;
 
@@ -26,7 +27,8 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
                         profileVisible: ctrl.profileVisible,
                         contactsVisible: ctrl.contactsVisible,
                         imageVisible: ctrl.imageVisible,
-                        profileDataVisible: ctrl.profileDataVisible
+                        profileDataVisible: ctrl.profileDataVisible,
+                        pinwallVisible: ctrl.pinwallVisible
                     }, privacyDescription: ctrl.groupName
                 }
             }, function () {

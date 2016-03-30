@@ -477,7 +477,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/modal/addGroup/template.html',
-    "<md-dialog id=add-group aria-label=\"Add Group\" ng-cloak><form name=ctrl.createGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Neue Gruppe erstellen</div><md-input-container class=ely-input-container><label>Name</label><input name=groupName class=blog-input ng-model=ctrl.groupName required md-maxlength=30 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.createGroupForm.groupName.$error ng-show=ctrl.createGroupForm.groupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container><md-checkbox ng-model=ctrl.profileVisible aria-label=\"Profile visible\" class=select-privacy ng-disabled=ctrl.uploadStarted>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.contactsVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.imageVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.profileDataVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted\">Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+    "<md-dialog id=add-group aria-label=\"Add Group\" ng-cloak><form name=ctrl.createGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Neue Gruppe erstellen</div><md-input-container class=ely-input-container><label>Name</label><input name=groupName class=blog-input ng-model=ctrl.groupName required md-maxlength=30 ng-disabled=ctrl.uploadStarted ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.createGroupForm.groupName.$error ng-show=ctrl.createGroupForm.groupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=md-maxlength>Text ist zu lang</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container><md-checkbox ng-model=ctrl.profileVisible aria-label=\"Profile visible\" class=select-privacy ng-disabled=ctrl.uploadStarted>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.contactsVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.imageVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.profileDataVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.pinwallVisible ng-disabled=\"!ctrl.profileVisible || ctrl.uploadStarted\" aria-label=\"Pinwall visible\" class=select-privacy>Meine Pinwand ist sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"!ctrl.validGroupName || ctrl.createGroupForm.groupName.$invalid || ctrl.uploadStarted\">Hinzufügen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
   );
 
 
@@ -497,7 +497,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/modal/modifyGroupSettings/directive/template.html',
-    "<div id=modify-group-setting ng-cloak><form name=ctrl.modifyGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\" ng-if=ctrl.setting.type>Gruppe <span class=group>{{ctrl.setting.type}}</span> bearbeiten</div><div class=\"md-title title\" ng-if=!ctrl.setting.type>Privatspähren Einstellung für Personen die kein Kontakt sind</div><md-checkbox ng-model=ctrl.setting.profileVisible aria-label=\"Profile visible\" class=select-privacy ng-change=ctrl.selectChanged() ng-disabled=ctrl.uploadStarted>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.contactsVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.imageVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.profileDataVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"ctrl.uploadStarted || !ctrl.uploadAllowed\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></div>"
+    "<div id=modify-group-setting ng-cloak><form name=ctrl.modifyGroupForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\" ng-if=ctrl.setting.type>Gruppe <span class=group>{{ctrl.setting.type}}</span> bearbeiten</div><div class=\"md-title title\" ng-if=!ctrl.setting.type>Privatspähren Einstellung für Personen die kein Kontakt sind</div><md-checkbox ng-model=ctrl.setting.profileVisible aria-label=\"Profile visible\" class=select-privacy ng-change=ctrl.selectChanged() ng-disabled=ctrl.uploadStarted>Mein Profil ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.contactsVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Contacts visible\" class=select-privacy>Meine Kontakte sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.imageVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Image visible\" class=select-privacy>Mein Profilbild ist sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.profileDataVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Profile Data visible\" class=select-privacy>Meine Profildaten sind sichtbar</md-checkbox><md-checkbox ng-model=ctrl.setting.pinwallVisible ng-disabled=\"!ctrl.setting.profileVisible || ctrl.uploadStarted\" ng-change=ctrl.selectChanged() aria-label=\"Profile Data visible\" class=select-privacy>Meine Pinwand ist sichtbar</md-checkbox></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"ctrl.uploadStarted || !ctrl.uploadAllowed\">Ändern</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></div>"
   );
 
 
@@ -507,7 +507,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/modal/overviewGroupSettings/group/template.html',
-    "<div class=privacy-container><div class=title-container layout=row><div class=\"md-title title\">{{ctrl.title}}</div><div flex=none class=change-button><md-button class=\"md-icon-button md-primary\" ng-click=ctrl.openEdit(ctrl.group)><md-icon md-svg-icon=cardActions:edit></md-icon></md-button></div></div><ul ng-if=!ctrl.group.profileVisible><li class=description>Sehen nur Deinen Namen</li></ul><ul ng-if=\"ctrl.group.profileVisible && ctrl.isPublic\"><li class=description>Sehen Dein komplettes Profil</li></ul><ul ng-if=\"ctrl.group.profileVisible && !ctrl.isPublic\"><li class=description ng-if=ctrl.group.contactsVisible>Sieht Deine Kontakte</li><li class=description ng-if=ctrl.group.imageVisible>Sieht Deine Profilbild</li><li class=description ng-if=ctrl.group.profileDataVisible>Sieht Deine Profiel Daten</li></ul></div>"
+    "<div class=privacy-container><div class=title-container layout=row><div class=\"md-title title\">{{ctrl.title}}</div><div flex=none class=change-button><md-button class=\"md-icon-button md-primary\" ng-click=ctrl.openEdit(ctrl.group)><md-icon md-svg-icon=cardActions:edit></md-icon></md-button></div></div><ul ng-if=!ctrl.group.profileVisible><li class=description>Sehen nur Deinen Namen</li></ul><ul ng-if=\"ctrl.group.profileVisible && ctrl.isPublic\"><li class=description>Sehen Dein komplettes Profil</li></ul><ul ng-if=\"ctrl.group.profileVisible && !ctrl.isPublic\"><li class=description ng-if=ctrl.group.contactsVisible>Sieht Deine Kontakte</li><li class=description ng-if=ctrl.group.imageVisible>Sieht Deine Profilbild</li><li class=description ng-if=ctrl.group.profileDataVisible>Sieht Deine Profiel Daten</li><li class=description ng-if=ctrl.group.pinwallVisible>Sieht Deine Pinwand</li></ul></div>"
   );
 
 
@@ -7938,6 +7938,7 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
         ctrl.profileVisible = true;
         ctrl.contactsVisible = true;
         ctrl.imageVisible = true;
+        ctrl.pinwallVisible = true;
         ctrl.profileDataVisible = true;
         ctrl.uploadAllowed = false;
 
@@ -7958,7 +7959,8 @@ module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
                         profileVisible: ctrl.profileVisible,
                         contactsVisible: ctrl.contactsVisible,
                         imageVisible: ctrl.imageVisible,
-                        profileDataVisible: ctrl.profileDataVisible
+                        profileDataVisible: ctrl.profileDataVisible,
+                        pinwallVisible: ctrl.pinwallVisible
                     }, privacyDescription: ctrl.groupName
                 }
             }, function () {
@@ -8268,13 +8270,13 @@ module.exports = ['Privacy', 'ElyModal', 'errorToast', 'ModifyGroupNameService',
 
         ctrl.accept = function () {
             ctrl.uploadStarted = true;
-            Privacy.save(ModifyGroupMessageService.getMessage(ctrl.setting)
-            , function () {
-                ctrl.finish();
-            }, function () {
-                errorToast.showError('Es ist ein Fehler aufgetretten!');
-                ctrl.uploadStarted = false;
-            });
+            Privacy.save(ModifyGroupMessageService.getMessage(ctrl.setting),
+                function () {
+                    ctrl.finish();
+                }, function () {
+                    errorToast.showError('Es ist ein Fehler aufgetretten!');
+                    ctrl.uploadStarted = false;
+                });
         };
 
     }];
@@ -8330,10 +8332,11 @@ module.exports = [
                             profileVisible: setting.profileVisible,
                             contactsVisible: setting.contactsVisible,
                             imageVisible: setting.imageVisible,
-                            profileDataVisible: setting.profileDataVisible
+                            profileDataVisible: setting.profileDataVisible,
+                            pinwallVisible: setting.pinwallVisible
                         }
                     }
-                }
+                };
             } else {
                 message = {
                     changePrivacySetting: {
@@ -8341,12 +8344,13 @@ module.exports = [
                             profileVisible: setting.profileVisible,
                             contactsVisible: setting.contactsVisible,
                             imageVisible: setting.imageVisible,
-                            profileDataVisible: setting.profileDataVisible
+                            profileDataVisible: setting.profileDataVisible,
+                            pinwallVisible: setting.pinwallVisible
                         }, privacyDescription: setting.type
                     }
-                }
+                };
             }
-            return message
+            return message;
         };
     }]
 ;
