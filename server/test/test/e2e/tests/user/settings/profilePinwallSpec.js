@@ -27,22 +27,22 @@ describe('Integration Tests for getting the pinwall of the user', function () {
 
             //Add Blogs
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}, title: 'blogTitle', created: 507, text: 'blogText'})")
-                .end({visibility: ['Freund']}).getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}, title: 'blogTitle', created: 507, text: 'blogText', category: {category}})")
+                .end({visibility: ['Freund'], category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 506, text: 'blogText2', heightPreviewImage: 400})").end().getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 506, text: 'blogText2', heightPreviewImage: 400, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3'})").end().getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
 
             //Pages
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 510, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000})").end().getCommand());
+                "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Book', description: 'bookPage2', language: 'de', created: 511, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000})").end().getCommand());
+                "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'youtubePage1Title', label: 'Youtube', description: 'youtubePage1', language: 'de', created: 512, pageId: '2'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch'})").end().getCommand());
+                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'youtubePage2Title', label: 'Youtube', description: 'youtubePage2', language: 'de', created: 513, pageId: '3'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test2.ch'})").end().getCommand());
+                "author: 'Hans Muster', publishDate: 1000, link: 'www.test2.ch', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
 
             //Recommendations
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
@@ -106,6 +106,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             should.not.exist(res.body.pinwall[0].urlFull);
             res.body.pinwall[0].text.should.equals('blogText');
             res.body.pinwall[0].isAdmin.should.equals(true);
+            res.body.pinwall[0].category.length.should.equals(2);
+            res.body.pinwall[0].category[0].should.equals('health');
+            res.body.pinwall[0].category[1].should.equals('personalDevelopment');
 
             res.body.pinwall[1].pinwallType.should.equals('Blog');
             res.body.pinwall[1].blogId.should.equals('2');
@@ -118,6 +121,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[1].text.should.equals('blogText2');
             res.body.pinwall[1].isAdmin.should.equals(true);
+            res.body.pinwall[1].category.length.should.equals(2);
+            res.body.pinwall[1].category[0].should.equals('health');
+            res.body.pinwall[1].category[1].should.equals('personalDevelopment');
 
             res.body.pinwall[2].pinwallType.should.equals('Recommendation');
             res.body.pinwall[2].label.should.equals('Book');
@@ -128,10 +134,11 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[2].rating.should.equals(1);
             res.body.pinwall[2].created.should.equals(505);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[2].url.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[2].comment.should.equals('irgendwas');
             res.body.pinwall[2].description.should.equals('bookPage1');
-            res.body.pinwall[2].isAdmin.should.equals(true);
+            res.body.pinwall[2].category.length.should.equals(2);
+            res.body.pinwall[2].category[0].should.equals('health');
+            res.body.pinwall[2].category[1].should.equals('personalDevelopment');
 
             res.body.pinwall[3].pinwallType.should.equals('Recommendation');
             res.body.pinwall[3].label.should.equals('Youtube');
@@ -141,10 +148,11 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[3].title.should.equals('youtubePage1Title');
             res.body.pinwall[3].rating.should.equals(4);
             res.body.pinwall[3].created.should.equals(504);
-            res.body.pinwall[3].link.should.equals('www.test.ch');
             res.body.pinwall[3].comment.should.equals('irgendwas3');
             res.body.pinwall[3].description.should.equals('youtubePage1');
-            res.body.pinwall[3].isAdmin.should.equals(true);
+            res.body.pinwall[3].category.length.should.equals(2);
+            res.body.pinwall[3].category[0].should.equals('health');
+            res.body.pinwall[3].category[1].should.equals('personalDevelopment');
         });
     });
 
@@ -167,6 +175,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[0].text.should.equals('blogText2');
             res.body.pinwall[0].isAdmin.should.equals(true);
+            res.body.pinwall[0].category.length.should.equals(2);
+            res.body.pinwall[0].category[0].should.equals('health');
+            res.body.pinwall[0].category[1].should.equals('personalDevelopment');
 
             res.body.pinwall[1].pinwallType.should.equals('Recommendation');
             res.body.pinwall[1].label.should.equals('Book');
@@ -177,10 +188,11 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].rating.should.equals(1);
             res.body.pinwall[1].created.should.equals(505);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[1].url.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[1].comment.should.equals('irgendwas');
             res.body.pinwall[1].description.should.equals('bookPage1');
-            res.body.pinwall[1].isAdmin.should.equals(true);
+            res.body.pinwall[1].category.length.should.equals(2);
+            res.body.pinwall[1].category[0].should.equals('health');
+            res.body.pinwall[1].category[1].should.equals('personalDevelopment');
         });
     });
 });
