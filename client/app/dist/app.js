@@ -73,7 +73,9 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/contact/template.html',
-    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact>{{ctrl.detail.numberOfContacts}}</span> Kontakte</div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts === 1\">{{ctrl.detail.numberOfSameContacts}} gemeinsamer Kontakt</div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 1\">{{ctrl.detail.numberOfSameContacts}} gemeinsame Kontakte</div></div><div class=preview-container><div class=preview-image ng-repeat=\"contact in ctrl.detail.contacts\" ng-click=ctrl.openUserDetail(contact.userId)><img ng-src={{contact.profileUrl}} class=image><div class=name>{{contact.name}}</div></div></div></md-card>"
+    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact>{{ctrl.detail.numberOfContacts}}</span> Kontakte</div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 0\">{{ctrl.detail.numberOfSameContacts}}<ng-pluralize count=ctrl.detail.numberOfSameContacts when=\"{'1': ' gemeinsamer Kontakt',\r" +
+    "\n" +
+    "                                 'other': ' gemeinsame Kontakte'}\"></ng-pluralize></div></div><div class=preview-container><div class=preview-image ng-repeat=\"contact in ctrl.detail.contacts\" ng-click=ctrl.openUserDetail(contact.userId)><img ng-src={{contact.profileUrl}} class=image><div class=name>{{contact.name}}</div></div></div></md-card>"
   );
 
 
