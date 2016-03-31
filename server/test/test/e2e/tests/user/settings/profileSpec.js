@@ -117,7 +117,7 @@ describe('Integration Tests User Profile Data', function () {
             female: true,
             country: 'Schweiz',
             street: 'Main Street',
-            place: 'Urdorf'
+            place: 'Winkel'
         };
 
         return requestHandler.login(users.changeUserData).then(function (agent) {
@@ -136,7 +136,7 @@ describe('Integration Tests User Profile Data', function () {
             user[0].user.country.should.equals('Schweiz');
             user[0].user.female.should.equals(true);
             user[0].user.street.should.equals('Main Street');
-            user[0].user.place.should.equals('Urdorf');
+            user[0].user.place.should.equals('Winkel');
         });
     });
 

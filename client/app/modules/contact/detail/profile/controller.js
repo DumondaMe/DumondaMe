@@ -6,6 +6,10 @@ module.exports = {
             function (UserStateService, ContactStatisticTypes, ElyModal, $state) {
                 var ctrl = this;
 
+                ctrl.openInfo = function () {
+                    ElyModal.show('ContactDetailInfoCtrl', 'app/modules/contact/detail/modal/template.html', {detail: ctrl.detail.user});
+                };
+
                 ctrl.moveContact = function () {
                     UserStateService.moveContact(ctrl.detail.user.userId, ctrl.detail.user.name, ctrl.detail.user.type).then(function (newGroup) {
                         ctrl.detail.user.type = newGroup;

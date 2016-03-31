@@ -490,6 +490,17 @@ h2.website-structure-title {
   #move-contact .title .name {
     color: #3F51B5; }
 
+.user-detail-info {
+  max-width: 500px;
+  width: 90%; }
+  .user-detail-info .title {
+    font-size: 16px;
+    padding: 24px 24px 8px 24px; }
+  .user-detail-info .ely-dialog-content {
+    padding-bottom: 0; }
+    .user-detail-info .ely-dialog-content .ely-dialog-input {
+      margin: 0; }
+
 #ely-user-detail-contact-preview {
   max-width: 292px;
   min-width: 292px; }
