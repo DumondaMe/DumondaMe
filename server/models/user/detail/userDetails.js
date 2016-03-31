@@ -46,6 +46,7 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
     var detailUser = {
         userId: detailUserId,
         name: detailUserData.detailUser.name,
+        forename: detailUserData.detailUser.forename,
         female: detailUserData.detailUser.female,
         type: detailUserData.type,
         contactAdded: detailUserData.contactAdded,
@@ -59,6 +60,7 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
         user: {
             userId: detailUserId,
             name: detailUserData.detailUser.name,
+            forename: detailUserData.detailUser.forename,
             blocked: detailUserData.blocked,
             profileUrl: cdn.getUrl('profileImage/default/profile.jpg')
         }

@@ -48,6 +48,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.false;
                 res.body.user.birthday.should.equals(1000);
                 res.body.user.country.should.equals('CH');
@@ -82,6 +83,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.false;
                 should.not.exist(res.body.user.birthday);
                 should.not.exist(res.body.user.country);
@@ -116,6 +118,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.false;
                 should.not.exist(res.body.user.birthday);
                 should.not.exist(res.body.user.country);
@@ -154,6 +157,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.true;
                 res.body.user.birthday.should.equals(1000);
                 res.body.user.country.should.equals('CH');
@@ -192,6 +196,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.false;
                 should.not.exist(res.body.user.birthday);
                 should.not.exist(res.body.user.country);
@@ -290,6 +295,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.true;
                 res.body.user.birthday.should.equals(1000);
                 res.body.user.country.should.equals('CH');
@@ -365,6 +371,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.true;
                 should.not.exist(res.body.user.birthday);
                 should.not.exist(res.body.user.country);
@@ -403,6 +410,7 @@ describe('Integration Tests for getting user details', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
+                res.body.user.forename.should.equals('user2');
                 res.body.user.female.should.be.true;
                 should.not.exist(res.body.user.birthday);
                 should.not.exist(res.body.user.country);
