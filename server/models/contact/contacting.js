@@ -1,39 +1,18 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var exceptions = require('./../../lib/error/exceptions');
-var underscore = require('underscore');
-var Promise = require('bluebird').Promise;
-var logger = requireLogger.getLogger(__filename);
-var moment = require('moment');
 var userInfo = require('./../user/userInfo');
 var contactStatistic = require('./contactStatistic');
 var privacySettings = require('./privacySettings');
 
 var getContactingStatistics = function (userId) {
-    var now = Math.floor(moment.utc().valueOf() / 1000);
-    return db.cypher().match('(:User {userId: {userId}})<-[r:IS_CONTACT]-(:User)')
-        .where('r.contactAdded > {day}')
+    return db.cypher().match('(:User {userId: {userId}})<-[:IS_CONTACT]-(:User)')
         .return('count(*) AS count')
-        .unionAll().match('(:User {userId: {userId}})<-[r:IS_CONTACT]-(:User)')
-        .where('r.contactAdded > {week}')
-        .return('count(*) AS count')
-        .unionAll().match('(:User {userId: {userId}})<-[r:IS_CONTACT]-(:User)')
-        .where('r.contactAdded > {month}')
-        .return('count(*) AS count')
-        .unionAll().match('(:User {userId: {userId}})<-[r:IS_CONTACT]-(:User)')
-        .return('count(*) AS count')
-        .end({
-            userId: userId,
-            day: now - 86400,
-            week: now - 604800,
-            month: now - 2592000
-        });
+        .end({userId: userId});
 };
 
-var getContacting = function (params, where) {
-    return db.cypher().match("(user:User)<-[rContact:IS_CONTACT]-(contact:User)")
-        .where(where)
+var getContacting = function (params) {
+    return db.cypher().match("(user:User {userId: {userId}})<-[rContact:IS_CONTACT]-(contact:User)")
         .with("contact, user, rContact")
         .orderBy("rContact.contactAdded DESC")
         .skip("{skip}")
@@ -55,7 +34,7 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
         userId: userId,
         itemsPerPage: itemsPerPage,
         skip: skip
-    }, "user.userId = {userId}").getCommand());
+    }).getCommand());
 
     commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
     commands.push(privacySettings.getPrivacySettings(userId).getCommand());
@@ -68,15 +47,13 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
             data.contactingUsers = resp[0];
             data.statistic = resp[1];
             data.privacySettings = resp[2];
-            data.numberOfContactingLastDay = resp[3][0].count;
-            data.numberOfContactingLastWeek = resp[3][1].count;
-            data.numberOfContactingLastMonth = resp[3][2].count;
-            data.numberOfAllContactings = resp[3][3].count;
+            data.numberOfAllContactings = resp[3][0].count;
             return data;
         });
 };
 
 
 module.exports = {
-    getContacting: getContactingNormal
+    getContacting: getContactingNormal,
+    getContactingStatistics: getContactingStatistics
 };

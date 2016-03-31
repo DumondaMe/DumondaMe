@@ -526,7 +526,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/profile/image/template.html',
-    "<md-card id=ely-setting-profile-image><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.profile.profileImage}} class=profile-image><div><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></div></div></md-card-content></md-card>"
+    "<md-card id=ely-setting-profile-image><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.profile.profileImage}} class=profile-image><div><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></div><div class=contact-statistic><span ng-if=\"ctrl.profile.numberOfContacting > 0\" class=number-of-contacting>{{ctrl.profile.numberOfContacting}}</span><ng-pluralize count=ctrl.profile.numberOfContacting when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
+    "\n" +
+    "                                    '1': ' hat Dich als Kontakt',\r" +
+    "\n" +
+    "                                    'other': ' haben Dich als Kontakt'}\"></ng-pluralize></div></div></md-card-content></md-card>"
   );
 
 

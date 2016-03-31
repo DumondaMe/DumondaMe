@@ -1,0 +1,17 @@
+#ely-setting-profile-image {
+  width: 100%;
+  max-width: 300px;
+  margin: 8px 0;
+  background-color: white;
+  .profile-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+  }
+  .contact-statistic {
+    .number-of-contacting {
+      color: $primary-color;
+    }
+    font-size: 16px;
+  }
+}

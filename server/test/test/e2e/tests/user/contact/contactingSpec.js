@@ -83,10 +83,6 @@ describe('Integration Tests for handling contacting information', function () {
             res.body.contactingUsers[2].connected.should.equal("contactToUser");
             res.body.contactingUsers[2].profileUrl.should.equal("profileImage/4/profilePreview.jpg");
             res.body.contactingUsers[2].userAdded.should.equal(startTime - 2591000);
-
-            res.body.numberOfContactingLastDay.should.equal(1);
-            res.body.numberOfContactingLastWeek.should.equal(2);
-            res.body.numberOfContactingLastMonth.should.equal(3);
             res.body.numberOfAllContactings.should.equal(3);
         });
     });
@@ -107,10 +103,7 @@ describe('Integration Tests for handling contacting information', function () {
             res.body.contactingUsers[0].connected.should.equal("contactToUser");
             res.body.contactingUsers[0].profileUrl.should.equal("profileImage/2/profilePreview.jpg");
             res.body.contactingUsers[0].userAdded.should.equal(startTime - 86401);
-
-            res.body.numberOfContactingLastDay.should.equal(1);
-            res.body.numberOfContactingLastWeek.should.equal(2);
-            res.body.numberOfContactingLastMonth.should.equal(3);
+            
             res.body.numberOfAllContactings.should.equal(3);
         });
     });
