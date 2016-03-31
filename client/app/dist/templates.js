@@ -112,7 +112,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overviewContacting/template.html',
-    "<md-content id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting()><div class=md-padding layout-wrap layout=row><div flex=100><md-card id=overview-text><md-card-content><div class=number-of-contacting ng-if=\"ctrl.users.numberOfAllContactings > 0\"><span class=number>{{ctrl.users.numberOfAllContactings}}</span> Personen haben Dich als Kontakt</div><div class=number-of-contacting ng-if=\"ctrl.users.numberOfAllContactings === 0\">Noch niemand hat Dich in seine Kontaktliste aufgenommen</div></md-card-content></md-card></div><div flex=100 ng-repeat=\"contactingUsers in ctrl.users.contactingUsers\"><ely-contact-preview-square user=contactingUsers></ely-contact-preview-square></div></div></div></md-content>"
+    "<md-content id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting()><div class=md-padding layout-wrap layout=row><div flex=100><md-card id=overview-text><md-card-content><div class=number-of-contacting><span class=number ng-if=\"ctrl.users.numberOfAllContactings > 0\">{{ctrl.users.numberOfAllContactings}}</span><ng-pluralize count=\"ctrl.users.numberOfAllContactings \" when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
+    "\n" +
+    "                                            '1': ' Person hat Dich als Kontakt',\r" +
+    "\n" +
+    "                                            'other': ' Personen haben Dich als Kontakt'}\"></ng-pluralize></div></md-card-content></md-card></div><div flex=100 ng-repeat=\"contactingUsers in ctrl.users.contactingUsers\"><ely-contact-preview-square user=contactingUsers></ely-contact-preview-square></div></div></div></md-content>"
   );
 
 
