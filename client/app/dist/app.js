@@ -3921,7 +3921,9 @@ module.exports = {
                 ctrl.getFormattedDate = dateFormatter.format;
 
                 ctrl.goToConversation = function () {
-                    $state.go('message.threads.detail', {threadId: ctrl.thread.threadId});
+                    if (ctrl.thread.lastUpdate) {
+                        $state.go('message.threads.detail', {threadId: ctrl.thread.threadId});
+                    }
                 };
 
                 ctrl.writeMessage = function () {
