@@ -28,6 +28,6 @@ module.exports = [
                 return !angular.equals(setting, lastSetting);
             }
             return false;
-        }
+        };
     }]
 ;

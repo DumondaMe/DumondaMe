@@ -1801,6 +1801,16 @@ h2.website-structure-title {
     #overview-group-setting .ely-dialog-content .privacy-container .description {
       font-size: 14px; }
 
+#rename-group-name {
+  max-width: 500px; }
+  #rename-group-name .ely-dialog-content {
+    padding-bottom: 0; }
+    #rename-group-name .ely-dialog-content .title {
+      font-size: 18px;
+      margin-bottom: 16px; }
+      #rename-group-name .ely-dialog-content .title .name {
+        color: #3F51B5; }
+
 #ely-setting-profile {
   height: 100%;
   background-color: #E0E0E0;

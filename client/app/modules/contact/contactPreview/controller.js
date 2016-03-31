@@ -40,7 +40,7 @@ module.exports = {
                 };
 
                 ctrl.changeGroupName = function () {
-
+                    GroupSettingsService.renameGroupName(ctrl.statistic.type);
                 };
 
                 ctrl.deleteGroup = function () {

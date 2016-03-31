@@ -515,6 +515,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/modal/renameGroupName/template.html',
+    "<md-dialog id=rename-group-name aria-label=\"Rename Group Name\" ng-cloak><form name=ctrl.renameGroupNameForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Gruppe <span class=name>{{ctrl.groupName}}</span> umbenennen</div><md-input-container class=ely-input-container><label>Neuer Name</label><input name=newGroupName ng-model=ctrl.newGroupName required ng-disabled=ctrl.running ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.renameGroupNameForm.newGroupName.$error ng-show=ctrl.renameGroupNameForm.newGroupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"ctrl.uploadStarted || ctrl.renameGroupNameForm.$invalid\">Umbenennen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/settings/profile/image/template.html',
     "<md-card id=ely-setting-profile-image><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.profile.profileImage}} class=profile-image><div><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></div></div></md-card-content></md-card>"
   );

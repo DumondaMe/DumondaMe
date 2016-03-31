@@ -516,6 +516,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/settings/modal/renameGroupName/template.html',
+    "<md-dialog id=rename-group-name aria-label=\"Rename Group Name\" ng-cloak><form name=ctrl.renameGroupNameForm><md-dialog-content class=\"md-dialog-content ely-dialog-content\"><div class=\"md-title title\">Gruppe <span class=name>{{ctrl.groupName}}</span> umbenennen</div><md-input-container class=ely-input-container><label>Neuer Name</label><input name=newGroupName ng-model=ctrl.newGroupName required ng-disabled=ctrl.running ng-change=\"ctrl.nameChanged()\"><div ng-messages=ctrl.renameGroupNameForm.newGroupName.$error ng-show=ctrl.renameGroupNameForm.newGroupName.$dirty><div ng-message=required>Wird benötigt!</div><div ng-message=ely-types-exist>Diese Gruppe existiert bereits</div></div></md-input-container></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.cancel()>Abbrechen</md-button><md-button class=md-primary ng-click=ctrl.accept() ng-disabled=\"ctrl.uploadStarted || ctrl.renameGroupNameForm.$invalid\">Umbenennen</md-button></md-dialog-actions></form><md-progress-linear ng-if=ctrl.uploadStarted md-mode=indeterminate></md-progress-linear></md-dialog>"
+  );
+
+
   $templateCache.put('app/modules/settings/profile/image/template.html',
     "<md-card id=ely-setting-profile-image><md-card-content><div layout=column layout-align=\"none center\"><img ng-src={{ctrl.profile.profileImage}} class=profile-image><div><md-button class=md-primary ng-click=ctrl.uploadProfileImage()>Bild ändern</md-button></div></div></md-card-content></md-card>"
   );
@@ -743,7 +748,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             }
         });
     }]);
-},{"../../package.json":404,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
+},{"../../package.json":406,"angular-ui-route":2,"templates":1}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', 'loginStateHandler', '$q', function ($http, loginStateHandler, $q) {
@@ -1788,7 +1793,7 @@ module.exports = {
                 };
 
                 ctrl.changeGroupName = function () {
-
+                    GroupSettingsService.renameGroupName(ctrl.statistic.type);
                 };
 
                 ctrl.deleteGroup = function () {
@@ -2488,6 +2493,10 @@ module.exports = [
                 }
             });
             return types;
+        };
+        
+        service.renameType= function (type, newType) {
+            getStatistic(statistic, type).type = newType;
         };
 
         service.removeType = function (type, newType) {
@@ -7929,7 +7938,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             }
         });
 }]);
-},{"./services/groupSettingsService":359,"./services/password":360,"./services/privacy":361,"./services/profile":362,"./services/userPinwall":363}],322:[function(require,module,exports){
+},{"./services/groupSettingsService":361,"./services/password":362,"./services/privacy":363,"./services/profile":364,"./services/userPinwall":365}],322:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
@@ -8395,7 +8404,7 @@ module.exports = [
                 return !angular.equals(setting, lastSetting);
             }
             return false;
-        }
+        };
     }]
 ;
 
@@ -8509,6 +8518,46 @@ app.controller('OverviewGroupSettingController', require('./controller'));
 },{"./controller":340}],346:[function(require,module,exports){
 'use strict';
 
+module.exports = ['Privacy', 'ElyModal', 'CheckGroupNameService', 'errorToast',
+    function (Privacy, ElyModal, CheckGroupNameService, errorToast) {
+        var ctrl = this;
+
+        ctrl.cancel = function () {
+            ElyModal.cancel();
+        };
+        
+        ctrl.nameChanged = function () {
+            ctrl.renameGroupNameForm.newGroupName.$setValidity('ely-types-exist', CheckGroupNameService.checkNameExists(ctrl.newGroupName));
+        };
+
+        ctrl.accept = function () {
+            ctrl.uploadStarted = true;
+            Privacy.save({
+                renamePrivacy: {
+                    privacyDescription: ctrl.groupName,
+                    newPrivacyDescription: ctrl.newGroupName
+                }
+            }, function () {
+                ElyModal.hide(ctrl.newGroupName);
+            }, function () {
+                errorToast.showError('Es ist ein Fehler aufgetretten!');
+                ctrl.uploadStarted = false;
+            });
+        };
+
+    }];
+
+
+},{}],347:[function(require,module,exports){
+'use strict';
+
+var app = angular.module('elyoosApp');
+
+app.controller('RenameGroupNameController', require('./controller'));
+
+},{"./controller":346}],348:[function(require,module,exports){
+'use strict';
+
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'Profile', 'UploadProfileImageState',
@@ -8531,7 +8580,7 @@ module.exports = {
 };
 
 
-},{}],347:[function(require,module,exports){
+},{}],349:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8551,7 +8600,7 @@ module.exports = {
     name: 'elySettingsProfile'
 };
 
-},{"./controller.js":346}],348:[function(require,module,exports){
+},{"./controller.js":348}],350:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8571,7 +8620,7 @@ module.exports = {
 };
 
 
-},{}],349:[function(require,module,exports){
+},{}],351:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8593,7 +8642,7 @@ module.exports = {
     name: 'elySettingsProfileImage'
 };
 
-},{"./controller.js":348}],350:[function(require,module,exports){
+},{"./controller.js":350}],352:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8602,7 +8651,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('UploadProfileImageState', require('./services/uploadProfileImageState'));
-},{"./directive.js":349,"./services/uploadProfileImageState":351}],351:[function(require,module,exports){
+},{"./directive.js":351,"./services/uploadProfileImageState":353}],353:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Observables', function (Observables) {
@@ -8622,9 +8671,9 @@ module.exports = ['Observables', function (Observables) {
     };
 }];
 
-},{}],352:[function(require,module,exports){
+},{}],354:[function(require,module,exports){
 arguments[4][50][0].apply(exports,arguments)
-},{"./directive.js":347,"dup":50}],353:[function(require,module,exports){
+},{"./directive.js":349,"dup":50}],355:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8651,7 +8700,7 @@ module.exports = {
 };
 
 
-},{}],354:[function(require,module,exports){
+},{}],356:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8671,9 +8720,9 @@ module.exports = {
     name: 'elySettingsOverview'
 };
 
-},{"./controller.js":353}],355:[function(require,module,exports){
+},{"./controller.js":355}],357:[function(require,module,exports){
 arguments[4][50][0].apply(exports,arguments)
-},{"./directive.js":354,"dup":50}],356:[function(require,module,exports){
+},{"./directive.js":356,"dup":50}],358:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8702,7 +8751,7 @@ module.exports = {
 };
 
 
-},{}],357:[function(require,module,exports){
+},{}],359:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -8722,9 +8771,9 @@ module.exports = {
     name: 'elySettingsUserPinwall'
 };
 
-},{"./controller.js":356}],358:[function(require,module,exports){
+},{"./controller.js":358}],360:[function(require,module,exports){
 arguments[4][50][0].apply(exports,arguments)
-},{"./directive.js":357,"dup":50}],359:[function(require,module,exports){
+},{"./directive.js":359,"dup":50}],361:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
@@ -8759,17 +8808,26 @@ module.exports = ['Privacy', '$q', 'ElyModal', 'ContactStatisticTypes',
             return ElyModal.show('ModifyGroupSettingController', 'app/modules/settings/modal/modifyGroupSettings/template.html',
                 {groupName: groupName});
         };
+
+        this.renameGroupName = function (groupName) {
+            ElyModal.show('RenameGroupNameController', 'app/modules/settings/modal/renameGroupName/template.html', {
+                    groupName: groupName
+                })
+                .then(function (newGroupName) {
+                    ContactStatisticTypes.renameType(groupName, newGroupName);
+                });
+        };
     }]
 ;
 
-},{}],360:[function(require,module,exports){
+},{}],362:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/password');
 }];
 
-},{}],361:[function(require,module,exports){
+},{}],363:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
@@ -8778,21 +8836,21 @@ module.exports = ['$resource', function ($resource) {
     });
 }];
 
-},{}],362:[function(require,module,exports){
+},{}],364:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile');
 }];
 
-},{}],363:[function(require,module,exports){
+},{}],365:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/settings/profile/pinwall');
 }];
 
-},{}],364:[function(require,module,exports){
+},{}],366:[function(require,module,exports){
 'use strict';
 
 var categories = [{description: 'Gesundheit', code: 'health'},
@@ -8862,7 +8920,7 @@ module.exports = ['$log',
         };
     }];
 
-},{}],365:[function(require,module,exports){
+},{}],367:[function(require,module,exports){
 'use strict';
 
 var countryCodes = [{country: 'Schweiz', code: 'CH'},
@@ -8896,7 +8954,7 @@ module.exports = function () {
     };
 };
 
-},{}],366:[function(require,module,exports){
+},{}],368:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -8904,7 +8962,7 @@ var app = angular.module('elyoosApp');
 app.service('Languages', require('./languages'));
 app.service('Categories', require('./categories'));
 app.service('CountryCodeConverter', require('./countryCodeConverter'));
-},{"./categories":364,"./countryCodeConverter":365,"./languages":367}],367:[function(require,module,exports){
+},{"./categories":366,"./countryCodeConverter":367,"./languages":369}],369:[function(require,module,exports){
 'use strict';
 
 var languages = [{description: 'Deutsch', code: 'de'},
@@ -8938,7 +8996,7 @@ module.exports = [
         };
     }];
 
-},{}],368:[function(require,module,exports){
+},{}],370:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', 'DateFormatCheckService', function (moment, DateFormatCheckService) {
@@ -8950,7 +9008,7 @@ module.exports = ['moment', 'DateFormatCheckService', function (moment, DateForm
     };
 }];
 
-},{}],369:[function(require,module,exports){
+},{}],371:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -8966,7 +9024,7 @@ module.exports = ['moment', function (moment) {
 
 }];
 
-},{}],370:[function(require,module,exports){
+},{}],372:[function(require,module,exports){
 'use strict';
 
 module.exports = ['moment', function (moment) {
@@ -9008,7 +9066,7 @@ module.exports = ['moment', function (moment) {
     };
 }];
 
-},{}],371:[function(require,module,exports){
+},{}],373:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -9016,7 +9074,7 @@ var app = angular.module('elyoosApp');
 app.service('DateFormatCheckService', require('./dateFormatCheck'));
 app.service('dateFormatter', require('./dateFormatter'));
 app.service('DateConverter', require('./dateConverter'));
-},{"./dateConverter":368,"./dateFormatCheck":369,"./dateFormatter":370}],372:[function(require,module,exports){
+},{"./dateConverter":370,"./dateFormatCheck":371,"./dateFormatter":372}],374:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', function ($scope, fileUpload, FileReader, FileReaderUtil) {
@@ -9094,7 +9152,7 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
     };
 }];
 
-},{}],373:[function(require,module,exports){
+},{}],375:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -9123,7 +9181,7 @@ module.exports = {
     name: 'elyFileModel'
 };
 
-},{}],374:[function(require,module,exports){
+},{}],376:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -9136,7 +9194,7 @@ app.factory('FileReader', require('./services/fileReader'));
 app.service('FileReaderUtil', require('./services/fileReaderUtil'));
 
 app.directive(fileModel.name, fileModel.directive);
-},{"./fileModel.js":373,"./services/checkFileFormat":378,"./services/fileReader":379,"./services/fileReaderUtil":380,"./services/fileUpload":381}],375:[function(require,module,exports){
+},{"./fileModel.js":375,"./services/checkFileFormat":380,"./services/fileReader":381,"./services/fileReaderUtil":382,"./services/fileUpload":383}],377:[function(require,module,exports){
 'use strict';
 
 
@@ -9184,7 +9242,7 @@ module.exports = ['$scope', 'FileReader', 'CheckFileFormat',
     }
 ];
 
-},{}],376:[function(require,module,exports){
+},{}],378:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -9207,9 +9265,9 @@ module.exports = {
     name: 'elyPreviewPicture'
 };
 
-},{"./controller.js":375}],377:[function(require,module,exports){
+},{"./controller.js":377}],379:[function(require,module,exports){
 arguments[4][50][0].apply(exports,arguments)
-},{"./directive.js":376,"dup":50}],378:[function(require,module,exports){
+},{"./directive.js":378,"dup":50}],380:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -9226,14 +9284,14 @@ module.exports = [function () {
     };
 }];
 
-},{}],379:[function(require,module,exports){
+},{}],381:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
     return new FileReader();
 };
 
-},{}],380:[function(require,module,exports){
+},{}],382:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -9246,7 +9304,7 @@ module.exports = function () {
     };
 };
 
-},{}],381:[function(require,module,exports){
+},{}],383:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$http', function ($http) {
@@ -9271,7 +9329,7 @@ module.exports = ['$http', function ($http) {
     };
 }];
 
-},{}],382:[function(require,module,exports){
+},{}],384:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 'errorToast', 'CheckFileFormat',
@@ -9336,13 +9394,13 @@ module.exports = ['$scope', '$timeout', 'FileReader', 'ElyModal', 'fileUpload', 
 
 
 
-},{}],383:[function(require,module,exports){
+},{}],385:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.controller('UtilFileUploadCropImageCtrl', require('./controller'));
-},{"./controller":382}],384:[function(require,module,exports){
+},{"./controller":384}],386:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -9352,7 +9410,7 @@ app.service('Observables', require('./observables'));
 app.service('ElyModal', require('./modal'));
 app.service('SearchService', require('./searchService'));
 app.service('UrlCache', require('./urlCache'));
-},{"./modal":385,"./moment":386,"./observables":387,"./searchService":390,"./urlCache":395}],385:[function(require,module,exports){
+},{"./modal":387,"./moment":388,"./observables":389,"./searchService":392,"./urlCache":397}],387:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
@@ -9400,7 +9458,7 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
         });
 }];
 
-},{}],386:[function(require,module,exports){
+},{}],388:[function(require,module,exports){
 'use strict';
 
 var moment = require('moment');
@@ -9410,7 +9468,7 @@ module.exports = function () {
     return moment;
 };
 
-},{"moment":3}],387:[function(require,module,exports){
+},{"moment":3}],389:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -9436,14 +9494,14 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],388:[function(require,module,exports){
+},{}],390:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('ScrollRequest', require('./scrollRequest'));
 
-},{"./scrollRequest":389}],389:[function(require,module,exports){
+},{"./scrollRequest":391}],391:[function(require,module,exports){
 'use strict';
 
 var scrollRequests = {};
@@ -9512,7 +9570,7 @@ module.exports = ['$q', function ($q) {
     };
 }];
 
-},{}],390:[function(require,module,exports){
+},{}],392:[function(require,module,exports){
 'use strict';
 
 module.exports = [function () {
@@ -9555,13 +9613,13 @@ module.exports = [function () {
     };
 }];
 
-},{}],391:[function(require,module,exports){
+},{}],393:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('loginStateHandler', require('./loginStateHandler'));
-},{"./loginStateHandler":392}],392:[function(require,module,exports){
+},{"./loginStateHandler":394}],394:[function(require,module,exports){
 'use strict';
 
 module.exports = ['Observables', function (Observables) {
@@ -9581,7 +9639,7 @@ module.exports = ['Observables', function (Observables) {
     };
 }];
 
-},{}],393:[function(require,module,exports){
+},{}],395:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$mdToast', function ($mdToast) {
@@ -9598,13 +9656,13 @@ module.exports = ['$mdToast', function ($mdToast) {
     };
 }];
 
-},{}],394:[function(require,module,exports){
+},{}],396:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
 
 app.service('errorToast', require('./errorToast'));
-},{"./errorToast":393}],395:[function(require,module,exports){
+},{"./errorToast":395}],397:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$log', function ($log) {
@@ -9635,7 +9693,7 @@ module.exports = ['$log', function ($log) {
     };
 }];
 
-},{}],396:[function(require,module,exports){
+},{}],398:[function(require,module,exports){
 'use strict';
 
 var app = angular.module('elyoosApp');
@@ -9646,21 +9704,21 @@ app.factory('Modification', require('./services/modification'));
 app.service('userInfo', require('./userInfo'));
 app.service('UserDetailNavigation', require('./userDetailNavigation'));
 
-},{"./services/modification":397,"./services/userInfoRequest":398,"./userDetailNavigation":399,"./userInfo":400}],397:[function(require,module,exports){
+},{"./services/modification":399,"./services/userInfoRequest":400,"./userDetailNavigation":401,"./userInfo":402}],399:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/modification');
 }];
 
-},{}],398:[function(require,module,exports){
+},{}],400:[function(require,module,exports){
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
     return $resource('api/user/userInfo');
 }];
 
-},{}],399:[function(require,module,exports){
+},{}],401:[function(require,module,exports){
 'use strict';
 
 
@@ -9676,7 +9734,7 @@ module.exports = ['$state',
         };
     }];
 
-},{}],400:[function(require,module,exports){
+},{}],402:[function(require,module,exports){
 'use strict';
 
 module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState',
@@ -9736,7 +9794,7 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables',
         };
     }];
 
-},{}],401:[function(require,module,exports){
+},{}],403:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -9764,7 +9822,7 @@ module.exports = {
 };
 
 
-},{}],402:[function(require,module,exports){
+},{}],404:[function(require,module,exports){
 'use strict';
 
 var controller = require('./controller.js');
@@ -9785,9 +9843,9 @@ module.exports = {
     name: 'elyViewPort'
 };
 
-},{"./controller.js":401}],403:[function(require,module,exports){
+},{"./controller.js":403}],405:[function(require,module,exports){
 arguments[4][102][0].apply(exports,arguments)
-},{"./directive.js":402,"dup":102}],404:[function(require,module,exports){
+},{"./directive.js":404,"dup":102}],406:[function(require,module,exports){
 module.exports={
   "name": "elyoos-client-test",
   "version": "1.0.0",
@@ -9834,4 +9892,4 @@ module.exports={
   }
 }
 
-},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,51,52,53,54,48,49,50,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,81,82,83,74,75,76,77,78,79,80,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,199,200,197,198,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403]);
+},{}]},{},[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,51,52,53,54,48,49,50,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,81,82,83,74,75,76,77,78,79,80,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,199,200,197,198,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405]);

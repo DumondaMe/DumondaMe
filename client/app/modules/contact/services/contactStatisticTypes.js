@@ -38,6 +38,10 @@ module.exports = [
             });
             return types;
         };
+        
+        service.renameType= function (type, newType) {
+            getStatistic(statistic, type).type = newType;
+        };
 
         service.removeType = function (type, newType) {
             var elementToRemove = getStatistic(statistic, type);
