@@ -88,7 +88,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/detail/modal/template.html',
+  $templateCache.put('app/modules/contact/detail/modal/userInfo/template.html',
     "<md-dialog class=user-detail-info aria-label=\"Show User Infos\" ng-cloak><div class=\"md-title title\">{{ctrl.detail.name}}</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\"><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.birthday><label>Geburtstag</label><input ng-model=ctrl.detail.birthday ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\"><label>Geschlecht</label><input ng-model=ctrl.gender ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.street><label>Strasse</label><input ng-model=ctrl.detail.street ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.place><label>Ort</label><input ng-model=ctrl.detail.place ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.country><label>Land</label><input ng-model=ctrl.detail.country ng-readonly=true></md-input-container></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.close()>Ok</md-button></md-dialog-actions></md-dialog>"
   );
 
@@ -2098,7 +2098,7 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.openInfo = function () {
-                    ElyModal.show('ContactDetailInfoCtrl', 'app/modules/contact/detail/modal/template.html', {detail: ctrl.detail.user});
+                    ElyModal.show('ContactDetailInfoCtrl', 'app/modules/contact/detail/modal/userInfo/template.html', {detail: ctrl.detail.user});
                 };
 
                 ctrl.moveContact = function () {

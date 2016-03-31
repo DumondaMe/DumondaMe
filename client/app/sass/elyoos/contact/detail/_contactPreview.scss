@@ -3,15 +3,20 @@
   min-width: 292px;
   .header {
     padding: 16px;
+    cursor: pointer;
     .title {
       font-weight: 500;
       font-size: 16px;
       vertical-align: bottom;
       line-height: 16px;
       margin-right: 8px;
+      color: $primary-text;
       .number-contact {
         color: $primary-color;
       }
+    }
+    .title:hover {
+      text-decoration: underline;
     }
     .subtitle {
       font-size: 14px;
@@ -19,6 +24,9 @@
       line-height: 14px;
       font-weight: 400;
       color: $secondary-text;
+    }
+    .subtitle:hover {
+      text-decoration: underline;
     }
   }
   .preview-container {

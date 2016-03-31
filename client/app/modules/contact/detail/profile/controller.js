@@ -7,7 +7,7 @@ module.exports = {
                 var ctrl = this;
 
                 ctrl.openInfo = function () {
-                    ElyModal.show('ContactDetailInfoCtrl', 'app/modules/contact/detail/modal/template.html', {detail: ctrl.detail.user});
+                    ElyModal.show('ContactDetailInfoCtrl', 'app/modules/contact/detail/modal/userInfo/template.html', {detail: ctrl.detail.user});
                 };
 
                 ctrl.moveContact = function () {
