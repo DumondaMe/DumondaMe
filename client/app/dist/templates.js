@@ -72,9 +72,18 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/contact/template.html',
-    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact>{{ctrl.detail.numberOfContacts}}</span> Kontakte</div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 0\">{{ctrl.detail.numberOfSameContacts}}<ng-pluralize count=ctrl.detail.numberOfSameContacts when=\"{'1': ' gemeinsamer Kontakt',\r" +
+    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact ng-if=\"ctrl.detail.numberOfContacts > 0\">{{ctrl.detail.numberOfContacts}}</span><ng-pluralize count=ctrl.detail.numberOfContacts when=\"{'0': 'Keine Kontakte',\r" +
+    "\n" +
+    "                                 '1': ' Kontakt',\r" +
+    "\n" +
+    "                                 'other': ' Kontakte'}\"></ng-pluralize></div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 0\">{{ctrl.detail.numberOfSameContacts}}<ng-pluralize count=ctrl.detail.numberOfSameContacts when=\"{'1': ' gemeinsamer Kontakt',\r" +
     "\n" +
     "                                 'other': ' gemeinsame Kontakte'}\"></ng-pluralize></div></div><div class=preview-container><div class=preview-image ng-repeat=\"contact in ctrl.detail.contacts\" ng-click=ctrl.openUserDetail(contact.userId)><img ng-src={{contact.profileUrl}} class=image><div class=name>{{contact.name}}</div></div></div></md-card>"
+  );
+
+
+  $templateCache.put('app/modules/contact/detail/contacting/template.html',
+    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact ng-if=\"ctrl.detail.numberOfContacting > 0\">{{ctrl.detail.numberOfContacting}}</span> Personen kontaktierten {{ctrl.detail.user.forename}}</div></div><div class=preview-container><div class=preview-image ng-repeat=\"contacting in ctrl.detail.contacting\" ng-click=ctrl.openUserDetail(contacting.userId)><img ng-src={{contacting.profileUrl}} class=image><div class=name>{{contacting.name}}</div></div></div></md-card>"
   );
 
 
@@ -89,7 +98,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-pinwall user-name=ctrl.userName></ely-user-detail-pinwall></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall user-name=ctrl.userName></ely-user-detail-pinwall></div></md-content>"
   );
 
 

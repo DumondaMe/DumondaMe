@@ -3,6 +3,8 @@
         <ely-user-detail-profile flex="100" detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile>
         <ely-user-detail-contacts-preview flex="100" detail="ctrl.userDetail"
                                           ng-if="ctrl.userDetail.contacts.length > 0"></ely-user-detail-contacts-preview>
+        <ely-user-detail-contacting-preview flex="100" detail="ctrl.userDetail"
+                                          ng-if="ctrl.userDetail.contacting.length > 0"></ely-user-detail-contacting-preview>
         <ely-user-detail-pinwall user-name="ctrl.userName"></ely-user-detail-pinwall>
     </div>
 </md-content>
