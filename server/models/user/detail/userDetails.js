@@ -3,7 +3,7 @@
 var db = require('./../../../neo4j');
 var cdn = require('../../util/cdn');
 var userInfo = require('../userInfo');
-var contact = require('./contact');
+var contactSummary = require('./contactSummary');
 var contactStatistic = require('../../contact/contactStatistic');
 var _ = require("lodash");
 var logger = requireLogger.getLogger(__filename);
@@ -26,7 +26,7 @@ var returnDetails = function (detailUserData, detailUser, detailUserPrivacy, use
         }
         if (detailUserPrivacy.contacts) {
             logger.debug('Get detail of user ' + detailUserId + ' with contacts', req);
-            return contact.getContacts(userId, detailUserId, 9, 0).then(function (contact) {
+            return contactSummary.getContactInfo(userId, detailUserId, 9, 0).then(function (contact) {
                 contact.user = _.omitBy(detailUser, _.isUndefined);
                 contact.contactTypeStatistic = resp[0];
                 return contact;
@@ -54,35 +54,6 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
     };
     if (!detailUserData.blockedByDetailUser) {
         return returnDetails(detailUserData, detailUser, detailUserPrivacy, userId, detailUserId, resp, req);
-        /*userInfo.addConnectionInfo(detailUserData);
-        detailUser.connected = detailUserData.connected;
-
-        if (detailUserPrivacy.profile) {
-            if (detailUserPrivacy.image) {
-                detailUser.profileUrl = cdn.getUrl('profileImage/' + detailUserId + '/profile.jpg');
-            } else {
-                detailUser.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
-            }
-            if (detailUserPrivacy.profileData) {
-                detailUser.birthday = detailUserData.detailUser.birthday;
-                detailUser.country = detailUserData.detailUser.country;
-                detailUser.place = detailUserData.detailUser.place;
-                detailUser.street = detailUserData.detailUser.street;
-            }
-            if (detailUserPrivacy.contacts) {
-                logger.debug('Get detail of user ' + detailUserId + ' with contacts', req);
-                return contact.getContacts(userId, detailUserId, 9, 0).then(function (contact) {
-                    contact.user = _.omitBy(detailUser, _.isUndefined);
-                    contact.contactTypeStatistic = resp[0];
-                    return contact;
-                });
-            }
-        } else {
-            detailUser.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
-        }
-        logger.debug('Get detail of user ' + detailUserId + ' without contacts', req);
-        detailUser = _.omitBy(detailUser, _.isUndefined);
-        return {user: detailUser, contacts: [], contactTypeStatistic: resp[0]};*/
     }
     return {
         user: {

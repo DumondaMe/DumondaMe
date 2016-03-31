@@ -251,41 +251,23 @@ describe('Integration Tests for getting user details', function () {
 
         //create Contact Connections for User 2
         commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '1'")
+            .where("u.userId = '2' AND u2.userId in ['1', '3']")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '3'")
-            .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '4'")
+            .where("u.userId = '2' AND u2.userId in ['4', '5', '6', '7']")
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
+        
+        //create contacting connection for User 2
         commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '5'")
-            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '6'")
-            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '6' AND u2.userId = '2'")
-            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '2' AND u2.userId = '7'")
+            .where("u2.userId = '2' AND u.userId in ['4', '6', '7']")
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
 
         //create Contact Connections for User 1
         commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '1' AND u2.userId = '4'")
-            .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
-            .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(u:User), (u2:User)")
-            .where("u.userId = '1' AND u2.userId = '6'")
+            .where("u.userId = '1' AND u2.userId in ['4', '6']")
             .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(u2)")
             .end({contactAdded: startTime}).getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
@@ -340,6 +322,20 @@ describe('Integration Tests for getting user details', function () {
 
                 res.body.numberOfContacts.should.equals(6);
                 res.body.numberOfSameContacts.should.equals(2);
+
+                //Contacting
+                res.body.contacting.length.should.equals(3);
+                res.body.contacting[0].name.should.equals('user4 Meier4');
+                res.body.contacting[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.contacting[0].userId.should.equals('4');
+                res.body.contacting[1].name.should.equals('user6 Meier6');
+                res.body.contacting[1].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
+                res.body.contacting[1].userId.should.equals('6');
+                res.body.contacting[2].name.should.equals('user7 Meier7');
+                res.body.contacting[2].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.contacting[2].userId.should.equals('7');
+
+                res.body.numberOfContacting.should.equals(3);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
             });
