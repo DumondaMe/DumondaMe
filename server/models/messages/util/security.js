@@ -13,7 +13,7 @@ var getNummberOfMessageCommand = function (userId) {
         .end({
             userId: userId,
             timeFrame: time.getNowUtcTimestamp() - 3600
-        }).getCommand()
+        }).getCommand();
 };
 
 var checkAllowedToAddMessage = function (userId, threadId, req) {

@@ -1,7 +1,9 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var _ = require('lodash');
+var userInfo = require('../userInfo');
+var exceptions = require('./../../../lib/error/exceptions');
+var logger = requireLogger.getLogger(__filename);
 
 var numberOfContacts = function (contactId) {
     return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)')
@@ -15,53 +17,51 @@ var numberOfSameContacts = function (userId, contactId) {
         .end({contactId: contactId, userId: userId});
 };
 
-var getContacts = function (userId, userDetailId, contactsPerPage, skipContacts) {
-
+var getContactsCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
     return db.cypher().match('(:User {userId: {userDetailId}})-[:IS_CONTACT]->(contactOfUser:User)')
         .with('contactOfUser')
         .match("(contactOfUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
-        .with("rContact, contactOfUser, privacy, vr")
+        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(user:User {userId: {userId}})')
+        .optionalMatch('(user)-[isContactOfUser:IS_CONTACT]->(contactOfUser)')
+        .with("rContact, isContactOfUser, contactOfUser, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return('contactOfUser.name AS name, contactOfUser.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible')
+        .return('contactOfUser.name AS name, contactOfUser.userId AS userId, isContactOfUser.type AS type, ' +
+            'privacy.profile AS profileVisible, privacy.image AS imageVisible')
         .orderBy('name')
         .skip('{skipContacts}')
         .limit('{contactsPerPage}')
         .end({userDetailId: userDetailId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts});
 };
 
-/*var getContacts = function (userId, userDetailId, contactsPerPage, skipContacts) {
-    var commands = [];
-
-    commands.push(numberOfContacts(userDetailId).getCommand());
-    commands.push(numberOfSameContacts(userId, userDetailId).getCommand());
-
-    return db.cypher().match('(:User {userId: {userDetailId}})-[:IS_CONTACT]->(contactOfUser:User)')
-        .with('contactOfUser')
-        .match("(contactOfUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
-        .with("rContact, contactOfUser, privacy, vr")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return('contactOfUser.name AS name, contactOfUser.userId AS userId, privacy.profile AS profileVisible, privacy.image AS imageVisible')
-        .orderBy('name')
-        .skip('{skipContacts}')
-        .limit('{contactsPerPage}')
-        .end({userDetailId: userDetailId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts})
-        .send(commands)
-        .then(function (resp) {
-            userInfo.addImageForPreview(resp[2]);
-            setUserImageVisible(userId, resp[2]);
-            return {
-                numberOfContacts: resp[0][0].numberOfContacts,
-                numberOfSameContacts: resp[1][0].numberOfSameContacts,
-                contacts: resp[2]
-            };
+var allowedToGetContacts = function (userId, userDetailId, req) {
+    return db.cypher().match("(userDetail:User {userId: {userDetailId}})-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
+        .optionalMatch("(user:User {userId: {userId}})<-[isContact:IS_CONTACT]-(userDetail)")
+        .with("isContact, privacy, vr")
+        .where("(isContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (isContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
+        .return("privacy.profile AS profile, privacy.contacts AS contacts")
+        .end({userId: userId, userDetailId: userDetailId})
+        .send().then(function (resp) {
+            if (!resp[0] || !resp[0].profile || !resp[0].contacts) {
+                return exceptions.getInvalidOperation('Not allowed to view contacts of this user', logger, req);
+            }
         });
-};*/
+};
+
+var getContacts = function (userId, userDetailId, contactsPerPage, skipContacts, req) {
+    return allowedToGetContacts(userId, userDetailId, req).then(function () {
+        return getContactsCommand(userId, userDetailId, contactsPerPage, skipContacts)
+            .send().then(function (resp) {
+                userInfo.setUserImageVisible(userId, resp);
+                userInfo.addImageForPreview(resp);
+                return {contacts: resp};
+            });
+    });
+};
 
 
 module.exports = {
     numberOfContacts: numberOfContacts,
     numberOfSameContacts: numberOfSameContacts,
+    getContactsCommand: getContactsCommand,
     getContacts: getContacts
 };

@@ -2,6 +2,7 @@
 
 var underscore = require('underscore');
 var cdn = require('../util/cdn');
+var _ = require("lodash");
 
 var getImageForPreview = function (contact, profileType) {
     if (contact.profileVisible && contact.imageVisible) {
@@ -46,11 +47,21 @@ var addConnectionInfos = function (contacts) {
     });
 };
 
+var setUserImageVisible = function (userId, contacts) {
+    _.each(contacts, function (contact) {
+        if (contact.userId === userId) {
+            contact.profileVisible = true;
+            contact.imageVisible = true;
+        }
+    });
+};
+
 module.exports = {
     getImageForPreview: getImageForPreview,
     addImageForPreview: addImageForPreview,
     addImageForThumbnail: addImageForThumbnail,
     addConnectionInfo: addConnectionInfo,
+    setUserImageVisible: setUserImageVisible,
     addContactPreviewInfos: function (contacts) {
         addImageForPreview(contacts);
         addConnectionInfos(contacts);
