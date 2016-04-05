@@ -16,6 +16,11 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('app/modules/common/closeSubToolbar/template.html',
+    "<div class=ely-close-sub-toolbar layout=row layout-align=\"end center\"><div class=sub-toolbar-description>{{ctrl.description}}</div><div><md-button class=md-icon-button aria-label=Close ng-click=ctrl.onClose()><md-icon md-svg-icon=cardActions:close></md-icon></md-button></div></div>"
+  );
+
+
   $templateCache.put('app/modules/common/expandText/template.html',
     "<div class=ely-expand-text><div class=ely-expand-text-description>{{ctrl.text.text}}</div><div class=ely-expand-expand ng-click=ctrl.expand() ng-show=\"!ctrl.expanded && ctrl.text.cropped\">Mehr lesen</div></div>"
   );
@@ -41,21 +46,6 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/common/paginationNextPrevious/template.html',
-    "<div class=paginationNextPrevious><div class=paginationNextPrevious-wrapper><div class=paginationElement ng-class=\"{disabled: currentPagination === 1}\" ng-click=clickPrevious()><img src=app/img/arrow-previous.png></div><div class=paginationElement ng-class=\"{disabled: currentPagination === currentPaginationRange}\" ng-click=clickNext()><img src=app/img/arrow-next.png></div></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/common/searchBox/template.html',
-    "<div class=searchBoxForm><div class=input-group><input class=form-control placeholder={{description}} ng-model=query ng-keypress=sendGetQuery($event) bs-options=\"querySuggestion.name as querySuggestion.name for querySuggestion in getQuerySuggestion($viewValue)\" data-trigger=click bs-typeahead> <span class=input-group-btn><button class=\"btn btn-default\" type=button ng-click=getQuery(query)><span class=\"glyphicon glyphicon-search\" aria-hidden=true></span></button></span></div></div>"
-  );
-
-
-  $templateCache.put('app/modules/common/sendButton/template.html',
-    "<div class=ely-submit-button><button type=submit class=\"btn btn-default\" ng-click=sendAllData() ng-class=\"{disabled: categoryFinishedButtonDisabled}\">{{buttonDescription}}</button><div class=ely-submit-button-error ng-show=showError><img src=app/img/error.png ng-show=showError data-template-url=app/modules/util/tooltip/tooltipError.html data-trigger=hover data-placement={{errorPlacement}} bs-tooltip=\"errorDescription\"></div><div class=ely-submit-button-success ng-show=showSuccess><img src=app/img/success.png ng-show=\"showSuccess\"></div></div>"
-  );
-
-
   $templateCache.put('app/modules/common/starRating/template.html',
     "<div class=ely-star-rating ng-mouseleave=resetToSelected()><md-icon md-svg-icon=rating:{{star[0]}} aria-label=\"\" ng-mouseover=mouseOverStar(0) ng-mousedown=starSelected(1) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[1]}} aria-label=\"\" ng-mouseover=mouseOverStar(1) ng-mousedown=starSelected(2) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[2]}} aria-label=\"\" ng-mouseover=mouseOverStar(2) ng-mousedown=starSelected(3) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[3]}} aria-label=\"\" ng-mouseover=mouseOverStar(3) ng-mousedown=starSelected(4) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon><md-icon md-svg-icon=rating:{{star[4]}} aria-label=\"\" ng-mouseover=mouseOverStar(4) ng-mousedown=starSelected(5) ng-class=\"{'ely-star-rating-small': isSmall, 'ely-star-rating-x-small': isXSmall}\" ng-if=\"star.length === 5\"></md-icon></div>"
   );
@@ -72,23 +62,30 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/contact/template.html',
-    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact ng-if=\"ctrl.detail.numberOfContacts > 0\">{{ctrl.detail.numberOfContacts}}</span><ng-pluralize count=ctrl.detail.numberOfContacts when=\"{'0': 'Keine Kontakte',\r" +
+    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title ng-click=ctrl.showDetail()><span class=number-contact ng-if=\"ctrl.detail.numberOfContacts > 0\">{{ctrl.detail.numberOfContacts}}</span><ng-pluralize count=ctrl.detail.numberOfContacts when=\"{'0': 'Keine Kontakte',\r" +
     "\n" +
     "                                 '1': ' Kontakt',\r" +
     "\n" +
-    "                                 'other': ' Kontakte'}\"></ng-pluralize></div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 0\">{{ctrl.detail.numberOfSameContacts}}<ng-pluralize count=ctrl.detail.numberOfSameContacts when=\"{'1': ' gemeinsamer Kontakt',\r" +
+    "                                 'other': ' Kontakte'}\"></ng-pluralize></div><div class=subtitle ng-if=\"ctrl.detail.numberOfSameContacts > 0\" ng-click=ctrl.showDetail()>{{ctrl.detail.numberOfSameContacts}}<ng-pluralize count=ctrl.detail.numberOfSameContacts when=\"{'1': ' gemeinsamer Kontakt',\r" +
     "\n" +
     "                                 'other': ' gemeinsame Kontakte'}\"></ng-pluralize></div></div><div class=preview-container><div class=preview-image ng-repeat=\"contact in ctrl.detail.contacts\" ng-click=ctrl.openUserDetail(contact.userId)><img ng-src={{contact.profileUrl}} class=image><div class=name>{{contact.name}}</div></div></div></md-card>"
   );
 
 
   $templateCache.put('app/modules/contact/detail/contacting/template.html',
-    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title><span class=number-contact ng-if=\"ctrl.detail.numberOfContacting > 0\">{{ctrl.detail.numberOfContacting}}</span> Personen kontaktierten {{ctrl.detail.user.forename}}</div></div><div class=preview-container><div class=preview-image ng-repeat=\"contacting in ctrl.detail.contacting\" ng-click=ctrl.openUserDetail(contacting.userId)><img ng-src={{contacting.profileUrl}} class=image><div class=name>{{contacting.name}}</div></div></div></md-card>"
+    "<md-card id=ely-user-detail-contact-preview><div class=header layout=row layout-align=\"none end\"><div class=title ng-click=ctrl.showDetail()><span class=number-contact ng-if=\"ctrl.detail.numberOfContacting > 0\">{{ctrl.detail.numberOfContacting}}</span><ng-pluralize count=ctrl.detail.numberOfContacting when=\"{'1': ' Person kontaktierte ',\r" +
+    "\n" +
+    "                                 'other': ' Personen kontaktierten '}\"></ng-pluralize>{{ctrl.detail.user.forename}}</div></div><div class=preview-container><div class=preview-image ng-repeat=\"contacting in ctrl.detail.contacting\" ng-click=ctrl.openUserDetail(contacting.userId)><img ng-src={{contacting.profileUrl}} class=image><div class=name>{{contacting.name}}</div></div></div></md-card>"
   );
 
 
   $templateCache.put('app/modules/contact/detail/modal/userInfo/template.html',
     "<md-dialog class=user-detail-info aria-label=\"Show User Infos\" ng-cloak><div class=\"md-title title\">{{ctrl.detail.name}}</div><md-dialog-content><div class=\"md-dialog-content ely-dialog-content\"><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.birthday><label>Geburtstag</label><input ng-model=ctrl.detail.birthday ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\"><label>Geschlecht</label><input ng-model=ctrl.gender ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.street><label>Strasse</label><input ng-model=ctrl.detail.street ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.place><label>Ort</label><input ng-model=ctrl.detail.place ng-readonly=true></md-input-container><md-input-container class=\"md-block ely-dialog-input\" ng-if=ctrl.detail.country><label>Land</label><input ng-model=ctrl.detail.country ng-readonly=true></md-input-container></div></md-dialog-content><md-dialog-actions><md-button ng-click=ctrl.close()>Ok</md-button></md-dialog-actions></md-dialog>"
+  );
+
+
+  $templateCache.put('app/modules/contact/detail/overviewContact/template.html',
+    "<div id=ely-user-detail-contact-overview ng-class=\"{'ely-user-detail-contact-overview-normal': !ctrl.initialLoad}\"><ely-load-screen ng-if=ctrl.initialLoad></ely-load-screen><div class=contact-overview-title>{{ctrl.name}}'s {{ctrl.title}}</div><div class=contact-overview-container ely-infinite-scroll=ctrl.next() layout=row layout-wrap><ely-contact-preview-square flex=none user=user ng-repeat=\"user in ctrl.user.users\"></ely-contact-preview-square></div><div class=pinwall-gab></div></div>"
   );
 
 
@@ -98,7 +95,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview flex=100 detail=ctrl.userDetail ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall user-name=ctrl.userName></ely-user-detail-pinwall></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container layout=row layout-align=center layout-wrap ng-if=\"ctrl.$mdMedia('xs')\"><ely-user-detail-profile flex=100 detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile><div ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\"><ely-user-detail-contacts-preview flex=100 detail=ctrl.userDetail show-detail=ctrl.showContactOverview ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview flex=100 detail=ctrl.userDetail show-detail=ctrl.showContactingOverview ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall user-name=ctrl.userName></ely-user-detail-pinwall></div><ely-user-detail-overview-contact flex=100 service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Kontaktübersicht schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContact></ely-close-sub-toolbar><ely-user-detail-overview-contact flex=100 service=ctrl.UserDetailContacts ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} title=Follower></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Übersich Followers schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContacting></ely-close-sub-toolbar></div></md-content>"
   );
 
 
@@ -117,7 +114,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('app/modules/contact/overview/template.html',
+  $templateCache.put('app/modules/contact/overviewContact/template.html',
     "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview statistic=statistic statistics=ctrl.statistics.statistic delete-group=ctrl.deleteGroup(name)></ely-contact-preview></div><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary ng-click=ctrl.newGroup()>Neue Gruppe</md-button></div></md-content>"
   );
 
@@ -132,7 +129,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overviewSearchUser/template.html',
-    "<md-content id=ely-user-search-overview><div class=preview-container ng-repeat=\"user in ctrl.users\"><ely-contact-preview-square user=user></ely-contact-preview-square></div></md-content>"
+    "<md-content id=ely-user-search-overview layout=row layout-wrap><ely-contact-preview-square flex=none user=user ng-repeat=\"user in ctrl.users\"></ely-contact-preview-square></md-content>"
   );
 
 

@@ -53,7 +53,7 @@ var getContacts = function (userId, userDetailId, contactsPerPage, skipContacts,
             .send().then(function (resp) {
                 userInfo.setUserImageVisible(userId, resp);
                 userInfo.addImageForPreview(resp);
-                return {contacts: resp};
+                return {users: resp};
             });
     });
 };

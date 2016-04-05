@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                detail: '='
+                detail: '=',
+                showDetail: '='
             },
             templateUrl: 'app/modules/contact/detail/contacting/template.html'
         };

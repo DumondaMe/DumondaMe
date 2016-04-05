@@ -8,6 +8,7 @@ app.directive(directive.name, directive.directive);
 app.factory('Contact', require('./services/contact'));
 app.factory('ContactStatistic', require('./services/contactStatistic'));
 app.factory('UserDetail', require('./services/userDetail'));
+app.factory('UserDetailContacts', require('./services/userDetailContacts'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
 

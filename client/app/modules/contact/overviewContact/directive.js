@@ -11,7 +11,7 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/contact/overview/template.html'
+            templateUrl: 'app/modules/contact/overviewContact/template.html'
         };
     }],
     name: 'elyContactOverview'

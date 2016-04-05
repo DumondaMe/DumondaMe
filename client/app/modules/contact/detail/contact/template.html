@@ -1,13 +1,13 @@
 <md-card id="ely-user-detail-contact-preview">
     <div class="header" layout="row" layout-align="none end">
-        <div class="title">
+        <div class="title" ng-click="ctrl.showDetail()">
             <span class="number-contact" ng-if="ctrl.detail.numberOfContacts > 0">{{ctrl.detail.numberOfContacts}}</span>
             <ng-pluralize count="ctrl.detail.numberOfContacts"
                           when="{'0': 'Keine Kontakte',
                                  '1': ' Kontakt',
                                  'other': ' Kontakte'}"></ng-pluralize>
         </div>
-        <div class="subtitle" ng-if="ctrl.detail.numberOfSameContacts > 0">
+        <div class="subtitle" ng-if="ctrl.detail.numberOfSameContacts > 0" ng-click="ctrl.showDetail()">
             {{ctrl.detail.numberOfSameContacts}}
             <ng-pluralize count="ctrl.detail.numberOfSameContacts"
                           when="{'1': ' gemeinsamer Kontakt',

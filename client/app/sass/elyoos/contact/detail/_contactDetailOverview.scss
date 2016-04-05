@@ -1,0 +1,14 @@
+#ely-user-detail-contact-overview {
+  min-height: 1000px;
+
+  .contact-overview-title {
+    margin: 8px 0 16px 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $secondary-text;
+  }
+}
+
+#ely-user-detail-contact-overview.ely-user-detail-contact-overview-normal {
+  min-height: 0;
+}

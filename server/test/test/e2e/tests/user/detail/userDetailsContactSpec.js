@@ -73,42 +73,42 @@ describe('Integration Tests for getting the contacts in user details', function 
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.contacts.length.should.equals(6);
-                res.body.contacts[0].name.should.equals('user Meier3');
-                res.body.contacts[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[0].userId.should.equals('3');
-                should.not.exist(res.body.contacts[0].type);
-                should.not.exist(res.body.contacts[0].blocked);
+                res.body.users.length.should.equals(6);
+                res.body.users[0].name.should.equals('user Meier3');
+                res.body.users[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.users[0].userId.should.equals('3');
+                should.not.exist(res.body.users[0].type);
+                should.not.exist(res.body.users[0].blocked);
 
-                res.body.contacts[1].name.should.equals('user Meier4');
-                res.body.contacts[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[1].userId.should.equals('4');
-                should.not.exist(res.body.contacts[1].type);
-                should.not.exist(res.body.contacts[1].blocked);
+                res.body.users[1].name.should.equals('user Meier4');
+                res.body.users[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.users[1].userId.should.equals('4');
+                should.not.exist(res.body.users[1].type);
+                should.not.exist(res.body.users[1].blocked);
 
-                res.body.contacts[2].name.should.equals('user Meier5');
-                res.body.contacts[2].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[2].userId.should.equals('5');
-                should.not.exist(res.body.contacts[2].type);
-                should.not.exist(res.body.contacts[2].blocked);
+                res.body.users[2].name.should.equals('user Meier5');
+                res.body.users[2].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.users[2].userId.should.equals('5');
+                should.not.exist(res.body.users[2].type);
+                should.not.exist(res.body.users[2].blocked);
 
-                res.body.contacts[3].name.should.equals('user Meier6');
-                res.body.contacts[3].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.contacts[3].userId.should.equals('6');
-                res.body.contacts[3].type.should.equals('Freund');
-                should.not.exist(res.body.contacts[3].blocked);
+                res.body.users[3].name.should.equals('user Meier6');
+                res.body.users[3].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.users[3].userId.should.equals('6');
+                res.body.users[3].type.should.equals('Freund');
+                should.not.exist(res.body.users[3].blocked);
 
-                res.body.contacts[4].name.should.equals('user Meier7');
-                res.body.contacts[4].profileUrl.should.equals('profileImage/7/profilePreview.jpg');
-                res.body.contacts[4].userId.should.equals('7');
-                res.body.contacts[4].type.should.equals('Freund');
-                should.not.exist(res.body.contacts[4].blocked);
+                res.body.users[4].name.should.equals('user Meier7');
+                res.body.users[4].profileUrl.should.equals('profileImage/7/profilePreview.jpg');
+                res.body.users[4].userId.should.equals('7');
+                res.body.users[4].type.should.equals('Freund');
+                should.not.exist(res.body.users[4].blocked);
 
-                res.body.contacts[5].name.should.equals('user Meier8');
-                res.body.contacts[5].profileUrl.should.equals('profileImage/8/profilePreview.jpg');
-                res.body.contacts[5].userId.should.equals('8');
-                should.not.exist(res.body.contacts[5].type);
-                should.not.exist(res.body.contacts[5].blocked);
+                res.body.users[5].name.should.equals('user Meier8');
+                res.body.users[5].profileUrl.should.equals('profileImage/8/profilePreview.jpg');
+                res.body.users[5].userId.should.equals('8');
+                should.not.exist(res.body.users[5].type);
+                should.not.exist(res.body.users[5].blocked);
             });
     });
 
@@ -134,19 +134,19 @@ describe('Integration Tests for getting the contacts in user details', function 
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.contacts.length.should.equals(2);
+                res.body.users.length.should.equals(2);
 
-                res.body.contacts[0].name.should.equals('user Meier5');
-                res.body.contacts[0].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
-                res.body.contacts[0].userId.should.equals('5');
-                should.not.exist(res.body.contacts[0].type);
-                should.not.exist(res.body.contacts[0].blocked);
+                res.body.users[0].name.should.equals('user Meier5');
+                res.body.users[0].profileUrl.should.equals('profileImage/5/profilePreview.jpg');
+                res.body.users[0].userId.should.equals('5');
+                should.not.exist(res.body.users[0].type);
+                should.not.exist(res.body.users[0].blocked);
 
-                res.body.contacts[1].name.should.equals('user Meier6');
-                res.body.contacts[1].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
-                res.body.contacts[1].userId.should.equals('6');
-                should.not.exist(res.body.contacts[1].type);
-                should.not.exist(res.body.contacts[1].blocked);
+                res.body.users[1].name.should.equals('user Meier6');
+                res.body.users[1].profileUrl.should.equals('profileImage/6/profilePreview.jpg');
+                res.body.users[1].userId.should.equals('6');
+                should.not.exist(res.body.users[1].type);
+                should.not.exist(res.body.users[1].blocked);
             });
     });
 

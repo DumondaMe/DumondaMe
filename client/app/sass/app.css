@@ -390,6 +390,20 @@
   .ely-select-category .md-select-value span .md-text {
     white-space: normal; }
 
+.ely-close-sub-toolbar {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 48px;
+  z-index: 150;
+  background-color: white; }
+  .ely-close-sub-toolbar .sub-toolbar-description {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 40px; }
+
 .modal {
   text-align: center; }
 
@@ -500,6 +514,17 @@ h2.website-structure-title {
     padding-bottom: 0; }
     .user-detail-info .ely-dialog-content .ely-dialog-input {
       margin: 0; }
+
+#ely-user-detail-contact-overview {
+  min-height: 1000px; }
+  #ely-user-detail-contact-overview .contact-overview-title {
+    margin: 8px 0 16px 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
+
+#ely-user-detail-contact-overview.ely-user-detail-contact-overview-normal {
+  min-height: 0; }
 
 #ely-user-detail-contact-preview {
   max-width: 292px;
@@ -674,19 +699,27 @@ h2.website-structure-title {
 
 .ely-contact-preview-square {
   position: relative;
-  width: 180px;
-  height: 210px;
+  /*width: 180px;
+  height: 210px;*/
+  width: 140px;
+  height: 150px;
   margin: 8px auto; }
   .ely-contact-preview-square .user-preview-img {
-    margin-top: 20px;
+    /*margin-top: 20px;
     margin-bottom: 10px;
     height: 90px;
-    width: 90px;
+    width: 90px;*/
+    margin-top: 8px;
+    margin-bottom: 8px;
+    /*height: 90px;
+    width: 90px;*/
+    height: 48px;
+    width: 48px;
     border-radius: 50%; }
   .ely-contact-preview-square .user-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    height: 24px;
+    height: 20px;
     line-height: 24px;
     vertical-align: middle;
     white-space: nowrap;
@@ -694,7 +727,7 @@ h2.website-structure-title {
     text-overflow: ellipsis;
     padding: 0 16px; }
   .ely-contact-preview-square .contact-type {
-    height: 20px;
+    height: 18px;
     min-width: 1px;
     font-size: 14px;
     white-space: nowrap;
@@ -703,7 +736,7 @@ h2.website-structure-title {
     color: rgba(0, 0, 0, 0.54);
     padding: 0 16px; }
   .ely-contact-preview-square .user-blocked {
-    height: 20px;
+    height: 18px;
     min-width: 1px;
     font-size: 14px;
     color: #ff5722;
@@ -1955,7 +1988,8 @@ body, html {
   right: 0; }
 
 .content {
-  height: 100%; }
+  height: 100%;
+  position: relative; }
 
 #no-javascript {
   position: fixed;
