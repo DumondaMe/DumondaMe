@@ -3,15 +3,23 @@
   background-color: $background-normal;
   .pinwall-container {
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    .pinwall-inner-container {
+      max-width: 400px;
+      margin: 0 auto;
+      @media screen and (min-width: $gt-sm) {
+        max-width: 880px;
+        width: 880px;
+      }
+    }
   }
   .create-blog-fab {
     position: fixed;
     bottom: 0;
     right: 0;
-    @media screen and (min-width: $gt-md) {
+    @media screen and (min-width: $gt-sm) {
       bottom: 15px;
-      right: 20px;
+      right: 24px;
     }
   }
 }

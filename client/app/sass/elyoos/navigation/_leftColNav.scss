@@ -5,11 +5,19 @@
     background-color: #ffffff;
     padding: 10px 5px;
     margin-bottom: 10px;
+    @media screen and (min-width: $gt-sm) {
+      padding-top: 18px;
+      padding-left: 12px;
+    }
     .user-preview {
       height: 50px;
       width: 50px;
       margin: 0 10px 10px 10px;
       border-radius: 50%;
+      @media screen and (min-width: $gt-sm) {
+        height: 82px;
+        width: 82px;
+      }
     }
     .header-commands {
       height: 24px;
@@ -23,12 +31,19 @@
       color: $primary-text;
       font-size: 14px;
       font-weight: 500;
-      padding: 0 10px
+      padding: 0 10px;
+      @media screen and (min-width: $gt-sm) {
+        font-size: 16px;
+        padding-top: 8px
+      }
     }
     .user-email {
       margin-top: 3px;
       font-size: 12px;
       font-weight: 400;
+      @media screen and (min-width: $gt-sm) {
+        font-size: 14px;
+      }
     }
   }
 

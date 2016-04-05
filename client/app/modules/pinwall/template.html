@@ -1,7 +1,19 @@
-<div class="md-padding" layout-wrap layout="row">
-    <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
-    <div flex="100" ng-repeat="pinwallElement in ctrl.pinwall">
-        <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"></ely-pinwall-element>
+<div class="md-padding ely-pinwall-container">
+    <div class="one-column-container" ng-if="!ctrl.$mdMedia('gt-sm')">
+        <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
+        <ely-pinwall-element flex="grow" on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
+                             ng-repeat="pinwallElement in pinwall"></ely-pinwall-element>
+        <div class="pinwall-gab" ng-if="ctrl.gap && pinwall.length > 0"></div>
     </div>
-    <div class="pinwall-gab" ng-if="ctrl.gap && ctrl.pinwall.length > 0"></div>
+    <div class="two-column-container" ng-if="ctrl.$mdMedia('gt-sm')" layout="row">
+        <div flex="50" class="first-column">
+            <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
+            <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
+                                 ng-repeat="pinwallElement in ctrl.columns.pinwallFirstColumn"></ely-pinwall-element>
+        </div>
+        <div flex="50" class="second-column">
+            <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
+                                 ng-repeat="pinwallElement in ctrl.columns.pinwallSecondColumn"></ely-pinwall-element>
+        </div>
+    </div>
 </div>

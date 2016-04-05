@@ -5,9 +5,8 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {pinwall: '='},
             bindToController: {
-                pinwall: '=',
                 contacting: '=',
                 gap: '='
             },
