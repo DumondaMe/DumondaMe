@@ -13,7 +13,7 @@ var getContactInfo = function (userId, userDetailId, contactsPerPage, skipContac
 
     commands.push(contacting.numberOfContacting(userDetailId).getCommand());
 
-    return contacting.getContacting(userId, userDetailId, contactsPerPage, skipContacts).send(commands)
+    return contacting.getContactingCommand(userId, userDetailId, contactsPerPage, skipContacts).send(commands)
         .then(function (resp) {
             userInfo.setUserImageVisible(userId, resp[2]);
             userInfo.setUserImageVisible(userId, resp[4]);
