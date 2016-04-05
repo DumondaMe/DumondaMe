@@ -16,7 +16,7 @@ var getContactingCommand = function (userId, userDetailId, contactsPerPage, skip
     return db.cypher().match('(:User {userId: {userDetailId}})<-[:IS_CONTACT]-(contactingOfUser:User)')
         .with('contactingOfUser')
         .match("(contactingOfUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch('(contactingOfUser)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
+        .optionalMatch('(contactingOfUser)-[rContact:IS_CONTACT]->(user:User {userId: {userId}})')
         .optionalMatch('(user)-[isContactOfUser:IS_CONTACT]->(contactingOfUser)')
         .with("rContact, contactingOfUser, isContactOfUser, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")

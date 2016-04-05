@@ -2,12 +2,13 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'UserDetailContacts',
-            function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts) {
+        return ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'UserDetailContacts', 'UserDetailContactings',
+            function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings) {
                 var ctrl = this;
 
                 ctrl.$mdMedia = $mdMedia;
                 ctrl.UserDetailContacts = UserDetailContacts;
+                ctrl.UserDetailContactings = UserDetailContactings;
 
                 ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
                     ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
