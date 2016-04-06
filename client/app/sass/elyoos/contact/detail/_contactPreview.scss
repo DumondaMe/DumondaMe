@@ -1,6 +1,10 @@
 #ely-user-detail-contact-preview {
   max-width: 292px;
-  min-width: 292px;
+  width: 292px;
+  margin: 0 auto 8px auto;
+  @media screen and (min-width: $gt-md) {
+    margin: 8px auto 0px auto;
+  }
   .header {
     padding: 16px;
     cursor: pointer;

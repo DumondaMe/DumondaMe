@@ -1,7 +1,7 @@
 <div id="detail-user-pinwall">
-    <div class="title">{{ctrl.userName}}'s Pinwand</div>
+    <div class="title" ng-class="{'title-two-column': ctrl.isBreakpoint}">{{ctrl.userName}}'s Pinwand</div>
     <div class="pinwall-container">
-        <ely-pinwall pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
+        <ely-pinwall breakpoint="{{ctrl.breakpoint}}" pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
     </div>
     <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall">
         <md-content>

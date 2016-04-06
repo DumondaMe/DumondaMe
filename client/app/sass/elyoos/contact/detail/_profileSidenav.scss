@@ -1,0 +1,30 @@
+#ely-user-detail-profile-sidenav {
+  .header {
+    padding-top: 16px;
+    .profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+    .name {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .type {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      font-weight: 400;
+      color: $secondary-text;
+    }
+    .blocked {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      font-weight: 400;
+      color: $error-text;
+    }
+  }
+  .commands-user {
+    margin-top: 16px;
+  }
+}

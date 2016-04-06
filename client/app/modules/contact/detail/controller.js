@@ -19,10 +19,12 @@ module.exports = {
 
                 ctrl.showContactOverview = function () {
                     ctrl.showOverviewContact = true;
+                    ctrl.showOverviewContacting = false;
                 };
 
                 ctrl.showContactingOverview = function () {
                     ctrl.showOverviewContacting = true;
+                    ctrl.showOverviewContact = false;
                 };
 
                 ctrl.close = function () {

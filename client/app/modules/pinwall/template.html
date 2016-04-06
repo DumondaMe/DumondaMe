@@ -1,11 +1,11 @@
 <div class="md-padding ely-pinwall-container">
-    <div class="one-column-container" ng-if="!ctrl.$mdMedia('gt-sm')">
+    <div class="one-column-container" ng-if="!ctrl.isBreakpoint">
         <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
         <ely-pinwall-element flex="grow" on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
                              ng-repeat="pinwallElement in pinwall"></ely-pinwall-element>
         <div class="pinwall-gab" ng-if="ctrl.gap && pinwall.length > 0"></div>
     </div>
-    <div class="two-column-container" ng-if="ctrl.$mdMedia('gt-sm')" layout="row">
+    <div class="two-column-container" ng-if="ctrl.isBreakpoint" layout="row">
         <div flex="50" class="first-column">
             <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
             <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"

@@ -1,20 +1,16 @@
 #detail-user-pinwall {
   .title {
-    margin-top: 16px;
-    margin-left: 10px;
     font-size: 16px;
     font-weight: 500;
     color: $secondary-text;
-    @media screen and (min-width: $gt-sm) {
-      margin-left: 16px;
-    }
+    max-width: 400px;
+    margin: 16px auto 0 auto;
+  }
+  .title-two-column {
+    width: 880px;
+    max-width: 880px;
   }
   .pinwall-container {
-    max-width: 400px;
     margin: 0 auto;
-    @media screen and (min-width: $gt-sm) {
-      max-width: 880px;
-      width: 880px;
-    }
   }
 }

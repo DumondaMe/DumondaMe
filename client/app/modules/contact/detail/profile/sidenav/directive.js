@@ -1,21 +1,19 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: require('./../controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 detail: '=',
                 numberOfGroups: '='
             },
-            templateUrl: 'app/modules/contact/detail/profile/template.html'
+            templateUrl: 'app/modules/contact/detail/profile/sidenav/template.html'
         };
     }],
-    name: 'elyUserDetailProfile'
+    name: 'elyUserDetailProfileSidenav'
 };

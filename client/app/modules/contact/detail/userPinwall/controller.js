@@ -1,12 +1,15 @@
 'use strict';
 
-module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'ScrollRequest', '$stateParams',
-    function (UserDetailPinwall, PinwallScrollRequestResponseHandler, ScrollRequest, $stateParams) {
+module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'ScrollRequest', '$stateParams', '$mdMedia',
+    function (UserDetailPinwall, PinwallScrollRequestResponseHandler, ScrollRequest, $stateParams, $mdMedia) {
         var ctrl = this;
 
         ctrl.user = {pinwall: []};
         ctrl.noPinwall = false;
         ctrl.commands = {};
+        if(ctrl.breakpoint) {
+            ctrl.isBreakpoint = $mdMedia(ctrl.breakpoint);
+        }
 
         ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
 

@@ -6,15 +6,14 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: require('./../controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                userName: '=',
-                commands: '=',
-                breakpoint: '@'
+                detail: '=',
+                numberOfGroups: '='
             },
-            templateUrl: 'app/modules/contact/detail/userPinwall/template.html'
+            templateUrl: 'app/modules/contact/detail/profile/card/template.html'
         };
     }],
-    name: 'elyUserDetailPinwall'
+    name: 'elyUserDetailProfileCard'
 };

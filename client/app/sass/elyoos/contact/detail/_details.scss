@@ -4,6 +4,24 @@
   .container {
     padding: 0 6px;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+  }
+  .container-desktop {
+    height: 100%;
+    .user-contact-container {
+      width: 320px;
+      height: 100%;
+      overflow-y: auto;
+      padding: 51px 0 0 8px;
+    }
+    .user-detail-content {
+      height: 100%;
+      overflow-y: auto;
+      background-color: $background-normal;
+    }
+    .ely-sidenav-right {
+      height: 100%;
+      width: 220px;
+    }
   }
 }

@@ -4,6 +4,12 @@ module.exports = ['$scope', 'PinwallBlogService', '$mdMedia', 'PinwallHeightCalc
     function ($scope, PinwallBlogService, $mdMedia, PinwallHeightCalculator, PinwallColumnSelector) {
         var ctrl = this;
 
+        if (angular.isString(ctrl.breakpoint)) {
+            ctrl.isBreakpoint = $mdMedia(ctrl.breakpoint);
+        } else {
+            ctrl.isBreakpoint = $mdMedia('gt-sm');
+        }
+
         ctrl.$mdMedia = $mdMedia;
 
         ctrl.blogRemoved = function (blogId) {

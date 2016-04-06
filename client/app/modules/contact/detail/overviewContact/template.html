@@ -1,8 +1,8 @@
 <div id="ely-user-detail-contact-overview" ng-class="{'ely-user-detail-contact-overview-normal': !ctrl.initialLoad}">
     <ely-load-screen ng-if="ctrl.initialLoad"></ely-load-screen>
     <div class="contact-overview-title">{{ctrl.name}}'s {{ctrl.title}}</div>
-    <div class="contact-overview-container" ely-infinite-scroll="ctrl.next()" layout="row" layout-wrap>
-        <ely-contact-preview-square flex="none" user="user" ng-repeat="user in ctrl.user.users"></ely-contact-preview-square>
+    <div ng-repeat="user in ctrl.user.users" class="contact-preview-element">
+        <ely-contact-preview-square user="user"></ely-contact-preview-square>
     </div>
     <div class="pinwall-gab"></div>
 </div>

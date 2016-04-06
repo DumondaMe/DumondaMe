@@ -8,7 +8,8 @@ module.exports = {
             scope: {pinwall: '='},
             bindToController: {
                 contacting: '=',
-                gap: '='
+                gap: '=',
+                breakpoint: '@'
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
