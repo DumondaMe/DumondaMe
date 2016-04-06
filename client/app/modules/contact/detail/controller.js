@@ -6,6 +6,7 @@ module.exports = {
             function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings) {
                 var ctrl = this;
 
+                ctrl.commands = {};
                 ctrl.$mdMedia = $mdMedia;
                 ctrl.UserDetailContacts = UserDetailContacts;
                 ctrl.UserDetailContactings = UserDetailContactings;
@@ -23,7 +24,7 @@ module.exports = {
                 ctrl.showContactingOverview = function () {
                     ctrl.showOverviewContacting = true;
                 };
-                
+
                 ctrl.close = function () {
                     ctrl.showOverviewContact = false;
                     ctrl.showOverviewContacting = false;

@@ -556,8 +556,11 @@ md-toast.md-error-toast-theme {
 
 #ely-user-detail {
   height: 100%;
-  background-color: #E0E0E0;
-  padding: 0 6px; }
+  background-color: #E0E0E0; }
+  #ely-user-detail .container {
+    padding: 0 6px;
+    height: 100%;
+    overflow-y: scroll; }
 
 #ely-user-detail-profile {
   max-width: 292px;
@@ -587,6 +590,16 @@ md-toast.md-error-toast-theme {
   font-size: 16px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.54); }
+  @media screen and (min-width: 960px) {
+    #detail-user-pinwall .title {
+      margin-left: 16px; } }
+#detail-user-pinwall .pinwall-container {
+  max-width: 400px;
+  margin: 0 auto; }
+  @media screen and (min-width: 960px) {
+    #detail-user-pinwall .pinwall-container {
+      max-width: 880px;
+      width: 880px; } }
 
 #ely-contact {
   height: 100%;

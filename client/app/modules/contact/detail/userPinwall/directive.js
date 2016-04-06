@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                userName: '='
+                userName: '=',
+                commands: '='
             },
             templateUrl: 'app/modules/contact/detail/userPinwall/template.html'
         };

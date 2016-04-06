@@ -6,10 +6,11 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
 
         ctrl.user = {pinwall: []};
         ctrl.noPinwall = false;
+        ctrl.commands = {};
 
         ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
 
-        ctrl.nextPinwallInfo = function () {
+        ctrl.commands.nextPinwallInfo = function () {
             ScrollRequest.nextRequest('UserDetailPinwall', ctrl.user.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
                 ctrl.user = pinwall;
                 if (pinwall.pinwall.length === 0) {
@@ -18,6 +19,6 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
             });
         };
 
-        ctrl.nextPinwallInfo();
+        ctrl.commands.nextPinwallInfo();
     }];
 

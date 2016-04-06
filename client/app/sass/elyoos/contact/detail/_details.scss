@@ -1,5 +1,9 @@
 #ely-user-detail {
   height: 100%;
   background-color: $background-normal;
-  padding: 0 6px;
+  .container {
+    padding: 0 6px;
+    height: 100%;
+    overflow-y: scroll;
+  }
 }

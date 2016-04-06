@@ -1,6 +1,6 @@
 <div id="detail-user-pinwall">
     <div class="title">{{ctrl.userName}}'s Pinwand</div>
-    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo()">
+    <div class="pinwall-container">
         <ely-pinwall pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
     </div>
     <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall">
