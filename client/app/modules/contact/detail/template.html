@@ -1,8 +1,7 @@
 <md-content id="ely-user-detail">
     <!--Mobile View-->
-    <div class="container" layout="row" layout-align="center" layout-wrap ng-if="!ctrl.$mdMedia('gt-md')"
-         ely-infinite-scroll="ctrl.commands.nextPinwallInfo()">
-        <div flex="100" layout="row" layout-align="center">
+    <div class="container" ng-if="!ctrl.$mdMedia('gt-md')" ely-infinite-scroll="ctrl.commands.nextPinwallInfo()">
+        <div layout="row" layout-align="center">
             <ely-user-detail-profile-card detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile-card>
         </div>
         <div ng-if="!ctrl.showOverviewContact && !ctrl.showOverviewContacting" flex="100">
@@ -28,9 +27,11 @@
     <div class="container-desktop" ng-if="ctrl.$mdMedia('gt-md')" layout="row">
         <div flex="none" class="user-contact-container"
              ng-if="ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0">
-            <ely-user-detail-contacts-preview detail="ctrl.userDetail" show-detail="ctrl.showContactOverview"
+            <ely-user-detail-contacts-preview detail="ctrl.userDetail" show-detail="ctrl.showContactOverview" show-close="true"
+                                              events="ctrl.contactPreviewEvents" on-detail-closed="ctrl.close()"
                                               ng-if="ctrl.userDetail.contacts.length > 0"></ely-user-detail-contacts-preview>
-            <ely-user-detail-contacting-preview detail="ctrl.userDetail" show-detail="ctrl.showContactingOverview"
+            <ely-user-detail-contacting-preview detail="ctrl.userDetail" show-detail="ctrl.showContactingOverview" show-close="true"
+                                                events="ctrl.contactingPreviewEvents" on-detail-closed="ctrl.close()"
                                                 ng-if="ctrl.userDetail.contacting.length > 0"></ely-user-detail-contacting-preview>
         </div>
         <md-content flex="grow" class="user-detail-content">
@@ -42,10 +43,6 @@
                                               name="{{ctrl.userDetail.user.forename}}"
                                               title="Follower"></ely-user-detail-overview-contact>
         </md-content>
-        <!--<ely-close-sub-toolbar description="Kontaktübersicht schliessen" on-close="ctrl.close"
-                               ng-if="ctrl.showOverviewContact"></ely-close-sub-toolbar>
-        <ely-close-sub-toolbar description="Übersicht Followers schliessen" on-close="ctrl.close"
-                               ng-if="ctrl.showOverviewContacting"></ely-close-sub-toolbar>-->
         <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="true">
             <ely-user-detail-profile-sidenav detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile-sidenav>
         </md-sidenav>

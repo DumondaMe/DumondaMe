@@ -499,27 +499,28 @@ md-toast.md-error-toast-theme {
       margin: 0; }
 
 #ely-user-detail-contact-overview {
-  min-height: 1000px;
-  margin: 0 auto;
-  display: inline-block; }
-  @media screen and (min-width: 600px) {
-    #ely-user-detail-contact-overview {
-      max-width: 580px; } }
-  @media screen and (min-width: 960px) {
-    #ely-user-detail-contact-overview {
-      max-width: 880px; } }
-  #ely-user-detail-contact-overview .contact-overview-title {
-    margin: 8px 0 16px 10px;
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54); }
-    @media screen and (min-width: 1280px) {
-      #ely-user-detail-contact-overview .contact-overview-title {
-        margin-top: 16px; } }
-  #ely-user-detail-contact-overview .contact-preview-element {
-    display: inline-block;
-    margin-right: 8px;
-    margin-left: 8px; }
+  min-height: 1000px; }
+  #ely-user-detail-contact-overview .contact-overview-container {
+    margin: 0 auto;
+    width: 296px; }
+    @media screen and (min-width: 960px) {
+      #ely-user-detail-contact-overview .contact-overview-container {
+        width: 444px; } }
+    @media screen and (min-width: 1440px) {
+      #ely-user-detail-contact-overview .contact-overview-container {
+        width: 592px; } }
+    #ely-user-detail-contact-overview .contact-overview-container .contact-overview-title {
+      margin: 8px 0 16px 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54); }
+      @media screen and (min-width: 1280px) {
+        #ely-user-detail-contact-overview .contact-overview-container .contact-overview-title {
+          margin-top: 16px; } }
+    #ely-user-detail-contact-overview .contact-overview-container .contact-preview-element {
+      margin-right: 4px;
+      margin-left: 4px;
+      display: inline-block; }
 
 #ely-user-detail-contact-overview.ely-user-detail-contact-overview-normal {
   min-height: 0; }
@@ -527,6 +528,7 @@ md-toast.md-error-toast-theme {
 #ely-user-detail-contact-preview {
   max-width: 292px;
   width: 292px;
+  padding-bottom: 12px;
   margin: 0 auto 8px auto; }
   @media screen and (min-width: 1280px) {
     #ely-user-detail-contact-preview {
@@ -554,7 +556,7 @@ md-toast.md-error-toast-theme {
     #ely-user-detail-contact-preview .header .subtitle:hover {
       text-decoration: underline; }
   #ely-user-detail-contact-preview .preview-container {
-    padding: 0 12px 16px 16px; }
+    padding: 0 12px 0 16px; }
     #ely-user-detail-contact-preview .preview-container .preview-image {
       position: relative;
       display: inline-block;
@@ -572,6 +574,9 @@ md-toast.md-error-toast-theme {
         bottom: 0;
         color: #ffffff;
         background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)); }
+  #ely-user-detail-contact-preview .close-overview-button {
+    float: right;
+    margin-right: 16px; }
 
 #ely-user-detail {
   height: 100%;

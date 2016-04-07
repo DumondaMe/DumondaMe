@@ -1,29 +1,29 @@
 #ely-user-detail-contact-overview {
   min-height: 1000px;
-  //max-width: 314px;
-  margin: 0 auto;
-  display: inline-block;
-
-  @media screen and (min-width: $gt-xs) {
-    max-width: 580px;
-  }
-  @media screen and (min-width: $gt-sm) {
-    max-width: 880px;
-  }
-  .contact-overview-title {
-    margin: 8px 0 16px 10px;
-    font-size: 16px;
-    font-weight: 500;
-    color: $secondary-text;
-
-    @media screen and (min-width: $gt-md) {
-      margin-top: 16px;
+  .contact-overview-container {
+    margin: 0 auto;
+    width: 296px;
+    @media screen and (min-width: $gt-sm) {
+      width: 444px;
     }
-  }
-  .contact-preview-element {
-    display: inline-block;
-    margin-right: 8px;
-    margin-left: 8px;
+    @media screen and (min-width: $gt-xmd) {
+      width: 592px;
+    }
+    .contact-overview-title {
+      margin: 8px 0 16px 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $secondary-text;
+
+      @media screen and (min-width: $gt-md) {
+        margin-top: 16px;
+      }
+    }
+    .contact-preview-element {
+      margin-right: 4px;
+      margin-left: 4px;
+      display: inline-block;
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 #ely-user-detail-contact-preview {
   max-width: 292px;
   width: 292px;
+  padding-bottom: 12px;
   margin: 0 auto 8px auto;
   @media screen and (min-width: $gt-md) {
     margin: 8px auto 0px auto;
@@ -34,7 +35,7 @@
     }
   }
   .preview-container {
-    padding: 0 12px 16px 16px;
+    padding: 0 12px 0 16px;
     .preview-image {
       position: relative;
       display: inline-block;
@@ -55,5 +56,9 @@
         background: linear-gradient(transparent, rgba(0, 0, 0, .7));
       }
     }
+  }
+  .close-overview-button {
+    float: right;
+    margin-right: 16px;
   }
 }

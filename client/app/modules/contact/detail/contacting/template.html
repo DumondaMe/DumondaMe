@@ -1,6 +1,6 @@
 <md-card id="ely-user-detail-contact-preview">
     <div class="header" layout="row" layout-align="none end">
-        <div class="title" ng-click="ctrl.showDetail()"><span class="number-contact" ng-if="ctrl.detail.numberOfContacting > 0">
+        <div class="title" ng-click="ctrl.openDetail()"><span class="number-contact" ng-if="ctrl.detail.numberOfContacting > 0">
             {{ctrl.detail.numberOfContacting}}</span>
             <ng-pluralize count="ctrl.detail.numberOfContacting"
                           when="{'1': ' Person kontaktierte ',
@@ -13,5 +13,8 @@
             <img ng-src="{{contacting.profileUrl}}" class="image">
             <div class="name">{{contacting.name}}</div>
         </div>
+    </div>
+    <div ng-if="ctrl.showClose && ctrl.isShowClose">
+        <md-button class="md-raised md-primary close-overview-button" ng-click="ctrl.closeDetail()">Übersicht Schliessen</md-button>
     </div>
 </md-card>
