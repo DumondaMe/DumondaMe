@@ -86,7 +86,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/overviewContact/template.html',
-    "<div id=ely-user-detail-contact-overview ng-class=\"{'ely-user-detail-contact-overview-normal': !ctrl.initialLoad}\"><ely-load-screen ng-if=ctrl.initialLoad></ely-load-screen><div class=contact-overview-container><div class=contact-overview-title>{{ctrl.name}}'s {{ctrl.title}}</div><div ng-repeat=\"user in ctrl.user.users\" class=contact-preview-element><ely-contact-preview-square user=user></ely-contact-preview-square></div></div><div class=pinwall-gab></div></div>"
+    "<div id=ely-user-detail-contact-overview ng-class=\"{'ely-user-detail-contact-overview-normal': !ctrl.initialLoad}\"><ely-load-screen ng-if=ctrl.initialLoad></ely-load-screen><div class=contact-overview-container><div class=contact-overview-title ng-show=ctrl.showTitle>{{ctrl.name}}'s {{ctrl.title}}</div><div ng-repeat=\"user in ctrl.user.users\" class=contact-preview-element><ely-contact-preview-square user=user></ely-contact-preview-square></div></div><div class=pinwall-gab></div></div>"
   );
 
 
@@ -101,12 +101,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container ng-if=\"!ctrl.$mdMedia('gt-md')\" ely-infinite-scroll=ctrl.commands.nextPinwallInfo()><div layout=row layout-align=center><ely-user-detail-profile-card detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-card></div><div ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" flex=100><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall commands=ctrl.commands user-name=ctrl.userName></ely-user-detail-pinwall></div><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Kontaktübersicht schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContact></ely-close-sub-toolbar><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} title=Follower></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Übersicht Followers schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContacting></ely-close-sub-toolbar></div><div class=container-desktop ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row><div flex=none class=user-contact-container ng-if=\"ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0\"><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview show-close=true events=ctrl.contactPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview show-close=true events=ctrl.contactingPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview></div><md-content flex=grow class=user-detail-content><ely-user-detail-pinwall ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" breakpoint=gt-lg commands=ctrl.commands user-name=ctrl.userName></ely-user-detail-pinwall><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} title=Follower></ely-user-detail-overview-contact></md-content><md-sidenav flex=none class=\"md-sidenav-right md-whiteframe-z2 ely-sidenav-right\" md-component-id=right md-is-locked-open=true><ely-user-detail-profile-sidenav detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-sidenav></md-sidenav></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container ng-if=\"!ctrl.$mdMedia('gt-md')\" ely-infinite-scroll=ctrl.commands.nextPinwallInfo()><div layout=row layout-align=center><ely-user-detail-profile-card detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-card></div><div ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" flex=100><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall commands=ctrl.commands user-name=ctrl.userName show-title=true></ely-user-detail-pinwall></div><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte show-title=true ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Kontaktübersicht schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContact></ely-close-sub-toolbar><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} show-title=true title=Follower></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Übersicht Followers schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContacting></ely-close-sub-toolbar></div><div class=container-desktop ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row><div flex=none class=user-contact-container ng-if=\"ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0\"><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview show-close=true events=ctrl.contactPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview show-close=true events=ctrl.contactingPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview></div><md-content flex=grow class=user-detail-content><ely-user-detail-pinwall ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" breakpoint=gt-lg commands=ctrl.commands user-name=ctrl.userName show-title=false></ely-user-detail-pinwall><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte show-title=false ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} title=Follower show-title=false></ely-user-detail-overview-contact></md-content><md-sidenav flex=none class=\"md-sidenav-right md-whiteframe-z2 ely-sidenav-right\" md-component-id=right md-is-locked-open=true><ely-user-detail-profile-sidenav detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-sidenav></md-sidenav></div></md-content>"
   );
 
 
   $templateCache.put('app/modules/contact/detail/userPinwall/template.html',
-    "<div id=detail-user-pinwall><div class=title ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Diese Person hat keine Einträge die Du sehen kannst</div></md-content></md-card></div>"
+    "<div id=detail-user-pinwall><div class=title ng-show=ctrl.showTitle ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Diese Person hat keine Einträge die Du sehen kannst</div></md-content></md-card></div>"
   );
 
 
@@ -1861,55 +1861,52 @@ arguments[4][14][0].apply(exports,arguments)
 },{"./directive.js":53,"dup":14}],55:[function(require,module,exports){
 'use strict';
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'UserDetailContacts', 'UserDetailContactings',
-            function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings) {
-                var ctrl = this;
+module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTypes', 'UserDetailContacts', 'UserDetailContactings', 'ToolbarService',
+    function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings, ToolbarService) {
+        var ctrl = this;
 
-                ctrl.commands = {};
-                ctrl.contactPreviewEvents = {};
-                ctrl.contactingPreviewEvents = {};
-                ctrl.$mdMedia = $mdMedia;
-                ctrl.UserDetailContacts = UserDetailContacts;
-                ctrl.UserDetailContactings = UserDetailContactings;
+        ctrl.commands = {};
+        ctrl.contactPreviewEvents = {};
+        ctrl.contactingPreviewEvents = {};
+        ctrl.$mdMedia = $mdMedia;
+        ctrl.UserDetailContacts = UserDetailContacts;
+        ctrl.UserDetailContactings = UserDetailContactings;
 
-                ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
-                    ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
-                    ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
-                    ctrl.userName = ctrl.userDetail.user.forename;
-                });
+        ctrl.userDetail = UserDetail.get({userId: $stateParams.userId}, function () {
+            ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
+            ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
+            ctrl.userName = ctrl.userDetail.user.forename;
+            ToolbarService.setTitle(ctrl.userName + "'s Profil");
+        });
 
-                ctrl.showContactOverview = function () {
-                    ctrl.showOverviewContact = true;
-                    ctrl.showOverviewContacting = false;
-                    if(ctrl.contactingPreviewEvents.hasOwnProperty('detailClosed')) {
-                        ctrl.contactingPreviewEvents.detailClosed();
-                    }
-                };
+        ctrl.showContactOverview = function () {
+            ctrl.showOverviewContact = true;
+            ctrl.showOverviewContacting = false;
+            ToolbarService.setTitle(ctrl.userName + "'s Kontakte");
+            if (ctrl.contactingPreviewEvents.hasOwnProperty('detailClosed')) {
+                ctrl.contactingPreviewEvents.detailClosed();
+            }
+        };
 
-                ctrl.showContactingOverview = function () {
-                    ctrl.showOverviewContacting = true;
-                    ctrl.showOverviewContact = false;
-                    if(ctrl.contactPreviewEvents.hasOwnProperty('detailClosed')) {
-                        ctrl.contactPreviewEvents.detailClosed();
-                    }
-                };
+        ctrl.showContactingOverview = function () {
+            ctrl.showOverviewContacting = true;
+            ctrl.showOverviewContact = false;
+            ToolbarService.setTitle(ctrl.userName + "'s Followers");
+            if (ctrl.contactPreviewEvents.hasOwnProperty('detailClosed')) {
+                ctrl.contactPreviewEvents.detailClosed();
+            }
+        };
 
-                ctrl.close = function () {
-                    ctrl.showOverviewContact = false;
-                    ctrl.showOverviewContacting = false;
-                };
+        ctrl.close = function () {
+            ctrl.showOverviewContact = false;
+            ctrl.showOverviewContacting = false;
+        };
 
-            }];
-    }
-};
+    }];
 
 
 },{}],56:[function(require,module,exports){
 'use strict';
-
-var controller = require('./controller.js');
 
 module.exports = {
     directive: [function () {
@@ -1917,7 +1914,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: true,
             templateUrl: 'app/modules/contact/detail/template.html'
@@ -1998,6 +1995,7 @@ module.exports = {
                 service: '=',
                 name: '@',
                 title: '@',
+                showTitle: '=',
                 loadFinish: '='
             },
             templateUrl: 'app/modules/contact/detail/overviewContact/template.html'
@@ -2172,6 +2170,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 userName: '=',
+                showTitle: '=',
                 commands: '=',
                 breakpoint: '@'
             },

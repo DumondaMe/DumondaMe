@@ -1,5 +1,5 @@
 <div id="detail-user-pinwall">
-    <div class="title" ng-class="{'title-two-column': ctrl.isBreakpoint}">{{ctrl.userName}}'s Pinwand</div>
+    <div class="title" ng-show="ctrl.showTitle" ng-class="{'title-two-column': ctrl.isBreakpoint}">{{ctrl.userName}}'s Pinwand</div>
     <div class="pinwall-container">
         <ely-pinwall breakpoint="{{ctrl.breakpoint}}" pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
     </div>

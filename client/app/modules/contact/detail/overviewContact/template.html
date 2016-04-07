@@ -1,7 +1,7 @@
 <div id="ely-user-detail-contact-overview" ng-class="{'ely-user-detail-contact-overview-normal': !ctrl.initialLoad}">
     <ely-load-screen ng-if="ctrl.initialLoad"></ely-load-screen>
     <div class="contact-overview-container">
-        <div class="contact-overview-title">{{ctrl.name}}'s {{ctrl.title}}</div>
+        <div class="contact-overview-title" ng-show="ctrl.showTitle">{{ctrl.name}}'s {{ctrl.title}}</div>
         <div ng-repeat="user in ctrl.user.users" class="contact-preview-element">
             <ely-contact-preview-square user="user"></ely-contact-preview-square>
         </div>

@@ -6,6 +6,9 @@
     @media screen and (min-width: $gt-sm) {
       width: 444px;
     }
+    @media screen and (min-width: $gt-md) {
+      margin-top: 16px;
+    }
     @media screen and (min-width: $gt-xmd) {
       width: 592px;
     }
@@ -14,10 +17,6 @@
       font-size: 16px;
       font-weight: 500;
       color: $secondary-text;
-
-      @media screen and (min-width: $gt-md) {
-        margin-top: 16px;
-      }
     }
     .contact-preview-element {
       margin-right: 4px;

@@ -10,6 +10,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 userName: '=',
+                showTitle: '=',
                 commands: '=',
                 breakpoint: '@'
             },

@@ -12,6 +12,7 @@ module.exports = {
                 service: '=',
                 name: '@',
                 title: '@',
+                showTitle: '=',
                 loadFinish: '='
             },
             templateUrl: 'app/modules/contact/detail/overviewContact/template.html'
