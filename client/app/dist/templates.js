@@ -120,16 +120,16 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overviewContact/template.html',
-    "<md-content id=ely-contact-overview><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview statistic=statistic statistics=ctrl.statistics.statistic delete-group=ctrl.deleteGroup(name)></ely-contact-preview></div><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary ng-click=ctrl.newGroup()>Neue Gruppe</md-button></div></md-content>"
+    "<md-content id=ely-contact-overview><div class=contact-overview-container><div class=preview-container ng-repeat=\"statistic in ctrl.statistics.statistic\"><ely-contact-preview statistic=statistic statistics=ctrl.statistics.statistic delete-group=ctrl.deleteGroup(name)></ely-contact-preview></div><div layout=row class=add-new-group><span flex></span><md-button md-no-ink class=md-primary ng-click=ctrl.newGroup()>Neue Gruppe</md-button></div></div></md-content>"
   );
 
 
   $templateCache.put('app/modules/contact/overviewContacting/template.html',
-    "<md-content id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting()><div class=md-padding layout-wrap layout=row><div flex=100><md-card id=overview-text><md-card-content><div class=number-of-contacting><span class=number ng-if=\"ctrl.users.numberOfAllContactings > 0\">{{ctrl.users.numberOfAllContactings}}</span><ng-pluralize count=\"ctrl.users.numberOfAllContactings \" when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
+    "<div id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting() class=overview-container><div class=overview-container-inner><md-card id=overview-text><md-card-content><div class=number-of-contacting><span class=number ng-if=\"ctrl.users.numberOfAllContactings > 0\">{{ctrl.users.numberOfAllContactings}}</span><ng-pluralize count=\"ctrl.users.numberOfAllContactings \" when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
     "\n" +
     "                                            '1': ' Person hat Dich als Kontakt',\r" +
     "\n" +
-    "                                            'other': ' Personen haben Dich als Kontakt'}\"></ng-pluralize></div></md-card-content></md-card></div><div flex=100 ng-repeat=\"contactingUsers in ctrl.users.contactingUsers\"><ely-contact-preview-square user=contactingUsers></ely-contact-preview-square></div></div></div></md-content>"
+    "                                            'other': ' Personen haben Dich als Kontakt'}\"></ng-pluralize></div></md-card-content></md-card><div class=contact-element ng-repeat=\"contactingUsers in ctrl.users.contactingUsers\"><ely-contact-preview-square user=contactingUsers></ely-contact-preview-square></div></div></div></div>"
   );
 
 
@@ -139,7 +139,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/template.html',
-    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\" md-selected=ctrl.selectedTab><md-tab label=Kontakte md-on-select=\"ctrl.contactSelect = true\" md-on-deselect=\"ctrl.contactSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactSelect><ely-contact-overview></ely-contact-overview></md-content></md-tab><md-tab label=Follower md-on-select=\"ctrl.contactingSelect = true\" md-on-deselect=\"ctrl.contactingSelect = false\"><md-content class=contact-tab-content ng-if=ctrl.contactingSelect><ely-contacting-overview></ely-contacting-overview></md-content></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
+    "<md-content id=ely-contact><md-tabs md-border-bottom md-center-tabs class=contact-tabs ng-if=\"!ctrl.requestRunning && !ctrl.showUserQuery\" md-selected=ctrl.selectedTab><md-tab label=Kontakte class=contact-tab md-on-select=\"ctrl.contactSelect = true\" md-on-deselect=\"ctrl.contactSelect = false\"><md-tab-body class=contact-tab-content ng-if=ctrl.contactSelect><ely-contact-overview></ely-contact-overview></md-tab-body></md-tab><md-tab label=Follower class=contact-tab md-on-select=\"ctrl.contactingSelect = true\" md-on-deselect=\"ctrl.contactingSelect = false\"><md-tab-body class=contact-tab-content ng-if=ctrl.contactingSelect><ely-contacting-overview></ely-contacting-overview></md-tab-body></md-tab></md-tabs><ely-load-screen ng-if=ctrl.requestRunning></ely-load-screen><ely-contact-search-user-overview ng-if=\"!ctrl.requestRunning && ctrl.showUserQuery\" users=ctrl.userQueryResult></ely-contact-search-user-overview></md-content>"
   );
 
 

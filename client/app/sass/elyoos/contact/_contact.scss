@@ -6,5 +6,8 @@
     md-tabs-wrapper {
       background-color: #ffffff;
     }
+    .md-active > div{
+      height: 100%;
+    }
   }
 }

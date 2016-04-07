@@ -1,22 +1,20 @@
-<md-content id="ely-contacting-overview">
-    <div ely-infinite-scroll="ctrl.nextContacting()">
-        <div class="md-padding" layout-wrap layout="row">
-            <div flex="100">
-                <md-card id="overview-text">
-                    <md-card-content>
-                        <div class="number-of-contacting">
-                            <span class="number" ng-if="ctrl.users.numberOfAllContactings > 0">{{ctrl.users.numberOfAllContactings}}</span>
-                            <ng-pluralize count="ctrl.users.numberOfAllContactings "
-                                          when="{'0': 'Noch Niemand hat Dich als Kontakt',
+<div id="ely-contacting-overview">
+    <div ely-infinite-scroll="ctrl.nextContacting()" class="overview-container">
+        <div class="overview-container-inner">
+            <md-card id="overview-text">
+                <md-card-content>
+                    <div class="number-of-contacting">
+                        <span class="number" ng-if="ctrl.users.numberOfAllContactings > 0">{{ctrl.users.numberOfAllContactings}}</span>
+                        <ng-pluralize count="ctrl.users.numberOfAllContactings "
+                                      when="{'0': 'Noch Niemand hat Dich als Kontakt',
                                             '1': ' Person hat Dich als Kontakt',
                                             'other': ' Personen haben Dich als Kontakt'}"></ng-pluralize>
-                        </div>
-                    </md-card-content>
-                </md-card>
-            </div>
-            <div flex="100" ng-repeat="contactingUsers in ctrl.users.contactingUsers">
+                    </div>
+                </md-card-content>
+            </md-card>
+            <div class="contact-element" ng-repeat="contactingUsers in ctrl.users.contactingUsers">
                 <ely-contact-preview-square user="contactingUsers"></ely-contact-preview-square>
             </div>
         </div>
     </div>
-</md-content>
+</div>

@@ -666,29 +666,47 @@ md-toast.md-error-toast-theme {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
       background-color: #ffffff; }
+    #ely-contact .contact-tabs .md-active > div {
+      height: 100%; }
 
 #ely-contacting-overview {
   height: 100%;
-  background-color: #E0E0E0;
-  padding: 16px 16px 0 16px; }
-  #ely-contacting-overview #overview-text {
-    width: 180px;
-    margin: 8px auto; }
-    #ely-contacting-overview #overview-text .number-of-contacting {
-      font-size: 14px; }
-      #ely-contacting-overview #overview-text .number-of-contacting .number {
-        font-weight: 700;
-        color: #3F51B5; }
+  background-color: #E0E0E0; }
+  #ely-contacting-overview .overview-container {
+    height: 100%;
+    overflow-y: auto; }
+    #ely-contacting-overview .overview-container .overview-container-inner {
+      width: 296px;
+      margin: 0 auto; }
+      @media screen and (min-width: 1280px) {
+        #ely-contacting-overview .overview-container .overview-container-inner {
+          width: 592px; } }
+      @media screen and (min-width: 1440px) {
+        #ely-contacting-overview .overview-container .overview-container-inner {
+          width: 740px; } }
+      #ely-contacting-overview .overview-container .overview-container-inner #overview-text {
+        width: 140px;
+        margin: 8px auto; }
+        #ely-contacting-overview .overview-container .overview-container-inner #overview-text .number-of-contacting {
+          font-size: 14px; }
+          #ely-contacting-overview .overview-container .overview-container-inner #overview-text .number-of-contacting .number {
+            font-weight: 700;
+            color: #3F51B5; }
+      #ely-contacting-overview .overview-container .overview-container-inner .contact-element {
+        margin-right: 4px;
+        margin-left: 4px;
+        display: inline-block; }
 
 #ely-contact-overview {
   height: 100%;
-  background-color: #E0E0E0;
-  padding: 16px 16px 0 16px; }
-  #ely-contact-overview .add-new-group {
-    width: 100%;
-    max-width: 700px;
-    cursor: pointer;
-    margin: 0 auto; }
+  background-color: #E0E0E0; }
+  #ely-contact-overview .contact-overview-container {
+    padding: 16px 8px; }
+    #ely-contact-overview .contact-overview-container .add-new-group {
+      width: 100%;
+      max-width: 700px;
+      cursor: pointer;
+      margin: 0 auto; }
 
 .ely-contact-preview {
   width: 100%;
