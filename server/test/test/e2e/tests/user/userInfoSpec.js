@@ -87,6 +87,7 @@ describe('Integration Tests User Name', function () {
             return requestHandler.get('/api/user/userInfo', agent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.userId.should.equal('1');
             res.body.name.should.equal('user Meier');
             res.body.profileImage.should.equal('profileImage/1/thumbnail.jpg');
             res.body.profileImagePreview.should.equal('profileImage/1/profilePreview.jpg');

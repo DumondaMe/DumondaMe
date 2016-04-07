@@ -105,7 +105,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/userPinwall/template.html',
-    "<div id=detail-user-pinwall><div class=title ng-show=ctrl.showTitle ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Diese Person hat keine Einträge die Du sehen kannst</div></md-content></md-card></div>"
+    "<div id=detail-user-pinwall><div class=title ng-show=ctrl.showTitle ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-card-content><div class=no-pinwall-title>{{ctrl.userName}} hat keine Pinwall Beiträge die Du sehen kannst.</div></md-card-content></md-card></div>"
   );
 
 

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state',
-    function ($state) {
+module.exports = ['$state', 'UserDetailNavigation',
+    function ($state, UserDetailNavigation) {
         var ctrl = this;
 
         if (angular.isObject(ctrl.events)) {
@@ -21,7 +21,7 @@ module.exports = ['$state',
         };
 
         ctrl.openUserDetail = function (userId) {
-            $state.go('user.detail', {userId: userId});
+            UserDetailNavigation.openUserDetail(userId);
         };
     }];
 

@@ -93,7 +93,7 @@ var getUserInfo = function (id, req) {
         .optionalMatch("(u)-[relPrivacy:HAS_PRIVACY]->(:Privacy)")
         .with("u, relPrivacy")
         .orderBy("relPrivacy.type")
-        .return('u.name AS name, u.email AS email, collect(relPrivacy.type) AS privacyTypes')
+        .return('u.name AS name, u.userId AS userId, u.email AS email, collect(relPrivacy.type) AS privacyTypes')
         .end({id: id})
         .send(commands)
         .then(function (resp) {

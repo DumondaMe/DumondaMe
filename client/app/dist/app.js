@@ -106,7 +106,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/userPinwall/template.html',
-    "<div id=detail-user-pinwall><div class=title ng-show=ctrl.showTitle ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Diese Person hat keine Einträge die Du sehen kannst</div></md-content></md-card></div>"
+    "<div id=detail-user-pinwall><div class=title ng-show=ctrl.showTitle ng-class=\"{'title-two-column': ctrl.isBreakpoint}\">{{ctrl.userName}}'s Pinwand</div><div class=pinwall-container><ely-pinwall breakpoint={{ctrl.breakpoint}} pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-card-content><div class=no-pinwall-title>{{ctrl.userName}} hat keine Pinwall Beiträge die Du sehen kannst.</div></md-card-content></md-card></div>"
   );
 
 
@@ -1780,8 +1780,8 @@ module.exports = {
 },{}],50:[function(require,module,exports){
 'use strict';
 
-module.exports = ['$state',
-    function ($state) {
+module.exports = ['$state', 'UserDetailNavigation',
+    function ($state, UserDetailNavigation) {
         var ctrl = this;
 
         if (angular.isObject(ctrl.events)) {
@@ -1801,7 +1801,7 @@ module.exports = ['$state',
         };
 
         ctrl.openUserDetail = function (userId) {
-            $state.go('user.detail', {userId: userId});
+            UserDetailNavigation.openUserDetail(userId);
         };
     }];
 
@@ -1891,7 +1891,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
         ctrl.showContactingOverview = function () {
             ctrl.showOverviewContacting = true;
             ctrl.showOverviewContact = false;
-            ToolbarService.setTitle(ctrl.userName + "'s Followers");
+            ToolbarService.setTitle(ctrl.userName + "'s Follower");
             if (ctrl.contactPreviewEvents.hasOwnProperty('detailClosed')) {
                 ctrl.contactPreviewEvents.detailClosed();
             }
@@ -9709,14 +9709,26 @@ module.exports = ['$resource', function ($resource) {
 'use strict';
 
 
-module.exports = ['$state',
-    function ($state) {
+module.exports = ['$state', 'userInfo',
+    function ($state, userInfo) {
 
-        this.openUserDetail = function(userId, isLoggedInUser) {
-            if(isLoggedInUser) {
+        var service = this, userInfoData;
+
+        userInfoData = userInfo.getUserInfo();
+        userInfo.register('leftNav', service);
+        service.userInfoChanged = function () {
+            userInfoData = userInfo.getUserInfo();
+        };
+
+        this.openUserDetail = function (userId, isLoggedInUser) {
+            if (isLoggedInUser) {
                 $state.go('settings.profile');
             } else {
-                $state.go('user.detail', {userId: userId});
+                if (userInfoData && userInfoData.userId === userId) {
+                    $state.go('settings.profile');
+                } else {
+                    $state.go('user.detail', {userId: userId});
+                }
             }
         };
     }];

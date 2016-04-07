@@ -656,6 +656,8 @@ md-toast.md-error-toast-theme {
   max-width: 880px; }
 #detail-user-pinwall .pinwall-container {
   margin: 0 auto; }
+#detail-user-pinwall .pinwall-no-element {
+  margin: 0 auto; }
 
 #ely-contact {
   height: 100%;
