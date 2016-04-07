@@ -2,11 +2,15 @@
   background-color: $background-normal;
   height: 100%;
   .thread-container {
-    .no-thread {
-      padding: 32px;
-      font-size: 16px;
-      font-weight: 500;
-      color: $primary-text;
+    height: 100%;
+    overflow-y: auto;
+
+    .pinwall-no-element {
+      margin-top: 16px;
+      @media screen and (max-width: $gt-xxs) {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
     }
   }
 }

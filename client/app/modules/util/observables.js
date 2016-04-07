@@ -16,8 +16,6 @@ module.exports = ['$log', function ($log) {
         angular.forEach(observables, function (observable) {
             if (observable.hasOwnProperty('observable') && observable.observable.hasOwnProperty(functionName)) {
                 observable.observable[functionName](functionParam);
-            } else {
-                $log.warn('observable property is missing or registered observable misses function');
             }
         });
     };

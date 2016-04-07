@@ -1,8 +1,10 @@
 #ely-setting-profile {
   height: 100%;
   background-color: $background-normal;
-  padding: 0 6px;
-  .container {
 
+  .container {
+    @media screen and (min-width: $gt-md) {
+      padding-top: 16px;
+    }
   }
 }

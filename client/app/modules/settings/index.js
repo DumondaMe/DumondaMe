@@ -14,7 +14,8 @@ app.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
         .state('settings', {
             abstract: true,
-            url: '/settings'
+            url: '/settings',
+            data: {title: 'Dein Profil'}
         })
         .state('settings.profile', {
             url: '/profile',

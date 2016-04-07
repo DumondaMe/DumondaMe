@@ -3,7 +3,8 @@
   background-color: $background-normal;
   .pinwall-container {
     height: 100%;
-    overflow-y: scroll;
+    padding: 0 8px;
+    overflow-y: auto;
     .pinwall-inner-container {
       max-width: 400px;
       margin: 0 auto;
@@ -11,6 +12,9 @@
         max-width: 880px;
         width: 880px;
       }
+    }
+    .pinwall-no-element {
+      margin: 0 auto;
     }
   }
   .create-blog-fab {

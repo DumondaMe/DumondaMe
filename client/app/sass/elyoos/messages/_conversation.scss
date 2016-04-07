@@ -44,5 +44,8 @@
     position: absolute;
     top: 22px;
     right: 16px;
+    @media screen and (min-width: $gt-md) {
+      right: 340px;
+    }
   }
 }

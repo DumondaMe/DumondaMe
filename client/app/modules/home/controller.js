@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService',
-            function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService) {
+        return ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'PinwallBlogService',
+            function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService, ElyModal, PinwallBlogService) {
                 var ctrl = this;
                 ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
@@ -22,8 +22,14 @@ module.exports = {
                         }
                     });
                 };
-
                 ctrl.nextPinwallInfo();
+
+                ctrl.createBlog = function () {
+                    ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
+                        .then(function (resp) {
+                            PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
+                        });
+                };
 
                 $scope.isSideNavOpen = false;
 

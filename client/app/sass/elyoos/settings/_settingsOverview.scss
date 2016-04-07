@@ -1,6 +1,7 @@
 #ely-setting-overview {
   width: 300px;
   margin: 0;
+  cursor: pointer;
   .title {
     position: relative;
     height: 48px;
@@ -28,11 +29,9 @@
     }
   }
   .content {
-
     .setting {
       height: 36px;
       border-bottom: 1px solid $divider;
-      cursor: pointer;
       .setting-description {
         font-size: 16px;
         font-weight: 500;

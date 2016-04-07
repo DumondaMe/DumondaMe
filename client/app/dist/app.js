@@ -165,7 +165,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=pinwall-inner-container><ely-pinwall flex=none contacting=ctrl.home.contacting pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=pinwall-inner-container><ely-pinwall flex=none contacting=ctrl.home.contacting pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
   );
 
 
@@ -190,7 +190,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads() ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\">Du hast noch keine Nachrichten erhalten oder verschickt.</div></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads() ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
   );
 
 
@@ -563,7 +563,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/profile/userPinwall/template.html',
-    "<div id=setting-user-pinwall><div class=setting-title>Deine Pinwand</div><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Du hast noch keinen Blog geschreiben oder eine Empfehlung gemacht.</div></md-content></md-card></div>"
+    "<div id=setting-user-pinwall><div class=setting-title ng-hide=ctrl.noPinwall>Deine Pinwand</div><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Du hast noch keinen Blog geschreiben oder eine Empfehlung gemacht.</div></md-content></md-card></div>"
   );
 
 
@@ -2713,8 +2713,8 @@ module.exports = ['Contact', '$q', '$mdDialog',
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService',
-            function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService) {
+        return ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'PinwallBlogService',
+            function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService, ElyModal, PinwallBlogService) {
                 var ctrl = this;
                 ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
@@ -2733,8 +2733,14 @@ module.exports = {
                         }
                     });
                 };
-
                 ctrl.nextPinwallInfo();
+
+                ctrl.createBlog = function () {
+                    ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
+                        .then(function (resp) {
+                            PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
+                        });
+                };
 
                 $scope.isSideNavOpen = false;
 
@@ -7914,7 +7920,8 @@ app.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
         .state('settings', {
             abstract: true,
-            url: '/settings'
+            url: '/settings',
+            data: {title: 'Dein Profil'}
         })
         .state('settings.profile', {
             url: '/profile',
@@ -9474,8 +9481,6 @@ module.exports = ['$log', function ($log) {
         angular.forEach(observables, function (observable) {
             if (observable.hasOwnProperty('observable') && observable.observable.hasOwnProperty(functionName)) {
                 observable.observable[functionName](functionParam);
-            } else {
-                $log.warn('observable property is missing or registered observable misses function');
             }
         });
     };
