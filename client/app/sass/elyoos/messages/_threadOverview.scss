@@ -5,6 +5,12 @@
     height: 100%;
     overflow-y: auto;
 
+    .is-main-view {
+      @media screen and (min-width: $gt-xs) {
+        padding-top: 16px;
+      }
+    }
+
     .pinwall-no-element {
       margin-top: 16px;
       @media screen and (max-width: $gt-xxs) {

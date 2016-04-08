@@ -10,7 +10,9 @@ module.exports = {
             scope: {},
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: true,
+            bindToController: {
+                isMainView: '='
+            },
             templateUrl: 'app/modules/messages/threadOverview/template.html'
         };
     }],

@@ -184,12 +184,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/template.html',
-    "<md-content id=ely-messages><ely-thread-overview></ely-thread-overview></md-content>"
+    "<md-content id=ely-messages><ely-thread-overview is-main-view=true></ely-thread-overview></md-content>"
   );
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Keinen Treffer für diese Anfrage.</div></md-content></md-card></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row ng-class=\"{'is-main-view': ctrl.isMainView}\"><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row ng-class=\"{'is-main-view': ctrl.isMainView}\"><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Keinen Treffer für diese Anfrage.</div></md-content></md-card></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
   );
 
 

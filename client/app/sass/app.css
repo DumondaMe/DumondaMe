@@ -1169,6 +1169,9 @@ md-toast.md-error-toast-theme {
   #ely-thread-overview .thread-container {
     height: 100%;
     overflow-y: auto; }
+    @media screen and (min-width: 600px) {
+      #ely-thread-overview .thread-container .is-main-view {
+        padding-top: 16px; } }
     #ely-thread-overview .thread-container .pinwall-no-element {
       margin-top: 16px; }
       @media screen and (max-width: 480px) {

@@ -1,6 +1,6 @@
 <div id="ely-thread-overview">
     <div class="thread-container" ely-infinite-scroll="ctrl.nextThreads" ng-show="!ctrl.showThreadSearch">
-        <div layout-wrap layout="row">
+        <div layout-wrap layout="row" ng-class="{'is-main-view': ctrl.isMainView}">
             <div flex="100" ng-repeat="thread in ctrl.messages.threads" layout="row" layout-align="center">
                 <ely-messages-thread thread="thread"></ely-messages-thread>
             </div>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="thread-container" ng-show="ctrl.showThreadSearch">
-        <div layout-wrap layout="row">
+        <div layout-wrap layout="row" ng-class="{'is-main-view': ctrl.isMainView}">
             <div flex="100" ng-repeat="thread in ctrl.threadSearchResult.threads" layout="row" layout-align="center">
                 <ely-messages-thread thread="thread"></ely-messages-thread>
             </div>
