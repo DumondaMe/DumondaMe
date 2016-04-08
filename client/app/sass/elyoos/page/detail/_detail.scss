@@ -1,4 +1,8 @@
 #ely-page-detail {
   background-color: $background-normal;
   height: 100%;
+  .page-container {
+    margin: 0 auto;
+    max-width: 600px;
+  }
 }

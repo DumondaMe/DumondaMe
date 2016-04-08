@@ -350,7 +350,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/comment/detail/template.html',
-    "<div class=ely-page-comments-detail layout=row layout-align=\"center start\" layout-wrap><div class=ely-page-comment ng-repeat=\"comment in ctrl.comments.comments\"><div class=header layout=row><img ng-src={{comment.profileUrl}} class=profile-preview layout=none><div class=profile-container><div class=\"name md-title\">{{comment.name}}</div><div class=date>{{ctrl.getDate(comment.created)}}</div><ely-star-rating class=user-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=comment.rating></ely-star-rating></div></div><ely-expand-text class=description description={{comment.comment}} length=160></ely-expand-text></div><div class=pagination flex=100 layout=row layout-align=\"center center\"><md-button class=\"md-fab md-mini md-primary\" aria-label=\"Delete Recommendation\" ng-click=ctrl.getPrevious() ng-disabled=ctrl.running ng-show=\"ctrl.skip > 0\"><md-icon md-svg-icon=cardActions:arrowLeft></md-icon></md-button><md-button class=\"md-fab md-mini md-primary\" aria-label=\"Delete Recommendation\" ng-click=ctrl.getNext() ng-disabled=ctrl.running ng-hide=\"ctrl.skip + ctrl.maxItems >= ctrl.comments.totalNumberOfComments\"><md-icon md-svg-icon=cardActions:arrowRight></md-icon></md-button></div></div>"
+    "<div class=ely-page-comments-detail layout=row layout-align=\"center start\" layout-wrap><div class=ely-page-comment ng-repeat=\"comment in ctrl.comments.comments\"><div class=header layout=row ng-click=ctrl.goToUserDetail(comment.userId)><img ng-src={{comment.profileUrl}} class=profile-preview><div class=profile-container><div class=\"name md-title\">{{comment.name}}</div><div class=date>{{ctrl.getDate(comment.created)}}</div><ely-star-rating class=user-rating is-readonly=true is-x-small=true number-of-selected-stars-readonly=comment.rating></ely-star-rating></div></div><ely-expand-text class=description description={{comment.comment}} length=160></ely-expand-text></div><div class=pagination flex=100 layout=row layout-align=\"center center\"><md-button class=\"md-fab md-mini md-primary\" aria-label=\"Delete Recommendation\" ng-click=ctrl.getPrevious() ng-disabled=ctrl.running ng-show=\"ctrl.skip > 0\"><md-icon md-svg-icon=cardActions:arrowLeft></md-icon></md-button><md-button class=\"md-fab md-mini md-primary\" aria-label=\"Delete Recommendation\" ng-click=ctrl.getNext() ng-disabled=ctrl.running ng-hide=\"ctrl.skip + ctrl.maxItems >= ctrl.comments.totalNumberOfComments\"><md-icon md-svg-icon=cardActions:arrowRight></md-icon></md-button></div></div>"
   );
 
 
@@ -376,7 +376,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/page/detail/template.html',
-    "<md-content id=ely-page-detail><ely-page-detail-book page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Book'\"></ely-page-detail-book><ely-page-detail-youtube page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Youtube'\"></ely-page-detail-youtube></md-content>"
+    "<md-content id=ely-page-detail><div class=page-container><ely-page-detail-book page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Book'\"></ely-page-detail-book><ely-page-detail-youtube page-detail=ctrl.pageDetail ng-if=\"ctrl.label === 'Youtube'\"></ely-page-detail-youtube></div></md-content>"
   );
 
 
@@ -1477,7 +1477,7 @@ var setStars = function (starValue, $scope) {
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
             setStar(i, 'full');
-        } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
+        } else if (i - 0.7 <= starValue && i > starValue) {
             setStar(i, 'half');
         } else {
             setStar(i, 'empty');
@@ -5870,8 +5870,8 @@ module.exports = [
 },{}],217:[function(require,module,exports){
 'use strict';
 
-module.exports = ['PageDetailComments', '$stateParams', 'moment',
-    function (PageDetailComments, $stateParams, moment) {
+module.exports = ['PageDetailComments', '$stateParams', 'moment', 'UserDetailNavigation',
+    function (PageDetailComments, $stateParams, moment, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.skip = 0;
@@ -5903,6 +5903,10 @@ module.exports = ['PageDetailComments', '$stateParams', 'moment',
 
         ctrl.getDate = function (date) {
             return moment.unix(date).format('l');
+        };
+
+        ctrl.goToUserDetail = function (userId) {
+            UserDetailNavigation.openUserDetail(userId);
         };
     }];
 

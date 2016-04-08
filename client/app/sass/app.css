@@ -1392,6 +1392,9 @@ md-toast.md-error-toast-theme {
     font-size: 16px;
     max-height: 57px;
     overflow: hidden; }
+    @media screen and (min-width: 960px) {
+      #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
+        font-size: 22px; } }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container {
     margin: 2px 0; }
     #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container .page-rating-number {
@@ -1423,16 +1426,18 @@ md-toast.md-error-toast-theme {
     #ely-page-comments .ely-page-comments-detail .ely-page-comment {
       margin-top: 16px;
       width: 250px; }
-      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 16px; }
-      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
-        font-size: 14px; }
-      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.54); }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header {
+        cursor: pointer; }
+        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 16px; }
+        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
+          font-size: 14px; }
+        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54); }
       #ely-page-comments .ely-page-comments-detail .ely-page-comment .description {
         margin-top: 8px;
         font-size: 14px;
@@ -1443,6 +1448,9 @@ md-toast.md-error-toast-theme {
 #ely-page-detail {
   background-color: #E0E0E0;
   height: 100%; }
+  #ely-page-detail .page-container {
+    margin: 0 auto;
+    max-width: 600px; }
 
 #ely-page-rating-overview {
   max-width: 600px; }
@@ -1533,6 +1541,9 @@ md-toast.md-error-toast-theme {
     font-size: 16px;
     max-height: 57px;
     overflow: hidden; }
+    @media screen and (min-width: 960px) {
+      #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
+        font-size: 22px; } }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container {
     margin: 2px 0; }
     #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container .page-rating-number {

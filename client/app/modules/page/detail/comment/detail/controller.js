@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['PageDetailComments', '$stateParams', 'moment',
-    function (PageDetailComments, $stateParams, moment) {
+module.exports = ['PageDetailComments', '$stateParams', 'moment', 'UserDetailNavigation',
+    function (PageDetailComments, $stateParams, moment, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.skip = 0;
@@ -33,6 +33,10 @@ module.exports = ['PageDetailComments', '$stateParams', 'moment',
 
         ctrl.getDate = function (date) {
             return moment.unix(date).format('l');
+        };
+
+        ctrl.goToUserDetail = function (userId) {
+            UserDetailNavigation.openUserDetail(userId);
         };
     }];
 

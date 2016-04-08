@@ -14,7 +14,7 @@ var setStars = function (starValue, $scope) {
     for (i = 0; i < 5; i++) {
         if (i <= starValue) {
             setStar(i, 'full');
-        } else if (i - 0.75 <= starValue && i - 0.2 > starValue) {
+        } else if (i - 0.7 <= starValue && i > starValue) {
             setStar(i, 'half');
         } else {
             setStar(i, 'empty');
