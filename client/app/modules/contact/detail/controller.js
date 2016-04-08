@@ -4,7 +4,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
     function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings, ToolbarService) {
         var ctrl = this;
 
-        ctrl.commands = {};
+        ctrl.activeNext = {};
         ctrl.contactPreviewEvents = {};
         ctrl.contactingPreviewEvents = {};
         ctrl.$mdMedia = $mdMedia;
@@ -15,7 +15,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
             ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
             ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
             ctrl.userName = ctrl.userDetail.user.forename;
-            ToolbarService.setTitle(ctrl.userName + "'s Profil");
+            ToolbarService.setTitle(ctrl.userName);
         });
 
         ctrl.showContactOverview = function () {

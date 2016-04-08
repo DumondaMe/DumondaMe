@@ -10,6 +10,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 service: '=',
+                commands: '=',
                 name: '@',
                 title: '@',
                 showTitle: '=',

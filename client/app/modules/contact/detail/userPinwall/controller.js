@@ -13,7 +13,7 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
 
         ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
 
-        ctrl.commands.nextPinwallInfo = function () {
+        ctrl.commands.next = function () {
             ScrollRequest.nextRequest('UserDetailPinwall', ctrl.user.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
                 ctrl.user = pinwall;
                 if (pinwall.pinwall.length === 0) {
@@ -22,6 +22,6 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
             });
         };
 
-        ctrl.commands.nextPinwallInfo();
+        ctrl.commands.next();
     }];
 

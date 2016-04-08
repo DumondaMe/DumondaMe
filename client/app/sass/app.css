@@ -771,24 +771,18 @@ md-toast.md-error-toast-theme {
 
 .ely-contact-preview-square {
   position: relative;
-  /*width: 180px;
-  height: 210px;*/
   width: 140px;
   height: 150px;
   margin: 8px auto; }
   .ely-contact-preview-square .user-preview-img {
-    /*margin-top: 20px;
-    margin-bottom: 10px;
-    height: 90px;
-    width: 90px;*/
+    cursor: pointer;
     margin-top: 8px;
     margin-bottom: 8px;
-    /*height: 90px;
-    width: 90px;*/
     height: 48px;
     width: 48px;
     border-radius: 50%; }
   .ely-contact-preview-square .user-name {
+    cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     height: 20px;
@@ -970,24 +964,28 @@ md-toast.md-error-toast-theme {
   position: relative; }
   #ely-conversation #ely-conversation-content {
     height: 100%;
-    background-color: #E0E0E0; }
+    background-color: #E0E0E0;
+    padding-top: 48px; }
     #ely-conversation #ely-conversation-content .conversation-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding-top: 48px;
-      background-color: #E0E0E0; }
-      #ely-conversation #ely-conversation-content .conversation-container .date-container {
-        width: 80px;
-        margin: 8px auto;
-        padding: 8px;
-        background-color: #7986CB;
-        color: white;
-        border-radius: 4px; }
-        #ely-conversation #ely-conversation-content .conversation-container .date-container .date {
-          display: inline-block;
-          text-align: center;
+      background-color: #E0E0E0;
+      height: 100%;
+      overflow-y: auto; }
+      #ely-conversation #ely-conversation-content .conversation-container .conversation-inner-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 0 8px 24px 8px; }
+        #ely-conversation #ely-conversation-content .conversation-container .conversation-inner-container .date-container {
           width: 80px;
-          font-size: 16px; }
+          margin: 8px auto;
+          padding: 8px;
+          background-color: #7986CB;
+          color: white;
+          border-radius: 4px; }
+          #ely-conversation #ely-conversation-content .conversation-container .conversation-inner-container .date-container .date {
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            font-size: 16px; }
   #ely-conversation .conversation-description {
     z-index: 10;
     position: absolute;
@@ -1001,6 +999,8 @@ md-toast.md-error-toast-theme {
       color: white;
       font-weight: 500;
       font-size: 16px; }
+  #ely-conversation .thread-overview-container {
+    height: 100%; }
   #ely-conversation .create-message-fab {
     position: absolute;
     top: 22px;
@@ -2001,9 +2001,12 @@ md-toast.md-error-toast-theme {
 #ely-setting-profile {
   height: 100%;
   background-color: #E0E0E0; }
-  @media screen and (min-width: 1280px) {
-    #ely-setting-profile .container {
-      padding-top: 16px; } }
+  #ely-setting-profile .container {
+    height: 100%;
+    overflow-y: auto; }
+    @media screen and (min-width: 1280px) {
+      #ely-setting-profile .container .container-inner {
+        padding-top: 16px; } }
 
 #ely-setting-profile-image {
   width: 100%;
@@ -2053,12 +2056,20 @@ md-toast.md-error-toast-theme {
   #ely-setting-overview .content .setting:hover {
     background-color: #C5CAE9; }
 
-#setting-user-pinwall .setting-title {
-  margin-top: 16px;
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.54); }
+#setting-user-pinwall {
+  max-width: 400px; }
+  @media screen and (min-width: 960px) {
+    #setting-user-pinwall {
+      max-width: 880px; } }
+  #setting-user-pinwall .setting-title {
+    margin-top: 16px;
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
+    @media screen and (min-width: 960px) {
+      #setting-user-pinwall .setting-title {
+        margin-left: 16px; } }
 
 #ely-preview-picture {
   height: 100%;

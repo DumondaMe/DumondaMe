@@ -7,6 +7,6 @@ module.exports = [function () {
     };
 
     this.checkRequestPinwall = function (threads, requestedNumberOfElements) {
-        return threads.numberOfMessages === requestedNumberOfElements;
+        return threads.numberOfMessages > requestedNumberOfElements;
     };
 }];

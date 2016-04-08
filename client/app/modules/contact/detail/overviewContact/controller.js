@@ -8,13 +8,13 @@ module.exports = ['ScrollRequest', '$stateParams', 'OverviewContactScrollRequest
 
         ScrollRequest.reset('UserDetailContactHandling', ctrl.service.get, OverviewContactScrollRequestResponseHandler);
 
-        ctrl.next = function () {
+        ctrl.commands.next = function () {
             ScrollRequest.nextRequest('UserDetailContactHandling', ctrl.user.users, {userId: $stateParams.userId}).then(function (users) {
                 ctrl.user = users;
                 ctrl.initialLoad = false;
             });
         };
 
-        ctrl.next();
+        ctrl.commands.next();
     }];
 

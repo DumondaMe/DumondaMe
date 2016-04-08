@@ -4,23 +4,28 @@
   #ely-conversation-content {
     height: 100%;
     background-color: $background-normal;
+    padding-top: 48px;
     .conversation-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding-top: 48px;
       background-color: $background-normal;
-      .date-container {
-        width: 80px;
-        margin: 8px auto;
-        padding: 8px;
-        background-color: $primary-color-light;
-        color: $primary-white-text;
-        border-radius: 4px;
-        .date {
-          display: inline-block;
-          text-align: center;
+      height: 100%;
+      overflow-y: auto;
+      .conversation-inner-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 0 8px 24px 8px;
+        .date-container {
           width: 80px;
-          font-size: 16px;
+          margin: 8px auto;
+          padding: 8px;
+          background-color: $primary-color-light;
+          color: $primary-white-text;
+          border-radius: 4px;
+          .date {
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            font-size: 16px;
+          }
         }
       }
     }
@@ -39,6 +44,9 @@
       font-weight: 500;
       font-size: 16px;
     }
+  }
+  .thread-overview-container {
+    height: 100%;
   }
   .create-message-fab {
     position: absolute;

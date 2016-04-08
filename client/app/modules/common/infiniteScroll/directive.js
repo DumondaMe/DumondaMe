@@ -6,7 +6,7 @@ module.exports = {
     directive: [ function () {
         return {
             restrict: 'A',
-            scope: {elyInfiniteScroll: '&'},
+            scope: {elyInfiniteScroll: '='},
             link: link.directiveLink()
         };
     }],

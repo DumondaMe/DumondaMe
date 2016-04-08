@@ -101,7 +101,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/detail/template.html',
-    "<md-content id=ely-user-detail><div class=container ng-if=\"!ctrl.$mdMedia('gt-md')\" ely-infinite-scroll=ctrl.commands.nextPinwallInfo()><div layout=row layout-align=center><ely-user-detail-profile-card detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-card></div><div ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" flex=100><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall commands=ctrl.commands user-name=ctrl.userName show-title=true></ely-user-detail-pinwall></div><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte show-title=true ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Kontaktübersicht schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContact></ely-close-sub-toolbar><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} show-title=true title=Follower></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Übersicht Followers schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContacting></ely-close-sub-toolbar></div><div class=container-desktop ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row><div flex=none class=user-contact-container ng-if=\"ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0\"><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview show-close=true events=ctrl.contactPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview show-close=true events=ctrl.contactingPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview></div><md-content flex=grow class=user-detail-content><ely-user-detail-pinwall ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" breakpoint=gt-lg commands=ctrl.commands user-name=ctrl.userName show-title=false></ely-user-detail-pinwall><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte show-title=false ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} title=Follower show-title=false></ely-user-detail-overview-contact></md-content><md-sidenav flex=none class=\"md-sidenav-right md-whiteframe-z2 ely-sidenav-right\" md-component-id=right md-is-locked-open=true><ely-user-detail-profile-sidenav detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-sidenav></md-sidenav></div></md-content>"
+    "<md-content id=ely-user-detail><div class=container ng-if=\"!ctrl.$mdMedia('gt-md')\" ely-infinite-scroll=ctrl.activeNext.next><div layout=row layout-align=center><ely-user-detail-profile-card detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-card></div><div ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" flex=100><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview><ely-user-detail-pinwall commands=ctrl.activeNext user-name=ctrl.userName show-title=true></ely-user-detail-pinwall></div><ely-user-detail-overview-contact service=ctrl.UserDetailContacts name={{ctrl.userDetail.user.forename}} title=Kontakte show-title=true commands=ctrl.activeNext ng-if=ctrl.showOverviewContact></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Kontaktübersicht schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContact></ely-close-sub-toolbar><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting name={{ctrl.userDetail.user.forename}} show-title=true commands=ctrl.activeNext title=Follower></ely-user-detail-overview-contact><ely-close-sub-toolbar description=\"Übersicht Followers schliessen\" on-close=ctrl.close ng-if=ctrl.showOverviewContacting></ely-close-sub-toolbar></div><div class=container-desktop ng-if=\"ctrl.$mdMedia('gt-md')\" layout=row><div flex=none class=user-contact-container ng-if=\"ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0\"><ely-user-detail-contacts-preview detail=ctrl.userDetail show-detail=ctrl.showContactOverview show-close=true events=ctrl.contactPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacts.length > 0\"></ely-user-detail-contacts-preview><ely-user-detail-contacting-preview detail=ctrl.userDetail show-detail=ctrl.showContactingOverview show-close=true events=ctrl.contactingPreviewEvents on-detail-closed=ctrl.close() ng-if=\"ctrl.userDetail.contacting.length > 0\"></ely-user-detail-contacting-preview></div><md-content flex=grow class=user-detail-content ely-infinite-scroll=ctrl.activeNext.next><ely-user-detail-pinwall ng-if=\"!ctrl.showOverviewContact && !ctrl.showOverviewContacting\" breakpoint=gt-lg commands=ctrl.activeNext user-name=ctrl.userName show-title=false></ely-user-detail-pinwall><ely-user-detail-overview-contact service=ctrl.UserDetailContacts show-title=false ng-if=ctrl.showOverviewContact commands=ctrl.activeNext></ely-user-detail-overview-contact><ely-user-detail-overview-contact service=ctrl.UserDetailContactings ng-if=ctrl.showOverviewContacting show-title=false commands=ctrl.activeNext></ely-user-detail-overview-contact></md-content><md-sidenav flex=none class=\"md-sidenav-right md-whiteframe-z2 ely-sidenav-right\" md-component-id=right md-is-locked-open=true><ely-user-detail-profile-sidenav detail=ctrl.userDetail number-of-groups=ctrl.numberOfGroups></ely-user-detail-profile-sidenav></md-sidenav></div></md-content>"
   );
 
 
@@ -126,7 +126,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overviewContacting/template.html',
-    "<div id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting() class=overview-container><div class=overview-container-inner><md-card id=overview-text><md-card-content><div class=number-of-contacting><span class=number ng-if=\"ctrl.users.numberOfAllContactings > 0\">{{ctrl.users.numberOfAllContactings}}</span><ng-pluralize count=\"ctrl.users.numberOfAllContactings \" when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
+    "<div id=ely-contacting-overview><div ely-infinite-scroll=ctrl.nextContacting class=overview-container><div class=overview-container-inner><md-card id=overview-text><md-card-content><div class=number-of-contacting><span class=number ng-if=\"ctrl.users.numberOfAllContactings > 0\">{{ctrl.users.numberOfAllContactings}}</span><ng-pluralize count=\"ctrl.users.numberOfAllContactings \" when=\"{'0': 'Noch Niemand hat Dich als Kontakt',\r" +
     "\n" +
     "                                            '1': ' Person hat Dich als Kontakt',\r" +
     "\n" +
@@ -165,7 +165,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/template.html',
-    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><div class=pinwall-inner-container><ely-pinwall flex=none contacting=ctrl.home.contacting pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
+    "<md-content id=ely-home><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo><div class=pinwall-inner-container><ely-pinwall flex=none contacting=ctrl.home.contacting pinwall=ctrl.home.pinwall gap=true></ely-pinwall></div><md-card class=pinwall-no-element ng-if=\"ctrl.noPinwall && ctrl.home.pinwall.length === 0\"><md-content><div class=no-pinwall-title>Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div><ul><li class=action>Du hast noch keine <span class=link ui-sref=contact.overview>Kontakte</span></li><li class=action>Du hast noch keinen <span ng-click=ctrl.createBlog() class=link>Blog</span> geschrieben</li></ul></md-content></md-card></div><md-button class=\"md-fab create-blog-fab\" aria-label=\"Create blog\" ng-click=ctrl.openSideNavRight()><md-icon md-svg-icon=navFAB:add></md-icon></md-button><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=rightHomeNav md-is-open=isSideNavOpen><ely-home-right-sidenav pinwall=ctrl.home.pinwall></ely-home-right-sidenav></md-sidenav></md-content>"
   );
 
 
@@ -180,7 +180,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/conversation/template.html',
-    "<div id=ely-conversation layout=row><div class=conversation-description layout=row layout-align=\"start center\"><div class=description>{{ctrl.thread.threadDescription}}</div></div><md-content id=ely-conversation-content flex><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><div class=date-container ng-if=\"ctrl.checkIsNewDay($index, ctrl.thread.messages)\"><div class=date>{{ctrl.format(message.timestamp)}}</div></div><ely-message message=message></ely-message></div></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-thread-overview ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-thread-overview></md-sidenav><md-button class=\"md-fab md-mini create-message-fab\" aria-label=\"Create Message\" ng-click=ctrl.createMessage()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
+    "<div id=ely-conversation layout=row><div class=conversation-description layout=row layout-align=\"start center\"><div class=description>{{ctrl.thread.threadDescription}}</div></div><md-content id=ely-conversation-content flex><div class=conversation-container ely-infinite-scroll=ctrl.nextMessages><div class=conversation-inner-container layout-wrap layout=row><div flex=100 ng-repeat=\"message in ctrl.thread.messages\"><div class=date-container ng-if=\"ctrl.checkIsNewDay($index, ctrl.thread.messages)\"><div class=date>{{ctrl.format(message.timestamp)}}</div></div><ely-message message=message></ely-message></div></div></div></md-content><md-sidenav class=\"md-sidenav-right md-whiteframe-z2 thread-overview-container\" md-component-id=right md-is-locked-open=\"$mdMedia('gt-md')\"><ely-thread-overview ng-if=\"ctrl.$mdMedia('gt-md')\"></ely-thread-overview></md-sidenav><md-button class=\"md-fab md-mini create-message-fab\" aria-label=\"Create Message\" ng-click=ctrl.createMessage()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
   );
 
 
@@ -190,7 +190,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads() ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
   );
 
 
@@ -464,7 +464,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/problem/detail/reason/template.html',
-    "<div id=ely-problem-overview-reason><md-card class=card-problem-description><md-card-content><div class=\"problem-description md-title\">{{ctrl.problemDescription}}</div></md-card-content></md-card><div class=overview-container ely-infinite-scroll=ctrl.nextReasons() ng-if=\"ctrl.overview.reasons.length !== 0\"><div layout-wrap layout=row><div flex=100 ng-repeat=\"reason in ctrl.overview.reasons\"><ely-problem-reason-overview-element element=reason sort-request=ctrl.sortRequest()></ely-problem-reason-overview-element></div><div class=pinwall-gab></div></div></div><md-card ng-if=\"ctrl.overview.reasons.length === 0\"><md-card-content><div class=no-reason>Für dieses Problem wurde noch kein Grund erstellt</div></md-card-content></md-card><md-button class=\"md-fab create-reason-fab\" aria-label=\"Create Reason\" ng-click=ctrl.createReason()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
+    "<div id=ely-problem-overview-reason><md-card class=card-problem-description><md-card-content><div class=\"problem-description md-title\">{{ctrl.problemDescription}}</div></md-card-content></md-card><div class=overview-container ely-infinite-scroll=ctrl.nextReasons ng-if=\"ctrl.overview.reasons.length !== 0\"><div layout-wrap layout=row><div flex=100 ng-repeat=\"reason in ctrl.overview.reasons\"><ely-problem-reason-overview-element element=reason sort-request=ctrl.sortRequest()></ely-problem-reason-overview-element></div><div class=pinwall-gab></div></div></div><md-card ng-if=\"ctrl.overview.reasons.length === 0\"><md-card-content><div class=no-reason>Für dieses Problem wurde noch kein Grund erstellt</div></md-card-content></md-card><md-button class=\"md-fab create-reason-fab\" aria-label=\"Create Reason\" ng-click=ctrl.createReason()><md-icon md-svg-icon=navFAB:add></md-icon></md-button></div>"
   );
 
 
@@ -479,7 +479,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/problem/overview/template.html',
-    "<md-content id=ely-problem-overview><div class=problem-overview-container ely-infinite-scroll=ctrl.nextOverview()><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"problem in ctrl.overview.problems\"><ely-problem-overview-element element=problem></ely-problem-overview-element></div></div></div></md-content>"
+    "<md-content id=ely-problem-overview><div class=problem-overview-container ely-infinite-scroll=ctrl.nextOverview><div class=md-padding layout-wrap layout=row><div flex=100 ng-repeat=\"problem in ctrl.overview.problems\"><ely-problem-overview-element element=problem></ely-problem-overview-element></div></div></div></md-content>"
   );
 
 
@@ -558,12 +558,12 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/settings/profile/template.html',
-    "<md-content id=ely-setting-profile><div class=container layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image><ely-settings-overview></ely-settings-overview><ely-settings-user-pinwall></ely-settings-user-pinwall></div></md-content>"
+    "<md-content id=ely-setting-profile><div class=container ely-infinite-scroll=ctrl.commands.nextPinwallInfo><div class=container-inner layout=column layout-align=\"start center\"><ely-settings-profile-image profile=ctrl.profile></ely-settings-profile-image><ely-settings-overview></ely-settings-overview><ely-settings-user-pinwall commands=ctrl.commands></ely-settings-user-pinwall></div></div></md-content>"
   );
 
 
   $templateCache.put('app/modules/settings/profile/userPinwall/template.html',
-    "<div id=setting-user-pinwall><div class=setting-title ng-hide=ctrl.noPinwall>Deine Pinwand</div><div class=pinwall-container ely-infinite-scroll=ctrl.nextPinwallInfo()><ely-pinwall pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Du hast noch keinen Blog geschreiben oder eine Empfehlung gemacht.</div></md-content></md-card></div>"
+    "<div id=setting-user-pinwall><div class=setting-title ng-hide=ctrl.noPinwall>Deine Pinwand</div><div class=pinwall-container><ely-pinwall pinwall=ctrl.user.pinwall gap=false></ely-pinwall></div><md-card class=pinwall-no-element ng-if=ctrl.noPinwall><md-content><div class=no-pinwall-title>Du hast noch keinen Blog geschreiben oder eine Empfehlung gemacht.</div></md-content></md-card></div>"
   );
 
 
@@ -1402,7 +1402,7 @@ module.exports = {
     directive: [ function () {
         return {
             restrict: 'A',
-            scope: {elyInfiniteScroll: '&'},
+            scope: {elyInfiniteScroll: '='},
             link: link.directiveLink()
         };
     }],
@@ -1422,7 +1422,19 @@ module.exports = {
 
             elm.bind('scroll', function () {
                 if ((raw.scrollTop * 1.2 ) + raw.offsetHeight >= raw.scrollHeight) {
-                    return scope.$apply(scope.elyInfiniteScroll);
+                    if (angular.isArray(scope.elyInfiniteScroll) || angular.isFunction(scope.elyInfiniteScroll)) {
+                        return scope.$apply(function () {
+                            if (angular.isFunction(scope.elyInfiniteScroll)) {
+                                scope.elyInfiniteScroll();
+                            } else {
+                                angular.forEach(scope.elyInfiniteScroll, function (callback) {
+                                    if (angular.isFunction(callback)) {
+                                        callback();
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             });
         };
@@ -1865,7 +1877,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
     function (UserDetail, $stateParams, $mdMedia, ContactStatisticTypes, UserDetailContacts, UserDetailContactings, ToolbarService) {
         var ctrl = this;
 
-        ctrl.commands = {};
+        ctrl.activeNext = {};
         ctrl.contactPreviewEvents = {};
         ctrl.contactingPreviewEvents = {};
         ctrl.$mdMedia = $mdMedia;
@@ -1876,7 +1888,7 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
             ContactStatisticTypes.setStatistic(ctrl.userDetail.contactTypeStatistic);
             ctrl.numberOfGroups = ctrl.userDetail.contactTypeStatistic.length;
             ctrl.userName = ctrl.userDetail.user.forename;
-            ToolbarService.setTitle(ctrl.userName + "'s Profil");
+            ToolbarService.setTitle(ctrl.userName);
         });
 
         ctrl.showContactOverview = function () {
@@ -1969,14 +1981,14 @@ module.exports = ['ScrollRequest', '$stateParams', 'OverviewContactScrollRequest
 
         ScrollRequest.reset('UserDetailContactHandling', ctrl.service.get, OverviewContactScrollRequestResponseHandler);
 
-        ctrl.next = function () {
+        ctrl.commands.next = function () {
             ScrollRequest.nextRequest('UserDetailContactHandling', ctrl.user.users, {userId: $stateParams.userId}).then(function (users) {
                 ctrl.user = users;
                 ctrl.initialLoad = false;
             });
         };
 
-        ctrl.next();
+        ctrl.commands.next();
     }];
 
 
@@ -1993,6 +2005,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 service: '=',
+                commands: '=',
                 name: '@',
                 title: '@',
                 showTitle: '=',
@@ -2144,7 +2157,7 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
 
         ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
 
-        ctrl.commands.nextPinwallInfo = function () {
+        ctrl.commands.next = function () {
             ScrollRequest.nextRequest('UserDetailPinwall', ctrl.user.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
                 ctrl.user = pinwall;
                 if (pinwall.pinwall.length === 0) {
@@ -2153,7 +2166,7 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
             });
         };
 
-        ctrl.commands.nextPinwallInfo();
+        ctrl.commands.next();
     }];
 
 
@@ -3548,7 +3561,7 @@ module.exports = [function () {
     };
 
     this.checkRequestPinwall = function (threads, requestedNumberOfElements) {
-        return threads.numberOfMessages === requestedNumberOfElements;
+        return threads.numberOfMessages > requestedNumberOfElements;
     };
 }];
 
@@ -3772,7 +3785,7 @@ module.exports = [function () {
     };
 
     this.checkRequestPinwall = function (threads, requestedNumberOfElements) {
-        return threads.numberOfThreads === requestedNumberOfElements;
+        return threads.numberOfThreads > requestedNumberOfElements;
     };
 }];
 
@@ -8565,6 +8578,7 @@ module.exports = {
                 };
 
                 ctrl.profile = Profile.get();
+                ctrl.commands = {};
 
                 $scope.$on("$destroy", function () {
                     UploadProfileImageState.remove('profilePreview');
@@ -8729,8 +8743,8 @@ module.exports = {
                 ctrl.noPinwall = false;
 
                 ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
-
-                ctrl.nextPinwallInfo = function () {
+                
+                ctrl.commands.nextPinwallInfo = function () {
                     ScrollRequest.nextRequest('UserPinwall', ctrl.user.pinwall).then(function (pinwall) {
                         ctrl.user = pinwall;
                         if (pinwall.pinwall.length === 0) {
@@ -8739,7 +8753,7 @@ module.exports = {
                     });
                 };
 
-                ctrl.nextPinwallInfo();
+                ctrl.commands.nextPinwallInfo();
             }];
     }
 };
@@ -8758,7 +8772,9 @@ module.exports = {
             scope: {},
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: true,
+            bindToController: {
+                commands: '='
+            },
             templateUrl: 'app/modules/settings/profile/userPinwall/template.html'
         };
     }],
@@ -9514,7 +9530,7 @@ module.exports = ['$q', function ($q) {
             request: requestService,
             responseHandler: responseHandler,
             skip: 0,
-            itemsPerPage: 6,
+            itemsPerPage: 3,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };

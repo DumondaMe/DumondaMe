@@ -10,7 +10,9 @@ module.exports = {
             scope: {},
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: true,
+            bindToController: {
+                commands: '='
+            },
             templateUrl: 'app/modules/settings/profile/userPinwall/template.html'
         };
     }],

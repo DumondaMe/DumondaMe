@@ -1,6 +1,6 @@
 <md-content id="ely-user-detail">
     <!--Mobile View-->
-    <div class="container" ng-if="!ctrl.$mdMedia('gt-md')" ely-infinite-scroll="ctrl.commands.nextPinwallInfo()">
+    <div class="container" ng-if="!ctrl.$mdMedia('gt-md')" ely-infinite-scroll="ctrl.activeNext.next">
         <div layout="row" layout-align="center">
             <ely-user-detail-profile-card detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile-card>
         </div>
@@ -9,16 +9,17 @@
                                               ng-if="ctrl.userDetail.contacts.length > 0"></ely-user-detail-contacts-preview>
             <ely-user-detail-contacting-preview detail="ctrl.userDetail" show-detail="ctrl.showContactingOverview"
                                                 ng-if="ctrl.userDetail.contacting.length > 0"></ely-user-detail-contacting-preview>
-            <ely-user-detail-pinwall commands="ctrl.commands" user-name="ctrl.userName" show-title="true"></ely-user-detail-pinwall>
+            <ely-user-detail-pinwall commands="ctrl.activeNext" user-name="ctrl.userName" show-title="true"></ely-user-detail-pinwall>
         </div>
 
         <ely-user-detail-overview-contact service="ctrl.UserDetailContacts" name="{{ctrl.userDetail.user.forename}}" title="Kontakte"
-                                          show-title="true" ng-if="ctrl.showOverviewContact"></ely-user-detail-overview-contact>
+                                          show-title="true" commands="ctrl.activeNext" ng-if="ctrl.showOverviewContact">
+        </ely-user-detail-overview-contact>
         <ely-close-sub-toolbar description="Kontaktübersicht schliessen" on-close="ctrl.close"
                                ng-if="ctrl.showOverviewContact"></ely-close-sub-toolbar>
 
         <ely-user-detail-overview-contact service="ctrl.UserDetailContactings" ng-if="ctrl.showOverviewContacting"
-                                          name="{{ctrl.userDetail.user.forename}}" show-title="true"
+                                          name="{{ctrl.userDetail.user.forename}}" show-title="true" commands="ctrl.activeNext"
                                           title="Follower"></ely-user-detail-overview-contact>
         <ely-close-sub-toolbar description="Übersicht Followers schliessen" on-close="ctrl.close"
                                ng-if="ctrl.showOverviewContacting"></ely-close-sub-toolbar>
@@ -34,14 +35,14 @@
                                                 events="ctrl.contactingPreviewEvents" on-detail-closed="ctrl.close()"
                                                 ng-if="ctrl.userDetail.contacting.length > 0"></ely-user-detail-contacting-preview>
         </div>
-        <md-content flex="grow" class="user-detail-content">
-            <ely-user-detail-pinwall ng-if="!ctrl.showOverviewContact && !ctrl.showOverviewContacting" breakpoint="gt-lg" commands="ctrl.commands"
+        <md-content flex="grow" class="user-detail-content"
+                    ely-infinite-scroll="ctrl.activeNext.next">
+            <ely-user-detail-pinwall ng-if="!ctrl.showOverviewContact && !ctrl.showOverviewContacting" breakpoint="gt-lg" commands="ctrl.activeNext"
                                      user-name="ctrl.userName" show-title="false"></ely-user-detail-pinwall>
-            <ely-user-detail-overview-contact service="ctrl.UserDetailContacts" name="{{ctrl.userDetail.user.forename}}" title="Kontakte"
-                                              show-title="false" ng-if="ctrl.showOverviewContact"></ely-user-detail-overview-contact>
-            <ely-user-detail-overview-contact service="ctrl.UserDetailContactings" ng-if="ctrl.showOverviewContacting"
-                                              name="{{ctrl.userDetail.user.forename}}" title="Follower" show-title="false">
-            </ely-user-detail-overview-contact>
+            <ely-user-detail-overview-contact service="ctrl.UserDetailContacts" show-title="false" ng-if="ctrl.showOverviewContact"
+                                              commands="ctrl.activeNext"></ely-user-detail-overview-contact>
+            <ely-user-detail-overview-contact service="ctrl.UserDetailContactings" ng-if="ctrl.showOverviewContacting" show-title="false"
+                                              commands="ctrl.activeNext"></ely-user-detail-overview-contact>
         </md-content>
         <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="true">
             <ely-user-detail-profile-sidenav detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile-sidenav>

@@ -10,8 +10,8 @@ module.exports = {
                 ctrl.noPinwall = false;
 
                 ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
-
-                ctrl.nextPinwallInfo = function () {
+                
+                ctrl.commands.nextPinwallInfo = function () {
                     ScrollRequest.nextRequest('UserPinwall', ctrl.user.pinwall).then(function (pinwall) {
                         ctrl.user = pinwall;
                         if (pinwall.pinwall.length === 0) {
@@ -20,7 +20,7 @@ module.exports = {
                     });
                 };
 
-                ctrl.nextPinwallInfo();
+                ctrl.commands.nextPinwallInfo();
             }];
     }
 };

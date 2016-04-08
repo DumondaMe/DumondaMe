@@ -4,7 +4,7 @@
             <div class="problem-description md-title">{{ctrl.problemDescription}}</div>
         </md-card-content>
     </md-card>
-    <div class="overview-container" ely-infinite-scroll="ctrl.nextReasons()" ng-if="ctrl.overview.reasons.length !== 0">
+    <div class="overview-container" ely-infinite-scroll="ctrl.nextReasons" ng-if="ctrl.overview.reasons.length !== 0">
         <div layout-wrap layout="row">
             <div flex="100" ng-repeat="reason in ctrl.overview.reasons">
                 <ely-problem-reason-overview-element element="reason" sort-request="ctrl.sortRequest()"></ely-problem-reason-overview-element>

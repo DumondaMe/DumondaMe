@@ -13,6 +13,7 @@ module.exports = {
                 };
 
                 ctrl.profile = Profile.get();
+                ctrl.commands = {};
 
                 $scope.$on("$destroy", function () {
                     UploadProfileImageState.remove('profilePreview');

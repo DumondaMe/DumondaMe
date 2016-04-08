@@ -3,8 +3,12 @@
   background-color: $background-normal;
 
   .container {
-    @media screen and (min-width: $gt-md) {
-      padding-top: 16px;
+    height: 100%;
+    overflow-y: auto;
+    .container-inner {
+      @media screen and (min-width: $gt-md) {
+        padding-top: 16px;
+      }
     }
   }
 }
