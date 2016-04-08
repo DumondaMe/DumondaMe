@@ -7,8 +7,17 @@
   }
   .title {
     margin-left: 16px;
-    font-size: 24px;
+    margin-right: 48px;
+    font-size: 22px;
     color: white;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media screen and (min-width: $gt-lg) {
+      margin-right: 72px;
+      max-width: 400px;
+    }
   }
 }
 #ely-toolbar-sub-nav {

@@ -1,20 +1,21 @@
-<div layout="column" loyout-fill>
-    <md-toolbar>
-        <div class="md-toolbar-tools" ng-show="ctrl.isLoggedIn" layout="row">
-            <div flex="none" hide-gt-md>
-                <md-button class="md-icon-button ely-toolbar-menu" aria-label="Settings" ng-click="ctrl.openLeftNav()">
-                    <md-icon md-svg-icon="system:menu"></md-icon>
-                </md-button>
-            </div>
-            <div flex="none" ng-if="ctrl.hasBackNav && !ctrl.searchExpanded" hide-gt-md>
-                <md-button class="md-icon-button" aria-label="Back" ng-click="ctrl.navigateBack()">
-                    <md-icon md-svg-icon="system:arrowBack"></md-icon>
-                </md-button>
-            </div>
-            <div flex class="title" ng-if="ctrl.title" hide-md hide-sm hide-xs>{{ctrl.title}}</div>
-            <span flex></span>
-            <ely-toolbar-message-info ng-if="!ctrl.searchExpanded" count="ctrl.count"></ely-toolbar-message-info>
-            <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"></ely-toolbar-search>
+<md-toolbar>
+    <div class="md-toolbar-tools" ng-show="ctrl.isLoggedIn">
+        <div flex="none" hide-gt-md>
+            <md-button class="md-icon-button ely-toolbar-menu" aria-label="Settings" ng-click="ctrl.openLeftNav()">
+                <md-icon md-svg-icon="system:menu"></md-icon>
+            </md-button>
         </div>
-    </md-toolbar>
-</div>
+        <div flex="none" ng-if="ctrl.hasBackNav && !ctrl.searchExpanded" hide-gt-md>
+            <md-button class="md-icon-button" aria-label="Back" ng-click="ctrl.navigateBack()">
+                <md-icon md-svg-icon="system:arrowBack"></md-icon>
+            </md-button>
+        </div>
+        <div flex="nogrow" class="title" ng-if="ctrl.title" hide-md hide-sm hide-xs>{{ctrl.title}}</div>
+        <ely-toolbar-search flex="65" ng-show="ctrl.hasSearch" lock-open="true" search-close="ctrl.searchClose()" hide
+                            show-gt-md></ely-toolbar-search>
+        <span flex></span>
+        <ely-toolbar-message-info ng-if="!ctrl.searchExpanded" count="ctrl.count"></ely-toolbar-message-info>
+        <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"
+                            hide-gt-md></ely-toolbar-search>
+    </div>
+</md-toolbar>

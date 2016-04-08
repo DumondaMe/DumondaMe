@@ -14,18 +14,23 @@ $search-boarder-radius: 5px;
       background-color: $primary-color-light;
       border-radius: $search-boarder-radius;
       .search-icon {
+        cursor: pointer;
         position: absolute;
         z-index: 100;
-        top:9px;
-        left: 5px;
+        padding: 9px 6px;
+        height: 42px;
+        width: 36px;
         @media screen and (min-width: $gt-xxs) {
-          top:5px;
+          height: 34px;
+          padding: 5px 6px;
         }
         @media screen and (min-width: $gt-sm) {
-          top:13px;
+          padding: 13px 6px;
+          height: 50px;
         }
       }
       .search-close-icon {
+        cursor: pointer;
         position: absolute;
         z-index: 100;
         top:9px;

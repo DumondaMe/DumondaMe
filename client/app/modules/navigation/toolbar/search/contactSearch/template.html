@@ -5,7 +5,7 @@
                      md-delay="50"
                      md-min-length="2"
                      md-search-text="ctrl.searchText"
-                     md-selected-item-change="ctrl.selectedItemChanged()"
+                     md-selected-item-change="ctrl.commands.startSearch()"
                      md-items="item in ctrl.querySearch(ctrl.searchText)"
                      md-item-text="item.name"
                      md-input-id="toolbar-search-input"

@@ -9,7 +9,8 @@ module.exports = {
             scope: {},
             controllerAs: 'ctrl',
             bindToController: {
-                commands: '='
+                commands: '=',
+                requestStarted: '&'
             },
             controller: require('./../contactSearch/controller.js')
         };

@@ -11,7 +11,8 @@ module.exports = {
             controller: require('./controller.js'),
             bindToController: {
                 searchOpen: '&',
-                searchClose: '&'
+                searchClose: '&',
+                lockOpen: '='
             }
         };
     }],

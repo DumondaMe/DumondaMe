@@ -1,28 +1,43 @@
 'use strict';
 
+var setIsExpanded = function (ctrl, isExpanded) {
+    if (ctrl.lockOpen) {
+        ctrl.isExpanded = true;
+    } else {
+        ctrl.isExpanded = isExpanded;
+    }
+};
+
 module.exports = ['$rootScope',
     function ($rootScope) {
         var ctrl = this;
         ctrl.commands = {};
-        ctrl.isExpanded = false;
+        setIsExpanded(ctrl, false);
 
         ctrl.closeExpand = function () {
-            ctrl.isExpanded = false;
-            ctrl.commands.abortSearch();
+            setIsExpanded(ctrl, false);
+            ctrl.showClose = false;
+            if(angular.isFunction(ctrl.commands.abortSearch)) {
+                ctrl.commands.abortSearch();
+            }
             ctrl.searchClose();
         };
 
         ctrl.openExpand = function () {
-            ctrl.isExpanded = true;
+            setIsExpanded(ctrl, true);
             ctrl.searchOpen();
+        };
+        
+        ctrl.requestStarted = function () {
+            ctrl.showClose = true;
         };
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
 
-            ctrl.isExpanded = false;
+            ctrl.closeExpand();
 
             if (toState.hasOwnProperty('data') && toState.data.hasOwnProperty('searchServiceName')) {
-                    ctrl.serviceName = toState.data.searchServiceName;
+                ctrl.serviceName = toState.data.searchServiceName;
             }
         });
     }];

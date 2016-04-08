@@ -135,7 +135,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/contact/overviewSearchUser/template.html',
-    "<md-content id=ely-user-search-overview layout=row layout-wrap><ely-contact-preview-square flex=none user=user ng-repeat=\"user in ctrl.users\"></ely-contact-preview-square></md-content>"
+    "<md-content id=ely-user-search-overview><div class=search-result-container><div class=search-element ng-repeat=\"user in ctrl.users\"><ely-contact-preview-square user=user></ely-contact-preview-square></div></div><md-card class=pinwall-no-element ng-if=\"ctrl.users.length === 0\"><md-content><div class=no-pinwall-title>Keinen Treffer für diese Anfrage.</div></md-content></md-card></md-content>"
   );
 
 
@@ -190,7 +190,7 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/messages/threadOverview/template.html',
-    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><div class=no-thread ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\">Für diese Anfrage wurde niemand gefunden.</div></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
+    "<div id=ely-thread-overview><div class=thread-container ely-infinite-scroll=ctrl.nextThreads ng-show=!ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.messages.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.messages.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Du hast noch keine Nachrichten erhalten oder versendet.</div></md-content></md-card></div></div><div class=thread-container ng-show=ctrl.showThreadSearch><div layout-wrap layout=row><div flex=100 ng-repeat=\"thread in ctrl.threadSearchResult.threads\" layout=row layout-align=center><ely-messages-thread thread=thread></ely-messages-thread></div><md-card class=pinwall-no-element ng-if=\"ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad\"><md-content><div class=no-pinwall-title>Keinen Treffer für diese Anfrage.</div></md-content></md-card></div></div><ely-load-screen ng-if=ctrl.showLoad></ely-load-screen></div>"
   );
 
 
@@ -215,22 +215,22 @@ angular.module('elyoosApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/contactSearch/template.html',
-    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
+    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.commands.startSearch() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.name md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.name}}</md-item-template></md-autocomplete></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/template.html',
-    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\" commands=ctrl.commands></ely-toolbar-contact-search><ely-toolbar-thread-search ng-if=\"ctrl.serviceName === 'threads'\" commands=ctrl.commands></ely-toolbar-thread-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand()></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
+    "<div ng-class=\"{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}\"><div id=ely-toolbar-search ng-if=ctrl.isExpanded><div class=search-container><md-icon md-svg-icon=system:search class=search-icon ng-click=ctrl.commands.startSearch()></md-icon><ely-toolbar-contact-search ng-if=\"ctrl.serviceName === 'contact'\" commands=ctrl.commands request-started=ctrl.requestStarted()></ely-toolbar-contact-search><ely-toolbar-thread-search ng-if=\"ctrl.serviceName === 'threads'\" commands=ctrl.commands request-started=ctrl.requestStarted()></ely-toolbar-thread-search><md-icon md-svg-icon=system:close class=search-close-icon ng-click=ctrl.closeExpand() ng-if=\"(ctrl.showClose && ctrl.lockOpen) || !ctrl.lockOpen\"></md-icon></div></div><div ng-if=!ctrl.isExpanded class=ely-toolbar-menu><md-button class=md-icon-button aria-label=Search ng-click=ctrl.openExpand()><md-icon md-svg-icon=system:search></md-icon></md-button></div></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/search/threadSearch/template.html',
-    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.selectedItemChanged() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.description md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.description}}</md-item-template></md-autocomplete></div>"
+    "<div class=autocomplete-container><md-autocomplete ng-disabled=false md-autofocus=true md-no-cache=true md-delay=50 md-min-length=2 md-search-text=ctrl.searchText md-selected-item-change=ctrl.commands.startSearch() md-items=\"item in ctrl.querySearch(ctrl.searchText)\" md-item-text=item.description md-input-id=toolbar-search-input md-menu-class=toolbar-search-preview placeholder=\"Suche Person\" ng-keypress=ctrl.keyPressed($event)><md-item-template>{{item.description}}</md-item-template></md-autocomplete></div>"
   );
 
 
   $templateCache.put('app/modules/navigation/toolbar/template.html',
-    "<div layout=column loyout-fill><md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn layout=row><div flex=none hide-gt-md><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div><div flex=none ng-if=\"ctrl.hasBackNav && !ctrl.searchExpanded\" hide-gt-md><md-button class=md-icon-button aria-label=Back ng-click=ctrl.navigateBack()><md-icon md-svg-icon=system:arrowBack></md-icon></md-button></div><div flex class=title ng-if=ctrl.title hide-md hide-sm hide-xs>{{ctrl.title}}</div><span flex></span><ely-toolbar-message-info ng-if=!ctrl.searchExpanded count=ctrl.count></ely-toolbar-message-info><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose()></ely-toolbar-search></div></md-toolbar></div>"
+    "<md-toolbar><div class=md-toolbar-tools ng-show=ctrl.isLoggedIn><div flex=none hide-gt-md><md-button class=\"md-icon-button ely-toolbar-menu\" aria-label=Settings ng-click=ctrl.openLeftNav()><md-icon md-svg-icon=system:menu></md-icon></md-button></div><div flex=none ng-if=\"ctrl.hasBackNav && !ctrl.searchExpanded\" hide-gt-md><md-button class=md-icon-button aria-label=Back ng-click=ctrl.navigateBack()><md-icon md-svg-icon=system:arrowBack></md-icon></md-button></div><div flex=nogrow class=title ng-if=ctrl.title hide-md hide-sm hide-xs>{{ctrl.title}}</div><ely-toolbar-search flex=65 ng-show=ctrl.hasSearch lock-open=true search-close=ctrl.searchClose() hide show-gt-md></ely-toolbar-search><span flex></span><ely-toolbar-message-info ng-if=!ctrl.searchExpanded count=ctrl.count></ely-toolbar-message-info><ely-toolbar-search ng-show=ctrl.hasSearch search-open=ctrl.searchOpen() search-close=ctrl.searchClose() hide-gt-md></ely-toolbar-search></div></md-toolbar>"
   );
 
 
@@ -2262,7 +2262,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-contact></ely-contact>'
                 }
             },
-            data: {hasSearch: true, searchServiceName: 'contact'}
+            data: {hasSearch: true, searchServiceName: 'contact', title: 'Kontakt'}
         })
         .state('user', {
             abstract: true,
@@ -4121,16 +4121,21 @@ module.exports = ['$scope', 'SearchService',
 
         ctrl.commands.abortSearch = function () {
             SearchService.abortSearch();
+            ctrl.searchText = '';
         };
 
-        ctrl.selectedItemChanged = function () {
-            SearchService.startSearchRequest(ctrl.searchText);
+        ctrl.commands.startSearch = function () {
+            if (ctrl.searchText !== '') {
+                SearchService.startSearchRequest(ctrl.searchText);
+                ctrl.requestStarted();
+            }
         };
+
 
         ctrl.keyPressed = function ($event) {
             if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
                 $scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
-                SearchService.startSearchRequest(ctrl.searchText);
+                ctrl.commands.startSearch();
             }
         };
     }];
@@ -4146,7 +4151,8 @@ module.exports = {
             scope: {},
             controllerAs: 'ctrl',
             bindToController: {
-                commands: '='
+                commands: '=',
+                requestStarted: '&'
             },
             controller: require('./controller.js')
         };
@@ -4159,29 +4165,44 @@ arguments[4][14][0].apply(exports,arguments)
 },{"./directive.js":158,"dup":14}],160:[function(require,module,exports){
 'use strict';
 
+var setIsExpanded = function (ctrl, isExpanded) {
+    if (ctrl.lockOpen) {
+        ctrl.isExpanded = true;
+    } else {
+        ctrl.isExpanded = isExpanded;
+    }
+};
+
 module.exports = ['$rootScope',
     function ($rootScope) {
         var ctrl = this;
         ctrl.commands = {};
-        ctrl.isExpanded = false;
+        setIsExpanded(ctrl, false);
 
         ctrl.closeExpand = function () {
-            ctrl.isExpanded = false;
-            ctrl.commands.abortSearch();
+            setIsExpanded(ctrl, false);
+            ctrl.showClose = false;
+            if(angular.isFunction(ctrl.commands.abortSearch)) {
+                ctrl.commands.abortSearch();
+            }
             ctrl.searchClose();
         };
 
         ctrl.openExpand = function () {
-            ctrl.isExpanded = true;
+            setIsExpanded(ctrl, true);
             ctrl.searchOpen();
+        };
+        
+        ctrl.requestStarted = function () {
+            ctrl.showClose = true;
         };
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
 
-            ctrl.isExpanded = false;
+            ctrl.closeExpand();
 
             if (toState.hasOwnProperty('data') && toState.data.hasOwnProperty('searchServiceName')) {
-                    ctrl.serviceName = toState.data.searchServiceName;
+                ctrl.serviceName = toState.data.searchServiceName;
             }
         });
     }];
@@ -4199,7 +4220,8 @@ module.exports = {
             controller: require('./controller.js'),
             bindToController: {
                 searchOpen: '&',
-                searchClose: '&'
+                searchClose: '&',
+                lockOpen: '='
             }
         };
     }],
@@ -4220,7 +4242,8 @@ module.exports = {
             scope: {},
             controllerAs: 'ctrl',
             bindToController: {
-                commands: '='
+                commands: '=',
+                requestStarted: '&'
             },
             controller: require('./../contactSearch/controller.js')
         };
@@ -9530,7 +9553,7 @@ module.exports = ['$q', function ($q) {
             request: requestService,
             responseHandler: responseHandler,
             skip: 0,
-            itemsPerPage: 3,
+            itemsPerPage: 30,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };

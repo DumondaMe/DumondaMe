@@ -1,3 +1,12 @@
-<md-content id="ely-user-search-overview" layout="row" layout-wrap>
-    <ely-contact-preview-square flex="none" user="user" ng-repeat="user in ctrl.users"></ely-contact-preview-square>
+<md-content id="ely-user-search-overview">
+    <div class="search-result-container">
+        <div class="search-element" ng-repeat="user in ctrl.users">
+            <ely-contact-preview-square user="user"></ely-contact-preview-square>
+        </div>
+    </div>
+    <md-card class="pinwall-no-element" ng-if="ctrl.users.length === 0">
+        <md-content>
+            <div class="no-pinwall-title">Keinen Treffer für diese Anfrage.</div>
+        </md-content>
+    </md-card>
 </md-content>

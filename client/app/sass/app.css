@@ -812,6 +812,25 @@ md-toast.md-error-toast-theme {
   height: 100%;
   background-color: #E0E0E0;
   padding: 0 6px; }
+  #ely-user-search-overview .search-result-container {
+    margin: 0 auto;
+    width: 296px; }
+    @media screen and (min-width: 960px) {
+      #ely-user-search-overview .search-result-container {
+        width: 444px; } }
+    @media screen and (min-width: 1280px) {
+      #ely-user-search-overview .search-result-container {
+        margin-top: 16px; } }
+    @media screen and (min-width: 1440px) {
+      #ely-user-search-overview .search-result-container {
+        width: 592px; } }
+    #ely-user-search-overview .search-result-container .search-element {
+      margin-right: 4px;
+      margin-left: 4px;
+      display: inline-block; }
+  #ely-user-search-overview .pinwall-no-element {
+    margin-top: 16px;
+    height: 55px; }
 
 #blog-create {
   min-width: 310px;
@@ -1234,8 +1253,17 @@ md-toast.md-error-toast-theme {
       margin-top: -64px; } }
   #toolbar-header .title {
     margin-left: 16px;
-    font-size: 24px;
-    color: white; }
+    margin-right: 48px;
+    font-size: 22px;
+    color: white;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+    @media screen and (min-width: 1920px) {
+      #toolbar-header .title {
+        margin-right: 72px;
+        max-width: 400px; } }
 
 #ely-toolbar-sub-nav {
   padding-left: 5px;
@@ -1274,17 +1302,22 @@ md-toast.md-error-toast-theme {
       background-color: #7986CB;
       border-radius: 5px; }
       .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+        cursor: pointer;
         position: absolute;
         z-index: 100;
-        top: 9px;
-        left: 5px; }
+        padding: 9px 6px;
+        height: 42px;
+        width: 36px; }
         @media screen and (min-width: 480px) {
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
-            top: 5px; } }
+            height: 34px;
+            padding: 5px 6px; } }
         @media screen and (min-width: 960px) {
           .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
-            top: 13px; } }
+            padding: 13px 6px;
+            height: 50px; } }
       .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+        cursor: pointer;
         position: absolute;
         z-index: 100;
         top: 9px;

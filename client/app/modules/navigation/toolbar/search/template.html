@@ -1,10 +1,13 @@
 <div ng-class="{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}">
     <div id="ely-toolbar-search" ng-if="ctrl.isExpanded">
         <div class="search-container">
-            <md-icon md-svg-icon="system:search" class="search-icon"></md-icon>
-            <ely-toolbar-contact-search ng-if="ctrl.serviceName === 'contact'" commands="ctrl.commands"></ely-toolbar-contact-search>
-            <ely-toolbar-thread-search ng-if="ctrl.serviceName === 'threads'" commands="ctrl.commands"></ely-toolbar-thread-search>
-            <md-icon md-svg-icon="system:close" class="search-close-icon" ng-click="ctrl.closeExpand()"></md-icon>
+            <md-icon md-svg-icon="system:search" class="search-icon" ng-click="ctrl.commands.startSearch()"></md-icon>
+            <ely-toolbar-contact-search ng-if="ctrl.serviceName === 'contact'" commands="ctrl.commands"
+                                        request-started="ctrl.requestStarted()"></ely-toolbar-contact-search>
+            <ely-toolbar-thread-search ng-if="ctrl.serviceName === 'threads'" commands="ctrl.commands"
+                                       request-started="ctrl.requestStarted()"></ely-toolbar-thread-search>
+            <md-icon md-svg-icon="system:close" class="search-close-icon" ng-click="ctrl.closeExpand()"
+                     ng-if="(ctrl.showClose && ctrl.lockOpen) || !ctrl.lockOpen"></md-icon>
         </div>
     </div>
     <div ng-if="!ctrl.isExpanded" class="ely-toolbar-menu">

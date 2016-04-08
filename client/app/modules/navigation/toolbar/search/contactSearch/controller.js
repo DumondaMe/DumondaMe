@@ -10,16 +10,21 @@ module.exports = ['$scope', 'SearchService',
 
         ctrl.commands.abortSearch = function () {
             SearchService.abortSearch();
+            ctrl.searchText = '';
         };
 
-        ctrl.selectedItemChanged = function () {
-            SearchService.startSearchRequest(ctrl.searchText);
+        ctrl.commands.startSearch = function () {
+            if (ctrl.searchText !== '') {
+                SearchService.startSearchRequest(ctrl.searchText);
+                ctrl.requestStarted();
+            }
         };
+
 
         ctrl.keyPressed = function ($event) {
             if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
                 $scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
-                SearchService.startSearchRequest(ctrl.searchText);
+                ctrl.commands.startSearch();
             }
         };
     }];

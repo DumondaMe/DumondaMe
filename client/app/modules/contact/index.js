@@ -30,7 +30,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-contact></ely-contact>'
                 }
             },
-            data: {hasSearch: true, searchServiceName: 'contact'}
+            data: {hasSearch: true, searchServiceName: 'contact', title: 'Kontakt'}
         })
         .state('user', {
             abstract: true,

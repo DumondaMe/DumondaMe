@@ -16,8 +16,11 @@
             <div flex="100" ng-repeat="thread in ctrl.threadSearchResult.threads" layout="row" layout-align="center">
                 <ely-messages-thread thread="thread"></ely-messages-thread>
             </div>
-            <div class="no-thread" ng-if="ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad">Für diese Anfrage wurde niemand gefunden.
-            </div>
+            <md-card class="pinwall-no-element" ng-if="ctrl.threadSearchResult.threads.length === 0 && !ctrl.showLoad">
+                <md-content>
+                    <div class="no-pinwall-title">Keinen Treffer für diese Anfrage.</div>
+                </md-content>
+            </md-card>
         </div>
     </div>
     <ely-load-screen ng-if="ctrl.showLoad"></ely-load-screen>
