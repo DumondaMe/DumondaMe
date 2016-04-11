@@ -16,12 +16,12 @@ describe('Integration Tests for finding other users', function () {
 
             var commands = [];
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', name: 'user2 Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', name: 'user2 Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo4.ch', name: 'user Meier4', userId: '4'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo5.ch', name: 'user Meier5', userId: '5'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo6.ch', name: 'user Meier6', userId: '6'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo7.ch', name: 'etwasganzanderes nochwas anderes', userId: '7'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user2 Meier3', forename: 'user2', surname: 'Meier3', userId: '3'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier4', forename: 'user', surname: 'Meier4', userId: '4'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier5', forename: 'user', surname: 'Meier5', userId: '5'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier6', forename: 'user', surname: 'Meier6', userId: '6'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'ruser rmeier', forename: 'ruser', surname: 'rmeier', userId: '7'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '2'})")
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false})").end().getCommand());
@@ -59,51 +59,80 @@ describe('Integration Tests for finding other users', function () {
 
     it('Request only with forename - Return correct sorted list (Contacts first)', function () {
 
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/contact/search', {
+                    search: 'User',
+                    maxItems: 10,
+                    isSuggestion: false
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(5);
+                res.body[0].userId.should.equal('6');
+                res.body[0].name.should.equal('user Meier6');
+                res.body[0].type.should.equal('Freund');
+                res.body[0].contactAdded.should.least(startTime);
+                res.body[0].userAdded.should.least(startTime);
+                res.body[0].connected.should.equal('both');
+                res.body[0].profileUrl.should.equal('profileImage/6/thumbnail.jpg');
+
+                res.body[1].userId.should.equal('2');
+                res.body[1].name.should.equal('user2 Meier2');
+                res.body[1].type.should.equal('Familie');
+                should.not.exist(res.body[1].userAdded);
+                res.body[1].contactAdded.should.least(startTime);
+                res.body[1].connected.should.equal('userToContact');
+                res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+                res.body[2].userId.should.equal('4');
+                res.body[2].name.should.equal('user Meier4');
+                res.body[2].connected.should.equal('none');
+                should.not.exist(res.body[2].type);
+                res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+                res.body[3].name.should.equal('user Meier5');
+                should.not.exist(res.body[3].contactAdded);
+                res.body[3].userAdded.should.least(startTime);
+                res.body[3].connected.should.equal('contactToUser');
+                should.not.exist(res.body[3].type);
+                res.body[3].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+                res.body[4].name.should.equal('user2 Meier3');
+                should.not.exist(res.body[4].contactAdded);
+                res.body[4].connected.should.equal('none');
+                should.not.exist(res.body[4].type);
+                res.body[4].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+    });
+
+    it('Request only with forename in suggestion mode- Return correct sorted list (Contacts first)', function () {
+
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/search', {
-                search: 'user',
-                maxItems: 4,
-                isSuggestion: false
+                search: 'User',
+                maxItems: 10,
+                isSuggestion: true
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.length.should.equal(4);
-            res.body[0].userId.should.equal('6');
+            res.body.length.should.equal(5);
             res.body[0].name.should.equal('user Meier6');
-            res.body[0].type.should.equal('Freund');
-            res.body[0].contactAdded.should.least(startTime);
-            res.body[0].userAdded.should.least(startTime);
-            res.body[0].connected.should.equal('both');
-            should.exist(res.body[0].profileUrl);
-            res.body[1].userId.should.equal('2');
             res.body[1].name.should.equal('user2 Meier2');
-            res.body[1].type.should.equal('Familie');
-            should.not.exist(res.body[1].userAdded);
-            res.body[1].contactAdded.should.least(startTime);
-            res.body[1].connected.should.equal('userToContact');
-            should.exist(res.body[1].profileUrl);
-            res.body[2].userId.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
-            res.body[2].connected.should.equal('none');
-            should.not.exist(res.body[2].type);
-            should.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
-            should.not.exist(res.body[3].contactAdded);
-            res.body[3].userAdded.should.least(startTime);
-            res.body[3].connected.should.equal('contactToUser');
-            should.not.exist(res.body[3].type);
-            should.exist(res.body[3].profileUrl);
+            res.body[4].name.should.equal('user2 Meier3');
         });
     });
 
-    it('Request with forename and surename - Return correct sorted list', function () {
+    it('Request with forename and surname - Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/search', {
-                search: 'user2 Meier',
-                maxItems: 2,
+                search: 'User2 meier',
+                maxItems: 5,
                 isSuggestion: false
             }, requestAgent);
         }).then(function (res) {
@@ -120,12 +149,29 @@ describe('Integration Tests for finding other users', function () {
         });
     });
 
+    it('Request with forename and surname in suggestion mode- Return correct sorted list', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/contact/search', {
+                search: 'User2 meier',
+                maxItems: 5,
+                isSuggestion: true
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(2);
+            res.body[0].name.should.equal('user2 Meier2');
+            res.body[1].name.should.equal('user2 Meier3');
+        });
+    });
+
     it('Request with only surname - Return correct sorted list', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/contact/search', {
-                search: 'Meier',
+                search: 'meier',
                 maxItems: 3,
                 isSuggestion: false
             }, requestAgent);
@@ -144,6 +190,24 @@ describe('Integration Tests for finding other users', function () {
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
             should.exist(res.body[2].profileUrl);
+        });
+    });
+
+    it('Request with only surname in suggestion mode - Return correct sorted list', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/contact/search', {
+                search: 'meier',
+                maxItems: 3,
+                isSuggestion: true
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(3);
+            res.body[0].name.should.equal('user Meier6');
+            res.body[1].name.should.equal('user2 Meier2');
+            res.body[2].name.should.equal('user Meier4');
         });
     });
 

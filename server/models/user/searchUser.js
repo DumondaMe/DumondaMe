@@ -5,11 +5,12 @@ var userInfo = require('./userInfo');
 
 var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
-        .where('contact.name =~ {userQueryRegEx}')
+        .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .return('contact.name AS name')
         .orderBy('name LIMIT {maxItems}')
         .union().match('(u2:User {userId: {userId}}), (noContacts:User)')
-        .where("noContacts.name =~ {userQueryRegEx} AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
+        .where("(noContacts.surname =~ {userQueryRegEx} OR noContacts.name =~ {userQueryRegEx}) " +
+            "AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
         .return('noContacts.name AS name')
         .orderBy('name LIMIT {maxItems}')
         .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems})
@@ -25,7 +26,7 @@ var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
 
 var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
-        .where('contact.name =~ {userQueryRegEx}')
+        .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .with('contact, r, user')
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contact)")
@@ -35,7 +36,8 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
             'rContact.contactAdded AS userAdded, contact.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, null AS blocked')
         .orderBy('name LIMIT {maxItems}')
         .union().match('(u2:User {userId: {userId}}), (noContacts:User)')
-        .where("noContacts.name =~ {userQueryRegEx} AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
+        .where("(noContacts.surname =~ {userQueryRegEx} OR noContacts.name =~ {userQueryRegEx}) AND " +
+            "NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
         .with('noContacts, u2')
         .match("(noContacts)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
         .optionalMatch("(u2)<-[rContact:IS_CONTACT]-(noContacts)")
@@ -60,7 +62,7 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
 module.exports = {
     searchUsers: function (userId, userQuery, maxItems, isSuggestion) {
 
-        var userQueryRegEx = '(?i).*'.concat(userQuery, '.*');
+        var userQueryRegEx = '(?i)'.concat(userQuery, '.*');
 
         if (isSuggestion) {
             return searchUsersInSuggestionMode(userId, userQueryRegEx, maxItems);

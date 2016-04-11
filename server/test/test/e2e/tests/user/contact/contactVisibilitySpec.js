@@ -153,17 +153,17 @@ describe('Integration Tests for handling the profile privacy setting when return
             res.body.contacts[0].userId.should.equal("2");
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
-            res.body.contacts[0].profileUrl.should.equal("profileImage/2/profilePreview.jpg");
+            res.body.contacts[0].profileUrl.should.equal("profileImage/2/thumbnail.jpg");
 
             //path is to default profile image
             res.body.contacts[1].userId.should.equal("3");
-            res.body.contacts[1].profileUrl.should.equal("profileImage/default/profilePreview.jpg");
+            res.body.contacts[1].profileUrl.should.equal("profileImage/default/thumbnail.jpg");
 
             res.body.contacts[2].userId.should.equal("4");
-            res.body.contacts[2].profileUrl.should.equal("profileImage/default/profilePreview.jpg");
+            res.body.contacts[2].profileUrl.should.equal("profileImage/default/thumbnail.jpg");
 
             res.body.contacts[3].userId.should.equal("5");
-            res.body.contacts[3].profileUrl.should.equal("profileImage/default/profilePreview.jpg");
+            res.body.contacts[3].profileUrl.should.equal("profileImage/default/thumbnail.jpg");
 
             res.body.numberOfContacts.should.equal(4);
         });

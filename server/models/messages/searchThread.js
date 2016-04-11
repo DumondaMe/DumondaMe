@@ -14,7 +14,7 @@ var getPrivacyString = function (withCondition) {
 };
 
 var searchQuery = function (userId, query, maxItems, isSuggestion) {
-    var queryRegEx = '(?i).*'.concat(query, '.*'), returnThread, returnContact, returnUser;
+    var queryRegEx = '(?i)'.concat(query, '.*'), returnThread, returnContact, returnUser;
 
 
     if (!isSuggestion) {
@@ -32,7 +32,7 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
 
     return db.cypher()
         .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(user2:User), (thread)-[:NEXT_MESSAGE]->(message:Message)")
-        .where("user2.name =~ {queryRegEx}")
+        .where("user2.surname =~ {queryRegEx} OR user2.name =~ {queryRegEx}")
         .optionalMatch("(user)-[contact:IS_CONTACT]->(user2)")
         .addCommand(getPrivacyString(',thread, message, contact'))
         .return(returnThread)
@@ -40,15 +40,15 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
         .limit("{maxItems}")
         .unionAll()
         .match("(user:User {userId: {userId}})-[contact:IS_CONTACT]->(user2:User)")
-        .where("user2.name =~ {queryRegEx} AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2)")
+        .where("(user2.surname =~ {queryRegEx} OR user2.name =~ {queryRegEx}) AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2)")
         .addCommand(getPrivacyString(',contact'))
         .return(returnContact)
         .orderBy("user2.name")
         .limit("{maxItems}")
         .unionAll()
         .match("(user2:User), (user:User {userId: {userId}})")
-        .where("user2.name =~ {queryRegEx} AND user2.userId <> {userId} AND NOT (user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2) " +
-            "AND NOT (user)-[:IS_CONTACT]->(user2)")
+        .where("(user2.surname =~ {queryRegEx} OR user2.name =~ {queryRegEx}) AND user2.userId <> {userId} AND NOT " +
+            "(user)-[:ACTIVE]->(:Thread)<-[:ACTIVE]-(user2) AND NOT (user)-[:IS_CONTACT]->(user2)")
         .addCommand(getPrivacyString(''))
         .return(returnUser)
         .orderBy("user2.name ")

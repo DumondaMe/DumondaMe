@@ -121,22 +121,22 @@ describe('Integration Tests for finding other users and applying the correct pri
             res.body[0].userId.should.equal('2');
             res.body[0].name.should.equal('user2 Meier2');
             res.body[0].type.should.equal('Freund');
-            res.body[0].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
+            res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
             res.body[1].userId.should.equal('3');
             res.body[1].name.should.equal('user2 Meier3');
             res.body[1].type.should.equal('Freund');
-            res.body[1].profileUrl.should.equal('profileImage/3/profilePreview.jpg');
+            res.body[1].profileUrl.should.equal('profileImage/3/thumbnail.jpg');
 
             res.body[2].userId.should.equal('4');
             res.body[2].name.should.equal('user Meier4');
             should.not.exist(res.body[2].type);
-            res.body[2].profileUrl.should.equal('profileImage/4/profilePreview.jpg');
+            res.body[2].profileUrl.should.equal('profileImage/4/thumbnail.jpg');
 
             res.body[3].userId.should.equal('5');
             res.body[3].name.should.equal('user Meier5');
             should.not.exist(res.body[3].type);
-            res.body[3].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
+            res.body[3].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
         });
     });
 

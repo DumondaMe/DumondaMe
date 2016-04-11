@@ -63,7 +63,7 @@ module.exports = {
     addConnectionInfo: addConnectionInfo,
     setUserImageVisible: setUserImageVisible,
     addContactPreviewInfos: function (contacts) {
-        addImageForPreview(contacts);
+        addImageForThumbnail(contacts);
         addConnectionInfos(contacts);
     }
 };
