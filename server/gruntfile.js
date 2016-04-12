@@ -14,6 +14,18 @@ module.exports = function (grunt) {
             }
         },
 
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'xunit',
+                    captureFile: 'testResult/xunit.xml', // Optionally capture the reporter output to a file
+                    quiet: true, // Optionally suppress output to standard out (defaults to false)
+                    clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+                },
+                src: ['test/**/*.js']
+            }
+        },
+
         sonarRunner: {
             analysis: {
                 options: {
@@ -38,7 +50,7 @@ module.exports = function (grunt) {
                             }
                         },
 
-                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js'
+                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js,testResult/**/*'
                     }
                 }
             }
@@ -55,6 +67,20 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('test', ['env:dev', 'mochaTest:test']);
     grunt.registerTask('coverage', ['env:dev', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
+
+    var outputFile = process.env.MOCHA_OUTPUT_FILE || 'testResult/xunit.xml';
+    grunt.registerTask('cleanXunitFile', 'Remove Mocha output from xunit file', function() {
+        if (grunt.file.exists('./' + outputFile)) {
+            var file = grunt.file.read('./' + outputFile);
+            if (file.indexOf("<testsuite")) {
+                grunt.file.write('./' + outputFile, file.substring(file.indexOf("<testsuite")));
+            }
+        }
+        else {
+            grunt.log.error("'cleanXunitFile' task was specified but file " + outputFile + " does not exist.");
+        }
+    });
 };
