@@ -65,7 +65,7 @@ module.exports = function (config) {
         },
 
         junitReporter: {
-            outputFile: 'test_out/junit/TESTS-xunit.xml'
+            outputFile: '../test_out/junit/TESTS-xunit.xml'
         },
 
         browserify: {
