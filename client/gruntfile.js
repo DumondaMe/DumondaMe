@@ -97,6 +97,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('test', ['karma']);
     grunt.registerTask('coverage', ['karma', 'sonarRunner']);
     grunt.registerTask('build', ['clean', 'ngtemplates', 'browserify', 'uglify']);
     grunt.registerTask('buildDebug', ['ngtemplates', 'browserify']);
