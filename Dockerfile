@@ -3,7 +3,12 @@ FROM node:argon
 ENV NODE_ENV 'production'
 
 RUN mkdir -p /usr/src/app/server/config
-RUN mkdir -p /usr/src/app/client
+
+RUN mkdir -p /usr/src/app/client/app/dist
+RUN mkdir -p /usr/src/app/client/app/lib/jquery
+RUN mkdir -p /usr/src/app/client/app/lib/imageCrop
+RUN mkdir -p /usr/src/app/client/app/sass
+
 WORKDIR /usr/src/app/server
 
 #Copy server files
@@ -16,7 +21,7 @@ COPY server/server.js /usr/src/app/server
 COPY server/config/config.json /usr/src/app/server/config
 
 #Copy client files
-COPY client/app/dist/app.js /usr/src/app/client/app/dist
+COPY client/app/dist /usr/src/app/client/app/dist
 COPY client/app/img /usr/src/app/client/app/img
 COPY client/app/lib/jquery/jquery.min.js /usr/src/app/client/app/lib/jquery
 COPY client/app/lib/imageCrop/cropper.min.js /usr/src/app/client/app/lib/imageCrop
