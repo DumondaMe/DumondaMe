@@ -18,7 +18,7 @@ COPY server/lib /usr/src/app/server/lib
 COPY server/models /usr/src/app/server/models
 COPY server/neo4j /usr/src/app/server/neo4j
 COPY server/server.js /usr/src/app/server
-COPY server/config/config.json /usr/src/app/server/config
+COPY server/config/production.json /usr/src/app/server/config
 
 #Copy client files
 COPY client/app/dist /usr/src/app/client/app/dist
