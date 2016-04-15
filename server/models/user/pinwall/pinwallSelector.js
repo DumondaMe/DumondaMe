@@ -4,7 +4,7 @@ var _ = require('underscore');
 var logger = requireLogger.getLogger(__filename);
 
 var compare = function (a, b) {
-    return a.pinwall.created < b.pinwall.created;
+    return b.pinwall.created - a.pinwall.created;
 };
 
 var sortPinwall = function (recommendations, blogs, skipRecommendation, skipBlog, limit) {

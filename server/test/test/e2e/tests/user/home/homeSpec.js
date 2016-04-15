@@ -560,7 +560,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             .end({visible: ['Freund'], category: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 506, blogId: '4', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 1000, blogId: '4', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, blogId: '5', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
 
         //Recommendations
@@ -661,7 +661,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].forename.should.equals('user3');
                 res.body.pinwall[0].userId.should.equals('3');
                 res.body.pinwall[0].title.should.equals('blogTitle4');
-                res.body.pinwall[0].created.should.equals(506);
+                res.body.pinwall[0].created.should.equals(1000);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 should.not.exist(res.body.pinwall[0].url);
                 should.not.exist(res.body.pinwall[0].urlFull);
