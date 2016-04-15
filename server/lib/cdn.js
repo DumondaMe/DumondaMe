@@ -1,6 +1,5 @@
 'use strict';
 
-var logger = require('./logging').getLogger(__filename);
 var config = '';
 
 module.exports = {

@@ -42,7 +42,10 @@ var log = function (module, level, message, metadata, request) {
 
 };
 
-if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development')) {
+if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development' )) {
+    logger.add(winston.transports.Console, {level: 'debug'});
+    logger.transports.console.colorize = true;
+} else if (process.env.NODE_ENV === 'production') {
     logger.add(winston.transports.Console, {level: 'debug'});
     logger.transports.console.colorize = true;
 } else if (process.env.NODE_ENV === 'testing') {
