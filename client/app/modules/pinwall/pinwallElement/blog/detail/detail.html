@@ -10,7 +10,9 @@
         </md-button>
     </div>
     <md-dialog-content>
-        <img ng-src="{{ctrl.element.urlFull}}" class="detail-image" ng-show="ctrl.element.urlFull">
+        <div class="detail-image-container" layout="row" layout-align="center center">
+            <img ng-src="{{ctrl.element.urlFull}}" class="detail-image" ng-show="ctrl.element.urlFull">
+        </div>
         <div class="blog-text">{{ctrl.element.text}}</div>
     </md-dialog-content>
 </md-dialog>

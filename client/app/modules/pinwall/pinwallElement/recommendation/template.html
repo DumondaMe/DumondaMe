@@ -31,7 +31,7 @@
                                   when="{'1': ' weiterer Kontakt hat diese Seite bewertet',
                                   'other': ' weitere deiner Kontakte haben diese Seite bewertet'}"></ng-pluralize>
                 </div>
-                <div ng-if="ctrl.element.numberOfSamePinwallData > 0 && !ctrl.element.userHasRecommended">
+                <div ng-if="ctrl.element.numberOfSamePinwallData > 1 && !ctrl.element.userHasRecommended">
                     <span class="number">{{ctrl.element.numberOfSamePinwallData - 1}}</span>
                     <ng-pluralize count="ctrl.element.numberOfSamePinwallData - 1"
                                   when="{'1': ' weiterer Kontakt hat diese Seite bewertet',

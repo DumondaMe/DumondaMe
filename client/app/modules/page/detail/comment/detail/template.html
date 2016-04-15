@@ -1,4 +1,4 @@
-<div class="ely-page-comments-detail" layout="row" layout-align="center start" layout-wrap>
+<div class="ely-page-comments-detail">
     <div class="ely-page-comment" ng-repeat="comment in ctrl.comments.comments">
         <div class="header" layout="row" ng-click="ctrl.goToUserDetail(comment.userId)">
             <img ng-src="{{comment.profileUrl}}" class="profile-preview">
@@ -11,7 +11,7 @@
         </div>
         <ely-expand-text class="description" description="{{comment.comment}}" length="160"></ely-expand-text>
     </div>
-    <div class="pagination" flex="100" layout="row" layout-align="center center">
+    <div class="pagination" layout="row" layout-align="center center">
         <md-button class="md-fab md-mini md-primary" aria-label="Delete Recommendation" ng-click="ctrl.getPrevious()"
                    ng-disabled="ctrl.running" ng-show="ctrl.skip > 0">
             <md-icon md-svg-icon="cardActions:arrowLeft"></md-icon>

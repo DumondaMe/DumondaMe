@@ -19,15 +19,18 @@
       }
       .subtitle {
         font-size: 14px;
-        color: rgba(0,0,0,0.54);
+        color: rgba(0, 0, 0, 0.54);
       }
     }
   }
 
-  .detail-image {
-    max-width: 100%;
+  .detail-image-container {
+    .detail-image {
+      max-width: 600px;
+    }
   }
-  .blog-text {
+  .blog-text{
+    max-width: 600px;
     padding: 16px;
   }
 }

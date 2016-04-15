@@ -2,9 +2,15 @@
   min-width: 300px;
   .ely-page-comments-detail {
     height: 100%;
+    width: 256px;
+    margin: 0 auto;
+    @media screen and (min-width: $gt-xs) {
+      width: 512px;
+    }
     .ely-page-comment {
-      margin-top: 16px;
-      width: 250px;
+      margin: 16px 8px 0 8px;
+      width: 240px;
+      display: inline-block;
       .header {
         cursor: pointer;
         .profile-preview {
