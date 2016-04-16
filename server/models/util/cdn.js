@@ -6,9 +6,12 @@ var expiresAfterADay = 60 * 60 * 12;
 var Promise = require('bluebird');
 var fs = require('fs');
 var _ = require('underscore');
+var s3 = new AWS.S3();
 
 AWS.config.region = 'eu-central-1';
-var s3 = new AWS.S3();
+AWS.config.credentials = new AWS.EC2MetadataCredentials({
+    httpOptions: { timeout: 10000 }
+});
 
 var copyFile = function (source, destination) {
     var params = {
