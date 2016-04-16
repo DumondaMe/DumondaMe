@@ -26,6 +26,7 @@ COPY client/app/img /usr/src/app/client/app/img
 COPY client/app/lib/jquery/jquery.min.js /usr/src/app/client/app/lib/jquery
 COPY client/app/lib/imageCrop/cropper.min.js /usr/src/app/client/app/lib/imageCrop
 COPY client/app/sass/app.css /usr/src/app/client/app/sass
+COPY client/app/sass/app.css.map /usr/src/app/client/app/sass
 COPY client/app/index.html /usr/src/app/client/app
 
 RUN npm install --production
