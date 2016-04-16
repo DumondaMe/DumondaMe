@@ -8,8 +8,9 @@ var fs = require('fs');
 var _ = require('underscore');
 
 AWS.config.region = 'eu-central-1';
+var s3 = new AWS.S3();
 
-var copyFile = function (source, destination, s3) {
+var copyFile = function (source, destination) {
     var params = {
         Bucket: cdnConfig.getConfig().bucket,
         CopySource: cdnConfig.getConfig().bucket + '/' + source,
@@ -28,8 +29,7 @@ var copyFile = function (source, destination, s3) {
 
 module.exports = {
     getUrl: function (path) {
-        var s3 = new AWS.S3(),
-            params = {
+        var params = {
                 Bucket: cdnConfig.getConfig().bucket,
                 Key: path,
                 Expires: expiresAfterADay
@@ -37,10 +37,11 @@ module.exports = {
         return s3.getSignedUrl('getObject', params);
     },
     uploadFile: function (fileName, key) {
-        var s3 = new AWS.S3({params: {Bucket: cdnConfig.getConfig().bucket, Key: key}});
-
         return new Promise(function (resolve, reject) {
-            s3.upload({Body: fs.createReadStream(fileName)})
+            var params = {
+                Bucket: cdnConfig.getConfig().bucket, Key: key, Body: fs.createReadStream(fileName)
+            };
+            s3.upload(params)
                 .send(function (err, data) {
                     if (err) {
                         reject(err);
@@ -51,10 +52,8 @@ module.exports = {
         });
     },
     deleteFolder: function (folderName) {
-        var s3 = new AWS.S3(), params;
-
         return new Promise(function (resolve, reject) {
-            params = {Bucket: cdnConfig.getConfig().bucket, Prefix: folderName};
+            var params = {Bucket: cdnConfig.getConfig().bucket, Prefix: folderName};
             s3.listObjects(params, function (err, data) {
                 if (err) {
                     return reject(err);
@@ -79,15 +78,13 @@ module.exports = {
         });
     },
     copyFile: function (source, destination) {
-        var s3 = new AWS.S3();
-        return copyFile(source, destination, s3);
+        return copyFile(source, destination);
     },
     createFolderRegisterUser: function (userId) {
-        var s3 = new AWS.S3();
-        return copyFile('profileImage/default/profile.jpg', 'profileImage/' + userId + '/profile.jpg', s3).then(function () {
-            return copyFile('profileImage/default/profilePreview.jpg', 'profileImage/' + userId + '/profilePreview.jpg', s3);
+        return copyFile('profileImage/default/profile.jpg', 'profileImage/' + userId + '/profile.jpg').then(function () {
+            return copyFile('profileImage/default/profilePreview.jpg', 'profileImage/' + userId + '/profilePreview.jpg');
         }).then(function () {
-            return copyFile('profileImage/default/thumbnail.jpg', 'profileImage/' + userId + '/thumbnail.jpg', s3);
+            return copyFile('profileImage/default/thumbnail.jpg', 'profileImage/' + userId + '/thumbnail.jpg');
         });
     }
 };
