@@ -76,6 +76,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             };
         }]);
 
+        if (!$httpProvider.defaults.headers.get) {
+            $httpProvider.defaults.headers.get = {};
+        }
+        // disable IE ajax request caching
+        $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
     }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'loginStateHandler', 'userInfo',
