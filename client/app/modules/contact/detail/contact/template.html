@@ -1,14 +1,11 @@
 <md-card id="ely-user-detail-contact-preview">
     <div class="header" layout="row" layout-align="none end">
         <div class="title" ng-click="ctrl.openDetail()">
-            {{ctrl.detail.user.forename}}
-            <ng-pluralize count="ctrl.detail.numberOfContacts"
-                          when="{'0': ' folgt Niemandem',
-                                 'other': ' folgt '}"></ng-pluralize>
+            <span ng-if="ctrl.detail.user.female">Sie folgt</span>
+            <span ng-if="!ctrl.detail.user.female">Er folgt</span>
             <span class="number-contact" ng-if="ctrl.detail.numberOfContacts > 0">{{ctrl.detail.numberOfContacts}}</span>
             <ng-pluralize count="ctrl.detail.numberOfContacts"
-                          when="{'0': '',
-                                 '1': ' Person',
+                          when="{'1': ' Person',
                                  'other': ' Personen'}"></ng-pluralize>
         </div>
     </div>

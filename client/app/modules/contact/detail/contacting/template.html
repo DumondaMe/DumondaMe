@@ -3,8 +3,10 @@
         <div class="title" ng-click="ctrl.openDetail()"><span class="number-contact" ng-if="ctrl.detail.numberOfContacting > 0">
             {{ctrl.detail.numberOfContacting}}</span>
             <ng-pluralize count="ctrl.detail.numberOfContacting"
-                          when="{'1': ' Follower',
-                                 'other': ' Followers'}"></ng-pluralize>
+                          when="{'1': ' Person folgt ',
+                                 'other': ' Personen folgen '}"></ng-pluralize>
+            <span ng-if="ctrl.detail.user.female"> Ihr</span>
+            <span ng-if="!ctrl.detail.user.female"> Ihm</span>
         </div>
     </div>
     <div class="preview-container">
