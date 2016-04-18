@@ -2085,6 +2085,7 @@ md-toast.md-error-toast-theme {
     height: 180px;
     border-radius: 50%; }
   #ely-setting-profile-image .contact-statistic {
+    cursor: pointer;
     font-size: 16px; }
     #ely-setting-profile-image .contact-statistic .number-of-contacting {
       color: #3F51B5; }

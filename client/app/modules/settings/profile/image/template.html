@@ -5,12 +5,12 @@
             <div>
                 <md-button class="md-primary" ng-click="ctrl.uploadProfileImage()">Bild ändern</md-button>
             </div>
-            <div class="contact-statistic">
+            <div class="contact-statistic" ng-click="ctrl.goToContacting()">
                 <span ng-if="ctrl.profile.numberOfContacting > 0" class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
                 <ng-pluralize count="ctrl.profile.numberOfContacting"
-                              when="{'0': 'Noch Niemand folgt Deinen Beiträgen',
-                                    '1': ' Follower',
-                                    'other': ' Followers'}"></ng-pluralize>
+                              when="{'0': 'Noch Niemand folgt Dir',
+                                    '1': ' Person folgt Dir',
+                                    'other': ' Personen folgen Dir'}"></ng-pluralize>
             </span>
         </div>
     </md-card-content>
