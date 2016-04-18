@@ -11,7 +11,7 @@
     </div>
     <form name="createBlogForm" class="content-form">
         <div class="content">
-            <md-select ng-model="ctrl.selectedCategories" multiple="true" placeholder="Kategorie" required class="ely-select-category"
+            <md-select ng-model="ctrl.selectedCategories" multiple="true" placeholder="Thema" required class="ely-select-category"
                        ng-change="ctrl.dataChanged()">
                 <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
             </md-select>
