@@ -1,11 +1,7 @@
 #overview-group-setting {
-  max-width: 500px;
+  max-width: 700px;
   .ely-dialog-content {
     padding-bottom: 0;
-    .title {
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
     .privacy-description {
       font-size: 14px;
       margin-bottom: 16px;
@@ -14,8 +10,13 @@
       .title-container {
         .title {
           font-size: 16px;
-          margin-bottom: 8px;
+          line-height: 16px;
+          vertical-align: middle;
+          margin-bottom: 0px;
           color: $primary-color;
+          @media screen and (min-width: $gt-md) {
+            line-height: 40px;
+          }
         }
         .change-button {
           width: 40px;
