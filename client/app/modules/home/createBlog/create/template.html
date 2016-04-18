@@ -31,13 +31,15 @@
                 <img ng-src="{{ctrl.imageForUploadPreview}}" class="preview-photo">
             </div>
             <div class="actions" layout="row">
-                <md-button class="action-icon md-icon-button" aria-label="Add Photo">
+                <!--<md-button class="action-icon md-icon-button" aria-label="Add Photo">
                     <label for="upload-photo">
                         <md-icon md-svg-icon="createBlog:addPhoto" class="icon"></md-icon>
                     </label>
                 </md-button>
                 <input type="file" ely-file-model="imageForUpload" id="upload-photo" ng-hide="true"
-                       accept=".jpg, .png, jpeg">
+                       accept=".jpg, .png, jpeg">-->
+                <ely-load-image-button class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto"
+                                       aria-label="Add Photo"></ely-load-image-button>
             </div>
             <div class="actions-2" layout="row" layout-align="end center">
                 <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
