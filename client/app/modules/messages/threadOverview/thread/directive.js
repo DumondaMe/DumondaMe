@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                thread: '='
+                thread: '=',
+                lastElement: '='
             },
             templateUrl: 'app/modules/messages/threadOverview/thread/template.html'
         };

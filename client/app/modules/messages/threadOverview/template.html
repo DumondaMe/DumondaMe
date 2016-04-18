@@ -2,7 +2,7 @@
     <div class="thread-container" ely-infinite-scroll="ctrl.nextThreads" ng-show="!ctrl.showThreadSearch">
         <div layout-wrap layout="row" ng-class="{'is-main-view': ctrl.isMainView}">
             <div flex="100" ng-repeat="thread in ctrl.messages.threads" layout="row" layout-align="center">
-                <ely-messages-thread thread="thread"></ely-messages-thread>
+                <ely-messages-thread thread="thread" last-element="$last"></ely-messages-thread>
             </div>
             <md-card class="pinwall-no-element" ng-if="ctrl.messages.threads.length === 0 && !ctrl.showLoad">
                 <md-content>
