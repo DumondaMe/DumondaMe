@@ -15,7 +15,7 @@
                         <div ng-message="email">Keine gültige E-Mail Adresse!</div>
                     </div>
                 </md-input-container>
-                <md-input-container class="input-element md-block">
+                <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
                     <label>Passwort</label>
                     <input type="password" required="" name="password" id="id_password" aria-label="Passwort" md-autofocus
                            ng-model="ctrl.loginuser.password">

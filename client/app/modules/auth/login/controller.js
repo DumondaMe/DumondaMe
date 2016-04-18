@@ -1,9 +1,17 @@
 'use strict';
 
+var charCodeEnter = 13;
+
 module.exports = ['$scope', '$state', 'Auth', 'UrlCache', 'IsAuth', function ($scope, $state, Auth, UrlCache, IsAuth) {
     var ctrl = this;
 
     ctrl.loginRunning = false;
+
+    ctrl.keyPressed = function ($event) {
+        if ($event.charCode === charCodeEnter || $event.keyCode === charCodeEnter) {
+            ctrl.login();
+        }
+    };
 
     ctrl.login = function () {
         delete ctrl.error;
