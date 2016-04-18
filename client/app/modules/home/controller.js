@@ -7,6 +7,7 @@ module.exports = {
                 var ctrl = this;
                 ctrl.home = {pinwall: []};
                 ctrl.noPinwall = false;
+                ctrl.initialLoad = true;
 
                 ctrl.openSideNavRight = function () {
                     $mdSidenav('rightHomeNav').open();
@@ -17,6 +18,7 @@ module.exports = {
                 ctrl.nextPinwallInfo = function () {
                     HomeScrollRequest.nextRequest(ctrl.home.pinwall).then(function (pinwall) {
                         ctrl.home = pinwall;
+                        ctrl.initialLoad = false;
                         if (pinwall.pinwall.length === 0) {
                             ctrl.noPinwall = true;
                         }
