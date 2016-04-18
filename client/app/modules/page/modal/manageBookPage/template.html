@@ -1,8 +1,8 @@
 <md-dialog id="manage-book-page" aria-label="Manage Book Page" class="manage-page" ng-cloak
            ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
     <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages">
-        <div class="md-title title" ng-if="!ctrl.isEditMode">Seite für ein Buch erstellen</div>
-        <div class="md-title title" ng-if="ctrl.isEditMode">Buch <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für ein Buch erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Buch <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
                 <div>

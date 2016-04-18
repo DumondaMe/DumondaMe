@@ -1,7 +1,7 @@
-<md-dialog aria-label="Send new Message" ng-cloak id="ely-conversation-message-create">
+<md-dialog aria-label="Send new Message" ng-cloak class="ely-conversation-message-create">
     <form name="createMessageForm" class="content-form">
         <md-dialog-content class="md-dialog-content">
-            <div class="md-title title">Nachricht an <span class="name">{{ctrl.description}}</span> schreiben</div>
+            <div class="md-title ely-dialog-title">Nachricht an <span class="highlighted">{{ctrl.description}}</span> schreiben</div>
             <md-input-container class="message-input-container">
                 <label>Nachricht...</label>
                 <textarea name="messageText" class="message-input" ng-model="ctrl.newMessage" required md-maxlength="1000"

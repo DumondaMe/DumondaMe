@@ -1,7 +1,7 @@
 <md-dialog id="add-contact" aria-label="Select Contact Group" ng-cloak>
     <form name="ctrl.addContactForm">
         <md-dialog-content class="md-dialog-content">
-            <div class="md-title title"><span class="name">{{ctrl.name}}</span> den Kontakten hinzufügen</div>
+            <div class="md-title ely-dialog-title"><span class="highlighted">{{ctrl.name}}</span> den Kontakten hinzufügen</div>
             <md-radio-group ng-model="ctrl.selectedType">
                 <md-radio-button ng-repeat="typeValue in ctrl.types" value="{{typeValue}}" aria-label="{{typeValue}}" ng-disable="ctrl.uploadStarted">
                     {{typeValue}}

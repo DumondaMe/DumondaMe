@@ -1,9 +1,6 @@
 #add-contact {
-  .title {
-    .name {
-      color: $primary-color;
-    }
-    font-size: 16px;
+  max-width: 500px;
+  .ely-dialog-title {
     margin-bottom: 32px;
   }
 }

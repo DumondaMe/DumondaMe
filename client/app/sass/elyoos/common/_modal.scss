@@ -20,6 +20,9 @@
 .ely-dialog-title {
   font-size: 18px;
   margin-bottom: 16px;
+  .highlighted {
+    color: $primary-color;
+  }
 }
 
 .modal-sm {

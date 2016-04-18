@@ -431,6 +431,8 @@
 .ely-dialog-title {
   font-size: 18px;
   margin-bottom: 16px; }
+  .ely-dialog-title .highlighted {
+    color: #3F51B5; }
 
 .modal-sm {
   position: relative;
@@ -489,17 +491,13 @@ md-toast.md-error-toast-theme {
 *:focus {
   outline: none; }
 
-#add-contact .title {
-  font-size: 16px;
-  margin-bottom: 32px; }
-  #add-contact .title .name {
-    color: #3F51B5; }
+#add-contact {
+  max-width: 500px; }
+  #add-contact .ely-dialog-title {
+    margin-bottom: 32px; }
 
-#move-contact .title {
-  font-size: 16px;
+#move-contact .ely-dialog-title {
   margin-bottom: 32px; }
-  #move-contact .title .name {
-    color: #3F51B5; }
 
 .user-detail-info {
   max-width: 500px;
@@ -850,7 +848,7 @@ md-toast.md-error-toast-theme {
 
 #blog-create {
   min-width: 310px;
-  max-width: 450px;
+  max-width: 700px;
   width: 100%; }
   #blog-create .blog-create-container {
     width: 100%; }
@@ -1044,42 +1042,11 @@ md-toast.md-error-toast-theme {
       #ely-conversation .create-message-fab {
         right: 340px; } }
 
-#ely-conversation-message-create .add-message {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #7986CB;
-  height: 61px; }
-  #ely-conversation-message-create .add-message .message-input-container {
-    padding: 16px 0 0 16px; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input {
-      width: 100%;
-      height: 100%;
-      background-color: #7986CB;
-      border: none;
-      overflow: auto;
-      outline: none;
-      resize: none;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input::-webkit-input-placeholder {
-      color: #000000; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input:-moz-placeholder {
-      color: #000000;
-      opacity: 1; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input::-moz-placeholder {
-      color: #000000;
-      opacity: 1; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input:-ms-input-placeholder {
-      color: #000000; }
-    #ely-conversation-message-create .add-message .message-input-container .message-input:placeholder-shown {
-      color: #000000; }
-  #ely-conversation-message-create .add-message .send-button-container {
-    width: 48px; }
-    #ely-conversation-message-create .add-message .send-button-container .send-button-height {
-      height: 40px; }
-      #ely-conversation-message-create .add-message .send-button-container .send-button-height .send-button {
-        margin: 0;
-        height: 100%; }
+.ely-conversation-message-create {
+  max-width: 500px;
+  width: 100%; }
+  .ely-conversation-message-create .message-input-container {
+    width: 100%; }
 
 .ely-conversation-message {
   padding: 8px 16px; }
@@ -1587,12 +1554,10 @@ md-toast.md-error-toast-theme {
   width: 100%;
   min-width: 300px;
   max-width: 800px; }
-  .manage-page .title {
-    font-size: 18px;
+  .manage-page .ely-dialog-title {
     padding: 16px 24px;
+    margin-bottom: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-    .manage-page .title .title-modify {
-      color: #3F51B5; }
   .manage-page .ely-dialog-content {
     padding-bottom: 0; }
     .manage-page .ely-dialog-content .input-container {

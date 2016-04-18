@@ -2,13 +2,10 @@
   width: 100%;
   min-width: 300px;
   max-width: 800px;
-  .title {
-    font-size: 18px;
+  .ely-dialog-title {
     padding: 16px 24px;
+    margin-bottom: 0;
     border-bottom: 1px solid $divider;
-    .title-modify {
-      color: $primary-color;
-    }
   }
   .ely-dialog-content {
     padding-bottom: 0;
