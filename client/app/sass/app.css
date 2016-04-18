@@ -1,6 +1,16 @@
 .img-circle {
   border-radius: 50%; }
 
+.ely-tab-icon {
+  height: 16px;
+  width: 16px; }
+
+.md-tab {
+  text-transform: none !important; }
+
+.md-button {
+  text-transform: none !important; }
+
 /*!
  * Cropper v2.3.0
  * https://github.com/fengyuanchen/cropper
@@ -668,6 +678,8 @@ md-toast.md-error-toast-theme {
       background-color: #ffffff; }
     #ely-contact .contact-tabs .md-active > div {
       height: 100%; }
+    #ely-contact .contact-tabs .tab-me {
+      margin-right: 2px; }
 
 #ely-contacting-overview {
   height: 100%;

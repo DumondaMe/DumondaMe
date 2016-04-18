@@ -30,6 +30,7 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdIconProvider.iconSet('navFAB', 'app/img/fabNavigation.svg', 24);
     $mdIconProvider.iconSet('createBlog', 'app/img/createBlog.svg', 24);
     $mdIconProvider.iconSet('cardActions', 'app/img/cardActions.svg', 24);
+    $mdIconProvider.iconSet('tabs', 'app/img/tabs.svg', 24);
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',

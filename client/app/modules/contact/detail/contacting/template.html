@@ -3,9 +3,8 @@
         <div class="title" ng-click="ctrl.openDetail()"><span class="number-contact" ng-if="ctrl.detail.numberOfContacting > 0">
             {{ctrl.detail.numberOfContacting}}</span>
             <ng-pluralize count="ctrl.detail.numberOfContacting"
-                          when="{'1': ' Person kontaktierte ',
-                                 'other': ' Personen kontaktierten '}"></ng-pluralize>
-            {{ctrl.detail.user.forename}}
+                          when="{'1': ' Follower',
+                                 'other': ' Followers'}"></ng-pluralize>
         </div>
     </div>
     <div class="preview-container">

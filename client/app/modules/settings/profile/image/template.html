@@ -8,9 +8,9 @@
             <div class="contact-statistic">
                 <span ng-if="ctrl.profile.numberOfContacting > 0" class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
                 <ng-pluralize count="ctrl.profile.numberOfContacting"
-                              when="{'0': 'Noch Niemand hat Dich als Kontakt',
-                                    '1': ' hat Dich als Kontakt',
-                                    'other': ' haben Dich als Kontakt'}"></ng-pluralize>
+                              when="{'0': 'Noch Niemand folgt Deinen Beiträgen',
+                                    '1': ' Follower',
+                                    'other': ' Followers'}"></ng-pluralize>
             </span>
         </div>
     </md-card-content>

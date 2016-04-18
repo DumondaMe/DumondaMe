@@ -8,11 +8,18 @@
                     <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
                 </md-content>
             </md-tab>
-            <md-tab label="Kontakte" ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
+            <md-tab ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
             ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings">
-                <md-content class="md-padding">
-                    <ely-page-detail-user-comments-detail only-contact="true"></ely-page-detail-user-comments-detail>
-                </md-content>
+                <md-tab-label>
+                    <span class="tab-me">Ich</span>
+                    <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+                    <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <ely-page-detail-user-comments-detail only-contact="true"></ely-page-detail-user-comments-detail>
+                    </md-content>
+                </md-tab-body>
             </md-tab>
         </md-tabs>
     </md-card-content>
