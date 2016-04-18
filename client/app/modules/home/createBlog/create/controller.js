@@ -55,7 +55,7 @@ module.exports = {
                         FileReader.onloadend = function () {
                             $scope.$apply(function () {
                                 ctrl.imageForUploadPreviewStart = false;
-                                ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed($scope.blogText, ctrl.selectedCategories,
+                                ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.selectedCategories,
                                     ctrl.imageForUploadPreviewStart);
                                 ctrl.imageForUploadPreview = FileReader.result;
                                 ctrl.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.imageForUploadPreview);
