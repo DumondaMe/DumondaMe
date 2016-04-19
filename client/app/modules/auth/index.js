@@ -4,8 +4,6 @@ var app = angular.module('elyoosApp');
 
 app.controller('RegisterCtrl', require('./registerCtrl'));
 
-app.factory('Register', require('./register'));
-
 app.service('Auth', require('./auth'));
 
 app.config(['$stateProvider', function ($stateProvider) {
@@ -24,8 +22,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/register',
             views: {
                 'content@': {
-                    templateUrl: 'app/modules/auth/register.html',
-                    controller: 'RegisterCtrl'
+                    template: '<ely-register></ely-register>'
                 }
             }
         });

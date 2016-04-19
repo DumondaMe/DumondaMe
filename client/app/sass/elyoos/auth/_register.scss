@@ -1,0 +1,26 @@
+#register-user {
+  height: 100%;
+  overflow-y: auto;
+  #register-user-container-outer {
+    padding-top: 16px;
+    #register-user-container {
+      width: 300px;
+      margin: 0 auto;
+
+      .ely-dialog-title {
+        margin-bottom: 32px;
+      }
+      .ely-input-container {
+        width: 100%;
+        margin: 0;
+      }
+      .select-gender {
+        margin: 24px 0 16px 0;
+      }
+    }
+  }
+}
+
+
+
+

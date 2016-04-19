@@ -366,6 +366,42 @@
     width: 16px;
     height: 16px; }
 
+#loginform {
+  height: 100%; }
+  #loginform .error-message {
+    background: #a94442;
+    color: white;
+    border-radius: 2px; }
+  #loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
+    transition: all linear 0.8s; }
+  #loginform .error-message.ng-hide {
+    line-height: 0;
+    opacity: 0; }
+  #loginform #login-card {
+    width: 300px; }
+    #loginform #login-card .input-element input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+      text-shadow: none; }
+
+#check-login {
+  height: 100%; }
+
+#register-user {
+  height: 100%;
+  overflow-y: auto; }
+  #register-user #register-user-container-outer {
+    padding-top: 16px; }
+    #register-user #register-user-container-outer #register-user-container {
+      width: 300px;
+      margin: 0 auto; }
+      #register-user #register-user-container-outer #register-user-container .ely-dialog-title {
+        margin-bottom: 32px; }
+      #register-user #register-user-container-outer #register-user-container .ely-input-container {
+        width: 100%;
+        margin: 0; }
+      #register-user #register-user-container-outer #register-user-container .select-gender {
+        margin: 24px 0 16px 0; }
+
 .category-description {
   padding: 0 16px; }
   .category-description .category-icon {
@@ -963,26 +999,6 @@ md-toast.md-error-toast-theme {
       font-size: 16px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.87); }
-
-#loginform {
-  height: 100%; }
-  #loginform .error-message {
-    background: #a94442;
-    color: white;
-    border-radius: 2px; }
-  #loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
-    transition: all linear 0.8s; }
-  #loginform .error-message.ng-hide {
-    line-height: 0;
-    opacity: 0; }
-  #loginform #login-card {
-    width: 300px; }
-    #loginform #login-card .input-element input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
-      text-shadow: none; }
-
-#check-login {
-  height: 100%; }
 
 #ely-conversation-message-create .title {
   font-size: 16px;

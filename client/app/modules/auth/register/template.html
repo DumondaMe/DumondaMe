@@ -1,0 +1,76 @@
+<div id="register-user" aria-label="Register User" ng-cloak>
+    <div id="register-user-container-outer">
+        <md-card id="register-user-container">
+            <md-card-content class="md-dialog-content ely-dialog-content">
+                <form name="ctrl.registerUserForm">
+                    <div class="md-title ely-dialog-title">Benutzer registrieren</div>
+                    <md-input-container class="ely-input-container">
+                        <label>Email</label>
+                        <input name="email" ng-model="ctrl.userToRegister.email" required ng-disabled="ctrl.running"/>
+                        <div ng-messages="ctrl.registerUserForm.email.$error" ng-show="ctrl.registerUserForm.email.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Passwort</label>
+                        <input name="password" type="password" ng-model="ctrl.userToRegister.password" required ng-disabled="ctrl.running"/>
+                        <div ng-messages="ctrl.registerUserForm.password.$error" ng-show="ctrl.registerUserForm.password.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Vorname</label>
+                        <input name="forename" ng-model="ctrl.userToRegister.forename" required ng-disabled="ctrl.running"/>
+                        <div ng-messages="ctrl.registerUserForm.forename.$error" ng-show="ctrl.registerUserForm.forename.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Nachname</label>
+                        <input name="surname" ng-model="ctrl.userToRegister.surname" required ng-disabled="ctrl.running"/>
+                        <div ng-messages="ctrl.registerUserForm.surname.$error" ng-show="ctrl.registerUserForm.surname.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Geburtstag</label>
+                        <input name="birthday" ng-model="ctrl.userToRegister.birthday" required ng-disabled="ctrl.running"
+                               ng-change="ctrl.change()"/>
+                        <div ng-messages="ctrl.registerUserForm.birthday.$error" ng-show="ctrl.registerUserForm.birthday.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="birthday-format">Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Strasse (optional)</label>
+                        <input name="street" ng-model="ctrl.userToRegister.street" ng-disabled="ctrl.running"/>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Ort (optional)</label>
+                        <input name="place" ng-model="ctrl.userToRegister.place" ng-disabled="ctrl.running"/>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Land</label>
+                        <md-select ng-model="ctrl.userToRegister.selectedCountryCode" ng-model-options="{trackBy: '$value.code'}"
+                                   ng-change="ctrl.change()">
+                            <md-option ng-repeat="countryCode in ctrl.countryCodes" ng-value="countryCode">
+                                {{countryCode.country}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-radio-group ng-model="ctrl.userToRegister.female" layout="row" class="select-gender">
+                        <md-radio-button value="false">Mann</md-radio-button>
+                        <md-radio-button value="true"> Frau</md-radio-button>
+                    </md-radio-group>
+                </form>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-primary" ng-click="ctrl.upload()"
+                           ng-disabled="ctrl.running || ctrl.registerUserForm.$invalid">
+                    Registrieren
+                </md-button>
+            </md-card-actions>
+            <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
+        </md-card>
+    </div>
+</div>

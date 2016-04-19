@@ -1,11 +1,9 @@
 'use strict';
 
-var app = require('../../../../../server');
 var libUser = require('../../../../../lib/user')();
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
-var should = require('chai').should();
 var moment = require('moment');
 
 describe('Integration Tests for register a new user', function () {
@@ -42,21 +40,23 @@ describe('Integration Tests for register a new user', function () {
             country: 'Schweiz',
             female: true,
             password: '12345678'
-        }, startTime = Math.floor(moment.utc().valueOf() / 1000);
+        }, startTime = Math.floor(moment.utc().valueOf() / 1000), userId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/register', newUser, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            userId = res.body.userId;
             return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'climberwoodi@gmx.ch'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
-                .return('user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, user.country AS country, user.female AS female,' +
+                .return('user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, user.country AS country, user.female AS female,' +
                 'friendPrivacy.profile AS friendProfile, friendPrivacy.image AS friendImage, friendPrivacy.contacts AS friendContacts, friendPrivacy.profileData AS friendProfileData,' +
                 'noContactPrivacy.profile AS noContactProfile, noContactPrivacy.image AS noContactImage, noContactPrivacy.contacts AS noContactContacts, noContactPrivacy.profileData AS noContactProfileData, ' +
                 'user.registerDate AS registerDate')
                 .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
+            user[0].userId.should.equals(userId);
             user[0].name.should.equals('user Waldvogel');
             user[0].forename.should.equals(newUser.forename);
             user[0].surname.should.equals(newUser.surname);

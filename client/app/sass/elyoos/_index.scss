@@ -1,3 +1,6 @@
+@import 'auth/_login';
+@import 'auth/_register';
+
 @import 'common/_category';
 @import 'common/_closeSubToolbar';
 @import 'common/_modal';
@@ -25,8 +28,6 @@
 @import 'home/_createBlog';
 @import 'home/_home';
 @import 'home/_rightSidenav';
-
-@import 'login/_login';
 
 @import 'messages/modal/_sendMessage';
 @import 'messages/_conversation';

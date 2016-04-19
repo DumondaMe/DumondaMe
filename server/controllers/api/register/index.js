@@ -34,8 +34,8 @@ module.exports = function (router) {
                     return registerUser.registerUser(request, req);
                 }
                 return exceptions.getInvalidOperation('Only user id 0 can register new user at the moment', logger, req);
-            }).then(function () {
-                res.status(200).end();
+            }).then(function (userId) {
+                res.status(200).json(userId);
             });
         });
     });

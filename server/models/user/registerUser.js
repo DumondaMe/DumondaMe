@@ -51,11 +51,13 @@ var registerUser = function (params, req) {
             }
         };
         return db.cypher().create("(:Privacy {privacy})<-[:HAS_PRIVACY {type: 'Freund'}]-(:User {userData})" +
-        "-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {privacy})")
+                "-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {privacy})")
             .end(paramsCypher)
             .send();
     }).then(function () {
         return cdn.createFolderRegisterUser(userId);
+    }).then(function () {
+        return {userId: userId};
     });
 };
 
