@@ -77,12 +77,8 @@ module.exports = {
 
 
     },
-    searchUsersQuery: function (userId, userQuery, maxItems, isSuggestion) {
+    searchUsersQuery: function (userId, userQuery, maxItems) {
         var userQueryRegEx = '(?i)'.concat(userQuery, '.*');
-
-        if (isSuggestion) {
-            return searchUsersInSuggestionModeQuery(userId, userQueryRegEx, maxItems);
-        }
         return searchUsersInNormalModeQuery(userId, userQueryRegEx, maxItems);
     }
 };

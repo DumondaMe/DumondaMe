@@ -5,9 +5,9 @@ var pagePreview = require('./../page/pagePreview');
 var searchUser = require('./../user/searchUser');
 var userInfo = require('./../user/userInfo');
 
-var search = function (userId, userQuery, maxItems, isSuggestion) {
+var search = function (userId, userQuery, maxItems) {
     var commands = [];
-    commands.push(searchUser.searchUsersQuery(userId, userQuery, maxItems, isSuggestion).getCommand());
+    commands.push(searchUser.searchUsersQuery(userId, userQuery, maxItems).getCommand());
 
     return searchPage.searchPageQuery(userId, userQuery, null, 0, maxItems)
         .send(commands).then(function (resp) {
