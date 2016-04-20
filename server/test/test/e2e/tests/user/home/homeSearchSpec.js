@@ -62,8 +62,7 @@ describe('Integration Tests for searching people or pages', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/home/search', {
                 search: 'user',
-                maxItems: 10,
-                isSuggestion: false
+                maxItems: 10
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
