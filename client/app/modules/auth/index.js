@@ -2,8 +2,6 @@
 
 var app = angular.module('elyoosApp');
 
-app.controller('RegisterCtrl', require('./registerCtrl'));
-
 app.service('Auth', require('./auth'));
 
 app.config(['$stateProvider', function ($stateProvider) {
