@@ -5,18 +5,37 @@ var underscore = require('underscore');
 var pagePreview = require('./pagePreview');
 var pageFilter = require('./pageFilter');
 
-var searchPage = function (userId, search, filterType, skip, limit) {
+var searchPageQuery = function (userId, search, filterType) {
+    var filterQuery = pageFilter.getFilterQuery(filterType);
 
-    var orderBy = "page.modified DESC",
-        startQuery = db.cypher(),
-        searchRegEx = '(?i).*'.concat(search, '.*'),
-        filterQuery = pageFilter.getFilterQuery(filterType);
-
-    startQuery.match("(page)")
+    return db.cypher().match("(page)")
         .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
         .with("page")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
         .with("page, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
+};
+
+var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
+    var searchRegEx = '(?i).*'.concat(search, '.*');
+    
+    return searchPageQuery(userId, search, filterType)
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRatings, rating, " +
+            "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
+        .orderBy("page.modified DESC")
+        .skip("{skip}")
+        .limit("{limit}").end({
+            userId: userId,
+            skip: skip,
+            limit: limit,
+            search: searchRegEx
+        });
+};
+
+var searchPage = function (userId, search, filterType, skip, limit) {
+
+    var orderBy = "page.modified DESC",
+        startQuery = searchPageQuery(userId, search, filterType),
+        searchRegEx = '(?i).*'.concat(search, '.*');
 
     return pagePreview.pagePreviewQuery({
         userId: userId,
@@ -87,6 +106,7 @@ var searchSuggestionUserRecommendedPage = function (userId, search, skip, limit)
 
 module.exports = {
     searchPage: searchPage,
+    searchPageQuery: fullSearchPageQuery,
     searchUserRecommendedPage: searchUserRecommendedPage,
     searchSuggestionUserRecommendedPage: searchSuggestionUserRecommendedPage
 };

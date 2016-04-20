@@ -3,7 +3,7 @@
 var db = require('./../../neo4j');
 var userInfo = require('./userInfo');
 
-var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
+var searchUsersInSuggestionModeQuery = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
         .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .return('contact.name AS name')
@@ -13,10 +13,13 @@ var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
             "AND NOT (u2)-[:IS_CONTACT]->(noContacts) AND NOT noContacts.userId = {userId}")
         .return('noContacts.name AS name')
         .orderBy('name LIMIT {maxItems}')
-        .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems})
+        .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems});
+};
+
+var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
+    return searchUsersInSuggestionModeQuery(userId, userQuery, maxItems)
         .send()
         .then(function (resp) {
-
             if (resp.length <= maxItems) {
                 return resp;
             }
@@ -24,7 +27,7 @@ var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
         });
 };
 
-var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
+var searchUsersInNormalModeQuery = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
         .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .with('contact, r, user')
@@ -46,10 +49,13 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
         .return('noContacts.name AS name, null AS type, null AS contactAdded, rContact AS contactType, rContact.contactAdded AS userAdded, ' +
             'noContacts.userId AS userId, v.profile AS profileVisible, v.image AS imageVisible, EXISTS((u2)-[:IS_BLOCKED]->(noContacts)) AS blocked')
         .orderBy('name LIMIT {maxItems}')
-        .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems})
+        .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems});
+};
+
+var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
+    return searchUsersInNormalModeQuery(userId, userQuery, maxItems)
         .send()
         .then(function (resp) {
-
             userInfo.addContactPreviewInfos(resp);
 
             if (resp.length <= maxItems) {
@@ -70,5 +76,13 @@ module.exports = {
         return searchUsersInNormalMode(userId, userQueryRegEx, maxItems);
 
 
+    },
+    searchUsersQuery: function (userId, userQuery, maxItems, isSuggestion) {
+        var userQueryRegEx = '(?i)'.concat(userQuery, '.*');
+
+        if (isSuggestion) {
+            return searchUsersInSuggestionModeQuery(userId, userQueryRegEx, maxItems);
+        }
+        return searchUsersInNormalModeQuery(userId, userQueryRegEx, maxItems);
     }
 };
