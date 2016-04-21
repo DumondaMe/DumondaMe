@@ -8,7 +8,7 @@ var pageFilter = require('./pageFilter');
 var searchPageQuery = function (userId, search, filterType) {
     var filterQuery = pageFilter.getFilterQuery(filterType);
 
-    return db.cypher().match("(page)")
+    return db.cypher().match("(page:Page)")
         .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
         .with("page")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
@@ -20,8 +20,9 @@ var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
     
     return searchPageQuery(userId, search, filterType)
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRatings, rating, " +
-            "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
-        .orderBy("page.modified DESC")
+            "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, " +
+            "EXISTS((page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS userRecommended" )
+        .orderBy("userRecommended DESC, page.title")
         .skip("{skip}")
         .limit("{limit}").end({
             userId: userId,
