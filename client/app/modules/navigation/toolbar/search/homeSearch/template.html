@@ -1,0 +1,19 @@
+<div class="autocomplete-container">
+    <md-autocomplete ng-disabled="false"
+                     md-autofocus="true"
+                     md-no-cache="true"
+                     md-delay="100"
+                     md-min-length="3"
+                     md-search-text="ctrl.searchText"
+                     md-selected-item-change="ctrl.commands.startSearch()"
+                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                     md-input-id="toolbar-search-input"
+                     md-menu-class="ely-toolbar-search-home"
+                     placeholder="Suche Person, Seiten"
+                     ng-keypress="ctrl.keyPressed($event)">
+        <md-item-template>
+            <ely-autosuggestion-contact ng-if="item.userId" item="item"></ely-autosuggestion-contact>
+            <ely-autosuggestion-page ng-if="item.pageId" item="item"></ely-autosuggestion-page>
+        </md-item-template>
+    </md-autocomplete>
+</div>

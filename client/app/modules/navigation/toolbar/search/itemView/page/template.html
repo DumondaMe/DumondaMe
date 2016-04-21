@@ -1,0 +1,13 @@
+<div class="autosuggestion-page" layout="row">
+    <md-icon flex="none" md-svg-icon="cardActions:book" aria-label="Book" class="label-icon" ng-hide="ctrl.item.label !== 'Book'"></md-icon>
+    <md-icon flex="none" md-svg-icon="cardActions:video" aria-label="Video" class="label-icon"
+             ng-hide="ctrl.item.label !== 'Youtube'"></md-icon>
+    <div class="page-container">
+        <span class="page-title">{{ctrl.item.title}}</span>
+                    <span class="page-rating">
+                        <ely-star-rating is-readonly="true" is-x-small="true"
+                                         number-of-selected-stars-readonly="ctrl.item.recommendation.summary.rating"></ely-star-rating>
+                        <span class="number-of-ratings">({{ctrl.item.recommendation.summary.numberOfRatings}})</span>
+                    </span>
+    </div>
+</div>

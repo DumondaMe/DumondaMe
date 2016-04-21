@@ -62,38 +62,38 @@ describe('Integration Tests for searching people or pages', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/home/search', {
                 search: 'user',
-                maxItems: 10
+                maxItems: 10,
+                isSuggestion: true
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.users.length.should.equal(3);
-            res.body.users[0].name.should.equal("user uMeier5");
-            res.body.users[0].userId.should.equal("5");
-            res.body.users[0].type.should.equal('Freund');
-            res.body.users[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            res.body.length.should.equal(6);
+            res.body[0].name.should.equal("user uMeier5");
+            res.body[0].userId.should.equal("5");
+            res.body[0].type.should.equal('Freund');
+            res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
-            res.body.users[1].name.should.equal("user Meier2");
-            res.body.users[1].userId.should.equal("2");
-            should.not.exist(res.body.users[1].type);
-            res.body.users[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            res.body[1].name.should.equal("user Meier2");
+            res.body[1].userId.should.equal("2");
+            should.not.exist(res.body[1].type);
+            res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
-            res.body.users[2].name.should.equal("user sMeier6");
-            res.body.users[2].userId.should.equal("6");
-            should.not.exist(res.body.users[1].type);
-            res.body.users[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            res.body[2].name.should.equal("user sMeier6");
+            res.body[2].userId.should.equal("6");
+            should.not.exist(res.body[1].type);
+            res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            
+            res.body[3].title.should.equal("y written by user");
+            res.body[3].pageId.should.equal("2");
+            res.body[3].label.should.equal("Book");
 
-            res.body.pages.length.should.equal(3);
-            res.body.pages[0].title.should.equal("y written by user");
-            res.body.pages[0].pageId.should.equal("2");
-            res.body.pages[0].label.should.equal("Book");
+            res.body[4].title.should.equal("book written by user");
+            res.body[4].pageId.should.equal("0");
+            res.body[4].label.should.equal("Book");
 
-            res.body.pages[1].title.should.equal("book written by user");
-            res.body.pages[1].pageId.should.equal("0");
-            res.body.pages[1].label.should.equal("Book");
-
-            res.body.pages[2].title.should.equal("youtube movie by user");
-            res.body.pages[2].pageId.should.equal("3");
-            res.body.pages[2].label.should.equal("Youtube");
+            res.body[5].title.should.equal("youtube movie by user");
+            res.body[5].pageId.should.equal("3");
+            res.body[5].label.should.equal("Youtube");
         });
     });
 
