@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Categories', 'ElyModal',
-    function (Categories, ElyModal) {
+module.exports = ['Categories', 'ElyModal', '$mdDialog', 'UserPage', 'errorToast', '$state',
+    function (Categories, ElyModal, $mdDialog, UserPage, errorToast, $state) {
         var ctrl = this;
 
         ctrl.getCategory = Categories.getCategory;
@@ -26,6 +26,24 @@ module.exports = ['Categories', 'ElyModal',
                 ctrl.pageDetail.page.publishDate = data.publishDate;
                 ctrl.pageDetail.page.category = Categories.getCodes(data.selectedCategories);
                 ctrl.pageDetail.page.titleUrl = data.dataUri;
+            });
+        };
+
+        ctrl.deletePage = function () {
+            var confirm = $mdDialog.confirm()
+                .title("Buch Seite löschen")
+                .textContent("Willst Du diese Seite wirklich löschen?")
+                .ariaLabel("Delete Book Page")
+                .ok("Löschen")
+                .cancel("Abbrechen");
+            $mdDialog.show(confirm).then(function () {
+                UserPage.delete({
+                    pageId: ctrl.pageDetail.page.pageId
+                }, function () {
+                    $state.go('home');
+                }, function () {
+                    errorToast.showError("Fehler beim Löschen der Bewertung");
+                });
             });
         };
     }];
