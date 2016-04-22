@@ -56,4 +56,8 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
     this.addedBlog = function () {
         scrollRequest.skipBlog = scrollRequest.skipBlog + 1;
     };
+    
+    this.addedRecommendation = function () {
+        scrollRequest.skipRecommendation = scrollRequest.skipRecommendation + 1;
+    };
 }];

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['PageRecommendation', 'errorToast', 'moment',
-    function (PageRecommendation, errorToast, moment) {
+module.exports = ['PageRecommendation', 'errorToast',
+    function (PageRecommendation, errorToast) {
         var ctrl = this;
 
         ctrl.numberOfSelectedStars = -1;
@@ -22,7 +22,7 @@ module.exports = ['PageRecommendation', 'errorToast', 'moment',
                             rating: ctrl.numberOfSelectedStars,
                             comment: ctrl.description,
                             recommendationId: resp.recommendationId,
-                            created: moment.unix(resp.created).format('LL')
+                            created: resp.created
                         }
                     }
                 };

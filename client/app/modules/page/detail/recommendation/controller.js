@@ -9,8 +9,8 @@ var reloadRatingOverview = function (allCommand, contactCommand) {
     }
 };
 
-module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast',
-    function (PageUserRecommendation, ElyModal, $mdDialog, errorToast) {
+module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast', 'moment',
+    function (PageUserRecommendation, ElyModal, $mdDialog, errorToast, moment) {
         var ctrl = this;
 
         ctrl.ratingOverviewAllCommands = {};
@@ -41,6 +41,7 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
             ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
                 {pageId: ctrl.pageId, title: ctrl.title}).then(function (data) {
                 ctrl.recommendation = data.recommendation;
+                ctrl.recommendation.user.created = moment.unix(ctrl.recommendation.user.created).format('LL');
                 reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
             });
         };

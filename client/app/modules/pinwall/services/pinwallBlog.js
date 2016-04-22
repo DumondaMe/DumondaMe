@@ -27,4 +27,9 @@ module.exports = [ 'Observables',
             pinwall.unshift(blog);
             Observables.notifyObservables(observables, 'addedBlog');
         };
+
+        this.addRecommendation = function (pinwall, recommendation) {
+            pinwall.unshift(recommendation);
+            Observables.notifyObservables(observables, 'addedRecommendation');
+        };
     }];

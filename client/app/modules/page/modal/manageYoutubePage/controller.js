@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'errorToast', 'YoutubePageCreateMessageService', 'UploadPageService',
-    'CheckPageExists',
-    function (ElyModal, Categories, PageYoutubeLink, fileUpload, errorToast, YoutubePageCreateMessageService, UploadPageService, CheckPageExists) {
+    'CheckPageExists', 'RecommendationResponseFormatter',
+    function (ElyModal, Categories, PageYoutubeLink, fileUpload, errorToast, YoutubePageCreateMessageService, UploadPageService, CheckPageExists,
+              RecommendationResponseFormatter) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -61,8 +62,13 @@ module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'er
             UploadPageService.uploadModifyPage(message, ctrl);
         };
 
-        ctrl.recommendationFinish = function () {
-            ElyModal.hide();
+        ctrl.recommendationFinish = function (recommendation) {
+            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Youtube');
+            ElyModal.hide(ctrl.data);
+        };
+
+        ctrl.recommendationAbort = function () {
+            ElyModal.cancel();
         };
     }];
 

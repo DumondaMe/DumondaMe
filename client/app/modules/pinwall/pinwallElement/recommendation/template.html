@@ -20,7 +20,8 @@
         <div class="content-container">
             <div class="page-title">{{ctrl.element.title}}</div>
             <div class="description">{{ctrl.element.description}}</div>
-            <div class="forename">{{ctrl.element.forename}}'s Bewertung</div>
+            <div class="forename" ng-if="!ctrl.element.thisRecommendationByUser">{{ctrl.element.forename}}'s Bewertung</div>
+            <div class="forename" ng-if="ctrl.element.thisRecommendationByUser">Deine Bewertung</div>
             <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
                              number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
             <div class="recommendation-container" ng-if="ctrl.element.numberOfSamePinwallData > 0">

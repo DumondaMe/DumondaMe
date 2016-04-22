@@ -87,6 +87,6 @@
     <ely-existing-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
                                 cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview>
 
-    <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.title" page-id="ctrl.pageId"
-                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationFinish"></ely-add-recommendation>
+    <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.data.title" page-id="ctrl.data.pageId"
+                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
 </md-dialog>

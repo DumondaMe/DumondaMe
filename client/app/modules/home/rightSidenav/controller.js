@@ -16,12 +16,18 @@ module.exports = {
 
                 ctrl.createBookPage = function () {
                     $mdSidenav('rightHomeNav').close();
-                    ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html');
+                    ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html')
+                        .then(function (resp) {
+                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                        });
                 };
 
                 ctrl.createYoutubePage = function () {
                     $mdSidenav('rightHomeNav').close();
-                    ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html');
+                    ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html')
+                        .then(function (resp) {
+                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                        });
                 };
             }];
     }

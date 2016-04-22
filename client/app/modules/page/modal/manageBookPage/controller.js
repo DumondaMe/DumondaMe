@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'moment',
-    'CheckPageExists', 'UploadPageService',
+    'CheckPageExists', 'UploadPageService', 'RecommendationResponseFormatter',
     function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
-              UploadPageService) {
+              UploadPageService, RecommendationResponseFormatter) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -79,8 +79,13 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
             UploadPageService.uploadModifyPage(message, ctrl);
         };
 
-        ctrl.recommendationFinish = function () {
-            ElyModal.hide();
+        ctrl.recommendationFinish = function (recommendation) {
+            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Book');
+            ElyModal.hide(ctrl.data);
+        };
+        
+        ctrl.recommendationAbort = function () {
+            ElyModal.cancel();
         };
     }];
 
