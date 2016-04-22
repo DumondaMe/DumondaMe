@@ -1,12 +1,12 @@
 <md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" ng-cloak class="manage-page">
     <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages">
-        <div class="md-title title" ng-if="!ctrl.isEditMode">Seite für ein Youtube Video erstellen</div>
-        <div class="md-title title" ng-if="ctrl.isEditMode">Video <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für ein Youtube Video erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Video <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="row">
-                <div class="youtube-preview" flex="none" hide show-gt-sm>
+                <div class="youtube-preview" flex="none" hide show-gt-sm
+                     ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty">
                     <ely-iframe width="270" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
-                                ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty"
                                 layout="row" layout-align="center center"></ely-iframe>
                 </div>
                 <div flex>
@@ -18,7 +18,7 @@
                         <md-input-container class="input-container">
                             <label>Titel</label>
                             <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
-                                   ng-disabled="ctrl.uploadStarted"/>
+                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
                             <div ng-messages="ctrl.manageYoutubePageForm.title.$error">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -36,8 +36,8 @@
                                 <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
                             </div>
                         </md-input-container>
-                        <div class="page-exists-warning" ng-if="ctrl.pageExists" ng-click="ctrl.showExistingPages = true">Diese Seite existiert
-                            möglicherweise bereits. Hier klicken...
+                        <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageYoutubePageForm.link.$valid"
+                             ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
                         </div>
                     </div>
                     <md-input-container class="input-container">

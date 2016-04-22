@@ -22,27 +22,22 @@ module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'er
 
         ctrl.titleHasChanged = function () {
             if (ctrl.data.title && ctrl.data.title.length > 10) {
-                ctrl.checkPageExists();
+                ctrl.checkPageExists(ctrl.data.title);
             }
         };
 
         ctrl.linkHasChanged = function () {
             var validLink = PageYoutubeLink.isValidYoutubeLink(ctrl.data.link);
             ctrl.manageYoutubePageForm.link.$setValidity('ely-invalid-link', validLink);
-            if (ctrl.data.link && ctrl.data.link.length > 10) {
-                ctrl.checkPageExists();
-            }
+            
             if (validLink) {
                 ctrl.youtubeLinkFormatted = PageYoutubeLink.getYoutubeLink(ctrl.data.link);
+                ctrl.checkPageExists(ctrl.youtubeLinkFormatted);
             }
         };
 
-        ctrl.lostFocus = function () {
-            ctrl.checkPageExists();
-        };
-
-        ctrl.checkPageExists = function () {
-            return CheckPageExists.checkPageExists(ctrl.data.link, 'Youtube').then(function (result) {
+        ctrl.checkPageExists = function (query) {
+            return CheckPageExists.checkPageExists(query, 'Youtube').then(function (result) {
                 ctrl.searchResult = result.searchResult;
                 ctrl.pageExists = result.pageExists;
             });

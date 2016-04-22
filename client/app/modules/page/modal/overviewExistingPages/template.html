@@ -1,14 +1,9 @@
 <div id="ely-page-overview">
-    <div class="md-title title">Folgende Seiten existieren bereits</div>
+    <div class="md-title ely-dialog-title">Folgende Seiten existieren bereits</div>
     <div class="page-element-container">
-        <div ng-repeat="page in ctrl.pages" class="page-overview-element" layout="row">
-            <img ng-src="{{page.url}}" class="page-image-preview" flex="none">
-            <div class="page-container" flex>
-                <div class="md-title page-title">{{page.title}}</div>
-                <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="page.recommendation.summary.rating"></ely-star-rating>
-                <div class="page-description">{{page.description}}</div>
-            </div>
+        <div ng-repeat="page in ctrl.pages" class="page-overview-element">
+            <ely-existing-page-overview-book page="page" ng-if="page.label==='Book'"></ely-existing-page-overview-book>
+            <ely-existing-page-overview-youtube page="page" ng-if="page.label==='Youtube'"></ely-existing-page-overview-youtube>
         </div>
     </div>
     <md-dialog-actions>

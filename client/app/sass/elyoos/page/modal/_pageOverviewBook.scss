@@ -1,0 +1,22 @@
+.ely-page-overview-book {
+  .page-image-preview {
+    height: 60px;
+    max-width: 38px;
+    margin-right: 8px;
+  }
+  .page-container {
+    .page-title {
+      font-size: 14px;
+      max-height: 34px;
+      overflow: hidden;
+    }
+    .page-description {
+      margin-top: 4px;
+      font-size: 14px;
+      color: $secondary-text;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}

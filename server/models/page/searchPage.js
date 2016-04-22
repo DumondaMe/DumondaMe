@@ -5,7 +5,7 @@ var underscore = require('underscore');
 var pagePreview = require('./pagePreview');
 var pageFilter = require('./pageFilter');
 
-var searchPageQuery = function (userId, search, filterType) {
+var searchPageQuery = function (userId, filterType) {
     var filterQuery = pageFilter.getFilterQuery(filterType);
 
     return db.cypher().match("(page:Page)")
@@ -18,7 +18,7 @@ var searchPageQuery = function (userId, search, filterType) {
 var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
     var searchRegEx = '(?i).*'.concat(search, '.*');
     
-    return searchPageQuery(userId, search, filterType)
+    return searchPageQuery(userId, filterType)
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRatings, rating, " +
             "page.category AS category, " +
             "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, " +
@@ -35,8 +35,8 @@ var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
 
 var searchPage = function (userId, search, filterType, skip, limit) {
 
-    var orderBy = "page.modified DESC",
-        startQuery = searchPageQuery(userId, search, filterType),
+    var orderBy = "page.modified DESC", 
+        startQuery = searchPageQuery(userId, filterType),
         searchRegEx = '(?i).*'.concat(search, '.*');
 
     return pagePreview.pagePreviewQuery({

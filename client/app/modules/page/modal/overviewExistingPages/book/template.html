@@ -1,0 +1,9 @@
+<div class="ely-page-overview-book" layout="row">
+    <img ng-src="{{ctrl.page.url}}" class="page-image-preview" flex="none">
+    <div class="page-container" flex>
+        <div class="md-title page-title">{{ctrl.page.title}}</div>
+        <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
+                         number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
+        <div class="page-description">{{ctrl.page.description}}</div>
+    </div>
+</div>

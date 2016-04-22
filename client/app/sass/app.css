@@ -1726,7 +1726,7 @@ md-toast.md-error-toast-theme {
     padding-bottom: 0; }
     .manage-page .ely-dialog-content .input-container {
       width: 100%;
-      margin: 0; }
+      margin: 4px 0; }
     .manage-page .ely-dialog-content .page-exists-warning {
       cursor: pointer;
       color: #EF6C00;
@@ -1748,19 +1748,28 @@ md-toast.md-error-toast-theme {
   margin-bottom: 16px; }
   #ely-page-overview .page-element-container .page-overview-element {
     padding: 8px 16px; }
-    #ely-page-overview .page-element-container .page-overview-element .page-image-preview {
-      height: 60px;
-      max-width: 38px;
-      margin-right: 8px; }
-    #ely-page-overview .page-element-container .page-overview-element .page-container .page-title {
-      font-size: 16px; }
-    #ely-page-overview .page-element-container .page-overview-element .page-container .page-description {
-      margin-top: 4px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54);
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden; }
+
+.ely-page-overview-book .page-image-preview {
+  height: 60px;
+  max-width: 38px;
+  margin-right: 8px; }
+.ely-page-overview-book .page-container .page-title {
+  font-size: 14px;
+  max-height: 34px;
+  overflow: h; }
+.ely-page-overview-book .page-container .page-description {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
+.ely-page-overview-youtube .youtube-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 8px 0; }
 
 .pinwall-blog-card {
   max-width: 400px;

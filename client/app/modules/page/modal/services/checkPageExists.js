@@ -15,7 +15,7 @@ module.exports = ['SearchPage', '$q', function (SearchPage, $q) {
             searchResult = SearchPage.get({search: search, filterType: filter, isSuggestion: false, skip: 0, maxItems: 10});
             return searchResult.$promise.then(function (result) {
                 if (result.pages && result.pages.length > 0) {
-                    return {searchResult: result, pageExists: true}
+                    return {searchResult: result, pageExists: true};
                 }
                 return {searchResult: null, pageExists: false};
             });
