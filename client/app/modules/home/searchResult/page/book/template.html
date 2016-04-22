@@ -1,0 +1,20 @@
+<md-card class="ely-search-result-book-page">
+    <div class="book-page-container" layout="row" ng-click="ctrl.goToDetail()">
+        <img ng-src="{{ctrl.page.url}}" class="book-image" flex="none">
+        <div class="info-container">
+            <div class="page-title">{{ctrl.page.title}}</div>
+            <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings > 0">
+                <ely-star-rating is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
+                <span class="number-of-ratings">({{ctrl.page.recommendation.summary.numberOfRatings}})</span>
+            </div>
+            <div class="category-description">
+                <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon"></md-icon>
+                <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
+                <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+                     ng-repeat="category in ctrl.page.category">{{ctrl.getCategory(category)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

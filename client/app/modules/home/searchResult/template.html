@@ -1,0 +1,25 @@
+<div id="ely-home-search-result">
+    <div class="result-container " ng-if="ctrl.resultConverted.users.length > 0">
+        <div class="search-result-title">Personen</div>
+        <div class="search-element-user" ng-repeat="user in ctrl.resultConverted.users">
+            <ely-contact-preview-square user="user"></ely-contact-preview-square>
+        </div>
+    </div>
+    <div class="result-container" ng-if="ctrl.resultConverted.books.length > 0">
+        <div class="search-result-title">Bücher</div>
+        <div class="search-element-page" ng-repeat="page in ctrl.resultConverted.books">
+            <ely-home-search-result-page page="page"></ely-home-search-result-page>
+        </div>
+    </div>
+    <div class="result-container" ng-if="ctrl.resultConverted.youtube.length > 0">
+        <div class="search-result-title">Youtube</div>
+        <div layout="row" layout-align="start start" layout-wrap>
+            <div class="search-element-page" ng-repeat="page in ctrl.resultConverted.youtube">
+                <ely-home-search-result-page page="page"></ely-home-search-result-page>
+            </div>
+        </div>
+    </div>
+    <md-card class="no-result" ng-if="!ctrl.resultConverted.hasResults">
+        Diese Suche ergab keine Treffer.
+    </md-card>
+</div>

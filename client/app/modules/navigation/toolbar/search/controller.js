@@ -14,12 +14,16 @@ module.exports = ['$rootScope',
         ctrl.commands = {};
         setIsExpanded(ctrl, false);
 
-        ctrl.closeExpand = function () {
-            setIsExpanded(ctrl, false);
-            ctrl.showClose = false;
+        ctrl.closeExpandAll = function () {
             if(angular.isFunction(ctrl.commands.abortSearch)) {
                 ctrl.commands.abortSearch();
             }
+            ctrl.closeExpand();
+        };
+
+        ctrl.closeExpand = function () {
+            setIsExpanded(ctrl, false);
+            ctrl.showClose = false;
             ctrl.searchClose();
         };
 
@@ -34,7 +38,7 @@ module.exports = ['$rootScope',
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
 
-            ctrl.closeExpand();
+            ctrl.closeExpandAll();
 
             if (toState.hasOwnProperty('data') && toState.data.hasOwnProperty('searchServiceName')) {
                 ctrl.serviceName = toState.data.searchServiceName;

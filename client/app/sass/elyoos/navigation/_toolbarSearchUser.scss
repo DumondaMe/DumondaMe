@@ -1,0 +1,30 @@
+.autosuggestion-user {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow: hidden;
+  .profile-Image {
+    margin-right: 8px;
+    height: 38px;
+    width: 38px;
+    border-radius: 2px;
+  }
+  .profile-container {
+    height: 38px;
+    .user-name {
+      display: block;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 500;
+      height: 19px;
+      line-height: 14px;
+      color: $primary-text;
+    }
+    .user-relationship {
+      display: block;
+      height: 19px;
+      line-height: 14px;
+      font-size: 12px;
+      color: $secondary-text;
+    }
+  }
+}

@@ -10,6 +10,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 commands: '=',
+                onClose: '=',
                 requestStarted: '&'
             },
             controller: require('./controller.js')

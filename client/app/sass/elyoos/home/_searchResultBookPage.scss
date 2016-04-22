@@ -1,0 +1,39 @@
+.ely-search-result-book-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px;
+  .book-page-container {
+    cursor: pointer;
+    .book-image {
+      width: 100px;
+      max-height: 160px;
+    }
+    .info-container {
+      padding: 8px;
+      .page-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: $primary-text;
+        max-height: 34px;
+        overflow: hidden;
+      }
+      .page-rating {
+        .number-of-ratings {
+          margin-left: 4px;
+          font-size: 12px;
+          color: $secondary-text;
+        }
+      }
+      .category-description {
+        padding: 8px 0 0 0;
+        .category-type {
+          font-size: 12px;
+          height: 16px;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+}
+
+

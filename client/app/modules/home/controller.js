@@ -6,7 +6,8 @@ module.exports =
             var ctrl = this;
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
-            ctrl.initialLoad = true;
+            ctrl.loadRunning = true;
+            ctrl.showSearch = false;
 
             ctrl.openSideNavRight = function () {
                 $mdSidenav('rightHomeNav').open();
@@ -18,28 +19,25 @@ module.exports =
             SearchService.register(ctrl, SearchHome.query, SearchHome.query);
 
             ctrl.requestStarted = function () {
-                ctrl.requestRunning = true;
+                ctrl.loadRunning = true;
             };
 
             ctrl.requestFinished = function (resp) {
-                ctrl.requestRunning = false;
-                if (angular.isArray(resp)) {
-                    ctrl.showUserQuery = true;
-                    ctrl.userQueryResult = resp;
-                }
+                ctrl.loadRunning = false;
+                ctrl.showSearch = true;
+                ctrl.searchResult = resp;
             };
 
             ctrl.abortSearch = function () {
-                ctrl.requestRunning = false;
-                ctrl.showUserQuery = false;
-                ctrl.userQueryResult = null;
+                ctrl.loadRunning = false;
+                ctrl.showSearch = false;
             };
             //---------------------
 
             ctrl.nextPinwallInfo = function () {
                 HomeScrollRequest.nextRequest(ctrl.home.pinwall).then(function (pinwall) {
                     ctrl.home = pinwall;
-                    ctrl.initialLoad = false;
+                    ctrl.loadRunning = false;
                     if (pinwall.pinwall.length === 0) {
                         ctrl.noPinwall = true;
                     }

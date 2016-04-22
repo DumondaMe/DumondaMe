@@ -27,7 +27,10 @@
 
 @import 'home/_createBlog';
 @import 'home/_home';
+@import 'home/_homeSearchResult';
 @import 'home/_rightSidenav';
+@import 'home/_searchResultBookPage';
+@import 'home/_searchResultYoutubePage';
 
 @import 'messages/modal/_sendMessage';
 @import 'messages/_conversation';
@@ -42,6 +45,8 @@
 @import 'navigation/_toolbarMessageInfo';
 @import 'navigation/_toolbarSearch';
 @import 'navigation/_toolbarSearchHome';
+@import 'navigation/_toolbarSearchPage';
+@import 'navigation/_toolbarSearchUser';
 
 @import 'page/detail/_book';
 @import 'page/detail/_comments';

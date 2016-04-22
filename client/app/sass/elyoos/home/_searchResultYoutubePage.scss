@@ -1,0 +1,43 @@
+.ely-search-result-youtube-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px;
+  .youtube-page-container {
+    .youtube-header {
+      .youtube-title {
+        margin: 8px 0 0 0;
+        padding: 0 8px;
+        font-size: 16px;
+        color: $primary-text;
+        font-weight: 500;
+        height: 18px;
+        line-height: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .page-rating {
+        padding-left: 8px;
+        height: 19px;
+        .ely-star-rating {
+          margin-right: 4px;
+        }
+        .description {
+          line-height: 19px;
+          color: $secondary-text;
+          font-size: 12px;
+        }
+      }
+    }
+    .category-description {
+      padding: 8px;
+      .category-type {
+        font-size: 12px;
+        height: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+}
+
+

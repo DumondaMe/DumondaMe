@@ -1,6 +1,6 @@
 <md-content id="ely-home">
-    <ely-load-screen ng-if="ctrl.initialLoad"></ely-load-screen>
-    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.initialLoad">
+    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
+    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
         <div class="pinwall-inner-container">
             <ely-pinwall flex="none" contacting="ctrl.home.contacting" pinwall="ctrl.home.pinwall" gap="true"></ely-pinwall>
         </div>
@@ -14,7 +14,8 @@
             </md-content>
         </md-card>
     </div>
-    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openSideNavRight()" ng-if="!ctrl.initialLoad">
+    <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
+    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openSideNavRight()" ng-if="!ctrl.loadRunning">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
     </md-button>
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="rightHomeNav" md-is-open="isSideNavOpen">

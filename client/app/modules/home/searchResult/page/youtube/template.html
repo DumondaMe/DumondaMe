@@ -1,0 +1,24 @@
+<md-card class="ely-search-result-youtube-page">
+    <div class="youtube-page-container" ng-click="ctrl.goToDetail()">
+        <div class="youtube-header">
+            <div class="youtube-title">{{ctrl.page.title}}</div>
+            <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings > 0">
+                <ely-star-rating is-readonly="true" is-x-small="true"
+                                 number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
+                <span class="description">({{ctrl.page.recommendation.summary.numberOfRatings}})</span>
+            </div>
+            <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings === 0">
+                <span class="description">Keine Bewertung</span>
+            </div>
+            <div class="category-description">
+                <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="category-icon"></md-icon>
+                <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
+                <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+                     ng-repeat="category in ctrl.page.category">{{ctrl.getCategory(category)}}
+                </div>
+            </div>
+        </div>
+        <ely-iframe width="280" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.page.link"
+                    layout="row" layout-align="center center"></ely-iframe>
+    </div>
+</md-card>

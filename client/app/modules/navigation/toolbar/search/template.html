@@ -6,9 +6,9 @@
                                         request-started="ctrl.requestStarted()"></ely-toolbar-contact-search>
             <ely-toolbar-thread-search ng-if="ctrl.serviceName === 'threads'" commands="ctrl.commands"
                                        request-started="ctrl.requestStarted()"></ely-toolbar-thread-search>
-            <ely-toolbar-home-search ng-if="ctrl.serviceName === 'home'" commands="ctrl.commands"
+            <ely-toolbar-home-search ng-if="ctrl.serviceName === 'home'" commands="ctrl.commands" on-close="ctrl.closeExpand"
                                        request-started="ctrl.requestStarted()"></ely-toolbar-home-search>
-            <md-icon md-svg-icon="system:close" class="search-close-icon" ng-click="ctrl.closeExpand()"
+            <md-icon md-svg-icon="system:close" class="search-close-icon" ng-click="ctrl.closeExpandAll()"
                      ng-if="(ctrl.showClose && ctrl.lockOpen) || !ctrl.lockOpen"></md-icon>
         </div>
     </div>

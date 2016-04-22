@@ -1,0 +1,33 @@
+.autosuggestion-page {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow: hidden;
+  .label-icon {
+    margin: 7px 15px 7px 7px;
+    height: 24px;
+    width: 24px;
+  }
+  .page-container {
+    .page-title {
+      display: block;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 500;
+      height: 19px;
+      line-height: 14px;
+      color: $primary-text;
+    }
+    .page-rating {
+      display: block;
+      line-height: 14px;
+      .ely-star-rating {
+        margin-left: -2px;
+      }
+      .number-of-ratings {
+        margin-left: 4px;
+        font-size: 12px;
+        color: $secondary-text;
+      }
+    }
+  }
+}

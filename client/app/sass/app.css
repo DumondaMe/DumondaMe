@@ -978,6 +978,37 @@ md-toast.md-error-toast-theme {
         bottom: 15px;
         right: 24px; } }
 
+#ely-home-search-result .result-container {
+  margin: 16px auto;
+  width: 296px; }
+  @media screen and (min-width: 600px) {
+    #ely-home-search-result .result-container {
+      width: 592px; } }
+  @media screen and (min-width: 1280px) {
+    #ely-home-search-result .result-container {
+      margin-top: 16px; } }
+  @media screen and (min-width: 1440px) {
+    #ely-home-search-result .result-container {
+      width: 592px; } }
+  #ely-home-search-result .result-container .search-result-title {
+    padding-left: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
+  #ely-home-search-result .result-container .search-element-user {
+    margin-right: 4px;
+    margin-left: 4px;
+    display: inline-block; }
+  #ely-home-search-result .result-container .search-element-page {
+    display: inline-block; }
+#ely-home-search-result .no-result {
+  width: 300px;
+  height: 64px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 32px;
+  margin: 16px auto; }
+
 #ely-home-right-sidenav {
   height: 100%; }
   #ely-home-right-sidenav .title {
@@ -999,6 +1030,65 @@ md-toast.md-error-toast-theme {
       font-size: 16px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.87); }
+
+.ely-search-result-book-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px; }
+  .ely-search-result-book-page .book-page-container {
+    cursor: pointer; }
+    .ely-search-result-book-page .book-page-container .book-image {
+      width: 100px;
+      max-height: 160px; }
+    .ely-search-result-book-page .book-page-container .info-container {
+      padding: 8px; }
+      .ely-search-result-book-page .book-page-container .info-container .page-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.87);
+        max-height: 34px;
+        overflow: hidden; }
+      .ely-search-result-book-page .book-page-container .info-container .page-rating .number-of-ratings {
+        margin-left: 4px;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54); }
+      .ely-search-result-book-page .book-page-container .info-container .category-description {
+        padding: 8px 0 0 0; }
+        .ely-search-result-book-page .book-page-container .info-container .category-description .category-type {
+          font-size: 12px;
+          height: 16px;
+          line-height: 16px; }
+
+.ely-search-result-youtube-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px; }
+  .ely-search-result-youtube-page .youtube-page-container .youtube-header .youtube-title {
+    margin: 8px 0 0 0;
+    padding: 0 8px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .ely-search-result-youtube-page .youtube-page-container .youtube-header .page-rating {
+    padding-left: 8px;
+    height: 19px; }
+    .ely-search-result-youtube-page .youtube-page-container .youtube-header .page-rating .ely-star-rating {
+      margin-right: 4px; }
+    .ely-search-result-youtube-page .youtube-page-container .youtube-header .page-rating .description {
+      line-height: 19px;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px; }
+  .ely-search-result-youtube-page .youtube-page-container .category-description {
+    padding: 8px; }
+    .ely-search-result-youtube-page .youtube-page-container .category-description .category-type {
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px; }
 
 #ely-conversation-message-create .title {
   font-size: 16px;
@@ -1387,54 +1477,60 @@ md-toast.md-error-toast-theme {
 .ely-toolbar-search-home li {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   white-space: normal; }
-.ely-toolbar-search-home .autosuggestion-user {
+.ely-toolbar-search-home li:last-child {
+  border-bottom-width: 0; }
+
+.autosuggestion-page {
   padding-top: 5px;
-  padding-bottom: 5px; }
-  .ely-toolbar-search-home .autosuggestion-user .profile-Image {
-    margin-right: 8px;
-    height: 38px;
-    width: 38px;
-    border-radius: 2px; }
-  .ely-toolbar-search-home .autosuggestion-user .profile-container {
-    height: 38px; }
-    .ely-toolbar-search-home .autosuggestion-user .profile-container .user-name {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      height: 19px;
-      line-height: 14px;
-      color: rgba(0, 0, 0, 0.87); }
-    .ely-toolbar-search-home .autosuggestion-user .profile-container .user-relationship {
-      display: block;
-      height: 19px;
-      line-height: 14px;
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.54); }
-.ely-toolbar-search-home .autosuggestion-page {
-  padding-top: 5px;
-  padding-bottom: 5px; }
-  .ely-toolbar-search-home .autosuggestion-page .label-icon {
+  padding-bottom: 5px;
+  overflow: hidden; }
+  .autosuggestion-page .label-icon {
     margin: 7px 15px 7px 7px;
     height: 24px;
     width: 24px; }
-  .ely-toolbar-search-home .autosuggestion-page .page-container .page-title {
+  .autosuggestion-page .page-container .page-title {
     display: block;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
     height: 19px;
     line-height: 14px;
     color: rgba(0, 0, 0, 0.87); }
-  .ely-toolbar-search-home .autosuggestion-page .page-container .page-rating {
+  .autosuggestion-page .page-container .page-rating {
     display: block;
     line-height: 14px; }
-    .ely-toolbar-search-home .autosuggestion-page .page-container .page-rating .ely-star-rating {
+    .autosuggestion-page .page-container .page-rating .ely-star-rating {
       margin-left: -2px; }
-    .ely-toolbar-search-home .autosuggestion-page .page-container .page-rating .number-of-ratings {
+    .autosuggestion-page .page-container .page-rating .number-of-ratings {
       margin-left: 4px;
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54); }
-.ely-toolbar-search-home li:last-child {
-  border-bottom-width: 0; }
+
+.autosuggestion-user {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow: hidden; }
+  .autosuggestion-user .profile-Image {
+    margin-right: 8px;
+    height: 38px;
+    width: 38px;
+    border-radius: 2px; }
+  .autosuggestion-user .profile-container {
+    height: 38px; }
+    .autosuggestion-user .profile-container .user-name {
+      display: block;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 500;
+      height: 19px;
+      line-height: 14px;
+      color: rgba(0, 0, 0, 0.87); }
+    .autosuggestion-user .profile-container .user-relationship {
+      display: block;
+      height: 19px;
+      line-height: 14px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54); }
 
 #ely-book-page-detail #ely-book-page-main-detail {
   max-width: 600px;

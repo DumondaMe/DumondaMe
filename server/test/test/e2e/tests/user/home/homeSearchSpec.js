@@ -57,7 +57,7 @@ describe('Integration Tests for searching people or pages', function () {
         return requestHandler.logout();
     });
 
-    it('Search with forename books and people - Return 200', function () {
+    it('Search with forename books and people in suggestion mode - Return 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/user/home/search', {
@@ -94,6 +94,58 @@ describe('Integration Tests for searching people or pages', function () {
             res.body[5].title.should.equal("youtube movie by user");
             res.body[5].pageId.should.equal("3");
             res.body[5].label.should.equal("Youtube");
+        });
+    });
+
+    it('Search with forename books and people - Return 200', function () {
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home/search', {
+                search: 'user',
+                maxItems: 10,
+                isSuggestion: false
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.length.should.equal(6);
+            res.body[0].name.should.equal("user uMeier5");
+            res.body[0].userId.should.equal("5");
+            res.body[0].type.should.equal('Freund');
+            res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+            res.body[1].name.should.equal("user Meier2");
+            res.body[1].userId.should.equal("2");
+            should.not.exist(res.body[1].type);
+            res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+            res.body[2].name.should.equal("user sMeier6");
+            res.body[2].userId.should.equal("6");
+            should.not.exist(res.body[1].type);
+            res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+            res.body[3].title.should.equal("y written by user");
+            res.body[3].pageId.should.equal("2");
+            res.body[3].label.should.equal("Book");
+            res.body[3].url.should.equal("pages/2/pagePreview.jpg");
+            res.body[3].category.length.should.equals(2);
+            res.body[3].category[0].should.equals('health');
+            res.body[3].category[1].should.equals('personalDevelopment');
+
+            res.body[4].title.should.equal("book written by user");
+            res.body[4].pageId.should.equal("0");
+            res.body[4].label.should.equal("Book");
+            res.body[4].url.should.equal("pages/0/pagePreview.jpg");
+            res.body[4].category.length.should.equals(2);
+            res.body[4].category[0].should.equals('health');
+            res.body[4].category[1].should.equals('personalDevelopment');
+
+            res.body[5].title.should.equal("youtube movie by user");
+            res.body[5].pageId.should.equal("3");
+            res.body[5].label.should.equal("Youtube");
+            res.body[5].link.should.equal("www.test.ch");
+            res.body[5].category.length.should.equals(2);
+            res.body[5].category[0].should.equals('health');
+            res.body[5].category[1].should.equals('personalDevelopment');
         });
     });
 

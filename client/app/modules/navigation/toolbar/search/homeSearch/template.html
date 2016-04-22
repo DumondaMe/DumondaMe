@@ -4,12 +4,13 @@
                      md-no-cache="true"
                      md-delay="100"
                      md-min-length="3"
-                     md-search-text="ctrl.searchText"
-                     md-selected-item-change="ctrl.commands.startSearch()"
-                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                     md-search-text="ctrl.search"
+                     md-selected-item-change="ctrl.openSelectedItem()"
+                     md-selected-item="ctrl.selectedItem"
+                     md-items="item in ctrl.querySearch(ctrl.search)"
                      md-input-id="toolbar-search-input"
                      md-menu-class="ely-toolbar-search-home"
-                     placeholder="Suche Person, Seiten"
+                     placeholder="Suche Person, Seite"
                      ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
             <ely-autosuggestion-contact ng-if="item.userId" item="item"></ely-autosuggestion-contact>
