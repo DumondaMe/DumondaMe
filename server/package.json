@@ -29,7 +29,7 @@
     "biguint-format": "1.0.0",
     "flake-idgen": "1.0.0",
     "csurf": "1.8.3",
-    "aws-sdk": "2.3.4",
+    "aws-sdk": "2.3.5",
     "tmp": "0.0.28",
     "connect-redis": "3.0.2"
   },
