@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Categories', 'ElyModal', '$mdDialog', 'UserPage', 'errorToast', '$state',
-    function (Categories, ElyModal, $mdDialog, UserPage, errorToast, $state) {
+module.exports = ['Categories', 'ElyModal', 'DeletePageService',
+    function (Categories, ElyModal, DeletePageService) {
         var ctrl = this;
 
         ctrl.getCategory = Categories.getCategory;
@@ -30,21 +30,7 @@ module.exports = ['Categories', 'ElyModal', '$mdDialog', 'UserPage', 'errorToast
         };
 
         ctrl.deletePage = function () {
-            var confirm = $mdDialog.confirm()
-                .title("Buch Seite löschen")
-                .textContent("Willst Du diese Seite wirklich löschen?")
-                .ariaLabel("Delete Book Page")
-                .ok("Löschen")
-                .cancel("Abbrechen");
-            $mdDialog.show(confirm).then(function () {
-                UserPage.delete({
-                    pageId: ctrl.pageDetail.page.pageId
-                }, function () {
-                    $state.go('home');
-                }, function () {
-                    errorToast.showError("Fehler beim Löschen der Bewertung");
-                });
-            });
+            DeletePageService.deletePage(ctrl.pageDetail.page.pageId);
         };
     }];
 
