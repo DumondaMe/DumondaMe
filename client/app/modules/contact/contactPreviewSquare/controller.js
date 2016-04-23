@@ -2,8 +2,8 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes', '$state', 'userInfo',
-            function (UserStateService, ContactStatisticTypes, $state, userInfo) {
+        return ['UserStateService', 'ContactStatisticTypes', 'UserDetailNavigation', 'userInfo',
+            function (UserStateService, ContactStatisticTypes, UserDetailNavigation, userInfo) {
                 var ctrl = this;
                 ctrl.isUser = userInfo.getUserInfo().userId === ctrl.user.userId;
 
@@ -28,7 +28,7 @@ module.exports = {
                 };
 
                 ctrl.goToDetail = function () {
-                    $state.go('user.detail', {userId: ctrl.user.userId});
+                    UserDetailNavigation.openUserDetail(ctrl.user.userId, ctrl.isUser);
                 };
             }];
     }
