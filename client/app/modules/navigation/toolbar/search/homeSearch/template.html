@@ -10,7 +10,7 @@
                      md-items="item in ctrl.querySearch(ctrl.search)"
                      md-input-id="toolbar-search-input"
                      md-menu-class="ely-toolbar-search-home"
-                     placeholder="Suche Person, Seite"
+                     placeholder="Suche"
                      ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
             <ely-autosuggestion-contact ng-if="item.userId" item="item"></ely-autosuggestion-contact>

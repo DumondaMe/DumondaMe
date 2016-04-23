@@ -7,7 +7,8 @@ module.exports = ['$scope', 'SearchService', '$state', '$timeout',
         var ctrl = this;
 
         ctrl.querySearch = SearchService.querySuggestion;
-        ctrl.selectedItem = {};
+        ctrl.selectedItem = '';
+        ctrl.search = '';
 
         ctrl.commands.abortSearch = function () {
             SearchService.abortSearch();
