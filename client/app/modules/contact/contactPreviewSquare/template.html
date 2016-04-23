@@ -4,7 +4,8 @@
     <div class="contact-type" ng-if="!ctrl.user.blocked">{{ctrl.user.type}}</div>
     <div class="user-blocked" ng-if="ctrl.user.blocked">BLOCKIERT</div>
     <div class="user-commands">
-        <md-button class="md-icon-button" aria-label="Add to contact" ng-if="!ctrl.user.type && !ctrl.user.blocked" ng-click="ctrl.addContact()">
+        <md-button class="md-icon-button" aria-label="Add to contact" ng-if="!ctrl.user.type && !ctrl.user.blocked && !ctrl.isUser"
+                   ng-click="ctrl.addContact()">
             <md-icon md-svg-icon="cardActions:addContact"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Remove contact" ng-if="ctrl.user.type && !ctrl.user.blocked" ng-click="ctrl.deleteContact()">

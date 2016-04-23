@@ -2,9 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['UserStateService', 'ContactStatisticTypes', '$state',
-            function (UserStateService, ContactStatisticTypes, $state) {
+        return ['UserStateService', 'ContactStatisticTypes', '$state', 'userInfo',
+            function (UserStateService, ContactStatisticTypes, $state, userInfo) {
                 var ctrl = this;
+                ctrl.isUser = userInfo.getUserInfo().userId === ctrl.user.userId;
 
                 ctrl.addContact = function () {
                     UserStateService.addContact(ctrl.user.userId, ctrl.user.name).then(function (type) {
