@@ -121,6 +121,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     should.not.exist(res.body.pinwall[0].urlFull);
                     res.body.pinwall[0].text.should.equals('blogText');
                     res.body.pinwall[0].isAdmin.should.equals(false);
+                    res.body.pinwall[0].isPublic.should.equals(false);
                     res.body.pinwall[0].category.length.should.equals(2);
                     res.body.pinwall[0].category[0].should.equals('health');
                     res.body.pinwall[0].category[1].should.equals('personalDevelopment');
@@ -136,6 +137,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[1].urlFull.should.equals('blog/2/normal.jpg');
                     res.body.pinwall[1].text.should.equals('blogText2');
                     res.body.pinwall[1].isAdmin.should.equals(false);
+                    res.body.pinwall[1].isPublic.should.equals(true);
                     res.body.pinwall[1].category.length.should.equals(2);
                     res.body.pinwall[1].category[0].should.equals('health');
                     res.body.pinwall[1].category[1].should.equals('spiritual');

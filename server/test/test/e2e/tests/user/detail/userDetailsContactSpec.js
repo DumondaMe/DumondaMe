@@ -42,7 +42,7 @@ describe('Integration Tests for getting the contacts in user details', function 
         var commands = [];
 
         //Set contact relationships
-        commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4','5','6','7','8']")
+        commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['1','3','4','5','6','7','8']")
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User), (b:User {userId: '1'})").where("a.userId IN ['5','6','7']")
             .create("(b)<-[:IS_CONTACT {type: 'Freund'}]-(a)").end().getCommand());
@@ -73,42 +73,49 @@ describe('Integration Tests for getting the contacts in user details', function 
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.users.length.should.equals(6);
-                res.body.users[0].name.should.equals('user Meier3');
-                res.body.users[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.users[0].userId.should.equals('3');
+                res.body.users.length.should.equals(7);
+
+                res.body.users[0].name.should.equals('user Meier');
+                res.body.users[0].profileUrl.should.equals('profileImage/1/profilePreview.jpg');
+                res.body.users[0].userId.should.equals('1');
                 should.not.exist(res.body.users[0].type);
                 should.not.exist(res.body.users[0].blocked);
-
-                res.body.users[1].name.should.equals('user Meier4');
+                
+                res.body.users[1].name.should.equals('user Meier3');
                 res.body.users[1].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.users[1].userId.should.equals('4');
+                res.body.users[1].userId.should.equals('3');
                 should.not.exist(res.body.users[1].type);
                 should.not.exist(res.body.users[1].blocked);
 
-                res.body.users[2].name.should.equals('user Meier5');
+                res.body.users[2].name.should.equals('user Meier4');
                 res.body.users[2].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.users[2].userId.should.equals('5');
+                res.body.users[2].userId.should.equals('4');
                 should.not.exist(res.body.users[2].type);
                 should.not.exist(res.body.users[2].blocked);
 
-                res.body.users[3].name.should.equals('user Meier6');
+                res.body.users[3].name.should.equals('user Meier5');
                 res.body.users[3].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
-                res.body.users[3].userId.should.equals('6');
-                res.body.users[3].type.should.equals('Freund');
+                res.body.users[3].userId.should.equals('5');
+                should.not.exist(res.body.users[3].type);
                 should.not.exist(res.body.users[3].blocked);
 
-                res.body.users[4].name.should.equals('user Meier7');
-                res.body.users[4].profileUrl.should.equals('profileImage/7/profilePreview.jpg');
-                res.body.users[4].userId.should.equals('7');
+                res.body.users[4].name.should.equals('user Meier6');
+                res.body.users[4].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
+                res.body.users[4].userId.should.equals('6');
                 res.body.users[4].type.should.equals('Freund');
                 should.not.exist(res.body.users[4].blocked);
 
-                res.body.users[5].name.should.equals('user Meier8');
-                res.body.users[5].profileUrl.should.equals('profileImage/8/profilePreview.jpg');
-                res.body.users[5].userId.should.equals('8');
-                should.not.exist(res.body.users[5].type);
+                res.body.users[5].name.should.equals('user Meier7');
+                res.body.users[5].profileUrl.should.equals('profileImage/7/profilePreview.jpg');
+                res.body.users[5].userId.should.equals('7');
+                res.body.users[5].type.should.equals('Freund');
                 should.not.exist(res.body.users[5].blocked);
+
+                res.body.users[6].name.should.equals('user Meier8');
+                res.body.users[6].profileUrl.should.equals('profileImage/8/profilePreview.jpg');
+                res.body.users[6].userId.should.equals('8');
+                should.not.exist(res.body.users[6].type);
+                should.not.exist(res.body.users[6].blocked);
             });
     });
 

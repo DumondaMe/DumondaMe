@@ -57,7 +57,8 @@ var getPinwallOfDetailUser = function (userId, request) {
             "(privacy.pinwall = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.pinwall = true)) AND " +
             "(privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true)))) " +
             "AND NOT (otherUser)-[:IS_BLOCKED]->(user)")
-        .return("user, pinwall, pinwallData, otherUser AS contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin")
+        .return("user, pinwall, pinwallData, otherUser AS contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, " +
+            "NOT EXISTS(pinwall.visible) AS isPublic , isAdmin")
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
