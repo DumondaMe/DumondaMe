@@ -21,8 +21,8 @@ var getContactsCommand = function (userId, userDetailId, contactsPerPage, skipCo
     return db.cypher().match('(:User {userId: {userDetailId}})-[:IS_CONTACT]->(contactOfUser:User)')
         .with('contactOfUser')
         .match("(contactOfUser)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
-        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(user:User {userId: {userId}})')
-        .optionalMatch('(user)-[isContactOfUser:IS_CONTACT]->(contactOfUser)')
+        .optionalMatch('(contactOfUser)-[rContact:IS_CONTACT]->(:User {userId: {userId}})')
+        .optionalMatch('(:User {userId: {userId}})-[isContactOfUser:IS_CONTACT]->(contactOfUser)')
         .with("rContact, isContactOfUser, contactOfUser, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return('contactOfUser.name AS name, contactOfUser.userId AS userId, isContactOfUser.type AS type, ' +
