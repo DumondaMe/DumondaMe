@@ -34,8 +34,7 @@
     .content-form {
       width: 100%;
       .content {
-        margin-top: 10px;
-        padding: 16px;
+        padding: 0 16px 16px 16px;
         .blog-input-container {
           width: 100%;
           label {
@@ -64,8 +63,10 @@
         }
         .preview-photo-container {
           width: 100%;
+          margin: 0 auto;
           .preview-photo {
             max-width: 100%;
+            max-height: 200px;
             border-radius: 2px;
           }
         }

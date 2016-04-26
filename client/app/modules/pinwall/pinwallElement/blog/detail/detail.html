@@ -1,4 +1,4 @@
-<md-dialog id="blog-detail" aria-label="Detail Blog" ng-cloak>
+<md-dialog class="blog-detail" aria-label="Detail Blog" ng-cloak>
     <div id="blog-header" layout="row" flex="none">
         <img ng-src="{{ctrl.element.profileUrl}}" class="user-avatar" flex="none" ng-click="ctrl.openUserDetail()">
         <div class="title-container" flex ng-click="ctrl.openUserDetail()">
@@ -9,7 +9,7 @@
             <md-icon md-svg-icon="nav:close" class="icon"></md-icon>
         </md-button>
     </div>
-    <md-dialog-content>
+    <md-dialog-content class="detail-image-content">
         <div class="detail-image-container" layout="row" layout-align="center center">
             <img ng-src="{{ctrl.element.urlFull}}" class="detail-image" ng-show="ctrl.element.urlFull">
         </div>
