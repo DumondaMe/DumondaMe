@@ -9,6 +9,12 @@
   "cdnStore": {
     "bucket": "elyoos"
   },
+  "emailConfig": {
+    "host": "localhost",
+    "port": 6379,
+    "prefix": "q",
+    "delay": 900000
+  },
   "bcrypt": {
     "difficulty": 8
   },
@@ -46,10 +52,11 @@
         ]
       }
     },
-    "formidable": {
+    "multipart": {
+      "enabled": true,
       "priority": 50,
       "module": {
-        "name": "formidable"
+        "name": "kraken-js/middleware/multipart"
       }
     },
     "cookieParser": {

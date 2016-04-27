@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "4.13.4",
-    "kraken-js": "1.0.6",
+    "kraken-js": "2.1.0",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "underscore": "1.8.3",
@@ -31,7 +31,8 @@
     "csurf": "1.8.3",
     "aws-sdk": "2.3.5",
     "tmp": "0.0.28",
-    "connect-redis": "3.0.2"
+    "connect-redis": "3.0.2",
+    "kue": "0.10.5"
   },
   "devDependencies": {
     "mocha": "~2.4.5",
