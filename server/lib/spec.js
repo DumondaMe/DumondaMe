@@ -1,13 +1,13 @@
 'use strict';
 
-var express = require('express'),
-    passport = require('passport'),
-    methodOverride = require('method-override'),
-    csrf = require('csurf'),
-    auth = require('./auth'),
-    userLib = require('./user')(),
-    db = require('./database'),
-    cdn = require('./cdn');
+var passport = require('passport');
+var methodOverride = require('method-override');
+var csrf = require('csurf');
+var auth = require('./auth');
+var userLib = require('./user')();
+var db = require('./database');
+var cdn = require('./cdn');
+var email = require('./eMail/eMailQueue');
 
 module.exports = function (app) {
 
@@ -52,10 +52,12 @@ module.exports = function (app) {
         onconfig: function (config, next) {
 
             var dbConfig = config.get('databaseConfig'),
-                cdnConfig = config.get('cdnStore');
+                cdnConfig = config.get('cdnStore'),
+                emailConfig = config.get('emailConfig');
 
             cdn.config(cdnConfig);
             db.config(dbConfig);
+            email.config(emailConfig);
             next(null, config);
         }
     };

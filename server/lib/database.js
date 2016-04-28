@@ -17,7 +17,7 @@ var db = function () {
          */
         config: function (conf) {
 
-            connection.connect(conf.host).then(function () {
+            return connection.connect(conf.host).then(function () {
                 logger.info('Successfully connected to database ' + conf.host);
                 res({});
             }).catch(function () {

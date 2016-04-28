@@ -12,6 +12,8 @@ Promise.promisifyAll(require('gm').prototype);
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 
 var kraken = require('kraken-js');
+var emailService = require('./models/eMailService/eMail');
+var dbConfig = require('./lib/database');
 var app = require('express')();
 var options = require('./lib/spec')(app);
 var logger = requireLogger.getLogger(__filename);
@@ -25,6 +27,13 @@ app.listen(port, function (err) {
     } else {
         logger.info('[' + app.settings.env + '] Listening on http://localhost:' + port);
     }
+});
+
+app.on('start', function () {
+    dbConfig.connected.then(function () {
+        emailService.start();
+        logger.info('Server started');
+    });
 });
 
 module.exports = app;
