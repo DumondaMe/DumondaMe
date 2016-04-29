@@ -19,7 +19,7 @@ var config = function (conf) {
             host: conf.host
         }
     });
-    delay = conf.delay;
+    delay = conf.delay * 1000;
     setErrorLog(emailJobs);
     logger.info("Email Queue connected to redis: " + conf.host + ":" + conf.port);
 };
@@ -28,9 +28,9 @@ var createJob = function (description, data) {
     emailJobs.create(description, data).delay(delay).priority('normal').attempts(3).removeOnComplete(true)
         .save(function (err) {
             if (!err) {
-                logger.debug("Email queue job successfully finished");
+                logger.debug("Email job successfully started");
             } else {
-                logger.error("Failed to finish email job");
+                logger.error("Failed to start email job");
             }
         });
 };
