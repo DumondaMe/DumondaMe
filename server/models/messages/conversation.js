@@ -9,6 +9,7 @@ var security = require('./util/security');
 var unread = require('./util/unreadMessages');
 var time = require('./../../lib/time');
 var uuid = require('./../../lib/uuid');
+var messageReceived = require('./../eMailService/messageReceived');
 var logger = requireLogger.getLogger(__filename);
 
 var addWriterInfo = function (userId, messages) {
@@ -81,6 +82,17 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
         });
 };
 
+var receivingUser = function (userId, threadId) {
+    return db.cypher().match("(user:User)-[active:ACTIVE]->(thread:Thread {threadId: {threadId}})")
+        .where("user.userId <> {userId}")
+        .return("user.userId AS receivedUserId")
+        .end({userId: userId, threadId: threadId}).send().then(function (resp) {
+            if (resp.length === 1) {
+                messageReceived.received(resp[0].receivedUserId);
+            }
+        });
+};
+
 var addMessageToThread = function (userId, threadId, text, session, req) {
 
     return security.checkAllowedToAddMessage(userId, threadId, req)
@@ -106,6 +118,7 @@ var addMessageToThread = function (userId, threadId, text, session, req) {
                 }).send()
                 .then(function (resp) {
                     modification.resetModificationForThread(threadId, session);
+                    receivingUser(userId, threadId);
                     return {message: resp[0]};
                 });
         });
@@ -135,23 +148,24 @@ var addMessageToUser = function (userId, contactId, text, session, req) {
             }
             return security.checkAllowedToCreateThread(userId, contactId, req)
                 .then(function () {
-                    var now = time.getNowUtcTimestamp();
+                    var now = time.getNowUtcTimestamp(), threadId = uuid.generateUUID();
                     return db.cypher()
                         .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
                         .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +
                             "<-[:ACTIVE {lastTimeVisited: {lastTimeVisited2}}]-(contact)")
                         .with("user, thread, contact")
                         .createUnique("(thread)-[:NEXT_MESSAGE]->(message:Message {text: {text}, messageAdded: {lastTimeVisited}})-[:WRITTEN]->(user)")
-                        .return("thread.threadId AS threadId, user.name AS name, message.text AS text, message.messageAdded AS timestamp" )
+                        .return("thread.threadId AS threadId, user.name AS name, message.text AS text, message.messageAdded AS timestamp")
                         .end({
                             userId: userId,
                             contactId: contactId,
                             lastTimeVisited: now,
                             lastTimeVisited2: now - 1,
                             text: text,
-                            threadId: uuid.generateUUID()
+                            threadId: threadId
                         }).send()
                         .then(function (resp) {
+                            receivingUser(userId, threadId);
                             return {message: resp[0]};
                         });
                 });

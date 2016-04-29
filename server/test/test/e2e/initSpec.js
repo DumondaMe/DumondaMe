@@ -3,6 +3,7 @@
 var app = require('../../../server');
 var dbConfig = require('../../../lib/database');
 require('./tests/util/stubCDN');
+require('./tests/util/stubEmailQueue');
 
 describe('Initialize Server for all integration tests', function () {
 

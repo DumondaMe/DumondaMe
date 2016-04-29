@@ -13,7 +13,7 @@
     "host": "localhost",
     "port": 6379,
     "prefix": "q",
-    "delay": 60000
+    "delay": 30
   },
   "bcrypt": {
     "difficulty": 8
