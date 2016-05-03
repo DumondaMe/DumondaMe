@@ -31,7 +31,7 @@ describe('Integration Tests for getting all threads of a user', function () {
                 .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})" +
                     "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                     "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})," +
-                    "(message)-[:WRITTEN]->(u)," +
+                    "(message)-[:WRITTEN]->(u2)," +
                     "(message2)-[:WRITTEN]->(u)," +
                     "(message3)-[:WRITTEN]->(u2)")
                 .end({
@@ -119,7 +119,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].lastUpdate.should.equal(startTime - 299);
             res.body.threads[0].profileUrl.should.equal('profileImage/default/profilePreview.jpg');
             res.body.threads[0].threadId.should.equal('1');
-            res.body.threads[0].numberOfUnreadMessages.should.equal(2);
+            res.body.threads[0].numberOfUnreadMessages.should.equal(1);
 
             res.body.threads[1].hasNotReadMessages.should.be.true;
             res.body.threads[1].description.should.equal("user4 Meier4");
@@ -127,7 +127,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].lastUpdate.should.equal(startTime - 300);
             res.body.threads[1].profileUrl.should.equal('profileImage/4/profilePreview.jpg');
             res.body.threads[1].threadId.should.equal('3');
-            res.body.threads[1].numberOfUnreadMessages.should.equal(3);
+            res.body.threads[1].numberOfUnreadMessages.should.equal(2);
 
             res.body.threads[2].hasNotReadMessages.should.be.false;
             res.body.threads[2].description.should.equal("user3 Meier3");
@@ -137,7 +137,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[2].threadId.should.equal('2');
 
             res.body.numberOfThreads.should.equal(3);
-            res.body.totalUnreadMessages.should.equal(5);
+            res.body.totalUnreadMessages.should.equal(3);
         });
     });
 
@@ -158,7 +158,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[0].lastUpdate.should.equal(startTime - 300);
             res.body.threads[0].profileUrl.should.equal('profileImage/4/profilePreview.jpg');
             res.body.threads[0].threadId.should.equal('3');
-            res.body.threads[0].numberOfUnreadMessages.should.equal(3);
+            res.body.threads[0].numberOfUnreadMessages.should.equal(2);
 
             res.body.threads[1].hasNotReadMessages.should.be.false;
             res.body.threads[1].description.should.equal("user3 Meier3");
@@ -167,7 +167,7 @@ describe('Integration Tests for getting all threads of a user', function () {
             res.body.threads[1].threadId.should.equal('2');
 
             res.body.numberOfThreads.should.equal(3);
-            res.body.totalUnreadMessages.should.equal(5);
+            res.body.totalUnreadMessages.should.equal(3);
         });
     });
 

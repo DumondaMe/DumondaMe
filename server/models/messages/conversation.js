@@ -82,7 +82,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
         });
 };
 
-var receivingUser = function (userId, threadId) {
+var startEmailJobForReceivingUser = function (userId, threadId) {
     return db.cypher().match("(user:User)-[active:ACTIVE]->(thread:Thread {threadId: {threadId}})")
         .where("user.userId <> {userId}")
         .return("user.userId AS receivedUserId")
@@ -99,15 +99,13 @@ var addMessageToThread = function (userId, threadId, text, session, req) {
         .then(function () {
             var now = time.getNowUtcTimestamp();
             return db.cypher()
-                .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread " +
+                .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread " +
                     "{threadId: {threadId}})-[:NEXT_MESSAGE]->(messagePrevious:Message)")
                 .create("(thread)-[:NEXT_MESSAGE]->(newMessage:Message {messageAdded: {now}, text: {text}})-[:NEXT_MESSAGE]->(messagePrevious)," +
                     "(newMessage)-[:WRITTEN]->(user)")
-                .with("thread, messagePrevious, user, newMessage, active")
+                .with("thread, messagePrevious, user, newMessage")
                 .match('(thread)-[r:NEXT_MESSAGE]->(messagePrevious)')
                 .delete('r')
-                .with("thread, messagePrevious, user, newMessage, active")
-                .set('active', {lastTimeVisited: now})
                 .with("thread, messagePrevious, user, newMessage")
                 .return("user.userId AS userId, user.name AS name, newMessage.text AS text, newMessage.messageAdded AS timestamp")
                 .end({
@@ -117,8 +115,7 @@ var addMessageToThread = function (userId, threadId, text, session, req) {
                     now: now
                 }).send()
                 .then(function (resp) {
-                    modification.resetModificationForThread(threadId, session);
-                    receivingUser(userId, threadId);
+                    startEmailJobForReceivingUser(userId, threadId);
                     return {message: resp[0]};
                 });
         });
@@ -165,7 +162,7 @@ var addMessageToUser = function (userId, contactId, text, session, req) {
                             threadId: threadId
                         }).send()
                         .then(function (resp) {
-                            receivingUser(userId, threadId);
+                            startEmailJobForReceivingUser(userId, threadId);
                             return {message: resp[0]};
                         });
                 });

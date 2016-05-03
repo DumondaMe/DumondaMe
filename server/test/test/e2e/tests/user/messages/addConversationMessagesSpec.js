@@ -114,7 +114,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
         }).then(function (thread) {
             thread.length.should.equals(1);
             thread[0].messageAdded.should.be.at.least(startTime);
-            thread[0].lastTimeVisited.should.be.at.least(startTime);
+            thread[0].lastTimeVisited.should.equals(startTime - 500);
             thread[0].text.should.be.equals("messageAdded");
             thread[0].userId.should.be.equals("1");
         });
@@ -169,7 +169,7 @@ describe('Integration Tests for sending messages to a conversation and adding th
         }).then(function (thread) {
             thread.length.should.equals(1);
             thread[0].messageAdded.should.be.at.least(startTime);
-            thread[0].lastTimeVisited.should.be.at.least(startTime);
+            thread[0].lastTimeVisited.should.equals(startTime - 500);
             thread[0].text.should.be.equals("messageAdded");
             thread[0].userId.should.be.equals("1");
         });

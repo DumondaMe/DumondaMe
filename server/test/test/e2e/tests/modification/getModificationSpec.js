@@ -32,7 +32,7 @@ describe('Integration Tests for getting modification info', function () {
                 "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                 "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                "(message)-[:WRITTEN]->(u)," +
+                "(message)-[:WRITTEN]->(u2)," +
                 "(message2)-[:WRITTEN]->(u)," +
                 "(message3)-[:WRITTEN]->(u2)," +
                 "(message4)-[:WRITTEN]->(u)")
@@ -69,7 +69,7 @@ describe('Integration Tests for getting modification info', function () {
                     messageAdded2: startTime - 400,
                     messageAdded3: startTime - 600,
                     messageAdded4: startTime - 700,
-                    lastTimeVisited: startTime - 301
+                    lastTimeVisited: startTime - 401
                 }).send(commands);
         });
     });
@@ -107,7 +107,7 @@ describe('Integration Tests for getting modification info', function () {
             res.body.messages[0].previewText.should.equals('messageAdded');
             res.body.messages[0].lastUpdate.should.least(startTime);
             res.body.messages[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
-            res.body.messages[0].numberOfUnreadMessages.should.equals(3);
+            res.body.messages[0].numberOfUnreadMessages.should.equals(2);
 
             res.body.messages[1].threadId.should.equals('2');
             res.body.messages[1].description.should.equals('user3 Meier3');
@@ -115,7 +115,7 @@ describe('Integration Tests for getting modification info', function () {
             res.body.messages[1].lastUpdate.should.equals(startTime - 300);
             res.body.messages[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.messages[1].numberOfUnreadMessages.should.equals(1);
-            res.body.totalUnreadMessages.should.equal(4);
+            res.body.totalUnreadMessages.should.equal(3);
             return requestHandler.get('/api/modification', requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);

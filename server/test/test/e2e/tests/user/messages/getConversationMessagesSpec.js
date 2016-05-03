@@ -35,7 +35,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
                 "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                 "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
                 "(message)-[:WRITTEN]->(u)," +
-                "(message2)-[:WRITTEN]->(u)," +
+                "(message2)-[:WRITTEN]->(u2)," +
                 "(message3)-[:WRITTEN]->(u2)," +
                 "(message4)-[:WRITTEN]->(u)")
                 .end({
@@ -86,7 +86,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
                     "-[:NEXT_MESSAGE]->(message2:Message {messageAdded: {messageAdded2}, text: 'message2'})" +
                     "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                     "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
-                    "(message)-[:WRITTEN]->(u)," +
+                    "(message)-[:WRITTEN]->(u2)," +
                     "(message2)-[:WRITTEN]->(u)," +
                     "(message3)-[:WRITTEN]->(u2)," +
                     "(message4)-[:WRITTEN]->(u)")
@@ -122,10 +122,10 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[0].timestamp.should.equal(startTime - 299);
             res.body.messages[0].isUser.should.equal(true);
 
-            res.body.messages[1].name.should.equal("user Meier");
+            res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message2");
             res.body.messages[1].timestamp.should.equal(startTime - 400);
-            res.body.messages[1].isUser.should.equal(true);
+            res.body.messages[1].isUser.should.equal(false);
 
             res.body.messages[2].name.should.equal("user2 Meier2");
             res.body.messages[2].text.should.equal("message3");
@@ -139,7 +139,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.numberOfMessages.should.equal(4);
-            res.body.totalUnreadMessages.should.equal(2);
+            res.body.totalUnreadMessages.should.equal(1);
             return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})")
                 .return('active.lastTimeVisited AS lastTimeVisited')
                 .end().send();
@@ -162,10 +162,10 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.status.should.equal(200);
             res.body.messages.length.should.equal(2);
 
-            res.body.messages[0].name.should.equal("user Meier");
+            res.body.messages[0].name.should.equal("user2 Meier2");
             res.body.messages[0].text.should.equal("message2");
             res.body.messages[0].timestamp.should.equal(startTime - 400);
-            res.body.messages[0].isUser.should.equal(true);
+            res.body.messages[0].isUser.should.equal(false);
 
             res.body.messages[1].name.should.equal("user2 Meier2");
             res.body.messages[1].text.should.equal("message3");
@@ -174,7 +174,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
 
             res.body.threadDescription.should.equal('user2 Meier2');
             res.body.numberOfMessages.should.equal(4);
-            res.body.totalUnreadMessages.should.equal(2);
+            res.body.totalUnreadMessages.should.equal(1);
         });
     });
 

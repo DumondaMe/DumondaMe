@@ -40,7 +40,7 @@ describe('Integration Tests User Name', function () {
                     "-[:NEXT_MESSAGE]->(message3:Message {messageAdded: {messageAdded3}, text: 'message3'})" +
                     "-[:NEXT_MESSAGE]->(message4:Message {messageAdded: {messageAdded4}, text: 'message4'})," +
                     "(message)-[:WRITTEN]->(u)," +
-                    "(message2)-[:WRITTEN]->(u)," +
+                    "(message2)-[:WRITTEN]->(u2)," +
                     "(message3)-[:WRITTEN]->(u2)," +
                     "(message4)-[:WRITTEN]->(u)")
                 .end({
@@ -64,7 +64,7 @@ describe('Integration Tests User Name', function () {
                 }).getCommand());
             commands.push(db.cypher().match("(thread:Thread {threadId: '2'}), (u:User {userId: '1'}), (u2:User {userId: '3'})")
                 .create("(thread)-[:NEXT_MESSAGE]->(message:Message {messageAdded: {messageAdded}, text: 'message1'})," +
-                    "(message)-[:WRITTEN]->(u)")
+                    "(message)-[:WRITTEN]->(u2)")
                 .end({
                     messageAdded: startTime - 299
                 }).getCommand());
@@ -95,7 +95,7 @@ describe('Integration Tests User Name', function () {
             res.body.privacyTypes.length.should.equal(2);
             res.body.privacyTypes[0].should.equal('Bekannter');
             res.body.privacyTypes[1].should.equal('Freund');
-            res.body.totalUnreadMessages.should.equal(3);
+            res.body.totalUnreadMessages.should.equal(2);
         });
     });
 });
