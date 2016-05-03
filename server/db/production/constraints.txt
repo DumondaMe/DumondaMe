@@ -1,0 +1,8 @@
+CREATE CONSTRAINT ON (user:User) ASSERT user.userId IS UNIQUE;
+CREATE CONSTRAINT ON (user:User) ASSERT user.email IS UNIQUE;
+
+CREATE CONSTRAINT ON (thread:Thread) ASSERT thread.threadId IS UNIQUE;
+
+CREATE CONSTRAINT ON (page:Page) ASSERT page.pageId IS UNIQUE;
+
+CREATE CONSTRAINT ON (notification:EMailNotification) ASSERT notification.userId IS UNIQUE;
