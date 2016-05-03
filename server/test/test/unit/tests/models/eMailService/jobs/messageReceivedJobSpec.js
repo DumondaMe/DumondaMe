@@ -26,7 +26,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
         var finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
 
-        commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', forename: 'user', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
@@ -52,7 +52,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
         return db.cypher().create("(:EMailNotification {userId: '1', lastJobId: '2', lastUpdated: 500, countUpdates: 0})")
             .end().send(commands).then(function () {
                 return testee.processDefinition({userId: '1', jobId: '2'}, finished).then(function () {
-                    expect(sendEMail.withArgs('newMessages', {numberOfUnreadMessages: 1}, 'test@gmx.ch').calledOnce).to.be.true;
+                    expect(sendEMail.withArgs('newMessages', {numberOfUnreadMessages: 1, forename: 'user'}, 'test@gmx.ch').calledOnce).to.be.true;
                     expect(finished.calledOnce).to.be.true;
                 }).then(function () {
                     return db.cypher().match("(e:EMailNotification)").return("e").end().send();
