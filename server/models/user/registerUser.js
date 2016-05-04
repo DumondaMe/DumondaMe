@@ -47,7 +47,8 @@ var registerUser = function (params, req) {
                 profile: true,
                 profileData: true,
                 image: true,
-                contacts: true
+                contacts: true,
+                pinwall: true
             }
         };
         return db.cypher().create("(:Privacy {privacy})<-[:HAS_PRIVACY {type: 'Freund'}]-(:User {userData})" +
