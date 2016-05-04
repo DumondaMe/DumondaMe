@@ -28,9 +28,8 @@
     height: 100%;
     .detail-image-container {
       height: 100%;
-      max-width: 600px;
       .detail-image {
-        max-height: 150px;
+        max-height: 200px;
 
         @media screen and (min-height: 550px) {
           max-height: 300px;

@@ -1828,10 +1828,9 @@ md-toast.md-error-toast-theme {
   .blog-detail .detail-image-content {
     height: 100%; }
     .blog-detail .detail-image-content .detail-image-container {
-      height: 100%;
-      max-width: 600px; }
+      height: 100%; }
       .blog-detail .detail-image-content .detail-image-container .detail-image {
-        max-height: 150px; }
+        max-height: 200px; }
         @media screen and (min-height: 550px) {
           .blog-detail .detail-image-content .detail-image-container .detail-image {
             max-height: 300px; } }
