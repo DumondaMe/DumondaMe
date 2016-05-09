@@ -4,21 +4,24 @@ var db = require('./../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../lib/uuid');
 
-var createProblem = function (userId, description) {
+var createQuestion = function (userId, description, category, language) {
 
-    var timeCreatedProblem = Math.floor(moment.utc().valueOf() / 1000),
-        problemId = uuid.generateUUID();
+    var timeCreatedQuestion = Math.floor(moment.utc().valueOf() / 1000),
+        questionId = uuid.generateUUID();
     return db.cypher().match("(u:User {userId: {userId}})")
-        .createUnique("(u)-[:IS_ADMIN]->(problem:Problem {problemId: {problemId}, description: {description}, created: {timeCreatedProblem}})")
-        .return("problem.problemId AS problemId")
+        .createUnique("(u)-[:IS_ADMIN]->(question:ForumQuestion {questionId: {questionId}, description: {description}, category: {category}, " +
+            "language: {language}, created: {timeCreatedQuestion}})")
+        .return("question.questionId AS questionId")
         .end({
             userId: userId,
             description: description,
-            timeCreatedProblem: timeCreatedProblem,
-            problemId: problemId
+            category: category,
+            language: language,
+            timeCreatedQuestion: timeCreatedQuestion,
+            questionId: questionId
         })
         .send().then(function (resp) {
-            return {problemId: resp[0].problemId};
+            return {questionId: resp[0].questionId};
         });
 };
 
@@ -58,7 +61,7 @@ var getProblem = function (userId, problemId) {
 
 
 module.exports = {
-    createProblem: createProblem,
+    createQuestion: createQuestion,
     getProblems: getProblems,
     getProblem: getProblem
 };
