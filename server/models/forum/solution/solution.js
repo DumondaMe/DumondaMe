@@ -8,40 +8,40 @@ var security = require('./../security');
 var createPageReference = function (pageId) {
     var command = db.cypher();
     if (pageId) {
-        command.with("explanation")
+        command.with("solution")
             .match("(page:Page {pageId: {pageId}})")
-            .createUnique("(page)<-[:REFERENCE]-(explanation)")
-            .return("explanation.explanationId AS explanationId");
+            .createUnique("(page)<-[:REFERENCE]-(solution)")
+            .return("solution.solutionId AS solutionId");
     } else {
-        command.return("explanation.explanationId AS explanationId");
+        command.return("solution.solutionId AS solutionId");
     }
     return command.getCommandString();
 };
 
-var createExplanation = function (userId, questionId, description, pageId, req) {
+var createSolution = function (userId, questionId, description, pageId, req) {
 
     var timeCreatedExplanation = Math.floor(moment.utc().valueOf() / 1000),
-        explanationId = uuid.generateUUID();
+        solutionId = uuid.generateUUID();
     return security.questionExists(questionId, req).then(function () {
         return db.cypher().match("(u:User {userId: {userId}}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-            .createUnique("(u)-[:IS_ADMIN]->(explanation:ForumExplanation {explanationId: {explanationId}, description: {description}, " +
-                "created: {timeCreatedQuestion}})<-[:HAS_EXPLANATION]-(forumQuestion)")
+            .createUnique("(u)-[:IS_ADMIN]->(solution:ForumSolution {solutionId: {solutionId}, description: {description}, " +
+                "created: {timeCreatedQuestion}})<-[:HAS_SOLUTION]-(forumQuestion)")
             .addCommand(createPageReference(pageId))
             .end({
                 userId: userId,
                 description: description,
                 timeCreatedQuestion: timeCreatedExplanation,
-                explanationId: explanationId,
+                solutionId: solutionId,
                 questionId: questionId,
                 pageId: pageId
             })
             .send().then(function (resp) {
-                return {explanationId: resp[0].explanationId};
+                return {solutionId: resp[0].solutionId};
             });
     });
 };
 
 
 module.exports = {
-    createExplanation: createExplanation
+    createSolution: createSolution
 };
