@@ -6,13 +6,13 @@ module.exports = {
             function ($mdDialog) {
                 var ctrl = this;
 
-                ctrl.createProblem = function () {
+                ctrl.createQuestion = function () {
                     $mdDialog.show({
-                        templateUrl: 'app/modules/problem/createProblem/template.html',
+                        templateUrl: 'app/modules/forum/createQuestion/template.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose: false,
                         escapeToClose: false,
-                        controller: 'CreateProblemController',
+                        controller: 'CreateForumQuestionController',
                         locals: {element: ctrl.element},
                         bindToController: true,
                         controllerAs: 'ctrl'

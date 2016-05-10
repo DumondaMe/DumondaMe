@@ -13,8 +13,8 @@ module.exports = {
             bindToController: {
                 element: '='
             },
-            templateUrl: 'app/modules/problem/overview/element/template.html'
+            templateUrl: 'app/modules/forum/questionOverview/element/template.html'
         };
     }],
-    name: 'elyProblemOverviewElement'
+    name: 'elyQuestionOverviewElement'
 };

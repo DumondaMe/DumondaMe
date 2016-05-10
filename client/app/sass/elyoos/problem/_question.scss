@@ -1,18 +1,18 @@
-#ely-problem {
+#ely-question {
   height: 100%;
 
-  #ely-problem-overview {
+  #ely-question-overview {
     height: 100%;
     width: 100%;
     background-color: $background-normal;
-    .problem-overview-container {
+    .question-overview-container {
       width: 100%;
       height: 100%;
       overflow-y: auto;
     }
   }
 
-  .create-problem-fab {
+  .create-question-fab {
     @include ely-fab-button();
   }
 }

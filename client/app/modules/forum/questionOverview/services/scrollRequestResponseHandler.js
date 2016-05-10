@@ -3,10 +3,10 @@
 module.exports = [function () {
 
     this.handlingResponse = function (newOverview, previousOverview) {
-        newOverview.problems = previousOverview.concat(newOverview.problems);
+        newOverview.question = previousOverview.concat(newOverview.question);
     };
 
     this.checkRequestPinwall = function (overview, requestedNumberOfElements) {
-        return overview.problems.length === requestedNumberOfElements;
+        return overview.question.length === requestedNumberOfElements;
     };
 }];

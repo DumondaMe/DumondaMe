@@ -5,4 +5,4 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.service('ProblemScrollRequestResponseHandler', require('./services/scrollRequestResponseHandler'));
+app.service('ForumQuestionScrollRequestResponseHandler', require('./services/scrollRequestResponseHandler'));

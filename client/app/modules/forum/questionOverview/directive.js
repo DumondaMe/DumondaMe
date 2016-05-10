@@ -11,8 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/problem/template.html'
+            templateUrl: 'app/modules/forum/questionOverview/template.html'
         };
     }],
-    name: 'elyProblem'
+    name: 'elyForumQuestionOverview'
 };
