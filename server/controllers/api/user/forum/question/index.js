@@ -1,7 +1,7 @@
 'use strict';
 var auth = require('./../../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var question = require('./../../../../../models/forum/question');
+var question = require('./../../../../../models/forum/question/question');
 var controllerErrors = require('./../../../../../lib/error/controllerErrors');
 var validation = require('./../../../../../lib/jsonValidation');
 var category = require("../../../../schema/category");
