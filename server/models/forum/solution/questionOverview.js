@@ -7,8 +7,8 @@ var getSolutionCommand = function (userId, questionId, skip, maxItems) {
     return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:HAS_SOLUTION]->(solution:ForumSolution)")
         .optionalMatch("(solution)<-[rating:RATE_POSITIVE]-(:User)")
         .with("COUNT(rating) AS positiveRating, solution")
-        .return("solution.solutionId AS solutionId, solution.description AS description, solution.created AS created, " +
-            "positiveRating")
+        .optionalMatch("(solution)-[:REFERENCE]->(page:Page)")
+        .return("solution.solutionId AS solutionId, solution.description AS description, solution.created AS created, page, positiveRating")
         .orderBy("positiveRating DESC")
         .skip("{skip}")
         .limit("{maxItems}")
