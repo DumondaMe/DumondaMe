@@ -1949,13 +1949,7 @@ md-toast.md-error-toast-theme {
         font-weight: 500; }
 
 #create-question {
-  width: 100%;
-  /*min-width: 310px;
-  max-width: 450px;
-  width: 100%;*/
-  /*.ely-input-container {
-    width: 100%;
-  }*/ }
+  width: 100%; }
   #create-question .ely-dialog-title {
     padding: 16px 24px;
     margin-bottom: 0;
@@ -2100,11 +2094,32 @@ md-toast.md-error-toast-theme {
         bottom: 15px;
         right: 20px; } }
 
-#ely-problem .overview-element {
-  padding: 10px; }
-  #ely-problem .overview-element .description {
-    font-size: 14px;
-    font-weight: 500; }
+#ely-question .question-overview-element {
+  margin: 0 auto;
+  min-width: 280px;
+  max-width: 600px;
+  padding: 10px;
+  cursor: pointer; }
+  #ely-question .question-overview-element .activity-rating {
+    width: 48px;
+    margin-right: 8px; }
+    #ely-question .question-overview-element .activity-rating .number {
+      font-size: 17px;
+      font-weight: 300; }
+    #ely-question .question-overview-element .activity-rating .rating-description {
+      margin-top: 4px;
+      font-size: 12px; }
+  #ely-question .question-overview-element .description {
+    font-size: 17px;
+    font-weight: 400;
+    color: #3F51B5; }
+  #ely-question .question-overview-element .category-description {
+    margin-top: 4px;
+    padding: 0; }
+    #ely-question .question-overview-element .category-description .category-type {
+      font-size: 12px;
+      height: 17px;
+      line-height: 17px; }
 
 #ely-add-recommendation {
   width: 100%; }

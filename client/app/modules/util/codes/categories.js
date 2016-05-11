@@ -5,7 +5,7 @@ var categories = [{description: 'Gesundheit', code: 'health'},
     {description: 'Spiritualität', code: 'spiritual'},
     {description: 'Bildung', code: 'education'},
     {description: 'Persönliche Entwicklung', code: 'personalDevelopment'},
-    {description: 'Gesellschaftliche Entwicklung', code: 'socialDevelopment'}];
+    {description: 'Gesellschaft', code: 'socialDevelopment'}];
 
 module.exports = ['$log',
     function ($log) {

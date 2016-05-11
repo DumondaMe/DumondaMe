@@ -22,10 +22,10 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-forum-question></ely-forum-question>'
                 }
             },
-            hasSearch: true
+            data: {title: 'Forum'}
         })
-        .state('forum.detail', {
-            url: '/detail/:problemId',
+        .state('forum.question.detail', {
+            url: '/detail/:questionId',
             views: {
                 'content@': {
                     template: '<ely-forum-detail></ely-forum-detail>'

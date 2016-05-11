@@ -1,19 +1,17 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 element: '='
             },
-            templateUrl: 'app/modules/forum/questionOverview/element/template.html'
+            templateUrl: 'app/modules/forum/questionOverview/question/template.html'
         };
     }],
     name: 'elyQuestionOverviewElement'

@@ -76,6 +76,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             ctrl.hasBackNav = true;
             backNavToState = false;
             ctrl.searchExpanded = false;
+            ctrl.title = '';
 
             if (fromState.name !== 'checkLoginState' && !fromState.abstract) {
                 previousState = fromState;

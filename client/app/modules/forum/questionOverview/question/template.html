@@ -1,0 +1,14 @@
+<md-card class="question-overview-element" layout="row" ng-click="ctrl.openDetail(ctrl.element.questionId)">
+    <div class="activity-rating" flex="none" layout="column" layout-align="center center">
+        <div class="number">{{ctrl.element.activityRating}}</div>
+        <div class="rating-description">Aktivität</div>
+    </div>
+    <div>
+        <div class="description">{{ctrl.element.description}}</div>
+        <div class="category-description">
+            <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+                 ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
+            </div>
+        </div>
+    </div>
+</md-card>
