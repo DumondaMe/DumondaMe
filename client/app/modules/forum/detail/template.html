@@ -2,4 +2,10 @@
     <div class="md-padding">
         <ely-forum-question-detail-question-card question="ctrl.detail.question"></ely-forum-question-detail-question-card>
     </div>
+    <md-button class="md-fab create-question-element-fab" aria-label="Create Question Element" ng-click="ctrl.openSideNavRight()">
+        <md-icon md-svg-icon="navFAB:add"></md-icon>
+    </md-button>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="rightQuestionNav" md-is-open="isSideNavOpen">
+        <ely-question-right-sidenav detail="ctrl.detail"></ely-question-right-sidenav>
+    </md-sidenav>
 </div>

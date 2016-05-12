@@ -902,6 +902,14 @@ md-toast.md-error-toast-theme {
 #ely-question-detail {
   height: 100%;
   background-color: #E0E0E0; }
+  #ely-question-detail .create-question-element-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-question-detail .create-question-element-fab {
+        bottom: 15px;
+        right: 20px; } }
 
 #create-question {
   width: 100%; }
@@ -1150,28 +1158,6 @@ md-toast.md-error-toast-theme {
   line-height: 32px;
   margin: 16px auto; }
 
-#ely-home-right-sidenav {
-  height: 100%; }
-  #ely-home-right-sidenav .title {
-    font-size: 18px;
-    padding: 16px; }
-  #ely-home-right-sidenav .page-title {
-    font-size: 16px;
-    padding: 16px; }
-  #ely-home-right-sidenav .create-action {
-    cursor: pointer;
-    margin: 16px 0; }
-    #ely-home-right-sidenav .create-action .image {
-      margin-left: 16px;
-      margin-right: 16px;
-      height: 24px;
-      width: 24px; }
-    #ely-home-right-sidenav .create-action .text {
-      line-height: 24px;
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.87); }
-
 .ely-search-result-book-page {
   width: 280px;
   display: inline-block;
@@ -1300,6 +1286,7 @@ md-toast.md-error-toast-theme {
   padding: 8px 16px; }
   .ely-conversation-message .chat-bubble {
     margin: 0;
+    white-space: pre-wrap;
     padding-bottom: 8px;
     background-color: white;
     position: relative;
@@ -1970,7 +1957,8 @@ md-toast.md-error-toast-theme {
     .blog-detail .detail-image-content .detail-image-container {
       height: 100%; }
       .blog-detail .detail-image-content .detail-image-container .detail-image {
-        max-height: 200px; }
+        max-height: 200px;
+        margin-bottom: 16px; }
         @media screen and (min-height: 550px) {
           .blog-detail .detail-image-content .detail-image-container .detail-image {
             max-height: 300px; } }
@@ -1987,8 +1975,9 @@ md-toast.md-error-toast-theme {
           .blog-detail .detail-image-content .detail-image-container .detail-image {
             max-height: 900px; } }
     .blog-detail .detail-image-content .blog-text {
+      white-space: pre-wrap;
       max-width: 600px;
-      padding: 16px; }
+      padding: 0 16px 16px 16px; }
 
 #ely-pinwall-contacting {
   max-width: 400px;
@@ -2311,6 +2300,28 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   width: 100%;
   height: 100%; }
+
+#ely-create-right-sidenav {
+  height: 100%; }
+  #ely-create-right-sidenav .title {
+    font-size: 18px;
+    padding: 16px; }
+  #ely-create-right-sidenav .page-title {
+    font-size: 16px;
+    padding: 16px; }
+  #ely-create-right-sidenav .create-action {
+    cursor: pointer;
+    margin: 16px 0; }
+    #ely-create-right-sidenav .create-action .image {
+      margin-left: 16px;
+      margin-right: 16px;
+      height: 24px;
+      width: 24px; }
+    #ely-create-right-sidenav .create-action .text {
+      line-height: 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
 
 body, html {
   background-color: #E0E0E0;

@@ -30,6 +30,7 @@
       height: 100%;
       .detail-image {
         max-height: 200px;
+        margin-bottom: 16px;
 
         @media screen and (min-height: 550px) {
           max-height: 300px;
@@ -49,8 +50,9 @@
       }
     }
     .blog-text {
+      white-space: pre-wrap;
       max-width: 600px;
-      padding: 16px;
+      padding: 0 16px 16px 16px;
     }
   }
 }
