@@ -4,7 +4,6 @@ var users = require('../../../util/user');
 var db = require('../../../util/db');
 var requestHandler = require('../../../util/request');
 var moment = require('moment');
-var should = require('chai').should();
 
 describe('Integration Tests for getting the most popular questions in the forum', function () {
 
@@ -19,25 +18,25 @@ describe('Integration Tests for getting the most popular questions in the forum'
 
         for (i = 0; i < solutions.numberOf; i++) {
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution {solutionId: {solutionId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:HAS_SOLUTION]-(forumQuestion)")
-                .end({questionId: question.questionId, solutionId: question.questionId + i, created: 500 + i}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: {answerId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:IS_ANSWER]-(forumQuestion)")
+                .end({questionId: question.questionId, answerId: question.questionId + i, created: 500 + i}).getCommand());
             if (solutions.ratings.length > i) {
-                commands.push(db.cypher().match("(u:User), (forumSolution:ForumSolution {solutionId: {solutionId}})")
+                commands.push(db.cypher().match("(u:User), (forumSolution:ForumSolution {answerId: {answerId}})")
                     .where("u.userId IN {userIds}")
                     .create("(u)-[:RATE_POSITIVE]->(forumSolution)")
-                    .end({solutionId: question.questionId + i, userIds: solutions.ratings[i]}).getCommand());
+                    .end({answerId: question.questionId + i, userIds: solutions.ratings[i]}).getCommand());
             }
         }
 
         for (i = 0; i < explanations.numberOf; i++) {
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation {explanationId: {explanationId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:HAS_EXPLANATION]-(forumQuestion)")
-                .end({questionId: question.questionId, explanationId: question.questionId + i, created: 500 + i}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: {answerId}, description: 'forumSolution" + question.questionId + i + "', created: {created}})<-[:IS_ANSWER]-(forumQuestion)")
+                .end({questionId: question.questionId, answerId: question.questionId + i, created: 500 + i}).getCommand());
             if (explanations.ratings.length > i) {
-                commands.push(db.cypher().match("(u:User), (forumExplanation:ForumExplanation {explanationId: {explanationId}})")
+                commands.push(db.cypher().match("(u:User), (forumExplanation:ForumExplanation {answerId: {answerId}})")
                     .where("u.userId IN {userIds}")
                     .create("(u)-[:RATE_POSITIVE]->(forumExplanation)")
-                    .end({explanationId: question.questionId + i, userIds: explanations.ratings[i]}).getCommand());
+                    .end({answerId: question.questionId + i, userIds: explanations.ratings[i]}).getCommand());
             }
         }
 

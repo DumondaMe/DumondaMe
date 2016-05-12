@@ -30,45 +30,43 @@ describe('Integration Tests for getting the details of a forum question', functi
 
             //Adding solutions to question
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution {solutionId: '0', description: 'forumSolution', created: 500})<-[:HAS_SOLUTION]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '0', description: 'forumSolution', created: 500})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(solution:ForumSolution {solutionId: '0'}), (page:Page {pageId: '1'})")
+            commands.push(db.cypher().match("(solution:ForumSolution {answerId: '0'}), (page:Page {pageId: '1'})")
                 .createUnique("(solution)-[:REFERENCE]->(page)").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution {solutionId: '1', description: 'forumSolution1', created: 501})<-[:HAS_SOLUTION]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '1', description: 'forumSolution1', created: 501})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
 
             //Rate solutions
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumSolution:ForumSolution {solutionId: '0'})")
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumSolution:ForumSolution {answerId: '0'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumSolution:ForumSolution {solutionId: '0'})")
+            commands.push(db.cypher().match("(u:User {userId: '2'}), (forumSolution:ForumSolution {answerId: '0'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {solutionId: '0'})")
+            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '0'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {solutionId: '1'})")
+            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumSolution:ForumSolution {answerId: '1'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '4'}), (forumSolution:ForumSolution {solutionId: '1'})")
+            commands.push(db.cypher().match("(u:User {userId: '4'}), (forumSolution:ForumSolution {answerId: '1'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumSolution)").end().getCommand());
 
             //Adding explanation to question
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation {explanationId: '0', description: 'forumExplanation', created: 502})<-[:HAS_EXPLANATION]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '2', description: 'forumExplanation', created: 502})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(explanation:ForumExplanation {explanationId: '0'}), (page:Page {pageId: '0'})")
+            commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '2'}), (page:Page {pageId: '0'})")
                 .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation {explanationId: '1', description: 'forumExplanation1', created: 503})<-[:HAS_EXPLANATION]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
 
             //Rate explanation
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumExplanation:ForumExplanation {explanationId: '0'})")
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumExplanation:ForumExplanation {answerId: '2'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumExplanation:ForumExplanation {explanationId: '0'})")
+            commands.push(db.cypher().match("(u:User {userId: '3'}), (forumExplanation:ForumExplanation {answerId: '2'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().getCommand());
-            return db.cypher().match("(u:User {userId: '4'}), (forumExplanation:ForumExplanation {explanationId: '1'})")
+            return db.cypher().match("(u:User {userId: '4'}), (forumExplanation:ForumExplanation {answerId: '3'})")
                 .create("(u)-[:RATE_POSITIVE]->(forumExplanation)").end().send(commands);
-
-
         });
     });
 
@@ -92,7 +90,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.question.category[0].should.equals('environmental');
 
             res.body.solution.length.should.equals(2);
-            res.body.solution[0].solutionId.should.equals('0');
+            res.body.solution[0].answerId.should.equals('0');
             res.body.solution[0].description.should.equals('forumSolution');
             res.body.solution[0].created.should.equals(500);
             res.body.solution[0].positiveRating.should.equals(3);
@@ -102,14 +100,14 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.solution[0].page.link.should.equals('https://www.youtube.com/embed/Test');
             res.body.solution[0].page.description.should.equals('page2');
 
-            res.body.solution[1].solutionId.should.equals('1');
+            res.body.solution[1].answerId.should.equals('1');
             res.body.solution[1].description.should.equals('forumSolution1');
             res.body.solution[1].created.should.equals(501);
             res.body.solution[1].positiveRating.should.equals(2);
             should.not.exist(res.body.solution[1].page);
 
             res.body.explanation.length.should.equals(2);
-            res.body.explanation[0].explanationId.should.equals('0');
+            res.body.explanation[0].answerId.should.equals('2');
             res.body.explanation[0].description.should.equals('forumExplanation');
             res.body.explanation[0].created.should.equals(502);
             res.body.explanation[0].positiveRating.should.equals(2);
@@ -118,7 +116,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.explanation[0].page.label.should.equals('Book');
             res.body.explanation[0].page.description.should.equals('page1');
 
-            res.body.explanation[1].explanationId.should.equals('1');
+            res.body.explanation[1].answerId.should.equals('3');
             res.body.explanation[1].description.should.equals('forumExplanation1');
             res.body.explanation[1].created.should.equals(503);
             res.body.explanation[1].positiveRating.should.equals(1);
