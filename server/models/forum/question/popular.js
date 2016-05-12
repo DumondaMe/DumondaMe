@@ -2,7 +2,7 @@
 
 var db = require('./../../../neo4j');
 
-var getQuestions = function (userId, maxItems, skip) {
+var getQuestions = function (maxItems, skip) {
 
     return db.cypher().match("(question:ForumQuestion)")
         .optionalMatch("(question)-[:IS_ANSWER]->(questionElement:ForumAnswer)<-[rating:RATE_POSITIVE]-(:User)")

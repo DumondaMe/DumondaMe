@@ -1,8 +1,8 @@
 'use strict';
 
-var users = require('../../../util/user');
-var db = require('../../../util/db');
-var requestHandler = require('../../../util/request');
+var users = require('../../util/user');
+var db = require('../../util/db');
+var requestHandler = require('../../util/request');
 var moment = require('moment');
 var should = require('chai').should();
 
@@ -78,7 +78,7 @@ describe('Integration Tests for getting the details of a forum question', functi
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/forum/question/detail', {
+            return requestHandler.getWithData('/api/forum/question/detail', {
                 questionId: '0'
             }, requestAgent);
         }).then(function (res) {

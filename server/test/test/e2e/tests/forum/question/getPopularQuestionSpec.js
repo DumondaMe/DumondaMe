@@ -1,8 +1,8 @@
 'use strict';
 
-var users = require('../../../util/user');
-var db = require('../../../util/db');
-var requestHandler = require('../../../util/request');
+var users = require('../../util/user');
+var db = require('../../util/db');
+var requestHandler = require('../../util/request');
 var moment = require('moment');
 
 describe('Integration Tests for getting the most popular questions in the forum', function () {
@@ -77,7 +77,7 @@ describe('Integration Tests for getting the most popular questions in the forum'
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/user/forum/question/popular', {
+            return requestHandler.getWithData('/api/forum/question/popular', {
                 maxItems: 10,
                 skip: 0
             }, requestAgent);

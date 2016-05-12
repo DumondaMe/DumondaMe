@@ -1,9 +1,9 @@
 'use strict';
-var auth = require('./../../../../../lib/auth');
+var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var questionDetail = require('./../../../../../models/forum/question/detail');
-var controllerErrors = require('./../../../../../lib/error/controllerErrors');
-var validation = require('./../../../../../lib/jsonValidation');
+var questionDetail = require('./../../../../models/forum/question/detail');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var validation = require('./../../../../lib/jsonValidation');
 
 var schemaGetDetailForumQuestion = {
     name: 'getForumQuestionDetail',
@@ -22,7 +22,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting question detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetDetailForumQuestion, logger).then(function (request) {
                 logger.info("User gets question detail", req);
-                return questionDetail.getDetail(req.user.id, request.questionId);
+                return questionDetail.getDetail(request.questionId);
             }).then(function (data) {
                 res.status(200).json(data);
             });

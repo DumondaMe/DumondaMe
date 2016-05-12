@@ -1,9 +1,9 @@
 'use strict';
-var auth = require('./../../../../../lib/auth');
+var auth = require('./../../../../lib/auth');
 var logger = requireLogger.getLogger(__filename);
-var popularQuestions = require('./../../../../../models/forum/question/popular');
-var controllerErrors = require('./../../../../../lib/error/controllerErrors');
-var validation = require('./../../../../../lib/jsonValidation');
+var popularQuestions = require('./../../../../models/forum/question/popular');
+var controllerErrors = require('./../../../../lib/error/controllerErrors');
+var validation = require('./../../../../lib/jsonValidation');
 
 var schemaGetPopularForumQuestion = {
     name: 'getPopularForumQuestion',
@@ -23,7 +23,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting most popular questions', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPopularForumQuestion, logger).then(function (request) {
                 logger.info("User requests most popular questions", req);
-                return popularQuestions.getQuestions(req.user.id, request.maxItems, request.skip);
+                return popularQuestions.getQuestions(request.maxItems, request.skip);
             }).then(function (data) {
                 res.status(200).json(data);
             });

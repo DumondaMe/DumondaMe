@@ -2,7 +2,7 @@
 
 var db = require('./../../../neo4j');
 
-var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
+var getAnswerCommand = function (questionId, skip, maxItems, label) {
 
     return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:IS_ANSWER]->(answer:ForumAnswer" + label + ")")
         .optionalMatch("(answer)<-[rating:RATE_POSITIVE]-(:User)")
@@ -13,18 +13,17 @@ var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
         .skip("{skip}")
         .limit("{maxItems}")
         .end({
-            userId: userId,
             questionId: questionId,
             skip: skip,
             maxItems: maxItems
         });
 };
 
-var getExplanationAnswerCommand = function (userId, questionId, skip, maxItems) {
-    return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumExplanation');
+var getExplanationAnswerCommand = function (questionId, skip, maxItems) {
+    return getAnswerCommand(questionId, skip, maxItems, ':ForumExplanation');
 };
-var getSolutionAnswerCommand = function (userId, questionId, skip, maxItems) {
-    return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumSolution');
+var getSolutionAnswerCommand = function (questionId, skip, maxItems) {
+    return getAnswerCommand(questionId, skip, maxItems, ':ForumSolution');
 };
 
 module.exports = {
