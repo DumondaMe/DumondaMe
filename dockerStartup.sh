@@ -3,3 +3,7 @@ sudo docker run --name redisSessionStore -d --net="host" redis:3.0.7
 
 docker build -t jenkins/elyoos .
 sudo docker run --name elyoosWebserver -d --net="host" jenkins/elyoos
+
+//Remove old docker images
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -a | grep "^<none>" | awk '{print $3}')
