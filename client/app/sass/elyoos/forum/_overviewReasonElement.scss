@@ -1,9 +1,0 @@
-.reason-overview-element {
-  @include cardElement();
-  .title {
-    font-size: 16px;
-  }
-  @include cardRating();
-}
-
-

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['userInfo', '$mdDialog', 'CreateForumQuestionCheck', 'UploadForumQuestion', 'Categories', 'Languages', 'errorToast',
-    function (userInfo, $mdDialog, CreateForumQuestionCheck, UploadForumQuestion, Categories, Languages, errorToast) {
+module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadForumQuestion', 'Categories', 'Languages', 'errorToast',
+    function (userInfo, ElyModal, CreateForumQuestionCheck, UploadForumQuestion, Categories, Languages, errorToast) {
         var ctrl = this;
         ctrl.userInfo = userInfo.getUserInfo();
 
@@ -9,14 +9,14 @@ module.exports = ['userInfo', '$mdDialog', 'CreateForumQuestionCheck', 'UploadFo
         ctrl.languages = Languages.languages;
 
         ctrl.cancel = function () {
-            $mdDialog.cancel();
+            ElyModal.cancel();
         };
 
         ctrl.uploadQuestion = function () {
             if (ctrl.sendAllowed && !ctrl.uploadStarted) {
                 ctrl.uploadStarted = true;
                 UploadForumQuestion.upload(ctrl.questionText, ctrl.selectedCategories, ctrl.selectedLanguage).then(function (resp) {
-                    $mdDialog.hide(resp);
+                    ElyModal.hide(resp);
                 }).catch(function () {
                     ctrl.uploadStarted = false;
                     errorToast.showError('Frage konnte nicht erstellt werden');

@@ -1,0 +1,28 @@
+<md-dialog class="add-question-answer" aria-label="Add Question Answer" ng-cloak>
+    <form name="ctrl.addQuestionAnswerForm">
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isExplanation">Erklärung hinzufügen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isSolution">Lösungsvorschalg hinzufügen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="input-container">
+                    <label ng-if="ctrl.isExplanation">Erklärung</label>
+                    <label ng-if="ctrl.isSolution">Lösungsvorschlag</label>
+                        <textarea name="answer" ng-model="ctrl.answer" required md-maxlength="2000" aria-label="Answer"
+                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                    <div ng-messages="ctrl.addQuestionElementForm.answer.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.createAnswer()"
+                       ng-disabled="ctrl.uploadStarted || ctrl.addQuestionElementForm.$invalid">Erstellen
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+
+</md-dialog>
