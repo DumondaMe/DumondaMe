@@ -8,11 +8,11 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/problem/detail/template.html'
+            templateUrl: 'app/modules/forum/detail/template.html'
         };
     }],
-    name: 'elyProblemDetail'
+    name: 'elyQuestionDetail'
 };

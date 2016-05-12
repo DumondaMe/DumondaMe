@@ -2,7 +2,7 @@
 
 module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
     function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
-        var ctrl = this, previousState, previousParams, backNavToState;
+        var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
         loginStateHandler.register('toolbar', ctrl);
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
@@ -37,6 +37,8 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         ctrl.navigateBack = function () {
             if (backNavToState && previousState) {
                 $state.go(previousState, previousParams);
+            } else if (defaultBackNavState) {
+                $state.go(defaultBackNavState);
             } else {
                 $state.go('home');
             }
@@ -75,6 +77,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             ctrl.hasSearch = false;
             ctrl.hasBackNav = true;
             backNavToState = false;
+            defaultBackNavState = null;
             ctrl.searchExpanded = false;
             ctrl.title = '';
 
@@ -90,6 +93,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
                     ctrl.hasBackNav = toState.data.hasBackNav;
                 }
                 backNavToState = toState.data.backNavToState;
+                defaultBackNavState = toState.data.defaultBackNavState;
             }
         });
     }];

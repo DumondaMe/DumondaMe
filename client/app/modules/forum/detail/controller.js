@@ -2,10 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$stateParams', 'ProblemDetail',
-            function ($stateParams, ProblemDetail) {
+        return ['$stateParams', 'ForumQuestionDetail',
+            function ($stateParams, ForumQuestionDetail) {
                 var ctrl = this;
-                ctrl.detail = ProblemDetail.get({id: $stateParams.problemId}, function (resp) {
+                ctrl.detail = ForumQuestionDetail.get({questionId: $stateParams.questionId}, function (resp) {
 
                 });
             }];

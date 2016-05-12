@@ -30,6 +30,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-forum-detail></ely-forum-detail>'
                 }
-            }
+            },
+            data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'forum.question', hasSearch: false}
         });
 }]);
