@@ -25,6 +25,16 @@
 @import 'contact/_contactPreviewSquare';
 @import 'contact/_searchUserOverview';
 
+@import 'forum/questionDetail/_questionCard';
+@import 'forum/questionDetail/_questionDetail';
+@import 'forum/_mixins';
+@import 'forum/_createQuestion';
+@import 'forum/_createReason';
+@import 'forum/_overviewReason';
+@import 'forum/_overviewReasonElement';
+@import 'forum/_question';
+@import 'forum/_questionElement';
+
 @import 'home/_createBlog';
 @import 'home/_home';
 @import 'home/_homeSearchResult';
@@ -67,16 +77,6 @@
 @import 'pinwall/_noPinwallElement';
 @import 'pinwall/_pinwallContainer';
 @import 'pinwall/_recommendation';
-
-@import 'problem/_mixins';
-@import 'problem/_createQuestion';
-@import 'problem/_createReason';
-@import 'problem/_detail';
-@import 'problem/_detailReason';
-@import 'problem/_overviewReason';
-@import 'problem/_overviewReasonElement';
-@import 'problem/_question';
-@import 'problem/_questionElement';
 
 @import 'recommendation/_addRecommendation';
 

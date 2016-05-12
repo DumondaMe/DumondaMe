@@ -28,7 +28,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             url: '/detail/:questionId',
             views: {
                 'content@': {
-                    template: '<ely-forum-detail></ely-forum-detail>'
+                    template: '<ely-forum-question-detail></ely-forum-question-detail>'
                 }
             },
             data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'forum.question', hasSearch: false}

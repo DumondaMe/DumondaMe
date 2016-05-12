@@ -1,0 +1,23 @@
+.ely-question-card {
+  margin: 0 auto;
+  min-width: 280px;
+  max-width: 600px;
+  padding: 10px;
+
+  .description {
+    font-size: 17px;
+    font-weight: 400;
+    color: $primary-color;
+  }
+  .category-description {
+    margin-top: 4px;
+    padding: 0;
+    .category-type {
+      font-size: 12px;
+      height: 17px;
+      line-height: 17px;
+    }
+  }
+}
+
+

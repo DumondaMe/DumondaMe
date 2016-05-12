@@ -8,9 +8,11 @@ module.exports = {
             scope: {},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            bindToController: true,
-            templateUrl: 'app/modules/forum/detail/template.html'
+            bindToController: {
+                question: '='
+            },
+            templateUrl: 'app/modules/forum/detail/questionCard/template.html'
         };
     }],
-    name: 'elyForumQuestionDetail'
+    name: 'elyForumQuestionDetailQuestionCard'
 };

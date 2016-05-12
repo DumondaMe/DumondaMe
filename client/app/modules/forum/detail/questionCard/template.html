@@ -1,0 +1,8 @@
+<md-card class="ely-question-card">
+    <div class="description">{{ctrl.question.description}}</div>
+    <div class="category-description">
+        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+             ng-repeat="category in ctrl.question.category">{{ctrl.getCategory(category)}}
+        </div>
+    </div>
+</md-card>
