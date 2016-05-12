@@ -1,3 +1,9 @@
+.ely-main-title {
+  color: rgba(0, 0, 0, 0.54);
+  margin: 16px 0;
+  font-size: 17px;
+  font-weight: 400; }
+
 .img-circle {
   border-radius: 50%; }
 
@@ -893,6 +899,16 @@ md-toast.md-error-toast-theme {
     padding: 16px 24px;
     margin-bottom: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+
+.ely-question-answer-card {
+  margin: 0 auto 8px auto;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 10px; }
+  .ely-question-answer-card .description {
+    font-size: 16px;
+    font-weight: 400;
+    color: #3F51B5; }
 
 .ely-question-card {
   margin: 0 auto;

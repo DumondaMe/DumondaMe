@@ -15,7 +15,7 @@ module.exports = ['$log', 'ElyModal', 'ForumQuestionAnswer', 'errorToast',
                     ElyModal.hide();
                 }).catch(function () {
                     ctrl.uploadStarted = false;
-                    errorToast.showError('Erkärung konnte nicht hochgeladen werden');
+                    errorToast.showError('Erklärung konnte nicht hochgeladen werden');
                 });
             } else if(ctrl.isSolution) {
                 ForumQuestionAnswer.save({questionId: ctrl.questionId, description: ctrl.answer, type: 'solution'}).$promise.then(function () {

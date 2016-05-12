@@ -1,6 +1,14 @@
 <div id="ely-question-detail">
     <div class="md-padding">
         <ely-forum-question-detail-question-card question="ctrl.detail.question"></ely-forum-question-detail-question-card>
+        <div ng-if="ctrl.detail.explanation.length > 0">
+            <div class="ely-main-title">Erklärungen</div>
+            <ely-forum-question-answer-card answer="answer" ng-repeat="answer in ctrl.detail.explanation"></ely-forum-question-answer-card>
+        </div>
+        <div ng-if="ctrl.detail.solution.length > 0">
+            <div class="ely-main-title">Lösungsvorschläge</div>
+            <ely-forum-question-answer-card answer="answer" ng-repeat="answer in ctrl.detail.solution"></ely-forum-question-answer-card>
+        </div>
     </div>
     <md-button class="md-fab create-question-element-fab" aria-label="Create Question Element" ng-click="ctrl.openSideNavRight()">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
