@@ -30,10 +30,10 @@ describe('Integration Tests for searching Pages', function () {
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 501, pageId: '0'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 502, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page1', modified: 503, pageId: '2'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Youtube', description: 'page1', modified: 504, pageId: '3'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page?1Title', label: 'Book', description: 'page1', modified: 501, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page?2Title', label: 'Book', description: 'page2', modified: 502, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page?3Title', label: 'Book', description: 'page1', modified: 503, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page?1Title', label: 'Youtube', description: 'page1', modified: 504, pageId: '3'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(a)-[:IS_CONTACT]->(b)")
@@ -66,7 +66,7 @@ describe('Integration Tests for searching Pages', function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
                     return requestHandler.getWithData('/api/page/search', {
-                        search: 'page1',
+                        search: 'page?1',
                         filterType: 'Book',
                         isSuggestion: false,
                         skip: 0,
@@ -76,7 +76,7 @@ describe('Integration Tests for searching Pages', function () {
                     res.status.should.equal(200);
 
                     res.body.pages.length.should.equals(1);
-                    res.body.pages[0].title.should.equals('page1Title');
+                    res.body.pages[0].title.should.equals('page?1Title');
                     res.body.pages[0].description.should.equals('page1');
                     res.body.pages[0].pageId.should.equals('0');
                     res.body.pages[0].label.should.equals('Book');

@@ -37,7 +37,7 @@ var searchPage = function (userId, search, filterType, skip, limit) {
 
     var orderBy = "page.modified DESC", 
         startQuery = searchPageQuery(userId, filterType),
-        searchRegEx = '(?i).*'.concat(search, '.*');
+        searchRegEx = '(?i).*'.concat(search.replace(/\?/, "\\?"), '.*');
 
     return pagePreview.pagePreviewQuery({
         userId: userId,
