@@ -10,11 +10,11 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 pages: '=',
-                cancel: '=',
-                finish: '='
+                hasSelect: '=',
+                selectChanged: '='
             },
-            templateUrl: 'app/modules/page/modal/overviewExistingPages/template.html'
+            templateUrl: 'app/modules/page/modal/overviewExistingPages/overview/template.html'
         };
     }],
-    name: 'elyExistingPageOverviewDialog'
+    name: 'elyExistingPageOverview'
 };

@@ -1,15 +1,25 @@
 <md-dialog class="add-question-answer" aria-label="Add Question Answer" ng-cloak>
-    <form name="ctrl.addQuestionAnswerForm">
+    <form name="ctrl.addQuestionAnswerForm" ng-if="!ctrl.selectPage">
         <div class="md-title ely-dialog-title" ng-if="ctrl.isExplanation">Erklärung hinzufügen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isSolution">Lösungsvorschalg hinzufügen</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
+                <ely-existing-page-overview ng-if="ctrl.pageToReference" pages="[ctrl.pageToReference]"></ely-existing-page-overview>
+                <div layout="row" layout-align="center center">
+                    <div flex="nogrow">
+                        <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectPage = true"
+                                   aria-label="Add Page">
+                            <span ng-if="!ctrl.pageToReference.pageId">Seite hinzufügen</span>
+                            <span ng-if="ctrl.pageToReference.pageId">Seite ändern</span>
+                        </md-button>
+                    </div>
+                </div>
                 <md-input-container class="input-container">
                     <label ng-if="ctrl.isExplanation">Erklärung</label>
                     <label ng-if="ctrl.isSolution">Lösungsvorschlag</label>
                         <textarea name="answer" ng-model="ctrl.answer" required md-maxlength="2000" aria-label="Answer"
                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
-                    <div ng-messages="ctrl.addQuestionElementForm.answer.$error">
+                    <div ng-messages="ctrl.addQuestionAnswerForm.answer.$error">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>
@@ -19,10 +29,11 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createAnswer()"
-                       ng-disabled="ctrl.uploadStarted || ctrl.addQuestionElementForm.$invalid">Erstellen
+                       ng-disabled="ctrl.uploadStarted || ctrl.addQuestionAnswerForm.$invalid">Erstellen
             </md-button>
         </md-dialog-actions>
     </form>
-    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+    <ely-forum-add-page ng-if="ctrl.selectPage" cancel="ctrl.cancelSelectPage" finish="ctrl.finishSelectPage"></ely-forum-add-page>
 
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

@@ -1,11 +1,6 @@
 <div id="ely-page-overview">
     <div class="md-title ely-dialog-title">Folgende Seiten existieren bereits</div>
-    <div class="page-element-container">
-        <div ng-repeat="page in ctrl.pages" class="page-overview-element">
-            <ely-existing-page-overview-book page="page" ng-if="page.label==='Book'"></ely-existing-page-overview-book>
-            <ely-existing-page-overview-youtube page="page" ng-if="page.label==='Youtube'"></ely-existing-page-overview-youtube>
-        </div>
-    </div>
+    <ely-existing-page-overview pages="ctrl.pages"></ely-existing-page-overview>
     <md-dialog-actions>
         <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.finish()">Weiter</md-button>

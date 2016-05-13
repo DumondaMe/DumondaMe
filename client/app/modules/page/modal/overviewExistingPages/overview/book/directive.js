@@ -12,8 +12,8 @@ module.exports = {
             bindToController: {
                 page: '='
             },
-            templateUrl: 'app/modules/page/modal/overviewExistingPages/youtube/template.html'
+            templateUrl: 'app/modules/page/modal/overviewExistingPages/overview/book/template.html'
         };
     }],
-    name: 'elyExistingPageOverviewYoutube'
+    name: 'elyExistingPageOverviewBook'
 };

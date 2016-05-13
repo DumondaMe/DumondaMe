@@ -1,8 +1,14 @@
 #ely-page-overview {
-  .page-element-container {
-    margin-bottom: 16px;
-    .page-overview-element {
-      padding: 8px 16px;
-    }
+}
+
+.page-element-container {
+  margin-bottom: 16px;
+  .page-overview-element {
+    cursor: pointer;
+    padding: 8px 16px;
+  }
+  .page-overview-element-selected {
+    border-radius: 3px;
+    background-color: $background-normal;
   }
 }

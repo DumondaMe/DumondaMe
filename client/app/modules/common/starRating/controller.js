@@ -56,6 +56,8 @@ module.exports = {
             $scope.$watch($scope.numberOfSelectedStarsReadonly, function (newValue) {
                 if (newValue && newValue > 0) {
                     setStars(newValue - 1, $scope);
+                } else {
+                    $scope.star = ['empty', 'empty', 'empty', 'empty', 'empty'];
                 }
             });
 

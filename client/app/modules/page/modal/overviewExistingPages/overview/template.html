@@ -1,0 +1,7 @@
+<div class="page-element-container">
+    <div ng-repeat="page in ctrl.pages" class="page-overview-element" ng-click="ctrl.pageSelected(page)"
+         ng-class="{'page-overview-element-selected': page.selectedStyle}">
+        <ely-existing-page-overview-book page="page" ng-if="page.label==='Book'"></ely-existing-page-overview-book>
+        <ely-existing-page-overview-youtube page="page" ng-if="page.label==='Youtube'"></ely-existing-page-overview-youtube>
+    </div>
+</div>

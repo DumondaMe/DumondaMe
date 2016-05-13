@@ -84,8 +84,8 @@
     <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
                          ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
 
-    <ely-existing-page-overview pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
-                                cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview>
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.data.title" page-id="ctrl.data.pageId"
                             finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>

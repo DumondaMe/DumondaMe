@@ -888,10 +888,27 @@ md-toast.md-error-toast-theme {
     margin-top: 16px;
     height: 55px; }
 
-.add-question-answer .ely-dialog-title {
-  padding: 16px 24px;
-  margin-bottom: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+.add-question-answer {
+  width: 100%; }
+  .add-question-answer .ely-dialog-content {
+    padding-top: 0; }
+  .add-question-answer .page-element-container {
+    margin-bottom: 0; }
+  .add-question-answer .ely-dialog-title {
+    padding: 16px 24px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .add-question-answer .input-container {
+    width: 100%; }
+
+.forum-add-page {
+  height: 90%; }
+  .forum-add-page .ely-dialog-title {
+    padding: 16px 24px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .forum-add-page .page-element-container {
+    margin-top: -20px; }
 
 #create-question {
   width: 100%; }
@@ -905,6 +922,12 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   max-width: 400px;
   padding: 10px; }
+  .ely-question-answer-card .positive-rating {
+    width: 48px;
+    margin-right: 8px; }
+    .ely-question-answer-card .positive-rating .number {
+      font-size: 20px;
+      font-weight: 400; }
   .ely-question-answer-card .description {
     font-size: 16px;
     font-weight: 400;
@@ -1588,6 +1611,9 @@ md-toast.md-error-toast-theme {
       margin-left: 4px;
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54); }
+    .autosuggestion-page .page-container .page-rating .no-rating-description {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54); }
 
 .autosuggestion-user {
   padding-top: 5px;
@@ -1827,10 +1853,14 @@ md-toast.md-error-toast-theme {
   padding-top: 24px;
   width: 300px; }
 
-#ely-page-overview .page-element-container {
+.page-element-container {
   margin-bottom: 16px; }
-  #ely-page-overview .page-element-container .page-overview-element {
+  .page-element-container .page-overview-element {
+    cursor: pointer;
     padding: 8px 16px; }
+  .page-element-container .page-overview-element-selected {
+    border-radius: 3px;
+    background-color: #E0E0E0; }
 
 .ely-page-overview-book .page-image-preview {
   height: 60px;

@@ -6,14 +6,14 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                page: '='
+                cancel: '=',
+                finish: '='
             },
-            templateUrl: 'app/modules/page/modal/overviewExistingPages/book/template.html'
+            templateUrl: 'app/modules/forum/modal/addAnswer/addPage/template.html'
         };
     }],
-    name: 'elyExistingPageOverviewBook'
+    name: 'elyForumAddPage'
 };

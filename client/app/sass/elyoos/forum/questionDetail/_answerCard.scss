@@ -4,6 +4,15 @@
   max-width: 400px;
   padding: 10px;
 
+  .positive-rating {
+    width: 48px;
+    margin-right: 8px;
+    .number {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+
   .description {
     font-size: 16px;
     font-weight: 400;

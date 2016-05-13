@@ -4,10 +4,13 @@
              ng-hide="ctrl.item.label !== 'Youtube'"></md-icon>
     <div class="page-container">
         <span class="page-title">{{ctrl.item.title}}</span>
-                    <span class="page-rating">
+                    <span class="page-rating" ng-if="ctrl.item.recommendation.summary.numberOfRatings > 0">
                         <ely-star-rating is-readonly="true" is-x-small="true"
                                          number-of-selected-stars-readonly="ctrl.item.recommendation.summary.rating"></ely-star-rating>
                         <span class="number-of-ratings">({{ctrl.item.recommendation.summary.numberOfRatings}})</span>
+                    </span>
+                    <span class="page-rating" ng-if="ctrl.item.recommendation.summary.numberOfRatings === 0">
+                        <span class="no-rating-description">Keine Bewertung</span>
                     </span>
     </div>
 </div>

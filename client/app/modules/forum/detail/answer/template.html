@@ -1,3 +1,8 @@
 <md-card class="ely-question-answer-card">
-    <div class="description">{{ctrl.answer.description}}</div>
+    <div layout="row">
+        <div class="positive-rating" flex="none" layout="column" layout-align="center center">
+            <div class="number">{{ctrl.answer.positiveRating}}</div>
+        </div>
+        <div class="description">{{ctrl.answer.description}}</div>
+    </div>
 </md-card>
