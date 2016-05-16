@@ -7,6 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('ForumQuestion', require('./services/question'));
 app.service('ForumQuestionAnswer', require('./services/questionAnswer'));
+app.service('ForumAnswerRate', require('./services/rateAnswer'));
 app.service('ForumPopularQuestion', require('./services/popularQuestion'));
 
 app.config(['$stateProvider', function ($stateProvider) {

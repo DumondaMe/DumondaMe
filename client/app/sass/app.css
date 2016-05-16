@@ -410,8 +410,6 @@
 
 .category-description {
   padding: 0 16px; }
-  .category-description .category-icon {
-    margin-bottom: 8px; }
   .category-description .category-type {
     display: inline-block;
     font-size: 14px;
@@ -436,6 +434,15 @@
     background-color: #7986CB; }
   .category-description .socialDevelopment {
     background-color: #009688; }
+
+.category-icon {
+  margin-bottom: 8px; }
+
+.youtube-icon {
+  color: #cd201f; }
+
+.book-icon {
+  color: #795548; }
 
 .ely-select-category .md-select-value span {
   max-width: 95%; }
@@ -925,11 +932,31 @@ md-toast.md-error-toast-theme {
   .ely-question-answer-card .positive-rating {
     width: 48px;
     margin-right: 8px; }
+    .ely-question-answer-card .positive-rating .positive-rating-icon {
+      color: rgba(0, 0, 0, 0.54);
+      width: 20px;
+      height: 20px;
+      margin: 2px; }
     .ely-question-answer-card .positive-rating .number {
+      color: rgba(0, 0, 0, 0.54);
       font-size: 20px;
       font-weight: 400; }
+  .ely-question-answer-card .answer-type-container {
+    margin-bottom: 4px; }
+    .ely-question-answer-card .answer-type-container .category-icon {
+      margin-bottom: 0; }
+    .ely-question-answer-card .answer-type-container .category-title {
+      margin-left: 8px;
+      font-size: 17px;
+      line-height: 24px;
+      vertical-align: middle;
+      font-weight: 400; }
+    .ely-question-answer-card .answer-type-container .page-title {
+      margin-top: 3px;
+      font-size: 14px;
+      color: #3F51B5; }
   .ely-question-answer-card .description {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #3F51B5; }
 
@@ -2358,5 +2385,14 @@ body, html {
 
 .tooltip.ely-tooltip-error .tooltip-arrow {
   border-right-color: #f2dede; }
+
+*::-webkit-scrollbar {
+  width: 6px !important; }
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08); }
 
 /*# sourceMappingURL=app.css.map */

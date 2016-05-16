@@ -1,9 +1,6 @@
 
 .category-description {
   padding: 0 16px;
-  .category-icon {
-    margin-bottom: 8px;
-  }
   .category-type {
     display: inline-block;
     font-size: 14px;
@@ -35,6 +32,16 @@
   .socialDevelopment {
     background-color: #009688;
   }
+}
+
+.category-icon {
+  margin-bottom: 8px;
+}
+.youtube-icon {
+  color: #cd201f;
+}
+.book-icon {
+  color: #795548;
 }
 
 .ely-select-category {

@@ -79,3 +79,15 @@ body, html {
     border-right-color: $tooltip-error-background;
   }
 }
+
+*::-webkit-scrollbar {
+  width: 6px!important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.2);
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.08);
+}

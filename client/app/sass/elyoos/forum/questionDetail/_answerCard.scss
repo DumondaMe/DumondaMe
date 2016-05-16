@@ -7,14 +7,38 @@
   .positive-rating {
     width: 48px;
     margin-right: 8px;
+    .positive-rating-icon {
+      color: $secondary-text;
+      width: 20px;
+      height: 20px;
+      margin: 2px;
+    }
     .number {
+      color: $secondary-text;
       font-size: 20px;
       font-weight: 400;
     }
   }
-
+  .answer-type-container {
+    margin-bottom: 4px;
+    .category-icon {
+      margin-bottom: 0;
+    }
+    .category-title {
+      margin-left: 8px;
+      font-size: 17px;
+      line-height: 24px;
+      vertical-align: middle;
+      font-weight: 400;
+    }
+    .page-title {
+      margin-top: 3px;
+      font-size: 14px;
+      color: $primary-color;
+    }
+  }
   .description {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: $primary-color;
   }
