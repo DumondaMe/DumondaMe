@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$mdSidenav', '$stateParams', 'ElyModal',
-    function ($mdSidenav, $stateParams, ElyModal) {
+module.exports = ['$mdSidenav', '$stateParams', 'ElyModal', 'ForumQuestionDetailCollection',
+    function ($mdSidenav, $stateParams, ElyModal, ForumQuestionDetailCollection) {
         var ctrl = this;
 
         ctrl.addExplanation = function () {
@@ -9,7 +9,7 @@ module.exports = ['$mdSidenav', '$stateParams', 'ElyModal',
             ElyModal.show('ForumAddAnswerCtrl', 'app/modules/forum/modal/addAnswer/template.html',
                 {questionId: $stateParams.questionId, isExplanation: true})
                 .then(function (resp) {
-
+                    ForumQuestionDetailCollection.addExplanation(resp);
                 });
         };
 
@@ -18,7 +18,7 @@ module.exports = ['$mdSidenav', '$stateParams', 'ElyModal',
             ElyModal.show('ForumAddAnswerCtrl', 'app/modules/forum/modal/addAnswer/template.html',
                 {questionId: $stateParams.questionId, isSolution: true})
                 .then(function (resp) {
-
+                    ForumQuestionDetailCollection.addSolution(resp);
                 });
         };
     }];

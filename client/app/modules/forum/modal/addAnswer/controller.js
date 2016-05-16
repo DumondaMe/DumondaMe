@@ -1,21 +1,16 @@
 'use strict';
 
-var uploadAnswer = function (ForumQuestionAnswer, ElyModal, errorToast, ctrl, type, errorDescription) {
-    ForumQuestionAnswer.save({
-        questionId: ctrl.questionId,
-        description: ctrl.answer,
-        type: type,
-        pageId: ctrl.pageToReference.pageId
-    }).$promise.then(function () {
-        ElyModal.hide();
+var uploadAnswer = function (ForumUploadAnswer, ElyModal, errorToast, ctrl, type, errorDescription) {
+    ForumUploadAnswer.upload(ctrl.pageToReference, ctrl.questionId, ctrl.title, ctrl.description, type).then(function (resp) {
+        ElyModal.hide(resp);
     }).catch(function () {
         ctrl.uploadStarted = false;
         errorToast.showError(errorDescription);
     });
 };
 
-module.exports = ['$log', 'ElyModal', 'ForumQuestionAnswer', 'errorToast',
-    function ($log, ElyModal, ForumQuestionAnswer, errorToast) {
+module.exports = ['$log', 'ElyModal', 'errorToast', 'ForumUploadAnswer',
+    function ($log, ElyModal, errorToast, ForumUploadAnswer) {
         var ctrl = this;
         ctrl.pageToReference = {};
 
@@ -35,9 +30,9 @@ module.exports = ['$log', 'ElyModal', 'ForumQuestionAnswer', 'errorToast',
         ctrl.createAnswer = function () {
             ctrl.uploadStarted = true;
             if (ctrl.isExplanation) {
-                uploadAnswer(ForumQuestionAnswer, ElyModal, errorToast, ctrl, 'explanation', 'Erklärung konnte nicht hochgeladen werden');
+                uploadAnswer(ForumUploadAnswer, ElyModal, errorToast, ctrl, 'explanation', 'Erklärung konnte nicht hochgeladen werden');
             } else if (ctrl.isSolution) {
-                uploadAnswer(ForumQuestionAnswer, ElyModal, errorToast, ctrl, 'solution', 'Lösungsvorschlag konnte nicht hochgeladen werden');
+                uploadAnswer(ForumUploadAnswer, ElyModal, errorToast, ctrl, 'solution', 'Lösungsvorschlag konnte nicht hochgeladen werden');
             } else {
                 $log.error("Missing correct type for question answer");
             }

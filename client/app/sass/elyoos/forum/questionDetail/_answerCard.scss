@@ -19,25 +19,25 @@
       font-weight: 400;
     }
   }
-  .answer-type-container {
-    margin-bottom: 4px;
-    .category-icon {
-      margin-bottom: 0;
-    }
-    .category-title {
-      margin-left: 8px;
-      font-size: 17px;
-      line-height: 24px;
-      vertical-align: middle;
-      font-weight: 400;
-    }
-    .page-title {
-      margin-top: 3px;
-      font-size: 14px;
-      color: $primary-color;
-    }
+
+  .category-icon {
+    margin-bottom: 0;
   }
-  .description {
+  .category-title {
+    margin-left: 8px;
+    font-size: 17px;
+    line-height: 24px;
+    vertical-align: middle;
+    font-weight: 400;
+  }
+  .page-title {
+    margin-top: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    color: $primary-color;
+  }
+  .answer-title {
+    margin-top: 3px;
     font-size: 14px;
     font-weight: 400;
     color: $primary-color;

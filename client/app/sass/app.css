@@ -444,6 +444,9 @@
 .book-icon {
   color: #795548; }
 
+.answer-icon {
+  color: #F9A825; }
+
 .ely-select-category .md-select-value span {
   max-width: 95%; }
   .ely-select-category .md-select-value span .md-text {
@@ -941,21 +944,21 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54);
       font-size: 20px;
       font-weight: 400; }
-  .ely-question-answer-card .answer-type-container {
-    margin-bottom: 4px; }
-    .ely-question-answer-card .answer-type-container .category-icon {
-      margin-bottom: 0; }
-    .ely-question-answer-card .answer-type-container .category-title {
-      margin-left: 8px;
-      font-size: 17px;
-      line-height: 24px;
-      vertical-align: middle;
-      font-weight: 400; }
-    .ely-question-answer-card .answer-type-container .page-title {
-      margin-top: 3px;
-      font-size: 14px;
-      color: #3F51B5; }
-  .ely-question-answer-card .description {
+  .ely-question-answer-card .category-icon {
+    margin-bottom: 0; }
+  .ely-question-answer-card .category-title {
+    margin-left: 8px;
+    font-size: 17px;
+    line-height: 24px;
+    vertical-align: middle;
+    font-weight: 400; }
+  .ely-question-answer-card .page-title {
+    margin-top: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3F51B5; }
+  .ely-question-answer-card .answer-title {
+    margin-top: 3px;
     font-size: 14px;
     font-weight: 400;
     color: #3F51B5; }

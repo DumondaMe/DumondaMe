@@ -14,12 +14,20 @@
                         </md-button>
                     </div>
                 </div>
+                <md-input-container class="input-container" ng-if="!ctrl.pageToReference.pageId">
+                    <label>Titel</label>
+                        <textarea name="title" ng-model="ctrl.title" required md-maxlength="160" aria-label="Answer Title"
+                                  ng-disabled="ctrl.uploadStarted"></textarea>
+                    <div ng-messages="ctrl.addQuestionAnswerForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
                 <md-input-container class="input-container">
-                    <label ng-if="ctrl.isExplanation">Erklärung</label>
-                    <label ng-if="ctrl.isSolution">Lösungsvorschlag</label>
-                        <textarea name="answer" ng-model="ctrl.answer" required md-maxlength="2000" aria-label="Answer"
-                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
-                    <div ng-messages="ctrl.addQuestionAnswerForm.answer.$error">
+                    <label>Beschreibung</label>
+                        <textarea name="description" ng-model="ctrl.description" required md-maxlength="3000" aria-label="Answer Description"
+                                  ng-disabled="ctrl.uploadStarted"></textarea>
+                    <div ng-messages="ctrl.addQuestionAnswerForm.description.$error">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>

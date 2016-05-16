@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = ['$scope', '$stateParams', '$mdSidenav', 'ForumQuestionDetail', 'ToolbarService',
-    function ($scope, $stateParams, $mdSidenav, ForumQuestionDetail, ToolbarService) {
+module.exports = ['$scope', '$stateParams', '$mdSidenav', 'ForumQuestionDetail', 'ToolbarService', 'ForumQuestionDetailCollection',
+    function ($scope, $stateParams, $mdSidenav, ForumQuestionDetail, ToolbarService, ForumQuestionDetailCollection) {
         var ctrl = this;
-        ctrl.detail = ForumQuestionDetail.get({questionId: $stateParams.questionId}, function (resp) {
-
+        ctrl.detail = ForumQuestionDetail.get({questionId: $stateParams.questionId}, function () {
+            ForumQuestionDetailCollection.set(ctrl.detail);
         });
 
         ctrl.openSideNavRight = function () {

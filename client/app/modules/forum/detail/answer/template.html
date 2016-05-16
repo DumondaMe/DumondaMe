@@ -20,7 +20,11 @@
                 <span class="category-title" ng-hide="ctrl.answer.page.label !== 'Youtube'">Youtube</span>
                 <div class="page-title">{{ctrl.answer.page.title}}</div>
             </div>
-            <div class="description" ng-if="!ctrl.answer.page.label">{{ctrl.answer.description}}</div>
+            <div class="answer-question-container" ng-if="!ctrl.answer.page.label">
+                <md-icon md-svg-icon="cardActions:answer" aria-label="Answer" class="category-icon answer-icon"></md-icon>
+                <span class="category-title">Antwort</span>
+                <div class="answer-title">{{ctrl.answer.title}}</div>
+            </div>
         </div>
     </div>
 </md-card>
