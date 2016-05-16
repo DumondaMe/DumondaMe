@@ -35,7 +35,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             commands.push(db.cypher().match("(solution:ForumSolution {answerId: '0'}), (page:Page {pageId: '1'})")
                 .createUnique("(solution)-[:REFERENCE]->(page)").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '1', description: 'forumSolution1', created: 501})<-[:IS_ANSWER]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumSolution:ForumAnswer {answerId: '1', title: 'titleForumSolution1', description: 'forumSolution1', created: 501})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
 
             //Rate solutions
@@ -57,7 +57,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '2'}), (page:Page {pageId: '0'})")
                 .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
+                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', title: 'titleForumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
 
             //Rate explanation
@@ -91,7 +91,6 @@ describe('Integration Tests for getting the details of a forum question', functi
 
             res.body.solution.length.should.equals(2);
             res.body.solution[0].answerId.should.equals('0');
-            res.body.solution[0].description.should.equals('forumSolution');
             res.body.solution[0].created.should.equals(500);
             res.body.solution[0].positiveRating.should.equals(3);
             res.body.solution[0].ratedByUser.should.equals(true);
@@ -102,7 +101,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.solution[0].page.description.should.equals('page2');
 
             res.body.solution[1].answerId.should.equals('1');
-            res.body.solution[1].description.should.equals('forumSolution1');
+            res.body.solution[1].title.should.equals('titleForumSolution1');
             res.body.solution[1].created.should.equals(501);
             res.body.solution[1].positiveRating.should.equals(2);
             res.body.solution[1].ratedByUser.should.equals(false);
@@ -110,7 +109,6 @@ describe('Integration Tests for getting the details of a forum question', functi
 
             res.body.explanation.length.should.equals(2);
             res.body.explanation[0].answerId.should.equals('2');
-            res.body.explanation[0].description.should.equals('forumExplanation');
             res.body.explanation[0].created.should.equals(502);
             res.body.explanation[0].positiveRating.should.equals(2);
             res.body.explanation[0].ratedByUser.should.equals(true);
@@ -120,7 +118,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.explanation[0].page.description.should.equals('page1');
 
             res.body.explanation[1].answerId.should.equals('3');
-            res.body.explanation[1].description.should.equals('forumExplanation1');
+            res.body.explanation[1].title.should.equals('titleForumExplanation1');
             res.body.explanation[1].created.should.equals(503);
             res.body.explanation[1].positiveRating.should.equals(1);
             res.body.explanation[1].ratedByUser.should.equals(false);

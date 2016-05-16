@@ -8,7 +8,7 @@ var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
         .optionalMatch("(answer)<-[rating:RATE_POSITIVE]-(:User)")
         .with("COUNT(rating) AS positiveRating, answer")
         .optionalMatch("(answer)-[:REFERENCE]->(page:Page)")
-        .return("answer.answerId AS answerId, answer.description AS description, answer.created AS created, page, positiveRating, " +
+        .return("answer.answerId AS answerId, answer.title AS title, answer.created AS created, page, positiveRating, " +
             "EXISTS((answer)<-[:RATE_POSITIVE]-(:User {userId: {userId}})) AS ratedByUser")
         .orderBy("positiveRating DESC")
         .skip("{skip}")
