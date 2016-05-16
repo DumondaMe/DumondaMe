@@ -33,13 +33,16 @@ describe('Integration Tests for adding answers to a forum question', function ()
     it('Creating a new explanation answer for a forum question - Return 200', function () {
 
         var answerId,
-            description = 'Deshalb';
+            description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '0',
-                description: description,
-                type: 'explanation'
+                normal: {
+                    questionId: '0',
+                    title: title,
+                    description: description,
+                    type: 'explanation'
+                }
             }, requestAgent);
         }).then(function (res) {
             answerId = res.body.answerId;
@@ -51,19 +54,23 @@ describe('Integration Tests for adding answers to a forum question', function ()
         }).then(function (answer) {
             answer.length.should.equals(1);
             answer[0].answer.description.should.equals(description);
+            answer[0].answer.title.should.equals(title);
         });
     });
 
     it('Creating a new solution answer for a forum question - Return 200', function () {
 
         var answerId,
-            description = 'Deshalb';
+            description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '0',
-                description: description,
-                type: 'solution'
+                normal: {
+                    questionId: '0',
+                    title: title,
+                    description: description,
+                    type: 'solution'
+                }
             }, requestAgent);
         }).then(function (res) {
             answerId = res.body.answerId;
@@ -75,6 +82,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
         }).then(function (answer) {
             answer.length.should.equals(1);
             answer[0].answer.description.should.equals(description);
+            answer[0].answer.title.should.equals(title);
         });
     });
 
@@ -85,10 +93,12 @@ describe('Integration Tests for adding answers to a forum question', function ()
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '0',
-                pageId: '0',
-                description: description,
-                type: 'explanation'
+                page: {
+                    questionId: '0',
+                    pageId: '0',
+                    description: description,
+                    type: 'explanation'
+                }
             }, requestAgent);
         }).then(function (res) {
             answerId = res.body.answerId;
@@ -110,10 +120,12 @@ describe('Integration Tests for adding answers to a forum question', function ()
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '0',
-                pageId: '0',
-                description: description,
-                type: 'solution'
+                page: {
+                    questionId: '0',
+                    pageId: '0',
+                    description: description,
+                    type: 'solution'
+                }
             }, requestAgent);
         }).then(function (res) {
             answerId = res.body.answerId;
@@ -133,9 +145,12 @@ describe('Integration Tests for adding answers to a forum question', function ()
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '1',
-                description: 'Deshalb',
-                type: 'explanation'
+                normal: {
+                    questionId: '1',
+                    title: 'title',
+                    description: 'Deshalb',
+                    type: 'explanation'
+                }
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
@@ -151,9 +166,12 @@ describe('Integration Tests for adding answers to a forum question', function ()
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question/answer', {
-                questionId: '1',
-                description: 'Deshalb',
-                type: 'solution'
+                normal: {
+                    questionId: '1',
+                    title: 'title',
+                    description: 'Deshalb',
+                    type: 'solution'
+                }
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);

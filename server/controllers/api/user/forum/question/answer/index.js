@@ -9,11 +9,31 @@ var schemaAddQuestionAnswer = {
     name: 'createForumAnswer',
     type: 'object',
     additionalProperties: false,
-    required: ['questionId', 'description', 'type'],
     properties: {
-        questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        pageId: {type: 'string', format: 'notEmptyString', maxLength: 30},
-        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+        normal: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['questionId', 'title', 'description', 'type'],
+            properties: {
+                questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+                title: {type: 'string', format: 'notEmptyString', maxLength: 160},
+                description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
+                type: {'$ref': '#/definitions/type'}
+            }
+        },
+        page: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['questionId', 'pageId', 'description', 'type'],
+            properties: {
+                questionId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+                pageId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+                description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
+                type: {'$ref': '#/definitions/type'}
+            }
+        }
+    },
+    definitions: {
         type: {enum: ['explanation', 'solution']}
     }
 };
@@ -25,7 +45,13 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when creating a forum answer', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddQuestionAnswer, logger).then(function (request) {
                 logger.info("User created a new forum answer", req);
-                return answer.createAnswer(req.user.id, request.questionId, request.description, request.type, request.pageId, req);
+                if (request.hasOwnProperty('normal')) {
+                    return answer.createAnswer(req.user.id, request.normal.questionId, request.normal.title, request.normal.description,
+                        request.normal.type, null, req);
+                } else if (request.hasOwnProperty('page')) {
+                    return answer.createAnswer(req.user.id, request.page.questionId, null, request.page.description,
+                        request.page.type, request.page.pageId, req);
+                }
             }).then(function (data) {
                 res.status(200).json(data);
             });

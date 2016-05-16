@@ -30,17 +30,18 @@ var getAnswerLabel = function (type, req) {
     return exceptions.getInvalidOperation("Unknown type: " + type, logger, req);
 };
 
-var createAnswer = function (userId, questionId, description, type, pageId, req) {
+var createAnswer = function (userId, questionId, title, description, type, pageId, req) {
 
     var timeCreatedExplanation = Math.floor(moment.utc().valueOf() / 1000),
         answerId = uuid.generateUUID();
     return security.questionExists(questionId, req).then(function () {
         return db.cypher().match("(u:User {userId: {userId}}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
             .createUnique("(u)-[:IS_ADMIN]->(" + getAnswerLabel(type, req) + " {answerId: {answerId}, description: {description}, " +
-                "created: {timeCreatedQuestion}})<-[:IS_ANSWER]-(forumQuestion)")
+                "title: {title}, created: {timeCreatedQuestion}})<-[:IS_ANSWER]-(forumQuestion)")
             .addCommand(createPageReference(pageId))
             .end({
                 userId: userId,
+                title: title,
                 description: description,
                 timeCreatedQuestion: timeCreatedExplanation,
                 answerId: answerId,
