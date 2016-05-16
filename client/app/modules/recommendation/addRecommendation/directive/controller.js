@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['PageRecommendation', 'errorToast',
-    function (PageRecommendation, errorToast) {
+module.exports = ['PageRecommendation', 'errorToast', 'elyRequestFormatter',
+    function (PageRecommendation, errorToast, elyRequestFormatter) {
         var ctrl = this;
 
         ctrl.numberOfSelectedStars = -1;
@@ -10,7 +10,7 @@ module.exports = ['PageRecommendation', 'errorToast',
         ctrl.uploadRecommendation = function () {
             var data = {
                 pageId: ctrl.pageId,
-                comment: ctrl.description,
+                comment: elyRequestFormatter.getOptionalString(ctrl.description),
                 rating: ctrl.numberOfSelectedStars
             };
             ctrl.uploadRunning = true;
