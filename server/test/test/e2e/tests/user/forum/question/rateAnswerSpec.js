@@ -10,7 +10,7 @@ describe('Integration Tests for rating answers of a forum question', function ()
     var requestAgent, startTime;
 
     beforeEach(function () {
-        
+
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             var commands = [];
@@ -47,6 +47,27 @@ describe('Integration Tests for rating answers of a forum question', function ()
         }).then(function (answer) {
             answer.length.should.equals(1);
         });
+    });
+
+    it('Delete positive rate a answer - Return 200', function () {
+
+        return db.cypher().match("(u:User {userId: '1'}), (answer:ForumAnswer {answerId: '0'})")
+            .create("(u)-[:RATE_POSITIVE]->(answer)")
+            .end().send().then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.del('/api/user/forum/question/answer/rate', {
+                        answerId: '0'
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+                    return db.cypher().match("(answer:ForumAnswer {answerId: '0'})" +
+                        "<-[:RATE_POSITIVE]-(:User {userId: '1'})")
+                        .return('answer').end().send();
+                }).then(function (answer) {
+                    answer.length.should.equals(0);
+                });
+            });
     });
 
     it('Positive rate a answer twice. Second rate is dismissed- Return 200', function () {

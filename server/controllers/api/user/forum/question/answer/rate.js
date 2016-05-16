@@ -28,4 +28,14 @@ module.exports = function (router) {
             });
         });
     });
+
+    router.delete('/', auth.isAuthenticated(), function (req, res) {
+        return controllerErrors('Error occurs when deleting rating of a forum answer', req, res, logger, function () {
+            return validation.validateRequest(req, schemaRateAnswer, logger).then(function (request) {
+                return rate.deleteRating(req.user.id, request.answerId, req);
+            }).then(function () {
+                res.status(200).end();
+            });
+        });
+    });
 };

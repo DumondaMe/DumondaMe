@@ -15,7 +15,7 @@ var rateExists = function (userId, answerId, req) {
 };
 
 var ratePositive = function (userId, answerId, req) {
-    
+
     return rateExists(userId, answerId, req).then(function () {
         var timeCreatedRating = Math.floor(moment.utc().valueOf() / 1000);
         return db.cypher().match("(u:User {userId: {userId}}), (answer:ForumAnswer {answerId: {answerId}})")
@@ -29,7 +29,15 @@ var ratePositive = function (userId, answerId, req) {
     });
 };
 
+var deleteRating = function (userId, answerId) {
+    return db.cypher().match("(:User {userId: {userId}})-[rating:RATE_POSITIVE]->(:ForumAnswer {answerId: {answerId}})")
+        .delete("rating")
+        .end({userId: userId, answerId: answerId})
+        .send();
+};
+
 
 module.exports = {
-    ratePositive: ratePositive
+    ratePositive: ratePositive,
+    deleteRating: deleteRating
 };
