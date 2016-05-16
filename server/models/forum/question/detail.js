@@ -5,11 +5,11 @@ var db = require('./../../../neo4j');
 var statistic = require('./../answer/statistic');
 var pageResponse = require('./pageResponse');
 
-var getDetail = function (questionId) {
+var getDetail = function (userId, questionId) {
 
     var commands = [];
-    commands.push(statistic.getExplanationAnswerCommand(questionId, 0, 10).getCommand());
-    commands.push(statistic.getSolutionAnswerCommand(questionId, 0, 10).getCommand());
+    commands.push(statistic.getExplanationAnswerCommand(userId, questionId, 0, 10).getCommand());
+    commands.push(statistic.getSolutionAnswerCommand(userId, questionId, 0, 10).getCommand());
 
     return db.cypher().match("(question:ForumQuestion {questionId: {questionId}})")
         .return("question.description AS description, question.category AS category, question.language AS language")

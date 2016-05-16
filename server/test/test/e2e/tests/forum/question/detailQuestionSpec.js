@@ -94,6 +94,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.solution[0].description.should.equals('forumSolution');
             res.body.solution[0].created.should.equals(500);
             res.body.solution[0].positiveRating.should.equals(3);
+            res.body.solution[0].ratedByUser.should.equals(true);
             res.body.solution[0].page.pageId.should.equals('1');
             res.body.solution[0].page.title.should.equals('page2Title');
             res.body.solution[0].page.label.should.equals('Youtube');
@@ -104,6 +105,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.solution[1].description.should.equals('forumSolution1');
             res.body.solution[1].created.should.equals(501);
             res.body.solution[1].positiveRating.should.equals(2);
+            res.body.solution[1].ratedByUser.should.equals(false);
             should.not.exist(res.body.solution[1].page);
 
             res.body.explanation.length.should.equals(2);
@@ -111,6 +113,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.explanation[0].description.should.equals('forumExplanation');
             res.body.explanation[0].created.should.equals(502);
             res.body.explanation[0].positiveRating.should.equals(2);
+            res.body.explanation[0].ratedByUser.should.equals(true);
             res.body.explanation[0].page.pageId.should.equals('0');
             res.body.explanation[0].page.title.should.equals('page1Title');
             res.body.explanation[0].page.label.should.equals('Book');
@@ -120,6 +123,7 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.explanation[1].description.should.equals('forumExplanation1');
             res.body.explanation[1].created.should.equals(503);
             res.body.explanation[1].positiveRating.should.equals(1);
+            res.body.explanation[1].ratedByUser.should.equals(false);
         });
     });
 

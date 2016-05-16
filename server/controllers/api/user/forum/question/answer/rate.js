@@ -23,8 +23,8 @@ module.exports = function (router) {
             return validation.validateRequest(req, schemaRateAnswer, logger).then(function (request) {
                 logger.info("User rates a forum answer", req);
                 return rate.ratePositive(req.user.id, request.answerId, req);
-            }).then(function (data) {
-                res.status(200).json(data);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });

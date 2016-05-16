@@ -22,7 +22,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting question detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetDetailForumQuestion, logger).then(function (request) {
                 logger.info("User gets question detail", req);
-                return questionDetail.getDetail(request.questionId);
+                return questionDetail.getDetail(req.user.id, request.questionId);
             }).then(function (data) {
                 res.status(200).json(data);
             });
