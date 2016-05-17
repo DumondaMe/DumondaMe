@@ -902,6 +902,32 @@ md-toast.md-error-toast-theme {
   height: 100%;
   background-color: #E0E0E0; }
 
+.ely-detail-answer-book-page .book-title-image {
+  float: left;
+  width: 64px;
+  height: 101px;
+  margin-right: 8px; }
+.ely-detail-answer-book-page .book-title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  max-height: 57px;
+  overflow-y: hidden;
+  margin-bottom: 8px; }
+.ely-detail-answer-book-page .book-description {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54); }
+
+.ely-detail-answer-youtube-page .youtube-title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  max-height: 57px;
+  overflow-y: hidden;
+  margin-bottom: 4px; }
+.ely-detail-answer-youtube-page .youtube-description {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54); }
+
 .ely-detail-answer-card {
   margin: 0 auto 8px auto;
   min-width: 280px;

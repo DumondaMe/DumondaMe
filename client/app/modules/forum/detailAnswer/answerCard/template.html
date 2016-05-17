@@ -2,8 +2,12 @@
     <div layout="row">
         <ely-forum-answer-rating answer="ctrl.answer"></ely-forum-answer-rating>
         <div class="answer-detail-container">
-            <div class="answer-title">{{ctrl.answer.title}}</div>
-            <div class="answer-description">{{ctrl.answer.description}}</div>
+            <div class="answer-title" ng-if="!ctrl.answer.page">{{ctrl.answer.title}}</div>
+            <ely-expand-text class="answer-description" ng-if="!ctrl.answer.page" description="{{ctrl.answer.description}}"
+                             length="300"></ely-expand-text>
+            <ely-forum-answer-detail-book-page answer="ctrl.answer" ng-if="ctrl.answer.page.label==='Book'"></ely-forum-answer-detail-book-page>
+            <ely-forum-answer-detail-youtube-page answer="ctrl.answer"
+                                                  ng-if="ctrl.answer.page.label==='Youtube'"></ely-forum-answer-detail-youtube-page>
         </div>
     </div>
 </md-card>

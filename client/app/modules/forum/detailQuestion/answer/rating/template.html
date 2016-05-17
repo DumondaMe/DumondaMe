@@ -1,9 +1,9 @@
 <div class="forum-answer-positive-rating" flex="none" layout="column" layout-align="start center">
     <div layout="column" layout-align="start center">
-        <md-icon md-svg-icon="cardActions:arrowUp" aria-label="Rate Positive" class="positive-rating-icon" ng-if="!ctrl.answer.ratedByUser"
-                 ng-click="ctrl.ratePositive()"></md-icon>
         <div class="number">{{ctrl.answer.positiveRating}}</div>
-        <md-icon md-svg-icon="cardActions:arrowDown" aria-label="Remove Rate Positive" class="positive-rating-icon"
+        <md-icon md-svg-icon="cardActions:thumbUp" aria-label="Rate Positive" class="positive-rating-icon" ng-if="!ctrl.answer.ratedByUser"
+                 ng-click="ctrl.ratePositive()"></md-icon>
+        <md-icon md-svg-icon="cardActions:thumbDown" aria-label="Remove Rate Positive" class="positive-rating-icon"
                  ng-if="ctrl.answer.ratedByUser"
                  ng-click="ctrl.deleteRating()"></md-icon>
     </div>
