@@ -4,43 +4,30 @@
   max-width: 400px;
   padding: 10px;
 
-  .positive-rating {
-    width: 48px;
-    margin-right: 8px;
-    .positive-rating-icon {
-      color: $secondary-text;
-      width: 20px;
-      height: 20px;
-      margin: 2px;
+  .answer-info-container {
+    cursor: pointer;
+    .category-icon {
+      margin-bottom: 0;
     }
-    .number {
-      color: $secondary-text;
-      font-size: 20px;
+    .category-title {
+      margin-left: 8px;
+      font-size: 17px;
+      line-height: 24px;
+      vertical-align: middle;
       font-weight: 400;
     }
-  }
-
-  .category-icon {
-    margin-bottom: 0;
-  }
-  .category-title {
-    margin-left: 8px;
-    font-size: 17px;
-    line-height: 24px;
-    vertical-align: middle;
-    font-weight: 400;
-  }
-  .page-title {
-    margin-top: 3px;
-    font-size: 14px;
-    font-weight: 400;
-    color: $primary-color;
-  }
-  .answer-title {
-    margin-top: 3px;
-    font-size: 14px;
-    font-weight: 400;
-    color: $primary-color;
+    .page-title {
+      margin-top: 3px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $primary-color;
+    }
+    .answer-title {
+      margin-top: 3px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $primary-color;
+    }
   }
 }
 

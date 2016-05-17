@@ -17,6 +17,10 @@ app.config(['$stateProvider', function ($stateProvider) {
             abstract: true,
             url: '/forum'
         })
+        .state('forum.answer', {
+            abstract: true,
+            url: '/answer'
+        })
         .state('forum.question', {
             url: '/question',
             views: {
@@ -31,6 +35,15 @@ app.config(['$stateProvider', function ($stateProvider) {
             views: {
                 'content@': {
                     template: '<ely-forum-question-detail></ely-forum-question-detail>'
+                }
+            },
+            data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'forum.question', hasSearch: false}
+        })
+        .state('forum.answer.detail', {
+            url: '/detail/:answerId',
+            views: {
+                'content@': {
+                    template: '<ely-forum-answer-detail></ely-forum-answer-detail>'
                 }
             },
             data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'forum.question', hasSearch: false}

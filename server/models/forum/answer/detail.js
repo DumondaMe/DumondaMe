@@ -32,8 +32,7 @@ var getDetail = function (userId, answerId) {
         .match("(answer)<-[:IS_ANSWER]-(question:ForumQuestion)")
         .optionalMatch("(answer)-[:REFERENCE]->(page:Page)")
         .return("answer.title AS title, answer.description AS description, answer.created AS created, positiveRating, LABELS(answer) AS labels, " +
-            "question.description AS question, question.questionId AS questionId, page, " +
-            "EXISTS((answer)<-[:RATE_POSITIVE]-(:User {userId: {userId}})) AS ratedByUser")
+            "question, page, EXISTS((answer)<-[:RATE_POSITIVE]-(:User {userId: {userId}})) AS ratedByUser")
         .end({answerId: answerId, userId: userId})
         .send().then(function (resp) {
             addType(resp[0]);

@@ -9,10 +9,10 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                detail: '='
+                answer: '='
             },
-            templateUrl: 'app/modules/forum/detail/rightSidenav/template.html'
+            templateUrl: 'app/modules/forum/detailAnswer/answerCard/template.html'
         };
     }],
-    name: 'elyQuestionRightSidenav'
+    name: 'elyForumAnswerDetailCard'
 };

@@ -84,8 +84,10 @@ describe('Integration Tests for getting the details of a forum answer', function
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.should.equals('forumQuestion');
-            res.body.answer.questionId.should.equals('0');
+            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.questionId.should.equals('0');
+            res.body.answer.question.category.length.should.equals(1);
+            res.body.answer.question.category[0].should.equals('environmental');
             res.body.answer.type.should.equals('solution');
             res.body.answer.title.should.equals('titleForumSolution1');
             res.body.answer.description.should.equals('forumSolution1');
@@ -106,8 +108,10 @@ describe('Integration Tests for getting the details of a forum answer', function
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.should.equals('forumQuestion');
-            res.body.answer.questionId.should.equals('0');
+            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.questionId.should.equals('0');
+            res.body.answer.question.category.length.should.equals(1);
+            res.body.answer.question.category[0].should.equals('environmental');
             res.body.answer.type.should.equals('explanation');
             res.body.answer.title.should.equals('titleForumExplanation1');
             res.body.answer.description.should.equals('forumExplanation1');
@@ -128,8 +132,10 @@ describe('Integration Tests for getting the details of a forum answer', function
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.should.equals('forumQuestion');
-            res.body.answer.questionId.should.equals('0');
+            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.questionId.should.equals('0');
+            res.body.answer.question.category.length.should.equals(1);
+            res.body.answer.question.category[0].should.equals('environmental');
             res.body.answer.type.should.equals('solution');
             res.body.answer.description.should.equals('forumSolution');
             res.body.answer.created.should.equals(500);
@@ -153,8 +159,10 @@ describe('Integration Tests for getting the details of a forum answer', function
         }).then(function (res) {
             res.status.should.equals(200);
 
-            res.body.answer.question.should.equals('forumQuestion');
-            res.body.answer.questionId.should.equals('0');
+            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.questionId.should.equals('0');
+            res.body.answer.question.category.length.should.equals(1);
+            res.body.answer.question.category[0].should.equals('environmental');
             res.body.answer.type.should.equals('explanation');
             res.body.answer.description.should.equals('forumExplanation');
             res.body.answer.created.should.equals(502);

@@ -1,17 +1,8 @@
 <md-card class="ely-question-answer-card">
     <div layout="row">
-        <div class="positive-rating" flex="none" layout="column" layout-align="start center">
-            <div layout="column" layout-align="start center">
-                <md-icon md-svg-icon="cardActions:arrowUp" aria-label="Rate Positive" class="positive-rating-icon" ng-if="!ctrl.answer.ratedByUser"
-                         ng-click="ctrl.ratePositive()"></md-icon>
-                <div class="number">{{ctrl.answer.positiveRating}}</div>
-                <md-icon md-svg-icon="cardActions:arrowDown" aria-label="Remove Rate Positive" class="positive-rating-icon"
-                         ng-if="ctrl.answer.ratedByUser"
-                         ng-click="ctrl.deleteRating()"></md-icon>
-            </div>
-        </div>
-        <div>
-            <div class="answer-type-container" ng-if="ctrl.answer.page.label">
+        <ely-forum-answer-rating answer="ctrl.answer"></ely-forum-answer-rating>
+        <div class="answer-info-container" ng-click="ctrl.openAnswerDetail()">
+            <div ng-if="ctrl.answer.page.label">
                 <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon book-icon"
                          ng-hide="ctrl.answer.page.label !== 'Book'"></md-icon>
                 <span class="category-title" ng-hide="ctrl.answer.page.label !== 'Book'">Buch</span>
@@ -20,7 +11,7 @@
                 <span class="category-title" ng-hide="ctrl.answer.page.label !== 'Youtube'">Youtube</span>
                 <div class="page-title">{{ctrl.answer.page.title}}</div>
             </div>
-            <div class="answer-question-container" ng-if="!ctrl.answer.page.label">
+            <div ng-if="!ctrl.answer.page.label">
                 <md-icon md-svg-icon="cardActions:answer" aria-label="Answer" class="category-icon answer-icon"></md-icon>
                 <span class="category-title">Antwort</span>
                 <div class="answer-title">{{ctrl.answer.title}}</div>

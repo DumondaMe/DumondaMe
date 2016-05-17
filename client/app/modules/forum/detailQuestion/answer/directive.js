@@ -11,7 +11,7 @@ module.exports = {
             bindToController: {
                 answer: '='
             },
-            templateUrl: 'app/modules/forum/detail/answer/template.html'
+            templateUrl: 'app/modules/forum/detailQuestion/answer/template.html'
         };
     }],
     name: 'elyForumQuestionAnswerCard'
