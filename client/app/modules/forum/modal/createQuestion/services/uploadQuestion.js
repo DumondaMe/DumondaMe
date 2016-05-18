@@ -15,8 +15,14 @@ module.exports = ['CreateForumQuestionCheck', 'ForumQuestion', '$q', 'Categories
                     category: Categories.getCodes(selectedCategories)
                 }, function (resp) {
                     uploadQuestionIsRunning = false;
-                    resp.isAdmin = true;
-                    deferred.resolve(resp);
+                    deferred.resolve({
+                        questionId: resp.questionId,
+                        isAdmin: true,
+                        description: text,
+                        language: selectedLanguage[0].code,
+                        category: Categories.getCodes(selectedCategories),
+                        activityRating: 0
+                    });
                 }, function () {
                     uploadQuestionIsRunning = false;
                     deferred.reject({});

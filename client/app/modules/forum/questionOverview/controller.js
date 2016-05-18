@@ -15,7 +15,15 @@ module.exports = {
                     });
                 };
 
+                ctrl.questionRemoved = function (index) {
+                    ctrl.overview.question.splice(index, 1);
+                };
+
                 ctrl.nextOverview();
+
+                ctrl.commands.addQuestion = function (question) {
+                    ctrl.overview.question.unshift(question);
+                };
             }];
     }
 };

@@ -10,7 +10,7 @@ module.exports = {
             scope: {},
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            bindToController: true,
+            bindToController: {commands: '='},
             templateUrl: 'app/modules/forum/questionOverview/template.html'
         };
     }],

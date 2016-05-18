@@ -9,7 +9,9 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                element: '='
+                element: '=',
+                index: '=',
+                removeQuestion: '='
             },
             templateUrl: 'app/modules/forum/questionOverview/question/template.html'
         };

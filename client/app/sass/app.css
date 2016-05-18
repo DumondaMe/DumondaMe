@@ -1005,7 +1005,7 @@ md-toast.md-error-toast-theme {
     color: rgba(0, 0, 0, 0.54);
     width: 20px;
     height: 20px;
-    margin: 2px; }
+    margin: 4px; }
   .forum-answer-positive-rating .number {
     color: rgba(0, 0, 0, 0.54);
     font-size: 20px;
@@ -1063,28 +1063,38 @@ md-toast.md-error-toast-theme {
   margin: 0 auto 8px auto;
   min-width: 280px;
   max-width: 600px;
-  padding: 10px;
   cursor: pointer; }
-  #ely-question .question-overview-element .activity-rating {
-    width: 48px;
-    margin-right: 8px; }
-    #ely-question .question-overview-element .activity-rating .number {
+  #ely-question .question-overview-element .container {
+    padding: 10px; }
+    #ely-question .question-overview-element .container .activity-rating {
+      width: 48px;
+      margin-right: 8px; }
+      #ely-question .question-overview-element .container .activity-rating .number {
+        font-size: 17px;
+        font-weight: 300; }
+      #ely-question .question-overview-element .container .activity-rating .rating-description {
+        margin-top: 4px;
+        font-size: 12px; }
+    #ely-question .question-overview-element .container .description {
       font-size: 17px;
-      font-weight: 300; }
-    #ely-question .question-overview-element .activity-rating .rating-description {
+      font-weight: 400;
+      color: #3F51B5; }
+    #ely-question .question-overview-element .container .category-description {
       margin-top: 4px;
-      font-size: 12px; }
-  #ely-question .question-overview-element .description {
-    font-size: 17px;
-    font-weight: 400;
-    color: #3F51B5; }
-  #ely-question .question-overview-element .category-description {
-    margin-top: 4px;
-    padding: 0; }
-    #ely-question .question-overview-element .category-description .category-type {
-      font-size: 12px;
-      height: 17px;
-      line-height: 17px; }
+      padding: 0; }
+      #ely-question .question-overview-element .container .category-description .category-type {
+        font-size: 12px;
+        height: 17px;
+        line-height: 17px; }
+    #ely-question .question-overview-element .container .menu-settings-container {
+      padding: 0;
+      margin: 0 0 0 8px; }
+      #ely-question .question-overview-element .container .menu-settings-container .menu-settings {
+        margin: 0;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        min-height: 24px; }
 
 .blog-create {
   min-width: 310px;
