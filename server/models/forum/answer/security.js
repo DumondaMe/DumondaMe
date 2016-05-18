@@ -9,7 +9,7 @@ var allowedToDeleteAnswer = function (userId, answerId, req) {
         .end({userId: userId, answerId: answerId})
         .send().then(function (resp) {
             if (resp.length === 0) {
-                return exceptions.getInvalidOperation("User  ${userId} is not allowed to ", logger, req);
+                return exceptions.getInvalidOperation("User  ${userId} is not allowed to delete answer ${answerId}", logger, req);
             }
         });
 };

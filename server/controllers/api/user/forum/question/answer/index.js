@@ -69,7 +69,7 @@ module.exports = function (router) {
     });
 
     router.delete('/', auth.isAuthenticated(), function (req, res) {
-        return controllerErrors('Error occurs when deleting rating of a forum answer', req, res, logger, function () {
+        return controllerErrors('Error occurs when deleting a forum answer', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeleteAnswer, logger).then(function (request) {
                 return answer.deleteAnswer(req.user.id, request.answerId, req);
             }).then(function () {

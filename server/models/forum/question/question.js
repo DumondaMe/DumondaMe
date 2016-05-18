@@ -3,6 +3,7 @@
 var db = require('./../../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../../lib/uuid');
+var security = require('./security');
 
 var createQuestion = function (userId, description, category, language) {
 
@@ -25,7 +26,18 @@ var createQuestion = function (userId, description, category, language) {
         });
 };
 
+var deleteQuestion = function (userId, questionId, req) {
+    return security.allowedToDeleteQuestion(userId, questionId, req).then(function () {
+        return db.cypher().match("(question:ForumQuestion {questionId: {questionId}})")
+            .optionalMatch("(question)-[r]-()")
+            .optionalMatch("(question)-[:IS_ANSWER]->(answer:ForumAnswer)-[ar]-()")
+            .delete("question, answer, r, ar")
+            .end({questionId: questionId}).send();
+    });
+};
+
 
 module.exports = {
-    createQuestion: createQuestion
+    createQuestion: createQuestion,
+    deleteQuestion: deleteQuestion
 };
