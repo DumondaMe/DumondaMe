@@ -38,6 +38,16 @@ var schemaAddQuestionAnswer = {
     }
 };
 
+var schemaDeleteAnswer = {
+    name: 'deleteForumAnswer',
+    type: 'object',
+    additionalProperties: false,
+    required: ['answerId'],
+    properties: {
+        answerId: {type: 'string', format: 'notEmptyString', maxLength: 30}
+    }
+};
+
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
@@ -54,6 +64,16 @@ module.exports = function (router) {
                 }
             }).then(function (data) {
                 res.status(200).json(data);
+            });
+        });
+    });
+
+    router.delete('/', auth.isAuthenticated(), function (req, res) {
+        return controllerErrors('Error occurs when deleting rating of a forum answer', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteAnswer, logger).then(function (request) {
+                return answer.deleteAnswer(req.user.id, request.answerId, req);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });

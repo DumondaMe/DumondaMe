@@ -4,6 +4,7 @@ var db = require('./../../../neo4j');
 var moment = require('moment');
 var uuid = require('./../../../lib/uuid');
 var security = require('./../security');
+var securityAnswer = require('./security');
 var exceptions = require('./../../../lib/error/exceptions');
 var logger = requireLogger.getLogger(__filename);
 
@@ -54,7 +55,17 @@ var createAnswer = function (userId, questionId, title, description, type, pageI
     });
 };
 
+var deleteAnswer = function (userId, answerId, req) {
+    return securityAnswer.allowedToDeleteAnswer(userId, answerId, req).then(function () {
+        return db.cypher().match("(answer:ForumAnswer {answerId: {answerId}})")
+            .optionalMatch("(answer)-[r]-()")
+            .delete("answer, r")
+            .end({answerId: answerId}).send();
+    });
+};
+
 
 module.exports = {
-    createAnswer: createAnswer
+    createAnswer: createAnswer,
+    deleteAnswer: deleteAnswer
 };
