@@ -25,7 +25,7 @@ module.exports = ['ForumQuestionAnswer', function (ForumQuestionAnswer) {
         }
 
         return ForumQuestionAnswer.save(data).$promise.then(function (resp) {
-            var answer = {answerId: resp.answerId, positiveRating: 0};
+            var answer = {answerId: resp.answerId, positiveRating: 0, isAdmin: true};
             if (pageToReference && pageToReference.hasOwnProperty('pageId')) {
                 answer.page = {
                     pageId: pageToReference.pageId,

@@ -9,7 +9,9 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                answer: '='
+                answer: '=',
+                index: '=',
+                removedAnswer: '='
             },
             templateUrl: 'app/modules/forum/detailQuestion/answer/template.html'
         };

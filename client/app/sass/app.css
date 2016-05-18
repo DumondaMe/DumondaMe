@@ -997,6 +997,15 @@ md-toast.md-error-toast-theme {
       font-size: 14px;
       font-weight: 400;
       color: #3F51B5; }
+  .ely-question-answer-card .menu-settings-container {
+    padding: 0;
+    margin: 0 0 0 8px; }
+    .ely-question-answer-card .menu-settings-container .menu-settings {
+      margin: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      min-height: 24px; }
 
 .forum-answer-positive-rating {
   width: 48px;

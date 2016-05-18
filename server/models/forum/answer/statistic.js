@@ -7,9 +7,11 @@ var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
     return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:IS_ANSWER]->(answer:ForumAnswer" + label + ")")
         .optionalMatch("(answer)<-[rating:RATE_POSITIVE]-(:User)")
         .with("COUNT(rating) AS positiveRating, answer")
+        .match("(user:User {userId: {userId}})")
         .optionalMatch("(answer)-[:REFERENCE]->(page:Page)")
-        .return("answer.answerId AS answerId, answer.title AS title, answer.created AS created, page, positiveRating, " +
-            "EXISTS((answer)<-[:RATE_POSITIVE]-(:User {userId: {userId}})) AS ratedByUser")
+        .return(`answer.answerId AS answerId, answer.title AS title, answer.created AS created, page, positiveRating, 
+                 EXISTS((answer)<-[:IS_ADMIN]-(user)) AS isAdmin,
+                 EXISTS((answer)<-[:RATE_POSITIVE]-(user)) AS ratedByUser`)
         .orderBy("positiveRating DESC")
         .skip("{skip}")
         .limit("{maxItems}")

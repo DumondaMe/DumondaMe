@@ -29,6 +29,17 @@
       color: $primary-color;
     }
   }
+  .menu-settings-container {
+    padding: 0;
+    margin: 0 0 0 8px;
+    .menu-settings {
+      margin: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      min-height: 24px;
+    }
+  }
 }
 
 

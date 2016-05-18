@@ -20,5 +20,13 @@ module.exports = ['$scope', '$stateParams', '$mdSidenav', 'ForumQuestionDetail',
                 ToolbarService.enable();
             }
         });
+
+        ctrl.removedSolution = function(index) {
+            ctrl.detail.solution.splice(index, 1);
+        };
+
+        ctrl.removedExplanation = function(index) {
+            ctrl.detail.explanation.splice(index, 1);
+        };
     }];
 

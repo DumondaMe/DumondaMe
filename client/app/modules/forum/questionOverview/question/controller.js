@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'countFormatter', 'Categories', 'ForumDeleteQuestion', 'errorToast',
-    function ($state, countFormatter, Categories, ForumDeleteQuestion, errorToast) {
+module.exports = ['$state', 'countFormatter', 'Categories', 'ForumDeleteQuestion',
+    function ($state, countFormatter, Categories, ForumDeleteQuestion) {
         var ctrl = this;
 
         ctrl.element.activityRating = countFormatter.getCount(ctrl.element.activityRating);
