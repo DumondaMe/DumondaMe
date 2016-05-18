@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'countFormatter', 'Categories', 'ForumQuestion', 'errorToast', '$mdDialog',
-    function ($state, countFormatter, Categories, ForumQuestion, errorToast, $mdDialog) {
+module.exports = ['$state', 'countFormatter', 'Categories', 'ForumDeleteQuestion', 'errorToast',
+    function ($state, countFormatter, Categories, ForumDeleteQuestion, errorToast) {
         var ctrl = this;
 
         ctrl.element.activityRating = countFormatter.getCount(ctrl.element.activityRating);
@@ -10,21 +10,9 @@ module.exports = ['$state', 'countFormatter', 'Categories', 'ForumQuestion', 'er
         ctrl.getCategoryClass = Categories.getCategoryClass;
         
         ctrl.deleteQuestion = function (questionId) {
-
-            var confirm = $mdDialog.confirm().title("Frage löschen")
-                .textContent("Willst Du die Frage " + ctrl.element.description + " wirklich löschen?")
-                .ariaLabel("Delete Question")
-                .ok("Löschen")
-                .cancel("Abbrechen");
-            $mdDialog.show(confirm).then(function () {
-                ctrl.requestRunning = true;
-                ForumQuestion.delete({questionId: questionId}, function (){
-                    ctrl.removeQuestion(ctrl.index);
-                }, function () {
-                    ctrl.requestRunning = false;
-                    errorToast.showError("Frage konnte nicht gelöscht werden");
-                });
-            });
+            ForumDeleteQuestion.delete(ctrl.element.description, questionId, ctrl).then(function () {
+                ctrl.removeQuestion(ctrl.index);
+            }).catch(ForumDeleteQuestion.errorHandling);
         };
 
         ctrl.openDetail = function (questionId) {

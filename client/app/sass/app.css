@@ -1027,6 +1027,15 @@ md-toast.md-error-toast-theme {
       font-size: 12px;
       height: 17px;
       line-height: 17px; }
+  .ely-question-card .menu-settings-container {
+    padding: 0;
+    margin: 0 0 0 8px; }
+    .ely-question-card .menu-settings-container .menu-settings {
+      margin: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      min-height: 24px; }
 
 #ely-question-detail {
   height: 100%;

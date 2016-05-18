@@ -85,6 +85,8 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.status.should.equal(200);
             
             res.body.question.description.should.equals('forumQuestion');
+            res.body.question.isAdmin.should.equals(true);
+            res.body.question.questionId.should.equals('0');
             res.body.question.language.should.equals('de');
             res.body.question.category.length.should.equals(1);
             res.body.question.category[0].should.equals('environmental');
