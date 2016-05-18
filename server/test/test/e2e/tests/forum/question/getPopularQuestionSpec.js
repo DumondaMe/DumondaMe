@@ -9,10 +9,15 @@ describe('Integration Tests for getting the most popular questions in the forum'
 
     var requestAgent, startTime;
 
-    var createQuestion = function (question, solutions, explanations) {
-        var commands = [], i;
+    var createQuestion = function (question, solutions, explanations, isAdmin) {
+        var commands = [], i, user;
+        if(isAdmin) {
+            user = "(u:User {userId: '1'})";
+        } else {
+            user = "(u:User {userId: '2'})";
+        }
 
-        commands.push(db.cypher().match("(u:User {userId: '1'})")
+        commands.push(db.cypher().match(user)
             .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: {questionId}, description: {description}, category: {category}, language: 'de'})")
             .end({category: question.category, questionId: question.questionId, description: question.description}).getCommand());
 
@@ -59,11 +64,11 @@ describe('Integration Tests for getting the most popular questions in the forum'
             commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
 
             commands = commands.concat(createQuestion({category: ['spiritual'], questionId: '0', description: 'question1'},
-                {numberOf: 3, ratings: [['1', '2'], ['2', '4']]}, {numberOf: 2, ratings: [['1', '2']]}));
+                {numberOf: 3, ratings: [['1', '2'], ['2', '4']]}, {numberOf: 2, ratings: [['1', '2']]}, true));
             commands = commands.concat(createQuestion({category: ['environment'], questionId: '1', description: 'question2'},
-                {numberOf: 2, ratings: [['1', '3'], ['4']]}, {numberOf: 0, ratings: []}));
+                {numberOf: 2, ratings: [['1', '3'], ['4']]}, {numberOf: 0, ratings: []}, true));
             commands = commands.concat(createQuestion({category: ['health'], questionId: '2', description: 'question3'},
-                {numberOf: 0, ratings: []}, {numberOf: 1, ratings: [['2', '3']]}));
+                {numberOf: 0, ratings: []}, {numberOf: 1, ratings: [['2', '3']]}, false));
 
             return db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().send(commands);
         });
@@ -91,18 +96,21 @@ describe('Integration Tests for getting the most popular questions in the forum'
             res.body.question[0].description.should.equals('question1');
             res.body.question[0].category.length.should.equals(1);
             res.body.question[0].category[0].should.equals('spiritual');
+            res.body.question[0].isAdmin.should.equals(true);
 
             res.body.question[1].questionId.should.equals('1');
             res.body.question[1].activityRating.should.equals(3);
             res.body.question[1].description.should.equals('question2');
             res.body.question[1].category.length.should.equals(1);
             res.body.question[1].category[0].should.equals('environment');
+            res.body.question[1].isAdmin.should.equals(true);
 
             res.body.question[2].questionId.should.equals('2');
             res.body.question[2].activityRating.should.equals(2);
             res.body.question[2].description.should.equals('question3');
             res.body.question[2].category.length.should.equals(1);
             res.body.question[2].category[0].should.equals('health');
+            res.body.question[2].isAdmin.should.equals(false);
         });
     });
 

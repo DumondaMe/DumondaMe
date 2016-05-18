@@ -29,11 +29,12 @@ var getDetail = function (userId, answerId) {
     return db.cypher().match("(answer:ForumAnswer {answerId: {answerId}})")
         .optionalMatch("(answer)<-[rate:RATE_POSITIVE]-(:User)")
         .with("COUNT(rate) AS positiveRating, answer")
-        .match("(answer)<-[:IS_ANSWER]-(question:ForumQuestion)")
+        .match("(answer)<-[:IS_ANSWER]-(question:ForumQuestion), (user:User {userId: {userId}})")
         .optionalMatch("(answer)-[:REFERENCE]->(page:Page)")
-        .return("answer.answerId AS answerId, answer.title AS title, answer.description AS description, answer.created AS created, positiveRating, " +
-            "LABELS(answer) AS labels, question, page, " +
-            "EXISTS((answer)<-[:RATE_POSITIVE]-(:User {userId: {userId}})) AS ratedByUser")
+        .return(`answer.answerId AS answerId, answer.title AS title, answer.description AS description, answer.created AS created, positiveRating, 
+            LABELS(answer) AS labels, question, page,
+            EXISTS((answer)<-[:IS_ADMIN]-(user)) AS isAdmin,
+            EXISTS((answer)<-[:RATE_POSITIVE]-(user)) AS ratedByUser`)
         .end({answerId: answerId, userId: userId})
         .send().then(function (resp) {
             addType(resp[0]);

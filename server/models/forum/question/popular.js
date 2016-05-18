@@ -2,16 +2,17 @@
 
 var db = require('./../../../neo4j');
 
-var getQuestions = function (maxItems, skip) {
+var getQuestions = function (userId, maxItems, skip) {
 
-    return db.cypher().match("(question:ForumQuestion)")
+    return db.cypher().match("(question:ForumQuestion), (user:User {userId: {userId}})")
         .optionalMatch("(question)-[:IS_ANSWER]->(questionElement:ForumAnswer)<-[rating:RATE_POSITIVE]-(:User)")
-        .return("COUNT(rating) AS activityRating, question.questionId AS questionId, question.description AS description, " +
-            "question.category AS category")
+        .return(`COUNT(rating) AS activityRating, question.questionId AS questionId, question.description AS description, 
+        question.category AS category, EXISTS((user)-[:IS_ADMIN]->(question)) AS isAdmin`)
         .orderBy("activityRating DESC")
         .skip("{skip}")
         .limit("{maxItems}")
         .end({
+            userId: userId,
             maxItems: maxItems,
             skip: skip
         })

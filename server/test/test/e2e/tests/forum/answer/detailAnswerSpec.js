@@ -95,6 +95,7 @@ describe('Integration Tests for getting the details of a forum answer', function
             res.body.answer.created.should.equals(501);
             res.body.answer.positiveRating.should.equals(2);
             res.body.answer.ratedByUser.should.equals(false);
+            res.body.answer.isAdmin.should.equals(false);
             should.not.exist(res.body.answer.page);
         });
     });
@@ -120,6 +121,7 @@ describe('Integration Tests for getting the details of a forum answer', function
             res.body.answer.created.should.equals(503);
             res.body.answer.positiveRating.should.equals(1);
             res.body.answer.ratedByUser.should.equals(false);
+            res.body.answer.isAdmin.should.equals(false);
             should.not.exist(res.body.answer.page);
         });
     });
@@ -144,7 +146,8 @@ describe('Integration Tests for getting the details of a forum answer', function
             res.body.answer.created.should.equals(500);
             res.body.answer.positiveRating.should.equals(3);
             res.body.answer.ratedByUser.should.equals(true);
-            
+            res.body.answer.isAdmin.should.equals(true);
+
             res.body.answer.page.pageId.should.equals('1');
             res.body.answer.page.title.should.equals('page2Title');
             res.body.answer.page.label.should.equals('Youtube');
@@ -172,6 +175,7 @@ describe('Integration Tests for getting the details of a forum answer', function
             res.body.answer.created.should.equals(502);
             res.body.answer.positiveRating.should.equals(2);
             res.body.answer.ratedByUser.should.equals(true);
+            res.body.answer.isAdmin.should.equals(true);
 
             res.body.answer.page.pageId.should.equals('0');
             res.body.answer.page.title.should.equals('page1Title');
