@@ -1,0 +1,8 @@
+<div id="ely-question-detail-right-sidenav">
+    <div class="description">{{ctrl.question.description}}</div>
+    <div class="category-description">
+        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+             ng-repeat="category in ctrl.question.category">{{ctrl.getCategory(category)}}
+        </div>
+    </div>
+</div>

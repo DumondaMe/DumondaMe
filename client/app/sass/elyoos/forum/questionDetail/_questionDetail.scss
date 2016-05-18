@@ -2,8 +2,36 @@
   height: 100%;
   background-color: $background-normal;
 
+  .container {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+  .container-desktop {
+    height: 100%;
+    .answer-container {
+      margin: 0 auto;
+      max-width: 900px;
+      .answer-row {
+        padding: 0 8px;
+        .ely-main-title {
+          margin: 16px auto;
+          max-width: 400px;
+        }
+      }
+    }
+    .ely-sidenav-right {
+      height: 100%;
+      width: 260px;
+    }
+  }
+
   .create-question-element-fab {
     @include ely-fab-button();
+
+    @media screen and (min-width: $gt-md) {
+      bottom: 10px;
+      right: 270px;
+    }
   }
 }
 

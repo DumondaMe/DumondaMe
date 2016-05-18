@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = ['$scope', '$stateParams', '$mdSidenav', 'ForumQuestionDetail', 'ToolbarService', 'ForumQuestionDetailCollection',
-    function ($scope, $stateParams, $mdSidenav, ForumQuestionDetail, ToolbarService, ForumQuestionDetailCollection) {
+module.exports = ['$scope', '$stateParams', '$mdSidenav', '$mdMedia', 'ForumQuestionDetail', 'ToolbarService', 'ForumQuestionDetailCollection',
+    function ($scope, $stateParams, $mdSidenav, $mdMedia, ForumQuestionDetail, ToolbarService, ForumQuestionDetailCollection) {
         var ctrl = this;
+        ctrl.$mdMedia = $mdMedia;
+        
         ctrl.detail = ForumQuestionDetail.get({questionId: $stateParams.questionId}, function () {
             ForumQuestionDetailCollection.set(ctrl.detail);
         });

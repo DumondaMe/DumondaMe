@@ -1,5 +1,6 @@
 <md-content id="ely-question-detail">
-    <div class="md-padding">
+    <!--Mobile View-->
+    <div class="md-padding container" ng-if="!ctrl.$mdMedia('gt-md')">
         <ely-forum-detail-question-overview-card question="ctrl.detail.question"></ely-forum-detail-question-overview-card>
         <div ng-if="ctrl.detail.explanation.length > 0">
             <div class="ely-main-title">Erklärungen</div>
@@ -12,6 +13,28 @@
                                             ng-repeat="answer in ctrl.detail.solution | orderBy:'-positiveRating'"></ely-forum-question-answer-card>
         </div>
         <div class="pinwall-gab"></div>
+    </div>
+    <!--Desktop View-->
+    <div class="container-desktop" ng-if="ctrl.$mdMedia('gt-md')" layout="row">
+        <div layout="row" flex="grow" class="answer-container">
+            <div flex="50" class="answer-row">
+                <div ng-if="ctrl.detail.explanation.length > 0">
+                    <div class="ely-main-title">Erklärungen</div>
+                    <ely-forum-question-answer-card answer="answer" index="$index" removed-answer="ctrl.removedExplanation"
+                                                    ng-repeat="answer in ctrl.detail.explanation | orderBy:'-positiveRating'"></ely-forum-question-answer-card>
+                </div>
+            </div>
+            <div flex="50" class="answer-row">
+                <div ng-if="ctrl.detail.solution.length > 0">
+                    <div class="ely-main-title">Lösungsvorschläge</div>
+                    <ely-forum-question-answer-card answer="answer" index="$index" removed-answer="ctrl.removedSolution"
+                                                    ng-repeat="answer in ctrl.detail.solution | orderBy:'-positiveRating'"></ely-forum-question-answer-card>
+                </div>
+            </div>
+        </div>
+        <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="true">
+            <ely-forum-question-detail-right-sidenav question="ctrl.detail.question"></ely-forum-question-detail-right-sidenav>
+        </md-sidenav>
     </div>
     <md-button class="md-fab create-question-element-fab" aria-label="Create Question Element" ng-click="ctrl.openSideNavRight()">
         <md-icon md-svg-icon="navFAB:add"></md-icon>
