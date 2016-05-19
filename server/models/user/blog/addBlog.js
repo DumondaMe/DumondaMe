@@ -1,7 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
-var blogImage = require('./blogImages');
+var image = require('./../images/uploadImageCDN');
 var _ = require('underscore');
 var time = require('./../../../lib/time');
 var uuid = require('./../../../lib/uuid');
@@ -42,7 +42,7 @@ var security = function (userId, visibility, req) {
                     return exceptions.getInvalidOperation("To many blog messages", logger, req);
                 }
                 if (resp[1][0].count !== visibility.length) {
-                    return exceptions.getInvalidOperation("Visibility does not exist " + visibility.join(";"), logger, req)
+                    return exceptions.getInvalidOperation("Visibility does not exist " + visibility.join(";"), logger, req);
                 }
             });
     }
@@ -56,7 +56,7 @@ var security = function (userId, visibility, req) {
 
 var uploadFile = function (filePath, blogId) {
     if (_.isString(filePath)) {
-        return blogImage.uploadImages(filePath, blogId);
+        return image.uploadImage(filePath,'blog', blogId, 380, 1000);
     }
     return Promise.resolve(null);
 };

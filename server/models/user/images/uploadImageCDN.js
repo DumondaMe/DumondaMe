@@ -4,7 +4,7 @@ var gm = require('./../../util/gm');
 var cdn = require('./../../util/cdn');
 var tmp = require('tmp');
 
-var uploadImages = function (originalFilePath, blogId) {
+var uploadImage = function (originalFilePath, directory, id, width, maxPreviewHeight) {
     var preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         sizeOriginal, previewHeight,
@@ -12,18 +12,18 @@ var uploadImages = function (originalFilePath, blogId) {
     return gm.gm(originalFilePath).sizeAsync()
         .then(function (size) {
             sizeOriginal = size;
-            previewHeight = 380 * (sizeOriginal.height / sizeOriginal.width );
-            if (previewHeight > 1000) {
-                previewHeight = 1000;
-                return gm.gm(originalFilePath).resize(null, 1000).quality(82)
+            previewHeight = width * (sizeOriginal.height / sizeOriginal.width );
+            if (previewHeight > maxPreviewHeight) {
+                previewHeight = maxPreviewHeight;
+                return gm.gm(originalFilePath).resize(null, maxPreviewHeight).quality(82)
                     .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
             }
-            return gm.gm(originalFilePath).resize(380).quality(82)
+            return gm.gm(originalFilePath).resize(width).quality(82)
                 .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
         })
         .then(function () {
-            if (previewHeight === 1000) {
-                return gm.gm(originalFilePath).resize(null, 1000).quality(86)
+            if (previewHeight === maxPreviewHeight) {
+                return gm.gm(originalFilePath).resize(null, maxPreviewHeight).quality(86)
                     .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
             } else if(sizeOriginal.width > 600) {
                 return gm.gm(originalFilePath).resize(600).quality(86)
@@ -35,10 +35,10 @@ var uploadImages = function (originalFilePath, blogId) {
             return gm.gm(originalFilePath).resize(380).quality(86).unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(normal.name);
         })
         .then(function () {
-            return cdn.uploadFile(preview.name, 'blog/' + blogId + '/preview.jpg');
+            return cdn.uploadFile(preview.name, `${directory}/${id}/preview.jpg`);
         })
         .then(function () {
-            return cdn.uploadFile(normal.name, 'blog/' + blogId + '/normal.jpg');
+            return cdn.uploadFile(normal.name, `${directory}/${id}/normal.jpg`);
         })
         .then(function () {
             preview.removeCallback();
@@ -48,5 +48,5 @@ var uploadImages = function (originalFilePath, blogId) {
 };
 
 module.exports = {
-    uploadImages: uploadImages
+    uploadImage: uploadImage
 };

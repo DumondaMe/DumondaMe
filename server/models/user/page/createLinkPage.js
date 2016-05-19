@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var image = require('./../images/uploadImageCDN');
 var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 var imagePage = require('./imagePage');
@@ -10,7 +11,7 @@ var logger = requireLogger.getLogger(__filename);
 
 var getUrl = function (link, req) {
     var host = new Url(link).host;
-    if(!host) {
+    if (!host) {
         return exceptions.getInvalidOperation(`User tries to add invalid url ${link}`, logger, req);
     }
     return host;
@@ -27,7 +28,9 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
                 "modified: {created}, created: {created}, category: {category}, label: 'Link', hostname: {hostname}})")
             .end(params).send();
     }).then(function () {
-        //return uploadImage.generatePageImage(titlePicturePath, params.pageId);
+        if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {
+            return image.uploadImage(titlePicturePath, 'page', params.pageId, 380, 1000);
+        }
     }).then(function () {
         return {pageId: params.pageId};
     });
