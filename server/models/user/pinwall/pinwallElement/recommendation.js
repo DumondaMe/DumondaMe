@@ -2,6 +2,13 @@
 
 var profileUrl = require('./profileUrl');
 
+var addLinkElement = function (element, pinwallElement) {
+    if(element.label === 'Link') {
+        element.link = pinwallElement.pinwallData.link;
+        element.hostname = pinwallElement.pinwallData.hostname;
+    }
+};
+
 var getPinwallElement = function (pinwallElement) {
     var element = {};
     element.pinwallType = 'Recommendation';
@@ -17,6 +24,7 @@ var getPinwallElement = function (pinwallElement) {
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
     element.numberOfSamePinwallData = pinwallElement.numberOfSamePinwallData;
     profileUrl.addProfileUrl(element, pinwallElement);
+    addLinkElement(element, pinwallElement);
     return element;
 };
 

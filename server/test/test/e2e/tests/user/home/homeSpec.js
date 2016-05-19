@@ -22,6 +22,8 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:User {name: 'user Meier5', forename: 'user6', userId: '6'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
                 "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
+            commands.push(db.cypher().create("(:Page {title: 'linkPageTitle', label: 'Link', description: 'linkPage', language: 'de', created: 501, pageId: '2'," +
+                "category: {category}, link: 'www.host.com/test', hostname: 'www.host.com'})").end({category: ['health', 'personalDevelopment']}).getCommand());
             return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
                 "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', category: {category}})").end({category: ['health', 'personalDevelopment']}).send(commands);
 
@@ -588,6 +590,12 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '3'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 499, rating: 2, comment: 'irgendwas2', recommendationId: '4'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Recommendation {recommendationId: '4'})")
+            .create("(b)-[:PINWALL_DATA]->(a)")
+            .end().getCommand());
 
         //Privacy settings
         commands.push(db.cypher().match("(u:User)")
@@ -654,7 +662,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equals(6);
+                res.body.pinwall.length.should.equals(7);
                 res.body.pinwall[0].pinwallType.should.equals('Blog');
                 res.body.pinwall[0].blogId.should.equals('4');
                 res.body.pinwall[0].name.should.equals('user Meier3');
@@ -760,6 +768,27 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[5].category.length.should.equals(2);
                 res.body.pinwall[5].category[0].should.equals('health');
                 res.body.pinwall[5].category[1].should.equals('personalDevelopment');
+
+                res.body.pinwall[6].pinwallType.should.equals('Recommendation');
+                res.body.pinwall[6].label.should.equals('Link');
+                res.body.pinwall[6].pageId.should.equals('2');
+                res.body.pinwall[6].name.should.equals('user Meier2');
+                res.body.pinwall[6].forename.should.equals('user2');
+                res.body.pinwall[6].link.should.equals('www.host.com/test');
+                res.body.pinwall[6].hostname.should.equals('www.host.com');
+                res.body.pinwall[6].userId.should.equals('2');
+                res.body.pinwall[6].title.should.equals('linkPageTitle');
+                res.body.pinwall[6].rating.should.equals(2);
+                res.body.pinwall[6].created.should.equals(499);
+                res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                res.body.pinwall[6].comment.should.equals('irgendwas2');
+                res.body.pinwall[6].description.should.equals('linkPage');
+                res.body.pinwall[6].userHasRecommended.should.equals(false);
+                res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
+                res.body.pinwall[6].numberOfSamePinwallData.should.equals(1);
+                res.body.pinwall[6].category.length.should.equals(2);
+                res.body.pinwall[6].category[0].should.equals('health');
+                res.body.pinwall[6].category[1].should.equals('personalDevelopment');
             });
     });
 });
