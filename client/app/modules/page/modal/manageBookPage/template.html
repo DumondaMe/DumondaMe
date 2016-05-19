@@ -29,7 +29,7 @@
                     <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container" flex>
                             <label>Titel</label>
-                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
+                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
                                    ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()" ng-blur="ctrl.titleLostFocus()"/>
                             <div ng-messages="ctrl.manageBookPageForm.title.$error">
                                 <div ng-message="required">Wird benötigt!</div>
@@ -42,7 +42,7 @@
                     </div>
                     <md-input-container class="input-container">
                         <label>Beschreibung</label>
-                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="10000"
+                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
                         <div ng-messages="ctrl.manageBookPageForm.description.$error">
                             <div ng-message="required">Wird benötigt!</div>

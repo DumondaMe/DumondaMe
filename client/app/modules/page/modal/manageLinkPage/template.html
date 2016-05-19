@@ -1,0 +1,83 @@
+<md-dialog id="manage-link-page" aria-label="Manage Link Page" ng-cloak class="manage-page">
+    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages">
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für einen Link erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
+                <div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow">
+                            <img class="preview-image" ng-src="{{ctrl.data.dataUri}}" ng-show="ctrl.data.dataUri">
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow">
+                            <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
+                                       aria-label="Add Picture">
+                                <span ng-if="!ctrl.data.dataUri">Titelbild hinzufügen</span>
+                                <span ng-if="ctrl.data.dataUri">Titelbild ändern</span>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <div flex-offset-gt-sm="10">
+                    <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Thema" required class="ely-select-category"
+                               ng-change="ctrl.changeData()">
+                        <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
+                    </md-select>
+                    <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
+                        <md-input-container class="input-container">
+                            <label>Titel</label>
+                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
+                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                            <div ng-messages="ctrl.manageLinkPageForm.title.$error">
+                                <div ng-message="required">Wird benötigt!</div>
+                                <div ng-message="md-maxlength">Text ist zu lang</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="input-container">
+                            <label>Link</label>
+                            <input type="url" name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted" md-maxlength="1000" required/>
+                            <div ng-messages="ctrl.manageLinkPageForm.link.$error">
+                                <div ng-message="required">Wird benötigt!</div>
+                                <div ng-message="url">Ungültiger Link</div>
+                                <div ng-message="md-maxlength">Text ist zu lang</div>
+                            </div>
+                        </md-input-container>
+                        <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageLinkPageForm.link.$valid"
+                             ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
+                        </div>
+                    </div>
+                    <md-input-container class="input-container">
+                        <label>Beschreibung</label>
+                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
+                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                        <div ng-messages="ctrl.manageLinkPageForm.description.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.createLink()" ng-if="!ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageLinkPageForm.$invalid">Erstellen
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyLink()" ng-if="ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageLinkPageForm.$invalid || !ctrl.dataHasChanged">Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+
+    <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
+                         ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+
+    <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.data.title" page-id="ctrl.data.pageId"
+                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
+</md-dialog>

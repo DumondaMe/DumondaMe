@@ -29,6 +29,14 @@ module.exports = {
                             PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
                         });
                 };
+
+                ctrl.createLinkPage = function () {
+                    $mdSidenav('rightHomeNav').close();
+                    ElyModal.show('ManageLinkPageCtrl', 'app/modules/page/modal/manageLinkPage/template.html')
+                        .then(function (resp) {
+                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                        });
+                };
             }];
     }
 };

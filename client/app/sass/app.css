@@ -1987,6 +1987,9 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   height: 90%; }
 
+#manage-link-page .ely-dialog-content .preview-image {
+  width: 100%; }
+
 #manage-youtube-page .youtube-preview {
   padding-top: 24px;
   width: 300px; }
