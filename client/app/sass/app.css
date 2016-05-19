@@ -412,10 +412,10 @@
   padding: 0 16px; }
   .category-description .category-type {
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
-    height: 20px;
-    line-height: 20px;
+    height: 16px;
+    line-height: 16px;
     vertical-align: middle;
     padding: 2px 4px;
     border-radius: 4px;
@@ -440,9 +440,6 @@
 
 .youtube-icon {
   color: #cd201f; }
-
-.book-icon {
-  color: #795548; }
 
 .answer-icon {
   color: #F9A825; }

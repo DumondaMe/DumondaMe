@@ -3,11 +3,11 @@
 var db = require('./../../../neo4j');
 var time = require('./../../../lib/time');
 var uploadImage = require('./../../image/generatePageImages');
-var commonBookPage = require('./commonBookPage');
+var imagePage = require('./imagePage');
 var security = require('./security');
 
 var editBookPage = function (userId, params, titlePicturePath, req) {
-    return commonBookPage.checkImageSize(titlePicturePath, req).then(function () {
+    return imagePage.checkImageSize(titlePicturePath, req).then(function () {
         return security.checkAllowedToEditPage(userId, params.pageId, req);
     }).then(function () {
         return db.cypher().match("(page:Page {pageId: {pageId}})")

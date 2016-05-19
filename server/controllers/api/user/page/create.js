@@ -5,6 +5,7 @@ var schema = require('./schema/schemaCreate');
 var underscore = require('underscore');
 var createBookPage = require('./../../../../models/user/page/createBookPage');
 var createVideoPage = require('./../../../../models/user/page/createVideoPage');
+var createLinkPage = require('./../../../../models/user/page/createLinkPage');
 var auth = require('./../../../../lib/auth');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
@@ -24,6 +25,8 @@ module.exports = function (router) {
                     return createBookPage.createBookPage(req.user.id, request.bookPage, filePath, req);
                 } else if(request.youtubePage) {
                     return createVideoPage.createVideoPage(req.user.id, request.youtubePage);
+                } else if(request.linkPage) {
+                    return createLinkPage.createLinkPage(req.user.id, request.linkPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

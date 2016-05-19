@@ -29,6 +29,17 @@ module.exports = {
                 description: {'$ref': '#/definitions/description'},
                 link: {'$ref': '#/definitions/link'}
             }
+        },
+        linkPage: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['category', 'title', 'description', 'link'],
+            properties: {
+                category: {'$ref': '#/definitions/category'},
+                title: {'$ref': '#/definitions/title'},
+                description: {'$ref': '#/definitions/description'},
+                link: {'$ref': '#/definitions/link'}
+            }
         }
     },
     definitions: definitions
