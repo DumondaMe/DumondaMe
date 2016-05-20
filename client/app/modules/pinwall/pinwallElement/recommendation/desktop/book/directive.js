@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
@@ -11,10 +9,10 @@ module.exports = {
             bindToController: {
                 element: '='
             },
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/desktop/book/template.html'
         };
     }],
-    name: 'elyPinwallRecommendation'
+    name: 'elyPinwallRecommendationDesktopBook'
 };

@@ -1,0 +1,16 @@
+<div class="book-recommendation-desktop">
+    <div layout="row">
+        <div class="book-preview-image" flex="none">
+            <img ng-src="{{ctrl.element.bookPreviewUrl}}">
+        </div>
+        <div class="description-container" layout="column">
+            <div class="category-description">
+                <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+                     ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
+                </div>
+            </div>
+            <div class="book-description">{{ctrl.element.description}}</div>
+        </div>
+    </div>
+    <ely-pinwall-recommendation-rating-overview element="ctrl.element"></ely-pinwall-recommendation-rating-overview>
+</div>

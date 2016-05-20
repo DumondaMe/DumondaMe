@@ -1,0 +1,20 @@
+.book-recommendation-desktop {
+  padding: 0 16px 16px 16px;
+  .book-preview-image {
+    width: 130px;
+    margin-right: 12px;
+  }
+  .description-container {
+    height: 207px;
+    .category-description {
+      padding: 0;
+    }
+    .book-description {
+      font-size: 14px;
+      color: $secondary-text;
+      overflow: hidden;
+    }
+  }
+}
+
+

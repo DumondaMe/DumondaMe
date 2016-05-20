@@ -1,13 +1,15 @@
 .ely-star-rating {
   cursor: pointer;
   display: inline-block;
+  height: 24px;
 
   .ely-star-rating-small {
     width: 18px;
     height: 18px;
   }
   .ely-star-rating-x-small {
-    width: 16px;
-    height: 16px;
+    margin: 5px 0px;
+    width: 14px;
+    height: 14px;
   }
 }

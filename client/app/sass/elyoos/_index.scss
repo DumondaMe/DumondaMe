@@ -82,7 +82,12 @@
 @import 'pinwall/_contacting';
 @import 'pinwall/_noPinwallElement';
 @import 'pinwall/_pinwallContainer';
-@import 'pinwall/_recommendation';
+@import 'pinwall/_recommendationDesktop';
+@import 'pinwall/_recommendationDesktopBook';
+@import 'pinwall/_recommendationDesktopLink';
+@import 'pinwall/_recommendationDesktopYoutube';
+@import 'pinwall/_recommendationMobile';
+@import 'pinwall/_recommendationRatingOverview';
 
 @import 'recommendation/_addRecommendation';
 

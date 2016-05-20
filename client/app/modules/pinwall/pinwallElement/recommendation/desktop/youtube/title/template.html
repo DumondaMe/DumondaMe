@@ -1,0 +1,7 @@
+<span>
+    <span class="user-name" ng-if="!ctrl.element.thisRecommendationByUser">{{ctrl.element.name}}</span>
+    <span class="user-name" ng-if="ctrl.element.thisRecommendationByUser">Du</span>
+    <span ng-if="ctrl.element.thisRecommendationByUser">hast das Youtube Video</span>
+    <span ng-if="!ctrl.element.thisRecommendationByUser">hat das Youtube Video</span>
+    <a class="page-title" ui-sref="page.detail({label: 'Youtube', pageId: ctrl.element.pageId})">{{ctrl.element.title}}</a>
+bewertet</span>

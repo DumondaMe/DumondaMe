@@ -1,11 +1,16 @@
 'use strict';
 
 var profileUrl = require('./profileUrl');
+var cdn = require('../../../util/cdn');
 
 var addLinkElement = function (element, pinwallElement) {
-    if(element.label === 'Link') {
+    if (element.label === 'Link') {
         element.link = pinwallElement.pinwallData.link;
         element.hostname = pinwallElement.pinwallData.hostname;
+    } else if (element.label === 'Book') {
+        element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
+    } else if (element.label === 'Youtube') {
+        element.link = pinwallElement.pinwallData.link;
     }
 };
 

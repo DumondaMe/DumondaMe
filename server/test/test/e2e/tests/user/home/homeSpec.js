@@ -699,6 +699,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
                 res.body.pinwall[2].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[2].label.should.equals('Youtube');
+                res.body.pinwall[2].link.should.equals('www.test.ch');
                 res.body.pinwall[2].pageId.should.equals('1');
                 res.body.pinwall[2].name.should.equals('user Meier2');
                 res.body.pinwall[2].forename.should.equals('user2');
@@ -726,6 +727,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].rating.should.equals(1);
                 res.body.pinwall[3].created.should.equals(503);
                 res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
                 res.body.pinwall[3].comment.should.equals('irgendwas');
                 res.body.pinwall[3].description.should.equals('bookPage1');
                 res.body.pinwall[3].userHasRecommended.should.equals(true);

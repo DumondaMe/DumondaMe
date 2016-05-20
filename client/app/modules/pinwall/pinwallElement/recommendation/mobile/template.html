@@ -1,0 +1,32 @@
+<md-card class="card-recommendation">
+    <md-card-header class="header">
+        <md-card-avatar ng-click="ctrl.openUserDetail()">
+            <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
+        </md-card-avatar>
+        <md-card-header-text ng-click="ctrl.openUserDetail()">
+            <span class="md-title user-name">{{ctrl.element.name}}</span>
+            <span class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</span>
+        </md-card-header-text>
+    </md-card-header>
+    <div class="category-description">
+        <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon book-icon" ng-hide="ctrl.element.label !== 'Book'"></md-icon>
+        <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="category-icon youtube-icon"
+                 ng-hide="ctrl.element.label !== 'Youtube'"></md-icon>
+        <md-icon md-svg-icon="cardActions:link" aria-label="Link" class="category-icon link-icon" ng-hide="ctrl.element.label !== 'Link'"></md-icon>
+        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
+        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
+             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
+        </div>
+    </div>
+    <md-card-content ng-click="ctrl.openPageDetail()">
+        <div class="content-container">
+            <div class="page-title">{{ctrl.element.title}}</div>
+            <div class="description">{{ctrl.element.description}}</div>
+            <div class="forename" ng-if="!ctrl.element.thisRecommendationByUser">{{ctrl.element.forename}}'s Bewertung</div>
+            <div class="forename" ng-if="ctrl.element.thisRecommendationByUser">Deine Bewertung</div>
+            <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
+                             number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
+            <ely-pinwall-recommendation-rating-overview element="ctrl.element"></ely-pinwall-recommendation-rating-overview>
+        </div>
+    </md-card-content>
+</md-card>

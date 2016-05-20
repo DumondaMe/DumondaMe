@@ -9,6 +9,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .recommendation-created {
+      font-size: 12px;
+    }
   }
 
   .content-container {
@@ -36,11 +39,11 @@
     .page-rating {
       margin-bottom: 8px;
     }
-    .recommendation-container {
-      font-size: 14px;
-      .number {
-        color: $primary-color;
-        font-weight: 500;
+    .pinwall-recommendation-rating-overview {
+      .container {
+        padding: 0;
+        margin: 0;
+        border: none;
       }
     }
   }

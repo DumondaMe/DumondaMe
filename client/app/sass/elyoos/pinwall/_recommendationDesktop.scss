@@ -1,0 +1,49 @@
+.card-recommendation-desktop {
+  max-width: 450px;
+  margin: 8px 0;
+  .header {
+    cursor: pointer;
+    padding: 16px 16px 8px 16px;
+    .user-image {
+      height: 40px;
+      width: 40px;
+      margin-right: 12px;
+      border-radius: 50%;
+    }
+    .recommendation-title {
+      font-size: 14px;
+      color: $secondary-text;
+      font-weight: 300;
+      .user-name {
+        color: $primary-text;
+        font-weight: 500;
+      }
+      .page-title {
+        font-weight: 400;
+        color: $primary-color;
+      }
+      .page-title:link {
+        text-decoration: none;
+      }
+      .page-title:visited {
+        text-decoration: none;
+      }
+      .page-title:hover {
+        text-decoration: underline;
+      }
+    }
+    .recommendation-created {
+      font-size: 12px;
+      line-height: 24px;
+      vertical-align: middle;
+      .page-rating {
+        margin-left: 6px;
+        .ely-star-rating-x-small {
+          margin: 3px 0 7px 0;
+        }
+      }
+    }
+  }
+}
+
+

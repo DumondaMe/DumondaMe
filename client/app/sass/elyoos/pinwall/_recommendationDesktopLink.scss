@@ -1,0 +1,24 @@
+.link-recommendation-desktop {
+  padding: 0 16px 16px 16px;
+  .category-description {
+    margin-bottom: 4px;
+    padding: 0;
+  }
+  .link-description {
+    font-size: 14px;
+    color: $secondary-text;
+    overflow-y: hidden;
+    max-height: 3.8em;
+  }
+  .website-link {
+    cursor: pointer;
+    margin-top: 4px;
+    font-size: 12px;
+    color: $primary-text;
+  }
+  .website-link:hover {
+    text-decoration: underline;
+  }
+}
+
+

@@ -21,7 +21,7 @@ module.exports = ['moment', function (moment) {
     };
 
     this.formatRelativeTimes = function (dateValue) {
-        return moment.unix(dateValue).fromNow();
+        return moment.unix(dateValue).fromNow(true);
     };
 
     this.formatExact = function (dateValue) {

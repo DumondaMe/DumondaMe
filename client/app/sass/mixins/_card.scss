@@ -1,5 +1,5 @@
 @mixin cardElement() {
-  max-width: 400px;
+  max-width: 450px;
   min-width: 280px;
   @media screen and (min-width: $gt-sm) {
     margin-bottom: 24px;
