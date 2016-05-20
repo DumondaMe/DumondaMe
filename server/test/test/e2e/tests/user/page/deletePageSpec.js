@@ -52,6 +52,7 @@ describe('Integration Tests for deleting a page', function () {
 
     it('Delete Successfully a page - Return 200', function () {
 
+        stubCDN.deleteFolder.reset();
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.del('/api/user/page', {pageId: '0'}, requestAgent);
