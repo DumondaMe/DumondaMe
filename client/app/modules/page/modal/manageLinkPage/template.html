@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <div flex-offset-gt-sm="10">
+                <div flex-offset-gt-sm="10" flex="grow">
                     <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Thema" required class="ely-select-category"
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>

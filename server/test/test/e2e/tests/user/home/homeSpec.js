@@ -23,7 +23,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
                 "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'linkPageTitle', label: 'Link', description: 'linkPage', language: 'de', created: 501, pageId: '2'," +
-                "category: {category}, link: 'www.host.com/test', hostname: 'www.host.com'})").end({category: ['health', 'personalDevelopment']}).getCommand());
+                "category: {category}, link: 'www.host.com/test', hostname: 'www.host.com', heightPreviewImage: 200})").end({category: ['health', 'personalDevelopment']}).getCommand());
             return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
                 "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', category: {category}})").end({category: ['health', 'personalDevelopment']}).send(commands);
 
@@ -783,6 +783,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[6].rating.should.equals(2);
                 res.body.pinwall[6].created.should.equals(499);
                 res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
+                res.body.pinwall[6].heightPreviewImage.should.equals(200);
                 res.body.pinwall[6].comment.should.equals('irgendwas2');
                 res.body.pinwall[6].description.should.equals('linkPage');
                 res.body.pinwall[6].userHasRecommended.should.equals(false);

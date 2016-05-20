@@ -4,6 +4,7 @@ var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var moment = require('moment');
+var should = require('chai').should();
 
 describe('Integration Tests for creating new link pages', function () {
 
@@ -47,7 +48,7 @@ describe('Integration Tests for creating new link pages', function () {
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname`)
+                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -58,6 +59,7 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].title.should.equals("title");
             page[0].link.should.equals("www.example.com/weiter/link");
             page[0].hostname.should.equals("www.example.com");
+            page[0].heightPreviewImage.should.equals(608);
 
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
@@ -85,7 +87,7 @@ describe('Integration Tests for creating new link pages', function () {
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname`)
+                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -96,6 +98,7 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].title.should.equals("title");
             page[0].link.should.equals("www.example.com/weiter/link");
             page[0].hostname.should.equals("www.example.com");
+            should.not.exist(page[0].heightPreviewImage);
 
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
@@ -112,7 +115,7 @@ describe('Integration Tests for creating new link pages', function () {
                 description: 'description',
                 link: 'www.example.com/weiter/link'
             }
-        }, pageId;
+        };
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -136,7 +139,7 @@ describe('Integration Tests for creating new link pages', function () {
                 description: 'description',
                 link: 'www.example.com/weiter/link'
             }
-        }, pageId;
+        };
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

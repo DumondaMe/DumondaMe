@@ -29,7 +29,11 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {
-            return image.uploadImage(titlePicturePath, 'page', params.pageId, 380, 1000);
+            return image.uploadImage(titlePicturePath, 'pages', params.pageId, 380, 1000);
+        }
+    }).then(function (height) {
+        if (height) {
+            return db.cypher().match("(page:Page {pageId: {pageId}})").set('page', {heightPreviewImage: height}).end({pageId: params.pageId}).send();
         }
     }).then(function () {
         return {pageId: params.pageId};
