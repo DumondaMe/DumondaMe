@@ -5,6 +5,8 @@ var categories = [{description: 'Gesundheit', code: 'health'},
     {description: 'Spiritualität', code: 'spiritual'},
     {description: 'Bildung', code: 'education'},
     {description: 'Persönliche Entwicklung', code: 'personalDevelopment'},
+    {description: 'Politik', code: 'politics'},
+    {description: 'Wirtschaft', code: 'economy'},
     {description: 'Gesellschaft', code: 'socialDevelopment'}];
 
 module.exports = ['$log',
