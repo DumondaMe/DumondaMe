@@ -2,6 +2,7 @@
 
 var db = require('./../../../neo4j');
 var security = require('./security');
+var cdn = require('../../util/cdn');
 
 var deletePage = function (userId, params, req) {
 
@@ -10,7 +11,9 @@ var deletePage = function (userId, params, req) {
             .optionalMatch("(user)-[recRel:RECOMMENDS]->(rec:Recommendation)-[recRel2:RECOMMENDS|PINWALL_DATA]->(page)")
             .delete("isAdmin, page, recRel, rec, recRel2")
             .end({userId: userId, pageId: params.pageId})
-            .send();
+            .send().then(function () {
+                return cdn.deleteFolder(`pages/${params.pageId}/`);
+            });
     });
 };
 

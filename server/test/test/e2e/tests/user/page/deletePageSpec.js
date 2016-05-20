@@ -4,6 +4,7 @@ var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var moment = require('moment');
+var stubCDN = require('../../util/stubCDN');
 
 describe('Integration Tests for deleting a page', function () {
 
@@ -56,6 +57,7 @@ describe('Integration Tests for deleting a page', function () {
             return requestHandler.del('/api/user/page', {pageId: '0'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            stubCDN.deleteFolder.calledWith("pages/0/").should.be.true;
             return db.cypher().match("(page:Page {pageId: '0'})")
                 .return('page').end().send();
         }).then(function (page) {
