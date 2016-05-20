@@ -5,10 +5,12 @@
     padding: 0;
   }
   .link-preview-image {
+    cursor: pointer;
     width: 100%;
     margin-bottom: 8px;
   }
   .link-description {
+    cursor: pointer;
     font-size: 14px;
     color: $secondary-text;
     overflow-y: hidden;

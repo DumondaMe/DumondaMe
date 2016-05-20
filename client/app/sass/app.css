@@ -1861,6 +1861,42 @@ md-toast.md-error-toast-theme {
     margin: 0 auto;
     max-width: 600px; }
 
+#ely-link-page-detail #ely-link-page-main-detail {
+  max-width: 600px;
+  min-width: 300px; }
+  #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
+    cursor: pointer;
+    font-size: 16px;
+    max-height: 57px;
+    overflow: hidden; }
+    @media screen and (min-width: 960px) {
+      #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
+        font-size: 22px; } }
+  #ely-link-page-detail #ely-link-page-main-detail .title-container .page-rating-container .page-rating-number {
+    margin-left: 4px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+  #ely-link-page-detail #ely-link-page-main-detail .title-container .page-link {
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 4px; }
+  #ely-link-page-detail #ely-link-page-main-detail .title-container .page-link:hover {
+    text-decoration: underline; }
+  #ely-link-page-detail #ely-link-page-main-detail .title-container .button-settings-container {
+    padding: 0; }
+    #ely-link-page-detail #ely-link-page-main-detail .title-container .button-settings-container .button-settings {
+      margin: 0; }
+  #ely-link-page-detail #ely-link-page-main-detail .category-description {
+    cursor: pointer;
+    padding: 0;
+    margin: 0 0 4px 0; }
+  #ely-link-page-detail #ely-link-page-main-detail .image-description-container {
+    cursor: pointer; }
+    #ely-link-page-detail #ely-link-page-main-detail .image-description-container .image {
+      width: 100%;
+      max-width: 552px;
+      margin-bottom: 8px; }
+
 #ely-page-rating-overview {
   max-width: 600px; }
   #ely-page-rating-overview .page-rating-review {
@@ -2227,9 +2263,11 @@ md-toast.md-error-toast-theme {
     margin-bottom: 4px;
     padding: 0; }
   .link-recommendation-desktop .link-preview-image {
+    cursor: pointer;
     width: 100%;
     margin-bottom: 8px; }
   .link-recommendation-desktop .link-description {
+    cursor: pointer;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54);
     overflow-y: hidden;
@@ -2271,7 +2309,10 @@ md-toast.md-error-toast-theme {
       text-overflow: ellipsis; }
     .card-recommendation .header .recommendation-created {
       font-size: 12px; }
+    .card-recommendation .header .page-rating {
+      margin-left: 4px; }
   .card-recommendation .content-container {
+    padding-top: 0;
     cursor: pointer; }
     .card-recommendation .content-container .page-title {
       font-weight: 500;
@@ -2290,12 +2331,6 @@ md-toast.md-error-toast-theme {
       font-weight: 400;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87); }
-    .card-recommendation .content-container .page-rating {
-      margin-bottom: 8px; }
-    .card-recommendation .content-container .pinwall-recommendation-rating-overview .container {
-      padding: 0;
-      margin: 0;
-      border: none; }
 
 .pinwall-recommendation-rating-overview .container {
   padding-top: 8px;

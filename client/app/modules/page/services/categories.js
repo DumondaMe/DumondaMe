@@ -3,8 +3,7 @@
 var categories = {
     Book: {description: 'Buch'},
     Youtube: {description: 'Youtube'},
-    Course: {description: 'Kurs'},
-    Education: {description: 'Ausbildung'}
+    Link: {description: 'Link'}
 };
 
 module.exports = [

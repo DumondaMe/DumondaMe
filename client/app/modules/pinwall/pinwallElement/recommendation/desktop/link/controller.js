@@ -1,15 +1,13 @@
 'use strict';
 
-module.exports = ['$window', 'Categories',
-    function ($window, Categories) {
+module.exports = ['$window', 'Categories', 'Link',
+    function ($window, Categories, Link) {
         var ctrl = this;
 
         ctrl.getCategory = Categories.getCategory;
         ctrl.getCategoryClass = Categories.getCategoryClass;
 
-        ctrl.openLink = function (link) {
-            $window.open(link, '_blank');
-        };
+        ctrl.openLink = Link.open;
 
     }];
 

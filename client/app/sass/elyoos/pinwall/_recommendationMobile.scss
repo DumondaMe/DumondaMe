@@ -12,9 +12,13 @@
     .recommendation-created {
       font-size: 12px;
     }
+    .page-rating {
+      margin-left: 4px;
+    }
   }
 
   .content-container {
+    padding-top: 0;
     cursor: pointer;
     .page-title {
       font-weight: 500;
@@ -35,16 +39,6 @@
       font-weight: 400;
       font-size: 14px;
       color: $primary-text;
-    }
-    .page-rating {
-      margin-bottom: 8px;
-    }
-    .pinwall-recommendation-rating-overview {
-      .container {
-        padding: 0;
-        margin: 0;
-        border: none;
-      }
     }
   }
 }

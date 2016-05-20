@@ -1,0 +1,53 @@
+#ely-link-page-detail {
+  #ely-link-page-main-detail {
+    max-width: 600px;
+    min-width: 300px;
+    .title-container {
+      .title {
+        cursor: pointer;
+        font-size: 16px;
+        max-height: 57px;
+        overflow: hidden;
+        @media screen and (min-width: $gt-sm) {
+          font-size: 22px;
+        }
+      }
+      .page-rating-container {
+        .page-rating-number {
+          margin-left: 4px;
+          font-size: 14px;
+          color: $secondary-text;
+        }
+      }
+      .page-link {
+        cursor: pointer;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .page-link:hover {
+        text-decoration: underline;
+      }
+      .button-settings-container {
+        padding: 0;
+        .button-settings {
+          margin: 0;
+        }
+      }
+    }
+
+    .category-description {
+      cursor: pointer;
+      padding: 0;
+      margin: 0 0 4px 0;
+    }
+
+    .image-description-container {
+      cursor: pointer;
+      .image {
+        width: 100%;
+        max-width: 552px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

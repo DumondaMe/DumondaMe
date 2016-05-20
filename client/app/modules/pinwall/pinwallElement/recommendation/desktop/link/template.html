@@ -4,10 +4,10 @@
              ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
         </div>
     </div>
-    <div class="link-preview-image" flex="none">
+    <div class="link-preview-image" flex="none" ng-click="ctrl.openLink(ctrl.element.link)" ng-if="ctrl.element.linkPreviewUrl">
         <img ng-src="{{ctrl.element.linkPreviewUrl}}">
     </div>
-    <div class="link-description">{{ctrl.element.description}}</div>
+    <div class="link-description" ng-click="ctrl.openLink(ctrl.element.link)">{{ctrl.element.description}}</div>
     <ely-pinwall-recommendation-rating-overview element="ctrl.element"></ely-pinwall-recommendation-rating-overview>
     <div class="website-link" ng-click="ctrl.openLink(ctrl.element.hostname)">
         {{ctrl.element.hostname}}
