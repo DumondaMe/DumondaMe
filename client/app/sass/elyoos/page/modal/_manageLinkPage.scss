@@ -1,7 +1,11 @@
 #manage-link-page {
-  .ely-dialog-content {
-    .preview-image {
-      width: 100px;
+  height: 100%;
+  .form-container {
+    height: 100%;
+    .ely-dialog-content {
+      .preview-image {
+        width: 230px;
+      }
     }
   }
 }

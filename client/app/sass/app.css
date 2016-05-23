@@ -2032,8 +2032,12 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   height: 90%; }
 
-#manage-link-page .ely-dialog-content .preview-image {
-  width: 100px; }
+#manage-link-page {
+  height: 100%; }
+  #manage-link-page .form-container {
+    height: 100%; }
+    #manage-link-page .form-container .ely-dialog-content .preview-image {
+      width: 230px; }
 
 #manage-youtube-page .youtube-preview {
   padding-top: 24px;

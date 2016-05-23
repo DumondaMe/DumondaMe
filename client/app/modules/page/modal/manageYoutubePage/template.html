@@ -1,7 +1,7 @@
 <md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" ng-cloak class="manage-page">
     <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages">
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für ein Youtube Video erstellen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Video <span class="title-modify">{{ctrl.data.title}}</span> bearbeiten</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Video <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="row">
                 <div class="youtube-preview" flex="none" hide show-gt-sm
