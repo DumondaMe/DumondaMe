@@ -4,8 +4,11 @@
              ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
         </div>
     </div>
-    <ely-iframe width="418" height="300" secure-link="https://www.youtube.com/embed/" src="ctrl.element.link"
+    <ely-iframe ng-if="!ctrl.showImagePreview" width="418" height="300" secure-link="https://www.youtube.com/embed/"
+                src="ctrl.getYoutubeAutoplayLink(ctrl.element.link)"
                 layout="row" layout-align="center center"></ely-iframe>
+    <img ng-src="{{ctrl.getYoutubeImage(ctrl.element.link)}}" ng-if="ctrl.showImagePreview" ng-click="ctrl.showImagePreview = false"
+         class="youtube-preview-image"/>
     <div class="youtube-description">{{ctrl.element.description}}</div>
     <ely-pinwall-recommendation-rating-overview element="ctrl.element"></ely-pinwall-recommendation-rating-overview>
 </div>

@@ -1020,6 +1020,7 @@ md-toast.md-error-toast-theme {
   width: 48px;
   margin-right: 8px; }
   .forum-answer-positive-rating .positive-rating-icon {
+    cursor: pointer;
     color: rgba(0, 0, 0, 0.54);
     width: 20px;
     height: 20px;
@@ -2292,17 +2293,21 @@ md-toast.md-error-toast-theme {
 
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px; }
-  .book-recommendation-desktop .book-preview-image {
-    width: 130px;
-    margin-right: 12px; }
-  .book-recommendation-desktop .description-container {
-    height: 207px; }
-    .book-recommendation-desktop .description-container .category-description {
-      padding: 0; }
-    .book-recommendation-desktop .description-container .book-description {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54);
+  .book-recommendation-desktop .content-container {
+    overflow: hidden; }
+    .book-recommendation-desktop .content-container .book-preview-image {
+      width: 130px;
+      margin-right: 12px; }
+    .book-recommendation-desktop .content-container .description-container {
+      height: 207px;
       overflow: hidden; }
+      .book-recommendation-desktop .content-container .description-container .category-description {
+        padding: 0; }
+      .book-recommendation-desktop .content-container .description-container .book-description {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54);
+        overflow: hidden;
+        -ms-scroll-limit: 0 0 0 0; }
 
 .link-recommendation-desktop {
   padding: 0 16px 16px 16px; }
@@ -2331,6 +2336,9 @@ md-toast.md-error-toast-theme {
   padding: 0 16px 16px 16px; }
   .youtube-recommendation-desktop .category-description {
     margin-bottom: 4px; }
+  .youtube-recommendation-desktop .youtube-preview-image {
+    width: 100%;
+    cursor: pointer; }
   .youtube-recommendation-desktop .youtube-description {
     margin-top: 8px;
     font-size: 14px;
