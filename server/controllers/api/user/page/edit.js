@@ -5,6 +5,7 @@ var schema = require('./schema/schemaEdit');
 var underscore = require('underscore');
 var editBookPage = require('./../../../../models/user/page/editBookPage');
 var editVideoPage = require('./../../../../models/user/page/editVideoPage');
+var editLinkPage = require('./../../../../models/user/page/editLinkPage');
 var auth = require('./../../../../lib/auth');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
@@ -24,6 +25,8 @@ module.exports = function (router) {
                     return editBookPage.editBookPage(req.user.id, request.bookPage, filePath, req);
                 } else if (request.hasOwnProperty('youtubePage')) {
                     return editVideoPage.editVideoPage(req.user.id, request.youtubePage, req);
+                } else if (request.hasOwnProperty('linkPage')) {
+                    return editLinkPage.editLinkPage(req.user.id, request.linkPage, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

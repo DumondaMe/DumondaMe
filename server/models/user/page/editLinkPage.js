@@ -4,7 +4,7 @@ var db = require('./../../../neo4j');
 var time = require('./../../../lib/time');
 var security = require('./security');
 
-var editVideoPage = function (userId, params, req) {
+var editLinkPage = function (userId, params, req) {
 
     return security.checkAllowedToEditPage(userId, params.pageId, req).then(function () {
         return db.cypher().match("(page:Page {pageId: {pageId}})")
@@ -19,5 +19,5 @@ var editVideoPage = function (userId, params, req) {
 };
 
 module.exports = {
-    editVideoPage: editVideoPage
+    editLinkPage: editLinkPage
 };

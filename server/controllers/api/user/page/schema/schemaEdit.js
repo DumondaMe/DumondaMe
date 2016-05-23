@@ -22,12 +22,21 @@ module.exports = {
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'category', 'description', 'link'],
+            required: ['pageId', 'category', 'description'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
                 category: {'$ref': '#/definitions/category'},
-                description: {'$ref': '#/definitions/description'},
-                link: {'$ref': '#/definitions/link'}
+                description: {'$ref': '#/definitions/description'}
+            }
+        },
+        linkPage: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['pageId', 'category', 'description'],
+            properties: {
+                pageId: {'$ref': '#/definitions/id'},
+                category: {'$ref': '#/definitions/category'},
+                description: {'$ref': '#/definitions/description'}
             }
         }
     },

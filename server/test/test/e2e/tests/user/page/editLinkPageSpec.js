@@ -5,7 +5,7 @@ var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var moment = require('moment');
 
-describe('Integration Tests for editing youtube pages', function () {
+describe('Integration Tests for editing link pages', function () {
 
     var requestAgent, startTime;
 
@@ -17,15 +17,15 @@ describe('Integration Tests for editing youtube pages', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Youtube', description: 'description', created: 501, modified: 502, pageId: '0'," +
-                "link: 'https://www.youtube.com/embed/Test', category: {category}})").end({category: ["health", "environmental"]}).getCommand());
+            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title', description: 'description', category: {category}, created: 501, modified: 502, pageId: '0'," +
+                "hostname: 'www.test.com', link: 'www.test.com/test'})").end({category: ['health', 'spiritual']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Youtube', description: 'description', created: 501, modified: 502, pageId: '1'," +
-                "link: 'https://www.youtube.com/embed/Test', category: {category}})").end({category: ["health", "environmental"]}).getCommand());
-            commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
+            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title2', description: 'description2', category: {category}, created: 503, modified: 504, pageId: '1'," +
+                "hostname: 'www.test2.com', link: 'www.test2.com/test'})").end({category: ['health', 'environmental']}).getCommand());
+            commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
@@ -38,69 +38,71 @@ describe('Integration Tests for editing youtube pages', function () {
         return requestHandler.logout();
     });
 
-    it('Edit a youtube video page- Return 200', function () {
+    it('Edit a link page - Return 200', function () {
 
-        var page = {
-            youtubePage: {
+        var editPage = {
+            linkPage: {
                 pageId: '0',
-                category: ["environmental","spiritual"],
+                category: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
-                    'page.modified AS modified, page.created AS created, page.label AS label, page.title AS title')
+                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].created.should.equals(501);
             page[0].modified.should.be.at.least(startTime);
             page[0].pageId.should.equals('0');
-            page[0].description.should.equals("description2");
-            page[0].link.should.equals("https://www.youtube.com/embed/Test");
             page[0].title.should.equals("title");
-            page[0].label.should.equals("Youtube");
+            page[0].description.should.equals("description2");
+            page[0].link.should.equals("www.test.com/test");
+            page[0].hostname.should.equals("www.test.com");
+            page[0].label.should.equals("Link");
 
             page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('environmental');
-            page[0].category[1].should.equals('spiritual');
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('socialDevelopment');
         });
     });
 
-    it('Edit of video page without being administrator - Return 400', function () {
+    it('Edit of link page without being administrator - Return 400', function () {
 
-        var page = {
-            youtubePage: {
+        var editPage = {
+            linkPage: {
                 pageId: '1',
-                category: ["environmental","spiritual"],
+                category: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', page, requestAgent);
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
-                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
-                    'page.modified AS modified, page.created AS created, page.subCategory AS subCategory, page.title AS title, page.label AS label')
+                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                    'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
-            page[0].created.should.equals(501);
-            page[0].modified.should.equals(502);
+            page[0].created.should.equals(503);
+            page[0].modified.should.equals(504);
             page[0].pageId.should.equals('1');
-            page[0].description.should.equals("description");
-            page[0].link.should.equals("https://www.youtube.com/embed/Test");
-            page[0].title.should.equals("title");
-            page[0].label.should.equals("Youtube");
+            page[0].title.should.equals("title2");
+            page[0].description.should.equals("description2");
+            page[0].link.should.equals("www.test2.com/test");
+            page[0].hostname.should.equals("www.test2.com");
+            page[0].label.should.equals("Link");
 
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
