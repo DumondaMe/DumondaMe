@@ -1,6 +1,10 @@
-<div id="ely-page-overview">
+<div id="ely-page-overview" layout="column">
     <div class="md-title ely-dialog-title">Folgende Seiten existieren bereits</div>
-    <ely-existing-page-overview pages="ctrl.pages"></ely-existing-page-overview>
+    <md-dialog-content>
+        <div class="md-dialog-content ely-dialog-content">
+            <ely-existing-page-overview pages="ctrl.pages"></ely-existing-page-overview>
+        </div>
+    </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.finish()">Weiter</md-button>

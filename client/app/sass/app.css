@@ -2039,36 +2039,79 @@ md-toast.md-error-toast-theme {
   padding-top: 24px;
   width: 300px; }
 
+#ely-page-overview .ely-dialog-content {
+  padding-top: 0; }
+
 .page-element-container {
   margin-bottom: 16px; }
   .page-element-container .page-overview-element {
-    cursor: pointer;
-    padding: 8px 16px; }
+    padding: 8px 0;
+    margin: 4px 0; }
+    .page-element-container .page-overview-element .no-select-title {
+      margin-bottom: 8px; }
   .page-element-container .page-overview-element-selected {
     border-radius: 3px;
     background-color: #E0E0E0; }
 
 .ely-page-overview-book .page-image-preview {
+  float: left;
   height: 60px;
   max-width: 38px;
   margin-right: 8px; }
-.ely-page-overview-book .page-container .page-title {
+  @media screen and (min-width: 1280px) {
+    .ely-page-overview-book .page-image-preview {
+      height: 125px;
+      max-width: none; } }
+.ely-page-overview-book .content {
+  margin-bottom: 4px; }
+.ely-page-overview-book .page-title {
   font-size: 14px;
   max-height: 34px;
   overflow: hidden; }
-.ely-page-overview-book .page-container .page-description {
+  @media screen and (min-width: 1280px) {
+    .ely-page-overview-book .page-title {
+      font-size: 18px;
+      max-height: none; } }
+.ely-page-overview-book .page-description {
   margin-top: 4px;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  max-width: 500px;
+  height: 52px;
+  margin-bottom: 8px;
   overflow: hidden; }
+  @media screen and (min-width: 1280px) {
+    .ely-page-overview-book .page-description {
+      height: 118px;
+      max-width: none; } }
+
+.ely-page-overview-link .page-title {
+  font-size: 14px;
+  max-height: 34px;
+  overflow: hidden; }
+  @media screen and (min-width: 1280px) {
+    .ely-page-overview-link .page-title {
+      font-size: 18px;
+      max-height: none; } }
+.ely-page-overview-link .page-description {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  max-height: 3.7em;
+  overflow: hidden; }
+.ely-page-overview-link .page-image-preview {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0 auto; }
 
 .ely-page-overview-youtube .youtube-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.87);
-  margin: 8px 0; }
+  color: rgba(0, 0, 0, 0.87); }
+  @media screen and (min-width: 1280px) {
+    .ely-page-overview-youtube .youtube-title {
+      font-size: 18px;
+      max-height: none; } }
 
 .pinwall-blog-card {
   max-width: 450px;

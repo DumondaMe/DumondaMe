@@ -7,9 +7,11 @@ var userInfo = require('../user/userInfo');
 
 var addPageUrl = function (previews) {
     underscore.forEach(previews, function (preview) {
-        if (preview.label !== 'Youtube') {
+        if (preview.label === 'Book') {
             preview.url = cdn.getUrl('pages/' + preview.pageId + '/pagePreview.jpg');
             delete preview.link;
+        } else if(preview.label === 'Link') {
+            preview.url = cdn.getUrl('pages/' + preview.pageId + '/preview.jpg');
         }
     });
 };
@@ -59,7 +61,7 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
 
     return startQuery
         .return("page.pageId AS pageId, page.title AS title, page.description AS description, page.label AS label, page.language AS language, " +
-            "page.link AS link, numberOfRatings, rating, " +
+            "page.link AS link, page.hostname AS hostname, numberOfRatings, rating, " +
             "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")

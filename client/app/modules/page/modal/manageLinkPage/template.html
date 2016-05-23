@@ -37,7 +37,8 @@
                         </md-input-container>
                         <md-input-container class="input-container">
                             <label>Link</label>
-                            <input type="url" name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted" md-maxlength="1000" required/>
+                            <input type="url" name="link" ng-model="ctrl.data.link" ng-change="ctrl.linkHasChanged()" ng-disabled="ctrl.uploadStarted"
+                                   md-maxlength="1000" required/>
                             <div ng-messages="ctrl.manageLinkPageForm.link.$error">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="url">Ungültiger Link</div>

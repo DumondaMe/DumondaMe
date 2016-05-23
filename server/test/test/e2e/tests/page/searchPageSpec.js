@@ -208,4 +208,116 @@ describe('Integration Tests for searching Pages', function () {
                 });
             });
     });
+
+    it('Searching for a Link Page without filters. Search link - Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
+
+        return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
+            .create("(a)-[:IS_ADMIN]->(b)")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page/search', {
+                        search: 'www.test.com/test',
+                        isSuggestion: false,
+                        skip: 0,
+                        maxItems: 10
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+
+                    res.body.pages.length.should.equals(1);
+                    res.body.pages[0].title.should.equals('page3Title');
+                    res.body.pages[0].description.should.equals('page3');
+                    res.body.pages[0].pageId.should.equals('2');
+                    res.body.pages[0].label.should.equals('Link');
+                    res.body.pages[0].link.should.equals('www.test.com/test');
+                    res.body.pages[0].hostname.should.equals('www.test.com');
+                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+
+                    res.body.totalNumberOfPages.should.equals(1);
+                });
+            });
+    });
+
+    it('Searching for a Link Page without filters. Search title - Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
+
+        return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
+            .create("(a)-[:IS_ADMIN]->(b)")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page/search', {
+                        search: 'page3Title',
+                        isSuggestion: false,
+                        skip: 0,
+                        maxItems: 10
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+
+                    res.body.pages.length.should.equals(1);
+                    res.body.pages[0].title.should.equals('page3Title');
+                    res.body.pages[0].description.should.equals('page3');
+                    res.body.pages[0].pageId.should.equals('2');
+                    res.body.pages[0].label.should.equals('Link');
+                    res.body.pages[0].link.should.equals('www.test.com/test');
+                    res.body.pages[0].hostname.should.equals('www.test.com');
+                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+
+                    res.body.totalNumberOfPages.should.equals(1);
+                });
+            });
+    });
+
+    it('Searching for a Link Page with filter. Search link - Return 200', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
+
+        return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
+            .create("(a)-[:IS_ADMIN]->(b)")
+            .end().send(commands).then(function () {
+                return requestHandler.login(users.validUser).then(function (agent) {
+                    requestAgent = agent;
+                    return requestHandler.getWithData('/api/page/search', {
+                        search: 'www.test.com/test',
+                        isSuggestion: false,
+                        skip: 0,
+                        maxItems: 10,
+                        filterType: 'Link'
+                    }, requestAgent);
+                }).then(function (res) {
+                    res.status.should.equal(200);
+
+                    res.body.pages.length.should.equals(1);
+                    res.body.pages[0].title.should.equals('page3Title');
+                    res.body.pages[0].description.should.equals('page3');
+                    res.body.pages[0].pageId.should.equals('2');
+                    res.body.pages[0].label.should.equals('Link');
+                    res.body.pages[0].link.should.equals('www.test.com/test');
+                    res.body.pages[0].hostname.should.equals('www.test.com');
+                    res.body.pages[0].url.should.equals('pages/2/preview.jpg');
+
+                    res.body.totalNumberOfPages.should.equals(1);
+                });
+            });
+    });
 });

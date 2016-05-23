@@ -1,11 +1,17 @@
 #ely-page-overview {
+  .ely-dialog-content {
+      padding-top: 0;
+  }
 }
 
 .page-element-container {
   margin-bottom: 16px;
   .page-overview-element {
-    cursor: pointer;
-    padding: 8px 16px;
+    padding: 8px 0;
+    margin: 4px 0;
+    .no-select-title {
+      margin-bottom: 8px;
+    }
   }
   .page-overview-element-selected {
     border-radius: 3px;

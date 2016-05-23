@@ -11,10 +11,10 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 page: '=',
-                hasSelect: '='
+                hasSelect: '=',
             },
-            templateUrl: 'app/modules/page/modal/overviewExistingPages/overview/youtube/template.html'
+            templateUrl: 'app/modules/page/modal/overviewExistingPages/overview/link/template.html'
         };
     }],
-    name: 'elyExistingPageOverviewYoutube'
+    name: 'elyExistingPageOverviewLink'
 };

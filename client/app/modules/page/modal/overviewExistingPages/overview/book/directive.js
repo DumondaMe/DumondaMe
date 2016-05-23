@@ -10,7 +10,8 @@ module.exports = {
             },
             controllerAs: 'ctrl',
             bindToController: {
-                page: '='
+                page: '=',
+                hasSelect: '='
             },
             templateUrl: 'app/modules/page/modal/overviewExistingPages/overview/book/template.html'
         };

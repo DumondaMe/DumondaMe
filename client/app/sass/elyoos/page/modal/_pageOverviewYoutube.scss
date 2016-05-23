@@ -1,8 +1,11 @@
 .ely-page-overview-youtube {
   .youtube-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: $primary-text;
-    margin: 8px 0;
+    @media screen and (min-width: $gt-md) {
+      font-size: 18px;
+      max-height: none;
+    }
   }
 }

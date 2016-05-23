@@ -3,17 +3,15 @@
 module.exports = [
     function () {
         var ctrl = this;
-
-        ctrl.pageSelected = function(selectedPage) {
+        
+        ctrl.pageSelectedChanged = function() {
             var pageCopy = {};
-            if(ctrl.hasSelect === true) {
-                angular.forEach(ctrl.pages, function (page) {
-                    page.selectedStyle = false;
-                });
-                angular.copy(selectedPage, pageCopy);
-                selectedPage.selectedStyle = true;
-                ctrl.selectChanged(pageCopy);
-            }
-        }
+            angular.forEach(ctrl.pages, function (page) {
+                page.selectedStyle = false;
+            });
+            angular.copy(ctrl.pageSelected, pageCopy);
+            ctrl.pageSelected.selectedStyle = true;
+            ctrl.selectChanged(pageCopy);
+        };
     }];
 

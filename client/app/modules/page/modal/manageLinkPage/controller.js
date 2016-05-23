@@ -33,8 +33,7 @@ module.exports = ['ElyModal', 'Categories', 'PageLinkUrlCheck', 'fileUpload', 'L
         };
 
         ctrl.linkHasChanged = function () {
-
-            ctrl.checkPageExists(ctrl.linkFormatted);
+            ctrl.checkPageExists(ctrl.data.link);
         };
 
         ctrl.checkPageExists = function (query) {
