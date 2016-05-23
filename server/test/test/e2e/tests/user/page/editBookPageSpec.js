@@ -5,6 +5,8 @@ var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();
 var moment = require('moment');
+var stubCDN = require('../../util/stubCDN');
+var sinon = require('sinon');
 
 describe('Integration Tests for editing book pages', function () {
 
@@ -40,7 +42,6 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page without publish date - Return 200', function () {
-
         var editPage = {
             bookPage: {
                 pageId: '0',
@@ -49,6 +50,7 @@ describe('Integration Tests for editing book pages', function () {
                 author: 'Hans Muster2'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -70,6 +72,10 @@ describe('Integration Tests for editing book pages', function () {
             page[0].label.should.equals("Book");
             should.not.exist(page[0].publishDate);
 
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/pagePreview.jpg").should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/pageTitlePicture.jpg").should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/original.jpg").should.be.true;
+
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('socialDevelopment');
@@ -77,7 +83,6 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit of book page without being administrator - Return 400', function () {
-
         var editPage = {
             bookPage: {
                 pageId: '1',
@@ -86,6 +91,7 @@ describe('Integration Tests for editing book pages', function () {
                 author: 'Hans Muster2'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -107,6 +113,8 @@ describe('Integration Tests for editing book pages', function () {
             page[0].label.should.equals("Book");
             page[0].publishDate.should.equals(1000);
 
+            stubCDN.uploadFile.called.should.be.false;
+
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('spiritual');
@@ -114,7 +122,6 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page with to small width image - Return 400', function () {
-
         var editPage = {
             bookPage: {
                 pageId: '0',
@@ -123,6 +130,7 @@ describe('Integration Tests for editing book pages', function () {
                 author: 'Hans Muster'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -142,6 +150,8 @@ describe('Integration Tests for editing book pages', function () {
             page[0].page.label.should.equals("Book");
             page[0].page.publishDate.should.equals(1000);
 
+            stubCDN.uploadFile.called.should.be.false;
+
             page[0].page.category.length.should.equals(2);
             page[0].page.category[0].should.equals('health');
             page[0].page.category[1].should.equals('spiritual');
@@ -149,7 +159,6 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page with to small height image - Return 400', function () {
-
         var editPage = {
             bookPage: {
                 pageId: '0',
@@ -158,6 +167,7 @@ describe('Integration Tests for editing book pages', function () {
                 author: 'Hans Muster'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -176,6 +186,8 @@ describe('Integration Tests for editing book pages', function () {
             page[0].page.author.should.be.equals("Hans Muster");
             page[0].page.label.should.equals("Book");
             page[0].page.publishDate.should.be.equals(1000);
+
+            stubCDN.uploadFile.called.should.be.false;
 
             page[0].page.category.length.should.equals(2);
             page[0].page.category[0].should.equals('health');

@@ -26,7 +26,7 @@ module.exports = function (router) {
                 } else if (request.hasOwnProperty('youtubePage')) {
                     return editVideoPage.editVideoPage(req.user.id, request.youtubePage, req);
                 } else if (request.hasOwnProperty('linkPage')) {
-                    return editLinkPage.editLinkPage(req.user.id, request.linkPage, req);
+                    return editLinkPage.editLinkPage(req.user.id, request.linkPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

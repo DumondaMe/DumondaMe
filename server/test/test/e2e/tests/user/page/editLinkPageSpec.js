@@ -4,6 +4,8 @@ var users = require('../../util/user');
 var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var moment = require('moment');
+var stubCDN = require('../../util/stubCDN');
+var sinon = require('sinon');
 
 describe('Integration Tests for editing link pages', function () {
 
@@ -39,7 +41,6 @@ describe('Integration Tests for editing link pages', function () {
     });
 
     it('Edit a link page - Return 200', function () {
-
         var editPage = {
             linkPage: {
                 pageId: '0',
@@ -47,10 +48,11 @@ describe('Integration Tests for editing link pages', function () {
                 description: 'description2'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent);
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
@@ -67,6 +69,9 @@ describe('Integration Tests for editing link pages', function () {
             page[0].link.should.equals("www.test.com/test");
             page[0].hostname.should.equals("www.test.com");
             page[0].label.should.equals("Link");
+            
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/preview.jpg").should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/normal.jpg").should.be.true;
 
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
@@ -75,7 +80,6 @@ describe('Integration Tests for editing link pages', function () {
     });
 
     it('Edit of link page without being administrator - Return 400', function () {
-
         var editPage = {
             linkPage: {
                 pageId: '1',
@@ -83,6 +87,7 @@ describe('Integration Tests for editing link pages', function () {
                 description: 'description2'
             }
         };
+        stubCDN.uploadFile.reset();
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -104,9 +109,87 @@ describe('Integration Tests for editing link pages', function () {
             page[0].hostname.should.equals("www.test2.com");
             page[0].label.should.equals("Link");
 
+            stubCDN.uploadFile.called.should.be.false;
+
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('environmental');
+        });
+    });
+
+    it('Edit of link page with to small width image - Return 400', function () {
+        var editPage = {
+            linkPage: {
+                pageId: '0',
+                category: ['health', 'socialDevelopment'],
+                description: 'description2'
+            }
+        };
+        stubCDN.uploadFile.reset();
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(page:Page {pageId: '0'})")
+                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                    'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
+                .end().send();
+        }).then(function (page) {
+            page.length.should.equals(1);
+            page[0].created.should.equals(501);
+            page[0].modified.should.equals(502);
+            page[0].pageId.should.equals('0');
+            page[0].title.should.equals("title");
+            page[0].description.should.equals("description");
+            page[0].link.should.equals("www.test.com/test");
+            page[0].hostname.should.equals("www.test.com");
+            page[0].label.should.equals("Link");
+
+            stubCDN.uploadFile.called.should.be.false;
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('spiritual');
+        });
+    });
+
+    it('Edit of link page with to small height image - Return 400', function () {
+        var editPage = {
+            linkPage: {
+                pageId: '0',
+                category: ['health', 'socialDevelopment'],
+                description: 'description2'
+            }
+        };
+        stubCDN.uploadFile.reset();
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(page:Page {pageId: '0'})")
+                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                    'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
+                .end().send();
+        }).then(function (page) {
+            page.length.should.equals(1);
+            page[0].created.should.equals(501);
+            page[0].modified.should.equals(502);
+            page[0].pageId.should.equals('0');
+            page[0].title.should.equals("title");
+            page[0].description.should.equals("description");
+            page[0].link.should.equals("www.test.com/test");
+            page[0].hostname.should.equals("www.test.com");
+            page[0].label.should.equals("Link");
+
+            stubCDN.uploadFile.called.should.be.false;
+
+            page[0].category.length.should.equals(2);
+            page[0].category[0].should.equals('health');
+            page[0].category[1].should.equals('spiritual');
         });
     });
 });

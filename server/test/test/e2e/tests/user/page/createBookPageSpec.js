@@ -5,6 +5,8 @@ var db = require('../../util/db');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();
 var moment = require('moment');
+var stubCDN = require('../../util/stubCDN');
+var sinon = require('sinon');
 
 describe('Integration Tests for creating new book pages', function () {
 
@@ -13,6 +15,7 @@ describe('Integration Tests for creating new book pages', function () {
     beforeEach(function () {
 
         var commands = [];
+        stubCDN.uploadFile.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
@@ -64,6 +67,9 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('spiritual');
 
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/original.jpg`).should.be.true;
         });
     });
 
@@ -100,6 +106,10 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('spiritual');
+
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/original.jpg`).should.be.true;
         });
     });
 
@@ -137,6 +147,8 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].category.length.should.equals(2);
             page[0].category[0].should.equals('health');
             page[0].category[1].should.equals('spiritual');
+
+            stubCDN.uploadFile.called.should.be.false;
         });
     });
 
@@ -162,6 +174,7 @@ describe('Integration Tests for creating new book pages', function () {
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(0);
+            stubCDN.uploadFile.called.should.be.false;
         });
     });
 
@@ -187,6 +200,7 @@ describe('Integration Tests for creating new book pages', function () {
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(0);
+            stubCDN.uploadFile.called.should.be.false;
         });
     });
 });
