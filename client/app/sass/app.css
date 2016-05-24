@@ -994,11 +994,14 @@ md-toast.md-error-toast-theme {
     margin-top: -20px; }
 
 #create-question {
-  width: 100%; }
+  width: 100%;
+  max-width: 500px; }
   #create-question .ely-dialog-title {
     padding: 16px 24px;
     margin-bottom: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #create-question .ely-input-container {
+    width: 100%; }
 
 .ely-question-answer-card {
   margin: 0 auto 8px auto;
