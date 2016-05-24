@@ -10,6 +10,9 @@
                     <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="category-icon youtube-icon"
                              ng-hide="ctrl.answer.page.label !== 'Youtube'"></md-icon>
                     <span class="category-title" ng-hide="ctrl.answer.page.label !== 'Youtube'">Youtube</span>
+                    <md-icon md-svg-icon="cardActions:link" aria-label="Link" class="category-icon link-icon"
+                             ng-hide="ctrl.answer.page.label !== 'Link'"></md-icon>
+                    <span class="category-title" ng-hide="ctrl.answer.page.label !== 'Link'">Link</span>
                     <span flex></span>
                     <md-menu md-position-mode="target-right target" class="menu-settings-container" ng-if="ctrl.answer.isAdmin"
                              ng-disabled="ctrl.requestRunning">

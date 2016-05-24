@@ -937,6 +937,25 @@ md-toast.md-error-toast-theme {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54); }
 
+.ely-detail-answer-link-page .link-title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  max-height: 57px;
+  overflow-y: hidden;
+  margin-bottom: 4px; }
+.ely-detail-answer-link-page .link-preview-image {
+  cursor: pointer; }
+.ely-detail-answer-link-page .link-hostname {
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 4px; }
+.ely-detail-answer-link-page .link-hostname:hover {
+  text-decoration: underline; }
+.ely-detail-answer-link-page .link-description {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54); }
+
 .ely-detail-answer-card {
   margin: 0 auto 8px auto;
   min-width: 280px;

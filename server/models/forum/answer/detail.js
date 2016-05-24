@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('./../../../neo4j');
+var cdn = require('../../util/cdn');
 var detailTitlePicture = require('./../../page/detail/detailTitlePicture');
 var _ = require('lodash');
 var logger = requireLogger.getLogger(__filename);
@@ -20,6 +21,8 @@ var handlingPages = function (page) {
     if (page) {
         if (page.label === 'Book') {
             detailTitlePicture.addTitlePicture(page.pageId, page, 'Book');
+        } else if(page.label === 'Link') {
+            page.imageUrl = cdn.getUrl(`pages/${page.pageId}/normal.jpg`);
         }
     }
 };

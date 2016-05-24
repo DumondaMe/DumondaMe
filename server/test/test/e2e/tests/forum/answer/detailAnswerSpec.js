@@ -23,6 +23,7 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
+            commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', link: 'https://www.youtube.com/embed/Test', hostname: 'www.youtube.com', description: 'page3', modified: 5092, pageId: '2'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
@@ -59,6 +60,11 @@ describe('Integration Tests for getting the details of a forum answer', function
             commands.push(db.cypher().match("(u:User {userId: '2'}), (forumQuestion:ForumQuestion {questionId: '0'})")
                 .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '3', description: 'forumExplanation1', title: 'titleForumExplanation1', created: 503})<-[:IS_ANSWER]-(forumQuestion)")
                 .end().getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
+                .create("(u)-[:IS_ADMIN]->(:ForumExplanation:ForumAnswer {answerId: '4', description: 'forumExplanation2', created: 504})<-[:IS_ANSWER]-(forumQuestion)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(explanation:ForumExplanation {answerId: '4'}), (page:Page {pageId: '2'})")
+                .createUnique("(explanation)-[:REFERENCE]->(page)").end().getCommand());
 
             //Rate explanation
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumExplanation:ForumExplanation {answerId: '2'})")
@@ -126,7 +132,7 @@ describe('Integration Tests for getting the details of a forum answer', function
         });
     });
 
-    it('Getting the detail of a forum solution answer with referencing a page - Return 200', function () {
+    it('Getting the detail of a forum solution answer with referencing a youtube page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -155,7 +161,7 @@ describe('Integration Tests for getting the details of a forum answer', function
         });
     });
 
-    it('Getting the detail of a forum explanation answer with referencing a page - Return 200', function () {
+    it('Getting the detail of a forum explanation answer with referencing a book page - Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -181,6 +187,37 @@ describe('Integration Tests for getting the details of a forum answer', function
             res.body.answer.page.title.should.equals('page1Title');
             res.body.answer.page.label.should.equals('Book');
             res.body.answer.page.titleUrl.should.equals('pages/0/pageTitlePicture.jpg');
+        });
+    });
+
+    it('Getting the detail of a forum explanation answer with referencing a link page - Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/forum/answer/detail', {
+                answerId: '4'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equals(200);
+
+            res.body.answer.question.description.should.equals('forumQuestion');
+            res.body.answer.question.questionId.should.equals('0');
+            res.body.answer.question.category.length.should.equals(1);
+            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.answerId.should.equals('4');
+            res.body.answer.type.should.equals('explanation');
+            res.body.answer.description.should.equals('forumExplanation2');
+            res.body.answer.created.should.equals(504);
+            res.body.answer.positiveRating.should.equals(0);
+            res.body.answer.ratedByUser.should.equals(false);
+            res.body.answer.isAdmin.should.equals(true);
+
+            res.body.answer.page.pageId.should.equals('2');
+            res.body.answer.page.title.should.equals('page3Title');
+            res.body.answer.page.label.should.equals('Link');
+            res.body.answer.page.imageUrl.should.equals('pages/2/normal.jpg');
+            res.body.answer.page.link.should.equals('https://www.youtube.com/embed/Test');
+            res.body.answer.page.hostname.should.equals('www.youtube.com');
         });
     });
 

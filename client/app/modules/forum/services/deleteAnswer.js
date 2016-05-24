@@ -7,7 +7,7 @@ module.exports = ['$mdDialog', 'ForumQuestionAnswer', 'errorToast', function ($m
     this.delete = function (answer, answerId, ctrl) {
         lastCtrl = ctrl;
         var confirm = $mdDialog.confirm().title("Antwort löschen")
-            .textContent("Willst Du die Antowrt " + answer + " wirklich löschen?")
+            .textContent("Willst Du die Antwort " + answer + " wirklich löschen?")
             .ariaLabel("Delete Question")
             .ok("Löschen")
             .cancel("Abbrechen");
