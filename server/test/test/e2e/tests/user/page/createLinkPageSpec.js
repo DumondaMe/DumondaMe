@@ -162,4 +162,29 @@ describe('Integration Tests for creating new link pages', function () {
             stubCDN.uploadFile.called.should.be.false;
         });
     });
+
+    it('Create a new link page with youtube url- Return 400', function () {
+
+        var createPage = {
+            linkPage: {
+                category: ['health', 'spiritual'],
+                title: 'title',
+                description: 'description',
+                link: 'https://www.youtube.com/weiter/link'
+            }
+        };
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(page:Page {title: 'title'})")
+                .return('page.pageId AS pageId')
+                .end().send();
+        }).then(function (page) {
+            page.length.should.equals(0);
+            stubCDN.uploadFile.called.should.be.false;
+        });
+    });
 });

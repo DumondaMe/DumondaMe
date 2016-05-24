@@ -43,6 +43,9 @@
                             <div ng-messages="ctrl.manageLinkPageForm.link.$error">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="url">Ungültiger Link</div>
+                                <div ng-message="youtube-link" class="error-youtube-link" ng-click="ctrl.openYoutubeManage()">Erstelle eine Youtube
+                                    Seite
+                                </div>
                                 <div ng-message="md-maxlength">Text ist zu lang</div>
                             </div>
                         </md-input-container>

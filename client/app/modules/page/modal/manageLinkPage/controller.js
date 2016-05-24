@@ -33,7 +33,12 @@ module.exports = ['ElyModal', 'Categories', 'PageLinkUrlCheck', 'fileUpload', 'L
         };
 
         ctrl.linkHasChanged = function () {
-            ctrl.checkPageExists(ctrl.data.link);
+            ctrl.manageLinkPageForm.link.$setValidity('youtube-link', true);
+            if(PageLinkUrlCheck.isYoutubeLink(ctrl.data.link)) {
+                ctrl.manageLinkPageForm.link.$setValidity('youtube-link', false);
+            } else {
+                ctrl.checkPageExists(ctrl.data.link);
+            }
         };
 
         ctrl.checkPageExists = function (query) {
