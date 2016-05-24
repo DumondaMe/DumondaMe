@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="image-description-container" ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">
-            <img class="image" ng-src="{{ctrl.pageDetail.page.imageUrl}}">
+            <img class="image" ng-src="{{ctrl.pageDetail.page.imageUrl}}" ng-if="ctrl.pageDetail.page.imageUrl">
             <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
         </div>
     </md-card-content>

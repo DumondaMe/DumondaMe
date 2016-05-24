@@ -3,6 +3,7 @@
 var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
+var should = require('chai').should();
 
 describe('Integration Tests for getting link page detail', function () {
 
@@ -15,8 +16,10 @@ describe('Integration Tests for getting link page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Link', description: 'page', link: 'www.link.com/test', hostname: 'www.link.com'," +
-                "created: 500, modified: 501, pageId: '0', category: {category}})").end({category: ['environmental', 'spiritual']}).send(commands);
+            commands.push(db.cypher().create("(:Page {title: 'pageTitle', label: 'Link', description: 'page', link: 'www.link.com/test', hostname: 'www.link.com', heightPreviewImage: 100," +
+                "created: 500, modified: 501, pageId: '0', category: {category}})").end({category: ['environmental', 'spiritual']}).getCommand());
+            return db.cypher().create("(:Page {title: 'pageTitle2', label: 'Link', description: 'page2', link: 'www.link2.com/test', hostname: 'www.link2.com'," +
+                "created: 502, modified: 503, pageId: '1', category: {category}})").end({category: ['environmental', 'spiritual']}).send(commands);
 
         });
     });
@@ -26,7 +29,7 @@ describe('Integration Tests for getting link page detail', function () {
     });
 
 
-    it('Getting the detail of the page for a youtube video', function () {
+    it('Getting the detail of a link page', function () {
 
         var commands = [];
 
@@ -114,6 +117,23 @@ describe('Integration Tests for getting link page detail', function () {
                 res.body.recommendation.summary.contact.numberOfRatings.should.equals(2);
                 res.body.recommendation.summary.all.rating.should.equals(3);
                 res.body.recommendation.summary.all.numberOfRatings.should.equals(3);
+            });
+    });
+
+    it('Getting the detail of a link page without image', function () {
+
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/page/detail', {
+                    pageId: '1',
+                    label: 'Link'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.page.pageId.should.equals('1');
+  
+                should.not.exist(res.body.page.imageUrl);
             });
     });
 });

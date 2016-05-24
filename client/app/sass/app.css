@@ -2124,9 +2124,6 @@ md-toast.md-error-toast-theme {
   width: 100%;
   margin: 8px 0;
   cursor: pointer; }
-  @media screen and (min-width: 960px) {
-    .pinwall-blog-card {
-      margin-bottom: 24px; } }
   .pinwall-blog-card .blog-header .user-name {
     line-height: 16px;
     font-size: 14px;
@@ -2203,9 +2200,6 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
-  @media screen and (min-width: 960px) {
-    #ely-pinwall-contacting {
-      margin-bottom: 24px; } }
   #ely-pinwall-contacting .card-title {
     font-size: 14px;
     font-weight: 400;
@@ -2236,9 +2230,6 @@ md-toast.md-error-toast-theme {
   padding: 16px;
   margin: 0 auto;
   cursor: pointer; }
-  @media screen and (min-width: 960px) {
-    .pinwall-no-element {
-      margin-bottom: 24px; } }
   .pinwall-no-element .no-pinwall-title {
     font-size: 16px;
     margin-bottom: 4px; }
@@ -2353,9 +2344,6 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
-  @media screen and (min-width: 960px) {
-    .card-recommendation {
-      margin-bottom: 24px; } }
   .card-recommendation .header {
     cursor: pointer; }
     .card-recommendation .header .user-name {
@@ -2397,7 +2385,8 @@ md-toast.md-error-toast-theme {
     font-weight: 500; }
 
 #ely-add-recommendation {
-  width: 100%; }
+  width: 100%;
+  height: 100%; }
   #ely-add-recommendation .title {
     font-size: 18px;
     padding: 16px 24px;
@@ -2408,7 +2397,7 @@ md-toast.md-error-toast-theme {
     padding: 16px 24px; }
     #ely-add-recommendation .description-container .input-container {
       width: 100%;
-      margin: 0; }
+      margin: 16px 0 0 0; }
     #ely-add-recommendation .description-container .star-rating {
       margin-top: 24px; }
   #ely-add-recommendation .star-rating-commands {
