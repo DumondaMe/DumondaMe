@@ -6,14 +6,14 @@ module.exports = ['$state', 'IsAuth', 'loginStateHandler', 'CheckLoginStateParam
     var isAuth = IsAuth.get(null, function () {
         if (isAuth.isLoggedIn) {
             loginStateHandler.loginEvent();
-            if(CheckLoginStateParamsContainer.getNext() !== 'login' && CheckLoginStateParamsContainer.getNext() !== 'checkLoginState' ) {
+            if(CheckLoginStateParamsContainer.getNext() !== 'public' && CheckLoginStateParamsContainer.getNext() !== 'checkLoginState' ) {
                 $state.go(CheckLoginStateParamsContainer.getNext(), CheckLoginStateParamsContainer.getParams());
             } else {
                 $state.go('home');
             }
         } else {
             loginStateHandler.logoutEvent();
-            $state.go('login');
+            $state.go('public');
         }
     });
 }];

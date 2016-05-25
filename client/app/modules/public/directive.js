@@ -6,10 +6,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/auth/checkLoginState/template.html',
+            templateUrl: 'app/modules/public/template.html',
             controllerAs: 'ctrl',
             controller: require('./controller.js')
         };
     }],
-    name: 'elyCheckLoginState'
+    name: 'elyPublic'
 };

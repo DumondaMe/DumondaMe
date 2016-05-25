@@ -1,4 +1,3 @@
-@import 'auth/_login';
 @import 'auth/_register';
 
 @import 'common/_category';
@@ -105,6 +104,10 @@
 @import 'settings/_profileImage';
 @import 'settings/_settingsOverview';
 @import 'settings/_userPinwall';
+
+@import 'start/_footNavigation';
+@import 'start/_login';
+@import 'start/_start';
 
 @import 'util/file/_previewPicture';
 @import 'util/file/_uploadCropImage';

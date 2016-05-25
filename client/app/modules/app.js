@@ -69,7 +69,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 'responseError': function (response) {
                     if (response.status === 401 || response.status === 403) {
                         loginStateHandler.logoutEvent();
-                        $location.path('/login');
+                        $location.path('/');
                     }
                     return $q.reject(response);
                 }

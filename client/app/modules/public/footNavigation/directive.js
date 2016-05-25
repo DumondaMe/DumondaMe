@@ -6,10 +6,10 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/auth/login/template.html',
+            templateUrl: 'app/modules/public/footNavigation/template.html',
             controllerAs: 'ctrl',
             controller: require('./controller.js')
         };
     }],
-    name: 'elyLogin'
+    name: 'elyPublicFootNav'
 };

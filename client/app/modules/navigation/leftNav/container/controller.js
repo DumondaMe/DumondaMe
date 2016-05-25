@@ -17,7 +17,7 @@ module.exports = {
                     Auth.logout().then(function () {
                         $mdSidenav("left").close();
                         delete ctrl.userInfo;
-                        $state.go('login');
+                        $state.go('public');
                     });
                 };
 

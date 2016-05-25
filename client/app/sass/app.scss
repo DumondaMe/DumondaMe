@@ -50,6 +50,13 @@ body, html {
 
 }
 
+.viewport-toolbar-removed {
+  padding-top: 0;
+  .ely-gt-md-content-container {
+    padding-top: 0;
+  }
+}
+
 .content {
   height: 100%;
   position: relative;

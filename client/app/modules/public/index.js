@@ -1,17 +1,20 @@
 'use strict';
 
 var app = angular.module('elyoosApp');
+var directive = require('./directive.js');
 
-app.service('Auth', require('./auth'));
+app.directive(directive.name, directive.directive);
+
+app.service('Auth', require('./services/auth'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
-        .state('login', {
-            url: '/login',
+        .state('public', {
+            url: '/',
             views: {
                 'content@': {
-                    template: '<ely-login></ely-login>'
+                    template: '<ely-public></ely-public>'
                 }
             },
             isPublic: true

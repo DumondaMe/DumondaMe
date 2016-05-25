@@ -1,0 +1,39 @@
+#start-screen {
+  position: relative;
+  height: 100%;
+  min-height: 480px;
+  background-color: #fafafa;
+  #start-container {
+    padding: 32px 16px 16px 16px;
+    @media screen and (min-width: $gt-md) {
+      padding-top: 64px;
+    }
+    .ely-logo {
+      width: 150px;
+      @media screen and (min-width: $gt-xs) {
+        width: 176px;
+      }
+    }
+    .text-phase-description {
+      cursor: pointer;
+      color: $warning;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    .text-phase-description:hover {
+      text-decoration: underline;
+    }
+    .description {
+      width: 180px;
+      color: $secondary-text;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}
+
+
+
+

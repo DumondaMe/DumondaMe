@@ -374,26 +374,6 @@
     width: 14px;
     height: 14px; }
 
-#loginform {
-  height: 100%; }
-  #loginform .error-message {
-    background: #a94442;
-    color: white;
-    border-radius: 2px; }
-  #loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
-    transition: all linear 0.8s; }
-  #loginform .error-message.ng-hide {
-    line-height: 0;
-    opacity: 0; }
-  #loginform #login-card {
-    width: 300px; }
-    #loginform #login-card .input-element input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
-      text-shadow: none; }
-
-#check-login {
-  height: 100%; }
-
 #register-user {
   height: 100%;
   overflow-y: auto; }
@@ -2595,6 +2575,70 @@ md-toast.md-error-toast-theme {
       #setting-user-pinwall .setting-title {
         margin-left: 16px; } }
 
+#foot-navigation {
+  position: fixed;
+  height: 48px;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  #foot-navigation .nav-element {
+    color: #3F51B5;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer; }
+
+#loginform .error-message {
+  margin: 0 16px;
+  padding: 4px;
+  background: #a94442;
+  color: white;
+  border-radius: 2px; }
+#loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
+  transition: all linear 0.8s; }
+#loginform .error-message.ng-hide {
+  line-height: 0;
+  opacity: 0; }
+#loginform #login-container {
+  width: 300px; }
+  #loginform #login-container .login-form-container {
+    padding: 32px 16px 0 16px; }
+    #loginform #login-container .login-form-container .input-element {
+      margin-top: 4px;
+      margin-bottom: 4px; }
+      #loginform #login-container .login-form-container .input-element input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+        text-shadow: none; }
+
+#start-screen {
+  position: relative;
+  height: 100%;
+  min-height: 480px;
+  background-color: #fafafa; }
+  #start-screen #start-container {
+    padding: 32px 16px 16px 16px; }
+    @media screen and (min-width: 1280px) {
+      #start-screen #start-container {
+        padding-top: 64px; } }
+    #start-screen #start-container .ely-logo {
+      width: 150px; }
+      @media screen and (min-width: 600px) {
+        #start-screen #start-container .ely-logo {
+          width: 176px; } }
+    #start-screen #start-container .text-phase-description {
+      cursor: pointer;
+      color: #EF6C00;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px; }
+    #start-screen #start-container .text-phase-description:hover {
+      text-decoration: underline; }
+    #start-screen #start-container .description {
+      width: 180px;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center; }
+
 #ely-preview-picture {
   height: 100%;
   position: relative; }
@@ -2682,6 +2726,11 @@ body, html {
   bottom: 0;
   left: 250px;
   right: 0; }
+
+.viewport-toolbar-removed {
+  padding-top: 0; }
+  .viewport-toolbar-removed .ely-gt-md-content-container {
+    padding-top: 0; }
 
 .content {
   height: 100%;

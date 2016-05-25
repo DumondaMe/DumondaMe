@@ -1,0 +1,36 @@
+#loginform {
+
+  .error-message {
+    margin: 0 16px;
+    padding: 4px;
+    background: $tooltip-error;
+    color: white;
+    border-radius: 2px;
+  }
+  .error-message.ng-hide-add, .error-message.ng-hide-remove {
+    transition: all linear 0.8s;
+  }
+  .error-message.ng-hide {
+    line-height: 0;
+    opacity: 0;
+  }
+
+  #login-container {
+    width: 300px;
+    .login-form-container {
+      padding: 32px 16px 0 16px;
+      .input-element {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+          text-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+
+
+

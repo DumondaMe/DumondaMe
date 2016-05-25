@@ -27,7 +27,7 @@ module.exports = ['$scope', '$state', 'Auth', 'UrlCache', 'IsAuth', function ($s
                 $state.go('home');
             }, function () {
                 ctrl.loginRunning = false;
-                ctrl.error = "Benuztername existiert nicht oder das Passwort ist falsch!";
+                ctrl.error = "Benutzername existiert nicht oder das Passwort ist falsch!";
             });
         }, function () {
             ctrl.loginRunning = false;
