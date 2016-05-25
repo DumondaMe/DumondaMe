@@ -7,6 +7,11 @@ var Promise = require('bluebird');
 var fs = require('fs');
 var _ = require('underscore');
 
+if ('production' === process.env.NODE_ENV) {
+    AWS.config.credentials = new AWS.EC2MetadataCredentials({
+        httpOptions: { timeout: 10000 }
+    });
+}
 AWS.config.region = 'eu-central-1';
 var s3 = new AWS.S3();
 
