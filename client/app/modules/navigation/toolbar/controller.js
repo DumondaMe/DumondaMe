@@ -40,9 +40,9 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             }
         };
 
-        ctrl.userInfoChanged = function (userInfo) {
-            if (userInfo) {
-                ctrl.count = userInfo.totalUnreadMessages;
+        ctrl.userInfoChanged = function (changedUserInfo) {
+            if (changedUserInfo) {
+                ctrl.count = changedUserInfo.totalUnreadMessages;
             }
         };
 
