@@ -34,19 +34,17 @@
       font-size: 14px;
       font-weight: 500;
       padding: 0 10px;
+      overflow: hidden;
       @media screen and (min-width: $gt-sm) {
         font-size: 16px;
         padding-top: 8px
       }
     }
-    .user-email {
-      cursor: pointer;
-      margin-top: 3px;
-      font-size: 12px;
-      font-weight: 400;
-      @media screen and (min-width: $gt-sm) {
-        font-size: 14px;
-      }
+    .user-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $primary-color;
     }
   }
 

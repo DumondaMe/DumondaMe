@@ -679,9 +679,15 @@ md-toast.md-error-toast-theme {
     height: 120px;
     border-radius: 50%;
     margin-bottom: 16px; }
-  #ely-user-detail-profile-sidenav .header .name {
-    font-size: 18px;
-    font-weight: 500; }
+  #ely-user-detail-profile-sidenav .header .name-container {
+    width: 100%;
+    padding: 0 16px; }
+    #ely-user-detail-profile-sidenav .header .name-container .name {
+      word-wrap: break-word;
+      white-space: pre-line;
+      font-size: 18px;
+      font-weight: 500;
+      overflow: hidden; }
   #ely-user-detail-profile-sidenav .header .type {
     margin: 5px 0 0 0;
     font-size: 14px;
@@ -1516,7 +1522,7 @@ md-toast.md-error-toast-theme {
       #ely-thread-overview .thread-container .is-main-view {
         padding-top: 16px; } }
     #ely-thread-overview .thread-container .pinwall-no-element {
-      margin-top: 16px; }
+      margin: 16px auto 0 auto; }
       @media screen and (max-width: 480px) {
         #ely-thread-overview .thread-container .pinwall-no-element {
           margin-left: 8px;
@@ -1554,19 +1560,17 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.87);
       font-size: 14px;
       font-weight: 500;
-      padding: 0 10px; }
+      padding: 0 10px;
+      overflow: hidden; }
       @media screen and (min-width: 960px) {
         .ely-sidnav .sidnav-header .user-info {
           font-size: 16px;
           padding-top: 8px; } }
-    .ely-sidnav .sidnav-header .user-email {
-      cursor: pointer;
-      margin-top: 3px;
-      font-size: 12px;
-      font-weight: 400; }
-      @media screen and (min-width: 960px) {
-        .ely-sidnav .sidnav-header .user-email {
-          font-size: 14px; } }
+    .ely-sidnav .sidnav-header .user-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #3F51B5; }
   .ely-sidnav .ely-divider {
     margin-top: 8px;
     margin-bottom: 8px; }

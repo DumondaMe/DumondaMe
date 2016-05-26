@@ -1,7 +1,9 @@
 <div id="ely-user-detail-profile-sidenav">
     <div layout="column" layout-align="none center" class="header">
         <img ng-src="{{ctrl.detail.user.profileUrl}}" class="profile-image">
-        <div class="name">{{ctrl.detail.user.name}}</div>
+        <div class="name-container">
+            <div class="name">{{ctrl.detail.user.name}}</div>
+        </div>
         <div class="type" ng-if="ctrl.detail.user.type && !ctrl.detail.user.blocked">{{ctrl.detail.user.type}}</div>
         <div class="blocked" ng-if="ctrl.detail.user.blocked">BLOCKIERT</div>
     </div>
