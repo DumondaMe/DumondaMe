@@ -38,7 +38,7 @@ module.exports = [
             });
             return types;
         };
-        
+
         service.renameType= function (type, newType) {
             getStatistic(statistic, type).type = newType;
         };

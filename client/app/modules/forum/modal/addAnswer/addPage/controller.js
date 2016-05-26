@@ -13,8 +13,7 @@ module.exports = ['$scope', 'SearchPage',
         };
 
         ctrl.querySearchFull = function (pageQuery) {
-            ctrl.searchResult = SearchPage.get({search: pageQuery, isSuggestion: false, skip: 0, maxItems: 10}, function (resp) {
-                ctrl.test = 0;
+            ctrl.searchResult = SearchPage.get({search: pageQuery, isSuggestion: false, skip: 0, maxItems: 10}, function () {
             });
         };
 
@@ -31,5 +30,5 @@ module.exports = ['$scope', 'SearchPage',
 
         ctrl.selectedPage = function (page) {
             ctrl.pageToAdd = page;
-        }
+        };
     }];

@@ -6,7 +6,6 @@ module.exports = ['$scope', 'fileUpload', 'FileReader', 'FileReaderUtil', functi
         imageForUploadPreview: null,
         imageForUpload: null
     };
-    //$scope.imageForUploadPreview = null;
     $scope.uploadRunning = false;
     $scope.uploadFile = false;
     $scope.isLandscape = false;

@@ -23,9 +23,8 @@ module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadFor
                 });
             }
         };
-        
+
         ctrl.changed = function () {
             ctrl.sendAllowed = CreateForumQuestionCheck.isSendQuestionAllowed(ctrl.questionText, ctrl.selectedCategories, ctrl.selectedLanguage);
         };
     }];
-

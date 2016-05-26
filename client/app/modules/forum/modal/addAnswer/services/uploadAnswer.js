@@ -12,7 +12,7 @@ module.exports = ['ForumQuestionAnswer', function (ForumQuestionAnswer) {
                     description: description,
                     type: type
                 }
-            }
+            };
         } else {
             data = {
                 normal: {
@@ -21,7 +21,7 @@ module.exports = ['ForumQuestionAnswer', function (ForumQuestionAnswer) {
                     description: description,
                     type: type
                 }
-            }
+            };
         }
 
         return ForumQuestionAnswer.save(data).$promise.then(function (resp) {
@@ -31,7 +31,7 @@ module.exports = ['ForumQuestionAnswer', function (ForumQuestionAnswer) {
                     pageId: pageToReference.pageId,
                     title: pageToReference.title,
                     label: pageToReference.label
-                }
+                };
             } else {
                 answer.title = title;
             }

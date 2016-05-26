@@ -4,7 +4,7 @@ module.exports = ['ContactStatisticTypes', 'ElyModal', 'Contact', 'errorToast',
     function (ContactStatisticTypes, ElyModal, Contact, errorToast) {
         var ctrl = this;
 
-        ctrl.types = ContactStatisticTypes.getTypes();
+        ctrl.types = ContactStatisticTypes.getTypes(ctrl.previousType);
         if (ctrl.types.length > 0) {
             ctrl.selectedType = ctrl.types[0];
         }
@@ -13,11 +13,11 @@ module.exports = ['ContactStatisticTypes', 'ElyModal', 'Contact', 'errorToast',
             ElyModal.cancel();
         };
 
-        ctrl.accept = function () {
+        ctrl.accept = function (mode) {
             ctrl.uploadStarted = true;
             Contact.save({
                 contactIds: [ctrl.contactId],
-                mode: 'addContact',
+                mode: mode,
                 description: ctrl.selectedType
             },function () {
                 ElyModal.hide(ctrl.selectedType);
@@ -28,4 +28,3 @@ module.exports = ['ContactStatisticTypes', 'ElyModal', 'Contact', 'errorToast',
         };
 
     }];
-

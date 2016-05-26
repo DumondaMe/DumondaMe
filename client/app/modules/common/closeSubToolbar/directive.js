@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             templateUrl: 'app/modules/common/closeSubToolbar/template.html',
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             bindToController: {
                 description: '@',

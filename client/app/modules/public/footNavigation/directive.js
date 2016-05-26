@@ -8,7 +8,8 @@ module.exports = {
             scope: {},
             templateUrl: 'app/modules/public/footNavigation/template.html',
             controllerAs: 'ctrl',
-            controller: require('./controller.js')
+            controller: function () {
+            }
         };
     }],
     name: 'elyPublicFootNav'

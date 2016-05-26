@@ -22,7 +22,7 @@ module.exports = ['Privacy', 'ElyModal',
         ctrl.closeEdit = function() {
             ctrl.editMode = false;
             delete ctrl.editGroup;
-        }
+        };
 
     }];
 

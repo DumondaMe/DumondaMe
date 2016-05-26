@@ -6,10 +6,8 @@ module.exports = [
 
         ctrl.isYoutubeLink = function (link) {
             var isYoutubeLink = false;
-            if (angular.isString(link)) {
-                if (link.indexOf('youtube.com') !== -1) {
-                    isYoutubeLink = true;
-                }
+            if (angular.isString(link) && link.indexOf('youtube.com') !== -1) {
+                isYoutubeLink = true;
             }
             return isYoutubeLink;
         };

@@ -1,8 +1,10 @@
 #ely-preview-picture {
   height: 100%;
+  width: 100%;
   position: relative;
   .crop-area-container {
     height: 100%;
+    width: 100%;
     .cropArea {
       padding-bottom: 52px;
       .unsupported-file {

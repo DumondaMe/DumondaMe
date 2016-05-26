@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$log', function ($log) {
+module.exports = [ function () {
 
     this.register = function (observables, name, observable) {
         observables.push({name: name, observable: observable});

@@ -1,14 +1,13 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: controller.directiveCtrl(),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             bindToController: true,
             templateUrl: 'app/modules/messages/template.html'

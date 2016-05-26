@@ -4,7 +4,7 @@ module.exports = ['$scope', '$stateParams', '$mdSidenav', '$mdMedia', 'ForumQues
     function ($scope, $stateParams, $mdSidenav, $mdMedia, ForumQuestionDetail, ToolbarService, ForumQuestionDetailCollection) {
         var ctrl = this;
         ctrl.$mdMedia = $mdMedia;
-        
+
         ctrl.detail = ForumQuestionDetail.get({questionId: $stateParams.questionId}, function () {
             ForumQuestionDetailCollection.set(ctrl.detail);
         });
@@ -31,4 +31,3 @@ module.exports = ['$scope', '$stateParams', '$mdSidenav', '$mdMedia', 'ForumQues
             ctrl.detail.explanation.splice(index, 1);
         };
     }];
-
