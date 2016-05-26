@@ -19,6 +19,11 @@ var options = require('./lib/spec')(app);
 var logger = requireLogger.getLogger(__filename);
 var port = process.env.PORT || 8080;
 
+if (process.env.NODE_ENV === 'production') {
+    app.enable('trust proxy');
+    logger.info('Enabled trust proxy');
+}
+
 app.use(kraken(options));
 
 app.listen(port, function (err) {

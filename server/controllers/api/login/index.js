@@ -5,11 +5,19 @@ var passport = require('passport');
 var modification = require('../../../models/modification/modification');
 var loginUser = require('../../../models/user/loginUser');
 var logger = requireLogger.getLogger(__filename);
+var RateLimit = require('express-rate-limit');
+
+var apiLimiter = new RateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    delayAfter: 3,
+    delayMs: 3*1000,
+    max: 50
+});
 
 
 module.exports = function (router) {
 
-    router.post('/', function (req, res) {
+    router.post('/', apiLimiter, function (req, res) {
 
         passport.authenticate('local', function (err, user) {
 
