@@ -26,8 +26,8 @@ module.exports = function (router) {
                     return userDetails.getUserDetails(req.user.id, request.userId, req);
 
                 })
-                .then(function (userDetails) {
-                    res.status(200).json(userDetails);
+                .then(function (userDetailResp) {
+                    res.status(200).json(userDetailResp);
                 });
         });
     });

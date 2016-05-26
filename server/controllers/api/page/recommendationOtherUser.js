@@ -1,7 +1,7 @@
 'use strict';
 
 var validation = require('./../../../lib/jsonValidation');
-var page = require('./../../../models/page/pageRecommendation');
+var pageRecommendation = require('./../../../models/page/pageRecommendation');
 var auth = require('./../../../lib/auth');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
@@ -35,7 +35,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting recommendations of another user', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 logger.info('Request recommendations of another user', req);
-                return page.getRecommendationOtherUser(req.user.id, request.userId, request.skip, request.maxItems, request.filters);
+                return pageRecommendation.getRecommendationOtherUser(req.user.id, request.userId, request.skip, request.maxItems, request.filters);
             }).then(function (page) {
                 res.status(200).json(page);
             });

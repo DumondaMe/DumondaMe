@@ -27,8 +27,9 @@ var getAnswerLabel = function (type, req) {
             return "answer:ForumExplanation:ForumAnswer";
         case "solution":
             return "answer:ForumSolution:ForumAnswer";
+        default:
+            return exceptions.getInvalidOperation("Unknown type: " + type, logger, req);
     }
-    return exceptions.getInvalidOperation("Unknown type: " + type, logger, req);
 };
 
 var createAnswer = function (userId, questionId, title, description, type, pageId, req) {
@@ -36,8 +37,10 @@ var createAnswer = function (userId, questionId, title, description, type, pageI
     var timeCreatedExplanation = Math.floor(moment.utc().valueOf() / 1000),
         answerId = uuid.generateUUID();
     return security.questionExists(questionId, req).then(function () {
+        return getAnswerLabel(type, req);
+    }).then(function (answerLabel) {
         return db.cypher().match("(u:User {userId: {userId}}), (forumQuestion:ForumQuestion {questionId: {questionId}})")
-            .createUnique("(u)-[:IS_ADMIN]->(" + getAnswerLabel(type, req) + " {answerId: {answerId}, description: {description}, " +
+            .createUnique("(u)-[:IS_ADMIN]->(" + answerLabel + " {answerId: {answerId}, description: {description}, " +
                 "title: {title}, created: {timeCreatedQuestion}})<-[:IS_ANSWER]-(forumQuestion)")
             .addCommand(createPageReference(pageId))
             .end({

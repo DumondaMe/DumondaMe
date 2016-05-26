@@ -32,8 +32,8 @@ module.exports = function (router) {
                         return exceptions.getInvalidOperation("Users id and userId are the same", logger, req);
                     }
                 })
-                .then(function (pinwall) {
-                    res.status(200).json(pinwall);
+                .then(function (pinwallResp) {
+                    res.status(200).json(pinwallResp);
                 });
         });
     });

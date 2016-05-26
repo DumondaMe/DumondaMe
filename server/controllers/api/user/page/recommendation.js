@@ -1,7 +1,7 @@
 'use strict';
 
 var validation = require('./../../../../lib/jsonValidation');
-var page = require('./../../../../models/page/pageRecommendation');
+var pageRecommendation = require('./../../../../models/page/pageRecommendation');
 var auth = require('./../../../../lib/auth');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var logger = requireLogger.getLogger(__filename);
@@ -24,7 +24,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting page recommendations of the user', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
                 logger.info('Request page recommendations of user', req);
-                return page.getRecommendationUser(req.user.id, request.skip, request.maxItems);
+                return pageRecommendation.getRecommendationUser(req.user.id, request.skip, request.maxItems);
             }).then(function (page) {
                 res.status(200).json(page);
             });

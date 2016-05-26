@@ -70,9 +70,9 @@ module.exports = {
                     _.each(data.Contents, function (content) {
                         params.Delete.Objects.push({Key: content.Key});
                     });
-                    s3.deleteObjects(params, function (err) {
-                        if (err) {
-                            return reject(err);
+                    s3.deleteObjects(params, function (errDelete) {
+                        if (errDelete) {
+                            return reject(errDelete);
                         }
                         return resolve();
                     });

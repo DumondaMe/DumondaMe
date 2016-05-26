@@ -26,9 +26,9 @@ var sendEMail = function (template, templateData, sendTo) {
                     from: 'Elyoos <info@elyoos.com>', to: sendTo, subject: emailTemplates[template].subject,
                     text: results.text, html: results.html
                 },
-                function (error) {
-                    if (error) {
-                        return logger.error(error);
+                function (errorSendMail) {
+                    if (errorSendMail) {
+                        return logger.error(errorSendMail);
                     }
                     logger.info('Email sent to: ' + sendTo);
                 });

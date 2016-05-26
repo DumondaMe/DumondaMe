@@ -28,7 +28,7 @@ var schemaRequestBlog = {
                     maxItems: 10,
                     uniqueItems: true
                 },
-                category: category.category,
+                category: category.category
             }
         }
     }

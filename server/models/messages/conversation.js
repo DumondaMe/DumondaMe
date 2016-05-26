@@ -145,7 +145,7 @@ var addMessageToUser = function (userId, contactId, text, session, req) {
             }
             return security.checkAllowedToCreateThread(userId, contactId, req)
                 .then(function () {
-                    var now = time.getNowUtcTimestamp(), threadId = uuid.generateUUID();
+                    var now = time.getNowUtcTimestamp(), newThreadId = uuid.generateUUID();
                     return db.cypher()
                         .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
                         .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +
@@ -159,10 +159,10 @@ var addMessageToUser = function (userId, contactId, text, session, req) {
                             lastTimeVisited: now,
                             lastTimeVisited2: now - 1,
                             text: text,
-                            threadId: threadId
+                            threadId: newThreadId
                         }).send()
                         .then(function (resp) {
-                            startEmailJobForReceivingUser(userId, threadId);
+                            startEmailJobForReceivingUser(userId, newThreadId);
                             return {message: resp[0]};
                         });
                 });
