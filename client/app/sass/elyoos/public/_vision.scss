@@ -1,0 +1,50 @@
+#public-vision {
+  padding-top: 32px;
+  min-height: 100%;
+  background-color: #fafafa;
+  @media screen and (min-width: $gt-md) {
+    padding-top: 64px;
+  }
+  .ely-logo {
+    cursor: pointer;
+  }
+  .description {
+    font-size: 16px;
+    color: $primary-text;
+    white-space: pre-wrap;
+    max-width: 500px;
+    padding: 16px;
+  }
+  .founder {
+    max-width: 500px;
+    width: 100%;
+    padding: 0 16px 16px 16px;
+    .user-img {
+      border-radius: 50px;
+      height: 48px;
+      width: 48px;
+      margin-right: 8px;
+
+      @media screen and (min-width: $gt-md) {
+        height: 64px;
+        width: 64px;
+      }
+    }
+    .container {
+      .name {
+        color: $primary-text;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .founder-description {
+        margin-top: 4px;
+        color: $secondary-text;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+
+
+

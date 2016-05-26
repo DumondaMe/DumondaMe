@@ -91,6 +91,12 @@
 @import 'pinwall/_recommendationMobile';
 @import 'pinwall/_recommendationRatingOverview';
 
+@import 'public/_footNavigation';
+@import 'public/_login';
+@import 'public/_start';
+@import 'public/_testphase';
+@import 'public/_vision';
+
 @import 'recommendation/_addRecommendation';
 
 @import 'settings/modal/_addGroup';
@@ -104,10 +110,6 @@
 @import 'settings/_profileImage';
 @import 'settings/_settingsOverview';
 @import 'settings/_userPinwall';
-
-@import 'start/_footNavigation';
-@import 'start/_login';
-@import 'start/_start';
 
 @import 'util/file/_previewPicture';
 @import 'util/file/_uploadCropImage';

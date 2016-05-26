@@ -3,10 +3,8 @@
 module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
     function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
         var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
-        loginStateHandler.register('toolbar', ctrl);
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
-        ctrl.isLoggedIn = false;
         ctrl.hasSearch = false;
         ctrl.hasBackNav = true;
         ctrl.searchExpanded = false;
@@ -16,14 +14,6 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             if (ctrl.isEnabled) {
                 $mdSidenav("left").toggle();
             }
-        };
-
-        ctrl.loginEvent = function () {
-            ctrl.isLoggedIn = true;
-        };
-
-        ctrl.logoutEvent = function () {
-            ctrl.isLoggedIn = false;
         };
 
         ctrl.searchOpen = function () {
