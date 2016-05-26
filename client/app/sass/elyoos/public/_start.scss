@@ -14,6 +14,9 @@
       font-size: 14px;
       text-align: center;
       margin-top: 16px;
+      @media screen and (min-width: $gt-md) {
+        margin-bottom: 32px;
+      }
     }
     .text-phase-description:hover {
       text-decoration: underline;

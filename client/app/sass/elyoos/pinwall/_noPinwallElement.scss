@@ -2,8 +2,7 @@
   @include cardElement();
   width: 100%;
   padding: 16px;
-  margin: 0 auto;
-  cursor: pointer;
+  margin: 8px 0;
   .no-pinwall-title {
     font-size: 16px;
     margin-bottom: 4px;
@@ -12,7 +11,11 @@
     margin-top: 8px;
     font-size: 14px;
     .link {
+      cursor: pointer;
       color: $primary-color;
+    }
+    .link:hover {
+      text-decoration: underline;
     }
   }
 }

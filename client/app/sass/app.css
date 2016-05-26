@@ -1244,8 +1244,6 @@ md-toast.md-error-toast-theme {
         #ely-home .pinwall-container .pinwall-inner-container {
           max-width: 950px;
           width: 950px; } }
-    #ely-home .pinwall-container .pinwall-no-element {
-      margin: 0 auto; }
   #ely-home .create-blog-fab {
     position: fixed;
     bottom: 0;
@@ -2201,7 +2199,8 @@ md-toast.md-error-toast-theme {
   max-width: 450px;
   min-width: 280px;
   width: 100%;
-  margin: 8px 0; }
+  margin: 8px 0;
+  cursor: pointer; }
   #ely-pinwall-contacting .card-title {
     font-size: 14px;
     font-weight: 400;
@@ -2230,8 +2229,7 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   width: 100%;
   padding: 16px;
-  margin: 0 auto;
-  cursor: pointer; }
+  margin: 8px 0; }
   .pinwall-no-element .no-pinwall-title {
     font-size: 16px;
     margin-bottom: 4px; }
@@ -2239,7 +2237,10 @@ md-toast.md-error-toast-theme {
     margin-top: 8px;
     font-size: 14px; }
     .pinwall-no-element .action .link {
+      cursor: pointer;
       color: #3F51B5; }
+    .pinwall-no-element .action .link:hover {
+      text-decoration: underline; }
 
 .ely-pinwall-container .one-column-container {
   margin: 0 auto;
@@ -2436,6 +2437,9 @@ md-toast.md-error-toast-theme {
       font-size: 14px;
       text-align: center;
       margin-top: 16px; }
+      @media screen and (min-width: 1280px) {
+        #start-screen #start-container .text-phase-description {
+          margin-bottom: 32px; } }
     #start-screen #start-container .text-phase-description:hover {
       text-decoration: underline; }
     #start-screen #start-container .description {

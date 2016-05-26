@@ -2,17 +2,9 @@
     <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
         <div class="pinwall-inner-container">
-            <ely-pinwall flex="none" contacting="ctrl.home.contacting" pinwall="ctrl.home.pinwall" gap="true"></ely-pinwall>
+            <ely-pinwall flex="none" contacting="ctrl.home.contacting" pinwall="ctrl.home.pinwall" gap="true"
+                         no-pinwall="ctrl.noPinwall"></ely-pinwall>
         </div>
-        <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall && ctrl.home.pinwall.length === 0">
-            <md-content>
-                <div class="no-pinwall-title">Deine Pinwall ist noch leer. Gründe dafür könnten sein:</div>
-                <ul>
-                    <li class="action">Du <span class="link" ui-sref="contact.overview">folgst</span> noch niemandem</li>
-                    <li class="action">Du hast noch keinen <span ng-click="ctrl.createBlog()" class="link">Blog</span> geschrieben</li>
-                </ul>
-            </md-content>
-        </md-card>
     </div>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
     <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openSideNavRight()" ng-if="!ctrl.loadRunning">

@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports =
-    ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'PinwallBlogService', 'SearchService', 'SearchHome',
-        function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService, ElyModal, PinwallBlogService, SearchService, SearchHome) {
+    ['$scope', 'Home', '$mdSidenav', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
+        function ($scope, Home, $mdSidenav, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome) {
             var ctrl = this;
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
@@ -44,13 +44,6 @@ module.exports =
                 });
             };
             ctrl.nextPinwallInfo();
-
-            ctrl.createBlog = function () {
-                ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
-                    .then(function (resp) {
-                        PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
-                    });
-            };
 
             $scope.isSideNavOpen = false;
 

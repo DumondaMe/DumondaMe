@@ -9,7 +9,8 @@ module.exports = {
             bindToController: {
                 contacting: '=',
                 gap: '=',
-                breakpoint: '@'
+                breakpoint: '@',
+                noPinwall: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

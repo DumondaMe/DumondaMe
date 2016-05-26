@@ -1,5 +1,7 @@
 <div class="md-padding ely-pinwall-container">
     <div class="one-column-container" ng-if="!ctrl.isBreakpoint">
+        <ely-no-pinwall-element
+                ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-element>
         <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
         <ely-pinwall-element flex="grow" on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
                              ng-repeat="pinwallElement in pinwall"></ely-pinwall-element>
@@ -7,11 +9,15 @@
     </div>
     <div class="two-column-container" ng-if="ctrl.isBreakpoint" layout="row">
         <div flex="50" class="first-column">
+            <ely-no-pinwall-element
+                    ng-if="ctrl.noPinwall === true && pinwall.length === 0 && ctrl.contacting.numberOfContacting === 0"></ely-no-pinwall-element>
             <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"></ely-pinwall-contacting>
             <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallFirstColumn"></ely-pinwall-element>
         </div>
         <div flex="50" class="second-column">
+            <ely-no-pinwall-element
+                    ng-if="ctrl.noPinwall === true && pinwall.length === 0 && ctrl.contacting.numberOfContacting > 0"></ely-no-pinwall-element>
             <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallSecondColumn"></ely-pinwall-element>
         </div>
