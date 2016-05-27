@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <ely-iframe width="280" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.page.link"
-                    layout="row" layout-align="center center"></ely-iframe>
+        <img ng-src="{{ctrl.getYoutubeImage(ctrl.page.link)}}"
+             class="youtube-preview-image"/>
     </div>
 </md-card>

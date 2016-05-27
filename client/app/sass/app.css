@@ -1383,6 +1383,8 @@ md-toast.md-error-toast-theme {
       font-size: 12px;
       height: 16px;
       line-height: 16px; }
+  .ely-search-result-youtube-page .youtube-page-container .youtube-preview-image {
+    width: 100%; }
 
 #ely-conversation-message-create .title {
   font-size: 16px;
