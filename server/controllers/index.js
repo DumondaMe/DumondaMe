@@ -1,9 +1,9 @@
 'use strict';
 
 var path = require('path');
-var RateLimit = require('express-rate-limit');
+var rateLimit = require('../lib/limiteRate');
 
-var apiLimiter = new RateLimit({
+var apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
     max: 30,
     delayMs: 0 // disabled

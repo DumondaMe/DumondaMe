@@ -5,15 +5,14 @@ var passport = require('passport');
 var modification = require('../../../models/modification/modification');
 var loginUser = require('../../../models/user/loginUser');
 var logger = requireLogger.getLogger(__filename);
-var RateLimit = require('express-rate-limit');
+var rateLimit = require('../../../lib/limiteRate');
 
-var apiLimiter = new RateLimit({
+var apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
     delayAfter: 3,
-    delayMs: 3*1000,
+    delayMs: 3 * 1000,
     max: 50
 });
-
 
 module.exports = function (router) {
 
