@@ -129,11 +129,9 @@ describe('Integration Tests for getting book page detail', function () {
 
     it('Getting the detail of the page for a book without user recommendation', function () {
 
-        var commands = [];
-
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_ADMIN]->(a)")
-            .end().send(commands)
+            .end().send()
             .then(function () {
                 return requestHandler.login(users.validUser);
             }).

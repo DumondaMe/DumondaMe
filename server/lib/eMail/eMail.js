@@ -12,6 +12,10 @@ var emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
         subject: 'Du hast neue Nachrichten'
+    },
+    resetPassword: {
+        template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
+        subject: 'Passwort zurücksetzen'
     }
 };
 

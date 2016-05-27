@@ -24,14 +24,25 @@ var config = function (conf) {
     logger.info("Email Queue connected to redis: " + conf.host + ":" + conf.port);
 };
 
+var createJobHandling = function (err) {
+    if (!err) {
+        logger.debug("Email job successfully started");
+    } else {
+        logger.error("Failed to start email job");
+    }
+};
+
 var createJob = function (description, data) {
     emailJobs.create(description, data).delay(delay).priority('normal').attempts(3).removeOnComplete(true)
         .save(function (err) {
-            if (!err) {
-                logger.debug("Email job successfully started");
-            } else {
-                logger.error("Failed to start email job");
-            }
+            createJobHandling(err);
+        });
+};
+
+var createImmediatelyJob = function (description, data) {
+    emailJobs.create(description, data).priority('normal').attempts(3).removeOnComplete(true)
+        .save(function (err) {
+            createJobHandling(err);
         });
 };
 
@@ -44,5 +55,6 @@ var addJobDefinition = function (description, jobFunction) {
 module.exports = {
     config: config,
     createJob: createJob,
+    createImmediatelyJob: createImmediatelyJob,
     addJobDefinition: addJobDefinition
 };
