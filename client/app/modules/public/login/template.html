@@ -30,6 +30,8 @@
                 Anmelden
             </md-button>
         </div>
-        <md-progress-linear ng-if="ctrl.loginRunning" md-mode="indeterminate"></md-progress-linear>
+        <div layout="row" layout-align="center center">
+            <md-progress-circular ng-if="ctrl.loginRunning" md-mode="indeterminate"></md-progress-circular>
+        </div>
     </div>
 </div>
