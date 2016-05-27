@@ -1318,10 +1318,45 @@ md-toast.md-error-toast-theme {
           height: 16px;
           line-height: 16px; }
 
+.ely-search-result-link-page {
+  width: 280px;
+  display: inline-block;
+  margin: 8px 4px;
+  cursor: pointer; }
+  .ely-search-result-link-page .link-page-container .link-header .link-title {
+    margin: 8px 0 0 0;
+    padding: 0 8px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .ely-search-result-link-page .link-page-container .link-header .page-rating {
+    padding-left: 8px;
+    height: 19px; }
+    .ely-search-result-link-page .link-page-container .link-header .page-rating .ely-star-rating {
+      margin-right: 4px; }
+    .ely-search-result-link-page .link-page-container .link-header .page-rating .description {
+      line-height: 19px;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px; }
+  .ely-search-result-link-page .link-page-container .category-description {
+    padding: 8px; }
+    .ely-search-result-link-page .link-page-container .category-description .category-type {
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px; }
+  .ely-search-result-link-page .link-image {
+    width: 100%; }
+
 .ely-search-result-youtube-page {
   width: 280px;
   display: inline-block;
-  margin: 8px 4px; }
+  margin: 8px 4px;
+  cursor: pointer; }
   .ely-search-result-youtube-page .youtube-page-container .youtube-header .youtube-title {
     margin: 8px 0 0 0;
     padding: 0 8px;

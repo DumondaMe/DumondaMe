@@ -1,11 +1,11 @@
-.ely-search-result-youtube-page {
+.ely-search-result-link-page {
   width: 280px;
   display: inline-block;
   margin: 8px 4px;
   cursor: pointer;
-  .youtube-page-container {
-    .youtube-header {
-      .youtube-title {
+  .link-page-container {
+    .link-header {
+      .link-title {
         margin: 8px 0 0 0;
         padding: 0 8px;
         font-size: 16px;
@@ -38,6 +38,9 @@
         line-height: 16px;
       }
     }
+  }
+  .link-image {
+    width: 100%;
   }
 }
 

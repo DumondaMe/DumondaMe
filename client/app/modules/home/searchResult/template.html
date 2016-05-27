@@ -11,6 +11,12 @@
             <ely-home-search-result-page page="page"></ely-home-search-result-page>
         </div>
     </div>
+    <div class="result-container" ng-if="ctrl.resultConverted.links.length > 0">
+        <div class="search-result-title">Links</div>
+        <div class="search-element-page" ng-repeat="page in ctrl.resultConverted.links">
+            <ely-home-search-result-page page="page"></ely-home-search-result-page>
+        </div>
+    </div>
     <div class="result-container" ng-if="ctrl.resultConverted.youtube.length > 0">
         <div class="search-result-title">Youtube</div>
         <div layout="row" layout-align="start start" layout-wrap>

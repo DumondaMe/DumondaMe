@@ -9,8 +9,6 @@
                 <span class="number-of-ratings">({{ctrl.page.recommendation.summary.numberOfRatings}})</span>
             </div>
             <div class="category-description">
-                <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon"></md-icon>
-                <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
                 <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
                      ng-repeat="category in ctrl.page.category">{{ctrl.getCategory(category)}}
                 </div>

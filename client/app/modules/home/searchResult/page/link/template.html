@@ -1,7 +1,7 @@
-<md-card class="ely-search-result-youtube-page">
-    <div class="youtube-page-container" ng-click="ctrl.goToDetail()">
-        <div class="youtube-header">
-            <div class="youtube-title">{{ctrl.page.title}}</div>
+<md-card class="ely-search-result-link-page">
+    <div class="link-page-container" ui-sref="page.detail({label: ctrl.page.label, pageId: ctrl.page.pageId})">
+        <div class="link-header">
+            <div class="link-title">{{ctrl.page.title}}</div>
             <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings > 0">
                 <ely-star-rating is-readonly="true" is-x-small="true"
                                  number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
@@ -16,7 +16,6 @@
                 </div>
             </div>
         </div>
-        <ely-iframe width="280" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.page.link"
-                    layout="row" layout-align="center center"></ely-iframe>
+        <img ng-src="{{ctrl.page.url}}" class="link-image" flex="none">
     </div>
 </md-card>
