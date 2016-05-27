@@ -48,10 +48,10 @@ module.exports = ['$log',
             return result;
         };
 
-        service.getCodes = function (categories) {
+        service.getCodes = function (categoriesToGetCodes) {
             var result = [];
-            if (angular.isArray(categories)) {
-                angular.forEach(categories, function (category) {
+            if (angular.isArray(categoriesToGetCodes)) {
+                angular.forEach(categoriesToGetCodes, function (category) {
                     if (category.hasOwnProperty('code')) {
                         result.push(category.code);
                     } else {
