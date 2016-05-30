@@ -4,7 +4,8 @@
             <img src="app/img/start/logo.png" class="ely-logo">
             <div class="description">Das soziale Netzwerk für bewusste Menschen</div>
             <div class="text-phase-description" ui-sref="public.testphase">Geschlossene Testphase</div>
-            <ely-login></ely-login>
+            <ely-login password-reset="ctrl.showPasswordReset" ng-show="!ctrl.showPasswordReset"></ely-login>
+            <ely-password-reset-request back="ctrl.showPasswordReset" ng-show="ctrl.showPasswordReset"></ely-password-reset-request>
         </div>
     </div>
     <!--<ely-public-foot-nav></ely-public-foot-nav>-->

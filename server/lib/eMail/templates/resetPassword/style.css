@@ -2,10 +2,7 @@
   padding: 16px; }
   .body .description {
     font-size: 16px;
-    padding: 24px 0px;
-    border-bottom: 1px solid #cccccc; }
-    .body .description .name {
-      font-weight: bold; }
+    padding: 24px 0px; }
   .body .navigate {
     padding: 16px 0;
     border-bottom: 1px solid #cccccc; }

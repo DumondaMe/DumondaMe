@@ -2428,6 +2428,29 @@ md-toast.md-error-toast-theme {
     color: #3F51B5;
     font-weight: 500; }
 
+#change-password-request #container {
+  width: 300px; }
+  #change-password-request #container .form-container {
+    padding: 32px 16px 0 16px; }
+    #change-password-request #container .form-container .change-password-description {
+      font-size: 12px;
+      margin-bottom: 18px; }
+    #change-password-request #container .form-container .input-element {
+      margin-top: 4px;
+      margin-bottom: 4px; }
+      #change-password-request #container .form-container .input-element input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+        text-shadow: none; }
+#change-password-request .action-container {
+  padding: 0 16px; }
+  #change-password-request .action-container .password-reset {
+    margin-right: 32px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #3F51B5; }
+  #change-password-request .action-container .password-reset:hover {
+    text-decoration: underline; }
+
 #foot-navigation {
   position: fixed;
   height: 48px;
@@ -2461,6 +2484,15 @@ md-toast.md-error-toast-theme {
       #loginform #login-container .login-form-container .input-element input:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
         text-shadow: none; }
+#loginform .action-container {
+  padding: 0 16px; }
+  #loginform .action-container .password-reset {
+    margin-right: 38px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #3F51B5; }
+  #loginform .action-container .password-reset:hover {
+    text-decoration: underline; }
 
 #start-screen {
   position: relative;

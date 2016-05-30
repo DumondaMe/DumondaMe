@@ -4,6 +4,7 @@ var db = require('./../../neo4j');
 var time = require('./../../lib/time');
 var eMailQueue = require('./../../lib/eMail/eMailQueue');
 var randomstring = require("randomstring");
+var logger = requireLogger.getLogger(__filename);
 
 var timeValid = 60 * 20;  //20 Minutes
 
@@ -31,7 +32,9 @@ var sendReset = function (email) {
             }
         }).then(function (linkId) {
             if (linkId) {
-                eMailQueue.createImmediatelyJob('sendPasswordReset', {email: email, linkId: linkId});
+                eMailQueue.createImmediatelyJob('resetPassword', {email: email, linkId: linkId});
+            } else {
+                logger.info(`Reset password email is not sent to ${email}`);
             }
         });
 };

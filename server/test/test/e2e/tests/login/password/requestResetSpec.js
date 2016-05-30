@@ -19,7 +19,7 @@ describe('Integration Tests for requesting a password reset Login', function () 
     it('Request a password reset and send link to email address- Return 200', function () {
         return requestHandler.post('/api/login/password/requestReset', {email: 'user@irgendwo.ch'}).then(function (res) {
             res.status.should.equal(200);
-            stubEmailQueue.createImmediatelyJob.calledWith("sendPasswordReset", {
+            stubEmailQueue.createImmediatelyJob.calledWith("resetPassword", {
                 email: 'user@irgendwo.ch',
                 linkId: sinon.match.any
             }).should.be.true;
@@ -34,7 +34,7 @@ describe('Integration Tests for requesting a password reset Login', function () 
         var linkId;
         return requestHandler.post('/api/login/password/requestReset', {email: 'user@irgendwo.ch'}).then(function (res) {
             res.status.should.equal(200);
-            stubEmailQueue.createImmediatelyJob.calledWith("sendPasswordReset", {
+            stubEmailQueue.createImmediatelyJob.calledWith("resetPassword", {
                 email: 'user@irgendwo.ch',
                 linkId: sinon.match.any
             }).should.be.true;

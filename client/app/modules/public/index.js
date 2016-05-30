@@ -6,6 +6,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('Auth', require('./services/auth'));
+app.service('ResetPasswordRequest', require('./services/resetPasswordRequest'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
