@@ -93,9 +93,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             if (firstRun) {
                 firstRun = false;
-                event.preventDefault();
-                CheckLoginStateParamsContainer.setParams(toState.name, toParams);
-                $state.go('checkLoginState', null, {location: false});
+                if (!toState.isPublic) {
+                    event.preventDefault();
+                    CheckLoginStateParamsContainer.setParams(toState.name, toParams);
+                    $state.go('checkLoginState', null, {location: false});
+                }
             }
         });
     }]);

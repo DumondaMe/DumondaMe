@@ -73,6 +73,10 @@ var Cypher = function (connectionUrl) {
         return this.chainingQuery(condition, ' DELETE ');
     };
 
+    this.remove = function (condition) {
+        return this.chainingQuery(condition, ' REMOVE ');
+    };
+
     this.orderBy = function (condition) {
         return this.chainingQuery(condition, ' ORDER BY ');
     };
