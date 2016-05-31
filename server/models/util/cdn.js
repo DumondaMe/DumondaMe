@@ -9,7 +9,7 @@ var _ = require('underscore');
 
 if ('production' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
-        httpOptions: { timeout: 10000 }
+        httpOptions: {timeout: 10000}
     });
 }
 AWS.config.region = 'eu-central-1';
@@ -32,14 +32,29 @@ var copyFile = function (source, destination) {
     });
 };
 
+/**
+ * Temporary solution until amazon has fixed bug.
+ * @param s3
+ * @param params
+ * @param path
+ * @returns signed url to aws s3
+ */
+var getSignedUrlWithRetry = function (s3, params, path) {
+    var signedPath = s3.getSignedUrl('getObject', params);
+    if (signedPath && signedPath.indexOf(path) === -1) {
+        signedPath = s3.getSignedUrl('getObject', params);
+    }
+    return signedPath;
+};
+
 module.exports = {
     getUrl: function (path) {
         var params = {
-                Bucket: cdnConfig.getConfig().bucket,
-                Key: path,
-                Expires: expiresAfterADay
-            };
-        return s3.getSignedUrl('getObject', params);
+            Bucket: cdnConfig.getConfig().bucket,
+            Key: path,
+            Expires: expiresAfterADay
+        };
+        return getSignedUrlWithRetry(s3, params, path);
     },
     uploadFile: function (fileName, key) {
         return new Promise(function (resolve, reject) {
@@ -63,7 +78,7 @@ module.exports = {
                 if (err) {
                     return reject(err);
                 }
-                if(data.Contents.length > 0) {
+                if (data.Contents.length > 0) {
                     params = {Bucket: cdnConfig.getConfig().bucket};
                     params.Delete = {};
                     params.Delete.Objects = [];
