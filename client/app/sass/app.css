@@ -790,7 +790,7 @@ md-toast.md-error-toast-theme {
         border-radius: 50%; }
       .ely-contact-preview .contact-previews .contact-preview .name {
         font-size: 14px;
-        color: #3F51B5;
+        color: rgba(0, 0, 0, 0.87);
         line-height: 72px;
         vertical-align: middle;
         white-space: nowrap;
