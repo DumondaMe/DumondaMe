@@ -5,11 +5,6 @@
         </div>
         <div>
             <div class="md-title recommendation-title">
-                <!--<span ng-hide="ctrl.element.label !== 'Book'">
-                    <span ng-if="ctrl.element.thisRecommendationByUser">hast das Buch</span>
-                    <span ng-if="!ctrl.element.thisRecommendationByUser">hat das Buch</span>
-                    <a class="page-title" ui-sref="page.detail({label: 'Book', pageId: ctrl.element.pageId})">{{ctrl.element.title}}</a>
-                    bewertet</span>-->
                 <ely-pinwall-recommendation-desktop-book-title element="ctrl.element"
                                                                ng-if="ctrl.element.label === 'Book'"></ely-pinwall-recommendation-desktop-book-title>
                 <ely-pinwall-recommendation-desktop-youtube-title element="ctrl.element"

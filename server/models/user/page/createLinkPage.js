@@ -7,6 +7,7 @@ var time = require('./../../../lib/time');
 var imagePage = require('./imagePage');
 var Url = require('url-parse');
 var exceptions = require('./../../../lib/error/exceptions');
+var cdn = require('../../util/cdn');
 var logger = requireLogger.getLogger(__filename);
 
 var getHostname = function (link, req) {
@@ -29,7 +30,7 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
         params.hostname = hostname;
         return db.cypher().match("(user:User {userId: {userId}})")
             .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
-                "modified: {created}, created: {created}, category: {category}, label: 'Link', hostname: {hostname}})")
+                "modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}})")
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {
@@ -37,10 +38,15 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
         }
     }).then(function (height) {
         if (height) {
-            return db.cypher().match("(page:Page {pageId: {pageId}})").set('page', {heightPreviewImage: height}).end({pageId: params.pageId}).send();
+            return db.cypher().match("(page:Page {pageId: {pageId}})").set('page', {heightPreviewImage: height}).return("page")
+                .end({pageId: params.pageId}).send();
         }
-    }).then(function () {
-        return {pageId: params.pageId};
+    }).then(function (pages) {
+        var resp = {pageId: params.pageId, hostname: params.hostname};
+        if(pages && pages.length === 1) {
+            resp.linkPreviewUrl = cdn.getUrl(`pages/${params.pageId}/preview.jpg`);
+        }
+        return resp;
     });
 };
 

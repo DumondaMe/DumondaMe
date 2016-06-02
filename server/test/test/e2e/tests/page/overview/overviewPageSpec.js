@@ -1,11 +1,12 @@
+/*
 'use strict';
 
-var users = require('../util/user');
-var db = require('../util/db');
-var requestHandler = require('../util/request');
+var users = require('../../util/user');
+var db = require('../../util/db');
+var requestHandler = require('../../util/request');
 var should = require('chai').should();
 
-describe('Integration Tests for getting popular pages', function () {
+describe('Integration Tests for getting overview of pages', function () {
 
     var requestAgent;
 
@@ -74,7 +75,7 @@ describe('Integration Tests for getting popular pages', function () {
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
-                    return requestHandler.getWithData('/api/page/popularPages', {
+                    return requestHandler.getWithData('/api/page/overview', {
                         skip: '0',
                         maxItems: 3,
                         onlyContacts: true,
@@ -293,3 +294,4 @@ describe('Integration Tests for getting popular pages', function () {
             });
     });
 });
+*/

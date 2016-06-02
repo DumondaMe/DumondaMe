@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadForumQuestion', 'Categories', 'Languages', 'errorToast',
-    function (userInfo, ElyModal, CreateForumQuestionCheck, UploadForumQuestion, Categories, Languages, errorToast) {
+module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadForumQuestion', 'Topics', 'Languages', 'errorToast',
+    function (userInfo, ElyModal, CreateForumQuestionCheck, UploadForumQuestion, Topics, Languages, errorToast) {
         var ctrl = this;
         ctrl.userInfo = userInfo.getUserInfo();
 
-        ctrl.categories = Categories.categories;
+        ctrl.topics = Topics.topics;
         ctrl.languages = Languages.languages;
 
         ctrl.cancel = function () {
@@ -15,7 +15,7 @@ module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadFor
         ctrl.uploadQuestion = function () {
             if (ctrl.sendAllowed && !ctrl.uploadStarted) {
                 ctrl.uploadStarted = true;
-                UploadForumQuestion.upload(ctrl.questionText, ctrl.selectedCategories, ctrl.selectedLanguage).then(function (resp) {
+                UploadForumQuestion.upload(ctrl.questionText, ctrl.selectedTopics, ctrl.selectedLanguage).then(function (resp) {
                     ElyModal.hide(resp);
                 }).catch(function () {
                     ctrl.uploadStarted = false;
@@ -25,6 +25,6 @@ module.exports = ['userInfo', 'ElyModal', 'CreateForumQuestionCheck', 'UploadFor
         };
 
         ctrl.changed = function () {
-            ctrl.sendAllowed = CreateForumQuestionCheck.isSendQuestionAllowed(ctrl.questionText, ctrl.selectedCategories, ctrl.selectedLanguage);
+            ctrl.sendAllowed = CreateForumQuestionCheck.isSendQuestionAllowed(ctrl.questionText, ctrl.selectedTopics, ctrl.selectedLanguage);
         };
     }];

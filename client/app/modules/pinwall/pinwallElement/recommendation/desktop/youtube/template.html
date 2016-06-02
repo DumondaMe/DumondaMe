@@ -1,9 +1,5 @@
 <div class="youtube-recommendation-desktop">
-    <div class="category-description">
-        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
-        </div>
-    </div>
+    <ely-topics topics="ctrl.element.topic"></ely-topics>
     <ely-iframe ng-if="!ctrl.showImagePreview" width="418" height="300" secure-link="https://www.youtube.com/embed/"
                 src="ctrl.getYoutubeAutoplayLink(ctrl.element.link)"
                 layout="row" layout-align="center center"></ely-iframe>

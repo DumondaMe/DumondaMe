@@ -9,7 +9,8 @@ module.exports = {
             bindToController: {
                 element: '='
             },
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/desktop/book/template.html'
         };

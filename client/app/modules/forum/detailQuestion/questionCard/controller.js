@@ -1,11 +1,8 @@
 'use strict';
 
-module.exports = ['$state', 'Categories', 'ForumDeleteQuestion',
-    function ($state, Categories, ForumDeleteQuestion) {
+module.exports = ['$state', 'ForumDeleteQuestion',
+    function ($state, ForumDeleteQuestion) {
         var ctrl = this;
-
-        ctrl.getCategory = Categories.getCategory;
-        ctrl.getCategoryClass = Categories.getCategoryClass;
 
         ctrl.goToQuestionOverview = function () {
             if (ctrl.question.questionId) {

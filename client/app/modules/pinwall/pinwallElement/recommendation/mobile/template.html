@@ -11,16 +11,7 @@
             </span>
         </md-card-header-text>
     </md-card-header>
-    <div class="category-description">
-        <md-icon md-svg-icon="cardActions:book" aria-label="Book" class="category-icon book-icon" ng-hide="ctrl.element.label !== 'Book'"></md-icon>
-        <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="category-icon youtube-icon"
-                 ng-hide="ctrl.element.label !== 'Youtube'"></md-icon>
-        <md-icon md-svg-icon="cardActions:link" aria-label="Link" class="category-icon link-icon" ng-hide="ctrl.element.label !== 'Link'"></md-icon>
-        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
-        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
-        </div>
-    </div>
+    <ely-topics topics="ctrl.element.topic" label="ctrl.element.label"></ely-topics>
     <md-card-content ng-click="ctrl.openPageDetail()" class="content-container">
         <div class="page-title">{{ctrl.element.title}}</div>
         <div class="description">{{ctrl.element.description}}</div>

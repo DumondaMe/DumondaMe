@@ -5,13 +5,13 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
     this.uploadCreatePage = function (message, ctrl) {
         ctrl.uploadStarted = true;
 
-        fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create')
-            .success(function (resp) {
+        return fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create').then(
+            function (resp) {
                 ctrl.uploadStarted = false;
-                ctrl.data.pageId = resp.pageId;
+                ctrl.data.pageId = resp.data.pageId;
                 ctrl.recommendPage = true;
-            })
-            .error(function () {
+                return resp;
+            }, function () {
                 ctrl.uploadStarted = false;
                 errorToast.showError('Seite konnte nicht hochgeladen werden!');
             });

@@ -32,7 +32,7 @@ describe('Integration Tests for creating new youtube pages', function () {
 
         var createPage = {
             youtubePage: {
-                category: ['environmental', 'education'],
+                topic: ['environmental', 'education'],
                 title: 'title',
                 description: 'description',
                 link: 'https://www.youtube.com/embed/Test'
@@ -46,7 +46,7 @@ describe('Integration Tests for creating new youtube pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, ' +
                     'page.modified AS modified, page.created AS created, page.label AS label')
                 .end().send();
         }).then(function (page) {
@@ -58,9 +58,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].link.should.equals("https://www.youtube.com/embed/Test");
             page[0].label.should.equals("Youtube");
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('environmental');
-            page[0].category[1].should.equals('education');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('environmental');
+            page[0].topic[1].should.equals('education');
         });
     });
 });

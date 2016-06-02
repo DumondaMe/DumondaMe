@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Categories', 'PageYoutubeLink', function (DateConverter, Categories, PageYoutubeLink) {
+module.exports = ['DateConverter', 'Topics', 'PageYoutubeLink', function (DateConverter, Topics, PageYoutubeLink) {
 
     this.getCreateYoutubePageMessage = function (data) {
         return {
@@ -8,7 +8,7 @@ module.exports = ['DateConverter', 'Categories', 'PageYoutubeLink', function (Da
                 title: data.title,
                 description: data.description,
                 link: PageYoutubeLink.getYoutubeLink(data.link),
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };
@@ -18,7 +18,7 @@ module.exports = ['DateConverter', 'Categories', 'PageYoutubeLink', function (Da
             youtubePage: {
                 pageId: data.pageId,
                 description: data.description,
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };

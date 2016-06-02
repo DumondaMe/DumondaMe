@@ -5,6 +5,7 @@ var uuid = require('./../../../lib/uuid');
 var time = require('./../../../lib/time');
 var uploadImage = require('./../../image/generatePageImages');
 var imagePage = require('./imagePage');
+var cdn = require('../../util/cdn');
 
 var createBookPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();
@@ -13,13 +14,13 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})")
             .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, " +
-            "publishDate: {publishDate}, modified: {modified}, category: {category}, label: 'Book'})")
+            "publishDate: {publishDate}, modified: {modified}, topic: {topic}, label: 'Book'})")
             .end(params)
             .send();
     }).then(function () {
         return uploadImage.generatePageImage(titlePicturePath, params.pageId);
     }).then(function () {
-        return {pageId: params.pageId};
+        return {pageId: params.pageId, bookPreviewUrl: cdn.getUrl(`pages/${params.pageId}/pagePreview.jpg`)};
     });
 };
 

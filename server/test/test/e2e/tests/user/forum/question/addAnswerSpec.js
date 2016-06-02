@@ -20,8 +20,8 @@ describe('Integration Tests for adding answers to a forum question', function ()
             commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
 
             return db.cypher().match("(u:User)")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).send(commands);
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).send(commands);
 
         });
     });

@@ -1,10 +1,10 @@
 'use strict';
 
-var category = require("../../../../schema/category");
+var topic = require("../../../../schema/topic");
 
 module.exports = {
     id: {type: 'string', format: 'notEmptyString', maxLength: 30},
-    category: category.category,
+    topic: topic.topicMultiple,
     title: {type: 'string', format: 'notEmptyString', maxLength: 160},
     description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
     link: {type: 'string', format: 'url', maxLength: 1000}

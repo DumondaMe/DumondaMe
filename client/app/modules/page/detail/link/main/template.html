@@ -28,13 +28,7 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <div class="category-description">
-            <md-icon md-svg-icon="cardActions:link" aria-label="Book" class="category-icon book-icon"></md-icon>
-            <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
-            <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-                 ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}
-            </div>
-        </div>
+        <ely-topics topics="ctrl.pageDetail.page.topic" label="'Link'"></ely-topics>
         <div class="image-description-container">
             <img class="image" ng-src="{{ctrl.pageDetail.page.imageUrl}}" ng-if="ctrl.pageDetail.page.imageUrl"
                  ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">

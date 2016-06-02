@@ -5,18 +5,18 @@ var moment = require('moment');
 var uuid = require('./../../../lib/uuid');
 var security = require('./security');
 
-var createQuestion = function (userId, description, category, language) {
+var createQuestion = function (userId, description, topic, language) {
 
     var timeCreatedQuestion = Math.floor(moment.utc().valueOf() / 1000),
         questionId = uuid.generateUUID();
     return db.cypher().match("(u:User {userId: {userId}})")
-        .createUnique("(u)-[:IS_ADMIN]->(question:ForumQuestion {questionId: {questionId}, description: {description}, category: {category}, " +
+        .createUnique("(u)-[:IS_ADMIN]->(question:ForumQuestion {questionId: {questionId}, description: {description}, topic: {topic}, " +
             "language: {language}, created: {timeCreatedQuestion}})")
         .return("question.questionId AS questionId")
         .end({
             userId: userId,
             description: description,
-            category: category,
+            topic: topic,
             language: language,
             timeCreatedQuestion: timeCreatedQuestion,
             questionId: questionId

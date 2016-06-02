@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Categories', function (DateConverter, Categories) {
+module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
 
     this.getCreateBookPageMessage = function (data) {
         return {
@@ -9,7 +9,7 @@ module.exports = ['DateConverter', 'Categories', function (DateConverter, Catego
                 description: data.description,
                 author: data.author,
                 publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };
@@ -21,7 +21,7 @@ module.exports = ['DateConverter', 'Categories', function (DateConverter, Catego
                 description: data.description,
                 author: data.author,
                 publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };

@@ -15,7 +15,7 @@ var getDetail = function (pageId, label, userId) {
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
 
     return db.cypher().match("(page:Page {pageId: {pageId}, label: {label}})")
-        .return("page.pageId AS pageId, page.title AS title, page.description AS description, page.category AS category, page.link AS link, " +
+        .return("page.pageId AS pageId, page.title AS title, page.description AS description, page.topic AS topic, page.link AS link, " +
         "page.created AS created, page.modified AS modified, page.label AS label")
         .end({pageId: pageId, label: label})
         .send(commands)

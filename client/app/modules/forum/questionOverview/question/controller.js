@@ -1,13 +1,12 @@
 'use strict';
 
-module.exports = ['$state', 'countFormatter', 'Categories', 'ForumDeleteQuestion',
-    function ($state, countFormatter, Categories, ForumDeleteQuestion) {
+module.exports = ['$state', 'countFormatter', 'Topics', 'ForumDeleteQuestion',
+    function ($state, countFormatter, Topics, ForumDeleteQuestion) {
         var ctrl = this;
 
         ctrl.element.activityRating = countFormatter.getCount(ctrl.element.activityRating);
 
-        ctrl.getCategory = Categories.getCategory;
-        ctrl.getCategoryClass = Categories.getCategoryClass;
+        ctrl.getTopic = Topics.getTopic;
         
         ctrl.deleteQuestion = function (questionId) {
             ForumDeleteQuestion.delete(ctrl.element.description, questionId, ctrl).then(function () {

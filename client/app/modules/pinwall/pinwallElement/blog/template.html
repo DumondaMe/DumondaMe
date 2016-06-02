@@ -29,13 +29,7 @@
             </md-menu-content>
         </md-menu>
     </md-card-header>
-    <div class="category-description">
-        <md-icon md-svg-icon="cardActions:blog" aria-label="Book" class="category-icon"></md-icon>
-        <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
-        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
-        </div>
-    </div>
+    <ely-topics topics="ctrl.element.topic" label="'Blog'"></ely-topics>
     <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>

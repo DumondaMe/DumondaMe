@@ -25,13 +25,7 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <div class="category-description">
-            <md-icon md-svg-icon="cardActions:video" aria-label="Video" class="category-icon youtube-icon"></md-icon>
-            <md-icon md-svg-icon="cardActions:menuRight" aria-label="Divider" class="category-icon"></md-icon>
-            <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-                 ng-repeat="category in ctrl.pageDetail.page.category">{{ctrl.getCategory(category)}}
-            </div>
-        </div>
+        <ely-topics topics="ctrl.pageDetail.page.topic" label="'Youtube'"></ely-topics>
         <ely-iframe width="270" height="200" secure-link="https://www.youtube.com/embed/" src="ctrl.pageDetail.page.link"
                     layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
         <ely-iframe width="568" height="400" secure-link="https://www.youtube.com/embed/" src="ctrl.pageDetail.page.link"

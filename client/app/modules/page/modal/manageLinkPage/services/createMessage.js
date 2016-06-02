@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Categories', function (DateConverter, Categories) {
+module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
 
     this.getCreateLinkPageMessage = function (data) {
         return {
@@ -8,7 +8,7 @@ module.exports = ['DateConverter', 'Categories', function (DateConverter, Catego
                 title: data.title,
                 description: data.description,
                 link: data.link,
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };
@@ -18,7 +18,7 @@ module.exports = ['DateConverter', 'Categories', function (DateConverter, Catego
             linkPage: {
                 pageId: data.pageId,
                 description: data.description,
-                category: Categories.getCodes(data.selectedCategories)
+                topic: Topics.getCodes(data.selectedTopics)
             }
         };
     };

@@ -17,7 +17,7 @@ describe('Integration Tests for getting book page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             return db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['environmental', 'education']}).send(commands);
+                "author: 'Hans Muster', publishDate: 1000, topic: {topic}})").end({topic: ['environmental', 'education']}).send(commands);
 
         });
     });
@@ -101,9 +101,9 @@ describe('Integration Tests for getting book page detail', function () {
                 res.body.page.author[2].userId.should.equals('2');
                 res.body.page.author[2].isLoggedInUser.should.be.false;
 
-                res.body.page.category.length.should.equals(2);
-                res.body.page.category[0].should.equals('environmental');
-                res.body.page.category[1].should.equals('education');
+                res.body.page.topic.length.should.equals(2);
+                res.body.page.topic[0].should.equals('environmental');
+                res.body.page.topic[1].should.equals('education');
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');

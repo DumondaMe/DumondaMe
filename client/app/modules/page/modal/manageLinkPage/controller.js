@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['ElyModal', 'Categories', 'PageLinkUrlCheck', 'fileUpload', 'LinkPageCreateMessageService', 'UploadPageService',
+module.exports = ['ElyModal', 'Topics', 'PageLinkUrlCheck', 'fileUpload', 'LinkPageCreateMessageService', 'UploadPageService',
     'CheckPageExists', 'RecommendationResponseFormatter',
-    function (ElyModal, Categories, PageLinkUrlCheck, fileUpload, LinkPageCreateMessageService, UploadPageService, CheckPageExists,
+    function (ElyModal, Topics, PageLinkUrlCheck, fileUpload, LinkPageCreateMessageService, UploadPageService, CheckPageExists,
               RecommendationResponseFormatter) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
-            ctrl.data.selectedCategories = Categories.getCategories(ctrl.data.selectedCategories);
+            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
             ctrl.dataOnServer = angular.copy(ctrl.data);
         } else {
             ctrl.data = {};
@@ -15,7 +15,7 @@ module.exports = ['ElyModal', 'Categories', 'PageLinkUrlCheck', 'fileUpload', 'L
 
         CheckPageExists.reset();
 
-        ctrl.categories = Categories.categories;
+        ctrl.topics = Topics.topics;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -58,7 +58,10 @@ module.exports = ['ElyModal', 'Categories', 'PageLinkUrlCheck', 'fileUpload', 'L
 
         ctrl.createLink = function () {
             var message = LinkPageCreateMessageService.getCreateLinkPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
+                ctrl.data.linkPreviewUrl = resp.data.linkPreviewUrl;
+                ctrl.data.hostname = resp.data.hostname;
+            });
         };
 
         ctrl.modifyLink = function () {

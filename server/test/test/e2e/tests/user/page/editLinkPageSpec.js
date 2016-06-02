@@ -19,14 +19,14 @@ describe('Integration Tests for editing link pages', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title', description: 'description', category: {category}, created: 501, modified: 502, pageId: '0'," +
-                "hostname: 'www.test.com', link: 'www.test.com/test'})").end({category: ['health', 'spiritual']}).getCommand());
+            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title', description: 'description', topic: {topic}, created: 501, modified: 502, pageId: '0'," +
+                "hostname: 'www.test.com', link: 'www.test.com/test'})").end({topic: ['health', 'spiritual']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title2', description: 'description2', category: {category}, created: 503, modified: 504, pageId: '1'," +
-                "hostname: 'www.test2.com', link: 'www.test2.com/test'})").end({category: ['health', 'environmental']}).getCommand());
+            commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title2', description: 'description2', topic: {topic}, created: 503, modified: 504, pageId: '1'," +
+                "hostname: 'www.test2.com', link: 'www.test2.com/test'})").end({topic: ['health', 'environmental']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
@@ -44,7 +44,7 @@ describe('Integration Tests for editing link pages', function () {
         var editPage = {
             linkPage: {
                 pageId: '0',
-                category: ['health', 'socialDevelopment'],
+                topic: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
@@ -56,7 +56,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
                 'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -73,9 +73,9 @@ describe('Integration Tests for editing link pages', function () {
             stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/preview.jpg").should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, "pages/0/normal.jpg").should.be.true;
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('socialDevelopment');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('socialDevelopment');
         });
     });
 
@@ -83,7 +83,7 @@ describe('Integration Tests for editing link pages', function () {
         var editPage = {
             linkPage: {
                 pageId: '1',
-                category: ['health', 'socialDevelopment'],
+                topic: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
@@ -95,7 +95,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
-                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -111,9 +111,9 @@ describe('Integration Tests for editing link pages', function () {
 
             stubCDN.uploadFile.called.should.be.false;
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('environmental');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('environmental');
         });
     });
 
@@ -121,7 +121,7 @@ describe('Integration Tests for editing link pages', function () {
         var editPage = {
             linkPage: {
                 pageId: '0',
-                category: ['health', 'socialDevelopment'],
+                topic: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
@@ -133,7 +133,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -149,9 +149,9 @@ describe('Integration Tests for editing link pages', function () {
 
             stubCDN.uploadFile.called.should.be.false;
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
         });
     });
 
@@ -159,7 +159,7 @@ describe('Integration Tests for editing link pages', function () {
         var editPage = {
             linkPage: {
                 pageId: '0',
-                category: ['health', 'socialDevelopment'],
+                topic: ['health', 'socialDevelopment'],
                 description: 'description2'
             }
         };
@@ -171,7 +171,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.category AS category, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -187,9 +187,9 @@ describe('Integration Tests for editing link pages', function () {
 
             stubCDN.uploadFile.called.should.be.false;
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
         });
     });
 });

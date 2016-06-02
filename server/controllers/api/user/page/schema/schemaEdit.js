@@ -10,10 +10,10 @@ module.exports = {
         bookPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'category', 'description', 'author'],
+            required: ['pageId', 'topic', 'description', 'author'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'},
                 author: {type: 'string', format: 'notEmptyString', maxLength: 100},
                 publishDate: {type: 'integer'}
@@ -22,20 +22,20 @@ module.exports = {
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'category', 'description'],
+            required: ['pageId', 'topic', 'description'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'}
             }
         },
         linkPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'category', 'description'],
+            required: ['pageId', 'topic', 'description'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'}
             }
         }

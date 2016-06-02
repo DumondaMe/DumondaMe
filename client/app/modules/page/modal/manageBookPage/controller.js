@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageCreateMessageService', 'fileUpload', 'moment',
+module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreateMessageService', 'fileUpload', 'moment',
     'CheckPageExists', 'UploadPageService', 'RecommendationResponseFormatter',
-    function (ElyModal, DateFormatCheckService, Categories, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
+    function (ElyModal, DateFormatCheckService, Topics, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
               UploadPageService, RecommendationResponseFormatter) {
         var ctrl = this;
 
@@ -10,7 +10,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
             if (angular.isNumber(ctrl.data.publishDate)) {
                 ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
             }
-            ctrl.data.selectedCategories = Categories.getCategories(ctrl.data.selectedCategories);
+            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
             ctrl.dataOnServer = angular.copy(ctrl.data);
         } else {
             ctrl.data = {};
@@ -19,7 +19,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
         CheckPageExists.reset();
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
-        ctrl.categories = Categories.categories;
+        ctrl.topics = Topics.topics;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -71,7 +71,9 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Categories', 'BookPageC
 
         ctrl.createBook = function () {
             var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
+                ctrl.data.bookPreviewUrl = resp.data.bookPreviewUrl;
+            });
         };
 
         ctrl.modifyBook = function () {

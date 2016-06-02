@@ -21,11 +21,11 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:User {name: 'user Meier5', forename: 'user5', userId: '5'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier5', forename: 'user6', userId: '6'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000, category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
+                "author: 'Hans Muster', publishDate: 1000, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().create("(:Page {title: 'linkPageTitle', label: 'Link', description: 'linkPage', language: 'de', created: 501, pageId: '2'," +
-                "category: {category}, link: 'www.host.com/test', hostname: 'www.host.com', heightPreviewImage: 200})").end({category: ['health', 'personalDevelopment']}).getCommand());
+                "topic: {topic}, link: 'www.host.com/test', hostname: 'www.host.com', heightPreviewImage: 200})").end({topic: ['health', 'personalDevelopment']}).getCommand());
             return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', category: {category}})").end({category: ['health', 'personalDevelopment']}).send(commands);
+                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).send(commands);
 
         });
     });
@@ -558,12 +558,12 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, visible: {visible}, category: {category}})")
-            .end({visible: ['Freund'], category: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 1000, blogId: '4', category: {category}})").end({category: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, blogId: '5', category: {category}, visible: {visible}})").end({category: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, visible: {visible}, topic: {topic}})")
+            .end({visible: ['Freund'], topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 1000, blogId: '4', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, blogId: '5', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
 
         //Recommendations
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
@@ -676,9 +676,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].text.should.equals('blogText4');
                 res.body.pinwall[0].isAdmin.should.equals(false);
                 res.body.pinwall[0].isPublic.should.equals(true);
-                res.body.pinwall[0].category.length.should.equals(2);
-                res.body.pinwall[0].category[0].should.equals('health');
-                res.body.pinwall[0].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[0].topic.length.should.equals(2);
+                res.body.pinwall[0].topic[0].should.equals('health');
+                res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].blogId.should.equals('3');
@@ -693,9 +693,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[1].text.should.equals('blogText3');
                 res.body.pinwall[1].isAdmin.should.equals(true);
                 res.body.pinwall[1].isPublic.should.equals(true);
-                res.body.pinwall[1].category.length.should.equals(2);
-                res.body.pinwall[1].category[0].should.equals('health');
-                res.body.pinwall[1].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[1].topic.length.should.equals(2);
+                res.body.pinwall[1].topic[0].should.equals('health');
+                res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[2].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[2].label.should.equals('Youtube');
@@ -713,9 +713,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[2].userHasRecommended.should.equals(false);
                 res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
                 res.body.pinwall[2].numberOfSamePinwallData.should.equals(1);
-                res.body.pinwall[2].category.length.should.equals(2);
-                res.body.pinwall[2].category[0].should.equals('health');
-                res.body.pinwall[2].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[2].topic.length.should.equals(2);
+                res.body.pinwall[2].topic[0].should.equals('health');
+                res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[3].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[3].label.should.equals('Book');
@@ -733,9 +733,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].userHasRecommended.should.equals(true);
                 res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
                 res.body.pinwall[3].numberOfSamePinwallData.should.equals(2);
-                res.body.pinwall[3].category.length.should.equals(2);
-                res.body.pinwall[3].category[0].should.equals('health');
-                res.body.pinwall[3].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[3].topic.length.should.equals(2);
+                res.body.pinwall[3].topic[0].should.equals('health');
+                res.body.pinwall[3].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[4].pinwallType.should.equals('Blog');
                 res.body.pinwall[4].blogId.should.equals('2');
@@ -750,9 +750,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[4].text.should.equals('blogText2');
                 res.body.pinwall[4].isAdmin.should.equals(false);
                 res.body.pinwall[4].isPublic.should.equals(false);
-                res.body.pinwall[4].category.length.should.equals(2);
-                res.body.pinwall[4].category[0].should.equals('health');
-                res.body.pinwall[4].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[4].topic.length.should.equals(2);
+                res.body.pinwall[4].topic[0].should.equals('health');
+                res.body.pinwall[4].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[5].pinwallType.should.equals('Blog');
                 res.body.pinwall[5].blogId.should.equals('1');
@@ -767,9 +767,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[5].text.should.equals('blogText1');
                 res.body.pinwall[5].isAdmin.should.equals(false);
                 res.body.pinwall[5].isPublic.should.equals(false);
-                res.body.pinwall[5].category.length.should.equals(2);
-                res.body.pinwall[5].category[0].should.equals('health');
-                res.body.pinwall[5].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[5].topic.length.should.equals(2);
+                res.body.pinwall[5].topic[0].should.equals('health');
+                res.body.pinwall[5].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[6].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[6].label.should.equals('Link');
@@ -790,9 +790,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[6].userHasRecommended.should.equals(false);
                 res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
                 res.body.pinwall[6].numberOfSamePinwallData.should.equals(1);
-                res.body.pinwall[6].category.length.should.equals(2);
-                res.body.pinwall[6].category[0].should.equals('health');
-                res.body.pinwall[6].category[1].should.equals('personalDevelopment');
+                res.body.pinwall[6].topic.length.should.equals(2);
+                res.body.pinwall[6].topic[0].should.equals('health');
+                res.body.pinwall[6].topic[1].should.equals('personalDevelopment');
             });
     });
 });

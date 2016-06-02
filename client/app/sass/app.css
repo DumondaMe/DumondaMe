@@ -374,6 +374,32 @@
     width: 14px;
     height: 14px; }
 
+.topic-description .topic-type {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: white;
+  background-color: #009688;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  margin-top: 4px; }
+
+.youtube-icon {
+  color: #cd201f; }
+
+.answer-icon {
+  color: #F9A825; }
+
+.ely-select-topic .md-select-value span {
+  max-width: 95%; }
+  .ely-select-topic .md-select-value span .md-text {
+    white-space: normal; }
+
 #register-user {
   height: 100%;
   overflow-y: auto; }
@@ -389,54 +415,6 @@
         margin: 0; }
       #register-user #register-user-container-outer #register-user-container .select-gender {
         margin: 24px 0 16px 0; }
-
-.category-description {
-  padding: 0 16px;
-  /*.spiritual {
-    background-color: #BA68C8;
-  }
-  .health {
-    background-color: #039BE5;
-  }
-  .environmental {
-    background-color: #43A047;
-  }
-  .education {
-    background-color: #A1887F;
-  }
-  .personalDevelopment {
-    background-color: #7986CB;
-  }
-  .socialDevelopment {
-    background-color: #009688;
-  }*/ }
-  .category-description .category-type {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 400;
-    height: 16px;
-    line-height: 16px;
-    vertical-align: middle;
-    padding: 2px 4px;
-    border-radius: 4px;
-    color: white;
-    background-color: #009688;
-    margin-right: 4px;
-    margin-bottom: 4px; }
-
-.category-icon {
-  margin-bottom: 8px; }
-
-.youtube-icon {
-  color: #cd201f; }
-
-.answer-icon {
-  color: #F9A825; }
-
-.ely-select-category .md-select-value span {
-  max-width: 95%; }
-  .ely-select-category .md-select-value span .md-text {
-    white-space: normal; }
 
 .ely-close-sub-toolbar {
   position: fixed;
@@ -998,7 +976,7 @@ md-toast.md-error-toast-theme {
     cursor: pointer; }
     .ely-question-answer-card .answer-info-container .category-icon {
       margin-bottom: 0; }
-    .ely-question-answer-card .answer-info-container .category-title {
+    .ely-question-answer-card .answer-info-container .topic-title {
       margin-left: 8px;
       font-size: 17px;
       line-height: 24px;
@@ -1311,12 +1289,6 @@ md-toast.md-error-toast-theme {
         margin-left: 4px;
         font-size: 12px;
         color: rgba(0, 0, 0, 0.54); }
-      .ely-search-result-book-page .book-page-container .info-container .category-description {
-        padding: 8px 0 0 0; }
-        .ely-search-result-book-page .book-page-container .info-container .category-description .category-type {
-          font-size: 12px;
-          height: 16px;
-          line-height: 16px; }
 
 .ely-search-result-link-page {
   width: 280px;
@@ -1343,12 +1315,8 @@ md-toast.md-error-toast-theme {
       line-height: 19px;
       color: rgba(0, 0, 0, 0.54);
       font-size: 12px; }
-  .ely-search-result-link-page .link-page-container .category-description {
-    padding: 8px; }
-    .ely-search-result-link-page .link-page-container .category-description .category-type {
-      font-size: 12px;
-      height: 16px;
-      line-height: 16px; }
+  .ely-search-result-link-page .link-page-container .topic-description {
+    margin: 0 8px 4px 8px; }
   .ely-search-result-link-page .link-image {
     width: 100%; }
 
@@ -1377,12 +1345,8 @@ md-toast.md-error-toast-theme {
       line-height: 19px;
       color: rgba(0, 0, 0, 0.54);
       font-size: 12px; }
-  .ely-search-result-youtube-page .youtube-page-container .category-description {
-    padding: 8px; }
-    .ely-search-result-youtube-page .youtube-page-container .category-description .category-type {
-      font-size: 12px;
-      height: 16px;
-      line-height: 16px; }
+  .ely-search-result-youtube-page .youtube-page-container .topic-description {
+    margin: 0 8px 4px 8px; }
   .ely-search-result-youtube-page .youtube-page-container .youtube-preview-image {
     width: 100%; }
 
@@ -1855,9 +1819,11 @@ md-toast.md-error-toast-theme {
     padding: 0; }
     #ely-book-page-detail #ely-book-page-main-detail .title-container .button-settings-container .button-settings {
       margin: 0; }
-  #ely-book-page-detail #ely-book-page-main-detail .category-description {
-    padding: 0;
-    margin: 8px 0 16px 0; }
+  #ely-book-page-detail #ely-book-page-main-detail .topic-description {
+    margin: 0 0 4px 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-book-page-detail #ely-book-page-main-detail .topic-description {
+        margin-bottom: 8px; } }
   #ely-book-page-detail #ely-book-page-main-detail .image-description-container .image {
     float: left;
     width: 100px;
@@ -1928,9 +1894,7 @@ md-toast.md-error-toast-theme {
     padding: 0; }
     #ely-link-page-detail #ely-link-page-main-detail .title-container .button-settings-container .button-settings {
       margin: 0; }
-  #ely-link-page-detail #ely-link-page-main-detail .category-description {
-    cursor: pointer;
-    padding: 0;
+  #ely-link-page-detail #ely-link-page-main-detail .topic-description {
     margin: 0 0 4px 0; }
   #ely-link-page-detail #ely-link-page-main-detail .image-description-container {
     cursor: pointer; }
@@ -2044,9 +2008,8 @@ md-toast.md-error-toast-theme {
       margin: 0; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .description {
     margin-top: 8px; }
-  #ely-youtube-page-detail #ely-youtube-page-main-detail .category-description {
-    padding: 0;
-    margin: 8px 0 16px 0; }
+  #ely-youtube-page-detail #ely-youtube-page-main-detail .topic-description {
+    margin: 0 0 4px 0; }
 
 .manage-page {
   width: 100%;
@@ -2179,6 +2142,8 @@ md-toast.md-error-toast-theme {
     font-size: 14px;
     font-weight: 500;
     color: #3F51B5; }
+  .pinwall-blog-card .topic-description {
+    padding: 0 16px; }
   .pinwall-blog-card .button-settings-container {
     padding: 0; }
     .pinwall-blog-card .button-settings-container .button-settings {
@@ -2295,7 +2260,7 @@ md-toast.md-error-toast-theme {
   margin: 8px 0; }
   .card-recommendation-desktop .header {
     cursor: pointer;
-    padding: 16px 16px 8px 16px; }
+    padding: 16px 16px 4px 16px; }
     .card-recommendation-desktop .header .user-image {
       height: 40px;
       width: 40px;
@@ -2336,8 +2301,8 @@ md-toast.md-error-toast-theme {
     .book-recommendation-desktop .content-container .description-container {
       height: 207px;
       overflow: hidden; }
-      .book-recommendation-desktop .content-container .description-container .category-description {
-        padding: 0; }
+      .book-recommendation-desktop .content-container .description-container .topic-description .topic-type {
+        margin-top: 0; }
       .book-recommendation-desktop .content-container .description-container .book-description {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.54);
@@ -2346,9 +2311,8 @@ md-toast.md-error-toast-theme {
 
 .link-recommendation-desktop {
   padding: 0 16px 16px 16px; }
-  .link-recommendation-desktop .category-description {
-    margin-bottom: 4px;
-    padding: 0; }
+  .link-recommendation-desktop .topic-description {
+    margin-bottom: 4px; }
   .link-recommendation-desktop .link-preview-image {
     cursor: pointer;
     width: 100%;
@@ -2369,7 +2333,7 @@ md-toast.md-error-toast-theme {
 
 .youtube-recommendation-desktop {
   padding: 0 16px 16px 16px; }
-  .youtube-recommendation-desktop .category-description {
+  .youtube-recommendation-desktop .topic-description {
     margin-bottom: 4px; }
   .youtube-recommendation-desktop .youtube-preview-image {
     width: 100%;
@@ -2398,6 +2362,8 @@ md-toast.md-error-toast-theme {
       font-size: 12px; }
     .card-recommendation .header .page-rating {
       margin-left: 4px; }
+  .card-recommendation .topic-description {
+    padding: 0 16px 4px 16px; }
   .card-recommendation .content-container {
     padding-top: 0;
     cursor: pointer; }

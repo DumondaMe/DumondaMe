@@ -14,9 +14,5 @@
             </md-menu-content>
         </md-menu>
     </div>
-    <div class="category-description">
-        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-             ng-repeat="category in ctrl.question.category">{{ctrl.getCategory(category)}}
-        </div>
-    </div>
+    <ely-topics topics="ctrl.question.topic"></ely-topics>
 </md-card>

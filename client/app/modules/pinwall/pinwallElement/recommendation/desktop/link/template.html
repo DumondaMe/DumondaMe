@@ -1,9 +1,5 @@
 <div class="link-recommendation-desktop">
-    <div class="category-description">
-        <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-             ng-repeat="category in ctrl.element.category">{{ctrl.getCategory(category)}}
-        </div>
-    </div>
+    <ely-topics topics="ctrl.element.topic"></ely-topics>
     <div class="link-preview-image" flex="none" ng-click="ctrl.openLink(ctrl.element.link)" ng-if="ctrl.element.linkPreviewUrl">
         <img ng-src="{{ctrl.element.linkPreviewUrl}}">
     </div>

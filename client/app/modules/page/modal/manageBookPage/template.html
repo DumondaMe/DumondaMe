@@ -22,9 +22,9 @@
                     </div>
                 </div>
                 <div flex-offset-gt-sm="10">
-                    <md-select ng-model="ctrl.data.selectedCategories" multiple="true" placeholder="Thema" required class="ely-select-category"
+                    <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
                                ng-change="ctrl.changeData()">
-                        <md-option ng-value="category" ng-repeat="category in ctrl.categories">{{ category.description }}</md-option>
+                        <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
                     </md-select>
                     <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container" flex>

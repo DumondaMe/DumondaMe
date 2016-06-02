@@ -16,7 +16,7 @@ describe('Integration Tests for getting youtube page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', link: 'www.link.com', " +
-                "created: 500, modified: 501, pageId: '0', category: {category}})").end({category: ['environmental', 'spiritual']}).send(commands);
+                "created: 500, modified: 501, pageId: '0', topic: {topic}})").end({topic: ['environmental', 'spiritual']}).send(commands);
 
         });
     });
@@ -90,9 +90,9 @@ describe('Integration Tests for getting youtube page detail', function () {
                 res.body.page.link.should.equals('www.link.com');
                 res.body.page.label.should.equals('Youtube');
                 
-                res.body.page.category.length.should.equals(2);
-                res.body.page.category[0].should.equals('environmental');
-                res.body.page.category[1].should.equals('spiritual');
+                res.body.page.topic.length.should.equals(2);
+                res.body.page.topic[0].should.equals('environmental');
+                res.body.page.topic[1].should.equals('spiritual');
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');

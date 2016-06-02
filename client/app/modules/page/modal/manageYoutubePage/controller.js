@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'errorToast', 'YoutubePageCreateMessageService', 'UploadPageService',
+module.exports = ['ElyModal', 'Topics', 'PageYoutubeLink', 'fileUpload', 'errorToast', 'YoutubePageCreateMessageService', 'UploadPageService',
     'CheckPageExists', 'RecommendationResponseFormatter',
-    function (ElyModal, Categories, PageYoutubeLink, fileUpload, errorToast, YoutubePageCreateMessageService, UploadPageService, CheckPageExists,
+    function (ElyModal, Topics, PageYoutubeLink, fileUpload, errorToast, YoutubePageCreateMessageService, UploadPageService, CheckPageExists,
               RecommendationResponseFormatter) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
-            ctrl.data.selectedCategories = Categories.getCategories(ctrl.data.selectedCategories);
+            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
             ctrl.dataOnServer = angular.copy(ctrl.data);
         } else {
             ctrl.data = {};
@@ -15,7 +15,7 @@ module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'er
 
         CheckPageExists.reset();
 
-        ctrl.categories = Categories.categories;
+        ctrl.topics = Topics.topics;
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -54,7 +54,9 @@ module.exports = ['ElyModal', 'Categories', 'PageYoutubeLink', 'fileUpload', 'er
 
         ctrl.createYoutube = function () {
             var message = YoutubePageCreateMessageService.getCreateYoutubePageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl);
+            UploadPageService.uploadCreatePage(message, ctrl).then(function () {
+                ctrl.data.link = message.youtubePage.link;
+            });
         };
 
         ctrl.modifyYoutube = function () {

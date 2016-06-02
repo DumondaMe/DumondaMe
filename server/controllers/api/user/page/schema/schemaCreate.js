@@ -10,9 +10,9 @@ module.exports = {
         bookPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['category', 'title', 'description', 'author'],
+            required: ['topic', 'title', 'description', 'author'],
             properties: {
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 author: {type: 'string', format: 'notEmptyString', maxLength: 100},
@@ -22,9 +22,9 @@ module.exports = {
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['category', 'title', 'description', 'link'],
+            required: ['topic', 'title', 'description', 'link'],
             properties: {
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 link: {'$ref': '#/definitions/link'}
@@ -33,9 +33,9 @@ module.exports = {
         linkPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['category', 'title', 'description', 'link'],
+            required: ['topic', 'title', 'description', 'link'],
             properties: {
-                category: {'$ref': '#/definitions/category'},
+                topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 link: {'$ref': '#/definitions/link'}

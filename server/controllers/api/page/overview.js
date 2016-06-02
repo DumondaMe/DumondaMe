@@ -4,6 +4,8 @@ var validation = require('./../../../lib/jsonValidation');
 var pageRecommendation = require('./../../../models/page/pageRecommendation');
 var auth = require('./../../../lib/auth');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
+var language = require("../../schema/language");
+var topic = require("../../schema/topic");
 var logger = requireLogger.getLogger(__filename);
 
 var schemaGetPage = {
@@ -14,8 +16,10 @@ var schemaGetPage = {
     properties: {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
-        onlyContacts: {type: 'boolean'},
-        category: {enum: ['Book', 'Youtube']}
+        onlyFollow: {type: 'boolean'},
+        category: {enum: ['Book', 'Youtube', 'Link']},
+        language: language.languageMultiple
+        
     }
 };
 

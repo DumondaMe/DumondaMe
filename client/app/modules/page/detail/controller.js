@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['PageDetail', '$stateParams', 'moment', 'PageCategories',
-    function (PageDetail, $stateParams, moment, PageCategories) {
+module.exports = ['PageDetail', '$stateParams', 'moment',
+    function (PageDetail, $stateParams, moment) {
         var ctrl = this;
 
         ctrl.pageDetail = PageDetail.get({pageId: $stateParams.pageId, label: $stateParams.label}, function () {
@@ -11,6 +11,5 @@ module.exports = ['PageDetail', '$stateParams', 'moment', 'PageCategories',
         });
 
         ctrl.label = $stateParams.label;
-        ctrl.category = PageCategories.categories[$stateParams.label].description;
     }];
 

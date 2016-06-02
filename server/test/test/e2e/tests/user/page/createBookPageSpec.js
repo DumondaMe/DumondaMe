@@ -36,7 +36,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -50,8 +50,9 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
+            res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
@@ -63,9 +64,9 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].author.should.equals("Hans Muster");
             page[0].publishDate.should.equals(500);
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
@@ -77,7 +78,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster'
@@ -90,8 +91,9 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
+            res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
@@ -103,9 +105,9 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].author.should.equals("Hans Muster");
             should.not.exist(page[0].publishDate);
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
@@ -117,7 +119,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -131,8 +133,9 @@ describe('Integration Tests for creating new book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
+            res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return('page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.author AS author, ' +
+                .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.publishDate AS publishDate')
                 .end().send();
         }).then(function (page) {
@@ -144,9 +147,9 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].author.should.equals("Hans Muster");
             page[0].publishDate.should.equals(500);
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
 
             stubCDN.uploadFile.called.should.be.false;
         });
@@ -156,7 +159,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',
@@ -182,7 +185,7 @@ describe('Integration Tests for creating new book pages', function () {
 
         var createPage = {
             bookPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 author: 'Hans Muster',

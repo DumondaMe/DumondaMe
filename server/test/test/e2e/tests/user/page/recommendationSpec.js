@@ -126,7 +126,7 @@ describe('Integration Tests for getting the recommendation of the user', functio
         var commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', language: 'de', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', subCategory: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());

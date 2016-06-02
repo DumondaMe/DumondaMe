@@ -9,8 +9,10 @@
     .description-container {
       height: 207px;
       overflow: hidden;
-      .category-description {
-        padding: 0;
+      .topic-description {
+        .topic-type {
+          margin-top: 0;
+        }
       }
       .book-description {
         font-size: 14px;

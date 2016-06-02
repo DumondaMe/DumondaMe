@@ -20,12 +20,12 @@ describe('Integration Tests for deleting a forum question', function () {
                 .end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '1', description: 'forumQuestion1', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '1', description: 'forumQuestion1', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
                 .create("(u)-[:IS_ADMIN]->(:ForumAnswer:ForumExplanation {answerId: '0'})<-[:RATE_POSITIVE]-(u2)").end().getCommand());

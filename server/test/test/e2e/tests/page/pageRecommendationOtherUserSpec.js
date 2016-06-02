@@ -149,7 +149,7 @@ describe('Integration Tests for getting the recommendation of an other user', fu
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', language: 'de', description: 'page1', modified: 5070, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', language: 'de', description: 'page2', modified: 5071, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', subCategory: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());

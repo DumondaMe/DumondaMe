@@ -13,7 +13,7 @@ var editLinkPage = function (userId, params, titlePicturePath, req) {
     }).then(function () {
         return db.cypher().match("(page:Page {pageId: {pageId}})")
             .set('page', {
-                category: params.category,
+                topic: params.topic,
                 description: params.description,
                 modified: time.getNowUtcTimestamp()
             })

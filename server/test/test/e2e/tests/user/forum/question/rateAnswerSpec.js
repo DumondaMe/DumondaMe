@@ -18,8 +18,8 @@ describe('Integration Tests for rating answers of a forum question', function ()
                 .end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).getCommand());
 
             return db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
                 .create("(u)-[:IS_ADMIN]->(:ForumAnswer:ForumExplanation {answerId: '0', description: 'forumAnswer'})<-[:IS_ANSWER]-(forumQuestion)")

@@ -25,8 +25,8 @@ describe('Integration Tests for getting the details of a forum question', functi
             commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', link: 'https://www.youtube.com/embed/Test', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).getCommand());
 
             //Adding solutions to question
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
@@ -88,8 +88,8 @@ describe('Integration Tests for getting the details of a forum question', functi
             res.body.question.isAdmin.should.equals(true);
             res.body.question.questionId.should.equals('0');
             res.body.question.language.should.equals('de');
-            res.body.question.category.length.should.equals(1);
-            res.body.question.category[0].should.equals('environmental');
+            res.body.question.topic.length.should.equals(1);
+            res.body.question.topic[0].should.equals('environmental');
 
             res.body.solution.length.should.equals(2);
             res.body.solution[0].answerId.should.equals('0');

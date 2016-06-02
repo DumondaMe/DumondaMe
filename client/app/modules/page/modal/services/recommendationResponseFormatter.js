@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['userInfo', 'Categories', function (userInfo, Categories) {
+module.exports = ['userInfo', 'Topics', function (userInfo, Topics) {
 
     this.format = function (data, resp, label) {
         var userInfoData = userInfo.getUserInfo();
@@ -13,6 +13,6 @@ module.exports = ['userInfo', 'Categories', function (userInfo, Categories) {
         data.name = userInfoData.name;
         data.userId = userInfoData.userId;
         data.profileUrl = userInfoData.profileImage;
-        data.category = Categories.getCodes(data.selectedCategories);
+        data.topic = Topics.getCodes(data.selectedTopics);
     };
 }];

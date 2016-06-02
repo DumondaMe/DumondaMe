@@ -1,7 +1,7 @@
 'use strict';
 
-var validSelectedCategories = function (selectedCategories) {
-    return angular.isArray(selectedCategories) && selectedCategories.length > 0;
+var validSelectedTopics = function (selectedTopics) {
+    return angular.isArray(selectedTopics) && selectedTopics.length > 0;
 };
 
 var validSelectedLanguages = function (selectedLanguages) {
@@ -11,8 +11,8 @@ var validSelectedLanguages = function (selectedLanguages) {
 module.exports = [
     function () {
 
-        this.isSendQuestionAllowed = function (text, selectedCategories, selectedLanguages) {
-            if (text && validSelectedCategories(selectedCategories) && validSelectedLanguages(selectedLanguages)) {
+        this.isSendQuestionAllowed = function (text, selectedTopics, selectedLanguages) {
+            if (text && validSelectedTopics(selectedTopics) && validSelectedLanguages(selectedLanguages)) {
                 return text.trim() !== '';
             }
             return false;

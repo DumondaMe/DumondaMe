@@ -10,11 +10,7 @@
             <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings === 0">
                 <span class="description">Keine Bewertung</span>
             </div>
-            <div class="category-description">
-                <div class="category-type" ng-class="ctrl.getCategoryClass(category)"
-                     ng-repeat="category in ctrl.page.category">{{ctrl.getCategory(category)}}
-                </div>
-            </div>
+            <ely-topics topics="ctrl.page.topic"></ely-topics>
         </div>
         <img ng-src="{{ctrl.getYoutubeImage(ctrl.page.link)}}"
              class="youtube-preview-image"/>

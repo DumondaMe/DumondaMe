@@ -26,8 +26,8 @@ describe('Integration Tests for getting the details of a forum answer', function
             commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', link: 'https://www.youtube.com/embed/Test', hostname: 'www.youtube.com', description: 'page3', modified: 5092, pageId: '2'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', category: {category}, language: 'de'})")
-                .end({category: ['environmental']}).getCommand());
+                .create("(u)-[:IS_ADMIN]->(:ForumQuestion {questionId: '0', description: 'forumQuestion', topic: {topic}, language: 'de'})")
+                .end({topic: ['environmental']}).getCommand());
 
             //Adding solutions to question
             commands.push(db.cypher().match("(u:User {userId: '1'}), (forumQuestion:ForumQuestion {questionId: '0'})")
@@ -92,8 +92,8 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             res.body.answer.question.description.should.equals('forumQuestion');
             res.body.answer.question.questionId.should.equals('0');
-            res.body.answer.question.category.length.should.equals(1);
-            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.question.topic.length.should.equals(1);
+            res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('1');
             res.body.answer.type.should.equals('solution');
             res.body.answer.title.should.equals('titleForumSolution1');
@@ -118,8 +118,8 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             res.body.answer.question.description.should.equals('forumQuestion');
             res.body.answer.question.questionId.should.equals('0');
-            res.body.answer.question.category.length.should.equals(1);
-            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.question.topic.length.should.equals(1);
+            res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('3');
             res.body.answer.type.should.equals('explanation');
             res.body.answer.title.should.equals('titleForumExplanation1');
@@ -144,8 +144,8 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             res.body.answer.question.description.should.equals('forumQuestion');
             res.body.answer.question.questionId.should.equals('0');
-            res.body.answer.question.category.length.should.equals(1);
-            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.question.topic.length.should.equals(1);
+            res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('0');
             res.body.answer.type.should.equals('solution');
             res.body.answer.description.should.equals('forumSolution');
@@ -173,8 +173,8 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             res.body.answer.question.description.should.equals('forumQuestion');
             res.body.answer.question.questionId.should.equals('0');
-            res.body.answer.question.category.length.should.equals(1);
-            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.question.topic.length.should.equals(1);
+            res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('2');
             res.body.answer.type.should.equals('explanation');
             res.body.answer.description.should.equals('forumExplanation');
@@ -202,8 +202,8 @@ describe('Integration Tests for getting the details of a forum answer', function
 
             res.body.answer.question.description.should.equals('forumQuestion');
             res.body.answer.question.questionId.should.equals('0');
-            res.body.answer.question.category.length.should.equals(1);
-            res.body.answer.question.category[0].should.equals('environmental');
+            res.body.answer.question.topic.length.should.equals(1);
+            res.body.answer.question.topic[0].should.equals('environmental');
             res.body.answer.answerId.should.equals('4');
             res.body.answer.type.should.equals('explanation');
             res.body.answer.description.should.equals('forumExplanation2');

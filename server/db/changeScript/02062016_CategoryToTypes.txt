@@ -1,0 +1,5 @@
+MATCH (f:ForumQuestion) SET f.topic = f.category REMOVE f.category;
+
+MATCH (p:Page) SET p.topic = p.category REMOVE p.category;
+
+MATCH (b:Blog) SET b.topic = b.category REMOVE b.category;

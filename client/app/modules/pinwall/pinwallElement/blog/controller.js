@@ -6,16 +6,13 @@ var checkHasDetail = function (text, image) {
 
 module.exports = {
     directiveCtrl: function () {
-        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'Categories',
-            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation, Categories) {
+        return ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation',
+            function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation) {
                 var ctrl = this, hasDetail;
 
                 ctrl.requestBlogDeleteRunning = false;
 
                 ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
-
-                ctrl.getCategory = Categories.getCategory;
-                ctrl.getCategoryClass = Categories.getCategoryClass;
 
                 ctrl.previewText = PreviewTextService.getPreviewText(ctrl.element.text, 120).text;
 

@@ -26,13 +26,13 @@ describe('Integration Tests for creating question in forum', function () {
     it('Creating a new question in a forum - Return 200', function () {
 
         var questionId,
-            description = 'Warum ist Fleisch essen problematisch?', language = 'de', category = ['environmental'];
+            description = 'Warum ist Fleisch essen problematisch?', language = 'de', topic = ['environmental'];
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/forum/question', {
                 description: description,
                 language: language,
-                category: category
+                topic: topic
             }, requestAgent);
         }).then(function (res) {
             questionId = res.body.questionId;
@@ -44,8 +44,8 @@ describe('Integration Tests for creating question in forum', function () {
             question.length.should.equals(1);
             question[0].question.description.should.equals(description);
             question[0].question.language.should.equals(language);
-            question[0].question.category.length.should.equals(1);
-            question[0].question.category[0].should.equals('environmental');
+            question[0].question.topic.length.should.equals(1);
+            question[0].question.topic[0].should.equals('environmental');
         });
     });
 

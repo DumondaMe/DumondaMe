@@ -1,7 +1,5 @@
-
-.category-description {
-  padding: 0 16px;
-  .category-type {
+.topic-description {
+  .topic-type {
     display: inline-block;
     font-size: 12px;
     font-weight: 400;
@@ -14,29 +12,11 @@
     background-color: $secondary-color;
     margin-right: 4px;
     margin-bottom: 4px;
+    margin-top: 4px;
   }
-  /*.spiritual {
-    background-color: #BA68C8;
-  }
-  .health {
-    background-color: #039BE5;
-  }
-  .environmental {
-    background-color: #43A047;
-  }
-  .education {
-    background-color: #A1887F;
-  }
-  .personalDevelopment {
-    background-color: #7986CB;
-  }
-  .socialDevelopment {
-    background-color: #009688;
-  }*/
 }
 
-.category-icon {
-  margin-bottom: 8px;
+.topic-icon {
 }
 .youtube-icon {
   color: #cd201f;
@@ -48,7 +28,7 @@
   color: #F9A825;
 }
 
-.ely-select-category {
+.ely-select-topic {
   .md-select-value {
     span {
       max-width: 95%;
@@ -58,5 +38,3 @@
     }
   }
 }
-
-

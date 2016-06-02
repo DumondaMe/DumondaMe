@@ -18,13 +18,13 @@ describe('Integration Tests for editing youtube pages', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Youtube', description: 'description', created: 501, modified: 502, pageId: '0'," +
-                "link: 'https://www.youtube.com/embed/Test', category: {category}})").end({category: ["health", "environmental"]}).getCommand());
+                "link: 'https://www.youtube.com/embed/Test', topic: {topic}})").end({topic: ["health", "environmental"]}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Youtube', description: 'description', created: 501, modified: 502, pageId: '1'," +
-                "link: 'https://www.youtube.com/embed/Test', category: {category}})").end({category: ["health", "environmental"]}).getCommand());
+                "link: 'https://www.youtube.com/embed/Test', topic: {topic}})").end({topic: ["health", "environmental"]}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
@@ -43,7 +43,7 @@ describe('Integration Tests for editing youtube pages', function () {
         var page = {
             youtubePage: {
                 pageId: '0',
-                category: ["environmental","spiritual"],
+                topic: ["environmental","spiritual"],
                 description: 'description2'
             }
         };
@@ -54,7 +54,7 @@ describe('Integration Tests for editing youtube pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, ' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.title AS title')
                 .end().send();
         }).then(function (page) {
@@ -67,9 +67,9 @@ describe('Integration Tests for editing youtube pages', function () {
             page[0].title.should.equals("title");
             page[0].label.should.equals("Youtube");
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('environmental');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('environmental');
+            page[0].topic[1].should.equals('spiritual');
         });
     });
 
@@ -78,7 +78,7 @@ describe('Integration Tests for editing youtube pages', function () {
         var page = {
             youtubePage: {
                 pageId: '1',
-                category: ["environmental","spiritual"],
+                topic: ["environmental","spiritual"],
                 description: 'description2'
             }
         };
@@ -89,8 +89,8 @@ describe('Integration Tests for editing youtube pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
-                .return('page.pageId AS pageId, page.category AS category, page.description AS description, page.link AS link, ' +
-                    'page.modified AS modified, page.created AS created, page.subCategory AS subCategory, page.title AS title, page.label AS label')
+                .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, ' +
+                    'page.modified AS modified, page.created AS created, page.title AS title, page.label AS label')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -102,9 +102,9 @@ describe('Integration Tests for editing youtube pages', function () {
             page[0].title.should.equals("title");
             page[0].label.should.equals("Youtube");
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('environmental');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('environmental');
         });
     });
 });

@@ -1,10 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'Categories', 'YoutubeThumbnail', function ($state, Categories, YoutubeThumbnail) {
+module.exports = ['$state', 'YoutubeThumbnail', function ($state, YoutubeThumbnail) {
     var ctrl = this;
-
-    ctrl.getCategory = Categories.getCategory;
-    ctrl.getCategoryClass = Categories.getCategoryClass;
 
     ctrl.getYoutubeImage = YoutubeThumbnail.getImage;
 

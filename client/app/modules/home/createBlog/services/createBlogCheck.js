@@ -6,12 +6,12 @@ module.exports = [
 
         var service = this;
 
-        service.isValidCategorySelected = function (selectedCategories) {
-            return angular.isArray(selectedCategories) && selectedCategories.length > 0;
+        service.isValidTopicSelected = function (selectedTopics) {
+            return angular.isArray(selectedTopics) && selectedTopics.length > 0;
         };
 
-        service.isSendBlogAllowed = function (blogText, selectedCategories, imageLoading) {
-            if (!imageLoading && blogText && service.isValidCategorySelected(selectedCategories)) {
+        service.isSendBlogAllowed = function (blogText, selectedTopics, imageLoading) {
+            if (!imageLoading && blogText && service.isValidTopicSelected(selectedTopics)) {
                 return blogText.trim() !== '';
             }
             return false;

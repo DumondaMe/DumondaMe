@@ -1,10 +1,9 @@
 'use strict';
 
-module.exports = ['Categories',
-    function (Categories) {
+module.exports = ['Topics',
+    function (Topics) {
         var ctrl = this;
 
-        ctrl.getCategory = Categories.getCategory;
-        ctrl.getCategoryClass = Categories.getCategoryClass;
+        ctrl.getTopic = Topics.getTopic;
     }];
 

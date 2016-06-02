@@ -36,7 +36,7 @@ describe('Integration Tests for creating new link pages', function () {
 
         var createPage = {
             linkPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 link: 'www.example.com/weiter/link'
@@ -49,8 +49,10 @@ describe('Integration Tests for creating new link pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
+            res.body.linkPreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
+            res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return(`page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.title AS title, 
+                .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
                          page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
@@ -64,9 +66,9 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].hostname.should.equals("www.example.com");
             page[0].heightPreviewImage.should.equals(608);
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/normal.jpg`).should.be.true;
@@ -77,7 +79,7 @@ describe('Integration Tests for creating new link pages', function () {
 
         var createPage = {
             linkPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 link: 'www.example.com/weiter/link'
@@ -90,8 +92,9 @@ describe('Integration Tests for creating new link pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
+            res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return(`page.pageId AS pageId, page.label AS label, page.category AS category, page.description AS description, page.title AS title, 
+                .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
                          page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
@@ -105,9 +108,9 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].hostname.should.equals("www.example.com");
             should.not.exist(page[0].heightPreviewImage);
 
-            page[0].category.length.should.equals(2);
-            page[0].category[0].should.equals('health');
-            page[0].category[1].should.equals('spiritual');
+            page[0].topic.length.should.equals(2);
+            page[0].topic[0].should.equals('health');
+            page[0].topic[1].should.equals('spiritual');
 
             stubCDN.uploadFile.called.should.be.false;
         });
@@ -117,7 +120,7 @@ describe('Integration Tests for creating new link pages', function () {
 
         var createPage = {
             linkPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 link: 'www.example.com/weiter/link'
@@ -142,7 +145,7 @@ describe('Integration Tests for creating new link pages', function () {
 
         var createPage = {
             linkPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 link: 'www.example.com/weiter/link'
@@ -167,7 +170,7 @@ describe('Integration Tests for creating new link pages', function () {
 
         var createPage = {
             linkPage: {
-                category: ['health', 'spiritual'],
+                topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
                 link: 'https://www.youtube.com/weiter/link'

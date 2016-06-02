@@ -9,7 +9,7 @@ var editVideoPage = function (userId, params, req) {
     return security.checkAllowedToEditPage(userId, params.pageId, req).then(function () {
         return db.cypher().match("(page:Page {pageId: {pageId}})")
             .set('page', {
-                category: params.category,
+                topic: params.topic,
                 description: params.description,
                 modified: time.getNowUtcTimestamp()
             })
