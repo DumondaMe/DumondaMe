@@ -11,6 +11,7 @@ module.exports = {
             bindToController: {
                 title: '=',
                 pageId: '=',
+                abortDisabled: '=',
                 abort: '=',
                 finish: '='
             },

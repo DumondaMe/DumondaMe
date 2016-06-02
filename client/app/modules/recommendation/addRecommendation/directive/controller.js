@@ -29,6 +29,7 @@ module.exports = ['PageRecommendation', 'errorToast', 'elyRequestFormatter',
                 ctrl.finish(recommendation);
             }, function () {
                 ctrl.uploadRunning = false;
+                ctrl.error = true;
                 errorToast.showError('Bewertung konnte nicht gespeichert werden!');
             });
         };

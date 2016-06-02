@@ -17,8 +17,8 @@
             <ely-star-rating class="star-rating-commands" is-readonly="ctrl.uploadRunning" number-of-selected-stars="ctrl.numberOfSelectedStars"
                              hide-xs show-gt-xs></ely-star-rating>
             <span flex></span>
-            <md-button ng-click="ctrl.abort()">Abbrechen</md-button>
-            <md-button class="md-primary" ng-disabled="ctrl.uploadRunning || ctrl.recommendationForm.$invalid || ctrl.numberOfSelectedStars === -1"
+            <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-disabled="ctrl.uploadRunning || ctrl.recommendationForm.$invalid || ctrl.numberOfSelectedStars === -1"
                        ng-click="ctrl.uploadRecommendation()">Bewerten
             </md-button>
         </div>
