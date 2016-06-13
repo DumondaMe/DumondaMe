@@ -7,7 +7,7 @@ var compare = function (a, b) {
     return b.pinwall.created - a.pinwall.created;
 };
 
-var sortPinwall = function (recommendations, blogs, skipRecommendation, skipBlog, limit) {
+var sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog, limit) {
     var result = {
         pinwall: [],
         skipBlog: skipBlog,
@@ -22,9 +22,9 @@ var sortPinwall = function (recommendations, blogs, skipRecommendation, skipBlog
 
     _.each(result.pinwall, function (pinwallElement) {
         
-        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
+        if (pinwallElement.pinwallType === 'Blog') {
             result.skipBlog++;
-        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {
+        } else if (pinwallElement.pinwallType === 'Recommendation') {
             result.skipRecommendation++;
         } else {
             logger.error("Unknown Pinwall Element " + pinwallElement.pinwallType);
