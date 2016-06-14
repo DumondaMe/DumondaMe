@@ -27,12 +27,12 @@ module.exports = function (config) {
 
         frameworks: ['mocha', 'browserify', 'chai', 'sinon'],
 
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
         plugins: [
             'karma-junit-reporter',
             'karma-coverage',
-            'karma-chrome-launcher',
+            'karma-phantomjs-launcher',
             'karma-browserify',
             'karma-mocha',
             'karma-sinon',

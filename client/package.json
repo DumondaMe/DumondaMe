@@ -14,7 +14,7 @@
     "sinon": "1.17.2",
     "karma-browserify": "4.4.2",
     "karma-chrome-launcher": "^0.2.2",
-    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-phantomjs-launcher": "^1.0.0",
     "karma-firefox-launcher": "^0.1.4",
     "karma-mocha": "~0.2.1",
     "karma-chai": "~0.1.0",
