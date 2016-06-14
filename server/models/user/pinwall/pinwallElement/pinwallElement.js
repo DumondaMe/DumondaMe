@@ -10,11 +10,11 @@ var getPinwallElements = function (pinwallElements) {
     var result = [];
     _.each(pinwallElements, function (pinwallElement) {
         var element;
-        if (pinwallElement.pinwallType === 'Blog') {
+        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             element = blog.getPinwallElement(pinwallElement);
-        } else if (pinwallElement.pinwallType === 'Recommendation' && !pinwallElement.writer) {
+        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && !pinwallElement.writer) {
             element = recommendation.getPinwallElement(pinwallElement);
-        } else if (pinwallElement.pinwallType === 'Recommendation' && pinwallElement.writer) {
+        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && pinwallElement.writer) {
             element = recommendationBlog.getPinwallElement(pinwallElement);
         }
         else {

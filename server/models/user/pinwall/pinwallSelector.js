@@ -22,9 +22,9 @@ var sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog
 
     _.each(result.pinwall, function (pinwallElement) {
         
-        if (pinwallElement.pinwallType === 'Blog') {
+        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             result.skipBlog++;
-        } else if (pinwallElement.pinwallType === 'Recommendation') {
+        } else if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {
             result.skipRecommendation++;
         } else {
             logger.error("Unknown Pinwall Element " + pinwallElement.pinwallType);

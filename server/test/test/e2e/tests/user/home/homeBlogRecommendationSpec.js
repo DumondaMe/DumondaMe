@@ -80,7 +80,6 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(true);
-                //res.body.pinwall[0].isPublic.should.equals(true);
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
@@ -145,7 +144,6 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(false);
-                //res.body.pinwall[0].isPublic.should.equals(true);
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
