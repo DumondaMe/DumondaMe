@@ -71,8 +71,6 @@ var getPinwallOfDetailUser = function (userId, request) {
 
 var getBlogs = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)")
-        .where(`NOT (pinwall)<-[:WRITTEN]-(user)-[:IS_CONTACT]->(:User)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwall) AND
-                NOT (pinwall)<-[:WRITTEN]-(:User)<-[:IS_CONTACT]-(user)-[:IS_CONTACT|:RECOMMENDS*1..2]->(:Recommendation)-[:RECOMMENDS]->(pinwall)`)
         .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")

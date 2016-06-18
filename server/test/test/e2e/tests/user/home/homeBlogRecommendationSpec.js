@@ -13,8 +13,8 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
         var commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier2', forename:'user', userId: '2'})").end().getCommand());
+            commands.push(db.cypher().create("(:User {name: 'user Meier3', forename:'user', userId: '3'})").end().getCommand());
             return db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().send(commands);
         });
     });
@@ -24,7 +24,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
     });
     
 
-    it('Showing only latest blog recommendation of contact when user is writer of blog', function () {
+    it('Showing latest blog recommendation of contact when user is writer of blog', function () {
 
         var commands = [];
 
@@ -66,7 +66,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equals(1);
+                res.body.pinwall.length.should.equals(2);
                 res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[0].label.should.equals('Blog');
                 res.body.pinwall[0].blogId.should.equals('1');
@@ -84,10 +84,27 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
                 res.body.pinwall[0].numberOfSamePinwallData.should.equals(2);
+
+                res.body.pinwall[1].pinwallType.should.equals('Blog');
+                res.body.pinwall[1].blogId.should.equals('1');
+                res.body.pinwall[1].name.should.equals('user Meier');
+                res.body.pinwall[1].forename.should.equals('user');
+                res.body.pinwall[1].userId.should.equals('1');
+                res.body.pinwall[1].created.should.equals(501);
+                res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.pinwall[1].heightPreviewImage.should.equals(200);
+                res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[1].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[1].text.should.equals('blogText1');
+                res.body.pinwall[1].isAdmin.should.equals(true);
+                res.body.pinwall[1].isPublic.should.equals(true);
+                res.body.pinwall[1].topic.length.should.equals(2);
+                res.body.pinwall[1].topic[0].should.equals('health');
+                res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
             });
     });
 
-    it('Showing only latest blog recommendation of contact when user is not writer of blog', function () {
+    it('Showing latest blog recommendation of contact when user is not writer of blog', function () {
 
         var commands = [];
 
@@ -130,7 +147,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.pinwall.length.should.equals(1);
+                res.body.pinwall.length.should.equals(2);
                 res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[0].label.should.equals('Blog');
                 res.body.pinwall[0].blogId.should.equals('1');
@@ -148,6 +165,23 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
                 res.body.pinwall[0].numberOfSamePinwallData.should.equals(2);
+
+                res.body.pinwall[1].pinwallType.should.equals('Blog');
+                res.body.pinwall[1].blogId.should.equals('1');
+                res.body.pinwall[1].name.should.equals('user Meier2');
+                res.body.pinwall[1].forename.should.equals('user');
+                res.body.pinwall[1].userId.should.equals('2');
+                res.body.pinwall[1].created.should.equals(501);
+                res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+                res.body.pinwall[1].heightPreviewImage.should.equals(200);
+                res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[1].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[1].text.should.equals('blogText1');
+                res.body.pinwall[1].isAdmin.should.equals(false);
+                res.body.pinwall[1].isPublic.should.equals(true);
+                res.body.pinwall[1].topic.length.should.equals(2);
+                res.body.pinwall[1].topic[0].should.equals('health');
+                res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
             });
     });
 

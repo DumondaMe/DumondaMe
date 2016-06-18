@@ -5,6 +5,7 @@ var cdn = require('../../../util/cdn');
 
 var addBlogUrl = function (blog, heightPreviewImage) {
     if (heightPreviewImage) {
+        blog.heightPreviewImage = heightPreviewImage;
         blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
         blog.urlFull = cdn.getUrl('blog/' + blog.blogId + '/normal.jpg');
     }
