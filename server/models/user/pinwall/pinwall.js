@@ -76,11 +76,13 @@ var getBlogs = function (userId, request) {
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("privacy is NULL")
-        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact,
+        .optionalMatch("(pinwall)<-[:RECOMMENDS]-(recommendation:Recommendation)")
+        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, count(recommendation) AS numberOfRecommendations, 
                EXISTS((user)-[:WRITTEN]->(pinwall)) AS isAdmin`)
         .where(`((user)-[:WRITTEN]->(pinwall) OR (contact IS NOT null AND NOT EXISTS(pinwall.visible)) OR 
                 (contact IS NOT null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
-        .return("user, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, NOT EXISTS(pinwall.visible) AS isPublic")
+        .return(`user, numberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
+                 NOT EXISTS(pinwall.visible) AS isPublic`)
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
@@ -88,8 +90,7 @@ var getBlogs = function (userId, request) {
 };
 
 var getRecommendationPrivacyString = function (withCondition) {
-    return db.cypher()
-        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
+    return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
@@ -102,8 +103,7 @@ var getRecommendationPrivacyString = function (withCondition) {
 };
 
 var getBlogRecommendationPrivacyString = function () {
-    return db.cypher()
-        .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
+    return db.cypher().optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
         .optionalMatch("(writer)-[writerContact:IS_CONTACT]->(user)")
         .with(`user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact, numberOfSamePinwallData, writer, writerContact`)

@@ -21,6 +21,7 @@ var getPinwallElement = function (pinwallElement) {
     element.created = pinwallElement.pinwall.created;
     element.isAdmin = pinwallElement.isAdmin;
     element.isPublic = pinwallElement.isPublic;
+    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.pinwall.topic;
     profileUrl.addProfileUrl(element, pinwallElement);
     addBlogUrl(element, pinwallElement.pinwall.heightPreviewImage);

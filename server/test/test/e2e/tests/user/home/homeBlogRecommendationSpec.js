@@ -42,6 +42,11 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '4'})")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '3', created: 502, rating: 1, comment: 'test3'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '3'})")
+            .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {pinwall: true, profile: true, image: true}), " +
@@ -101,6 +106,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic.length.should.equals(2);
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
+                res.body.pinwall[1].numberOfRecommendations.should.equals(3);
             });
     });
 
@@ -182,6 +188,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic.length.should.equals(2);
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
+                res.body.pinwall[1].numberOfRecommendations.should.equals(2);
             });
     });
 
