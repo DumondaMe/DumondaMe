@@ -6,21 +6,8 @@ var time = require('./../../lib/time');
 var cdn = require('../util/cdn');
 var recommendation = require('../page/detail/recommendation');
 var exceptions = require('./../../lib/error/exceptions');
+var securityRecommendation = require('./security');
 var logger = requireLogger.getLogger(__filename);
-
-var checkDeleteRecommendationAllowed = function (userId, recommendationId, req) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(rec:Recommendation {recommendationId: {recommendationId}})")
-        .return("user.userId AS userId")
-        .end({
-            userId: userId,
-            recommendationId: recommendationId
-        }).send()
-        .then(function (resp) {
-            if (resp.length === 0) {
-                return exceptions.getInvalidOperation('User tries to delete other users recommendation ' + recommendationId, logger, req);
-            }
-        });
-};
 
 var checkAddingRecommendationAllowed = function (userId, pageId, req) {
     return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page {pageId: {pageId}})")
@@ -38,7 +25,7 @@ var checkAddingRecommendationAllowed = function (userId, pageId, req) {
 };
 
 var deleteRecommendation = function (userId, recommendationId, pageId, req) {
-    return checkDeleteRecommendationAllowed(userId, recommendationId, req).then(function () {
+    return securityRecommendation.checkDeleteRecommendationAllowed(userId, recommendationId, req).then(function () {
 
         var commands = [];
 
