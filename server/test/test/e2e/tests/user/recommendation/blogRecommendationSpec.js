@@ -31,15 +31,15 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
             commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:User {userId: '2'})")
                 .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
 
-            commands.push(db.cypher().create("(:Recommendation {created: 500, rating: 1, comment: 'irgendwas', recommendationId: '0'})")
+            commands.push(db.cypher().create("(:Recommendation {created: 500, recommendationId: '0'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '0'}), (c:User {userId: '2'})")
                 .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
 
-            commands.push(db.cypher().create("(:Recommendation {created: 501, rating: 1, comment: 'irgendwas2', recommendationId: '1'})")
+            commands.push(db.cypher().create("(:Recommendation {created: 501, recommendationId: '1'})")
                 .end().getCommand());
-            commands.push(db.cypher().create("(:Recommendation {created: 499, rating: 1, comment: 'irgendwas3', recommendationId: '2'})")
+            commands.push(db.cypher().create("(:Recommendation {created: 499, recommendationId: '2'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:Recommendation {recommendationId: '1'}), (c:User {userId: '3'})")
                 .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -59,8 +59,7 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/blog', {
-                blogId: '2',
-                comment: 'irgendwas'
+                blogId: '2'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -70,13 +69,11 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
             recommendationId = res.body.recommendationId;
             created = res.body.created;
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {blogId: '2'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment, recommendation.recommendationId AS recommendationId')
+                .return('recommendation.created AS created, recommendation.recommendationId AS recommendationId')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].created.should.equals(created);
-            resp[0].rating.should.equals(1);
-            resp[0].comment.should.equals('irgendwas');
             resp[0].recommendationId.should.equals(recommendationId);
             return db.cypher().match("(:Recommendation:PinwallElement {recommendationId: {recommendationId}})-[:PINWALL_DATA]->(blog:Blog)")
                 .return('blog')
@@ -91,25 +88,21 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/blog', {
-                blogId: '2',
-                comment: 'irgendwas'
+                blogId: '2'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/recommendation/blog', {
-                blogId: '2',
-                comment: 'irgendwas2'
+                blogId: '2'
             }, requestAgent);
         }).then(function (resp) {
             resp.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {blogId: '2'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .return('recommendation.created AS created')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].created.should.be.at.least(startTime);
-            resp[0].rating.should.equals(1);
-            resp[0].comment.should.equals('irgendwas');
         });
     });
 
@@ -118,13 +111,12 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/blog', {
-                blogId: '1',
-                comment: 'irgendwas2'
+                blogId: '1'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {blogId: '1'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .return('recommendation.created AS created')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(0);
@@ -137,8 +129,7 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/blog', {
-                blogId: '2',
-                comment: 'irgendwas'
+                blogId: '2'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -152,7 +143,7 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
             res.body.recommendation.contact.numberOfRecommendations.should.equals(1);
             res.body.recommendation.all.numberOfRecommendations.should.equals(1);
             return db.cypher().match(`(recommendation:Recommendation {recommendationId: '${recommendationId}'})`)
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .return('recommendation.created AS created')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(0);

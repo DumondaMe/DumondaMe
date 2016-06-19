@@ -12,8 +12,7 @@ var schemaAddBlogRecommendation = {
     additionalProperties: false,
     required: ['blogId'],
     properties: {
-        blogId: {type: 'string', format: 'notEmptyString', maxLength: 50},
-        comment: {type: 'string', format: 'notEmptyString', maxLength: 1000}
+        blogId: {type: 'string', format: 'notEmptyString', maxLength: 50}
     }
 };
 
@@ -34,7 +33,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs adding a blog recommendation', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddBlogRecommendation, logger).then(function (request) {
-                return blogRecommendation.addRecommendation(req.user.id, request.blogId, request.comment, req);
+                return blogRecommendation.addRecommendation(req.user.id, request.blogId, req);
             }).then(function (recommendation) {
                 res.status(200).json(recommendation);
             });

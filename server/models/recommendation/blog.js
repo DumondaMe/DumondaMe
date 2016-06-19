@@ -71,22 +71,21 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
     });
 };
 
-var addRecommendation = function (userId, blogId, comment, req) {
+var addRecommendation = function (userId, blogId, req) {
 
     return checkAddingRecommendationAllowed(userId, blogId, req).then(function () {
 
         var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (blog:Blog {blogId: {blogId}})")
-            .create(`(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, rating: 1, 
-                      comment: {comment}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(blog)`)
+            .create(`(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, 
+                      recommendationId: {recommendationId}})-[:RECOMMENDS]->(blog)`)
             .with("recommendation, blog")
             .create("(recommendation)-[:PINWALL_DATA]->(blog)")
             .end({
                 userId: userId,
                 blogId: blogId,
                 recommendationId: recommendationId,
-                comment: comment,
                 created: created
             }).getCommand());
         commands.push(getRecommendationSummaryAll(blogId).getCommand());
