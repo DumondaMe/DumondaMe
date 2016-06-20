@@ -14,6 +14,8 @@ module.exports = {
             };
 
             ctrl.privacyTypesSelectedChanged = function (type) {
+                ctrl.isPublic = false;
+                CreateBlogVisibility.setIsPublic(false);
                 CreateBlogVisibility.setPrivacyTypesSelected(type);
                 ctrl.validVisibility = CreateBlogVisibility.isValidVisibility();
             };

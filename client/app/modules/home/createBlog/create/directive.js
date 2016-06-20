@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [ function () {
         return {
@@ -12,7 +10,7 @@ module.exports = {
                 onOpenVisibilityEvent: '&',
                 commands: '='
             },
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/home/createBlog/create/template.html'
         };

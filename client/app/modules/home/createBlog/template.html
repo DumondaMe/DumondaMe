@@ -1,6 +1,6 @@
-<md-dialog class="blog-create" aria-label="Create Blog" ng-cloak layout="row">
+<md-dialog id="blog-create" aria-label="Create Blog" ng-cloak layout="column">
     <ely-create-blog ng-show="ctrl.mainView" on-open-visibility-event="ctrl.openVisibility()" commands="ctrl.createBlogCommands"
-                     class="blog-create-container"></ely-create-blog>
+                     class="blog-create-container" layout="column"></ely-create-blog>
     <ely-create-blog-visibility ng-show="!ctrl.mainView" on-close-visibility-event="ctrl.closeVisibility()"
                                 class="blog-create-container"></ely-create-blog-visibility>
 </md-dialog>

@@ -36,13 +36,13 @@ module.exports = ['userInfo',
         };
 
         this.getVisibilityDescription = function () {
-            var visibility = "";
+            var visibility = [];
             angular.forEach(privacyTypesSelected, function (privacyType) {
                 if (privacyType.selected) {
-                    visibility = visibility.concat(privacyType.type + ", ");
+                    visibility.push(privacyType.type);
                 }
             });
-            return visibility.substring(0, visibility.length - 2);
+            return visibility;
         };
 
         this.isValidVisibility = function () {

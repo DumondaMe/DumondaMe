@@ -1,47 +1,53 @@
 <div>
-    <div class="header" layout="row">
-        <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
-        <div class="header-content">
-            <span class="user-name">{{ctrl.userInfo.name}}</span>
-            <svg width="18px" height="18px" viewBox="0 0 48 48" fill="#757575" class="divider">
-                <path d="M20 34l10-10 -10-10z"></path>
-            </svg>
-            <span class="visibility" ng-click="ctrl.openVisibility()"> {{ctrl.visibility}}</span>
+    <form name="createBlogForm" class="content-form" layout="column">
+        <div class="header" layout="row" flex="none">
+            <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
+            <div class="header-content">
+                <span class="user-name">{{ctrl.userInfo.name}}</span>
+                <svg width="18px" height="18px" viewBox="0 0 48 48" fill="#757575" class="divider">
+                    <path d="M20 34l10-10 -10-10z"></path>
+                </svg>
+                <span class="visibility" ng-click="ctrl.openVisibility()" ng-repeat="visibility in ctrl.visibility"> {{visibility}}</span>
+            </div>
         </div>
-    </div>
-    <form name="createBlogForm" class="content-form">
-        <div class="content">
-            <md-select ng-model="ctrl.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topics"
-                       ng-change="ctrl.dataChanged()">
-                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-            </md-select>
-            <md-input-container class="blog-input-container">
-                <label>Schreibe einen Beitrag...</label>
-                <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000"
+        <md-dialog-content flex="grow">
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container>
+                    <md-select ng-model="ctrl.selectedTopics" placeholder="Thema" multiple="true" required
+                               ng-change="ctrl.dataChanged()">
+                        <md-optgroup label="Thema">
+                            <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="blog-input-container">
+                    <label>Schreibe einen Beitrag...</label>
+                <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" rows="10"
                           ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
-                <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
-                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                    <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <div class="load-preview-photo" ng-if="ctrl.imageForUploadPreviewStart" layout layout-align="center center">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
                 </div>
-            </md-input-container>
-            <div class="load-preview-photo" ng-if="ctrl.imageForUploadPreviewStart" layout layout-align="center center">
-                <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+                <div class="preview-photo-container" ng-if="ctrl.imageForUploadPreview">
+                    <img ng-src="{{ctrl.imageForUploadPreview}}" class="preview-photo">
+                </div>
             </div>
-            <div class="preview-photo-container" ng-if="ctrl.imageForUploadPreview">
-                <img ng-src="{{ctrl.imageForUploadPreview}}" class="preview-photo">
-            </div>
-            <div class="actions" layout="row">
-                <ely-load-image-button class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto"
-                                       aria-label="Add Photo"></ely-load-image-button>
-            </div>
-            <div class="actions-2" layout="row" layout-align="end center">
-                <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
-                <md-button class="md-raised md-primary post-button" aria-label="post" ng-disabled="!ctrl.sendBlogAllowed || ctrl.blogUploadStarted"
-                           ng-click="ctrl.uploadBlog()">
-                    Posten
-                </md-button>
-            </div>
-        </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" flex="none">
+            <ely-load-image-button class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto"
+                                   aria-label="Add Photo"></ely-load-image-button>
+            <span flex></span>
+            <md-button aria-label="abort" ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-raised md-primary post-button" aria-label="post"
+                       ng-disabled="!ctrl.sendBlogAllowed || ctrl.blogUploadStarted"
+                       ng-click="ctrl.uploadBlog()">
+                Posten
+            </md-button>
+        </md-dialog-actions>
     </form>
     <md-progress-linear ng-if="ctrl.blogUploadStarted" md-mode="indeterminate"></md-progress-linear>
 </div>
