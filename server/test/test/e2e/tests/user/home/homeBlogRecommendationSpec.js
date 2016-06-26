@@ -107,6 +107,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
                 res.body.pinwall[1].numberOfRecommendations.should.equals(3);
+                res.body.pinwall[1].recommendedByUser.should.equals(false);
             });
     });
 
@@ -189,6 +190,61 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
                 res.body.pinwall[1].numberOfRecommendations.should.equals(2);
+                res.body.pinwall[1].recommendedByUser.should.equals(true);
+            });
+    });
+
+    it('Showing blog recommended by user', function () {
+
+        var commands = [];
+
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+            "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+            .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
+
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+            .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
+
+        commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {pinwall: true, profile: true, image: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {pinwall: true, profile: true, image: true})").end().getCommand());
+
+        return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
+            .create("(b)-[:IS_ADMIN]->(a)").end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home', {
+                    skipBlog: 0,
+                    skipRecommendation: 0,
+                    maxItems: 10
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+
+                res.body.pinwall.length.should.equals(1);
+                res.body.pinwall[0].pinwallType.should.equals('Recommendation');
+                res.body.pinwall[0].label.should.equals('Blog');
+                res.body.pinwall[0].blogId.should.equals('1');
+                res.body.pinwall[0].writerName.should.equals('user Meier2');
+                res.body.pinwall[0].name.should.equals('user Meier');
+                res.body.pinwall[0].userId.should.equals('1');
+                res.body.pinwall[0].created.should.equals(503);
+                res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+                res.body.pinwall[0].heightPreviewImage.should.equals(200);
+                res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[0].text.should.equals('blogText1');
+                res.body.pinwall[0].isAdmin.should.equals(false);
+                res.body.pinwall[0].topic.length.should.equals(2);
+                res.body.pinwall[0].topic[0].should.equals('health');
+                res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
+                res.body.pinwall[0].numberOfSamePinwallData.should.equals(1);
             });
     });
 

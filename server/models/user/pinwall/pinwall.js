@@ -82,7 +82,8 @@ var getBlogs = function (userId, request) {
         .where(`((user)-[:WRITTEN]->(pinwall) OR (contact IS NOT null AND NOT EXISTS(pinwall.visible)) OR 
                 (contact IS NOT null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
         .return(`user, numberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
-                 NOT EXISTS(pinwall.visible) AS isPublic`)
+                 NOT EXISTS(pinwall.visible) AS isPublic, 
+                 EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwall)) AS recommendedByUser`)
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
