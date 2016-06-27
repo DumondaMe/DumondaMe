@@ -68,7 +68,7 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
             res.body.recommendation.all.numberOfRecommendations.should.equals(2);
             recommendationId = res.body.recommendationId;
             created = res.body.created;
-            return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog:P {blogId: '2'})")
+            return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Blog {blogId: '2'})")
                 .return('recommendation.created AS created, recommendation.recommendationId AS recommendationId')
                 .end().send();
         }).then(function (resp) {
