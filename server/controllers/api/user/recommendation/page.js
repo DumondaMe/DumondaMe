@@ -10,11 +10,10 @@ var schemaAddPageRecommendation = {
     name: 'addPageRecommendation',
     type: 'object',
     additionalProperties: false,
-    required: ['rating', 'pageId'],
+    required: ['pageId'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', maxLength: 50},
-        comment: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-        rating: {type: 'integer', minimum: 1, maximum: 5}
+        comment: {type: 'string', format: 'notEmptyString', maxLength: 1000}
     }
 };
 
@@ -35,7 +34,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddPageRecommendation, logger).then(function (request) {
-                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.comment, request.rating, req);
+                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.comment, req);
             }).then(function (recommendation) {
                 res.status(200).json(recommendation);
             });

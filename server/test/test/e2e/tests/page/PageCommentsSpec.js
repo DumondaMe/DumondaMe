@@ -88,20 +88,20 @@ describe('Integration Tests for getting page comments', function () {
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label:'Book', language: 'de', description: 'page1', modified: 5072, pageId: '0'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '4'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, rating: 5, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '5'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, rating: 2, comment: 'irgendwas4', recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, comment: 'irgendwas4', recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '6'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, rating: 1, comment: 'irgendwas5', recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, comment: 'irgendwas5', recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '7'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, rating: 2, comment: 'irgendwas6', recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, comment: 'irgendwas6', recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '8'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, rating: 5, comment: 'irgendwas7', recommendationId: '6'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, comment: 'irgendwas7', recommendationId: '6'})-[:RECOMMENDS]->(a)")
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
@@ -119,37 +119,31 @@ describe('Integration Tests for getting page comments', function () {
 
                     res.body.comments[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.comments[0].name.should.equals('user Meier2');
-                    res.body.comments[0].rating.should.equals(5);
                     res.body.comments[0].comment.should.equals('irgendwas');
                     res.body.comments[0].created.should.equals(510);
 
                     res.body.comments[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[1].name.should.equals('user Meier3');
-                    res.body.comments[1].rating.should.equals(4);
                     res.body.comments[1].comment.should.equals('irgendwas2');
                     res.body.comments[1].created.should.equals(509);
 
                     res.body.comments[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[2].name.should.equals('user Meier4');
-                    res.body.comments[2].rating.should.equals(5);
                     res.body.comments[2].comment.should.equals('irgendwas3');
                     res.body.comments[2].created.should.equals(508);
 
                     res.body.comments[3].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[3].name.should.equals('user Meier5');
-                    res.body.comments[3].rating.should.equals(2);
                     res.body.comments[3].comment.should.equals('irgendwas4');
                     res.body.comments[3].created.should.equals(507);
 
                     res.body.comments[4].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
                     res.body.comments[4].name.should.equals('user Meier6');
-                    res.body.comments[4].rating.should.equals(1);
                     res.body.comments[4].comment.should.equals('irgendwas5');
                     res.body.comments[4].created.should.equals(506);
 
                     res.body.comments[5].profileUrl.should.equals('profileImage/7/thumbnail.jpg');
                     res.body.comments[5].name.should.equals('user Meier7');
-                    res.body.comments[5].rating.should.equals(2);
                     res.body.comments[5].comment.should.equals('irgendwas6');
                     res.body.comments[5].created.should.equals(505);
                 });
@@ -182,22 +176,22 @@ describe('Integration Tests for getting page comments', function () {
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label:'Book', language: 'de', description: 'page1', modified: 5072, pageId: '0'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 511, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, rating: 5, comment: 'irgendwas', recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 510, comment: 'irgendwas', recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, rating: 4, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '4'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, rating: 5, comment: 'irgendwas3', recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, comment: 'irgendwas3', recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '5'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, rating: 2, comment: 'irgendwas4', recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, comment: 'irgendwas4', recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '6'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, rating: 1, comment: 'irgendwas5', recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 506, comment: 'irgendwas5', recommendationId: '5'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '7'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, rating: 2, comment: 'irgendwas6', recommendationId: '6'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 505, comment: 'irgendwas6', recommendationId: '6'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '8'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, rating: 5, comment: 'irgendwas7', recommendationId: '7'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 504, comment: 'irgendwas7', recommendationId: '7'})-[:RECOMMENDS]->(a)")
             .end().send(commands).then(function () {
                 return requestHandler.login(users.validUser).then(function (agent) {
                     requestAgent = agent;
@@ -215,43 +209,36 @@ describe('Integration Tests for getting page comments', function () {
 
                     res.body.comments[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.comments[0].name.should.equals('user Meier2');
-                    res.body.comments[0].rating.should.equals(5);
                     res.body.comments[0].comment.should.equals('irgendwas');
                     res.body.comments[0].created.should.equals(510);
 
                     res.body.comments[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[1].name.should.equals('user Meier3');
-                    res.body.comments[1].rating.should.equals(4);
                     res.body.comments[1].comment.should.equals('irgendwas2');
                     res.body.comments[1].created.should.equals(509);
 
                     res.body.comments[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[2].name.should.equals('user Meier4');
-                    res.body.comments[2].rating.should.equals(5);
                     res.body.comments[2].comment.should.equals('irgendwas3');
                     res.body.comments[2].created.should.equals(508);
 
                     res.body.comments[3].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[3].name.should.equals('user Meier5');
-                    res.body.comments[3].rating.should.equals(2);
                     res.body.comments[3].comment.should.equals('irgendwas4');
                     res.body.comments[3].created.should.equals(507);
 
                     res.body.comments[4].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
                     res.body.comments[4].name.should.equals('user Meier6');
-                    res.body.comments[4].rating.should.equals(1);
                     res.body.comments[4].comment.should.equals('irgendwas5');
                     res.body.comments[4].created.should.equals(506);
 
                     res.body.comments[5].profileUrl.should.equals('profileImage/7/thumbnail.jpg');
                     res.body.comments[5].name.should.equals('user Meier7');
-                    res.body.comments[5].rating.should.equals(2);
                     res.body.comments[5].comment.should.equals('irgendwas6');
                     res.body.comments[5].created.should.equals(505);
 
                     res.body.comments[6].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                     res.body.comments[6].name.should.equals('user Meier8');
-                    res.body.comments[6].rating.should.equals(5);
                     res.body.comments[6].comment.should.equals('irgendwas7');
                     res.body.comments[6].created.should.equals(504);
                 });

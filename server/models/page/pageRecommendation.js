@@ -21,8 +21,7 @@ var getTotalRecommendationUser = function (userId, filterQuery) {
 
 var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, filters) {
 
-    var orderBy = "contactRec.rating DESC, contactRec.created DESC",
-        filterQuery = pageFilter.getFilterQuery(filters),
+    var filterQuery = pageFilter.getFilterQuery(filters),
         commands = [];
 
     commands.push(getTotalRecommendationUser(otherUserId, filterQuery));
@@ -36,9 +35,9 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         .with("page, contactRec, otherUser, user, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, otherUser.userId AS userId, otherUser.name AS name, " +
+        "page.link AS link, contactRec.comment AS comment, otherUser.userId AS userId, otherUser.name AS name, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
-        .orderBy(orderBy)
+        .orderBy("contactRec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end({
@@ -57,16 +56,15 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
 
 var getRecommendationUser = function (userId, skip, limit) {
 
-    var orderBy = "contactRec.rating DESC, contactRec.created DESC",
-        commands = [];
+    var commands = [];
 
     commands.push(getTotalRecommendationUser(userId, pageFilter.getFilterQuery()));
 
     return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, user.userId AS userId, user.name AS name, " +
+        "page.link AS link, contactRec.comment AS comment, user.userId AS userId, user.name AS name, " +
         "true AS profileVisible, true AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
-        .orderBy(orderBy)
+        .orderBy("contactRec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
         .end({
@@ -101,7 +99,7 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         .with("page, contactRec, contact, rContact, privacy, vr")
         .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, contactRec.rating AS rating, contactRec.comment AS comment, contact.name AS name, contact.userId AS userId, " +
+        "page.link AS link, contactRec.comment AS comment, contact.name AS name, contact.userId AS userId, " +
         "privacy.profile AS profileVisible, privacy.image AS imageVisible, EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")
@@ -121,8 +119,7 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
 
 var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
 
-    var orderBy = "rating DESC, numberOfRatings DESC",
-        startQuery = db.cypher(), matchQuery;
+    var startQuery = db.cypher(), matchQuery;
 
     if (onlyContact) {
         matchQuery = "(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
@@ -132,13 +129,13 @@ var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
 
     startQuery.match(matchQuery)
         .where(pageFilter.getFilterQuery([pageType]))
-        .with("page, AVG(contactRec.rating) AS rating, COUNT(contactRec) AS numberOfRatings");
+        .with("page, COUNT(contactRec) AS numberOfRecommendations");
 
     return pagePreview.pagePreviewQuery({
         userId: userId,
         skip: skip,
         limit: limit
-    }, orderBy, startQuery);
+    }, "numberOfRecommendations DESC", startQuery);
 };
 
 module.exports = {

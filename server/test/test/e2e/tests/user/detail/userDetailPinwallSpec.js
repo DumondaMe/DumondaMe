@@ -46,25 +46,25 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
             //Recommendations
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 505, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 505, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 4, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Recommendation {recommendationId: '2'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '3'}), (b:User {userId: '2'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 3, comment: 'irgendwas4', recommendationId: '3'})-[:RECOMMENDS]->(a)")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas4', recommendationId: '3'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '3'}), (b:Recommendation {recommendationId: '3'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
@@ -148,7 +148,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[2].name.should.equals('user Meier2');
                     res.body.pinwall[2].userId.should.equals('2');
                     res.body.pinwall[2].title.should.equals('bookPage2Title');
-                    res.body.pinwall[2].rating.should.equals(2);
                     res.body.pinwall[2].created.should.equals(504);
                     res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pinwall[2].comment.should.equals('irgendwas2');
@@ -163,7 +162,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[3].name.should.equals('user Meier2');
                     res.body.pinwall[3].userId.should.equals('2');
                     res.body.pinwall[3].title.should.equals('youtubePage2Title');
-                    res.body.pinwall[3].rating.should.equals(3);
                     res.body.pinwall[3].created.should.equals(503);
                     res.body.pinwall[3].comment.should.equals('irgendwas4');
                     res.body.pinwall[3].description.should.equals('youtubePage2');

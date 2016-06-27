@@ -141,7 +141,7 @@ describe('Integration Tests for searching pages administrated by the user', func
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '1'})")
@@ -167,7 +167,6 @@ describe('Integration Tests for searching pages administrated by the user', func
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
-                    res.body.pages[0].recommendation.contact.rating.should.equals(4);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/1/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier');
 
@@ -184,7 +183,7 @@ describe('Integration Tests for searching pages administrated by the user', func
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
             .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
 
@@ -208,7 +207,6 @@ describe('Integration Tests for searching pages administrated by the user', func
                     res.body.pages[0].link.should.equals('www.youtube.com');
                     should.not.exist(res.body.pages[0].url);
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
-                    res.body.pages[0].recommendation.contact.rating.should.equals(4);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/1/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier');
 

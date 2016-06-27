@@ -21,13 +21,11 @@ var addRecommendation = function (previews) {
 
         preview.recommendation = {
             summary: {
-                numberOfRatings: preview.numberOfRatings,
-                rating: preview.rating
+                numberOfRecommendations: preview.numberOfRecommendations,
             }
         };
 
-        delete preview.numberOfRatings;
-        delete preview.rating;
+        delete preview.numberOfRecommendations;
     });
 };
 
@@ -38,14 +36,12 @@ var addContactRecommendation = function (previews) {
             contact: {
                 name: preview.name,
                 comment: preview.comment,
-                rating: preview.rating,
                 url: userInfo.getImageForPreview(preview, 'thumbnail.jpg')
             }
         };
 
         delete preview.profileVisible;
         delete preview.imageVisible;
-        delete preview.rating;
         delete preview.name;
         delete preview.comment;
         delete preview.userId;
@@ -61,7 +57,7 @@ var pagePreviewQuery = function (params, orderBy, startQuery) {
 
     return startQuery
         .return("page.pageId AS pageId, page.title AS title, page.description AS description, page.label AS label, page.language AS language, " +
-            "page.link AS link, page.hostname AS hostname, numberOfRatings, rating, " +
+            "page.link AS link, page.hostname AS hostname, numberOfRecommendations, " +
             "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")

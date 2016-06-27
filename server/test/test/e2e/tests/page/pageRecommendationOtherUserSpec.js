@@ -50,11 +50,11 @@ describe('Integration Tests for getting the recommendation of an other user', fu
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Video', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         //Not returned Pages because contact has not recommended pages
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
@@ -72,14 +72,14 @@ describe('Integration Tests for getting the recommendation of an other user', fu
                 }).then(function (res) {
                     res.status.should.equal(200);
                     res.body.pages.length.should.equals(3);
-                    res.body.pages[0].pageId.should.equals('1');
-                    res.body.pages[0].label.should.equals('Book');
+                    res.body.pages[0].pageId.should.equals('2');
+                    res.body.pages[0].label.should.equals('Video');
 
-                    res.body.pages[1].pageId.should.equals('0');
+                    res.body.pages[1].pageId.should.equals('1');
                     res.body.pages[1].label.should.equals('Book');
 
-                    res.body.pages[2].pageId.should.equals('2');
-                    res.body.pages[2].label.should.equals('Video');
+                    res.body.pages[2].pageId.should.equals('0');
+                    res.body.pages[2].label.should.equals('Book');
 
                     res.body.totalNumberOfPages.should.equals(3);
                 });
@@ -95,11 +95,11 @@ describe('Integration Tests for getting the recommendation of an other user', fu
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         //Not returned Pages because contact has not recommended pages
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
@@ -124,7 +124,6 @@ describe('Integration Tests for getting the recommendation of an other user', fu
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/1/pagePreview.jpg');
                     res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas');
-                    res.body.pages[0].recommendation.contact.rating.should.equals(5);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
 
@@ -134,7 +133,6 @@ describe('Integration Tests for getting the recommendation of an other user', fu
                     res.body.pages[1].language.should.equals('de');
                     res.body.pages[1].url.should.equals('pages/0/pagePreview.jpg');
                     should.not.exist(res.body.pages[1].recommendation.contact.comment);
-                    res.body.pages[1].recommendation.contact.rating.should.equals(4);
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier2');
 
@@ -152,11 +150,11 @@ describe('Integration Tests for getting the recommendation of an other user', fu
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         //Not returned Pages because contact has not recommended pages
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
@@ -182,7 +180,6 @@ describe('Integration Tests for getting the recommendation of an other user', fu
                     res.body.pages[0].link.should.equals('www.youtube.com');
                     should.not.exist(res.body.pages[0].url);
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
-                    res.body.pages[0].recommendation.contact.rating.should.equals(4);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
 

@@ -59,13 +59,13 @@ describe('Integration Tests for getting book page detail', function () {
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 4, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
@@ -115,15 +115,12 @@ describe('Integration Tests for getting book page detail', function () {
                 res.body.administrators.isAdmin.should.be.true;
 
                 res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.recommendation.user.rating.should.equals(1);
                 res.body.recommendation.user.comment.should.equals('irgendwas');
                 res.body.recommendation.user.created.should.equals(500);
                 res.body.recommendation.user.recommendationId.should.equals('0');
-
-                res.body.recommendation.summary.contact.rating.should.equals(4);
-                res.body.recommendation.summary.contact.numberOfRatings.should.equals(2);
-                res.body.recommendation.summary.all.rating.should.equals(3);
-                res.body.recommendation.summary.all.numberOfRatings.should.equals(3);
+                
+                res.body.recommendation.summary.contact.numberOfRecommendations.should.equals(2);
+                res.body.recommendation.summary.all.numberOfRecommendations.should.equals(3);
             });
     });
 

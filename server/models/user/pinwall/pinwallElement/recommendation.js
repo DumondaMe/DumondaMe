@@ -21,7 +21,6 @@ var addLinkElement = function (element, pinwallElement) {
 var getPinwallElement = function (pinwallElement) {
     var element = {};
     element.pinwallType = 'Recommendation';
-    element.rating = pinwallElement.pinwall.rating;
     element.comment = pinwallElement.pinwall.comment;
     element.created = pinwallElement.pinwall.created;
     element.label = pinwallElement.pinwallData.label;

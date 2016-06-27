@@ -33,17 +33,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 502, rating: 1, comment: 'test2'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 502, comment: 'test2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '4'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '3', created: 502, rating: 1, comment: 'test3'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '3', created: 502, comment: 'test3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '3'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -123,12 +123,12 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 504, rating: 1, comment: 'test2'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 504, comment: 'test2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -208,7 +208,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -266,7 +266,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
         
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -310,7 +310,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -354,7 +354,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -400,7 +400,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
@@ -447,7 +447,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
-            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, rating: 1, comment: 'test'})-[:RECOMMENDS]->(a)")
+            .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());

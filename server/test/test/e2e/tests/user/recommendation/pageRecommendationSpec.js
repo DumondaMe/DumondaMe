@@ -20,7 +20,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', description: 'page2', link: 'www.link.com', created: 500, pageId: '1', actor: 'Hans Muster'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Recommendation {created: 500, rating: 3, comment: 'irgendwas', recommendationId: '0'})")
+            commands.push(db.cypher().create("(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'}), (c:User {userId: '2'})")
                 .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)")
@@ -29,7 +29,7 @@ describe('Integration Tests for adding and deleting user page recommendations', 
                 .create("(a)-[:IS_CONTACT]->(b)")
                 .end().getCommand());
 
-            commands.push(db.cypher().create("(:Recommendation {created: 499, rating: 4, comment: 'irgendwas2', recommendationId: '1'})")
+            commands.push(db.cypher().create("(:Recommendation {created: 499, comment: 'irgendwas2', recommendationId: '1'})")
                 .end().getCommand());
             return db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '1'}), (c:User {userId: '1'})")
                 .create("(c)-[:RECOMMENDS]->(b)-[:RECOMMENDS]->(a), (b)-[:PINWALL_DATA]->(a)")
@@ -49,25 +49,21 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0',
-                comment: 'irgendwas',
-                rating: 5
+                comment: 'irgendwas'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.recommendation.contact.numberOfRatings.should.equals(1);
-            res.body.recommendation.contact.rating.should.equals(3);
-            res.body.recommendation.all.numberOfRatings.should.equals(2);
-            res.body.recommendation.all.rating.should.equals(4);
+            res.body.recommendation.contact.numberOfRecommendations.should.equals(1);
+            res.body.recommendation.all.numberOfRecommendations.should.equals(2);
             recommendationId = res.body.recommendationId;
             created = res.body.created;
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Page {pageId: '0'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment, recommendation.recommendationId AS recommendationId')
+                .return('recommendation.created AS created, recommendation.comment AS comment, recommendation.recommendationId AS recommendationId')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].created.should.equals(created);
-            resp[0].rating.should.equals(5);
             resp[0].comment.should.equals('irgendwas');
             resp[0].recommendationId.should.equals(recommendationId);
             return db.cypher().match("(:Recommendation:PinwallElement {recommendationId: {recommendationId}})-[:PINWALL_DATA]->(page:Page)")
@@ -84,25 +80,22 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             requestAgent = agent;
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0',
-                comment: 'irgendwas',
-                rating: 5
+                comment: 'irgendwas'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             return requestHandler.post('/api/user/recommendation/page', {
                 pageId: '0',
-                comment: 'irgendwa',
-                rating: 4
+                comment: 'irgendwa'
             }, requestAgent);
         }).then(function (resp) {
             resp.status.should.equal(400);
             return db.cypher().match("(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(:Page {pageId: '0'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .return('recommendation.created AS created, recommendation.comment AS comment')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(1);
             resp[0].created.should.be.at.least(startTime);
-            resp[0].rating.should.equals(5);
             resp[0].comment.should.equals('irgendwas');
         });
     });
@@ -117,10 +110,10 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.recommendation.contact.numberOfRatings.should.equals(0);
-            res.body.recommendation.all.numberOfRatings.should.equals(0);
+            res.body.recommendation.contact.numberOfRecommendations.should.equals(0);
+            res.body.recommendation.all.numberOfRecommendations.should.equals(0);
             return db.cypher().match("(recommendation:Recommendation {recommendationId: '1'})")
-                .return('recommendation.created AS created, recommendation.rating AS rating, recommendation.comment AS comment')
+                .return('recommendation.created AS created, recommendation.comment AS comment')
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(0);

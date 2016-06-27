@@ -18,7 +18,7 @@ var getAdministratedUserPages = function (userId, skip, limit) {
     return db.cypher().match("(page:Page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user)")
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, rec.rating AS rating, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
+        "page.link AS link, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
         "true AS isAdmin")
         .orderBy("page.modified DESC")
         .skip("{skip}")

@@ -51,7 +51,7 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
     });
 };
 
-var addRecommendation = function (userId, pageId, comment, rating, req) {
+var addRecommendation = function (userId, pageId, comment, req) {
     if (!comment) {
         comment = '';
     }
@@ -60,7 +60,7 @@ var addRecommendation = function (userId, pageId, comment, rating, req) {
         var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:Page {pageId: {pageId}})")
-            .create("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, rating: {rating}, " +
+            .create("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, " +
                 "comment: {comment}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
             .with("recommendation, page")
             .create("(recommendation)-[:PINWALL_DATA]->(page)")
@@ -69,7 +69,6 @@ var addRecommendation = function (userId, pageId, comment, rating, req) {
                 pageId: pageId,
                 recommendationId: recommendationId,
                 comment: comment,
-                rating: rating,
                 created: created
             }).getCommand());
         commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());

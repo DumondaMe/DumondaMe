@@ -7,7 +7,7 @@ var cdn = require('../../util/cdn');
 var getRecommendationSummaryAll = function (pageId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
-        .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
+        .return("count(*) AS numberOfRecommendations")
         .end({pageId: pageId});
 };
 
@@ -15,14 +15,14 @@ var getRecommendationSummaryContacts = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)" +
         "<-[:IS_CONTACT]-(:User {userId: {userId}})")
-        .return("count(*) AS numberOfRatings, AVG(rec.rating) AS rating")
+        .return("count(*) AS numberOfRecommendations")
         .end({pageId: pageId, userId: userId});
 };
 
 var getUserRecommendation = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating, rec.created AS created")
+        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.created AS created")
         .end({pageId: pageId, userId: userId})
         .getCommand();
 };
@@ -31,7 +31,7 @@ var getOtherUserRecommendation = function (pageId, userId, limit, skip) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User)")
         .where("u.userId <> {userId}")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.rating AS rating, u.userId AS userId, u.name AS name")
+        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, u.userId AS userId, u.name AS name")
         .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{limit}")

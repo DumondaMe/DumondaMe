@@ -12,14 +12,14 @@ var searchPageQuery = function (userId, filterType) {
         .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
         .with("page")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
-        .with("page, count(rec) AS numberOfRatings, AVG(rec.rating) AS rating");
+        .with("page, count(rec) AS numberOfRecommendations");
 };
 
 var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
     var searchRegEx = '(?i).*'.concat(search, '.*');
     
     return searchPageQuery(userId, filterType)
-        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRatings, rating, " +
+        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRecommendations, " +
             "page.topic AS topic, " +
             "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, " +
             "EXISTS((page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS userRecommended" )
@@ -62,14 +62,14 @@ var searchUserRecommendedPage = function (userId, search, skip, limit) {
 
     startQuery.match("(page:Page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
         .where("page.title =~ {search} ")
-        .with("page, user, count(rec) AS numberOfRatings, rec");
+        .with("page, user, count(rec) AS numberOfRecommendations, rec");
 
     commands.push(db.cypher().addCommand(startQuery.getCommandString())
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());
 
     return startQuery
         .return("page.pageId AS pageId, page.title AS title, LABELS(page) AS types, page.language AS language, page.label AS label, " +
-        "page.link AS link, numberOfRatings, rec.rating AS rating, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
+        "page.link AS link, numberOfRecommendations, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
         "EXISTS((page)<-[:IS_ADMIN]-(user)) AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")

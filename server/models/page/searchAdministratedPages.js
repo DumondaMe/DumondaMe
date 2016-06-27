@@ -3,7 +3,6 @@
 var db = require('./../../neo4j');
 var underscore = require('underscore');
 var pagePreview = require('./pagePreview');
-var pageFilter = require('./pageFilter');
 
 var searchPages = function (userId, search, skip, limit) {
 
@@ -22,14 +21,14 @@ var searchPages = function (userId, search, skip, limit) {
         .where("page.title =~ {search} ")
         .with("page, user")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user)")
-        .with("page, user, count(rec) AS numberOfRatings, rec");
+        .with("page, user, count(rec) AS numberOfRecommendations, rec");
 
     commands.push(db.cypher().addCommand(startQuery.getCommandString())
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());
 
     return startQuery
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.language AS language, " +
-        "page.link AS link, numberOfRatings, rec.rating AS rating, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
+        "page.link AS link, numberOfRecommendations, rec.comment AS comment, user.name AS name, user.userId AS userId, " +
         "true AS isAdmin")
         .orderBy(orderBy)
         .skip("{skip}")

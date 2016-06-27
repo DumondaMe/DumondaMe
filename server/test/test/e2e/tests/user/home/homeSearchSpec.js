@@ -47,9 +47,9 @@ describe('Integration Tests for searching people or pages', function () {
 
             //Set Recommendations
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
             return db.cypher().match("(a:Page {pageId: '5'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 3})-[:RECOMMENDS]->(a)").end().send(commands);
+                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().send(commands);
         });
     });
 

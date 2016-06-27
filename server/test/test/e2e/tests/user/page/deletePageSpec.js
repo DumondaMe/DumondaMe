@@ -32,9 +32,9 @@ describe('Integration Tests for deleting a page', function () {
                 .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
 
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
             commands.push(db.cypher().match("(a:Recommendation {recommendationId: '1'}), (b:Page {pageId: '0'})")
                 .create("(a)-[:PINWALL_DATA]->(b)").end().getCommand());
             commands.push(db.cypher().match("(a:Recommendation {recommendationId: '2'}), (b:Page {pageId: '1'})")

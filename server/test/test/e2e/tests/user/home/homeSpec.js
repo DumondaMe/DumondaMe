@@ -119,7 +119,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -165,7 +165,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -207,7 +207,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [];
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -253,7 +253,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [];
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -297,7 +297,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [];
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -342,7 +342,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         var commands = [];
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -392,31 +392,31 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         //Recommendations
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, rating: 1, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 503, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 4, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 502, rating: 4, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 502, comment: 'irgendwas2', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, rating: 4, comment: 'irgendwas2', recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 504, comment: 'irgendwas2', recommendationId: '3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:Recommendation {recommendationId: '3'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 499, rating: 2, comment: 'irgendwas2', recommendationId: '4'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 499, comment: 'irgendwas2', recommendationId: '4'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:Recommendation {recommendationId: '4'})")
             .create("(b)-[:PINWALL_DATA]->(a)")
@@ -530,7 +530,6 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[2].forename.should.equals('user2');
                 res.body.pinwall[2].userId.should.equals('2');
                 res.body.pinwall[2].title.should.equals('bookPage2Title');
-                res.body.pinwall[2].rating.should.equals(4);
                 res.body.pinwall[2].created.should.equals(504);
                 res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[2].comment.should.equals('irgendwas2');
@@ -549,7 +548,6 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].forename.should.equals('user');
                 res.body.pinwall[3].userId.should.equals('1');
                 res.body.pinwall[3].title.should.equals('bookPage1Title');
-                res.body.pinwall[3].rating.should.equals(1);
                 res.body.pinwall[3].created.should.equals(503);
                 res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
@@ -605,7 +603,6 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[6].hostname.should.equals('www.host.com');
                 res.body.pinwall[6].userId.should.equals('2');
                 res.body.pinwall[6].title.should.equals('linkPageTitle');
-                res.body.pinwall[6].rating.should.equals(2);
                 res.body.pinwall[6].created.should.equals(499);
                 res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');

@@ -44,18 +44,18 @@ describe('Integration Tests for searching recommendations of the user', function
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page4Title', label: 'Youtube',description: 'page4', modified: 5080, pageId: '4'})").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
@@ -90,18 +90,18 @@ describe('Integration Tests for searching recommendations of the user', function
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', rating: 5, comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2', comment:'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Book', description: 'page3', modified: 5070, pageId: '3'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page4Title', label: 'Youtube',description: 'page4', modified: 5080, pageId: '4'})").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4', rating: 5})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '4'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().create("(:Page {title: 'page5Title', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
@@ -133,9 +133,9 @@ describe('Integration Tests for searching recommendations of the user', function
         commands.push(db.cypher().create("(:VPage {title: 'page2Title', label: 'Youtube', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4, comment: 'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', comment: 'irgendwas'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
@@ -157,7 +157,6 @@ describe('Integration Tests for searching recommendations of the user', function
                     res.body.pages[0].language.should.equals('de');
                     res.body.pages[0].url.should.equals('pages/0/pagePreview.jpg');
                     res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas');
-                    res.body.pages[0].recommendation.contact.rating.should.equals(4);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/1/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier');
 
@@ -174,9 +173,9 @@ describe('Integration Tests for searching recommendations of the user', function
         commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', link: 'www.youtube.com', language: 'de', description: 'page2', modified: 5080, pageId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 509, recommendationId: '3'})-[:RECOMMENDS]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1', rating: 4})-[:RECOMMENDS]->(a)").end().getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
 
         return db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', description: 'page5', modified: 5090, pageId: '5'})")
             .end().send(commands).then(function () {
@@ -198,7 +197,6 @@ describe('Integration Tests for searching recommendations of the user', function
                     res.body.pages[0].link.should.equals('www.youtube.com');
                     should.not.exist(res.body.pages[0].url);
                     should.not.exist(res.body.pages[0].recommendation.contact.comment);
-                    res.body.pages[0].recommendation.contact.rating.should.equals(4);
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/1/thumbnail.jpg');
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier');
 

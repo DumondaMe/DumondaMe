@@ -197,19 +197,19 @@ describe('Integration Tests for getting the overview of contact recommended page
             .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 3, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, rating: 5, recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '4'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 488, rating: 4, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 488, recommendationId: '3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
@@ -234,7 +234,6 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
                     res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
-                    res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
                     res.body.pages[1].title.should.equals('page2Title');
                     res.body.pages[1].pageId.should.equals('1');
@@ -245,7 +244,6 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
                     res.body.pages[1].recommendation.contact.comment.should.equals('irgendwas3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
-                    res.body.pages[1].recommendation.contact.rating.should.equals(3);
 
                     res.body.totalNumberOfPages.should.equals(2);
                 });
@@ -266,19 +264,19 @@ describe('Integration Tests for getting the overview of contact recommended page
             .create("(a)-[:IS_CONTACT {type: 'Freund'}]->(b)-[:IS_CONTACT {type: 'Freund'}]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, rating: 5, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, rating: 2, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 502, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, rating: 3, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, rating: 5, recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 499, recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '4'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 488, rating: 4, recommendationId: '3'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 488, recommendationId: '3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
@@ -304,7 +302,6 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[0].recommendation.contact.name.should.equals('user Meier2');
                     res.body.pages[0].recommendation.contact.comment.should.equals('irgendwas2');
                     res.body.pages[0].recommendation.contact.url.should.equals('profileImage/2/thumbnail.jpg');
-                    res.body.pages[0].recommendation.contact.rating.should.equals(2);
 
                     res.body.pages[1].title.should.equals('page2Title');
                     res.body.pages[1].pageId.should.equals('1');
@@ -316,7 +313,6 @@ describe('Integration Tests for getting the overview of contact recommended page
                     res.body.pages[1].recommendation.contact.name.should.equals('user Meier3');
                     res.body.pages[1].recommendation.contact.comment.should.equals('irgendwas3');
                     res.body.pages[1].recommendation.contact.url.should.equals('profileImage/default/thumbnail.jpg');
-                    res.body.pages[1].recommendation.contact.rating.should.equals(3);
 
                     res.body.totalNumberOfPages.should.equals(2);
                 });
