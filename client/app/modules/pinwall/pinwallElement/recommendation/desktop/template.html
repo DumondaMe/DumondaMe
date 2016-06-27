@@ -14,10 +14,7 @@
                 <ely-pinwall-recommendation-desktop-link-title element="ctrl.element"
                                                                ng-if="ctrl.element.label === 'Link'"></ely-pinwall-recommendation-desktop-link-title>
             </div>
-            <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}
-                <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
-            </div>
+            <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
         </div>
     </div>
     <ely-pinwall-recommendation-desktop-blog element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-recommendation-desktop-blog>
