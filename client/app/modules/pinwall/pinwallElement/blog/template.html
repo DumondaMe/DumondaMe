@@ -35,7 +35,25 @@
     </div>
     <md-card-content>
         <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
+        <div class="blog-actions">
+            <div class="blog-action" ng-show="!ctrl.element.recommendedByUser && !ctrl.element.isAdmin" ng-click="ctrl.recommendBlog()">
+                <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+                <span class="blog-action-text">Empfehlen</span>
+            </div>
+            <div class="blog-action" ng-show="ctrl.element.recommendedByUser && ctrl.element.recommendationId" ng-click="ctrl.removeRecommendationBlog()">
+                <md-icon md-svg-icon="cardActions:thumbDown" class="action-icon"></md-icon>
+                <span class="blog-action-text">Empfehlen entfernen</span>
+            </div>
+            <div class="blog-action">
+                <md-icon md-svg-icon="cardActions:comment" class="action-icon"></md-icon>
+                <span class="blog-action-text">Kommentieren</span>
+            </div>
+            <div class="number-of-recommendation" ng-show="ctrl.element.numberOfRecommendations > 0">
+                <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
+                <ng-pluralize count="ctrl.element.numberOfRecommendations" class="number"
+                              when="{'1': ' Empfehlung', 'other': ' Empfehlungen'}"></ng-pluralize>
+            </div>
+        </div>
     </md-card-content>
-    <md-divider></md-divider>
-    <md-progress-linear ng-if="ctrl.requestBlogDeleteRunning" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-if="ctrl.requestBlogRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

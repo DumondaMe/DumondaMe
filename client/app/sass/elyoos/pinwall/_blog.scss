@@ -2,8 +2,8 @@
   @include cardElement();
   width: 100%;
   margin: 8px 0;
-  cursor: pointer;
   .blog-header {
+    cursor: pointer;
     .user-name {
       line-height: 16px;
       font-size: 14px;
@@ -32,13 +32,51 @@
     }
   }
   .blog-image-container {
+    cursor: pointer;
     margin-top: 8px;
     width: 100%;
     height: 200px;
     overflow: hidden;
   }
   .blog-text {
-
+    cursor: pointer;
+    color: $primary-text;
+  }
+  .blog-actions {
+    border-top: 1px solid $divider;
+    margin-top: 8px;
+    padding-top: 8px;
+    .blog-action {
+      float: left;
+      cursor: pointer;
+      margin-right: 8px;
+      height: 20px;
+      .action-icon {
+        margin-right: 8px;
+        height: 18px;
+        width: 18px;
+      }
+      .blog-action-text {
+        line-height: 18px;
+        color: $primary-text;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+    .blog-action:hover {
+      text-decoration: underline;
+    }
+    .number-of-recommendation {
+      float: right;
+      margin-left: auto;
+      color: $primary-text;
+      height: 20px;
+      .number {
+        line-height: 18px;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
   }
 }
 

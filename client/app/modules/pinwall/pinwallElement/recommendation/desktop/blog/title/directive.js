@@ -7,13 +7,13 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '=',
-                onBlogRemoved: '='
+                element: '='
             },
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/pinwallElement/blog/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/desktop/blog/title/template.html'
         };
     }],
-    name: 'elyPinwallBlog'
+    name: 'elyPinwallRecommendationDesktopBlogTitle'
 };

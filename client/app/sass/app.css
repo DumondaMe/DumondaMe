@@ -2117,22 +2117,23 @@ md-toast.md-error-toast-theme {
   max-width: 450px;
   min-width: 280px;
   width: 100%;
-  margin: 8px 0;
-  cursor: pointer; }
-  .pinwall-blog-card .blog-header .user-name {
-    line-height: 16px;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; }
-  .pinwall-blog-card .blog-header .blog-created {
-    line-height: 14px;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.54); }
-  .pinwall-blog-card .blog-header .public-type {
-    font-size: 14px;
-    font-weight: 500;
-    color: #3F51B5; }
+  margin: 8px 0; }
+  .pinwall-blog-card .blog-header {
+    cursor: pointer; }
+    .pinwall-blog-card .blog-header .user-name {
+      line-height: 16px;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .pinwall-blog-card .blog-header .blog-created {
+      line-height: 14px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54); }
+    .pinwall-blog-card .blog-header .public-type {
+      font-size: 14px;
+      font-weight: 500;
+      color: #3F51B5; }
   .pinwall-blog-card .topic-description {
     padding: 0 16px; }
   .pinwall-blog-card .button-settings-container {
@@ -2140,10 +2141,43 @@ md-toast.md-error-toast-theme {
     .pinwall-blog-card .button-settings-container .button-settings {
       margin: 0; }
   .pinwall-blog-card .blog-image-container {
+    cursor: pointer;
     margin-top: 8px;
     width: 100%;
     height: 200px;
     overflow: hidden; }
+  .pinwall-blog-card .blog-text {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.87); }
+  .pinwall-blog-card .blog-actions {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin-top: 8px;
+    padding-top: 8px; }
+    .pinwall-blog-card .blog-actions .blog-action {
+      float: left;
+      cursor: pointer;
+      margin-right: 8px;
+      height: 20px; }
+      .pinwall-blog-card .blog-actions .blog-action .action-icon {
+        margin-right: 8px;
+        height: 18px;
+        width: 18px; }
+      .pinwall-blog-card .blog-actions .blog-action .blog-action-text {
+        line-height: 18px;
+        color: rgba(0, 0, 0, 0.87);
+        font-size: 12px;
+        vertical-align: middle; }
+    .pinwall-blog-card .blog-actions .blog-action:hover {
+      text-decoration: underline; }
+    .pinwall-blog-card .blog-actions .number-of-recommendation {
+      float: right;
+      margin-left: auto;
+      color: rgba(0, 0, 0, 0.87);
+      height: 20px; }
+      .pinwall-blog-card .blog-actions .number-of-recommendation .number {
+        line-height: 18px;
+        font-size: 12px;
+        vertical-align: middle; }
 
 .blog-detail {
   z-index: 150;
@@ -2276,11 +2310,22 @@ md-toast.md-error-toast-theme {
     .card-recommendation-desktop .header .recommendation-created {
       font-size: 12px;
       line-height: 24px;
+      color: rgba(0, 0, 0, 0.54);
       vertical-align: middle; }
       .card-recommendation-desktop .header .recommendation-created .page-rating {
         margin-left: 6px; }
         .card-recommendation-desktop .header .recommendation-created .page-rating .ely-star-rating-x-small {
           margin: 3px 0 7px 0; }
+
+.blog-recommendation-desktop {
+  padding: 0 16px 16px 16px; }
+  .blog-recommendation-desktop .content-container {
+    overflow: hidden; }
+    .blog-recommendation-desktop .content-container .description-container .blog-text {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
+      overflow: hidden;
+      -ms-scroll-limit: 0 0 0 0; }
 
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px; }

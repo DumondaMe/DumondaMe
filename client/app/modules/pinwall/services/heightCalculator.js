@@ -23,6 +23,9 @@ var heightCalculator = {
                 case "Youtube":
                     recommendation.pinwallHeight = 500;
                     break;
+                case "Blog":
+                    recommendation.pinwallHeight = 400;
+                    break;
                 case "Link":
                     setLinkHeight(recommendation);
                     break;

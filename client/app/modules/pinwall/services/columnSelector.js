@@ -19,12 +19,14 @@ var getSmallerColumn = function (pinwallFirstColumn, pinwallSecondColumn, $log) 
     return pinwallSecondColumn;
 };
 
-module.exports = ['$log',
-    function ($log) {
+module.exports = ['$log', 'ShowBlogService',
+    function ($log, ShowBlogService) {
         this.getColumns = function (pinwall) {
             var columns = {pinwallFirstColumn: [], pinwallSecondColumn: []};
             angular.forEach(pinwall, function (pinwallElement) {
-                getSmallerColumn(columns.pinwallFirstColumn, columns.pinwallSecondColumn, $log).push(pinwallElement);
+                if (ShowBlogService.showElement(pinwall, pinwallElement)) {
+                    getSmallerColumn(columns.pinwallFirstColumn, columns.pinwallSecondColumn, $log).push(pinwallElement);
+                }
             });
             return columns;
         };
