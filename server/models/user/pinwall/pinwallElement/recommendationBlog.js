@@ -15,6 +15,7 @@ var getPinwallElement = function (pinwallElement) {
     element.pinwallType = 'Recommendation';
     element.label = 'Blog';
     element.writerName = pinwallElement.writer.name;
+    element.writerUserId = pinwallElement.writer.userId;
     element.created = pinwallElement.pinwall.created;
     element.blogId = pinwallElement.pinwallData.blogId;
     element.text = pinwallElement.pinwallData.text;
@@ -24,6 +25,7 @@ var getPinwallElement = function (pinwallElement) {
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
     element.numberOfSamePinwallData = pinwallElement.numberOfSamePinwallData;
+    element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
     profileUrl.addProfileUrl(element, pinwallElement);
     addUrl(element, pinwallElement);
     return element;
