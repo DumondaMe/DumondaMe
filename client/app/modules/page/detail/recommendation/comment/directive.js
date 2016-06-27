@@ -12,7 +12,7 @@ module.exports = {
             bindToController: {
                 recommendation: '='
             },
-            templateUrl: 'app/modules/page/detail/comment/template.html'
+            templateUrl: 'app/modules/page/detail/recommendation/comment/template.html'
         };
     }],
     name: 'elyPageDetailUserComments'

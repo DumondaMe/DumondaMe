@@ -18,8 +18,8 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
 
         ctrl.deleteRecommendation = function () {
             var confirm = $mdDialog.confirm()
-                .title("Bewertung löschen")
-                .textContent("Willst Du deine Bewertung wirklich löschen?")
+                .title("Empfehlung löschen")
+                .textContent("Willst Du deine Empfehlung wirklich löschen?")
                 .ariaLabel("Delete Recommendation")
                 .ok("Löschen")
                 .cancel("Abbrechen");
@@ -32,7 +32,7 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
                     delete ctrl.recommendation.user;
                     reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
                 }, function () {
-                    errorToast.showError("Fehler beim Löschen der Bewertung");
+                    errorToast.showError("Fehler beim Löschen der Empfehlung");
                 });
             });
         };

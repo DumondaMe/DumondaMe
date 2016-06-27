@@ -3,48 +3,26 @@
         <div class="user-recommendation">
             <div ng-show="ctrl.recommendation.user">
                 <div>
-                    <div class="md-title title">Deine Bewertung</div>
+                    <div>
+                        <div class="md-title title">Du hast es Empfohlen</div>
+                        <div class="user-rating-date">am {{ctrl.recommendation.user.created}}</div>
+                    </div>
                     <div class="button-delete">
                         <md-button class="md-icon-button" aria-label="Delete Recommendation" ng-click="ctrl.deleteRecommendation()">
                             <md-icon md-svg-icon="cardActions:delete"></md-icon>
                         </md-button>
                     </div>
                 </div>
-                <div layout="row">
-                    <ely-star-rating class="user-rating" is-readonly="true" is-x-small="true" flex="none"
-                                     number-of-selected-stars-readonly="ctrl.recommendation.user.rating"></ely-star-rating>
-                    <div class="user-rating-date">bewertet am {{ctrl.recommendation.user.created}}</div>
-                </div>
                 <ely-expand-text class="user-comment" description="{{ctrl.recommendation.user.comment}}" length="160"></ely-expand-text>
             </div>
             <div ng-show="!ctrl.recommendation.user" layout="row" layout-align="center start" class="add-recommendation-container">
-                <div class="add-recommendation">
-                    <md-button class="md-primary md-raised" ng-click="ctrl.addRecommendation()">Bewerten</md-button>
+                <div class="add-recommendation" ng-click="ctrl.addRecommendation()">
+                    <md-icon md-svg-icon="cardActions:thumbUp" class="icon"></md-icon>
+                    <span class="text">{{ctrl.category}} Empfehlen</span>
                 </div>
             </div>
         </div>
-        <md-divider></md-divider>
-        <md-tabs md-border-bottom md-center-tabs class="overview-rating-tabs"
-                 ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 || ctrl.recommendation.summary.all.numberOfRatings > 0">
-            <md-tab label="Alle">
-                <md-content class="rating-tab-content">
-                    <ely-page-detail-rating-overview only-contact="false" commands="ctrl.ratingOverviewAllCommands"></ely-page-detail-rating-overview>
-                </md-content>
-            </md-tab>
-            <md-tab ng-if="ctrl.recommendation.summary.contact.numberOfRatings > 0 &&
-            ctrl.recommendation.summary.contact.numberOfRatings !== ctrl.recommendation.summary.all.numberOfRatings">
-                <md-tab-label>
-                    <span class="tab-me">Ich</span>
-                    <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
-                    <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
-                </md-tab-label>
-                <md-tab-body>
-                    <md-content class="rating-tab-content">
-                        <ely-page-detail-rating-overview only-contact="true"
-                                                         commands="ctrl.ratingOverviewContactCommands"></ely-page-detail-rating-overview>
-                    </md-content>
-                </md-tab-body>
-            </md-tab>
-        </md-tabs>
+        <md-divider ng-if="!(ctrl.recommendation.user && ctrl.recommendation.summary.all.numberOfRecommendations === 1)"></md-divider>
+        <ely-page-detail-user-comments recommendation="ctrl.recommendation"></ely-page-detail-user-comments>
     </md-card-content>
 </md-card>

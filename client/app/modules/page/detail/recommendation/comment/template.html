@@ -1,0 +1,37 @@
+<div id="ely-page-comments"
+     ng-if="(ctrl.recommendation.summary.contact.numberOfRecommendations > 0 || ctrl.recommendation.summary.all.numberOfRecommendations > 0) &&
+         !(ctrl.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.recommendation.user)">
+    <div>
+        <md-tabs md-border-bottom md-dynamic-height md-center-tabs class="overview-rating-tabs">
+            <md-tab>
+                <md-tab-label>
+                    <div>Alle</div>
+                    <div class="number-of-recommendations">({{ctrl.recommendation.summary.all.numberOfRecommendations}})</div>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="comments-content-container">
+                        <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab ng-if="ctrl.recommendation.summary.contact.numberOfRecommendations > 0 &&
+            (ctrl.recommendation.summary.contact.numberOfRecommendations !== ctrl.recommendation.summary.all.numberOfRecommendations) &&
+            !(ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
+             ctrl.recommendation.user)">
+                <md-tab-label>
+                    <div>
+                        <span class="tab-me">Ich</span>
+                        <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+                        <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
+                    </div>
+                    <div class="number-of-recommendations">({{ctrl.recommendation.summary.contact.numberOfRecommendations}})</div>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="comments-content-container">
+                        <ely-page-detail-user-comments-detail only-contact="true"></ely-page-detail-user-comments-detail>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </div>
+</div>

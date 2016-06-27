@@ -6,12 +6,11 @@
     .title {
       font-size: 16px;
       font-weight: 400;
-      margin-bottom: 16px;
     }
     .user-rating-date {
+      color: $secondary-text;
       margin-top: 4px;
-      margin-left: 8px;
-      font-size: 14px;
+      font-size: 12px;
     }
     .button-delete {
       position: absolute;
@@ -20,11 +19,27 @@
     }
     .user-comment {
       margin: 8px 0;
-      font-size: 14px;
-      color: $secondary-text;
+      .ely-expand-text-description {
+        font-size: 14px;
+        color: $primary-text;
+      }
     }
     .add-recommendation-container {
-      height: 64px;
+      cursor: pointer;
+      .add-recommendation {
+        .icon {
+          margin-right: 8px;
+        }
+        .text {
+          font-size: 14px;
+          line-height: 24px;
+          vertical-align: middle;
+        }
+      }
+      .add-recommendation:hover {
+        text-decoration: underline;
+      }
+      margin-bottom: 8px;
     }
   }
   .overview-rating-tabs {

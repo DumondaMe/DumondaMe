@@ -1,15 +1,15 @@
 <div class="ely-page-comments-detail">
-    <div class="ely-page-comment" ng-repeat="comment in ctrl.comments.comments">
-        <div class="header" layout="row" ng-click="ctrl.goToUserDetail(comment.userId)">
-            <img ng-src="{{comment.profileUrl}}" class="profile-preview">
-            <div class="profile-container">
-                <div class="name md-title">{{comment.name}}</div>
-                <div class="date">{{ctrl.getDate(comment.created)}}</div>
-                <ely-star-rating class="user-rating" is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="comment.rating"></ely-star-rating>
+    <div layout="row" layout-wrap>
+        <div class="ely-page-comment" ng-repeat="comment in ctrl.comments.comments" flex="50" flex-xs="100">
+            <div class="header" layout="row" ng-click="ctrl.goToUserDetail(comment.userId)">
+                <img ng-src="{{comment.profileUrl}}" class="profile-preview">
+                <div class="profile-container">
+                    <div class="name md-title">{{comment.name}}</div>
+                    <div class="date">{{ctrl.getDate(comment.created)}}</div>
+                </div>
             </div>
+            <ely-expand-text class="description" description="{{comment.comment}}" length="160"></ely-expand-text>
         </div>
-        <ely-expand-text class="description" description="{{comment.comment}}" length="160"></ely-expand-text>
     </div>
     <div class="pagination" layout="row" layout-align="center center">
         <md-button class="md-fab md-mini md-primary" aria-label="Delete Recommendation" ng-click="ctrl.getPrevious()"

@@ -11,7 +11,8 @@ module.exports = {
             bindToController: {
                 recommendation: '=',
                 pageId: '=',
-                title: '='
+                title: '=',
+                category: '@'
             },
             templateUrl: 'app/modules/page/detail/recommendation/template.html'
         };

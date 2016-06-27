@@ -1,16 +1,8 @@
 #ely-page-comments {
-  min-width: 300px;
   .ely-page-comments-detail {
     height: 100%;
-    width: 256px;
-    margin: 0 auto;
-    @media screen and (min-width: $gt-xs) {
-      width: 512px;
-    }
     .ely-page-comment {
-      margin: 16px 8px 0 8px;
-      width: 240px;
-      display: inline-block;
+      padding: 16px 8px 0 0;
       .header {
         cursor: pointer;
         .profile-preview {
@@ -38,5 +30,16 @@
     .pagination {
       margin-top: 8px;
     }
+  }
+  .md-tab {
+    padding: 6px 24px;
+    line-height: 18px;
+    .number-of-recommendations {
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+  .comments-content-container {
+    padding: 0;
   }
 }

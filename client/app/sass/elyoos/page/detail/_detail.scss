@@ -4,5 +4,13 @@
   .page-container {
     margin: 0 auto;
     max-width: 600px;
+    .page-recommendation-container {
+      margin: 4px 0;
+      font-size: 14px;
+      color: $secondary-text;
+      .page-recommendation-number {
+        display: inline-block;
+      }
+    }
   }
 }

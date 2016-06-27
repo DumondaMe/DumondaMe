@@ -1,25 +1,22 @@
 <div id="ely-add-recommendation" layout="column">
     <form name="ctrl.recommendationForm" layout="column" flex="grow">
-        <div class="md-title title">Bewertung für <span class="title-modify">{{ctrl.title}}</span></div>
+        <div class="md-title title"><span class="title-modify">{{ctrl.title}}</span></div>
         <div class="description-container" layout="column" layout-align="none end" flex="grow">
             <md-input-container class="input-container">
-                <label>Beschreibung</label>
-                <input name="description" ng-model="ctrl.description" md-maxlength="1000"
-                       ng-disabled="ctrl.uploadRunning"/>
+                <label>Kommentar</label>
+                <textarea name="description" ng-model="ctrl.description" md-maxlength="1000"
+                       ng-disabled="ctrl.uploadRunning" rows="5"></textarea>
                 <div ng-messages="ctrl.recommendationForm.description.$error">
                     <div ng-message="md-maxlength">Text ist zu lang</div>
                 </div>
             </md-input-container>
-            <ely-star-rating class="star-rating" is-readonly="ctrl.uploadRunning" number-of-selected-stars="ctrl.numberOfSelectedStars" show-xs
-                             hide-gt-xs></ely-star-rating>
         </div>
         <div layout="row" layout-align="start center" class="action-commands">
-            <ely-star-rating class="star-rating-commands" is-readonly="ctrl.uploadRunning" number-of-selected-stars="ctrl.numberOfSelectedStars"
-                             hide-xs show-gt-xs></ely-star-rating>
             <span flex></span>
             <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-disabled="ctrl.uploadRunning || ctrl.recommendationForm.$invalid || ctrl.numberOfSelectedStars === -1"
-                       ng-click="ctrl.uploadRecommendation()">Bewerten
+            <md-button class="md-primary md-raised"
+                       ng-disabled="ctrl.uploadRunning || ctrl.recommendationForm.$invalid"
+                       ng-click="ctrl.uploadRecommendation()">Empfehlen
             </md-button>
         </div>
     </form>

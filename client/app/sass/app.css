@@ -1795,13 +1795,6 @@ md-toast.md-error-toast-theme {
     @media screen and (min-width: 960px) {
       #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
         font-size: 22px; } }
-  #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container {
-    margin: 2px 0; }
-    #ely-book-page-detail #ely-book-page-main-detail .title-container .page-rating-container .page-rating-number {
-      display: inline-block;
-      margin-left: 4px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .authors {
     margin-top: 2px;
     font-size: 14px;
@@ -1821,37 +1814,36 @@ md-toast.md-error-toast-theme {
     height: 165px;
     margin-right: 16px; }
 
-#ely-page-comments {
-  min-width: 300px; }
-  #ely-page-comments .ely-page-comments-detail {
-    height: 100%;
-    width: 256px;
-    margin: 0 auto; }
-    @media screen and (min-width: 600px) {
-      #ely-page-comments .ely-page-comments-detail {
-        width: 512px; } }
-    #ely-page-comments .ely-page-comments-detail .ely-page-comment {
-      margin: 16px 8px 0 8px;
-      width: 240px;
-      display: inline-block; }
-      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header {
-        cursor: pointer; }
-        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          margin-right: 16px; }
-        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
-          font-size: 14px; }
-        #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
-          font-size: 14px;
-          color: rgba(0, 0, 0, 0.54); }
-      #ely-page-comments .ely-page-comments-detail .ely-page-comment .description {
-        margin-top: 8px;
+#ely-page-comments .ely-page-comments-detail {
+  height: 100%; }
+  #ely-page-comments .ely-page-comments-detail .ely-page-comment {
+    padding: 16px 8px 0 0; }
+    #ely-page-comments .ely-page-comments-detail .ely-page-comment .header {
+      cursor: pointer; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-preview {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 16px; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .name {
+        font-size: 14px; }
+      #ely-page-comments .ely-page-comments-detail .ely-page-comment .header .profile-container .date {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.54); }
-    #ely-page-comments .ely-page-comments-detail .pagination {
-      margin-top: 8px; }
+    #ely-page-comments .ely-page-comments-detail .ely-page-comment .description {
+      margin-top: 8px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+  #ely-page-comments .ely-page-comments-detail .pagination {
+    margin-top: 8px; }
+#ely-page-comments .md-tab {
+  padding: 6px 24px;
+  line-height: 18px; }
+  #ely-page-comments .md-tab .number-of-recommendations {
+    font-size: 12px;
+    font-weight: 400; }
+#ely-page-comments .comments-content-container {
+  padding: 0; }
 
 #ely-page-detail {
   background-color: #E0E0E0;
@@ -1859,6 +1851,12 @@ md-toast.md-error-toast-theme {
   #ely-page-detail .page-container {
     margin: 0 auto;
     max-width: 600px; }
+    #ely-page-detail .page-container .page-recommendation-container {
+      margin: 4px 0;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+      #ely-page-detail .page-container .page-recommendation-container .page-recommendation-number {
+        display: inline-block; }
 
 #ely-link-page-detail #ely-link-page-main-detail {
   max-width: 600px;
@@ -1957,22 +1955,31 @@ md-toast.md-error-toast-theme {
     position: relative; }
     #ely-page-recommendation .user-recommendation .title {
       font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 16px; }
+      font-weight: 400; }
     #ely-page-recommendation .user-recommendation .user-rating-date {
+      color: rgba(0, 0, 0, 0.54);
       margin-top: 4px;
-      margin-left: 8px;
-      font-size: 14px; }
+      font-size: 12px; }
     #ely-page-recommendation .user-recommendation .button-delete {
       position: absolute;
       top: -10px;
       right: -5px; }
     #ely-page-recommendation .user-recommendation .user-comment {
-      margin: 8px 0;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
+      margin: 8px 0; }
+      #ely-page-recommendation .user-recommendation .user-comment .ely-expand-text-description {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.87); }
     #ely-page-recommendation .user-recommendation .add-recommendation-container {
-      height: 64px; }
+      cursor: pointer;
+      margin-bottom: 8px; }
+      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation .icon {
+        margin-right: 8px; }
+      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation .text {
+        font-size: 14px;
+        line-height: 24px;
+        vertical-align: middle; }
+      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation:hover {
+        text-decoration: underline; }
   #ely-page-recommendation .overview-rating-tabs {
     min-height: 200px; }
 

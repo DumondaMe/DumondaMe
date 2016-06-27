@@ -22,7 +22,7 @@
                 </md-input-container>
                 <md-input-container class="blog-input-container">
                     <label>Schreibe einen Beitrag...</label>
-                <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" rows="10"
+                    <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" rows="10"
                           ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
                     <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
                         <div ng-message="required">Wird benötigt!</div>

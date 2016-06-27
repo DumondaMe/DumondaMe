@@ -9,11 +9,10 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                onlyContact: '=',
-                commands: '='
+                onlyContact: '='
             },
-            templateUrl: 'app/modules/page/detail/recommendation/ratingOverview/template.html'
+            templateUrl: 'app/modules/page/detail/recommendation/comment/detail/template.html'
         };
     }],
-    name: 'elyPageDetailRatingOverview'
+    name: 'elyPageDetailUserCommentsDetail'
 };
