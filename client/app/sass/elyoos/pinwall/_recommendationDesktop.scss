@@ -2,9 +2,9 @@
   max-width: 450px;
   margin: 8px 0;
   .header {
-    cursor: pointer;
     padding: 16px 16px 4px 16px;
     .user-image {
+      cursor: pointer;
       height: 40px;
       width: 40px;
       margin-right: 12px;
@@ -15,10 +15,21 @@
       color: $secondary-text;
       font-weight: 300;
       .user-name {
+        cursor: pointer;
         color: $primary-text;
         font-weight: 500;
       }
+      .user-name:link {
+        text-decoration: none;
+      }
+      .user-name:visited {
+        text-decoration: none;
+      }
+      .user-name:hover {
+        text-decoration: underline;
+      }
       .page-title {
+        cursor: pointer;
         font-weight: 400;
         color: $primary-color;
       }

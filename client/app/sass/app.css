@@ -2284,9 +2284,9 @@ md-toast.md-error-toast-theme {
   max-width: 450px;
   margin: 8px 0; }
   .card-recommendation-desktop .header {
-    cursor: pointer;
     padding: 16px 16px 4px 16px; }
     .card-recommendation-desktop .header .user-image {
+      cursor: pointer;
       height: 40px;
       width: 40px;
       margin-right: 12px;
@@ -2296,9 +2296,17 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54);
       font-weight: 300; }
       .card-recommendation-desktop .header .recommendation-title .user-name {
+        cursor: pointer;
         color: rgba(0, 0, 0, 0.87);
         font-weight: 500; }
+      .card-recommendation-desktop .header .recommendation-title .user-name:link {
+        text-decoration: none; }
+      .card-recommendation-desktop .header .recommendation-title .user-name:visited {
+        text-decoration: none; }
+      .card-recommendation-desktop .header .recommendation-title .user-name:hover {
+        text-decoration: underline; }
       .card-recommendation-desktop .header .recommendation-title .page-title {
+        cursor: pointer;
         font-weight: 400;
         color: #3F51B5; }
       .card-recommendation-desktop .header .recommendation-title .page-title:link {
