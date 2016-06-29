@@ -7,8 +7,7 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '=',
-                onBlogRemoved: '='
+                element: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

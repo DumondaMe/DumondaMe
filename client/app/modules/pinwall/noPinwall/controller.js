@@ -6,7 +6,7 @@ module.exports = ['ElyModal', 'PinwallBlogService', function (ElyModal, PinwallB
     ctrl.createBlog = function () {
         ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {})
             .then(function (resp) {
-                PinwallBlogService.addBlog(ctrl.home.pinwall, resp);
+                PinwallBlogService.addBlog(resp);
             });
     };
 }];

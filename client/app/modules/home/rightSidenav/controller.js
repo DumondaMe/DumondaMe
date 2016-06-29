@@ -10,7 +10,7 @@ module.exports = {
                     $mdSidenav('rightHomeNav').close();
                     ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
                         .then(function (resp) {
-                            PinwallBlogService.addBlog(ctrl.pinwall, resp);
+                            PinwallBlogService.addBlog(resp);
                         });
                 };
 
@@ -18,7 +18,7 @@ module.exports = {
                     $mdSidenav('rightHomeNav').close();
                     ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html')
                         .then(function (resp) {
-                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                            PinwallBlogService.addRecommendation(resp);
                         });
                 };
 
@@ -26,7 +26,7 @@ module.exports = {
                     $mdSidenav('rightHomeNav').close();
                     ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html')
                         .then(function (resp) {
-                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                            PinwallBlogService.addRecommendation(resp);
                         });
                 };
 
@@ -34,7 +34,7 @@ module.exports = {
                     $mdSidenav('rightHomeNav').close();
                     ElyModal.show('ManageLinkPageCtrl', 'app/modules/page/modal/manageLinkPage/template.html')
                         .then(function (resp) {
-                            PinwallBlogService.addRecommendation(ctrl.pinwall, resp);
+                            PinwallBlogService.addRecommendation(resp);
                         });
                 };
             }];

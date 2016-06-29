@@ -5,7 +5,9 @@ var checkHasDetail = function (text, image) {
 };
 
 module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'BlogRecommendation',
-    function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation) {
+    'PinwallBlogService',
+    function (dateFormatter, $mdDialog, ElyModal, Blog, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation,
+              PinwallBlogService) {
         var ctrl = this, hasDetail;
 
         ctrl.requestBlogRunning = false;
@@ -39,7 +41,7 @@ module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast'
                     blogId: ctrl.element.blogId
                 }, function () {
                     ctrl.requestBlogRunning = false;
-                    ctrl.onBlogRemoved(ctrl.element.blogId);
+                    PinwallBlogService.removeBlog(ctrl.element.blogId);
                 }, function () {
                     ctrl.requestBlogRunning = false;
                     errorToast.showError("Fehler beim Löschen des Blogs");

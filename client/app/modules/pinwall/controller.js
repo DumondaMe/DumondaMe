@@ -12,12 +12,9 @@ module.exports = ['$scope', 'PinwallBlogService', '$mdMedia', 'PinwallHeightCalc
 
         ctrl.$mdMedia = $mdMedia;
 
-        ctrl.blogRemoved = function (blogId) {
-            PinwallBlogService.removeBlog($scope.pinwall, blogId);
-        };
-
         $scope.$watchCollection('pinwall', function (newPinwall) {
             if (angular.isArray(newPinwall)) {
+                PinwallBlogService.addPinwall(newPinwall);
                 PinwallHeightCalculator.setHeightPinwallElements(newPinwall);
                 ctrl.columns = PinwallColumnSelector.getColumns(newPinwall);
             }
