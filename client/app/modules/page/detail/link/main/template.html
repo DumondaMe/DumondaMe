@@ -22,8 +22,8 @@
                     <md-menu-item>
                         <md-button ng-click="ctrl.modifyPage()">Seite Bearbeiten</md-button>
                     </md-menu-item>
-                    <md-menu-item ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRatings === 0 ||
-                        (ctrl.pageDetail.recommendation.summary.all.numberOfRatings === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
+                    <md-menu-item ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 ||
+                        (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
                         <md-button ng-click="ctrl.deletePage()">
                             Seite Löschen
                         </md-button>
