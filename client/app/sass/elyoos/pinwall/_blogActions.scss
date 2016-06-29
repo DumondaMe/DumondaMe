@@ -1,0 +1,25 @@
+.blog-actions {
+  padding: 0 8px 8px 8px;
+  .blog-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0;
+    .action-icon {
+      height: 16px;
+      width: 16px;
+    }
+  }
+  .number-container {
+    margin-left: 2px;
+    color: $primary-text;
+    height: 40px;
+    .number {
+      line-height: 40px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+}
+
+

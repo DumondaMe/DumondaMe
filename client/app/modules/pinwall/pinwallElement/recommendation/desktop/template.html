@@ -14,11 +14,16 @@
                 <ely-pinwall-recommendation-desktop-link-title element="ctrl.element"
                                                                ng-if="ctrl.element.label === 'Link'"></ely-pinwall-recommendation-desktop-link-title>
             </div>
-            <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+            <div>
+                <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+                <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
+            </div>
         </div>
     </div>
-    <ely-pinwall-recommendation-desktop-blog element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-recommendation-desktop-blog>
-    <ely-pinwall-recommendation-desktop-book element="ctrl.element" ng-if="ctrl.element.label === 'Book'"></ely-pinwall-recommendation-desktop-book>
+    <ely-pinwall-recommendation-desktop-blog element="ctrl.element"
+                                             ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-recommendation-desktop-blog>
+    <ely-pinwall-recommendation-desktop-book element="ctrl.element"
+                                             ng-if="ctrl.element.label === 'Book'"></ely-pinwall-recommendation-desktop-book>
     <ely-pinwall-recommendation-desktop-youtube element="ctrl.element"
                                                 ng-if="ctrl.element.label === 'Youtube'"></ely-pinwall-recommendation-desktop-youtube>
     <ely-pinwall-recommendation-desktop-link element="ctrl.element" ng-if="ctrl.element.label === 'Link'"></ely-pinwall-recommendation-desktop-link>

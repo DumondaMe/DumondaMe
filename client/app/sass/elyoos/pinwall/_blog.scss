@@ -12,6 +12,8 @@
       text-overflow: ellipsis;
     }
     .blog-created {
+      display: inline-block;
+      margin-right: 8px;
       line-height: 14px;
       font-size: 12px;
       color: $secondary-text;
@@ -41,42 +43,6 @@
   .blog-text {
     cursor: pointer;
     color: $primary-text;
-  }
-  .blog-actions {
-    border-top: 1px solid $divider;
-    margin-top: 8px;
-    padding-top: 8px;
-    .blog-action {
-      float: left;
-      cursor: pointer;
-      margin-right: 8px;
-      height: 20px;
-      .action-icon {
-        margin-right: 8px;
-        height: 18px;
-        width: 18px;
-      }
-      .blog-action-text {
-        line-height: 18px;
-        color: $primary-text;
-        font-size: 12px;
-        vertical-align: middle;
-      }
-    }
-    .blog-action:hover {
-      text-decoration: underline;
-    }
-    .number-of-recommendation {
-      float: right;
-      margin-left: auto;
-      color: $primary-text;
-      height: 20px;
-      .number {
-        line-height: 18px;
-        font-size: 12px;
-        vertical-align: middle;
-      }
-    }
   }
 }
 

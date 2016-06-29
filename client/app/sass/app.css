@@ -400,6 +400,41 @@
   .ely-select-topic .md-select-value span .md-text {
     white-space: normal; }
 
+.ely-topics-color {
+  display: inline-block;
+  cursor: pointer; }
+  .ely-topics-color .topic-circle {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 4px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 4px;
+    margin-right: 4px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500; }
+  .ely-topics-color .topic-acronym {
+    color: white;
+    font-size: 12px;
+    font-weight: 500; }
+  .ely-topics-color .health {
+    background-color: #039BE5; }
+  .ely-topics-color .environmental {
+    background-color: #43A047; }
+  .ely-topics-color .spiritual {
+    background-color: #BA68C8; }
+  .ely-topics-color .personalDevelopment {
+    background-color: #7986CB; }
+  .ely-topics-color .socialDevelopment {
+    background-color: #009688; }
+  .ely-topics-color .education {
+    background-color: #A1887F; }
+  .ely-topics-color .politics {
+    background-color: #F06292; }
+  .ely-topics-color .economy {
+    background-color: #827717; }
+
 #register-user {
   height: 100%;
   overflow-y: auto; }
@@ -2134,6 +2169,8 @@ md-toast.md-error-toast-theme {
       overflow: hidden;
       text-overflow: ellipsis; }
     .pinwall-blog-card .blog-header .blog-created {
+      display: inline-block;
+      margin-right: 8px;
       line-height: 14px;
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54); }
@@ -2156,35 +2193,25 @@ md-toast.md-error-toast-theme {
   .pinwall-blog-card .blog-text {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.87); }
-  .pinwall-blog-card .blog-actions {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    margin-top: 8px;
-    padding-top: 8px; }
-    .pinwall-blog-card .blog-actions .blog-action {
-      float: left;
-      cursor: pointer;
-      margin-right: 8px;
-      height: 20px; }
-      .pinwall-blog-card .blog-actions .blog-action .action-icon {
-        margin-right: 8px;
-        height: 18px;
-        width: 18px; }
-      .pinwall-blog-card .blog-actions .blog-action .blog-action-text {
-        line-height: 18px;
-        color: rgba(0, 0, 0, 0.87);
-        font-size: 12px;
-        vertical-align: middle; }
-    .pinwall-blog-card .blog-actions .blog-action:hover {
-      text-decoration: underline; }
-    .pinwall-blog-card .blog-actions .number-of-recommendation {
-      float: right;
-      margin-left: auto;
-      color: rgba(0, 0, 0, 0.87);
-      height: 20px; }
-      .pinwall-blog-card .blog-actions .number-of-recommendation .number {
-        line-height: 18px;
-        font-size: 12px;
-        vertical-align: middle; }
+
+.blog-actions {
+  padding: 0 8px 8px 8px; }
+  .blog-actions .blog-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0; }
+    .blog-actions .blog-action.md-fab.md-mini .action-icon {
+      height: 16px;
+      width: 16px; }
+  .blog-actions .number-container {
+    margin-left: 2px;
+    color: rgba(0, 0, 0, 0.87);
+    height: 40px; }
+    .blog-actions .number-container .number {
+      line-height: 40px;
+      font-size: 14px;
+      vertical-align: middle; }
 
 .blog-detail {
   z-index: 150;
@@ -2291,7 +2318,7 @@ md-toast.md-error-toast-theme {
   max-width: 450px;
   margin: 8px 0; }
   .card-recommendation-desktop .header {
-    padding: 16px 16px 4px 16px; }
+    padding: 16px; }
     .card-recommendation-desktop .header .user-image {
       cursor: pointer;
       height: 40px;
@@ -2326,21 +2353,18 @@ md-toast.md-error-toast-theme {
       font-size: 12px;
       line-height: 24px;
       color: rgba(0, 0, 0, 0.54);
-      vertical-align: middle; }
-      .card-recommendation-desktop .header .recommendation-created .page-rating {
-        margin-left: 6px; }
-        .card-recommendation-desktop .header .recommendation-created .page-rating .ely-star-rating-x-small {
-          margin: 3px 0 7px 0; }
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 8px; }
 
-.blog-recommendation-desktop {
-  padding: 0 16px 16px 16px; }
-  .blog-recommendation-desktop .content-container {
-    overflow: hidden; }
-    .blog-recommendation-desktop .content-container .description-container .blog-text {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54);
-      overflow: hidden;
-      -ms-scroll-limit: 0 0 0 0; }
+.blog-recommendation-desktop .content-container {
+  padding: 0 16px 16px 16px;
+  overflow: hidden; }
+  .blog-recommendation-desktop .content-container .description-container .blog-text {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+    overflow: hidden;
+    -ms-scroll-limit: 0 0 0 0; }
 
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px; }
@@ -2410,7 +2434,12 @@ md-toast.md-error-toast-theme {
       overflow: hidden;
       text-overflow: ellipsis; }
     .card-recommendation .header .recommendation-created {
-      font-size: 12px; }
+      font-size: 12px;
+      line-height: 24px;
+      color: rgba(0, 0, 0, 0.54);
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 8px; }
     .card-recommendation .header .page-rating {
       margin-left: 4px; }
   .card-recommendation .topic-description {

@@ -2,7 +2,7 @@
   max-width: 450px;
   margin: 8px 0;
   .header {
-    padding: 16px 16px 4px 16px;
+    padding: 16px;
     .user-image {
       cursor: pointer;
       height: 40px;
@@ -48,12 +48,8 @@
       line-height: 24px;
       color: $secondary-text;
       vertical-align: middle;
-      .page-rating {
-        margin-left: 6px;
-        .ely-star-rating-x-small {
-          margin: 3px 0 7px 0;
-        }
-      }
+      display: inline-block;
+      margin-right: 8px;
     }
   }
 }

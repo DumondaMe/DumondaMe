@@ -125,9 +125,11 @@ var getRecommendations = function (userId, request) {
         .where("pinwall.created = created")
         .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
         .addCommand(getBlogRecommendationPrivacyString())
+        .optionalMatch("(user)-[:RECOMMENDS]->(userRec)-[:RECOMMENDS]->(pinwallData)")
         .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, writer,
-            EXISTS((user)-[:RECOMMENDS]->()-[:RECOMMENDS]->(pinwallData)) AS userHasRecommended,
-            EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser`)
+            EXISTS((user)-[:RECOMMENDS]->()-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser, userRec.recommendationId AS recommendationId,
+            EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
+            SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfRecommendations`)
         .end({userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems});
 };
 

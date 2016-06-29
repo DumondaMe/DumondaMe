@@ -3,17 +3,18 @@
         <md-card-avatar ng-click="ctrl.openUserDetail()">
             <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
         </md-card-avatar>
-        <md-card-header-text ng-click="ctrl.openUserDetail()">
-            <span class="md-title user-name">{{ctrl.element.name}}</span>
-            <span class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}
-                <ely-star-rating class="page-rating" is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="ctrl.element.rating"></ely-star-rating>
-            </span>
+        <md-card-header-text>
+            <span class="md-title user-name" ng-click="ctrl.openUserDetail()">{{ctrl.element.name}}</span>
+            <div>
+                <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+                <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
+            </div>
         </md-card-header-text>
     </md-card-header>
-    <ely-topics topics="ctrl.element.topic" label="ctrl.element.label"></ely-topics>
     <md-card-content ng-click="ctrl.openPageDetail()" class="content-container">
         <div class="page-title">{{ctrl.element.title}}</div>
-        <div class="description">{{ctrl.element.description}}</div>
+        <div class="description" ng-if="ctrl.element.description">{{ctrl.element.description}}</div>
+        <div class="description" ng-if="ctrl.element.text">{{ctrl.element.text}}</div>
     </md-card-content>
+    <ely-pinwall-blog-actions element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-blog-actions>
 </md-card>

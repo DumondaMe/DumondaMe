@@ -3,9 +3,9 @@
         <md-card-avatar ng-click="ctrl.openUserDetail()">
             <img class="md-user-avatar" ng-src="{{ctrl.element.profileUrl}}"/>
         </md-card-avatar>
-        <div ng-click="ctrl.openUserDetail()" class="blog-header">
+        <div class="blog-header">
             <div layout="row" layout-wrap>
-                <div class="md-title user-name">{{ctrl.element.name}}</div>
+                <div class="md-title user-name" ng-click="ctrl.openUserDetail()">{{ctrl.element.name}}</div>
                 <div>
                     <svg width="16px" height="16px" viewBox="0 0 48 48" fill="#757575" class="divider">
                         <path d="M20 34l10-10 -10-10z"></path>
@@ -14,7 +14,10 @@
                 <div class="public-type" ng-if="ctrl.element.isPublic">Öffentlich</div>
                 <div class="public-type" ng-if="!ctrl.element.isPublic">Privat</div>
             </div>
-            <div class="blog-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+            <div>
+                <div class="blog-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+                <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
+            </div>
         </div>
         <span flex></span>
         <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.element.isAdmin"
@@ -29,31 +32,12 @@
             </md-menu-content>
         </md-menu>
     </md-card-header>
-    <ely-topics topics="ctrl.element.topic" label="'Blog'"></ely-topics>
     <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
     <md-card-content>
         <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
-        <div class="blog-actions">
-            <div class="blog-action" ng-show="!ctrl.element.recommendedByUser && !ctrl.element.isAdmin" ng-click="ctrl.recommendBlog()">
-                <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
-                <span class="blog-action-text">Empfehlen</span>
-            </div>
-            <div class="blog-action" ng-show="ctrl.element.recommendedByUser && ctrl.element.recommendationId" ng-click="ctrl.removeRecommendationBlog()">
-                <md-icon md-svg-icon="cardActions:thumbDown" class="action-icon"></md-icon>
-                <span class="blog-action-text">Empfehlen entfernen</span>
-            </div>
-            <div class="blog-action">
-                <md-icon md-svg-icon="cardActions:comment" class="action-icon"></md-icon>
-                <span class="blog-action-text">Kommentieren</span>
-            </div>
-            <div class="number-of-recommendation" ng-show="ctrl.element.numberOfRecommendations > 0">
-                <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
-                <ng-pluralize count="ctrl.element.numberOfRecommendations" class="number"
-                              when="{'1': ' Empfehlung', 'other': ' Empfehlungen'}"></ng-pluralize>
-            </div>
-        </div>
     </md-card-content>
+    <ely-pinwall-blog-actions element="ctrl.element"></ely-pinwall-blog-actions>
     <md-progress-linear ng-if="ctrl.requestBlogRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

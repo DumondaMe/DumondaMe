@@ -11,6 +11,11 @@
     }
     .recommendation-created {
       font-size: 12px;
+      line-height: 24px;
+      color: $secondary-text;
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 8px;
     }
     .page-rating {
       margin-left: 4px;

@@ -1,13 +1,23 @@
 'use strict';
 
-var topics = [{description: 'Gesundheit', code: 'health'},
-    {description: 'Umwelt', code: 'environmental'},
-    {description: 'Spiritualität', code: 'spiritual'},
-    {description: 'Bildung', code: 'education'},
-    {description: 'Persönliche Entwicklung', code: 'personalDevelopment'},
-    {description: 'Politik', code: 'politics'},
-    {description: 'Wirtschaft', code: 'economy'},
-    {description: 'Gesellschaft', code: 'socialDevelopment'}];
+var topics = [{description: 'Gesundheit', code: 'health', acronym: 'G'},
+    {description: 'Umwelt', code: 'environmental', acronym: 'U'},
+    {description: 'Spiritualität', code: 'spiritual', acronym: 'S'},
+    {description: 'Bildung', code: 'education', acronym: 'B'},
+    {description: 'Persönliche Entwicklung', code: 'personalDevelopment', acronym: 'PE'},
+    {description: 'Politik', code: 'politics', acronym: 'P'},
+    {description: 'Wirtschaft', code: 'economy', acronym: 'W'},
+    {description: 'Gesellschaft', code: 'socialDevelopment', acronym: 'GE'}];
+
+var getTopicElement = function (code, element) {
+    var result = topics[0][element];
+    angular.forEach(topics, function (topic) {
+        if (topic.code === code) {
+            result = topic[element];
+        }
+    });
+    return result;
+};
 
 module.exports = ['$log',
     function ($log) {
@@ -25,13 +35,11 @@ module.exports = ['$log',
         };
 
         service.getTopic = function (code) {
-            var result = topics[0].description;
-            angular.forEach(topics, function (topic) {
-                if (topic.code === code) {
-                    result = topic.description;
-                }
-            });
-            return result;
+            return getTopicElement(code, 'description');
+        };
+
+        service.getAcronym = function (code) {
+            return getTopicElement(code, 'acronym');
         };
 
         service.getTopics = function (codes) {

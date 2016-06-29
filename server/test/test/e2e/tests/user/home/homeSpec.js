@@ -534,9 +534,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[2].comment.should.equals('irgendwas2');
                 res.body.pinwall[2].description.should.equals('bookPage2');
-                res.body.pinwall[2].userHasRecommended.should.equals(false);
+                res.body.pinwall[2].recommendedByUser.should.equals(false);
                 res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
-                res.body.pinwall[2].numberOfSamePinwallData.should.equals(1);
+                res.body.pinwall[2].numberOfRecommendations.should.equals(2);
                 res.body.pinwall[2].topic.length.should.equals(2);
                 res.body.pinwall[2].topic[0].should.equals('health');
                 res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
@@ -553,9 +553,10 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
                 res.body.pinwall[3].comment.should.equals('irgendwas');
                 res.body.pinwall[3].description.should.equals('bookPage1');
-                res.body.pinwall[3].userHasRecommended.should.equals(true);
+                res.body.pinwall[3].recommendedByUser.should.equals(true);
                 res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
-                res.body.pinwall[3].numberOfSamePinwallData.should.equals(2);
+                res.body.pinwall[3].recommendationId.should.equals('0');
+                res.body.pinwall[3].numberOfRecommendations.should.equals(2);
                 res.body.pinwall[3].topic.length.should.equals(2);
                 res.body.pinwall[3].topic[0].should.equals('health');
                 res.body.pinwall[3].topic[1].should.equals('personalDevelopment');
@@ -609,9 +610,9 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[6].heightPreviewImage.should.equals(200);
                 res.body.pinwall[6].comment.should.equals('irgendwas2');
                 res.body.pinwall[6].description.should.equals('linkPage');
-                res.body.pinwall[6].userHasRecommended.should.equals(false);
+                res.body.pinwall[6].recommendedByUser.should.equals(false);
                 res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
-                res.body.pinwall[6].numberOfSamePinwallData.should.equals(1);
+                res.body.pinwall[6].numberOfRecommendations.should.equals(1);
                 res.body.pinwall[6].topic.length.should.equals(2);
                 res.body.pinwall[6].topic[0].should.equals('health');
                 res.body.pinwall[6].topic[1].should.equals('personalDevelopment');

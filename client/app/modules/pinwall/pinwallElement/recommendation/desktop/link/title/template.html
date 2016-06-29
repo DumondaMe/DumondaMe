@@ -1,8 +1,9 @@
 <div>
     <div>
         <span>
-            <span class="user-name" ng-if="!ctrl.element.thisRecommendationByUser">{{ctrl.element.name}}</span>
-            <span class="user-name" ng-if="ctrl.element.thisRecommendationByUser">Du</span>
+            <span class="user-name" ng-if="!ctrl.element.thisRecommendationByUser" ui-sref="user.detail({userId: ctrl.element.userId})">
+                {{ctrl.element.name}}</span>
+            <span class="user-name" ng-if="ctrl.element.thisRecommendationByUser" ui-sref="settings.profile()">Du</span>
             <span ng-if="ctrl.element.thisRecommendationByUser">hast den Link</span>
             <span ng-if="!ctrl.element.thisRecommendationByUser">hat den Link</span>
             <a class="page-title" ui-sref="page.detail({label: 'Link', pageId: ctrl.element.pageId})">{{ctrl.element.title}}</a>

@@ -28,9 +28,10 @@ var getPinwallElement = function (pinwallElement) {
     element.description = pinwallElement.pinwallData.description;
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
-    element.userHasRecommended = pinwallElement.userHasRecommended;
+    element.recommendedByUser = pinwallElement.recommendedByUser;
+    element.recommendationId = pinwallElement.recommendationId;
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
-    element.numberOfSamePinwallData = pinwallElement.numberOfSamePinwallData;
+    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     profileUrl.addProfileUrl(element, pinwallElement);
     addLinkElement(element, pinwallElement);
     return element;

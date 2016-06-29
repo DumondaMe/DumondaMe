@@ -79,6 +79,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].writerUserId.should.equals('1');
                 res.body.pinwall[0].name.should.equals('user Meier2');
                 res.body.pinwall[0].userId.should.equals('2');
+                res.body.pinwall[0].recommendedByUser.should.equals(false);
                 res.body.pinwall[0].thisRecommendationByUser.should.equals(false);
                 res.body.pinwall[0].created.should.equals(503);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -90,7 +91,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfSamePinwallData.should.equals(2);
+                res.body.pinwall[0].numberOfRecommendations.should.equals(3);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].blogId.should.equals('1');
@@ -164,7 +165,9 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].writerUserId.should.equals('2');
                 res.body.pinwall[0].name.should.equals('user Meier3');
                 res.body.pinwall[0].userId.should.equals('3');
+                res.body.pinwall[0].recommendedByUser.should.equals(true);
                 res.body.pinwall[0].thisRecommendationByUser.should.equals(false);
+                res.body.pinwall[0].recommendationId.should.equals('1');
                 res.body.pinwall[0].created.should.equals(504);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
@@ -175,7 +178,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfSamePinwallData.should.equals(2);
+                res.body.pinwall[0].numberOfRecommendations.should.equals(2);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].blogId.should.equals('1');
@@ -239,7 +242,9 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].writerUserId.should.equals('2');
                 res.body.pinwall[0].name.should.equals('user Meier');
                 res.body.pinwall[0].userId.should.equals('1');
+                res.body.pinwall[0].recommendedByUser.should.equals(true);
                 res.body.pinwall[0].thisRecommendationByUser.should.equals(true);
+                res.body.pinwall[0].recommendationId.should.equals('1');
                 res.body.pinwall[0].created.should.equals(503);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
@@ -250,7 +255,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfSamePinwallData.should.equals(1);
+                res.body.pinwall[0].numberOfRecommendations.should.equals(1);
             });
     });
 
