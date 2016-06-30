@@ -33,6 +33,8 @@ describe('Integration Tests for getting the pinwall of the user', function () {
                 .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 506, text: 'blogText2', heightPreviewImage: 400, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'})")
                 .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+            commands.push(db.cypher().match("(u:User {userId: '2'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '4', title: 'blogTitle4', created: 507, text: 'blogText4', heightPreviewImage: 200, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
 
             //Pages
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', language: 'de', created: 510, pageId: '0'," +
@@ -44,7 +46,15 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             commands.push(db.cypher().create("(:Page {title: 'youtubePage2Title', label: 'Youtube', description: 'youtubePage2', language: 'de', created: 513, pageId: '3'," +
                 "author: 'Hans Muster', publishDate: 1000, link: 'www.test2.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
 
-            //Recommendations
+            //Recommendations Blogs
+            commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '1'})")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 502, comment: 'irgendwas5', recommendationId: '10'})-[:RECOMMENDS]->(a)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:Recommendation {recommendationId: '10'})")
+                .create("(b)-[:PINWALL_DATA]->(a)")
+                .end().getCommand());
+            
+            //Recommendations Pages
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 505, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
@@ -93,7 +103,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.pinwall.length.should.equal(4);
+            res.body.pinwall.length.should.equal(5);
 
             res.body.pinwall[0].pinwallType.should.equals('Blog');
             res.body.pinwall[0].blogId.should.equals('1');
@@ -105,7 +115,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             should.not.exist(res.body.pinwall[0].url);
             should.not.exist(res.body.pinwall[0].urlFull);
             res.body.pinwall[0].text.should.equals('blogText');
+            res.body.pinwall[0].recommendedByUser.should.equals(false);
             res.body.pinwall[0].isAdmin.should.equals(true);
+            res.body.pinwall[0].numberOfRecommendations.should.equals(0);
             res.body.pinwall[0].topic.length.should.equals(2);
             res.body.pinwall[0].topic[0].should.equals('health');
             res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
@@ -120,7 +132,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].url.should.equals('blog/2/preview.jpg');
             res.body.pinwall[1].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[1].text.should.equals('blogText2');
+            res.body.pinwall[1].recommendedByUser.should.equals(false);
             res.body.pinwall[1].isAdmin.should.equals(true);
+            res.body.pinwall[1].numberOfRecommendations.should.equals(0);
             res.body.pinwall[1].topic.length.should.equals(2);
             res.body.pinwall[1].topic[0].should.equals('health');
             res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
@@ -135,6 +149,9 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[2].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[2].comment.should.equals('irgendwas');
             res.body.pinwall[2].description.should.equals('bookPage1');
+            res.body.pinwall[2].recommendedByUser.should.equals(true);
+            res.body.pinwall[2].thisRecommendationByUser.should.equals(true);
+            res.body.pinwall[2].numberOfRecommendations.should.equals(1);
             res.body.pinwall[2].topic.length.should.equals(2);
             res.body.pinwall[2].topic[0].should.equals('health');
             res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
@@ -148,9 +165,34 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[3].created.should.equals(504);
             res.body.pinwall[3].comment.should.equals('irgendwas3');
             res.body.pinwall[3].description.should.equals('youtubePage1');
+            res.body.pinwall[3].recommendedByUser.should.equals(true);
+            res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
+            res.body.pinwall[3].numberOfRecommendations.should.equals(1);
             res.body.pinwall[3].topic.length.should.equals(2);
             res.body.pinwall[3].topic[0].should.equals('health');
             res.body.pinwall[3].topic[1].should.equals('personalDevelopment');
+
+            res.body.pinwall[4].pinwallType.should.equals('Recommendation');
+            res.body.pinwall[4].label.should.equals('Blog');
+            res.body.pinwall[4].blogId.should.equals('4');
+            res.body.pinwall[4].writerName.should.equals('user Meier2');
+            res.body.pinwall[4].writerUserId.should.equals('2');
+            res.body.pinwall[4].name.should.equals('user Meier');
+            res.body.pinwall[4].userId.should.equals('1');
+            res.body.pinwall[4].recommendedByUser.should.equals(true);
+            res.body.pinwall[4].recommendationId.should.equals('10');
+            res.body.pinwall[4].thisRecommendationByUser.should.equals(true);
+            res.body.pinwall[4].created.should.equals(502);
+            res.body.pinwall[4].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
+            res.body.pinwall[4].heightPreviewImage.should.equals(200);
+            res.body.pinwall[4].url.should.equals('blog/4/preview.jpg');
+            res.body.pinwall[4].urlFull.should.equals('blog/4/normal.jpg');
+            res.body.pinwall[4].text.should.equals('blogText4');
+            res.body.pinwall[4].isAdmin.should.equals(false);
+            res.body.pinwall[4].topic.length.should.equals(2);
+            res.body.pinwall[4].topic[0].should.equals('health');
+            res.body.pinwall[4].topic[1].should.equals('personalDevelopment');
+            res.body.pinwall[4].numberOfRecommendations.should.equals(1);
         });
     });
 

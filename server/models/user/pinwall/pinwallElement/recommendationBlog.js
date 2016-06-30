@@ -2,6 +2,7 @@
 
 var profileUrl = require('./profileUrl');
 var cdn = require('../../../util/cdn');
+var numberOfRecommendation = require('./numberOfRecommendation');
 
 var addUrl = function (element) {
     if (element.heightPreviewImage) {
@@ -24,10 +25,10 @@ var getPinwallElement = function (pinwallElement) {
 
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
-    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
+    element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
     element.recommendedByUser = pinwallElement.recommendedByUser;
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
-    element.recommendationId = pinwallElement.recommendationId;
+    element.recommendationId = pinwallElement.pinwall.recommendationId;
     profileUrl.addProfileUrl(element, pinwallElement);
     addUrl(element, pinwallElement);
     return element;
