@@ -10,7 +10,7 @@ module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast'
               PinwallBlogService) {
         var ctrl = this, hasDetail;
 
-        ctrl.requestBlogRunning = false;
+        ctrl.requestRunning = false;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
@@ -36,42 +36,42 @@ module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast'
                 .ok("Löschen")
                 .cancel("Abbrechen");
             $mdDialog.show(confirm).then(function () {
-                ctrl.requestBlogRunning = true;
+                ctrl.requestRunning = true;
                 Blog.delete({
                     blogId: ctrl.element.blogId
                 }, function () {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     PinwallBlogService.removeBlog(ctrl.element.blogId);
                 }, function () {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     errorToast.showError("Fehler beim Löschen des Blogs");
                 });
             });
         };
 
         ctrl.recommendBlog = function () {
-            if (!ctrl.requestBlogRunning) {
-                ctrl.requestBlogRunning = true;
+            if (!ctrl.requestRunning) {
+                ctrl.requestRunning = true;
                 BlogRecommendation.save({blogId: ctrl.element.blogId}, function (resp) {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     ctrl.element.recommendedByUser = true;
                     ctrl.element.recommendationId = resp.recommendatonId;
                 }, function () {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     errorToast.showError("Fehler beim Empfehlen des Blogs");
                 });
             }
         };
 
         ctrl.removeRecommendationBlog = function () {
-            if (!ctrl.requestBlogRunning) {
-                ctrl.requestBlogRunning = true;
+            if (!ctrl.requestRunning) {
+                ctrl.requestRunning = true;
                 BlogRecommendation.delete({blogId: ctrl.element.blogId, recommendationId: ctrl.element.recommendationId}, function () {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     ctrl.element.recommendedByUser = true;
                     delete ctrl.element.recommendationId;
                 }, function () {
-                    ctrl.requestBlogRunning = false;
+                    ctrl.requestRunning = false;
                     errorToast.showError("Fehler beim entfernen der Empfehlung des Blogs");
                 });
             }

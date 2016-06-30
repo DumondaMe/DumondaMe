@@ -4,28 +4,28 @@ module.exports = ['BlogRecommendation', 'errorToast', 'PinwallBlogService', func
     var ctrl = this;
 
     ctrl.recommendBlog = function () {
-        if (!ctrl.requestBlogRunning) {
-            ctrl.requestBlogRunning = true;
+        if (!ctrl.requestRunning) {
+            ctrl.requestRunning = true;
             BlogRecommendation.save({blogId: ctrl.element.blogId}, function (resp) {
-                ctrl.requestBlogRunning = false;
+                ctrl.requestRunning = false;
                 ctrl.element.recommendedByUser = true;
-                ctrl.element.recommendationId = resp.recommendationId;
+                ctrl.element.userRecommendationId = resp.recommendationId;
                 ctrl.element.numberOfRecommendations++;
             }, function () {
-                ctrl.requestBlogRunning = false;
+                ctrl.requestRunning = false;
                 errorToast.showError("Fehler beim Empfehlen des Blogs");
             });
         }
     };
 
     ctrl.removeRecommendationBlog = function () {
-        if (!ctrl.requestBlogRunning) {
-            ctrl.requestBlogRunning = true;
-            BlogRecommendation.delete({blogId: ctrl.element.blogId, recommendationId: ctrl.element.recommendationId}, function () {
-                ctrl.requestBlogRunning = false;
-                PinwallBlogService.removeBlogRecommendation(ctrl.element.recommendationId, ctrl.element.blogId);
+        if (!ctrl.requestRunning) {
+            ctrl.requestRunning = true;
+            BlogRecommendation.delete({blogId: ctrl.element.blogId, recommendationId: ctrl.element.userRecommendationId}, function () {
+                ctrl.requestRunning = false;
+                PinwallBlogService.removeBlogRecommendation(ctrl.element.userRecommendationId, ctrl.element.blogId);
             }, function () {
-                ctrl.requestBlogRunning = false;
+                ctrl.requestRunning = false;
                 errorToast.showError("Fehler beim entfernen der Empfehlung des Blogs");
             });
         }

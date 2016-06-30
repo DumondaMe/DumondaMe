@@ -32,7 +32,9 @@ var getPinwallOfUser = function (userId, request) {
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
+        .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
         .return(`user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, true AS isAdmin, writer,
+                 userRec.recommendationId AS userRecommendationId,
                  EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser,
                  EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
                  SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallDataRecommendations,
@@ -58,7 +60,11 @@ var getPinwallOfDetailUser = function (userId, request) {
         .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
         .optionalMatch("(writer)-[writerContact:IS_CONTACT]->(user)")
-        .with("user, pinwall, pinwallData, otherUser, isContact, privacy, privacyNoContact, false AS isAdmin, writer, writerContact")
+        .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
+        .optionalMatch("(user)-[:RECOMMENDS]->(userRecBlog:Recommendation)-[:RECOMMENDS]->(pinwall)")
+        .where("pinwall:Blog")
+        .with(`user, pinwall, pinwallData, otherUser, isContact, privacy, privacyNoContact, false AS isAdmin, userRec, userRecBlog, writer, 
+               writerContact`)
         .where(`(NOT EXISTS(pinwall.visible) AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))
                  OR (ANY(v IN pinwall.visible WHERE v = isContact.type) AND ANY(l IN LABELS(pinwall) WHERE l = 'Blog'))
                  OR ((NONE(l IN LABELS(pinwall) WHERE l = 'Blog') AND
@@ -68,8 +74,8 @@ var getPinwallOfDetailUser = function (userId, request) {
                 (privacy.profile = true OR (NOT (otherUser)-[:IS_CONTACT]->(user) AND privacyNoContact.profile = true))))
                  AND NOT (otherUser)-[:IS_BLOCKED]->(user)`)
         .return(`user, pinwall, pinwallData, otherUser AS contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, writer,
-                 NOT EXISTS(pinwall.visible) AS isPublic , isAdmin,
-                 EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser,
+                 NOT EXISTS(pinwall.visible) AS isPublic , isAdmin, userRec.recommendationId AS userRecommendationId,
+                 userRecBlog.recommendationId AS userBlogRecommendationId,
                  EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
                  SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallDataRecommendations,
                  SIZE((pinwall)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallRecommendations`)
@@ -139,7 +145,9 @@ var getRecommendations = function (userId, request) {
         .where("pinwall.created = created")
         .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
         .addCommand(getBlogRecommendationPrivacyString())
+        .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
         .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, writer,
+            userRec.recommendationId AS userRecommendationId,
             EXISTS((user)-[:RECOMMENDS]->()-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser,
             EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
             SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfRecommendations`)

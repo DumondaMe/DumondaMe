@@ -556,6 +556,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].recommendedByUser.should.equals(true);
                 res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
                 res.body.pinwall[3].numberOfRecommendations.should.equals(2);
+                res.body.pinwall[3].userRecommendationId.should.equals('0');
                 res.body.pinwall[3].topic.length.should.equals(2);
                 res.body.pinwall[3].topic[0].should.equals('health');
                 res.body.pinwall[3].topic[1].should.equals('personalDevelopment');

@@ -1,11 +1,11 @@
-<div class="blog-actions" layout="row">
+<div class="page-recommendation-actions" layout="row">
     <div ng-show="!ctrl.element.recommendedByUser">
-        <md-button class="blog-action md-fab md-mini" aria-label="Recommend Blog" ng-disabled="ctrl.element.isAdmin" ng-click="ctrl.recommendBlog()">
+        <md-button class="page-action md-fab md-mini" aria-label="Recommend Blog" ng-disabled="ctrl.element.isAdmin" ng-click="ctrl.recommendPage()">
             <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
         </md-button>
     </div>
     <div ng-show="ctrl.element.recommendedByUser && ctrl.element.userRecommendationId">
-        <md-button class="blog-action md-fab md-mini" aria-label="Remove Recommendation Blog" ng-click="ctrl.removeRecommendationBlog()">
+        <md-button class="page-action md-fab md-mini" aria-label="Remove Recommendation Blog" ng-click="ctrl.removeRecommendationPage()">
             <md-icon md-svg-icon="cardActions:thumbDown" class="action-icon"></md-icon>
         </md-button>
     </div>

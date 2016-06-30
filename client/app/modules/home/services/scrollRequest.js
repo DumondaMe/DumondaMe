@@ -5,7 +5,6 @@ var scrollRequest = {};
 module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, PinwallBlogService) {
 
     this.reset = function () {
-
         scrollRequest = {
             skipBlog: 0,
             skipRecommendation: 0,
@@ -13,9 +12,8 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
+        PinwallBlogService.registerRequestService(this);
     };
-
-    PinwallBlogService.register('PinwallBlogService', this);
 
     this.nextRequest = function (previousPinwall) {
         var deferred = $q.defer(), newPinwall;
@@ -47,10 +45,22 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
         return deferred.promise;
     };
 
-    this.removedBlog = function () {
-        if (scrollRequest.skipBlog > 0) {
-            scrollRequest.skipBlog = scrollRequest.skipBlog - 1;
+    this.removedPinwallElement = function () {
+        var deferred = $q.defer(), numberOfItemsToUpdate, newPinwall;
+        numberOfItemsToUpdate = scrollRequest.skipBlog + scrollRequest.skipRecommendation;
+        if (numberOfItemsToUpdate > 200) {
+            numberOfItemsToUpdate = 200;
         }
+        newPinwall = Home.get({
+            skipBlog: 0,
+            skipRecommendation: 0,
+            maxItems: numberOfItemsToUpdate
+        }, function () {
+            deferred.resolve(newPinwall);
+        }, function () {
+            deferred.reject();
+        });
+        return deferred.promise;
     };
 
     this.addedBlog = function () {
@@ -59,11 +69,5 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
 
     this.addedRecommendation = function () {
         scrollRequest.skipRecommendation = scrollRequest.skipRecommendation + 1;
-    };
-
-    this.removedRecommendation = function () {
-        if (scrollRequest.skipRecommendation > 0) {
-            scrollRequest.skipRecommendation = scrollRequest.skipRecommendation - 1;
-        }
     };
 }];

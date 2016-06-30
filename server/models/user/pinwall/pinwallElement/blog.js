@@ -23,7 +23,11 @@ var getPinwallElement = function (pinwallElement) {
     element.isAdmin = pinwallElement.isAdmin;
     element.isPublic = pinwallElement.isPublic;
     element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
-    element.recommendedByUser = pinwallElement.recommendedByUser;
+    element.userRecommendationId = pinwallElement.userRecommendationId || pinwallElement.userBlogRecommendationId;
+    element.recommendedByUser = false;
+    if(element.userRecommendationId) {
+        element.recommendedByUser = true;
+    }
     element.topic = pinwallElement.pinwall.topic;
     profileUrl.addProfileUrl(element, pinwallElement);
     addBlogUrl(element, pinwallElement.pinwall.heightPreviewImage);

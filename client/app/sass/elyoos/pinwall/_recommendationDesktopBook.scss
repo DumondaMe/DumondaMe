@@ -7,6 +7,7 @@
       margin-right: 12px;
     }
     .description-container {
+      position: relative;
       height: 207px;
       overflow: hidden;
       .topic-description {
@@ -15,10 +16,17 @@
         }
       }
       .book-description {
+        height: 102px;
+        overflow: hidden;
         font-size: 14px;
         color: $secondary-text;
         overflow: hidden;
         -ms-scroll-limit: 0 0 0 0;
+      }
+      .action-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
     }
   }

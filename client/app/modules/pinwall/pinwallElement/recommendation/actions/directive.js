@@ -11,8 +11,8 @@ module.exports = {
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/pinwallElement/blog/actions/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/actions/template.html'
         };
     }],
-    name: 'elyPinwallBlogActions'
+    name: 'elyPinwallPageRecommendationActions'
 };

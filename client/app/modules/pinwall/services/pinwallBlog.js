@@ -1,20 +1,23 @@
 'use strict';
 
-var removePinwallElement = function (pinwall, elementToRemove, Observables, observables, observableFunctionName) {
+var removePinwallElement = function (pinwall, elementToRemove, requestService) {
     if (elementToRemove) {
-        pinwall.splice(pinwall.indexOf(elementToRemove), 1);
-        Observables.notifyObservables(observables, observableFunctionName);
+        requestService.removedPinwallElement().then(function (newPinwall) {
+            pinwall.length = 0;
+            angular.forEach(newPinwall.pinwall, function (pinwallElement, index) {
+                pinwall[index] = pinwallElement;
+            });
+        });
     }
 };
 
 
-module.exports = ['Observables',
-    function (Observables) {
+module.exports = [
+    function () {
+        var requestService = {}, pinwall = [];
 
-        var observables = [], pinwall = [];
-
-        this.register = function (name, observable) {
-            Observables.register(observables, name, observable);
+        this.registerRequestService = function (newRequestService) {
+            requestService = newRequestService;
         };
 
         this.addPinwall = function (newPinwall) {
@@ -28,31 +31,42 @@ module.exports = ['Observables',
                     elementToRemove = pinwallElement;
                 }
             });
-            removePinwallElement(pinwall, elementToRemove, Observables, observables, 'removedBlog');
+            removePinwallElement(pinwall, elementToRemove, requestService);
         };
 
         this.removeBlogRecommendation = function (recommendationId, blogId) {
             var elementToRemove = null;
             angular.forEach(pinwall, function (pinwallElement) {
                 if (pinwallElement.pinwallType === "Recommendation" && pinwallElement.label === 'Blog' &&
-                    pinwallElement.recommendationId === recommendationId) {
+                    pinwallElement.userRecommendationId === recommendationId) {
                     elementToRemove = pinwallElement;
                 }
-                if(pinwallElement.pinwallType === "Blog" && pinwallElement.blogId === blogId) {
+                if (pinwallElement.pinwallType === "Blog" && pinwallElement.blogId === blogId) {
                     pinwallElement.recommendedByUser = false;
                     pinwallElement.numberOfRecommendations--;
                 }
             });
-            removePinwallElement(pinwall, elementToRemove, Observables, observables, 'removedRecommendation');
+            removePinwallElement(pinwall, elementToRemove, requestService);
+        };
+
+        this.removeRecommendation = function (recommendationId) {
+            var elementToRemove = null;
+            angular.forEach(pinwall, function (pinwallElement) {
+                if (pinwallElement.pinwallType === "Recommendation" && pinwallElement.label !== 'Blog' &&
+                    pinwallElement.userRecommendationId === recommendationId) {
+                    elementToRemove = pinwallElement;
+                }
+            });
+            removePinwallElement(pinwall, elementToRemove, requestService);
         };
 
         this.addBlog = function (blog) {
             pinwall.unshift(blog);
-            Observables.notifyObservables(observables, 'addedBlog');
+            requestService.addedBlog();
         };
 
         this.addRecommendation = function (recommendation) {
             pinwall.unshift(recommendation);
-            Observables.notifyObservables(observables, 'addedRecommendation');
+            requestService.addedRecommendation();
         };
     }];

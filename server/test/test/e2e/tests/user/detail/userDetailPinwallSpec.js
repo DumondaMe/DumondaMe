@@ -56,6 +56,12 @@ describe('Integration Tests for getting the pinwall of another user', function (
             commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:Recommendation {recommendationId: '10'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
+            commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+                .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 509, comment: 'irgendwas', recommendationId: '11'})-[:RECOMMENDS]->(a)")
+                .end().getCommand());
+            commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '11'})")
+                .create("(b)-[:PINWALL_DATA]->(a)")
+                .end().getCommand());
 
             //Recommendation Pages
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
@@ -88,7 +94,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
             commands.push(db.cypher().match("(a:Page {pageId: '4'}), (b:Recommendation {recommendationId: '4'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(a:Page {pageId: '4'}), (b:User {userId: '3'})")
+            commands.push(db.cypher().match("(a:Page {pageId: '4'}), (b:User {userId: '1'})")
                 .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 501, comment: 'irgendwas6', recommendationId: '5'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '4'}), (b:Recommendation {recommendationId: '5'})")
@@ -144,7 +150,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[0].userId.should.equals('2');
                     res.body.pinwall[0].recommendedByUser.should.equals(false);
                     res.body.pinwall[0].thisRecommendationByUser.should.equals(false);
-                    res.body.pinwall[0].recommendationId.should.equals('10');
                     res.body.pinwall[0].created.should.equals(508);
                     res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pinwall[0].heightPreviewImage.should.equals(200);
@@ -169,7 +174,9 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[1].text.should.equals('blogText');
                     res.body.pinwall[1].isAdmin.should.equals(false);
                     res.body.pinwall[1].isPublic.should.equals(false);
-                    res.body.pinwall[1].numberOfRecommendations.should.equals(0);
+                    res.body.pinwall[1].recommendedByUser.should.equals(true);
+                    res.body.pinwall[1].userRecommendationId.should.equals('11');
+                    res.body.pinwall[1].numberOfRecommendations.should.equals(1);
                     res.body.pinwall[1].topic.length.should.equals(2);
                     res.body.pinwall[1].topic[0].should.equals('health');
                     res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
@@ -239,8 +246,9 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[5].heightPreviewImage.should.equals(200);
                     res.body.pinwall[5].comment.should.equals('irgendwas5');
                     res.body.pinwall[5].description.should.equals('linkPage');
-                    res.body.pinwall[5].recommendedByUser.should.equals(false);
+                    res.body.pinwall[5].recommendedByUser.should.equals(true);
                     res.body.pinwall[5].thisRecommendationByUser.should.equals(false);
+                    res.body.pinwall[5].userRecommendationId.should.equals('5');
                     res.body.pinwall[5].numberOfRecommendations.should.equals(2);
                     res.body.pinwall[5].topic.length.should.equals(2);
                     res.body.pinwall[5].topic[0].should.equals('socialDevelopment');

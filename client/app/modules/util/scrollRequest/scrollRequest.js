@@ -10,7 +10,8 @@ var getParams = function (maxItems, skip, additionalParams) {
     return params;
 };
 
-module.exports = ['$q', function ($q) {
+module.exports = ['$q', 'PinwallBlogService', function ($q, PinwallBlogService) {
+    var actualServiceName;
 
     this.reset = function (serviceName, requestService, responseHandler) {
 
@@ -22,6 +23,8 @@ module.exports = ['$q', function ($q) {
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
+        actualServiceName = serviceName;
+        PinwallBlogService.registerRequestService(this);
     };
 
     this.hasNext = function (serviceName) {
@@ -49,6 +52,24 @@ module.exports = ['$q', function ($q) {
         } else {
             deferred.reject();
         }
+        return deferred.promise;
+    };
+
+    this.removedPinwallElement = function () {
+        var deferred = $q.defer(), newPinwall, scrollRequest = scrollRequests[actualServiceName], callServiceName = actualServiceName;
+
+        newPinwall = scrollRequest.request({
+            skip: 0,
+            maxItems: scrollRequest.skip
+        }, function () {
+            if (callServiceName === actualServiceName) {
+                deferred.resolve(newPinwall);
+            } else {
+                deferred.reject();
+            }
+        }, function () {
+            deferred.reject();
+        });
         return deferred.promise;
     };
 
