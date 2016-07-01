@@ -1,7 +1,6 @@
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px;
   .content-container {
-    overflow: hidden;
     .book-preview-image {
       width: 130px;
       margin-right: 12px;
@@ -12,7 +11,7 @@
     .description-container {
       position: relative;
       height: 207px;
-      overflow: hidden;
+      min-width: 150px;
       .topic-description {
         .topic-type {
           margin-top: 0;
@@ -28,8 +27,8 @@
       }
       .action-container {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        bottom: -8px;
+        left: -8px;
       }
     }
   }

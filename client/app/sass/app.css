@@ -2402,30 +2402,28 @@ md-toast.md-error-toast-theme {
 
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px; }
-  .book-recommendation-desktop .content-container {
-    overflow: hidden; }
-    .book-recommendation-desktop .content-container .book-preview-image {
-      width: 130px;
-      margin-right: 12px; }
-      .book-recommendation-desktop .content-container .book-preview-image img {
-        border-radius: 2px; }
-    .book-recommendation-desktop .content-container .description-container {
-      position: relative;
-      height: 207px;
-      overflow: hidden; }
-      .book-recommendation-desktop .content-container .description-container .topic-description .topic-type {
-        margin-top: 0; }
-      .book-recommendation-desktop .content-container .description-container .book-description {
-        height: 102px;
-        overflow: hidden;
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.54);
-        overflow: hidden;
-        -ms-scroll-limit: 0 0 0 0; }
-      .book-recommendation-desktop .content-container .description-container .action-container {
-        position: absolute;
-        bottom: 0;
-        left: 0; }
+  .book-recommendation-desktop .content-container .book-preview-image {
+    width: 130px;
+    margin-right: 12px; }
+    .book-recommendation-desktop .content-container .book-preview-image img {
+      border-radius: 2px; }
+  .book-recommendation-desktop .content-container .description-container {
+    position: relative;
+    height: 207px;
+    min-width: 150px; }
+    .book-recommendation-desktop .content-container .description-container .topic-description .topic-type {
+      margin-top: 0; }
+    .book-recommendation-desktop .content-container .description-container .book-description {
+      height: 102px;
+      overflow: hidden;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
+      overflow: hidden;
+      -ms-scroll-limit: 0 0 0 0; }
+    .book-recommendation-desktop .content-container .description-container .action-container {
+      position: absolute;
+      bottom: -8px;
+      left: -8px; }
 
 .link-recommendation-desktop .main-container {
   padding: 0 16px 8px 16px; }
