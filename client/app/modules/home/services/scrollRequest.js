@@ -8,7 +8,7 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
         scrollRequest = {
             skipBlog: 0,
             skipRecommendation: 0,
-            itemsPerPage: 10,
+            itemsPerPage: 15,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };

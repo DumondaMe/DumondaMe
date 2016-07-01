@@ -48,32 +48,4 @@ module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast'
                 });
             });
         };
-
-        ctrl.recommendBlog = function () {
-            if (!ctrl.requestRunning) {
-                ctrl.requestRunning = true;
-                BlogRecommendation.save({blogId: ctrl.element.blogId}, function (resp) {
-                    ctrl.requestRunning = false;
-                    ctrl.element.recommendedByUser = true;
-                    ctrl.element.recommendationId = resp.recommendatonId;
-                }, function () {
-                    ctrl.requestRunning = false;
-                    errorToast.showError("Fehler beim Empfehlen des Blogs");
-                });
-            }
-        };
-
-        ctrl.removeRecommendationBlog = function () {
-            if (!ctrl.requestRunning) {
-                ctrl.requestRunning = true;
-                BlogRecommendation.delete({blogId: ctrl.element.blogId, recommendationId: ctrl.element.recommendationId}, function () {
-                    ctrl.requestRunning = false;
-                    ctrl.element.recommendedByUser = true;
-                    delete ctrl.element.recommendationId;
-                }, function () {
-                    ctrl.requestRunning = false;
-                    errorToast.showError("Fehler beim entfernen der Empfehlung des Blogs");
-                });
-            }
-        };
     }];
