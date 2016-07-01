@@ -5,6 +5,9 @@
     .book-preview-image {
       width: 130px;
       margin-right: 12px;
+      img {
+        border-radius: 2px;
+      }
     }
     .description-container {
       position: relative;

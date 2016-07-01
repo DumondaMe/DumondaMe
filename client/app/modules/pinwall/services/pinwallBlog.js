@@ -1,19 +1,20 @@
 'use strict';
 
-var removePinwallElement = function (pinwall, elementToRemove, requestService) {
+var removePinwallElement = function ($q, pinwall, elementToRemove, requestService) {
     if (elementToRemove) {
-        requestService.removedPinwallElement().then(function (newPinwall) {
+        return requestService.removedPinwallElement().then(function (newPinwall) {
             pinwall.length = 0;
             angular.forEach(newPinwall.pinwall, function (pinwallElement, index) {
                 pinwall[index] = pinwallElement;
             });
         });
     }
+    return $q.reject();
 };
 
 
-module.exports = [
-    function () {
+module.exports = ['$q',
+    function ($q) {
         var requestService = {}, pinwall = [];
 
         this.registerRequestService = function (newRequestService) {
@@ -31,7 +32,7 @@ module.exports = [
                     elementToRemove = pinwallElement;
                 }
             });
-            removePinwallElement(pinwall, elementToRemove, requestService);
+            return removePinwallElement($q, pinwall, elementToRemove, requestService);
         };
 
         this.removeBlogRecommendation = function (recommendationId, blogId) {
@@ -46,7 +47,7 @@ module.exports = [
                     pinwallElement.numberOfRecommendations--;
                 }
             });
-            removePinwallElement(pinwall, elementToRemove, requestService);
+            return removePinwallElement($q, pinwall, elementToRemove, requestService);
         };
 
         this.removeRecommendation = function (recommendationId) {
@@ -57,7 +58,7 @@ module.exports = [
                     elementToRemove = pinwallElement;
                 }
             });
-            removePinwallElement(pinwall, elementToRemove, requestService);
+            return removePinwallElement($q, pinwall, elementToRemove, requestService);
         };
 
         this.addBlog = function (blog) {

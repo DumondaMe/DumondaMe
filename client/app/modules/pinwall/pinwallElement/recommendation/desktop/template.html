@@ -20,11 +20,13 @@
             </div>
         </div>
     </div>
-    <ely-pinwall-recommendation-desktop-blog element="ctrl.element"
+    <ely-pinwall-recommendation-desktop-blog element="ctrl.element" request-running="ctrl.requestRunning"
                                              ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-recommendation-desktop-blog>
-    <ely-pinwall-recommendation-desktop-book element="ctrl.element"
+    <ely-pinwall-recommendation-desktop-book element="ctrl.element" request-running="ctrl.requestRunning"
                                              ng-if="ctrl.element.label === 'Book'"></ely-pinwall-recommendation-desktop-book>
-    <ely-pinwall-recommendation-desktop-youtube element="ctrl.element"
+    <ely-pinwall-recommendation-desktop-youtube element="ctrl.element" request-running="ctrl.requestRunning"
                                                 ng-if="ctrl.element.label === 'Youtube'"></ely-pinwall-recommendation-desktop-youtube>
-    <ely-pinwall-recommendation-desktop-link element="ctrl.element" ng-if="ctrl.element.label === 'Link'"></ely-pinwall-recommendation-desktop-link>
+    <ely-pinwall-recommendation-desktop-link element="ctrl.element" ng-if="ctrl.element.label === 'Link'"
+                                             request-running="ctrl.requestRunning"></ely-pinwall-recommendation-desktop-link>
+    <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

@@ -7,10 +7,10 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                requestRunning: '='
             },
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/desktop/blog/template.html'
         };

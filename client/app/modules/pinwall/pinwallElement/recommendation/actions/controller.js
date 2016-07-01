@@ -22,15 +22,19 @@ module.exports = ['PageRecommendation', 'errorToast', 'PinwallBlogService', func
         if (!ctrl.requestRunning) {
             ctrl.requestRunning = true;
             PageRecommendation.delete({pageId: ctrl.element.pageId, recommendationId: ctrl.element.userRecommendationId}, function () {
-                ctrl.requestRunning = false;
                 if (ctrl.element.thisRecommendationByUser) {
-                    PinwallBlogService.removeRecommendation(ctrl.element.userRecommendationId);
+                    PinwallBlogService.removeRecommendation(ctrl.element.userRecommendationId).then(function () {
+                        ctrl.requestRunning = false;
+                    }, function () {
+                        ctrl.requestRunning = false;
+                    });
+                } else {
+                    ctrl.element.recommendedByUser = false;
                 }
                 ctrl.element.numberOfRecommendations--;
-                ctrl.element.recommendedByUser = false;
             }, function () {
                 ctrl.requestRunning = false;
-                errorToast.showError("Fehler beim entfernen der Empfehlung");
+                errorToast.showError("Fehler beim Entfernen der Empfehlung");
             });
         }
     };

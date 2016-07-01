@@ -1,6 +1,12 @@
 .blog-recommendation-desktop {
+  .blog-image-container {
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
   .content-container {
-    padding: 0 16px 16px 16px;
+    padding: 0 16px 8px 16px;
     overflow: hidden;
     .description-container {
       .blog-text {

@@ -1,21 +1,26 @@
 .youtube-recommendation-desktop {
-  padding: 0 16px 16px 16px;
-  .topic-description {
-    margin-bottom: 4px;
+  .main-container {
+    padding: 0 16px 8px 16px;
+    .topic-description {
+      margin-bottom: 4px;
+    }
+    .youtube-preview-image {
+      width: 100%;
+      cursor: pointer;
+    }
+    .youtube-description {
+      margin-top: 8px;
+      font-size: 14px;
+      color: $secondary-text;
+      overflow-y: hidden;
+      max-height: 3.8em;
+    }
+    .category-description {
+      padding: 0;
+    }
   }
-  .youtube-preview-image {
-    width: 100%;
-    cursor: pointer;
-  }
-  .youtube-description {
-    margin-top: 8px;
-    font-size: 14px;
-    color: $secondary-text;
-    overflow-y: hidden;
-    max-height: 3.8em;
-  }
-  .category-description {
-    padding: 0;
+  .action-container {
+    padding: 0 8px 8px 8px;
   }
 }
 

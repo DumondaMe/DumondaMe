@@ -4,6 +4,7 @@ module.exports = ['$state', 'dateFormatter', 'UserDetailNavigation',
     function ($state, dateFormatter, UserDetailNavigation) {
         var ctrl = this;
 
+        ctrl.requestRunning = false;
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         ctrl.openUserDetail = function () {

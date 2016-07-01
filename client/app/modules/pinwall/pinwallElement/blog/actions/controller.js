@@ -22,8 +22,17 @@ module.exports = ['BlogRecommendation', 'errorToast', 'PinwallBlogService', func
         if (!ctrl.requestRunning) {
             ctrl.requestRunning = true;
             BlogRecommendation.delete({blogId: ctrl.element.blogId, recommendationId: ctrl.element.userRecommendationId}, function () {
-                ctrl.requestRunning = false;
-                PinwallBlogService.removeBlogRecommendation(ctrl.element.userRecommendationId, ctrl.element.blogId);
+                if (ctrl.element.thisRecommendationByUser) {
+                    PinwallBlogService.removeBlogRecommendation(ctrl.element.userRecommendationId, ctrl.element.blogId).then(function () {
+                        ctrl.requestRunning = false;
+                    }, function () {
+                        ctrl.requestRunning = false;
+                    });
+                } else {
+                    ctrl.element.numberOfRecommendations--;
+                    ctrl.element.recommendedByUser = false;
+                    ctrl.requestRunning = false;
+                }
             }, function () {
                 ctrl.requestRunning = false;
                 errorToast.showError("Fehler beim entfernen der Empfehlung des Blogs");

@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                requestRunning: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

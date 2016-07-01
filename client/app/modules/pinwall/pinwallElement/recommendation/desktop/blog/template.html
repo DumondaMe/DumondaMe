@@ -1,11 +1,14 @@
 <div class="blog-recommendation-desktop">
+    <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
+        <img ng-src="{{ctrl.element.url}}" class="md-card-image">
+    </div>
     <div layout="row" class="content-container">
         <div class="description-container" layout="column">
             <div>
                 <div class="blog-title">{{ctrl.element.title}}</div>
-                <div class="blog-text">{{ctrl.element.text}}</div>
+                <div class="blog-text">{{ctrl.previewText}}</div>
             </div>
         </div>
     </div>
-    <ely-pinwall-blog-actions on-removed="" element="ctrl.element"></ely-pinwall-blog-actions>
+    <ely-pinwall-blog-actions request-running="ctrl.requestRunning" element="ctrl.element"></ely-pinwall-blog-actions>
 </div>

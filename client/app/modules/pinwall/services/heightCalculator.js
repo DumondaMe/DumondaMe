@@ -21,10 +21,13 @@ var heightCalculator = {
                     recommendation.pinwallHeight = 305;
                     break;
                 case "Youtube":
-                    recommendation.pinwallHeight = 500;
+                    recommendation.pinwallHeight = 520;
                     break;
                 case "Blog":
-                    recommendation.pinwallHeight = 400;
+                    recommendation.pinwallHeight = 165;
+                    if (recommendation.hasOwnProperty('heightPreviewImage')) {
+                        recommendation.pinwallHeight += recommendation.heightPreviewImage;
+                    }
                     break;
                 case "Link":
                     setLinkHeight(recommendation);
