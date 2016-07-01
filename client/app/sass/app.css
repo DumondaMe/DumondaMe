@@ -2860,10 +2860,12 @@ md-toast.md-error-toast-theme {
     background-color: #C5CAE9; }
 
 #setting-user-pinwall {
-  max-width: 400px; }
+  max-width: 400px;
+  margin: 0 auto; }
   @media screen and (min-width: 960px) {
     #setting-user-pinwall {
-      max-width: 880px; } }
+      max-width: 950px;
+      width: 950px; } }
   #setting-user-pinwall .setting-title {
     margin-top: 16px;
     margin-left: 8px;

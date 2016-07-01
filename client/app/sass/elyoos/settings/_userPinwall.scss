@@ -1,7 +1,9 @@
 #setting-user-pinwall {
   max-width: 400px;
+  margin: 0 auto;
   @media screen and (min-width: $gt-sm) {
-    max-width: 880px;
+    max-width: 950px;
+    width: 950px;
   }
   .setting-title {
     margin-top: 16px;
