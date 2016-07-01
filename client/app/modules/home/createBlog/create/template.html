@@ -21,6 +21,15 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="blog-input-container">
+                    <label>Titel</label>
+                    <input name="blogTitle" class="blog-input" ng-model="ctrl.blogTitle" required md-maxlength="80"
+                              ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"/>
+                    <div ng-messages="createBlogForm.blogTitle.$error" ng-show="createBlogForm.blogTitle.$dirty">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="blog-input-container">
                     <label>Schreibe einen Beitrag...</label>
                     <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" rows="10"
                           ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>

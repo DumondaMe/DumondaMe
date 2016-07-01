@@ -41,7 +41,7 @@ module.exports = ['dateFormatter', '$mdDialog', 'ElyModal', 'Blog', 'errorToast'
                     blogId: ctrl.element.blogId
                 }, function () {
                     ctrl.requestRunning = false;
-                    PinwallBlogService.removeBlog(ctrl.element.blogId);
+                    PinwallBlogService.removePinwallElement();
                 }, function () {
                     ctrl.requestRunning = false;
                     errorToast.showError("Fehler beim Löschen des Blogs");

@@ -28,7 +28,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
@@ -86,6 +86,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
                 res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(true);
                 res.body.pinwall[0].topic.length.should.equals(2);
@@ -103,6 +104,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].heightPreviewImage.should.equals(200);
                 res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[1].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[1].title.should.equals('blogTitle1');
                 res.body.pinwall[1].text.should.equals('blogText1');
                 res.body.pinwall[1].isAdmin.should.equals(true);
                 res.body.pinwall[1].isPublic.should.equals(true);
@@ -118,7 +120,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
@@ -174,6 +176,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
                 res.body.pinwall[0].text.should.equals('blogText1');
+                res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].isAdmin.should.equals(false);
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
@@ -190,6 +193,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].heightPreviewImage.should.equals(200);
                 res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[1].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[1].title.should.equals('blogTitle1');
                 res.body.pinwall[1].text.should.equals('blogText1');
                 res.body.pinwall[1].isAdmin.should.equals(false);
                 res.body.pinwall[1].isPublic.should.equals(true);
@@ -206,7 +210,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
         commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
@@ -251,6 +255,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
                 res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].urlFull.should.equals('blog/1/normal.jpg');
+                res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(false);
                 res.body.pinwall[0].topic.length.should.equals(2);

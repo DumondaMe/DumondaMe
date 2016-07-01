@@ -18,8 +18,9 @@ var schemaRequestBlog = {
         addBlog: {
             type: 'object',
             additionalProperties: false,
-            required: ['text', 'topic'],
+            required: ['title', 'text', 'topic'],
             properties: {
+                title: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 80},
                 text: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 10000},
                 visibility: {
                     type: 'array',

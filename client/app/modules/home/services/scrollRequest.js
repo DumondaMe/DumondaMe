@@ -55,7 +55,9 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
             skipBlog: 0,
             skipRecommendation: 0,
             maxItems: numberOfItemsToUpdate
-        }, function () {
+        }, function (resp) {
+            scrollRequest.skipBlog = resp.skipBlog;
+            scrollRequest.skipRecommendation = resp.skipRecommendation;
             deferred.resolve(newPinwall);
         }, function () {
             deferred.reject();

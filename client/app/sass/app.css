@@ -2184,6 +2184,11 @@ md-toast.md-error-toast-theme {
     padding: 0; }
     .pinwall-blog-card .button-settings-container .button-settings {
       margin: 0; }
+  .pinwall-blog-card .blog-title {
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87); }
   .pinwall-blog-card .blog-image-container {
     cursor: pointer;
     margin-top: 8px;
@@ -2376,6 +2381,11 @@ md-toast.md-error-toast-theme {
       display: inline-block;
       margin-right: 8px; }
 
+.blog-recommendation-desktop .blog-title {
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87); }
 .blog-recommendation-desktop .blog-image-container {
   cursor: pointer;
   margin-top: 8px;

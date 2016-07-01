@@ -23,7 +23,7 @@ module.exports = ['PageRecommendation', 'errorToast', 'PinwallBlogService', func
             ctrl.requestRunning = true;
             PageRecommendation.delete({pageId: ctrl.element.pageId, recommendationId: ctrl.element.userRecommendationId}, function () {
                 if (ctrl.element.thisRecommendationByUser) {
-                    PinwallBlogService.removeRecommendation(ctrl.element.userRecommendationId).then(function () {
+                    PinwallBlogService.removePinwallElement().then(function () {
                         ctrl.requestRunning = false;
                     }, function () {
                         ctrl.requestRunning = false;

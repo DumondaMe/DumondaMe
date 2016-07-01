@@ -68,13 +68,13 @@ var addBlog = function (userId, request, filePath, req) {
         return uploadFile(filePath, blogId)
             .then(function (height) {
                 return db.cypher().match("(user:User {userId: {userId}})")
-                    .create("(user)-[:WRITTEN]->(blog:Blog:PinwallElement {text: {text}, created: {timestamp}, " +
+                    .create("(user)-[:WRITTEN]->(blog:Blog:PinwallElement {text: {text}, title: {title}, created: {timestamp}, " +
                         "blogId: {blogId}, heightPreviewImage: {heightPreviewImage}, visible: {visibility}, topic: {topic}})")
                     .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name, " +
                         "blog.heightPreviewImage AS heightPreviewImage")
                     .end({
                         userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, blogId: blogId, text: request.text,
-                        topic: request.topic, heightPreviewImage: height
+                        title: request.title, topic: request.topic, heightPreviewImage: height
                     })
                     .send(commands);
             }).then(function (resp) {

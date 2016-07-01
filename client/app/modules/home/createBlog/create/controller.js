@@ -35,7 +35,7 @@ module.exports = ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'Fil
         ctrl.uploadBlog = function () {
             if (ctrl.sendBlogAllowed && !ctrl.blogUploadStarted) {
                 ctrl.blogUploadStarted = true;
-                UploadBlog.upload(ctrl.blogText, Topics.getCodes(ctrl.selectedTopics), ctrl.imageForUploadPreviewData)
+                UploadBlog.upload(ctrl.blogText, ctrl.blogTitle, Topics.getCodes(ctrl.selectedTopics), ctrl.imageForUploadPreviewData)
                     .then(function (resp) {
                         ElyModal.hide(resp);
                     }).catch(function () {
@@ -46,7 +46,8 @@ module.exports = ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'Fil
         };
 
         ctrl.dataChanged = function () {
-            ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.selectedTopics, ctrl.imageForUploadPreviewStart);
+            ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.blogTitle, ctrl.selectedTopics,
+                ctrl.imageForUploadPreviewStart);
         };
 
         $scope.$watch('imageForUpload', function (newImage) {
@@ -54,7 +55,7 @@ module.exports = ['$scope', 'userInfo', 'CreateBlogVisibility', 'ElyModal', 'Fil
                 FileReader.onloadend = function () {
                     $scope.$apply(function () {
                         ctrl.imageForUploadPreviewStart = false;
-                        ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.selectedTopics,
+                        ctrl.sendBlogAllowed = CreateBlogCheck.isSendBlogAllowed(ctrl.blogText, ctrl.blogTitle, ctrl.selectedTopics,
                             ctrl.imageForUploadPreviewStart);
                         ctrl.imageForUploadPreview = FileReader.result;
                         ctrl.imageForUploadPreviewData = FileReaderUtil.dataURItoBlob(ctrl.imageForUploadPreview);

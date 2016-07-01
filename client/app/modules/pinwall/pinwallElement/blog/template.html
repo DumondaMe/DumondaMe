@@ -32,6 +32,7 @@
             </md-menu-content>
         </md-menu>
     </md-card-header>
+    <div class="blog-title" ng-if="ctrl.element.title">{{ctrl.element.title}}</div>
     <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
