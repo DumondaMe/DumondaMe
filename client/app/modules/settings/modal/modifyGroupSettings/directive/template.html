@@ -3,35 +3,45 @@
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div class="md-title ely-dialog-title" ng-if="ctrl.setting.type">Gruppe <span class="group">{{ctrl.setting.type}}</span> bearbeiten</div>
             <div class="md-title ely-dialog-title" ng-if="!ctrl.setting.type">Privatspähren Einstellung für Personen denen Du nicht folgst</div>
-
-            <md-checkbox ng-model="ctrl.setting.profileVisible" aria-label="Profile visible" class="select-privacy" ng-change="ctrl.selectChanged()"
-                         ng-disabled="ctrl.uploadStarted">
-                Mein Profil ist sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.setting.contactsVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
-                         ng-change="ctrl.selectChanged()"
-                         aria-label="Contacts visible"
-                         class="select-privacy">
-                Wem ich folge ist sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.setting.imageVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
-                         ng-change="ctrl.selectChanged()"
-                         aria-label="Image visible"
-                         class="select-privacy">
-                Mein Profilbild ist sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.setting.profileDataVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
-                         ng-change="ctrl.selectChanged()"
-                         aria-label="Profile Data visible"
-                         class="select-privacy">
-                Meine Profildaten sind sichtbar
-            </md-checkbox>
-            <md-checkbox ng-model="ctrl.setting.pinwallVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
-                         ng-change="ctrl.selectChanged()"
-                         aria-label="Profile Data visible"
-                         class="select-privacy">
-                Meine Pinwand ist sichtbar
-            </md-checkbox>
+            <div>
+                <md-checkbox ng-model="ctrl.setting.profileVisible" aria-label="Profile visible" class="select-privacy"
+                             ng-change="ctrl.selectChanged()"
+                             ng-disabled="ctrl.uploadStarted">
+                    Mein Profil ist sichtbar
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="ctrl.setting.contactsVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                             ng-change="ctrl.selectChanged()"
+                             aria-label="Contacts visible"
+                             class="select-privacy">
+                    Wem ich folge ist sichtbar
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="ctrl.setting.imageVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                             ng-change="ctrl.selectChanged()"
+                             aria-label="Image visible"
+                             class="select-privacy">
+                    Mein Profilbild ist sichtbar
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="ctrl.setting.profileDataVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                             ng-change="ctrl.selectChanged()"
+                             aria-label="Profile Data visible"
+                             class="select-privacy">
+                    Meine Profildaten sind sichtbar
+                </md-checkbox>
+            </div>
+            <div>
+                <md-checkbox ng-model="ctrl.setting.pinwallVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
+                             ng-change="ctrl.selectChanged()"
+                             aria-label="Profile Data visible"
+                             class="select-privacy">
+                    Meine Pinwand ist sichtbar
+                </md-checkbox>
+            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
