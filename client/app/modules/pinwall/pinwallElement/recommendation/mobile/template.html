@@ -16,5 +16,12 @@
         <div class="description" ng-if="ctrl.element.description">{{ctrl.element.description}}</div>
         <div class="description" ng-if="ctrl.element.text">{{ctrl.element.text}}</div>
     </md-card-content>
-    <ely-pinwall-blog-actions element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-blog-actions>
+    <ely-pinwall-blog-actions element="ctrl.element" request-running="ctrl.requestRunning"
+                              ng-if="ctrl.element.label === 'Blog' || ctrl.element.pinwallType === 'Blog'"></ely-pinwall-blog-actions>
+    <div class="page-recommendation-container">
+        <ely-pinwall-page-recommendation-actions element="ctrl.element" request-running="ctrl.requestRunning"
+                                                 ng-if="ctrl.element.label !== 'Blog' && ctrl.element.pinwallType !== 'Blog'">
+        </ely-pinwall-page-recommendation-actions>
+    </div>
+    <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

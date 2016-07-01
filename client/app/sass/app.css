@@ -2425,38 +2425,30 @@ md-toast.md-error-toast-theme {
       bottom: -8px;
       left: -8px; }
 
-.link-recommendation-desktop .main-container {
-  padding: 0 16px 8px 16px; }
-  .link-recommendation-desktop .main-container .topic-description {
-    margin-bottom: 4px; }
-  .link-recommendation-desktop .main-container .link-preview-image {
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 8px; }
-  .link-recommendation-desktop .main-container .link-description {
-    cursor: pointer;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54);
-    overflow-y: hidden;
-    max-height: 3.7em; }
+.link-recommendation-desktop .link-preview-image {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 8px; }
+.link-recommendation-desktop .link-description {
+  padding: 0 16px 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  overflow-y: hidden;
+  max-height: 3.2em; }
 .link-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
 
-.youtube-recommendation-desktop .main-container {
-  padding: 0 16px 8px 16px; }
-  .youtube-recommendation-desktop .main-container .topic-description {
-    margin-bottom: 4px; }
-  .youtube-recommendation-desktop .main-container .youtube-preview-image {
-    width: 100%;
-    cursor: pointer; }
-  .youtube-recommendation-desktop .main-container .youtube-description {
-    margin-top: 8px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54);
-    overflow-y: hidden;
-    max-height: 3.8em; }
-  .youtube-recommendation-desktop .main-container .category-description {
-    padding: 0; }
+.youtube-recommendation-desktop .youtube-preview-image {
+  width: 100%;
+  cursor: pointer; }
+.youtube-recommendation-desktop .youtube-description {
+  padding: 0 16px 8px 16px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  overflow-y: hidden;
+  max-height: 3.2em; }
 .youtube-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
 
@@ -2502,6 +2494,8 @@ md-toast.md-error-toast-theme {
       font-weight: 400;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.87); }
+  .card-recommendation .page-recommendation-container {
+    padding: 0 8px 8px 8px; }
 
 .pinwall-recommendation-rating-overview .container {
   padding-top: 8px;
