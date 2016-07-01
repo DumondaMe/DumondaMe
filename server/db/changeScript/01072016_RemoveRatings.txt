@@ -1,0 +1,5 @@
+MATCH ()-[rec:RECOMMENDS]->(r:Recommendation)-[rec2:RECOMMENDS]->(pinwall) WHERE r.rating < 4
+OPTIONAL MATCH (r)-[p:PINWALL_DATA]->(pinwall)
+DELETE rec, r, rec2, p;
+
+MATCH (r:Recommendation) REMOVE r.rating;
