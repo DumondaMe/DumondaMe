@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:4.4.7
 
 ENV NODE_ENV 'production'
 
