@@ -2506,6 +2506,104 @@ md-toast.md-error-toast-theme {
     color: #3F51B5;
     font-weight: 500; }
 
+#start-screen #carousel {
+  height: 100%;
+  width: 100%; }
+  #start-screen #carousel #right-column {
+    min-height: 100%;
+    width: 100%;
+    background-color: #fafafa; }
+    @media screen and (min-width: 960px) {
+      #start-screen #carousel #right-column {
+        background-color: #FFFFFF; } }
+  #start-screen #carousel #left-column {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    float: left;
+    z-index: 10; }
+    #start-screen #carousel #left-column #carousel-nav-container .navigation-button.md-fab.md-mini {
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      min-height: 0;
+      padding: 0;
+      margin-bottom: 16px; }
+      #start-screen #carousel #left-column #carousel-nav-container .navigation-button.md-fab.md-mini .navigation-icon {
+        height: 32px;
+        width: 32px; }
+    #start-screen #carousel #left-column #carousel-nav-container .carousel-nav {
+      cursor: pointer;
+      height: 16px;
+      width: 16px;
+      margin: 0 16px 10px 16px;
+      border-radius: 500%;
+      box-shadow: inset 0 0 0 3px #7986CB;
+      box-sizing: border-box; }
+    #start-screen #carousel #left-column #carousel-nav-container .carousel-nav:hover {
+      box-shadow: inset 0 0 0 3px #3F51B5; }
+    #start-screen #carousel #left-column #carousel-nav-container .active {
+      background: #3F51B5;
+      box-shadow: none;
+      opacity: 1; }
+
+#start-screen #carousel #carousel-login {
+  height: 100%; }
+  #start-screen #carousel #carousel-login #login-container {
+    height: 100%; }
+
+#start-screen #carousel {
+  min-height: 100%; }
+  #start-screen #carousel #carousel-meaning {
+    min-height: 100%; }
+    #start-screen #carousel #carousel-meaning .meaning-container .meaning-description {
+      width: 500px;
+      margin-top: 32px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      background-color: #e9f6fe; }
+      #start-screen #carousel #carousel-meaning .meaning-container .meaning-description .meaning-text {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 28px; }
+
+#start-screen #carousel #carousel-technology #carousel-technology-container .technology-description {
+  width: 500px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 28px;
+  margin-bottom: 32px; }
+
+#start-screen #carousel #carousel-vision {
+  min-height: 100%;
+  width: 500px; }
+  @media screen and (min-width: 1440px) {
+    #start-screen #carousel #carousel-vision {
+      width: 700px; } }
+  #start-screen #carousel #carousel-vision #carousel-vision-container {
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 32px; }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px; }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container {
+      margin: 32px 0 64px 0; }
+      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container img {
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        margin-right: 16px; }
+      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .name {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
+      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .info-description {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.54); }
+
 #change-password-request #container {
   width: 300px; }
   #change-password-request #container .form-container {
@@ -2594,35 +2692,41 @@ md-toast.md-error-toast-theme {
 #start-screen {
   position: relative;
   height: 100%;
-  min-height: 480px;
   background-color: #fafafa; }
-  #start-screen #start-container {
-    padding: 32px 16px 16px 16px; }
+  @media screen and (min-width: 960px) {
+    #start-screen {
+      background-color: #FFFFFF; } }
+  #start-screen .text-phase-description {
+    cursor: pointer;
+    color: #EF6C00;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 16px; }
     @media screen and (min-width: 1280px) {
-      #start-screen #start-container {
-        padding-top: 64px; } }
-    #start-screen #start-container .text-phase-description {
-      cursor: pointer;
-      color: #EF6C00;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 16px; }
-      @media screen and (min-width: 1280px) {
-        #start-screen #start-container .text-phase-description {
-          margin-bottom: 32px; } }
-    #start-screen #start-container .text-phase-description:hover {
-      text-decoration: underline; }
-    #start-screen #start-container .description {
-      width: 180px;
-      color: rgba(0, 0, 0, 0.54);
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center; }
+      #start-screen .text-phase-description {
+        margin-bottom: 32px; } }
+  #start-screen .text-phase-description:hover {
+    text-decoration: underline; }
+  #start-screen .description {
+    width: 180px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center; }
   #start-screen .ely-logo {
     width: 150px; }
     @media screen and (min-width: 600px) {
       #start-screen .ely-logo {
         width: 176px; } }
+
+#start-screen #start-container-desktop {
+  height: 100%; }
+
+@media screen and (max-width: 480px) {
+  #start-screen {
+    min-height: 480px; } }
+#start-screen #start-container-mobile {
+  padding: 32px 16px 16px 16px; }
 
 #public-testphase {
   padding-top: 32px;

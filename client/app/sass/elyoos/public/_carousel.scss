@@ -1,0 +1,54 @@
+#start-screen {
+  #carousel {
+    height: 100%;
+    width: 100%;
+    #right-column {
+      min-height: 100%;
+      width: 100%;
+      background-color: #fafafa;
+      @media screen and (min-width: $gt-sm) {
+        background-color: #FFFFFF;
+      }
+    }
+    #left-column {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      float:left;
+      z-index: 10;
+      #carousel-nav-container {
+        .navigation-button.md-fab.md-mini {
+          height: 32px;
+          width: 32px;
+          line-height: 32px;
+          min-height: 0;
+          padding: 0;
+          margin-bottom: 16px;
+          .navigation-icon {
+            height: 32px;
+            width: 32px;
+          }
+        }
+
+        .carousel-nav {
+          cursor: pointer;
+          height: 16px;
+          width: 16px;
+          margin: 0 16px 10px 16px;
+          border-radius: 500%;
+          box-shadow: inset 0 0 0 3px $primary-color-light;
+          box-sizing: border-box;
+        }
+        .carousel-nav:hover {
+          box-shadow: inset 0 0 0 3px $primary-color;
+        }
+        .active {
+          background: $primary-color;
+          box-shadow: none;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
