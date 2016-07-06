@@ -1,17 +1,26 @@
 <div id="ely-contacting-overview">
     <div ely-infinite-scroll="ctrl.nextContacting" class="overview-container">
         <div class="overview-container-inner">
-            <md-card id="overview-text">
+            <!--<md-card id="overview-text">
                 <md-card-content>
                     <div class="number-of-contacting">
                         <span class="number" ng-if="ctrl.users.numberOfAllContactings > 0">{{ctrl.users.numberOfAllContactings}}</span>
                         <ng-pluralize count="ctrl.users.numberOfAllContactings "
-                                      when="{'0': 'Noch Niemand folgt Deinen Beiträgen.',
-                                            '1': ' Person folgt Deinen Beiträgen.',
-                                            'other': ' Personen folgen Deinen Beiträgen.'}"></ng-pluralize>
+                                      when="{'0': 'Noch Niemand führt Dich als Kontakt.',
+                                            '1': ' Person führt Dich als Kontakt.',
+                                            'other': ' Personen führen Dich als Kontakt.'}"></ng-pluralize>
                     </div>
                 </md-card-content>
-            </md-card>
+            </md-card>-->
+            <div layout="row" class="contacting-info">
+                <div class="number-of-contacting-title"><span class="number-of-contacting">{{ctrl.users.numberOfAllContactings}}</span>
+                    <ng-pluralize count="ctrl.users.numberOfAllContactings" when="{'1': ' Person führt Dich als Kontakt',
+                                     'other': ' Personen führen Dich als Kontakt'}"></ng-pluralize>
+                </div>
+                <span flex></span>
+                <md-icon class="help-icon" md-svg-icon="cardActions:help" ng-show="!ctrl.expandHelp" ng-click="ctrl.expandHelp = true"></md-icon>
+                <md-icon class="help-icon" md-svg-icon="cardActions:arrowUp" ng-show="ctrl.expandHelp" ng-click="ctrl.expandHelp = false"></md-icon>
+            </div>
             <div class="contact-element" ng-repeat="contactingUsers in ctrl.users.contactingUsers">
                 <ely-contact-preview-square user="contactingUsers"></ely-contact-preview-square>
             </div>

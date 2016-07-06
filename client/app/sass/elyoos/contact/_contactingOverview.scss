@@ -15,15 +15,21 @@
       @media screen and (min-width: $gt-xmd) {
         width: 740px;
       }
-      #overview-text {
-        width: 140px;
-        margin: 8px auto;
-        .number-of-contacting {
-          font-size: 14px;
-          .number {
-            font-weight: 700;
+      .contacting-info {
+        margin: 16px 4px 8px 4px;
+        padding: 16px;
+        background-color: white;
+        .number-of-contacting-title{
+          line-height: 24px;
+          vertical-align: middle;
+          font-weight: 500;
+          color: $primary-text;
+          .number-of-contacting {
             color: $primary-color;
           }
+        }
+        .help-icon {
+          cursor: pointer;
         }
       }
       .contact-element {

@@ -333,6 +333,19 @@
       .ely-form-text-input .ely-input-error-wrapper .ely-input-image-error img .ng-hide {
         opacity: 0; }
 
+.ely-help {
+  padding: 8px 16px 0 16px; }
+  .ely-help .ely-help-container {
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12); }
+    .ely-help .ely-help-container .help-title {
+      margin-top: 12px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 500; }
+    .ely-help .ely-help-container .help-text {
+      font-size: 14px; }
+
 .ely-iframe iframe {
   border: none; }
 
@@ -755,14 +768,19 @@ md-toast.md-error-toast-theme {
       @media screen and (min-width: 1440px) {
         #ely-contacting-overview .overview-container .overview-container-inner {
           width: 740px; } }
-      #ely-contacting-overview .overview-container .overview-container-inner #overview-text {
-        width: 140px;
-        margin: 8px auto; }
-        #ely-contacting-overview .overview-container .overview-container-inner #overview-text .number-of-contacting {
-          font-size: 14px; }
-          #ely-contacting-overview .overview-container .overview-container-inner #overview-text .number-of-contacting .number {
-            font-weight: 700;
+      #ely-contacting-overview .overview-container .overview-container-inner .contacting-info {
+        margin: 16px 4px 8px 4px;
+        padding: 16px;
+        background-color: white; }
+        #ely-contacting-overview .overview-container .overview-container-inner .contacting-info .number-of-contacting-title {
+          line-height: 24px;
+          vertical-align: middle;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87); }
+          #ely-contacting-overview .overview-container .overview-container-inner .contacting-info .number-of-contacting-title .number-of-contacting {
             color: #3F51B5; }
+        #ely-contacting-overview .overview-container .overview-container-inner .contacting-info .help-icon {
+          cursor: pointer; }
       #ely-contacting-overview .overview-container .overview-container-inner .contact-element {
         margin-right: 4px;
         margin-left: 4px;
@@ -773,6 +791,23 @@ md-toast.md-error-toast-theme {
   background-color: #E0E0E0; }
   #ely-contact-overview .contact-overview-container {
     padding: 16px 8px; }
+    #ely-contact-overview .contact-overview-container .contact-info {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 16px auto;
+      padding: 16px 0;
+      background-color: white; }
+      #ely-contact-overview .contact-overview-container .contact-info .number-of-contact-title {
+        padding: 0 16px;
+        line-height: 24px;
+        vertical-align: middle;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
+        #ely-contact-overview .contact-overview-container .contact-info .number-of-contact-title .number-of-contact {
+          color: #3F51B5; }
+      #ely-contact-overview .contact-overview-container .contact-info .help-icon {
+        cursor: pointer;
+        margin-right: 16px; }
     #ely-contact-overview .contact-overview-container .add-new-group {
       width: 100%;
       max-width: 700px;
@@ -847,7 +882,7 @@ md-toast.md-error-toast-theme {
   margin: 8px auto; }
   .ely-contact-preview-square .user-preview-img {
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 8px;
     height: 48px;
     width: 48px;

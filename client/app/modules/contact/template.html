@@ -3,9 +3,12 @@
              md-selected="ctrl.selectedTab">
         <md-tab class="contact-tab" md-on-select="ctrl.contactSelect = true" md-on-deselect="ctrl.contactSelect = false">
             <md-tab-label>
-                <span class="tab-me">Ich</span>
+                <span class="tab-me">Du</span>
                 <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
                 <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Deine Kontakte
+                </md-tooltip>
             </md-tab-label>
             <md-tab-body class="contact-tab-content" ng-if="ctrl.contactSelect">
                 <ely-contact-overview></ely-contact-overview>
@@ -13,9 +16,12 @@
         </md-tab>
         <md-tab label="Follower" class="contact-tab" md-on-select="ctrl.contactingSelect = true" md-on-deselect="ctrl.contactingSelect = false">
             <md-tab-label>
-                <span class="tab-me">Ich</span>
+                <span class="tab-me">Du</span>
                 <md-icon md-svg-icon="tabs:arrowBack" class="icon ely-tab-icon"></md-icon>
                 <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Dich als Kontakt
+                </md-tooltip>
             </md-tab-label>
             <md-tab-body class="contact-tab-content" ng-if="ctrl.contactingSelect">
                 <ely-contacting-overview></ely-contacting-overview>

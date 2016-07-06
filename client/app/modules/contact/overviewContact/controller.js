@@ -8,6 +8,8 @@ module.exports = {
 
                 ctrl.statistics = ContactStatistic.get(function () {
                     ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
+                    ctrl.numberOfContacts = ContactStatisticTypes.getNumberOfContacts();
+                    ctrl.expandHelp = ctrl.numberOfContacts === 0;
                 });
 
                 ctrl.newGroup = function () {

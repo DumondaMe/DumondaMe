@@ -39,7 +39,15 @@ module.exports = [
             return types;
         };
 
-        service.renameType= function (type, newType) {
+        service.getNumberOfContacts = function () {
+            var numberOfContacts = 0;
+            angular.forEach(statistic, function (statisticElement) {
+                numberOfContacts += statisticElement.count;
+            });
+            return numberOfContacts;
+        };
+
+        service.renameType = function (type, newType) {
             getStatistic(statistic, type).type = newType;
         };
 

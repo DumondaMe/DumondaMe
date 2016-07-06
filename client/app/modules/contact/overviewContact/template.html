@@ -1,5 +1,22 @@
 <md-content id="ely-contact-overview">
     <div class="contact-overview-container">
+        <div class="contact-info">
+            <div layout="row">
+                <div class="number-of-contact-title">Du hast <span class="number-of-contact">{{ctrl.numberOfContacts}}</span>
+                    <ng-pluralize count="ctrl.numberOfContacts" when="{'0': ' Kontakte', '1': ' Kontakt',
+                                     'other': ' Kontakte'}"></ng-pluralize>
+                </div>
+                <span flex></span>
+                <md-icon class="help-icon" md-svg-icon="cardActions:help" ng-show="!ctrl.expandHelp" ng-click="ctrl.expandHelp = true"></md-icon>
+                <md-icon class="help-icon" md-svg-icon="cardActions:arrowUp" ng-show="ctrl.expandHelp" ng-click="ctrl.expandHelp = false"></md-icon>
+            </div>
+            <div class="ely-help" ng-show="ctrl.expandHelp">
+                <div class="ely-help-container">
+                    <div class="help-title">Kontakte als Dreh und Angelpunkt</div>
+                    <div class="help-text">Ohne Kontakte ist Elyoos ziemlich langweilig.</div>
+                </div>
+            </div>
+        </div>
         <div class="preview-container" ng-repeat="statistic in ctrl.statistics.statistic">
             <ely-contact-preview statistic="statistic" statistics="ctrl.statistics.statistic"
                                  delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
