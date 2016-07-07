@@ -1,7 +1,7 @@
 <div id="setting-user-pinwall">
-    <div class="setting-title" ng-hide="ctrl.noPinwall">Deine Pinwand</div>
+    <div class="setting-title" ng-hide="ctrl.noPinwall">Deine Bewertungen und Blogs</div>
     <div class="pinwall-container">
-        <ely-pinwall pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
+        <ely-pinwall pinwall="ctrl.user.pinwall" breakpoint="{{ctrl.breakpoint}}" gap="false"></ely-pinwall>
     </div>
     <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall">
         <md-content>

@@ -6,13 +6,14 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             bindToController: {
                 profile: '='
             },
-            templateUrl: 'app/modules/settings/profile/image/template.html'
+            templateUrl: 'app/modules/settings/profile/desktop/sidnav/template.html'
         };
     }],
-    name: 'elySettingsProfileImage'
+    name: 'elySettingsProfileSidnav'
 };

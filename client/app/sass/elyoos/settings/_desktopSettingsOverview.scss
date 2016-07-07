@@ -1,0 +1,13 @@
+#ely-setting-overview-desktop {
+    margin-top: 32px;
+  .setting {
+    cursor: pointer;
+    margin: 6px 0;
+    font-weight: 500;
+    font-size: 12px;
+    min-width: 100px;
+  }
+  .setting:hover {
+    text-decoration: underline;
+  }
+}

@@ -6,13 +6,15 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             bindToController: {
+                commands: '=',
                 profile: '='
             },
-            templateUrl: 'app/modules/settings/profile/image/template.html'
+            templateUrl: 'app/modules/settings/profile/mobile/template.html'
         };
     }],
-    name: 'elySettingsProfileImage'
+    name: 'elySettingsProfileMobile'
 };

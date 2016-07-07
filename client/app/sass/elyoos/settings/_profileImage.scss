@@ -1,12 +1,19 @@
-#ely-setting-profile-image {
+#ely-setting-profile-image-card {
   width: 100%;
   max-width: 300px;
   margin: 8px 0;
   background-color: white;
+}
+.ely-setting-profile-image {
   .profile-image {
     width: 180px;
     height: 180px;
     border-radius: 50%;
+    @media screen and (min-width: $gt-md) {
+      width: 140px;
+      height: 140px;
+      margin-top: 16px;
+    }
   }
   .contact-statistic {
     cursor: pointer;

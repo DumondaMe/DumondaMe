@@ -6,11 +6,11 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: require('./../../settingsOverview/controller.js'),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/settings/profile/settingsOverview/template.html'
+            templateUrl: 'app/modules/settings/profile/desktop/settingsOverview/template.html'
         };
     }],
-    name: 'elySettingsOverview'
+    name: 'elySettingsOverviewDesktop'
 };

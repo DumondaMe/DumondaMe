@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                commands: '='
+                commands: '=',
+                breakpoint: '@'
             },
             templateUrl: 'app/modules/settings/profile/userPinwall/template.html'
         };

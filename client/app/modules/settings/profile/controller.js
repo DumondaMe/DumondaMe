@@ -2,9 +2,10 @@
 
 module.exports = {
     directiveCtrl: function () {
-        return ['$scope', 'Profile', 'UploadProfileImageState',
-            function ($scope, Profile, UploadProfileImageState) {
+        return ['$scope', 'Profile', 'UploadProfileImageState', '$mdMedia',
+            function ($scope, Profile, UploadProfileImageState, $mdMedia) {
                 var ctrl = this;
+                ctrl.$mdMedia = $mdMedia;
 
                 UploadProfileImageState.register('profilePreview', ctrl);
 

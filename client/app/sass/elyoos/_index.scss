@@ -118,9 +118,11 @@
 @import 'settings/modal/_modifyGroupSetting';
 @import 'settings/modal/_overviewGroupSetting';
 @import 'settings/modal/_renameGroupName';
+@import 'settings/_desktopProfile';
+@import 'settings/_desktopSettingsOverview';
+@import 'settings/_mobileSettingsOverview';
 @import 'settings/_profile';
 @import 'settings/_profileImage';
-@import 'settings/_settingsOverview';
 @import 'settings/_userPinwall';
 
 @import 'util/file/_previewPicture';

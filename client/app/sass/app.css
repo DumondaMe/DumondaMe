@@ -2931,30 +2931,22 @@ md-toast.md-error-toast-theme {
       #rename-group-name .ely-dialog-content .title .name {
         color: #3F51B5; }
 
-#ely-setting-profile {
-  height: 100%;
-  background-color: #E0E0E0; }
-  #ely-setting-profile .container {
+.desktop-setting-profile {
+  height: 100%; }
+  .desktop-setting-profile .ely-sidenav-right {
     height: 100%;
-    overflow-y: auto; }
-    @media screen and (min-width: 1280px) {
-      #ely-setting-profile .container .container-inner {
-        padding-top: 16px; } }
+    width: 220px; }
 
-#ely-setting-profile-image {
-  width: 100%;
-  max-width: 300px;
-  margin: 8px 0;
-  background-color: white; }
-  #ely-setting-profile-image .profile-image {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%; }
-  #ely-setting-profile-image .contact-statistic {
+#ely-setting-overview-desktop {
+  margin-top: 32px; }
+  #ely-setting-overview-desktop .setting {
     cursor: pointer;
-    font-size: 16px; }
-    #ely-setting-profile-image .contact-statistic .number-of-contacting {
-      color: #3F51B5; }
+    margin: 6px 0;
+    font-weight: 500;
+    font-size: 12px;
+    min-width: 100px; }
+  #ely-setting-overview-desktop .setting:hover {
+    text-decoration: underline; }
 
 #ely-setting-overview {
   width: 300px;
@@ -2990,22 +2982,50 @@ md-toast.md-error-toast-theme {
   #ely-setting-overview .content .setting:hover {
     background-color: #C5CAE9; }
 
+#ely-setting-profile {
+  height: 100%;
+  background-color: #E0E0E0; }
+  #ely-setting-profile .container {
+    height: 100%;
+    overflow-y: auto; }
+    @media screen and (min-width: 1280px) {
+      #ely-setting-profile .container .container-inner {
+        padding-top: 16px; } }
+
+#ely-setting-profile-image-card {
+  width: 100%;
+  max-width: 300px;
+  margin: 8px 0;
+  background-color: white; }
+
+.ely-setting-profile-image .profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%; }
+  @media screen and (min-width: 1280px) {
+    .ely-setting-profile-image .profile-image {
+      width: 140px;
+      height: 140px;
+      margin-top: 16px; } }
+.ely-setting-profile-image .contact-statistic {
+  cursor: pointer;
+  font-size: 16px; }
+  .ely-setting-profile-image .contact-statistic .number-of-contacting {
+    color: #3F51B5; }
+
 #setting-user-pinwall {
   max-width: 400px;
   margin: 0 auto; }
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: 1440px) {
     #setting-user-pinwall {
       max-width: 950px;
       width: 950px; } }
   #setting-user-pinwall .setting-title {
     margin-top: 16px;
-    margin-left: 8px;
+    margin-left: 16px;
     font-size: 16px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54); }
-    @media screen and (min-width: 960px) {
-      #setting-user-pinwall .setting-title {
-        margin-left: 16px; } }
 
 #ely-preview-picture {
   height: 100%;
