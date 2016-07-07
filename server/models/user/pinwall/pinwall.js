@@ -34,7 +34,7 @@ var getPinwallOfUser = function (userId, request) {
         .where("pinwallData:Blog")
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
         .return(`user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, true AS isAdmin, writer,
-                 userRec.recommendationId AS userRecommendationId,
+                 userRec.recommendationId AS userRecommendationId, NOT EXISTS(pinwall.visible) AS isPublic,
                  EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser,
                  EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
                  SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallDataRecommendations,

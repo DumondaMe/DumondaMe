@@ -117,6 +117,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].text.should.equals('blogText');
             res.body.pinwall[0].recommendedByUser.should.equals(false);
             res.body.pinwall[0].isAdmin.should.equals(true);
+            res.body.pinwall[0].isPublic.should.equals(false);
             res.body.pinwall[0].numberOfRecommendations.should.equals(0);
             res.body.pinwall[0].topic.length.should.equals(2);
             res.body.pinwall[0].topic[0].should.equals('health');
@@ -134,6 +135,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].text.should.equals('blogText2');
             res.body.pinwall[1].recommendedByUser.should.equals(false);
             res.body.pinwall[1].isAdmin.should.equals(true);
+            res.body.pinwall[1].isPublic.should.equals(true);
             res.body.pinwall[1].numberOfRecommendations.should.equals(0);
             res.body.pinwall[1].topic.length.should.equals(2);
             res.body.pinwall[1].topic[0].should.equals('health');
@@ -217,6 +219,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[0].text.should.equals('blogText2');
             res.body.pinwall[0].isAdmin.should.equals(true);
+            res.body.pinwall[0].isPublic.should.equals(true);
             res.body.pinwall[0].topic.length.should.equals(2);
             res.body.pinwall[0].topic[0].should.equals('health');
             res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
