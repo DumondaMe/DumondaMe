@@ -18,7 +18,7 @@ module.exports = {
 
             ctrl.goToState = function () {
                 $mdSidenav("left").close();
-                $state.go(ctrl.state);
+                $state.go(ctrl.state, {}, {reload: true});
             };
 
             $rootScope.$on('$stateChangeSuccess', function () {
