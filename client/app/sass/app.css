@@ -2211,6 +2211,7 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54); }
     .pinwall-blog-card .blog-header .public-type {
       font-size: 14px;
+      line-height: 16px;
       font-weight: 500;
       color: #3F51B5; }
   .pinwall-blog-card .topic-description {

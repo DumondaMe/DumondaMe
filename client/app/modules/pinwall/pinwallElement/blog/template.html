@@ -5,7 +5,10 @@
         </md-card-avatar>
         <div class="blog-header">
             <div layout="row" layout-wrap>
-                <div class="md-title user-name" ng-click="ctrl.openUserDetail()">{{ctrl.element.name}}</div>
+                <div class="md-title user-name" ng-if="!ctrl.element.isAdmin" ng-click="ctrl.openUserDetail()">
+                    {{ctrl.element.name}}
+                </div>
+                <div class="md-title user-name" ng-if="ctrl.element.isAdmin" ui-sref="settings.profile()">Du</div>
                 <div>
                     <svg width="16px" height="16px" viewBox="0 0 48 48" fill="#757575" class="divider">
                         <path d="M20 34l10-10 -10-10z"></path>
