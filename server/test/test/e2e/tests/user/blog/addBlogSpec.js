@@ -46,7 +46,8 @@ describe('Integration Tests for adding a blog', function () {
                     addBlog: {
                         title: 'testBlog1Title',
                         text: 'testBlog1',
-                        topic: ['environmental', 'spiritual']
+                        topic: ['environmental', 'spiritual'],
+                        language: 'en'
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -58,7 +59,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 should.not.exist(res.body.heightPreviewImage);
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.title as title, b.created as created, b.topic AS topic')
+                    .return('b.text as text, b.title as title, b.created as created, b.topic AS topic, b.language AS language')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
@@ -68,6 +69,8 @@ describe('Integration Tests for adding a blog', function () {
                 blog[0].topic.length.should.equals(2);
                 blog[0].topic[0].should.equals('environmental');
                 blog[0].topic[1].should.equals('spiritual');
+                blog[0].language.length.should.equals(1);
+                blog[0].language[0].should.equals('en');
             });
     });
 
@@ -89,7 +92,8 @@ describe('Integration Tests for adding a blog', function () {
                     addBlog: {
                         title: 'testBlog1Title',
                         text: 'testBlog1',
-                        topic: ['environmental', 'spiritual']
+                        topic: ['environmental', 'spiritual'],
+                        language: 'de'
                     }
                 }, requestAgent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
             }).then(function (res) {
@@ -107,7 +111,7 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.title as title,  b.created as created, b.heightPreviewImage as heightPreviewImage, b.topic as topic')
+                    .return('b.text as text, b.title as title,  b.created as created, b.heightPreviewImage as heightPreviewImage, b.topic as topic, b.language AS language')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
@@ -117,6 +121,8 @@ describe('Integration Tests for adding a blog', function () {
                 blog[0].topic.length.should.equals(2);
                 blog[0].topic[0].should.equals('environmental');
                 blog[0].topic[1].should.equals('spiritual');
+                blog[0].language.length.should.equals(1);
+                blog[0].language[0].should.equals('de');
             });
     });
 
@@ -138,7 +144,8 @@ describe('Integration Tests for adding a blog', function () {
                     addBlog: {
                         title: 'testBlog1Title',
                         text: 'testBlog1',
-                        topic: ['environmental', 'spiritual']
+                        topic: ['environmental', 'spiritual'],
+                        language: 'fr'
                     }
                 }, requestAgent, './test/test/e2e/tests/user/blog/testPortrait.jpg');
             }).then(function (res) {
@@ -156,7 +163,7 @@ describe('Integration Tests for adding a blog', function () {
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.title as title, b.created as created, b.topic as topic')
+                    .return('b.text as text, b.title as title, b.created as created, b.topic as topic, b.language AS language')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
@@ -167,6 +174,8 @@ describe('Integration Tests for adding a blog', function () {
                 blog[0].topic.length.should.equals(2);
                 blog[0].topic[0].should.equals('environmental');
                 blog[0].topic[1].should.equals('spiritual');
+                blog[0].language.length.should.equals(1);
+                blog[0].language[0].should.equals('fr');
             });
     });
 
@@ -188,7 +197,8 @@ describe('Integration Tests for adding a blog', function () {
                         title: 'testBlog1Title',
                         text: 'testBlog1',
                         visibility: ['Freund', 'Bekannter'],
-                        topic: ['environmental', 'spiritual']
+                        topic: ['environmental', 'spiritual'],
+                        language: 'de'
                     }
                 }, requestAgent);
             }).then(function (res) {
@@ -201,7 +211,7 @@ describe('Integration Tests for adding a blog', function () {
                 should.not.exist(res.body.url);
                 should.not.exist(res.body.urlFull);
                 return db.cypher().match("()-[:WRITTEN]->(b:Blog:PinwallElement {text: 'testBlog1'})")
-                    .return('b.text as text, b.title as title, b.created as created, b.visible as visible, b.topic as topic')
+                    .return('b.text as text, b.title as title, b.created as created, b.visible as visible, b.topic as topic, b.language AS language')
                     .end().send();
             }).then(function (blog) {
                 blog.length.should.equals(1);
@@ -215,6 +225,8 @@ describe('Integration Tests for adding a blog', function () {
                 blog[0].topic.length.should.equals(2);
                 blog[0].topic[0].should.equals('environmental');
                 blog[0].topic[1].should.equals('spiritual');
+                blog[0].language.length.should.equals(1);
+                blog[0].language[0].should.equals('de');
             });
     });
 

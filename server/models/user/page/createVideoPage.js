@@ -10,7 +10,7 @@ var createVideoPage = function (userId, params) {
     params.userId = userId;
     return db.cypher().match("(user:User {userId: {userId}})")
         .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
-        "modified: {created}, created: {created}, topic: {topic}, label: 'Youtube'})")
+        "modified: {created}, created: {created}, topic: {topic}, label: 'Youtube', language: {language}})")
         .end(params)
         .send().then(function () {
             return {pageId: params.pageId};

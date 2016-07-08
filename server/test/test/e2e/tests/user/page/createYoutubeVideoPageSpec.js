@@ -35,7 +35,8 @@ describe('Integration Tests for creating new youtube pages', function () {
                 topic: ['environmental', 'education'],
                 title: 'title',
                 description: 'description',
-                link: 'https://www.youtube.com/embed/Test'
+                link: 'https://www.youtube.com/embed/Test',
+                language: ['en', 'de']
             }
         }, pageId;
 
@@ -47,7 +48,7 @@ describe('Integration Tests for creating new youtube pages', function () {
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, ' +
-                    'page.modified AS modified, page.created AS created, page.label AS label')
+                    'page.modified AS modified, page.created AS created, page.label AS label, page.language AS language')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -61,6 +62,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('environmental');
             page[0].topic[1].should.equals('education');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('en');
+            page[0].language[1].should.equals('de');
         });
     });
 });

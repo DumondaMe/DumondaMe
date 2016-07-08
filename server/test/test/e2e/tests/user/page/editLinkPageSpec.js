@@ -20,13 +20,13 @@ describe('Integration Tests for editing link pages', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title', description: 'description', topic: {topic}, created: 501, modified: 502, pageId: '0'," +
-                "hostname: 'www.test.com', link: 'www.test.com/test'})").end({topic: ['health', 'spiritual']}).getCommand());
+                "hostname: 'www.test.com', link: 'www.test.com/test', language: {language}})").end({topic: ['health', 'spiritual'], language: ['de', 'fr']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Link', title: 'title2', description: 'description2', topic: {topic}, created: 503, modified: 504, pageId: '1'," +
-                "hostname: 'www.test2.com', link: 'www.test2.com/test'})").end({topic: ['health', 'environmental']}).getCommand());
+                "hostname: 'www.test2.com', link: 'www.test2.com/test', language: {language}})").end({topic: ['health', 'environmental'], language: ['de', 'fr']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
@@ -45,7 +45,8 @@ describe('Integration Tests for editing link pages', function () {
             linkPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
-                description: 'description2'
+                description: 'description2',
+                language: ['en', 'es']
             }
         };
         stubCDN.uploadFile.reset();
@@ -56,8 +57,9 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
-                'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
+                .return(`page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, 
+                page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname,
+                page.language AS language`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -76,6 +78,9 @@ describe('Integration Tests for editing link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('socialDevelopment');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('en');
+            page[0].language[1].should.equals('es');
         });
     });
 
@@ -84,7 +89,8 @@ describe('Integration Tests for editing link pages', function () {
             linkPage: {
                 pageId: '1',
                 topic: ['health', 'socialDevelopment'],
-                description: 'description2'
+                description: 'description2',
+                language: ['en', 'es']
             }
         };
         stubCDN.uploadFile.reset();
@@ -95,8 +101,9 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
-                    'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
+                .return(`page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description,
+                    page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname, 
+                    page.language AS language`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -114,6 +121,9 @@ describe('Integration Tests for editing link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('environmental');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('de');
+            page[0].language[1].should.equals('fr');
         });
     });
 
@@ -122,7 +132,8 @@ describe('Integration Tests for editing link pages', function () {
             linkPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
-                description: 'description2'
+                description: 'description2',
+                language: ['en', 'es']
             }
         };
         stubCDN.uploadFile.reset();
@@ -133,7 +144,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, page.language AS language,' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -152,6 +163,9 @@ describe('Integration Tests for editing link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('spiritual');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('de');
+            page[0].language[1].should.equals('fr');
         });
     });
 
@@ -160,7 +174,8 @@ describe('Integration Tests for editing link pages', function () {
             linkPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
-                description: 'description2'
+                description: 'description2',
+                language: ['en', 'es']
             }
         };
         stubCDN.uploadFile.reset();
@@ -171,7 +186,7 @@ describe('Integration Tests for editing link pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, ' +
+                .return('page.pageId AS pageId, page.topic AS topic, page.title AS title, page.description AS description, page.language AS language,' +
                     'page.modified AS modified, page.created AS created, page.label AS label, page.link AS link, page.hostname AS hostname')
                 .end().send();
         }).then(function (page) {
@@ -190,6 +205,9 @@ describe('Integration Tests for editing link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('spiritual');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('de');
+            page[0].language[1].should.equals('fr');
         });
     });
 });

@@ -39,7 +39,8 @@ describe('Integration Tests for creating new link pages', function () {
                 topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
-                link: 'www.example.com/weiter/link'
+                link: 'www.example.com/weiter/link',
+                language: ['en', 'de']
             }
         }, pageId;
 
@@ -53,7 +54,8 @@ describe('Integration Tests for creating new link pages', function () {
             res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
+                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
+                         page.language AS language`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -69,6 +71,9 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('spiritual');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('en');
+            page[0].language[1].should.equals('de');
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/normal.jpg`).should.be.true;
@@ -82,7 +87,8 @@ describe('Integration Tests for creating new link pages', function () {
                 topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
-                link: 'www.example.com/weiter/link'
+                link: 'www.example.com/weiter/link',
+                language: ['en', 'de']
             }
         }, pageId;
 
@@ -95,7 +101,8 @@ describe('Integration Tests for creating new link pages', function () {
             res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage`)
+                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
+                         page.language AS language`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -111,6 +118,9 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('spiritual');
+            page[0].language.length.should.equals(2);
+            page[0].language[0].should.equals('en');
+            page[0].language[1].should.equals('de');
 
             stubCDN.uploadFile.called.should.be.false;
         });
@@ -123,7 +133,8 @@ describe('Integration Tests for creating new link pages', function () {
                 topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
-                link: 'www.example.com/weiter/link'
+                link: 'www.example.com/weiter/link',
+                language: ['en', 'de']
             }
         };
 
@@ -148,7 +159,8 @@ describe('Integration Tests for creating new link pages', function () {
                 topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
-                link: 'www.example.com/weiter/link'
+                link: 'www.example.com/weiter/link',
+                language: ['en', 'de']
             }
         };
 
@@ -173,7 +185,8 @@ describe('Integration Tests for creating new link pages', function () {
                 topic: ['health', 'spiritual'],
                 title: 'title',
                 description: 'description',
-                link: 'https://www.youtube.com/weiter/link'
+                link: 'https://www.youtube.com/weiter/link',
+                language: ['en', 'de']
             }
         };
 

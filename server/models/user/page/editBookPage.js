@@ -16,6 +16,7 @@ var editBookPage = function (userId, params, titlePicturePath, req) {
                 description: params.description,
                 author: params.author,
                 publishDate: params.publishDate,
+                language: [params.language],
                 modified: time.getNowUtcTimestamp()
             })
             .end({pageId: params.pageId})

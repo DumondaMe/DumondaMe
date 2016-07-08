@@ -30,7 +30,7 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
         params.hostname = hostname;
         return db.cypher().match("(user:User {userId: {userId}})")
             .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
-                "modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}})")
+                "modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}, language: {language}})")
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {

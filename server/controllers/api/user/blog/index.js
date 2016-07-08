@@ -7,6 +7,7 @@ var addBlog = require('./../../../../models/user/blog/addBlog');
 var removeBlog = require('./../../../../models/user/blog/removeBlog');
 var controllerErrors = require('./../../../../lib/error/controllerErrors');
 var topic = require("../../../schema/topic");
+var language = require("./../../../schema/language");
 var logger = requireLogger.getLogger(__filename);
 
 var schemaRequestBlog = {
@@ -18,7 +19,7 @@ var schemaRequestBlog = {
         addBlog: {
             type: 'object',
             additionalProperties: false,
-            required: ['title', 'text', 'topic'],
+            required: ['title', 'text', 'topic', 'language'],
             properties: {
                 title: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 80},
                 text: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 10000},
@@ -29,7 +30,8 @@ var schemaRequestBlog = {
                     maxItems: 10,
                     uniqueItems: true
                 },
-                topic: topic.topicMultiple
+                topic: topic.topicMultiple,
+                language: language.language
             }
         }
     }

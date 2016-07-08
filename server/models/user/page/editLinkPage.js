@@ -15,6 +15,7 @@ var editLinkPage = function (userId, params, titlePicturePath, req) {
             .set('page', {
                 topic: params.topic,
                 description: params.description,
+                language: params.language,
                 modified: time.getNowUtcTimestamp()
             })
             .end({pageId: params.pageId}).send();

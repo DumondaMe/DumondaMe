@@ -1,6 +1,7 @@
 'use strict';
 
 var definitions = require("./schemaDefinitions");
+var language = require("../../../../schema/language");
 
 module.exports = {
     name: 'editPage',
@@ -10,33 +11,36 @@ module.exports = {
         bookPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'topic', 'description', 'author'],
+            required: ['pageId', 'topic', 'description', 'author', 'language'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
                 topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'},
                 author: {type: 'string', format: 'notEmptyString', maxLength: 100},
-                publishDate: {type: 'integer'}
+                publishDate: {type: 'integer'},
+                language: language.language
             }
         },
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'topic', 'description'],
+            required: ['pageId', 'topic', 'description', 'language'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
                 topic: {'$ref': '#/definitions/topic'},
-                description: {'$ref': '#/definitions/description'}
+                description: {'$ref': '#/definitions/description'},
+                language: language.languageMultiple
             }
         },
         linkPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'topic', 'description'],
+            required: ['pageId', 'topic', 'description', 'language'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
                 topic: {'$ref': '#/definitions/topic'},
-                description: {'$ref': '#/definitions/description'}
+                description: {'$ref': '#/definitions/description'},
+                language: language.languageMultiple
             }
         }
     },

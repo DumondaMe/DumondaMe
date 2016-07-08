@@ -21,13 +21,13 @@ describe('Integration Tests for editing book pages', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Book', description: 'description', topic: {topic}, created: 501, modified: 502, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000})").end({topic: ['health', 'spiritual']}).getCommand());
+                "author: 'Hans Muster', publishDate: 1000, language: {language}})").end({topic: ['health', 'spiritual'], language: ['de']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
 
             commands.push(db.cypher().create("(:Page {title: 'title', label: 'Book', description: 'description', topic: {topic}, created: 501, modified: 502, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000})").end({topic: ['health', 'spiritual']}).getCommand());
+                "author: 'Hans Muster', publishDate: 1000, language: {language}})").end({topic: ['health', 'spiritual'], language: ['de']}).getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
                 .create("(b)-[:IS_ADMIN]->(a)")
                 .end().getCommand());
@@ -47,7 +47,8 @@ describe('Integration Tests for editing book pages', function () {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
                 description: 'description2',
-                author: 'Hans Muster2'
+                author: 'Hans Muster2',
+                language: 'en'
             }
         };
         stubCDN.uploadFile.reset();
@@ -58,8 +59,9 @@ describe('Integration Tests for editing book pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '0'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.title AS title, page.label AS label')
+                .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.author AS author,
+                         page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.title AS title, 
+                         page.label AS label, page.language AS language`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -79,6 +81,8 @@ describe('Integration Tests for editing book pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('socialDevelopment');
+            page[0].language.length.should.equals(1);
+            page[0].language[0].should.equals('en');
         });
     });
 
@@ -88,7 +92,8 @@ describe('Integration Tests for editing book pages', function () {
                 pageId: '1',
                 topic: ['health', 'socialDevelopment'],
                 description: 'description2',
-                author: 'Hans Muster2'
+                author: 'Hans Muster2',
+                language: 'en'
             }
         };
         stubCDN.uploadFile.reset();
@@ -99,8 +104,9 @@ describe('Integration Tests for editing book pages', function () {
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {pageId: '1'})")
-                .return('page.pageId AS pageId, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.title AS title, page.label AS label')
+                .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.author AS author,
+                page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.title AS title, page.label AS label,
+                page.language AS language`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -118,6 +124,8 @@ describe('Integration Tests for editing book pages', function () {
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
             page[0].topic[1].should.equals('spiritual');
+            page[0].language.length.should.equals(1);
+            page[0].language[0].should.equals('de');
         });
     });
 
@@ -127,7 +135,8 @@ describe('Integration Tests for editing book pages', function () {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
                 description: 'description',
-                author: 'Hans Muster'
+                author: 'Hans Muster',
+                language: 'en'
             }
         };
         stubCDN.uploadFile.reset();
@@ -164,7 +173,8 @@ describe('Integration Tests for editing book pages', function () {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
                 description: 'description',
-                author: 'Hans Muster'
+                author: 'Hans Muster',
+                language: 'en'
             }
         };
         stubCDN.uploadFile.reset();
