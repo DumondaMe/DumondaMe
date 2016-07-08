@@ -12,18 +12,18 @@
         </div>
         <md-dialog-content flex="grow">
             <div class="md-dialog-content ely-dialog-content">
-                <md-input-container>
-                    <md-select ng-model="ctrl.selectedTopics" placeholder="Thema" multiple="true" required
-                               ng-change="ctrl.dataChanged()">
-                        <md-optgroup label="Thema">
-                            <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                        </md-optgroup>
-                    </md-select>
-                </md-input-container>
+                <md-select ng-model="ctrl.selectedTopics" placeholder="Thema" multiple="true" required ng-change="ctrl.dataChanged()">
+                    <md-optgroup label="Thema">
+                        <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                    </md-optgroup>
+                </md-select>
+                <md-select ng-model="ctrl.selectedLanguage" placeholder="Sprache" required ng-change="ctrl.dataChanged()">
+                    <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                </md-select>
                 <md-input-container class="blog-input-container">
                     <label>Titel</label>
                     <input name="blogTitle" class="blog-input" ng-model="ctrl.blogTitle" required md-maxlength="80"
-                              ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"/>
+                           ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"/>
                     <div ng-messages="createBlogForm.blogTitle.$error" ng-show="createBlogForm.blogTitle.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -32,7 +32,7 @@
                 <md-input-container class="blog-input-container">
                     <label>Schreibe einen Beitrag...</label>
                     <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" rows="10"
-                          ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
+                              ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
                     <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>

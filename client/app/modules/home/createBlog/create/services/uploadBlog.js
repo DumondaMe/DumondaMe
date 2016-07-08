@@ -1,7 +1,7 @@
 'use strict';
 
-var getParams = function (CreateBlogVisibility, blogText, blogTitle, selectedTopics) {
-    var params = {addBlog: {text: blogText, title: blogTitle, topic: selectedTopics}}, visibility = [];
+var getParams = function (CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage) {
+    var params = {addBlog: {text: blogText, title: blogTitle, topic: selectedTopics, language: selectedLanguage.code}}, visibility = [];
     if (!CreateBlogVisibility.isPublic()) {
         angular.forEach(CreateBlogVisibility.getPrivacyTypesSelected(), function (type) {
             visibility.push(type.type);
@@ -15,16 +15,17 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
     function (CreateBlogVisibility, CreateBlogCheck, fileUpload, $q) {
 
         var uploadBlogIsRunning = false;
-        this.upload = function (blogText, blogTitle, selectedTopics, blogImage) {
+        this.upload = function (blogText, blogTitle, selectedTopics, selectedLanguage, blogImage) {
             var deferred = $q.defer();
-            if (CreateBlogCheck.isSendBlogAllowed(blogText, blogTitle, selectedTopics, false) && !uploadBlogIsRunning) {
+            if (CreateBlogCheck.isSendBlogAllowed(blogText, blogTitle, selectedTopics, selectedLanguage, false) && !uploadBlogIsRunning) {
                 uploadBlogIsRunning = true;
-                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics), 'api/user/blog')
+                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage), 'api/user/blog')
                     .success(function (resp) {
                         uploadBlogIsRunning = false;
                         resp.isAdmin = true;
                         resp.title = blogTitle;
                         resp.topic = selectedTopics;
+                        resp.language = selectedLanguage;
                         resp.pinwallType = "Blog";
                         resp.isPublic = CreateBlogVisibility.isPublic();
                         deferred.resolve(resp);
