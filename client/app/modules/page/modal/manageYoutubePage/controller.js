@@ -1,18 +1,20 @@
 'use strict';
 
 module.exports = ['ElyModal', 'Topics', 'PageYoutubeLink', 'fileUpload', 'errorToast', 'YoutubePageCreateMessageService', 'UploadPageService',
-    'CheckPageExists', 'RecommendationResponseFormatter',
+    'CheckPageExists', 'RecommendationResponseFormatter', 'Languages',
     function (ElyModal, Topics, PageYoutubeLink, fileUpload, errorToast, YoutubePageCreateMessageService, UploadPageService, CheckPageExists,
-              RecommendationResponseFormatter) {
+              RecommendationResponseFormatter, Languages) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
             ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
             ctrl.dataOnServer = angular.copy(ctrl.data);
         } else {
             ctrl.data = {};
         }
 
+        ctrl.languages = Languages.languages;
         CheckPageExists.reset();
 
         ctrl.topics = Topics.topics;

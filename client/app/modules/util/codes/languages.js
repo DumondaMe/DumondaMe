@@ -6,17 +6,21 @@ var languages = [{description: 'Deutsch', code: 'de'},
     {description: 'Italienisch', code: 'it'},
     {description: 'Spanisch', code: 'es'}];
 
-module.exports = [
-    function () {
+module.exports = ['$log',
+    function ($log) {
         this.languages = languages;
 
-        this.getCode = function (description) {
-            var result = false;
-            angular.forEach(languages, function (language) {
-                if (language.description === description) {
-                    result = language.code;
-                }
-            });
+        this.getCodes = function (languagesToGetCodes) {
+            var result = [];
+            if (angular.isArray(languagesToGetCodes)) {
+                angular.forEach(languagesToGetCodes, function (language) {
+                    if (language.hasOwnProperty('code')) {
+                        result.push(language.code);
+                    } else {
+                        $log.warn('property code does not exit!');
+                    }
+                });
+            }
             return result;
         };
 
@@ -27,6 +31,20 @@ module.exports = [
                     result = language.description;
                 }
             });
+            return result;
+        };
+
+        this.getLanguages = function (codes) {
+            var result = [];
+            if (angular.isArray(codes)) {
+                angular.forEach(codes, function (code) {
+                    angular.forEach(languages, function (language) {
+                        if (language.code === code) {
+                            result.push(language);
+                        }
+                    });
+                });
+            }
             return result;
         };
     }];

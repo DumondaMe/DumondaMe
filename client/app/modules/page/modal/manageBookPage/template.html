@@ -26,6 +26,10 @@
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
                     </md-select>
+                    <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" required class="ely-select-topic"
+                               ng-change="ctrl.changeData()">
+                        <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                    </md-select>
                     <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container" flex>
                             <label>Titel</label>
@@ -85,7 +89,7 @@
                          ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
 
     <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
-                                cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
                             finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>

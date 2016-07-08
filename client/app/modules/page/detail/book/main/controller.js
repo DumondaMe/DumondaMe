@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DeletePageService', 'Topics',
-    function (ElyModal, DeletePageService, Topics) {
+module.exports = ['ElyModal', 'DeletePageService', 'Topics', 'Languages',
+    function (ElyModal, DeletePageService, Topics, Languages) {
         var ctrl = this;
 
         ctrl.modifyPage = function () {
@@ -14,6 +14,7 @@ module.exports = ['ElyModal', 'DeletePageService', 'Topics',
                         author: ctrl.pageDetail.page.author[0].name,
                         publishDate: ctrl.pageDetail.page.publishDate,
                         selectedTopics: ctrl.pageDetail.page.topic,
+                        selectedLanguages: ctrl.pageDetail.page.language,
                         dataUri: ctrl.pageDetail.page.titleUrl
                     },
                     isEditMode: true
@@ -22,6 +23,7 @@ module.exports = ['ElyModal', 'DeletePageService', 'Topics',
                 ctrl.pageDetail.page.author[0].name = data.author;
                 ctrl.pageDetail.page.publishDate = data.publishDate;
                 ctrl.pageDetail.page.topic = Topics.getCodes(data.selectedTopics);
+                ctrl.pageDetail.page.language = Languages.getCodes([data.selectedLanguages]);
                 ctrl.pageDetail.page.titleUrl = data.dataUri;
             });
         };

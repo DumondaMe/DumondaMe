@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
+module.exports = ['DateConverter', 'Topics', 'Languages', function (DateConverter, Topics, Languages) {
 
     this.getCreateLinkPageMessage = function (data) {
         return {
@@ -8,7 +8,8 @@ module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
                 title: data.title,
                 description: data.description,
                 link: data.link,
-                topic: Topics.getCodes(data.selectedTopics)
+                topic: Topics.getCodes(data.selectedTopics),
+                language: Languages.getCodes(data.selectedLanguages)
             }
         };
     };
@@ -18,7 +19,8 @@ module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
             linkPage: {
                 pageId: data.pageId,
                 description: data.description,
-                topic: Topics.getCodes(data.selectedTopics)
+                topic: Topics.getCodes(data.selectedTopics),
+                language: Languages.getCodes(data.selectedLanguages)
             }
         };
     };

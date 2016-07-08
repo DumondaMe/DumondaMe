@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreateMessageService', 'fileUpload', 'moment',
-    'CheckPageExists', 'UploadPageService', 'RecommendationResponseFormatter',
+    'CheckPageExists', 'UploadPageService', 'RecommendationResponseFormatter', 'Languages',
     function (ElyModal, DateFormatCheckService, Topics, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
-              UploadPageService, RecommendationResponseFormatter) {
+              UploadPageService, RecommendationResponseFormatter, Languages) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -11,10 +11,13 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
                 ctrl.data.publishDate = moment.unix(ctrl.data.publishDate).format('l');
             }
             ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages)[0];
             ctrl.dataOnServer = angular.copy(ctrl.data);
         } else {
             ctrl.data = {};
         }
+
+        ctrl.languages = Languages.languages;
 
         CheckPageExists.reset();
 
@@ -85,7 +88,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
             RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Book');
             ElyModal.hide(ctrl.data);
         };
-        
+
         ctrl.recommendationAbort = function () {
             ElyModal.cancel();
         };
