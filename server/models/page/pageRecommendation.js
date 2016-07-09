@@ -117,30 +117,8 @@ var getRecommendationContacts = function (userId, skip, limit, filters) {
         });
 };
 
-var getPopularPages = function (userId, skip, limit, onlyContact, pageType) {
-
-    var startQuery = db.cypher(), matchQuery;
-
-    if (onlyContact) {
-        matchQuery = "(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})";
-    } else {
-        matchQuery = "(page:Page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)";
-    }
-
-    startQuery.match(matchQuery)
-        .where(pageFilter.getFilterQuery([pageType]))
-        .with("page, COUNT(contactRec) AS numberOfRecommendations");
-
-    return pagePreview.pagePreviewQuery({
-        userId: userId,
-        skip: skip,
-        limit: limit
-    }, "numberOfRecommendations DESC", startQuery);
-};
-
 module.exports = {
     getRecommendationContacts: getRecommendationContacts,
     getRecommendationOtherUser: getRecommendationOtherUser,
-    getRecommendationUser: getRecommendationUser,
-    getPopularPages: getPopularPages
+    getRecommendationUser: getRecommendationUser
 };

@@ -7,7 +7,7 @@ var createBlog = function (blogId, language, topic, modified, visible, pictureHe
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:Blog:PinwallElement {text: {text}, title: {title}, modified: {modified}, blogId: {blogId}, 
                                            pictureHeight: {pictureHeight}, topic: {topic}, language: {language}, visible: {visible}})`)
         .end({
-            title: `blogTitle${blogId}`, text: `blogText${blogId}`, topic: topic, modified: modified, blogId: blogId,
+            title: `blog${blogId}Title`, text: `blog${blogId}Text`, topic: topic, modified: modified, blogId: blogId,
             language: language, visible: visible, pictureHeight: pictureHeight
         }).getCommand());
 };
