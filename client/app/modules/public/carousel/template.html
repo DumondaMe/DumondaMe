@@ -1,10 +1,11 @@
 <div id="carousel" md-swipe-up="ctrl.onSwipeUp()" md-swipe-down="ctrl.onSwipeDown()">
+    <div id="login-button" ng-show="ctrl.actualScreen !== 0">
+        <md-button class="md-primary md-raised" ng-click="ctrl.actualScreen = 0">
+            Login
+        </md-button>
+    </div>
     <div id="left-column" layout="column" layout-align="center center">
         <div id="carousel-nav-container">
-            <md-button class="navigation-button md-fab md-mini md-primary" ng-click="ctrl.onSwipeDown()" aria-label="Navigate Up"
-                       ng-disabled="ctrl.actualScreen === 0">
-                <md-icon md-svg-icon="cardActions:arrowUp" class="navigation-icon"></md-icon>
-            </md-button>
             <div class="carousel-nav" ng-click="ctrl.actualScreen = 0" ng-class="{active: ctrl.actualScreen === 0}">
                 <md-tooltip md-direction="right">
                     Login
@@ -12,29 +13,24 @@
             </div>
             <div class="carousel-nav" ng-click="ctrl.actualScreen = 1" ng-class="{active: ctrl.actualScreen === 1}">
                 <md-tooltip md-direction="right">
-                    Übersicht
+                    Um was geht es?
                 </md-tooltip>
             </div>
             <div class="carousel-nav" ng-click="ctrl.actualScreen = 2" ng-class="{active: ctrl.actualScreen === 2}">
                 <md-tooltip md-direction="right">
-                    Modernes Soziales Netzwerk
-                </md-tooltip>
-            </div>
-            <div class="carousel-nav" ng-click="ctrl.actualScreen = 3" ng-class="{active: ctrl.actualScreen === 3}">
-                <md-tooltip md-direction="right">
                     Vision
                 </md-tooltip>
             </div>
-            <md-button class="navigation-button md-fab md-mini md-primary" ng-click="ctrl.onSwipeUp()" aria-label="Navigate Down"
-                       ng-disabled="ctrl.actualScreen >= 3">
-                <md-icon md-svg-icon="cardActions:arrowDown" class="navigation-icon"></md-icon>
-            </md-button>
         </div>
     </div>
     <div id="right-column" layout="column" layout-align="center center">
         <ely-carousel-login ng-show="ctrl.actualScreen === 0"></ely-carousel-login>
         <ely-carousel-meaning ng-show="ctrl.actualScreen === 1"></ely-carousel-meaning>
-        <ely-carousel-technology ng-show="ctrl.actualScreen === 2"></ely-carousel-technology>
-        <ely-carousel-vision ng-show="ctrl.actualScreen === 3"></ely-carousel-vision>
+        <ely-carousel-vision ng-show="ctrl.actualScreen === 2"></ely-carousel-vision>
+    </div>
+    <div id="carouse-nav-bottom-button" layout="row" layout-align="center center" ng-show="ctrl.actualScreen < 2"
+         ng-click="ctrl.onSwipeUp()">
+        <div class="button-description" ng-show="ctrl.actualScreen === 0">Um was geht es?</div>
+        <div class="button-description" ng-show="ctrl.actualScreen === 1">Vision</div>
     </div>
 </div>

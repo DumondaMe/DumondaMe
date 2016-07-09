@@ -11,7 +11,7 @@ module.exports = [function () {
     };
 
     ctrl.onSwipeUp = function () {
-        if (ctrl.actualScreen < 3) {
+        if (ctrl.actualScreen < 2) {
             ctrl.actualScreen++;
         }
     };

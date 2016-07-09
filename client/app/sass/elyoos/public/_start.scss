@@ -31,6 +31,9 @@
     @media screen and (min-width: $gt-xs) {
       width: 176px;
     }
+    @media screen and (min-width: $gt-lg) {
+      width: 220px;
+    }
   }
 }
 

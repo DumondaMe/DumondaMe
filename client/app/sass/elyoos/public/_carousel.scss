@@ -44,10 +44,38 @@
           box-shadow: inset 0 0 0 3px $primary-color;
         }
         .active {
-          background: $primary-color;
+          background: #7986CB;
           box-shadow: none;
           opacity: 1;
         }
+      }
+    }
+    #carouse-nav-bottom-button {
+      position: fixed;
+      cursor: pointer;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #7986CB;
+      box-shadow: inset 0 3px 0 rgba(0,0,0,.1);
+      transition: bottom ease-out .5s;
+      z-index: 2;
+      .button-description {
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+    #carouse-nav-bottom-button.ng-hide {
+      bottom: -45px;
+    }
+    #login-button {
+      position: fixed;
+      top: 8px;
+      right: 16px;
+      @media screen and (min-width: $gt-lg) {
+        right: 128px;
       }
     }
   }

@@ -2580,9 +2580,33 @@ md-toast.md-error-toast-theme {
     #start-screen #carousel #left-column #carousel-nav-container .carousel-nav:hover {
       box-shadow: inset 0 0 0 3px #3F51B5; }
     #start-screen #carousel #left-column #carousel-nav-container .active {
-      background: #3F51B5;
+      background: #7986CB;
       box-shadow: none;
       opacity: 1; }
+  #start-screen #carousel #carouse-nav-bottom-button {
+    position: fixed;
+    cursor: pointer;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: #7986CB;
+    box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.1);
+    transition: bottom ease-out .5s;
+    z-index: 2; }
+    #start-screen #carousel #carouse-nav-bottom-button .button-description {
+      color: white;
+      font-size: 16px;
+      font-weight: 700; }
+  #start-screen #carousel #carouse-nav-bottom-button.ng-hide {
+    bottom: -45px; }
+  #start-screen #carousel #login-button {
+    position: fixed;
+    top: 8px;
+    right: 16px; }
+    @media screen and (min-width: 1920px) {
+      #start-screen #carousel #login-button {
+        right: 128px; } }
 
 #start-screen #carousel #carousel-login {
   height: 100%; }
@@ -2595,7 +2619,8 @@ md-toast.md-error-toast-theme {
     min-height: 100%; }
     #start-screen #carousel #carousel-meaning .meaning-container .meaning-description {
       width: 500px;
-      margin-top: 32px;
+      margin-top: 16px;
+      margin-bottom: 16px;
       padding: 8px 16px;
       border-radius: 4px;
       background-color: #e9f6fe; }
@@ -2603,13 +2628,6 @@ md-toast.md-error-toast-theme {
         font-size: 18px;
         font-weight: 300;
         line-height: 28px; }
-
-#start-screen #carousel #carousel-technology #carousel-technology-container .technology-description {
-  width: 500px;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 28px;
-  margin-bottom: 32px; }
 
 #start-screen #carousel #carousel-vision {
   min-height: 100%;
@@ -2754,6 +2772,9 @@ md-toast.md-error-toast-theme {
     @media screen and (min-width: 600px) {
       #start-screen .ely-logo {
         width: 176px; } }
+    @media screen and (min-width: 1920px) {
+      #start-screen .ely-logo {
+        width: 220px; } }
 
 #start-screen #start-container-desktop {
   height: 100%; }
