@@ -45,7 +45,7 @@ var getPinwallOfUser = function (userId, request) {
         .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
         .send()
         .then(function (resp) {
-            return {pinwall: pinwallElement.getRecommendationElements(resp)};
+            return {pinwall: pinwallElement.getPinwallElements(resp)};
         });
 };
 
@@ -85,7 +85,7 @@ var getPinwallOfDetailUser = function (userId, request) {
         .end({userId: userId, detailUserId: request.userId, skip: request.skip, maxItems: request.maxItems})
         .send()
         .then(function (resp) {
-            return {pinwall: pinwallElement.getRecommendationElements(resp)};
+            return {pinwall: pinwallElement.getPinwallElements(resp)};
         });
 };
 
@@ -170,7 +170,7 @@ var getPinwall = function (userId, request) {
 
             return {
                 contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
-                pinwall: pinwallElement.getRecommendationElements(pinwall.pinwall),
+                pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
                 skipRecommendation: pinwall.skipRecommendation,
                 skipBlog: pinwall.skipBlog
             };
