@@ -1,0 +1,34 @@
+.ely-topics-vertical-color {
+  cursor: pointer;
+  height: 70px;
+  .topic-vertical-line {
+    height: 100%;
+    width: 4px;
+    margin-left: 1px;
+    border-radius: 2px;
+  }
+  .health {
+    background-color: #039BE5;
+  }
+  .environmental {
+    background-color: #43A047;
+  }
+  .spiritual {
+    background-color: #BA68C8;
+  }
+  .personalDevelopment {
+    background-color: #7986CB;
+  }
+  .socialDevelopment {
+    background-color: #009688;
+  }
+  .education {
+    background-color: #A1887F;
+  }
+  .politics {
+    background-color: #F06292;
+  }
+  .economy {
+    background-color: #827717;
+  }
+}

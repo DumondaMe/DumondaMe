@@ -1,4 +1,5 @@
 'use strict';
+var cdn = require('../../util/cdn');
 
 var getRecommendationElement = function (pinwallElement) {
 
@@ -6,11 +7,11 @@ var getRecommendationElement = function (pinwallElement) {
     element.label = 'Link';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
-    element.description = pinwallElement.recommendationElement.description;
-    element.link = pinwallElement.recommendationElement.link;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    element.language = pinwallElement.recommendationElement.language;
     element.topic = pinwallElement.recommendationElement.topic;
+    if (pinwallElement.recommendationElement.hasOwnProperty('heightPreviewImage')) {
+        element.url = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+    }
     return element;
 };
 

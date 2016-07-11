@@ -1,10 +1,33 @@
-<md-card class="ely-recommendation-preview">
-    <ely-recommendation-preview-youtube ng-if="ctrl.recommendation.label === 'Youtube'"
-                                        recommendation="ctrl.recommendation"></ely-recommendation-preview-youtube>
-    <ely-recommendation-preview-book ng-if="ctrl.recommendation.label === 'Book'"
-                                     recommendation="ctrl.recommendation"></ely-recommendation-preview-book>
-    <ely-recommendation-preview-link ng-if="ctrl.recommendation.label === 'Link'"
-                                     recommendation="ctrl.recommendation"></ely-recommendation-preview-link>
-    <ely-recommendation-preview-blog ng-if="ctrl.recommendation.label === 'Blog'"
-                                     recommendation="ctrl.recommendation"></ely-recommendation-preview-blog>
+<md-card class="ely-recommendation-preview" ng-class="{'last-recommendation': ctrl.lastRecommendation}" layout="row">
+    <div class="image-container" flex="none">
+        <img ng-src="{{ctrl.recommendation.url}}" ng-class="{'book': ctrl.recommendation.label === 'Book'}">
+    </div>
+    <div class="info-container" flex>
+        <div class="recommendation-preview-title">{{ctrl.recommendation.title}}</div>
+        <!--<div class="recommendation-type" ng-if="ctrl.recommendation.label === 'Youtube'">Youtube</div>
+        <div class="recommendation-type" ng-if="ctrl.recommendation.label === 'Book'">Buch</div>
+        <div class="recommendation-type" ng-if="ctrl.recommendation.label === 'Link'">Link</div>
+        <div class="recommendation-type" ng-if="ctrl.recommendation.label === 'Blog'">Blog</div>-->
+        <!--<ely-topics-color topics="ctrl.recommendation.topic"></ely-topics-color>-->
+        <div class="number-of-recommendations">
+            <md-icon md-svg-icon="cardActions:thumbUp" class="thumb-up-icon"></md-icon>
+            <span class="number">{{ctrl.recommendation.numberOfRecommendations}}</span>
+        </div>
+        <div class="recommendation-type">
+            <md-icon md-svg-icon="cardActions:book" class="recommendation-type-icon" ng-if="ctrl.recommendation.label === 'Book'">
+                <md-tooltip md-direction="left">Buch</md-tooltip>
+            </md-icon>
+            <md-icon md-svg-icon="cardActions:video" class="recommendation-type-icon" ng-if="ctrl.recommendation.label === 'Youtube'">
+                <md-tooltip md-direction="left">Youtube</md-tooltip>
+            </md-icon>
+            <md-icon md-svg-icon="cardActions:link" class="recommendation-type-icon" ng-if="ctrl.recommendation.label === 'Link'">
+                <md-tooltip md-direction="left">Link</md-tooltip>
+            </md-icon>
+            <md-icon md-svg-icon="cardActions:blog" class="recommendation-type-icon" ng-if="ctrl.recommendation.label === 'Blog'">
+                <md-tooltip md-direction="left">Blog</md-tooltip>
+            </md-icon>
+        </div>
+        <!--<img class="profile-preview" ng-src="{{ctrl.recommendation.profileUrl}}">-->
+    </div>
+    <ely-topics-vertical-color topics="ctrl.recommendation.topic" flex="none"></ely-topics-vertical-color>
 </md-card>

@@ -1,4 +1,5 @@
 <md-content class="ely-recommendation-popular-column">
-    <ely-recommendation-preview recommendation="recommendation"
+    <div class="title-recommendation-popular">{{ctrl.title}}</div>
+    <ely-recommendation-preview recommendation="recommendation" last-recommendation="$last"
                                 ng-repeat="recommendation in ctrl.preview.recommendations"></ely-recommendation-preview>
 </md-content>

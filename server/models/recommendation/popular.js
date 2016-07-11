@@ -6,7 +6,8 @@ var recommendationElements = require('./recommendationElement/recommendationElem
 var getPopularRecommendations = function (userId, params) {
 
     return db.cypher().match("(recommendation:Recommendation)-[:RECOMMENDS]->(recommendationElement)")
-        .return(`COUNT(recommendationElement) AS numberOfRecommendations, MAX(recommendation.created) AS created, recommendationElement, 
+        .optionalMatch("(recommendationElement)<-[:WRITTEN]-(writer)")
+        .return(`COUNT(recommendationElement) AS numberOfRecommendations, MAX(recommendation.created) AS created, recommendationElement, writer,
                  LABELS(recommendationElement) AS pinwallType`)
         .orderBy("numberOfRecommendations DESC, created DESC")
         .skip("{skip}")

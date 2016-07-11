@@ -448,6 +448,31 @@
   .ely-topics-color .economy {
     background-color: #827717; }
 
+.ely-topics-vertical-color {
+  cursor: pointer;
+  height: 70px; }
+  .ely-topics-vertical-color .topic-vertical-line {
+    height: 100%;
+    width: 4px;
+    margin-left: 1px;
+    border-radius: 2px; }
+  .ely-topics-vertical-color .health {
+    background-color: #039BE5; }
+  .ely-topics-vertical-color .environmental {
+    background-color: #43A047; }
+  .ely-topics-vertical-color .spiritual {
+    background-color: #BA68C8; }
+  .ely-topics-vertical-color .personalDevelopment {
+    background-color: #7986CB; }
+  .ely-topics-vertical-color .socialDevelopment {
+    background-color: #009688; }
+  .ely-topics-vertical-color .education {
+    background-color: #A1887F; }
+  .ely-topics-vertical-color .politics {
+    background-color: #F06292; }
+  .ely-topics-vertical-color .economy {
+    background-color: #827717; }
+
 #register-user {
   height: 100%;
   overflow-y: auto; }
@@ -2865,10 +2890,84 @@ md-toast.md-error-toast-theme {
 #ely-recommendation-popular-overview {
   height: 100%;
   background-color: #E0E0E0; }
+  #ely-recommendation-popular-overview .ely-recommendation-popular-column {
+    height: 100%;
+    padding: 0 16px;
+    background-color: #E0E0E0; }
+    #ely-recommendation-popular-overview .ely-recommendation-popular-column .title-recommendation-popular {
+      padding: 16px 0 8px 0;
+      max-width: 320px;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54); }
 
 #ely-recommendation {
   height: 100%;
   background-color: #E0E0E0; }
+
+.ely-recommendation-preview {
+  max-width: 320px;
+  margin: 12px auto; }
+  .ely-recommendation-preview .info-container {
+    position: relative;
+    height: 70px;
+    padding: 8px 8px 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    .ely-recommendation-preview .info-container .recommendation-preview-title {
+      font-size: 14px;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .ely-recommendation-preview .info-container .recommendation-type {
+      position: absolute;
+      bottom: 6px;
+      right: 16px; }
+      .ely-recommendation-preview .info-container .recommendation-type .recommendation-type-icon {
+        height: 18px;
+        width: 18px; }
+    .ely-recommendation-preview .info-container .number-of-recommendations {
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      line-height: 18px;
+      font-size: 12px; }
+      .ely-recommendation-preview .info-container .number-of-recommendations .thumb-up-icon {
+        height: 14px;
+        width: 14px;
+        margin-right: 4px; }
+      .ely-recommendation-preview .info-container .number-of-recommendations .number {
+        position: relative;
+        top: 2px; }
+    .ely-recommendation-preview .info-container .profile-preview {
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      bottom: 8px;
+      right: 0;
+      border-radius: 50%; }
+  .ely-recommendation-preview .image-container {
+    position: relative;
+    margin: 11px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden; }
+    .ely-recommendation-preview .image-container img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+    .ely-recommendation-preview .image-container img.book {
+      height: 170%; }
+
+.ely-recommendation-preview.last-recommendation {
+  border-bottom: none; }
 
 #add-group {
   max-width: 500px; }

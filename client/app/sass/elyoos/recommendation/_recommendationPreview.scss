@@ -1,0 +1,76 @@
+.ely-recommendation-preview {
+  max-width: 320px;
+  margin: 12px auto;
+  .info-container {
+    position: relative;
+    height: 70px;
+    padding: 8px 8px 8px 0;
+    border-bottom: 1px solid $divider;
+    .recommendation-preview-title {
+      font-size: 14px;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .recommendation-type {
+      position: absolute;
+      bottom: 6px;
+      right: 16px;
+      .recommendation-type-icon {
+        height: 18px;
+        width: 18px;
+      }
+    }
+    .number-of-recommendations {
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      line-height: 18px;
+      font-size: 12px;
+      .thumb-up-icon {
+        height: 14px;
+        width: 14px;
+        margin-right: 4px;
+      }
+
+      .number {
+        position: relative;
+        top: 2px;
+      }
+    }
+    .profile-preview {
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      bottom: 8px;
+      right: 0;
+      border-radius: 50%;
+    }
+  }
+  .image-container {
+    position: relative;
+    margin: 11px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    img.book {
+      height: 170%;
+    }
+  }
+}
+
+.ely-recommendation-preview.last-recommendation {
+  border-bottom: none;
+}

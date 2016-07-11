@@ -5,10 +5,8 @@ var getRecommendationElement = function (pinwallElement) {
     element.label = 'Youtube';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
-    element.description = pinwallElement.recommendationElement.description;
     element.link = pinwallElement.recommendationElement.link;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    element.language = pinwallElement.recommendationElement.language;
     element.topic = pinwallElement.recommendationElement.topic;
     return element;
 };

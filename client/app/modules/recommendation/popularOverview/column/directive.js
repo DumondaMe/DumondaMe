@@ -8,7 +8,9 @@ module.exports = {
             scope: {},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            bindToController: true,
+            bindToController: {
+                title: '@'
+            },
             templateUrl: 'app/modules/recommendation/popularOverview/column/template.html'
         };
     }],

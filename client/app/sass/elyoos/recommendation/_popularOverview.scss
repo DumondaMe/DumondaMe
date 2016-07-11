@@ -1,4 +1,17 @@
-#ely-recommendation-popular-overview{
+#ely-recommendation-popular-overview {
   height: 100%;
   background-color: $background-normal;
+  .ely-recommendation-popular-column {
+    height: 100%;
+    padding: 0 16px;
+    background-color: $background-normal;
+    .title-recommendation-popular {
+      padding: 16px 0 8px 0;
+      max-width: 320px;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+  }
 }

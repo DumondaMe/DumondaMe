@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                recommendation: '='
+                recommendation: '=',
+                lastRecommendation: '='
             },
             templateUrl: 'app/modules/recommendation/recommendationPreview/template.html'
         };
