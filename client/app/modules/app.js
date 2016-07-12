@@ -9,12 +9,14 @@ var app = angular.module('elyoosApp', [
     'ngAnimate',
     'ngResource',
     'ngMessages',
-    'ngMaterial'
+    'ngMaterial',
+    'duScroll'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
+require('duScroll');
 
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')

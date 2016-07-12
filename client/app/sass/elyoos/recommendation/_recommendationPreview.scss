@@ -16,7 +16,7 @@
     .recommendation-type {
       position: absolute;
       bottom: 6px;
-      right: 16px;
+      left: 0px;
       .recommendation-type-icon {
         height: 18px;
         width: 18px;
@@ -24,8 +24,8 @@
     }
     .number-of-recommendations {
       position: absolute;
-      bottom: 6px;
-      left: 0;
+      bottom: 7px;
+      left: 32px;
       line-height: 18px;
       font-size: 12px;
       .thumb-up-icon {
@@ -67,6 +67,11 @@
     }
     img.book {
       height: 170%;
+    }
+    .recommendation-type-image-icon {
+      height: 32px;
+      width: 32px;
+      margin: 8px;
     }
   }
 }

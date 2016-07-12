@@ -2,12 +2,6 @@
 
 var cdn = require('../../util/cdn');
 
-var addBlogUrl = function (blog, heightPreviewImage) {
-    if (heightPreviewImage) {
-        blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
-    }
-};
-
 var getRecommendationElement = function (pinwallElement) {
 
     var element = {};

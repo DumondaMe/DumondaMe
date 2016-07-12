@@ -1,17 +1,6 @@
 <div id="ely-contacting-overview">
     <div ely-infinite-scroll="ctrl.nextContacting" class="overview-container">
         <div class="overview-container-inner">
-            <!--<md-card id="overview-text">
-                <md-card-content>
-                    <div class="number-of-contacting">
-                        <span class="number" ng-if="ctrl.users.numberOfAllContactings > 0">{{ctrl.users.numberOfAllContactings}}</span>
-                        <ng-pluralize count="ctrl.users.numberOfAllContactings "
-                                      when="{'0': 'Noch Niemand führt Dich als Kontakt.',
-                                            '1': ' Person führt Dich als Kontakt.',
-                                            'other': ' Personen führen Dich als Kontakt.'}"></ng-pluralize>
-                    </div>
-                </md-card-content>
-            </md-card>-->
             <div layout="row" class="contacting-info">
                 <div class="number-of-contacting-title"><span class="number-of-contacting">{{ctrl.users.numberOfAllContactings}}</span>
                     <ng-pluralize count="ctrl.users.numberOfAllContactings" when="{'1': ' Person führt Dich als Kontakt',

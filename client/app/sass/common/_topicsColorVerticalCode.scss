@@ -1,11 +1,16 @@
 .ely-topics-vertical-color {
   cursor: pointer;
+  padding: 10px 0;
   height: 70px;
-  .topic-vertical-line {
-    height: 100%;
-    width: 4px;
-    margin-left: 1px;
-    border-radius: 2px;
+  width: 16px;
+  margin-right: 4px;
+  .topic-vertical-box {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 4px 3px 0 3px;
+    //margin-left: 1px;
+    //border-radius: 2px;
   }
   .health {
     background-color: #039BE5;
@@ -31,4 +36,8 @@
   .economy {
     background-color: #827717;
   }
+}
+
+.ely-topics-vertical-color.two-columns {
+  width: 32px;
 }

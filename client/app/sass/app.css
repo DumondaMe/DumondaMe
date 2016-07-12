@@ -450,12 +450,15 @@
 
 .ely-topics-vertical-color {
   cursor: pointer;
-  height: 70px; }
-  .ely-topics-vertical-color .topic-vertical-line {
-    height: 100%;
-    width: 4px;
-    margin-left: 1px;
-    border-radius: 2px; }
+  padding: 10px 0;
+  height: 70px;
+  width: 16px;
+  margin-right: 4px; }
+  .ely-topics-vertical-color .topic-vertical-box {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 4px 3px 0 3px; }
   .ely-topics-vertical-color .health {
     background-color: #039BE5; }
   .ely-topics-vertical-color .environmental {
@@ -472,6 +475,9 @@
     background-color: #F06292; }
   .ely-topics-vertical-color .economy {
     background-color: #827717; }
+
+.ely-topics-vertical-color.two-columns {
+  width: 32px; }
 
 #register-user {
   height: 100%;
@@ -2895,12 +2901,39 @@ md-toast.md-error-toast-theme {
     padding: 0 16px;
     background-color: #E0E0E0; }
     #ely-recommendation-popular-overview .ely-recommendation-popular-column .title-recommendation-popular {
-      padding: 16px 0 8px 0;
+      padding: 0 0 8px 0;
       max-width: 320px;
+      width: 100%;
       margin: 0 auto;
       font-size: 18px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.54); }
+    #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+      width: 100%;
+      overflow: hidden;
+      height: 252px; }
+      @media screen and (min-height: 520px) {
+        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+          height: 332px; } }
+      @media screen and (min-height: 600px) {
+        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+          height: 414px; } }
+      @media screen and (min-height: 680px) {
+        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+          height: 496px; } }
+      @media screen and (min-height: 760px) {
+        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+          height: 578px; } }
+      @media screen and (min-height: 840px) {
+        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
+          height: 660px; } }
+      #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container .ely-popular-column-inner-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        padding-right: 17px; }
+    #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-navigation {
+      margin-top: 8px; }
 
 #ely-recommendation {
   height: 100%;
@@ -2923,14 +2956,14 @@ md-toast.md-error-toast-theme {
     .ely-recommendation-preview .info-container .recommendation-type {
       position: absolute;
       bottom: 6px;
-      right: 16px; }
+      left: 0px; }
       .ely-recommendation-preview .info-container .recommendation-type .recommendation-type-icon {
         height: 18px;
         width: 18px; }
     .ely-recommendation-preview .info-container .number-of-recommendations {
       position: absolute;
-      bottom: 6px;
-      left: 0;
+      bottom: 7px;
+      left: 32px;
       line-height: 18px;
       font-size: 12px; }
       .ely-recommendation-preview .info-container .number-of-recommendations .thumb-up-icon {
@@ -2965,6 +2998,10 @@ md-toast.md-error-toast-theme {
       transform: translate(-50%, -50%); }
     .ely-recommendation-preview .image-container img.book {
       height: 170%; }
+    .ely-recommendation-preview .image-container .recommendation-type-image-icon {
+      height: 32px;
+      width: 32px;
+      margin: 8px; }
 
 .ely-recommendation-preview.last-recommendation {
   border-bottom: none; }
