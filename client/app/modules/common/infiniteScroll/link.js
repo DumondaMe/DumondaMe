@@ -21,6 +21,11 @@ module.exports = {
                         }
                     });
                 }
+                if (angular.isFunction(scope.scrollPosition)) {
+                    scope.$apply(function () {
+                        scope.scrollPosition(raw.scrollTop, raw.scrollHeight);
+                    });
+                }
             });
         };
     }

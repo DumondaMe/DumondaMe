@@ -3,10 +3,13 @@
 var link = require('./link.js');
 
 module.exports = {
-    directive: [ function () {
+    directive: [function () {
         return {
             restrict: 'A',
-            scope: {elyInfiniteScroll: '='},
+            scope: {
+                elyInfiniteScroll: '=',
+                scrollPosition: '='
+            },
             link: link.directiveLink()
         };
     }],

@@ -1,13 +1,23 @@
 'use strict';
 
-module.exports = ['PopularRecommendation', '$document',
-    function (PopularRecommendation, $document) {
+module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'PopularRecommendationScrollRequestResponseHandler',
+    function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler) {
         var ctrl = this;
         ctrl.scrollPosition = 0;
         ctrl.maxScrollPos = 2000;
         ctrl.scrollHeight = 0;
-        
-        ctrl.preview = PopularRecommendation.get({skip: 0, maxItems: 25, onlyContact: false, period: 'all'});
+        ctrl.preview = {recommendations: []};
+
+        ScrollRequest.reset('popularRecommendations', PopularRecommendation.get, PopularRecommendationScrollRequestResponseHandler);
+
+        ctrl.nextRecommendationServer = function () {
+            ScrollRequest.nextRequest('popularRecommendations', ctrl.preview.recommendations,
+                {onlyContact: false, period: 'all'}).then(function (preview) {
+                ctrl.preview = preview;
+            });
+        };
+
+        ctrl.nextRecommendationServer();
 
         ctrl.getHeightColumn = function (height) {
             ctrl.scrollHeight = height;

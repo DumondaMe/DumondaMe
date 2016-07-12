@@ -1,7 +1,7 @@
 <md-content class="ely-recommendation-popular-column" layout="column" layout-align="none none" layout-align-gt-sm="center none">
     <div class="title-recommendation-popular">{{ctrl.title}}</div>
     <div class="ely-popular-column-container" ely-height="ctrl.getHeightColumn">
-        <div class="ely-popular-column-inner-container" scroll-position="ctrl.setScrollPosition">
+        <div class="ely-popular-column-inner-container" ely-infinite-scroll="ctrl.nextRecommendationServer" scroll-position="ctrl.setScrollPosition">
             <ely-recommendation-preview recommendation="recommendation"
                                         ng-repeat="recommendation in ctrl.preview.recommendations"></ely-recommendation-preview>
         </div>
@@ -9,7 +9,7 @@
     <div class="ely-popular-navigation" layout="row" layout-align="center center">
         <div>
             <md-button class="md-fab md-mini md-primary" aria-label="Next Recommendations" ng-click="ctrl.nextRecommendations()"
-            ng-disabled="ctrl.scrollPosition >= ctrl.maxScrollPos">
+                       ng-disabled="ctrl.scrollPosition >= ctrl.maxScrollPos">
                 <md-icon md-svg-icon="cardActions:arrowDown"></md-icon>
             </md-button>
         </div>
