@@ -14,7 +14,7 @@ module.exports = {
             profile = tmp.fileSync({postfix: '.jpg'});
         return gm.gm(originalFilePath).thumbAsync(100, 100, preview.name, 93)
             .then(function () {
-                return gm.gm(originalFilePath).thumbAsync(35, 35, thumbnail.name, 95);
+                return gm.gm(originalFilePath).thumbAsync(48, 48, thumbnail.name, 97);
             })
             .then(function () {
                 return gm.gm(originalFilePath).thumbAsync(350, 350, profile.name, 92);

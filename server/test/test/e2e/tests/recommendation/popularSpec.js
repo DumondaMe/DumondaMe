@@ -52,7 +52,7 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[0].label.should.equals('Link');
                 res.body.recommendations[0].pageId.should.equals('4');
                 res.body.recommendations[0].title.should.equals('page4Title');
-                res.body.recommendations[0].url.should.equals('pages/4/preview.jpg');
+                res.body.recommendations[0].url.should.equals('pages/4/thumbnail.jpg');
                 res.body.recommendations[0].numberOfRecommendations.should.equals(4);
                 res.body.recommendations[0].topic.length.should.equals(1);
                 res.body.recommendations[0].topic[0].should.equals('personalDevelopment');
@@ -77,7 +77,7 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[3].pageId.should.equals('2');
                 res.body.recommendations[3].title.should.equals('page2Title');
                 res.body.recommendations[3].numberOfRecommendations.should.equals(2);
-                res.body.recommendations[3].url.should.equals('pages/2/pagePreview.jpg');
+                res.body.recommendations[3].url.should.equals('pages/2/thumbnail.jpg');
                 res.body.recommendations[3].topic.length.should.equals(1);
                 res.body.recommendations[3].topic[0].should.equals('personalDevelopment');
             });

@@ -56,7 +56,7 @@ var security = function (userId, visibility, req) {
 
 var uploadFile = function (filePath, blogId) {
     if (_.isString(filePath)) {
-        return image.uploadImage(filePath,'blog', blogId, 380, 1000);
+        return image.uploadImage(filePath,'blog', blogId, 450, 1000);
     }
     return Promise.resolve(null);
 };

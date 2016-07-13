@@ -2981,6 +2981,7 @@ md-toast.md-error-toast-theme {
       right: 0;
       border-radius: 50%; }
   .ely-recommendation-preview .image-container {
+    cursor: pointer;
     position: relative;
     margin: 11px;
     width: 48px;

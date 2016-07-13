@@ -34,7 +34,7 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {
-            return image.uploadImage(titlePicturePath, 'pages', params.pageId, 380, 1000);
+            return image.uploadImage(titlePicturePath, 'pages', params.pageId, 450, 1000);
         }
     }).then(function (height) {
         if (height) {

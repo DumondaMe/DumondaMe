@@ -9,7 +9,7 @@ var getRecommendationElement = function (pinwallElement) {
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    element.url = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
+    element.url = cdn.getUrl(`pages/${element.pageId}/thumbnail.jpg`);
     element.topic = pinwallElement.recommendationElement.topic;
     return element;
 };

@@ -10,7 +10,7 @@ var getRecommendationElement = function (pinwallElement) {
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.recommendationElement.topic;
     if (pinwallElement.recommendationElement.hasOwnProperty('heightPreviewImage')) {
-        element.url = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+        element.url = cdn.getUrl(`pages/${element.pageId}/thumbnail.jpg`);
     }
     return element;
 };
