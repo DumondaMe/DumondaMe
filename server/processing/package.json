@@ -1,0 +1,12 @@
+{
+  "name": "elyoos-processing",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "4.12.0",
+    "gm": "1.22.0",
+    "aws-sdk": "2.4.6",
+    "tmp": "0.0.28"
+  },
+  "devDependencies": {
+  }
+}
