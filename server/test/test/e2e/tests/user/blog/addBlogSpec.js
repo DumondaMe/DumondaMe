@@ -105,7 +105,7 @@ describe('Integration Tests for adding a blog', function () {
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
                 res.body.urlFull.should.equals('blog/' + res.body.blogId + '/normal.jpg');
-                res.body.heightPreviewImage.should.equals(285);
+                res.body.heightPreviewImage.should.equals(337.5);
 
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
                 stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;

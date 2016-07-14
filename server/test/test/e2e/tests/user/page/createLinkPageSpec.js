@@ -66,7 +66,7 @@ describe('Integration Tests for creating new link pages', function () {
             page[0].title.should.equals("title");
             page[0].link.should.equals("www.example.com/weiter/link");
             page[0].hostname.should.equals("www.example.com");
-            page[0].heightPreviewImage.should.equals(608);
+            page[0].heightPreviewImage.should.equals(720);
 
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
