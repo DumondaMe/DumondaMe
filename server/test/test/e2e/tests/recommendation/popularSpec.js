@@ -18,6 +18,7 @@ describe('Integration Tests for getting popular recommendations', function () {
 
     it('Getting most popular recommendations ever - Return 200', function () {
 
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createContactConnection('1', '2');
         dbDsl.createContactConnection('1', '3');
 

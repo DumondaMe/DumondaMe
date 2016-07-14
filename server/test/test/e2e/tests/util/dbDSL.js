@@ -4,6 +4,7 @@ var contactConnections = require('./dbDSL/contactConnection');
 var recommendation = require('./dbDSL/recommendation');
 var page = require('./dbDSL/page');
 var blog = require('./dbDSL/blog');
+var user = require('./dbDSL/user');
 var dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 var db = require('./db');
 
@@ -31,5 +32,8 @@ module.exports = {
     createBookPage: page.createBookPage,
     createYoutubePage: page.createYoutubePage,
     createLinkPage: page.createLinkPage,
-    createBlog: blog.createBlog
+    createBlog: blog.createBlog,
+    blockUser: user.blockUser,
+    createPrivacy: user.createPrivacy,
+    createPrivacyNoContact: user.createPrivacyNoContact
 };

@@ -9,7 +9,9 @@ describe('Integration Tests for getting popular recommendations filtered by cont
     var requestAgent;
 
     beforeEach(function () {
-        return dbDsl.init(8);
+        return dbDsl.init(8).then(function () {
+            dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        });
     });
 
     afterEach(function () {

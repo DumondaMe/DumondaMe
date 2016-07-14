@@ -10,6 +10,7 @@ describe('Integration Tests for getting popular recommendations filtered by reco
 
     before(function () {
         return dbDsl.init(8).then(function () {
+            dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
             dbDsl.createContactConnection('1', '2');
             dbDsl.createContactConnection('1', '3');
 

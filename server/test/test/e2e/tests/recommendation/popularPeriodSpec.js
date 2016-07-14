@@ -13,6 +13,7 @@ describe('Integration Tests for getting popular recommendations filtered by peri
         return dbDsl.init(8).then(function () {
             startTime = Math.floor(moment.utc().valueOf() / 1000);
             twoWeeks = startTime - 1209600;
+            dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         });
     });
 

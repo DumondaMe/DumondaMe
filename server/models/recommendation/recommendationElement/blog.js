@@ -2,6 +2,15 @@
 
 var cdn = require('../../util/cdn');
 
+var setProfileUrl = function (element, pinwallElement) {
+    var privacy = pinwallElement.privacy || pinwallElement.privacyNoContact;
+    if(privacy.profile && privacy.image && !pinwallElement.writerBlockedUser) {
+        element.url = cdn.getUrl(`profileImage/${pinwallElement.writer.userId}/thumbnail.jpg`);
+    } else {
+        element.url = cdn.getUrl(`profileImage/default/thumbnail.jpg`);
+    }
+};
+
 var getRecommendationElement = function (pinwallElement) {
 
     var element = {};
@@ -10,7 +19,7 @@ var getRecommendationElement = function (pinwallElement) {
     element.title = pinwallElement.recommendationElement.title;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.recommendationElement.topic;
-    element.url = cdn.getUrl(`profileImage/${pinwallElement.writer.userId}/thumbnail.jpg`);
+    setProfileUrl(element, pinwallElement);
     return element;
 };
 
