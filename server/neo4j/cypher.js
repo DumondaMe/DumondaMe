@@ -38,7 +38,10 @@ var Cypher = function (connectionUrl) {
     };
 
     this.where = function (condition) {
-        return this.chainingQuery(condition, ' WHERE ');
+        if (condition && condition.trim() !== '') {
+            return this.chainingQuery(condition, ' WHERE ');
+        }
+        return this;
     };
 
     this.with = function (condition) {

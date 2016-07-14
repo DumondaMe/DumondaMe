@@ -4,12 +4,14 @@ var request = require('request');
 var promise = require('bluebird');
 
 var Cypher = require('./cypher.js').Cypher;
+var helper = require('./helper');
 var connectionUrl;
 
 module.exports = {
     cypher: function () {
         return new Cypher(connectionUrl);
     },
+    concatCommandsWithAnd: helper.concatCommandsWithAnd,
     connect: function (host) {
         connectionUrl = host + '/db/data/transaction/commit';
 

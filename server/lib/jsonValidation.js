@@ -4,6 +4,7 @@ var tv4 = require('tv4');
 var exceptions = require('./error/exceptions');
 var formats = require('tv4-formats');
 var Promise = require('bluebird');
+var _ = require('lodash');
 
 tv4.addFormat(formats);
 
@@ -59,6 +60,8 @@ var convertValues = function (data, requestSchema) {
                 data[key] = parseInt(data[key], 10);
             } else if (requestSchema.properties[key].type === 'boolean') {
                 data[key] = data[key] === 'true';
+            } else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
+                data[key] = [data[key]];
             }
         }
     }

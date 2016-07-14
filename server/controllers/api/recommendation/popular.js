@@ -6,7 +6,7 @@ var auth = require('./../../../lib/auth');
 var controllerErrors = require('./../../../lib/error/controllerErrors');
 var language = require("../../schema/language");
 var topic = require("../../schema/topic");
-var pageType = require("../../schema/pageType");
+var recommendationType = require("../../schema/recommendationType");
 var logger = requireLogger.getLogger(__filename);
 
 var schemaGetPopularRecommendations = {
@@ -18,10 +18,10 @@ var schemaGetPopularRecommendations = {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         onlyContact: {type: 'boolean'},
-        period: {enum: ['all', 'month', 'week']},
+        period: {enum: ['all', 'twoWeeks']},
         language: language.languageMultiple,
         topic: topic.topicMultiple,
-        pageType: pageType.typeMultiple
+        recommendationType: recommendationType.typeMultiple
     }
 };
 
