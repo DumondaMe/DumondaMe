@@ -53,6 +53,8 @@ var copyDefaultImages = function (pageId) {
     return cdn.copyFile('pages/default/pagePreview.jpg', 'pages/' + pageId + '/pagePreview.jpg')
         .then(function () {
             cdn.copyFile('pages/default/pageTitlePicture.jpg', 'pages/' + pageId + '/pageTitlePicture.jpg');
+        }).then(function () {
+            cdn.copyFile('pages/default/thumbnail.jpg', 'pages/' + pageId + '/thumbnail.jpg');
         });
 };
 
