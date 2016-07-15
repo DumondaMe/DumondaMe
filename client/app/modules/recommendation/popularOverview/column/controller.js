@@ -8,7 +8,7 @@ var getScrollElement = function ($document, id) {
 module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'PopularRecommendationScrollRequestResponseHandler',
     'PopularPageRecommendationFilters',
     function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler, PopularPageRecommendationFilters) {
-        var ctrl = this, filters = PopularPageRecommendationFilters.getFilters();
+        var ctrl = this, filters = PopularPageRecommendationFilters.getFilterParams();
         ctrl.scrollTop = 0;
         ctrl.totalScrollHeight = 2000;
         ctrl.scrollHeight = 0;

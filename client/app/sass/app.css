@@ -3030,6 +3030,8 @@ md-toast.md-error-toast-theme {
   #popular-recommendation-sidenav-filter .popular-sidnav-input-container {
     width: 100%;
     margin-bottom: 8px; }
+  #popular-recommendation-sidenav-filter .reset-icon {
+    cursor: pointer; }
 
 #add-group {
   max-width: 500px; }

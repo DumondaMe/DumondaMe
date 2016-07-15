@@ -1,6 +1,6 @@
 'use strict';
 
-var getFilterParams = function (filters, Topics, Languages, RecommendationTypes) {
+var createFilterParams = function (filters, Topics, Languages, RecommendationTypes) {
     var params = {};
     if (filters.hasOwnProperty('onlyContact')) {
         params.onlyContact = filters.onlyContact;
@@ -27,8 +27,12 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
             column[id] = newColumn
         };
 
+        service.getFilterParams = function () {
+            return createFilterParams(filters, Topics, Languages, RecommendationTypes);
+        };
+
         service.getFilters = function () {
-            return getFilterParams(filters, Topics, Languages, RecommendationTypes);
+            return angular.copy(filters);
         };
 
         service.filtersChanged = function (newFilters) {
@@ -36,7 +40,7 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
                 angular.copy(newFilters, filters);
                 for (var property in column) {
                     if (column.hasOwnProperty(property)) {
-                        column[property].filterChanged(getFilterParams(filters, Topics, Languages, RecommendationTypes));
+                        column[property].filterChanged(createFilterParams(filters, Topics, Languages, RecommendationTypes));
                     }
                 }
             }
