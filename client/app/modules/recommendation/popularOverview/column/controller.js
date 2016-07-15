@@ -5,12 +5,14 @@ var getScrollElement = function ($document, id) {
     return angular.element(queryResult);
 };
 
+var heightPreview = 82;
+
 module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'PopularRecommendationScrollRequestResponseHandler',
     'PopularPageRecommendationFilters',
     function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler, PopularPageRecommendationFilters) {
         var ctrl = this, filters = PopularPageRecommendationFilters.getFilterParams();
         ctrl.scrollTop = 0;
-        ctrl.totalScrollHeight = 2000;
+        ctrl.totalScrollHeight = 0;
         ctrl.scrollHeight = 0;
         ctrl.preview = {recommendations: []};
         ctrl.requestRunning = true;
@@ -20,9 +22,14 @@ module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'Popula
 
         ctrl.nextRecommendationServer = function () {
             filters.period = ctrl.period;
+            ctrl.noRecommendationPreview = false;
             ScrollRequest.nextRequest('popularRecommendations' + ctrl.id, ctrl.preview.recommendations, filters).then(function (preview) {
                 ctrl.requestRunning = false;
                 ctrl.preview = preview;
+                ctrl.totalScrollHeight = ctrl.preview.recommendations.length * heightPreview;
+                if(ctrl.preview.recommendations.length === 0) {
+                    ctrl.noRecommendationPreview = true;
+                }
             });
         };
 
@@ -50,6 +57,7 @@ module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'Popula
             filters = newFilters;
             ctrl.preview = {recommendations: []};
             ctrl.requestRunning = true;
+            ctrl.totalScrollHeight = 0;
             getScrollElement($document, ctrl.id).scrollTop(0);
             ctrl.nextRecommendationServer();
         };

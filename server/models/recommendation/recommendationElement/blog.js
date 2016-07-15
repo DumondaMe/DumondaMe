@@ -19,6 +19,7 @@ var getRecommendationElement = function (pinwallElement) {
     element.title = pinwallElement.recommendationElement.title;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.recommendationElement.topic;
+    element.writerName = pinwallElement.writer.name;
     setProfileUrl(element, pinwallElement);
     return element;
 };

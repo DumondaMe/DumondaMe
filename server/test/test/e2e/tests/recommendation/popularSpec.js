@@ -61,6 +61,7 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[1].label.should.equals('Blog');
                 res.body.recommendations[1].blogId.should.equals('1');
                 res.body.recommendations[1].title.should.equals('blog1Title');
+                res.body.recommendations[1].writerName.should.equals('user Meier5');
                 res.body.recommendations[1].url.should.equals('profileImage/5/thumbnail.jpg');
                 res.body.recommendations[1].numberOfRecommendations.should.equals(3);
                 res.body.recommendations[1].topic.length.should.equals(1);

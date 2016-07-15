@@ -24,9 +24,10 @@
     </md-switch>
     <div layout="row">
         <span flex></span>
-        <!--<md-button class="md-icon-button" aria-label="Reset Filters" ng-click="ctrl.resetFilters()">
-            <md-icon md-svg-icon="system:reset"></md-icon>
-        </md-button>-->
-        <md-icon class="reset-icon" md-svg-icon="system:reset" ng-click="ctrl.resetFilters()"></md-icon>
+        <md-icon class="reset-icon" md-svg-icon="system:reset" ng-click="ctrl.resetFilters()">
+            <md-tooltip md-direction="left">
+                Reset Filter
+            </md-tooltip>
+        </md-icon>
     </div>
 </div>

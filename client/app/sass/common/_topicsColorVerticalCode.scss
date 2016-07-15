@@ -4,13 +4,12 @@
   height: 70px;
   width: 16px;
   margin-right: 4px;
+  overflow: hidden;
   .topic-vertical-box {
     display: inline-block;
     width: 10px;
     height: 10px;
     margin: 4px 3px 0 3px;
-    //margin-left: 1px;
-    //border-radius: 2px;
   }
   .health {
     background-color: #039BE5;

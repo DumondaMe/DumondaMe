@@ -453,7 +453,8 @@
   padding: 10px 0;
   height: 70px;
   width: 16px;
-  margin-right: 4px; }
+  margin-right: 4px;
+  overflow: hidden; }
   .ely-topics-vertical-color .topic-vertical-box {
     display: inline-block;
     width: 10px;
@@ -2960,8 +2961,19 @@ md-toast.md-error-toast-theme {
     padding: 8px 8px 8px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
     .ely-recommendation-preview .info-container .recommendation-preview-title {
+      cursor: pointer;
       font-size: 14px;
       font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .ely-recommendation-preview .info-container .recommendation-preview-title:hover {
+      text-decoration: underline; }
+    .ely-recommendation-preview .info-container .recommendation-preview-writer-name {
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.54);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
@@ -3018,6 +3030,14 @@ md-toast.md-error-toast-theme {
 
 .ely-recommendation-preview.last-recommendation {
   border-bottom: none; }
+
+.ely-recommendation-preview-no-result {
+  max-width: 320px;
+  margin: 12px auto;
+  height: 70px;
+  line-height: 70px;
+  font-size: 14px;
+  padding-left: 16px; }
 
 #popular-recommendation-sidenav-filter {
   height: 100%;
@@ -3344,5 +3364,8 @@ body, html {
 
 *::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.08); }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important; }
 
 /*# sourceMappingURL=app.css.map */

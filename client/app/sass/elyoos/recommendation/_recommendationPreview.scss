@@ -7,8 +7,21 @@
     padding: 8px 8px 8px 0;
     border-bottom: 1px solid $divider;
     .recommendation-preview-title {
+      cursor: pointer;
       font-size: 14px;
       font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .recommendation-preview-title:hover {
+      text-decoration: underline;
+    }
+    .recommendation-preview-writer-name {
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 400;
+      color: $secondary-text;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -79,4 +92,13 @@
 
 .ely-recommendation-preview.last-recommendation {
   border-bottom: none;
+}
+
+.ely-recommendation-preview-no-result {
+  max-width: 320px;
+  margin: 12px auto;
+  height: 70px;
+  line-height: 70px;
+  font-size: 14px;
+  padding-left: 16px;
 }

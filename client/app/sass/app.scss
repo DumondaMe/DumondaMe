@@ -102,3 +102,7 @@ body, html {
 *::-webkit-scrollbar-track {
   background: rgba(255,255,255,.08);
 }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

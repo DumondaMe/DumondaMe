@@ -5,6 +5,7 @@
              ely-infinite-scroll="ctrl.nextRecommendationServer" scroll-position="ctrl.setScrollPosition">
             <ely-recommendation-preview recommendation="recommendation"
                                         ng-repeat="recommendation in ctrl.preview.recommendations"></ely-recommendation-preview>
+            <ely-recommendation-preview-no-result ng-show="ctrl.noRecommendationPreview"></ely-recommendation-preview-no-result>
         </div>
         <div class="ely-popular-column-inner-container" ng-show="ctrl.requestRunning">
             <ely-load-screen></ely-load-screen>
