@@ -1,18 +1,27 @@
 'use strict';
 
+var getScrollElement = function ($document, id) {
+    var queryResult = $document[0].querySelector('.ely-popular-column-inner-container' + id);
+    return angular.element(queryResult);
+};
+
 module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'PopularRecommendationScrollRequestResponseHandler',
-    function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler) {
-        var ctrl = this;
-        ctrl.scrollPosition = 0;
-        ctrl.maxScrollPos = 2000;
+    'PopularPageRecommendationFilters',
+    function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler, PopularPageRecommendationFilters) {
+        var ctrl = this, filters = PopularPageRecommendationFilters.getFilters();
+        ctrl.scrollTop = 0;
+        ctrl.totalScrollHeight = 2000;
         ctrl.scrollHeight = 0;
         ctrl.preview = {recommendations: []};
+        ctrl.requestRunning = true;
 
-        ScrollRequest.reset('popularRecommendations', PopularRecommendation.get, PopularRecommendationScrollRequestResponseHandler);
+        PopularPageRecommendationFilters.registerColumn(ctrl.id, this);
+        ScrollRequest.reset('popularRecommendations' + ctrl.id, PopularRecommendation.get, PopularRecommendationScrollRequestResponseHandler);
 
         ctrl.nextRecommendationServer = function () {
-            ScrollRequest.nextRequest('popularRecommendations', ctrl.preview.recommendations,
-                {onlyContact: false, period: 'all'}).then(function (preview) {
+            filters.period = ctrl.period;
+            ScrollRequest.nextRequest('popularRecommendations' + ctrl.id, ctrl.preview.recommendations, filters).then(function (preview) {
+                ctrl.requestRunning = false;
                 ctrl.preview = preview;
             });
         };
@@ -23,18 +32,25 @@ module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'Popula
             ctrl.scrollHeight = height;
         };
 
-        ctrl.setScrollPosition = function (newScrollPosition, maxScrollPos) {
-            ctrl.scrollPosition = newScrollPosition;
-            ctrl.maxScrollPos = maxScrollPos - ctrl.scrollHeight;
+        ctrl.setScrollPosition = function (scrollTop, height) {
+            ctrl.scrollTop = scrollTop;
+            ctrl.totalScrollHeight = height;
         };
 
         ctrl.nextRecommendations = function () {
-            var queryResult = $document[0].querySelector('.ely-popular-column-inner-container');
-            angular.element(queryResult).duScrollTo(0, ctrl.scrollPosition + ctrl.scrollHeight, 400);
+            getScrollElement($document, ctrl.id).duScrollTo(0, ctrl.scrollTop + ctrl.scrollHeight, 400);
         };
 
         ctrl.previousRecommendations = function () {
-            var queryResult = $document[0].querySelector('.ely-popular-column-inner-container');
-            angular.element(queryResult).duScrollTo(0, ctrl.scrollPosition - ctrl.scrollHeight, 400);
+            getScrollElement($document, ctrl.id).duScrollTo(0, ctrl.scrollTop - ctrl.scrollHeight, 400);
+        };
+
+        ctrl.filterChanged = function (newFilters) {
+            ScrollRequest.reset('popularRecommendations' + ctrl.id, PopularRecommendation.get, PopularRecommendationScrollRequestResponseHandler);
+            filters = newFilters;
+            ctrl.preview = {recommendations: []};
+            ctrl.requestRunning = true;
+            getScrollElement($document, ctrl.id).scrollTop(0);
+            ctrl.nextRecommendationServer();
         };
     }];

@@ -1,3 +1,11 @@
 <md-content id="ely-recommendation-popular-overview" layout="row">
-    <ely-recommendation-popular-column flex-gt-sm="50" flex="100" title="Beliebteste Empfehlungen"></ely-recommendation-popular-column>
+    <div id="ely-recommendation-popular-overview-container" layout="row" flex>
+        <ely-recommendation-popular-column flex-gt-sm="50" flex="100" id="1" title="Beliebteste Empfehlungen"
+                                           period="all"></ely-recommendation-popular-column>
+        <ely-recommendation-popular-column flex-gt-sm="50" flex="100" id="2" title="Beliebteste Empfehlungen der letzten 14 Tage"
+                                           period="twoWeeks"></ely-recommendation-popular-column>
+    </div>
+    <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="true">
+        <ely-recommendation-popular-side-nav-filter></ely-recommendation-popular-side-nav-filter>
+    </md-sidenav>
 </md-content>

@@ -9,12 +9,9 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                id: '@',
-                title: '@',
-                period: '@'
             },
-            templateUrl: 'app/modules/recommendation/popularOverview/column/template.html'
+            templateUrl: 'app/modules/recommendation/popularOverview/sideNavFilter/template.html'
         };
     }],
-    name: 'elyRecommendationPopularColumn'
+    name: 'elyRecommendationPopularSideNavFilter'
 };

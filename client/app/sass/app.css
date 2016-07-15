@@ -687,7 +687,7 @@ md-toast.md-error-toast-theme {
 
 #ely-user-detail {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-user-detail .container {
     padding: 0 6px;
     height: 100%;
@@ -702,7 +702,7 @@ md-toast.md-error-toast-theme {
     #ely-user-detail .container-desktop .user-detail-content {
       height: 100%;
       overflow-y: auto;
-      background-color: #E0E0E0; }
+      background-color: #e9ebee; }
     #ely-user-detail .container-desktop .ely-sidenav-right {
       height: 100%;
       width: 220px; }
@@ -774,7 +774,7 @@ md-toast.md-error-toast-theme {
 
 #ely-contact {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-contact .contact-tabs {
     height: 100%; }
     #ely-contact .contact-tabs md-tabs-wrapper {
@@ -786,7 +786,7 @@ md-toast.md-error-toast-theme {
 
 #ely-contacting-overview {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-contacting-overview .overview-container {
     height: 100%;
     overflow-y: auto; }
@@ -819,7 +819,7 @@ md-toast.md-error-toast-theme {
 
 #ely-contact-overview {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-contact-overview .contact-overview-container {
     padding: 16px 8px; }
     #ely-contact-overview .contact-overview-container .contact-info {
@@ -947,7 +947,7 @@ md-toast.md-error-toast-theme {
 
 #ely-user-search-overview {
   height: 100%;
-  background-color: #E0E0E0;
+  background-color: #e9ebee;
   padding: 0 6px; }
   #ely-user-search-overview .search-result-container {
     margin: 0 auto;
@@ -971,7 +971,7 @@ md-toast.md-error-toast-theme {
 
 #ely-answer-detail {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-answer-detail .container {
     margin: 0 auto;
     max-width: 400px; }
@@ -1146,7 +1146,7 @@ md-toast.md-error-toast-theme {
 
 #ely-question-detail {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-question-detail .container {
     margin: 0 auto;
     max-width: 400px; }
@@ -1192,7 +1192,7 @@ md-toast.md-error-toast-theme {
   #ely-question #ely-question-overview {
     height: 100%;
     width: 100%;
-    background-color: #E0E0E0; }
+    background-color: #e9ebee; }
     #ely-question #ely-question-overview .question-overview-container {
       width: 100%;
       height: 100%;
@@ -1308,7 +1308,7 @@ md-toast.md-error-toast-theme {
 
 #ely-home {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-home .pinwall-container {
     height: 100%;
     padding: 0 8px;
@@ -1455,10 +1455,10 @@ md-toast.md-error-toast-theme {
   position: relative; }
   #ely-conversation #ely-conversation-content {
     height: 100%;
-    background-color: #E0E0E0;
+    background-color: #e9ebee;
     padding-top: 48px; }
     #ely-conversation #ely-conversation-content .conversation-container {
-      background-color: #E0E0E0;
+      background-color: #e9ebee;
       height: 100%;
       overflow-y: auto; }
       #ely-conversation #ely-conversation-content .conversation-container .conversation-inner-container {
@@ -1554,7 +1554,7 @@ md-toast.md-error-toast-theme {
 
 #ely-messages {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
 
 .thread {
   width: 100%;
@@ -1947,7 +1947,7 @@ md-toast.md-error-toast-theme {
   padding: 0; }
 
 #ely-page-detail {
-  background-color: #E0E0E0;
+  background-color: #e9ebee;
   height: 100%; }
   #ely-page-detail .page-container {
     margin: 0 auto;
@@ -2159,7 +2159,7 @@ md-toast.md-error-toast-theme {
       margin-bottom: 8px; }
   .page-element-container .page-overview-element-selected {
     border-radius: 3px;
-    background-color: #E0E0E0; }
+    background-color: #e9ebee; }
 
 .ely-page-overview-book .page-image-preview {
   float: left;
@@ -2895,49 +2895,61 @@ md-toast.md-error-toast-theme {
 
 #ely-recommendation-popular-overview {
   height: 100%;
-  background-color: #E0E0E0; }
-  #ely-recommendation-popular-overview .ely-recommendation-popular-column {
+  background-color: #e9ebee; }
+  #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container {
     height: 100%;
-    padding: 0 16px;
-    background-color: #E0E0E0; }
-    #ely-recommendation-popular-overview .ely-recommendation-popular-column .title-recommendation-popular {
-      padding: 0 0 8px 0;
-      max-width: 320px;
-      width: 100%;
-      margin: 0 auto;
-      font-size: 18px;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.54); }
-    #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-      width: 100%;
-      overflow: hidden;
-      height: 252px; }
-      @media screen and (min-height: 520px) {
-        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-          height: 332px; } }
-      @media screen and (min-height: 600px) {
-        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-          height: 414px; } }
-      @media screen and (min-height: 680px) {
-        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-          height: 496px; } }
-      @media screen and (min-height: 760px) {
-        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-          height: 578px; } }
-      @media screen and (min-height: 840px) {
-        #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container {
-          height: 660px; } }
-      #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-column-container .ely-popular-column-inner-container {
+    background-color: #e9ebee;
+    max-width: 950px;
+    margin: 0 auto; }
+    #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column {
+      height: 100%;
+      padding: 0 16px;
+      background-color: #e9ebee; }
+      #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .title-recommendation-popular {
+        padding: 0 0 8px 0;
+        height: 44px;
+        max-width: 320px;
         width: 100%;
-        height: 100%;
-        overflow-y: scroll;
-        padding-right: 17px; }
-    #ely-recommendation-popular-overview .ely-recommendation-popular-column .ely-popular-navigation {
-      margin-top: 8px; }
+        margin: 0 auto;
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54); }
+      #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+        width: 100%;
+        overflow: hidden;
+        height: 252px; }
+        @media screen and (min-height: 520px) {
+          #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+            height: 332px; } }
+        @media screen and (min-height: 600px) {
+          #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+            height: 414px; } }
+        @media screen and (min-height: 680px) {
+          #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+            height: 496px; } }
+        @media screen and (min-height: 760px) {
+          #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+            height: 578px; } }
+        @media screen and (min-height: 840px) {
+          #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container {
+            height: 660px; } }
+        #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-column-container .ely-popular-column-inner-container {
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+          padding-right: 17px; }
+      #ely-recommendation-popular-overview #ely-recommendation-popular-overview-container .ely-recommendation-popular-column .ely-popular-navigation {
+        margin-top: 8px; }
+  #ely-recommendation-popular-overview .ely-sidenav-right {
+    height: 100%;
+    width: 200px; }
+    @media screen and (min-width: 1440px) {
+      #ely-recommendation-popular-overview .ely-sidenav-right {
+        width: 250px; } }
 
 #ely-recommendation {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
 
 .ely-recommendation-preview {
   max-width: 320px;
@@ -3006,6 +3018,18 @@ md-toast.md-error-toast-theme {
 
 .ely-recommendation-preview.last-recommendation {
   border-bottom: none; }
+
+#popular-recommendation-sidenav-filter {
+  height: 100%;
+  padding: 48px 16px; }
+  #popular-recommendation-sidenav-filter .popular-filter-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    padding-left: 4px; }
+  #popular-recommendation-sidenav-filter .popular-sidnav-input-container {
+    width: 100%;
+    margin-bottom: 8px; }
 
 #add-group {
   max-width: 500px; }
@@ -3151,7 +3175,7 @@ md-toast.md-error-toast-theme {
 
 #ely-setting-profile {
   height: 100%;
-  background-color: #E0E0E0; }
+  background-color: #e9ebee; }
   #ely-setting-profile .container {
     height: 100%;
     overflow-y: auto; }
@@ -3255,7 +3279,7 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.87); }
 
 body, html {
-  background-color: #E0E0E0;
+  background-color: #e9ebee;
   height: 100%; }
 
 .viewport {

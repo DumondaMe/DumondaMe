@@ -1,0 +1,25 @@
+<div id="popular-recommendation-sidenav-filter">
+    <div class="popular-filter-title">Filter Einstellungen</div>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Thema</label>
+        <md-select ng-model="ctrl.filters.selectedTopics" multiple="true" md-on-close="ctrl.dataChanged()">
+            <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Sprache</label>
+        <md-select ng-model="ctrl.filters.selectedLanguages" multiple="true" md-on-close="ctrl.dataChanged()">
+            <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Type</label>
+        <md-select ng-model="ctrl.filters.selectedRecommendationTypes" multiple="true" md-on-close="ctrl.dataChanged()">
+            <md-option ng-value="recommendationType" ng-repeat="recommendationType in ctrl.recommendationTypes">{{ recommendationType.description }}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-switch ng-model="ctrl.filters.onlyContact" aria-label="Filter only Contacts" ng-change="ctrl.dataChanged()">
+        Nur Kontakte
+    </md-switch>
+</div>

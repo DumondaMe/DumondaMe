@@ -7,6 +7,11 @@ module.exports = {
             var raw = elm[0];
 
             elm.bind('scroll', function () {
+                if (angular.isFunction(scope.scrollPosition)) {
+                    scope.$apply(function () {
+                        scope.scrollPosition(raw.scrollTop, raw.scrollHeight);
+                    });
+                }
                 if ((raw.scrollTop * 1.2 ) + raw.offsetHeight >= raw.scrollHeight &&
                     (angular.isArray(scope.elyInfiniteScroll) || angular.isFunction(scope.elyInfiniteScroll))) {
                     return scope.$apply(function () {
@@ -19,11 +24,6 @@ module.exports = {
                                 }
                             });
                         }
-                    });
-                }
-                if (angular.isFunction(scope.scrollPosition)) {
-                    scope.$apply(function () {
-                        scope.scrollPosition(raw.scrollTop, raw.scrollHeight);
                     });
                 }
             });

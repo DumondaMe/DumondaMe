@@ -22,6 +22,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                 'content@': {
                     template: '<ely-recommendation></ely-recommendation>'
                 }
-            }
+            },
+            data: {title: 'Empfehlungen'}
         });
 }]);
