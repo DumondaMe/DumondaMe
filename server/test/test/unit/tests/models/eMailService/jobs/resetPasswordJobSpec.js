@@ -29,7 +29,7 @@ describe('Unit Test eMailService/jobs/resetPasswordJob', function () {
         return db.cypher().create(`(:User {email: 'test@gmx.ch', userId: '1', resetPasswordLinkId: '${linkId}'})`)
             .end().send().then(function () {
                 return testee.processDefinition({email: 'test@gmx.ch', linkId: linkId}, finished).then(function () {
-                    expect(sendEMail.withArgs('resetPassword', {link: `https://www.elyoos/password/reset/${linkId}`, }, 'test@gmx.ch').calledOnce).to.be.true;
+                    expect(sendEMail.withArgs('resetPassword', {link: `https://www.elyoos.com/password/reset/${linkId}`, }, 'test@gmx.ch').calledOnce).to.be.true;
                     expect(finished.calledOnce).to.be.true;
                 });
             });
