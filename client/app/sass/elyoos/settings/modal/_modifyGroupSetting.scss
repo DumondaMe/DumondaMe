@@ -3,15 +3,21 @@
   padding: 0 24px;
   .ely-dialog-content {
     padding-bottom: 0;
-    .title {
-      font-size: 18px;
-      margin-bottom: 32px;
+    .ely-dialog-title {
       .group {
         color: $primary-color;
       }
     }
-    .select-privacy {
+    .privacy-divider {
+      margin-bottom: 32px;
+    }
+    .privacy-element-description {
+      font-size: 14px;
+      color: $secondary-text;
       margin-bottom: 24px;
+    }
+    .select-privacy {
+      margin-bottom: 12px;
     }
   }
 }

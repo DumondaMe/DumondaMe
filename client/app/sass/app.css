@@ -3153,13 +3153,19 @@ md-toast.md-error-toast-theme {
   padding: 0 24px; }
   #modify-group-setting .ely-dialog-content {
     padding-bottom: 0; }
-    #modify-group-setting .ely-dialog-content .title {
+    #modify-group-setting .ely-dialog-content .ely-dialog-title {
       font-size: 18px;
       margin-bottom: 32px; }
-      #modify-group-setting .ely-dialog-content .title .group {
+      #modify-group-setting .ely-dialog-content .ely-dialog-title .group {
         color: #3F51B5; }
-    #modify-group-setting .ely-dialog-content .select-privacy {
+    #modify-group-setting .ely-dialog-content .privacy-divider {
+      margin-bottom: 32px; }
+    #modify-group-setting .ely-dialog-content .privacy-element-description {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
       margin-bottom: 24px; }
+    #modify-group-setting .ely-dialog-content .select-privacy {
+      margin-bottom: 12px; }
 
 #modify-group-setting-dialog {
   max-width: 500px; }

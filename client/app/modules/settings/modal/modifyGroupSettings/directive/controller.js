@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['Privacy', 'ElyModal', 'errorToast', 'ModifyGroupNameService', 'ModifyGroupMessageService',
-    function (Privacy, ElyModal, errorToast, ModifyGroupNameService, ModifyGroupMessageService) {
+module.exports = ['Privacy', 'ElyModal', 'errorToast', 'ModifyGroupNameService', 'ModifyGroupMessageService', 'ProfileVisibleHandlerService',
+    function (Privacy, ElyModal, errorToast, ModifyGroupNameService, ModifyGroupMessageService, ProfileVisibleHandlerService) {
         var ctrl = this;
         ctrl.uploadStarted = false;
         ctrl.uploadAllowed = false;
@@ -13,7 +13,13 @@ module.exports = ['Privacy', 'ElyModal', 'errorToast', 'ModifyGroupNameService',
             ctrl.abort();
         };
 
+        ctrl.selectProfileVisibleChanged = function () {
+            ProfileVisibleHandlerService.setProfileVisibleChanged(ctrl.setting);
+            ctrl.uploadAllowed = ModifyGroupNameService.settingHasChanged(ctrl.setting);
+        };
+
         ctrl.selectChanged = function () {
+            ProfileVisibleHandlerService.setProfileChanged(ctrl.setting);
             ctrl.uploadAllowed = ModifyGroupNameService.settingHasChanged(ctrl.setting);
         };
 

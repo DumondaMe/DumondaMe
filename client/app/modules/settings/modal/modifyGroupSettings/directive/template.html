@@ -2,45 +2,77 @@
     <form name="ctrl.modifyGroupForm">
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div class="md-title ely-dialog-title" ng-if="ctrl.setting.type">Gruppe <span class="group">{{ctrl.setting.type}}</span> bearbeiten</div>
-            <div class="md-title ely-dialog-title" ng-if="!ctrl.setting.type">Privatspähren Einstellung für Personen denen Du nicht folgst</div>
+            <div class="md-title ely-dialog-title" ng-if="!ctrl.setting.type">Privatspähren Einstellung für Personen die Du nicht zu deinen Kontakten
+                hinzugefügt hast
+            </div>
             <div>
                 <md-checkbox ng-model="ctrl.setting.profileVisible" aria-label="Profile visible" class="select-privacy"
-                             ng-change="ctrl.selectChanged()"
+                             ng-change="ctrl.selectProfileVisibleChanged()"
                              ng-disabled="ctrl.uploadStarted">
-                    Mein Profil ist sichtbar
+                    <span ng-show="ctrl.setting.profileVisible">Profil ist sichtbar</span>
+                    <span ng-show="!ctrl.setting.profileVisible">Profil wird verborgen</span>
                 </md-checkbox>
+                <div class="privacy-element-description" ng-show="!ctrl.setting.profileVisible">Es wird nur noch Dein Name angezeigt.
+                </div>
             </div>
+            <md-divider class="privacy-divider"></md-divider>
             <div>
                 <md-checkbox ng-model="ctrl.setting.contactsVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
                              ng-change="ctrl.selectChanged()"
                              aria-label="Contacts visible"
                              class="select-privacy">
-                    Wem ich folge ist sichtbar
+                    <span ng-show="ctrl.setting.contactsVisible">Kontakte sind sichtbar</span>
+                    <span ng-show="!ctrl.setting.contactsVisible">Kontakte werden verborgen</span>
                 </md-checkbox>
+                <div class="privacy-element-description" ng-show="ctrl.setting.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt ist
+                    sichtbar.
+                </div>
+                <div class="privacy-element-description" ng-show="!ctrl.setting.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt wird
+                    nicht angezeigt.
+                </div>
             </div>
             <div>
                 <md-checkbox ng-model="ctrl.setting.imageVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
                              ng-change="ctrl.selectChanged()"
                              aria-label="Image visible"
                              class="select-privacy">
-                    Mein Profilbild ist sichtbar
+                    <span ng-show="ctrl.setting.imageVisible">Profilbild ist sichtbar</span>
+                    <span ng-show="!ctrl.setting.imageVisible">Profilbild wird verborgen</span>
                 </md-checkbox>
+                <div class="privacy-element-description" ng-show="ctrl.setting.imageVisible">Deine Profilbild ist sichtbar.
+                </div>
+                <div class="privacy-element-description" ng-show="!ctrl.setting.imageVisible">Es wird nur ein Standartbild angezeigt.
+                </div>
             </div>
             <div>
                 <md-checkbox ng-model="ctrl.setting.profileDataVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
                              ng-change="ctrl.selectChanged()"
                              aria-label="Profile Data visible"
                              class="select-privacy">
-                    Meine Profildaten sind sichtbar
+                    <span ng-show="ctrl.setting.profileDataVisible">Profildaten sind sichtbar</span>
+                    <span ng-show="!ctrl.setting.profileDataVisible">Profildaten werden verborgen</span>
                 </md-checkbox>
+                <div class="privacy-element-description" ng-show="ctrl.setting.profileDataVisible">Deine Profildaten wie Geburtstag, Wohnort usw.
+                    werden angezeigt.
+                </div>
+                <div class="privacy-element-description" ng-show="!ctrl.setting.profileDataVisible">Deine Profildaten wie Geburtstag, Wohnort usw.
+                    werden nicht angezeigt.
+                </div>
             </div>
             <div>
                 <md-checkbox ng-model="ctrl.setting.pinwallVisible" ng-disabled="!ctrl.setting.profileVisible || ctrl.uploadStarted"
                              ng-change="ctrl.selectChanged()"
                              aria-label="Profile Data visible"
                              class="select-privacy">
-                    Meine Pinwand ist sichtbar
+                    <span ng-show="ctrl.setting.pinwallVisible">Bewertungen werden angezeigt</span>
+                    <span ng-show="!ctrl.setting.pinwallVisible">Bewertungen werden verborgen</span>
                 </md-checkbox>
+                <div class="privacy-element-description" ng-show="ctrl.setting.pinwallVisible">Deine Bewertungen von Blogs, Videos, Büchern usw. wird
+                    angezeigt.
+                </div>
+                <div class="privacy-element-description" ng-show="!ctrl.setting.pinwallVisible">Deine Bewertungen von Blogs, Videos, Büchern usw. wird
+                    nicht angezeigt.
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>

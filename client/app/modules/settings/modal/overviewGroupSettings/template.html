@@ -2,9 +2,9 @@
     <md-dialog-content class="md-dialog-content ely-dialog-content" ng-if="!ctrl.editMode">
         <div class="md-title ely-dialog-title">Privatsphären Übersicht</div>
         <div class="privacy-description">Hier kannst Du bestimmen, wer was von Deinem Profil sehen kann.</div>
-        <ely-settings-privacy-group title="Personen denen Du nicht folgst" group="ctrl.settings.noContact"
+        <ely-settings-privacy-group title="Personen die Du nicht zu Deinen Kontakten hinzugefügt hast" group="ctrl.settings.noContact"
                                     open-edit="ctrl.openEdit"></ely-settings-privacy-group>
-        <ely-settings-privacy-group title="Personen die der Gruppe {{group.type}} angehören" group="group" open-edit="ctrl.openEdit"
+        <ely-settings-privacy-group title="Kontakte die der Gruppe {{group.type}} angehören" group="group" open-edit="ctrl.openEdit"
                                     ng-repeat="group in ctrl.settings.normal"></ely-settings-privacy-group>
     </md-dialog-content>
     <md-dialog-actions ng-if="!ctrl.editMode">
