@@ -4,10 +4,16 @@
         <md-button class="md-primary" ng-click="ctrl.uploadProfileImage()">Bild ändern</md-button>
     </div>
     <div class="contact-statistic" ng-click="ctrl.goToContacting()">
-        <span ng-if="ctrl.profile.numberOfContacting > 0" class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
+        <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
+        <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+        <md-icon md-svg-icon="tabs:person" class="icon ely-tab-icon"></md-icon>
+
+        <span class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
+        <md-tooltip md-direction="bottom">Haben Dich als Kontakt</md-tooltip>
+        <!--<span ng-if="ctrl.profile.numberOfContacting > 0" class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
         <ng-pluralize count="ctrl.profile.numberOfContacting"
                       when="{'0': 'Noch Niemand folgt Dir',
                                     '1': ' Person folgt Dir',
-                                    'other': ' Personen folgen Dir'}"></ng-pluralize>
+                                    'other': ' Personen folgen Dir'}"></ng-pluralize>-->
     </div>
 </div>

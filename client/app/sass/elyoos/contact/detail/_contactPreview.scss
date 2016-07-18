@@ -17,6 +17,9 @@
       margin-right: 8px;
       color: $primary-text;
       .number-contact {
+        position: relative;
+        top: 2px;
+        left: 4px;
         color: $primary-color;
       }
     }

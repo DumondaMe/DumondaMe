@@ -652,6 +652,9 @@ md-toast.md-error-toast-theme {
       margin-right: 8px;
       color: rgba(0, 0, 0, 0.87); }
       #ely-user-detail-contact-preview .header .title .number-contact {
+        position: relative;
+        top: 2px;
+        left: 4px;
         color: #3F51B5; }
     #ely-user-detail-contact-preview .header .title:hover {
       text-decoration: underline; }
@@ -741,6 +744,7 @@ md-toast.md-error-toast-theme {
     width: 100%;
     padding: 0 16px; }
     #ely-user-detail-profile-sidenav .header .name-container .name {
+      text-align: center;
       word-wrap: break-word;
       white-space: pre-line;
       font-size: 18px;
@@ -2965,7 +2969,7 @@ md-toast.md-error-toast-theme {
     @media screen and (min-height: 1080px) {
       .ely-recommendation-popular-column .ely-popular-column-container {
         height: 906px; } }
-    @media screen and (min-height: 1180px) {
+    @media screen and (min-height: 1160px) {
       .ely-recommendation-popular-column .ely-popular-column-container {
         height: 988px; } }
     .ely-recommendation-popular-column .ely-popular-column-container .ely-popular-column-inner-container {
@@ -3271,6 +3275,10 @@ md-toast.md-error-toast-theme {
   cursor: pointer;
   font-size: 16px; }
   .ely-setting-profile-image .contact-statistic .number-of-contacting {
+    position: relative;
+    font-weight: 500;
+    top: 1px;
+    left: 4px;
     color: #3F51B5; }
 
 #setting-user-pinwall {
