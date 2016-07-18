@@ -3,6 +3,7 @@
   width: 100%;
   margin: 8px 0;
   .card-title {
+    cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 24px;
@@ -24,6 +25,7 @@
     }
   }
   .number-of-contacting {
+    cursor: pointer;
     margin-top: 24px;
     .number {
       font-weight: 500;

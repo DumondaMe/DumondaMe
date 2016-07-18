@@ -1,7 +1,11 @@
 <md-card id="ely-pinwall-contacting" ng-show="ctrl.typesExists">
     <md-card-content>
-        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting === 1">Person die Dich kürzlich als Kontakt hinzufügte:</div>
-        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting > 1">Personen die Dich kürzlich als Kontakt hinzufügten:</div>
+        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting === 1" ng-click="ctrl.goToContacting()">Person die Dich kürzlich als Kontakt
+            hinzufügte:
+        </div>
+        <div class="card-title" ng-if="ctrl.contacting.numberOfContacting > 1" ng-click="ctrl.goToContacting()">Personen die Dich kürzlich als Kontakt
+            hinzufügten:
+        </div>
         <div class="contacting-user" ng-repeat="user in ctrl.contacting.users" layout="row">
             <img ng-src="{{user.profileUrl}}" class="profile-image" ng-click="ctrl.goToContacting()">
             <div class="user-name" ng-click="ctrl.goToContacting()">{{user.name}}</div>
@@ -12,7 +16,7 @@
                 <md-tooltip md-direction="left">Zu Deinen Kontakten hinzufügen</md-tooltip>
             </md-button>
         </div>
-        <div class="number-of-contacting" ng-if="ctrl.contacting.numberOfContacting > 3">
+        <div class="number-of-contacting" ng-if="ctrl.contacting.numberOfContacting > 3" ng-click="ctrl.goToContacting()">
             + <span class="number">{{ctrl.contacting.numberOfContacting - 3}}</span> weitere Personen
         </div>
     </md-card-content>

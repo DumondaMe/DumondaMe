@@ -2344,6 +2344,7 @@ md-toast.md-error-toast-theme {
   width: 100%;
   margin: 8px 0; }
   #ely-pinwall-contacting .card-title {
+    cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 24px; }
@@ -2361,6 +2362,7 @@ md-toast.md-error-toast-theme {
       font-weight: 500;
       cursor: pointer; }
   #ely-pinwall-contacting .number-of-contacting {
+    cursor: pointer;
     margin-top: 24px;
     font-size: 14px;
     font-weight: 500; }
