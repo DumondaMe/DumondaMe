@@ -48,6 +48,9 @@ describe('Integration Tests for getting home screen information for a user', fun
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
             .end({contactAdded: startTime - 1000}).getCommand());
+        commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '1'})")
+            .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
+            .end({contactAdded: startTime - 1000}).getCommand());
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: {contactAdded}}]->(a)")
             .end({contactAdded: startTime - 604500}).getCommand());
@@ -98,16 +101,19 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.contacting.users[0].name.should.equals('user Meier2');
                 res.body.contacting.users[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.contacting.users[0].contactAdded.should.equals(startTime - 1000);
+                res.body.contacting.users[0].contactOfUser.should.equals(true);
 
                 res.body.contacting.users[1].userId.should.equals('3');
                 res.body.contacting.users[1].name.should.equals('user Meier3');
                 res.body.contacting.users[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                 res.body.contacting.users[1].contactAdded.should.equals(startTime - 604500);
+                res.body.contacting.users[1].contactOfUser.should.equals(false);
 
                 res.body.contacting.users[2].userId.should.equals('4');
                 res.body.contacting.users[2].name.should.equals('user Meier4');
                 res.body.contacting.users[2].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
                 res.body.contacting.users[2].contactAdded.should.equals(startTime - 604600);
+                res.body.contacting.users[2].contactOfUser.should.equals(false);
 
                 res.body.contacting.numberOfContacting.should.equals(4);
             });

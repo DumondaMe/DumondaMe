@@ -2,24 +2,25 @@
   @include cardElement();
   width: 100%;
   margin: 8px 0;
-  cursor: pointer;
   .card-title {
     font-size: 14px;
-    font-weight: 400;
-    margin-bottom: 12px;
+    font-weight: 500;
+    margin-bottom: 24px;
   }
   .contacting-user {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     .profile-image {
       height: 40px;
       width: 40px;
       border-radius: 50%;
+      cursor: pointer;
     }
     .user-name {
       margin-left: 12px;
       line-height: 40px;
       font-size: 16px;
       font-weight: 500;
+      cursor: pointer;
     }
   }
   .number-of-contacting {

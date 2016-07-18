@@ -22,7 +22,6 @@ var addCountToNewStatistic = function (elements, oldStatisticCount, newStatistic
 
 module.exports = [
     function () {
-
         var statistic, service = this;
 
         service.setStatistic = function (newStatistic) {

@@ -6,15 +6,12 @@ var pinwallElement = require('./pinwallElement/pinwallElement');
 var pinwallSelector = require('./pinwallSelector');
 
 var getContacting = function (userId) {
-    return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
-        .where("relContacting.contactAdded >= user.previousLastLogin")
-        .with("contacting, relContacting, user")
-        .match("(contacting)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
-        .optionalMatch("(user)<-[rContact:IS_CONTACT]-(contacting)")
-        .with("contacting, relContacting, rContact, v, vr")
-        .where("(rContact IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (rContact.type = vr.type AND type(vr) = 'HAS_PRIVACY')")
-        .return("contacting.userId AS userId, contacting.name AS name, relContacting.contactAdded AS contactAdded, " +
-            "v.profile AS profileVisible, v.image AS imageVisible")
+    return db.cypher().match(`(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)
+                               -[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)`)
+        .where(`relContacting.contactAdded >= user.previousLastLogin AND 
+               ((relContacting IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (relContacting.type = vr.type AND type(vr) = 'HAS_PRIVACY'))`)
+        .return(`contacting.userId AS userId, contacting.name AS name, relContacting.contactAdded AS contactAdded,
+                 EXISTS((user)-[:IS_CONTACT]->(contacting)) AS contactOfUser, v.profile AS profileVisible, v.image AS imageVisible`)
         .orderBy("contactAdded DESC")
         .limit("3")
         .end({userId: userId});

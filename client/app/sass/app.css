@@ -2342,23 +2342,24 @@ md-toast.md-error-toast-theme {
   max-width: 450px;
   min-width: 280px;
   width: 100%;
-  margin: 8px 0;
-  cursor: pointer; }
+  margin: 8px 0; }
   #ely-pinwall-contacting .card-title {
     font-size: 14px;
-    font-weight: 400;
-    margin-bottom: 12px; }
+    font-weight: 500;
+    margin-bottom: 24px; }
   #ely-pinwall-contacting .contacting-user {
-    margin-bottom: 8px; }
+    margin-bottom: 16px; }
     #ely-pinwall-contacting .contacting-user .profile-image {
       height: 40px;
       width: 40px;
-      border-radius: 50%; }
+      border-radius: 50%;
+      cursor: pointer; }
     #ely-pinwall-contacting .contacting-user .user-name {
       margin-left: 12px;
       line-height: 40px;
       font-size: 16px;
-      font-weight: 500; }
+      font-weight: 500;
+      cursor: pointer; }
   #ely-pinwall-contacting .number-of-contacting {
     margin-top: 24px;
     font-size: 14px;
@@ -3047,7 +3048,7 @@ md-toast.md-error-toast-theme {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    perspective: 1px;
+    opacity: 0.99;
     overflow: hidden; }
     .ely-recommendation-preview .image-container img {
       position: absolute;
@@ -3153,11 +3154,8 @@ md-toast.md-error-toast-theme {
   padding: 0 24px; }
   #modify-group-setting .ely-dialog-content {
     padding-bottom: 0; }
-    #modify-group-setting .ely-dialog-content .ely-dialog-title {
-      font-size: 18px;
-      margin-bottom: 32px; }
-      #modify-group-setting .ely-dialog-content .ely-dialog-title .group {
-        color: #3F51B5; }
+    #modify-group-setting .ely-dialog-content .ely-dialog-title .group {
+      color: #3F51B5; }
     #modify-group-setting .ely-dialog-content .privacy-divider {
       margin-bottom: 32px; }
     #modify-group-setting .ely-dialog-content .privacy-element-description {
