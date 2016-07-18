@@ -1,6 +1,8 @@
 #popular-recommendation-sidenav-filter {
-  height: 100%;
   padding: 48px 16px;
+  @media screen and (min-width: $gt-md) {
+    height: 100%;
+  }
 
   .popular-filter-title {
     font-size: 14px;

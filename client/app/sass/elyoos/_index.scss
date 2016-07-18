@@ -110,8 +110,11 @@
 
 @import 'recommendation/_addRecommendation';
 @import 'recommendation/_popularOverview';
+@import 'recommendation/_popularOverviewColumn';
+@import 'recommendation/_popularOverviewColumnMobile';
 @import 'recommendation/_recommendation';
 @import 'recommendation/_recommendationPreview';
+@import 'recommendation/_recommendationPreviewMobile';
 @import 'recommendation/_recommendationRightSidenavFilter';
 
 @import 'settings/modal/_addGroup';

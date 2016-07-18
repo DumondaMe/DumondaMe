@@ -29,5 +29,7 @@
                 Reset Filter
             </md-tooltip>
         </md-icon>
+        <md-button class="md-raised md-primary" ng-click="ctrl.filter()" ng-if="!ctrl.$mdMedia('gt-md')"
+                   ng-disabled="ctrl.actualFilterSettingEqual">Filtern</md-button>
     </div>
 </div>

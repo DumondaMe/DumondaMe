@@ -1,0 +1,13 @@
+<md-content class="ely-recommendation-popular-column ely-recommendation-popular-column-mobile">
+    <div class="ely-popular-column-mobile-container">
+        <div class="ely-popular-column-mobile-inner-container ely-popular-column-inner-container{{ctrl.id}}" ng-hide="ctrl.requestRunning"
+             ely-infinite-scroll="ctrl.nextRecommendationServer">
+            <ely-recommendation-preview-mobile recommendation="recommendation" last-recommendation="$last"
+                                               ng-repeat="recommendation in ctrl.preview.recommendations"></ely-recommendation-preview-mobile>
+            <div class="gab-fab"></div>
+        </div>
+        <div class="ely-popular-column-mobile-inner-container" ng-show="ctrl.requestRunning">
+            <ely-load-screen></ely-load-screen>
+        </div>
+    </div>
+</md-content>

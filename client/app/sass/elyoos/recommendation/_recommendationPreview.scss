@@ -5,7 +5,6 @@
     position: relative;
     height: 70px;
     padding: 8px 8px 8px 0;
-    border-bottom: 1px solid $divider;
     .recommendation-preview-title {
       cursor: pointer;
       font-size: 14px;
@@ -52,14 +51,6 @@
         top: 2px;
       }
     }
-    .profile-preview {
-      position: absolute;
-      height: 40px;
-      width: 40px;
-      bottom: 8px;
-      right: 0;
-      border-radius: 50%;
-    }
   }
   .image-container {
     cursor: pointer;
@@ -68,6 +59,7 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
+    perspective: 1px;
     overflow: hidden;
     img {
       position: absolute;
@@ -88,10 +80,6 @@
       margin: 8px;
     }
   }
-}
-
-.ely-recommendation-preview.last-recommendation {
-  border-bottom: none;
 }
 
 .ely-recommendation-preview-no-result {
