@@ -2956,6 +2956,18 @@ md-toast.md-error-toast-theme {
     @media screen and (min-height: 840px) {
       .ely-recommendation-popular-column .ely-popular-column-container {
         height: 660px; } }
+    @media screen and (min-height: 920px) {
+      .ely-recommendation-popular-column .ely-popular-column-container {
+        height: 742px; } }
+    @media screen and (min-height: 1000px) {
+      .ely-recommendation-popular-column .ely-popular-column-container {
+        height: 824px; } }
+    @media screen and (min-height: 1080px) {
+      .ely-recommendation-popular-column .ely-popular-column-container {
+        height: 906px; } }
+    @media screen and (min-height: 1180px) {
+      .ely-recommendation-popular-column .ely-popular-column-container {
+        height: 988px; } }
     .ely-recommendation-popular-column .ely-popular-column-container .ely-popular-column-inner-container {
       width: 100%;
       height: 100%;
