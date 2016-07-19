@@ -509,7 +509,6 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].isAdmin.should.equals(false);
                 res.body.pinwall[0].isPublic.should.equals(true);
                 res.body.pinwall[0].recommendedByUser.should.equals(false);
-                res.body.pinwall[0].thisRecommendationByUser.should.equals(false);
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
