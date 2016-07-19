@@ -29,6 +29,7 @@ module.exports = ['PageRecommendation', 'errorToast', 'PinwallBlogService', func
                         ctrl.requestRunning = false;
                     });
                 } else {
+                    ctrl.requestRunning = false;
                     ctrl.element.recommendedByUser = false;
                 }
                 ctrl.element.numberOfRecommendations--;
