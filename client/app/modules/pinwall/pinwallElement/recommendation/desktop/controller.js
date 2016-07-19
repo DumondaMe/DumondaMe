@@ -8,7 +8,7 @@ module.exports = ['$state', 'dateFormatter', 'UserDetailNavigation',
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         ctrl.openUserDetail = function () {
-            UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.isAdmin);
+            UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.thisRecommendationByUser);
         };
     }];
 

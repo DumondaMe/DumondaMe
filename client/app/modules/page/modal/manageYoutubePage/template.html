@@ -59,10 +59,10 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createYoutube()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid">Erstellen
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid">Erstellen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.modifyYoutube()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid || !ctrl.dataHasChanged">Ändern
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageYoutubePageForm.$invalid || !ctrl.dataHasChanged">Ändern
             </md-button>
         </md-dialog-actions>
     </form>

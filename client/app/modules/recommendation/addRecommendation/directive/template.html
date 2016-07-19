@@ -5,7 +5,7 @@
             <md-input-container class="input-container">
                 <label>Kommentar</label>
                 <textarea name="description" ng-model="ctrl.description" md-maxlength="1000"
-                       ng-disabled="ctrl.uploadRunning" rows="5"></textarea>
+                       ng-disabled="ctrl.uploadRunning" max-rows="5"></textarea>
                 <div ng-messages="ctrl.recommendationForm.description.$error">
                     <div ng-message="md-maxlength">Text ist zu lang</div>
                 </div>

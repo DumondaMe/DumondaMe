@@ -2,6 +2,9 @@
   @include cardElement();
   width: 100%;
   margin: 8px 0;
+  .user-avatar {
+    cursor: pointer;
+  }
   .blog-header {
     cursor: pointer;
     .user-name {

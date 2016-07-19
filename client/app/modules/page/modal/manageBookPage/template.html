@@ -26,7 +26,7 @@
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
                     </md-select>
-                    <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" required class="ely-select-topic"
+                    <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" class="ely-select-topic"
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
                     </md-select>
@@ -76,10 +76,11 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createBook()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid">Erstellen
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.data.selectedLanguages">Erstellen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.modifyBook()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged">Ändern
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged || !ctrl.data.selectedLanguages">
+                Ändern
             </md-button>
         </md-dialog-actions>
     </form>
