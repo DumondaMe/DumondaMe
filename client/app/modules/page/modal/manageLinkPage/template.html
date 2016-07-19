@@ -1,9 +1,9 @@
 <md-dialog id="manage-link-page" aria-label="Manage Link Page" ng-cloak class="manage-page">
-    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages" layout="column"
+    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages"
           class="form-container">
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für einen Link erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
-        <md-dialog-content flex="grow">
+        <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
                 <div>
                     <div layout="row" layout-align="center center">
@@ -44,7 +44,7 @@
                             <label>Link</label>
                             <input type="url" name="link" ng-model="ctrl.data.link" ng-change="ctrl.linkHasChanged()" ng-disabled="ctrl.uploadStarted"
                                    md-maxlength="1000" required/>
-                            <div ng-messages="ctrl.manageLinkPageForm.link.$error">
+                            <div ng-messages="ctrl.manageLinkPageForm.link.$error" ng-show="ctrl.manageLinkPageForm.link.$dirty">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="url">Ungültiger Link</div>
                                 <div ng-message="youtube-link" class="error-youtube-link" ng-click="ctrl.openYoutubeManage()">Erstelle eine Youtube

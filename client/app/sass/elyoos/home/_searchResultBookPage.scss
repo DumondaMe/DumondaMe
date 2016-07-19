@@ -5,8 +5,8 @@
   .book-page-container {
     cursor: pointer;
     .book-image {
-      width: 100px;
-      max-height: 160px;
+      width: 100px!important;
+      height: 160px!important;
     }
     .info-container {
       padding: 8px;

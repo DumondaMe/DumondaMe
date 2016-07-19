@@ -1,6 +1,6 @@
 <div>
-    <form name="createBlogForm" class="content-form" layout="column">
-        <div class="header" layout="row" flex="none">
+    <form name="createBlogForm" class="content-form">
+        <div class="header" layout="row">
             <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
             <div class="header-content">
                 <span class="user-name">{{ctrl.userInfo.name}}</span>
@@ -10,8 +10,8 @@
                 <span class="visibility" ng-click="ctrl.openVisibility()" ng-repeat="visibility in ctrl.visibility"> {{visibility}}</span>
             </div>
         </div>
-        <md-dialog-content flex="grow">
-            <div class="md-dialog-content ely-dialog-content">
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column">
                 <md-select ng-model="ctrl.selectedTopics" placeholder="Thema" multiple="true" required ng-change="ctrl.dataChanged()">
                     <md-optgroup label="Thema">
                         <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </md-dialog-content>
-        <md-dialog-actions layout="row" flex="none">
+        <md-dialog-actions layout="row">
             <ely-load-image-button class="action-icon" image-for-upload="imageForUpload" icon="createBlog:addPhoto"
                                    aria-label="Add Photo"></ely-load-image-button>
             <span flex></span>

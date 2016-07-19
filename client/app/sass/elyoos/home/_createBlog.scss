@@ -4,7 +4,12 @@
   width: 100%;
   max-height: 90%;
   .blog-create-container {
+    height: 100%;
+    .content-form {
+      height: 100%;
+    }
     .header {
+      height: 56px;
       padding: 16px 16px 8px 16px;
       .user-avatar {
         border-radius: 50%;
@@ -36,7 +41,6 @@
     .ely-dialog-content {
       padding-top: 0;
       padding-bottom: 0;
-      overflow: hidden;
       .blog-input-container {
         width: 100%;
       }

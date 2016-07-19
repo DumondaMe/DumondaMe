@@ -1,13 +1,15 @@
 #start-screen {
   #carousel {
     #carousel-vision {
-      min-height: 100%;
-      width: 500px;
-      @media screen and (min-width: $gt-xmd) {
-        width: 700px;
+      background-color: #fafafa;
+      @media screen and (min-width: $gt-sm) {
+        background-color: #FFFFFF;
       }
       #carousel-vision-container {
-        height: 100%;
+        width: 500px;
+        @media screen and (min-width: $gt-xmd) {
+          width: 700px;
+        }
         margin: 0 auto;
         padding-top: 32px;
         .vision-text {
@@ -16,7 +18,7 @@
           line-height: 26px;
         }
         .developer-container {
-          margin: 32px 0 64px 0;
+          padding: 32px 0 64px 0;
           img {
             height: 64px;
             width: 64px;

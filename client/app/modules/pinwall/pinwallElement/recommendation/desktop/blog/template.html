@@ -3,10 +3,8 @@
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
     <div layout="row" class="content-container">
-        <div class="description-container" layout="column">
-            <div>
-                <div class="blog-text">{{ctrl.previewText}}</div>
-            </div>
+        <div class="description-container">
+            <div class="blog-text">{{ctrl.previewText}}</div>
         </div>
     </div>
     <ely-pinwall-blog-actions request-running="ctrl.requestRunning" element="ctrl.element"></ely-pinwall-blog-actions>

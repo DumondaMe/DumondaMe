@@ -35,7 +35,7 @@
                             <label>Link</label>
                             <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
                                    ng-change="ctrl.linkHasChanged()" ng-blur="ctrl.lostFocus()" required/>
-                            <div ng-messages="ctrl.manageYoutubePageForm.link.$error">
+                            <div ng-messages="ctrl.manageYoutubePageForm.link.$error" ng-show="ctrl.manageYoutubePageForm.link.$dirty">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
                             </div>

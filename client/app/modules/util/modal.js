@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
+module.exports = ['$mdDialog', '$rootScope', '$document', function ($mdDialog, $rootScope, $document) {
 
     var preventStateChange = false;
 
@@ -10,7 +10,7 @@ module.exports = ['$mdDialog', '$rootScope', function ($mdDialog, $rootScope) {
             locals = {};
         }
         var modalParams = {
-            parent: angular.element(document.body),
+            parent: angular.element($document.body),
             clickOutsideToClose: false,
             escapeToClose: false,
             bindToController: true,
