@@ -2526,6 +2526,7 @@ md-toast.md-error-toast-theme {
 
 .youtube-recommendation-desktop .youtube-preview-image {
   width: 100%;
+  max-height: 337px;
   cursor: pointer; }
 .youtube-recommendation-desktop .youtube-description {
   padding: 0 16px 8px 16px;
@@ -2913,10 +2914,10 @@ md-toast.md-error-toast-theme {
 
 #ely-recommendation-popular-overview {
   height: 100%;
+  width: 100%;
   background-color: #e9ebee; }
   #ely-recommendation-popular-overview .ely-recommendation-popular-overview-container {
     height: 100%;
-    width: 100%;
     background-color: #e9ebee;
     max-width: 950px;
     margin: 0 auto; }

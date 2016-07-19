@@ -1,5 +1,5 @@
-<md-content id="ely-recommendation-popular-overview" layout="row">
-    <div class="ely-recommendation-popular-overview-container" layout="row" flex ng-if="ctrl.$mdMedia('(min-width: 510px)')">
+<div id="ely-recommendation-popular-overview" layout="row">
+    <div class="ely-recommendation-popular-overview-container" layout="row" flex="grow" ng-if="ctrl.$mdMedia('(min-width: 510px)')">
         <ely-recommendation-popular-column flex="50" id="1" title="Beliebteste Empfehlungen"
                                            period="all"></ely-recommendation-popular-column>
         <ely-recommendation-popular-column flex="50" id="2" title="Beliebteste Empfehlungen der letzten 14 Tage"
@@ -40,4 +40,4 @@
                 md-is-locked-open="ctrl.$mdMedia('gt-md')">
         <ely-recommendation-popular-side-nav-filter></ely-recommendation-popular-side-nav-filter>
     </md-sidenav>
-</md-content>
+</div>
