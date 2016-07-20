@@ -5,13 +5,15 @@ var underscore = require('underscore');
 var cdn = require('../util/cdn');
 var userInfo = require('../user/userInfo');
 
-var addPageUrl = function (previews) {
+var addPageUrl = function (previews, thumbnail) {
+    var bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',
+        linkImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
     underscore.forEach(previews, function (preview) {
         if (preview.label === 'Book') {
-            preview.url = cdn.getUrl('pages/' + preview.pageId + '/pagePreview.jpg');
+            preview.url = cdn.getUrl('pages/' + preview.pageId + bookImage);
             delete preview.link;
         } else if(preview.label === 'Link') {
-            preview.url = cdn.getUrl('pages/' + preview.pageId + '/preview.jpg');
+            preview.url = cdn.getUrl('pages/' + preview.pageId + linkImage);
         }
     });
 };

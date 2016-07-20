@@ -4,7 +4,7 @@
             <md-input-container class="input-element md-block">
                 <label>Email</label>
                 <input required type="email" name="username" id="id_username" aria-label="Email"
-                       ng-model="ctrl.loginuser.email">
+                       ng-model="ctrl.loginuser.email" md-no-asterisk>
 
                 <div ng-messages="loginForm.username.$error">
                     <div ng-message="required">Wird benötigt!</div>
@@ -14,7 +14,7 @@
             <md-input-container class="input-element md-block" ng-keypress="ctrl.keyPressed($event)">
                 <label>Passwort</label>
                 <input type="password" required name="password" id="id_password" aria-label="Passwort" md-autofocus
-                       ng-model="ctrl.loginuser.password">
+                       ng-model="ctrl.loginuser.password" md-no-asterisk>
 
                 <div ng-messages="loginForm.password.$error">
                     <div ng-message="required">Wird benötigt!</div>

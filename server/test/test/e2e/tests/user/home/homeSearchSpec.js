@@ -2,6 +2,7 @@
 
 var users = require('../../util/user');
 var db = require('../../util/db');
+var dbDsl = require('../../util/dbDSL');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();
 
@@ -11,45 +12,24 @@ describe('Integration Tests for searching people or pages', function () {
 
     beforeEach(function () {
 
-        var commands = [];
         return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user? Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'tuser Meier3', forename: 'ruser', surname: 'Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'luser tMeier4', forename: 'luser', surname: 'tMeier4', userId: '4'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user? uMeier5', forename: 'user?', surname: 'uMeier5', userId: '5'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user? sMeier6', forename: 'user?', surname: 'sMeier6', userId: '6'})").end().getCommand());
-
-            //Set Privacy
-            commands.push(db.cypher().match("(u:User)")
-                .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false})").end({}).getCommand());
-            commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1']")
-                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
-
-            //Set Contact Relationships
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '5'})")
-                .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: '500'}]->(u2)").end().getCommand());
-            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '3'})")
-                .create("(u)-[:IS_CONTACT {type: 'Freund', contactAdded: '501'}]->(u2)").end().getCommand());
-
-            commands.push(db.cypher().create("(:Page {title: 'book written by user?', label: 'Book', description: 'bookPage1', language: 'de', created: 501, pageId: '0'," +
-                "author: 'Hans Muster', publishDate: 1000, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'book written by Meier', label: 'Book', description: 'bookPage2', language: 'de', created: 502, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'y written by user?', label: 'Book', description: 'bookPage3', language: 'de', created: 500, pageId: '2'," +
-                "author: 'Hans Muster', publishDate: 1000, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'youtube movie by user?', label: 'Youtube', description: 'youtube1', language: 'de', created: 503, pageId: '3'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'youtube movie by Meier', label: 'Youtube', description: 'youtube2', language: 'de', created: 504, pageId: '4'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test2.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'y movie by Meier', label: 'Youtube', description: 'youtube2', language: 'de', created: 499, pageId: '5'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test3.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-
-            //Set Recommendations
-            commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
-            return db.cypher().match("(a:Page {pageId: '5'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().send(commands);
+            return dbDsl.init(0).then(function () {
+                dbDsl.createUser('2', 'user?', 'Meier2');
+                dbDsl.createUser('3', 'tuser', 'Meier3');
+                dbDsl.createUser('4', 'luser', 'tMeier4');
+                dbDsl.createUser('5', 'user?', 'uMeier5');
+                dbDsl.createUser('6', 'user?', 'sMeier6');
+                dbDsl.createContactConnection('1', '5', 'Freund');
+                dbDsl.createContactConnection('1', '3', 'Freund');
+                dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 501, 'Hans Muster', 1000, 'book written by user?');
+                dbDsl.createBookPage('1', ['de'], ['health', 'personalDevelopment'], 502, 'Hans Muster', 1000, 'book written by Meier');
+                dbDsl.createBookPage('2', ['de'], ['health', 'personalDevelopment'], 500, 'Hans Muster', 1000, 'y written by user?');
+                dbDsl.createYoutubePage('3', ['de'], ['health', 'personalDevelopment'], 503, 'www.test.ch', 'youtube movie by user?');
+                dbDsl.createYoutubePage('4', ['de'], ['health', 'personalDevelopment'], 504, 'www.test2.ch', 'youtube movie by Meier');
+                dbDsl.createYoutubePage('5', ['de'], ['health', 'personalDevelopment'], 499, 'www.test3.ch', 'y movie by Meier');
+                dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
+                dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 509, 'www.test5.ch', null, 'link by Meier');
+            });
         });
     });
 
@@ -57,96 +37,236 @@ describe('Integration Tests for searching people or pages', function () {
         return requestHandler.logout();
     });
 
-    it('Search with forename books and people in suggestion mode - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home/search', {
-                search: 'user?',
-                maxItems: 10,
-                isSuggestion: true
-            }, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            res.body.length.should.equal(6);
-            res.body[0].name.should.equal("user? uMeier5");
-            res.body[0].userId.should.equal("5");
-            res.body[0].type.should.equal('Freund');
-            res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+    it('Search with forename pages and people in suggestion mode - Return 200', function () {
 
-            res.body[1].name.should.equal("user? Meier2");
-            res.body[1].userId.should.equal("2");
-            should.not.exist(res.body[1].type);
-            res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            res.body[2].name.should.equal("user? sMeier6");
-            res.body[2].userId.should.equal("6");
-            should.not.exist(res.body[1].type);
-            res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
-            
-            res.body[3].title.should.equal("y written by user?");
-            res.body[3].pageId.should.equal("2");
-            res.body[3].label.should.equal("Book");
+        dbDsl.crateRecommendationsForPage('0', [{userId: '3', created: 507}, {userId: '4', created: 508}, {userId: '5', created: 509}]);
+        dbDsl.crateRecommendationsForPage('2', [{userId: '1', created: 507}, {userId: '2', created: 508}]);
+        dbDsl.crateRecommendationsForPage('5', [{userId: '1', created: 509}]);
 
-            res.body[4].title.should.equal("book written by user?");
-            res.body[4].pageId.should.equal("0");
-            res.body[4].label.should.equal("Book");
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'user?',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(7);
+                res.body[0].name.should.equal("user? uMeier5");
+                res.body[0].userId.should.equal("5");
+                res.body[0].type.should.equal('Freund');
+                res.body[0].profileUrl.should.equal('profileImage/5/thumbnail.jpg');
 
-            res.body[5].title.should.equal("youtube movie by user?");
-            res.body[5].pageId.should.equal("3");
-            res.body[5].label.should.equal("Youtube");
+                res.body[1].name.should.equal("user? Meier2");
+                res.body[1].userId.should.equal("2");
+                should.not.exist(res.body[1].type);
+                res.body[1].profileUrl.should.equal('profileImage/2/thumbnail.jpg');
+
+                res.body[2].name.should.equal("user? sMeier6");
+                res.body[2].userId.should.equal("6");
+                should.not.exist(res.body[1].type);
+                res.body[2].profileUrl.should.equal('profileImage/6/thumbnail.jpg');
+
+                res.body[3].title.should.equal("y written by user?");
+                res.body[3].pageId.should.equal("2");
+                res.body[3].url.should.equal("pages/2/thumbnail.jpg");
+                res.body[3].recommendation.summary.numberOfRecommendations.should.equal(2);
+                res.body[3].label.should.equal("Book");
+
+                res.body[4].title.should.equal("book written by user?");
+                res.body[4].pageId.should.equal("0");
+                res.body[4].url.should.equal("pages/0/thumbnail.jpg");
+                res.body[4].recommendation.summary.numberOfRecommendations.should.equal(3);
+                res.body[4].label.should.equal("Book");
+
+                res.body[5].title.should.equal("link by user?");
+                res.body[5].pageId.should.equal("6");
+                res.body[5].url.should.equal("pages/6/thumbnail.jpg");
+                res.body[5].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[5].label.should.equal("Link");
+
+                res.body[6].title.should.equal("youtube movie by user?");
+                res.body[6].pageId.should.equal("3");
+                res.body[6].link.should.equal("www.test.ch");
+                res.body[6].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[6].label.should.equal("Youtube");
+            });
         });
     });
 
-    it('Search with forename books and people - Return 200', function () {
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.getWithData('/api/user/home/search', {
-                search: 'user?',
-                maxItems: 10,
-                isSuggestion: false
-            }, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            res.body.length.should.equal(6);
-            res.body[0].name.should.equal("user? uMeier5");
-            res.body[0].userId.should.equal("5");
-            res.body[0].type.should.equal('Freund');
-            res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+    it('Search with forename pages and people - Return 200', function () {
 
-            res.body[1].name.should.equal("user? Meier2");
-            res.body[1].userId.should.equal("2");
-            should.not.exist(res.body[1].type);
-            res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+        dbDsl.createPrivacyNoContact(null, {profile: false, image: false, profileData: false, contacts: false, pinwall: false});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            res.body[2].name.should.equal("user? sMeier6");
-            res.body[2].userId.should.equal("6");
-            should.not.exist(res.body[1].type);
-            res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+        dbDsl.crateRecommendationsForPage('2', [{userId: '1', created: 507}]);
+        dbDsl.crateRecommendationsForPage('5', [{userId: '1', created: 508}]);
 
-            res.body[3].title.should.equal("y written by user?");
-            res.body[3].pageId.should.equal("2");
-            res.body[3].label.should.equal("Book");
-            res.body[3].url.should.equal("pages/2/pagePreview.jpg");
-            res.body[3].topic.length.should.equals(2);
-            res.body[3].topic[0].should.equals('health');
-            res.body[3].topic[1].should.equals('personalDevelopment');
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'user?',
+                    maxItems: 10,
+                    isSuggestion: false
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(7);
+                res.body[0].name.should.equal("user? uMeier5");
+                res.body[0].userId.should.equal("5");
+                res.body[0].type.should.equal('Freund');
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
-            res.body[4].title.should.equal("book written by user?");
-            res.body[4].pageId.should.equal("0");
-            res.body[4].label.should.equal("Book");
-            res.body[4].url.should.equal("pages/0/pagePreview.jpg");
-            res.body[4].topic.length.should.equals(2);
-            res.body[4].topic[0].should.equals('health');
-            res.body[4].topic[1].should.equals('personalDevelopment');
+                res.body[1].name.should.equal("user? Meier2");
+                res.body[1].userId.should.equal("2");
+                should.not.exist(res.body[1].type);
+                res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
-            res.body[5].title.should.equal("youtube movie by user?");
-            res.body[5].pageId.should.equal("3");
-            res.body[5].label.should.equal("Youtube");
-            res.body[5].link.should.equal("www.test.ch");
-            res.body[5].topic.length.should.equals(2);
-            res.body[5].topic[0].should.equals('health');
-            res.body[5].topic[1].should.equals('personalDevelopment');
+                res.body[2].name.should.equal("user? sMeier6");
+                res.body[2].userId.should.equal("6");
+                should.not.exist(res.body[1].type);
+                res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+
+                res.body[3].title.should.equal("y written by user?");
+                res.body[3].pageId.should.equal("2");
+                res.body[3].label.should.equal("Book");
+                res.body[3].url.should.equal("pages/2/pagePreview.jpg");
+                res.body[3].topic.length.should.equals(2);
+                res.body[3].topic[0].should.equals('health');
+                res.body[3].topic[1].should.equals('personalDevelopment');
+
+                res.body[4].title.should.equal("book written by user?");
+                res.body[4].pageId.should.equal("0");
+                res.body[4].label.should.equal("Book");
+                res.body[4].url.should.equal("pages/0/pagePreview.jpg");
+                res.body[4].topic.length.should.equals(2);
+                res.body[4].topic[0].should.equals('health');
+                res.body[4].topic[1].should.equals('personalDevelopment');
+
+                res.body[5].title.should.equal("link by user?");
+                res.body[5].pageId.should.equal("6");
+                res.body[5].label.should.equal("Link");
+                res.body[5].link.should.equal("www.test4.ch");
+                res.body[5].topic.length.should.equals(2);
+                res.body[5].topic[0].should.equals('health');
+                res.body[5].topic[1].should.equals('personalDevelopment');
+
+                res.body[6].title.should.equal("youtube movie by user?");
+                res.body[6].pageId.should.equal("3");
+                res.body[6].label.should.equal("Youtube");
+                res.body[6].link.should.equal("www.test.ch");
+                res.body[6].topic.length.should.equals(2);
+                res.body[6].topic[0].should.equals('health');
+                res.body[6].topic[1].should.equals('personalDevelopment');
+            });
         });
     });
 
+    it('Hide user image, no contact and profile set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'luser tMeier4',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].name.should.equal("luser tMeier4");
+                res.body[0].userId.should.equal("4");
+                should.not.exist(res.body[0].type);
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+        });
+    });
+
+    it('Hide user image, no contact and image set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'luser tMeier4',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].name.should.equal("luser tMeier4");
+                res.body[0].userId.should.equal("4");
+                should.not.exist(res.body[0].type);
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+        });
+    });
+
+    it('Hide user image, is contact and profile is set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['3'], 'Freund', {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createContactConnection('3', '1', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'tuser Meier3',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].name.should.equal("tuser Meier3");
+                res.body[0].userId.should.equal("3");
+                res.body[0].type.should.equal('Freund');
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+        });
+    });
+
+    it('Hide user image, is contact and image is set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['3'], 'Freund', {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createContactConnection('3', '1', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'tuser Meier3',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].name.should.equal("tuser Meier3");
+                res.body[0].userId.should.equal("3");
+                res.body[0].type.should.equal('Freund');
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+        });
+    });
 });

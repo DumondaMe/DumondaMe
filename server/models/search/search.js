@@ -13,7 +13,7 @@ var search = function (userId, userQuery, maxItems, isSuggestion) {
         .send(commands).then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0]);
             pagePreview.addRecommendation(resp[1]);
-            pagePreview.addPageUrl(resp[1]);
+            pagePreview.addPageUrl(resp[1], isSuggestion);
 
             return resp[0].concat(resp[1]);
         });

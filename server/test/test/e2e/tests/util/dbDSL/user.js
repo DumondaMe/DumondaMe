@@ -3,6 +3,14 @@
 var db = require('../db');
 var dbConnectionHandling = require('./dbConnectionHandling');
 
+var createUser = function (userId, forename, surname, email) {
+    var name = `${forename} ${surname}`;
+    email = email || null;
+    dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: {email}, 
+        name: {name}, surname: {surname}, forename: {forename}, userId: {userId}})`)
+        .end({name: name, surname: surname, forename: forename, userId: userId, email: email}).getCommand());
+};
+
 var blockUser = function (userId, blockedUserId) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (blockedUser:User {userId: {blockedUserId}})')
         .create(`(user)-[:IS_BLOCKED]->(blockedUser)`)
@@ -29,7 +37,7 @@ var createPrivacy = function (userIds, type, privacy) {
 
 var createPrivacyNoContact = function (userIds, privacy) {
     var idsCommand = null;
-    if(userIds) {
+    if (userIds) {
         idsCommand = "u.userId IN {userIds}";
     }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
@@ -47,6 +55,7 @@ var createPrivacyNoContact = function (userIds, privacy) {
 };
 
 module.exports = {
+    createUser: createUser,
     blockUser: blockUser,
     createPrivacy: createPrivacy,
     createPrivacyNoContact: createPrivacyNoContact

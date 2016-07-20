@@ -33,6 +33,7 @@ module.exports = {
     createYoutubePage: page.createYoutubePage,
     createLinkPage: page.createLinkPage,
     createBlog: blog.createBlog,
+    createUser: user.createUser,
     blockUser: user.blockUser,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact
