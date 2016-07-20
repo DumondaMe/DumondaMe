@@ -28,7 +28,8 @@ describe('Integration Tests for searching people or pages', function () {
                 dbDsl.createYoutubePage('4', ['de'], ['health', 'personalDevelopment'], 504, 'www.test2.ch', 'youtube movie by Meier');
                 dbDsl.createYoutubePage('5', ['de'], ['health', 'personalDevelopment'], 499, 'www.test3.ch', 'y movie by Meier');
                 dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
-                dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 509, 'www.test5.ch', null, 'link by Meier');
+                dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 510, 'www.test5.ch', null, 'ly by user?');
+                dbDsl.createLinkPage('8', ['de'], ['health', 'personalDevelopment'], 509, 'www.test6.ch', null, 'Irgendas mit Meier');
             });
         });
     });
@@ -56,7 +57,7 @@ describe('Integration Tests for searching people or pages', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(7);
+                res.body.length.should.equal(8);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -90,11 +91,17 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[5].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[5].label.should.equal("Link");
 
-                res.body[6].title.should.equal("youtube movie by user?");
-                res.body[6].pageId.should.equal("3");
-                res.body[6].link.should.equal("www.test.ch");
+                res.body[6].title.should.equal("ly by user?");
+                res.body[6].pageId.should.equal("7");
+                should.not.exist(res.body[6].url);
                 res.body[6].recommendation.summary.numberOfRecommendations.should.equal(0);
-                res.body[6].label.should.equal("Youtube");
+                res.body[6].label.should.equal("Link");
+
+                res.body[7].title.should.equal("youtube movie by user?");
+                res.body[7].pageId.should.equal("3");
+                res.body[7].link.should.equal("www.test.ch");
+                res.body[7].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[7].label.should.equal("Youtube");
             });
         });
     });
@@ -117,7 +124,7 @@ describe('Integration Tests for searching people or pages', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(7);
+                res.body.length.should.equal(8);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -153,17 +160,28 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[5].pageId.should.equal("6");
                 res.body[5].label.should.equal("Link");
                 res.body[5].link.should.equal("www.test4.ch");
+                res.body[5].url.should.equal("pages/6/preview.jpg");
                 res.body[5].topic.length.should.equals(2);
                 res.body[5].topic[0].should.equals('health');
                 res.body[5].topic[1].should.equals('personalDevelopment');
 
-                res.body[6].title.should.equal("youtube movie by user?");
-                res.body[6].pageId.should.equal("3");
-                res.body[6].label.should.equal("Youtube");
-                res.body[6].link.should.equal("www.test.ch");
+                res.body[6].title.should.equal("ly by user?");
+                res.body[6].pageId.should.equal("7");
+                res.body[6].label.should.equal("Link");
+                res.body[6].link.should.equal("www.test5.ch");
+                should.not.exist(res.body[6].url);
+                res.body[6].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[6].topic.length.should.equals(2);
                 res.body[6].topic[0].should.equals('health');
                 res.body[6].topic[1].should.equals('personalDevelopment');
+
+                res.body[7].title.should.equal("youtube movie by user?");
+                res.body[7].pageId.should.equal("3");
+                res.body[7].label.should.equal("Youtube");
+                res.body[7].link.should.equal("www.test.ch");
+                res.body[7].topic.length.should.equals(2);
+                res.body[7].topic[0].should.equals('health');
+                res.body[7].topic[1].should.equals('personalDevelopment');
             });
         });
     });

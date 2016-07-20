@@ -13,7 +13,7 @@
                      placeholder="Suche Person"
                      ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
-            {{item.name}}
+            <ely-autosuggestion-contact item="item"></ely-autosuggestion-contact>
         </md-item-template>
     </md-autocomplete>
 </div>

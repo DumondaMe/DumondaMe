@@ -224,21 +224,9 @@ describe('Integration Tests for finding other users', function () {
             res.status.should.equal(200);
             res.body.length.should.equal(4);
             res.body[0].name.should.equal('user Meier6');
-            should.not.exist(res.body[0].type);
-            should.not.exist(res.body[0].userId);
-            should.not.exist(res.body[0].profileUrl);
             res.body[1].name.should.equal('user2 Meier2');
-            should.not.exist(res.body[1].type);
-            should.not.exist(res.body[1].userId);
-            should.not.exist(res.body[1].profileUrl);
             res.body[2].name.should.equal('user Meier4');
-            should.not.exist(res.body[2].type);
-            should.not.exist(res.body[2].userId);
-            should.not.exist(res.body[2].profileUrl);
             res.body[3].name.should.equal('user Meier5');
-            should.not.exist(res.body[3].type);
-            should.not.exist(res.body[3].userId);
-            should.not.exist(res.body[3].profileUrl);
         });
     });
 

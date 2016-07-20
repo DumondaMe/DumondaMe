@@ -1850,10 +1850,33 @@ md-toast.md-error-toast-theme {
   padding-top: 5px;
   padding-bottom: 5px;
   overflow: hidden; }
-  .autosuggestion-page .label-icon {
-    margin: 7px 15px 7px 7px;
-    height: 24px;
-    width: 24px; }
+  .autosuggestion-page .image-container {
+    position: relative;
+    margin-right: 8px;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    overflow: hidden; }
+    .autosuggestion-page .image-container img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+    .autosuggestion-page .image-container img.book {
+      height: 170% !important; }
+    .autosuggestion-page .image-container .no-image-link {
+      margin: 0;
+      vertical-align: top;
+      padding: 4px 0;
+      height: 30px;
+      width: 30px;
+      min-height: 30px;
+      min-width: 30px;
+      line-height: 38px; }
   .autosuggestion-page .page-container .page-title {
     display: block;
     white-space: nowrap;
@@ -1862,18 +1885,36 @@ md-toast.md-error-toast-theme {
     height: 19px;
     line-height: 14px;
     color: rgba(0, 0, 0, 0.87); }
-  .autosuggestion-page .page-container .page-rating {
-    display: block;
-    line-height: 14px; }
-    .autosuggestion-page .page-container .page-rating .ely-star-rating {
-      margin-left: -2px; }
-    .autosuggestion-page .page-container .page-rating .number-of-ratings {
-      margin-left: 4px;
+  .autosuggestion-page .page-container .page-info {
+    height: 18px;
+    min-height: 18px;
+    line-height: 18px; }
+    .autosuggestion-page .page-container .page-info .page-type {
+      height: 18px;
+      line-height: 18px;
+      min-height: 18px;
+      display: inline-block; }
+      .autosuggestion-page .page-container .page-info .page-type .page-type-icon {
+        height: 18px;
+        line-height: 18px;
+        width: 18px;
+        min-height: 18px;
+        min-width: 18px; }
+    .autosuggestion-page .page-container .page-info .number-of-recommendations {
+      display: inline-block;
+      height: 18px;
+      line-height: 18px;
       font-size: 12px;
-      color: rgba(0, 0, 0, 0.54); }
-    .autosuggestion-page .page-container .page-rating .no-rating-description {
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.54); }
+      margin-left: 16px; }
+      .autosuggestion-page .page-container .page-info .number-of-recommendations .thumb-up-icon {
+        height: 14px;
+        width: 14px;
+        min-height: 14px;
+        min-width: 14px;
+        margin-right: 4px; }
+      .autosuggestion-page .page-container .page-info .number-of-recommendations .number {
+        position: relative;
+        top: 2px; }
 
 .autosuggestion-user {
   padding-top: 5px;
@@ -1883,7 +1924,7 @@ md-toast.md-error-toast-theme {
     margin-right: 8px;
     height: 38px;
     width: 38px;
-    border-radius: 2px; }
+    border-radius: 50%; }
   .autosuggestion-user .profile-container {
     height: 38px; }
     .autosuggestion-user .profile-container .user-name {

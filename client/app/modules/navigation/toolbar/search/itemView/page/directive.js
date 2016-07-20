@@ -11,8 +11,7 @@ module.exports = {
             bindToController: {
                 item: '='
             },
-            controller: function () {
-            }
+            controller: require('./controller')
         };
     }],
     name: 'elyAutosuggestionPage'

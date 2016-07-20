@@ -20,7 +20,7 @@ var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
     
     return searchPageQuery(userId, filterType)
         .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRecommendations, " +
-            "page.topic AS topic, " +
+            "page.topic AS topic, page.heightPreviewImage AS heightPreviewImage, " +
             "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, " +
             "EXISTS((page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS userRecommended" )
         .orderBy("userRecommended DESC, page.title")

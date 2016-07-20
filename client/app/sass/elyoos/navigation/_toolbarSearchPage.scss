@@ -2,10 +2,36 @@
   padding-top: 5px;
   padding-bottom: 5px;
   overflow: hidden;
-  .label-icon {
-    margin: 7px 15px 7px 7px;
-    height: 24px;
-    width: 24px;
+  .image-container {
+    position: relative;
+    margin-right: 8px;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    img.book {
+      height: 170% !important;
+    }
+    .no-image-link {
+      margin: 0;
+      vertical-align: top;
+      padding: 4px 0;
+      height: 30px;
+      width: 30px;
+      min-height: 30px;
+      min-width: 30px;
+      line-height: 38px;
+    }
   }
   .page-container {
     .page-title {
@@ -17,20 +43,41 @@
       line-height: 14px;
       color: $primary-text;
     }
-    .page-rating {
-      display: block;
-      line-height: 14px;
-      .ely-star-rating {
-        margin-left: -2px;
+    .page-info {
+      height: 18px;
+      min-height: 18px;
+      line-height: 18px;
+      .page-type {
+        height: 18px;
+        line-height: 18px;
+        min-height: 18px;
+        display: inline-block;
+        .page-type-icon {
+          height: 18px;
+          line-height: 18px;
+          width: 18px;
+          min-height: 18px;
+          min-width: 18px;
+        }
       }
-      .number-of-ratings {
-        margin-left: 4px;
+      .number-of-recommendations {
+        display: inline-block;
+        height: 18px;
+        line-height: 18px;
         font-size: 12px;
-        color: $secondary-text;
-      }
-      .no-rating-description {
-        font-size: 12px;
-        color: $secondary-text;
+        margin-left: 16px;
+        .thumb-up-icon {
+          height: 14px;
+          width: 14px;
+          min-height: 14px;
+          min-width: 14px;
+          margin-right: 4px;
+        }
+
+        .number {
+          position: relative;
+          top: 2px;
+        }
       }
     }
   }

@@ -12,7 +12,7 @@ var addPageUrl = function (previews, thumbnail) {
         if (preview.label === 'Book') {
             preview.url = cdn.getUrl('pages/' + preview.pageId + bookImage);
             delete preview.link;
-        } else if(preview.label === 'Link') {
+        } else if(preview.label === 'Link' && preview.heightPreviewImage) {
             preview.url = cdn.getUrl('pages/' + preview.pageId + linkImage);
         }
     });
