@@ -214,7 +214,7 @@ describe('Integration Tests for searching Pages', function () {
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', heightPreviewImage: 200, modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
@@ -251,7 +251,7 @@ describe('Integration Tests for searching Pages', function () {
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, heightPreviewImage: 200, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
@@ -288,7 +288,7 @@ describe('Integration Tests for searching Pages', function () {
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
-        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
+        commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Link', description: 'page3', heightPreviewImage: 200, modified: 502, pageId: '2', link: 'www.test.com/test', hostname:'www.test.com'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page5Title', label: 'Youtube', language: 'de', link: 'https://www.youtube.com/embed/c0_TPaLP2Ko', description: 'page4', modified: 501, pageId: '3'})").end().getCommand());
 
         return db.cypher().match("(a:User {userId: '1'}), (b:Page {pageId: '0'})")
