@@ -2965,6 +2965,7 @@ md-toast.md-error-toast-theme {
   background-color: #e9ebee; }
   #ely-recommendation-popular-overview .ely-recommendation-popular-overview-container {
     height: 100%;
+    width: 100%;
     background-color: #e9ebee;
     max-width: 950px;
     margin: 0 auto; }
@@ -2991,6 +2992,7 @@ md-toast.md-error-toast-theme {
 
 .ely-recommendation-popular-column {
   height: 100%;
+  width: 100%;
   padding: 0 16px;
   background-color: #e9ebee; }
   .ely-recommendation-popular-column .title-recommendation-popular {
@@ -3043,6 +3045,7 @@ md-toast.md-error-toast-theme {
 
 .ely-recommendation-popular-column.ely-recommendation-popular-column-mobile {
   height: 100%;
+  width: 100%;
   padding: 0;
   background-color: #ffffff; }
   .ely-recommendation-popular-column.ely-recommendation-popular-column-mobile .ely-popular-column-mobile-container {
