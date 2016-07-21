@@ -143,6 +143,44 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
+    it('User contacts based recommendations are order by most contacting', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.createContactConnection('1', '2', 'Freund');
+        dbDsl.createContactConnection('2', '3', 'Freund');
+        dbDsl.createContactConnection('4', '3', 'Freund');
+        dbDsl.createContactConnection('5', '3', 'Freund');
+
+
+        dbDsl.createContactConnection('1', '6', 'Freund');
+        dbDsl.createContactConnection('6', '7', 'Freund');
+        dbDsl.createContactConnection('8', '7', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.recommendedUser.length.should.equals(2);
+            res.body.recommendedUser[0].userId.should.equals('3');
+            res.body.recommendedUser[0].name.should.equals('user Meier3');
+            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
+
+            res.body.recommendedUser[1].userId.should.equals('7');
+            res.body.recommendedUser[1].name.should.equals('user Meier7');
+            res.body.recommendedUser[1].profileUrl.should.equals('profileImage/7/thumbnail.jpg');
+        });
+    });
+
     it('Ignore Contact Recommendation for user when contacting happens since previous login', function () {
 
         dbDsl.setUserLastLoginTime(5000);

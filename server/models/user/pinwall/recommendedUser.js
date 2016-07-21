@@ -9,12 +9,12 @@ var getRecommendedByContactUsers = function (userId) {
         .where("privacyRel.type = relContactedUser.type")
         .optionalMatch("(contactedUser:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("NOT EXISTS((user)<-[:IS_CONTACT]-(contactedUser))")
-        .with("user, contactedUser, privacyNoContact, relContactedUser, privacy, count(contactedUser) AS numberOfContacting")
+        .with("user, contactedUser, privacyNoContact, relContactedUser, privacy, count(contactedUser) AS numberOfContactingByContactUser")
         .where(`NOT EXISTS((user)<-[:IS_CONTACT]-(contactedUser)) OR relContactedUser.contactAdded < user.previousLastLogin`)
-        .return(`numberOfContacting, contactedUser.userId AS userId, contactedUser.name AS name, 
+        .return(`SIZE((contactedUser)<-[:IS_CONTACT]-(:User)) AS numberOfContacting, contactedUser.userId AS userId, contactedUser.name AS name, 
                  privacy.profile AS profileVisible, privacy.image AS imageVisible, privacyNoContact.profile AS profileVisibleNoContact, 
-                 privacyNoContact.image AS imageVisibleNoContact`)
-        .orderBy("numberOfContacting DESC")
+                 privacyNoContact.image AS imageVisibleNoContact, numberOfContactingByContactUser`)
+        .orderBy("numberOfContactingByContactUser DESC, numberOfContacting DESC")
         .limit("10")
         .end({userId: userId});
 };
