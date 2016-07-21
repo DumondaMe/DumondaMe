@@ -22,7 +22,7 @@ var getRecommendedByContactUsers = function (userId) {
 var getRecommendedUsers = function (userId) {
     return db.cypher().match(`(contactingUser:User)-[:IS_CONTACT]->(contactedUser:User), (user:User {userId: {userId}})`)
         .where(`NOT (user)-[:IS_CONTACT]->()-[:IS_CONTACT]->(contactedUser) AND NOT (user)-[:IS_CONTACT]->(contactedUser) AND 
-                contactingUser.userId <> user.userId AND contactedUser.userId <> user.userId`)
+                contactingUser.userId <> user.userId AND contactedUser.userId <> user.userId AND NOT (user)-[:IS_BLOCKED]->(contactedUser)`)
         .optionalMatch("(user)<-[relContactedUser:IS_CONTACT]-(contactedUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
         .where("privacyRel.type = relContactedUser.type")
         .optionalMatch("(contactedUser:User)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")

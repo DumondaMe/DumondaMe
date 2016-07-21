@@ -225,6 +225,32 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
+    it('Ignore recommendation when user has blocked this recommended person', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.blockUser('1', '3');
+        dbDsl.createContactConnection('2', '3', 'Freund');
+        dbDsl.createContactConnection('4', '3', 'Freund');
+        dbDsl.createContactConnection('5', '3', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.recommendedUser.length.should.equals(0);
+        });
+    });
+
     it('Hide recommended contact image (no contact relations to user, profile=false)', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
