@@ -1,0 +1,15 @@
+<md-card id="ely-pinwall-recommended-user">
+    <md-card-content>
+        <div class="card-title">Kontaktvorschläge</div>
+        <div class="recommended-user" ng-repeat="user in ctrl.recommendedUser | limitTo: 5" layout="row">
+            <img ng-src="{{user.profileUrl}}" class="profile-image" ng-click="ctrl.goToContacting()">
+            <div class="user-name" ng-click="ctrl.goToContacting()">{{user.name}}</div>
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Add to contact"
+                       ng-click="ctrl.addContact(user.userId, user.name)">
+                <md-icon md-svg-icon="cardActions:addContact"></md-icon>
+                <md-tooltip md-direction="left">Zu Deinen Kontakten hinzufügen</md-tooltip>
+            </md-button>
+        </div>
+    </md-card-content>
+</md-card>

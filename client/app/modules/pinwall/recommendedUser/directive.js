@@ -5,18 +5,14 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {pinwall: '='},
+            scope: {},
             bindToController: {
-                contacting: '=',
-                recommendedUser: '=',
-                gap: '=',
-                breakpoint: '@',
-                noPinwall: '='
+                recommendedUser: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/template.html'
+            templateUrl: 'app/modules/pinwall/recommendedUser/template.html'
         };
     }],
-    name: 'elyPinwall'
+    name: 'elyPinwallRecommendedUser'
 };

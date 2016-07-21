@@ -2637,6 +2637,29 @@ md-toast.md-error-toast-theme {
     color: #3F51B5;
     font-weight: 500; }
 
+#ely-pinwall-recommended-user {
+  max-width: 450px;
+  min-width: 280px;
+  width: 100%;
+  margin: 8px 0; }
+  #ely-pinwall-recommended-user .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px; }
+  #ely-pinwall-recommended-user .recommended-user {
+    margin-bottom: 16px; }
+    #ely-pinwall-recommended-user .recommended-user .profile-image {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer; }
+    #ely-pinwall-recommended-user .recommended-user .user-name {
+      margin-left: 12px;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer; }
+
 #start-screen #carousel {
   height: 100%;
   width: 100%; }

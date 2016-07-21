@@ -2,8 +2,8 @@
     <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
         <div class="pinwall-inner-container">
-            <ely-pinwall flex="none" contacting="ctrl.home.contacting" pinwall="ctrl.home.pinwall" gap="true"
-                         no-pinwall="ctrl.noPinwall"></ely-pinwall>
+            <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
+                         gap="true" no-pinwall="ctrl.noPinwall"></ely-pinwall>
         </div>
     </div>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>

@@ -1,0 +1,28 @@
+#ely-pinwall-recommended-user {
+  @include cardElement();
+  width: 100%;
+  margin: 8px 0;
+  .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .recommended-user {
+    margin-bottom: 16px;
+    .profile-image {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .user-name {
+      margin-left: 12px;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+
+
