@@ -5,7 +5,7 @@ var cdn = require('../util/cdn');
 var _ = require("lodash");
 
 var getImageForPreview = function (contact, profileType) {
-    if (contact.profileVisible && contact.imageVisible) {
+    if ((contact.profileVisible && contact.imageVisible) || (contact.profileVisibleNoContact && contact.imageVisibleNoContact)) {
         return cdn.getUrl('profileImage/' + contact.userId + '/' + profileType);
     }
     return cdn.getUrl('profileImage/default/' + profileType);
@@ -17,6 +17,8 @@ var addImage = function (contacts, imageTyp) {
         contact.profileUrl = getImageForPreview(contact, imageTyp);
         delete contact.profileVisible;
         delete contact.imageVisible;
+        delete contact.profileVisibleNoContact;
+        delete contact.imageVisibleNoContact;
     });
 };
 

@@ -4,25 +4,8 @@ var db = require('./../../../neo4j');
 var userInfo = require('./../userInfo');
 var pinwallElement = require('./pinwallElement/pinwallElement');
 var pinwallSelector = require('./pinwallSelector');
-
-var getContacting = function (userId) {
-    return db.cypher().match(`(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)
-                               -[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)`)
-        .where(`relContacting.contactAdded >= user.previousLastLogin AND 
-               ((relContacting IS NULL AND type(vr) = 'HAS_PRIVACY_NO_CONTACT') OR (relContacting.type = vr.type AND type(vr) = 'HAS_PRIVACY'))`)
-        .return(`contacting.userId AS userId, contacting.name AS name, relContacting.contactAdded AS contactAdded,
-                 EXISTS((user)-[:IS_CONTACT]->(contacting)) AS contactOfUser, v.profile AS profileVisible, v.image AS imageVisible`)
-        .orderBy("contactAdded DESC")
-        .limit("3")
-        .end({userId: userId});
-};
-
-var getNumberOfContacting = function (userId) {
-    return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
-        .where("relContacting.contactAdded >= user.previousLastLogin")
-        .return("count(*) AS numberOfContacting")
-        .end({userId: userId});
-};
+var contacting = require('./contacting');
+var recommendedUser = require('./recommendedUser');
 
 var getPinwallOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
@@ -155,18 +138,23 @@ var getRecommendations = function (userId, request) {
 var getPinwall = function (userId, request) {
     var commands = [];
 
-    commands.push(getContacting(userId).getCommand());
-    commands.push(getNumberOfContacting(userId).getCommand());
+    commands.push(contacting.getContacting(userId).getCommand());
+    commands.push(contacting.getNumberOfContacting(userId).getCommand());
+    commands.push(recommendedUser.getRecommendedByContactUsers(userId).getCommand());
+    commands.push(recommendedUser.getRecommendedUsers(userId).getCommand());
     commands.push(getBlogs(userId, request).getCommand());
 
     return getRecommendations(userId, request)
         .send(commands)
         .then(function (resp) {
-            var pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], request.skipRecommendation, request.skipBlog, request.maxItems);
+            var pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], request.skipRecommendation, request.skipBlog, request.maxItems);
             userInfo.addImageForThumbnail(resp[0]);
+            userInfo.addImageForThumbnail(resp[2]);
+            userInfo.addImageForThumbnail(resp[3]);
 
             return {
                 contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
+                recommendedUser: resp[2].concat(resp[3]),
                 pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
                 skipRecommendation: pinwall.skipRecommendation,
                 skipBlog: pinwall.skipBlog

@@ -3,6 +3,11 @@
 var db = require('../db');
 var dbConnectionHandling = require('./dbConnectionHandling');
 
+var setUserLastLoginTime = function (lastLogin) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: '1'})`).set("u", {lastLogin: lastLogin})
+        .end().getCommand());
+};
+
 var createUser = function (userId, forename, surname, email) {
     var name = `${forename} ${surname}`;
     email = email || null;
@@ -20,8 +25,12 @@ var blockUser = function (userId, blockedUserId) {
 };
 
 var createPrivacy = function (userIds, type, privacy) {
+    var idsCommand = null;
+    if (userIds) {
+        idsCommand = "u.userId IN {userIds}";
+    }
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User)")
-        .where("u.userId IN {userIds}")
+        .where(idsCommand)
         .create(`(u)-[:HAS_PRIVACY {type: {type}}]->(:Privacy {profile: {profile}, image: {image}, profileData: {profileData}, contacts: {contacts}, 
                   pinwall: {pinwall}})`)
         .end({
@@ -55,6 +64,7 @@ var createPrivacyNoContact = function (userIds, privacy) {
 };
 
 module.exports = {
+    setUserLastLoginTime : setUserLastLoginTime,
     createUser: createUser,
     blockUser: blockUser,
     createPrivacy: createPrivacy,
