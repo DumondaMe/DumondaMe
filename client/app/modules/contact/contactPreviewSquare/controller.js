@@ -11,6 +11,9 @@ module.exports = {
                     UserStateService.addContact(ctrl.user.userId, ctrl.user.name).then(function (type) {
                         ctrl.user.type = type;
                         ContactStatisticTypes.addContactByName(ctrl.user.type);
+                        if (angular.isFunction(ctrl.addedContactEvent)) {
+                            ctrl.addedContactEvent(ctrl.user.userId);
+                        }
                     });
                 };
 

@@ -14,7 +14,7 @@
                 <ely-contact-overview></ely-contact-overview>
             </md-tab-body>
         </md-tab>
-        <md-tab label="Follower" class="contact-tab" md-on-select="ctrl.contactingSelect = true" md-on-deselect="ctrl.contactingSelect = false">
+        <md-tab class="contact-tab" md-on-select="ctrl.contactingSelect = true" md-on-deselect="ctrl.contactingSelect = false">
             <md-tab-label>
                 <span class="tab-me">Du</span>
                 <md-icon md-svg-icon="tabs:arrowBack" class="icon ely-tab-icon"></md-icon>
@@ -25,6 +25,17 @@
             </md-tab-label>
             <md-tab-body class="contact-tab-content" ng-if="ctrl.contactingSelect">
                 <ely-contacting-overview></ely-contacting-overview>
+            </md-tab-body>
+        </md-tab>
+        <md-tab class="contact-tab" md-on-select="ctrl.userSuggestionSelect = true" md-on-deselect="ctrl.userSuggestionSelect = false">
+            <md-tab-label>
+                <md-icon md-svg-icon="tabs:addContact" class="icon ely-tab-icon"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Kontaktvorschläge
+                </md-tooltip>
+            </md-tab-label>
+            <md-tab-body class="contact-tab-content" ng-if="ctrl.userSuggestionSelect">
+                <ely-contact-recommendation-overview></ely-contact-recommendation-overview>
             </md-tab-body>
         </md-tab>
     </md-tabs>

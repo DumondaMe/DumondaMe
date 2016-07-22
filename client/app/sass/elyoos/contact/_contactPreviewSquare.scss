@@ -1,7 +1,7 @@
 .ely-contact-preview-square {
   position: relative;
   width: 140px;
-  height: 150px;
+  height: 160px;
   margin: 8px auto;
 
   .user-preview-img {
@@ -18,7 +18,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    height: 20px;
+    height: 26px;
     line-height: 24px;
     vertical-align: middle;
     white-space: nowrap;
@@ -37,9 +37,10 @@
     padding: 0 16px;
   }
   .user-blocked {
-    height: 18px;
+    margin-top: 5px;
+    height: 13px;
     min-width: 1px;
-    font-size: 14px;
+    font-size: 11px;
     color: $error-text;
     padding: 0 16px;
   }

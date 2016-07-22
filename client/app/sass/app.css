@@ -802,7 +802,7 @@ md-toast.md-error-toast-theme {
     #ely-contacting-overview .overview-container .overview-container-inner {
       width: 296px;
       margin: 0 auto; }
-      @media screen and (min-width: 1280px) {
+      @media screen and (min-width: 600px) {
         #ely-contacting-overview .overview-container .overview-container-inner {
           width: 592px; } }
       @media screen and (min-width: 1440px) {
@@ -918,7 +918,7 @@ md-toast.md-error-toast-theme {
 .ely-contact-preview-square {
   position: relative;
   width: 140px;
-  height: 150px;
+  height: 160px;
   margin: 8px auto; }
   .ely-contact-preview-square .user-preview-img {
     cursor: pointer;
@@ -933,7 +933,7 @@ md-toast.md-error-toast-theme {
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    height: 20px;
+    height: 26px;
     line-height: 24px;
     vertical-align: middle;
     white-space: nowrap;
@@ -950,11 +950,48 @@ md-toast.md-error-toast-theme {
     color: rgba(0, 0, 0, 0.54);
     padding: 0 16px; }
   .ely-contact-preview-square .user-blocked {
-    height: 18px;
+    margin-top: 5px;
+    height: 13px;
     min-width: 1px;
-    font-size: 14px;
+    font-size: 11px;
     color: #ff5722;
     padding: 0 16px; }
+
+#ely-contact-recommendation-overview {
+  height: 100%;
+  background-color: #e9ebee; }
+  #ely-contact-recommendation-overview .overview-container {
+    height: 100%;
+    overflow-y: auto; }
+    #ely-contact-recommendation-overview .overview-container .overview-container-inner {
+      width: 296px;
+      margin: 0 auto; }
+      @media screen and (min-width: 600px) {
+        #ely-contact-recommendation-overview .overview-container .overview-container-inner {
+          width: 592px; } }
+      @media screen and (min-width: 1440px) {
+        #ely-contact-recommendation-overview .overview-container .overview-container-inner {
+          width: 740px; } }
+      #ely-contact-recommendation-overview .overview-container .overview-container-inner .recommendation-info {
+        margin: 16px 4px 8px 4px;
+        padding: 16px;
+        background-color: white; }
+        #ely-contact-recommendation-overview .overview-container .overview-container-inner .recommendation-info .recommendation-info-text {
+          line-height: 24px;
+          vertical-align: middle;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87); }
+        #ely-contact-recommendation-overview .overview-container .overview-container-inner .recommendation-info .menu-container {
+          margin: 0;
+          padding: 0; }
+          #ely-contact-recommendation-overview .overview-container .overview-container-inner .recommendation-info .menu-container .setting-button {
+            padding: 0 8px;
+            height: 24px;
+            min-height: 24px; }
+      #ely-contact-recommendation-overview .overview-container .overview-container-inner .contact-element {
+        margin-right: 4px;
+        margin-left: 4px;
+        display: inline-block; }
 
 #ely-user-search-overview {
   height: 100%;

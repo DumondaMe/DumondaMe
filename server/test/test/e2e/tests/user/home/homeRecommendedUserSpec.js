@@ -265,9 +265,13 @@ describe('Integration Tests for getting contact recommendation on the home scree
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
         dbDsl.blockUser('1', '3');
+        dbDsl.blockUser('1', '7');
         dbDsl.createContactConnection('2', '3', 'Freund');
         dbDsl.createContactConnection('4', '3', 'Freund');
         dbDsl.createContactConnection('5', '3', 'Freund');
+
+        dbDsl.createContactConnection('1', '6', 'Freund');
+        dbDsl.createContactConnection('6', '7', 'Freund');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -285,7 +289,37 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
-    it('Hide recommended contact image (no contact relations to user, profile=false)', function () {
+    it('Ignore recommendation when recommended person has blocked user', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.blockUser('3', '1');
+        dbDsl.blockUser('7', '1');
+        dbDsl.createContactConnection('2', '3', 'Freund');
+        dbDsl.createContactConnection('4', '3', 'Freund');
+        dbDsl.createContactConnection('5', '3', 'Freund');
+
+        dbDsl.createContactConnection('1', '6', 'Freund');
+        dbDsl.createContactConnection('6', '7', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+
+            res.body.recommendedUser.length.should.equals(0);
+        });
+    });
+
+    it('Do not recommend user because profile is set to false (no contact relations to user)', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -307,14 +341,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
-            res.body.recommendedUser[0].userId.should.equals('5');
-            res.body.recommendedUser[0].name.should.equals('user Meier5');
-            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
-
-            res.body.recommendedUser[1].userId.should.equals('3');
-            res.body.recommendedUser[1].name.should.equals('user Meier3');
-            res.body.recommendedUser[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+            res.body.recommendedUser.length.should.equals(0);
         });
     });
 
@@ -351,7 +378,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
-    it('Hide recommended contact image (contact relations to user, profile=false)', function () {
+    it('Do not recommend user because profile is set to false (contact relations to user)', function () {
 
         dbDsl.setUserLastLoginTime(5000);
 
@@ -377,14 +404,7 @@ describe('Integration Tests for getting contact recommendation on the home scree
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.recommendedUser.length.should.equals(2);
-            res.body.recommendedUser[0].userId.should.equals('5');
-            res.body.recommendedUser[0].name.should.equals('user Meier5');
-            res.body.recommendedUser[0].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
-
-            res.body.recommendedUser[1].userId.should.equals('3');
-            res.body.recommendedUser[1].name.should.equals('user Meier3');
-            res.body.recommendedUser[1].profileUrl.should.equals('profileImage/default/thumbnail.jpg');
+            res.body.recommendedUser.length.should.equals(0);
         });
     });
 

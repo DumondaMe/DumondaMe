@@ -12,6 +12,7 @@ app.factory('UserDetailContacts', require('./services/userDetailContacts'));
 app.factory('UserDetailContactings', require('./services/userDetailContactings'));
 app.factory('SearchUsers', require('./services/searchUsers'));
 app.factory('Contacting', require('./services/contacting'));
+app.factory('ContactRecommendation', require('./services/contactRecommendation'));
 
 app.service('UserStateService', require('./services/userStateService'));
 app.service('ContactStatisticTypes', require('./services/contactStatisticTypes'));

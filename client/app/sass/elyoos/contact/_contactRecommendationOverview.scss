@@ -1,7 +1,6 @@
-#ely-contacting-overview {
+#ely-contact-recommendation-overview {
   height: 100%;
   background-color: $background-normal;
-  //padding: 16px 16px 0 16px;
 
   .overview-container {
     height: 100%;
@@ -15,21 +14,24 @@
       @media screen and (min-width: $gt-xmd) {
         width: 740px;
       }
-      .contacting-info {
+      .recommendation-info {
         margin: 16px 4px 8px 4px;
         padding: 16px;
         background-color: white;
-        .number-of-contacting-title{
+        .recommendation-info-text {
           line-height: 24px;
           vertical-align: middle;
           font-weight: 500;
           color: $primary-text;
-          .number-of-contacting {
-            color: $primary-color;
-          }
         }
-        .help-icon {
-          cursor: pointer;
+        .menu-container {
+          margin: 0;
+          padding: 0;
+          .setting-button {
+            padding: 0 8px;
+            height: 24px;
+            min-height: 24px;
+          }
         }
       }
       .contact-element {

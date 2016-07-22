@@ -11,7 +11,8 @@ module.exports = {
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
             bindToController: {
-                user: '='
+                user: '=',
+                addedContactEvent: '='
             },
             templateUrl: 'app/modules/contact/contactPreviewSquare/template.html'
         };

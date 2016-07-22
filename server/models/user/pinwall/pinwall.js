@@ -142,9 +142,9 @@ var getPinwall = function (userId, request) {
     return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
         commands.push(contacting.getContacting(userId).getCommand());
         commands.push(contacting.getNumberOfContacting(userId).getCommand());
-        if(showUserRecommendation) {
-            commands.push(recommendedUser.getRecommendedByContactUsers(userId).getCommand());
-            commands.push(recommendedUser.getRecommendedUsers(userId).getCommand());
+        if (showUserRecommendation) {
+            commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10).getCommand());
+            commands.push(recommendedUser.getRecommendedUsers(userId, 10).getCommand());
         }
         commands.push(getBlogs(userId, request).getCommand());
 
@@ -153,7 +153,7 @@ var getPinwall = function (userId, request) {
             .then(function (resp) {
                 var pinwall, recommendedUserResult = [];
                 userInfo.addImageForThumbnail(resp[0]);
-                if(showUserRecommendation) {
+                if (showUserRecommendation) {
                     userInfo.addImageForThumbnail(resp[2]);
                     userInfo.addImageForThumbnail(resp[3]);
                     recommendedUserResult = resp[2].concat(resp[3]);
