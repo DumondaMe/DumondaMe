@@ -2,15 +2,12 @@
 
 var db = require('./../../../neo4j');
 var cdn = require('../../util/cdn');
-var userInfo = require('../userInfo');
 var contactSummary = require('./contactSummary');
 var contactStatistic = require('../../contact/contactStatistic');
 var _ = require("lodash");
 var logger = requireLogger.getLogger(__filename);
 
 var returnDetails = function (detailUserData, detailUser, detailUserPrivacy, userId, detailUserId, resp, req) {
-    userInfo.addConnectionInfo(detailUserData);
-    detailUser.connected = detailUserData.connected;
 
     if (detailUserPrivacy.profile) {
         if (detailUserPrivacy.image) {

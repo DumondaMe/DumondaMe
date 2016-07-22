@@ -74,7 +74,6 @@ describe('Integration Tests for finding other users', function () {
                 res.body[0].type.should.equal('Freund');
                 res.body[0].contactAdded.should.least(startTime);
                 res.body[0].userAdded.should.least(startTime);
-                res.body[0].connected.should.equal('both');
                 res.body[0].profileUrl.should.equal('profileImage/6/thumbnail.jpg');
 
                 res.body[1].userId.should.equal('2');
@@ -82,25 +81,21 @@ describe('Integration Tests for finding other users', function () {
                 res.body[1].type.should.equal('Familie');
                 should.not.exist(res.body[1].userAdded);
                 res.body[1].contactAdded.should.least(startTime);
-                res.body[1].connected.should.equal('userToContact');
                 res.body[1].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
                 res.body[2].userId.should.equal('4');
                 res.body[2].name.should.equal('user Meier4');
-                res.body[2].connected.should.equal('none');
                 should.not.exist(res.body[2].type);
                 res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
                 res.body[3].name.should.equal('user Meier5');
                 should.not.exist(res.body[3].contactAdded);
                 res.body[3].userAdded.should.least(startTime);
-                res.body[3].connected.should.equal('contactToUser');
                 should.not.exist(res.body[3].type);
                 res.body[3].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
                 res.body[4].name.should.equal('user2 Meier3');
                 should.not.exist(res.body[4].contactAdded);
-                res.body[4].connected.should.equal('none');
                 should.not.exist(res.body[4].type);
                 res.body[4].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
             });

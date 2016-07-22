@@ -8,15 +8,6 @@ module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes', 'Contac
         $state.go('contact.overview', {showContacting: true});
     };
 
-    if (ContactStatisticTypes.getTypes().length === 0) {
-        ctrl.statistics = ContactStatistic.get(function () {
-            ContactStatisticTypes.setStatistic(ctrl.statistics.statistic);
-            ctrl.typesExists = true;
-        });
-    } else {
-        ctrl.typesExists = true;
-    }
-
     ctrl.addContact = function (userId, name) {
         UserStateService.addContact(userId, name).then(function (type) {
             angular.forEach(ctrl.contacting.users, function (user) {

@@ -68,19 +68,16 @@ describe('Integration Tests for handling contacting information', function () {
             should.not.exist(res.body.contactingUsers[0].type);
             res.body.contactingUsers[0].userId.should.equal("3");
             res.body.contactingUsers[0].name.should.equal("user3 Meier3");
-            res.body.contactingUsers[0].connected.should.equal("contactToUser");
             res.body.contactingUsers[0].profileUrl.should.equal("profileImage/3/thumbnail.jpg");
             res.body.contactingUsers[0].userAdded.should.equal(startTime - 1000);
 
             res.body.contactingUsers[1].userId.should.equal("2");
             res.body.contactingUsers[1].name.should.equal("user2 Meier2");
-            res.body.contactingUsers[1].connected.should.equal("contactToUser");
             res.body.contactingUsers[1].profileUrl.should.equal("profileImage/2/thumbnail.jpg");
             res.body.contactingUsers[1].userAdded.should.equal(startTime - 86401);
 
             res.body.contactingUsers[2].userId.should.equal("4");
             res.body.contactingUsers[2].name.should.equal("user4 Meier4");
-            res.body.contactingUsers[2].connected.should.equal("contactToUser");
             res.body.contactingUsers[2].profileUrl.should.equal("profileImage/4/thumbnail.jpg");
             res.body.contactingUsers[2].userAdded.should.equal(startTime - 2591000);
             res.body.numberOfAllContactings.should.equal(3);
@@ -100,7 +97,6 @@ describe('Integration Tests for handling contacting information', function () {
 
             res.body.contactingUsers[0].userId.should.equal("2");
             res.body.contactingUsers[0].name.should.equal("user2 Meier2");
-            res.body.contactingUsers[0].connected.should.equal("contactToUser");
             res.body.contactingUsers[0].profileUrl.should.equal("profileImage/2/thumbnail.jpg");
             res.body.contactingUsers[0].userAdded.should.equal(startTime - 86401);
             

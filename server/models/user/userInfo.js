@@ -30,25 +30,6 @@ var addImageForThumbnail = function (contacts) {
     addImage(contacts, 'thumbnail.jpg');
 };
 
-var addConnectionInfo = function (contact) {
-    if (contact.contactType && contact.type) {
-        contact.connected = 'both';
-    } else if (!contact.contactType && contact.type) {
-        contact.connected = 'userToContact';
-    } else if (contact.contactType && !contact.type) {
-        contact.connected = 'contactToUser';
-    } else {
-        contact.connected = 'none';
-    }
-    delete contact.contactType;
-};
-
-var addConnectionInfos = function (contacts) {
-    underscore.each(contacts, function (contact) {
-        addConnectionInfo(contact);
-    });
-};
-
 var setUserImageVisible = function (userId, contacts) {
     _.each(contacts, function (contact) {
         if (contact.userId === userId) {
@@ -62,10 +43,8 @@ module.exports = {
     getImageForPreview: getImageForPreview,
     addImageForPreview: addImageForPreview,
     addImageForThumbnail: addImageForThumbnail,
-    addConnectionInfo: addConnectionInfo,
     setUserImageVisible: setUserImageVisible,
     addContactPreviewInfos: function (contacts) {
         addImageForThumbnail(contacts);
-        addConnectionInfos(contacts);
     }
 };

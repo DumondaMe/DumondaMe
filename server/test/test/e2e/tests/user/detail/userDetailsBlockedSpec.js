@@ -57,7 +57,6 @@ describe('Integration Tests for getting user details when blocking is involved',
                 res.body.user.country.should.equals('CH');
                 res.body.user.street.should.equals('irgendwo');
                 res.body.user.place.should.equals('sonstwo');
-                res.body.user.connected.should.equals('none');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(true);
@@ -95,7 +94,6 @@ describe('Integration Tests for getting user details when blocking is involved',
                 should.not.exist(res.body.user.country);
                 should.not.exist(res.body.user.street);
                 should.not.exist(res.body.user.place);
-                should.not.exist(res.body.user.connected);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);

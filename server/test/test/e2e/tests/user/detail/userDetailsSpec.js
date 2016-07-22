@@ -54,7 +54,6 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.country.should.equals('CH');
                 res.body.user.street.should.equals('irgendwo');
                 res.body.user.place.should.equals('sonstwo');
-                res.body.user.connected.should.equals('none');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -91,7 +90,6 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
-                res.body.user.connected.should.equals('none');
                 res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
@@ -126,7 +124,6 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
-                res.body.user.connected.should.equals('none');
                 res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
@@ -165,7 +162,6 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.place.should.equals('sonstwo');
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
-                res.body.user.connected.should.equals('userToContact');
                 res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
@@ -204,7 +200,6 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.place);
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
-                res.body.user.connected.should.equals('userToContact');
                 res.body.user.blocked.should.equals(false);
 
                 //Contacts
@@ -302,7 +297,6 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.street.should.equals('irgendwo');
                 res.body.user.place.should.equals('sonstwo');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
-                res.body.user.connected.should.equals('contactToUser');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
                 //Contacts
@@ -379,7 +373,6 @@ describe('Integration Tests for getting user details', function () {
                 should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
-                res.body.user.connected.should.equals('contactToUser');
                 res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);
@@ -419,7 +412,6 @@ describe('Integration Tests for getting user details', function () {
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.contacts.length.should.equals(0);
-                res.body.user.connected.should.equals('contactToUser');
                 res.body.user.blocked.should.equals(false);
 
                 res.body.contactTypeStatistic.length.should.equals(2);

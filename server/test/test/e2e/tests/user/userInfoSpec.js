@@ -18,12 +18,10 @@ describe('Integration Tests User Name', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId:'1'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
+                .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})")
-                .end().getCommand());
+                .create("(u)-[:HAS_PRIVACY {type: 'Bekannter'}]->(:Privacy {profile: true, image: true})").end().getCommand());
 
             // User 2
             commands.push(db.cypher().create("(:User {name: 'user2 Meier2', userId: '2'})").end().getCommand());
@@ -73,6 +71,10 @@ describe('Integration Tests User Name', function () {
                     "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
                 .end({}).getCommand());
 
+            commands.push(db.cypher().match("(u:User {userId: '1'}), (u2:User {userId: '2'})")
+                .create("(u)-[:IS_CONTACT {type: 'Freund'}]->(u2)")
+                .end({}).getCommand());
+
             return db.cypher().create("(:User)")
                 .end().send(commands);
         });
@@ -92,9 +94,11 @@ describe('Integration Tests User Name', function () {
             res.body.profileImage.should.equal('profileImage/1/thumbnail.jpg');
             res.body.profileImagePreview.should.equal('profileImage/1/profilePreview.jpg');
             res.body.email.should.equal('user@irgendwo.ch');
-            res.body.privacyTypes.length.should.equal(2);
-            res.body.privacyTypes[0].should.equal('Bekannter');
-            res.body.privacyTypes[1].should.equal('Freund');
+            res.body.contactStatistic.length.should.equal(2);
+            res.body.contactStatistic[0].type.should.equal('Freund');
+            res.body.contactStatistic[0].count.should.equal(1);
+            res.body.contactStatistic[1].type.should.equal('Bekannter');
+            res.body.contactStatistic[1].count.should.equal(0);
             res.body.totalUnreadMessages.should.equal(2);
         });
     });

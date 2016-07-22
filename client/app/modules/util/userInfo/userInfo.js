@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState',
-    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState) {
+module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables', 'UploadProfileImageState', 'ContactStatisticTypes',
+    function (UserInfoRequest, $interval, Modification, Observables, UploadProfileImageState, ContactStatisticTypes) {
 
         var isLoggedIn = false, userInfo, modificationInfo, observables = [], service = this;
 
@@ -17,6 +17,7 @@ module.exports = ['UserInfoRequest', '$interval', 'Modification', 'Observables',
             isLoggedIn = true;
             if (!userInfo) {
                 userInfo = UserInfoRequest.get(null, function () {
+                    ContactStatisticTypes.setStatistic(userInfo.contactStatistic);
                     Observables.notifyObservables(observables, "userInfoChanged", userInfo);
                     if (isLoggedIn) {
                         modificationInfo = $interval(function () {

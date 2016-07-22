@@ -2,8 +2,8 @@
     <md-card-content>
         <div class="card-title">Kontaktvorschläge</div>
         <div class="recommended-user" ng-repeat="user in ctrl.recommendedUser | limitTo: 5" layout="row">
-            <img ng-src="{{user.profileUrl}}" class="profile-image" ng-click="ctrl.goToContacting()">
-            <div class="user-name" ng-click="ctrl.goToContacting()">{{user.name}}</div>
+            <img ng-src="{{user.profileUrl}}" class="profile-image" ui-sref="user.detail({userId: user.userId})">
+            <div class="user-name" ui-sref="user.detail({userId: user.userId})">{{user.name}}</div>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Add to contact"
                        ng-click="ctrl.addContact(user.userId, user.name)">

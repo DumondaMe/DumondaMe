@@ -88,16 +88,14 @@ var getUserInfo = function (id, req) {
     var commands = [];
 
     commands.push(unreadMessages.getTotalNumberOfUnreadMessages(id).getCommand());
+    commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
 
     return db.cypher().match('(u:User {userId: {id}})')
-        .optionalMatch("(u)-[relPrivacy:HAS_PRIVACY]->(:Privacy)")
-        .with("u, relPrivacy")
-        .orderBy("relPrivacy.type")
-        .return('u.name AS name, u.userId AS userId, u.email AS email, collect(relPrivacy.type) AS privacyTypes')
+        .return('u.name AS name, u.userId AS userId, u.email AS email')
         .end({id: id})
         .send(commands)
         .then(function (resp) {
-            var user = getUser(resp[1], id, [
+            var user = getUser(resp[2], id, [
                 {
                     property: 'profileImage',
                     image: '/thumbnail.jpg'
@@ -106,6 +104,7 @@ var getUserInfo = function (id, req) {
                     image: '/profilePreview.jpg'
                 }], req);
             user.totalUnreadMessages = resp[0][0].totalUnreadMessages;
+            user.contactStatistic = resp[1];
             return user;
         });
 };

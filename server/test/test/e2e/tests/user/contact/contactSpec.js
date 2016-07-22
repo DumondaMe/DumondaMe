@@ -160,13 +160,11 @@ describe('Integration Tests for handling contacts', function () {
             res.body.contacts[0].type.should.equal("Freund");
             res.body.contacts[0].name.should.equal("user2 Meier2");
             res.body.contacts[0].contactAdded.should.least(now);
-            res.body.contacts[1].connected.should.equal("userToContact");
             res.body.contacts[3].userId.should.equal("5");
             res.body.contacts[3].type.should.equal("Freund");
             res.body.contacts[3].name.should.equal("user5 Meier5");
             res.body.contacts[3].contactAdded.should.least(now);
             res.body.contacts[3].userAdded.should.least(now);
-            res.body.contacts[3].connected.should.equal("both");
 
             //statistic
             res.body.statistic.length.should.equal(3);
@@ -212,9 +210,6 @@ describe('Integration Tests for handling contacts', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.contacts.length.should.equal(3);
-            res.body.contacts[0].connected.should.equal('userToContact');
-            res.body.contacts[1].connected.should.equal('userToContact');
-            res.body.contacts[2].connected.should.equal('both');
             res.body.numberOfContacts.should.equal(3);
             return requestHandler.getWithData('/api/user/contact', {
                 maxItems: 5,
