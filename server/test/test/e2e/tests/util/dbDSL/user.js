@@ -63,10 +63,17 @@ var createPrivacyNoContact = function (userIds, privacy) {
         }).getCommand());
 };
 
+var setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: '1'})")
+        .set('u', {showUserRecommendationOnHome: showUserRecommendationOnHome})
+        .end().getCommand());
+};
+
 module.exports = {
     setUserLastLoginTime : setUserLastLoginTime,
     createUser: createUser,
     blockUser: blockUser,
     createPrivacy: createPrivacy,
-    createPrivacyNoContact: createPrivacyNoContact
+    createPrivacyNoContact: createPrivacyNoContact,
+    setRecommendedUserOnHomeScreen: setRecommendedUserOnHomeScreen
 };

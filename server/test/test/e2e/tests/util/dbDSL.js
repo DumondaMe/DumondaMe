@@ -36,6 +36,7 @@ module.exports = {
     setUserLastLoginTime: user.setUserLastLoginTime,
     createUser: user.createUser,
     blockUser: user.blockUser,
+    setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact
 };

@@ -6,6 +6,7 @@ var pinwallElement = require('./pinwallElement/pinwallElement');
 var pinwallSelector = require('./pinwallSelector');
 var contacting = require('./contacting');
 var recommendedUser = require('./recommendedUser');
+var recommendedUserSetting = require('./../setting/recommendedUser');
 
 var getPinwallOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
@@ -138,28 +139,38 @@ var getRecommendations = function (userId, request) {
 var getPinwall = function (userId, request) {
     var commands = [];
 
-    commands.push(contacting.getContacting(userId).getCommand());
-    commands.push(contacting.getNumberOfContacting(userId).getCommand());
-    commands.push(recommendedUser.getRecommendedByContactUsers(userId).getCommand());
-    commands.push(recommendedUser.getRecommendedUsers(userId).getCommand());
-    commands.push(getBlogs(userId, request).getCommand());
+    return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
+        commands.push(contacting.getContacting(userId).getCommand());
+        commands.push(contacting.getNumberOfContacting(userId).getCommand());
+        if(showUserRecommendation) {
+            commands.push(recommendedUser.getRecommendedByContactUsers(userId).getCommand());
+            commands.push(recommendedUser.getRecommendedUsers(userId).getCommand());
+        }
+        commands.push(getBlogs(userId, request).getCommand());
 
-    return getRecommendations(userId, request)
-        .send(commands)
-        .then(function (resp) {
-            var pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], request.skipRecommendation, request.skipBlog, request.maxItems);
-            userInfo.addImageForThumbnail(resp[0]);
-            userInfo.addImageForThumbnail(resp[2]);
-            userInfo.addImageForThumbnail(resp[3]);
+        return getRecommendations(userId, request)
+            .send(commands)
+            .then(function (resp) {
+                var pinwall, recommendedUserResult = [];
+                userInfo.addImageForThumbnail(resp[0]);
+                if(showUserRecommendation) {
+                    userInfo.addImageForThumbnail(resp[2]);
+                    userInfo.addImageForThumbnail(resp[3]);
+                    recommendedUserResult = resp[2].concat(resp[3]);
+                    pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], request.skipRecommendation, request.skipBlog, request.maxItems);
+                } else {
+                    pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], request.skipRecommendation, request.skipBlog, request.maxItems);
+                }
 
-            return {
-                contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
-                recommendedUser: resp[2].concat(resp[3]),
-                pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
-                skipRecommendation: pinwall.skipRecommendation,
-                skipBlog: pinwall.skipBlog
-            };
-        });
+                return {
+                    contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},
+                    recommendedUser: recommendedUserResult,
+                    pinwall: pinwallElement.getPinwallElements(pinwall.pinwall),
+                    skipRecommendation: pinwall.skipRecommendation,
+                    skipBlog: pinwall.skipBlog
+                };
+            });
+    });
 };
 
 module.exports = {

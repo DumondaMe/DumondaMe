@@ -2,10 +2,19 @@
   @include cardElement();
   width: 100%;
   margin: 8px 0;
-  .card-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 24px;
+  .title-container {
+    .menu-container {
+      position: relative;
+      padding: 0;
+      left: 3px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 41px;
+      vertical-align: middle;
+    }
+    margin-bottom: 12px;
   }
   .recommended-user {
     margin-bottom: 16px;

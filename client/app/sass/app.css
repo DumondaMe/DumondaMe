@@ -2642,10 +2642,17 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
-  #ely-pinwall-recommended-user .card-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 24px; }
+  #ely-pinwall-recommended-user .title-container {
+    margin-bottom: 12px; }
+    #ely-pinwall-recommended-user .title-container .menu-container {
+      position: relative;
+      padding: 0;
+      left: 3px; }
+    #ely-pinwall-recommended-user .title-container .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 41px;
+      vertical-align: middle; }
   #ely-pinwall-recommended-user .recommended-user {
     margin-bottom: 16px; }
     #ely-pinwall-recommended-user .recommended-user .profile-image {

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
-    function ($state, UserStateService, ContactStatisticTypes) {
+module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes', 'RecommendedUserOnHomeSetting',
+    function ($state, UserStateService, ContactStatisticTypes, RecommendedUserOnHomeSetting) {
         var ctrl = this;
 
         ctrl.addContact = function (userId, name) {
@@ -16,6 +16,12 @@ module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
                     ctrl.recommendedUser.splice(indexToRemove, 1);
                 }
                 ContactStatisticTypes.addContactByName(type);
+            });
+        };
+
+        ctrl.hideContactSuggestion = function () {
+            RecommendedUserOnHomeSetting.save({showOnHomeScreen: false}, function () {
+                ctrl.recommendedUser.length = 0;
             });
         };
     }];

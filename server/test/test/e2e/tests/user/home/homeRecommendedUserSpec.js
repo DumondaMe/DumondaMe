@@ -106,6 +106,40 @@ describe('Integration Tests for getting contact recommendation on the home scree
         });
     });
 
+    it('Do not return recommended user when user has feature disabled for home screen', function () {
+
+        dbDsl.setRecommendedUserOnHomeScreen(false);
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        dbDsl.createContactConnection('2', '3', 'Freund');
+        dbDsl.createContactConnection('8', '3', 'Freund');
+        dbDsl.createContactConnection('7', '3', 'Freund');
+        dbDsl.createContactConnection('6', '3', 'Freund');
+
+        dbDsl.createContactConnection('1', '5', 'Freund');
+        dbDsl.createContactConnection('1', '10', 'Freund');
+        dbDsl.createContactConnection('5', '2', 'Freund');
+        dbDsl.createContactConnection('10', '2', 'Freund');
+
+        dbDsl.createContactConnection('1', '4', 'Freund');
+        dbDsl.createContactConnection('4', '9', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/user/home', {
+                skipBlog: 0,
+                skipRecommendation: 0,
+                maxItems: 10
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.recommendedUser.length.should.equals(0);
+        });
+    });
+
     it('Contact Recommendation for user with contacts (ignore contacts of user)', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
