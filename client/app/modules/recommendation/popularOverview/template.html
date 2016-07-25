@@ -16,7 +16,8 @@
                     </md-tooltip>
                 </md-tab-label>
                 <md-tab-body class="recommendation-tab-content">
-                    <ely-recommendation-popular-column-mobile id="1" period="all"></ely-recommendation-popular-column-mobile>
+                    <ely-recommendation-popular-column-mobile id="1" period="all"
+                                                              ng-if="ctrl.selectedTab === 0"></ely-recommendation-popular-column-mobile>
                 </md-tab-body>
             </md-tab>
             <md-tab class="recommendation-tab">
@@ -28,7 +29,8 @@
                     </md-tooltip>
                 </md-tab-label>
                 <md-tab-body class="recommendation-tab-content">
-                    <ely-recommendation-popular-column-mobile id="2" period="twoWeeks"></ely-recommendation-popular-column-mobile>
+                    <ely-recommendation-popular-column-mobile id="2" period="twoWeeks"
+                                                              ng-if="ctrl.selectedTab === 1"></ely-recommendation-popular-column-mobile>
                 </md-tab-body>
             </md-tab>
         </md-tabs>

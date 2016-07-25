@@ -1,7 +1,7 @@
 <md-content id="ely-contact">
     <md-tabs md-border-bottom md-center-tabs class="contact-tabs" ng-if="!ctrl.requestRunning && !ctrl.showUserQuery"
              md-selected="ctrl.selectedTab">
-        <md-tab class="contact-tab" md-on-select="ctrl.contactSelect = true" md-on-deselect="ctrl.contactSelect = false">
+        <md-tab class="contact-tab">
             <md-tab-label>
                 <span class="tab-me">Du</span>
                 <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
@@ -10,11 +10,11 @@
                     Deine Kontakte
                 </md-tooltip>
             </md-tab-label>
-            <md-tab-body class="contact-tab-content" ng-if="ctrl.contactSelect">
-                <ely-contact-overview></ely-contact-overview>
+            <md-tab-body class="contact-tab-content">
+                <ely-contact-overview ng-if="ctrl.selectedTab === 0"></ely-contact-overview>
             </md-tab-body>
         </md-tab>
-        <md-tab class="contact-tab" md-on-select="ctrl.contactingSelect = true" md-on-deselect="ctrl.contactingSelect = false">
+        <md-tab class="contact-tab">
             <md-tab-label>
                 <span class="tab-me">Du</span>
                 <md-icon md-svg-icon="tabs:arrowBack" class="icon ely-tab-icon"></md-icon>
@@ -23,19 +23,19 @@
                     Dich als Kontakt
                 </md-tooltip>
             </md-tab-label>
-            <md-tab-body class="contact-tab-content" ng-if="ctrl.contactingSelect">
-                <ely-contacting-overview></ely-contacting-overview>
+            <md-tab-body class="contact-tab-content">
+                <ely-contacting-overview ng-if="ctrl.selectedTab === 1"></ely-contacting-overview>
             </md-tab-body>
         </md-tab>
-        <md-tab class="contact-tab" md-on-select="ctrl.userSuggestionSelect = true" md-on-deselect="ctrl.userSuggestionSelect = false">
+        <md-tab class="contact-tab">
             <md-tab-label>
                 <md-icon md-svg-icon="tabs:addContact" class="icon ely-tab-icon"></md-icon>
                 <md-tooltip md-direction="bottom">
                     Kontaktvorschläge
                 </md-tooltip>
             </md-tab-label>
-            <md-tab-body class="contact-tab-content" ng-if="ctrl.userSuggestionSelect">
-                <ely-contact-recommendation-overview></ely-contact-recommendation-overview>
+            <md-tab-body class="contact-tab-content">
+                <ely-contact-recommendation-overview ng-if="ctrl.selectedTab === 2"></ely-contact-recommendation-overview>
             </md-tab-body>
         </md-tab>
     </md-tabs>
