@@ -6,6 +6,7 @@ var expiresAfterADay = 60 * 60 * 12;
 var Promise = require('bluebird');
 var fs = require('fs');
 var _ = require('underscore');
+var deasync = require('deasync');
 
 if ('production' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
@@ -32,29 +33,19 @@ var copyFile = function (source, destination) {
     });
 };
 
-/**
- * Temporary solution until amazon has fixed bug.
- * @param s3
- * @param params
- * @param path
- * @returns signed url to aws s3
- */
-var getSignedUrlWithRetry = function (s3, params, path) {
-    var signedPath = s3.getSignedUrl('getObject', params);
-    if (signedPath && signedPath.indexOf(path) === -1) {
-        signedPath = s3.getSignedUrl('getObject', params);
-    }
-    return signedPath;
-};
-
 module.exports = {
     getUrl: function (path) {
         var params = {
             Bucket: cdnConfig.getConfig().bucket,
             Key: path,
             Expires: expiresAfterADay
-        };
-        return getSignedUrlWithRetry(s3, params, path);
+        }, done = false, signedUrl = null;
+        s3.getSignedUrl('getObject', params, function (err, generatedUrl) {
+            signedUrl = generatedUrl;
+            done = true;
+        });
+        deasync.loopWhile(function(){return !done;});
+        return signedUrl;
     },
     uploadFile: function (fileName, key) {
         return new Promise(function (resolve, reject) {
