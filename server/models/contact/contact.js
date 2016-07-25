@@ -152,7 +152,7 @@ var getContact = function (params, where) {
     return db.cypher().match("(user:User)-[r:IS_CONTACT]->(contact:User)")
         .where(where)
         .with("contact, user, r")
-        .orderBy("contact.surname")
+        .orderBy("contact.forename")
         .skip("{skip}")
         .limit("{itemsPerPage}")
         .match("(contact)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
