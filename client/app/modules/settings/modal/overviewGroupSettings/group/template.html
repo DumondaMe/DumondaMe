@@ -3,21 +3,21 @@
         <div class="md-title title">{{ctrl.title}}</div>
         <span flex></span>
         <div flex="none" class="change-button">
-            <md-button class="md-icon-button md-primary" ng-click="ctrl.openEdit(ctrl.group)">
+            <md-button class="md-icon-button md-primary" ng-click="ctrl.openEdit(group)">
                 <md-icon md-svg-icon="cardActions:edit"></md-icon>
             </md-button>
         </div>
     </div>
-    <ul ng-if="!ctrl.group.profileVisible">
+    <ul ng-if="!group.profileVisible">
         <li class="description">Sehen nur Deinen Namen</li>
     </ul>
-    <ul ng-if="ctrl.group.profileVisible && ctrl.isPublic">
+    <ul ng-if="group.profileVisible && ctrl.isPublic">
         <li class="description">Sehen Dein komplettes Profil</li>
     </ul>
-    <ul ng-if="ctrl.group.profileVisible && !ctrl.isPublic">
-        <li class="description" ng-if="ctrl.group.contactsVisible">Sieht deine Kontakte</li>
-        <li class="description" ng-if="ctrl.group.imageVisible">Sieht Deine Profilbild</li>
-        <li class="description" ng-if="ctrl.group.profileDataVisible">Sieht Deine Profil Daten</li>
-        <li class="description" ng-if="ctrl.group.pinwallVisible">Sieht Deine Pinwand</li>
+    <ul ng-if="group.profileVisible && !ctrl.isPublic">
+        <li class="description" ng-if="group.contactsVisible">Sieht deine Kontakte</li>
+        <li class="description" ng-if="group.imageVisible">Sieht Deine Profilbild</li>
+        <li class="description" ng-if="group.profileDataVisible">Sieht Deine Profil Daten</li>
+        <li class="description" ng-if="group.pinwallVisible">Sieht Deine Bewertungen</li>
     </ul>
 </div>

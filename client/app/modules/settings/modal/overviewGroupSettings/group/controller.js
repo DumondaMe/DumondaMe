@@ -1,17 +1,13 @@
 'use strict';
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['PrivacyPublicCheckService',
-            function (PrivacyPublicCheckService) {
-                var ctrl = this;
+module.exports = ['$scope', 'PrivacyPublicCheckService',
+    function ($scope, PrivacyPublicCheckService) {
+        var ctrl = this;
 
-                ctrl.isPublic = PrivacyPublicCheckService.isPublic(ctrl.group);
+        ctrl.isPublic = PrivacyPublicCheckService.isPublic($scope.group);
 
-                ctrl.callEditMode = function() {
-
-                };
-            }];
-    }
-};
+        $scope.$watchCollection('group', function (newGroup) {
+            ctrl.isPublic = PrivacyPublicCheckService.isPublic(newGroup);
+        });
+    }];
 
