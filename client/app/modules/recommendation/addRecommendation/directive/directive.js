@@ -9,7 +9,7 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                title: '=',
+                titleRecommendation: '=',
                 pageId: '=',
                 abortDisabled: '=',
                 abort: '=',

@@ -1,0 +1,23 @@
+<div class="ely-page-info-container" layout="row">
+    <div>
+        <md-button class="page-action md-fab md-mini" aria-label="Recommend Page"
+                   ng-disabled="ctrl.pageDetail.recommendation.user.recommendationId || ctrl.requestRunning"
+                   ng-click="ctrl.addRecommendation()">
+            <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+        </md-button>
+        <md-tooltip md-direction="bottom"
+                    ng-show="!ctrl.pageDetail.recommendation.user.recommendationId && !ctrl.pageDetail.administrators.isAdmin">Diese Seite
+            empfehlen
+        </md-tooltip>
+    </div>
+    <div class="number-container">
+        <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>
+    </div>
+    <span flex></span>
+    <div class="admin-container">
+        <div class="admin-image">
+            <img ng-src="{{ctrl.pageDetail.administrators.list[0].profileUrl}}">
+            <md-tooltip md-direction="top">{{ctrl.pageDetail.administrators.list[0].name}}</md-tooltip>
+        </div>
+    </div>
+</div>

@@ -36,14 +36,5 @@ module.exports = ['PageUserRecommendation', 'ElyModal', '$mdDialog', 'errorToast
                 });
             });
         };
-
-        ctrl.addRecommendation = function () {
-            ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
-                {pageId: ctrl.pageId, title: ctrl.title}).then(function (data) {
-                ctrl.recommendation = data.recommendation;
-                ctrl.recommendation.user.created = moment.unix(ctrl.recommendation.user.created).format('LL');
-                reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
-            });
-        };
     }];
 

@@ -5,7 +5,7 @@
     position: relative;
     .title {
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 500;
     }
     .user-rating-date {
       color: $secondary-text;
@@ -23,23 +23,6 @@
         font-size: 14px;
         color: $primary-text;
       }
-    }
-    .add-recommendation-container {
-      cursor: pointer;
-      .add-recommendation {
-        .icon {
-          margin-right: 8px;
-        }
-        .text {
-          font-size: 14px;
-          line-height: 24px;
-          vertical-align: middle;
-        }
-      }
-      .add-recommendation:hover {
-        text-decoration: underline;
-      }
-      margin-bottom: 8px;
     }
   }
   .overview-rating-tabs {

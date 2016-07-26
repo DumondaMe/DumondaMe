@@ -6,7 +6,6 @@
             <md-tab>
                 <md-tab-label>
                     <div>Alle</div>
-                    <div class="number-of-recommendations">({{ctrl.recommendation.summary.all.numberOfRecommendations}})</div>
                 </md-tab-label>
                 <md-tab-body>
                     <md-content class="comments-content-container">
@@ -19,12 +18,10 @@
             !(ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
              ctrl.recommendation.user)">
                 <md-tab-label>
-                    <div>
-                        <span class="tab-me">Ich</span>
-                        <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
-                        <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
-                    </div>
-                    <div class="number-of-recommendations">({{ctrl.recommendation.summary.contact.numberOfRecommendations}})</div>
+                    <span class="tab-me">Ich</span>
+                    <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
+                    <md-icon md-svg-icon="tabs:people" class="icon ely-tab-icon"></md-icon>
+                    <span class="number-of-recommendations">({{ctrl.recommendation.summary.contact.numberOfRecommendations}})</span>
                 </md-tab-label>
                 <md-tab-body>
                     <md-content class="comments-content-container">

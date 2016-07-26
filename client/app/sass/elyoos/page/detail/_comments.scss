@@ -1,6 +1,7 @@
 #ely-page-comments {
   .ely-page-comments-detail {
     height: 100%;
+    background-color: white;
     .ely-page-comment {
       padding: 16px 8px 0 0;
       .header {
@@ -32,9 +33,8 @@
     }
   }
   .md-tab {
-    padding: 6px 24px;
-    line-height: 18px;
     .number-of-recommendations {
+      margin-left: 4px;
       font-size: 12px;
       font-weight: 400;
     }

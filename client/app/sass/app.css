@@ -459,8 +459,8 @@
   overflow: hidden; }
   .ely-topics-vertical-color .topic-vertical-box {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 10px !important;
+    height: 10px !important;
     margin: 4px 3px 0 3px; }
   .ely-topics-vertical-color .health {
     background-color: #039BE5; }
@@ -1988,7 +1988,7 @@ md-toast.md-error-toast-theme {
     overflow: hidden; }
     @media screen and (min-width: 960px) {
       #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
-        font-size: 22px; } }
+        font-size: 18px; } }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .authors {
     margin-top: 2px;
     font-size: 14px;
@@ -2002,14 +2002,47 @@ md-toast.md-error-toast-theme {
     @media screen and (min-width: 1280px) {
       #ely-book-page-detail #ely-book-page-main-detail .topic-description {
         margin-bottom: 8px; } }
-  #ely-book-page-detail #ely-book-page-main-detail .image-description-container .image {
-    float: left;
-    width: 100px;
-    height: 165px;
-    margin-right: 16px; }
+  #ely-book-page-detail #ely-book-page-main-detail .image-description-container {
+    margin-top: 18px;
+    min-height: 165px; }
+    #ely-book-page-detail #ely-book-page-main-detail .image-description-container .image {
+      float: left;
+      width: 100px;
+      height: 165px;
+      margin-right: 16px; }
+  #ely-book-page-detail #ely-book-page-main-detail .info-container {
+    margin-top: 22px; }
+    #ely-book-page-detail #ely-book-page-main-detail .info-container .page-action.md-fab.md-mini {
+      height: 28px;
+      width: 28px;
+      line-height: 28px;
+      min-height: 0;
+      margin: 0; }
+      #ely-book-page-detail #ely-book-page-main-detail .info-container .page-action.md-fab.md-mini .action-icon {
+        height: 16px;
+        width: 16px;
+        min-height: 16px;
+        min-width: 16px; }
+    #ely-book-page-detail #ely-book-page-main-detail .info-container .number-container {
+      margin-left: 8px;
+      color: rgba(0, 0, 0, 0.87);
+      height: 28px; }
+      #ely-book-page-detail #ely-book-page-main-detail .info-container .number-container .number {
+        line-height: 28px;
+        font-size: 14px;
+        vertical-align: middle; }
+    #ely-book-page-detail #ely-book-page-main-detail .info-container .admin-container {
+      margin-right: 8px; }
+      #ely-book-page-detail #ely-book-page-main-detail .info-container .admin-container .admin-image {
+        cursor: pointer; }
+        #ely-book-page-detail #ely-book-page-main-detail .info-container .admin-container .admin-image img {
+          height: 28px;
+          width: 28px;
+          border-radius: 50%; }
 
 #ely-page-comments .ely-page-comments-detail {
-  height: 100%; }
+  height: 100%;
+  background-color: white; }
   #ely-page-comments .ely-page-comments-detail .ely-page-comment {
     padding: 16px 8px 0 0; }
     #ely-page-comments .ely-page-comments-detail .ely-page-comment .header {
@@ -2030,12 +2063,10 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54); }
   #ely-page-comments .ely-page-comments-detail .pagination {
     margin-top: 8px; }
-#ely-page-comments .md-tab {
-  padding: 6px 24px;
-  line-height: 18px; }
-  #ely-page-comments .md-tab .number-of-recommendations {
-    font-size: 12px;
-    font-weight: 400; }
+#ely-page-comments .md-tab .number-of-recommendations {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 400; }
 #ely-page-comments .comments-content-container {
   padding: 0; }
 
@@ -2051,6 +2082,36 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54); }
       #ely-page-detail .page-container .page-recommendation-container .page-recommendation-number {
         display: inline-block; }
+
+.ely-page-info-container {
+  margin-top: 22px; }
+  .ely-page-info-container .page-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0;
+    margin: 0; }
+    .ely-page-info-container .page-action.md-fab.md-mini .action-icon {
+      height: 16px;
+      width: 16px;
+      min-height: 16px;
+      min-width: 16px; }
+  .ely-page-info-container .number-container {
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.87);
+    height: 28px; }
+    .ely-page-info-container .number-container .number {
+      line-height: 28px;
+      font-size: 14px;
+      vertical-align: middle; }
+  .ely-page-info-container .admin-container {
+    margin-right: 8px; }
+    .ely-page-info-container .admin-container .admin-image {
+      cursor: pointer; }
+      .ely-page-info-container .admin-container .admin-image img {
+        height: 28px;
+        width: 28px;
+        border-radius: 50%; }
 
 #ely-link-page-detail #ely-link-page-main-detail {
   max-width: 600px;
@@ -2086,62 +2147,6 @@ md-toast.md-error-toast-theme {
       max-width: 552px;
       margin-bottom: 8px; }
 
-#ely-page-rating-overview {
-  max-width: 600px; }
-  #ely-page-rating-overview .page-rating-review {
-    width: 100%; }
-    #ely-page-rating-overview .page-rating-review .page-rating-review-summary {
-      width: 120px; }
-      #ely-page-rating-overview .page-rating-review .page-rating-review-summary .page-rating-review-number {
-        font-size: 48px;
-        line-height: 48px;
-        font-weight: 300;
-        margin-top: 28px;
-        margin-bottom: 5px;
-        color: rgba(0, 0, 0, 0.87); }
-      #ely-page-rating-overview .page-rating-review .page-rating-review-summary .page-rating-review-total {
-        margin-top: 7px;
-        font-size: 12px;
-        font-weight: 400;
-        color: rgba(0, 0, 0, 0.54); }
-    #ely-page-rating-overview .page-rating-review .page-rating-review-diagram {
-      padding-top: 15px;
-      width: 100%;
-      max-width: 300px; }
-      #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line {
-        height: 24px;
-        width: 90%; }
-        #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-star {
-          height: 12px;
-          width: 12px;
-          margin-right: 3px; }
-        #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-number {
-          margin-right: 5px;
-          width: 10px;
-          font-size: 11px;
-          line-height: 24px; }
-        #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block {
-          position: relative;
-          height: 24px; }
-          #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-5, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2, #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 11px;
-            line-height: 24px;
-            padding-left: 5px;
-            background-color: #88b131;
-            width: 100%;
-            height: 100%; }
-          #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-4 {
-            background-color: #99cc00; }
-          #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-3 {
-            background-color: #ffcf02; }
-          #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-2 {
-            background-color: #ff9f02; }
-          #ely-page-rating-overview .page-rating-review .page-rating-review-diagram .page-rating-review-line .page-rating-review-line-block .page-rating-review-line-block-1 {
-            background-color: #ff6f31; }
-
 #ely-page-recommendation {
   max-width: 600px;
   min-width: 300px; }
@@ -2149,7 +2154,7 @@ md-toast.md-error-toast-theme {
     position: relative; }
     #ely-page-recommendation .user-recommendation .title {
       font-size: 16px;
-      font-weight: 400; }
+      font-weight: 500; }
     #ely-page-recommendation .user-recommendation .user-rating-date {
       color: rgba(0, 0, 0, 0.54);
       margin-top: 4px;
@@ -2163,17 +2168,6 @@ md-toast.md-error-toast-theme {
       #ely-page-recommendation .user-recommendation .user-comment .ely-expand-text-description {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.87); }
-    #ely-page-recommendation .user-recommendation .add-recommendation-container {
-      cursor: pointer;
-      margin-bottom: 8px; }
-      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation .icon {
-        margin-right: 8px; }
-      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation .text {
-        font-size: 14px;
-        line-height: 24px;
-        vertical-align: middle; }
-      #ely-page-recommendation .user-recommendation .add-recommendation-container .add-recommendation:hover {
-        text-decoration: underline; }
   #ely-page-recommendation .overview-rating-tabs {
     min-height: 200px; }
 

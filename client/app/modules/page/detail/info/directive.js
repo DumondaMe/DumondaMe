@@ -9,14 +9,10 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                recommendation: '=',
-                pageId: '=',
-                titleRecommendation: '=',
-                pageTypeDescription: '@',
-                category: '@'
+                pageDetail: '='
             },
-            templateUrl: 'app/modules/page/detail/recommendation/template.html'
+            templateUrl: 'app/modules/page/detail/info/template.html'
         };
     }],
-    name: 'elyPageDetailRecommendation'
+    name: 'elyPageDetailInfo'
 };
