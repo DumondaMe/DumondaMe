@@ -9,20 +9,14 @@
         max-height: 57px;
         overflow: hidden;
         @media screen and (min-width: $gt-sm) {
-          font-size: 22px;
-        }
-      }
-      .page-rating-container {
-        .page-rating-number {
-          margin-left: 4px;
-          font-size: 14px;
-          color: $secondary-text;
+          font-size: 18px;
         }
       }
       .page-link {
         cursor: pointer;
+        display: inline-block;
         font-size: 14px;
-        margin-bottom: 4px;
+        margin-bottom: 16px;
       }
       .page-link:hover {
         text-decoration: underline;

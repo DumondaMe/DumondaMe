@@ -2143,15 +2143,12 @@ md-toast.md-error-toast-theme {
     overflow: hidden; }
     @media screen and (min-width: 960px) {
       #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
-        font-size: 22px; } }
-  #ely-link-page-detail #ely-link-page-main-detail .title-container .page-rating-container .page-rating-number {
-    margin-left: 4px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54); }
+        font-size: 18px; } }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .page-link {
     cursor: pointer;
+    display: inline-block;
     font-size: 14px;
-    margin-bottom: 4px; }
+    margin-bottom: 16px; }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .page-link:hover {
     text-decoration: underline; }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .button-settings-container {
@@ -2195,19 +2192,13 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   min-width: 300px; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
+    margin-bottom: 16px;
     font-size: 16px;
     max-height: 57px;
     overflow: hidden; }
     @media screen and (min-width: 960px) {
       #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
-        font-size: 22px; } }
-  #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container {
-    margin: 2px 0; }
-    #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .page-rating-container .page-rating-number {
-      display: inline-block;
-      margin-left: 4px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54); }
+        font-size: 18px; } }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container {
     padding: 0; }
     #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container .button-settings {

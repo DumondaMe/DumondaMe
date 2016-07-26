@@ -28,7 +28,7 @@
                 <span flex></span>
                 <span class="right-column-info-detail">{{ctrl.pageDetail.page.created}}</span>
             </div>
-            <div layout="row" class="info-detail-row">
+            <div layout="row" class="info-detail-row" ng-show="ctrl.pageDetail.page.created !== ctrl.pageDetail.page.modified">
                 <span>Zuletzt verändert:</span>
                 <span flex></span>
                 <span class="right-column-info-detail">{{ctrl.pageDetail.page.modified}}</span>
