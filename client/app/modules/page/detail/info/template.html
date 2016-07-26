@@ -42,7 +42,8 @@
                 <span>Admin:</span>
                 <span flex></span>
                 <div class="admin-image">
-                    <img ng-src="{{ctrl.pageDetail.administrators.list[0].profileUrl}}">
+                    <img ng-src="{{ctrl.pageDetail.administrators.list[0].profileUrl}}"
+                         ng-click="ctrl.goToUserDetail(ctrl.pageDetail.administrators.list[0].userId)">
                     <md-tooltip md-direction="left">{{ctrl.pageDetail.administrators.list[0].name}}</md-tooltip>
                 </div>
             </div>

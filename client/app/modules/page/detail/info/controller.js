@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = ['ElyModal', 'moment', 'Languages',
-    function (ElyModal, moment, Languages) {
+module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation',
+    function (ElyModal, moment, Languages, UserDetailNavigation) {
         var ctrl = this;
+
+        ctrl.getLanguage = Languages.getLanguage;
 
         ctrl.addRecommendation = function () {
             ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
@@ -12,6 +14,8 @@ module.exports = ['ElyModal', 'moment', 'Languages',
             });
         };
 
-        ctrl.getLanguage = Languages.getLanguage;
+        ctrl.goToUserDetail = function (userId) {
+            UserDetailNavigation.openUserDetail(userId);
+        };
     }];
 
