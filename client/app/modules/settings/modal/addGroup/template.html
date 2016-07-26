@@ -4,7 +4,7 @@
             <div class="md-title title">Neue Gruppe erstellen</div>
             <md-input-container class="ely-input-container">
                 <label>Name</label>
-                <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="30"
+                <input name="groupName" class="blog-input" ng-model="ctrl.groupName" required md-maxlength="30" md-no-asterisk
                        ng-disabled="ctrl.uploadStarted" ng-change="ctrl.nameChanged()"/>
                 <div ng-messages="ctrl.createGroupForm.groupName.$error" ng-show="ctrl.createGroupForm.groupName.$dirty">
                     <div ng-message="required">Wird benötigt!</div>
@@ -29,7 +29,7 @@
             </md-checkbox>
             <md-checkbox ng-model="ctrl.pinwallVisible" ng-disabled="!ctrl.profileVisible || ctrl.uploadStarted" aria-label="Pinwall visible"
                          class="select-privacy">
-                Meine Pinwand ist sichtbar
+                Meine Bewertungen sind sichtbar
             </md-checkbox>
         </md-dialog-content>
         <md-dialog-actions>

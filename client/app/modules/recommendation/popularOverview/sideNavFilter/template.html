@@ -24,11 +24,7 @@
     </md-switch>
     <div layout="row">
         <span flex></span>
-        <md-icon class="reset-icon" md-svg-icon="system:reset" ng-click="ctrl.resetFilters()">
-            <md-tooltip md-direction="left">
-                Reset Filter
-            </md-tooltip>
-        </md-icon>
+        <md-button ng-click="ctrl.resetFilters()">Reset Filter</md-button>
         <md-button class="md-raised md-primary" ng-click="ctrl.filter()" ng-if="!ctrl.$mdMedia('gt-md')"
                    ng-disabled="ctrl.actualFilterSettingEqual">Filtern</md-button>
     </div>
