@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'moment',
-    function (ElyModal, moment) {
+module.exports = ['ElyModal', 'moment', 'Languages',
+    function (ElyModal, moment, Languages) {
         var ctrl = this;
 
         ctrl.addRecommendation = function () {
@@ -11,5 +11,7 @@ module.exports = ['ElyModal', 'moment',
                 ctrl.pageDetail.recommendation.user.created = moment.unix(ctrl.pageDetail.recommendation.user.created).format('LL');
             });
         };
+
+        ctrl.getLanguage = Languages.getLanguage;
     }];
 

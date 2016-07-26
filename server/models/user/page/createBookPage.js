@@ -9,13 +9,13 @@ var cdn = require('../../util/cdn');
 
 var createBookPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();
-    params.modified = time.getNowUtcTimestamp();
+    params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     params.language = [params.language];
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})")
-            .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, " +
-            "publishDate: {publishDate}, modified: {modified}, topic: {topic}, label: 'Book', language: {language}})")
+            .createUnique(`(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, 
+            publishDate: {publishDate}, modified: {created}, created: {created}, topic: {topic}, label: 'Book', language: {language}})`)
             .end(params)
             .send();
     }).then(function () {

@@ -23,9 +23,35 @@
       vertical-align: middle;
     }
   }
-  .admin-container {
+  .topic-container {
+    margin-bottom: 8px;
+  }
+  .info-detail-container {
     margin-right: 8px;
+    .info-expand {
+      cursor: pointer;
+      height: 32px;
+      width: 100%;
+      .info-icon {
+        float: right;
+        margin: 2px;
+        height: 24px;
+        width: 24px;
+      }
+    }
+    .info-detail-expanded-container {
+      font-size: 12px;
+      color: $secondary-text;
+      .info-detail-row {
+        margin-bottom: 4px;
+        .right-column-info-detail {
+          margin-left: 8px;
+        }
+      }
+    }
     .admin-image {
+      display: inline-block;
+      vertical-align: middle;
       cursor: pointer;
       img {
         height: 28px;

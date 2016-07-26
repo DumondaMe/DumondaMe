@@ -16,7 +16,7 @@ describe('Integration Tests for getting book page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', created: 501, pageId: '0'," +
+            return db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', created: 501, modified: 502, pageId: '0'," +
                 "author: 'Hans Muster', publishDate: 1000, topic: {topic}, language: {language}})").end({topic: ['environmental', 'education'], language: ['de']}).send(commands);
 
         });
@@ -86,6 +86,7 @@ describe('Integration Tests for getting book page detail', function () {
                 res.body.page.title.should.equals('bookPage1Title');
                 res.body.page.description.should.equals('bookPage1');
                 res.body.page.created.should.equals(501);
+                res.body.page.modified.should.equals(502);
                 res.body.page.publishDate.should.equals(1000);
                 res.body.page.titleUrl.should.equals('pages/0/pageTitlePicture.jpg');
 

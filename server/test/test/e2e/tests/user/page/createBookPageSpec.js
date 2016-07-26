@@ -54,10 +54,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
+            page[0].created.should.be.at.least(startTime);
             page[0].modified.should.be.at.least(startTime);
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);
@@ -98,10 +99,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
+            page[0].created.should.be.at.least(startTime);
             page[0].modified.should.be.at.least(startTime);
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);
@@ -143,10 +145,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
+            page[0].created.should.be.at.least(startTime);
             page[0].modified.should.be.at.least(startTime);
             page[0].label.should.equals("Book");
             page[0].pageId.should.equals(pageId);

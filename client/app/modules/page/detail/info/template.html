@@ -14,10 +14,38 @@
         <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>
     </div>
     <span flex></span>
-    <div class="admin-container">
-        <div class="admin-image">
-            <img ng-src="{{ctrl.pageDetail.administrators.list[0].profileUrl}}">
-            <md-tooltip md-direction="top">{{ctrl.pageDetail.administrators.list[0].name}}</md-tooltip>
+    <div class="info-detail-container">
+        <div class="info-expand" ng-click="ctrl.expandInfo = !ctrl.expandInfo">
+            <md-icon md-svg-icon="cardActions:info" ng-show="!ctrl.expandInfo" class="info-icon"></md-icon>
+            <md-icon md-svg-icon="cardActions:arrowUp" ng-show="ctrl.expandInfo" class="info-icon"></md-icon>
+        </div>
+        <div class="info-detail-expanded-container" ng-show="ctrl.expandInfo">
+            <div class="topic-container">
+                <ely-topics-color topics="ctrl.pageDetail.page.topic"></ely-topics-color>
+            </div>
+            <div layout="row" class="info-detail-row">
+                <span>Erstellt:</span>
+                <span flex></span>
+                <span class="right-column-info-detail">{{ctrl.pageDetail.page.created}}</span>
+            </div>
+            <div layout="row" class="info-detail-row">
+                <span>Zuletzt verändert:</span>
+                <span flex></span>
+                <span class="right-column-info-detail">{{ctrl.pageDetail.page.modified}}</span>
+            </div>
+            <div layout="row" class="info-detail-row">
+                <span>Sprache:</span>
+                <span flex></span>
+                <span class="right-column-info-detail" ng-repeat="language in ctrl.pageDetail.page.language">{{ctrl.getLanguage(language)}}</span>
+            </div>
+            <div layout="row" class="info-detail-row">
+                <span>Admin:</span>
+                <span flex></span>
+                <div class="admin-image">
+                    <img ng-src="{{ctrl.pageDetail.administrators.list[0].profileUrl}}">
+                    <md-tooltip md-direction="left">{{ctrl.pageDetail.administrators.list[0].name}}</md-tooltip>
+                </div>
+            </div>
         </div>
     </div>
 </div>

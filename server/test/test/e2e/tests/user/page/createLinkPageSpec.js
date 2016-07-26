@@ -54,11 +54,12 @@ describe('Integration Tests for creating new link pages', function () {
             res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
+                         page.modified AS modified, page.created AS created, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
                          page.language AS language`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
+            page[0].created.should.be.at.least(startTime);
             page[0].modified.should.be.at.least(startTime);
             page[0].label.should.equals("Link");
             page[0].pageId.should.equals(pageId);
@@ -101,11 +102,12 @@ describe('Integration Tests for creating new link pages', function () {
             res.body.hostname.should.equals(`www.example.com`);
             return db.cypher().match("(page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
-                         page.modified AS modified, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
+                         page.modified AS modified, page.created AS created, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
                          page.language AS language`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
+            page[0].created.should.be.at.least(startTime);
             page[0].modified.should.be.at.least(startTime);
             page[0].label.should.equals("Link");
             page[0].pageId.should.equals(pageId);
