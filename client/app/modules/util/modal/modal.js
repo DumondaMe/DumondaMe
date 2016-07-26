@@ -4,21 +4,25 @@ module.exports = ['$mdDialog', '$rootScope', '$document', function ($mdDialog, $
 
     var preventStateChange = false;
 
-    this.show = function (controller, template, locals) {
+    this.show = function (controller, template, locals, clickOutsideToClose, onRemoving) {
 
         if (!locals) {
             locals = {};
         }
         var modalParams = {
             parent: angular.element($document.body),
-            clickOutsideToClose: false,
-            escapeToClose: false,
+            clickOutsideToClose: clickOutsideToClose || false,
+            escapeToClose: clickOutsideToClose || false,
             bindToController: true,
             controllerAs: 'ctrl',
             controller: controller,
             templateUrl: template,
             locals: locals
         };
+
+        if(angular.isFunction(onRemoving)) {
+            modalParams.onRemoving = onRemoving;
+        }
 
         preventStateChange = true;
         return $mdDialog.show(modalParams).then(function (resp) {

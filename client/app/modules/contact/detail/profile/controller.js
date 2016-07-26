@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$state',
-    function (UserStateService, ContactStatisticTypes, ElyModal, $state) {
+module.exports = ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$state', 'ImageViewService',
+    function (UserStateService, ContactStatisticTypes, ElyModal, $state, ImageViewService) {
         var ctrl = this;
 
         ctrl.openInfo = function () {
@@ -47,6 +47,10 @@ module.exports = ['UserStateService', 'ContactStatisticTypes', 'ElyModal', '$sta
                 .then(function (newMessage) {
                     $state.go('message.threads.detail', {threadId: newMessage.threadId});
                 });
+        };
+
+        ctrl.openImageView = function () {
+            ImageViewService.showImage(ctrl.detail.user.profileUrl);
         };
     }];
 

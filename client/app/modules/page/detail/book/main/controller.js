@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DeletePageService', 'Topics', 'Languages', 'moment',
-    function (ElyModal, DeletePageService, Topics, Languages, moment) {
+module.exports = ['ElyModal', 'DeletePageService', 'Topics', 'Languages', 'moment', 'ImageViewService',
+    function (ElyModal, DeletePageService, Topics, Languages, moment, ImageViewService) {
         var ctrl = this;
 
         ctrl.modifyPage = function () {
@@ -38,6 +38,10 @@ module.exports = ['ElyModal', 'DeletePageService', 'Topics', 'Languages', 'momen
                 ctrl.pageDetail.recommendation = data.recommendation;
                 ctrl.pageDetail.recommendation.user.created = moment.unix(ctrl.pageDetail.recommendation.user.created).format('LL');
             });
+        };
+
+        ctrl.openImageView = function () {
+            ImageViewService.showImage(ctrl.pageDetail.page.titleUrl);
         };
     }];
 

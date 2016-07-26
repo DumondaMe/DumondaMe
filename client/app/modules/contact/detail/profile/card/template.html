@@ -1,7 +1,7 @@
 <md-card id="ely-user-detail-profile">
     <md-card-content>
         <div layout="column" layout-align="none center">
-            <img ng-src="{{ctrl.detail.user.profileUrl}}" class="profile-image">
+            <img ng-src="{{ctrl.detail.user.profileUrl}}" class="profile-image" ng-click="ctrl.openImageView()">
             <div class="name">{{ctrl.detail.user.name}}</div>
             <div class="type" ng-if="ctrl.detail.user.type && !ctrl.detail.user.blocked">{{ctrl.detail.user.type}}</div>
             <div class="blocked" ng-if="ctrl.detail.user.blocked">BLOCKIERT</div>

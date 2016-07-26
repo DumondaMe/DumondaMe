@@ -719,6 +719,7 @@ md-toast.md-error-toast-theme {
   max-width: 292px;
   min-width: 292px; }
   #ely-user-detail-profile .profile-image {
+    cursor: pointer;
     width: 180px;
     height: 180px;
     border-radius: 50%;
@@ -740,6 +741,7 @@ md-toast.md-error-toast-theme {
 #ely-user-detail-profile-sidenav .header {
   padding-top: 16px; }
   #ely-user-detail-profile-sidenav .header .profile-image {
+    cursor: pointer;
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -2006,6 +2008,7 @@ md-toast.md-error-toast-theme {
     margin-top: 18px;
     min-height: 165px; }
     #ely-book-page-detail #ely-book-page-main-detail .image-description-container .image {
+      cursor: pointer;
       float: left;
       width: 100px;
       height: 165px;
@@ -2202,7 +2205,11 @@ md-toast.md-error-toast-theme {
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container {
     padding: 0; }
     #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container .button-settings {
-      margin: 0; }
+      margin: 0;
+      height: 24px;
+      min-height: 24px !important;
+      padding-top: 0;
+      padding-bottom: 0; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .description {
     margin-top: 8px; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .topic-description {
@@ -2892,6 +2899,9 @@ md-toast.md-error-toast-theme {
   #loginform .action-container .password-reset:hover {
     text-decoration: underline; }
 
+#check-login {
+  height: 100%; }
+
 .reset-password #container {
   width: 300px; }
   .reset-password #container .form-container {
@@ -3406,6 +3416,7 @@ md-toast.md-error-toast-theme {
   background-color: white; }
 
 .ely-setting-profile-image .profile-image {
+  cursor: pointer;
   width: 180px;
   height: 180px;
   border-radius: 50%; }
@@ -3475,6 +3486,12 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   width: 100%;
   height: 100%; }
+
+#ely-show-image {
+  cursor: pointer; }
+  #ely-show-image img {
+    max-height: 100%;
+    max-width: 100%; }
 
 #cookies-warning {
   position: fixed;

@@ -1,5 +1,5 @@
 <div layout="column" layout-align="none center" class="ely-setting-profile-image">
-    <img ng-src="{{ctrl.profile.profileImage}}" class="profile-image">
+    <img ng-src="{{ctrl.profile.profileImage}}" class="profile-image" ng-click="ctrl.openImageView()">
     <div>
         <md-button class="md-primary" ng-click="ctrl.uploadProfileImage()">Bild ändern</md-button>
     </div>
@@ -10,10 +10,5 @@
 
         <span class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
         <md-tooltip md-direction="bottom">Haben Dich als Kontakt</md-tooltip>
-        <!--<span ng-if="ctrl.profile.numberOfContacting > 0" class="number-of-contacting">{{ctrl.profile.numberOfContacting}}</span>
-        <ng-pluralize count="ctrl.profile.numberOfContacting"
-                      when="{'0': 'Noch Niemand folgt Dir',
-                                    '1': ' Person folgt Dir',
-                                    'other': ' Personen folgen Dir'}"></ng-pluralize>-->
     </div>
 </div>

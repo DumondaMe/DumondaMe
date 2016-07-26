@@ -26,7 +26,7 @@
             </md-menu>
         </div>
         <div class="image-description-container">
-            <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}">
+            <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}" ng-click="ctrl.openImageView()">
             <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
         </div>
         <ely-page-detail-info page-detail="ctrl.pageDetail"></ely-page-detail-info>
