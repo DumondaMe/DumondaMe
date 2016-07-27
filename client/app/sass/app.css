@@ -2445,53 +2445,6 @@ md-toast.md-error-toast-theme {
       font-size: 14px;
       vertical-align: middle; }
 
-.blog-detail {
-  z-index: 150;
-  min-width: 300px; }
-  .blog-detail #blog-header {
-    height: 72px;
-    min-width: 300px;
-    padding: 16px; }
-    .blog-detail #blog-header .user-avatar {
-      cursor: pointer;
-      border-radius: 50%;
-      height: 40px;
-      width: 40px;
-      margin-right: 12px; }
-    .blog-detail #blog-header .title-container {
-      cursor: pointer; }
-      .blog-detail #blog-header .title-container .title {
-        font-size: 14px; }
-      .blog-detail #blog-header .title-container .subtitle {
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.54); }
-  .blog-detail .detail-image-content {
-    height: 100%; }
-    .blog-detail .detail-image-content .detail-image-container {
-      height: 100%; }
-      .blog-detail .detail-image-content .detail-image-container .detail-image {
-        max-height: 200px;
-        margin-bottom: 16px; }
-        @media screen and (min-height: 550px) {
-          .blog-detail .detail-image-content .detail-image-container .detail-image {
-            max-height: 300px; } }
-        @media screen and (min-height: 700px) {
-          .blog-detail .detail-image-content .detail-image-container .detail-image {
-            max-height: 400px; } }
-        @media screen and (min-height: 800px) {
-          .blog-detail .detail-image-content .detail-image-container .detail-image {
-            max-height: 500px; } }
-        @media screen and (min-height: 900px) {
-          .blog-detail .detail-image-content .detail-image-container .detail-image {
-            max-height: 600px; } }
-        @media screen and (min-height: 1200px) {
-          .blog-detail .detail-image-content .detail-image-container .detail-image {
-            max-height: 900px; } }
-    .blog-detail .detail-image-content .blog-text {
-      white-space: pre-wrap;
-      max-width: 600px;
-      padding: 0 16px 16px 16px; }
-
 #ely-pinwall-contacting {
   max-width: 450px;
   min-width: 280px;
