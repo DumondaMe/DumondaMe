@@ -6,6 +6,8 @@ module.exports = ['$state', function ($state) {
     ctrl.navToDetail = function () {
         if (ctrl.recommendation.label !== 'Blog') {
             $state.go('page.detail', {label: ctrl.recommendation.label, pageId: ctrl.recommendation.pageId});
+        } else {
+            $state.go('blog.detail', {blogId: ctrl.recommendation.blogId});
         }
     };
 }];
