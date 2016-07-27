@@ -78,6 +78,7 @@
               "httpOnly": true,
               "maxAge": 43200000
             },
+            "rolling": true,
             "proxy": null,
             "resave": true,
             "saveUninitialized": true

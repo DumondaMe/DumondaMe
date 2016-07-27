@@ -38,6 +38,16 @@ module.exports = function (app) {
         app.use(methodOverride('X-HTTP-Method-Override'));
     });
 
+    app.on('middleware:after:session', function () {
+        if ('testing' !== env) {
+            app.use(function (req, res, next) {
+                //Needed because rolling is some how not working
+                req.session.touch();
+                next();
+            });
+        }
+    });
+
     app.on('middleware:after:appsec', function () {
         if ('testing' !== env) {
             app.use(csrf());
