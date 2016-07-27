@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes', 'ContactStatistic',
-    function ($state, UserStateService, ContactStatisticTypes, ContactStatistic) {
+module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
+    function ($state, UserStateService, ContactStatisticTypes) {
     var ctrl = this;
 
     ctrl.goToContacting = function () {

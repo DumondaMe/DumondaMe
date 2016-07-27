@@ -10,8 +10,8 @@ module.exports = ['userInfo',
         this.reset = function () {
             isPublic = true;
             privacyTypesSelected = [];
-            angular.forEach(userInfo.getUserInfo().privacyTypes, function (privacyType) {
-                privacyTypesSelected.push({type: privacyType, selected: false});
+            angular.forEach(userInfo.getUserInfo().contactStatistic, function (privacyType) {
+                privacyTypesSelected.push({type: privacyType.type, selected: false});
             });
         };
 

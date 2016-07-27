@@ -1,10 +1,10 @@
 <div class="blog-recommendation-desktop">
-    <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
+    <div class="blog-image-container" ng-if="ctrl.element.url" ui-sref="blog.detail({blogId: ctrl.element.blogId})">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
     <div layout="row" class="content-container">
         <div class="description-container">
-            <div class="blog-text">{{ctrl.previewText}}</div>
+            <div class="blog-text" ui-sref="blog.detail({blogId: ctrl.element.blogId})">{{ctrl.previewText}}</div>
         </div>
     </div>
     <ely-pinwall-blog-actions request-running="ctrl.requestRunning" element="ctrl.element"></ely-pinwall-blog-actions>

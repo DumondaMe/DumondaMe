@@ -424,14 +424,14 @@
     padding: 0 4px;
     height: 16px;
     line-height: 16px;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-right: 4px;
     color: white;
     font-size: 12px;
     font-weight: 500; }
   .ely-topics-color .topic-acronym {
     color: white;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500; }
   .ely-topics-color .health {
     background-color: #039BE5; }
@@ -497,6 +497,57 @@
         margin: 0; }
       #register-user #register-user-container-outer #register-user-container .select-gender {
         margin: 24px 0 16px 0; }
+
+#ely-blog-detail {
+  background-color: #e9ebee;
+  height: 100%; }
+  #ely-blog-detail .blog-container {
+    margin: 0 auto;
+    max-width: 600px; }
+    #ely-blog-detail .blog-container .blog-header {
+      cursor: pointer; }
+      #ely-blog-detail .blog-container .blog-header .user-name {
+        line-height: 16px;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      #ely-blog-detail .blog-container .blog-header .blog-created {
+        display: inline-block;
+        margin-right: 8px;
+        line-height: 14px;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54); }
+      #ely-blog-detail .blog-container .blog-header .public-type {
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 500;
+        color: #3F51B5; }
+    #ely-blog-detail .blog-container .button-settings-container {
+      padding: 0; }
+      #ely-blog-detail .blog-container .button-settings-container .button-settings {
+        margin: 0; }
+    #ely-blog-detail .blog-container .blog-content {
+      padding: 0 16px 16px 16px; }
+      #ely-blog-detail .blog-container .blog-content .blog-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 16px; }
+      #ely-blog-detail .blog-container .blog-content .image-description-container {
+        margin-top: 18px; }
+        #ely-blog-detail .blog-container .blog-content .image-description-container .image {
+          cursor: pointer;
+          float: left;
+          max-width: 300px;
+          max-height: 400px;
+          margin-right: 16px;
+          margin-bottom: 16px; }
+          @media screen and (min-width: 960px) {
+            #ely-blog-detail .blog-container .blog-content .image-description-container .image {
+              max-width: 200px; } }
+        #ely-blog-detail .blog-container .blog-content .image-description-container .blog-text {
+          white-space: pre-wrap;
+          font-weight: 300; }
 
 .ely-close-sub-toolbar {
   position: fixed;
@@ -2357,6 +2408,7 @@ md-toast.md-error-toast-theme {
     .pinwall-blog-card .button-settings-container .button-settings {
       margin: 0; }
   .pinwall-blog-card .blog-title {
+    cursor: pointer;
     padding: 0 16px;
     font-size: 16px;
     font-weight: 500;
@@ -2574,6 +2626,7 @@ md-toast.md-error-toast-theme {
   padding: 0 16px 8px 16px;
   overflow: hidden; }
   .blog-recommendation-desktop .content-container .description-container .blog-text {
+    cursor: pointer;
     width: 100%;
     word-wrap: normal;
     font-size: 14px;
@@ -3488,7 +3541,9 @@ md-toast.md-error-toast-theme {
   height: 100%; }
 
 #ely-show-image {
-  cursor: pointer; }
+  cursor: pointer;
+  max-width: 95%;
+  max-height: 95%; }
   #ely-show-image img {
     max-height: 100%;
     max-width: 100%; }

@@ -35,12 +35,12 @@
             </md-menu-content>
         </md-menu>
     </md-card-header>
-    <div class="blog-title" ng-if="ctrl.element.title">{{ctrl.element.title}}</div>
-    <div class="blog-image-container" ng-if="ctrl.element.url" ng-click="ctrl.openDetail()">
+    <div class="blog-title" ng-if="ctrl.element.title" ui-sref="blog.detail({blogId: ctrl.element.blogId})">{{ctrl.element.title}}</div>
+    <div class="blog-image-container" ng-if="ctrl.element.url" ui-sref="blog.detail({blogId: ctrl.element.blogId})">
         <img ng-src="{{ctrl.element.url}}" class="md-card-image">
     </div>
     <md-card-content class="card-content-container">
-        <div class="md-body-1 blog-text" ng-click="ctrl.openDetail()">{{ctrl.previewText}}</div>
+        <div class="md-body-1 blog-text" ui-sref="blog.detail({blogId: ctrl.element.blogId})">{{ctrl.previewText}}</div>
     </md-card-content>
     <ely-pinwall-blog-actions element="ctrl.element" request-running="ctrl.requestRunning"></ely-pinwall-blog-actions>
     <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
