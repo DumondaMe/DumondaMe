@@ -113,7 +113,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].created.should.equals(507);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             should.not.exist(res.body.pinwall[0].url);
-            should.not.exist(res.body.pinwall[0].urlFull);
             res.body.pinwall[0].text.should.equals('blogText');
             res.body.pinwall[0].recommendedByUser.should.equals(false);
             res.body.pinwall[0].isAdmin.should.equals(true);
@@ -131,7 +130,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].created.should.equals(506);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[1].url.should.equals('blog/2/preview.jpg');
-            res.body.pinwall[1].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[1].text.should.equals('blogText2');
             res.body.pinwall[1].recommendedByUser.should.equals(false);
             res.body.pinwall[1].isAdmin.should.equals(true);
@@ -190,7 +188,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[4].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[4].heightPreviewImage.should.equals(200);
             res.body.pinwall[4].url.should.equals('blog/4/preview.jpg');
-            res.body.pinwall[4].urlFull.should.equals('blog/4/normal.jpg');
             res.body.pinwall[4].text.should.equals('blogText4');
             res.body.pinwall[4].isAdmin.should.equals(false);
             res.body.pinwall[4].topic.length.should.equals(2);
@@ -216,7 +213,6 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].created.should.equals(506);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[0].url.should.equals('blog/2/preview.jpg');
-            res.body.pinwall[0].urlFull.should.equals('blog/2/normal.jpg');
             res.body.pinwall[0].text.should.equals('blogText2');
             res.body.pinwall[0].isAdmin.should.equals(true);
             res.body.pinwall[0].isPublic.should.equals(true);

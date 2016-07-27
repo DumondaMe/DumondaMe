@@ -189,7 +189,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[2].created.should.equals(505);
                     res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pinwall[2].url.should.equals('blog/2/preview.jpg');
-                    res.body.pinwall[2].urlFull.should.equals('blog/2/normal.jpg');
                     res.body.pinwall[2].text.should.equals('blogText2');
                     res.body.pinwall[2].recommendedByUser.should.equals(false);
                     res.body.pinwall[2].numberOfRecommendations.should.equals(0);
