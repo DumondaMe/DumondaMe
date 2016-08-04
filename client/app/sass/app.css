@@ -482,22 +482,6 @@
 .ely-topics-vertical-color.two-columns {
   width: 32px; }
 
-#register-user {
-  height: 100%;
-  overflow-y: auto; }
-  #register-user #register-user-container-outer {
-    padding-top: 16px; }
-    #register-user #register-user-container-outer #register-user-container {
-      width: 300px;
-      margin: 0 auto; }
-      #register-user #register-user-container-outer #register-user-container .ely-dialog-title {
-        margin-bottom: 32px; }
-      #register-user #register-user-container-outer #register-user-container .ely-input-container {
-        width: 100%;
-        margin: 0; }
-      #register-user #register-user-container-outer #register-user-container .select-gender {
-        margin: 24px 0 16px 0; }
-
 #ely-blog-detail {
   background-color: #e9ebee;
   height: 100%; }
@@ -2781,12 +2765,12 @@ md-toast.md-error-toast-theme {
       font-weight: 700; }
   #start-screen #carousel #carouse-nav-bottom-button.ng-hide {
     bottom: -45px; }
-  #start-screen #carousel #login-button {
+  #start-screen #carousel #carousel-commands {
     position: fixed;
     top: 8px;
     right: 16px; }
     @media screen and (min-width: 1920px) {
-      #start-screen #carousel #login-button {
+      #start-screen #carousel #carousel-commands {
         right: 128px; } }
 
 #start-screen #carousel #carousel-login {
@@ -2907,6 +2891,23 @@ md-toast.md-error-toast-theme {
 
 #check-login {
   height: 100%; }
+
+#register-user {
+  max-width: 600px;
+  height: 100%;
+  width: 100%; }
+  #register-user .register-form-container {
+    width: 100%; }
+    #register-user .register-form-container .ely-dialog-title {
+      padding: 16px;
+      margin-bottom: 16px; }
+    #register-user .register-form-container .ely-input-container {
+      width: 100%;
+      margin: 0; }
+    #register-user .register-form-container .select-gender {
+      margin: 24px 0 16px 0; }
+    #register-user .register-form-container .ely-recaptcha {
+      margin-top: 16px; }
 
 .reset-password #container {
   width: 300px; }

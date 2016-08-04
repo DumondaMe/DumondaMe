@@ -2,7 +2,8 @@
 
 
 module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatCheckService', 'ProfileDataMessageService', '$state',
-    function (Register, errorToast, CountryCodeConverter, DateFormatCheckService, ProfileDataMessageService, $state) {
+    'vcRecaptchaService', 'ElyModal',
+    function (Register, errorToast, CountryCodeConverter, DateFormatCheckService, ProfileDataMessageService, $state, vcRecaptchaService, ElyModal) {
         var ctrl = this;
 
         ctrl.userToRegister = {};
@@ -30,4 +31,22 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
             });
         };
 
+        ctrl.setResponse = function (response) {
+            ctrl.response = response;
+        };
+        ctrl.setWidgetId = function (widgetId) {
+            ctrl.widgetId = widgetId;
+        };
+        ctrl.cbExpiration = function () {
+            vcRecaptchaService.reload(ctrl.widgetId);
+            ctrl.response = null;
+        };
+
+        ctrl.cancel = function () {
+            ElyModal.cancel();
+        };
+
+        ctrl.createAccount = function () {
+
+        };
     }];

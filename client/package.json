@@ -41,6 +41,7 @@
     "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",
     "moment": "./app/lib/moment/moment.js",
     "duScroll": "./app/lib/scroll/index.js",
+    "vcRecaptcha": "./app/lib/recaptcha/index.js",
     "templates": "./app/dist/templates.js"
   }
 }

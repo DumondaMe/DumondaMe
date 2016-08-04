@@ -1,8 +1,15 @@
 <div id="carousel" md-swipe-up="ctrl.onSwipeUp()" md-swipe-down="ctrl.onSwipeDown()">
-    <div id="login-button" ng-show="ctrl.actualScreen !== 0">
-        <md-button class="md-primary md-raised" ng-click="ctrl.actualScreen = 0">
-            Login
-        </md-button>
+    <div id="carousel-commands" layout="row">
+        <div id="sign-up-button" ng-class="{'login-screen': ctrl.actualScreen === 0}">
+            <md-button class="md-primary md-raised" ng-click="ctrl.startRegister()">
+                Registrieren
+            </md-button>
+        </div>
+        <div id="login-button" ng-show="ctrl.actualScreen !== 0">
+            <md-button class="md-primary md-raised" ng-click="ctrl.actualScreen = 0">
+                Anmelden
+            </md-button>
+        </div>
     </div>
     <div id="left-column" layout="column" layout-align="center center">
         <div id="carousel-nav-container">

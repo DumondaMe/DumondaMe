@@ -1,0 +1,26 @@
+#register-user {
+  max-width: 600px;
+  height: 100%;
+  width: 100%;
+  .register-form-container {
+    width: 100%;
+    .ely-dialog-title {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .ely-input-container {
+      width: 100%;
+      margin: 0;
+    }
+    .select-gender {
+      margin: 24px 0 16px 0;
+    }
+    .ely-recaptcha {
+      margin-top: 16px;
+    }
+  }
+}
+
+
+
+

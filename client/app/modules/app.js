@@ -10,13 +10,15 @@ var app = angular.module('elyoosApp', [
     'ngResource',
     'ngMessages',
     'ngMaterial',
-    'duScroll'
+    'duScroll',
+    'vcRecaptcha'
 ]);
 
 app.constant('VERSION', require('../../package.json').version);
 
 require('templates');
 require('duScroll');
+require('vcRecaptcha');
 
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')

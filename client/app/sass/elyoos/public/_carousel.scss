@@ -71,12 +71,18 @@
     #carouse-nav-bottom-button.ng-hide {
       bottom: -45px;
     }
-    #login-button {
+    #carousel-commands {
       position: fixed;
       top: 8px;
       right: 16px;
       @media screen and (min-width: $gt-lg) {
         right: 128px;
+      }
+      #login-button {
+
+      }
+      #sign-up-button {
+
       }
     }
   }
