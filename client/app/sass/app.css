@@ -2905,9 +2905,19 @@ md-toast.md-error-toast-theme {
       width: 100%;
       margin: 0; }
     #register-user .register-form-container .select-gender {
-      margin: 24px 0 16px 0; }
+      margin: 24px 0; }
     #register-user .register-form-container .ely-recaptcha {
       margin-top: 16px; }
+    #register-user .register-form-container .agb-link {
+      color: #3F51B5; }
+    #register-user .register-form-container .agb-link:hover {
+      text-decoration: underline; }
+  #register-user .terms-container {
+    height: 100%; }
+    #register-user .terms-container .terms-content-container {
+      overflow-y: scroll; }
+    #register-user .terms-container .terms-commands {
+      height: 52px; }
 
 .reset-password #container {
   width: 300px; }
@@ -2969,6 +2979,30 @@ md-toast.md-error-toast-theme {
     min-height: 480px; } }
 #start-screen #start-container-mobile {
   padding: 32px 16px 16px 16px; }
+
+#ely-terms {
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87); }
+  #ely-terms .terms-title {
+    font-size: 20px;
+    font-weight: 500; }
+  #ely-terms .terms-date {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.54); }
+  #ely-terms .terms-text {
+    margin-top: 12px;
+    font-size: 14px; }
+  #ely-terms .terms-h1-title {
+    margin: 24px 0 12px 0;
+    font-size: 18px;
+    font-weight: 500; }
+  #ely-terms .terms-h2-title {
+    margin-bottom: 12px;
+    font-size: 14px; }
+  #ely-terms .terms-bullet-list {
+    font-size: 14px; }
 
 #public-testphase {
   padding-top: 32px;

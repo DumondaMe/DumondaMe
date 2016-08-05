@@ -13,10 +13,25 @@
       margin: 0;
     }
     .select-gender {
-      margin: 24px 0 16px 0;
+      margin: 24px 0;
     }
     .ely-recaptcha {
       margin-top: 16px;
+    }
+    .agb-link {
+      color: $primary-color;
+    }
+    .agb-link:hover {
+      text-decoration: underline;
+    }
+  }
+  .terms-container {
+    height: 100%;
+    .terms-content-container {
+      overflow-y: scroll;
+    }
+    .terms-commands {
+      height: 52px;
     }
   }
 }

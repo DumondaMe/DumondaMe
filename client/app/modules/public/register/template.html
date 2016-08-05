@@ -1,6 +1,6 @@
 <md-dialog id="register-user" aria-label="Register User" ng-cloak>
-    <form name="ctrl.registerUserForm" class="register-form-container" autocomplete="off">
-        <div class="md-title ely-dialog-title" flex="none">Konto erstellen für Elyoos</div>
+    <form name="ctrl.registerUserForm" class="register-form-container" autocomplete="off" ng-show="!ctrl.showAgb">
+        <div class="md-title ely-dialog-title" flex="none">Benutzerkonto erstellen für Elyoos</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column">
                 <md-input-container class="ely-input-container">
@@ -61,7 +61,9 @@
                     <md-radio-button value="false">Mann</md-radio-button>
                     <md-radio-button value="true"> Frau</md-radio-button>
                 </md-radio-group>
-
+                <md-checkbox ng-model="ctrl.agb" aria-label="AGB's zustimmen">
+                    Ich akzeptiere die <span class="agb-link" ng-click="ctrl.openAgb()">AGB's</span>
+                </md-checkbox>
                 <div class="ely-recaptcha" vc-recaptcha theme="'light'" key="'6LfWvyYTAAAAADB8n5MjlwL2V23ZRKCJY3wUbixJ'"
                      on-create="ctrl.setWidgetId(widgetId)" on-success="ctrl.setResponse(response)" on-expire="ctrl.cbExpiration()"></div>
             </div>
@@ -69,10 +71,18 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createAccount()"
-                       ng-disabled=" ctrl.running || ctrl.registerUserForm.$invalid">Erstellen
+                       ng-disabled=" ctrl.running || ctrl.registerUserForm.$invalid || !ctrl.agb">Erstellen
             </md-button>
         </md-dialog-actions>
     </form>
+    <div ng-show="ctrl.showAgb" class="terms-container" layout="column">
+        <div class="terms-content-container">
+            <ely-terms></ely-terms>
+        </div>
+        <div class="terms-commands" flex="none" layout="row">
+            <span flex></span>
+            <md-button ng-click="ctrl.showAgb = false">Zurück</md-button>
+        </div>
     </div>
     <md-progress-linear ng-if="ctrl.running" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

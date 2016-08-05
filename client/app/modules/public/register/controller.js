@@ -8,6 +8,8 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
 
         ctrl.userToRegister = {};
         ctrl.userToRegister.female = "true";
+        ctrl.agb = false;
+        ctrl.showAgb = false;
         ctrl.countryCodes = CountryCodeConverter.countryCodes;
         ctrl.uploadValid = false;
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
@@ -48,5 +50,10 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
 
         ctrl.createAccount = function () {
 
+        };
+
+        ctrl.openAgb = function () {
+            ctrl.showAgb = true;
+            ctrl.agb = !ctrl.agb;
         };
     }];
