@@ -75,7 +75,7 @@
       position: fixed;
       top: 8px;
       right: 16px;
-      @media screen and (min-width: $gt-lg) {
+      @media screen and (min-width: $gt-xmd) {
         right: 128px;
       }
       #login-button {

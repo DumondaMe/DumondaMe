@@ -2769,7 +2769,7 @@ md-toast.md-error-toast-theme {
     position: fixed;
     top: 8px;
     right: 16px; }
-    @media screen and (min-width: 1920px) {
+    @media screen and (min-width: 1440px) {
       #start-screen #carousel #carousel-commands {
         right: 128px; } }
 
