@@ -5,37 +5,57 @@
             <div class="md-dialog-content ely-dialog-content" layout="column">
                 <md-input-container class="ely-input-container">
                     <label>Email</label>
-                    <input name="email" ng-model="ctrl.userToRegister.email" required ng-disabled="ctrl.running"/>
-                    <div ng-messages="ctrl.registerUserForm.email.$error" ng-show="ctrl.registerUserForm.email.$dirty">
+                    <input name="email" ng-model="ctrl.userToRegister.email" required ng-disabled="ctrl.running" md-maxlength="255"/>
+                    <div ng-messages="ctrl.registerUserForm.email.$error">
                         <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="email">Keine gültige E-Mail Adresse!</div>
                     </div>
                 </md-input-container>
-                <md-input-container class="ely-input-container">
-                    <label>Passwort</label>
-                    <input name="password" type="password" ng-model="ctrl.userToRegister.password" required ng-disabled="ctrl.running"/>
-                    <div ng-messages="ctrl.registerUserForm.password.$error" ng-show="ctrl.registerUserForm.password.$dirty">
-                        <div ng-message="required">Wird benötigt!</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="ely-input-container">
-                    <label>Vorname</label>
-                    <input name="forename" ng-model="ctrl.userToRegister.forename" required ng-disabled="ctrl.running"/>
-                    <div ng-messages="ctrl.registerUserForm.forename.$error" ng-show="ctrl.registerUserForm.forename.$dirty">
-                        <div ng-message="required">Wird benötigt!</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="ely-input-container">
-                    <label>Nachname</label>
-                    <input name="surname" ng-model="ctrl.userToRegister.surname" required ng-disabled="ctrl.running"/>
-                    <div ng-messages="ctrl.registerUserForm.surname.$error" ng-show="ctrl.registerUserForm.surname.$dirty">
-                        <div ng-message="required">Wird benötigt!</div>
-                    </div>
-                </md-input-container>
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container class="ely-input-container">
+                        <label>Passwort</label>
+                        <input name="password" type="password" ng-model="ctrl.userToRegister.password" required ng-disabled="ctrl.running"
+                               ng-change="ctrl.newPasswordChanged()" md-maxlength="55"/>
+                        <div ng-messages="ctrl.registerUserForm.password.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Passwort ist zu lang</div>
+                            <div ng-message="ely-min-length">Das Passwort muss mindestens 8 Zeichen lang sein</div>
+                            <div ng-message="ely-char-missing">Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container left-register-input-container">
+                        <label>Passwort bestätigen</label>
+                        <input name="confirmNewPassword" ng-model="ctrl.confirmNewPassword" required type="password"
+                               ng-disabled="ctrl.running" ng-change="ctrl.confirmNewPasswordChanged()"/>
+                        <div ng-messages="ctrl.registerUserForm.confirmNewPassword.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="ely-compare">Die Passwörter stimmen nicht überein</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container class="ely-input-container">
+                        <label>Vorname</label>
+                        <input name="forename" ng-model="ctrl.userToRegister.forename" required ng-disabled="ctrl.running" md-maxlength="40"/>
+                        <div ng-messages="ctrl.registerUserForm.forename.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Vorname ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container left-register-input-container">
+                        <label>Nachname</label>
+                        <input name="surname" ng-model="ctrl.userToRegister.surname" required ng-disabled="ctrl.running" md-maxlength="60"/>
+                        <div ng-messages="ctrl.registerUserForm.surname.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Nachname ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                </div>
                 <md-input-container class="ely-input-container">
                     <label>Geburtstag</label>
                     <input name="birthday" ng-model="ctrl.userToRegister.birthday" required ng-disabled="ctrl.running"
                            ng-change="ctrl.change()"/>
-                    <div ng-messages="ctrl.registerUserForm.birthday.$error" ng-show="ctrl.registerUserForm.birthday.$dirty">
+                    <div ng-messages="ctrl.registerUserForm.birthday.$error">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="birthday-format">Ungültiges Datum (z.B {{ctrl.getDateExample()}})</div>
                     </div>

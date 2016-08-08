@@ -2,8 +2,9 @@
 
 
 module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatCheckService', 'ProfileDataMessageService', '$state',
-    'vcRecaptchaService', 'ElyModal',
-    function (Register, errorToast, CountryCodeConverter, DateFormatCheckService, ProfileDataMessageService, $state, vcRecaptchaService, ElyModal) {
+    'vcRecaptchaService', 'ElyModal', 'CheckChangePasswordService',
+    function (Register, errorToast, CountryCodeConverter, DateFormatCheckService, ProfileDataMessageService, $state, vcRecaptchaService, ElyModal,
+              CheckChangePasswordService) {
         var ctrl = this;
 
         ctrl.userToRegister = {};
@@ -18,6 +19,34 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
 
         ctrl.change = function () {
             ctrl.registerUserForm.birthday.$setValidity('birthday-format', DateFormatCheckService.isDateValid(ctrl.userToRegister.birthday));
+        };
+
+        ctrl.newPasswordChanged = function () {
+            var uploadValid = CheckChangePasswordService.checkNewPasswordIsValid(ctrl.userToRegister.password, ctrl.confirmNewPassword);
+
+            ctrl.registerUserForm.password.$setValidity('ely-min-length', true);
+            ctrl.registerUserForm.password.$setValidity('ely-char-missing', true);
+            ctrl.registerUserForm.confirmNewPassword.$setValidity('ely-compare', true);
+            if (!uploadValid) {
+                if (!CheckChangePasswordService.checkMinPasswordLength(ctrl.userToRegister.password)) {
+                    ctrl.registerUserForm.password.$setValidity('ely-min-length', false);
+                } else if (!CheckChangePasswordService.checkRequiredChar(ctrl.userToRegister.password)) {
+                    ctrl.registerUserForm.password.$setValidity('ely-char-missing', false);
+                } else if (!CheckChangePasswordService.checkNewPasswordEqual(ctrl.userToRegister.password, ctrl.confirmNewPassword)) {
+                    ctrl.registerUserForm.confirmNewPassword.$setValidity('ely-compare', false);
+                }
+            }
+        };
+
+        ctrl.confirmNewPasswordChanged = function () {
+            var uploadValid = CheckChangePasswordService.checkNewPasswordIsValid(ctrl.userToRegister.password, ctrl.confirmNewPassword);
+
+            ctrl.registerUserForm.confirmNewPassword.$setValidity('ely-compare', true);
+            if (!uploadValid) {
+                if (!CheckChangePasswordService.checkNewPasswordEqual(ctrl.userToRegister.password, ctrl.confirmNewPassword)) {
+                    ctrl.registerUserForm.confirmNewPassword.$setValidity('ely-compare', false);
+                }
+            }
         };
 
         ctrl.upload = function () {

@@ -6,11 +6,14 @@
     width: 100%;
     .ely-dialog-title {
       padding: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
     .ely-input-container {
       width: 100%;
-      margin: 0;
+      margin: 4px 0;
+    }
+    .left-register-input-container {
+      margin-left: 16px;
     }
     .select-gender {
       margin: 24px 0;
