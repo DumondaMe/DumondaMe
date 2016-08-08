@@ -30,7 +30,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs during password reset', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestPasswordReset, logger).then(function (request) {
-                logger.info(`Password reset for linkId ${request.email}`);
+                logger.info(`Password reset for linkId ${request.linkId}`);
                 return resetPassword.resetPassword(request.linkId, request.newPassword, req);
             }).then(function () {
                 res.status(200).end();
