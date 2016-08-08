@@ -16,6 +16,10 @@ var emailTemplates = {
     resetPassword: {
         template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
         subject: 'Passwort zurücksetzen'
+    },
+    registerUserRequest: {
+        template: new EmailTemplate(path.join(templatesDir, 'registerUserRequest')),
+        subject: 'Willkommen auf Elyoos'
     }
 };
 

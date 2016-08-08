@@ -1,14 +1,13 @@
 'use strict';
 
 var libUser = require('../../../../../lib/user')();
-var users = require('../util/user');
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var moment = require('moment');
+var stubEmailQueue = require('../util/stubEmailQueue');
+var sinon = require('sinon');
 
-describe('Integration Tests for register a new user', function () {
-
-    var requestAgent;
+describe('Integration Tests for request to register a new user', function () {
 
     beforeEach(function () {
 
@@ -31,7 +30,7 @@ describe('Integration Tests for register a new user', function () {
         return requestHandler.logout();
     });
 
-    it('Register a valid new user - Return 200', function () {
+    it('Start a register request for a valid new user (only mandatory fields) - Return 200', function () {
         var newUser = {
             email: 'climberwoodi@gmx.ch',
             forename: 'user',
@@ -39,24 +38,22 @@ describe('Integration Tests for register a new user', function () {
             birthday: 123546,
             country: 'Schweiz',
             female: true,
-            password: '12345678'
-        }, startTime = Math.floor(moment.utc().valueOf() / 1000), userId;
+            password: '12345678',
+            response: '12'
+        }, startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/register', newUser, requestAgent);
-        }).then(function (res) {
+        return requestHandler.post('/api/register', newUser).then(function (res) {
             res.status.should.equal(200);
-            userId = res.body.userId;
-            return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'climberwoodi@gmx.ch'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
-                .return('user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, user.country AS country, user.female AS female,' +
-                'friendPrivacy.profile AS friendProfile, friendPrivacy.image AS friendImage, friendPrivacy.contacts AS friendContacts, friendPrivacy.profileData AS friendProfileData,' +
-                'noContactPrivacy.profile AS noContactProfile, noContactPrivacy.image AS noContactImage, noContactPrivacy.contacts AS noContactContacts, noContactPrivacy.profileData AS noContactProfileData, ' +
-                'user.registerDate AS registerDate')
+            stubEmailQueue.createImmediatelyJob.calledWith("registerUserRequest", {
+                email: 'climberwoodi@gmx.ch',
+                linkId: sinon.match.any
+            }).should.be.true;
+            return db.cypher().match("(user:UserRegisterRequest {email: 'climberwoodi@gmx.ch'})")
+                .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, 
+                         user.country AS country, user.female AS female, user.registerDate AS registerDate`)
                 .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
-            user[0].userId.should.equals(userId);
             user[0].name.should.equals('user Waldvogel');
             user[0].forename.should.equals(newUser.forename);
             user[0].surname.should.equals(newUser.surname);
@@ -64,25 +61,46 @@ describe('Integration Tests for register a new user', function () {
             user[0].country.should.equals(newUser.country);
             user[0].female.should.equals(newUser.female);
             user[0].registerDate.should.be.at.least(startTime);
-            user[0].friendProfile.should.be.true;
-            user[0].friendImage.should.be.true;
-            user[0].friendContacts.should.be.true;
-            user[0].friendProfileData.should.be.true;
-            user[0].noContactProfile.should.be.true;
-            user[0].noContactImage.should.be.true;
-            user[0].noContactContacts.should.be.true;
-            user[0].noContactProfileData.should.be.true;
             return requestHandler.logout();
-        }).then(function () {
-            return requestHandler.login({
-                'username': 'climberwoodi@gmx.ch',
-                'password': newUser.password
-            });
-        }).then(function (agent) {
-            return requestHandler.get('/api/user/userInfo', agent);
-        }).then(function (res) {
+        });
+    });
+
+    it('Start a register request for a valid new user (all fields) - Return 200', function () {
+        var newUser = {
+            email: 'climberwoodi@gmx.ch',
+            forename: 'user',
+            surname: 'Waldvogel',
+            birthday: 123546,
+            country: 'Schweiz',
+            female: true,
+            password: '12345678',
+            street: 'irgendwo',
+            place: 'Urdorf',
+            response: '12'
+        }, startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        return requestHandler.post('/api/register', newUser).then(function (res) {
             res.status.should.equal(200);
-            res.body.name.should.equal('user Waldvogel');
+            stubEmailQueue.createImmediatelyJob.calledWith("registerUserRequest", {
+                email: 'climberwoodi@gmx.ch',
+                linkId: sinon.match.any
+            }).should.be.true;
+            return db.cypher().match("(user:UserRegisterRequest {email: 'climberwoodi@gmx.ch'})")
+                .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, 
+                         user.country AS country, user.female AS female, user.street AS street,  user.place AS place, user.registerDate AS registerDate`)
+                .end().send();
+        }).then(function (user) {
+            user.length.should.equals(1);
+            user[0].name.should.equals('user Waldvogel');
+            user[0].forename.should.equals(newUser.forename);
+            user[0].surname.should.equals(newUser.surname);
+            user[0].birthday.should.equals(newUser.birthday);
+            user[0].country.should.equals(newUser.country);
+            user[0].female.should.equals(newUser.female);
+            user[0].street.should.equals(newUser.street);
+            user[0].place.should.equals(newUser.place);
+            user[0].registerDate.should.be.at.least(startTime);
+            return requestHandler.logout();
         });
     });
 
@@ -94,36 +112,13 @@ describe('Integration Tests for register a new user', function () {
             birthday: 123546,
             country: 'Schweiz',
             female: true,
-            password: '12345678'
+            password: '12345678',
+            response: '12'
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/register', newUser, requestAgent);
-        }).then(function (res) {
+        return requestHandler.post('/api/register', newUser).then(function (res) {
             res.status.should.equal(400);
-            res.body.errorCode.should.equal(1);
+            res.body.errorCode.should.equal(2);
         });
     });
-
-    //This will be only temporary
-    it('Register a new user is only possible for userId 0 - Return 400', function () {
-        var newUser = {
-            email: 'climberwoodi@gmx.ch',
-            forename: 'user',
-            surname: 'Waldvogel',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            password: '12345678'
-        };
-
-        return requestHandler.login(users.validUser2).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/register', newUser, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(400);
-        });
-    });
-
 });

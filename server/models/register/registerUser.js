@@ -1,14 +1,15 @@
 'use strict';
 
 var db = require('./../../neo4j');
-var uuid = require('./../../lib/uuid');
-var cdn = require('./../util/cdn');
+var registerUserRequest = require('./../eMailService/registerUserRequest');
+var randomstring = require("randomstring");
+var recaptcha = require('./../util/recaptcha');
 var passwordEncryption = require('./../../lib/passwordEncryption');
 var exceptions = require('./../../lib/error/exceptions');
 var time = require('./../../lib/time');
 var logger = requireLogger.getLogger(__filename);
 
-var ERROR_CODE_EMAIL_EXISTS = 1;
+var ERROR_CODE_EMAIL_EXISTS = 2;
 
 var checkEmailExists = function (email, req) {
     return db.cypher().match("(user:User {email: {email}})")
@@ -23,9 +24,10 @@ var checkEmailExists = function (email, req) {
 
 var registerUser = function (params, req) {
 
-    var userId;
+    var linkId;
     return checkEmailExists(params.email, req).then(function () {
-        userId = uuid.generateUUID();
+        return recaptcha.verifyRecaptcha(params.response, req);
+    }).then(function () {
         return passwordEncryption.generatePasswordHash(params.password);
     }).then(function (hash) {
         var paramsCypher = {
@@ -38,27 +40,17 @@ var registerUser = function (params, req) {
                 birthday: params.birthday,
                 country: params.country,
                 female: params.female,
-                userId: userId,
-                lastLogin: time.getNowUtcTimestamp(),
-                previousLastLogin: time.getNowUtcTimestamp(),
+                street: params.street,
+                place: params.place,
                 registerDate: time.getNowUtcTimestamp()
-            },
-            privacy: {
-                profile: true,
-                profileData: true,
-                image: true,
-                contacts: true,
-                pinwall: true
             }
         };
-        return db.cypher().create("(:Privacy {privacy})<-[:HAS_PRIVACY {type: 'Freund'}]-(:User {userData})" +
-                "-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {privacy})")
-            .end(paramsCypher)
-            .send();
+        linkId = randomstring.generate(64);
+        paramsCypher.userData.linkId = linkId;
+        return db.cypher().create("(:UserRegisterRequest {userData})")
+            .end(paramsCypher).send();
     }).then(function () {
-        return cdn.createFolderRegisterUser(userId);
-    }).then(function () {
-        return {userId: userId};
+        return registerUserRequest.sendRegisterUserVerification(params.email, linkId);
     });
 };
 

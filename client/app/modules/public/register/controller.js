@@ -49,15 +49,23 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
             }
         };
 
-        ctrl.upload = function () {
+        ctrl.createAccount = function () {
             var message = ProfileDataMessageService.getMessage(ctrl.userToRegister);
             message.email = ctrl.userToRegister.email;
             message.password = ctrl.userToRegister.password;
+            message.response = ctrl.response;
             ctrl.running = true;
             Register.save(message, function (resp) {
-                $state.go('user.detail', {userId: resp.userId});
-            }, function () {
-                errorToast.showError('Das Registrieren des Benutzers ist fehlgeschlagen');
+                ctrl.running = false;
+                //$state.go('user.detail', {userId: resp.userId});
+            }, function (err) {
+                if (err.data && err.data.errorCode === 2) {
+                    errorToast.showError('Für diese Email Adresse existiert bereits ein Konto');
+                } else if((err.data && err.data.errorCode === 1) ) {
+                    errorToast.showError('Validierung ob ein Mensch das Konto erstellen möchte ist fehlgeschlagen');
+                } else {
+                    errorToast.showError('Das Registrieren ist fehlgeschlagen');
+                }
                 ctrl.running = false;
             });
         };
@@ -75,10 +83,6 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
 
         ctrl.cancel = function () {
             ElyModal.cancel();
-        };
-
-        ctrl.createAccount = function () {
-
         };
 
         ctrl.openAgb = function () {
