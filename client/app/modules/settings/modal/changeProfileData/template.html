@@ -3,6 +3,10 @@
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div class="md-title ely-dialog-title">Profile ändern</div>
             <md-input-container class="ely-input-container">
+                <label>E-Mail</label>
+                <input name="email" ng-model="ctrl.userDataOnServer.email" ng-disabled="true"/>
+            </md-input-container>
+            <md-input-container class="ely-input-container">
                 <label>Vorname</label>
                 <input name="forename" ng-model="ctrl.userDataToChange.forename" required ng-disabled="ctrl.running" ng-change="ctrl.change()"/>
                 <div ng-messages="ctrl.changeProfileForm.forename.$error" ng-show="ctrl.changeProfileForm.forename.$dirty">
