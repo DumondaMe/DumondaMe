@@ -533,6 +533,28 @@
           white-space: pre-wrap;
           font-weight: 300; }
 
+.blog-detail-actions {
+  padding: 0 8px 8px 8px; }
+  .blog-detail-actions .blog-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0; }
+    .blog-detail-actions .blog-action.md-fab.md-mini .action-icon {
+      height: 16px;
+      width: 16px;
+      min-height: 16px;
+      min-width: 16px; }
+  .blog-detail-actions .number-container {
+    margin-left: 2px;
+    margin-right: 8px;
+    color: rgba(0, 0, 0, 0.87);
+    height: 40px; }
+    .blog-detail-actions .number-container .number {
+      line-height: 40px;
+      font-size: 14px;
+      vertical-align: middle; }
+
 .ely-close-sub-toolbar {
   position: fixed;
   bottom: 0;
