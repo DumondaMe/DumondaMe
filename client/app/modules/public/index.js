@@ -21,15 +21,6 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
-        .state('public.testphase', {
-            url: '/testPhase',
-            views: {
-                'content@': {
-                    template: '<ely-public-testphase></ely-public-testphase>'
-                }
-            },
-            isPublic: true
-        })
         .state('public.password', {
             abstract: true,
             url: '/password',
