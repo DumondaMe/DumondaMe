@@ -32,14 +32,14 @@ describe('Integration Tests for the privacy settings', function () {
 
             //Add Blogs for privacy test
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '1', visible: {visibility}})")
                 .end({visibility: ['Freund', 'Familie']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', visible: {visibility}})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '2', visible: {visibility}})")
                 .end({visibility: ['Familie']}).getCommand());
             //Visible to the public
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3'})").end().getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '3'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")
                 .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: false, image: true, pinwall: true})")
@@ -204,7 +204,7 @@ describe('Integration Tests for the privacy settings', function () {
             contactType[1].count.should.equals(1);
             contactType[2].type.should.equals('Bekannter');
             contactType[2].count.should.equals(1);
-            return db.cypher().match("(blog:Blog {blogId: '1'})")
+            return db.cypher().match("(blog:Blog {pageId: '1'})")
                 .return('blog.visible AS visible')
                 .end().send();
         }).then(function (blog) {
@@ -212,13 +212,13 @@ describe('Integration Tests for the privacy settings', function () {
             blog[0].visible.length.should.equals(2);
             blog[0].visible[0].should.equals('Familie');
             blog[0].visible[1].should.equals('Freund2');
-            return db.cypher().match("(blog:Blog {blogId: '2'})")
+            return db.cypher().match("(blog:Blog {pageId: '2'})")
                 .return('blog.visible AS visible')
                 .end().send();
         }).then(function (blog) {
             blog.length.should.equals(1);
             blog[0].visible.length.should.equals(1);
-            return db.cypher().match("(blog:Blog {blogId: '3'})")
+            return db.cypher().match("(blog:Blog {pageId: '3'})")
                 .return('blog.visible AS visible')
                 .end().send();
         }).then(function (blog) {

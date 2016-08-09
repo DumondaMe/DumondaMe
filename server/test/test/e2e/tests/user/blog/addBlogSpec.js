@@ -52,7 +52,7 @@ describe('Integration Tests for adding a blog', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                should.exist(res.body.blogId);
+                should.exist(res.body.pageId);
                 res.body.text.should.equals("testBlog1");
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
@@ -98,17 +98,17 @@ describe('Integration Tests for adding a blog', function () {
                 }, requestAgent, './test/test/e2e/tests/user/blog/testLandscape.jpg');
             }).then(function (res) {
                 res.status.should.equal(200);
-                should.exist(res.body.blogId);
+                should.exist(res.body.pageId);
                 res.body.text.should.equals("testBlog1");
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
-                res.body.urlFull.should.equals('blog/' + res.body.blogId + '/normal.jpg');
+                res.body.url.should.equals('blog/' + res.body.pageId + '/preview.jpg');
+                res.body.urlFull.should.equals('blog/' + res.body.pageId + '/normal.jpg');
                 res.body.heightPreviewImage.should.equals(337.5);
 
-                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
-                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
+                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.pageId + "/preview.jpg").should.be.true;
+                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.pageId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.title as title,  b.created as created, b.heightPreviewImage as heightPreviewImage, b.topic as topic, b.language AS language')
@@ -150,17 +150,17 @@ describe('Integration Tests for adding a blog', function () {
                 }, requestAgent, './test/test/e2e/tests/user/blog/testPortrait.jpg');
             }).then(function (res) {
                 res.status.should.equal(200);
-                should.exist(res.body.blogId);
+                should.exist(res.body.pageId);
                 res.body.text.should.equals("testBlog1");
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
                 res.body.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.url.should.equals('blog/' + res.body.blogId + '/preview.jpg');
-                res.body.urlFull.should.equals('blog/' + res.body.blogId + '/normal.jpg');
+                res.body.url.should.equals('blog/' + res.body.pageId + '/preview.jpg');
+                res.body.urlFull.should.equals('blog/' + res.body.pageId + '/normal.jpg');
                 res.body.heightPreviewImage.should.equals(1000);
 
-                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/preview.jpg").should.be.true;
-                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.blogId + "/normal.jpg").should.be.true;
+                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.pageId + "/preview.jpg").should.be.true;
+                stubCDN.uploadFile.calledWith(sinon.match.any, "blog/" + res.body.pageId + "/normal.jpg").should.be.true;
 
                 return db.cypher().match("(b:Blog:PinwallElement {text: 'testBlog1'})")
                     .return('b.text as text, b.title as title, b.created as created, b.topic as topic, b.language AS language')
@@ -203,7 +203,7 @@ describe('Integration Tests for adding a blog', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                should.exist(res.body.blogId);
+                should.exist(res.body.pageId);
                 res.body.text.should.equals("testBlog1");
                 res.body.created.should.least(startTime);
                 res.body.name.should.equals("user Meier");
@@ -266,8 +266,8 @@ describe('Integration Tests for adding a blog', function () {
 
         _.each(ids, function (id) {
             commands.push(db.cypher().match("(user:User {userId: '1'})")
-                .create("(user)-[:WRITTEN]->(blog:Blog {text: 'test', created: " + startTime + ", blogId: {blogId}})")
-                .end({blogId: id}).getCommand());
+                .create("(user)-[:WRITTEN]->(blog:Blog {text: 'test', created: " + startTime + ", pageId: {pageId}})")
+                .end({pageId: id}).getCommand());
         });
 
         return db.cypher().match("(u:User {userId: '1'})")
@@ -303,8 +303,8 @@ describe('Integration Tests for adding a blog', function () {
 
         _.each(ids, function (id) {
             commands.push(db.cypher().match("(user:User {userId: '1'})")
-                .create("(user)-[:WRITTEN]->(blog:Blog {text: 'test', created: " + startTime + ", blogId: {blogId}})")
-                .end({blogId: id}).getCommand());
+                .create("(user)-[:WRITTEN]->(blog:Blog {text: 'test', created: " + startTime + ", pageId: {pageId}})")
+                .end({pageId: id}).getCommand());
         });
 
         return db.cypher().match("(u:User {userId: '1'})")

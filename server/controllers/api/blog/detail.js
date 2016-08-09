@@ -10,9 +10,9 @@ var schemaGetBlogDetail = {
     name: 'getBlogDetail',
     type: 'object',
     additionalProperties: false,
-    required: ['blogId'],
+    required: ['pageId'],
     properties: {
-        blogId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30}
+        pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30}
     }
 };
 
@@ -23,7 +23,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting blog detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetBlogDetail, logger).then(function (request) {
                 logger.info('Request blog detail', req);
-                return blogDetail.getDetail(req.user.id, request.blogId);
+                return blogDetail.getDetail(req.user.id, request.pageId);
             }).then(function (pageReview) {
                 res.status(200).json(pageReview);
             });

@@ -28,24 +28,24 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '1'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 502, comment: 'test2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '4'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '4'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '3', created: 502, comment: 'test3'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '3'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -74,7 +74,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall.length.should.equals(2);
                 res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].blogId.should.equals('1');
+                res.body.pinwall[0].pageId.should.equals('1');
                 res.body.pinwall[0].writerName.should.equals('user Meier');
                 res.body.pinwall[0].writerUserId.should.equals('1');
                 res.body.pinwall[0].name.should.equals('user Meier2');
@@ -94,7 +94,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].numberOfRecommendations.should.equals(3);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
-                res.body.pinwall[1].blogId.should.equals('1');
+                res.body.pinwall[1].pageId.should.equals('1');
                 res.body.pinwall[1].name.should.equals('user Meier');
                 res.body.pinwall[1].forename.should.equals('user');
                 res.body.pinwall[1].userId.should.equals('1');
@@ -118,20 +118,20 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '1'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '2', created: 504, comment: 'test2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '2'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -160,7 +160,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall.length.should.equals(2);
                 res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].blogId.should.equals('1');
+                res.body.pinwall[0].pageId.should.equals('1');
                 res.body.pinwall[0].writerName.should.equals('user Meier2');
                 res.body.pinwall[0].writerUserId.should.equals('2');
                 res.body.pinwall[0].name.should.equals('user Meier3');
@@ -181,7 +181,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].numberOfRecommendations.should.equals(2);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
-                res.body.pinwall[1].blogId.should.equals('1');
+                res.body.pinwall[1].pageId.should.equals('1');
                 res.body.pinwall[1].name.should.equals('user Meier2');
                 res.body.pinwall[1].forename.should.equals('user');
                 res.body.pinwall[1].userId.should.equals('2');
@@ -206,15 +206,15 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
 
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '1'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -238,7 +238,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall.length.should.equals(1);
                 res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[0].label.should.equals('Blog');
-                res.body.pinwall[0].blogId.should.equals('1');
+                res.body.pinwall[0].pageId.should.equals('1');
                 res.body.pinwall[0].writerName.should.equals('user Meier2');
                 res.body.pinwall[0].writerUserId.should.equals('2');
                 res.body.pinwall[0].name.should.equals('user Meier');
@@ -264,17 +264,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
         
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -308,17 +308,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -352,17 +352,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -398,17 +398,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")
@@ -445,17 +445,17 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
         var commands = [];
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 200, " +
+        commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '3'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '3'})")
             .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
         commands.push(db.cypher().match("(a:User {userId: '2'}), (b:User {userId: '3'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund', contactAdded: '400'}]->(a)").end().getCommand());
 
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {recommendationId: '1', created: 503, comment: 'test'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '1'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '1'})")
             .create("(b)-[:PINWALL_DATA]->(a)").end().getCommand());
 
         commands.push(db.cypher().match("(u:User)").where("u.userId IN ['1','2','3']")

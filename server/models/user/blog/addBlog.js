@@ -54,34 +54,34 @@ var security = function (userId, visibility, req) {
         });
 };
 
-var uploadFile = function (filePath, blogId) {
+var uploadFile = function (filePath, pageId) {
     if (_.isString(filePath)) {
-        return image.uploadImage(filePath,'blog', blogId, 450, 1000);
+        return image.uploadImage(filePath,'blog', pageId, 450, 1000);
     }
     return Promise.resolve(null);
 };
 
 var addBlog = function (userId, request, filePath, req) {
-    var commands = [], visibility = getVisibility(request.visibility), blogId = uuid.generateUUID();
+    var commands = [], visibility = getVisibility(request.visibility), pageId = uuid.generateUUID();
 
     return security(userId, request.visibility, req).then(function () {
-        return uploadFile(filePath, blogId)
+        return uploadFile(filePath, pageId)
             .then(function (height) {
                 return db.cypher().match("(user:User {userId: {userId}})")
-                    .create(`(user)-[:WRITTEN]->(blog:Blog:PinwallElement {text: {text}, title: {title}, created: {timestamp}, 
-                              blogId: {blogId}, heightPreviewImage: {heightPreviewImage}, visible: {visibility}, topic: {topic}, 
+                    .create(`(user)-[:WRITTEN]->(blog:Blog:Page:PinwallElement {text: {text}, title: {title}, created: {timestamp}, 
+                              pageId: {pageId}, heightPreviewImage: {heightPreviewImage}, visible: {visibility}, topic: {topic}, 
                               language: {language}})`)
-                    .return("blog.blogId AS blogId, blog.text AS text, blog.created AS created, user.name AS name, " +
+                    .return("blog.pageId AS pageId, blog.text AS text, blog.created AS created, user.name AS name, " +
                         "blog.heightPreviewImage AS heightPreviewImage")
                     .end({
-                        userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, blogId: blogId, text: request.text,
+                        userId: userId, timestamp: time.getNowUtcTimestamp(), visibility: visibility, pageId: pageId, text: request.text,
                         title: request.title, topic: request.topic, heightPreviewImage: height, language: [request.language]
                     })
                     .send(commands);
             }).then(function (resp) {
                 if (resp[0].hasOwnProperty('heightPreviewImage')) {
-                    resp[0].url = cdn.getUrl('blog/' + blogId + '/preview.jpg');
-                    resp[0].urlFull = cdn.getUrl('blog/' + blogId + '/normal.jpg');
+                    resp[0].url = cdn.getUrl('blog/' + pageId + '/preview.jpg');
+                    resp[0].urlFull = cdn.getUrl('blog/' + pageId + '/normal.jpg');
                 }
                 resp[0].profileUrl = cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg');
                 return resp[0];

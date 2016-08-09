@@ -28,14 +28,14 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
             //Add Blogs
             commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '1', visible: {visibility}, topic: {topic}, title: 'blogTitle', created: 506, text: 'blogText'})")
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '1', visible: {visibility}, topic: {topic}, title: 'blogTitle', created: 506, text: 'blogText'})")
                 .end({visibility: ['Freund'], topic: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '2'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '2', title: 'blogTitle2', created: 505, text: 'blogText2', heightPreviewImage: 400, topic: {topic}})").end({topic: ['health', 'spiritual']}).getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '2', title: 'blogTitle2', created: 505, text: 'blogText2', heightPreviewImage: 400, topic: {topic}})").end({topic: ['health', 'spiritual']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
-                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {blogId: '4', title: 'blogTitle4', created: 502, text: 'blogText4', heightPreviewImage: 200, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+                .create("(u)-[:WRITTEN]->(blog:Blog:PinwallElement {pageId: '4', title: 'blogTitle4', created: 502, text: 'blogText4', heightPreviewImage: 200, topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
 
             //Pages
             commands.push(db.cypher().create("(:Page {title: 'bookPage1Title', label: 'Book', description: 'bookPage1', created: 510, pageId: '0'," +
@@ -50,16 +50,16 @@ describe('Integration Tests for getting the pinwall of another user', function (
                 "link: 'www.host.com/test', hostname: 'www.host.com', heightPreviewImage: 200, topic: {topic}})").end({topic: ['socialDevelopment', 'personalDevelopment']}).getCommand());
 
             //Recommendation Blogs
-            commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '2'})")
+            commands.push(db.cypher().match("(a:Blog {pageId: '4'}), (b:User {userId: '2'})")
                 .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 508, comment: 'irgendwas', recommendationId: '10'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:Recommendation {recommendationId: '10'})")
+            commands.push(db.cypher().match("(a:Blog {pageId: '4'}), (b:Recommendation {recommendationId: '10'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '1'})")
+            commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '1'})")
                 .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: 509, comment: 'irgendwas', recommendationId: '11'})-[:RECOMMENDS]->(a)")
                 .end().getCommand());
-            commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:Recommendation {recommendationId: '11'})")
+            commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '11'})")
                 .create("(b)-[:PINWALL_DATA]->(a)")
                 .end().getCommand());
 
@@ -143,7 +143,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                     res.body.pinwall[0].pinwallType.should.equals('Recommendation');
                     res.body.pinwall[0].label.should.equals('Blog');
-                    res.body.pinwall[0].blogId.should.equals('4');
+                    res.body.pinwall[0].pageId.should.equals('4');
                     res.body.pinwall[0].writerName.should.equals('user Meier');
                     res.body.pinwall[0].writerUserId.should.equals('1');
                     res.body.pinwall[0].name.should.equals('user Meier2');
@@ -163,7 +163,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[0].numberOfRecommendations.should.equals(1);
 
                     res.body.pinwall[1].pinwallType.should.equals('Blog');
-                    res.body.pinwall[1].blogId.should.equals('1');
+                    res.body.pinwall[1].pageId.should.equals('1');
                     res.body.pinwall[1].name.should.equals('user Meier2');
                     res.body.pinwall[1].userId.should.equals('2');
                     res.body.pinwall[1].title.should.equals('blogTitle');
@@ -182,7 +182,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
 
                     res.body.pinwall[2].pinwallType.should.equals('Blog');
-                    res.body.pinwall[2].blogId.should.equals('2');
+                    res.body.pinwall[2].pageId.should.equals('2');
                     res.body.pinwall[2].name.should.equals('user Meier2');
                     res.body.pinwall[2].userId.should.equals('2');
                     res.body.pinwall[2].title.should.equals('blogTitle2');
@@ -279,7 +279,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                     res.body.pinwall.length.should.equal(1);
                     res.body.pinwall[0].pinwallType.should.equals('Blog');
-                    res.body.pinwall[0].blogId.should.equals('2');
+                    res.body.pinwall[0].pageId.should.equals('2');
                 });
             });
     });
@@ -307,7 +307,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                     res.body.pinwall.length.should.equal(1);
                     res.body.pinwall[0].pinwallType.should.equals('Blog');
-                    res.body.pinwall[0].blogId.should.equals('2');
+                    res.body.pinwall[0].pageId.should.equals('2');
                 });
             });
     });
@@ -329,7 +329,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                     res.body.pinwall.length.should.equal(1);
                     res.body.pinwall[0].pinwallType.should.equals('Blog');
-                    res.body.pinwall[0].blogId.should.equals('2');
+                    res.body.pinwall[0].pageId.should.equals('2');
                 });
             });
     });
@@ -351,7 +351,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
                     res.body.pinwall.length.should.equal(1);
                     res.body.pinwall[0].pinwallType.should.equals('Blog');
-                    res.body.pinwall[0].blogId.should.equals('2');
+                    res.body.pinwall[0].pageId.should.equals('2');
                 });
             });
     });

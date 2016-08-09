@@ -27,7 +27,7 @@ describe('Integration Tests for getting blog details', function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/blog/detail', {
-                    blogId: '1'
+                    pageId: '1'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -59,7 +59,7 @@ describe('Integration Tests for getting blog details', function () {
             return requestHandler.login(users.validUser).then(function (agent) {
                 requestAgent = agent;
                 return requestHandler.getWithData('/api/blog/detail', {
-                    blogId: '1'
+                    pageId: '1'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);

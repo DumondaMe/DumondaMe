@@ -56,7 +56,7 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations[0].numberOfRecommendations.should.equals(3);
 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
+                res.body.recommendations[1].pageId.should.equals('1');
                 res.body.recommendations[1].numberOfRecommendations.should.equals(2);
 
                 res.body.recommendations[2].label.should.equals('Youtube');
@@ -94,11 +94,11 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations.length.should.equals(2);
 
                 res.body.recommendations[0].label.should.equals('Blog');
-                res.body.recommendations[0].blogId.should.equals('2');
+                res.body.recommendations[0].pageId.should.equals('2');
                 res.body.recommendations[0].url.should.equals('profileImage/4/thumbnail.jpg');
 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
+                res.body.recommendations[1].pageId.should.equals('1');
                 res.body.recommendations[1].url.should.equals('profileImage/2/thumbnail.jpg');
             });
         });
@@ -130,11 +130,11 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations.length.should.equals(2);
 
                 res.body.recommendations[0].label.should.equals('Blog');
-                res.body.recommendations[0].blogId.should.equals('2');
+                res.body.recommendations[0].pageId.should.equals('2');
                 res.body.recommendations[0].url.should.equals('profileImage/4/thumbnail.jpg');
 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
+                res.body.recommendations[1].pageId.should.equals('1');
                 res.body.recommendations[1].url.should.equals('profileImage/2/thumbnail.jpg');
             });
         });
@@ -169,11 +169,11 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations.length.should.equals(2);
 
                 res.body.recommendations[0].label.should.equals('Blog');
-                res.body.recommendations[0].blogId.should.equals('2');
+                res.body.recommendations[0].pageId.should.equals('2');
                 res.body.recommendations[0].url.should.equals('profileImage/default/thumbnail.jpg');
 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
+                res.body.recommendations[1].pageId.should.equals('1');
                 res.body.recommendations[1].url.should.equals('profileImage/default/thumbnail.jpg');
             });
         });
@@ -206,11 +206,11 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations.length.should.equals(2);
 
                 res.body.recommendations[0].label.should.equals('Blog');
-                res.body.recommendations[0].blogId.should.equals('2');
+                res.body.recommendations[0].pageId.should.equals('2');
                 res.body.recommendations[0].url.should.equals('profileImage/default/thumbnail.jpg');
 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
+                res.body.recommendations[1].pageId.should.equals('1');
                 res.body.recommendations[1].url.should.equals('profileImage/default/thumbnail.jpg');
             });
         });
@@ -241,7 +241,7 @@ describe('Integration Tests for checking visibility elements of popular recommen
                 res.body.recommendations.length.should.equals(1);
 
                 res.body.recommendations[0].label.should.equals('Blog');
-                res.body.recommendations[0].blogId.should.equals('1');
+                res.body.recommendations[0].pageId.should.equals('1');
                 res.body.recommendations[0].url.should.equals('profileImage/default/thumbnail.jpg');
             });
         });

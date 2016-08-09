@@ -27,14 +27,14 @@ describe('Integration Tests for getting popular recommendations', function () {
         dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com');
         dbDsl.createLinkPage('4', ['fr'], ['personalDevelopment'], 5074, 'www.link.com/link', 200);
 
-        dbDsl.createBlog('1', '5', ['en'], ['health'], 5077, null, 250);
-        dbDsl.createBlog('2', '1', ['en'], ['spiritual'], 5077, null, null);
+        dbDsl.createBlog('5', '5', ['en'], ['health'], 5077, null, 250);
+        dbDsl.createBlog('6', '1', ['en'], ['spiritual'], 5077, null, null);
 
         dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}, {userId: '3', created: 501}]);
         dbDsl.crateRecommendationsForPage('3', [{userId: '3', created: 502}, {userId: '4', created: 503}]);
         dbDsl.crateRecommendationsForPage('4', [{userId: '3', created: 504}, {userId: '4', created: 505},
             {userId: '5', created: 506}, {userId: '6', created: 507}]);
-        dbDsl.crateRecommendationsForBlog('1', [{userId: '3', created: 508}, {userId: '4', created: 509}, {userId: '7', created: 510}]);
+        dbDsl.crateRecommendationsForBlog('5', [{userId: '3', created: 508}, {userId: '4', created: 509}, {userId: '7', created: 510}]);
 
 
         return dbDsl.sendToDb().then(function () {
@@ -59,8 +59,8 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[0].topic[0].should.equals('personalDevelopment');
                 
                 res.body.recommendations[1].label.should.equals('Blog');
-                res.body.recommendations[1].blogId.should.equals('1');
-                res.body.recommendations[1].title.should.equals('blog1Title');
+                res.body.recommendations[1].pageId.should.equals('5');
+                res.body.recommendations[1].title.should.equals('blog5Title');
                 res.body.recommendations[1].writerName.should.equals('user Meier5');
                 res.body.recommendations[1].url.should.equals('profileImage/5/thumbnail.jpg');
                 res.body.recommendations[1].numberOfRecommendations.should.equals(3);

@@ -5,26 +5,26 @@ var exceptions = require('./../../../lib/error/exceptions');
 var cdn = require('../../util/cdn');
 var logger = requireLogger.getLogger(__filename);
 
-var allowedToRemoveBlog = function (userId, blogId, req) {
-    return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {blogId: {blogId}})")
+var allowedToRemoveBlog = function (userId, pageId, req) {
+    return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})")
         .return("count(*) AS count")
-        .end({userId: userId, blogId: blogId}).send()
+        .end({userId: userId, pageId: pageId}).send()
         .then(function (resp) {
             if (resp[0].count === 0) {
-                return exceptions.getInvalidOperation('User [' + userId + '] tries to delete blog of other user. BlogId [' + blogId + ']',
+                return exceptions.getInvalidOperation('User [' + userId + '] tries to delete blog of other user. BlogId [' + pageId + ']',
                     logger, req);
             }
         });
 };
 
 var removeBlog = function (userId, request, req) {
-    return allowedToRemoveBlog(userId, request.blogId, req).then(function () {
-        return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {blogId: {blogId}})")
+    return allowedToRemoveBlog(userId, request.pageId, req).then(function () {
+        return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})")
             .delete("written, blog")
-            .end({userId: userId, blogId: request.blogId})
+            .end({userId: userId, pageId: request.pageId})
             .send()
             .then(function () {
-                return cdn.deleteFolder('blog/' + request.blogId + '/');
+                return cdn.deleteFolder('blog/' + request.pageId + '/');
             });
     });
 };

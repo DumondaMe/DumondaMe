@@ -389,12 +389,12 @@ describe('Integration Tests for getting home screen information for a user', fun
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', heightPreviewImage: 400, visible: {visible}, topic: {topic}})")
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 400, visible: {visible}, topic: {topic}})")
             .end({visible: ['Freund'], topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, blogId: '2', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, blogId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 1000, blogId: '4', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, blogId: '5', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle2', text: 'blogText2', created: 502, pageId: '2', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle3', text: 'blogText3', created: 505, pageId: '3', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle4', text: 'blogText4', created: 1000, pageId: '4', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle5', text: 'blogText5', created: 507, pageId: '5', topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
 
         //Recommendations
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
@@ -461,19 +461,19 @@ describe('Integration Tests for getting home screen information for a user', fun
             .end({contactAdded: startTime}).getCommand());
 
         //Blogs
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '2'}), (b:User {userId: '2'}) ")
+        commands.push(db.cypher().match("(a:Blog {pageId: '2'}), (b:User {userId: '2'}) ")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '3'}), (b:User {userId: '1'}) ")
+        commands.push(db.cypher().match("(a:Blog {pageId: '3'}), (b:User {userId: '1'}) ")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '4'}), (b:User {userId: '3'}) ")
+        commands.push(db.cypher().match("(a:Blog {pageId: '4'}), (b:User {userId: '3'}) ")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '5'}), (b:User {userId: '3'}) ")
+        commands.push(db.cypher().match("(a:Blog {pageId: '5'}), (b:User {userId: '3'}) ")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
 
@@ -495,7 +495,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
                 res.body.pinwall.length.should.equals(7);
                 res.body.pinwall[0].pinwallType.should.equals('Blog');
-                res.body.pinwall[0].blogId.should.equals('4');
+                res.body.pinwall[0].pageId.should.equals('4');
                 res.body.pinwall[0].name.should.equals('user Meier3');
                 res.body.pinwall[0].forename.should.equals('user3');
                 res.body.pinwall[0].userId.should.equals('3');
@@ -513,7 +513,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
-                res.body.pinwall[1].blogId.should.equals('3');
+                res.body.pinwall[1].pageId.should.equals('3');
                 res.body.pinwall[1].name.should.equals('user Meier');
                 res.body.pinwall[1].forename.should.equals('user');
                 res.body.pinwall[1].userId.should.equals('1');
@@ -569,7 +569,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[3].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[4].pinwallType.should.equals('Blog');
-                res.body.pinwall[4].blogId.should.equals('2');
+                res.body.pinwall[4].pageId.should.equals('2');
                 res.body.pinwall[4].name.should.equals('user Meier2');
                 res.body.pinwall[4].forename.should.equals('user2');
                 res.body.pinwall[4].userId.should.equals('2');
@@ -587,7 +587,7 @@ describe('Integration Tests for getting home screen information for a user', fun
                 res.body.pinwall[4].topic[1].should.equals('personalDevelopment');
 
                 res.body.pinwall[5].pinwallType.should.equals('Blog');
-                res.body.pinwall[5].blogId.should.equals('1');
+                res.body.pinwall[5].pageId.should.equals('1');
                 res.body.pinwall[5].name.should.equals('user Meier2');
                 res.body.pinwall[5].forename.should.equals('user2');
                 res.body.pinwall[5].userId.should.equals('2');

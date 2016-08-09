@@ -20,17 +20,17 @@ var getDetailMessage = function (queryBlogResult, numberOfRecommendationResult) 
         result.isPublic = false;
     }
     if (queryBlogResult.blog.heightPreviewImage) {
-        result.url = cdn.getUrl(`blog/${queryBlogResult.blog.blogId}/normal.jpg`);
+        result.url = cdn.getUrl(`blog/${queryBlogResult.blog.pageId}/normal.jpg`);
     }
     return result;
 };
 
-var getDetail = function (userId, blogId) {
+var getDetail = function (userId, pageId) {
 
     var commands = [];
-    commands.push(statistic.getNumberOfRecommendationsCommand(blogId).getCommand());
+    commands.push(statistic.getNumberOfRecommendationsCommand(pageId).getCommand());
 
-    return db.cypher().match("(blog:Blog {blogId: {blogId}}), (user:User {userId: {userId}})")
+    return db.cypher().match("(blog:Blog {pageId: {pageId}}), (user:User {userId: {userId}})")
         .optionalMatch("(contact:User)-[:WRITTEN]->(blog)")
         .where("contact.userId <> user.userId")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
@@ -39,7 +39,7 @@ var getDetail = function (userId, blogId) {
         .where("privacy is NULL")
         .return(`blog, user, contact, privacy, privacyNoContact, EXISTS((user)-[:WRITTEN]->(blog)) AS isAdmin, 
                  EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(blog)) AS recommendedByUser`)
-        .end({blogId: blogId, userId: userId}).send(commands).then(function (resp) {
+        .end({pageId: pageId, userId: userId}).send(commands).then(function (resp) {
             return getDetailMessage(resp[1][0], resp[0][0]);
         });
 };

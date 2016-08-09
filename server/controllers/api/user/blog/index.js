@@ -41,9 +41,9 @@ var schemaDeleteBlog = {
     name: 'deleteBlog',
     type: 'object',
     additionalProperties: false,
-    required: ['blogId'],
+    required: ['pageId'],
     properties: {
-        blogId: {type: 'string', format: 'id', maxLength: 50}
+        pageId: {type: 'string', format: 'id', maxLength: 50}
     }
 };
 

@@ -38,9 +38,9 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', visible: {visible}})")
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', visible: {visible}})")
             .end({visible: ['Freund']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
 
@@ -83,8 +83,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1'})").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
 
@@ -124,9 +124,9 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1', visible:{visible}})")
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', visible:{visible}})")
             .end({visible: ['Familie']}).getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
 
@@ -169,8 +169,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
         var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, blogId: '1'})").end().getCommand());
-        commands.push(db.cypher().match("(a:Blog {blogId: '1'}), (b:User {userId: '2'})")
+        commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1'})").end().getCommand());
+        commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
             .createUnique("(b)-[:WRITTEN]->(a)")
             .end({contactAdded: startTime}).getCommand());
 

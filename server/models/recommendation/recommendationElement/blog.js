@@ -15,7 +15,7 @@ var getRecommendationElement = function (pinwallElement) {
 
     var element = {};
     element.label = 'Blog';
-    element.blogId = pinwallElement.recommendationElement.blogId;
+    element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.recommendationElement.topic;

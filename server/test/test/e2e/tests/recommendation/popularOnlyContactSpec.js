@@ -28,14 +28,14 @@ describe('Integration Tests for getting popular recommendations filtered by cont
         dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com');
         dbDsl.createLinkPage('4', ['fr'], ['personalDevelopment'], 5074, 'www.link.com/link', 200);
 
-        dbDsl.createBlog('1', '5', ['en'], ['health'], 5077, null, 250);
-        dbDsl.createBlog('2', '1', ['en'], ['spiritual'], 5077, null, null);
+        dbDsl.createBlog('5', '5', ['en'], ['health'], 5077, null, 250);
+        dbDsl.createBlog('6', '1', ['en'], ['spiritual'], 5077, null, null);
 
         dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}, {userId: '3', created: 501}]);
         dbDsl.crateRecommendationsForPage('3', [{userId: '3', created: 502}, {userId: '4', created: 503}]);
         dbDsl.crateRecommendationsForPage('4', [{userId: '3', created: 504}, {userId: '4', created: 505},
             {userId: '5', created: 506}, {userId: '6', created: 507}]);
-        dbDsl.crateRecommendationsForBlog('1', [{userId: '4', created: 508}, {userId: '5', created: 509}, {userId: '7', created: 510}]);
+        dbDsl.crateRecommendationsForBlog('5', [{userId: '4', created: 508}, {userId: '5', created: 509}, {userId: '7', created: 510}]);
 
 
         return dbDsl.sendToDb().then(function () {

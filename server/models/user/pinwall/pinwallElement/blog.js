@@ -7,7 +7,7 @@ var numberOfRecommendation = require('./numberOfRecommendation');
 var addBlogUrl = function (blog, heightPreviewImage) {
     if (heightPreviewImage) {
         blog.heightPreviewImage = heightPreviewImage;
-        blog.url = cdn.getUrl('blog/' + blog.blogId + '/preview.jpg');
+        blog.url = cdn.getUrl('blog/' + blog.pageId + '/preview.jpg');
     }
 };
 
@@ -15,7 +15,7 @@ var getPinwallElement = function (pinwallElement) {
 
     var element = {};
     element.pinwallType = 'Blog';
-    element.blogId = pinwallElement.pinwall.blogId;
+    element.pageId = pinwallElement.pinwall.pageId;
     element.title = pinwallElement.pinwall.title;
     element.text = pinwallElement.pinwall.text;
     element.created = pinwallElement.pinwall.created;

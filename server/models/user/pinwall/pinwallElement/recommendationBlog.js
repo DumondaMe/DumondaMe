@@ -6,8 +6,8 @@ var numberOfRecommendation = require('./numberOfRecommendation');
 
 var addUrl = function (element) {
     if (element.heightPreviewImage) {
-        element.url = cdn.getUrl(`blog/${element.blogId}/preview.jpg`);
-        element.urlFull = cdn.getUrl(`blog/${element.blogId}/normal.jpg`);
+        element.url = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
+        element.urlFull = cdn.getUrl(`blog/${element.pageId}/normal.jpg`);
     }
 };
 
@@ -18,7 +18,7 @@ var getPinwallElement = function (pinwallElement) {
     element.writerName = pinwallElement.writer.name;
     element.writerUserId = pinwallElement.writer.userId;
     element.created = pinwallElement.pinwall.created;
-    element.blogId = pinwallElement.pinwallData.blogId;
+    element.pageId = pinwallElement.pinwallData.pageId;
     element.text = pinwallElement.pinwallData.text;
     element.heightPreviewImage = pinwallElement.pinwallData.heightPreviewImage;
     element.isAdmin = pinwallElement.writer.userId === pinwallElement.user.userId;
