@@ -11,6 +11,7 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
         ctrl.userToRegister.female = "true";
         ctrl.agb = false;
         ctrl.showAgb = false;
+        ctrl.successfulRegisterRequest = false;
         ctrl.countryCodes = CountryCodeConverter.countryCodes;
         ctrl.uploadValid = false;
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
@@ -55,9 +56,9 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
             message.password = ctrl.userToRegister.password;
             message.response = ctrl.response;
             ctrl.running = true;
-            Register.save(message, function (resp) {
+            Register.save(message, function () {
                 ctrl.running = false;
-                //$state.go('user.detail', {userId: resp.userId});
+                ctrl.successfulRegisterRequest = true;
             }, function (err) {
                 if (err.data && err.data.errorCode === 2) {
                     errorToast.showError('Für diese Email Adresse existiert bereits ein Konto');

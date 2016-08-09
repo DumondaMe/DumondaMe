@@ -21,15 +21,6 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
-        .state('public.vision', {
-            url: '/vision',
-            views: {
-                'content@': {
-                    template: '<ely-public-vision></ely-public-vision>'
-                }
-            },
-            isPublic: true
-        })
         .state('public.testphase', {
             url: '/testPhase',
             views: {
@@ -54,12 +45,18 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             isPublic: true
         })
-        .state('register', {
+        .state('public.register', {
+            abstract: true,
             url: '/register',
+            isPublic: true
+        })
+        .state('public.register.verify', {
+            url: '/verify/:linkId',
             views: {
                 'content@': {
-                    template: '<ely-register></ely-register>'
+                    template: '<ely-public></ely-public>'
                 }
-            }
+            },
+            isPublic: true
         });
 }]);

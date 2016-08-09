@@ -28,6 +28,15 @@
         }
       }
     }
+    .show-verify-success {
+      width: 260px;
+      font-size: 14px;
+      color: $success;
+      margin: 0 auto;
+      .success-icon {
+        width: 48px;
+      }
+    }
   }
   .action-container {
     padding: 0 16px;

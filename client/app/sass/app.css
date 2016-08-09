@@ -2879,6 +2879,13 @@ md-toast.md-error-toast-theme {
       #loginform #login-container .login-form-container .input-element input:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
         text-shadow: none; }
+  #loginform #login-container .show-verify-success {
+    width: 260px;
+    font-size: 14px;
+    color: #43a047;
+    margin: 0 auto; }
+    #loginform #login-container .show-verify-success .success-icon {
+      width: 48px; }
 #loginform .action-container {
   padding: 0 16px; }
   #loginform .action-container .password-reset {
@@ -2894,7 +2901,6 @@ md-toast.md-error-toast-theme {
 
 #register-user {
   max-width: 600px;
-  height: 100%;
   width: 100%; }
   #register-user .register-form-container {
     width: 100%; }
@@ -2920,6 +2926,17 @@ md-toast.md-error-toast-theme {
       overflow-y: scroll; }
     #register-user .terms-container .terms-commands {
       height: 52px; }
+
+#successful-register-request {
+  max-width: 600px;
+  width: 100%; }
+  #successful-register-request .ely-dialog-title {
+    padding: 16px 24px 8px 24px;
+    margin-bottom: 0; }
+  #successful-register-request .ely-dialog-content .description {
+    font-size: 16px; }
+    #successful-register-request .ely-dialog-content .description .e-mail-address {
+      font-weight: 500; }
 
 .reset-password #container {
   width: 300px; }

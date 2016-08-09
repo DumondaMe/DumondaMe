@@ -1,0 +1,14 @@
+<div id="successful-register-request">
+    <div class="md-title ely-dialog-title">Konto aktivieren</div>
+    <md-dialog-content>
+        <div class="md-dialog-content ely-dialog-content">
+            <div class="description" flex="grow">Um Dein Konto zu aktivieren muss noch Deine Email Adresse verifiziert werden. Dazu
+                wurde eine Nachricht an <span class="e-mail-address">{{ctrl.email}}</span> versendet. Um Elyoos benützen zu können muss der Link in
+                der versendeten Nachricht geöffnet werden. Es kann einige Minuten dauern bis die E-Mail in Deinem Konto ankommt.
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-primary md-raised" ng-click="ctrl.close()">Ok</md-button>
+    </md-dialog-actions>
+</div>

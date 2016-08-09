@@ -45,6 +45,7 @@ describe('Integration Tests for verify registering a new user', function () {
 
         return requestHandler.post('/api/register/verify', {linkId: registerRequestUserValid.linkId}).then(function (res) {
             res.status.should.equal(200);
+            res.body.email.should.equals(registerRequestUserValid.email);
 
             return db.cypher().match("(friendPrivacy:Privacy)<-[:HAS_PRIVACY {type: 'Freund'}]-(user:User {email: 'climberwoodi@gmx.ch'})-[:HAS_PRIVACY_NO_CONTACT]->(noContactPrivacy:Privacy)")
                 .return('user, friendPrivacy, noContactPrivacy').end().send();

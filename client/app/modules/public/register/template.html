@@ -1,5 +1,5 @@
 <md-dialog id="register-user" aria-label="Register User" ng-cloak>
-    <form name="ctrl.registerUserForm" class="register-form-container" autocomplete="off" ng-show="!ctrl.showAgb">
+    <form name="ctrl.registerUserForm" class="register-form-container" autocomplete="off" ng-show="!ctrl.showAgb && !ctrl.successfulRegisterRequest">
         <div class="md-title ely-dialog-title" flex="none">Benutzerkonto erstellen für Elyoos</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column">
@@ -95,6 +95,7 @@
             </md-button>
         </md-dialog-actions>
     </form>
+    <ely-successful-register-request ng-show="ctrl.successfulRegisterRequest" email="ctrl.userToRegister.email"></ely-successful-register-request>
     <div ng-show="ctrl.showAgb" class="terms-container" layout="column">
         <div class="terms-content-container">
             <ely-terms></ely-terms>

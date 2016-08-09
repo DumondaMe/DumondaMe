@@ -31,8 +31,8 @@ module.exports = function (router) {
             return validation.validateRequest(req, schemaRequestPasswordReset, logger).then(function (request) {
                 logger.info(`Email verification for linkId ${request.linkId}`);
                 return verifyUserRequest.verify(request.linkId, req);
-            }).then(function () {
-                res.status(200).end();
+            }).then(function (data) {
+                res.status(200).json(data);
             });
         });
     });
