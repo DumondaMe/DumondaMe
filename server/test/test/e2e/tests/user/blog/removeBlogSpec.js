@@ -25,7 +25,7 @@ describe('Integration Tests for removing a blog', function () {
         return requestHandler.logout();
     });
 
-    it('Remove a blog of the user', function () {
+    it('Remove a blog of the user with recommendations', function () {
 
         var commands = [];
 
@@ -45,6 +45,38 @@ describe('Integration Tests for removing a blog', function () {
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
+            .end().send(commands)
+            .then(function () {
+                return requestHandler.login(users.validUser);
+            }).
+            then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.del('/api/user/blog', {
+                    pageId: '1'
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                stubCDN.deleteFolder.calledWith("blog/1/").should.be.true;
+                return db.cypher().match("(b:Blog)")
+                    .return('b').end().send();
+            }).then(function (blog) {
+                blog.length.should.equals(0);
+            });
+    });
+
+    it('Remove a blog of the user without recommendations', function () {
+
+        var commands = [];
+
+        stubCDN.deleteFolder.reset();
+
+        commands.push(db.cypher().match("(u:User {userId: '1'})")
+            .create("(u)-[:WRITTEN]->(:Blog:Page:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 400})")
+            .end().getCommand());
+
+        return db.cypher().match("(u:User {userId: '1'})")
+            .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
+                "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true})")
             .end().send(commands)
             .then(function () {
                 return requestHandler.login(users.validUser);

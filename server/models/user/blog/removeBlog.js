@@ -19,13 +19,11 @@ var allowedToRemoveBlog = function (userId, pageId, req) {
 
 var removeBlog = function (userId, request, req) {
     return allowedToRemoveBlog(userId, request.pageId, req).then(function () {
-        return db.cypher().match(`(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})
-                                  <-[r1:RECOMMENDS]-(rec:Recommendation)<-[r2:RECOMMENDS]-()`)
+        return db.cypher().match(`(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})`)
+            .optionalMatch(`(blog)<-[r1:RECOMMENDS]-(rec:Recommendation)<-[r2:RECOMMENDS]-()`)
             .optionalMatch("(blog)<-[p:PINWALL_DATA]-()")
             .delete("written, blog, r1, rec, r2, p")
-            .end({userId: userId, pageId: request.pageId})
-            .send()
-            .then(function () {
+            .end({userId: userId, pageId: request.pageId}).send().then(function () {
                 return cdn.deleteFolder('blog/' + request.pageId + '/');
             });
     });

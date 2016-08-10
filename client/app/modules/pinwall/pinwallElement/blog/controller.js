@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'UserPage', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'BlogRecommendation',
+module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'BlogRecommendation',
     'PinwallBlogService',
-    function (dateFormatter, $mdDialog, Blog, UserPage, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation,
+    function (dateFormatter, $mdDialog, Blog, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation,
               PinwallBlogService) {
         var ctrl = this;
 
@@ -23,7 +23,7 @@ module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'UserPage', 'errorToast'
                 .cancel("Abbrechen");
             $mdDialog.show(confirm).then(function () {
                 ctrl.requestRunning = true;
-                UserPage.delete({
+                Blog.delete({
                     pageId: ctrl.element.pageId
                 }, function () {
                     ctrl.requestRunning = false;
