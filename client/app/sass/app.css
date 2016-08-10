@@ -2015,6 +2015,28 @@ md-toast.md-error-toast-theme {
     #ely-blog-detail #ely-blog-detail-main .blog-content .blog-page-info {
       clear: both; }
 
+.ely-blog-info-container {
+  margin-top: 22px; }
+  .ely-blog-info-container .page-action.md-fab.md-mini {
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    min-height: 0;
+    margin: 0; }
+    .ely-blog-info-container .page-action.md-fab.md-mini .action-icon {
+      height: 16px;
+      width: 16px;
+      min-height: 16px;
+      min-width: 16px; }
+  .ely-blog-info-container .number-container {
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.87);
+    height: 28px; }
+    .ely-blog-info-container .number-container .number {
+      line-height: 28px;
+      font-size: 14px;
+      vertical-align: middle; }
+
 #ely-book-page-detail #ely-book-page-main-detail {
   max-width: 600px;
   min-width: 300px; }

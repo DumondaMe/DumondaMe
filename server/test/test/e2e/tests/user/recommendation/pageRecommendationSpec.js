@@ -20,6 +20,9 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             "author: 'Hans Muster'})").end().getCommand());
             commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', description: 'page2', link: 'www.link.com', created: 500, pageId: '1', actor: 'Hans Muster'})").end().getCommand());
 
+            commands.push(db.cypher().create("(:Blog:Page:PinwallElement {text: 'blogText1', created: 501, pageId: '10', heightPreviewImage: 200, " +
+                "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
+
             commands.push(db.cypher().create("(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:Recommendation {recommendationId: '0'}), (c:User {userId: '2'})")
@@ -97,6 +100,19 @@ describe('Integration Tests for adding and deleting user page recommendations', 
             resp.length.should.equals(1);
             resp[0].created.should.be.at.least(startTime);
             resp[0].comment.should.equals('irgendwas');
+        });
+    });
+
+    it('Not allowed to rate blog page over this api - Return 400', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/recommendation/page', {
+                pageId: '10',
+                comment: 'irgendwas'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
         });
     });
 

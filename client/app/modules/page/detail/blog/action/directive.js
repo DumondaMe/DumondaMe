@@ -11,8 +11,8 @@ module.exports = {
             bindToController: {
                 pageDetail: '='
             },
-            templateUrl: 'app/modules/page/detail/info/template.html'
+            templateUrl: 'app/modules/page/detail/blog/action/template.html'
         };
     }],
-    name: 'elyPageDetailInfo'
+    name: 'elyBlogDetailAction'
 };

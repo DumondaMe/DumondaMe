@@ -1,0 +1,16 @@
+<div class="ely-blog-info-container" layout="row">
+    <div>
+        <md-button class="page-action md-fab md-mini" aria-label="Recommend Page"
+                   ng-disabled="ctrl.pageDetail.recommendation.user.recommendationId || ctrl.requestRunning || ctrl.pageDetail.page.isAdmin"
+                   ng-click="ctrl.addRecommendation()">
+            <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+        </md-button>
+        <md-tooltip md-direction="bottom"
+                    ng-show="!ctrl.pageDetail.recommendation.user.recommendationId && !ctrl.pageDetail.page.isAdmin">Diesen Blog
+            empfehlen
+        </md-tooltip>
+    </div>
+    <div class="number-container">
+        <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>
+    </div>
+</div>

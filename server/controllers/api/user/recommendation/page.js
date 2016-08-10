@@ -34,7 +34,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schemaAddPageRecommendation, logger).then(function (request) {
-                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.comment, req);
+                return pageRecommendation.addRecommendation(req.user.id, request.pageId, request.comment, false, req);
             }).then(function (recommendation) {
                 res.status(200).json(recommendation);
             });

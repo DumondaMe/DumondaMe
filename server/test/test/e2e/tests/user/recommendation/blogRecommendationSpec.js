@@ -31,6 +31,9 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
             commands.push(db.cypher().match("(a:Blog {pageId: '2'}), (b:User {userId: '2'})")
                 .createUnique("(b)-[:WRITTEN]->(a)").end().getCommand());
 
+            /*commands.push(db.cypher().create("(:Page:PinwallElement {label: 'Book', description: 'bookPage1', created: 501, pageId: '10'," +
+                "author: 'Hans Muster'})").end().getCommand());
+*/
             commands.push(db.cypher().create("(:Recommendation {created: 500, recommendationId: '0'})")
                 .end().getCommand());
             commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:Recommendation {recommendationId: '0'}), (c:User {userId: '2'})")
@@ -120,6 +123,18 @@ describe('Integration Tests for adding and deleting user blog recommendations', 
                 .end().send();
         }).then(function (resp) {
             resp.length.should.equals(0);
+        });
+    });
+
+    it('Not allowed to recommend other page then blog - Return 400', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/recommendation/blog', {
+                pageId: '10'
+            }, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
         });
     });
 

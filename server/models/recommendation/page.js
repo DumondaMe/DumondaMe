@@ -9,17 +9,20 @@ var exceptions = require('./../../lib/error/exceptions');
 var securityRecommendation = require('./security');
 var logger = requireLogger.getLogger(__filename);
 
-var checkAddingRecommendationAllowed = function (userId, pageId, req) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(:Page {pageId: {pageId}})")
-        .return("user.userId AS userId")
-        .end({
-            userId: userId,
-            pageId: pageId
-        }).send()
+var checkAddingRecommendationAllowed = function (userId, pageId, isBlog, req) {
+    var commands = [];
+
+    commands.push(db.cypher().match("(blog:Blog {pageId: {pageId}})").return("blog").end({pageId: pageId}).getCommand());
+
+    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(page:Page {pageId: {pageId}})")
+        .return("user.userId AS userId, LABELS(page) AS labels")
+        .end({userId: userId, pageId: pageId}).send(commands)
         .then(function (resp) {
-            if (resp.length > 0) {
-                return exceptions.getInvalidOperation('User tries to add recommendation for page ' + pageId + ' with label ' +
-                    pageId + ' twice', logger, req);
+            if (resp[1].length > 0) {
+                return exceptions.getInvalidOperation('User tries to add recommendation for page ' + pageId + ' twice', logger, req);
+            }
+            if (resp[0].length > 0 && !isBlog) {
+                return exceptions.getInvalidOperation('Wrong api call for ' + pageId, logger, req);
             }
         });
 };
@@ -30,7 +33,7 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
         var commands = [];
 
         commands.push(db.cypher().match("(:User {userId: {userId}})-[rel:RECOMMENDS]->" +
-                "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2]->(page:Page)")
+            "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2]->(page:Page)")
             .delete("rel, rec, rel2")
             .end({
                 userId: userId,
@@ -51,11 +54,11 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
     });
 };
 
-var addRecommendation = function (userId, pageId, comment, req) {
+var addRecommendation = function (userId, pageId, comment, isBlog, req) {
     if (!comment) {
         comment = '';
     }
-    return checkAddingRecommendationAllowed(userId, pageId, req).then(function () {
+    return checkAddingRecommendationAllowed(userId, pageId, isBlog, req).then(function () {
 
         var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 

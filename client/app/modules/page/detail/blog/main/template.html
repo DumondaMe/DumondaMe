@@ -41,6 +41,6 @@
             <img class="image" ng-src="{{ctrl.blogDetail.page.url}}" ng-if="ctrl.blogDetail.page.url" ng-click="ctrl.openImageView()">
             <div class="blog-text">{{ctrl.blogDetail.page.text}}</div>
         </div>
-        <ely-page-detail-info class="blog-page-info" page-detail="ctrl.blogDetail" show-info="false"></ely-page-detail-info>
+        <ely-blog-detail-action class="blog-page-info" page-detail="ctrl.blogDetail"></ely-blog-detail-action>
     </div>
 </md-card>
