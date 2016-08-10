@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$state', 'dateFormatter', 'UserDetailNavigation', 'ElyModal',
-    function ($state, dateFormatter, UserDetailNavigation, ElyModal) {
+module.exports = ['$state', 'dateFormatter', 'UserDetailNavigation',
+    function ($state, dateFormatter, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.requestRunning = false;
@@ -12,11 +12,7 @@ module.exports = ['$state', 'dateFormatter', 'UserDetailNavigation', 'ElyModal',
         };
 
         ctrl.openPageDetail = function () {
-            if(ctrl.element.label !== 'Blog' && ctrl.element.pinwallType !== 'Blog') {
-                $state.go('page.detail', {label: ctrl.element.label, pageId: ctrl.element.pageId});
-            } else {
-                ElyModal.show('HomePinwallBlogDetail', 'app/modules/pinwall/pinwallElement/blog/detail/detail.html', {element: ctrl.element});
-            }
+            $state.go('page.detail', {label: ctrl.element.label, pageId: ctrl.element.pageId});
         };
     }];
 
