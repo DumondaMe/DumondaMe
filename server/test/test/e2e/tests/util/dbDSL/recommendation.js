@@ -13,8 +13,14 @@ var init = function () {
 var crateRecommendationsForPage = function (pageId, recommendedUserIds) {
     _.forEach(recommendedUserIds, function (recommendedUserId) {
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Page {pageId: {pageId}}), (b:User {userId: {userId}})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(a)")
-            .end({pageId: pageId, userId: recommendedUserId.userId, recommendationId: recommendationId, created: recommendedUserId.created}).getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}, comment: {comment}})-[:RECOMMENDS]->(a)")
+            .end({
+                pageId: pageId,
+                userId: recommendedUserId.userId,
+                recommendationId: `${recommendationId}`,
+                created: recommendedUserId.created,
+                comment: recommendedUserId.comment || null
+            }).getCommand());
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Page {pageId: {pageId}}), (b:Recommendation {recommendationId: {recommendationId}})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end({pageId: pageId, recommendationId: recommendationId}).getCommand());
@@ -25,8 +31,11 @@ var crateRecommendationsForPage = function (pageId, recommendedUserIds) {
 var crateRecommendationsForBlog = function (pageId, recommendedUserIds) {
     _.forEach(recommendedUserIds, function (recommendedUserId) {
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Blog {pageId: {pageId}}), (b:User {userId: {userId}})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(a)")
-            .end({pageId: pageId, userId: recommendedUserId.userId, recommendationId: recommendationId, created: recommendedUserId.created}).getCommand());
+            .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}, comment: {comment}})-[:RECOMMENDS]->(a)")
+            .end({
+                pageId: pageId, userId: recommendedUserId.userId, recommendationId: `${recommendationId}`, created: recommendedUserId.created,
+                comment: recommendedUserId.comment || null
+            }).getCommand());
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Blog {pageId: {pageId}}), (b:Recommendation {recommendationId: {recommendationId}})")
             .create("(b)-[:PINWALL_DATA]->(a)")
             .end({pageId: pageId, recommendationId: recommendationId}).getCommand());

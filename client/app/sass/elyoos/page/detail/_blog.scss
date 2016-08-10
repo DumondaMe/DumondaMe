@@ -1,9 +1,7 @@
 #ely-blog-detail {
-  background-color: $background-normal;
-  height: 100%;
-  .blog-container {
-    margin: 0 auto;
+  #ely-blog-detail-main {
     max-width: 600px;
+    min-width: 300px;
     .blog-header {
       cursor: pointer;
       .user-name {
@@ -57,6 +55,9 @@
           white-space: pre-wrap;
           font-weight: 300;
         }
+      }
+      .blog-page-info {
+        clear: both;
       }
     }
   }

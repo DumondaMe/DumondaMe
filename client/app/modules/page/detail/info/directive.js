@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pageDetail: '='
+                pageDetail: '=',
+                showInfo: '@'
             },
             templateUrl: 'app/modules/page/detail/info/template.html'
         };

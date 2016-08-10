@@ -482,79 +482,6 @@
 .ely-topics-vertical-color.two-columns {
   width: 32px; }
 
-#ely-blog-detail {
-  background-color: #e9ebee;
-  height: 100%; }
-  #ely-blog-detail .blog-container {
-    margin: 0 auto;
-    max-width: 600px; }
-    #ely-blog-detail .blog-container .blog-header {
-      cursor: pointer; }
-      #ely-blog-detail .blog-container .blog-header .user-name {
-        line-height: 16px;
-        font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis; }
-      #ely-blog-detail .blog-container .blog-header .blog-created {
-        display: inline-block;
-        margin-right: 8px;
-        line-height: 14px;
-        font-size: 12px;
-        color: rgba(0, 0, 0, 0.54); }
-      #ely-blog-detail .blog-container .blog-header .public-type {
-        font-size: 14px;
-        line-height: 16px;
-        font-weight: 500;
-        color: #3F51B5; }
-    #ely-blog-detail .blog-container .button-settings-container {
-      padding: 0; }
-      #ely-blog-detail .blog-container .button-settings-container .button-settings {
-        margin: 0; }
-    #ely-blog-detail .blog-container .blog-content {
-      padding: 0 16px 16px 16px; }
-      #ely-blog-detail .blog-container .blog-content .blog-title {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 16px; }
-      #ely-blog-detail .blog-container .blog-content .image-description-container {
-        margin-top: 18px; }
-        #ely-blog-detail .blog-container .blog-content .image-description-container .image {
-          cursor: pointer;
-          float: left;
-          max-width: 300px;
-          max-height: 400px;
-          margin-right: 16px;
-          margin-bottom: 16px; }
-          @media screen and (min-width: 960px) {
-            #ely-blog-detail .blog-container .blog-content .image-description-container .image {
-              max-width: 200px; } }
-        #ely-blog-detail .blog-container .blog-content .image-description-container .blog-text {
-          white-space: pre-wrap;
-          font-weight: 300; }
-
-.blog-detail-actions {
-  padding: 0 8px 8px 8px; }
-  .blog-detail-actions .blog-action.md-fab.md-mini {
-    height: 28px;
-    width: 28px;
-    line-height: 28px;
-    min-height: 0; }
-    .blog-detail-actions .blog-action.md-fab.md-mini .action-icon {
-      height: 16px;
-      width: 16px;
-      min-height: 16px;
-      min-width: 16px; }
-  .blog-detail-actions .number-container {
-    margin-left: 2px;
-    margin-right: 8px;
-    color: rgba(0, 0, 0, 0.87);
-    height: 40px; }
-    .blog-detail-actions .number-container .number {
-      line-height: 40px;
-      font-size: 14px;
-      vertical-align: middle; }
-
 .ely-close-sub-toolbar {
   position: fixed;
   bottom: 0;
@@ -2037,6 +1964,56 @@ md-toast.md-error-toast-theme {
       line-height: 14px;
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54); }
+
+#ely-blog-detail #ely-blog-detail-main {
+  max-width: 600px;
+  min-width: 300px; }
+  #ely-blog-detail #ely-blog-detail-main .blog-header {
+    cursor: pointer; }
+    #ely-blog-detail #ely-blog-detail-main .blog-header .user-name {
+      line-height: 16px;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    #ely-blog-detail #ely-blog-detail-main .blog-header .blog-created {
+      display: inline-block;
+      margin-right: 8px;
+      line-height: 14px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54); }
+    #ely-blog-detail #ely-blog-detail-main .blog-header .public-type {
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 500;
+      color: #3F51B5; }
+  #ely-blog-detail #ely-blog-detail-main .button-settings-container {
+    padding: 0; }
+    #ely-blog-detail #ely-blog-detail-main .button-settings-container .button-settings {
+      margin: 0; }
+  #ely-blog-detail #ely-blog-detail-main .blog-content {
+    padding: 0 16px 16px 16px; }
+    #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px; }
+    #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container {
+      margin-top: 18px; }
+      #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
+        cursor: pointer;
+        float: left;
+        max-width: 300px;
+        max-height: 400px;
+        margin-right: 16px;
+        margin-bottom: 16px; }
+        @media screen and (min-width: 960px) {
+          #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
+            max-width: 200px; } }
+      #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .blog-text {
+        white-space: pre-wrap;
+        font-weight: 300; }
+    #ely-blog-detail #ely-blog-detail-main .blog-content .blog-page-info {
+      clear: both; }
 
 #ely-book-page-detail #ely-book-page-main-detail {
   max-width: 600px;

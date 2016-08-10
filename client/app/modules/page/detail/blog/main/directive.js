@@ -8,9 +8,11 @@ module.exports = {
             scope: {},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            bindToController: true,
-            templateUrl: 'app/modules/blog/detail/template.html'
+            bindToController: {
+                blogDetail: '='
+            },
+            templateUrl: 'app/modules/page/detail/blog/main/template.html'
         };
     }],
-    name: 'elyBlogDetail'
+    name: 'elyBlogDetailMain'
 };

@@ -19,8 +19,10 @@ var allowedToRemoveBlog = function (userId, pageId, req) {
 
 var removeBlog = function (userId, request, req) {
     return allowedToRemoveBlog(userId, request.pageId, req).then(function () {
-        return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})")
-            .delete("written, blog")
+        return db.cypher().match(`(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})
+                                  <-[r1:RECOMMENDS]-(rec:Recommendation)<-[r2:RECOMMENDS]-()`)
+            .optionalMatch("(blog)<-[p:PINWALL_DATA]-()")
+            .delete("written, blog, r1, rec, r2, p")
             .end({userId: userId, pageId: request.pageId})
             .send()
             .then(function () {

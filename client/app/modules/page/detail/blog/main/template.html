@@ -1,0 +1,46 @@
+<md-card id="ely-blog-detail-main">
+    <md-card-header>
+        <md-card-avatar ng-click="ctrl.openUserDetail()" class="user-avatar">
+            <img class="md-user-avatar" ng-src="{{ctrl.blogDetail.page.profileUrl}}"/>
+        </md-card-avatar>
+        <div class="blog-header">
+            <div layout="row" layout-wrap>
+                <div class="md-title user-name" ng-if="!ctrl.blogDetail.page.isAdmin" ui-sref="user.detail({userId: ctrl.blogDetail.userId})">
+                    {{ctrl.blogDetail.page.name}}
+                </div>
+                <div class="md-title user-name" ng-if="ctrl.blogDetail.page.isAdmin" ui-sref="settings.profile()">Du</div>
+                <div>
+                    <svg width="16px" height="16px" viewBox="0 0 48 48" fill="#757575" class="divider">
+                        <path d="M20 34l10-10 -10-10z"></path>
+                    </svg>
+                </div>
+                <div class="public-type" ng-if="ctrl.blogDetail.page.isPublic">Öffentlich</div>
+                <div class="public-type" ng-if="!ctrl.blogDetail.page.isPublic">Privat</div>
+            </div>
+            <div>
+                <div class="blog-created">{{ctrl.blogDetail.page.created}}</div>
+                <ely-topics-color topics="ctrl.blogDetail.page.topic"></ely-topics-color>
+            </div>
+        </div>
+        <span flex></span>
+        <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.blogDetail.page.isAdmin"
+                 ng-disabled="ctrl.requestBlogDeleteRunning">
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
+                <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.deleteBlog()">Löschen</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-card-header>
+    <div class="blog-content">
+        <div class="blog-title">{{ctrl.blogDetail.page.title}}</div>
+        <div class="image-description-container">
+            <img class="image" ng-src="{{ctrl.blogDetail.page.url}}" ng-if="ctrl.blogDetail.page.url" ng-click="ctrl.openImageView()">
+            <div class="blog-text">{{ctrl.blogDetail.page.text}}</div>
+        </div>
+        <ely-page-detail-info class="blog-page-info" page-detail="ctrl.blogDetail" show-info="false"></ely-page-detail-info>
+    </div>
+</md-card>

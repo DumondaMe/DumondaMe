@@ -13,7 +13,8 @@ module.exports = {
                 pageId: '=',
                 abortDisabled: '=',
                 abort: '=',
-                finish: '='
+                finish: '=',
+                isBlog: '@'
             },
             templateUrl: 'app/modules/recommendation/addRecommendation/directive/template.html'
         };

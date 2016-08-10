@@ -10,6 +10,7 @@ module.exports = ['PageDetail', '$stateParams', 'moment',
             }
             ctrl.pageDetail.page.created = moment.unix(ctrl.pageDetail.page.created).format('LL');
             ctrl.pageDetail.page.modified = moment.unix(ctrl.pageDetail.page.modified).format('LL');
+            ctrl.pageDetail.page.numberOfRecommendations =  ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations;
         });
 
         ctrl.label = $stateParams.label;

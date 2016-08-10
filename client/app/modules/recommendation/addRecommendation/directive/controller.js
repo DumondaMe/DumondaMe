@@ -1,10 +1,18 @@
 'use strict';
 
-module.exports = ['PageRecommendation', 'errorToast', 'elyRequestFormatter',
-    function (PageRecommendation, errorToast, elyRequestFormatter) {
-        var ctrl = this;
+module.exports = ['PageRecommendation', 'BlogRecommendation', 'errorToast', 'elyRequestFormatter',
+    function (PageRecommendation, BlogRecommendation, errorToast, elyRequestFormatter) {
+        var ctrl = this, service;
 
         ctrl.uploadRunning = false;
+        if (ctrl.isBlog) {
+            ctrl.isBlog = ctrl.isBlog === 'true';
+        }
+        if (ctrl.isBlog) {
+            service = BlogRecommendation;
+        } else {
+            service = PageRecommendation;
+        }
 
         ctrl.uploadRecommendation = function () {
             var data = {
@@ -12,7 +20,7 @@ module.exports = ['PageRecommendation', 'errorToast', 'elyRequestFormatter',
                 comment: elyRequestFormatter.getOptionalString(ctrl.description)
             };
             ctrl.uploadRunning = true;
-            PageRecommendation.save(data, function (resp) {
+            service.save(data, function (resp) {
                 var recommendation = {
                     recommendation: {
                         summary: resp.recommendation,

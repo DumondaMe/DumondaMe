@@ -1,12 +1,10 @@
 'use strict';
 
-module.exports = ['BlogDetail', '$stateParams', '$state', 'dateFormatter', 'ImageViewService', '$mdDialog', 'Blog', 'errorToast',
-    function (BlogDetail, $stateParams, $state, dateFormatter, ImageViewService, $mdDialog, Blog, errorToast) {
+module.exports = ['$stateParams', '$state', 'dateFormatter', 'ImageViewService', '$mdDialog', 'Blog', 'errorToast',
+    function ($stateParams, $state, dateFormatter, ImageViewService, $mdDialog, Blog, errorToast) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.format;
-
-        ctrl.blogDetail = BlogDetail.get({blogId: $stateParams.blogId});
 
         ctrl.openImageView = function () {
             ImageViewService.showImage(ctrl.blogDetail.url);
@@ -21,7 +19,7 @@ module.exports = ['BlogDetail', '$stateParams', '$state', 'dateFormatter', 'Imag
                 .cancel("Abbrechen");
             $mdDialog.show(confirm).then(function () {
                 Blog.delete({
-                    blogId: $stateParams.blogId
+                    pageId: $stateParams.pageId
                 }, function () {
                     $state.go('home');
                 }, function () {

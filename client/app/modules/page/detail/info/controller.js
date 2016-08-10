@@ -4,6 +4,12 @@ module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation',
     function (ElyModal, moment, Languages, UserDetailNavigation) {
         var ctrl = this;
 
+        if (ctrl.showInfo) {
+            ctrl.showInfo = ctrl.showInfo === "true";
+        } else {
+            ctrl.showInfo = true;
+        }
+
         ctrl.getLanguage = Languages.getLanguage;
 
         ctrl.addRecommendation = function () {

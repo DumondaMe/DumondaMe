@@ -14,7 +14,7 @@
         <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>
     </div>
     <span flex></span>
-    <div class="info-detail-container">
+    <div class="info-detail-container" ng-show="ctrl.showInfo === true">
         <div class="info-expand" ng-click="ctrl.expandInfo = !ctrl.expandInfo">
             <md-icon md-svg-icon="cardActions:info" ng-show="!ctrl.expandInfo" class="info-icon"></md-icon>
             <md-icon md-svg-icon="cardActions:arrowUp" ng-show="ctrl.expandInfo" class="info-icon"></md-icon>

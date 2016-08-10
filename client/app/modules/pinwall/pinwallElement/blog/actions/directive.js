@@ -15,5 +15,5 @@ module.exports = {
             templateUrl: 'app/modules/pinwall/pinwallElement/blog/actions/template.html'
         };
     }],
-    name: 'elyPinwallBlogActions'
+    name: 'elyBlogActions'
 };

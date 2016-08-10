@@ -7,7 +7,7 @@ module.exports = [
             if (blogElement.pinwallType === 'Blog') {
                 angular.forEach(pinwall, function (pinwallElement) {
                     if (pinwallElement.pinwallType === 'Recommendation' && pinwallElement.label === 'Blog' &&
-                        pinwallElement.blogId === blogElement.blogId) {
+                        pinwallElement.pageId === blogElement.pageId) {
                         show = false;
                     }
                 });
