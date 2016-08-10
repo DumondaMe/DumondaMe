@@ -1,13 +1,17 @@
 'use strict';
 
-module.exports = ['$stateParams', '$state', 'dateFormatter', 'ImageViewService', '$mdDialog', 'Blog', 'errorToast',
-    function ($stateParams, $state, dateFormatter, ImageViewService, $mdDialog, Blog, errorToast) {
+module.exports = ['$stateParams', '$state', 'dateFormatter', 'ImageViewService', '$mdDialog', 'Blog', 'errorToast', 'UserDetailNavigation',
+    function ($stateParams, $state, dateFormatter, ImageViewService, $mdDialog, Blog, errorToast, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.format;
 
+        ctrl.openUserDetail = function () {
+            UserDetailNavigation.openUserDetail(ctrl.blogDetail.page.userId, ctrl.blogDetail.page.isAdmin);
+        };
+
         ctrl.openImageView = function () {
-            ImageViewService.showImage(ctrl.blogDetail.url);
+            ImageViewService.showImage(ctrl.blogDetail.page.url);
         };
 
         ctrl.deleteBlog = function () {

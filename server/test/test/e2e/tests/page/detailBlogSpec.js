@@ -21,8 +21,9 @@ describe('Integration Tests for getting blog details', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(null, 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
-        dbDsl.createBlog('1', '4', ['en'], ['health'], 5077, ['Freund'], 250);
+        dbDsl.createBlog('1', '4', ['en'], ['health'], 5077, ['Freund', 'Bekannter'], 250);
         dbDsl.crateRecommendationsForBlog('1', [{userId: '1', created: 508, comment: 'irgendwas'}, {userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
@@ -46,6 +47,9 @@ describe('Integration Tests for getting blog details', function () {
                 res.body.page.text.should.equals('blog1Text');
                 res.body.page.isAdmin.should.equals(false);
                 res.body.page.isPublic.should.equals(false);
+                res.body.page.visible.length.should.equals(2);
+                res.body.page.visible[0].should.equals('Freund');
+                res.body.page.visible[1].should.equals('Bekannter');
 
                 res.body.page.topic.length.should.equals(1);
                 res.body.page.topic[0].should.equals('health');

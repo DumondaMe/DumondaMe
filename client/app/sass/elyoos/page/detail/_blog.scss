@@ -2,9 +2,12 @@
   #ely-blog-detail-main {
     max-width: 600px;
     min-width: 300px;
-    .blog-header {
+    .user-avatar {
       cursor: pointer;
+    }
+    .blog-header {
       .user-name {
+        cursor: pointer;
         line-height: 16px;
         font-size: 14px;
         white-space: nowrap;
@@ -23,6 +26,9 @@
         line-height: 16px;
         font-weight: 500;
         color: $primary-color;
+        .private-visible-type {
+          margin-right: 8px;
+        }
       }
     }
     .button-settings-container {

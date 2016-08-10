@@ -5,7 +5,7 @@
         </md-card-avatar>
         <div class="blog-header">
             <div layout="row" layout-wrap>
-                <div class="md-title user-name" ng-if="!ctrl.blogDetail.page.isAdmin" ui-sref="user.detail({userId: ctrl.blogDetail.userId})">
+                <div class="md-title user-name" ng-if="!ctrl.blogDetail.page.isAdmin" ui-sref="user.detail({userId: ctrl.blogDetail.page.userId})">
                     {{ctrl.blogDetail.page.name}}
                 </div>
                 <div class="md-title user-name" ng-if="ctrl.blogDetail.page.isAdmin" ui-sref="settings.profile()">Du</div>
@@ -15,7 +15,9 @@
                     </svg>
                 </div>
                 <div class="public-type" ng-if="ctrl.blogDetail.page.isPublic">Öffentlich</div>
-                <div class="public-type" ng-if="!ctrl.blogDetail.page.isPublic">Privat</div>
+                <div class="public-type" ng-if="!ctrl.blogDetail.page.isPublic">
+                    <span class="private-visible-type" ng-repeat="description in ctrl.blogDetail.page.visible">{{description}}</span>
+                </div>
             </div>
             <div>
                 <div class="blog-created">{{ctrl.blogDetail.page.created}}</div>

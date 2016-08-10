@@ -14,6 +14,7 @@ var getDetailMessage = function (queryBlogResult, userRecommendation, allRecomme
     result.page.title = queryBlogResult.blog.title;
     result.page.text = queryBlogResult.blog.text;
     result.page.topic = queryBlogResult.blog.topic;
+    result.page.visible = queryBlogResult.blog.visible;
     profileUrl.addProfileUrl(result.page, queryBlogResult);
     result.page.isPublic = true;
     if (queryBlogResult.blog.hasOwnProperty('visible') && queryBlogResult.blog.visible.length > 0) {
