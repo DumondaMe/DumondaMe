@@ -16,6 +16,7 @@ module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes',
                 }
             });
             ContactStatisticTypes.addContactByName(type);
+            ctrl.reloadPinwall();
         });
     };
 }];

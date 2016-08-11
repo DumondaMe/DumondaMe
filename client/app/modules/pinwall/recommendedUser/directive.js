@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                recommendedUser: '='
+                recommendedUser: '=',
+                reloadPinwall: '='
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

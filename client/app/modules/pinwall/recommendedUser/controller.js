@@ -8,6 +8,7 @@ module.exports = ['$state', 'UserStateService', 'ContactStatisticTypes', 'Recomm
             UserStateService.addContact(userId, name).then(function (type) {
                 ArrayHelper.removeElement(ctrl.recommendedUser, 'userId', userId);
                 ContactStatisticTypes.addContactByName(type);
+                ctrl.reloadPinwall();
             });
         };
 

@@ -45,6 +45,13 @@ module.exports =
             };
             ctrl.nextPinwallInfo();
 
+            ctrl.reloadPinwall = function() {
+                HomeScrollRequest.reset();
+                ctrl.home = {pinwall: []};
+                ctrl.loadRunning = true;
+                ctrl.nextPinwallInfo();
+            };
+
             $scope.isSideNavOpen = false;
 
             $scope.$watch('isSideNavOpen', function (isOpen) {
