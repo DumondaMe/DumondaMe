@@ -2416,33 +2416,31 @@ md-toast.md-error-toast-theme {
     .pinwall-blog-card .user-avatar img {
       width: 40px !important;
       height: 40px !important; }
-  .pinwall-blog-card .blog-header {
-    width: 100%; }
-    .pinwall-blog-card .blog-header .user-name {
-      cursor: pointer;
-      line-height: 16px;
-      font-size: 14px;
-      max-width: 150px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-      @media screen and (min-width: 600px) {
-        .pinwall-blog-card .blog-header .user-name {
-          max-width: 250px; } }
-      @media screen and (min-width: 1280px) {
-        .pinwall-blog-card .blog-header .user-name {
-          max-width: 250px; } }
-    .pinwall-blog-card .blog-header .blog-created {
-      display: inline-block;
-      margin-right: 8px;
-      line-height: 14px;
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.54); }
-    .pinwall-blog-card .blog-header .public-type {
-      font-size: 14px;
-      line-height: 16px;
-      font-weight: 500;
-      color: #3F51B5; }
+  .pinwall-blog-card .blog-header .user-name {
+    cursor: pointer;
+    line-height: 16px;
+    font-size: 14px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+    @media screen and (min-width: 600px) {
+      .pinwall-blog-card .blog-header .user-name {
+        max-width: 200px; } }
+    @media screen and (min-width: 1280px) {
+      .pinwall-blog-card .blog-header .user-name {
+        max-width: 250px; } }
+  .pinwall-blog-card .blog-header .blog-created {
+    display: inline-block;
+    margin-right: 8px;
+    line-height: 14px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54); }
+  .pinwall-blog-card .blog-header .public-type {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    color: #3F51B5; }
   .pinwall-blog-card .topic-description {
     padding: 0 16px; }
   .pinwall-blog-card .button-settings-container {
@@ -2509,7 +2507,17 @@ md-toast.md-error-toast-theme {
       line-height: 40px;
       font-size: 16px;
       font-weight: 500;
-      cursor: pointer; }
+      cursor: pointer;
+      max-width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+      @media screen and (min-width: 600px) {
+        #ely-pinwall-contacting .contacting-user .user-name {
+          max-width: 260px; } }
+      @media screen and (min-width: 1280px) {
+        #ely-pinwall-contacting .contacting-user .user-name {
+          max-width: 300px; } }
   #ely-pinwall-contacting .number-of-contacting {
     cursor: pointer;
     margin-top: 24px;
