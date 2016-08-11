@@ -13,7 +13,7 @@
                      placeholder="Suche"
                      ng-keypress="ctrl.keyPressed($event)">
         <md-item-template>
-            <ely-autosuggestion-contact ng-if="item.userId" item="item"></ely-autosuggestion-contact>
+            <ely-autosuggestion-contact ng-if="item.userId && !item.pageId" item="item"></ely-autosuggestion-contact>
             <ely-autosuggestion-page ng-if="item.pageId" item="item"></ely-autosuggestion-page>
         </md-item-template>
     </md-autocomplete>

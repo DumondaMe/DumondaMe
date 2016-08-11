@@ -4,7 +4,6 @@ var db = require('./../../neo4j');
 var underscore = require('underscore');
 var cdn = require('../util/cdn');
 var userInfo = require('../user/userInfo');
-
 var addPageUrl = function (previews, thumbnail) {
     var bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',
         linkImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
@@ -14,6 +13,8 @@ var addPageUrl = function (previews, thumbnail) {
             delete preview.link;
         } else if(preview.label === 'Link' && preview.heightPreviewImage) {
             preview.url = cdn.getUrl('pages/' + preview.pageId + linkImage);
+        } else if(preview.label === 'Blog' && preview.heightPreviewImage) {
+            preview.url = cdn.getUrl('blog/' + preview.pageId + linkImage);
         }
     });
 };

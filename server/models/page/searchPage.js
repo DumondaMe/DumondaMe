@@ -8,21 +8,28 @@ var pageFilter = require('./pageFilter');
 var searchPageQuery = function (userId, filterType) {
     var filterQuery = pageFilter.getFilterQuery(filterType);
 
-    return db.cypher().match("(page:Page)")
+    return db.cypher().match("(page:Page), (user:User {userId: {userId}})")
         .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
-        .with("page")
+        .with("page, user")
         .optionalMatch("(page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
-        .with("page, count(rec) AS numberOfRecommendations");
+        .with("page, count(rec) AS numberOfRecommendations, user")
+        .optionalMatch("(page)<-[:WRITTEN]-(writer:User)")
+        .optionalMatch("(user)<-[isContact:IS_CONTACT]-(writer)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
+        .where("isContact.type = privacyRel.type")
+        .optionalMatch("(writer)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
+        .where("privacy is null");
 };
 
 var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
     var searchRegEx = '(?i).*'.concat(search, '.*');
     
     return searchPageQuery(userId, filterType)
-        .return("page.pageId AS pageId, page.title AS title, page.label AS label, page.link AS link, numberOfRecommendations, " +
-            "page.topic AS topic, page.heightPreviewImage AS heightPreviewImage, " +
-            "EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin, " +
-            "EXISTS((page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS userRecommended" )
+        .return(`page.pageId AS pageId, page.title AS title, page.text AS text, page.label AS label, page.link AS link, numberOfRecommendations,
+                 page.topic AS topic, page.heightPreviewImage AS heightPreviewImage, privacy.profile AS profileVisible, privacy.image AS imageVisible,
+                 privacyNoContact.profile AS profileVisibleNoContact, privacyNoContact.image AS imageVisibleNoContact, writer.userId as userId,
+                 writer.name AS writerName,
+                 EXISTS((page)<-[:IS_ADMIN]-(:User {userId: {userId}})) AS isAdmin,
+                 EXISTS((page)<-[:RECOMMENDS]-(:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})) AS userRecommended` )
         .orderBy("userRecommended DESC, page.title")
         .skip("{skip}")
         .limit("{limit}").end({

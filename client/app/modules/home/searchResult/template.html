@@ -25,6 +25,14 @@
             </div>
         </div>
     </div>
+    <div class="result-container" ng-if="ctrl.resultConverted.blog.length > 0">
+        <div class="search-result-title">Blogs</div>
+        <div layout="row" layout-align="start start" layout-wrap>
+            <div class="search-element-page" ng-repeat="page in ctrl.resultConverted.blog">
+                <ely-home-search-result-page page="page"></ely-home-search-result-page>
+            </div>
+        </div>
+    </div>
     <md-card class="no-result" ng-if="!ctrl.resultConverted.hasResults">
         Diese Suche ergab keine Treffer.
     </md-card>

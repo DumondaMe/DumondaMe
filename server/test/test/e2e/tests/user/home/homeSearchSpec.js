@@ -30,6 +30,7 @@ describe('Integration Tests for searching people or pages', function () {
                 dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
                 dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 510, 'www.test5.ch', null, 'ly by user?');
                 dbDsl.createLinkPage('8', ['de'], ['health', 'personalDevelopment'], 509, 'www.test6.ch', null, 'Irgendas mit Meier');
+                dbDsl.createBlog('9', '2', ['de'], ['health', 'personalDevelopment'], 511, null, 200, "zuser?");
             });
         });
     });
@@ -57,7 +58,7 @@ describe('Integration Tests for searching people or pages', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(8);
+                res.body.length.should.equal(9);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -70,7 +71,7 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[2].name.should.equal("user? sMeier6");
                 res.body[2].userId.should.equal("6");
-                should.not.exist(res.body[1].type);
+                should.not.exist(res.body[2].type);
                 res.body[2].profileUrl.should.equal('profileImage/6/thumbnail.jpg');
 
                 res.body[3].title.should.equal("y written by user?");
@@ -102,6 +103,15 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[7].link.should.equal("www.test.ch");
                 res.body[7].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[7].label.should.equal("Youtube");
+
+                res.body[8].title.should.equal("zuser?");
+                res.body[8].text.should.equal("blog9Text");
+                res.body[8].writerName.should.equal("user? Meier2");
+                res.body[8].userId.should.equal("2");
+                res.body[8].pageId.should.equal("9");
+                res.body[8].profileUrl.should.equal('profileImage/2/thumbnail.jpg');
+                res.body[8].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[8].label.should.equal("Blog");
             });
         });
     });
@@ -124,7 +134,7 @@ describe('Integration Tests for searching people or pages', function () {
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
-                res.body.length.should.equal(8);
+                res.body.length.should.equal(9);
                 res.body[0].name.should.equal("user? uMeier5");
                 res.body[0].userId.should.equal("5");
                 res.body[0].type.should.equal('Freund');
@@ -137,7 +147,7 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[2].name.should.equal("user? sMeier6");
                 res.body[2].userId.should.equal("6");
-                should.not.exist(res.body[1].type);
+                should.not.exist(res.body[2].type);
                 res.body[2].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
 
                 res.body[3].title.should.equal("y written by user?");
@@ -182,11 +192,20 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[7].topic.length.should.equals(2);
                 res.body[7].topic[0].should.equals('health');
                 res.body[7].topic[1].should.equals('personalDevelopment');
+
+                res.body[8].title.should.equal("zuser?");
+                res.body[8].text.should.equal("blog9Text");
+                res.body[8].writerName.should.equal("user? Meier2");
+                res.body[8].userId.should.equal("2");
+                res.body[8].pageId.should.equal("9");
+                res.body[8].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+                res.body[8].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[8].label.should.equal("Blog");
             });
         });
     });
 
-    it('Hide user image, no contact and profile set to false - Return 200', function () {
+    it('Hide user image in contact search, no contact and profile set to false - Return 200', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -211,7 +230,7 @@ describe('Integration Tests for searching people or pages', function () {
         });
     });
 
-    it('Hide user image, no contact and image set to false - Return 200', function () {
+    it('Hide user image in contact search, no contact and image set to false - Return 200', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -236,7 +255,7 @@ describe('Integration Tests for searching people or pages', function () {
         });
     });
 
-    it('Hide user image, is contact and profile is set to false - Return 200', function () {
+    it('Hide user image in contact search, is contact and profile is set to false - Return 200', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['3'], 'Freund', {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
@@ -262,7 +281,7 @@ describe('Integration Tests for searching people or pages', function () {
         });
     });
 
-    it('Hide user image, is contact and image is set to false - Return 200', function () {
+    it('Hide user image in contact search, is contact and image is set to false - Return 200', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['3'], 'Freund', {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
@@ -284,6 +303,112 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[0].userId.should.equal("3");
                 res.body[0].type.should.equal('Freund');
                 res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+            });
+        });
+    });
+
+    it('Hide user image in blog search, no contact and profile set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'zuser?',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].title.should.equal("zuser?");
+                res.body[0].pageId.should.equal("9");
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+                res.body[0].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[0].label.should.equal("Blog");
+            });
+        });
+    });
+
+    it('Hide user image in blog search, no contact and image set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['1'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'zuser?',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].title.should.equal("zuser?");
+                res.body[0].pageId.should.equal("9");
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+                res.body[0].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[0].label.should.equal("Blog");
+            });
+        });
+    });
+
+    it('Hide user image in blog search, is contact and profile is set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['2'], 'Freund', {profile: false, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createContactConnection('2', '1', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'zuser?',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].title.should.equal("zuser?");
+                res.body[0].pageId.should.equal("9");
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+                res.body[0].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[0].label.should.equal("Blog");
+            });
+        });
+    });
+
+    it('Hide user image in blog search, is contact and image is set to false - Return 200', function () {
+
+        dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createPrivacy(['2'], 'Freund', {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
+        dbDsl.createContactConnection('2', '1', 'Freund');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser).then(function (agent) {
+                requestAgent = agent;
+                return requestHandler.getWithData('/api/user/home/search', {
+                    search: 'zuser?',
+                    maxItems: 10,
+                    isSuggestion: true
+                }, requestAgent);
+            }).then(function (res) {
+                res.status.should.equal(200);
+                res.body.length.should.equal(1);
+
+                res.body[0].title.should.equal("zuser?");
+                res.body[0].pageId.should.equal("9");
+                res.body[0].profileUrl.should.equal('profileImage/default/thumbnail.jpg');
+                res.body[0].recommendation.summary.numberOfRecommendations.should.equal(0);
+                res.body[0].label.should.equal("Blog");
             });
         });
     });

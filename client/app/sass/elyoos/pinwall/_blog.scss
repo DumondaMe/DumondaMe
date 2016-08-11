@@ -4,15 +4,29 @@
   margin: 8px 0;
   .user-avatar {
     cursor: pointer;
+    width: 40px !important;
+    height: 40px !important;
+    img {
+      width: 40px !important;
+      height: 40px !important;
+    }
   }
   .blog-header {
+    width: 100%;
     .user-name {
       cursor: pointer;
       line-height: 16px;
       font-size: 14px;
+      max-width: 150px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      @media screen and (min-width: $gt-xs) {
+        max-width: 200px;
+      }
+      @media screen and (min-width: $gt-md) {
+        max-width: 250px;
+      }
     }
     .blog-created {
       display: inline-block;

@@ -70,7 +70,7 @@ var addBlog = function (userId, request, filePath, req) {
                 return db.cypher().match("(user:User {userId: {userId}})")
                     .create(`(user)-[:WRITTEN]->(blog:Blog:Page:PinwallElement {text: {text}, title: {title}, created: {timestamp}, 
                               pageId: {pageId}, heightPreviewImage: {heightPreviewImage}, visible: {visibility}, topic: {topic}, 
-                              language: {language}})`)
+                              language: {language}, label: 'Blog'})`)
                     .return("blog.pageId AS pageId, blog.text AS text, blog.created AS created, user.name AS name, " +
                         "blog.heightPreviewImage AS heightPreviewImage")
                     .end({

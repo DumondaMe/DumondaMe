@@ -1,7 +1,8 @@
 <div class="autosuggestion-page" layout="row">
     <div class="image-container" flex="none">
         <img ng-src="{{ctrl.item.url}}" ng-if="ctrl.item.url" ng-if="ctrl.item.label !== 'Youtube'" ng-class="{'book': ctrl.item.label === 'Book'}">
-        <img ng-src="{{ctrl.getThumbnail(ctrl.item.link)}}" ng-if="ctrl.item.label == 'Youtube'">
+        <img ng-src="{{ctrl.item.profileUrl}}" ng-if="ctrl.item.label === 'Blog'">
+        <img ng-src="{{ctrl.getThumbnail(ctrl.item.link)}}" ng-if="ctrl.item.label === 'Youtube'">
         <md-icon md-svg-icon="cardActions:link" class="no-image-link" ng-if="ctrl.item.label === 'Link' && !ctrl.item.url"></md-icon>
     </div>
     <div class="page-container" flex>
@@ -11,6 +12,7 @@
                 <md-icon md-svg-icon="cardActions:book" class="page-type-icon" ng-if="ctrl.item.label === 'Book'"></md-icon>
                 <md-icon md-svg-icon="cardActions:video" class="page-type-icon" ng-if="ctrl.item.label === 'Youtube'"></md-icon>
                 <md-icon md-svg-icon="cardActions:link" class="page-type-icon" ng-if="ctrl.item.label === 'Link'"></md-icon>
+                <md-icon md-svg-icon="cardActions:blog" class="page-type-icon" ng-if="ctrl.item.label === 'Blog'"></md-icon>
             </div>
             <div class="number-of-recommendations">
                 <md-icon md-svg-icon="cardActions:thumbUp" class="thumb-up-icon"></md-icon>

@@ -17,17 +17,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .page-rating {
-        padding-left: 8px;
-        height: 19px;
-        .ely-star-rating {
-          margin-right: 4px;
-        }
-        .description {
-          line-height: 19px;
-          color: $secondary-text;
-          font-size: 12px;
-        }
+      .topic-colors {
+        padding: 0 8px 8px 8px;
       }
     }
     .topic-description {
@@ -35,7 +26,7 @@
     }
   }
   .link-image {
-    width: 100%!important;
+    width: 100% !important;
   }
 }
 

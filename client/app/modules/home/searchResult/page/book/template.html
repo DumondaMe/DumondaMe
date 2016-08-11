@@ -4,11 +4,9 @@
         <div class="info-container">
             <div class="page-title">{{ctrl.page.title}}</div>
             <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings > 0">
-                <ely-star-rating is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
                 <span class="number-of-ratings">({{ctrl.page.recommendation.summary.numberOfRatings}})</span>
             </div>
-            <ely-topics topics="ctrl.page.topic"></ely-topics>
+            <ely-topics-color topics="ctrl.page.topic"></ely-topics-color>
         </div>
     </div>
 </md-card>

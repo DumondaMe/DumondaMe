@@ -1,2 +1,3 @@
 MATCH (b:Blog) set b:Page;
 MATCH (b:Blog) set b.pageId = b.blogId remove b.blogId;
+MATCH (b:Blog) set b.label = 'Blog';

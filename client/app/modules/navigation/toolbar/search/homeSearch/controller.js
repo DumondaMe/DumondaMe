@@ -24,7 +24,7 @@ module.exports = ['$scope', 'SearchService', '$state', '$timeout',
 
         ctrl.openSelectedItem = function () {
             if (ctrl.selectedItem) {
-                if (ctrl.selectedItem.hasOwnProperty('userId')) {
+                if (ctrl.selectedItem.hasOwnProperty('userId') && !ctrl.selectedItem.hasOwnProperty('pageId')) {
                     $timeout(function() {
                         $state.go('user.detail', {userId: ctrl.selectedItem.userId});
                         ctrl.onClose();

@@ -2,15 +2,7 @@
     <div class="youtube-page-container" ng-click="ctrl.goToDetail()">
         <div class="youtube-header">
             <div class="youtube-title">{{ctrl.page.title}}</div>
-            <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings > 0">
-                <ely-star-rating is-readonly="true" is-x-small="true"
-                                 number-of-selected-stars-readonly="ctrl.page.recommendation.summary.rating"></ely-star-rating>
-                <span class="description">({{ctrl.page.recommendation.summary.numberOfRatings}})</span>
-            </div>
-            <div class="page-rating" ng-if="ctrl.page.recommendation.summary.numberOfRatings === 0">
-                <span class="description">Keine Bewertung</span>
-            </div>
-            <ely-topics topics="ctrl.page.topic"></ely-topics>
+            <ely-topics-color class="topic-colors" topics="ctrl.page.topic"></ely-topics-color>
         </div>
         <img ng-src="{{ctrl.getYoutubeImage(ctrl.page.link)}}"
              class="youtube-preview-image"/>
