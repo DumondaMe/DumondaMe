@@ -1,6 +1,6 @@
-<md-dialog id="manage-link-page" aria-label="Manage Link Page" ng-cloak class="manage-page">
+<md-dialog id="manage-link-page" aria-label="Manage Link Page" class="manage-page">
     <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages"
-          class="form-container">
+          class="form-container" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für einen Link erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
