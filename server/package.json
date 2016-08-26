@@ -44,7 +44,7 @@
     "deasync": "0.1.7"
   },
   "devDependencies": {
-    "mocha": "3.0.2",
+    "mocha": "2.4.5",
     "grunt-mocha-test": "~0.12.7",
     "supertest": "~1.2.0",
     "supertest-as-promised": "~3.1.0",
