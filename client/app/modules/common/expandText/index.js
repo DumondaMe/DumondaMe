@@ -5,4 +5,4 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
-app.service('PreviewTextService', require('./services/PreviewTextService'));
+app.service('PreviewTextService', require('./services/previewTextService'));
