@@ -20,7 +20,8 @@ module.exports = function (grunt) {
                     reporter: 'xunit',
                     captureFile: 'testResult/xunit.xml', // Optionally capture the reporter output to a file
                     quiet: true, // Optionally suppress output to standard out (defaults to false)
-                    clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+                    clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false),
+                    timeout: 20000
                 },
                 src: ['test/**/*.js']
             }
