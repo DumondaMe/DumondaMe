@@ -1,7 +1,7 @@
 'use strict';
 
 var users = require('../../util/user');
-var dbDsl = require('../../util/dbDsl');
+var dbDsl = require('../../util/dbDSL');
 var requestHandler = require('../../util/request');
 
 describe('Integration Tests for getting contact recommendation on the home screen', function () {

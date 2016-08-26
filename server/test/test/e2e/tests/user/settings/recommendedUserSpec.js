@@ -2,7 +2,7 @@
 
 var users = require('../../util/user');
 var requestHandler = require('../../util/request');
-var dbDsl = require('../../util/dbDsl');
+var dbDsl = require('../../util/dbDSL');
 var db = require('../../util/db');
 
 describe('Integration Tests for change setting of recommended user feature', function () {
