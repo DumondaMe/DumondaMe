@@ -1556,6 +1556,7 @@ md-toast.md-error-toast-theme {
   .ely-conversation-message .chat-bubble {
     margin: 0;
     white-space: pre-wrap;
+    word-wrap: break-word;
     padding-bottom: 8px;
     background-color: white;
     position: relative;
@@ -1760,7 +1761,8 @@ md-toast.md-error-toast-theme {
     color: white; }
 
 .ely-message-info {
-  position: relative; }
+  position: relative;
+  cursor: pointer; }
   .ely-message-info .number {
     font-size: 11px;
     font-weight: 700;
