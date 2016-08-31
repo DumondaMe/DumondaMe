@@ -2568,10 +2568,10 @@ md-toast.md-error-toast-theme {
     font-size: 14px;
     vertical-align: middle; }
 
-.ely-pinwall-container .one-column-container {
+.ely-pinwall-container #one-column-container {
   margin: 0 auto;
   max-width: 400px; }
-.ely-pinwall-container .two-column-container {
+.ely-pinwall-container #two-column-container {
   margin: 0 auto;
   width: 950px; }
 
@@ -2667,6 +2667,8 @@ md-toast.md-error-toast-theme {
   cursor: pointer;
   width: 100%;
   margin-bottom: 8px; }
+  .link-recommendation-desktop .link-preview-image img {
+    width: 100%; }
 .link-recommendation-desktop .link-description {
   padding: 0 16px 8px 16px;
   cursor: pointer;

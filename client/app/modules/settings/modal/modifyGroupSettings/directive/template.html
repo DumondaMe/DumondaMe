@@ -1,5 +1,5 @@
-<div id="modify-group-setting" ng-cloak>
-    <form name="ctrl.modifyGroupForm">
+<div id="modify-group-setting">
+    <form name="ctrl.modifyGroupForm" ng-cloak>
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div class="md-title ely-dialog-title" ng-if="ctrl.setting.type">Gruppe <span class="group">{{ctrl.setting.type}}</span> bearbeiten</div>
             <div class="md-title ely-dialog-title" ng-if="!ctrl.setting.type">Privatspähren Einstellung für Personen die Du nicht zu deinen Kontakten
@@ -10,7 +10,7 @@
                              ng-change="ctrl.selectProfileVisibleChanged()"
                              ng-disabled="ctrl.uploadStarted">
                     <span ng-show="ctrl.setting.profileVisible">Profil ist sichtbar</span>
-                    <span ng-show="!ctrl.setting.profileVisible">Profil wird verborgen</span>
+                    <span ng-show="!ctrl.setting.profileVisible">Profil ist verborgen</span>
                 </md-checkbox>
                 <div class="privacy-element-description" ng-show="!ctrl.setting.profileVisible">Es wird nur noch Dein Name angezeigt.
                 </div>
@@ -22,7 +22,7 @@
                              aria-label="Contacts visible"
                              class="select-privacy">
                     <span ng-show="ctrl.setting.contactsVisible">Kontakte sind sichtbar</span>
-                    <span ng-show="!ctrl.setting.contactsVisible">Kontakte werden verborgen</span>
+                    <span ng-show="!ctrl.setting.contactsVisible">Kontakte sind verborgen</span>
                 </md-checkbox>
                 <div class="privacy-element-description" ng-show="ctrl.setting.contactsVisible">Deine Kontakte und wer Dich als Kontakt führt ist
                     sichtbar.
@@ -37,7 +37,7 @@
                              aria-label="Image visible"
                              class="select-privacy">
                     <span ng-show="ctrl.setting.imageVisible">Profilbild ist sichtbar</span>
-                    <span ng-show="!ctrl.setting.imageVisible">Profilbild wird verborgen</span>
+                    <span ng-show="!ctrl.setting.imageVisible">Profilbild ist verborgen</span>
                 </md-checkbox>
                 <div class="privacy-element-description" ng-show="ctrl.setting.imageVisible">Deine Profilbild ist sichtbar.
                 </div>
@@ -50,7 +50,7 @@
                              aria-label="Profile Data visible"
                              class="select-privacy">
                     <span ng-show="ctrl.setting.profileDataVisible">Profildaten sind sichtbar</span>
-                    <span ng-show="!ctrl.setting.profileDataVisible">Profildaten werden verborgen</span>
+                    <span ng-show="!ctrl.setting.profileDataVisible">Profildaten sind verborgen</span>
                 </md-checkbox>
                 <div class="privacy-element-description" ng-show="ctrl.setting.profileDataVisible">Deine Profildaten wie Geburtstag, Wohnort usw.
                     werden angezeigt.
@@ -64,14 +64,14 @@
                              ng-change="ctrl.selectChanged()"
                              aria-label="Profile Data visible"
                              class="select-privacy">
-                    <span ng-show="ctrl.setting.pinwallVisible">Bewertungen werden angezeigt</span>
-                    <span ng-show="!ctrl.setting.pinwallVisible">Bewertungen werden verborgen</span>
+                    <span ng-show="ctrl.setting.pinwallVisible">Empfehlungen werden angezeigt</span>
+                    <span ng-show="!ctrl.setting.pinwallVisible">Empfehlungen sind verborgen</span>
                 </md-checkbox>
-                <div class="privacy-element-description" ng-show="ctrl.setting.pinwallVisible">Deine Bewertungen von Blogs, Videos, Büchern usw. wird
+                <div class="privacy-element-description" ng-show="ctrl.setting.pinwallVisible">Deine Empfehlungen von Blogs, Videos, Büchern usw. werden
                     angezeigt.
                 </div>
-                <div class="privacy-element-description" ng-show="!ctrl.setting.pinwallVisible">Deine Bewertungen von Blogs, Videos, Büchern usw. wird
-                    nicht angezeigt.
+                <div class="privacy-element-description" ng-show="!ctrl.setting.pinwallVisible">Deine Empfehlungen von Blogs, Videos, Büchern usw.
+                    werden nicht angezeigt.
                 </div>
             </div>
         </md-dialog-content>
