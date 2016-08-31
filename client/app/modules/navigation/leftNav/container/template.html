@@ -3,11 +3,6 @@
         <div layout="row">
             <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none" ng-click="ctrl.goToProfile()"/>
             <div class="header-commands" layout="row" layout-align="end none" flex="grow">
-                <md-icon md-svg-icon="sidenavHeader:help" class="icon-header" ng-click="ctrl.openHelp()">
-                    <md-tooltip md-direction="bottom">
-                        Was kann ich mit Elyoos machen?
-                    </md-tooltip>
-                </md-icon>
                 <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header" ng-click="ctrl.goToProfile()">
                     <md-tooltip md-direction="bottom">
                         Dein Profil
