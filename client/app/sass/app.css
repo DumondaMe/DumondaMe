@@ -792,6 +792,9 @@ md-toast.md-error-toast-theme {
             color: #3F51B5; }
         #ely-contacting-overview .overview-container .overview-container-inner .contacting-info .help-icon {
           cursor: pointer; }
+        #ely-contacting-overview .overview-container .overview-container-inner .contacting-info .ely-help {
+          padding-left: 0;
+          padding-right: 0; }
       #ely-contacting-overview .overview-container .overview-container-inner .contact-element {
         margin-right: 4px;
         margin-left: 4px;
