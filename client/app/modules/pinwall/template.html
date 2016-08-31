@@ -1,19 +1,20 @@
 <div class="md-padding ely-pinwall-container">
     <div class="one-column-container" ng-if="!ctrl.isBreakpoint">
-        <ely-no-pinwall-element
-                ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-element>
+        <ely-no-pinwall-welcome-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-welcome-element>
         <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"
                                 reload-pinwall="ctrl.reloadPinwall"></ely-pinwall-contacting>
         <ely-pinwall-recommended-user recommended-user="ctrl.recommendedUser" reload-pinwall="ctrl.reloadPinwall"
                                       ng-if="ctrl.recommendedUser.length > 0"></ely-pinwall-recommended-user>
+        <ely-no-pinwall-write-blog-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-write-blog-element>
+        <ely-no-pinwall-create-page-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-create-page-element>
+        <ely-no-pinwall-privacy-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-privacy-element>
         <ely-pinwall-element flex="grow" element="pinwallElement"
                              ng-repeat="pinwallElement in pinwall"></ely-pinwall-element>
         <div class="pinwall-gab" ng-if="ctrl.gap && pinwall.length > 0"></div>
     </div>
     <div class="two-column-container" ng-if="ctrl.isBreakpoint" layout="row">
         <div flex="50" class="first-column">
-            <ely-no-pinwall-element
-                    ng-if="ctrl.noPinwall === true && pinwall.length === 0 && ctrl.contacting.numberOfContacting === 0"></ely-no-pinwall-element>
+            <ely-no-pinwall-welcome-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-welcome-element>
             <ely-pinwall-contacting contacting="ctrl.contacting" ng-if="ctrl.contacting.numberOfContacting > 0"
                                     reload-pinwall="ctrl.reloadPinwall"></ely-pinwall-contacting>
             <ely-pinwall-recommended-user recommended-user="ctrl.recommendedUser" reload-pinwall="ctrl.reloadPinwall"
@@ -22,8 +23,9 @@
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallFirstColumn"></ely-pinwall-element>
         </div>
         <div flex="50" class="second-column">
-            <ely-no-pinwall-element
-                    ng-if="ctrl.noPinwall === true && pinwall.length === 0 && ctrl.contacting.numberOfContacting > 0"></ely-no-pinwall-element>
+            <ely-no-pinwall-write-blog-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-write-blog-element>
+            <ely-no-pinwall-create-page-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-create-page-element>
+            <ely-no-pinwall-privacy-element ng-if="ctrl.noPinwall === true && pinwall.length === 0"></ely-no-pinwall-privacy-element>
             <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallSecondColumn"></ely-pinwall-element>
         </div>

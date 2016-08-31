@@ -9,8 +9,8 @@ module.exports = {
             bindToController: true,
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/noPinwall/template.html'
+            templateUrl: 'app/modules/pinwall/noPinwall/writeBlog/template.html'
         };
     }],
-    name: 'elyNoPinwallElement'
+    name: 'elyNoPinwallWriteBlogElement'
 };

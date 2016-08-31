@@ -2535,15 +2535,17 @@ md-toast.md-error-toast-theme {
   padding: 16px;
   margin: 8px 0; }
   .pinwall-no-element .no-pinwall-title {
-    font-size: 16px;
-    margin-bottom: 4px; }
-  .pinwall-no-element .action {
-    margin-top: 8px;
-    font-size: 14px; }
-    .pinwall-no-element .action .link {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    margin-bottom: 16px; }
+  .pinwall-no-element .no-pinwall-text {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+    .pinwall-no-element .no-pinwall-text .link {
       cursor: pointer;
       color: #3F51B5; }
-    .pinwall-no-element .action .link:hover {
+    .pinwall-no-element .no-pinwall-text .link:hover {
       text-decoration: underline; }
 
 .page-recommendation-actions .page-action.md-fab.md-mini {

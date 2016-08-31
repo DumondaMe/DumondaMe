@@ -4,12 +4,14 @@
   padding: 16px;
   margin: 8px 0;
   .no-pinwall-title {
-    font-size: 16px;
-    margin-bottom: 4px;
+    font-size: 20px;
+    color: $primary-text;
+    font-weight: 500;
+    margin-bottom: 16px;
   }
-  .action {
-    margin-top: 8px;
+  .no-pinwall-text {
     font-size: 14px;
+    color: $secondary-text;
     .link {
       cursor: pointer;
       color: $primary-color;
