@@ -58,9 +58,12 @@
                         </div>
                     </div>
                     <md-input-container class="input-container">
-                        <label>Beschreibung</label>
+                        <label>Allgemeine Beschreibung</label>
                         <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                        <div class="hint" ng-if="ctrl.manageLinkPageForm.description.$valid || ctrl.manageLinkPageForm.description.$pristine">
+                            Beschreibe in einer allgemeinen Form worum es auf dieser Webseite geht. Vermeide persönliche Kommentare.
+                        </div>
                         <div ng-messages="ctrl.manageLinkPageForm.description.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>

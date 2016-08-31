@@ -45,19 +45,22 @@
                         </div>
                     </div>
                     <md-input-container class="input-container">
-                        <label>Beschreibung</label>
-                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
-                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
-                        <div ng-messages="ctrl.manageBookPageForm.description.$error">
+                        <label>Autor</label>
+                        <input name="author" ng-model="ctrl.data.author" required md-maxlength="255"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
+                        <div ng-messages="ctrl.manageBookPageForm.author.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="input-container">
-                        <label>Autor</label>
-                        <input name="author" ng-model="ctrl.data.author" required md-maxlength="255"
-                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
-                        <div ng-messages="ctrl.manageBookPageForm.author.$error">
+                        <label>Allgemeine Beschreibung</label>
+                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="3000"
+                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                        <div class="hint" ng-if="ctrl.manageBookPageForm.description.$valid || ctrl.manageBookPageForm.description.$pristine">
+                            Beschreibe in einer allgemeinen Form worum es in diesem Buch geht. Vermeide persönliche Kommentare.
+                        </div>
+                        <div ng-messages="ctrl.manageBookPageForm.description.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                         </div>
