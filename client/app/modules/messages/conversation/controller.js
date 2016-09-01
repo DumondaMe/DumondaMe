@@ -3,9 +3,9 @@
 module.exports = {
     directiveCtrl: function () {
         return ['$scope', 'ScrollRequest', 'Conversation', 'MessagesScrollRequestResponseHandler', '$stateParams', '$mdMedia',
-            'MessageNextDayService', 'dateFormatter', 'ElyModal', 'ToolbarService', 'userInfo', 'ConversationModificationUpdate',
+            'MessageNextDayService', 'dateFormatter', 'ElyModal', 'UnreadMessagesService', 'userInfo', 'ConversationModificationUpdate',
             function ($scope, ScrollRequest, Conversation, MessagesScrollRequestResponseHandler, $stateParams, $mdMedia, MessageNextDayService,
-                      dateFormatter, ElyModal, ToolbarService, userInfo, ConversationModificationUpdate) {
+                      dateFormatter, ElyModal, UnreadMessagesService, userInfo, ConversationModificationUpdate) {
                 var ctrl = this;
                 ctrl.showLoad = true;
                 ctrl.$mdMedia = $mdMedia;
@@ -24,7 +24,7 @@ module.exports = {
                     }).then(function (thread) {
                         ctrl.showLoad = false;
                         ctrl.thread = thread;
-                        ToolbarService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
+                        UnreadMessagesService.setUnreadMessage(ctrl.thread.totalUnreadMessages);
                     });
                 };
 
@@ -47,7 +47,7 @@ module.exports = {
                         if (newMessages && newMessages.hasOwnProperty('messages')) {
                             ctrl.thread.messages = newMessages.messages.concat(ctrl.thread.messages);
                             ScrollRequest.addedMultibleElements('messages', newMessages.messages.length);
-                            ToolbarService.setUnreadMessage(newMessages.totalUnreadMessages);
+                            UnreadMessagesService.setUnreadMessage(newMessages.totalUnreadMessages);
                         }
                     });
                 };

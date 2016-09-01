@@ -12,7 +12,8 @@ module.exports = {
                 state: '@',
                 baseState: '@',
                 icon: '@',
-                description: '@'
+                description: '@',
+                count: '='
             },
             templateUrl: 'app/modules/navigation/leftNav/element/template.html',
             controllerAs: 'ctrl',

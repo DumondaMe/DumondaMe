@@ -1,10 +1,11 @@
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo) {
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo', 'UnreadMessagesService',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService) {
         var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
+        UnreadMessagesService.register('toolbar', ctrl);
         ctrl.hasSearch = false;
         ctrl.hasBackNav = true;
         ctrl.searchExpanded = false;
@@ -46,13 +47,14 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
             }
         };
 
+        //Function for UnreadMessageService
+        ctrl.setUnreadMessage = function (count) {
+            ctrl.count = count;
+        };
+
         //Functions for toolbarService
         ctrl.setTitle = function (title) {
             ctrl.title = title;
-        };
-
-        ctrl.setUnreadMessage = function (count) {
-            ctrl.count = count;
         };
 
         ctrl.enabled = function () {
