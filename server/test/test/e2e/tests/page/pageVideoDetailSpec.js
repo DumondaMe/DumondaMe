@@ -16,7 +16,8 @@ describe('Integration Tests for getting youtube page detail', function () {
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
             return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', link: 'www.link.com', " +
-                "created: 500, modified: 501, pageId: '0', topic: {topic}, language: {language}})").end({topic: ['environmental', 'spiritual'], language: ['en', 'de']}).send(commands);
+                "created: 500, modified: 501, pageId: '0', topic: {topic}, language: {language}, linkHistory: {linkHistory}, linkHistoryDate: {linkHistoryDate}})")
+                .end({topic: ['environmental', 'spiritual'], language: ['en', 'de'], linkHistory: ['https://www.youtube.com/embed/Test'], linkHistoryDate: [501]}).send(commands);
 
         });
     });
@@ -96,6 +97,11 @@ describe('Integration Tests for getting youtube page detail', function () {
                 res.body.page.language.length.should.equals(2);
                 res.body.page.language[0].should.equals('en');
                 res.body.page.language[1].should.equals('de');
+
+                res.body.page.linkHistory.length.should.equals(1);
+                res.body.page.linkHistory[0].should.equals("https://www.youtube.com/embed/Test");
+                res.body.page.linkHistoryDate.length.should.equals(1);
+                res.body.page.linkHistoryDate[0].should.equals(501);
 
                 res.body.administrators.list.length.should.equals(2);
                 res.body.administrators.list[0].name.should.equals('user Meier');

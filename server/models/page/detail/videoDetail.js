@@ -16,7 +16,8 @@ var getDetail = function (pageId, label, userId) {
 
     return db.cypher().match("(page:Page {pageId: {pageId}, label: {label}})")
         .return(`page.pageId AS pageId, page.title AS title, page.description AS description, page.topic AS topic, page.link AS link,
-                 page.created AS created, page.modified AS modified, page.label AS label, page.language AS language`)
+                 page.created AS created, page.modified AS modified, page.label AS label, page.language AS language, page.linkHistory AS linkHistory, 
+                 page.linkHistoryDate AS linkHistoryDate`)
         .end({pageId: pageId, label: label})
         .send(commands)
         .then(function (resp) {
