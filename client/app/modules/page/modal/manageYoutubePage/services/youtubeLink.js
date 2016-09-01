@@ -7,8 +7,7 @@ module.exports = [
         ctrl.isValidYoutubeLink = function (link) {
             var isValidLink = false;
             if (angular.isString(link)) {
-                if (link.indexOf('https://www.youtube.com/embed/') !== -1 || link.indexOf('https://www.youtube.com/watch?v=') !== -1 ||
-                    link.indexOf('https://www.youtube.com/playlist?list=') !== -1) {
+                if (link.indexOf('https://www.youtube.com/watch?v=') !== -1) {
                     isValidLink = true;
                 }
             }
@@ -16,11 +15,13 @@ module.exports = [
         };
 
         ctrl.getYoutubeLink = function (link) {
-            if(ctrl.isValidYoutubeLink(link)) {
-                if (link.indexOf('https://www.youtube.com/watch?v=') !== -1) {
+            var appendixLinkList;
+            if (ctrl.isValidYoutubeLink(link)) {
+                if (link.indexOf('&list=') !== -1) {
+                    appendixLinkList = link.replace('https://www.youtube.com/watch?v=', '').split('&');
+                    link = 'https://www.youtube.com/embed/' + appendixLinkList[0] + '?' + appendixLinkList[1];
+                } else {
                     link = link.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/');
-                } else if (link.indexOf('https://www.youtube.com/playlist?list=') !== -1) {
-                    link = link.replace('https://www.youtube.com/playlist?list=', 'https://www.youtube.com/embed/videoseries?list=');
                 }
             }
             return link;

@@ -1,7 +1,9 @@
 'use strict';
 
 var getYoutubeId = function (embeddedImage) {
-    return embeddedImage.replace('https://www.youtube.com/embed/', '');
+    var youtubeId = embeddedImage.replace('https://www.youtube.com/embed/', ''), listYoutubeId;
+    listYoutubeId = youtubeId.split('?');
+    return listYoutubeId[0];
 };
 
 module.exports = [function () {
@@ -14,5 +16,5 @@ module.exports = [function () {
     this.getThumbnail = function (embeddedImage) {
         var youtubeId = getYoutubeId(embeddedImage);
         return 'https://img.youtube.com/vi/' + youtubeId + '/1.jpg';
-    }
+    };
 }];
