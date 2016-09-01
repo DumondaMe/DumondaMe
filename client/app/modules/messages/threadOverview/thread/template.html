@@ -6,7 +6,7 @@
             <div class="preview-text" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}" ng-if="!ctrl.thread.type">
                 {{ctrl.thread.previewText}}
             </div>
-            <div class="preview-text contact" ng-if="ctrl.thread.type">{{ctrl.thread.type}}</div>
+            <div class="preview-text" ng-if="ctrl.thread.type">{{ctrl.thread.type}}</div>
         </div>
         <div flex="none" class="info" layout="column" layout-align="start center" ng-if="ctrl.thread.lastUpdate">
             <div class="date" ng-class="{'unread-messages': ctrl.thread.numberOfUnreadMessages > 0}">

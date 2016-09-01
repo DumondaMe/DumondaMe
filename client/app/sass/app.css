@@ -855,7 +855,7 @@ md-toast.md-error-toast-theme {
     .ely-contact-preview .type-preview .count:focus {
       outline: none; }
     .ely-contact-preview .type-preview .setting {
-      margin-top: 8px; }
+      margin-top: 16px; }
     .ely-contact-preview .type-preview .ely-spacer:focus {
       outline: none; }
   .ely-contact-preview .contact-previews {
@@ -1609,8 +1609,7 @@ md-toast.md-error-toast-theme {
   max-width: 600px;
   background-color: #ffffff; }
   .thread .thread-container {
-    margin: 12px 0;
-    padding: 0 16px;
+    padding: 12px 16px;
     width: 100%;
     cursor: pointer; }
     .thread .thread-container .image-preview {
@@ -1635,9 +1634,6 @@ md-toast.md-error-toast-theme {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
-      .thread .thread-container .text .contact {
-        color: #3F51B5;
-        font-weight: 500; }
       .thread .thread-container .text .unread-messages {
         font-weight: 700; }
     .thread .thread-container .info .date {
@@ -2553,20 +2549,27 @@ md-toast.md-error-toast-theme {
   min-width: 280px;
   width: 100%;
   padding: 16px;
-  margin: 8px 0; }
+  margin: 8px 0;
+  background-color: white; }
   .pinwall-no-element .no-pinwall-title {
     font-size: 20px;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
-    margin-bottom: 16px; }
+    padding-bottom: 16px;
+    background-color: white; }
   .pinwall-no-element .no-pinwall-text {
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.54); }
+    color: rgba(0, 0, 0, 0.54);
+    background-color: white; }
     .pinwall-no-element .no-pinwall-text .link {
       cursor: pointer;
       color: #3F51B5; }
     .pinwall-no-element .no-pinwall-text .link:hover {
       text-decoration: underline; }
+  .pinwall-no-element .no-pinwall-text-primary {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: white; }
 
 .page-recommendation-actions .page-action.md-fab.md-mini {
   height: 28px;
