@@ -24,12 +24,13 @@ module.exports = {
         youtubePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['pageId', 'topic', 'description', 'language'],
+            required: ['pageId', 'topic', 'description', 'language', 'link'],
             properties: {
                 pageId: {'$ref': '#/definitions/id'},
                 topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'},
-                language: language.languageMultiple
+                language: language.languageMultiple,
+                link: {'$ref': '#/definitions/link'},
             }
         },
         linkPage: {

@@ -1,0 +1,1 @@
+MATCH (b:Page) WHERE b.label = 'Youtube' SET b.linkHistory = [], b.linkHistoryDate = [];
