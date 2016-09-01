@@ -24,7 +24,7 @@ var addWriterInfo = function (userId, messages) {
 var getThreadInfos = function (params) {
     return db.cypher()
         .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
-        .return("contact.name AS description").end(params);
+        .return("contact.name AS description, contact.userId AS userIdThreadDescription").end(params);
 };
 
 var getNumberOfMessages = function (params) {
@@ -74,6 +74,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
                 return {
                     messages: resp[2],
                     threadDescription: resp[0][0].description,
+                    userIdThreadDescription: resp[0][0].userIdThreadDescription,
                     numberOfMessages: resp[1][0].numberOfMessages,
                     totalUnreadMessages: resp[3][0].totalUnreadMessages
                 };

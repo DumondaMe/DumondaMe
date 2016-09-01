@@ -1,6 +1,6 @@
 <div id="ely-conversation" layout="row">
     <div class="conversation-description" layout="row" layout-align="start center">
-        <div class="description">{{ctrl.thread.threadDescription}}</div>
+        <div class="description" ui-sref="user.detail({userId: ctrl.thread.userIdThreadDescription})">{{ctrl.thread.threadDescription}}</div>
     </div>
     <md-content id="ely-conversation-content" flex>
         <div class="conversation-container" ely-infinite-scroll="ctrl.nextMessages">

@@ -1534,9 +1534,13 @@ md-toast.md-error-toast-theme {
     height: 48px;
     background-color: #7986CB; }
     #ely-conversation .conversation-description .description {
+      cursor: pointer;
       color: white;
       font-weight: 500;
       font-size: 16px; }
+    #ely-conversation .conversation-description .description:hover {
+      color: white;
+      text-decoration: underline; }
   #ely-conversation .thread-overview-container {
     height: 100%;
     background-color: white; }

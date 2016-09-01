@@ -138,6 +138,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[3].isUser.should.equal(true);
 
             res.body.threadDescription.should.equal('user2 Meier2');
+            res.body.userIdThreadDescription.should.equal('2');
             res.body.numberOfMessages.should.equal(4);
             res.body.totalUnreadMessages.should.equal(1);
             return db.cypher().match("(:User {userId: '1'})-[active:ACTIVE]->(thread:Thread {threadId: '1'})")
@@ -173,6 +174,7 @@ describe('Integration Tests for getting messages of a conversation for a user', 
             res.body.messages[1].isUser.should.equal(false);
 
             res.body.threadDescription.should.equal('user2 Meier2');
+            res.body.userIdThreadDescription.should.equal('2');
             res.body.numberOfMessages.should.equal(4);
             res.body.totalUnreadMessages.should.equal(1);
         });
