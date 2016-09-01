@@ -2,5 +2,10 @@
   .youtube-preview {
     padding-top: 24px;
     width: 300px;
+    .youtube-preview-text {
+      padding: 8px 15px;
+      font-size: 14px;
+      color: $secondary-text;
+    }
   }
 }

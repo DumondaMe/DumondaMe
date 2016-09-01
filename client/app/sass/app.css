@@ -2330,6 +2330,10 @@ md-toast.md-error-toast-theme {
 #manage-youtube-page .youtube-preview {
   padding-top: 24px;
   width: 300px; }
+  #manage-youtube-page .youtube-preview .youtube-preview-text {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
 
 #ely-page-overview .ely-dialog-content {
   padding-top: 0; }
