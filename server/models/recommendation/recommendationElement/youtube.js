@@ -5,7 +5,7 @@ var getRecommendationElement = function (pinwallElement) {
     element.label = 'Youtube';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
-    element.link = pinwallElement.recommendationElement.link;
+    element.linkEmbed = pinwallElement.recommendationElement.linkEmbed;
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.topic = pinwallElement.recommendationElement.topic;
     return element;

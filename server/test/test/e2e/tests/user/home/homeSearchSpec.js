@@ -24,9 +24,9 @@ describe('Integration Tests for searching people or pages', function () {
                 dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 501, 'Hans Muster', 1000, 'book written by user?');
                 dbDsl.createBookPage('1', ['de'], ['health', 'personalDevelopment'], 502, 'Hans Muster', 1000, 'book written by Meier');
                 dbDsl.createBookPage('2', ['de'], ['health', 'personalDevelopment'], 500, 'Hans Muster', 1000, 'y written by user?');
-                dbDsl.createYoutubePage('3', ['de'], ['health', 'personalDevelopment'], 503, 'www.test.ch', 'youtube movie by user?');
-                dbDsl.createYoutubePage('4', ['de'], ['health', 'personalDevelopment'], 504, 'www.test2.ch', 'youtube movie by Meier');
-                dbDsl.createYoutubePage('5', ['de'], ['health', 'personalDevelopment'], 499, 'www.test3.ch', 'y movie by Meier');
+                dbDsl.createYoutubePage('3', ['de'], ['health', 'personalDevelopment'], 503, 'www.test.ch', 'www.test.ch/embed', 'youtube movie by user?');
+                dbDsl.createYoutubePage('4', ['de'], ['health', 'personalDevelopment'], 504, 'www.test2.ch', 'www.test.ch2/embed', 'youtube movie by Meier');
+                dbDsl.createYoutubePage('5', ['de'], ['health', 'personalDevelopment'], 499, 'www.test3.ch', 'www.test.ch3/embed', 'y movie by Meier');
                 dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
                 dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 510, 'www.test5.ch', null, 'ly by user?');
                 dbDsl.createLinkPage('8', ['de'], ['health', 'personalDevelopment'], 509, 'www.test6.ch', null, 'Irgendas mit Meier');
@@ -100,7 +100,7 @@ describe('Integration Tests for searching people or pages', function () {
 
                 res.body[7].title.should.equal("youtube movie by user?");
                 res.body[7].pageId.should.equal("3");
-                res.body[7].link.should.equal("www.test.ch");
+                res.body[7].linkEmbed.should.equal("www.test.ch/embed");
                 res.body[7].recommendation.summary.numberOfRecommendations.should.equal(0);
                 res.body[7].label.should.equal("Youtube");
 
@@ -188,7 +188,7 @@ describe('Integration Tests for searching people or pages', function () {
                 res.body[7].title.should.equal("youtube movie by user?");
                 res.body[7].pageId.should.equal("3");
                 res.body[7].label.should.equal("Youtube");
-                res.body[7].link.should.equal("www.test.ch");
+                res.body[7].linkEmbed.should.equal("www.test.ch/embed");
                 res.body[7].topic.length.should.equals(2);
                 res.body[7].topic[0].should.equals('health');
                 res.body[7].topic[1].should.equals('personalDevelopment');

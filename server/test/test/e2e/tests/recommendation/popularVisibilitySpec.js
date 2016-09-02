@@ -25,7 +25,7 @@ describe('Integration Tests for checking visibility elements of popular recommen
 
         dbDsl.createBookPage('1', ['en'], ['health'], 5072, 'HansMuster1', 1000);
         dbDsl.createBookPage('2', ['de'], ['personalDevelopment'], 5071, 'HansMuster2', 1001);
-        dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com');
+        dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com', 'www.youtube.com/embed');
         dbDsl.createLinkPage('4', ['fr'], ['personalDevelopment'], 5074, 'www.link.com/link', 200);
 
         dbDsl.createBlog('1', '5', ['en'], ['health'], 5077, null, 250);

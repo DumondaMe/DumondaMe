@@ -24,7 +24,7 @@ describe('Integration Tests for getting popular recommendations', function () {
 
         dbDsl.createBookPage('1', ['en'], ['health'], 5072, 'HansMuster1', 1000);
         dbDsl.createBookPage('2', ['de'], ['personalDevelopment'], 5071, 'HansMuster2', 1001);
-        dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com');
+        dbDsl.createYoutubePage('3', ['fr'], ['personalDevelopment'], 5073, 'www.youtube.com', 'www.youtube.com/embed');
         dbDsl.createLinkPage('4', ['fr'], ['personalDevelopment'], 5074, 'www.link.com/link', 200);
 
         dbDsl.createBlog('5', '5', ['en'], ['health'], 5077, null, 250);
@@ -70,7 +70,7 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[2].label.should.equals('Youtube');
                 res.body.recommendations[2].pageId.should.equals('3');
                 res.body.recommendations[2].title.should.equals('page3Title');
-                res.body.recommendations[2].link.should.equals('www.youtube.com');
+                res.body.recommendations[2].linkEmbed.should.equals('www.youtube.com/embed');
                 res.body.recommendations[2].numberOfRecommendations.should.equals(2);
                 res.body.recommendations[2].topic.length.should.equals(1);
                 res.body.recommendations[2].topic[0].should.equals('personalDevelopment');

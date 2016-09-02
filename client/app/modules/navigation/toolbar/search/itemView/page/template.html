@@ -2,7 +2,7 @@
     <div class="image-container" flex="none">
         <img ng-src="{{ctrl.item.url}}" ng-if="ctrl.item.url" ng-if="ctrl.item.label !== 'Youtube'" ng-class="{'book': ctrl.item.label === 'Book'}">
         <img ng-src="{{ctrl.item.profileUrl}}" ng-if="ctrl.item.label === 'Blog'">
-        <img ng-src="{{ctrl.getThumbnail(ctrl.item.link)}}" ng-if="ctrl.item.label === 'Youtube'">
+        <img ng-src="{{ctrl.getThumbnail(ctrl.item.linkEmbed)}}" ng-if="ctrl.item.label === 'Youtube'">
         <md-icon md-svg-icon="cardActions:link" class="no-image-link" ng-if="ctrl.item.label === 'Link' && !ctrl.item.url"></md-icon>
     </div>
     <div class="page-container" flex>
