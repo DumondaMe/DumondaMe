@@ -15,7 +15,7 @@ var createVideoPage = function (userId, params) {
                             modified: {created}, created: {created}, topic: {topic}, label: 'Youtube', language: {language}, linkHistory: [], 
                             linkHistoryDate: []})`)
         .end(params).send().then(function () {
-            return {pageId: params.pageId};
+            return {pageId: params.pageId, linkEmbed: params.linkEmbed};
         });
 };
 

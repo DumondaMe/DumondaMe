@@ -57,9 +57,7 @@ module.exports = ['ElyModal', 'Topics', 'PageYoutubeLink', 'fileUpload', 'errorT
 
         ctrl.createYoutube = function () {
             var message = YoutubePageCreateMessageService.getCreateYoutubePageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl).then(function () {
-                ctrl.data.link = message.youtubePage.link;
-            });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyYoutube = function () {

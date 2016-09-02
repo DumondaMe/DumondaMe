@@ -9,6 +9,7 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
             function (resp) {
                 ctrl.uploadStarted = false;
                 ctrl.data.pageId = resp.data.pageId;
+                ctrl.data.linkEmbed = resp.data.linkEmbed;
                 ctrl.recommendPage = true;
                 return resp;
             }, function () {

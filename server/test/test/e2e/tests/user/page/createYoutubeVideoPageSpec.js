@@ -45,6 +45,7 @@ describe('Integration Tests for creating new youtube pages', function () {
             return requestHandler.post('/api/user/page/create', createPage, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
             pageId = res.body.pageId;
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
