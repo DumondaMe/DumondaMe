@@ -12,11 +12,17 @@ module.exports = ['Topics', 'ElyModal', 'DeletePageService', 'Languages',
                         title: ctrl.pageDetail.page.title,
                         description: ctrl.pageDetail.page.description,
                         selectedTopics: ctrl.pageDetail.page.topic,
-                        selectedLanguages: ctrl.pageDetail.page.language
+                        selectedLanguages: ctrl.pageDetail.page.language,
+                        link: ctrl.pageDetail.page.link,
+                        youtubeLinkFormatted: ctrl.pageDetail.page.linkEmbed
                     },
                     isEditMode: true
                 }).then(function (data) {
                 ctrl.pageDetail.page.description = data.description;
+                ctrl.pageDetail.page.link = data.link;
+                ctrl.pageDetail.page.linkEmbed = data.linkEmbed;
+                ctrl.pageDetail.page.linkHistory = data.linkHistory;
+                ctrl.pageDetail.page.linkHistoryDate = data.linkHistoryDate;
                 ctrl.pageDetail.page.topic = Topics.getCodes(data.selectedTopics);
                 ctrl.pageDetail.page.language = Languages.getCodes(data.selectedLanguages);
             });

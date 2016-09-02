@@ -1,1 +1,4 @@
 MATCH (b:Page) WHERE b.label = 'Youtube' SET b.linkHistory = [], b.linkHistoryDate = [];
+
+MATCH (b:Page) WHERE b.label = 'Youtube' SET b.linkEmbed = b.link;
+MATCH (b:Page) WHERE b.label = 'Youtube' SET b.link = replace(b.link, 'https://www.youtube.com/embed/', 'https://www.youtube.com/watch?v=');

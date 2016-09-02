@@ -362,18 +362,6 @@
 .ely-submit-button .ely-submit-button-error {
   cursor: pointer; }
 
-.ely-star-rating {
-  cursor: pointer;
-  display: inline-block;
-  height: 24px; }
-  .ely-star-rating .ely-star-rating-small {
-    width: 18px;
-    height: 18px; }
-  .ely-star-rating .ely-star-rating-x-small {
-    margin: 5px 0px;
-    width: 14px;
-    height: 14px; }
-
 .topic-description .topic-type {
   display: inline-block;
   font-size: 12px;
@@ -411,12 +399,8 @@
     line-height: 16px;
     border-radius: 6px;
     margin-right: 4px;
-    color: white;
+    color: white !important;
     font-size: 12px;
-    font-weight: 500; }
-  .ely-topics-color .topic-acronym {
-    color: white;
-    font-size: 10px;
     font-weight: 500; }
   .ely-topics-color .health {
     background-color: #039BE5; }

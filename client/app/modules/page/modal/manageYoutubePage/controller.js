@@ -34,6 +34,7 @@ module.exports = ['ElyModal', 'Topics', 'PageYoutubeLink', 'fileUpload', 'errorT
             ctrl.manageYoutubePageForm.link.$setValidity('ely-invalid-link', validLink);
             
             if (validLink) {
+                ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
                 ctrl.youtubeLinkFormatted = PageYoutubeLink.getYoutubeLink(ctrl.data.link);
                 ctrl.checkPageExists(ctrl.youtubeLinkFormatted);
             }

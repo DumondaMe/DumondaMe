@@ -12,7 +12,14 @@ tv4.addFormat('notEmptyString', function (data) {
     if (typeof data === 'string' && /([^\s])/.test(data)) {
         return null;
     }
-    return 'String is empty';
+    return 'String is not empty';
+});
+
+tv4.addFormat('youtubeLink', function (data) {
+    if (typeof data === 'string' && data.indexOf('https://www.youtube.com/watch?v=') !== -1) {
+        return null;
+    }
+    return 'Invalid Youtube Link';
 });
 
 tv4.addFormat('passwordString', function (data) {

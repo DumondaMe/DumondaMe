@@ -30,7 +30,7 @@ module.exports = {
                 topic: {'$ref': '#/definitions/topic'},
                 description: {'$ref': '#/definitions/description'},
                 language: language.languageMultiple,
-                link: {'$ref': '#/definitions/link'},
+                link: {'$ref': '#/definitions/youtubeLink'},
             }
         },
         linkPage: {

@@ -15,7 +15,7 @@ describe('Integration Tests for getting youtube page detail', function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', link: 'www.link.com', " +
+            return db.cypher().create("(:Page {title: 'pageTitle', label: 'Youtube', description: 'page', link: 'https://www.youtube.com/watch?v=hTarMdJub0M', linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M', " +
                 "created: 500, modified: 501, pageId: '0', topic: {topic}, language: {language}, linkHistory: {linkHistory}, linkHistoryDate: {linkHistoryDate}})")
                 .end({topic: ['environmental', 'spiritual'], language: ['en', 'de'], linkHistory: ['https://www.youtube.com/embed/Test'], linkHistoryDate: [501]}).send(commands);
 
@@ -88,7 +88,8 @@ describe('Integration Tests for getting youtube page detail', function () {
                 res.body.page.description.should.equals('page');
                 res.body.page.created.should.equals(500);
                 res.body.page.modified.should.equals(501);
-                res.body.page.link.should.equals('www.link.com');
+                res.body.page.link.should.equals('https://www.youtube.com/watch?v=hTarMdJub0M');
+                res.body.page.linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
                 res.body.page.label.should.equals('Youtube');
                 
                 res.body.page.topic.length.should.equals(2);

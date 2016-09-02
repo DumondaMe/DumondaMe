@@ -7,7 +7,6 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                topics: '=',
                 topicName: '@'
             },
             templateUrl: 'app/modules/common/topicsColorCode/topic/template.html',

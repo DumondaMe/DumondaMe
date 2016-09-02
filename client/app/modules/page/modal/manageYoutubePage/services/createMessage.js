@@ -7,7 +7,7 @@ module.exports = ['DateConverter', 'Topics', 'PageYoutubeLink', 'Languages', fun
             youtubePage: {
                 title: data.title,
                 description: data.description,
-                link: PageYoutubeLink.getYoutubeLink(data.link),
+                link: data.link,
                 topic: Topics.getCodes(data.selectedTopics),
                 language: Languages.getCodes(data.selectedLanguages)
             }
@@ -19,6 +19,7 @@ module.exports = ['DateConverter', 'Topics', 'PageYoutubeLink', 'Languages', fun
             youtubePage: {
                 pageId: data.pageId,
                 description: data.description,
+                link: data.link,
                 topic: Topics.getCodes(data.selectedTopics),
                 language: Languages.getCodes(data.selectedLanguages)
             }

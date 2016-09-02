@@ -25,7 +25,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             commands.push(db.cypher().create("(:Page {title: 'linkPageTitle', label: 'Link', description: 'linkPage', language: 'de', created: 501, pageId: '2'," +
                 "topic: {topic}, link: 'www.host.com/test', hostname: 'www.host.com', heightPreviewImage: 200})").end({topic: ['health', 'personalDevelopment']}).getCommand());
             return db.cypher().create("(:Page {title: 'bookPage2Title', label: 'Youtube', description: 'bookPage2', language: 'de', created: 501, pageId: '1'," +
-                "author: 'Hans Muster', publishDate: 1000, link: 'www.test.ch', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).send(commands);
+                "author: 'Hans Muster', publishDate: 1000, link: 'https://www.youtube.com/watch?v=hTarMdJub0M', linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M', topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).send(commands);
 
         });
     });
@@ -531,7 +531,8 @@ describe('Integration Tests for getting home screen information for a user', fun
 
                 res.body.pinwall[2].pinwallType.should.equals('Recommendation');
                 res.body.pinwall[2].label.should.equals('Youtube');
-                res.body.pinwall[2].link.should.equals('www.test.ch');
+                res.body.pinwall[2].link.should.equals('https://www.youtube.com/watch?v=hTarMdJub0M');
+                res.body.pinwall[2].linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
                 res.body.pinwall[2].pageId.should.equals('1');
                 res.body.pinwall[2].name.should.equals('user Meier2');
                 res.body.pinwall[2].forename.should.equals('user2');

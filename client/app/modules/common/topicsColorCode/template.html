@@ -1,10 +1,3 @@
 <div class="ely-topics-color">
-    <ely-topic-color-element topics="ctrl.topics" topic-name="health"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="environmental"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="spiritual"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="personalDevelopment"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="socialDevelopment"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="education"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="politics"></ely-topic-color-element>
-    <ely-topic-color-element topics="ctrl.topics" topic-name="economy"></ely-topic-color-element>
+    <ely-topic-color-element ng-repeat="topic in ctrl.topics" topic-name="{{topic}}"></ely-topic-color-element>
 </div>

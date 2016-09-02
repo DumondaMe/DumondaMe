@@ -29,7 +29,7 @@ module.exports = {
                 topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
-                link: {'$ref': '#/definitions/link'},
+                link: {'$ref': '#/definitions/youtubeLink'},
                 language: language.languageMultiple
             }
         },

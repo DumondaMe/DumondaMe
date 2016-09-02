@@ -21,7 +21,7 @@
                                ng-change="ctrl.changeData()">
                         <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
                     </md-select>
-                    <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
+                    <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container">
                             <label>Titel</label>
                             <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
@@ -31,21 +31,21 @@
                                 <div ng-message="md-maxlength">Text ist zu lang</div>
                             </div>
                         </md-input-container>
-                        <ely-iframe width="270" height="180" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
-                                    ng-show="ctrl.manageYoutubePageForm.link.$valid && ctrl.manageYoutubePageForm.link.$dirty"
-                                    layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
-                        <md-input-container class="input-container">
-                            <label>Link</label>
-                            <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
-                                   ng-change="ctrl.linkHasChanged()" ng-blur="ctrl.lostFocus()" required/>
-                            <div ng-messages="ctrl.manageYoutubePageForm.link.$error" ng-show="ctrl.manageYoutubePageForm.link.$dirty">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
-                            </div>
-                        </md-input-container>
-                        <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageYoutubePageForm.link.$valid"
-                             ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
+                    </div>
+                    <ely-iframe width="270" height="180" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
+                                ng-show="ctrl.manageYoutubePageForm.link.$valid && (ctrl.manageYoutubePageForm.link.$dirty || ctrl.isEditMode)"
+                                layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
+                    <md-input-container class="input-container">
+                        <label>Link</label>
+                        <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
+                               ng-change="ctrl.linkHasChanged()" ng-blur="ctrl.lostFocus()" required/>
+                        <div ng-messages="ctrl.manageYoutubePageForm.link.$error" ng-show="ctrl.manageYoutubePageForm.link.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="ely-invalid-link">Ungültiger Youtube Link</div>
                         </div>
+                    </md-input-container>
+                    <div class="page-exists-warning" ng-if="ctrl.pageExists && ctrl.manageYoutubePageForm.link.$valid"
+                         ng-click="ctrl.showExistingPages = true">Diese Seite existiert möglicherweise bereits. Hier klicken...
                     </div>
                     <md-input-container class="input-container">
                         <label>Allgemeine Beschreibung</label>

@@ -16,6 +16,7 @@ var addLinkElement = function (element, pinwallElement) {
         element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
     } else if (element.label === 'Youtube') {
         element.link = pinwallElement.pinwallData.link;
+        element.linkEmbed = pinwallElement.pinwallData.linkEmbed;
     }
 };
 

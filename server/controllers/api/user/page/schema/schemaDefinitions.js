@@ -7,5 +7,6 @@ module.exports = {
     topic: topic.topicMultiple,
     title: {type: 'string', format: 'notEmptyString', maxLength: 160},
     description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
-    link: {type: 'string', format: 'url', maxLength: 1000}
+    youtubeLink: {type: 'string', format: 'youtubeLink', maxLength: 1000},
+    link: {type: 'string', format: 'notEmptyString', maxLength: 1000}
 };
