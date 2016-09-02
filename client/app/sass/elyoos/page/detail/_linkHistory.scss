@@ -1,0 +1,26 @@
+.ely-link-history {
+  max-width: 600px;
+  min-width: 300px;
+  .link-content {
+    padding: 16px 16px 0 16px;
+    .link-view {
+      margin-bottom: 16px;
+    }
+    .link-overview {
+      max-height: 150px;
+      overflow-y: auto;
+      .link-date {
+        font-size: 14px;
+        cursor: pointer;
+        margin-bottom: 4px;
+      }
+      .link-date:hover {
+        text-decoration: underline;
+      }
+      .link-date-selected {
+        font-weight: 500;
+        color: $primary-color;
+      }
+    }
+  }
+}

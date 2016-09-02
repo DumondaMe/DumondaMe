@@ -2197,6 +2197,10 @@ md-toast.md-error-toast-theme {
         margin-bottom: 4px; }
         .ely-page-info-container .info-detail-container .info-detail-expanded-container .info-detail-row .right-column-info-detail {
           margin-left: 8px; }
+        .ely-page-info-container .info-detail-container .info-detail-expanded-container .info-detail-row .link {
+          cursor: pointer; }
+        .ely-page-info-container .info-detail-container .info-detail-expanded-container .info-detail-row .link:hover {
+          text-decoration: underline; }
     .ely-page-info-container .info-detail-container .admin-image {
       display: inline-block;
       vertical-align: middle;
@@ -2236,6 +2240,26 @@ md-toast.md-error-toast-theme {
       width: 100%;
       max-width: 552px;
       margin-bottom: 8px; }
+
+.ely-link-history {
+  max-width: 600px;
+  min-width: 300px; }
+  .ely-link-history .link-content {
+    padding: 16px 16px 0 16px; }
+    .ely-link-history .link-content .link-view {
+      margin-bottom: 16px; }
+    .ely-link-history .link-content .link-overview {
+      max-height: 150px;
+      overflow-y: auto; }
+      .ely-link-history .link-content .link-overview .link-date {
+        font-size: 14px;
+        cursor: pointer;
+        margin-bottom: 4px; }
+      .ely-link-history .link-content .link-overview .link-date:hover {
+        text-decoration: underline; }
+      .ely-link-history .link-content .link-overview .link-date-selected {
+        font-weight: 500;
+        color: #3F51B5; }
 
 #ely-page-recommendation {
   max-width: 600px;

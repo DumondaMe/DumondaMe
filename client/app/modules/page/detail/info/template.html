@@ -33,12 +33,13 @@
                 <span flex></span>
                 <span class="right-column-info-detail">{{ctrl.pageDetail.page.modified}}</span>
             </div>
-            <div layout="row" class="info-detail-row" ng-show="ctrl.pageDetail.page.created !== ctrl.pageDetail.page.modified">
-                <span>Link verändert:</span>
+            <div layout="row" class="info-detail-row"
+                 ng-show="ctrl.pageDetail.page.created !== ctrl.pageDetail.page.modified && ctrl.pageDetail.page.label === 'Youtube'">
+                <span ng-class="{'link': ctrl.pageDetail.page.linkHistory.length > 0}" ng-click="ctrl.openLinkHistory()">Link verändert:</span>
                 <span flex></span>
                 <span class="right-column-info-detail" ng-if="ctrl.pageDetail.page.linkHistory.length === 0">Nie</span>
-                <span class="right-column-info-detail"
-                      ng-if="ctrl.pageDetail.page.linkHistory.length > 0">{{ctrl.pageDetail.page.linkHistory.length}}</span>
+                <span class="right-column-info-detail link" ng-click="ctrl.openLinkHistory()"
+                      ng-if="ctrl.pageDetail.page.linkHistory.length > 0">{{ctrl.pageDetail.page.linkHistory.length}} mal</span>
             </div>
             <div layout="row" class="info-detail-row">
                 <span>Sprache:</span>

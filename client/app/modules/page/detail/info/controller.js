@@ -17,5 +17,16 @@ module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation',
         ctrl.goToUserDetail = function (userId) {
             UserDetailNavigation.openUserDetail(userId);
         };
+
+        ctrl.openLinkHistory = function () {
+            if (ctrl.pageDetail.page.linkHistory.length > 0) {
+                ElyModal.show('LinkHistoryCtrl', 'app/modules/page/detail/info/linkHistory/template.html',
+                    {
+                        linkHistory: ctrl.pageDetail.page.linkHistory,
+                        linkHistoryDate: ctrl.pageDetail.page.linkHistoryDate,
+                        label: ctrl.pageDetail.page.label
+                    });
+            }
+        };
     }];
 

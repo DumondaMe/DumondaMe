@@ -34,7 +34,10 @@ module.exports = ['moment', function (moment) {
         return dateValue.format('H:mm l');
     };
 
-    this.getTime = function (dateValue) {
+    this.getTime = function (dateValue, format) {
+        if (angular.isString(format)) {
+            return moment.unix(dateValue).format(format);
+        }
         return moment.unix(dateValue).format('H:mm');
     };
 }];
