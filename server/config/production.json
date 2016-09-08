@@ -4,13 +4,13 @@
   },
   "view engines": null,
   "databaseConfig": {
-    "host": "http://localhost:7474"
+    "host": "http://172.31.16.100:7474"
   },
   "cdnStore": {
     "bucket": "elyoos"
   },
   "emailConfig": {
-    "host": "localhost",
+    "host": "172.31.0.100",
     "port": 6379,
     "prefix": "q",
     "delay": 1800
@@ -84,7 +84,7 @@
             "saveUninitialized": true
           },
           {
-            "host": "localhost",
+            "host": "172.31.0.100",
             "port": 6379
           }
         ]
