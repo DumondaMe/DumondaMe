@@ -24,7 +24,8 @@ if (process.env.NODE_ENV === 'production') {
     winston.add(winstonCloudWatch, {
         logGroupName: 'elyoosWebserver',
         logStreamName: 'webserver',
-        level: 'info'
+        level: 'info',
+        awsRegion: 'eu-central-1'
     });
 }
 
