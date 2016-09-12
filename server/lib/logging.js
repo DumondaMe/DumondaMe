@@ -1,8 +1,7 @@
 'use strict';
 
 var winston = require('winston');
-
-require('winston-logstash-udp');
+var winstonCloudWatch = require('winston-cloudwatch');
 
 var customLevels = {
     levels: {
@@ -20,7 +19,21 @@ var customLevels = {
         debug: 'grey'
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    winston.add(winstonCloudWatch, {
+        logGroupName: 'elyoosWebserver',
+        logStreamName: 'webserver',
+        level: 'info'
+    });
+}
+
 var logger = new winston.Logger({
+    transports: [
+        new (winston.transports.Console)({
+            colorize: true
+        })
+    ],
     levels: customLevels.levels,
     colors: customLevels.colors
 });
@@ -41,26 +54,6 @@ var log = function (module, level, message, metadata, request) {
     logger.log(level, '[' + module + '] ' + message, metadata);
 
 };
-
-if (!process.env.NODE_ENV || (process.env.NODE_ENV === 'development' )) {
-    logger.add(winston.transports.Console, {level: 'debug'});
-    logger.transports.console.colorize = true;
-} else if (process.env.NODE_ENV === 'production') {
-    logger.add(winston.transports.Console, {level: 'debug'});
-    logger.transports.console.colorize = true;
-} else if (process.env.NODE_ENV === 'testing') {
-    logger.add(winston.transports.Console, {level: 'debug'});
-    logger.transports.console.colorize = true;
-}
-
-if (process.env.NODE_ENV !== 'testing') {
-    logger.add(winston.transports.LogstashUDP, {
-        port: 28777,
-        node_name: 'ElyoosWebserver',
-        host: '127.0.0.1'
-    });
-}
-
 
 module.exports = {
     getLogger: function (module) {
