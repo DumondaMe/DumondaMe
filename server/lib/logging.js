@@ -20,15 +20,6 @@ var customLevels = {
     }
 };
 
-if (process.env.NODE_ENV === 'production') {
-    winston.add(winstonCloudWatch, {
-        logGroupName: 'elyoosWebserver',
-        logStreamName: 'webserver',
-        level: 'info',
-        awsRegion: 'eu-central-1'
-    });
-}
-
 var logger = new winston.Logger({
     transports: [
         new (winston.transports.Console)({
@@ -38,6 +29,15 @@ var logger = new winston.Logger({
     levels: customLevels.levels,
     colors: customLevels.colors
 });
+
+if (process.env.NODE_ENV === 'production') {
+    logger.add(winstonCloudWatch, {
+        logGroupName: 'elyoosWebserver',
+        logStreamName: 'webserver',
+        level: 'info',
+        awsRegion: 'eu-central-1'
+    });
+}
 
 var log = function (module, level, message, metadata, request) {
 
