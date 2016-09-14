@@ -7,16 +7,18 @@ var loginUser = require('../../../models/user/loginUser');
 var logger = requireLogger.getLogger(__filename);
 var rateLimit = require('../../../lib/limiteRate');
 
-var apiLimiter = rateLimit.getRate({
+
+//ToDO: Only removed for load tests
+/*var apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
     delayAfter: 3,
     delayMs: 3 * 1000,
     max: 50
-});
+});*/
 
 module.exports = function (router) {
 
-    router.post('/', apiLimiter, function (req, res) {
+    router.post('/', /*apiLimiter,*/ function (req, res) {
 
         passport.authenticate('local', function (err, user) {
 
