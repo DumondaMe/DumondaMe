@@ -5,11 +5,11 @@ var winstonCloudWatch = require('winston-cloudwatch');
 
 var customLevels = {
     levels: {
-        fatal: 4,
-        error: 3,
-        info: 2,
-        warn: 1,
-        debug: 0
+        fatal: 0,
+        error: 1,
+        warn: 2,
+        info: 3,
+        debug: 4
     },
     colors: {
         fatal: 'blue',
