@@ -28,7 +28,7 @@
     "moment": "2.13.0",
     "gm": "1.22.0",
     "biguint-format": "1.0.0",
-    "flake-idgen": "1.0.0",
+    "flake-idgen": "1.1.0",
     "csurf": "1.8.3",
     "aws-sdk": "2.4.6",
     "tmp": "0.0.28",
