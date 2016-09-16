@@ -2,7 +2,7 @@ FROM node:4.5.0
 
 ENV NODE_ENV 'production'
 
-COPY GraphicsMagick-1.3.25 /tmp
+COPY GraphicsMagick-1.3.25.tar.gz /tmp
 
 RUN cd /tmp && tar -xvf GraphicsMagick-1.3.25.tar.gz && cd /tmp/GraphicsMagick-1.3.25 && ./configure && make && make install && cd / && rm -r /tmp/*
 
