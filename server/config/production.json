@@ -7,7 +7,7 @@
     "host": "http://172.31.16.100:7474"
   },
   "cdnStore": {
-    "bucket": "elyoos.loadtest"
+    "bucket": "elyoos"
   },
   "emailConfig": {
     "host": "172.31.0.100",
