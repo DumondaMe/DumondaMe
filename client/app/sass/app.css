@@ -2486,6 +2486,8 @@ md-toast.md-error-toast-theme {
     cursor: pointer;
     margin-top: 8px;
     width: 100%; }
+    .pinwall-blog-card .blog-image-container img {
+      width: 100%; }
   .pinwall-blog-card .card-content-container {
     padding-bottom: 8px; }
     .pinwall-blog-card .card-content-container .blog-text {
@@ -2663,6 +2665,8 @@ md-toast.md-error-toast-theme {
   margin-top: 8px;
   margin-bottom: 16px;
   width: 100%; }
+  .blog-recommendation-desktop .blog-image-container img {
+    width: 100%; }
 .blog-recommendation-desktop .content-container {
   padding: 0 16px 8px 16px;
   overflow: hidden; }
