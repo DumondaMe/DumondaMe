@@ -1,0 +1,5 @@
+CREATE INDEX ON :Page(title);
+CREATE INDEX ON :Page(link);
+
+CREATE INDEX ON :User(name);
+CREATE INDEX ON :User(surname);

@@ -42,6 +42,7 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
                 .end({pageId: params.pageId}).send();
         }
     }).then(function (pages) {
+        logger.info(`Created link page with id ${params.pageId}`);
         var resp = {pageId: params.pageId, hostname: params.hostname};
         if(pages && pages.length === 1) {
             resp.linkPreviewUrl = cdn.getUrl(`pages/${params.pageId}/preview.jpg`);

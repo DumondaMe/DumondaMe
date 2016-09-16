@@ -6,6 +6,7 @@ var time = require('./../../../lib/time');
 var uploadImage = require('./../../image/generatePageImages');
 var imagePage = require('./imagePage');
 var cdn = require('../../util/cdn');
+var logger = requireLogger.getLogger(__filename);
 
 var createBookPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();
@@ -21,6 +22,7 @@ var createBookPage = function (userId, params, titlePicturePath, req) {
     }).then(function () {
         return uploadImage.generatePageImage(titlePicturePath, params.pageId);
     }).then(function () {
+        logger.info(`Created book page with id ${params.pageId}`);
         return {pageId: params.pageId, bookPreviewUrl: cdn.getUrl(`pages/${params.pageId}/pagePreview.jpg`)};
     });
 };

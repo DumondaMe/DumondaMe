@@ -1,0 +1,14 @@
+Match (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
+
+FOREACH (r IN range(0,50000) |
+CREATE (:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true})<-[:HAS_PRIVACY {type: 'Freund'}]-(:User {userId:''+r, email:r+'@test.ch', password:'$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name:"user test"+r, surname: 'test'+r, forename:'user'})-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true, pinwall: true}));
+
+MATCH (user:User)
+WITH user, rand() AS id
+SKIP 200
+LIMIT 1000
+FOREACH (r IN range(0,50) |
+CREATE (user)-[:IS_ADMIN]->(:Page {title: 'pageTitle'+id+r, label: 'Book', description: 'page1', modified: 5070, pageId: ''+id+r, topic: ['health']})<-[:RECOMMENDS]-(:Recommendation:PinwallElement {created: 507, recommendationId: ''+id+r})<-[:RECOMMENDS]-(user));
+
+MATCH (rec:Recommendation)-[:RECOMMENDS]->(page:Page)
+CREATE (rec)-[:PINWALL_DATA]->(page);
