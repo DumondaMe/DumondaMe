@@ -2,11 +2,9 @@ FROM node:4.5.0
 
 ENV NODE_ENV 'production'
 
-RUN apt-get update \
-          && apt-get install -y --no-install-recommends \
-                  openjdk-7-jre-headless \
-                  graphicsmagick \
-          && rm -rf /var/lib/apt/lists/*
+COPY GraphicsMagick-1.3.25 /tmp
+
+RUN cd /tmp && tar -xvf GraphicsMagick-1.3.25.tar.gz && cd /tmp/GraphicsMagick-1.3.25 && ./configure && make && make install && cd / && rm -r /tmp/*
 
 RUN mkdir -p /usr/src/app/server/config
 
