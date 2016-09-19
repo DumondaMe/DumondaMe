@@ -7,6 +7,9 @@
       }
       #carousel-vision-container {
         width: 500px;
+        @media screen and (min-width: $gt-sm) {
+          width: 600px;
+        }
         @media screen and (min-width: $gt-xmd) {
           width: 700px;
         }
@@ -16,6 +19,27 @@
           font-size: 18px;
           font-weight: 300;
           line-height: 26px;
+        }
+        .vision-list {
+          font-size: 18px;
+          font-weight: 300;
+          line-height: 26px;
+          li:before {
+            color: $secondary-text;
+          }
+        }
+        .vision-preview-image {
+          margin: 0 auto;
+          width: 400px;
+          @media screen and (min-width: $gt-md) {
+            width: 500px;
+          }
+          img {
+            width: 100%;
+          }
+        }
+        .text-divider {
+          height: 4px;
         }
         .developer-container {
           padding: 32px 0 64px 0;

@@ -2858,6 +2858,19 @@ md-toast.md-error-toast-theme {
       background: #7986CB;
       box-shadow: none;
       opacity: 1; }
+  #start-screen #carousel #carousel-nav-miscellaneous {
+    position: fixed;
+    bottom: 64px;
+    left: 32px;
+    z-index: 100; }
+    #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element {
+      margin-right: 12px;
+      display: inline-block;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.54);
+      cursor: pointer; }
+    #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element:hover {
+      text-decoration: underline; }
   #start-screen #carousel #carouse-nav-bottom-button {
     position: fixed;
     cursor: pointer;
@@ -2868,7 +2881,7 @@ md-toast.md-error-toast-theme {
     background: #7986CB;
     box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.1);
     transition: bottom ease-out .5s;
-    z-index: 2; }
+    z-index: 100; }
     #start-screen #carousel #carouse-nav-bottom-button .button-description {
       color: white;
       font-size: 16px;
@@ -2911,6 +2924,9 @@ md-toast.md-error-toast-theme {
     width: 500px;
     margin: 0 auto;
     padding-top: 32px; }
+    @media screen and (min-width: 960px) {
+      #start-screen #carousel #carousel-vision #carousel-vision-container {
+        width: 600px; } }
     @media screen and (min-width: 1440px) {
       #start-screen #carousel #carousel-vision #carousel-vision-container {
         width: 700px; } }
@@ -2918,6 +2934,22 @@ md-toast.md-error-toast-theme {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px; }
+      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list li:before {
+        color: rgba(0, 0, 0, 0.54); }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+      margin: 0 auto;
+      width: 400px; }
+      @media screen and (min-width: 1280px) {
+        #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+          width: 500px; } }
+      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image img {
+        width: 100%; }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .text-divider {
+      height: 4px; }
     #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container {
       padding: 32px 0 64px 0; }
       #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container img {
@@ -2982,7 +3014,7 @@ md-toast.md-error-toast-theme {
 #loginform #login-container {
   width: 300px; }
   #loginform #login-container .login-form-container {
-    padding: 32px 16px 0 16px; }
+    padding: 36px 16px 0 16px; }
     #loginform #login-container .login-form-container .input-element {
       margin-top: 4px;
       margin-bottom: 4px; }
@@ -3030,12 +3062,6 @@ md-toast.md-error-toast-theme {
       color: #3F51B5; }
     #register-user .register-form-container .agb-link:hover {
       text-decoration: underline; }
-  #register-user .terms-container {
-    height: 100%; }
-    #register-user .terms-container .terms-content-container {
-      overflow-y: scroll; }
-    #register-user .terms-container .terms-commands {
-      height: 52px; }
 
 #successful-register-request {
   max-width: 600px;
@@ -3090,7 +3116,8 @@ md-toast.md-error-toast-theme {
     color: rgba(0, 0, 0, 0.54);
     font-size: 16px;
     font-weight: 500;
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 16px; }
   #start-screen .ely-logo {
     width: 150px; }
     @media screen and (min-width: 600px) {
@@ -3109,29 +3136,36 @@ md-toast.md-error-toast-theme {
 #start-screen #start-container-mobile {
   padding: 32px 16px 16px 16px; }
 
-#ely-terms {
-  padding: 16px;
-  color: rgba(0, 0, 0, 0.87); }
-  #ely-terms .terms-title {
-    font-size: 20px;
-    font-weight: 500; }
-  #ely-terms .terms-date {
-    margin-top: 4px;
-    font-size: 14px;
-    font-weight: 300;
-    color: rgba(0, 0, 0, 0.54); }
-  #ely-terms .terms-text {
-    margin-top: 12px;
-    font-size: 14px; }
-  #ely-terms .terms-h1-title {
-    margin: 24px 0 12px 0;
-    font-size: 18px;
-    font-weight: 500; }
-  #ely-terms .terms-h2-title {
-    margin-bottom: 12px;
-    font-size: 14px; }
-  #ely-terms .terms-bullet-list {
-    font-size: 14px; }
+.terms-container {
+  height: 100%;
+  min-width: 320px; }
+  .terms-container .terms-content-container {
+    overflow-y: scroll; }
+    .terms-container .terms-content-container #ely-terms {
+      padding: 16px;
+      color: rgba(0, 0, 0, 0.87); }
+      .terms-container .terms-content-container #ely-terms .terms-title {
+        font-size: 20px;
+        font-weight: 500; }
+      .terms-container .terms-content-container #ely-terms .terms-date {
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 300;
+        color: rgba(0, 0, 0, 0.54); }
+      .terms-container .terms-content-container #ely-terms .terms-text {
+        margin-top: 12px;
+        font-size: 14px; }
+      .terms-container .terms-content-container #ely-terms .terms-h1-title {
+        margin: 24px 0 12px 0;
+        font-size: 18px;
+        font-weight: 500; }
+      .terms-container .terms-content-container #ely-terms .terms-h2-title {
+        margin-bottom: 12px;
+        font-size: 14px; }
+      .terms-container .terms-content-container #ely-terms .terms-bullet-list {
+        font-size: 14px; }
+  .terms-container .terms-commands {
+    height: 52px; }
 
 #public-testphase {
   padding-top: 32px;

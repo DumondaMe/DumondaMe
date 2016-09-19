@@ -4,6 +4,10 @@ module.exports = ['ElyModal', function (ElyModal) {
     var ctrl = this;
     ctrl.actualScreen = 0;
 
+    ctrl.openAgb = function () {
+        ElyModal.show('ThermsCtrl', 'app/modules/public/terms/modal/template.html', {});
+    };
+
     ctrl.onSwipeDown = function () {
         if (ctrl.actualScreen > 0) {
             ctrl.actualScreen--;
@@ -17,9 +21,6 @@ module.exports = ['ElyModal', function (ElyModal) {
     };
 
     ctrl.startRegister = function () {
-        ElyModal.show('RegisterCtrl', 'app/modules/public/register/template.html', {})
-            .then(function (resp) {
-
-            });
+        ElyModal.show('RegisterCtrl', 'app/modules/public/register/template.html', {});
     };
 }];

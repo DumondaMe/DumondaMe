@@ -1,4 +1,12 @@
 <div id="carousel" md-swipe-up="ctrl.onSwipeUp()" md-swipe-down="ctrl.onSwipeDown()">
+    <div id="carousel-nav-miscellaneous" ng-show="ctrl.actualScreen === 0">
+        <div class="nav-miscellaneous-element" ng-click="ctrl.openAgb()">AGB</div>
+        <div class="nav-miscellaneous-element">Kontakt</div>
+    </div>
+    <div id="carouse-nav-bottom-button" layout="row" layout-align="center center" ng-show="ctrl.actualScreen < 1"
+         ng-click="ctrl.onSwipeUp()">
+        <div class="button-description" ng-show="ctrl.actualScreen === 0">Um was geht es?</div>
+    </div>
     <div id="carousel-commands" layout="row">
         <div id="sign-up-button" ng-class="{'login-screen': ctrl.actualScreen === 0}">
             <md-button class="md-primary md-raised" ng-click="ctrl.startRegister()">
@@ -23,21 +31,10 @@
                     Um was geht es?
                 </md-tooltip>
             </div>
-            <div class="carousel-nav" ng-click="ctrl.actualScreen = 2" ng-class="{active: ctrl.actualScreen === 2}">
-                <md-tooltip md-direction="right">
-                    Vision
-                </md-tooltip>
-            </div>
         </div>
     </div>
     <div id="right-column">
         <ely-carousel-login ng-show="ctrl.actualScreen === 0"></ely-carousel-login>
-        <ely-carousel-meaning ng-show="ctrl.actualScreen === 1"></ely-carousel-meaning>
-        <ely-carousel-vision ng-show="ctrl.actualScreen === 2"></ely-carousel-vision>
-    </div>
-    <div id="carouse-nav-bottom-button" layout="row" layout-align="center center" ng-show="ctrl.actualScreen < 2"
-         ng-click="ctrl.onSwipeUp()">
-        <div class="button-description" ng-show="ctrl.actualScreen === 0">Um was geht es?</div>
-        <div class="button-description" ng-show="ctrl.actualScreen === 1">Vision</div>
+        <ely-carousel-vision ng-show="ctrl.actualScreen === 1"></ely-carousel-vision>
     </div>
 </div>

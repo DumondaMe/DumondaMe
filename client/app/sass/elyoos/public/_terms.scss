@@ -1,31 +1,41 @@
-#ely-terms {
-  padding: 16px;
-  color: $primary-text;
-  .terms-title {
-    font-size: 20px;
-    font-weight: 500;
+.terms-container {
+  height: 100%;
+  min-width: 320px;
+  .terms-content-container {
+    overflow-y: scroll;
+    #ely-terms {
+      padding: 16px;
+      color: $primary-text;
+      .terms-title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .terms-date {
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 300;
+        color: $secondary-text;
+      }
+      .terms-text {
+        margin-top: 12px;
+        font-size: 14px;
+      }
+      .terms-h1-title {
+        margin: 24px 0 12px 0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .terms-h2-title {
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+      .terms-bullet-list {
+        font-size: 14px;
+      }
+    }
   }
-  .terms-date {
-    margin-top: 4px;
-    font-size: 14px;
-    font-weight: 300;
-    color: $secondary-text;
-  }
-  .terms-text {
-    margin-top: 12px;
-    font-size: 14px;
-  }
-  .terms-h1-title {
-    margin: 24px 0 12px 0;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  .terms-h2-title {
-    margin-bottom: 12px;
-    font-size: 14px;
-  }
-  .terms-bullet-list {
-    font-size: 14px;
+  .terms-commands {
+    height: 52px;
   }
 }
 
