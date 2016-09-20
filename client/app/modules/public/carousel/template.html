@@ -1,7 +1,7 @@
 <div id="carousel" md-swipe-up="ctrl.onSwipeUp()" md-swipe-down="ctrl.onSwipeDown()">
     <div id="carousel-nav-miscellaneous" ng-show="ctrl.actualScreen === 0">
         <div class="nav-miscellaneous-element" ng-click="ctrl.openAgb()">AGB</div>
-        <div class="nav-miscellaneous-element">Kontakt</div>
+        <div class="nav-miscellaneous-element" ng-click="ctrl.openContact()">Kontakt</div>
     </div>
     <div id="carouse-nav-bottom-button" layout="row" layout-align="center center" ng-show="ctrl.actualScreen < 1"
          ng-click="ctrl.onSwipeUp()">

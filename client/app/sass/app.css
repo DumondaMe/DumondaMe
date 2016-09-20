@@ -2988,6 +2988,20 @@ md-toast.md-error-toast-theme {
   #change-password-request .action-container .password-reset:hover {
     text-decoration: underline; }
 
+#contact-container {
+  min-width: 320px;
+  max-width: 400px; }
+  #contact-container .contact-content-container {
+    overflow-y: scroll; }
+    #contact-container .contact-content-container .ely-public-contact {
+      padding: 16px;
+      color: rgba(0, 0, 0, 0.87); }
+      #contact-container .contact-content-container .ely-public-contact .contact-text {
+        margin-top: 12px;
+        font-size: 14px; }
+  #contact-container .contact-commands {
+    height: 52px; }
+
 #foot-navigation {
   position: fixed;
   height: 48px;

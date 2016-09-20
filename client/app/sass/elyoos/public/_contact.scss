@@ -1,0 +1,22 @@
+#contact-container {
+  min-width: 320px;
+  max-width: 400px;
+  .contact-content-container {
+    overflow-y: scroll;
+    .ely-public-contact {
+      padding: 16px;
+      color: $primary-text;
+      .contact-text {
+        margin-top: 12px;
+        font-size: 14px;
+      }
+    }
+  }
+  .contact-commands {
+    height: 52px;
+  }
+}
+
+
+
+
