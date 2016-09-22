@@ -11,12 +11,12 @@
             </md-button>
         </div>
     </div>
-    <div id="carousel-nav-miscellaneous" ng-show="ctrl.actualScreen === 0">
+    <div id="carousel-nav-miscellaneous" ng-show="ctrl.actualScreen === 0 && ctrl.$mdMedia('(min-height: 350px)')">
         <div class="nav-miscellaneous-element" ng-click="ctrl.openAgb()">AGB</div>
         <div class="nav-miscellaneous-element" ng-click="ctrl.openContact()">Kontakt</div>
     </div>
-    <div id="carouse-nav-bottom-button" layout="row" layout-align="center center" ng-show="ctrl.actualScreen < 1"
-         ng-click="ctrl.onSwipeUp()">
+    <div id="carouse-nav-bottom-button" layout="row" layout-align="center center"
+         ng-show="ctrl.actualScreen < 1 && ctrl.$mdMedia('(min-height: 350px)')" ng-click="ctrl.onSwipeUp()">
         <div class="button-description" ng-show="ctrl.actualScreen === 0">Um was geht es?</div>
     </div>
     <div id="left-column" layout="column" layout-align="center center" ng-if="ctrl.$mdMedia('gt-xs')">
