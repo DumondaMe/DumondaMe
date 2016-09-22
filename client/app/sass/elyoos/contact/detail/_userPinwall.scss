@@ -11,7 +11,17 @@
     max-width: 880px;
   }
   .pinwall-container {
-    margin: 0 auto;
+    height: 100%;
+    padding: 0 8px;
+    overflow-y: auto;
+    .pinwall-inner-container {
+      max-width: 400px;
+      margin: 0 auto;
+      @media screen and (min-width: $gt-sm) {
+        max-width: 950px;
+        width: 950px;
+      }
+    }
   }
   .pinwall-no-element {
     margin: 0 auto;

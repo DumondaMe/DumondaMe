@@ -5,7 +5,7 @@
             <md-input-container class="input-element md-block">
                 <label>Email</label>
                 <input required type="email" name="username" id="id_username" aria-label="Email"
-                       ng-model="ctrl.email">
+                       ng-model="ctrl.email" md-no-asterisk>
 
                 <div ng-messages="resetPasswordForm.username.$error">
                     <div ng-message="required">Wird benötigt!</div>

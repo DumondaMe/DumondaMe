@@ -1,8 +1,13 @@
 #register-user {
   max-width: 600px;
   width: 100%;
+  @media screen and (max-width: $gt-sm) {
+    height: 100%;
+    max-height: 90%;
+  }
   .register-form-container {
     width: 100%;
+    z-index: 1000;
     .ely-dialog-title {
       padding: 16px;
       margin-bottom: 0;
@@ -13,12 +18,21 @@
     }
     .left-register-input-container {
       margin-left: 16px;
+      @media screen and (max-width: $gt-sm) {
+        margin-left: 0;
+      }
     }
     .select-gender {
       margin: 24px 0;
     }
     .ely-recaptcha {
       margin-top: 16px;
+      @media screen and (max-width: $gt-sm) {
+        transform: scale(0.77);
+        -webkit-transform: scale(0.77);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+      }
     }
     .agb-link {
       color: $primary-color;

@@ -1,6 +1,14 @@
+.terms-dialog {
+  @media screen and (max-width: $gt-sm) {
+    max-width: 100%;
+  }
+}
+
 .terms-container {
   height: 100%;
-  min-width: 320px;
+  @media screen and (max-width: $gt-sm) {
+    margin-left: 0;
+  }
   .terms-content-container {
     overflow-y: scroll;
     #ely-terms {

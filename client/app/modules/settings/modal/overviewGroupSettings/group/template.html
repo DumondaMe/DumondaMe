@@ -9,15 +9,15 @@
         </div>
     </div>
     <ul ng-if="!group.profileVisible">
-        <li class="description">Sehen nur Deinen Namen</li>
+        <li class="description">Sehen nur deinen Namen</li>
     </ul>
     <ul ng-if="group.profileVisible && ctrl.isPublic">
-        <li class="description">Sehen Dein komplettes Profil</li>
+        <li class="description">Sehen dein komplettes Profil</li>
     </ul>
     <ul ng-if="group.profileVisible && !ctrl.isPublic">
-        <li class="description" ng-if="group.contactsVisible">Sieht deine Kontakte</li>
-        <li class="description" ng-if="group.imageVisible">Sieht Deine Profilbild</li>
-        <li class="description" ng-if="group.profileDataVisible">Sieht Deine Profil Daten</li>
-        <li class="description" ng-if="group.pinwallVisible">Sieht Deine Bewertungen</li>
+        <li class="description" ng-if="group.contactsVisible">Sehen deine Kontakte</li>
+        <li class="description" ng-if="group.imageVisible">Sehen deine Profilbild</li>
+        <li class="description" ng-if="group.profileDataVisible">Sehen deine Profil Daten</li>
+        <li class="description" ng-if="group.pinwallVisible">Sehen deine Bewertungen</li>
     </ul>
 </div>

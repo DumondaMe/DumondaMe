@@ -1,5 +1,10 @@
+.contact-dialog {
+  @media screen and (max-width: $gt-sm) {
+    max-width: 100%;
+  }
+}
+
 #contact-container {
-  min-width: 320px;
   max-width: 400px;
   .contact-content-container {
     overflow-y: scroll;

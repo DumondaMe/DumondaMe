@@ -732,7 +732,16 @@ md-toast.md-error-toast-theme {
   width: 880px;
   max-width: 880px; }
 #detail-user-pinwall .pinwall-container {
-  margin: 0 auto; }
+  height: 100%;
+  padding: 0 8px;
+  overflow-y: auto; }
+  #detail-user-pinwall .pinwall-container .pinwall-inner-container {
+    max-width: 400px;
+    margin: 0 auto; }
+    @media screen and (min-width: 960px) {
+      #detail-user-pinwall .pinwall-container .pinwall-inner-container {
+        max-width: 950px;
+        width: 950px; } }
 #detail-user-pinwall .pinwall-no-element {
   margin: 0 auto; }
 
@@ -869,7 +878,7 @@ md-toast.md-error-toast-theme {
           .ely-contact-preview .contact-previews .contact-preview .name {
             max-width: 400px; } }
       .ely-contact-preview .contact-previews .contact-preview .setting-contact {
-        margin-top: 8px; }
+        margin-top: 16px; }
     .ely-contact-preview .contact-previews .next-contacts {
       height: 64px; }
 
@@ -2863,12 +2872,21 @@ md-toast.md-error-toast-theme {
     bottom: 64px;
     left: 32px;
     z-index: 100; }
+    @media screen and (max-height: 560px) {
+      #start-screen #carousel #carousel-nav-miscellaneous {
+        bottom: 52px; } }
+    @media screen and (max-width: 960px) {
+      #start-screen #carousel #carousel-nav-miscellaneous {
+        z-index: 0; } }
     #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element {
       margin-right: 12px;
       display: inline-block;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.54);
       cursor: pointer; }
+      @media screen and (max-height: 560px) {
+        #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element {
+          font-size: 13px; } }
     #start-screen #carousel #carousel-nav-miscellaneous .nav-miscellaneous-element:hover {
       text-decoration: underline; }
   #start-screen #carousel #carouse-nav-bottom-button {
@@ -2882,6 +2900,9 @@ md-toast.md-error-toast-theme {
     box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.1);
     transition: bottom ease-out .5s;
     z-index: 100; }
+    @media screen and (max-width: 960px) {
+      #start-screen #carousel #carouse-nav-bottom-button {
+        z-index: 0; } }
     #start-screen #carousel #carouse-nav-bottom-button .button-description {
       color: white;
       font-size: 16px;
@@ -2901,35 +2922,24 @@ md-toast.md-error-toast-theme {
   #start-screen #carousel #carousel-login #login-container {
     height: 100%; }
 
-#start-screen #carousel #carousel-meaning {
-  height: 100%; }
-  #start-screen #carousel #carousel-meaning .meaning-container .meaning-description {
-    width: 500px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    padding: 8px 16px;
-    border-radius: 4px;
-    background-color: #e9f6fe; }
-    #start-screen #carousel #carousel-meaning .meaning-container .meaning-description .meaning-text {
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 28px; }
-
 #start-screen #carousel #carousel-vision {
   background-color: #fafafa; }
   @media screen and (min-width: 960px) {
     #start-screen #carousel #carousel-vision {
       background-color: #FFFFFF; } }
   #start-screen #carousel #carousel-vision #carousel-vision-container {
-    width: 500px;
+    max-width: 500px;
     margin: 0 auto;
-    padding-top: 32px; }
+    padding: 32px 16px 0 16px; }
     @media screen and (min-width: 960px) {
       #start-screen #carousel #carousel-vision #carousel-vision-container {
-        width: 600px; } }
+        max-width: 600px; } }
     @media screen and (min-width: 1440px) {
       #start-screen #carousel #carousel-vision #carousel-vision-container {
-        width: 700px; } }
+        max-width: 700px; } }
+    @media screen and (max-width: 960px) {
+      #start-screen #carousel #carousel-vision #carousel-vision-container {
+        padding-top: 54px; } }
     #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text {
       font-size: 18px;
       font-weight: 300;
@@ -2942,10 +2952,10 @@ md-toast.md-error-toast-theme {
         color: rgba(0, 0, 0, 0.54); }
     #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
       margin: 0 auto;
-      width: 400px; }
+      max-width: 400px; }
       @media screen and (min-width: 1280px) {
         #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
-          width: 500px; } }
+          max-width: 500px; } }
       #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image img {
         width: 100%; }
     #start-screen #carousel #carousel-vision #carousel-vision-container .text-divider {
@@ -2988,8 +2998,11 @@ md-toast.md-error-toast-theme {
   #change-password-request .action-container .password-reset:hover {
     text-decoration: underline; }
 
+@media screen and (max-width: 960px) {
+  .contact-dialog {
+    max-width: 100%; } }
+
 #contact-container {
-  min-width: 320px;
   max-width: 400px; }
   #contact-container .contact-content-container {
     overflow-y: scroll; }
@@ -3029,6 +3042,9 @@ md-toast.md-error-toast-theme {
   width: 300px; }
   #loginform #login-container .login-form-container {
     padding: 36px 16px 0 16px; }
+    @media screen and (max-height: 560px) {
+      #loginform #login-container .login-form-container {
+        padding-top: 24px; } }
     #loginform #login-container .login-form-container .input-element {
       margin-top: 4px;
       margin-bottom: 4px; }
@@ -3058,8 +3074,13 @@ md-toast.md-error-toast-theme {
 #register-user {
   max-width: 600px;
   width: 100%; }
+  @media screen and (max-width: 960px) {
+    #register-user {
+      height: 100%;
+      max-height: 90%; } }
   #register-user .register-form-container {
-    width: 100%; }
+    width: 100%;
+    z-index: 1000; }
     #register-user .register-form-container .ely-dialog-title {
       padding: 16px;
       margin-bottom: 0; }
@@ -3068,10 +3089,19 @@ md-toast.md-error-toast-theme {
       margin: 4px 0; }
     #register-user .register-form-container .left-register-input-container {
       margin-left: 16px; }
+      @media screen and (max-width: 960px) {
+        #register-user .register-form-container .left-register-input-container {
+          margin-left: 0; } }
     #register-user .register-form-container .select-gender {
       margin: 24px 0; }
     #register-user .register-form-container .ely-recaptcha {
       margin-top: 16px; }
+      @media screen and (max-width: 960px) {
+        #register-user .register-form-container .ely-recaptcha {
+          transform: scale(0.77);
+          -webkit-transform: scale(0.77);
+          transform-origin: 0 0;
+          -webkit-transform-origin: 0 0; } }
     #register-user .register-form-container .agb-link {
       color: #3F51B5; }
     #register-user .register-form-container .agb-link:hover {
@@ -3114,6 +3144,8 @@ md-toast.md-error-toast-theme {
   @media screen and (min-width: 960px) {
     #start-screen {
       background-color: #FFFFFF; } }
+  #start-screen #start-container {
+    height: 100%; }
   #start-screen .text-phase-description {
     cursor: pointer;
     color: #EF6C00;
@@ -3132,6 +3164,10 @@ md-toast.md-error-toast-theme {
     font-weight: 500;
     text-align: center;
     margin-bottom: 16px; }
+    @media screen and (max-height: 560px) {
+      #start-screen .description {
+        font-size: 14px;
+        margin-bottom: 8px; } }
   #start-screen .ely-logo {
     width: 150px; }
     @media screen and (min-width: 600px) {
@@ -3140,19 +3176,19 @@ md-toast.md-error-toast-theme {
     @media screen and (min-width: 1920px) {
       #start-screen .ely-logo {
         width: 220px; } }
+    @media screen and (max-height: 560px) {
+      #start-screen .ely-logo {
+        width: 120px; } }
 
-#start-screen #start-container-desktop {
-  height: 100%; }
-
-@media screen and (max-width: 480px) {
-  #start-screen {
-    min-height: 480px; } }
-#start-screen #start-container-mobile {
-  padding: 32px 16px 16px 16px; }
+@media screen and (max-width: 960px) {
+  .terms-dialog {
+    max-width: 100%; } }
 
 .terms-container {
-  height: 100%;
-  min-width: 320px; }
+  height: 100%; }
+  @media screen and (max-width: 960px) {
+    .terms-container {
+      margin-left: 0; } }
   .terms-container .terms-content-container {
     overflow-y: scroll; }
     .terms-container .terms-content-container #ely-terms {

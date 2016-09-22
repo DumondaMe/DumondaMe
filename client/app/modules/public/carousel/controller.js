@@ -1,8 +1,9 @@
 'use strict';
 
-module.exports = ['ElyModal', function (ElyModal) {
+module.exports = ['ElyModal', '$mdMedia', function (ElyModal, $mdMedia) {
     var ctrl = this;
     ctrl.actualScreen = 0;
+    ctrl.$mdMedia = $mdMedia;
 
     ctrl.openAgb = function () {
         ElyModal.show('ThermsCtrl', 'app/modules/public/terms/modal/template.html', {});

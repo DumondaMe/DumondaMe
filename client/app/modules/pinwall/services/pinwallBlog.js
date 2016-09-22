@@ -14,7 +14,7 @@ module.exports = [
 
         this.removePinwallElement = function () {
             return requestService.removedPinwallElement().then(function (newPinwall) {
-                pinwall.length = 0;
+                pinwall.splice(0,pinwall.length); //Empty Array
                 angular.forEach(newPinwall.pinwall, function (pinwallElement, index) {
                     pinwall[index] = pinwallElement;
                 });

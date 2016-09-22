@@ -1,13 +1,5 @@
 <div id="start-screen">
-    <div id="start-container-mobile" ng-if="!ctrl.$mdMedia('gt-sm')">
-        <div layout="column" layout-align="start center">
-            <img src="app/img/start/logo.png" class="ely-logo">
-            <div class="description">Das Netzwerk für einen sozialen Wandel</div>
-            <ely-login password-reset="ctrl.showPasswordReset" ng-show="!ctrl.showPasswordReset"></ely-login>
-            <ely-password-reset-request back="ctrl.showPasswordReset" ng-show="ctrl.showPasswordReset"></ely-password-reset-request>
-        </div>
-    </div>
-    <div id="start-container-desktop" ng-if="ctrl.$mdMedia('gt-sm')">
+    <div id="start-container">
         <ely-start-screen-carousel></ely-start-screen-carousel>
     </div>
 </div>

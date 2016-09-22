@@ -19,6 +19,9 @@
     width: 300px;
     .login-form-container {
       padding: 36px 16px 0 16px;
+      @media screen and (max-height: 560px) {
+        padding-top: 24px;
+      }
       .input-element {
         margin-top: 4px;
         margin-bottom: 4px;
