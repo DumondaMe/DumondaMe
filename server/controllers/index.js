@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var logger = requireLogger.getLogger(__filename);
 
 module.exports = function (router) {
 
@@ -13,6 +14,7 @@ module.exports = function (router) {
             'username': username
         }));
         res.sendFile(path.join(process.env.BASE_DIR, '../client/app/', 'index.html'));
+        logger.info('Request of client code', req);
     });
 
 };
