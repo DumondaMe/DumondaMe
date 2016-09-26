@@ -33,7 +33,7 @@
                     <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
                         <md-input-container class="input-container">
                             <label>Titel</label>
-                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="100"
+                            <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
                                    ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
                             <div ng-messages="ctrl.manageLinkPageForm.title.$error">
                                 <div ng-message="required">Wird benötigt!</div>

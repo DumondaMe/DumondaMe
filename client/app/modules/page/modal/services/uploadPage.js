@@ -12,9 +12,13 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
                 ctrl.data.linkEmbed = resp.data.linkEmbed;
                 ctrl.recommendPage = true;
                 return resp;
-            }, function () {
+            }, function (resp) {
                 ctrl.uploadStarted = false;
-                errorToast.showError('Seite konnte nicht hochgeladen werden!');
+                if (resp.data && resp.data.errorCode === 2) {
+                    errorToast.showError('Das Bild ist zu klein! Seite wurde nicht erstellt.');
+                } else {
+                    errorToast.showError('Seite konnte nicht hochgeladen werden!');
+                }
             });
     };
 
@@ -28,9 +32,13 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
                 ctrl.data.linkHistoryDate = resp.linkHistoryDate;
                 ElyModal.hide(ctrl.data);
             })
-            .error(function () {
+            .error(function (resp) {
                 ctrl.uploadStarted = false;
-                errorToast.showError('Seite konnte nicht verändert werden!');
+                if (resp.data && resp.data.errorCode === 2) {
+                    errorToast.showError('Das Bild ist zu klein! Seite wurde nicht verändert.');
+                } else {
+                    errorToast.showError('Seite konnte nicht verändert werden!');
+                }
             });
     };
 }];

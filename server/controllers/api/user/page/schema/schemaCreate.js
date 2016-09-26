@@ -16,7 +16,7 @@ module.exports = {
                 topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
-                author: {type: 'string', format: 'notEmptyString', maxLength: 100},
+                author: {type: 'string', format: 'notEmptyString', maxLength: 255},
                 publishDate: {type: 'integer'},
                 language: language.language
             }

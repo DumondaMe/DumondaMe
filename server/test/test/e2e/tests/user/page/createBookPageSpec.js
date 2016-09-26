@@ -185,6 +185,7 @@ describe('Integration Tests for creating new book pages', function () {
             return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
+            res.body.errorCode.should.equal(2);
             return db.cypher().match("(page:Page {title: 'title'})")
                 .return('page.pageId AS pageId')
                 .end().send();
@@ -212,6 +213,7 @@ describe('Integration Tests for creating new book pages', function () {
             return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
+            res.body.errorCode.should.equal(2);
             return db.cypher().match("(page:Page {title: 'title'})")
                 .return('page.pageId AS pageId')
                 .end().send();

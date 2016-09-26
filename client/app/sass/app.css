@@ -2065,8 +2065,10 @@ md-toast.md-error-toast-theme {
   min-width: 300px; }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
     font-size: 16px;
-    max-height: 57px;
     overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
+        max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
         font-size: 18px; } }
@@ -2224,9 +2226,10 @@ md-toast.md-error-toast-theme {
   min-width: 300px; }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
     cursor: pointer;
-    font-size: 16px;
-    max-height: 57px;
     overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
+        max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
         font-size: 18px; } }
@@ -2299,9 +2302,10 @@ md-toast.md-error-toast-theme {
   min-width: 300px; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
     margin-bottom: 16px;
-    font-size: 16px;
-    max-height: 57px;
     overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
+        max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
         font-size: 18px; } }
