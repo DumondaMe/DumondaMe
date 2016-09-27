@@ -1,7 +1,5 @@
 'use strict';
 
-var link = require('./link.js');
-
 module.exports = {
     directive: [ function () {
         return {
@@ -9,13 +7,15 @@ module.exports = {
             replace: true,
             scope: {},
             templateUrl: 'app/modules/common/loadImageButton/template.html',
-            controller: function () {},
-            link: link.directiveLink(),
+            controller: require('./controller.js'),
+            link: require('./link.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 imageForUpload: '=',
+                label: '@',
                 ariaLabel: '@',
-                icon: '@'
+                icon: '@',
+                openDialogInit: '@'
             }
         };
     }],

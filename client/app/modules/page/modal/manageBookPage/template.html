@@ -90,7 +90,7 @@
     <md-progress-linear ng-if="ctrl.uploadStarted && !ctrl.selectImage" md-mode="indeterminate"></md-progress-linear>
 
     <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
-                         ng-show="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+                         ng-if="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
 
     <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
                                        cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
