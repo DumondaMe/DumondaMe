@@ -746,6 +746,7 @@ md-toast.md-error-toast-theme {
 #detail-user-pinwall .pinwall-container {
   height: 100%;
   padding: 0 8px;
+  overflow-x: hidden;
   overflow-y: auto; }
   #detail-user-pinwall .pinwall-container .pinwall-inner-container {
     max-width: 400px;
@@ -2956,6 +2957,10 @@ md-toast.md-error-toast-theme {
     @media screen and (max-width: 960px) {
       #start-screen #carousel #carousel-vision #carousel-vision-container {
         padding-top: 54px; } }
+    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text-bold {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px; }
     #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text {
       font-size: 18px;
       font-weight: 300;
@@ -2977,7 +2982,7 @@ md-toast.md-error-toast-theme {
     #start-screen #carousel #carousel-vision #carousel-vision-container .text-divider {
       height: 4px; }
     #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container {
-      padding: 32px 0 64px 0; }
+      padding: 16px 0 64px 0; }
       #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container img {
         height: 64px;
         width: 64px;

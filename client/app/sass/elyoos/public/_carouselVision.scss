@@ -18,6 +18,11 @@
         @media screen and (max-width: $gt-sm) {
           padding-top: 54px;
         }
+        .vision-text-bold {
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 26px;
+        }
         .vision-text {
           font-size: 18px;
           font-weight: 300;
@@ -45,7 +50,7 @@
           height: 4px;
         }
         .developer-container {
-          padding: 32px 0 64px 0;
+          padding: 16px 0 64px 0;
           img {
             height: 64px;
             width: 64px;
