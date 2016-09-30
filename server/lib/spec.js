@@ -8,6 +8,7 @@ var userLib = require('./user')();
 var db = require('./database');
 var cdn = require('./cdn');
 var email = require('./eMail/eMailQueue');
+var pjson = require('./../package.json');
 
 module.exports = function (app) {
 
@@ -56,6 +57,17 @@ module.exports = function (app) {
                 next();
             });
         }
+    });
+
+    app.use(function (req, res, next) {
+        var originalStatus = res.status;
+        res.status = function (data) {
+            if (req.headers.elyoosversion && req.headers.elyoosversion !== pjson.version) {
+                data = 418;
+            }
+            return originalStatus.apply(this, [data]);
+        };
+        next();
     });
 
     return {

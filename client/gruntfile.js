@@ -1,5 +1,9 @@
 'use strict';
 
+var processNgConstant = function (ngConstant) {
+    return {version: ngConstant.version};
+};
+
 module.exports = function (grunt) {
 
     require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
@@ -10,12 +14,10 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         browserify: {
-            client: {
-                options: {
-                    /*transform: [["babelify", { stage: 0 , ignore: ['/app/lib/']}]]*/
-                },
-                src: ['app/modules/**/*.js'],
-                dest: 'app/dist/app.js'
+            dist: {
+                files: {
+                    'app/dist/app.js': ['app/modules/**/*.js']
+                }
             }
         },
         clean: ['app/dist/*.js'],
@@ -45,14 +47,14 @@ module.exports = function (grunt) {
                 options: {
                     module: 'elyoosApp',
                     htmlmin: {
-                        collapseBooleanAttributes:      true,
-                        collapseWhitespace:             true,
-                        removeAttributeQuotes:          true,
-                        removeComments:                 true, // Only if you don't use comment directives!
-                        removeEmptyAttributes:          true,
-                        removeRedundantAttributes:      true,
-                        removeScriptTypeAttributes:     true,
-                        removeStyleLinkTypeAttributes:  true
+                        collapseBooleanAttributes: true,
+                        collapseWhitespace: true,
+                        removeAttributeQuotes: true,
+                        removeComments: true, // Only if you don't use comment directives!
+                        removeEmptyAttributes: true,
+                        removeRedundantAttributes: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true
                     }
                 },
                 src: 'app/modules/**/*.html',
@@ -64,6 +66,16 @@ module.exports = function (grunt) {
                 configFile: 'test/config/karma.coverage.conf.js',
                 singleRun: true
             }
+        },
+        ngconstant: {
+            options: {
+                name: 'config',
+                dest: 'app/dist/config.js',
+                constants: {
+                    elyoosVersion: processNgConstant(grunt.file.readJSON('../server/package.json'))
+                }
+            },
+            build: {}
         },
         sonarRunner: {
             analysis: {
@@ -99,6 +111,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('coverage', ['karma', 'sonarRunner']);
-    grunt.registerTask('build', ['clean', 'ngtemplates', 'browserify', 'uglify']);
-    grunt.registerTask('buildDebug', ['ngtemplates', 'browserify']);
+    grunt.registerTask('build', ['clean', 'ngtemplates', 'ngconstant', 'browserify', 'uglify']);
+    grunt.registerTask('buildDebug', ['ngtemplates', 'ngconstant', 'browserify']);
 };

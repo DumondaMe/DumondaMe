@@ -1,6 +1,5 @@
 {
   "name": "elyoos-client-test",
-  "version": "1.0.0",
   "description": "elyoos",
   "repository": "",
   "dependencies": {
@@ -35,7 +34,8 @@
     "grunt-sonar-runner": "~2.4.4",
     "grunt-angular-templates": "~0.5.9",
     "grunt-contrib-cssmin": "~0.10.0",
-    "grunt-contrib-clean": "~0.6.0"
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-ng-constant": "2.0.1"
   },
   "browser": {
     "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",

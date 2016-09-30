@@ -3,6 +3,7 @@
 require('angular-ui-route');
 
 var app = angular.module('elyoosApp', [
+    'config',
     'ui.router',
     'ngSanitize',
     'ngCookies',
@@ -38,14 +39,15 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
 };
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',
-    '$mdIconProvider',
+    '$mdIconProvider', 'elyoosVersion',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $compileProvider, $mdThemingProvider,
-              $mdIconProvider) {
+              $mdIconProvider, elyoosVersion) {
 
         $compileProvider.debugInfoEnabled(false);
 
         $urlRouterProvider.otherwise('/home/');
         $urlRouterProvider.when('', '/home/');
+        $httpProvider.defaults.headers.common.elyoosversion = elyoosVersion.version;
 
         $stateProvider
             .state('home', {
@@ -68,17 +70,21 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         $locationProvider.html5Mode(true);
 
-        $httpProvider.interceptors.push(['$q', '$location', 'loginStateHandler', function ($q, $location, loginStateHandler) {
-            return {
-                'responseError': function (response) {
-                    if (response.status === 401 || response.status === 403) {
-                        loginStateHandler.logoutEvent();
-                        $location.path('/');
+        $httpProvider.interceptors.push(['$q', '$location', 'loginStateHandler', 'updateStateHandler',
+            function ($q, $location, loginStateHandler, updateStateHandler) {
+                return {
+                    'responseError': function (response) {
+                        if (response.status === 401 || response.status === 403) {
+                            loginStateHandler.logoutEvent();
+                            $location.path('/');
+                        } else if (response.status === 418) {
+                            updateStateHandler.setUpdateRequested(true);
+                            return $q.resolve(response);
+                        }
+                        return $q.reject(response);
                     }
-                    return $q.reject(response);
-                }
-            };
-        }]);
+                };
+            }]);
 
         if (!$httpProvider.defaults.headers.get) {
             $httpProvider.defaults.headers.get = {};
@@ -88,8 +94,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
-    }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'loginStateHandler', 'userInfo',
-    function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo) {
+    }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'loginStateHandler', 'userInfo', 'updateStateHandler',
+    function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo, updateStateHandler) {
         var firstRun = true;
 
         loginStateHandler.register('userInfo', userInfo);
@@ -102,6 +108,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                     CheckLoginStateParamsContainer.setParams(toState.name, toParams);
                     $state.go('checkLoginState', null, {location: false});
                 }
+            }
+        });
+        $rootScope.$on('$stateChangeSuccess', function () {
+            if (updateStateHandler.isUpdateRequestPending()) {
+                updateStateHandler.setUpdateRequested(false);
+                window.location.reload();
             }
         });
     }]);
