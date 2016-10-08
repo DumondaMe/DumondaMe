@@ -14,15 +14,15 @@
                 <div class="ely-help-container">
                     <div class="help-title">Deine Kontakte</div>
                     <div class="help-text">Füge Personen deiner Kontaktliste hinzu um von deren Empfehlung zu profitieren. Die hinzugefügte Person
-                        muss bei diesem Vorgang keine Freundschaftsanfrage bestätigen. Es wird ihr lediglich eine Meldung angezeigt, dass Du sie zu
-                        Deinen Kontakten hinzugefügt hast. Du hast zudem die Möglichkeit verschiedene Gruppen zu erstellen mit unterschiedlichen
+                        muss bei diesem Vorgang keine Freundschaftsanfrage bestätigen. Es wird ihr lediglich eine Meldung angezeigt, dass du sie zu
+                        deinen Kontakten hinzugefügt hast. Du hast zudem die Möglichkeit verschiedene Gruppen zu erstellen mit unterschiedlichen
                         Privatsphären Einstellungen.
                     </div>
                 </div>
             </div>
         </div>
         <div class="preview-container" ng-repeat="statistic in ctrl.statistics.statistic">
-            <ely-contact-preview statistic="statistic" statistics="ctrl.statistics.statistic"
+            <ely-contact-preview statistic="statistic" statistics="ctrl.statistics.statistic" removed-contact="ctrl.removedContact()"
                                  delete-group="ctrl.deleteGroup(name)"></ely-contact-preview>
         </div>
         <div layout="row" class="add-new-group">

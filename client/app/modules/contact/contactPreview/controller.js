@@ -56,6 +56,7 @@ module.exports = {
                         UserStateService.removeContact(ctrl.overview.contacts, contactId);
                         ScrollRequest.removedElement(scrollRequestName);
                         ContactStatisticTypes.removeContact(ctrl.statistic);
+                        ctrl.removedContact();
                     });
                 };
 
@@ -64,6 +65,7 @@ module.exports = {
                         UserStateService.removeContact(ctrl.overview.contacts, contactId);
                         ScrollRequest.removedElement(scrollRequestName);
                         ContactStatisticTypes.removeContact(ctrl.statistic);
+                        ctrl.removedContact();
                     });
                 };
 

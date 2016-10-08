@@ -12,7 +12,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 statistics: '=',
-                statistic: '='
+                statistic: '=',
+                removedContact: '&'
             },
             templateUrl: 'app/modules/contact/contactPreview/template.html'
         };
