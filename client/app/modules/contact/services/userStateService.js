@@ -4,7 +4,7 @@ module.exports = ['Contact', 'ContactStatisticTypes', '$q', '$mdDialog', 'errorT
     function (Contact, ContactStatisticTypes, $q, $mdDialog, errorToast) {
 
         this.addContact = function (contactId, name) {
-            var types = ContactStatisticTypes.getTypes();
+            var types = ContactStatisticTypes.getTypes(), deferred = $q.defer();
             if (angular.isString(contactId) && angular.isString(name)) {
                 if (types.length !== 1) {
                     return $mdDialog.show({
@@ -18,14 +18,17 @@ module.exports = ['Contact', 'ContactStatisticTypes', '$q', '$mdDialog', 'errorT
                         controllerAs: 'ctrl'
                     });
                 }
-                return Contact.save({
+                Contact.save({
                     contactIds: [contactId],
                     mode: 'addContact',
                     description: types[0]
-                },function () {
+                }, function () {
+                    deferred.resolve(types[0]);
                 }, function () {
                     errorToast.showError('Es ist ein Fehler aufgetretten!');
-                }).$promise;
+                    deferred.reject();
+                });
+                return deferred.promise;
             }
             return $q.reject();
         };
