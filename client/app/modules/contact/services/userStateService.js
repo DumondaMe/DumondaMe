@@ -1,21 +1,31 @@
 'use strict';
 
-module.exports = ['Contact', '$q', '$mdDialog',
-    function (Contact, $q, $mdDialog) {
+module.exports = ['Contact', 'ContactStatisticTypes', '$q', '$mdDialog', 'errorToast',
+    function (Contact, ContactStatisticTypes, $q, $mdDialog, errorToast) {
 
         this.addContact = function (contactId, name) {
+            var types = ContactStatisticTypes.getTypes();
             if (angular.isString(contactId) && angular.isString(name)) {
-
-                return $mdDialog.show({
-                    templateUrl: 'app/modules/contact/modal/addContact/template.html',
-                    parent: angular.element(document.body),
-                    clickOutsideToClose: false,
-                    escapeToClose: false,
-                    controller: 'AddContactController',
-                    locals: {name: name, contactId: contactId},
-                    bindToController: true,
-                    controllerAs: 'ctrl'
-                });
+                if (types.length !== 1) {
+                    return $mdDialog.show({
+                        templateUrl: 'app/modules/contact/modal/addContact/template.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false,
+                        escapeToClose: false,
+                        controller: 'AddContactController',
+                        locals: {name: name, contactId: contactId},
+                        bindToController: true,
+                        controllerAs: 'ctrl'
+                    });
+                }
+                return Contact.save({
+                    contactIds: [contactId],
+                    mode: 'addContact',
+                    description: types[0]
+                },function () {
+                }, function () {
+                    errorToast.showError('Es ist ein Fehler aufgetretten!');
+                }).$promise;
             }
             return $q.reject();
         };
