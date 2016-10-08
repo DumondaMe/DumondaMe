@@ -21,7 +21,6 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
         ctrl.showContactOverview = function () {
             ctrl.showOverviewContact = true;
             ctrl.showOverviewContacting = false;
-            ToolbarService.setTitle(ctrl.userName + "'s Kontakte");
             if (ctrl.contactingPreviewEvents.hasOwnProperty('detailClosed')) {
                 ctrl.contactingPreviewEvents.detailClosed();
             }
@@ -30,7 +29,6 @@ module.exports = ['UserDetail', '$stateParams', '$mdMedia', 'ContactStatisticTyp
         ctrl.showContactingOverview = function () {
             ctrl.showOverviewContacting = true;
             ctrl.showOverviewContact = false;
-            ToolbarService.setTitle(ctrl.userName + "'s Follower");
             if (ctrl.contactPreviewEvents.hasOwnProperty('detailClosed')) {
                 ctrl.contactPreviewEvents.detailClosed();
             }
