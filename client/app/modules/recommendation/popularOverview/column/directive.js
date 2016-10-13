@@ -10,7 +10,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 id: '@',
-                title: '@',
+                elyTitle: '@',
                 period: '@'
             },
             templateUrl: 'app/modules/recommendation/popularOverview/column/template.html'

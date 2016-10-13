@@ -1,8 +1,8 @@
 <div id="ely-recommendation-popular-overview" layout="row">
     <div class="ely-recommendation-popular-overview-container" layout="row" flex="grow" ng-if="ctrl.$mdMedia('(min-width: 510px)')">
-        <ely-recommendation-popular-column flex="50" id="1" title="Beliebteste Empfehlungen"
+        <ely-recommendation-popular-column flex="50" id="1" ely-title="Beliebteste Empfehlungen"
                                            period="all"></ely-recommendation-popular-column>
-        <ely-recommendation-popular-column flex="50" id="2" title="Beliebteste Empfehlungen der letzten 14 Tage"
+        <ely-recommendation-popular-column flex="50" id="2" ely-title="Beliebteste Empfehlungen der letzten 14 Tage"
                                            period="twoWeeks"></ely-recommendation-popular-column>
     </div>
     <div class="ely-recommendation-popular-overview-container" ng-if="!ctrl.$mdMedia('(min-width: 510px)')">
