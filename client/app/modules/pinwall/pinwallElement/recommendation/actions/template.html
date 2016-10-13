@@ -5,8 +5,8 @@
                    ng-click="ctrl.recommendPage()">
             <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
         </md-button>
-        <md-tooltip md-direction="bottom" ng-show="ctrl.element.recommendedByUser">Du hast diese Seite empfohlen</md-tooltip>
-        <md-tooltip md-direction="bottom" ng-show="!ctrl.element.recommendedByUser">Diese Seite empfehlen</md-tooltip>
+        <md-tooltip md-direction="bottom" ng-if="ctrl.element.recommendedByUser">Du hast diese Seite empfohlen</md-tooltip>
+        <md-tooltip md-direction="bottom" ng-if="!ctrl.element.recommendedByUser">Diese Seite empfehlen</md-tooltip>
     </div>
     <div class="number-container ">
         <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
