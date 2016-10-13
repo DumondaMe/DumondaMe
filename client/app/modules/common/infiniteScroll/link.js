@@ -12,9 +12,9 @@ module.exports = {
                         scope.scrollPosition(raw.scrollTop, raw.scrollHeight);
                     });
                 }
-                if ((raw.scrollTop * 1.5 ) + raw.offsetHeight >= raw.scrollHeight &&
+                if ((raw.scrollTop * 1.5) + raw.offsetHeight >= raw.scrollHeight &&
                     (angular.isArray(scope.elyInfiniteScroll) || angular.isFunction(scope.elyInfiniteScroll))) {
-                    return scope.$apply(function () {
+                    return scope.$applyAsync(function () {
                         if (angular.isFunction(scope.elyInfiniteScroll)) {
                             scope.elyInfiniteScroll();
                         } else {

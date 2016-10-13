@@ -25,14 +25,15 @@
   }
   .ely-sidenav-right {
     height: 100%;
-    width: 200px;
-    @media screen and (min-width: $gt-xmd) {
-      width: 250px;
-    }
+    width: 250px;
   }
   .filter-fab {
     position: fixed;
     bottom: 0;
     right: 0;
+    @media screen and (min-width: $gt-sm) {
+      bottom: 15px;
+      right: 24px;
+    }
   }
 }
