@@ -69,7 +69,11 @@
     padding-bottom: 8px;
     .blog-text {
       cursor: pointer;
-      color: $primary-text;
+      font-size: 14px;
+      color: $secondary-text;
+      @media screen and (max-width: $gt-xxs) {
+        font-size: 12px;
+      }
     }
   }
 }

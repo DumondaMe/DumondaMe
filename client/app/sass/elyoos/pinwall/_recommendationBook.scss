@@ -11,7 +11,6 @@
     .description-container {
       position: relative;
       height: 207px;
-      min-width: 150px;
       .topic-description {
         .topic-type {
           margin-top: 0;
@@ -24,6 +23,10 @@
         color: $secondary-text;
         overflow: hidden;
         -ms-scroll-limit: 0 0 0 0;
+        @media screen and (max-width: $gt-xxs) {
+          font-size: 12px;
+          height: 155px;
+        }
       }
       .action-container {
         position: absolute;

@@ -88,12 +88,11 @@
 @import 'pinwall/_noPinwallElement';
 @import 'pinwall/_pageRecommendationActions';
 @import 'pinwall/_pinwallContainer';
-@import 'pinwall/_recommendationDesktop';
-@import 'pinwall/_recommendationDesktopBlog';
-@import 'pinwall/_recommendationDesktopBook';
-@import 'pinwall/_recommendationDesktopLink';
-@import 'pinwall/_recommendationDesktopYoutube';
-@import 'pinwall/_recommendationMobile';
+@import 'pinwall/_recommendation';
+@import 'pinwall/_recommendationBlog';
+@import 'pinwall/_recommendationBook';
+@import 'pinwall/_recommendationLink';
+@import 'pinwall/_recommendationYoutube';
 @import 'pinwall/_recommendationRatingOverview';
 @import 'pinwall/_recommendedUser';
 

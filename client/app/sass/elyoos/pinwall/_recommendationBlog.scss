@@ -26,6 +26,9 @@
         word-wrap: normal;
         font-size: 14px;
         color: $secondary-text;
+        @media screen and (max-width: $gt-xxs) {
+          font-size: 12px;
+        }
       }
     }
   }

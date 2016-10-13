@@ -2518,7 +2518,11 @@ md-toast.md-error-toast-theme {
     padding-bottom: 8px; }
     .pinwall-blog-card .card-content-container .blog-text {
       cursor: pointer;
-      color: rgba(0, 0, 0, 0.87); }
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+      @media screen and (max-width: 480px) {
+        .pinwall-blog-card .card-content-container .blog-text {
+          font-size: 12px; } }
 
 .blog-actions {
   padding: 0 8px 8px 8px; }
@@ -2702,6 +2706,9 @@ md-toast.md-error-toast-theme {
     word-wrap: normal;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }
+    @media screen and (max-width: 480px) {
+      .blog-recommendation-desktop .content-container .description-container .blog-text {
+        font-size: 12px; } }
 
 .book-recommendation-desktop {
   padding: 0 16px 16px 16px; }
@@ -2712,8 +2719,7 @@ md-toast.md-error-toast-theme {
       border-radius: 2px; }
   .book-recommendation-desktop .content-container .description-container {
     position: relative;
-    height: 207px;
-    min-width: 150px; }
+    height: 207px; }
     .book-recommendation-desktop .content-container .description-container .topic-description .topic-type {
       margin-top: 0; }
     .book-recommendation-desktop .content-container .description-container .book-description {
@@ -2723,6 +2729,10 @@ md-toast.md-error-toast-theme {
       color: rgba(0, 0, 0, 0.54);
       overflow: hidden;
       -ms-scroll-limit: 0 0 0 0; }
+      @media screen and (max-width: 480px) {
+        .book-recommendation-desktop .content-container .description-container .book-description {
+          font-size: 12px;
+          height: 155px; } }
     .book-recommendation-desktop .content-container .description-container .action-container {
       position: absolute;
       bottom: -8px;
@@ -2741,6 +2751,10 @@ md-toast.md-error-toast-theme {
   color: rgba(0, 0, 0, 0.54);
   overflow-y: hidden;
   max-height: 3.2em; }
+  @media screen and (max-width: 480px) {
+    .link-recommendation-desktop .link-description {
+      font-size: 12px;
+      max-height: 3em; } }
 .link-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
 
@@ -2755,53 +2769,12 @@ md-toast.md-error-toast-theme {
   color: rgba(0, 0, 0, 0.54);
   overflow-y: hidden;
   max-height: 3.2em; }
+  @media screen and (max-width: 480px) {
+    .youtube-recommendation-desktop .youtube-description {
+      font-size: 12px;
+      max-height: 3em; } }
 .youtube-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
-
-.card-recommendation {
-  max-width: 450px;
-  min-width: 280px;
-  width: 100%;
-  margin: 8px 0; }
-  .card-recommendation .header {
-    cursor: pointer; }
-    .card-recommendation .header .user-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-    .card-recommendation .header .recommendation-created {
-      font-size: 12px;
-      line-height: 24px;
-      color: rgba(0, 0, 0, 0.54);
-      vertical-align: middle;
-      display: inline-block;
-      margin-right: 8px; }
-    .card-recommendation .header .page-rating {
-      margin-left: 4px; }
-  .card-recommendation .topic-description {
-    padding: 0 16px 4px 16px; }
-  .card-recommendation .content-container {
-    padding-top: 0;
-    cursor: pointer; }
-    .card-recommendation .content-container .page-title {
-      font-weight: 500;
-      font-size: 16px;
-      max-height: 38px;
-      overflow: hidden; }
-    .card-recommendation .content-container .description {
-      margin-top: 8px;
-      font-size: 14px;
-      line-height: 16px;
-      max-height: 48px;
-      overflow: hidden;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 8px; }
-    .card-recommendation .content-container .forename {
-      font-weight: 400;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.87); }
-  .card-recommendation .page-recommendation-container {
-    padding: 0 8px 8px 8px; }
 
 .pinwall-recommendation-rating-overview .container {
   padding-top: 8px;
