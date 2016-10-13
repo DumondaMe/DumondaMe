@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<!-- saved from url=(0111)https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins -->
+<html lang="en" class="wf-proximanova-n6-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>How To Configure Nginx with SSL as a Reverse Proxy for Jenkins | DigitalOcean</title>
+
+<meta name="description" content="Serve Jenkins more securely with Nginx as a front-end proxy server. This configuration forces SSL.">
+<meta name="keywords" content="Security Load Balancing Nginx">
+
+<meta name="og:title" content="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins | DigitalOcean">
+<meta name="og:description" content="Serve Jenkins more securely with Nginx as a front-end proxy server. This configuration forces SSL.">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins | DigitalOcean">
+<meta name="twitter:description" content="Serve Jenkins more securely with Nginx as a front-end proxy server. This configuration forces SSL.">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins">
+
+<meta property="og:image" content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/Nginx_with_SSL-twitter.png?1426699732">
+<meta name="twitter:image" content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/Nginx_with_SSL-twitter.png?1426699732">
+
+  <link rel="canonical" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins">
+
+
+    <link rel="stylesheet" media="all" href="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/application-465218ea04765f3bf1407293a4e0bde8.css">
+
+    
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="XZsa+wrEgNyjfdtw1mb/Tx/i75BOnvwoV4DfoL8Wa0v/ewzazOQMmls+yyqjwYU1TaRD4VepDtUuK6HOj8ui7g==">
+      <script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/linkid.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/conversion_async.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/analytics.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/munchkin.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/track.js.Download" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/gtm.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/analytics.min.js.Download"></script><script src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/izu1uqu.js.Download"></script>
+      <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-proxima-nova-n6;src:url(https://fonts.typekit.net/af/921f74/00000000000000003b9ad1bb/27/l?subset_id=2&fvd=n6) format("woff2");font-weight:600;font-style:normal;}@font-face{font-family:tk-proxima-nova-n4;src:url(https://fonts.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:400;font-style:normal;}@font-face{font-family:tk-proxima-nova-i4;src:url(https://fonts.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}@font-face{font-family:tk-proxima-nova-n3;src:url(https://fonts.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/l?subset_id=2&fvd=n3) format("woff2");font-weight:300;font-style:normal;}</style><script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/bugsnag-2.min.js.Download" data-apikey="9ffc01bc3e1fa7891bfd20909d1bfb0e">
+    </script>
+    <!--<script src="//cdn.optimizely.com/js/701281621.js"></script>-->
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.digitalocean.com/community/tutorials/feed">
+    <script src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/polyfill.min.js.Download"></script>
+    <script>
+      window.comApp = {
+        prefix: '/community',
+        svgIconPath: 'https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg',
+        railsEnv: 'production',
+        rootUrl: 'https://www.digitalocean.com/community'
+      };
+    </script>
+    <script src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/application-c8412b7ccded0af6aec8d0dcbffe1525.js.Download"></script>
+    <script>
+  window.featureFlags = {
+    upvotes: true
+  };
+</script>
+
+  <style>.fluidvids {width: 100%; max-width: 100%; position: relative;}.fluidvids-item {position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;}</style><script id="twitter-wjs" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/widgets.js.Download"></script><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://fonts.typekit.net/af/921f74/00000000000000003b9ad1bb/27/l?subset_id=2&fvd=n6) format("woff2");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://fonts.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://fonts.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://fonts.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/l?subset_id=2&fvd=n3) format("woff2");font-weight:300;font-style:normal;}</style><script id="facebook-jssdk" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/all.js.Download"></script><script type="text/javascript" async="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/munchkin.js(1).Download"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+  <body class="feature-upvotes tutorials-controller tutorial-single" data-env="production" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011">
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+
+    
+
+    <div class="outside_viewport">
+        <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <button class="close-button icon icon-close-light" data-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="table-of-contents-modal open tocify"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-one-—-configure-nginx"><a>Step One — Configure Nginx</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="step-two-—-configure-jenkins"><a>Step Two — Configure Jenkins</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="optional-—-update-oauth-urls"><a>Optional — Update OAuth URLs</a></li></ul></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="top ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;u=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;u=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="table-of-contents  tocify sticky" style="top: 72px;"><ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="step-one-—-configure-nginx"><a>Step One — Configure Nginx</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="step-two-—-configure-jenkins"><a>Step Two — Configure Jenkins</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="optional-—-update-oauth-urls"><a>Optional — Update OAuth URLs</a></li></ul></div>
+  
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="bottom ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;u=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Configure%20Nginx%20with%20SSL%20as%20a%20Reverse%20Proxy%20for%20Jenkins&amp;u=https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        
+    </div>
+
+      <div class="mobile-nav">
+  
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+
+  <button type="button" aria-label="close" class="close-panel icon-close"></button>
+
+  <form class="mobile-search" role="search" action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" title="Search" placeholder="Search">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+  
+<nav>
+
+  <ul>
+    <li><a class="active" href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  
+</div>
+
+      
+      <header>
+  <div class="flash-container"></div>
+
+  <div class="main-menu-container">
+    <div class="wrapper">
+      <div class="logo">
+        <a class="" href="https://www.digitalocean.com/">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 32" class="do-icon">
+<title>logo-horizontal</title>
+<path class="path1" d="M16.016 32v-6.204c6.584 0 11.648-6.52 9.147-13.42-0.95-2.564-2.975-4.59-5.539-5.539-6.9-2.501-13.42 2.564-13.42 9.147 0 0 0 0 0 0l-6.204 0.032c0-10.477 10.129-18.643 21.112-15.225 4.811 1.488 8.609 5.317 10.097 10.097 3.418 10.983-4.716 21.112-15.193 21.112z"></path>
+<path class="path2" d="M16.016 25.828h-6.172v-6.172h6.172z"></path>
+<path class="path3" d="M9.844 30.576h-4.748v-4.748h4.748v4.748z"></path>
+<path class="path4" d="M5.096 25.828h-3.988v-3.988h3.988z"></path>
+<path class="path5" d="M56.973 9.242c-1.836-1.266-4.115-1.931-6.773-1.931h-5.792v18.39h5.792c2.659 0 4.938-0.665 6.773-2.026 1.013-0.696 1.804-1.709 2.342-2.944s0.823-2.69 0.823-4.336c0-1.614-0.285-3.070-0.823-4.305-0.538-1.203-1.329-2.152-2.342-2.849zM47.794 10.445h1.836c2.026 0 3.703 0.411 4.969 1.171 1.393 0.855 2.121 2.469 2.121 4.779 0 2.406-0.728 4.083-2.121 5.001v0c-1.203 0.791-2.88 1.203-4.938 1.203h-1.867v-12.154z"></path>
+<path class="path6" d="M64.19 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path7" d="M62.512 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path8" d="M77.642 13.864c-0.981-0.886-2.089-1.393-3.26-1.393-1.804 0-3.292 0.633-4.463 1.836s-1.741 2.785-1.741 4.653c0 1.836 0.57 3.387 1.741 4.653 1.171 1.203 2.659 1.836 4.463 1.836 1.266 0 2.342-0.348 3.228-1.044v0.285c0 1.076-0.285 1.899-0.855 2.5-0.57 0.57-1.361 0.855-2.342 0.855-1.519 0-2.437-0.601-3.608-2.152l-2.216 2.121 0.063 0.095c0.475 0.665 1.203 1.329 2.184 1.962s2.184 0.95 3.64 0.95c1.931 0 3.513-0.601 4.653-1.773 1.171-1.171 1.741-2.754 1.741-4.716v-11.743h-3.197v1.076zM76.787 21.523c-0.57 0.633-1.298 0.95-2.247 0.95s-1.678-0.317-2.216-0.95c-0.57-0.633-0.855-1.488-0.855-2.532s0.285-1.931 0.855-2.564c0.57-0.633 1.298-0.981 2.216-0.981 0.95 0 1.678 0.317 2.247 0.981 0.57 0.633 0.855 1.519 0.855 2.564s-0.317 1.899-0.855 2.532z"></path>
+<path class="path9" d="M83.624 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path10" d="M85.302 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path11" d="M94.038 9.274h-3.197v3.513h-1.867v2.975h1.867v5.381c0 1.678 0.348 2.88 1.013 3.577s1.836 1.044 3.513 1.044c0.538 0 1.076-0.032 1.583-0.063h0.158v-2.975l-1.108 0.063c-0.791 0-1.298-0.127-1.551-0.411s-0.38-0.855-0.38-1.709v-4.906h3.039v-2.975h-3.039v-3.513z"></path>
+<path class="path12" d="M112.364 7.343h3.26v18.39h-3.26v-18.39z"></path>
+<path class="path13" d="M148.574 21.112c-0.57 0.665-1.171 1.234-1.646 1.519v0c-0.443 0.285-1.013 0.443-1.678 0.443-0.95 0-1.741-0.348-2.374-1.076s-0.95-1.646-0.95-2.754 0.317-2.026 0.918-2.722c0.633-0.728 1.393-1.076 2.342-1.076 1.044 0 2.152 0.665 3.102 1.773l2.152-2.057c-1.393-1.836-3.197-2.69-5.349-2.69-1.804 0-3.355 0.665-4.621 1.931s-1.899 2.912-1.899 4.843 0.633 3.545 1.899 4.843c1.266 1.298 2.817 1.931 4.621 1.931 2.374 0 4.273-1.013 5.539-2.88l-2.057-2.026z"></path>
+<path class="path14" d="M161.962 14.591c-0.475-0.633-1.108-1.171-1.867-1.551-0.791-0.38-1.678-0.57-2.69-0.57-1.836 0-3.323 0.665-4.431 1.994-1.076 1.329-1.646 2.944-1.646 4.874 0 1.962 0.601 3.577 1.804 4.843 1.171 1.234 2.785 1.867 4.716 1.867 2.184 0 4.020-0.886 5.349-2.659l0.063-0.095-2.121-2.057c-0.19 0.253-0.475 0.506-0.728 0.76-0.317 0.317-0.633 0.538-0.95 0.696-0.475 0.253-1.044 0.348-1.646 0.348-0.918 0-1.646-0.253-2.216-0.791-0.538-0.475-0.855-1.139-0.918-1.962h8.641l0.032-1.203c0-0.855-0.127-1.646-0.348-2.406-0.222-0.728-0.57-1.456-1.044-2.089zM154.841 17.63c0.158-0.633 0.443-1.139 0.855-1.551 0.443-0.443 1.013-0.665 1.709-0.665 0.791 0 1.393 0.222 1.804 0.665 0.38 0.411 0.601 0.918 0.665 1.519h-5.033z"></path>
+<path class="path15" d="M174.497 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.063-1.583-0.443-2.817-1.456-3.672zM168.704 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.19-0.76 0.538-1.013z"></path>
+<path class="path16" d="M188.55 13.99c-0.918-1.013-2.184-1.519-3.798-1.519-1.298 0-2.342 0.38-3.134 1.108v-0.791h-3.197v12.977h3.26v-7.185c0-0.981 0.222-1.773 0.696-2.311 0.475-0.57 1.076-0.823 1.931-0.823 0.728 0 1.298 0.253 1.709 0.728 0.411 0.506 0.633 1.171 0.633 2.026v7.501h3.26v-7.47c0-1.804-0.443-3.229-1.361-4.241z"></path>
+<path class="path17" d="M108.281 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.032-1.583-0.475-2.817-1.456-3.672zM102.489 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.158-0.76 0.538-1.013z"></path>
+<path class="path18" d="M127.462 26.018c-5.223 0-9.496-4.241-9.496-9.496s4.241-9.496 9.496-9.496 9.496 4.241 9.496 9.496-4.273 9.496-9.496 9.496zM127.462 10.382c-3.387 0-6.14 2.754-6.14 6.14s2.754 6.14 6.14 6.14 6.14-2.754 6.14-6.14-2.754-6.14-6.14-6.14z"></path>
+</svg>
+          <span class="sr-only">DigitalOcean</span>
+</a>
+        <span class="logo-separator"></span>
+
+        <a class="home-link" href="https://www.digitalocean.com/community">
+          <span class="logo-community-text">Community</span>
+</a>      </div>
+
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+      
+<nav>
+
+  <ul>
+    <li><a class="active" href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+
+      
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class="header-search open">
+  <form action="https://www.digitalocean.com/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <span class="icon icon-search-thin"></span>
+    <input type="text" name="q" id="q" title="Search" placeholder="Search" autocomplete="off" spellcheck="false" class="header-search-input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class="header-search-results-list"></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+        <span class="icon-mag"></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{{_highlightResult.title.value}}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    
+  </div>
+</header>
+
+
+      
+
+      <div class="wrapper layout-wrapper">
+
+        
+
+
+
+
+
+
+<div class="section-content section-content-growable content content-has-mobile-image">
+
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+        <div class="tutorial-author-avatar">
+    <a href="https://www.digitalocean.com/community/users/josh-reichardt"><img alt="josh.reichardt" class="avatar avatar-small" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/dec65c26e4784ed68254a8fe7b967d84" width="80" height="80"></a>
+  </div>
+  <div class="author-and-date">
+    <div class="tutorial-author">
+      <div class="by">By: </div>
+      <a href="https://www.digitalocean.com/community/users/josh-reichardt">josh.reichardt</a>
+    </div>
+  </div>
+
+      
+    </div>
+
+    <div class="right-section">
+      
+
+
+        <div class="section-item section-item-subscribe">
+    <span class="opt-in-switch off signed-out-subscribe">
+      <span class="subscribe-label">
+        <span class="icon icon-subscribe"></span>
+        <span class="subscription-label subscribe">Subscribe</span>
+        <span class="icon icon-subscribed"></span>
+        <span class="subscription-label subscribed">Subscribed</span>
+      </span>
+      <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+    </span>
+  </div>
+
+<div class="section-item social-sharing-item">
+  <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+        <div class="section-item table-of-contents-triggers"><div class="toc-trigger ">
+  <a href="javascript:void(0);">
+    <span class="icon icon-contents"></span>
+    <span class="title">Contents</span>
+    <span class="icon icon-close-light"></span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+
+<div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="icon icon-contents"></span>
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+    <img alt="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins" title="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins" class="tutorial-image-mobile" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/Nginx_with_SSL-twitter.png">
+
+  <div class="container tutorial-header">
+      <img alt="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins" title="How To Configure Nginx with SSL as a Reverse Proxy for Jenkins" class="tutorial-image" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/Nginx_with_SSL-twitter.png">
+
+      <div class="info-cta">
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins">
+        Learn more →
+</a>  </div>
+
+
+      <button name="button" type="button" class="new-upvote-button" data-upvotable-id="1317" data-upvotable-type="Tutorial" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">22</span></button>
+
+    <h1 class="content-title">How To Configure Nginx with SSL as a Reverse Proxy for Jenkins</h1>
+
+    <span class="meta-section timestamp">
+        Posted <span class="tutorial-date">Sep 23, 2014</span>
+    </span>
+
+
+    <span class="meta-section pageviews"><span class="icon icon-eye v-mid"></span><span class="views-count v-mid">241.5k</span><span class="sr-only"> views</span></span>
+
+    <span class="meta-section tags">
+      <a class="tag" href="https://www.digitalocean.com/community/tags/nginx?type=tutorials">Nginx</a> <a class="tag" href="https://www.digitalocean.com/community/tags/security?type=tutorials">Security</a> <a class="tag" href="https://www.digitalocean.com/community/tags/load-balancing?type=tutorials">Load Balancing</a>
+      <a class="tag" href="https://www.digitalocean.com/community/tags/ubuntu?type=tutorials">Ubuntu</a>
+    </span>
+  </div>
+
+  <div class="container">
+    
+  </div>
+
+    <div class="content-body tutorial-content" data-growable-markdown="">
+      <h3 id="introduction">Introduction</h3>
+
+<p>By default, Jenkins comes with its own built in web server, which listens on port 8080. This is convenient if you run a private Jenkins instance, or if you just need to get something up quickly and don't care about security. Once you have real production data going to your host, though, it's a good idea to use a more secure web server like Nginx.</p>
+
+<p>This post will detail how to wrap your site with SSL using the Nginx web server as a reverse proxy for your Jenkins instance.  <strong>This tutorial assumes some familiarity with Linux commands, a working Jenkins installation, and a Ubuntu 14.04 installation.</strong> </p>
+
+<p>You can install Jenkins later in this tutorial, if you don't have it installed yet.</p>
+
+<div name="step-one-—-configure-nginx" data-unique="step-one-—-configure-nginx"></div><h2 id="step-one-—-configure-nginx">Step One — Configure Nginx</h2>
+
+<p>Nginx has become a favored web server for its speed and flexibility in recents years, so that is the web server we will be using.</p>
+
+<p>The commands in this section assume that you have a user set up with <a href="https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps">sudo access</a>.</p>
+
+<h3 id="install-nginx">Install Nginx</h3>
+
+<p>Update your package lists and install Nginx:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+sudo apt-get install nginx
+</code></pre>
+<p>It's not crucial, but you may want to check Nginx's version in case you need to do any troubleshooting down the road.  Newer versions of Nginx provide a few more features as well.</p>
+<pre class="code-pre "><code langs="">nginx -v
+</code></pre>
+<h3 id="get-a-certificate">Get a Certificate</h3>
+
+<p>Next, you will need to purchase or create an SSL certificate.  These commands are for a self-signed certificate, but you should get an officially <a href="https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs">signed certificate</a> if you want to avoid browser warnings.</p>
+
+<p>Move into the proper directory and generate a certificate:</p>
+<pre class="code-pre "><code langs="">cd /etc/nginx
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt
+</code></pre>
+<p>You will be prompted to enter some information about the certificate. You can fill this out however you'd like; just be aware the information will be visible in the certificate properties. We've set the number of bits to 2048 since that's the minimum needed to get it signed by a CA. If you want to get the certificate signed, you will need to create a CSR.</p>
+
+<h3 id="edit-the-configuration">Edit the Configuration</h3>
+
+<p>Next you will need to edit the default Nginx configuration file.</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/nginx/sites-enabled/default
+</code></pre>
+<p>Here is what the final config might look like; the sections are broken down and briefly explained below. You can update or replace the existing config file, although you may want to make a quick copy first.</p>
+<pre class="code-pre "><code langs="">server {
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server {
+
+    listen 443;
+    server_name <span class="highlight">jenkins.domain.com</span>;
+
+    ssl_certificate           /etc/nginx/cert.crt;
+    ssl_certificate_key       /etc/nginx/cert.key;
+
+    ssl on;
+    ssl_session_cache  builtin:1000  shared:SSL:10m;
+    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+    ssl_prefer_server_ciphers on;
+
+    access_log            /var/log/nginx/jenkins.access.log;
+
+    location / {
+
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+
+      # Fix the “It appears that your reverse proxy set up is broken" error.
+      proxy_pass          http://localhost:8080;
+      proxy_read_timeout  90;
+
+      proxy_redirect      http://localhost:8080 https://<span class="highlight">jenkins.domain.com</span>;
+    }
+  }
+</code></pre>
+<p>In our configuration, the <span class="highlight">cert.crt</span> and <span class="highlight">cert.key</span> settings reflect the location where we created our SSL certificate. You will need to update the <span class="highlight">server<em>name</em></span> and `proxyredirect` lines with your own domain name. There is some additional Nginx magic going on as well that tells requests to be read by Nginx and rewritten on the response side to ensure the reverse proxy is working.</p>
+
+<p>The first section tells the Nginx server to listen to any requests that come in on port 80 (default HTTP) and redirect them to HTTPS.</p>
+<pre class="code-pre "><code langs="">...
+server {
+   listen 80;
+   return 301 https://$host$request_uri;
+}
+...
+</code></pre>
+<p>Next we have the SSL settings. This is a good set of defaults but can definitely be expanded on. For more explanation, please read <a href="https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-nginx-for-ubuntu-14-04">this tutorial</a>.</p>
+<pre class="code-pre "><code langs="">...
+  listen 443;
+  server_name <span class="highlight">jenkins.domain.com</span>;
+
+  ssl_certificate           /etc/nginx/cert.crt;
+  ssl_certificate_key       /etc/nginx/cert.key;
+
+  ssl on;
+  ssl_session_cache  builtin:1000  shared:SSL:10m;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+  ssl_prefer_server_ciphers on;
+  ...
+</code></pre>
+<p>The final section is where the proxying happens. It basically takes any incoming requests and proxies them to the Jenkins instance that is bound/listening to port 8080 on the local network interface. This is a slightly different situation, but <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-front-end-proxy-for-apache">this tutorial</a> has some good information about the Nginx proxy settings.</p>
+<pre class="code-pre "><code langs="">...
+location / {
+
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+
+    # Fix the “It appears that your reverse proxy set up is broken" error.
+    proxy_pass          http://localhost:8080;
+    proxy_read_timeout  90;
+
+    proxy_redirect      http://localhost:8080 https://<span class="highlight">jenkins.domain.com</span>;
+}
+...
+</code></pre>
+<p>A few quick things to point out here. If you don't have a domain name that resolves to your Jenkins server, then the <span class="highlight">proxy_redirect</span> statement above won't function correctly without modification, so keep that in mind. Also, if you misconfigure the <span class="highlight">proxy_pass</span> (by adding a trailing slash for example), you will get something similar to the following in your Jenkins Configuration page.</p>
+
+<p><img src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/1.jpg" alt="Jenkins error: Reverse proxy set up is broken"></p>
+
+<p>So, if you see this error, double-check your <span class="highlight">proxy_pass</span> and <span class="highlight">proxy_redirect</span> settings in the Nginx configuration!</p>
+
+<div name="step-two-—-configure-jenkins" data-unique="step-two-—-configure-jenkins"></div><h2 id="step-two-—-configure-jenkins">Step Two — Configure Jenkins</h2>
+
+<p>As stated previously, this tutorial assumes that Jenkins is already installed. <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-jenkins-on-ubuntu-12-04">This tutorial</a> will show you how to install Jenkins if necessary. You will probably need to switch to the root user for that article.</p>
+
+<p>For Jenkins to work with Nginx, we need to update the Jenkins config to listen only on the localhost interface instead of all (0.0.0.0), to ensure traffic gets handled properly.  This is an important step because if Jenkins is still listening on all interfaces, then it will still potentially be accessible via its original port (8080).  We will modify the <span class="highlight">/etc/default/jenkins</span> configuration file to make these adjustments.</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/default/jenkins
+</code></pre>
+<p>Locate the <code>JENKINS\_ARGS</code> line and update it to look like the folowing:</p>
+<pre class="code-pre "><code langs="">JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpListenAddress=127.0.0.1 --httpPort=$HTTP_PORT -ajp13Port=$AJP_PORT"
+</code></pre>
+<p>Notice that the <strong>--httpListenAddress=127.0.0.1</strong> setting needs to be either added or modified.</p>
+
+<p>Then go ahead and restart Jenkins and Nginx.</p>
+<pre class="code-pre "><code langs="">sudo service jenkins restart
+sudo service nginx restart
+</code></pre>
+<p>You should now be able to visit your domain using either HTTP or HTTPS, and the Jenkins site will be served securely. You will see a certificate warning if you used a self-signed certificate.</p>
+
+<div name="optional-—-update-oauth-urls" data-unique="optional-—-update-oauth-urls"></div><h2 id="optional-—-update-oauth-urls">Optional — Update OAuth URLs</h2>
+
+<p>If you are using the GitHub or another OAuth plugin for authentication, it will probably be broken at this point. For example, when attempting to visit the URL, you will get a "Failed to open page" with a URL similar to the following:</p>
+<pre class="code-pre "><code langs="">http://jenkins.domain.com:8080/securityRealm/finishLogin?code=random-string
+</code></pre>
+<p>To fix this you will need to update a few settings, including your OAuth plugin settings. First update the Jenkins URL (in the Jenkins GUI); it can be found  here:</p>
+
+<p><strong>Jenkins -&gt; Manage Jenkins -&gt; Configure System -&gt; Jenkins Location</strong></p>
+
+<p>Update the Jenkins URL to use HTTPS - <code>https://<span class="highlight">jenkins.domain.com/</span></code></p>
+
+<p class="growable"><img src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/2.jpg" alt="Jenkins URL"></p>
+
+<p>Next, update your OAuth settings with the external provider. This example is for GitHub. On GitHub, this can be found under <strong>Settings -&gt; Applications -&gt; Developer applications</strong>, on the GitHub site.</p>
+
+<p>There should be an entry for Jenkins. Update the <strong>Homepage URL</strong> and <strong>Authorization callback URL</strong> to reflect the HTTPS settings.  It might look similar to the following:</p>
+
+<p><img src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/3.jpg" alt="Jenkins settings on GitHub; https:// has been used with both URLs"></p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The only thing left to do is verify that everything worked correctly. As mentioned above, you should now be able to browse to your newly configured URL - <span class="highlight">jenkins.domain.com</span> - over either HTTP or HTTPS. You should be redirected to the secure site, and should see some site information, including your newly updated SSL settings. As noted previously, if you are not using hostnames via DNS, then your redirection may not work as desired. In that case, you will need to modify the <span class="highlight">proxy_pass</span> section in the Nginx config file.</p>
+
+<p>You may also want to use your browser to examine your certificate. You should be able to click the lock to look at the certificate properties from within your browser.</p>
+
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  <div class="tutorial-footer-details">
+
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+        <div class="tutorial-author-avatar">
+    <a href="https://www.digitalocean.com/community/users/josh-reichardt"><img alt="josh.reichardt" class="avatar avatar-small" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/dec65c26e4784ed68254a8fe7b967d84" width="80" height="80"></a>
+  </div>
+  <div class="author-and-date">
+    <div class="tutorial-author">
+      <div class="by">By: </div>
+      <a href="https://www.digitalocean.com/community/users/josh-reichardt">josh.reichardt</a>
+    </div>
+  </div>
+
+    </div>
+    <div class="right-section">
+        <div class="upvote-container">
+          <button name="button" type="button" class="new-upvote-button" data-upvotable-id="1317" data-upvotable-type="Tutorial" data-include-caret="false"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-heart"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-heart"></use></svg></span><span class="new-upvote-text">Upvote</span><span class="new-upvote-count">22</span></button>
+        </div>
+
+        <div class="section-item section-item-subscribe">
+    <span class="opt-in-switch off signed-out-subscribe">
+      <span class="subscribe-label">
+        <span class="icon icon-subscribe"></span>
+        <span class="subscription-label subscribe">Subscribe</span>
+        <span class="icon icon-subscribed"></span>
+        <span class="subscription-label subscribed">Subscribed</span>
+      </span>
+      <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+    </span>
+  </div>
+
+<div class="section-item social-sharing-item">
+  <div class="sharing">
+  <a class="share-button" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class="section-content tutorial-contributors two">
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/josh-reichardt"><img alt="josh.reichardt" class="avatar avatar-small" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/dec65c26e4784ed68254a8fe7b967d84" width="80" height="80"></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Author:</div>
+          <a href="https://www.digitalocean.com/community/users/josh-reichardt">josh.reichardt</a>
+        </div>
+      </div>
+
+      <div class="tutorial-footer-user">
+        <div class="tutorial-footer-user-avatar-container">
+          <a href="https://www.digitalocean.com/community/users/sharon"><div class="mod-avatar mod-avatar-small"><img alt="sharon" class="avatar avatar-small" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/8fd05d8678d15b5d66e05af78adf325c" width="80" height="80"><span class="mod-star" title="" data-toggle="tooltip" data-container="body" data-original-title="MOD"><span class="mod-star-icon"></span></span></div></a>
+        </div>
+        <div class="user-info">
+          <div class="tutorial-user-type">Editor:</div>
+          <a class="" href="https://www.digitalocean.com/community/users/sharon">Sharon Campbell</a>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+
+  
+    <div class="tutorial-hacktoberfest-cta">
+  <p class="sr-only">Hacktoberfest</p>
+  <div class="tutorial-hacktoberfest-cta-content">
+    <p class="give-back">Give back to open source this October</p>
+    <p class="celebrate">
+      Celebrate open source software by contributing to GitHub-hosted open source projects for
+      the chance of getting your own limited-edition Hacktoberfest T-shirt.
+    </p>
+    <a href="https://hacktoberfest.digitalocean.com/?utm_source=community_tutorial_banner" class="learn-more" target="_blank">Learn more about Hacktoberfest</a>
+  </div>
+</div>
+
+    <div class="related-tutorials">
+    <div class="section-content">
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-nginx-in-place-without-dropping-client-connections">How To Upgrade Nginx In-Place Without Dropping Client Connections</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-target-your-users-with-nginx-analytics-and-a-b-testing">How To Target Your Users with Nginx Analytics and A/B Testing</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts">Understanding the Nginx Configuration File Structure and Configuration Contexts</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms">Understanding Nginx Server and Location Block Selection Algorithms</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-connect-your-internet-of-things-with-node-red-on-ubuntu-16-04">How to Connect Your Internet of Things with Node-RED on Ubuntu 16.04</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_1317">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>4 Comments</span></h4>
+  </div>
+
+  <div class="response response-form no-avatar">
+  <div class="js-display-on-error flash error hidden"></div>
+
+
+  <form class="content-form disabled-form" id="new_comment" action="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" disabled="disabled">
+
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="log-in-notice "><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class="clearfix"></div>
+</form>
+</div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" rel="nofollow" data-remote="true" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins/comments">Load</a>
+    <li id="comment_20540" data-level="0" class="comment-container">
+    <div class="response comment-body-container    " data-highlight="">
+        <div class="comment-upvote-container ">
+          <button name="button" type="button" class="new-upvote-button" data-upvotable-id="20540" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+        </div>
+
+      <div class="ox-auto ">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/stefanzupa">stefanzupa</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?comment=20540">October 14, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>I followed this article yesterday. It helped me a lot.<br>
+Great work digital ocean.</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_20540">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_20540"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_38424" data-level="0" class="comment-container">
+    <div class="response comment-body-container    " data-highlight="">
+        <div class="comment-upvote-container ">
+          <button name="button" type="button" class="new-upvote-button" data-upvotable-id="38424" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+        </div>
+
+      <div class="ox-auto ">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/benpingilley">benpingilley</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?comment=38424">October  7, 2015</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>When configuring on Centos 6, I made the following changes:</p>
+<pre class="code-pre "><code langs="">yum install epel-release
+yum install nginx
+</code></pre>
+<p>Verify/Add the following line at the end of the http{} block in /etc/nginx/nginx.conf:</p>
+
+<p><code>include /etc/nginx/conf.d/*.conf;</code></p>
+
+<p>The JENKINS_LISTEN_ADDRESS variable is located in /etc/sysconfig/jenkins</p>
+
+<p>If you see a "502 Bad Gateway" in your browser, run the following command on the server (Lost 3 hours because of this):</p>
+
+<p><code>setsebool -P httpd_can_network_connect 1</code></p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_38424">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_48255" data-level="1" class="comment-container">
+    <div class="response comment-body-container    " data-highlight="">
+        <div class="comment-upvote-container comment-reply-container">
+          <button name="button" type="button" class="new-upvote-button" data-upvotable-id="48255" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+        </div>
+
+      <div class="ox-auto ">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/epapa">epapa</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?comment=48255">June 22, 2016</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>Thanks for dropping this <a href="https://www.digitalocean.com/community/users/benpingilley" class="username-tag">@benpingilley</a> , I think this is a general issue with CentOS even when setting apache as well.</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_48255">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_48255"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_38424"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_50455" data-level="0" class="comment-container">
+    <div class="response comment-body-container    " data-highlight="">
+        <div class="comment-upvote-container ">
+          <button name="button" type="button" class="new-upvote-button" data-upvotable-id="50455" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-ffb2b7f09606c7c73d30f2950eaaca2d.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+        </div>
+
+      <div class="ox-auto ">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/saeed">saeed</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins?comment=50455">August 26, 2016</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>Hi<br>
+Thank you for the helpful article.<br>
+The banner in the top has a typo in it, and it should be "as a Reverse Proxy" instead of Reserve.</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+
+    
+    
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_50455">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_50455"></div>
+</div>
+    </div>
+
+  </li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class="load-more-container"></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/creativecommons-08b32a9279fcd47fcd78ac6a26331389.png"></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+      </div>
+
+      <footer class="Footer">
+  <span class="Footer-logo icon-sammy"></span>
+
+  <div>Copyright © 2016 DigitalOcean™ Inc.</div>
+
+  <ul class="Footer-nav">
+    <li><a href="https://www.digitalocean.com/community">Community</a></li>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li><a href="https://www.digitalocean.com/community/newsletter">Newsletter</a></li>
+    <li>
+      <a href="https://www.digitalocean.com/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br>
+
+  <ul class="Footer-nav Footer-nav--secondary">
+    <li><a href="https://www.digitalocean.com/features/one-click-apps/">Distros &amp; One-Click Apps</a></li>
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins#">Report a Bug</a></li>
+    <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+      <div id="sign-in-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Almost there!</h1>
+        <a class="close-button" data-dismiss="modal" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins"><span class="icon icon-close-light"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Sign into your account, or create a new one, to start interacting.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  <script>
+    $(function() {
+      if (!!window.init_sharing) {
+        window.init_sharing();
+      }
+      new window.NewsletterSignup();
+      new window.GrowableMarkdown({ target: '[data-growable-markdown]' });
+
+      window.Bugsnag.beforeNotify = function(payload, metaData) {
+        // custom logic to determine groupingHash
+        metaData.groupingHash = "tutorialShow";
+      }
+    });
+  </script>
+
+  <div id="report-a-bug-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Report a Bug</h1>
+          <a class="close-button" data-dismiss="modal" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins"><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="report-a-bug-message text-center">Use this form to report bugs related to the Community</div>
+          <div class="report-a-bug-actions do-form">
+            <div class="form-wrap">
+              <form class="new_bug_report" id="new_bug_report" action="https://www.digitalocean.com/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="XZsa+wrEgNyjfdtw1mb/Tx/i75BOnvwoV4DfoL8Wa0v/ewzazOQMmls+yyqjwYU1TaRD4VepDtUuK6HOj8ui7g==">
+                <fieldset>
+                  <div class="field">
+                    <input placeholder="Name" type="text" name="bug_report[name]" id="bug_report_name">
+                  </div>
+                  <div class="field">
+                    <input placeholder="Email" required="required" type="text" name="bug_report[email]" id="bug_report_email">
+                  </div>
+                  <div class="field">
+                      <textarea placeholder="Message" required="required" name="bug_report[message]" id="bug_report_message" style="overflow: hidden; word-wrap: break-word; resize: none; height: 125px;"></textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input type="submit" name="commit" value="Submit" class="button">
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 17px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 23.8px; width: 58px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top: 1px dotted rgb(0, 255, 255); z-index: 2147483647;"></div><script type="text/javascript" id="">(function(){function b(){!1===c&&window.Munchkin&&(c=!0,window.Munchkin.init("937-EID-756",{disableClickDelay:!0,asyncOnly:!0}))}var c=!1,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="//munchkin.marketo.net/munchkin.js";a.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||b()};a.onload=b;document.getElementsByTagName("head")[0].appendChild(a)})();</script><img height="1" width="1" style="display:none" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/tr"><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/saved_resource.html"></iframe><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/P5DLcu0KGJB.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><img height="1" width="1" style="display:none;" alt="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/adsct">
+<img height="1" width="1" style="display:none;" alt="" src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/adsct(1)"><iframe src="./How To Configure Nginx with SSL as a Reverse Proxy for Jenkins _ DigitalOcean_files/pixel.html" style="display: none;"></iframe><script type="text/javascript" id="">"undefined"!==typeof window.analytics&&analytics.track("dwell",{time:"5 minute"});</script></body></html>
