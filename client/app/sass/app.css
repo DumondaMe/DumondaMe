@@ -352,6 +352,9 @@
   height: 100%;
   width: 100%; }
 
+#ely-map #map-id {
+  height: 400px; }
+
 .searchBoxForm {
   width: 100%;
   padding: 5px 10px; }
@@ -2335,6 +2338,9 @@ md-toast.md-error-toast-theme {
   #ely-youtube-page-detail #ely-youtube-page-main-detail .topic-description {
     margin: 0 0 4px 0; }
 
+.add-place-dialog .ely-dialog-content .search-image-icon {
+  padding-left: 12px; }
+
 .manage-page {
   width: 100%;
   min-width: 300px;
@@ -2364,6 +2370,9 @@ md-toast.md-error-toast-theme {
       color: #EF6C00;
       font-size: 14px;
       margin-bottom: 12px; }
+
+#manage-place-page .ely-dialog-content .search-place-button-container {
+  height: 66px; }
 
 #manage-book-page .ely-dialog-content .preview-image {
   width: 200px; }

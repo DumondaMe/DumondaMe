@@ -1,0 +1,42 @@
+<md-dialog id="manage-place-page" aria-label="Manage Place Page" class="manage-page"
+           ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
+    <form name="ctrl.managePlacePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace" ng-cloak>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Seite <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="input-container">
+                    <label>Titel</label>
+                    <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
+                           ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                    <div ng-messages="ctrl.managePlacePageForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <div class="search-place-button-container">
+                    <md-button class="md-primary md-raised" ng-click="ctrl.addPlace()">Ort hinzufügen</md-button>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.createPlace()" ng-if="!ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.data.selectedLanguages">Erstellen
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyPlace()" ng-if="ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageBookPageForm.$invalid || !ctrl.dataHasChanged || !ctrl.data.selectedLanguages">
+                Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted && !ctrl.selectImage" md-mode="indeterminate"></md-progress-linear>
+
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+
+    <ely-add-place on-back="ctrl.closeAddPlace()" ng-if="ctrl.showAddPlace"></ely-add-place>
+
+    <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
+                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
+</md-dialog>

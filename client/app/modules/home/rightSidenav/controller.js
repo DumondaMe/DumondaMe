@@ -37,6 +37,14 @@ module.exports = {
                             PinwallBlogService.addRecommendation(resp);
                         });
                 };
+
+                ctrl.createPlacePage = function () {
+                    $mdSidenav('rightHomeNav').close();
+                    ElyModal.show('ManagePlacePageCtrl', 'app/modules/page/modal/managePlacePage/template.html')
+                        .then(function (resp) {
+                            PinwallBlogService.addRecommendation(resp);
+                        });
+                };
             }];
     }
 };

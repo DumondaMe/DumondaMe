@@ -41,7 +41,8 @@
     "node-sass": "3.7.0",
     "url-parse": "1.1.1",
     "randomstring": "1.1.5",
-    "deasync": "0.1.7"
+    "deasync": "0.1.7",
+    "node-geocoder": "3.15.0"
   },
   "devDependencies": {
     "mocha": "2.4.5",
