@@ -67,6 +67,10 @@ body, html {
   position: relative;
 }
 
+md-dialog {
+  max-height: 95%;
+}
+
 #no-javascript {
   position: fixed;
   top: 100px;

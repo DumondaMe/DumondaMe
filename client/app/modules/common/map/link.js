@@ -20,6 +20,8 @@ module.exports = {
 
             var map = L.map('map-id');
 
+            map.scrollWheelZoom.disable();
+
             setCenter(scope, elyHelper, map);
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

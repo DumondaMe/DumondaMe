@@ -11,7 +11,7 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 onBack: '&',
-                onSelected: '&'
+                onSelected: '='
             },
             templateUrl: 'app/modules/page/modal/common/addPlace/template.html'
         };

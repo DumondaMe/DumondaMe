@@ -47,11 +47,14 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
             ctrl.showAddPlace = false;
         };
 
+        ctrl.placeSelected = function (selectedPlace) {
+            ctrl.showAddPlace = false;
+            ctrl.data.selectedPlace = selectedPlace;
+        };
+
         ctrl.createPlace = function () {
             var message = PlacePageCreateMessageService.getCreatePlacePageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
-                ctrl.data.bookPreviewUrl = resp.data.bookPreviewUrl;
-            });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyPlace = function () {

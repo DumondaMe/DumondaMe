@@ -44,7 +44,16 @@ module.exports = {
                 link: {'$ref': '#/definitions/link'},
                 language: language.languageMultiple
             }
-        }
+        },
+        placePage: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['title', 'places'],
+            properties: {
+                title: {'$ref': '#/definitions/title'},
+                places: {'$ref': '#/definitions/places'},
+            }
+        },
     },
     definitions: definitions
 };

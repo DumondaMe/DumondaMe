@@ -2,9 +2,11 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['PlaceSuggestion',
-    function (PlaceSuggestion) {
+module.exports = ['PlaceSuggestion', '$mdMedia',
+    function (PlaceSuggestion, $mdMedia) {
         var ctrl = this;
+
+        ctrl.$mdMedia = $mdMedia;
 
         ctrl.searchPlace = function () {
             ctrl.requestStarted = true;

@@ -1,30 +1,19 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Topics', function (DateConverter, Topics) {
+module.exports = [function () {
 
     this.getCreatePlacePageMessage = function (data) {
         return {
-            bookPage: {
+            placePage: {
                 title: data.title,
-                description: data.description,
-                author: data.author,
-                publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                topic: Topics.getCodes(data.selectedTopics),
-                language: data.selectedLanguages.code
+                places: [{description: data.selectedPlace.formatted, lat: data.selectedPlace.lat, lng: data.selectedPlace.lng}]
             }
         };
     };
 
     this.getModifyPlacePageMessage = function (data) {
         return {
-            bookPage: {
-                pageId: data.pageId,
-                description: data.description,
-                author: data.author,
-                publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                topic: Topics.getCodes(data.selectedTopics),
-                language: data.selectedLanguages.code
-            }
+            placePage: {}
         };
     };
 }];
