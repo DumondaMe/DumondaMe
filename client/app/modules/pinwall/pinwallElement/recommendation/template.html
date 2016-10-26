@@ -13,6 +13,8 @@
                                                                   ng-if="ctrl.element.label === 'Youtube'"></ely-pinwall-recommendation-youtube-title>
                 <ely-pinwall-recommendation-link-title element="ctrl.element"
                                                                ng-if="ctrl.element.label === 'Link'"></ely-pinwall-recommendation-link-title>
+                <ely-pinwall-recommendation-place-title element="ctrl.element"
+                                                       ng-if="ctrl.element.label === 'Place'"></ely-pinwall-recommendation-place-title>
             </div>
             <div>
                 <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
@@ -28,5 +30,7 @@
                                                 ng-if="ctrl.element.label === 'Youtube'"></ely-pinwall-recommendation-youtube>
     <ely-pinwall-recommendation-link element="ctrl.element" ng-if="ctrl.element.label === 'Link'"
                                              request-running="ctrl.requestRunning"></ely-pinwall-recommendation-link>
+    <ely-pinwall-recommendation-place element="ctrl.element" ng-if="ctrl.element.label === 'Place'"
+                                     request-running="ctrl.requestRunning"></ely-pinwall-recommendation-place>
     <md-progress-linear ng-if="ctrl.requestRunning" md-mode="indeterminate"></md-progress-linear>
 </md-card>

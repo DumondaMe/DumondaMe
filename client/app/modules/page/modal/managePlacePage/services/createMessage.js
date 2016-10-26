@@ -6,7 +6,7 @@ module.exports = [function () {
         return {
             placePage: {
                 title: data.title,
-                places: [{description: data.selectedPlace.formatted, lat: data.selectedPlace.lat, lng: data.selectedPlace.lng}]
+                places: [{description: data.selectedPlace.formatted, lat: data.selectedPlace.geometry.lat, lng: data.selectedPlace.geometry.lng}]
             }
         };
     };

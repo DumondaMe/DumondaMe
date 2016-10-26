@@ -47,7 +47,7 @@ describe('Integration Tests for creating new place pages', function () {
             pageId = res.body.pageId;
             return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page.pageId AS pageId, page.label AS label, page.modified AS modified, page.created AS created,
-                         address.description AS address, address.lat AS lat, address.lng AS lng`)
+                         address.description AS address, address.latitude AS latitude, address.longitude AS longitude`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -56,8 +56,8 @@ describe('Integration Tests for creating new place pages', function () {
             page[0].label.should.equals("Place");
             page[0].pageId.should.equals(pageId);
             page[0].address.should.equals("addressName");
-            page[0].lat.should.equals(-5.00);
-            page[0].lng.should.equals(6.00);
+            page[0].latitude.should.equals(-5.00);
+            page[0].longitude.should.equals(6.00);
         });
     });
 });

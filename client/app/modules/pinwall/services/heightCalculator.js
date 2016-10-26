@@ -32,6 +32,9 @@ var heightCalculator = {
                 case "Link":
                     setLinkHeight(recommendation);
                     break;
+                case "Place":
+                    recommendation.pinwallHeight = 91;
+                    break;
                 default:
                     $log.error("Unknown recommendation label " + recommendation.label);
             }

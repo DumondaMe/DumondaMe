@@ -2772,6 +2772,9 @@ md-toast.md-error-toast-theme {
 .link-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
 
+.place-recommendation {
+  padding: 0 16px 16px 16px; }
+
 .youtube-recommendation-desktop .youtube-preview-image {
   width: 100%;
   max-height: 337px;

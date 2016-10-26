@@ -9,7 +9,7 @@ module.exports = {
     description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
     youtubeLink: {type: 'string', format: 'youtubeLink', maxLength: 1000},
     link: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-    contactIds: {
+    places: {
         type: 'array',
         items: {
             type: 'object',
