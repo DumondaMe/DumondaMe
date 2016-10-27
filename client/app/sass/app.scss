@@ -25,9 +25,12 @@ body, html {
 }
 
 .viewport {
-  padding-top: 56px;
-  @media screen and (min-width: $gt-md){
-    padding-top: 0;
+  margin-top: 56px;
+  @media screen and (min-width: $gt-sm) {
+    margin-top: 64px;
+  }
+  @media screen and (min-width: $gt-md) {
+    margin-top: 0;
   }
   position: absolute;
   top: 0;

@@ -3801,15 +3801,18 @@ body, html {
   height: 100%; }
 
 .viewport {
-  padding-top: 56px;
+  margin-top: 56px;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0; }
+  @media screen and (min-width: 960px) {
+    .viewport {
+      margin-top: 64px; } }
   @media screen and (min-width: 1280px) {
     .viewport {
-      padding-top: 0; } }
+      margin-top: 0; } }
 
 .ely-gt-md-content {
   height: 100%;
