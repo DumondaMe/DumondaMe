@@ -352,8 +352,11 @@
   height: 100%;
   width: 100%; }
 
-#ely-map #map-id {
-  height: 400px; }
+#ely-map {
+  z-index: 0; }
+  #ely-map #map-id {
+    z-index: 0;
+    height: 400px; }
 
 .searchBoxForm {
   width: 100%;

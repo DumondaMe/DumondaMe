@@ -20,6 +20,12 @@ var setCenter = function (scope, elyHelper, map) {
     }
 };
 
+var invalidateSize = function ($timeout, map) {
+    $timeout(function () {
+        map.invalidateSize();
+    },50);
+};
+
 module.exports = {
     directiveLink: function ($timeout, elyHelper) {
         return function (scope) {
@@ -37,9 +43,7 @@ module.exports = {
                 accessToken: 'pk.eyJ1IjoicndhbGR2b2dlbCIsImEiOiJjaXVndnd0eTYwMDRlMnpvZ3Fsbmx1M29xIn0.8p_GwgMy8q_n-CWVYHd3AA'
             }).addTo(map);
 
-            $timeout(function () {
-                map.invalidateSize();
-            });
+            invalidateSize($timeout, map);
 
             scope.$watchCollection('center', function (newCenter) {
                 if (elyHelper.isDefined(newCenter)) {
@@ -48,7 +52,7 @@ module.exports = {
             });
 
             scope.$on('invalidateSize', function () {
-                map.invalidateSize();
+                invalidateSize($timeout, map);
             });
         };
     }
