@@ -1,0 +1,15 @@
+#ely-map-view {
+  height: 100%;
+  background-color: $background-normal;
+  #map-container {
+    height: 100%;
+    #ely-map {
+      height: 100%;
+      #map-id {
+        height: 100%;
+      }
+    }
+  }
+}
+
+

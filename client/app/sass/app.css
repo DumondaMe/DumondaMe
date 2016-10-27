@@ -1498,6 +1498,16 @@ md-toast.md-error-toast-theme {
   .ely-search-result-youtube-page .youtube-page-container .youtube-preview-image {
     width: 100% !important; }
 
+#ely-map-view {
+  height: 100%;
+  background-color: #e9ebee; }
+  #ely-map-view #map-container {
+    height: 100%; }
+    #ely-map-view #map-container #ely-map {
+      height: 100%; }
+      #ely-map-view #map-container #ely-map #map-id {
+        height: 100%; }
+
 #ely-conversation-message-create .title {
   font-size: 16px;
   margin-bottom: 8px; }
