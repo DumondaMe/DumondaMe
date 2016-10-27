@@ -1511,12 +1511,9 @@ md-toast.md-error-toast-theme {
       #ely-map-view #map-container #ely-map #map-id {
         height: 100%; }
 
-#ely-conversation-message-create .title {
-  font-size: 16px;
-  margin-bottom: 8px; }
-  #ely-conversation-message-create .title .name {
-    color: #3F51B5; }
-#ely-conversation-message-create .message-input-container {
+.ely-conversation-message-create .create-message-container {
+  padding: 24px 24px 0 24px; }
+.ely-conversation-message-create .message-input-container {
   width: 100%; }
 
 #ely-conversation {

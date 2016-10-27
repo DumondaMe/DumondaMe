@@ -1,10 +1,6 @@
-#ely-conversation-message-create {
-  .title {
-    .name {
-      color: $primary-color;
-    }
-    font-size: 16px;
-    margin-bottom: 8px;
+.ely-conversation-message-create {
+  .create-message-container {
+    padding: 24px 24px 0 24px;
   }
   .message-input-container {
     width: 100%;

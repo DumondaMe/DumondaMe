@@ -1,13 +1,12 @@
 <md-dialog aria-label="Send new Message" ng-cloak class="ely-conversation-message-create">
     <form name="createMessageForm" class="content-form">
-        <md-dialog-content class="md-dialog-content">
+        <md-dialog-content class="create-message-container">
             <div class="md-title ely-dialog-title">Nachricht an <span class="highlighted">{{ctrl.description}}</span> schreiben</div>
             <md-input-container class="message-input-container">
                 <label>Nachricht...</label>
                 <textarea name="messageText" class="message-input" ng-model="ctrl.newMessage" required md-maxlength="1000" md-no-asterisk
                           ng-disabled="ctrl.uploadStarted" ng-change="ctrl.messageTextChanged()" max-rows="7"></textarea>
                 <div ng-messages="createMessageForm.messageText.$error" ng-show="createMessageForm.messageText.$dirty">
-                    <div ng-message="required">Wird benötigt!</div>
                     <div ng-message="md-maxlength">Text ist zu lang</div>
                 </div>
             </md-input-container>
