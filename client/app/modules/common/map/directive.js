@@ -7,7 +7,13 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {center: '=', markerCenter: '@', zoom: '='},
+            scope: {
+                center: '=',
+                defaultCenter: '=',
+                markerCenter: '@',
+                zoom: '=',
+                defaultZoom: '='
+            },
             templateUrl: 'app/modules/common/map/template.html',
             controller: require('./controller.js'),
             link: link.directiveLink($timeout, elyHelper),

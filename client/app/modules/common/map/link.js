@@ -1,16 +1,22 @@
 'use strict';
 
-var centerMarker;
+var actualCenterMarker;
+
+var setView = function (center, markerCenter, zoom, elyHelper, map) {
+    map.setView([center.lat, center.lng], zoom);
+    if (elyHelper.isTrue(markerCenter)) {
+        if (elyHelper.isDefined(actualCenterMarker)) {
+            map.removeLayer(actualCenterMarker);
+        }
+        actualCenterMarker = L.marker([center.lat, center.lng]).addTo(map);
+    }
+};
 
 var setCenter = function (scope, elyHelper, map) {
     if (elyHelper.isDefined(scope.center) && elyHelper.isDefined(scope.zoom)) {
-        map.setView([scope.center.lat, scope.center.lng], scope.zoom);
-        if (elyHelper.isTrue(scope.markerCenter)) {
-            if (elyHelper.isDefined(centerMarker)) {
-                map.removeLayer(centerMarker);
-            }
-            centerMarker = L.marker([scope.center.lat, scope.center.lng]).addTo(map);
-        }
+        setView(scope.center, scope.markerCenter, scope.zoom, elyHelper, map);
+    } else if (elyHelper.isDefined(scope.defaultCenter) && elyHelper.isDefined(scope.defaultZoom)) {
+        setView(scope.defaultCenter, scope.markerCenter, scope.defaultZoom, elyHelper, map);
     }
 };
 
@@ -35,8 +41,10 @@ module.exports = {
                 map.invalidateSize();
             });
 
-            scope.$watchCollection('center', function () {
-                setCenter(scope, elyHelper, map);
+            scope.$watchCollection('center', function (newCenter) {
+                if (elyHelper.isDefined(newCenter)) {
+                    setCenter(scope, elyHelper, map);
+                }
             });
 
             scope.$on('invalidateSize', function () {

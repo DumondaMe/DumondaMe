@@ -3,17 +3,20 @@
 module.exports = ['$state', 'IsAuth', 'loginStateHandler', 'CheckLoginStateParamsContainer',
     function ($state, IsAuth, loginStateHandler, CheckLoginStateParamsContainer) {
 
-    var isAuth = IsAuth.get(null, function () {
-        if (isAuth.isLoggedIn) {
-            loginStateHandler.loginEvent();
-            if(CheckLoginStateParamsContainer.getNext() !== 'public' && CheckLoginStateParamsContainer.getNext() !== 'checkLoginState' ) {
-                $state.go(CheckLoginStateParamsContainer.getNext(), CheckLoginStateParamsContainer.getParams());
+        var isAuth = IsAuth.get(null, function () {
+            if (isAuth.isLoggedIn) {
+                loginStateHandler.loginEvent();
+                if (CheckLoginStateParamsContainer.getNext() !== 'public' && CheckLoginStateParamsContainer.getNext() !== 'checkLoginState') {
+                    $state.go(CheckLoginStateParamsContainer.getNext(), CheckLoginStateParamsContainer.getParams());
+                } else {
+                    $state.go('home');
+                }
             } else {
-                $state.go('home');
+                loginStateHandler.logoutEvent();
+                $state.go('public');
             }
-        } else {
+        }, function () {
             loginStateHandler.logoutEvent();
             $state.go('public');
-        }
-    });
-}];
+        });
+    }];
