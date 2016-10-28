@@ -72,12 +72,12 @@ describe('Integration Tests for getting popular place recommendations', function
                 res.body.recommendations[2].pageId.should.equals('1');
                 res.body.recommendations[2].title.should.equals('Test1');
                 res.body.recommendations[2].places.length.should.equals(2);
-                res.body.recommendations[2].places[0].description.should.equals('Zuerich Paradeplatz');
-                res.body.recommendations[2].places[0].latitude.should.equals(47.369890);
-                res.body.recommendations[2].places[0].longitude.should.equals(8.539127);
-                res.body.recommendations[2].places[1].description.should.equals('Zuerich');
-                res.body.recommendations[2].places[1].latitude.should.equals(47.376887);
-                res.body.recommendations[2].places[1].longitude.should.equals(8.541694);
+                res.body.recommendations[2].places[0].description.should.equals('Zuerich');
+                res.body.recommendations[2].places[0].latitude.should.equals(47.376887);
+                res.body.recommendations[2].places[0].longitude.should.equals(8.541694);
+                res.body.recommendations[2].places[1].description.should.equals('Zuerich Paradeplatz');
+                res.body.recommendations[2].places[1].latitude.should.equals(47.369890);
+                res.body.recommendations[2].places[1].longitude.should.equals(8.539127);
                 res.body.recommendations[2].numberOfRecommendations.should.equals(0);
             });
         });
