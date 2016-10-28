@@ -1,7 +1,7 @@
 <div id="ely-map-view" layout="row">
     <div id="map-container" flex="70">
-        <ely-map on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="7"
-                 commands="ctrl.commandsMap"></ely-map>
+        <ely-map on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="7" center="ctrl.initMapParams"
+                 zoom="ctrl.initMapParams.zoom" commands="ctrl.commandsMap"></ely-map>
     </div>
     <div id="map-content" flex="30">
 

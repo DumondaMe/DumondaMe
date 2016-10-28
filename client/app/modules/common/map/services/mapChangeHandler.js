@@ -16,7 +16,7 @@ module.exports = ['MapDistanceCalculator',
                 var height = MapDistanceCalculator.calculateDistance(map.getBounds().getEast(), map.getBounds().getNorth(), map.getBounds().getEast(),
                     map.getBounds().getSouth());
 
-                onMapChange(getRadius(width, height), map.getCenter());
+                onMapChange(getRadius(width, height), map.getCenter(), map.getZoom());
             }
         };
     }];
