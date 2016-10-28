@@ -7,6 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.service('PageRecommendation', require('./services/pageRecommendation'));
 app.service('BlogRecommendation', require('./services/blogRecommendation'));
+app.service('PopularPlaceRecommendation', require('./services/popularPlaceRecommendation'));
 app.service('PopularRecommendation', require('./services/popularRecommendation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
