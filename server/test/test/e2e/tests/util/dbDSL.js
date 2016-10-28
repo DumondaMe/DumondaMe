@@ -31,6 +31,7 @@ module.exports = {
     crateRecommendationsForBlog: recommendation.crateRecommendationsForBlog,
     createBookPage: page.createBookPage,
     createYoutubePage: page.createYoutubePage,
+    createPlacePage: page.createPlacePage,
     createLinkPage: page.createLinkPage,
     createBlog: blog.createBlog,
     setUserLastLoginTime: user.setUserLastLoginTime,

@@ -3,6 +3,7 @@
 var blog = require('./blog');
 var book = require('./book');
 var link = require('./link');
+var place = require('./place');
 var youtube = require('./youtube');
 var _ = require('underscore');
 var logger = requireLogger.getLogger(__filename);
@@ -19,7 +20,9 @@ var getRecommendationElements = function (recommendationElements) {
             element = youtube.getRecommendationElement(recommendationElement);
         } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Link') {
             element = link.getRecommendationElement(recommendationElement);
-        } else {
+        } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Place') {
+            element = place.getRecommendationElement(recommendationElement);
+        }else {
             logger.error(`Unknown Recommendation Element ${recommendationElement.pinwallType}`);
         }
         result.push(element);

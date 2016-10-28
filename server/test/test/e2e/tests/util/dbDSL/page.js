@@ -26,7 +26,7 @@ var createYoutubePage = function (pageId, language, topic, modified, link, linkE
 
 var createLinkPage = function (pageId, language, topic, modified, link, heightPreviewImage, title) {
     var hostname = new Url(link).host;
-    heightPreviewImage = typeof heightPreviewImage !== 'undefined' ?  heightPreviewImage : null;
+    heightPreviewImage = typeof heightPreviewImage !== 'undefined' ? heightPreviewImage : null;
     title = title || `page${pageId}Title`;
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:Page:PinwallElement  {title: {title}, label: 'Link', language: {language}, description: {description}, 
                                             modified: {modified}, pageId: {pageId}, link: {link}, hostname: {hostname}, heightPreviewImage: {heightPreviewImage}, topic: {topic}, 
@@ -37,8 +37,20 @@ var createLinkPage = function (pageId, language, topic, modified, link, heightPr
         }).getCommand());
 };
 
+var createPlacePage = function (pageId, adminId, modified, title, coordinates) {
+    title = title || `page${pageId}Title`;
+    dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
+        .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Place', modified: {modified}, 
+        pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
+        longitude: toFloat(address.lng)}))`)
+        .end({
+            pageId: pageId, adminId: adminId, title: title, modified: modified, coordinates: coordinates
+        }).getCommand());
+};
+
 module.exports = {
     createBookPage: createBookPage,
     createYoutubePage: createYoutubePage,
-    createLinkPage: createLinkPage
+    createLinkPage: createLinkPage,
+    createPlacePage: createPlacePage
 };

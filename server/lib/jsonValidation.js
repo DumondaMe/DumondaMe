@@ -67,7 +67,9 @@ var convertValues = function (data, requestSchema) {
                 data[key] = parseInt(data[key], 10);
             } else if (requestSchema.properties[key].type === 'boolean') {
                 data[key] = data[key] === 'true';
-            } else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
+            } else if (requestSchema.properties[key].type === 'number') {
+                data[key] = parseFloat(data[key]);
+            }else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
                 data[key] = [data[key]];
             }
         }
