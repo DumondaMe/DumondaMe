@@ -1689,6 +1689,7 @@ md-toast.md-error-toast-theme {
           margin-right: 8px; } }
 
 #ely-create-page-nav .action-description {
+  margin-top: 12px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.54); }
 #ely-create-page-nav .md-grid-item-content {
