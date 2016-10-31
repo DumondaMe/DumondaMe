@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [ function () {
         return {
@@ -9,13 +7,13 @@ module.exports = {
             replace: true,
             scope: {
             },
-            controller: controller.directiveCtrl(),
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 pinwall: '='
             },
-            templateUrl: 'app/modules/home/rightSidenav/template.html'
+            templateUrl: 'app/modules/navigation/createPage/template.html'
         };
     }],
-    name: 'elyHomeRightSidenav'
+    name: 'elyNavCreatePage'
 };

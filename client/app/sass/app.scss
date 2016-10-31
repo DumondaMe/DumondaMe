@@ -24,7 +24,7 @@ body, html {
   height: 100%;
 }
 
-.viewport {
+#viewport {
   padding-top: 56px;
   @media screen and (min-width: $gt-sm) {
     padding-top: 64px;
@@ -37,6 +37,7 @@ body, html {
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
 }
 
 .ely-gt-md-content {

@@ -1,4 +1,4 @@
-<div class="viewport" ng-class="{'viewport-toolbar-removed': !ctrl.showToolbar}">
+<div id="viewport" ng-class="{'viewport-toolbar-removed': !ctrl.showToolbar}">
     <ely-toolbar id="toolbar-header" ng-if="!ctrl.$mdMedia('gt-md')" ng-show="ctrl.showToolbar"></ely-toolbar>
     <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="false" ng-if="!ctrl.$mdMedia('gt-md')">
         <ely-left-nav-container class="ely-sidnav"></ely-left-nav-container>

@@ -1,0 +1,48 @@
+#ely-create-page-nav {
+  .action-description {
+    font-weight: 500;
+    color: $secondary-text;
+  }
+  .md-grid-item-content {
+    height: 90px;
+    min-width: 96px;
+    padding-top: 10px;
+    md-icon {
+      height: 48px;
+      width: 48px;
+      @media screen and (max-width: $gt-xs) {
+        height: 28px;
+        width: 28px;
+      }
+    }
+    .md-grid-text {
+      font-weight: 300;
+      padding-bottom: 5px;
+      width: auto;
+    }
+  }
+  .md-inline-list-icon-label {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: -10px;
+    height: 24px;
+    vertical-align: middle;
+  }
+  .md-subheader .md-subheader-inner {
+    padding: 0;
+  }
+  md-toast {
+    .md-toast-content {
+      background-color: #B14141;
+    }
+  }
+  md-list-item {
+    @media screen and (min-width: $gt-xs) {
+      max-width: 120px;
+    }
+    .md-list-item-inner {
+      min-height: 48px;
+    }
+  }
+}
