@@ -1,8 +1,8 @@
 <div id="ely-recommendation-popular-overview" layout="row">
     <div class="ely-recommendation-popular-overview-container" layout="row" flex="grow" ng-if="ctrl.$mdMedia('(min-width: 510px)')">
-        <ely-recommendation-popular-column flex="50" id="1" ely-title="Beliebteste Empfehlungen"
+        <ely-recommendation-popular-column flex="50" id="1" ely-title="Beliebteste Beiträge"
                                            period="all"></ely-recommendation-popular-column>
-        <ely-recommendation-popular-column flex="50" id="2" ely-title="Beliebteste Empfehlungen der letzten 14 Tage"
+        <ely-recommendation-popular-column flex="50" id="2" ely-title="Beliebteste Beiträge in den letzten 14 Tage"
                                            period="twoWeeks"></ely-recommendation-popular-column>
     </div>
     <div class="ely-recommendation-popular-overview-container" ng-if="!ctrl.$mdMedia('(min-width: 510px)')">
@@ -12,7 +12,7 @@
                 <md-tab-label>
                     <md-icon md-svg-icon="tabs:thumbUp" class="icon ely-tab-icon"></md-icon>
                     <md-tooltip md-direction="bottom">
-                        Beste Empfehlungen
+                        Beliebteste Beiträge
                     </md-tooltip>
                 </md-tab-label>
                 <md-tab-body class="recommendation-tab-content">
@@ -25,7 +25,7 @@
                     <md-icon md-svg-icon="tabs:thumbUp" class="icon ely-tab-icon"></md-icon>
                     <span class="tab-timespan">14 Tage</span>
                     <md-tooltip md-direction="bottom">
-                        Beste Empfehlungen in den letzten 14 Tage
+                        Beliebteste Beiträge in den letzten 14 Tage
                     </md-tooltip>
                 </md-tab-label>
                 <md-tab-body class="recommendation-tab-content">
