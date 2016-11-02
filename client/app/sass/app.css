@@ -19,6 +19,41 @@
 .md-button {
   text-transform: none !important; }
 
+.ely-icon-button {
+  display: inline-block;
+  cursor: pointer;
+  color: #333;
+  background-color: #fff;
+  user-select: none;
+  border: 2px solid #ccc;
+  border-radius: 8px; }
+  .ely-icon-button .ely-button-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    text-align: center;
+    vertical-align: middle; }
+  .ely-icon-button .portrait-format {
+    width: 100px;
+    height: 100px; }
+    .ely-icon-button .portrait-format .ely-button-label {
+      padding: 6px 12px 12px 12px; }
+    .ely-icon-button .portrait-format .ely-button-icon {
+      margin-top: 12px;
+      height: 36px;
+      width: 36px; }
+  .ely-icon-button .landscape-format {
+    padding: 0 8px; }
+    .ely-icon-button .landscape-format .ely-button-icon {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      margin-right: 6px;
+      height: 28px;
+      width: 28px; }
+
+.ely-icon-button:hover {
+  background-color: #ccc; }
+
 /*!
  * Cropper v2.3.3
  * https://github.com/fengyuanchen/cropper
@@ -2415,6 +2450,7 @@ md-toast.md-error-toast-theme {
         line-height: 14px;
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         margin-bottom: 8px;
+        margin-top: 4px;
         color: grey; }
     .manage-page .ely-dialog-content .page-exists-warning {
       cursor: pointer;
@@ -2422,8 +2458,32 @@ md-toast.md-error-toast-theme {
       font-size: 14px;
       margin-bottom: 12px; }
 
+#manage-place-page .ely-dialog-content .preview-image {
+  width: 150px; }
 #manage-place-page .ely-dialog-content .search-place-button-container {
   height: 66px; }
+#manage-place-page .ely-dialog-content #place-list {
+  padding: 12px 0; }
+  #manage-place-page .ely-dialog-content #place-list #place-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 8px; }
+  #manage-place-page .ely-dialog-content #place-list #selected-place-container {
+    margin-bottom: 12px; }
+    #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 8px; }
+      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
+        font-size: 14px;
+        font-weight: 300;
+        vertical-align: middle;
+        line-height: 24px; }
+      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
+        cursor: pointer;
+        margin-left: 6px;
+        height: 24px;
+        width: 24px; }
 
 #manage-book-page .ely-dialog-content .preview-image {
   width: 200px; }

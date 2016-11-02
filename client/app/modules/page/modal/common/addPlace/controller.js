@@ -27,5 +27,13 @@ module.exports = ['PlaceSuggestion', '$mdMedia',
             }
         };
 
+        ctrl.addPlace = function () {
+            ctrl.onSelected(ctrl.selectedPlace);
+            delete ctrl.selectedPlace;
+            delete ctrl.lastRequestString;
+            delete ctrl.data.place;
+            ctrl.places = [];
+        };
+
     }];
 

@@ -1,14 +1,16 @@
 'use strict';
 
 module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
-    'RecommendationResponseFormatter', 'Languages',
+    'RecommendationResponseFormatter', 'Languages', 'PlaceCategories', 'ArrayHelper',
     function (ElyModal, Topics, PlacePageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
-              Languages) {
+              Languages, PlaceCategories, ArrayHelper) {
         var ctrl = this;
 
         ctrl.languages = Languages.languages;
+        ctrl.placeCategory = PlaceCategories.placeCategory;
         CheckPageExists.reset();
         ctrl.topics = Topics.topics;
+        ctrl.data = {selectedPlaces: []};
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -31,6 +33,17 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
             });
         };
 
+        ctrl.cancelPreviewImage = function () {
+            ctrl.selectImage = false;
+        };
+
+        ctrl.setPreviewImage = function (blob, dataUri) {
+            ctrl.selectImage = false;
+            ctrl.data.dataUri = dataUri;
+            ctrl.blob = blob;
+            ctrl.changeData();
+        };
+
         ctrl.changeData = function () {
             ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
         };
@@ -43,13 +56,18 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
             ctrl.showAddPlace = true;
         };
 
+        ctrl.deletePlace = function (placeToDelete) {
+            ArrayHelper.removeElementByObject(ctrl.data.selectedPlaces, placeToDelete);
+        };
+
         ctrl.closeAddPlace = function () {
             ctrl.showAddPlace = false;
         };
 
         ctrl.placeSelected = function (selectedPlace) {
             ctrl.showAddPlace = false;
-            ctrl.data.selectedPlace = selectedPlace;
+            ctrl.data.selectedPlaces.push(selectedPlace);
+            selectedPlace.number = ctrl.data.selectedPlaces.length;
         };
 
         ctrl.createPlace = function () {

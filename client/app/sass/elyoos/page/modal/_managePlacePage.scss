@@ -1,7 +1,38 @@
 #manage-place-page {
   .ely-dialog-content {
+    .preview-image {
+      width: 150px;
+    }
     .search-place-button-container {
       height: 66px;
+    }
+    #place-list {
+      padding: 12px 0;
+      #place-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: $secondary-text;
+        margin-bottom: 8px;
+      }
+      #selected-place-container {
+        margin-bottom: 12px;
+        .selected-place {
+          border-bottom: 1px solid #ccc;
+          margin-bottom: 8px;
+          .place-description {
+            font-size: 14px;
+            font-weight: 300;
+            vertical-align: middle;
+            line-height: 24px;
+          }
+          .place-icon {
+            cursor: pointer;
+            margin-left: 6px;
+            height: 24px;
+            width: 24px;
+          }
+        }
+      }
     }
   }
 }
