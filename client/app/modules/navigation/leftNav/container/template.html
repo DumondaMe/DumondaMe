@@ -3,9 +3,9 @@
         <div layout="row">
             <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none" ng-click="ctrl.goToProfile()"/>
             <div class="header-commands" layout="row" layout-align="end none" flex="grow">
-                <md-icon md-svg-icon="sidenavHeader:edit" class="icon-header" ng-click="ctrl.goToProfile()">
+                <md-icon md-svg-icon="sidenavHeader:logout" class="icon-header" ng-click="ctrl.logout()">
                     <md-tooltip md-direction="bottom">
-                        Dein Profil
+                        Logout
                     </md-tooltip>
                 </md-icon>
             </div>
@@ -17,6 +17,7 @@
     <md-divider class="ely-divider"></md-divider>
     <md-content class="left-nav-content">
         <ely-left-nav-element state="home" base-state="home" icon="nav:home" description="Home"></ely-left-nav-element>
+        <ely-left-nav-element state="settings.profile" base-state="settings" icon="nav:profile" description="Eigenes Profil"></ely-left-nav-element>
         <ely-left-nav-element state="contact.overview" base-state="contact" icon="nav:contact" description="Kontakte"></ely-left-nav-element>
         <ely-left-nav-element state="message.threads" base-state="message" icon="nav:thread" description="Nachrichten"
                               count="ctrl.userInfo.totalUnreadMessages"></ely-left-nav-element>
@@ -25,14 +26,5 @@
         <ely-left-nav-element state="map.overview" base-state="map" icon="nav:map"
                               description="Übersicht Standorte"></ely-left-nav-element>
         <!--<ely-left-nav-element state="forum.question" base-state="forum" icon="nav:forum" description="Forum (Alpha)"></ely-left-nav-element>-->
-    </md-content>
-    <md-divider class="ely-divider"></md-divider>
-    <md-content class="left-nav-content">
-        <div class="nav-element" ng-click="ctrl.logout()">
-            <div class="icon-container">
-                <md-icon md-svg-icon="nav:logout" class="icon"></md-icon>
-            </div>
-            <div class="description md-body-2">Logout</div>
-        </div>
     </md-content>
 </div>
