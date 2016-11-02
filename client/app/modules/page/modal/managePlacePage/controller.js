@@ -1,13 +1,12 @@
 'use strict';
 
 module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
-    'RecommendationResponseFormatter', 'Languages', 'PlaceCategories', 'ArrayHelper',
+    'RecommendationResponseFormatter', 'Languages', 'ArrayHelper',
     function (ElyModal, Topics, PlacePageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
-              Languages, PlaceCategories, ArrayHelper) {
+              Languages, ArrayHelper) {
         var ctrl = this;
 
         ctrl.languages = Languages.languages;
-        ctrl.placeCategory = PlaceCategories.placeCategory;
         CheckPageExists.reset();
         ctrl.topics = Topics.topics;
         ctrl.data = {selectedPlaces: []};
@@ -16,21 +15,12 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
             ElyModal.cancel();
         };
 
-        ctrl.titleHasChanged = function () {
-            if (ctrl.data.title && ctrl.data.title.length > 10) {
-                ctrl.checkPageExists();
-            }
+        ctrl.searchKeyword = function (text) {
+
         };
 
-        ctrl.titleLostFocus = function () {
-            ctrl.checkPageExists();
-        };
-
-        ctrl.checkPageExists = function () {
-            return CheckPageExists.checkPageExists(ctrl.data.title, 'Book').then(function (result) {
-                ctrl.searchResult = result.searchResult;
-                ctrl.pageExists = result.pageExists;
-            });
+        ctrl.transformChip = function (chip) {
+            return chip;
         };
 
         ctrl.cancelPreviewImage = function () {

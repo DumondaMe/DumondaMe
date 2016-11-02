@@ -2490,6 +2490,12 @@ md-toast.md-error-toast-theme {
         margin-left: 6px;
         height: 24px;
         width: 24px; }
+#manage-place-page .ely-dialog-content #keyword-container #keyword-description {
+  font-weight: 400;
+  font-size: 12px;
+  color: grey;
+  margin-top: 3px;
+  margin-bottom: 8px; }
 
 #manage-book-page .ely-dialog-content .preview-image {
   width: 200px; }

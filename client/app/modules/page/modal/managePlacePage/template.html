@@ -31,21 +31,15 @@
                         </div>
                     </md-input-container>
                     <div layout="row">
-                        <div flex="33">
+                        <div flex="50">
                             <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required ng-change="ctrl.changeData()">
                                 <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
                             </md-select>
                         </div>
-                        <div flex="33" flex-offset-gt-xs="5">
+                        <div flex="50" flex-offset-gt-xs="5">
                             <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" required placeholder="Sprache"
                                        ng-change="ctrl.changeData()">
                                 <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                            </md-select>
-                        </div>
-                        <div flex="33" flex-offset-gt-xs="5">
-                            <md-select ng-model="ctrl.data.selectedCategory" multiple="true" required placeholder="Kategorie"
-                                       ng-change="ctrl.changeData()">
-                                <md-option ng-value="category" ng-repeat="category in ctrl.placeCategory">{{ category.description }}</md-option>
                             </md-select>
                         </div>
                     </div>
@@ -73,6 +67,28 @@
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                         </div>
                     </md-input-container>
+                    <div id="keyword-container">
+                        <md-chips ng-model="ctrl.selectedKeywords" md-autocomplete-snap required
+                                  md-transform-chip="ctrl.transformChip($chip)"
+                                  md-require-match="true">
+                            <md-autocomplete
+                                    md-selected-item="ctrl.selectedItem"
+                                    md-search-text="ctrl.searchText"
+                                    md-items="item in ctrl.searchKeyword(ctrl.searchText)"
+                                    md-item-text="item.name"
+                                    placeholder="Schlüsselwort hinzufügen">
+                                <span md-highlight-text="ctrl.searchText">{{item.description}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                  <strong>{{$chip.description}}</strong>
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                        <div id="keyword-description">Schlüsselwörter ermöglichen eine gezieltere Suche (z.B. Yoga, Shop, Organisation,
+                            Mediation usw.)
+                        </div>
+                    </div>
                     <div id="place-list">
                         <div id="place-title">Orte an denen sich dieses Projekt befindet: *</div>
                         <div id="selected-place-container" ng-show="ctrl.data.selectedPlaces.length > 0">
