@@ -1,7 +1,13 @@
 #manage-place-page {
   .ely-dialog-content {
-    .preview-image {
+    #title-image-container {
       width: 150px;
+      .preview-image {
+        width: 150px;
+      }
+      .image-change-button {
+
+      }
     }
     .search-place-button-container {
       height: 66px;
@@ -35,4 +41,5 @@
       }
     }
   }
+
 }

@@ -8,16 +8,17 @@
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
                 <div>
-                    <div layout="row" layout-align="center center">
-                        <div flex="nogrow">
-                            <img class="preview-image" ng-src="{{ctrl.data.dataUri}}" ng-show="ctrl.data.dataUri">
+                    <div id="title-image-container" ng-show="ctrl.data.dataUri" layout="column" layout-align="start center">
+                        <img class="preview-image" ng-src="{{ctrl.data.dataUri}}">
+                        <div>
+                            <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
+                                       aria-label="Edit Picture">Titelbild ändern
+                            </md-button>
                         </div>
                     </div>
-                    <div layout="column" layout-align="center center">
-                        <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
-                                    icon="system:image"></ely-button>
+                    <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                icon="system:image" ng-hide="ctrl.data.dataUri"></ely-button>
 
-                    </div>
                 </div>
                 <div flex-offset-gt-sm="5" flex="grow">
                     <md-input-container class="input-container">
@@ -42,12 +43,24 @@
                             </md-select>
                         </div>
                         <div flex="33" flex-offset-gt-xs="5">
-                            <md-select ng-model="ctrl.data.selectedCategory" multiple="true" required placeholder="Kategory"
+                            <md-select ng-model="ctrl.data.selectedCategory" multiple="true" required placeholder="Kategorie"
                                        ng-change="ctrl.changeData()">
                                 <md-option ng-value="category" ng-repeat="category in ctrl.placeCategory">{{ category.description }}</md-option>
                             </md-select>
                         </div>
                     </div>
+                    <md-input-container class="input-container">
+                        <label>Webseite</label>
+                        <input type="url" name="website" ng-model="ctrl.data.website" md-maxlength="1000"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
+                        <div class="hint" ng-if="ctrl.managePlacePageForm.website.$valid || ctrl.managePlacePageForm.website.$pristine">
+                            Link zu der Webseite des Projektes
+                        </div>
+                        <div ng-messages="ctrl.managePlacePageForm.website.$error">
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                            <div ng-message="url">Ungültiger Link</div>
+                        </div>
+                    </md-input-container>
                     <md-input-container class="input-container">
                         <label>Allgemeine Beschreibung</label>
                         <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="1000"
@@ -62,7 +75,7 @@
                     </md-input-container>
                     <div id="place-list">
                         <div id="place-title">Orte an denen sich dieses Projekt befindet: *</div>
-                        <div id="selected-place-container">
+                        <div id="selected-place-container" ng-show="ctrl.data.selectedPlaces.length > 0">
                             <div ng-repeat="selectedPlace in ctrl.data.selectedPlaces" class="selected-place" layout="row">
                                 <div class="place-description" flex>{{selectedPlace.formatted}}</div>
                                 <md-icon flex="none" md-svg-icon="system:deleteNormal" aria-label="Delete Place"

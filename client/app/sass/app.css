@@ -2445,12 +2445,16 @@ md-toast.md-error-toast-theme {
       width: 100%;
       margin: 4px 0; }
       .manage-page .ely-dialog-content .input-container .hint {
+        /* Position the hint */
+        position: absolute;
+        left: 2px;
+        right: auto;
+        bottom: 2px;
         /* Copy styles from ng-messages */
         font-size: 12px;
         line-height: 14px;
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         margin-bottom: 8px;
-        margin-top: 4px;
         color: grey; }
     .manage-page .ely-dialog-content .page-exists-warning {
       cursor: pointer;
@@ -2458,8 +2462,10 @@ md-toast.md-error-toast-theme {
       font-size: 14px;
       margin-bottom: 12px; }
 
-#manage-place-page .ely-dialog-content .preview-image {
+#manage-place-page .ely-dialog-content #title-image-container {
   width: 150px; }
+  #manage-place-page .ely-dialog-content #title-image-container .preview-image {
+    width: 150px; }
 #manage-place-page .ely-dialog-content .search-place-button-container {
   height: 66px; }
 #manage-place-page .ely-dialog-content #place-list {
