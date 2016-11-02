@@ -3,13 +3,11 @@
         <div class="book-preview-image" flex="none">
             <img ng-src="{{ctrl.element.bookPreviewUrl}}">
         </div>
-        <div class="description-container" layout="column">
-            <div>
-                <div class="book-description">{{ctrl.element.description}}</div>
-                <div class="action-container">
-                    <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
-                                                             element="ctrl.element"></ely-pinwall-page-recommendation-actions>
-                </div>
+        <div class="description-container">
+            <div class="book-description">{{ctrl.element.description}}</div>
+            <div class="action-container">
+                <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
+                                                         element="ctrl.element"></ely-pinwall-page-recommendation-actions>
             </div>
         </div>
     </div>
