@@ -133,4 +133,25 @@ describe('Integration Tests for creating new place pages', function () {
             stubCDN.copyFile.calledWith('pages/default/landscape/thumbnail.jpg', `pages/${pageId}/thumbnail.jpg`).should.be.true;
         });
     });
+
+    it('Keyword is not existing - Return 400', function () {
+
+        var createPage = {
+            placePage: {
+                title: 'title',
+                topic: ['health', 'spiritual'],
+                language: ['en', 'de'],
+                description: 'description',
+                places: [{description: 'addressName', lat: -5.00, lng: 6.00}],
+                keywords: ['Yoga', 'Meditation', 'Irgendwas']
+            }
+        };
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+        });
+    });
 });
