@@ -5,6 +5,7 @@ var recommendation = require('./dbDSL/recommendation');
 var page = require('./dbDSL/page');
 var blog = require('./dbDSL/blog');
 var user = require('./dbDSL/user');
+var keyword = require('./dbDSL/keyword');
 var dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 var db = require('./db');
 
@@ -34,6 +35,7 @@ module.exports = {
     createPlacePage: page.createPlacePage,
     createLinkPage: page.createLinkPage,
     createBlog: blog.createBlog,
+    createKeywords: keyword.createKeywords,
     setUserLastLoginTime: user.setUserLastLoginTime,
     createUser: user.createUser,
     blockUser: user.blockUser,

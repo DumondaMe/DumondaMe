@@ -9,6 +9,13 @@ module.exports = {
     description: {type: 'string', format: 'notEmptyString', maxLength: 3000},
     youtubeLink: {type: 'string', format: 'youtubeLink', maxLength: 1000},
     link: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+    keywords: {
+        type: 'array',
+        items: {type: 'string', format: 'notEmptyString', maxLength: 50},
+        minItems: 1,
+        maxItems: 30,
+        uniqueItems: true
+    },
     places: {
         type: 'array',
         items: {

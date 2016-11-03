@@ -29,7 +29,7 @@ module.exports = function (router) {
                 } else if(request.linkPage) {
                     return createLinkPage.createLinkPage(req.user.id, request.linkPage, filePath, req);
                 } else if(request.placePage) {
-                    return createPlacePage.createPlacePage(req.user.id, request.placePage, req);
+                    return createPlacePage.createPlacePage(req.user.id, request.placePage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

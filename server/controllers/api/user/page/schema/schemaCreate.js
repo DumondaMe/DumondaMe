@@ -48,10 +48,15 @@ module.exports = {
         placePage: {
             type: 'object',
             additionalProperties: false,
-            required: ['title', 'places'],
+            required: ['title', 'topic', 'description', 'language', 'places', 'keywords'],
             properties: {
+                topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
+                description: {'$ref': '#/definitions/description'},
+                language: language.languageMultiple,
+                website: {'$ref': '#/definitions/link'},
                 places: {'$ref': '#/definitions/places'},
+                keywords: {'$ref': '#/definitions/keywords'},
             }
         },
     },

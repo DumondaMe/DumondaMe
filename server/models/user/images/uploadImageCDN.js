@@ -4,7 +4,7 @@ var gm = require('./../../util/gm');
 var cdn = require('./../../util/cdn');
 var tmp = require('tmp');
 
-var uploadImage = function (originalFilePath, directory, id, width, maxPreviewHeight) {
+var uploadImage = function (originalFilePath, directory, id, widthPreview, maxPreviewHeight) {
     var preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         thumbnail = tmp.fileSync({postfix: '.jpg'}),
@@ -13,13 +13,13 @@ var uploadImage = function (originalFilePath, directory, id, width, maxPreviewHe
     return gm.gm(originalFilePath).sizeAsync()
         .then(function (size) {
             sizeOriginal = size;
-            previewHeight = width * (sizeOriginal.height / sizeOriginal.width );
+            previewHeight = widthPreview * (sizeOriginal.height / sizeOriginal.width );
             if (previewHeight > maxPreviewHeight) {
                 previewHeight = maxPreviewHeight;
                 return gm.gm(originalFilePath).resize(null, maxPreviewHeight).quality(80)
                     .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
             }
-            return gm.gm(originalFilePath).resize(width).quality(80)
+            return gm.gm(originalFilePath).resize(widthPreview).quality(80)
                 .unsharp(2 + sigma, sigma, amount, threshold).noProfile().writeAsync(preview.name);
         })
         .then(function () {
@@ -55,6 +55,21 @@ var uploadImage = function (originalFilePath, directory, id, width, maxPreviewHe
         });
 };
 
+var copyDefaultImages = function (sourcePath, destinationPath) {
+    return cdn.copyFile(`${sourcePath}/preview.jpg`, `${destinationPath}/preview.jpg`)
+        .then(function () {
+            cdn.copyFile(`${sourcePath}/thumbnail.jpg`, `${destinationPath}/thumbnail.jpg`);
+        }).then(function () {
+            cdn.copyFile(`${sourcePath}/normal.jpg`, `${destinationPath}/normal.jpg`);
+        });
+};
+
 module.exports = {
-    uploadImage: uploadImage
+    uploadImage: function (originalFilePath, directory, id, width, maxPreviewHeight, defaultPath) {
+        if (typeof originalFilePath === 'string' && originalFilePath.trim() !== '') {
+            return uploadImage(originalFilePath, directory, id, width, maxPreviewHeight);
+        } else if(typeof defaultPath === 'string' && defaultPath.trim() !== '') {
+            return copyDefaultImages(defaultPath, `${directory}/${id}`);
+        }
+    }
 };
