@@ -10,7 +10,7 @@ var getKeywords = function (params) {
         .skip("{skip}")
         .limit("{maxItems}")
         .end(params).send().then(function (resp) {
-            return {keywords: resp};
+            return {elements: resp};
         });
 };
 

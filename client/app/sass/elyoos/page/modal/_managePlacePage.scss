@@ -41,12 +41,21 @@
       }
     }
     #keyword-container {
-      #keyword-description {
-        font-weight: 400;
-        font-size: 12px;
-        color: grey;
-        margin-top: 3px;
+      #keyword-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: $secondary-text;
         margin-bottom: 8px;
+      }
+      #keyword-list {
+        font-weight: 400;
+        font-size: 14px;
+        font-style: italic;
+        color: $primary-text;
+        margin-bottom: 6px;
+        .keyword-element {
+          margin-right: 3px;
+        }
       }
     }
   }

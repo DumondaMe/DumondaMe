@@ -30,9 +30,9 @@ describe('Integration Tests for getting keyword suggestions', function () {
             return requestHandler.getWithData('/api/keyword/suggestion', {search:'yo'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.keywords.length.should.equals(2);
-            res.body.keywords[0].description.should.equals('Yoga');
-            res.body.keywords[1].description.should.equals('Yoga Nidra');
+            res.body.elements.length.should.equals(2);
+            res.body.elements[0].description.should.equals('Yoga');
+            res.body.elements[1].description.should.equals('Yoga Nidra');
         });
     });
 });

@@ -31,10 +31,10 @@ describe('Integration Tests for getting a list of keywords', function () {
             return requestHandler.getWithData('/api/keyword', {skip: 1, maxItems: 3}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.keywords.length.should.equals(3);
-            res.body.keywords[0].description.should.equals('Organisation');
-            res.body.keywords[1].description.should.equals('Shop');
-            res.body.keywords[2].description.should.equals('Yoga');
+            res.body.elements.length.should.equals(3);
+            res.body.elements[0].description.should.equals('Organisation');
+            res.body.elements[1].description.should.equals('Shop');
+            res.body.elements[2].description.should.equals('Yoga');
         });
     });
 });

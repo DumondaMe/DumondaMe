@@ -1,26 +1,34 @@
 'use strict';
 
 module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
-    'RecommendationResponseFormatter', 'Languages', 'ArrayHelper',
+    'RecommendationResponseFormatter', 'Languages', 'ArrayHelper', 'Keywords', 'KeywordSuggestion',
     function (ElyModal, Topics, PlacePageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
-              Languages, ArrayHelper) {
+              Languages, ArrayHelper, Keywords, KeywordSuggestion) {
         var ctrl = this;
 
         ctrl.languages = Languages.languages;
         CheckPageExists.reset();
         ctrl.topics = Topics.topics;
         ctrl.data = {selectedPlaces: []};
+        ctrl.Keywords = Keywords;
+        ctrl.KeywordSuggestion = KeywordSuggestion;
+        ctrl.selectedKeywords = [];
 
         ctrl.cancel = function () {
             ElyModal.cancel();
         };
 
-        ctrl.searchKeyword = function (text) {
-
+        ctrl.closeSelectKeyword = function () {
+            ctrl.showKeywords = false;
         };
 
-        ctrl.transformChip = function (chip) {
-            return chip;
+        ctrl.keywordsSelected = function (selectedKeywords) {
+            ctrl.showKeywords = false;
+            ctrl.selectedKeywords = selectedKeywords;
+        };
+
+        ctrl.addKeywords = function () {
+            ctrl.showKeywords = true;
         };
 
         ctrl.cancelPreviewImage = function () {

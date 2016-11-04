@@ -1,0 +1,12 @@
+.select-elements-dialog {
+  .ely-dialog-content {
+    .suggestion-container {
+      border-bottom: 1px solid $divider;
+      margin-bottom: 24px;
+    }
+    .overview-container {
+      min-height: 300px;
+      overflow-y: scroll;
+    }
+  }
+}

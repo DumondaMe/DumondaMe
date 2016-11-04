@@ -10,7 +10,7 @@ var searchKeywords = function (keyword) {
         .where('keyword.de =~ {keyWordQueryRegEx}')
         .return("keyword.de AS description")
         .end({keyWordQueryRegEx: keyWordQueryRegEx}).send().then(function (resp) {
-            return {keywords: resp};
+            return {elements: resp};
         });
 };
 

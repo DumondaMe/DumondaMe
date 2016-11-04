@@ -399,6 +399,13 @@
   .searchBoxForm ul.typeahead {
     cursor: pointer; }
 
+.select-elements-dialog .ely-dialog-content .suggestion-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 24px; }
+.select-elements-dialog .ely-dialog-content .overview-container {
+  min-height: 300px;
+  overflow-y: scroll; }
+
 .ely-submit-button button {
   display: inline-block; }
 .ely-submit-button .ely-submit-button-success, .ely-submit-button .ely-submit-button-error {
@@ -2445,17 +2452,13 @@ md-toast.md-error-toast-theme {
       width: 100%;
       margin: 4px 0; }
       .manage-page .ely-dialog-content .input-container .hint {
-        /* Position the hint */
-        position: absolute;
-        left: 2px;
-        right: auto;
-        bottom: 2px;
         /* Copy styles from ng-messages */
         font-size: 12px;
         line-height: 14px;
         transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
         margin-bottom: 8px;
-        color: grey; }
+        color: grey;
+        padding-top: 1px; }
     .manage-page .ely-dialog-content .page-exists-warning {
       cursor: pointer;
       color: #EF6C00;
@@ -2490,12 +2493,19 @@ md-toast.md-error-toast-theme {
         margin-left: 6px;
         height: 24px;
         width: 24px; }
-#manage-place-page .ely-dialog-content #keyword-container #keyword-description {
-  font-weight: 400;
-  font-size: 12px;
-  color: grey;
-  margin-top: 3px;
+#manage-place-page .ely-dialog-content #keyword-container #keyword-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
   margin-bottom: 8px; }
+#manage-place-page .ely-dialog-content #keyword-container #keyword-list {
+  font-weight: 400;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 6px; }
+  #manage-place-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
+    margin-right: 3px; }
 
 #manage-book-page .ely-dialog-content .preview-image {
   width: 200px; }

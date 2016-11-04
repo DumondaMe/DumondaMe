@@ -1,6 +1,7 @@
 <md-dialog id="manage-place-page" aria-label="Manage Place Page" class="manage-page"
            ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
-    <form name="ctrl.managePlacePageForm" ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace" ng-cloak>
+    <form name="ctrl.managePlacePageForm"
+          ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace && !ctrl.showKeywords" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Standort Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Standort Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
             bearbeiten
@@ -68,26 +69,13 @@
                         </div>
                     </md-input-container>
                     <div id="keyword-container">
-                        <md-chips ng-model="ctrl.selectedKeywords" md-autocomplete-snap required
-                                  md-transform-chip="ctrl.transformChip($chip)"
-                                  md-require-match="true">
-                            <md-autocomplete
-                                    md-selected-item="ctrl.selectedItem"
-                                    md-search-text="ctrl.searchText"
-                                    md-items="item in ctrl.searchKeyword(ctrl.searchText)"
-                                    md-item-text="item.name"
-                                    placeholder="Schlüsselwort hinzufügen">
-                                <span md-highlight-text="ctrl.searchText">{{item.description}}</span>
-                            </md-autocomplete>
-                            <md-chip-template>
-                                <span>
-                                  <strong>{{$chip.description}}</strong>
-                                </span>
-                            </md-chip-template>
-                        </md-chips>
-                        <div id="keyword-description">Schlüsselwörter ermöglichen eine gezieltere Suche (z.B. Yoga, Shop, Organisation,
-                            Mediation usw.)
+                        <div id="keyword-title">Begriffe für eine gezieltere Suche: *</div>
+                        <div id="keyword-list">
+                            <span class="keyword-element" ng-repeat="keyword in ctrl.selectedKeywords">{{keyword.description}}<span
+                                    ng-if="!$last">,</span></span>
                         </div>
+                        <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.addKeywords()" label="Schlüsselworter hinzufügen"
+                                    orientation="landscape" icon="system:key"></ely-button>
                     </div>
                     <div id="place-list">
                         <div id="place-title">Orte an denen sich dieses Projekt befindet: *</div>
@@ -124,6 +112,10 @@
                                        cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
 
     <ely-add-place on-back="ctrl.closeAddPlace()" on-selected="ctrl.placeSelected" ng-show="ctrl.showAddPlace"></ely-add-place>
+
+    <ely-select-elements on-back="ctrl.closeSelectKeyword()" on-selected="ctrl.keywordsSelected" ng-show="ctrl.showKeywords"
+                         dialog-title="Schlüsselwörter hinzufügen" dialog-search-placeholder="Schlüsselwort" overview-service="ctrl.Keywords"
+                         suggestion-service="ctrl.KeywordSuggestion"></ely-select-elements>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
                             finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
