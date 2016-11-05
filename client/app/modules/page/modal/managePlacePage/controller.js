@@ -9,10 +9,9 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
         ctrl.languages = Languages.languages;
         CheckPageExists.reset();
         ctrl.topics = Topics.topics;
-        ctrl.data = {selectedPlaces: []};
+        ctrl.data = {selectedPlaces: [], selectedKeywords: []};
         ctrl.Keywords = Keywords;
         ctrl.KeywordSuggestion = KeywordSuggestion;
-        ctrl.selectedKeywords = [];
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -24,7 +23,7 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
 
         ctrl.keywordsSelected = function (selectedKeywords) {
             ctrl.showKeywords = false;
-            ctrl.selectedKeywords = selectedKeywords;
+            ctrl.data.selectedKeywords = selectedKeywords;
         };
 
         ctrl.addKeywords = function () {
@@ -65,7 +64,6 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
         ctrl.placeSelected = function (selectedPlace) {
             ctrl.showAddPlace = false;
             ctrl.data.selectedPlaces.push(selectedPlace);
-            selectedPlace.number = ctrl.data.selectedPlaces.length;
         };
 
         ctrl.createPlace = function () {

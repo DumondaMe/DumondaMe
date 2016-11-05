@@ -2,8 +2,8 @@
 
 var charCodeEnter = 13;
 
-module.exports = ['SelectElementsResponseHandler', 'ScrollRequest', 'SelectElementsCheckBoxHandler',
-    function (SelectElementsResponseHandler, ScrollRequest, SelectElementsCheckBoxHandler) {
+module.exports = ['SelectElementsResponseHandler', 'ScrollRequest', 'SelectElementsCheckBoxHandler', 'ArrayHelper',
+    function (SelectElementsResponseHandler, ScrollRequest, SelectElementsCheckBoxHandler, ArrayHelper) {
         var ctrl = this;
 
         ctrl.suggestionKeyword = '';
@@ -12,6 +12,7 @@ module.exports = ['SelectElementsResponseHandler', 'ScrollRequest', 'SelectEleme
 
         ctrl.toggle = SelectElementsCheckBoxHandler.toggle;
         ctrl.exists = SelectElementsCheckBoxHandler.exists;
+        ctrl.toStringArray = ArrayHelper.toStringArray;
 
         ScrollRequest.reset('selectElements', ctrl.overviewService.get, SelectElementsResponseHandler);
 

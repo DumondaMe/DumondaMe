@@ -71,7 +71,7 @@
                     <div id="keyword-container">
                         <div id="keyword-title">Begriffe für eine gezieltere Suche: *</div>
                         <div id="keyword-list">
-                            <span class="keyword-element" ng-repeat="keyword in ctrl.selectedKeywords">{{keyword.description}}<span
+                            <span class="keyword-element" ng-repeat="keyword in ctrl.data.selectedKeywords">{{keyword}}<span
                                     ng-if="!$last">,</span></span>
                         </div>
                         <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.addKeywords()" label="Schlüsselworter hinzufügen"
@@ -95,7 +95,8 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createPlace()" ng-if="!ctrl.isEditMode"
-                       ng-disabled="ctrl.uploadStarted || ctrl.managePlacePageForm.$invalid || !ctrl.data.selectedPlace.formatted">Erstellen
+                       ng-disabled="ctrl.uploadStarted || ctrl.managePlacePageForm.$invalid || !ctrl.data.selectedPlaces.length > 0
+                       || !ctrl.data.selectedKeywords.length > 0">Erstellen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.modifyPlace()" ng-if="ctrl.isEditMode"
                        ng-disabled=" ctrl.uploadStarted || ctrl.managePlacePageForm.$invalid || !ctrl.dataHasChanged">
