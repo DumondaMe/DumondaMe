@@ -3930,6 +3930,7 @@ body, html {
 
 #viewport {
   padding-top: 56px;
+  background-color: #e9ebee;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3942,6 +3943,11 @@ body, html {
   @media screen and (min-width: 1280px) {
     #viewport {
       padding-top: 0; } }
+
+#viewport.viewport-toolbar-removed {
+  padding-top: 0; }
+  #viewport.viewport-toolbar-removed .ely-gt-md-content-container {
+    padding-top: 0; }
 
 .ely-gt-md-content {
   height: 100%;
@@ -3957,11 +3963,6 @@ body, html {
   bottom: 0;
   left: 250px;
   right: 0; }
-
-.viewport-toolbar-removed {
-  padding-top: 0; }
-  .viewport-toolbar-removed .ely-gt-md-content-container {
-    padding-top: 0; }
 
 .content {
   height: 100%;

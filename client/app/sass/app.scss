@@ -28,6 +28,7 @@ body, html {
 
 #viewport {
   padding-top: 56px;
+  background-color: $background-normal;
   @media screen and (min-width: $gt-sm) {
     padding-top: 64px;
   }
@@ -40,6 +41,13 @@ body, html {
   left: 0;
   right: 0;
   overflow: hidden;
+}
+
+#viewport.viewport-toolbar-removed {
+  padding-top: 0;
+  .ely-gt-md-content-container {
+    padding-top: 0;
+  }
 }
 
 .ely-gt-md-content {
@@ -59,13 +67,6 @@ body, html {
   left: 250px;
   right: 0;
 
-}
-
-.viewport-toolbar-removed {
-  padding-top: 0;
-  .ely-gt-md-content-container {
-    padding-top: 0;
-  }
 }
 
 .content {
