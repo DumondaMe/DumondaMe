@@ -2900,8 +2900,25 @@ md-toast.md-error-toast-theme {
 .link-recommendation-desktop .action-container {
   padding: 0 8px 8px 8px; }
 
-.place-recommendation {
-  padding: 0 16px 16px 16px; }
+.place-recommendation .place-preview-image {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 8px; }
+  .place-recommendation .place-preview-image img {
+    width: 100%; }
+.place-recommendation .place-description {
+  padding: 0 16px 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  overflow-y: hidden;
+  max-height: 3.2em; }
+  @media screen and (max-width: 480px) {
+    .place-recommendation .place-description {
+      font-size: 12px;
+      max-height: 3em; } }
+.place-recommendation .action-container {
+  padding: 0 8px 8px 8px; }
 
 .youtube-recommendation-desktop .youtube-preview-image {
   width: 100%;
