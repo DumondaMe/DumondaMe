@@ -70,7 +70,7 @@ var setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
 };
 
 module.exports = {
-    setUserLastLoginTime : setUserLastLoginTime,
+    setUserLastLoginTime: setUserLastLoginTime,
     createUser: createUser,
     blockUser: blockUser,
     createPrivacy: createPrivacy,
