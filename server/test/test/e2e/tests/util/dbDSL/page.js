@@ -37,14 +37,15 @@ var createLinkPage = function (pageId, language, topic, modified, link, heightPr
         }).getCommand());
 };
 
-var createPlacePage = function (pageId, adminId, modified, title, coordinates) {
+var createPlacePage = function (pageId, adminId, language, topic, modified, title, coordinates) {
     title = title || `page${pageId}Title`;
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
-        .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Place', modified: {modified}, 
+        .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Place', language: {language}, description: {description}, modified: {modified}, topic: {topic},
         pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng)}))`)
         .end({
-            pageId: pageId, adminId: adminId, title: title, modified: modified, coordinates: coordinates
+            pageId: pageId, adminId: adminId, title: title, description: `page${pageId}Description`, language: language, topic: topic,
+            modified: modified, coordinates: coordinates
         }).getCommand());
 };
 

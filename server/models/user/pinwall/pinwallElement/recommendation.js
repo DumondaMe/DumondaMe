@@ -14,6 +14,8 @@ var addLabelElement = function (element, pinwallElement) {
         }
     } else if (element.label === 'Book') {
         element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
+    } else if (element.label === 'Place') {
+        element.previewImage = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
     } else if (element.label === 'Youtube') {
         element.link = pinwallElement.pinwallData.link;
         element.linkEmbed = pinwallElement.pinwallData.linkEmbed;
@@ -23,7 +25,6 @@ var addLabelElement = function (element, pinwallElement) {
 var getPinwallElement = function (pinwallElement) {
     var element = {};
     element.pinwallType = 'Recommendation';
-    element.comment = pinwallElement.pinwall.comment;
     element.created = pinwallElement.pinwall.created;
     element.label = pinwallElement.pinwallData.label;
     element.pageId = pinwallElement.pinwallData.pageId;

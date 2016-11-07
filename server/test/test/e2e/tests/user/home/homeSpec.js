@@ -257,9 +257,16 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', '3', ['en'], ['health', 'personalDevelopment'], 1000, null, null, 'blogTitle4');
         dbDsl.createBlog('7', '3', ['en'], ['health', 'personalDevelopment'], 507, ['Freund'], null, 'blogTitle5');
 
-        dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 503, comment:'irgendwas'}, {userId: '2', created: 502}]);
-        dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: 504, comment:'irgendwas2'}, {userId: '3', created: 504}]);
-        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 499, comment:'irgendwas2'}]);
+        dbDsl.createPlacePage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+            description: 'Zuerich',
+            lat: 47.376887,
+            lng: 8.541694
+        }]);
+
+        dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 503, comment: 'irgendwas'}, {userId: '2', created: 502}]);
+        dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: 504, comment: 'irgendwas2'}, {userId: '3', created: 504}]);
+        dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 499, comment: 'irgendwas2'}]);
+        dbDsl.crateRecommendationsForPage('8', [{userId: '2', created: 498, comment: 'irgendwas3'}]);
 
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
         dbDsl.createContactConnection('1', '3', 'Bekannter', 500);
@@ -277,7 +284,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         }).then(function (res) {
             res.status.should.equal(200);
 
-            res.body.pinwall.length.should.equals(7);
+            res.body.pinwall.length.should.equals(8);
             res.body.pinwall[0].pinwallType.should.equals('Blog');
             res.body.pinwall[0].pageId.should.equals('6');
             res.body.pinwall[0].name.should.equals('user Meier3');
@@ -323,7 +330,6 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[2].title.should.equals('youtubePage2Title');
             res.body.pinwall[2].created.should.equals(504);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            res.body.pinwall[2].comment.should.equals('irgendwas2');
             res.body.pinwall[2].description.should.equals('page1Description');
             res.body.pinwall[2].recommendedByUser.should.equals(false);
             res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
@@ -342,7 +348,6 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[3].created.should.equals(503);
             res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
-            res.body.pinwall[3].comment.should.equals('irgendwas');
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
@@ -398,7 +403,6 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
             res.body.pinwall[6].heightPreviewImage.should.equals(200);
-            res.body.pinwall[6].comment.should.equals('irgendwas2');
             res.body.pinwall[6].description.should.equals('page2Description');
             res.body.pinwall[6].recommendedByUser.should.equals(false);
             res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
@@ -406,6 +410,24 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].topic.length.should.equals(2);
             res.body.pinwall[6].topic[0].should.equals('health');
             res.body.pinwall[6].topic[1].should.equals('personalDevelopment');
+
+            res.body.pinwall[7].pinwallType.should.equals('Recommendation');
+            res.body.pinwall[7].label.should.equals('Place');
+            res.body.pinwall[7].pageId.should.equals('8');
+            res.body.pinwall[7].name.should.equals('user Meier2');
+            res.body.pinwall[7].forename.should.equals('user');
+            res.body.pinwall[7].userId.should.equals('2');
+            res.body.pinwall[7].title.should.equals('Test1Place');
+            res.body.pinwall[7].created.should.equals(498);
+            res.body.pinwall[7].previewImage.should.equals('pages/8/preview.jpg');
+            res.body.pinwall[7].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
+            res.body.pinwall[7].description.should.equals('page8Description');
+            res.body.pinwall[7].recommendedByUser.should.equals(false);
+            res.body.pinwall[7].thisRecommendationByUser.should.equals(false);
+            res.body.pinwall[7].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[7].topic.length.should.equals(2);
+            res.body.pinwall[7].topic[0].should.equals('health');
+            res.body.pinwall[7].topic[1].should.equals('personalDevelopment');
         });
     });
 })
