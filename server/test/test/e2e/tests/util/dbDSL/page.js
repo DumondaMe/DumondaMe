@@ -49,9 +49,16 @@ var createPlacePage = function (pageId, adminId, language, topic, modified, titl
         }).getCommand());
 };
 
+var addAdminToPage = function (adminId, pageId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match("(a:Page {pageId: {pageId}}), (b:User {userId: {adminId}})")
+        .create("(b)-[:IS_ADMIN]->(a)")
+        .end({pageId: pageId, adminId: adminId}).getCommand());
+};
+
 module.exports = {
     createBookPage: createBookPage,
     createYoutubePage: createYoutubePage,
     createLinkPage: createLinkPage,
-    createPlacePage: createPlacePage
+    createPlacePage: createPlacePage,
+    addAdminToPage: addAdminToPage
 };

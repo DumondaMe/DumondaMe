@@ -34,6 +34,7 @@ module.exports = {
     createYoutubePage: page.createYoutubePage,
     createPlacePage: page.createPlacePage,
     createLinkPage: page.createLinkPage,
+    addAdminToPage: page.addAdminToPage,
     createBlog: blog.createBlog,
     createKeywords: keyword.createKeywords,
     setUserLastLoginTime: user.setUserLastLoginTime,

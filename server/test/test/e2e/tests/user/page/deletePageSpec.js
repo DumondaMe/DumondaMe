@@ -2,6 +2,7 @@
 
 var users = require('../../util/user');
 var db = require('../../util/db');
+var dbDsl = require('../../util/dbDSL');
 var requestHandler = require('../../util/request');
 var moment = require('moment');
 var stubCDN = require('../../util/stubCDN');
@@ -12,37 +13,27 @@ describe('Integration Tests for deleting a page', function () {
 
     beforeEach(function () {
 
-        var commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
 
-            commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 5090, pageId: '0'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Youtube', description: 'page2', modified: 5091, pageId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:Page {title: 'page3Title', label: 'Youtube', description: 'page3', modified: 5092, pageId: '2'})").end().getCommand());
+        return dbDsl.init(4).then(function () {
+            dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 5090, 'HansMuster', 1000);
+            dbDsl.createYoutubePage('1', ['de'], ['health', 'personalDevelopment'], 5091, 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage1Title');
+            dbDsl.createYoutubePage('2', ['de'], ['health', 'personalDevelopment'], 5092, 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
 
-            commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-                .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
-            commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '1'})")
-                .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
-            commands.push(db.cypher().match("(a:Page {pageId: '2'}), (b:User {userId: '2'})")
-                .create("(b)-[:IS_ADMIN]->(a)").end().getCommand());
+            dbDsl.createPlacePage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
+                [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}],
+                [{description: 'Zuerich2', lat: 47.376887, lng: 8.541694}]);
 
-            commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 507, recommendationId: '1'})-[:RECOMMENDS]->(a)").end().getCommand());
-            commands.push(db.cypher().match("(a:Page {pageId: '1'}), (b:User {userId: '2'})")
-                .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 508, recommendationId: '2'})-[:RECOMMENDS]->(a)").end().getCommand());
-            commands.push(db.cypher().match("(a:Recommendation {recommendationId: '1'}), (b:Page {pageId: '0'})")
-                .create("(a)-[:PINWALL_DATA]->(b)").end().getCommand());
-            commands.push(db.cypher().match("(a:Recommendation {recommendationId: '2'}), (b:Page {pageId: '1'})")
-                .create("(a)-[:PINWALL_DATA]->(b)").end().getCommand());
+            dbDsl.addAdminToPage('1', '0');
+            dbDsl.addAdminToPage('1', '1');
+            dbDsl.addAdminToPage('2', '2');
 
-            
-            return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
-                .end().send(commands);
+            dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 507}]);
+            dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: 508}]);
+            dbDsl.crateRecommendationsForPage('3', [{userId: '1', created: 508}]);
+            return dbDsl.sendToDb();
         });
     });
 
@@ -63,7 +54,27 @@ describe('Integration Tests for deleting a page', function () {
                 .return('page').end().send();
         }).then(function (page) {
             page.length.should.equals(0);
-            return db.cypher().match("(recommendation:Recommendation {recommendationId: '1'})")
+            return db.cypher().match("(recommendation:Recommendation {recommendationId: '0'})")
+                .return('recommendation').end().send();
+        }).then(function (page) {
+            page.length.should.equals(0);
+        });
+    });
+
+    it('Delete Successfully a place page - Return 200', function () {
+
+        stubCDN.deleteFolder.reset();
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.del('/api/user/page', {pageId: '3'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            stubCDN.deleteFolder.calledWith("pages/3/").should.be.true;
+            return db.cypher().match("(page:Page {pageId: '3'})")
+                .return('page').end().send();
+        }).then(function (page) {
+            page.length.should.equals(0);
+            return db.cypher().match("(recommendation:Recommendation {recommendationId: '2'})")
                 .return('recommendation').end().send();
         }).then(function (page) {
             page.length.should.equals(0);
@@ -81,7 +92,7 @@ describe('Integration Tests for deleting a page', function () {
                 .return('page').end().send();
         }).then(function (page) {
             page.length.should.equals(1);
-            return db.cypher().match("(recommendation:Recommendation {recommendationId: '2'})")
+            return db.cypher().match("(recommendation:Recommendation {recommendationId: '1'})")
                 .return('recommendation').end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -101,5 +112,5 @@ describe('Integration Tests for deleting a page', function () {
             page.length.should.equals(1);
         });
     });
-    
+
 });
