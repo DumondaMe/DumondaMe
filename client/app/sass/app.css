@@ -2377,6 +2377,31 @@ md-toast.md-error-toast-theme {
         font-weight: 500;
         color: #3F51B5; }
 
+#ely-place-page-detail #ely-place-page-main-detail {
+  max-width: 600px;
+  min-width: 300px; }
+  #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
+    cursor: pointer;
+    overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
+        max-height: 74px; } }
+    @media screen and (min-width: 960px) {
+      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
+        font-size: 18px; } }
+  #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container {
+    padding: 0; }
+    #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container .button-settings {
+      margin: 0; }
+  #ely-place-page-detail #ely-place-page-main-detail .topic-description {
+    margin: 0 0 4px 0; }
+  #ely-place-page-detail #ely-place-page-main-detail .image-description-container {
+    cursor: pointer; }
+    #ely-place-page-detail #ely-place-page-main-detail .image-description-container .image {
+      width: 100%;
+      max-width: 552px;
+      margin-bottom: 8px; }
+
 #ely-page-recommendation {
   max-width: 600px;
   min-width: 300px; }
