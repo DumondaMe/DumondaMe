@@ -8,6 +8,10 @@ module.exports = [function () {
         return angular.isDefined(value) && value !== null;
     };
 
+    service.isFunction= function (value) {
+        return angular.isFunction(value);
+    };
+
     service.isTrue = function (value) {
        return value === 'true' || value === true;
      };

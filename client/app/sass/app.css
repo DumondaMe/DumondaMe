@@ -1547,11 +1547,76 @@ md-toast.md-error-toast-theme {
   height: 100%;
   background-color: #e9ebee; }
   #ely-map-view #map-container {
+    float: left;
+    width: 100%;
     height: 100%; }
     #ely-map-view #map-container #ely-map {
-      height: 100%; }
+      height: 100%;
+      margin-right: 250px; }
       #ely-map-view #map-container #ely-map #map-id {
         height: 100%; }
+  #ely-map-view #map-legend {
+    float: right;
+    width: 250px;
+    margin-left: -250px;
+    height: 100%; }
+
+#ely-map-overview-recommendations {
+  height: 100%;
+  background-color: white; }
+  #ely-map-overview-recommendations .map-recommendation-border {
+    border-bottom: 1px solid #ccc; }
+  #ely-map-overview-recommendations .selected {
+    background-color: #e9ebee; }
+  #ely-map-overview-recommendations .ely-map-recommendation {
+    padding: 8px; }
+    #ely-map-overview-recommendations .ely-map-recommendation .recommendation-image {
+      cursor: pointer;
+      position: relative;
+      width: 48px;
+      height: 48px !important;
+      border-radius: 50%;
+      opacity: 0.99;
+      overflow: hidden; }
+      #ely-map-overview-recommendations .ely-map-recommendation .recommendation-image img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+    #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container {
+      position: relative;
+      height: 50px;
+      padding-left: 12px; }
+      #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container .recommendation-title {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container .recommendation-title:hover {
+        text-decoration: underline; }
+      #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container .number-of-recommendations {
+        position: absolute;
+        bottom: 0;
+        line-height: 18px;
+        font-size: 12px; }
+        #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container .number-of-recommendations .thumb-up-icon {
+          height: 14px;
+          width: 14px;
+          min-height: 14px;
+          min-width: 14px;
+          margin-right: 4px; }
+        #ely-map-overview-recommendations .ely-map-recommendation .recommendation-container .number-of-recommendations .number {
+          position: relative;
+          top: 2px; }
+    #ely-map-overview-recommendations .ely-map-recommendation .ely-topics-vertical-color {
+      padding: 0;
+      height: 50px; }
 
 .ely-conversation-message-create .create-message-container {
   padding: 24px 24px 0 24px; }

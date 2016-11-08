@@ -54,23 +54,32 @@ describe('Integration Tests for getting popular place recommendations', function
 
                 res.body.recommendations.length.should.equals(3);
                 res.body.recommendations[0].pageId.should.equals('3');
+                res.body.recommendations[0].thumbnail.should.equals('pages/3/thumbnail.jpg');
                 res.body.recommendations[0].title.should.equals('Test3');
                 res.body.recommendations[0].places.length.should.equals(1);
                 res.body.recommendations[0].places[0].description.should.equals('Altstetten');
                 res.body.recommendations[0].places[0].latitude.should.equals(47.388237);
                 res.body.recommendations[0].places[0].longitude.should.equals(8.483051);
+                res.body.recommendations[0].topic.length.should.equals(2);
+                res.body.recommendations[0].topic[0].should.equals('health');
+                res.body.recommendations[0].topic[1].should.equals('personalDevelopment');
                 res.body.recommendations[0].numberOfRecommendations.should.equals(3);
 
                 res.body.recommendations[1].pageId.should.equals('2');
                 res.body.recommendations[1].title.should.equals('Test2');
+                res.body.recommendations[1].thumbnail.should.equals('pages/2/thumbnail.jpg');
                 res.body.recommendations[1].places.length.should.equals(1);
                 res.body.recommendations[1].places[0].description.should.equals('Urdorf');
                 res.body.recommendations[1].places[0].latitude.should.equals(47.386707);
                 res.body.recommendations[1].places[0].longitude.should.equals(8.420693);
+                res.body.recommendations[1].topic.length.should.equals(2);
+                res.body.recommendations[1].topic[0].should.equals('health');
+                res.body.recommendations[1].topic[1].should.equals('personalDevelopment');
                 res.body.recommendations[1].numberOfRecommendations.should.equals(2);
 
                 res.body.recommendations[2].pageId.should.equals('1');
                 res.body.recommendations[2].title.should.equals('Test1');
+                res.body.recommendations[2].thumbnail.should.equals('pages/1/thumbnail.jpg');
                 res.body.recommendations[2].places.length.should.equals(2);
                 res.body.recommendations[2].places[0].description.should.equals('Zuerich');
                 res.body.recommendations[2].places[0].latitude.should.equals(47.376887);
@@ -78,6 +87,9 @@ describe('Integration Tests for getting popular place recommendations', function
                 res.body.recommendations[2].places[1].description.should.equals('Zuerich Paradeplatz');
                 res.body.recommendations[2].places[1].latitude.should.equals(47.369890);
                 res.body.recommendations[2].places[1].longitude.should.equals(8.539127);
+                res.body.recommendations[2].topic.length.should.equals(2);
+                res.body.recommendations[2].topic[0].should.equals('health');
+                res.body.recommendations[2].topic[1].should.equals('personalDevelopment');
                 res.body.recommendations[2].numberOfRecommendations.should.equals(0);
             });
         });

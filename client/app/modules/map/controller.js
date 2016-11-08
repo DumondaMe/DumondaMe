@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = ['PopularPlaceRecommendation', 'WebStorageMapCenter', function (PopularPlaceRecommendation, WebStorageMapCenter) {
+module.exports = ['$scope', 'PopularPlaceRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService',
+    function ($scope, PopularPlaceRecommendation, WebStorageMapCenter, ElyMapMarkerService) {
     var ctrl = this;
 
     ctrl.commandsMap = {};
@@ -16,11 +17,7 @@ module.exports = ['PopularPlaceRecommendation', 'WebStorageMapCenter', function 
         }, function () {
             WebStorageMapCenter.setNewCenter(center.lat, center.lng, zoom);
             ctrl.commandsMap.clearAllMarkers();
-            angular.forEach(ctrl.popularPlaces.recommendations, function (recommendation) {
-                angular.forEach(recommendation.places, function (place) {
-                    ctrl.commandsMap.addMarker(place.latitude, place.longitude);
-                });
-            });
+            ElyMapMarkerService.addMarkers(ctrl.popularPlaces.recommendations, ctrl.commandsMap, $scope);
         }, function () {
 
         });

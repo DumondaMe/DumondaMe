@@ -1,0 +1,18 @@
+<div id="ely-map-overview-recommendations">
+    <div ng-repeat="recommendation in ctrl.popularPlaces.recommendations"
+         ng-class="{'map-recommendation-border': !$last, 'selected': recommendation.selected}">
+        <div class="ely-map-recommendation" layout="row">
+            <div class="recommendation-image" flex="none">
+                <img ng-src="{{recommendation.thumbnail}}"/>
+            </div>
+            <div flex class="recommendation-container">
+                <div class="recommendation-title">{{recommendation.title}}</div>
+                <div class="number-of-recommendations">
+                    <md-icon md-svg-icon="cardActions:thumbUp" class="thumb-up-icon"></md-icon>
+                    <span class="number">{{recommendation.numberOfRecommendations}}</span>
+                </div>
+            </div>
+            <ely-topics-vertical-color topics="recommendation.topic" flex="none"></ely-topics-vertical-color>
+        </div>
+    </div>
+</div>

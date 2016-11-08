@@ -1,13 +1,9 @@
-<div id="ely-map-view" layout="row">
-    <div id="map-container" flex="70">
+<div id="ely-map-view">
+    <div id="map-container">
         <ely-map on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="7" center="ctrl.initMapParams"
                  zoom="ctrl.initMapParams.zoom" commands="ctrl.commandsMap"></ely-map>
     </div>
-    <div id="map-legend" flex="30">
-        <div class="map-legend-container">
-            <div class="place-container" ng-repeat="">
-
-            </div>
-        </div>
+    <div id="map-legend">
+        <ely-map-overview-recommendations popular-places="ctrl.popularPlaces"></ely-map-overview-recommendations>
     </div>
 </div>

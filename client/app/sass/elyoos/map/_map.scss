@@ -2,13 +2,22 @@
   height: 100%;
   background-color: $background-normal;
   #map-container {
+    float: left;
+    width: 100%;
     height: 100%;
     #ely-map {
       height: 100%;
+      margin-right: 250px;
       #map-id {
         height: 100%;
       }
     }
+  }
+  #map-legend {
+    float: right;
+    width: 250px;
+    margin-left: -250px;
+    height: 100%;
   }
 }
 
