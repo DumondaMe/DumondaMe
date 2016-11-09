@@ -17,7 +17,7 @@ module.exports = [function () {
                 }
             };
             angular.forEach(recommendation.places, function (place) {
-                commandsMap.addMarker(place.latitude, place.longitude, recommendation.events);
+                place.marker = commandsMap.addMarker(place.latitude, place.longitude, recommendation.events);
             });
         });
     };

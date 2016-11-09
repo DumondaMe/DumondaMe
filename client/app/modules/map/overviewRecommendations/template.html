@@ -1,6 +1,6 @@
 <div id="ely-map-overview-recommendations">
-    <div ng-repeat="recommendation in ctrl.popularPlaces.recommendations"
-         ng-class="{'map-recommendation-border': !$last, 'selected': recommendation.selected}">
+    <div ng-repeat="recommendation in ctrl.popularPlaces.recommendations" ng-mouseover="ctrl.mouseOver(recommendation)"
+         ng-mouseleave="ctrl.mouseLeaf(recommendation)" ng-class="{'map-recommendation-border': !$last, 'selected': recommendation.selected}">
         <div class="ely-map-recommendation" layout="row">
             <div class="recommendation-image" flex="none">
                 <img ng-src="{{recommendation.thumbnail}}"/>

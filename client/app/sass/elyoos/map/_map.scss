@@ -1,3 +1,5 @@
+$map-recommendation-width: 300px;
+
 #ely-map-view {
   height: 100%;
   background-color: $background-normal;
@@ -7,7 +9,7 @@
     height: 100%;
     #ely-map {
       height: 100%;
-      margin-right: 250px;
+      margin-right: $map-recommendation-width;
       #map-id {
         height: 100%;
       }
@@ -15,8 +17,8 @@
   }
   #map-legend {
     float: right;
-    width: 250px;
-    margin-left: -250px;
+    width: $map-recommendation-width;
+    margin-left: -$map-recommendation-width;
     height: 100%;
   }
 }

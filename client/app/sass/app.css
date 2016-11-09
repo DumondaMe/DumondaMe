@@ -1552,13 +1552,13 @@ md-toast.md-error-toast-theme {
     height: 100%; }
     #ely-map-view #map-container #ely-map {
       height: 100%;
-      margin-right: 250px; }
+      margin-right: 300px; }
       #ely-map-view #map-container #ely-map #map-id {
         height: 100%; }
   #ely-map-view #map-legend {
     float: right;
-    width: 250px;
-    margin-left: -250px;
+    width: 300px;
+    margin-left: -300px;
     height: 100%; }
 
 #ely-map-overview-recommendations {
