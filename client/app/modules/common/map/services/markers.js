@@ -27,7 +27,6 @@ module.exports = ['elyHelper', function (elyHelper) {
 
     service.addMarker = function (map, lat, lng, events) {
         var marker = L.marker([lat, lng]);
-        //marker.setIcon(selectedIcon);
         if (elyHelper.isDefined(events)) {
             marker.on('mouseover', function () {
                 if (elyHelper.isFunction(events.mouseOverMarker)) {
