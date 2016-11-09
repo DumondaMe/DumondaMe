@@ -55,7 +55,7 @@ describe('Integration Tests for getting popular place recommendations', function
 
                 res.body.recommendations.length.should.equals(3);
                 res.body.recommendations[0].pageId.should.equals('3');
-                res.body.recommendations[0].thumbnail.should.equals('pages/3/thumbnail.jpg');
+                res.body.recommendations[0].url.should.equals('pages/3/thumbnail.jpg');
                 res.body.recommendations[0].title.should.equals('Test3');
                 res.body.recommendations[0].places.length.should.equals(1);
                 res.body.recommendations[0].places[0].description.should.equals('Altstetten');
@@ -68,7 +68,7 @@ describe('Integration Tests for getting popular place recommendations', function
 
                 res.body.recommendations[1].pageId.should.equals('2');
                 res.body.recommendations[1].title.should.equals('Test2');
-                res.body.recommendations[1].thumbnail.should.equals('pages/2/thumbnail.jpg');
+                res.body.recommendations[1].url.should.equals('pages/2/thumbnail.jpg');
                 res.body.recommendations[1].places.length.should.equals(1);
                 res.body.recommendations[1].places[0].description.should.equals('Urdorf');
                 res.body.recommendations[1].places[0].latitude.should.equals(47.386707);
@@ -80,7 +80,7 @@ describe('Integration Tests for getting popular place recommendations', function
 
                 res.body.recommendations[2].pageId.should.equals('1');
                 res.body.recommendations[2].title.should.equals('Test1');
-                res.body.recommendations[2].thumbnail.should.equals('pages/1/thumbnail.jpg');
+                res.body.recommendations[2].url.should.equals('pages/1/thumbnail.jpg');
                 res.body.recommendations[2].places.length.should.equals(2);
                 res.body.recommendations[2].places[0].description.should.equals('Zuerich');
                 res.body.recommendations[2].places[0].latitude.should.equals(47.376887);

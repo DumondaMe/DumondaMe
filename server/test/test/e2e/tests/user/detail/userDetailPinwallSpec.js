@@ -206,7 +206,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[3].title.should.equals('bookPage2Title');
                     res.body.pinwall[3].created.should.equals(504);
                     res.body.pinwall[3].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                    res.body.pinwall[3].comment.should.equals('irgendwas2');
                     res.body.pinwall[3].description.should.equals('bookPage2');
                     res.body.pinwall[3].recommendedByUser.should.equals(false);
                     res.body.pinwall[3].thisRecommendationByUser.should.equals(false);
@@ -222,7 +221,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[4].userId.should.equals('2');
                     res.body.pinwall[4].title.should.equals('youtubePage2Title');
                     res.body.pinwall[4].created.should.equals(503);
-                    res.body.pinwall[4].comment.should.equals('irgendwas4');
                     res.body.pinwall[4].description.should.equals('youtubePage2');
                     res.body.pinwall[4].recommendedByUser.should.equals(false);
                     res.body.pinwall[4].thisRecommendationByUser.should.equals(false);
@@ -243,7 +241,6 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pinwall[5].linkPreviewUrl.should.equals('pages/4/preview.jpg');
                     res.body.pinwall[5].heightPreviewImage.should.equals(200);
-                    res.body.pinwall[5].comment.should.equals('irgendwas5');
                     res.body.pinwall[5].description.should.equals('linkPage');
                     res.body.pinwall[5].recommendedByUser.should.equals(true);
                     res.body.pinwall[5].thisRecommendationByUser.should.equals(false);

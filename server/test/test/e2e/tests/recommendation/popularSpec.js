@@ -29,12 +29,15 @@ describe('Integration Tests for getting popular recommendations', function () {
 
         dbDsl.createBlog('5', '5', ['en'], ['health'], 5077, null, 250);
         dbDsl.createBlog('6', '1', ['en'], ['spiritual'], 5077, null, null);
+        dbDsl.createPlacePage('7', '1', ['de'], ['health', 'personalDevelopment'], 5072, 'PlaceTitle',
+            [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}, {description: 'Zuerich Paradeplatz', lat: 47.369890, lng: 8.539127}]);
 
         dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}, {userId: '3', created: 501}]);
         dbDsl.crateRecommendationsForPage('3', [{userId: '3', created: 502}, {userId: '4', created: 503}]);
         dbDsl.crateRecommendationsForPage('4', [{userId: '3', created: 504}, {userId: '4', created: 505},
             {userId: '5', created: 506}, {userId: '6', created: 507}]);
         dbDsl.crateRecommendationsForBlog('5', [{userId: '3', created: 508}, {userId: '4', created: 509}, {userId: '7', created: 510}]);
+        dbDsl.crateRecommendationsForPage('7', [{userId: '3', created: 502}]);
 
 
         return dbDsl.sendToDb().then(function () {
@@ -49,7 +52,7 @@ describe('Integration Tests for getting popular recommendations', function () {
             }).then(function (res) {
                 res.status.should.equal(200);
 
-                res.body.recommendations.length.should.equals(4);
+                res.body.recommendations.length.should.equals(5);
                 res.body.recommendations[0].label.should.equals('Link');
                 res.body.recommendations[0].pageId.should.equals('4');
                 res.body.recommendations[0].title.should.equals('page4Title');
@@ -82,6 +85,15 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[3].url.should.equals('pages/2/thumbnail.jpg');
                 res.body.recommendations[3].topic.length.should.equals(1);
                 res.body.recommendations[3].topic[0].should.equals('personalDevelopment');
+
+                res.body.recommendations[4].label.should.equals('Place');
+                res.body.recommendations[4].pageId.should.equals('7');
+                res.body.recommendations[4].title.should.equals('PlaceTitle');
+                res.body.recommendations[4].numberOfRecommendations.should.equals(1);
+                res.body.recommendations[4].url.should.equals('pages/7/thumbnail.jpg');
+                res.body.recommendations[4].topic.length.should.equals(2);
+                res.body.recommendations[4].topic[0].should.equals('health');
+                res.body.recommendations[4].topic[1].should.equals('personalDevelopment');
             });
         });
     });

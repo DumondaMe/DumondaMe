@@ -18,10 +18,12 @@ var getRecommendationElement = function (pinwallElement) {
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
     element.topic = pinwallElement.recommendationElement.topic;
-    element.thumbnail = cdn.getUrl(`pages/${element.pageId}/thumbnail.jpg`);
+    element.url = cdn.getUrl(`pages/${element.pageId}/thumbnail.jpg`);
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    element.places = pinwallElement.places;
-    element.places.sort(compare);
+    if (pinwallElement.hasOwnProperty("places")) {
+        element.places = pinwallElement.places;
+        element.places.sort(compare);
+    }
     return element;
 };
 

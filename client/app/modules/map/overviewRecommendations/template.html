@@ -3,7 +3,7 @@
          ng-mouseleave="ctrl.mouseLeaf(recommendation)" ng-class="{'map-recommendation-border': !$last, 'selected': recommendation.selected}">
         <div class="ely-map-recommendation" layout="row">
             <div class="recommendation-image" flex="none">
-                <img ng-src="{{recommendation.thumbnail}}"/>
+                <img ng-src="{{recommendation.url}}"/>
             </div>
             <div flex class="recommendation-container">
                 <div class="recommendation-title">{{recommendation.title}}</div>
