@@ -27,12 +27,12 @@ describe('Integration Tests for getting keyword suggestions', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.getWithData('/api/keyword/suggestion', {search:'yo'}, requestAgent);
+            return requestHandler.getWithData('/api/keyword/suggestion', {search: 'yo'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.elements.length.should.equals(2);
-            res.body.elements[0].description.should.equals('Yoga');
-            res.body.elements[1].description.should.equals('Yoga Nidra');
+            res.body.elements.should.include({description: 'Yoga'});
+            res.body.elements.should.include({description: 'Yoga Nidra'});
         });
     });
 });
