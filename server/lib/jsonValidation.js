@@ -16,7 +16,8 @@ tv4.addFormat('notEmptyString', function (data) {
 });
 
 tv4.addFormat('youtubeLink', function (data) {
-    if (typeof data === 'string' && data.indexOf('https://www.youtube.com/watch?v=') !== -1) {
+    if (typeof data === 'string' &&
+        (data.indexOf('https://www.youtube.com/watch?v=') !== -1 || data.indexOf('https://m.youtube.com/watch?v=') !== -1)) {
         return null;
     }
     return 'Invalid Youtube Link';
@@ -69,7 +70,7 @@ var convertValues = function (data, requestSchema) {
                 data[key] = data[key] === 'true';
             } else if (requestSchema.properties[key].type === 'number') {
                 data[key] = parseFloat(data[key]);
-            }else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
+            } else if (requestSchema.properties[key].type === 'array' && _.isString(data[key])) {
                 data[key] = [data[key]];
             }
         }
