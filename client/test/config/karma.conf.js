@@ -9,9 +9,7 @@ module.exports = function (config) {
             'app/lib/imageCrop/cropper.min.js',
             'app/lib/map/leaflet.js',
             'app/lib/angular/angular.js',
-            'app/lib/angular/angular-cookies.js',
             'app/lib/angular/angular-mocks.js',
-            'app/lib/angular/angular-resource.js',
             'app/modules/**/*.js',
             'app/modules/**/*.html',
             'test/unit/init.js',
@@ -20,6 +18,7 @@ module.exports = function (config) {
 
         exclude: [
             'app/modules/**/*index.js',
+            'app/modules/**/*directive.js',
             'app/modules/app.js'
         ],
 
@@ -27,10 +26,11 @@ module.exports = function (config) {
 
         frameworks: ['mocha', 'browserify', 'chai', 'sinon'],
 
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
         plugins: [
-            'karma-chrome-launcher',
+            'karma-junit-reporter',
+            'karma-phantomjs-launcher',
             'karma-browserify',
             'karma-mocha',
             'karma-sinon',
@@ -40,7 +40,7 @@ module.exports = function (config) {
 
         logLevel: 'LOG_DEBUG',
 
-        reporters: ['junit', 'coverage'],
+        reporters: ['junit'],
 
         preprocessors: {
             'app/modules/**/*.html': ['ng-html2js'],
@@ -54,6 +54,10 @@ module.exports = function (config) {
 
         ngHtml2JsPreprocessor: {
             moduleName: 'elyoosApp'
+        },
+
+        junitReporter: {
+            outputFile: '../test_out/junit/TESTS-xunit.xml'
         },
 
         browserify: {
