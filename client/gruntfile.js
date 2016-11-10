@@ -63,8 +63,7 @@ module.exports = function (grunt) {
         },
         karma: {
             unit: {
-                configFile: 'test/config/karma.coverage.conf.js',
-                singleRun: true
+                configFile: 'test/config/karma.coverage.conf.js'
             }
         },
         ngconstant: {
