@@ -1,11 +1,11 @@
 'use strict';
 
-var db = require('./../../../neo4j');
+var db = requireDb();
 var image = require('./../images/uploadImageCDN');
 var _ = require('underscore');
-var time = require('./../../../lib/time');
-var uuid = require('./../../../lib/uuid');
-var exceptions = require('./../../../lib/error/exceptions');
+var time = requireLib('time');
+var uuid = requireLib('uuid');
+var exceptions = requireLib('error/exceptions');
 var cdn = require('../../util/cdn');
 var logger = requireLogger.getLogger(__filename);
 
