@@ -159,6 +159,6 @@
   // additional predefined global variables
 
   "predef": [
-    "angular", "module", "$", "requireLogger", "L"
+    "angular", "module", "$", "requireLogger", "requireLib", "requireModel", "requireDb", "L"
   ]
 }
