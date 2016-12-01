@@ -15,7 +15,6 @@ app.factory('Contacting', require('./services/contacting'));
 app.factory('ContactRecommendation', require('./services/contactRecommendation'));
 
 app.service('UserStateService', require('./services/userStateService'));
-app.service('ContactStatisticTypes', require('./services/contactStatisticTypes'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
