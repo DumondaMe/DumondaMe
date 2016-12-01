@@ -1,0 +1,45 @@
+{
+  "name": "elyoos-client-admin-test",
+  "description": "elyoos admin tool",
+  "repository": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "browserify": "13.1.1",
+    "phantomjs-prebuilt": "2.1.13",
+    "chai": "3.5.0",
+    "mocha": "3.1.2",
+    "karma": "1.3.0",
+    "sinon": "1.17.6",
+    "karma-browserify": "5.1.0",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-mocha": "1.2.0",
+    "karma-chai": "0.1.0",
+    "karma-sinon": "1.0.5",
+    "karma-junit-reporter": "1.1.0",
+    "karma-coverage": "1.1.1",
+    "karma-ng-html2js-preprocessor": "1.0.0",
+    "browserify-istanbul": "2.0.0",
+    "protractor": "4.0.10",
+    "selenium": "~2.20.0",
+    "chromedriver": "2.25.1",
+    "underscore": "~1.8.3",
+    "matchdep": "1.0.1",
+    "grunt": "1.0.1",
+    "grunt-browserify": "5.0.0",
+    "grunt-contrib-uglify": "2.0.0",
+    "grunt-karma": "2.0.0",
+    "grunt-sonar-runner": "~2.4.4",
+    "grunt-angular-templates": "1.1.0",
+    "grunt-contrib-cssmin": "1.0.2",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-ng-constant": "2.0.1"
+  },
+  "browser": {
+    "angular-ui-route": "./app/lib/angular/angular-ui-router.min.js",
+    "moment": "./app/lib/moment/moment.js",
+    "duScroll": "./app/lib/scroll/index.js",
+    "templates": "./app/dist/templates.js"
+  }
+}
