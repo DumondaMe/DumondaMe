@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('../../../server');
-var dbConfig = requireDb();
+var dbConfig = requireLib('database');
 
 describe('Initialize Server for all integration tests', function () {
 
