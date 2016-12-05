@@ -86,7 +86,6 @@
       background: #7986CB;
       box-shadow: inset 0 3px 0 rgba(0, 0, 0, .1);
       transition: bottom ease-out .5s;
-      z-index: 100;
       @media screen and (max-width: $gt-sm) {
         z-index: 0;
       }
