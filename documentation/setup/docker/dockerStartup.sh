@@ -6,4 +6,4 @@ sudo docker run --name elyoosWebserver -d --restart on-failure:10 --net="host" j
 
 //Remove old docker images
 docker rm $(docker ps -a -q)
-docker rmi $(docker images -a | grep "^<none>" | awk '{print $3}')
+docker rmi $(docker images -q | grep "^<none>")
