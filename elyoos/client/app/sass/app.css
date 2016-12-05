@@ -3165,7 +3165,9 @@ md-toast.md-error-toast-theme {
     height: 100%; }
 
 #start-screen #carousel #carousel-vision {
-  background-color: #fafafa; }
+  background-color: #fafafa;
+  overflow-y: scroll;
+  height: 100%; }
   @media screen and (min-width: 960px) {
     #start-screen #carousel #carousel-vision {
       background-color: #FFFFFF; } }

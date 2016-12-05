@@ -2,6 +2,8 @@
   #carousel {
     #carousel-vision {
       background-color: #fafafa;
+      overflow-y: scroll;
+      height: 100%;
       @media screen and (min-width: $gt-sm) {
         background-color: #FFFFFF;
       }
