@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server-admin',
                         projectName: 'Elyoos Admin Server',
                         projectVersion: '0.1',
-                        sources: '../server',
+                        sources: 'controllers, models, server.js',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
 

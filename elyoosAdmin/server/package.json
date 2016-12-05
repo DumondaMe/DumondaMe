@@ -54,6 +54,7 @@
     "matchdep": "~1.0.1",
     "grunt": "~0.4.5",
     "grunt-mocha-istanbul": "~4.0.2",
-    "grunt-env": "~0.4.4"
+    "grunt-env": "~0.4.4",
+    "grunt-sonar-runner": "2.4.8"
   }
 }

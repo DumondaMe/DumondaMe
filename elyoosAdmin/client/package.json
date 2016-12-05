@@ -30,7 +30,7 @@
     "grunt-browserify": "5.0.0",
     "grunt-contrib-uglify": "2.0.0",
     "grunt-karma": "2.0.0",
-    "grunt-sonar-runner": "~2.4.4",
+    "grunt-sonar-runner": "2.4.8",
     "grunt-angular-templates": "1.1.0",
     "grunt-contrib-cssmin": "1.0.2",
     "grunt-contrib-clean": "1.0.0",

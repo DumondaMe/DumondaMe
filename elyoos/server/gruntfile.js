@@ -35,23 +35,20 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server',
                         projectName: 'Elyoos Server',
                         projectVersion: '0.1',
-                        sources: '../server',
+                        sources: 'controllers, lib, models, neo4j, server.js',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
-
                         jdbc: {
                             url: 'jdbc:postgresql://localhost/sonarqube',
                             username: 'postgres',
                             password: 'kuklik'
                         },
-
                         javascript: {
                             lcov: {
                                 reportPath: 'coverage/lcov.info'
                             }
                         },
-
-                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js,testResult/**/*'
+                        exclusions: 'node_modules/**/*,processing/**/*,test/**/*,coverage/**/*,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js,testResult/**/*'
                     }
                 }
             }

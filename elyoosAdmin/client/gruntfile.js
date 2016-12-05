@@ -97,8 +97,8 @@ module.exports = function (grunt) {
 
                         exclusions: '**/*app.js,**/*index.js',
 
-                        projectKey: 'javascript-sonar-runner-elyoos-client',
-                        projectName: 'Elyoos Client',
+                        projectKey: 'javascript-sonar-runner-elyoos-client-admin',
+                        projectName: 'Elyoos Admin Client',
                         projectVersion: '0.1',
                         sources: 'app/modules',
                         language: 'js',
