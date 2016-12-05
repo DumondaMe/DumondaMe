@@ -1,0 +1,25 @@
+#ely-feedback-container {
+  max-width: 600px;
+  padding: 24px 16px 16px 16px;
+  margin: 0 auto;
+  .feedback-description {
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  .feedback-container {
+    margin-bottom: 24px;
+    .feedback-topic {
+      padding: 8px;
+      font-size: 20px;
+      font-weight: 400;
+      color: $primary-text;
+    }
+    .feedback-topic-description {
+      padding: 0 8px 8px 8px;
+      font-size: 14px;
+      color: $secondary-text;
+    }
+  }
+}

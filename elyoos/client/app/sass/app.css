@@ -1048,6 +1048,27 @@ md-toast.md-error-toast-theme {
     margin-top: 16px;
     height: 55px; }
 
+#ely-feedback-container {
+  max-width: 600px;
+  padding: 24px 16px 16px 16px;
+  margin: 0 auto; }
+  #ely-feedback-container .feedback-description {
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px;
+    margin-bottom: 12px; }
+  #ely-feedback-container .feedback-container {
+    margin-bottom: 24px; }
+    #ely-feedback-container .feedback-container .feedback-topic {
+      padding: 8px;
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.87); }
+    #ely-feedback-container .feedback-container .feedback-topic-description {
+      padding: 0 8px 8px 8px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+
 #ely-answer-detail {
   height: 100%;
   background-color: #e9ebee; }
