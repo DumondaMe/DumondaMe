@@ -5,6 +5,7 @@ var recommendation = require('./dbDSL/recommendation');
 var page = require('./dbDSL/page');
 var blog = require('./dbDSL/blog');
 var user = require('./dbDSL/user');
+var feedback = require('./dbDSL/feedback');
 var keyword = require('./dbDSL/keyword');
 var dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 var db = require('./db');
@@ -42,5 +43,8 @@ module.exports = {
     blockUser: user.blockUser,
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     createPrivacy: user.createPrivacy,
-    createPrivacyNoContact: user.createPrivacyNoContact
+    createPrivacyNoContact: user.createPrivacyNoContact,
+    createFeedbackBug: feedback.createFeedbackBug,
+    createFeedbackIdea: feedback.createFeedbackIdea,
+    createFeedbackDiscussion: feedback.createFeedbackDiscussion
 };

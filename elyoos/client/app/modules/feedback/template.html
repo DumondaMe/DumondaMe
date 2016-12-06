@@ -1,29 +1,42 @@
-<div id="ely-feedback-container">
-    <div class="feedback-description">
-        Hier bietet sich dir die Möglichkeit aktiv an der Weiterentwicklung von Elyoos mitzuwirken. Hilf mit, damit Elyoos stetig verbessert wird.
+<div id="ely-feedback">
+    <div id="ely-feedback-container">
+        <div class="feedback-description">
+            Hier bietet sich dir die Möglichkeit aktiv an der Weiterentwicklung von Elyoos mitzuwirken. Hilf mit, damit Elyoos stetig verbessert wird.
+        </div>
+        <md-card class="feedback-container">
+            <div class="feedback-topic">Fehler</div>
+            <div class="feedback-inner-container">
+                <div class="feedback-topic-description">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du dazu bei, dass diese Plattform
+                    stabiler
+                    wird.
+                </div>
+                <div class="feedback-info" layout="row">
+                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.bug.numberOfBugs}} Medlungen</div>
+                </div>
+            </div>
+        </md-card>
+        <md-card class="feedback-container">
+            <div class="feedback-topic">Ideen</div>
+            <div class="feedback-inner-container">
+                <div class="feedback-topic-description">Hast Du Ideen welche Funktionalitäten nützlich wären? Bist du noch nicht ganz zufrieden wie
+                    gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
+                </div>
+                <div class="feedback-info" layout="row">
+                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.idea.numberOfIdeas}} Ideen</div>
+                </div>
+            </div>
+        </md-card>
+        <md-card class="feedback-container">
+            <div class="feedback-topic">Fragestellungen</div>
+            <div class="feedback-inner-container">
+                <div class="feedback-topic-description">An dieser Stelle werden Funktionalitäten diskutiert, welche in meinem Kopf herumschwirren und
+                    ich
+                    mit Hilfe von deinem Feedback konkretisieren möchte.
+                </div>
+                <div class="feedback-info" layout="row">
+                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.discussion.numberOfDiscussions}} Fragestellungen</div>
+                </div>
+            </div>
+        </md-card>
     </div>
-    <md-card class="feedback-container">
-        <div class="feedback-topic">Fehler</div>
-        <div class="feedback-inner-container">
-            <div class="feedback-topic-description">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du dazu bei, dass diese Plattform stabiler
-                wird.
-            </div>
-        </div>
-    </md-card>
-    <md-card class="feedback-container">
-        <div class="feedback-topic">Ideen User</div>
-        <div class="feedback-inner-container">
-            <div class="feedback-topic-description">Hast Du Ideen welche Funktionalitäten nützlich wären? Bist du noch nicht ganz zufrieden wie
-                gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
-            </div>
-        </div>
-    </md-card>
-    <md-card class="feedback-container">
-        <div class="feedback-topic">Fragestellungen</div>
-        <div class="feedback-inner-container">
-            <div class="feedback-topic-description">An dieser Stelle werden Funktionalitäten diskutiert, welche in meinem Kopf herumschwirren und ich
-                mit Hilfe von deinem Feedback konkretisieren möchte.
-            </div>
-        </div>
-    </md-card>
 </div>

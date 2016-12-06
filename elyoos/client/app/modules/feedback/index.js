@@ -5,6 +5,8 @@ var directive = require('./directive.js');
 
 app.directive(directive.name, directive.directive);
 
+app.factory('FeedbackOverview', require('./services/overview'));
+
 app.config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
