@@ -46,5 +46,7 @@ module.exports = {
     createPrivacyNoContact: user.createPrivacyNoContact,
     createFeedbackBug: feedback.createFeedbackBug,
     createFeedbackIdea: feedback.createFeedbackIdea,
-    createFeedbackDiscussion: feedback.createFeedbackDiscussion
+    createFeedbackDiscussion: feedback.createFeedbackDiscussion,
+    createFeedbackDiscussionIdea: feedback.createFeedbackDiscussionIdea,
+    createFeedbackComment: feedback.createFeedbackComment
 };
