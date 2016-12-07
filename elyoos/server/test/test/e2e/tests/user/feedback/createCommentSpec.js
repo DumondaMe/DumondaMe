@@ -38,10 +38,10 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '1', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
-                .end({feedbackCommentId: res.body.feedbackCommentId}).send();
+                .end({feedbackId: res.body.feedbackId}).send();
         }).then(function (comment) {
             comment.length.should.equals(1);
             comment[0].comment.created.should.be.at.least(startTime);
@@ -67,10 +67,10 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '3', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Idea {feedbackId: '3'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:Idea {feedbackId: '3'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
-                .end({feedbackCommentId: res.body.feedbackCommentId}).send();
+                .end({feedbackId: res.body.feedbackId}).send();
         }).then(function (comment) {
             comment.length.should.equals(1);
             comment[0].comment.created.should.be.at.least(startTime);
@@ -98,10 +98,10 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '7', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '7'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '7'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
-                .end({feedbackCommentId: res.body.feedbackCommentId}).send();
+                .end({feedbackId: res.body.feedbackId}).send();
         }).then(function (comment) {
             comment.length.should.equals(1);
             comment[0].comment.created.should.be.at.least(startTime);

@@ -11,7 +11,7 @@ let create = function (userId, params, req) {
     let feedbackCommentId = uuid.generateUUID();
     return db.cypher().match("(user:User {userId: {userId}}), (feedback:Feedback {feedbackId: {feedbackId}})")
         .where("feedback:Bug OR feedback:Idea OR feedback:DiscussionIdea")
-        .createUnique(`(user)-[:IS_CREATOR]->(comment:Feedback:Comment {feedbackCommentId: {feedbackCommentId}, text: {text}, created: {created}})
+        .createUnique(`(user)-[:IS_CREATOR]->(comment:Feedback:Comment {feedbackId: {feedbackCommentId}, text: {text}, created: {created}})
                         -[:COMMENT]->(feedback)`)
         .return("comment")
         .end({
@@ -19,7 +19,7 @@ let create = function (userId, params, req) {
             created: time.getNowUtcTimestamp(), feedbackCommentId: feedbackCommentId
         }).send().then(function (resp) {
             if (resp.length === 1) {
-                return {feedbackCommentId: feedbackCommentId};
+                return {feedbackId: feedbackCommentId};
             }
             return exceptions.getInvalidOperation(`Feedback does not exist for feedbackId ${params.feedbackId}`, logger, req);
         });
