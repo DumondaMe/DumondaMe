@@ -19,7 +19,7 @@ let create = function (userId, params, req) {
             if (resp.length === 1) {
                 return {feedbackId: feedbackId};
             }
-            return exceptions.getInvalidOperation(`Discussion idea not created for discussion ${params.discussionId}`, logger, req);
+            return exceptions.getInvalidOperation(`Discussion idea not created for discussionId ${params.discussionId}`, logger, req);
         });
 };
 
