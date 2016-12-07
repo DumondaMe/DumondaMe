@@ -1,5 +1,9 @@
 'use strict';
 
+global.requireTestUtil = function (name) {
+    return require(`${__dirname}/tests/util/${name}`);
+};
+
 var app = require('../../../server');
 var dbConfig = require('../../../lib/database');
 require('./tests/util/stubCDN');
