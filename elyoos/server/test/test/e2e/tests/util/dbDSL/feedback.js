@@ -69,7 +69,7 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
         }).getCommand());
 };
 
-var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
+var createFeedbackRating = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
     text = text || `comment${feedbackId}Text`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment  {text: {text}, created: {created}, feedbackId: {feedbackCommentId}})
@@ -88,5 +88,5 @@ module.exports = {
     createFeedbackIdea: createFeedbackIdea,
     createFeedbackDiscussion: createFeedbackDiscussion,
     createFeedbackDiscussionIdea: createFeedbackDiscussionIdea,
-    createFeedbackComment: createFeedbackComment
+    createFeedbackComment: createFeedbackRating
 };
