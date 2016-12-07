@@ -38,7 +38,7 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '1', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackCommentId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
                 .end({feedbackCommentId: res.body.feedbackCommentId}).send();
@@ -67,7 +67,7 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '3', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Idea {feedbackId: '3'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackCommentId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:Idea {feedbackId: '3'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
                 .end({feedbackCommentId: res.body.feedbackCommentId}).send();
@@ -98,7 +98,7 @@ describe('Integration Tests creating comments for feedback elements', function (
             return requestHandler.post('/api/user/feedback/comment', {feedbackId: '7', text: 'text'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '7'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackCommentId: {feedbackCommentId}})
+            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '7'})<-[:COMMENT]-(comment:Feedback:Comment {feedbackId: {feedbackCommentId}})
                                        <-[:IS_CREATOR]-(:User {userId: '1'})`)
                 .return('comment')
                 .end({feedbackCommentId: res.body.feedbackCommentId}).send();
