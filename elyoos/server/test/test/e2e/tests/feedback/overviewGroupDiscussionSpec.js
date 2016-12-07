@@ -44,10 +44,10 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackBug('5', '1', 504);
         dbDsl.createFeedbackIdea('6', '1', 505);
 
-        dbDsl.createFeedbackDiscussionIdea('1', '1', '1', 501);
-        dbDsl.createFeedbackDiscussionIdea('1', '2', '2', 502);
+        dbDsl.createFeedbackDiscussionIdea('7', '1', '1', 501);
+        dbDsl.createFeedbackDiscussionIdea('8', '1', '2', 502);
 
-        dbDsl.createFeedbackDiscussionIdea('3', '3', '1', 501);
+        dbDsl.createFeedbackDiscussionIdea('9', '3', '1', 501);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -94,7 +94,7 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackBug('5', '1', 504);
         dbDsl.createFeedbackIdea('6', '1', 505);
 
-        dbDsl.createFeedbackDiscussionIdea('4', '1', '1', 501);
+        dbDsl.createFeedbackDiscussionIdea('7', '4', '1', 501);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

@@ -55,11 +55,12 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
     title = title || `discussionIdea${feedbackId}Title`;
     description = description || `discussionIdea${feedbackId}Description`;
     status = status || `open`;
-    dbConnectionHandling.getCommands().push(db.cypher().match('(discussion:Feedback:Discussion {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
+    dbConnectionHandling.getCommands().push(db.cypher().match('(discussion:Feedback:Discussion {feedbackId: {discussionFeedbackId}}), (user:User {userId: {creatorUserId}})')
         .create(`(discussion)<-[:IS_IDEA]-(:Feedback:DiscussionIdea  {title: {title}, description: {description}, status: {status}, 
                   created: {created}, feedbackId: {feedbackId}})<-[:IS_CREATOR]-(user)`)
         .end({
             feedbackId: feedbackId,
+            discussionFeedbackId: discussionFeedbackId,
             title: title,
             description: description,
             created: created,
