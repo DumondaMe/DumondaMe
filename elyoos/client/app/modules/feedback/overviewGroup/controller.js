@@ -3,7 +3,7 @@
 module.exports = ['FeedbackOverviewGroup', '$stateParams', 'ScrollRequest', 'FeedbackOverviewGroupResponseHandler', 'ElyModal',
     function (FeedbackOverviewGroup, $stateParams, ScrollRequest, FeedbackOverviewGroupResponseHandler, ElyModal) {
         var ctrl = this;
-        ctrl.feedbackGroupOverview = {};
+        ctrl.feedbackGroupOverview = {feedbacks: []};
         ctrl.group = $stateParams.group;
 
         ScrollRequest.reset('feedbackOverviewGroup', FeedbackOverviewGroup.get, FeedbackOverviewGroupResponseHandler);
@@ -19,8 +19,9 @@ module.exports = ['FeedbackOverviewGroup', '$stateParams', 'ScrollRequest', 'Fee
 
         ctrl.createFeedback = function () {
             ElyModal.show('FeedbackCreateCtrl', 'app/modules/feedback/modal/createFeedback/template.html',
-                {group: ctrl.group}).then(function () {
-
+                {group: ctrl.group}).then(function (resp) {
+                ctrl.feedbackGroupOverview.feedbacks.unshift(resp);
+                ScrollRequest.addedElement('feedbackOverviewGroup');
             });
         };
     }];

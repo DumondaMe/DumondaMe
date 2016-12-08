@@ -44,6 +44,8 @@ describe('Integration Tests creating idea feedback', function () {
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.created.should.be.at.least(startTime);
+            res.body.creator.name.should.be.at.least('user Meier');
             return db.cypher().match("(feedback:Feedback:Idea {feedbackId: {feedbackId}})<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback')
                 .end({feedbackId: res.body.feedbackId}).send();

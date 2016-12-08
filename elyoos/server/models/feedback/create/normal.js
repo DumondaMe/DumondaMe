@@ -13,15 +13,16 @@ let getFeedbackType = function (params) {
 
 let create = function (userId, params) {
 
-    let feedbackId = uuid.generateUUID();
+    let feedbackId = uuid.generateUUID(), created = time.getNowUtcTimestamp();
     return db.cypher().match("(user:User {userId: {userId}})")
         .create(`(user)-[:IS_CREATOR]->(feedback:Feedback:${getFeedbackType(params)} {feedbackId: {feedbackId}, title: {title}, status: 'open',
                              description: {description}, created: {created}})`)
+        .return("user")
         .end({
             userId: userId, title: params.title, description: params.description,
-            created: time.getNowUtcTimestamp(), feedbackId: feedbackId
-        }).send().then(function () {
-            return {feedbackId: feedbackId};
+            created: created, feedbackId: feedbackId
+        }).send().then(function (resp) {
+            return {feedbackId: feedbackId, created: created, creator: {name: resp[0].user.name}};
         });
 };
 
