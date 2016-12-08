@@ -4,7 +4,7 @@ let db = requireDb();
 
 let getFeedbackList = function (userId, feedbacks) {
     let result = [];
-    feedbacks.forEach(function(feedback) {
+    feedbacks.forEach(function (feedback) {
         let formattedFeedback = {};
         formattedFeedback.title = feedback.feedback.title;
         formattedFeedback.description = feedback.feedback.description;
@@ -21,8 +21,25 @@ let getFeedbackList = function (userId, feedbacks) {
     return result;
 };
 
+let getNumberOfGroupFeedbackCommand = function (group) {
+    return db.cypher().match(`(discussion:Feedback:${group} {status: 'open'})`)
+        .with("count(discussion) AS numberOfOpenFeedbacks")
+        .optionalMatch(`(discussion:Feedback:${group} {status: 'closed'})`)
+        .return("count(discussion) AS numberOfClosedFeedbacks, numberOfOpenFeedbacks").end().getCommand();
+};
+
+let getStatistic = function (resp) {
+    return {
+        numberOfOpenFeedbacks: resp.numberOfOpenFeedbacks, numberOfClosedFeedbacks: resp.numberOfClosedFeedbacks
+    };
+};
+
 let getOverview = function (userId, params) {
+    let commands = [];
     params.userId = userId;
+
+    commands.push(getNumberOfGroupFeedbackCommand(params.group));
+
     return db.cypher().match("(feedback:Feedback {status: {status}})<-[:IS_CREATOR]-(creator)")
         .where("{group} IN labels(feedback)")
         .optionalMatch("(feedback)<-[:COMMENT]-(comments:Feedback:Comment)")
@@ -34,11 +51,13 @@ let getOverview = function (userId, params) {
                  EXISTS((feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC, feedback.created DESC")
         .skip("{skip}")
-        .limit("{maxItems}").end(params).send().then(function (resp) {
-            return {feedbacks: getFeedbackList(userId, resp)};
+        .limit("{maxItems}").end(params).send(commands).then(function (resp) {
+            return {feedbacks: getFeedbackList(userId, resp[1]), statistic: getStatistic(resp[0][0])};
         });
 };
 
 module.exports = {
-    getOverview: getOverview
+    getOverview: getOverview,
+    getNumberOfGroupFeedbackCommand: getNumberOfGroupFeedbackCommand,
+    getStatistic: getStatistic
 };

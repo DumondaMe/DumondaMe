@@ -30,6 +30,8 @@ describe('Integration Tests for getting ideas overview', function () {
             return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Idea'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.statistic.numberOfOpenFeedbacks.should.equals(0);
+            res.body.statistic.numberOfClosedFeedbacks.should.equals(1);
             res.body.feedbacks.length.should.equals(0);
         });
     });
@@ -60,6 +62,8 @@ describe('Integration Tests for getting ideas overview', function () {
             return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'open', group: 'Idea'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
+            res.body.statistic.numberOfClosedFeedbacks.should.equals(1);
             res.body.feedbacks.length.should.equals(3);
 
             res.body.feedbacks[0].title.should.equals('idea3Title');
@@ -119,6 +123,8 @@ describe('Integration Tests for getting ideas overview', function () {
             return requestHandler.getWithData('/api/feedback/overviewGroup', {maxItems: 10, skip: 0, status: 'closed', group: 'Idea'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
+            res.body.statistic.numberOfClosedFeedbacks.should.equals(1);
             res.body.feedbacks.length.should.equals(1);
 
             res.body.feedbacks[0].title.should.equals('idea4Title');

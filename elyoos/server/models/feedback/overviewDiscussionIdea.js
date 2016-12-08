@@ -2,6 +2,7 @@
 
 let db = requireDb();
 let exception = requireLib('error/exceptions');
+let overviewGroup = require('./overviewGroup');
 
 let getIdeaList = function (userId, discussionIdeas) {
     let formattedListDiscussionIdeas = [];
@@ -44,8 +45,9 @@ let getOverview = function (userId, params) {
     params.userId = userId;
 
     commands.push(getDiscussionCommand(params));
+    commands.push(overviewGroup.getNumberOfGroupFeedbackCommand('DiscussionIdea'));
 
-    return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(idea:Feedback:DiscussionIdea)
+    return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(idea:Feedback:DiscussionIdea {status: {status}})
                                <-[:IS_CREATOR]-(creator)`)
         .optionalMatch("(idea)<-[:COMMENT]-(comments:Feedback:Comment)")
         .with("count(comments) AS numberOfComments, idea, creator")
@@ -55,7 +57,7 @@ let getOverview = function (userId, params) {
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC, idea.created DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send(commands).then(function (resp) {
-            return {feedbacks: getIdeaList(userId, resp[1]), discussion: getDiscussion(resp[0])};
+            return {feedbacks: getIdeaList(userId, resp[2]), discussion: getDiscussion(resp[0]), statistic: resp[1][0]};
         });
 };
 

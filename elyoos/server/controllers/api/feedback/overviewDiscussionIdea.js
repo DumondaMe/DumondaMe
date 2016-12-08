@@ -10,10 +10,11 @@ var schemaGetDiscussionIdeaOverview = {
     name: 'getFeedbackDiscussionIdeaOverview',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems', 'discussionId'],
+    required: ['skip', 'maxItems', 'status', 'discussionId'],
     properties: {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        status: {enum: ['open', 'closed']},
         discussionId: {type: 'string', format: 'notEmptyString', maxLength: 50}
     }
 };

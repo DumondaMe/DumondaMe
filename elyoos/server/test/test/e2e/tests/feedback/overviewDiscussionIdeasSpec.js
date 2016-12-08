@@ -26,6 +26,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         dbDsl.createFeedbackDiscussionIdea('4', '1', '1', 501);
         dbDsl.createFeedbackDiscussionIdea('5', '1', '2', 502);
         dbDsl.createFeedbackDiscussionIdea('6', '1', '3', 503);
+        dbDsl.createFeedbackDiscussionIdea('16', '1', '3', 503, 'closed');
 
         dbDsl.createFeedbackComment('4', '7', '1', 501);
         dbDsl.createFeedbackComment('4', '8', '2', 501);
@@ -43,7 +44,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/feedback/overviewDiscussionIdea',
-                {maxItems: 10, skip: 0, discussionId: '1'}, requestAgent);
+                {maxItems: 10, skip: 0, status: 'open', discussionId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
 
@@ -51,6 +52,8 @@ describe('Integration Tests for getting discussion ideas overview', function () 
             res.body.discussion.description.should.equals('discussion1Description');
             res.body.discussion.feedbackId.should.equals('1');
 
+            res.body.statistic.numberOfOpenFeedbacks.should.equals(3);
+            res.body.statistic.numberOfClosedFeedbacks.should.equals(1);
             res.body.feedbacks.length.should.equals(3);
 
             res.body.feedbacks[0].title.should.equals('discussionIdea6Title');
@@ -98,17 +101,18 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         dbDsl.createFeedbackDiscussionIdea('4', '1', '1', 501);
         dbDsl.createFeedbackDiscussionIdea('5', '1', '2', 502);
         dbDsl.createFeedbackDiscussionIdea('6', '1', '3', 503);
+        dbDsl.createFeedbackDiscussionIdea('7', '1', '3', 503, 'closed');
 
-        dbDsl.createFeedbackRecommendation('4', '7', '1', 501);
-        dbDsl.createFeedbackRecommendation('4', '8', '2', 501);
-        dbDsl.createFeedbackRecommendation('6', '9', '3', 501);
+        dbDsl.createFeedbackRecommendation('4', '8', '1', 501);
+        dbDsl.createFeedbackRecommendation('4', '9', '2', 501);
+        dbDsl.createFeedbackRecommendation('6', '10', '3', 501);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
             return requestHandler.getWithData('/api/feedback/overviewDiscussionIdea',
-                {maxItems: 10, skip: 0, discussionId: '2'}, requestAgent);
+                {maxItems: 10, skip: 0, status: 'open', discussionId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
