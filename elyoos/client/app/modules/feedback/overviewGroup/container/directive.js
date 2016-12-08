@@ -7,13 +7,14 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                feedback: '=',
-                group: '@'
+                commands: '=',
+                numberOfFeedback: '=',
+                status: '@'
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/feedback/overviewGroup/element/template.html'
+            templateUrl: 'app/modules/feedback/overviewGroup/container/template.html'
         };
     }],
-    name: 'elyFeedbackOverviewGroupElement'
+    name: 'elyFeedbackOverviewGroupContainer'
 };

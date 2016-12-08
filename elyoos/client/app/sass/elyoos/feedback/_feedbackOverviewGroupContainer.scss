@@ -1,0 +1,50 @@
+.feedback-element {
+  padding: 8px 8px 8px 0;
+  .feedback-group-element {
+    .title {
+      font-size: 22px;
+      font-weight: 500;
+      color: $primary-text;
+      cursor: pointer;
+    }
+    .title:hover {
+      text-decoration: underline;
+    }
+    .feedback-created {
+      margin-top: 4px;
+      font-size: 14px;
+      color: $secondary-text;
+    }
+    .info-container {
+      margin-top: 8px;
+      .feedback-recommend.md-fab.md-mini {
+        height: 28px;
+        width: 28px;
+        line-height: 28px;
+        min-height: 0;
+        margin-left: 0;
+        .action-icon {
+          height: 16px;
+          width: 16px;
+          min-height: 16px;
+          min-width: 16px;
+        }
+      }
+      .number-container {
+        margin-left: 2px;
+        margin-right: 8px;
+        color: $primary-text;
+        height: 40px;
+        .number {
+          line-height: 40px;
+          font-size: 14px;
+          vertical-align: middle;
+        }
+      }
+      .chat-icon {
+        margin-left: 18px;
+        margin-right: 6px;
+      }
+    }
+  }
+}

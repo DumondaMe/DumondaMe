@@ -1097,69 +1097,71 @@ md-toast.md-error-toast-theme {
           color: rgba(0, 0, 0, 0.54); }
 
 #ely-feedback-group-overview {
-  height: 100%;
-  overflow-y: scroll;
-  background-color: #f1f1f1; }
-  #ely-feedback-group-overview #ely-feedback-group-overview-container {
-    max-width: 900px;
-    padding: 24px 16px 16px 16px;
-    margin: 0 auto;
-    height: 100%; }
-    #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-title {
-      font-size: 29px;
-      color: rgba(0, 0, 0, 0.87);
-      font-weight: 300; }
-    #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-description {
-      margin-top: 12px;
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.54); }
-    #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .create-feedback {
-      margin-left: 0;
-      margin-top: 12px; }
-    #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-content {
-      margin-top: 8px;
-      border-top: 1px solid rgba(0, 0, 0, 0.12); }
-      #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-content .feedback-tab-content {
-        padding-top: 18px; }
-        #ely-feedback-group-overview #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-content .feedback-tab-content .feedback-element {
-          padding: 8px 8px 8px 0; }
+  height: 100%; }
+  #ely-feedback-group-overview #ely-feedback-group-overview2 {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f1f1f1; }
+    #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container {
+      max-width: 900px;
+      padding: 24px 16px 16px 16px;
+      margin: 0 auto;
+      height: 100%; }
+      #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-title {
+        font-size: 29px;
+        color: rgba(0, 0, 0, 0.87);
+        font-weight: 300; }
+      #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-description {
+        margin-top: 12px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.54); }
+      #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .create-feedback {
+        margin-left: 0;
+        margin-top: 12px; }
+      #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-content {
+        margin-top: 8px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12); }
+        #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-content .feedback-tab-content {
+          padding-top: 18px; }
 
-.feedback-group-element .title {
-  font-size: 22px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.87);
-  cursor: pointer; }
-.feedback-group-element .title:hover {
-  text-decoration: underline; }
-.feedback-group-element .feedback-created {
-  margin-top: 4px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54); }
-.feedback-group-element .info-container {
-  margin-top: 8px; }
-  .feedback-group-element .info-container .feedback-recommend.md-fab.md-mini {
-    height: 28px;
-    width: 28px;
-    line-height: 28px;
-    min-height: 0;
-    margin-left: 0; }
-    .feedback-group-element .info-container .feedback-recommend.md-fab.md-mini .action-icon {
-      height: 16px;
-      width: 16px;
-      min-height: 16px;
-      min-width: 16px; }
-  .feedback-group-element .info-container .number-container {
-    margin-left: 2px;
-    margin-right: 8px;
+.feedback-element {
+  padding: 8px 8px 8px 0; }
+  .feedback-element .feedback-group-element .title {
+    font-size: 22px;
+    font-weight: 500;
     color: rgba(0, 0, 0, 0.87);
-    height: 40px; }
-    .feedback-group-element .info-container .number-container .number {
-      line-height: 40px;
-      font-size: 14px;
-      vertical-align: middle; }
-  .feedback-group-element .info-container .chat-icon {
-    margin-left: 18px;
-    margin-right: 6px; }
+    cursor: pointer; }
+  .feedback-element .feedback-group-element .title:hover {
+    text-decoration: underline; }
+  .feedback-element .feedback-group-element .feedback-created {
+    margin-top: 4px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+  .feedback-element .feedback-group-element .info-container {
+    margin-top: 8px; }
+    .feedback-element .feedback-group-element .info-container .feedback-recommend.md-fab.md-mini {
+      height: 28px;
+      width: 28px;
+      line-height: 28px;
+      min-height: 0;
+      margin-left: 0; }
+      .feedback-element .feedback-group-element .info-container .feedback-recommend.md-fab.md-mini .action-icon {
+        height: 16px;
+        width: 16px;
+        min-height: 16px;
+        min-width: 16px; }
+    .feedback-element .feedback-group-element .info-container .number-container {
+      margin-left: 2px;
+      margin-right: 8px;
+      color: rgba(0, 0, 0, 0.87);
+      height: 40px; }
+      .feedback-element .feedback-group-element .info-container .number-container .number {
+        line-height: 40px;
+        font-size: 14px;
+        vertical-align: middle; }
+    .feedback-element .feedback-group-element .info-container .chat-icon {
+      margin-left: 18px;
+      margin-right: 6px; }
 
 #ely-answer-detail {
   height: 100%;

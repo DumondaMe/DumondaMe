@@ -1,0 +1,26 @@
+<div>
+    <div ng-repeat="feedback in ctrl.feedbackGroupOverview.feedbacks" class="feedback-element">
+        <div class="feedback-group-element">
+            <div class="title">{{feedback.title}}</div>
+            <div class="feedback-created">Erstellt vor {{ctrl.getFormattedDate(feedback.created, 'LLL')}} von {{feedback.creator.name}}
+            </div>
+            <div class="info-container" layout="row">
+                <div>
+                    <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback"
+                               ng-disabled="feedback.recommendedByUser || feedback.createdByUser"
+                               ng-click="ctrl.recommendFeedback()">
+                        <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+                    </md-button>
+                </div>
+                <div class="number-container" flex="none">
+                    <span class="number">{{feedback.numberOfRecommendations}}</span>
+                </div>
+                <md-icon md-svg-icon="cardActions:chat" class="chat-icon" flex="none"></md-icon>
+                <div class="number-container" flex="none">
+                    <span class="number">{{feedback.numberOfComments}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
+</div>

@@ -1,27 +1,38 @@
 <div id="ely-feedback-group-overview">
-    <div id="ely-feedback-group-overview-container" ely-infinite-scroll="ctrl.nextOverviewGroup">
-        <div id="ely-feedback-group-inner-container">
-            <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Bug'">Fehler</div>
-            <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Bug'">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du
-                dazu bei, dass diese Plattform stabiler wird.
-            </div>
-            <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.createFeedback()">Fehler melden</md-button>
-            <div class="ely-feedback-content">
-                <md-tabs md-dynamic-height>
-                    <md-tab>
-                        <md-tab-label>
-                            <span class="tab-text">Offen</span>
-
-                        </md-tab-label>
-                        <md-tab-body>
-                            <div class="feedback-tab-content">
-                                <div ng-repeat="feedback in ctrl.feedbackGroupOverview.feedbacks" class="feedback-element">
-                                    <ely-feedback-overview-group-element feedback="feedback" group="ctrl.group"></ely-feedback-overview-group-element>
+    <div id="ely-feedback-group-overview2" ely-infinite-scroll="ctrl.nextOverviewGroup">
+        <div id="ely-feedback-group-overview-container">
+            <div id="ely-feedback-group-inner-container">
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Bug'">Fehler</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Bug'">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du
+                    dazu bei, dass diese Plattform stabiler wird.
+                </div>
+                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()">Fehler melden</md-button>
+                <div class="ely-feedback-content">
+                    <md-tabs md-dynamic-height md-selected="ctrl.selectedIndex">
+                        <md-tab>
+                            <md-tab-label>
+                                <span>Offen</span>
+                                <span>({{ctrl.numberOfFeedback.numberOfOpenFeedbacks}})</span>
+                            </md-tab-label>
+                            <md-tab-body>
+                                <div class="feedback-tab-content">
+                                    <ely-feedback-overview-group-container commands="ctrl.commands" status="open"
+                                                                           number-of-feedback="ctrl.numberOfFeedback"></ely-feedback-overview-group-container>
                                 </div>
-                            </div>
-                        </md-tab-body>
-                    </md-tab>
-                </md-tabs>
+                            </md-tab-body>
+                        </md-tab>
+                        <md-tab>
+                            <md-tab-label>
+                                <span>Erledigt</span>
+                                <span>({{ctrl.numberOfFeedback.numberOfClosedFeedbacks}})</span>
+                            </md-tab-label>
+                            <md-tab-body>
+                                <ely-feedback-overview-group-container commands="ctrl.commandsClosed" status="closed"
+                                                                       number-of-feedback="ctrl.numberOfFeedback"></ely-feedback-overview-group-container>
+                            </md-tab-body>
+                        </md-tab>
+                    </md-tabs>
+                </div>
             </div>
         </div>
     </div>
