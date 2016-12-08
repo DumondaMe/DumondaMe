@@ -6,6 +6,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.factory('FeedbackOverview', require('./services/overview'));
+app.factory('FeedbackOverviewGroup', require('./services/overviewGroup'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
@@ -18,5 +19,14 @@ app.config(['$stateProvider', function ($stateProvider) {
                 }
             },
             data: {hasBackNav: true, title: 'Feedback'}
+        })
+        .state('feedback.overview', {
+            url: '/overview/{group}',
+            views: {
+                'content@': {
+                    template: '<ely-feedback-overview-group></ely-feedback-overview-group>'
+                }
+            },
+            data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'feedback', title: 'Feedback'}
         });
 }]);

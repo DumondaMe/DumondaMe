@@ -1,0 +1,28 @@
+<div id="ely-feedback-group-overview">
+    <div id="ely-feedback-group-overview-container" ely-infinite-scroll="ctrl.nextOverviewGroup">
+        <div id="ely-feedback-group-inner-container">
+            <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Bug'">Fehler</div>
+            <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Bug'">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du
+                dazu bei, dass diese Plattform stabiler wird.
+            </div>
+            <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.createFeedback()">Fehler melden</md-button>
+            <div class="ely-feedback-content">
+                <md-tabs md-dynamic-height>
+                    <md-tab>
+                        <md-tab-label>
+                            <span class="tab-text">Offen</span>
+
+                        </md-tab-label>
+                        <md-tab-body>
+                            <div class="feedback-tab-content">
+                                <div ng-repeat="feedback in ctrl.feedbackGroupOverview.feedbacks" class="feedback-element">
+                                    <ely-feedback-overview-group-element feedback="feedback" group="ctrl.group"></ely-feedback-overview-group-element>
+                                </div>
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+            </div>
+        </div>
+    </div>
+</div>

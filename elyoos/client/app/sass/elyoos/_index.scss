@@ -22,7 +22,10 @@
 @import 'contact/_contactRecommendationOverview';
 @import 'contact/_searchUserOverview';
 
+@import 'feedback/modal/_createFeedback';
 @import 'feedback/_feedback';
+@import 'feedback/_feedbackOverviewGroup';
+@import 'feedback/_feedbackOverviewGroupElement';
 
 @import 'forum/answerDetail/_answerDetail';
 @import 'forum/answerDetail/_answerDetailBookPage';

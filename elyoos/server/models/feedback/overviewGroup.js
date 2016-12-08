@@ -32,7 +32,7 @@ let getOverview = function (userId, params) {
         .optionalMatch("(feedback)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
         .return(`feedback, creator, count(discussionIdea) AS numberOfIdeas, numberOfComments, numberOfRecommendations,
                  EXISTS((feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
-        .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC")
+        .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC, feedback.created DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send().then(function (resp) {
             return {feedbacks: getFeedbackList(userId, resp)};

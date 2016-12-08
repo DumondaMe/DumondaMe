@@ -1,0 +1,20 @@
+<div class="feedback-group-element">
+    <div class="title">{{ctrl.feedback.title}}</div>
+    <div class="feedback-created">Erstellt vor {{ctrl.getFormattedDate(ctrl.feedback.created, 'LLL')}} von {{ctrl.feedback.creator.name}}</div>
+    <div class="info-container" layout="row">
+        <div>
+            <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback"
+                       ng-disabled="ctrl.feedback.recommendedByUser || ctrl.feedback.createdByUser"
+                       ng-click="ctrl.recommendFeedback()">
+                <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+            </md-button>
+        </div>
+        <div class="number-container" flex="none">
+            <span class="number">{{ctrl.feedback.numberOfRecommendations}}</span>
+        </div>
+        <md-icon md-svg-icon="cardActions:chat" class="chat-icon" flex="none"></md-icon>
+        <div class="number-container" flex="none">
+            <span class="number">{{ctrl.feedback.numberOfComments}}</span>
+        </div>
+    </div>
+</div>

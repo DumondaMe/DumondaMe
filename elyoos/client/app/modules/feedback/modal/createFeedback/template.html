@@ -1,0 +1,35 @@
+<md-dialog id="ely-add-feedback-dialog">
+    <div id="ely-add-feedback">
+        <form name="ctrl.feedbackForm">
+            <div class="title" ng-show="ctrl.group ==='Bug'">Fehler melden</div>
+            <div class="description-container">
+                <md-input-container class="input-container">
+                    <label>Titel</label>
+                    <input name="title" ng-model="ctrl.title" md-maxlength="160" ng-disabled="ctrl.uploadRunning" required/>
+                    <div ng-messages="ctrl.feedbackForm.title.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="input-container">
+                    <label>Beschreibung</label>
+                    <textarea name="description" ng-model="ctrl.description" md-maxlength="3000"
+                              ng-disabled="ctrl.uploadRunning" max-rows="5" required></textarea>
+                    <div ng-messages="ctrl.feedbackForm.description.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-align="start center" class="action-commands">
+                <span flex></span>
+                <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
+                <md-button class="md-primary md-raised"
+                           ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid"
+                           ng-click="ctrl.uploadFeedback()">Empfehlen
+                </md-button>
+            </div>
+        </form>
+        <md-progress-linear ng-if="ctrl.uploadRunning" md-mode="indeterminate"></md-progress-linear>
+    </div>
+</md-dialog>

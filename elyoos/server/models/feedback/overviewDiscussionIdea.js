@@ -52,7 +52,7 @@ let getOverview = function (userId, params) {
         .optionalMatch("(idea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
         .return(`idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations, 
                  EXISTS((idea)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
-        .orderBy("numberOfRecommendations DESC, numberOfComments DESC")
+        .orderBy("numberOfRecommendations DESC, numberOfComments DESC, idea.created DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send(commands).then(function (resp) {
             return {feedbacks: getIdeaList(userId, resp[1]), discussion: getDiscussion(resp[0])};
