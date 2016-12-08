@@ -69,7 +69,7 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
         }).getCommand());
 };
 
-var createFeedbackRating = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
+var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
     text = text || `comment${feedbackId}Text`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment  {text: {text}, created: {created}, feedbackId: {feedbackCommentId}})
@@ -83,10 +83,23 @@ var createFeedbackRating = function (feedbackId, feedbackCommentId, creatorUserI
         }).getCommand());
 };
 
+var createFeedbackRecommendation = function (feedbackId, feedbackRecommendationId, creatorUserId, created) {
+    dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
+        .create(`(feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation  {created: {created}, feedbackId: {feedbackRecommendationId}})
+        <-[:RECOMMENDED_BY]-(user)`)
+        .end({
+            feedbackId: feedbackId,
+            feedbackRecommendationId: feedbackRecommendationId,
+            created: created,
+            creatorUserId: creatorUserId,
+        }).getCommand());
+};
+
 module.exports = {
     createFeedbackBug: createFeedbackBug,
     createFeedbackIdea: createFeedbackIdea,
     createFeedbackDiscussion: createFeedbackDiscussion,
     createFeedbackDiscussionIdea: createFeedbackDiscussionIdea,
-    createFeedbackComment: createFeedbackRating
+    createFeedbackComment: createFeedbackComment,
+    createFeedbackRecommendation: createFeedbackRecommendation
 };

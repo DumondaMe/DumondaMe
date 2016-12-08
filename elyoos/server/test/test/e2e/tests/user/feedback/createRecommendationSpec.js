@@ -6,7 +6,7 @@ var requestHandler = requireTestUtil('request');
 var db = requireTestUtil('db');
 var moment = require('moment');
 
-describe('Integration Tests ratings for feedback elements', function () {
+describe('Integration Tests recommending feedback elements', function () {
 
     var requestAgent, startTime;
 
@@ -20,7 +20,7 @@ describe('Integration Tests ratings for feedback elements', function () {
     });
 
 
-    it('Create rating for bug', function () {
+    it('Create recommendation for a bug', function () {
 
         dbDsl.createFeedbackBug('1', '1', 500);
 
@@ -28,11 +28,49 @@ describe('Integration Tests ratings for feedback elements', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:RATING]-(rating:Feedback:Rating)
-                                       <-[:RATED_BY]-(:User {userId: '1'})`)
+            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)
+                                       <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
+                .return('recommendation')
+                .end().send();
+        }).then(function (recommendation) {
+            recommendation.length.should.equals(1);
+            recommendation[0].recommendation.created.should.be.at.least(startTime);
+        });
+    });
+
+    it('Create recommend a bug twice (400)', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+        });
+    });
+
+    it('Create recommendation for an idea', function () {
+
+        dbDsl.createFeedbackIdea('1', '1', 500);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match(`(:Feedback:Idea {feedbackId: '1'})<-[:RECOMMENDS]-(rating:Feedback:Recommendation)
+                                       <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
                 .return('rating')
                 .end().send();
         }).then(function (rating) {
@@ -41,24 +79,7 @@ describe('Integration Tests ratings for feedback elements', function () {
         });
     });
 
-    it('Create rating twice for a bug (400)', function () {
-
-        dbDsl.createFeedbackBug('1', '1', 500);
-
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(400);
-        });
-    });
-
-    it('Create rating for idea', function () {
+    it('Create recommendation twice for an idea (400)', function () {
 
         dbDsl.createFeedbackIdea('1', '1', 500);
 
@@ -66,37 +87,16 @@ describe('Integration Tests ratings for feedback elements', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Idea {feedbackId: '1'})<-[:RATING]-(rating:Feedback:Rating)
-                                       <-[:RATED_BY]-(:User {userId: '1'})`)
-                .return('rating')
-                .end().send();
-        }).then(function (rating) {
-            rating.length.should.equals(1);
-            rating[0].rating.created.should.be.at.least(startTime);
-        });
-    });
-
-    it('Create rating twice for an idea (400)', function () {
-
-        dbDsl.createFeedbackIdea('1', '1', 500);
-
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
-    it('Create rating for discussion idea', function () {
+    it('Create recommendation for discussion idea', function () {
 
         dbDsl.createFeedbackDiscussion('1', '1', 501);
 
@@ -106,11 +106,11 @@ describe('Integration Tests ratings for feedback elements', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '2'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '2'})<-[:RATING]-(rating:Feedback:Rating)
-                                       <-[:RATED_BY]-(:User {userId: '1'})`)
+            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '2'})<-[:RECOMMENDS]-(rating:Feedback:Recommendation)
+                                       <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
                 .return('rating')
                 .end().send();
         }).then(function (rating) {
@@ -119,7 +119,7 @@ describe('Integration Tests ratings for feedback elements', function () {
         });
     });
 
-    it('Create rating twice for an discussion idea (400)', function () {
+    it('Create recommendation twice for an discussion idea (400)', function () {
 
         dbDsl.createFeedbackDiscussion('1', '1', 501);
 
@@ -129,16 +129,16 @@ describe('Integration Tests ratings for feedback elements', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '2'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '2'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
-    it('rating discussion not possible (400)', function () {
+    it('Recommending a discussion is not possible (400)', function () {
 
         dbDsl.createFeedbackDiscussion('1', '1', 501);
 
@@ -146,7 +146,7 @@ describe('Integration Tests ratings for feedback elements', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/rating', {feedbackId: '1'}, requestAgent);
+            return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });

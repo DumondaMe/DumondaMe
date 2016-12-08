@@ -52,6 +52,7 @@ describe('Integration Tests creating bug feedback', function () {
             feedback[0].feedback.created.should.be.at.least(startTime);
             feedback[0].feedback.title.should.equals("title");
             feedback[0].feedback.description.should.equals("description");
+            feedback[0].feedback.status.should.equals("open");
         });
     });
 });

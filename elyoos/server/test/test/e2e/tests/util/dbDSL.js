@@ -48,5 +48,6 @@ module.exports = {
     createFeedbackIdea: feedback.createFeedbackIdea,
     createFeedbackDiscussion: feedback.createFeedbackDiscussion,
     createFeedbackDiscussionIdea: feedback.createFeedbackDiscussionIdea,
-    createFeedbackComment: feedback.createFeedbackComment
+    createFeedbackComment: feedback.createFeedbackComment,
+    createFeedbackRecommendation: feedback.createFeedbackRecommendation
 };

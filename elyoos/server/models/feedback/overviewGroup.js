@@ -13,6 +13,7 @@ let getFeedbackList = function (feedbacks) {
         formattedFeedback.creator = {userId: feedback.creator.userId, name: feedback.creator.name};
         formattedFeedback.numberOfComments = feedback.numberOfComments;
         formattedFeedback.numberOfIdeas = feedback.numberOfIdeas;
+        formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
         result.push(formattedFeedback);
     });
     return result;
@@ -22,9 +23,12 @@ let getOverview = function (userId, params) {
     return db.cypher().match("(feedback:Feedback {status: {status}})<-[:IS_CREATOR]-(creator)")
         .where("{group} IN labels(feedback)")
         .optionalMatch("(feedback)<-[:COMMENT]-(comments:Feedback:Comment)")
+        .with("count(comments) AS numberOfComments, feedback, creator")
+        .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
+        .with("count(recommendation) AS numberOfRecommendations, numberOfComments, feedback, creator")
         .optionalMatch("(feedback)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
-        .return("feedback, creator, count(comments) AS numberOfComments, count(discussionIdea) AS numberOfIdeas")
-        .orderBy("numberOfComments DESC, numberOfIdeas DESC")
+        .return(`feedback, creator, count(discussionIdea) AS numberOfIdeas, numberOfComments, numberOfRecommendations`)
+        .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send().then(function (resp) {
             return {feedbacks: getFeedbackList(resp)};

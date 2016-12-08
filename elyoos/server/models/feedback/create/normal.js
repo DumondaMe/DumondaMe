@@ -15,7 +15,7 @@ let create = function (userId, params) {
 
     let feedbackId = uuid.generateUUID();
     return db.cypher().match("(user:User {userId: {userId}})")
-        .create(`(user)-[:IS_CREATOR]->(feedback:Feedback:${getFeedbackType(params)} {feedbackId: {feedbackId}, title: {title}, 
+        .create(`(user)-[:IS_CREATOR]->(feedback:Feedback:${getFeedbackType(params)} {feedbackId: {feedbackId}, title: {title}, status: 'open',
                              description: {description}, created: {created}})`)
         .end({
             userId: userId, title: params.title, description: params.description,

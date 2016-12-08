@@ -7,7 +7,7 @@ let exceptions = requireLib('error/exceptions');
 let logger = requireLogger.getLogger(__filename);
 
 let checkRatingExists = function (userId, feedbackId, req) {
-    return db.cypher().match(`(:User {userId: {userId}})-[:RATED_BY]->(rating:Feedback:Rating)-[:RATING]->
+    return db.cypher().match(`(:User {userId: {userId}})-[:RECOMMENDED_BY]->(rating:Feedback:Recommendation)-[:RECOMMENDS]->
                               (:Feedback {feedbackId: {feedbackId}})`)
         .return("rating").end({userId: userId, feedbackId: feedbackId}).send().then(function (resp) {
             if (resp.length > 0) {
@@ -22,7 +22,8 @@ let create = function (userId, params, req) {
     return checkRatingExists(userId, params.feedbackId, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}}), (feedback:Feedback {feedbackId: {feedbackId}})")
             .where("feedback:Bug OR feedback:Idea OR feedback:DiscussionIdea")
-            .createUnique(`(user)-[:RATED_BY]->(rating:Feedback:Rating {ratingId: {ratingId}, created: {created}})-[:RATING]->(feedback)`)
+            .createUnique(`(user)-[:RECOMMENDED_BY]->(rating:Feedback:Recommendation {ratingId: {ratingId}, created: {created}})
+                            -[:RECOMMENDS]->(feedback)`)
             .return("rating")
             .end({
                 userId: userId, feedbackId: params.feedbackId, created: time.getNowUtcTimestamp(), ratingId: ratingId

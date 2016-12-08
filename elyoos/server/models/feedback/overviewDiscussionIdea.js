@@ -14,6 +14,7 @@ let getIdeaList = function (discussionIdeas) {
         formattedFeedback.feedbackId = idea.idea.feedbackId;
         formattedFeedback.creator = {userId: idea.creator.userId, name: idea.creator.name};
         formattedFeedback.numberOfComments = idea.numberOfComments;
+        formattedFeedback.numberOfRecommendations = idea.numberOfRecommendations;
         formattedListDiscussionIdeas.push(formattedFeedback);
     });
     return formattedListDiscussionIdeas;
@@ -44,8 +45,10 @@ let getOverview = function (userId, params) {
     return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(idea:Feedback:DiscussionIdea)
                                <-[:IS_CREATOR]-(creator)`)
         .optionalMatch("(idea)<-[:COMMENT]-(comments:Feedback:Comment)")
-        .return("idea, creator, count(comments) AS numberOfComments")
-        .orderBy("numberOfComments DESC")
+        .with("count(comments) AS numberOfComments, idea, creator")
+        .optionalMatch("(idea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
+        .return("idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations")
+        .orderBy("numberOfRecommendations DESC, numberOfComments DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send(commands).then(function (resp) {
             return {feedbacks: getIdeaList(resp[1]), discussion: getDiscussion(resp[0])};
