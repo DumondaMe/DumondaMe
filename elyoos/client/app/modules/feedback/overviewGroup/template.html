@@ -6,7 +6,14 @@
                 <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Bug'">Hast du einen Fehler gefunden? Mit jeder Meldung trägst du
                     dazu bei, dass diese Plattform stabiler wird.
                 </div>
-                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()">Fehler melden</md-button>
+                <div class="ely-feedback-overview-title" ng-if="ctrl.group === 'Idea'">Ideen</div>
+                <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Idea'">Hast Du Ideen welche Funktionalitäten nützlich wären?
+                    Bist du noch nicht ganz zufrieden wie gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
+                </div>
+                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()">
+                    <span ng-if="ctrl.group === 'Bug'">Fehler melden</span>
+                    <span ng-if="ctrl.group === 'Idea'">Idee erstellen</span>
+                </md-button>
                 <div class="ely-feedback-content">
                     <md-tabs md-dynamic-height md-selected="ctrl.selectedIndex">
                         <md-tab>

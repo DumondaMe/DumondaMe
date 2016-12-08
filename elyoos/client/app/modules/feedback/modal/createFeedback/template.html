@@ -2,6 +2,7 @@
     <div id="ely-add-feedback">
         <form name="ctrl.feedbackForm">
             <div class="title" ng-show="ctrl.group ==='Bug'">Fehler melden</div>
+            <div class="title" ng-show="ctrl.group ==='Idea'">Idee erstellen</div>
             <div class="description-container">
                 <md-input-container class="input-container">
                     <label>Titel</label>
@@ -26,7 +27,7 @@
                 <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
                 <md-button class="md-primary md-raised"
                            ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid"
-                           ng-click="ctrl.uploadFeedback()">Empfehlen
+                           ng-click="ctrl.uploadFeedback()">Erstellen
                 </md-button>
             </div>
         </form>
