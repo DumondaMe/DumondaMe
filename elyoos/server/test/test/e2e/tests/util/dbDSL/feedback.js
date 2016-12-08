@@ -85,7 +85,7 @@ var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUser
 
 var createFeedbackRecommendation = function (feedbackId, feedbackRecommendationId, creatorUserId, created) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
-        .create(`(feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation  {created: {created}, feedbackId: {feedbackRecommendationId}})
+        .create(`(feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation  {created: {created}, recommendationId: {feedbackRecommendationId}})
         <-[:RECOMMENDED_BY]-(user)`)
         .end({
             feedbackId: feedbackId,

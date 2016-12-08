@@ -15,6 +15,7 @@ let getIdeaList = function (discussionIdeas) {
         formattedFeedback.creator = {userId: idea.creator.userId, name: idea.creator.name};
         formattedFeedback.numberOfComments = idea.numberOfComments;
         formattedFeedback.numberOfRecommendations = idea.numberOfRecommendations;
+        formattedFeedback.recommendedByUser = idea.recommendedByUser;
         formattedListDiscussionIdeas.push(formattedFeedback);
     });
     return formattedListDiscussionIdeas;
@@ -39,6 +40,7 @@ let getDiscussionCommand = function (params) {
 let getOverview = function (userId, params) {
 
     let commands = [];
+    params.userId = userId;
 
     commands.push(getDiscussionCommand(params));
 
@@ -47,7 +49,8 @@ let getOverview = function (userId, params) {
         .optionalMatch("(idea)<-[:COMMENT]-(comments:Feedback:Comment)")
         .with("count(comments) AS numberOfComments, idea, creator")
         .optionalMatch("(idea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
-        .return("idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations")
+        .return(`idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations, 
+                 EXISTS((idea)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send(commands).then(function (resp) {

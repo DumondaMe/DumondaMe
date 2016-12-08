@@ -70,6 +70,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[0].creator.name.should.equals('user Meier3');
             res.body.feedbacks[0].numberOfComments.should.equals(0);
             res.body.feedbacks[0].numberOfRecommendations.should.equals(3);
+            res.body.feedbacks[0].recommendedByUser.should.equals(true);
 
             res.body.feedbacks[1].title.should.equals('bug2Title');
             res.body.feedbacks[1].description.should.equals('bug2Description');
@@ -79,6 +80,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[1].creator.name.should.equals('user Meier2');
             res.body.feedbacks[1].numberOfComments.should.equals(1);
             res.body.feedbacks[1].numberOfRecommendations.should.equals(1);
+            res.body.feedbacks[1].recommendedByUser.should.equals(false);
 
             res.body.feedbacks[2].title.should.equals('bug1Title');
             res.body.feedbacks[2].description.should.equals('bug1Description');
@@ -88,6 +90,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[2].creator.name.should.equals('user Meier');
             res.body.feedbacks[2].numberOfComments.should.equals(2);
             res.body.feedbacks[2].numberOfRecommendations.should.equals(0);
+            res.body.feedbacks[2].recommendedByUser.should.equals(false);
         });
     });
 
@@ -123,6 +126,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[0].creator.name.should.equals('user Meier4');
             res.body.feedbacks[0].numberOfComments.should.equals(1);
             res.body.feedbacks[0].numberOfRecommendations.should.equals(2);
+            res.body.feedbacks[0].recommendedByUser.should.equals(true);
         });
     });
 });

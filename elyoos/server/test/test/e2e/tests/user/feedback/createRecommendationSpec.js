@@ -31,10 +31,10 @@ describe('Integration Tests recommending feedback elements', function () {
             return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)
+            return db.cypher().match(`(:Feedback:Bug {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
                                        <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
                 .return('recommendation')
-                .end().send();
+                .end({recommendationId: res.body.recommendationId}).send();
         }).then(function (recommendation) {
             recommendation.length.should.equals(1);
             recommendation[0].recommendation.created.should.be.at.least(startTime);
@@ -69,13 +69,13 @@ describe('Integration Tests recommending feedback elements', function () {
             return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '1'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:Idea {feedbackId: '1'})<-[:RECOMMENDS]-(rating:Feedback:Recommendation)
+            return db.cypher().match(`(:Feedback:Idea {feedbackId: '1'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
                                        <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
-                .return('rating')
-                .end().send();
-        }).then(function (rating) {
-            rating.length.should.equals(1);
-            rating[0].rating.created.should.be.at.least(startTime);
+                .return('recommendation')
+                .end({recommendationId: res.body.recommendationId}).send();
+        }).then(function (recommendation) {
+            recommendation.length.should.equals(1);
+            recommendation[0].recommendation.created.should.be.at.least(startTime);
         });
     });
 
@@ -109,13 +109,13 @@ describe('Integration Tests recommending feedback elements', function () {
             return requestHandler.post('/api/user/feedback/recommendation', {feedbackId: '2'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '2'})<-[:RECOMMENDS]-(rating:Feedback:Recommendation)
+            return db.cypher().match(`(:Feedback:DiscussionIdea {feedbackId: '2'})<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation {recommendationId: {recommendationId}})
                                        <-[:RECOMMENDED_BY]-(:User {userId: '1'})`)
-                .return('rating')
-                .end().send();
-        }).then(function (rating) {
-            rating.length.should.equals(1);
-            rating[0].rating.created.should.be.at.least(startTime);
+                .return('recommendation')
+                .end({recommendationId: res.body.recommendationId}).send();
+        }).then(function (recommendation) {
+            recommendation.length.should.equals(1);
+            recommendation[0].recommendation.created.should.be.at.least(startTime);
         });
     });
 

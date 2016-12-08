@@ -24,8 +24,8 @@ module.exports = function (router) {
             return validation.validateRequest(req, schemaCreateRecommendation, logger).then(function (request) {
                 logger.info(`User recommends a feedback element`, req);
                 return feedbackRecommendation.create(req.user.id, request, req);
-            }).then(function () {
-                res.status(200).end();
+            }).then(function (recommendation) {
+                res.status(200).json(recommendation);
             });
         });
     });
