@@ -2,7 +2,7 @@
 
 let db = requireDb();
 
-let getFeedbackList = function (feedbacks) {
+let getFeedbackList = function (userId, feedbacks) {
     let result = [];
     feedbacks.forEach(function(feedback) {
         let formattedFeedback = {};
@@ -11,6 +11,7 @@ let getFeedbackList = function (feedbacks) {
         formattedFeedback.created = feedback.feedback.created;
         formattedFeedback.feedbackId = feedback.feedback.feedbackId;
         formattedFeedback.creator = {userId: feedback.creator.userId, name: feedback.creator.name};
+        formattedFeedback.createdByUser = feedback.creator.userId === userId;
         formattedFeedback.numberOfComments = feedback.numberOfComments;
         formattedFeedback.numberOfIdeas = feedback.numberOfIdeas;
         formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
@@ -34,7 +35,7 @@ let getOverview = function (userId, params) {
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send().then(function (resp) {
-            return {feedbacks: getFeedbackList(resp)};
+            return {feedbacks: getFeedbackList(userId, resp)};
         });
 };
 

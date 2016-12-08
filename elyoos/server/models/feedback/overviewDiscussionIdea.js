@@ -3,7 +3,7 @@
 let db = requireDb();
 let exception = requireLib('error/exceptions');
 
-let getIdeaList = function (discussionIdeas) {
+let getIdeaList = function (userId, discussionIdeas) {
     let formattedListDiscussionIdeas = [];
 
     discussionIdeas.forEach(function (idea) {
@@ -13,6 +13,7 @@ let getIdeaList = function (discussionIdeas) {
         formattedFeedback.created = idea.idea.created;
         formattedFeedback.feedbackId = idea.idea.feedbackId;
         formattedFeedback.creator = {userId: idea.creator.userId, name: idea.creator.name};
+        formattedFeedback.createdByUser = idea.creator.userId === userId;
         formattedFeedback.numberOfComments = idea.numberOfComments;
         formattedFeedback.numberOfRecommendations = idea.numberOfRecommendations;
         formattedFeedback.recommendedByUser = idea.recommendedByUser;
@@ -54,7 +55,7 @@ let getOverview = function (userId, params) {
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC")
         .skip("{skip}")
         .limit("{maxItems}").end(params).send(commands).then(function (resp) {
-            return {feedbacks: getIdeaList(resp[1]), discussion: getDiscussion(resp[0])};
+            return {feedbacks: getIdeaList(userId, resp[1]), discussion: getDiscussion(resp[0])};
         });
 };
 

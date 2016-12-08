@@ -71,6 +71,7 @@ describe('Integration Tests for getting ideas overview', function () {
             res.body.feedbacks[0].numberOfComments.should.equals(1);
             res.body.feedbacks[0].numberOfRecommendations.should.equals(3);
             res.body.feedbacks[0].recommendedByUser.should.equals(true);
+            res.body.feedbacks[0].createdByUser.should.equals(false);
 
             res.body.feedbacks[1].title.should.equals('idea2Title');
             res.body.feedbacks[1].description.should.equals('idea2Description');
@@ -81,6 +82,7 @@ describe('Integration Tests for getting ideas overview', function () {
             res.body.feedbacks[1].numberOfComments.should.equals(0);
             res.body.feedbacks[1].numberOfRecommendations.should.equals(1);
             res.body.feedbacks[1].recommendedByUser.should.equals(false);
+            res.body.feedbacks[1].createdByUser.should.equals(false);
 
             res.body.feedbacks[2].title.should.equals('idea1Title');
             res.body.feedbacks[2].description.should.equals('idea1Description');
@@ -91,6 +93,7 @@ describe('Integration Tests for getting ideas overview', function () {
             res.body.feedbacks[2].numberOfComments.should.equals(2);
             res.body.feedbacks[2].numberOfRecommendations.should.equals(0);
             res.body.feedbacks[2].recommendedByUser.should.equals(false);
+            res.body.feedbacks[2].createdByUser.should.equals(true);
         });
     });
 
@@ -127,6 +130,7 @@ describe('Integration Tests for getting ideas overview', function () {
             res.body.feedbacks[0].numberOfComments.should.equals(1);
             res.body.feedbacks[0].numberOfRecommendations.should.equals(2);
             res.body.feedbacks[0].recommendedByUser.should.equals(true);
+            res.body.feedbacks[0].createdByUser.should.equals(false);
         });
     });
 });
