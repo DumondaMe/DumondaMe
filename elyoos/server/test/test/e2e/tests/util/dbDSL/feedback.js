@@ -70,7 +70,7 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
 };
 
 var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
-    text = text || `comment${feedbackId}Text`;
+    text = text || `comment${feedbackCommentId}Text`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment  {text: {text}, created: {created}, feedbackId: {feedbackCommentId}})
         <-[:IS_CREATOR]-(user)`)

@@ -1,0 +1,68 @@
+'use strict';
+
+var users = require('../util/user');
+var dbDsl = require('../util/dbDSL');
+var requestHandler = require('../util/request');
+
+describe('Integration Tests for getting bug detail', function () {
+
+    var requestAgent;
+
+    beforeEach(function () {
+        return dbDsl.init(5);
+    });
+
+    afterEach(function () {
+        return requestHandler.logout();
+    });
+
+    it('Getting bug detail', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+
+        dbDsl.createFeedbackComment('1', '2', '1', 501);
+        dbDsl.createFeedbackComment('1', '3', '2', 502);
+        dbDsl.createFeedbackComment('1', '4', '1', 503);
+
+        dbDsl.createFeedbackRecommendation('1', '5', '2', 504);
+        dbDsl.createFeedbackRecommendation('1', '6', '3', 505);
+        dbDsl.createFeedbackRecommendation('1', '7', '4', 506);
+        dbDsl.createFeedbackRecommendation('1', '8', '5', 506);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/feedback/detail', {maxItems: 10, skip: 0, feedbackId: '1'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.feedback.numberOfComments.should.equals(3);
+            res.body.feedback.numberOfRecommendations.should.equals(4);
+            res.body.feedback.title.should.equals('bug1Title');
+            res.body.feedback.description.should.equals('bug1Description');
+            res.body.feedback.created.should.equals(500);
+            res.body.feedback.creator.name.should.equals('user Meier');
+            res.body.feedback.creator.userId.should.equals('1');
+            res.body.comments.length.should.equals(3);
+
+            res.body.comments[0].text.should.equals('comment4Text');
+            res.body.comments[0].created.should.equals(503);
+            res.body.comments[0].feedbackId.should.equals('4');
+            res.body.comments[0].creator.userId.should.equals('1');
+            res.body.comments[0].creator.name.should.equals('user Meier');
+
+            res.body.comments[1].text.should.equals('comment3Text');
+            res.body.comments[1].created.should.equals(502);
+            res.body.comments[1].feedbackId.should.equals('3');
+            res.body.comments[1].creator.userId.should.equals('2');
+            res.body.comments[1].creator.name.should.equals('user Meier2');
+
+            res.body.comments[2].text.should.equals('comment2Text');
+            res.body.comments[2].created.should.equals(501);
+            res.body.comments[2].feedbackId.should.equals('2');
+            res.body.comments[2].creator.userId.should.equals('1');
+            res.body.comments[2].creator.name.should.equals('user Meier');
+
+        });
+    });
+});
