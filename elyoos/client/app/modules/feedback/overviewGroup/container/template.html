@@ -6,11 +6,13 @@
             </div>
             <div class="info-container" layout="row">
                 <div>
-                    <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback"
+                    <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback" ng-hide="feedback.runningUpload"
                                ng-disabled="feedback.recommendedByUser || feedback.createdByUser"
-                               ng-click="ctrl.recommendFeedback()">
+                               ng-click="ctrl.recommendFeedback(feedback)">
                         <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
                     </md-button>
+                    <md-progress-circular ng-show="feedback.runningUpload" class="load-feedback-recommendation" md-mode="indeterminate"
+                                          md-diameter="16"></md-progress-circular>
                 </div>
                 <div class="number-container" flex="none">
                     <span class="number">{{feedback.numberOfRecommendations}}</span>

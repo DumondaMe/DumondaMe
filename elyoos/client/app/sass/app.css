@@ -1139,6 +1139,8 @@ md-toast.md-error-toast-theme {
     color: rgba(0, 0, 0, 0.54); }
   .feedback-element .feedback-group-element .info-container {
     margin-top: 8px; }
+    .feedback-element .feedback-group-element .info-container .load-feedback-recommendation {
+      top: 11px; }
     .feedback-element .feedback-group-element .info-container .feedback-recommend.md-fab.md-mini {
       height: 28px;
       width: 28px;

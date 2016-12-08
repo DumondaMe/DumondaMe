@@ -7,6 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.factory('FeedbackOverview', require('./services/overview'));
 app.factory('FeedbackOverviewGroup', require('./services/overviewGroup'));
+app.factory('FeedbackRecommendation', require('./services/recommendation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
