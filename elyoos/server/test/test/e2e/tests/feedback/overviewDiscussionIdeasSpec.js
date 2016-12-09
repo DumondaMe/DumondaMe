@@ -26,7 +26,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         dbDsl.createFeedbackDiscussionIdea('4', '1', '1', 501);
         dbDsl.createFeedbackDiscussionIdea('5', '1', '2', 502);
         dbDsl.createFeedbackDiscussionIdea('6', '1', '3', 503);
-        dbDsl.createFeedbackDiscussionIdea('16', '1', '3', 503, 'closed');
+        dbDsl.createFeedbackDiscussionIdea('16', '1', '3', 503, 503, 'closed');
 
         dbDsl.createFeedbackComment('4', '7', '1', 501);
         dbDsl.createFeedbackComment('4', '8', '2', 501);
@@ -101,7 +101,7 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         dbDsl.createFeedbackDiscussionIdea('4', '1', '1', 501);
         dbDsl.createFeedbackDiscussionIdea('5', '1', '2', 502);
         dbDsl.createFeedbackDiscussionIdea('6', '1', '3', 503);
-        dbDsl.createFeedbackDiscussionIdea('7', '1', '3', 503, 'closed');
+        dbDsl.createFeedbackDiscussionIdea('7', '1', '3', 503, 503, 'closed');
 
         dbDsl.createFeedbackRecommendation('4', '8', '1', 501);
         dbDsl.createFeedbackRecommendation('4', '9', '2', 501);

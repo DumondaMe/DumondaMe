@@ -21,7 +21,7 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackBug('4', '4', 503);
 
         dbDsl.createFeedbackIdea('5', '1', 504);
-        dbDsl.createFeedbackDiscussion('6', '1', 505, 'closed');
+        dbDsl.createFeedbackDiscussion('6', '1', 505, 505, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -39,7 +39,7 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackDiscussion('1', '1', 500);
         dbDsl.createFeedbackDiscussion('2', '2', 501);
         dbDsl.createFeedbackDiscussion('3', '3', 502);
-        dbDsl.createFeedbackDiscussion('4', '4', 503, 'closed');
+        dbDsl.createFeedbackDiscussion('4', '4', 503, 503, 'closed');
 
         dbDsl.createFeedbackBug('5', '1', 504);
         dbDsl.createFeedbackIdea('6', '1', 505);
@@ -89,7 +89,7 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackDiscussion('1', '1', 500);
         dbDsl.createFeedbackDiscussion('2', '2', 501);
         dbDsl.createFeedbackDiscussion('3', '3', 502);
-        dbDsl.createFeedbackDiscussion('4', '4', 503, 'closed');
+        dbDsl.createFeedbackDiscussion('4', '4', 503, 503, 'closed');
 
         dbDsl.createFeedbackBug('5', '1', 504);
         dbDsl.createFeedbackIdea('6', '1', 505);

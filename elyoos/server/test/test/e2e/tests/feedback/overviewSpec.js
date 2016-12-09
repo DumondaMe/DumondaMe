@@ -22,14 +22,14 @@ describe('Integration Tests for getting feedback overview', function () {
         dbDsl.createFeedbackBug('1', '1', 500);
         dbDsl.createFeedbackBug('2', '2', 501);
         dbDsl.createFeedbackBug('3', '3', 502);
-        dbDsl.createFeedbackBug('4', '4', 503, 'closed');
+        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
 
         dbDsl.createFeedbackIdea('5', '1', 504);
         dbDsl.createFeedbackIdea('6', '2', 505);
-        dbDsl.createFeedbackIdea('7', '3', 506, 'closed');
+        dbDsl.createFeedbackIdea('7', '3', 506, 506, 'closed');
 
         dbDsl.createFeedbackDiscussion('8', '1', 507);
-        dbDsl.createFeedbackDiscussion('9', '2', 508, 'closed');
+        dbDsl.createFeedbackDiscussion('9', '2', 508, 508, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -49,7 +49,7 @@ describe('Integration Tests for getting feedback overview', function () {
         dbDsl.createFeedbackBug('1', '1', 500);
         dbDsl.createFeedbackBug('2', '2', 501);
         dbDsl.createFeedbackBug('3', '3', 502);
-        dbDsl.createFeedbackBug('4', '4', 503, 'closed');
+        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

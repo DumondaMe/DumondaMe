@@ -10,10 +10,8 @@ var schemaGetDetail = {
     name: 'getFeedbackDetail',
     type: 'object',
     additionalProperties: false,
-    required: ['skip', 'maxItems', 'feedbackId'],
+    required: ['feedbackId'],
     properties: {
-        skip: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50},
         feedbackId: {type: 'string', format: 'notEmptyString', maxLength: 50}
     }
 };
