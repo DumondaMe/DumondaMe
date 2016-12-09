@@ -10,7 +10,7 @@
                 <div class="ely-feedback-overview-description" ng-if="ctrl.group === 'Idea'">Hast Du Ideen welche Funktionalitäten nützlich wären?
                     Bist du noch nicht ganz zufrieden wie gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
                 </div>
-                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()">
+                <md-button class="md-raised md-primary create-feedback" ng-click="ctrl.commands.createFeedback()" aria-label="create Feedback">
                     <span ng-if="ctrl.group === 'Bug'">Fehler melden</span>
                     <span ng-if="ctrl.group === 'Idea'">Idee erstellen</span>
                 </md-button>

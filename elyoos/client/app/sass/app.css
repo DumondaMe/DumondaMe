@@ -1066,6 +1066,24 @@ md-toast.md-error-toast-theme {
   min-width: 300px;
   max-width: 600px; }
 
+.ely-add-feedback-comment {
+  width: 100%;
+  height: 100%; }
+  .ely-add-feedback-comment .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .ely-add-feedback-comment .description-container {
+    padding: 16px 24px; }
+    .ely-add-feedback-comment .description-container .input-container {
+      width: 100%;
+      margin: 16px 0 0 0; }
+
+#ely-add-feedback-comment-dialog {
+  width: 90%;
+  min-width: 300px;
+  max-width: 900px; }
+
 #ely-feedback {
   height: 100%;
   overflow-y: scroll; }
@@ -1096,6 +1114,88 @@ md-toast.md-error-toast-theme {
           font-size: 14px;
           color: rgba(0, 0, 0, 0.54); }
 
+#ely-feedback-detail {
+  height: 100%; }
+  #ely-feedback-detail #ely-feedback-detail2 {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f1f1f1; }
+    #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container {
+      max-width: 900px;
+      padding: 32px 16px 16px 16px;
+      margin: 0 auto;
+      height: 100%; }
+      #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container {
+        border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+        padding: 8px 0 12px 0;
+        margin-bottom: 8px; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container {
+          margin-bottom: 14px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .status {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 8px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .status-open {
+            background-color: #43a047; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .status-closed {
+            background-color: #a94442; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .feedback-type {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.87);
+            margin-left: 8px; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-detail-title {
+          font-size: 29px;
+          color: rgba(0, 0, 0, 0.87);
+          font-weight: 300; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-subheading {
+          margin-top: 4px;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54); }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-subheading .name {
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: 500; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container {
+          margin-top: 8px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .load-feedback-recommendation {
+            top: 11px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .feedback-recommend.md-fab.md-mini {
+            height: 28px;
+            width: 28px;
+            line-height: 28px;
+            min-height: 0;
+            margin-left: 0; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .feedback-recommend.md-fab.md-mini .action-icon {
+              height: 16px;
+              width: 16px;
+              min-height: 16px;
+              min-width: 16px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .number-container {
+            margin-left: 2px;
+            margin-right: 8px;
+            color: rgba(0, 0, 0, 0.87);
+            height: 40px; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .number-container .number {
+              line-height: 40px;
+              font-size: 14px;
+              vertical-align: middle; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .chat-icon {
+            margin-left: 18px;
+            margin-right: 6px; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-detail-description {
+          white-space: pre-wrap;
+          margin-top: 12px;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.54); }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .create-comment {
+          margin-left: 0;
+          margin-top: 12px; }
+      #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container .ely-feedback-comments .main-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
+
 #ely-feedback-group-overview {
   height: 100%; }
   #ely-feedback-group-overview #ely-feedback-group-overview2 {
@@ -1104,7 +1204,7 @@ md-toast.md-error-toast-theme {
     background-color: #f1f1f1; }
     #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container {
       max-width: 900px;
-      padding: 24px 16px 16px 16px;
+      padding: 32px 16px 16px 16px;
       margin: 0 auto;
       height: 100%; }
       #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-title {

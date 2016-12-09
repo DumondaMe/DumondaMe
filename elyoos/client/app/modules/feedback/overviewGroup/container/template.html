@@ -1,8 +1,8 @@
 <div>
     <div ng-repeat="feedback in ctrl.feedbackGroupOverview.feedbacks" class="feedback-element">
         <div class="feedback-group-element">
-            <div class="title">{{feedback.title}}</div>
-            <div class="feedback-created">Erstellt vor {{ctrl.getFormattedDate(feedback.created, 'LLL')}} von {{feedback.creator.name}}
+            <div class="title" ui-sref="feedback.detail({group: ctrl.group, feedbackId: feedback.feedbackId})">{{feedback.title}}</div>
+            <div class="feedback-created">Erstellt {{ctrl.getFormattedDate(feedback.created, true)}} von {{feedback.creator.name}}
             </div>
             <div class="info-container" layout="row">
                 <div>

@@ -23,13 +23,13 @@ describe('Integration Tests creating bug feedback', function () {
     it('Create bug feedback', function () {
 
         dbDsl.createFeedbackBug('1', '1', 500);
-        dbDsl.createFeedbackBug('2', '4', 503, 'closed');
+        dbDsl.createFeedbackBug('2', '4', 503, 503, 'closed');
 
         dbDsl.createFeedbackIdea('3', '1', 504);
-        dbDsl.createFeedbackIdea('4', '3', 506, 'closed');
+        dbDsl.createFeedbackIdea('4', '3', 506, 507, 'closed');
 
         dbDsl.createFeedbackDiscussion('5', '1', 507);
-        dbDsl.createFeedbackDiscussion('6', '2', 508, 'closed');
+        dbDsl.createFeedbackDiscussion('6', '2', 508, 509, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

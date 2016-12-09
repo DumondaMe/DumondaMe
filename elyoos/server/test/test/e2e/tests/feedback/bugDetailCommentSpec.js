@@ -58,4 +58,24 @@ describe('Integration Tests for getting bug detail comments', function () {
 
         });
     });
+
+    it('No comments created so far', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+
+        dbDsl.createFeedbackRecommendation('1', '5', '2', 504);
+        dbDsl.createFeedbackRecommendation('1', '6', '3', 505);
+        dbDsl.createFeedbackRecommendation('1', '7', '4', 506);
+        dbDsl.createFeedbackRecommendation('1', '8', '5', 506);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.getWithData('/api/feedback/detailComment', {maxItems: 10, skip: 0, feedbackId: '1'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.comments.length.should.equals(0);
+        });
+    });
 });

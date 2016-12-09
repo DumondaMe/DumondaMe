@@ -13,11 +13,13 @@ let getCommentMessage = function (comments) {
     let result = [];
     comments.forEach(function (comment) {
         let resultComment = {};
-        resultComment.text = comment.comment.text;
-        resultComment.created = comment.comment.created;
-        resultComment.feedbackId = comment.comment.feedbackId;
-        resultComment.creator = {userId: comment.creator.userId, name: comment.creator.name};
-        result.push(resultComment);
+        if (comment.hasOwnProperty('comment')) {
+            resultComment.text = comment.comment.text;
+            resultComment.created = comment.comment.created;
+            resultComment.feedbackId = comment.comment.feedbackId;
+            resultComment.creator = {userId: comment.creator.userId, name: comment.creator.name};
+            result.push(resultComment);
+        }
     });
     return result;
 };
