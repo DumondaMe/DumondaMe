@@ -93,11 +93,13 @@
           margin-top: 12px;
         }
       }
-      .ely-feedback-comments {
+      .ely-feedback-detail-comments {
         .main-title {
           font-size: 16px;
           font-weight: 500;
           color: $primary-text;
+          padding-bottom: 8px;
+          border-bottom: solid 1px $divider;
         }
       }
     }

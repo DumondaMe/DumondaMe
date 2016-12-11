@@ -1,3 +1,9 @@
 <div id="ely-feedback-detail-comment-container">
-
+    <div class="comment-container" ng-repeat="comment in ctrl.comments.comments" ng-class="{'divider': !$last}">
+        <div class="info-header">
+            <span class="name">{{comment.creator.name}}</span>
+            <span class="date">{{ctrl.getFormattedDate(comment.created, true)}}</span>
+        </div>
+        <ely-expand-text class="comment-text" description="{{comment.text}}" length="500"></ely-expand-text>
+    </div>
 </div>
