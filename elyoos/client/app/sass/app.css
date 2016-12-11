@@ -1127,7 +1127,7 @@ md-toast.md-error-toast-theme {
       height: 100%; }
       #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container {
         border-bottom: solid 1px rgba(0, 0, 0, 0.12);
-        padding: 8px 0 12px 0;
+        padding: 8px 0 0 0;
         margin-bottom: 8px; }
         #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container {
           margin-bottom: 14px; }
@@ -1188,9 +1188,12 @@ md-toast.md-error-toast-theme {
           margin-top: 12px;
           font-size: 16px;
           color: rgba(0, 0, 0, 0.54); }
-        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .create-comment {
-          margin-left: 0;
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-commands {
           margin-top: 12px; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-commands .create-comment {
+            margin-left: 0; }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-commands .comments-order {
+            min-width: 100px; }
       #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container .ely-feedback-detail-comments .main-title {
         font-size: 16px;
         font-weight: 500;

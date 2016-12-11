@@ -24,6 +24,7 @@ module.exports = ['$stateParams', 'FeedbackDetailComment', 'dateFormatter', 'Ely
                     {feedbackId: $stateParams.feedbackId}).then(function (resp) {
                     ctrl.comments.comments.unshift(resp);
                     ScrollRequest.addedElement('feedbackComments');
+                    ctrl.addedComment();
                 });
             };
             ctrl.commands.nextFeedbackComments = ctrl.nextFeedbackComments;

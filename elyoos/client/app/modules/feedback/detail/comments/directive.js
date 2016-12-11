@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                commands: '='
+                commands: '=',
+                addedComment: '&'
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

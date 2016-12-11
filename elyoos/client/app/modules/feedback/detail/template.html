@@ -34,13 +34,37 @@
                     </div>
                 </div>
                 <ely-expand-text class="ely-feedback-detail-description" description="{{ctrl.detail.description}}" length="500"></ely-expand-text>
-                <md-button class="md-raised md-primary create-comment" ng-click="ctrl.commands.createComment()" aria-label="create Comment">
-                    Kommentar erstellen
-                </md-button>
+                <div class="ely-feedback-commands" layout="row" layout-wrap>
+                    <div>
+                        <md-button class="md-raised md-primary create-comment" ng-click="ctrl.commands.createComment()" aria-label="create Comment">
+                            Kommentar erstellen
+                        </md-button>
+                    </div>
+                    <div ng-show="ctrl.detail.createdByUser">
+                        <md-button class="md-raised md-primary" ng-click="ctrl.commands.createComment()" aria-label="modifiy feedback">
+                            Bearbeiten
+                        </md-button>
+                    </div>
+                    <div ng-show="ctrl.detail.createdByUser && ctrl.detail.numberOfRecommendations === 0 && ctrl.detail.numberOfComments === 0">
+                        <md-button class="md-raised md-primary" ng-click="ctrl.commands.createComment()" aria-label="modifiy feedback">
+                            Löschen
+                        </md-button>
+                    </div>
+                    <span flex></span>
+                    <div ng-show="ctrl.detail.numberOfComments > 1">
+                        <md-input-container>
+                            <label>Sortiert nach</label>
+                            <md-select ng-model="ctrl.orderComments" class="md-no-underline comments-order">
+                                <md-option value="new">Neuste</md-option>
+                                <md-option value="old">Älteste</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
             </div>
             <div class="ely-feedback-detail-comments">
                 <div class="main-title">{{ctrl.detail.numberOfComments}} Kommentare</div>
-                <ely-feedback-detail-comment commands="ctrl.commands"></ely-feedback-detail-comment>
+                <ely-feedback-detail-comment commands="ctrl.commands" added-comment="ctrl.addedComment()"></ely-feedback-detail-comment>
             </div>
         </div>
     </div>

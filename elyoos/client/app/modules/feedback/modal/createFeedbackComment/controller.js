@@ -18,6 +18,7 @@ module.exports = ['ElyModal', 'CreateFeedbackComment', 'CreateFeedbackCommentMes
             delete ctrl.error;
             CreateFeedbackComment.save(message, function (resp) {
                 ctrl.uploadRunning = false;
+                resp.text = ctrl.text;
                 ElyModal.hide(resp);
             }, function () {
                 ctrl.error = "Fehler beim erstellen des Kommentars";
