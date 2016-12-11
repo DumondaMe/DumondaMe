@@ -5,7 +5,7 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {orderBy: '='},
             bindToController: {
                 commands: '=',
                 addedComment: '&'

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$stateParams', 'FeedbackDetailComment', 'dateFormatter', 'ElyModal', 'ScrollRequest', 'FeedbackCommentsResponseHandler',
-    function ($stateParams, FeedbackDetailComment, dateFormatter, ElyModal, ScrollRequest, FeedbackCommentsResponseHandler) {
+module.exports = ['$scope', '$stateParams', 'FeedbackDetailComment', 'dateFormatter', 'ElyModal', 'ScrollRequest', 'FeedbackCommentsResponseHandler',
+    function ($scope, $stateParams, FeedbackDetailComment, dateFormatter, ElyModal, ScrollRequest, FeedbackCommentsResponseHandler) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
@@ -10,13 +10,21 @@ module.exports = ['$stateParams', 'FeedbackDetailComment', 'dateFormatter', 'Ely
 
         ScrollRequest.reset('feedbackComments', FeedbackDetailComment.get, FeedbackCommentsResponseHandler);
         ctrl.nextFeedbackComments = function () {
-            ScrollRequest.nextRequest('feedbackComments', ctrl.comments.comments, {feedbackId: $stateParams.feedbackId})
+            ScrollRequest.nextRequest('feedbackComments', ctrl.comments.comments, {feedbackId: $stateParams.feedbackId, orderBy: $scope.orderBy})
                 .then(function (comments) {
                     ctrl.loadRunning = false;
                     ctrl.comments = comments;
                 });
         };
         ctrl.nextFeedbackComments();
+
+        $scope.$watch('orderBy', function (newOrderBy) {
+            if (newOrderBy === 'new' || newOrderBy === 'old') {
+                ctrl.comments = {comments: []};
+                ScrollRequest.reset('feedbackComments', FeedbackDetailComment.get, FeedbackCommentsResponseHandler);
+                ctrl.nextFeedbackComments();
+            }
+        });
 
         if (angular.isObject(ctrl.commands)) {
             ctrl.commands.createComment = function () {

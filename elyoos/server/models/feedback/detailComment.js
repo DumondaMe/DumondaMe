@@ -2,11 +2,18 @@
 
 let db = requireDb();
 
-let getFeedbackComments = function (feedbackId) {
+let getOrderBy = function (orderBy) {
+    if (orderBy === 'old') {
+        return "comment.created";
+    }
+    return "comment.created DESC";
+};
+
+let getFeedbackComments = function (feedbackId, orderBy) {
     return db.cypher().match(`(feedback:Feedback {feedbackId: {feedbackId}})`)
         .optionalMatch(`(feedback)<-[:COMMENT]-(comment:Feedback:Comment)<-[:IS_CREATOR]-(creator:User)`)
         .return("comment, creator")
-        .orderBy("comment.created DESC").end({feedbackId: feedbackId});
+        .orderBy(getOrderBy(orderBy)).end({feedbackId: feedbackId});
 };
 
 let getCommentMessage = function (comments) {
@@ -26,7 +33,7 @@ let getCommentMessage = function (comments) {
 
 let getComment = function (params) {
 
-    return getFeedbackComments(params.feedbackId)
+    return getFeedbackComments(params.feedbackId, params.orderBy)
         .send().then(function (resp) {
             return {comments: getCommentMessage(resp)};
         });

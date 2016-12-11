@@ -64,7 +64,8 @@
             </div>
             <div class="ely-feedback-detail-comments">
                 <div class="main-title">{{ctrl.detail.numberOfComments}} Kommentare</div>
-                <ely-feedback-detail-comment commands="ctrl.commands" added-comment="ctrl.addedComment()"></ely-feedback-detail-comment>
+                <ely-feedback-detail-comment commands="ctrl.commands" added-comment="ctrl.addedComment()"
+                                             order-by="ctrl.orderComments"></ely-feedback-detail-comment>
             </div>
         </div>
     </div>
