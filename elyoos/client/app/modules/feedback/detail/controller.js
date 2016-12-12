@@ -39,7 +39,7 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
                 UserFeedback.delete({
                     feedbackId: $stateParams.feedbackId
                 }, function () {
-                    $state.go('feedback.overview', {group: ctrl.group});
+                    $state.go('feedback.overview', {group: ctrl.group, discussionId: $stateParams.discussionId});
                 }, function () {
                     errorToast.showError("Fehler beim Löschen des Feedbacks");
                 });

@@ -1,23 +1,29 @@
 'use strict';
 
-module.exports = ['dateFormatter', 'FeedbackOverviewGroup', '$stateParams', 'ScrollRequest', 'FeedbackOverviewGroupResponseHandler', 'ElyModal',
-    'FeedbackRecommendation', 'errorToast',
-    function (dateFormatter, FeedbackOverviewGroup, $stateParams, ScrollRequest, FeedbackOverviewGroupResponseHandler, ElyModal,
+module.exports = ['dateFormatter', 'FeedbackOverviewResourceHandler', '$stateParams', 'ScrollRequest', 'FeedbackOverviewGroupResponseHandler',
+    'ElyModal', 'FeedbackRecommendation', 'errorToast',
+    function (dateFormatter, FeedbackOverviewResourceHandler, $stateParams, ScrollRequest, FeedbackOverviewGroupResponseHandler, ElyModal,
               FeedbackRecommendation, errorToast) {
         var ctrl = this, scrollName = 'feedbackOverviewGroup' + ctrl.status;
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         ctrl.feedbackGroupOverview = {feedbacks: []};
         ctrl.group = $stateParams.group;
+        ctrl.discussionId = $stateParams.discussionId;
         ctrl.loadRunning = true;
 
-        ScrollRequest.reset(scrollName, FeedbackOverviewGroup.get, FeedbackOverviewGroupResponseHandler);
+        ScrollRequest.reset(scrollName, FeedbackOverviewResourceHandler.getResource(ctrl.group).get, FeedbackOverviewGroupResponseHandler);
         ctrl.nextOverviewGroupOpen = function () {
-            ScrollRequest.nextRequest(scrollName, ctrl.feedbackGroupOverview.feedbacks, {status: ctrl.status, group: $stateParams.group})
+            ScrollRequest.nextRequest(scrollName, ctrl.feedbackGroupOverview.feedbacks,
+                FeedbackOverviewResourceHandler.getParams($stateParams.group, ctrl.status, $stateParams.discussionId))
                 .then(function (overview) {
                     ctrl.loadRunning = false;
                     ctrl.feedbackGroupOverview = overview;
                     ctrl.numberOfFeedback = ctrl.feedbackGroupOverview.statistic;
+                    if(ctrl.feedbackGroupOverview.hasOwnProperty('discussion')) {
+                        ctrl.feedbackTitle = ctrl.feedbackGroupOverview.discussion.title;
+                        ctrl.feedbackDescription = ctrl.feedbackGroupOverview.discussion.description;
+                    }
                 });
         };
         ctrl.nextOverviewGroupOpen();
@@ -25,7 +31,7 @@ module.exports = ['dateFormatter', 'FeedbackOverviewGroup', '$stateParams', 'Scr
         if (angular.isObject(ctrl.commands)) {
             ctrl.commands.createFeedback = function () {
                 ElyModal.show('FeedbackManageCtrl', 'app/modules/feedback/modal/manageFeedback/template.html',
-                    {group: ctrl.group}).then(function (resp) {
+                    {group: ctrl.group, feedbackId: $stateParams.discussionId}).then(function (resp) {
                     ctrl.feedbackGroupOverview.feedbacks.unshift(resp);
                     ScrollRequest.addedElement(scrollName);
                     ctrl.feedbackGroupOverview.statistic.numberOfOpenFeedbacks++;

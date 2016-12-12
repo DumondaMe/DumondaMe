@@ -10,7 +10,7 @@ let create = function (userId, params, req) {
 
     let feedbackId = uuid.generateUUID(), created = time.getNowUtcTimestamp();
     return db.cypher().match("(user:User {userId: {userId}}), (discussion:Feedback:Discussion {feedbackId: {discussionId}})")
-        .createUnique(`(user)-[:IS_CREATOR]->(feedback:Feedback:DiscussionIdea {feedbackId: {feedbackId}, title: {title}, 
+        .createUnique(`(user)-[:IS_CREATOR]->(feedback:Feedback:DiscussionIdea {feedbackId: {feedbackId}, title: {title}, status: 'open',
                              description: {description}, created: {created}})-[:IS_IDEA]->(discussion)`)
         .return("user").end({
             userId: userId, title: params.title, description: params.description, discussionId: params.discussionId,

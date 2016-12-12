@@ -7,6 +7,7 @@ app.directive(directive.name, directive.directive);
 
 app.factory('FeedbackOverview', require('./services/overview'));
 app.factory('FeedbackOverviewGroup', require('./services/overviewGroup'));
+app.factory('FeedbackOverviewDiscussionIdea', require('./services/overviewDiscussionIdea'));
 app.factory('FeedbackRecommendation', require('./services/recommendation'));
 app.factory('FeedbackDetail', require('./services/detail'));
 app.factory('FeedbackDetailComment', require('./services/detailComment'));
@@ -25,7 +26,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             data: {hasBackNav: true, title: 'Feedback'}
         })
         .state('feedback.overview', {
-            url: '/overview/{group}',
+            url: '/overview/{group}/{discussionId}',
             views: {
                 'content@': {
                     template: '<ely-feedback-overview-group></ely-feedback-overview-group>'
@@ -34,7 +35,7 @@ app.config(['$stateProvider', function ($stateProvider) {
             data: {hasBackNav: true, defaultBackNavState: 'feedback', title: 'Feedback'}
         })
         .state('feedback.detail', {
-            url: '/detail/{group}/{feedbackId}',
+            url: '/detail/{group}/{feedbackId}/{discussionId}',
             views: {
                 'content@': {
                     template: '<ely-feedback-detail></ely-feedback-detail>'

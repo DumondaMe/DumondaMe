@@ -2,9 +2,9 @@
     <div id="ely-add-feedback">
         <form name="ctrl.feedbackForm">
             <div class="title" ng-show="ctrl.group ==='Bug' && !ctrl.isEditMode">Fehler melden</div>
-            <div class="title" ng-show="ctrl.group ==='Idea' && !ctrl.isEditMode">Idee erstellen</div>
+            <div class="title" ng-show="(ctrl.group ==='Idea' || ctrl.group ==='DiscussionIdea') && !ctrl.isEditMode">Idee erstellen</div>
             <div class="title" ng-show="ctrl.group ==='Bug' && ctrl.isEditMode">Fehler bearbeiten</div>
-            <div class="title" ng-show="ctrl.group ==='Idea' && ctrl.isEditMode">Idee bearbeiten</div>
+            <div class="title" ng-show="(ctrl.group ==='Idea' || ctrl.group ==='DiscussionIdea') && ctrl.isEditMode">Idee bearbeiten</div>
             <div class="description-container">
                 <md-input-container class="input-container">
                     <label>Titel</label>

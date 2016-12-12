@@ -55,6 +55,7 @@ describe('Integration Tests creating a idea for a discussion', function () {
             feedback[0].feedback.created.should.be.at.least(startTime);
             feedback[0].feedback.title.should.equals("title");
             feedback[0].feedback.description.should.equals("description");
+            feedback[0].feedback.status.should.equals("open");
         });
     });
 

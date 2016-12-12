@@ -29,6 +29,10 @@
         .feedback-info {
           padding: 0 8px 8px 8px;
           .number-of-feedbacks {
+            .number {
+              font-weight: 500;
+              color: $primary-text;
+            }
             font-size: 14px;
             color: $secondary-text;
           }

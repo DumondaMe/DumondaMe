@@ -3,11 +3,15 @@
 module.exports = [function () {
 
     this.getCreateFeedbackMessage = function (isChangeMode, title, description, group, feedbackId) {
-        if(isChangeMode) {
+        if (isChangeMode) {
             return {title: title, description: description, feedbackId: feedbackId};
         } else if (group === 'Bug' || group === 'Idea') {
             return {
                 normal: {title: title, description: description, group: group}
+            };
+        } else if (group === 'DiscussionIdea') {
+            return {
+                discussion: {title: title, description: description, discussionId: feedbackId}
             };
         }
     };

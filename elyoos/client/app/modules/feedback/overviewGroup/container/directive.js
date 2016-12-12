@@ -9,6 +9,8 @@ module.exports = {
             bindToController: {
                 commands: '=',
                 numberOfFeedback: '=',
+                feedbackTitle: '=',
+                feedbackDescription: '=',
                 status: '@'
             },
             controller: require('./controller.js'),

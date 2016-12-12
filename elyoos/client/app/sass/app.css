@@ -1113,6 +1113,9 @@ md-toast.md-error-toast-theme {
         #ely-feedback #ely-feedback-container .feedback-container .feedback-inner-container .feedback-info .number-of-feedbacks {
           font-size: 14px;
           color: rgba(0, 0, 0, 0.54); }
+          #ely-feedback #ely-feedback-container .feedback-container .feedback-inner-container .feedback-info .number-of-feedbacks .number {
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.87); }
 
 #ely-feedback-detail {
   height: 100%; }
@@ -1231,8 +1234,7 @@ md-toast.md-error-toast-theme {
     #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container {
       max-width: 900px;
       padding: 32px 16px 16px 16px;
-      margin: 0 auto;
-      height: 100%; }
+      margin: 0 auto; }
       #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-title {
         font-size: 29px;
         color: rgba(0, 0, 0, 0.87);
@@ -1289,6 +1291,9 @@ md-toast.md-error-toast-theme {
         vertical-align: middle; }
     .feedback-element .feedback-group-element .info-container .chat-icon {
       margin-left: 18px;
+      margin-right: 6px; }
+    .feedback-element .feedback-group-element .info-container .idea-icon {
+      margin-left: 0;
       margin-right: 6px; }
 
 #ely-answer-detail {

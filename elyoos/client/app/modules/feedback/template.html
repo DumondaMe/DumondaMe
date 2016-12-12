@@ -10,7 +10,7 @@
                     stabiler wird.
                 </div>
                 <div class="feedback-info" layout="row">
-                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.bug.numberOfBugs}} Meldungen</div>
+                    <div class="number-of-feedbacks"><span class="number">{{ctrl.feedbackOverview.bug.numberOfBugs}}</span> Meldungen</div>
                 </div>
             </div>
         </md-card>
@@ -21,18 +21,20 @@
                     gewisse Funktionen strukturiert sind und hast Ideen wie man es verbessern könnte?
                 </div>
                 <div class="feedback-info" layout="row">
-                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.idea.numberOfIdeas}} Ideen</div>
+                    <div class="number-of-feedbacks"><span class="number">{{ctrl.feedbackOverview.idea.numberOfIdeas}}</span> Ideen</div>
                 </div>
             </div>
         </md-card>
-        <md-card class="feedback-container">
+        <md-card class="feedback-container" ui-sref="feedback.overview({group: 'Discussion'})">
             <div class="feedback-topic">Fragestellungen</div>
             <div class="feedback-inner-container">
                 <div class="feedback-topic-description">An dieser Stelle werden Funktionalitäten diskutiert, welche in meinem Kopf herumschwirren und
                     ich mit Hilfe von deinem Feedback konkretisieren möchte.
                 </div>
                 <div class="feedback-info" layout="row">
-                    <div class="number-of-feedbacks">{{ctrl.feedbackOverview.discussion.numberOfDiscussions}} Fragestellungen</div>
+                    <div class="number-of-feedbacks"><span class="number">{{ctrl.feedbackOverview.discussion.numberOfDiscussions}}</span>
+                        Fragestellungen
+                    </div>
                 </div>
             </div>
         </md-card>
