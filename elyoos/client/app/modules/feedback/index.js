@@ -31,7 +31,7 @@ app.config(['$stateProvider', function ($stateProvider) {
                     template: '<ely-feedback-overview-group></ely-feedback-overview-group>'
                 }
             },
-            data: {hasBackNav: true, backNavToState: true, defaultBackNavState: 'feedback', title: 'Feedback'}
+            data: {hasBackNav: true, defaultBackNavState: 'feedback', title: 'Feedback'}
         })
         .state('feedback.detail', {
             url: '/detail/{group}/{feedbackId}',
