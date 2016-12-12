@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'CreateFeedback', 'CreateFeedbackMessage',
-    function (ElyModal, CreateFeedback, CreateFeedbackMessage) {
+module.exports = ['ElyModal', 'CreateFeedback', 'EditFeedback', 'CreateFeedbackMessage',
+    function (ElyModal, CreateFeedback, EditFeedback, CreateFeedbackMessage) {
         var ctrl = this;
 
         ctrl.finish = function (data) {
@@ -12,13 +12,24 @@ module.exports = ['ElyModal', 'CreateFeedback', 'CreateFeedbackMessage',
             ElyModal.cancel();
         };
 
+        ctrl.getService = function (isEditMode) {
+            if (isEditMode) {
+                return EditFeedback;
+            }
+            return CreateFeedback;
+        };
+
+        ctrl.originalTitle = ctrl.title;
+        ctrl.originalDescription = ctrl.description;
+
         ctrl.uploadFeedback = function () {
-            var message = CreateFeedbackMessage.getCreateFeedbackMessage(ctrl.title, ctrl.description, ctrl.group);
+            var message = CreateFeedbackMessage.getCreateFeedbackMessage(ctrl.isEditMode, ctrl.title, ctrl.description, ctrl.group, ctrl.feedbackId);
             ctrl.uploadRunning = true;
             delete ctrl.error;
-            CreateFeedback.save(message, function (resp) {
+            ctrl.getService(ctrl.isEditMode).save(message, function (resp) {
                 resp.createdByUser = true;
                 resp.title = ctrl.title;
+                resp.description = ctrl.description;
                 resp.numberOfComments = 0;
                 resp.numberOfIdeas = 0;
                 resp.numberOfRecommendations = 0;

@@ -28,7 +28,7 @@ module.exports = ['$scope', '$stateParams', 'FeedbackDetailComment', 'dateFormat
 
         if (angular.isObject(ctrl.commands)) {
             ctrl.commands.createComment = function () {
-                ElyModal.show('FeedbackCreateCommentCtrl', 'app/modules/feedback/modal/createFeedbackComment/template.html',
+                ElyModal.show('FeedbackCreateCommentCtrl', 'app/modules/feedback/modal/manageFeedback/template.html',
                     {feedbackId: $stateParams.feedbackId}).then(function (resp) {
                     ctrl.comments.comments.unshift(resp);
                     ScrollRequest.addedElement('feedbackComments');

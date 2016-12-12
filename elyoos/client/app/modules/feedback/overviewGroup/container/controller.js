@@ -24,7 +24,7 @@ module.exports = ['dateFormatter', 'FeedbackOverviewGroup', '$stateParams', 'Scr
 
         if (angular.isObject(ctrl.commands)) {
             ctrl.commands.createFeedback = function () {
-                ElyModal.show('FeedbackCreateCtrl', 'app/modules/feedback/modal/createFeedback/template.html',
+                ElyModal.show('FeedbackManageCtrl', 'app/modules/feedback/modal/manageFeedback/template.html',
                     {group: ctrl.group}).then(function (resp) {
                     ctrl.feedbackGroupOverview.feedbacks.unshift(resp);
                     ScrollRequest.addedElement(scrollName);

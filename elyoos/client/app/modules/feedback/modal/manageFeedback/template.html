@@ -1,8 +1,10 @@
 <md-dialog id="ely-add-feedback-dialog">
     <div id="ely-add-feedback">
         <form name="ctrl.feedbackForm">
-            <div class="title" ng-show="ctrl.group ==='Bug'">Fehler melden</div>
-            <div class="title" ng-show="ctrl.group ==='Idea'">Idee erstellen</div>
+            <div class="title" ng-show="ctrl.group ==='Bug' && !ctrl.isEditMode">Fehler melden</div>
+            <div class="title" ng-show="ctrl.group ==='Idea' && !ctrl.isEditMode">Idee erstellen</div>
+            <div class="title" ng-show="ctrl.group ==='Bug' && ctrl.isEditMode">Fehler bearbeiten</div>
+            <div class="title" ng-show="ctrl.group ==='Idea' && ctrl.isEditMode">Idee bearbeiten</div>
             <div class="description-container">
                 <md-input-container class="input-container">
                     <label>Titel</label>
@@ -26,8 +28,11 @@
                 <span flex></span>
                 <md-button ng-click="ctrl.abort()" ng-hide="ctrl.abortDisabled && !ctrl.error">Abbrechen</md-button>
                 <md-button class="md-primary md-raised"
-                           ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid"
-                           ng-click="ctrl.uploadFeedback()">Erstellen
+                           ng-disabled="ctrl.uploadRunning || ctrl.feedbackForm.$invalid ||
+                           (ctrl.originalTitle === ctrl.title && ctrl.originalDescription === ctrl.description)"
+                           ng-click="ctrl.uploadFeedback()">
+                    <span ng-show="!ctrl.isEditMode">Erstellen</span>
+                    <span ng-show="ctrl.isEditMode">Ändern</span>
                 </md-button>
             </div>
         </form>
