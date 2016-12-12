@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
-    function ($stateParams, FeedbackDetail, dateFormatter, ElyModal) {
+module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal', '$mdDialog', 'UserFeedback', 'errorToast', '$state',
+    function ($stateParams, FeedbackDetail, dateFormatter, ElyModal, $mdDialog, UserFeedback, errorToast, $state) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
@@ -26,5 +26,23 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
                     ctrl.detail.description = resp.description;
                     ctrl.detail.modified = resp.modified;
                 });
+        };
+
+        ctrl.deleteFeedback = function () {
+            var confirm = $mdDialog.confirm()
+                .title("Feedback löschen")
+                .textContent("Willst du \"" + ctrl.detail.title +"\" wirklich löschen?")
+                .ariaLabel("Delete Feedback")
+                .ok("Löschen")
+                .cancel("Abbrechen");
+            $mdDialog.show(confirm).then(function () {
+                UserFeedback.delete({
+                    feedbackId: $stateParams.feedbackId
+                }, function () {
+                    $state.go('feedback.overview', {group: ctrl.group});
+                }, function () {
+                    errorToast.showError("Fehler beim Löschen des Feedbacks");
+                });
+            });
         };
     }];

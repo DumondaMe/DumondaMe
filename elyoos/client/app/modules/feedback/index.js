@@ -10,6 +10,7 @@ app.factory('FeedbackOverviewGroup', require('./services/overviewGroup'));
 app.factory('FeedbackRecommendation', require('./services/recommendation'));
 app.factory('FeedbackDetail', require('./services/detail'));
 app.factory('FeedbackDetailComment', require('./services/detailComment'));
+app.factory('UserFeedback', require('./services/userFeedback'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 
