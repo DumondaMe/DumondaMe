@@ -1,9 +1,9 @@
 'use strict';
 
-var users = requireTestUtil('user');
-var dbDsl = requireTestUtil('dbDSL');
-var requestHandler = requireTestUtil('request');
-var db = requireTestUtil('db');
+var users = require('elyoos-server-test-util').user;
+var dbDsl = require('elyoos-server-test-util').dbDSL;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
+var db = require('elyoos-server-test-util').db;
 var moment = require('moment');
 
 describe('Integration Tests edit idea feedback', function () {

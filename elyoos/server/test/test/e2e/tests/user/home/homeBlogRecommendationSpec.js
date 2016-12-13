@@ -1,8 +1,8 @@
 'use strict';
 
-var users = require('../../util/user');
-var db = require('../../util/db');
-var requestHandler = require('../../util/request');
+var users = require('elyoos-server-test-util').user;
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting recommended blogs on home screen for a user', function () {
 

@@ -1,9 +1,9 @@
 'use strict';
 
 var app = require('../../../../../../server');
-var users = require('../../util/user');
-var db = require('../../util/db');
-var requestHandler = require('../../util/request');
+var users = require('elyoos-server-test-util').user;
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var should = require('chai').should();
 
 describe('Integration Tests for handling the profile privacy setting when returning the user contacts', function () {

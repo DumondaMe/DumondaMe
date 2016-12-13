@@ -1,11 +1,11 @@
 'use strict';
 
-var users = require('../../util/user');
-var db = require('../../util/db');
-var requestHandler = require('../../util/request');
+var users = require('elyoos-server-test-util').user;
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var should = require('chai').should();
 var moment = require('moment');
-var stubCDN = require('../../util/stubCDN');
+var stubCDN = require('elyoos-server-test-util').stubCDN();
 var sinon = require('sinon');
 
 describe('Integration Tests for editing book pages', function () {

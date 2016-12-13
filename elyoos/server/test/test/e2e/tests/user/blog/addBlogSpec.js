@@ -1,14 +1,14 @@
 'use strict';
 
-var users = require('../../util/user');
-var generator = require('../../util/generator');
-var db = require('../../util/db');
-var requestHandler = require('../../util/request');
+var users = require('elyoos-server-test-util').user;
+var generator = require('elyoos-server-test-util').generator;
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var should = require('chai').should();
 var sinon = require('sinon');
 var moment = require('moment');
 var _ = require('underscore');
-var stubCDN = require('../../util/stubCDN');
+var stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for adding a blog', function () {
 

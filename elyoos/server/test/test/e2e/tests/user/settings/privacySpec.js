@@ -1,9 +1,9 @@
 'use strict';
 
 var libUser = require('elyoos-server-lib').user();
-var requestHandler = require('../../util/request');
-var users = require('../../util/user');
-var db = require('../../util/db');
+var requestHandler = require('elyoos-server-test-util').requestHandler;
+var users = require('elyoos-server-test-util').user;
+var db = require('elyoos-server-test-util').db;
 var moment = require('moment');
 var should = require('chai').should();
 

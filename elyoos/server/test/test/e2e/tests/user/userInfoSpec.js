@@ -1,9 +1,9 @@
 'use strict';
 
 var libUser = require('elyoos-server-lib').user();
-var users = require('../util/user');
-var requestHandler = require('../util/request');
-var db = require('../util/db');
+var users = require('elyoos-server-test-util').user;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
+var db = require('elyoos-server-test-util').db;
 var moment = require('moment');
 
 describe('Integration Tests User Name', function () {

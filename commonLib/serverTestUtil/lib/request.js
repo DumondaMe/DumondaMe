@@ -1,12 +1,14 @@
 'use strict';
 
-var app = require('../../../../../server');
 var request = require('supertest-as-promised');
 var agent = require('supertest');
 
-var lastUser = [];
+var lastUser = [], app;
 
 module.exports = {
+    setApplication: function (newApp) {
+        app = newApp;
+    },
     login: function (user) {
         lastUser.push(user);
         return request(app).post('/api/login').

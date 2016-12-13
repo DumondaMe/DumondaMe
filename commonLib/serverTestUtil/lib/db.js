@@ -1,10 +1,15 @@
 'use strict';
 
-var db = require('elyoos-server-lib').neo4j;
+var db = {};
 
 module.exports = {
+    init: function (neo4j) {
+        db = neo4j;
+    },
     clearDatabase: function () {
         return db.cypher().match("(n) OPTIONAL MATCH (n)-[r]-() DELETE n,r").send();
     },
-    cypher: db.cypher
+    cypher: function () {
+        return db.cypher();
+    }
 };

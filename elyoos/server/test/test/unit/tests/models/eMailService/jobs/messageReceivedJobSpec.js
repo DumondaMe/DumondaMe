@@ -2,7 +2,7 @@
 
 var testee = require('../../../../../../../models/eMailService/jobs/messageReceivedJob');
 var email = require('elyoos-server-lib').eMail;
-var db = require('../../../../../e2e/tests/util/db');
+var db = require('elyoos-server-test-util').db;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 

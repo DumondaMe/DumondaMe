@@ -1,6 +1,6 @@
 'use strict';
 
-var uuid = require('elyoos-server-lib').uuid;
+var uuid = null;
 
 var generateIdArray = function (numberOfIds) {
     var i, ids = [];
@@ -11,5 +11,8 @@ var generateIdArray = function (numberOfIds) {
 };
 
 module.exports = {
+    init: function (newUuid) {
+        uuid = newUuid;
+    },
     generateIdArray: generateIdArray
 };

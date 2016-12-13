@@ -14,7 +14,9 @@ global.requireModel = function (name) {
 
 require('elyoos-server-lib').jsonValidation;
 
-var stubEmailQueue = require('./../e2e/tests/util/stubEmailQueue');
+require('elyoos-server-test-util').init(require('elyoos-server-lib'));
+
+var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
 var Promise = require('bluebird');
 var dbConfig = require('elyoos-server-lib').databaseConfig;
 Promise.promisifyAll(require('gm').prototype);

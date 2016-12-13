@@ -1,14 +1,14 @@
 'use strict';
-var connection = require('./neo4j');
-var logger = require('./logging').getLogger(__filename);
-var promise = require('bluebird');
+let connection = require('./neo4j');
+let logger = require('./logging').getLogger(__filename);
+let promise = require('bluebird');
 
-var res;
-var connected = new promise.Promise(function (resolve) {
+let res;
+let connected = new promise.Promise(function (resolve) {
     res = resolve;
 });
 
-var db = function () {
+let db = function () {
     return {
         connected: connected,
         /**

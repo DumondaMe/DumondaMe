@@ -1,8 +1,8 @@
 'use strict';
 
-var requestHandler = require('../../util/request');
-var stubEmailQueue = require('../../util/stubEmailQueue');
-var db = require('../../util/db');
+var requestHandler = require('elyoos-server-test-util').requestHandler;
+var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+var db = require('elyoos-server-test-util').db;
 var sinon = require('sinon');
 
 describe('Integration Tests for requesting a password reset Login', function () {
