@@ -1,14 +1,14 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
-var auth = requireLib('auth');
-var exceptions = requireLib('error/exceptions');
+var validation = require('elyoos-server-lib').jsonValidation;
+var auth = require('elyoos-server-lib').auth;
+let exceptions = require('elyoos-server-lib').exceptions;
 var addBlog = requireModel('user/blog/addBlog');
 var removeBlog = requireModel('user/blog/removeBlog');
-var controllerErrors = requireLib('error/controllerErrors');
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
 var topic = require("../../../schema/topic");
 var language = require("./../../../schema/language");
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaRequestBlog = {
     name: 'blogRequests',

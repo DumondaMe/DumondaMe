@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var pinwall = requireModel('user/pinwall/pinwall');
-var auth = requireLib('auth');
-var exceptions = requireLib('error/exceptions');
-var controllerErrors = requireLib('error/controllerErrors');
-var logger = requireLogger.getLogger(__filename);
+var auth = require('elyoos-server-lib').auth;
+let exceptions = require('elyoos-server-lib').exceptions;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaRequestUserPinwall = {
     name: 'getUserDetailsPinwall',

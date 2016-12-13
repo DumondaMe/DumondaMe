@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('../../../../../neo4j/index');
+var db = require('elyoos-server-lib').neo4j;
 
 module.exports = {
     clearDatabase: function () {

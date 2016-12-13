@@ -2,15 +2,15 @@
 
 var db = requireDb();
 var underscore = require('underscore');
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var modification = require('./../modification/modification');
 var userInfo = require('./../user/userInfo');
 var security = require('./util/security');
 var unread = require('./util/unreadMessages');
-var time = requireLib('time');
-var uuid = requireLib('uuid');
+let time = require('elyoos-server-lib').time;
+let uuid = require('elyoos-server-lib').uuid;
 var messageReceived = require('./../eMailService/messageReceived');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var addWriterInfo = function (userId, messages) {
     underscore.forEach(messages, function (message) {

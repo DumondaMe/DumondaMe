@@ -1,8 +1,8 @@
 'use strict';
 
 let db = requireDb();
-let exceptions = requireLib('error/exceptions');
-let logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let checkAllowedToDelete = function (userId, feedbackId, req) {
     return db.cypher().match("(:User {userId: {userId}})-[:IS_CREATOR]->(feedback:Feedback {feedbackId: {feedbackId}})")

@@ -1,10 +1,10 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
-var auth = requireLib('auth');
-var controllerErrors = requireLib('error/controllerErrors');
+var validation = require('elyoos-server-lib').jsonValidation;
+var auth = require('elyoos-server-lib').auth;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
 var popularPlaces= requireModel('recommendation/popularPlaces');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaGetPopularPlace = {
     name: 'getPopularPlace',

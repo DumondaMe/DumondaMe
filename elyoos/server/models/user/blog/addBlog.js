@@ -3,11 +3,11 @@
 var db = requireDb();
 var image = require('./../images/uploadImageCDN');
 var _ = require('underscore');
-var time = requireLib('time');
-var uuid = requireLib('uuid');
-var exceptions = requireLib('error/exceptions');
+let time = require('elyoos-server-lib').time;
+let uuid = require('elyoos-server-lib').uuid;
+let exceptions = require('elyoos-server-lib').exceptions;
 var cdn = require('../../util/cdn');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var MAX_BLOG_PER_HOUR = 50;
 

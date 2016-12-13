@@ -6,7 +6,7 @@ var link = require('./link');
 var place = require('./place');
 var youtube = require('./youtube');
 var _ = require('underscore');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var getRecommendationElements = function (recommendationElements) {
     var result = [];

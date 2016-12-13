@@ -3,7 +3,7 @@
 var request = require('request');
 var promise = require('bluebird');
 var underscore = require('underscore');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('../logging').getLogger(__filename);
 
 var createJson = function (result) {
     var json = [], row, i, j;

@@ -4,7 +4,7 @@ var blog = require('./blog');
 var recommendation = require('./recommendation');
 var recommendationBlog = require('./recommendationBlog');
 var _ = require('underscore');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var getPinwallElements = function (pinwallElements) {
     var result = [];

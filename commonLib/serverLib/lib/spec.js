@@ -5,10 +5,10 @@ var methodOverride = require('method-override');
 var csrf = require('csurf');
 var auth = require('./auth');
 var userLib = require('./user')();
-var db = require('./database');
+var db = require('./databaseConfig');
 var cdn = require('./cdn');
 var email = require('./eMail/eMailQueue');
-var pjson = require('./../package.json');
+var version = require('./version');
 
 module.exports = function (app) {
 
@@ -62,7 +62,7 @@ module.exports = function (app) {
     app.use(function (req, res, next) {
         var originalStatus = res.status;
         res.status = function (data) {
-            if (req.headers.elyoosversion && req.headers.elyoosversion !== pjson.version) {
+            if (req.headers.elyoosversion && req.headers.elyoosversion !== version.getVersion()) {
                 data = 418;
             }
             return originalStatus.apply(this, [data]);

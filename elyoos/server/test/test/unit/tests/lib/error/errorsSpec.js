@@ -1,6 +1,6 @@
 'use strict';
 
-var testee = require('../../../../../../lib/error/errors');
+var testee = require('elyoos-server-lib').errors;
 var request = require('../../request');
 var sinon = require('sinon');
 var expect = require('chai').expect;

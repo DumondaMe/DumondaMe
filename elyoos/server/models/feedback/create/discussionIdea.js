@@ -1,10 +1,10 @@
 'use strict';
 
 let db = requireDb();
-let time = requireLib('time');
-let uuid = requireLib('uuid');
-let exceptions = requireLib('error/exceptions');
-let logger = requireLogger.getLogger(__filename);
+let time = require('elyoos-server-lib').time;
+let uuid = require('elyoos-server-lib').uuid;
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let create = function (userId, params, req) {
 

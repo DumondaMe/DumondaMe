@@ -1,7 +1,7 @@
 'use strict';
 
 var sinon = require('sinon');
-var eMailQueue = require('../../../../../lib/eMail/eMailQueue');
+var eMailQueue = require('elyoos-server-lib').eMailQueue;
 
 var sandbox = sinon.sandbox.create();
 

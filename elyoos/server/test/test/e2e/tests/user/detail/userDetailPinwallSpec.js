@@ -1,6 +1,6 @@
 'use strict';
 
-var libUser = require('../../../../../../lib/user')();
+var libUser = require('elyoos-server-lib').user();
 var users = require('../../util/user');
 var requestHandler = require('../../util/request');
 var should = require('chai').should();

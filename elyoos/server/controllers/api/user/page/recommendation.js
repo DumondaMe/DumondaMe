@@ -1,10 +1,10 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var pageRecommendation = requireModel('page/pageRecommendation');
-var auth = requireLib('auth');
-var controllerErrors = requireLib('error/controllerErrors');
-var logger = requireLogger.getLogger(__filename);
+var auth = require('elyoos-server-lib').auth;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaGetPage = {
     name: 'getPageRecommendations',

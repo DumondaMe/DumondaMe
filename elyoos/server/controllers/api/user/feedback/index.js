@@ -1,10 +1,10 @@
 'use strict';
 
-let validation = requireLib('jsonValidation');
+let validation = require('elyoos-server-lib').jsonValidation;
 let deleteFeedback = requireModel('feedback/delete');
-let auth = requireLib('auth');
-let controllerErrors = requireLib('error/controllerErrors');
-let logger = requireLogger.getLogger(__filename);
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaDeleteFeedback = {
     name: 'deleteFeedback',

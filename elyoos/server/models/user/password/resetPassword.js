@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
-var passwordEncryption = requireLib('passwordEncryption');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
-var time = requireLib('time');
+let db = requireDb();
+let passwordEncryption = require('elyoos-server-lib').passwordEncryption;
+let exceptions = require('elyoos-server-lib').exceptions;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let time = require('elyoos-server-lib').time;
 
 var checkLinkValid = function (linkId, req) {
 

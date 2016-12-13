@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let exception = requireLib('error/exceptions');
+let exception = require('elyoos-server-lib').exceptions;
 let overviewGroup = require('./overviewGroup');
 
 let getIdeaList = function (userId, discussionIdeas) {

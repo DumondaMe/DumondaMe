@@ -1,8 +1,8 @@
 "use strict";
 
 var db = requireDb();
-var email = requireLib('eMail/eMail');
-var logger = requireLogger.getLogger(__filename);
+var email = require('elyoos-server-lib').eMail;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var processDefinition = function (data, done) {
 

@@ -1,12 +1,12 @@
 'use strict';
 
 var db = requireDb();
-var uuid = requireLib('uuid');
-var time = requireLib('time');
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
 var uploadImage = require('./../../image/generatePageImages');
 var imagePage = require('./imagePage');
 var cdn = require('../../util/cdn');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var createBookPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();

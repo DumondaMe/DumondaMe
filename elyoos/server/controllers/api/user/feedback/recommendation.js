@@ -1,10 +1,10 @@
 'use strict';
 
-let auth = requireLib('auth');
-let logger = requireLogger.getLogger(__filename);
+let auth = require('elyoos-server-lib').auth;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let feedbackRecommendation = requireModel('feedback/create/recommendation');
-let controllerErrors = requireLib('error/controllerErrors');
-let validation = requireLib('jsonValidation');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
 let schemaCreateRecommendation = {
     name: 'createFeedbackComment',

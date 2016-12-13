@@ -5,7 +5,7 @@ global.requireTestUtil = function (name) {
 };
 
 var app = require('../../../server');
-var dbConfig = require('../../../lib/database');
+var dbConfig = require('elyoos-server-lib').databaseConfig;
 require('./tests/util/stubCDN');
 require('./tests/util/stubEmailQueue');
 require('./tests/util/stubLimitRate');

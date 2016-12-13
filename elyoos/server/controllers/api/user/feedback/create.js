@@ -1,11 +1,11 @@
 'use strict';
 
-let validation = requireLib('jsonValidation');
+let validation = require('elyoos-server-lib').jsonValidation;
 let normal = requireModel('feedback/create/normal');
 let discussionIdea = requireModel('feedback/create/discussionIdea');
-let auth = requireLib('auth');
-let controllerErrors = requireLib('error/controllerErrors');
-let logger = requireLogger.getLogger(__filename);
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaCreateFeedback = {
     name: 'createFeedback',

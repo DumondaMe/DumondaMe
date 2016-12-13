@@ -1,10 +1,10 @@
 "use strict";
 
 var db = requireDb();
-var time = requireLib('time');
-var eMailQueue = requireLib('eMail/eMailQueue');
+let time = require('elyoos-server-lib').time;
+let eMailQueue = require('elyoos-server-lib').eMailQueue;
 var randomstring = require("randomstring");
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var timeValid = 60 * 20;  //20 Minutes
 

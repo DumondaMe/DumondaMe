@@ -1,7 +1,7 @@
 'use strict';
 
 var testee = require('../../../../../../models/eMailService/messageReceived');
-var emailQueue = require('../../../../../../lib/eMail/eMailQueue');
+var emailQueue = require('elyoos-server-lib').eMailQueue;
 var db = require('../../../../e2e/tests/util/db');
 var sinon = require('sinon');
 var expect = require('chai').expect;

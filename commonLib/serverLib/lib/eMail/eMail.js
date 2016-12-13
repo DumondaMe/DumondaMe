@@ -5,7 +5,7 @@ var nodemailer = require('nodemailer');
 var EmailTemplate = require('email-templates').EmailTemplate;
 var sesTransport = require('nodemailer-ses-transport');
 var transporter = nodemailer.createTransport(sesTransport({rateLimit: 2, region: 'eu-west-1'}));
-var logger = requireLogger.getLogger(__filename);
+var logger = require('../logging').getLogger(__filename);
 
 var templatesDir = path.resolve(__dirname, 'templates');
 var emailTemplates = {

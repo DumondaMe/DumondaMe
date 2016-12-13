@@ -1,7 +1,7 @@
 'use strict';
 
 var sinon = require('sinon');
-var limiteRate = require('../../../../../lib/limiteRate');
+var limiteRate = require('elyoos-server-lib').limiteRate;
 
 var getRate = sinon.stub(limiteRate, 'getRate');
 

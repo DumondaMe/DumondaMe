@@ -1,8 +1,8 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var questionExists = function (questionId, req) {
     return db.cypher().match("(forumQuestion:ForumQuestion {questionId: {questionId}})").return("forumQuestion")

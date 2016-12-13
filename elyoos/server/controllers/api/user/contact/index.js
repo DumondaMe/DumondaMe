@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var contact = requireModel('contact/contact');
-var exceptions = requireLib('error/exceptions');
-var auth = requireLib('auth');
-var controllerErrors = requireLib('error/controllerErrors');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var auth = require('elyoos-server-lib').auth;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaRequestGetContact = {
     name: 'getContacts',

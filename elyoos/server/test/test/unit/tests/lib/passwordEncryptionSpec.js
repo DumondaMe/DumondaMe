@@ -1,6 +1,6 @@
 'use strict';
 
-var testee = require('../../../../../lib/passwordEncryption');
+var testee = require('elyoos-server-lib').passwordEncryption;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 

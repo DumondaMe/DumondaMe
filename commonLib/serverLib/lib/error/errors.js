@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
+var logger = require('../logging').getLogger(__filename);
 
 exports.handlingError = function () {
     return function (err, req, res, next) {

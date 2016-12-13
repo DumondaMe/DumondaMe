@@ -2,7 +2,7 @@
 
 var testee = require('../../../../../../../../controllers/api/user/contact/index');
 var contact = require('./../../../../../../../../models/contact/contact');
-var validation = require('./../../../../../../../../lib/jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var request = require('../../../../request');
 var bluebird = require('bluebird');
 var Promise = bluebird.Promise;

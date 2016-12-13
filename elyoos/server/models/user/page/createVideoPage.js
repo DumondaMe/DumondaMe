@@ -1,10 +1,10 @@
 'use strict';
 
 var db = requireDb();
-var uuid = requireLib('uuid');
-var time = requireLib('time');
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
 var youtube = require('./youtubeUtils');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var createVideoPage = function (userId, params) {
     params.pageId = uuid.generateUUID();

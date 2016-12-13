@@ -1,6 +1,6 @@
 'use strict';
 
-var uuid = require('./../../../../../lib/uuid');
+var uuid = require('elyoos-server-lib').uuid;
 
 var generateIdArray = function (numberOfIds) {
     var i, ids = [];

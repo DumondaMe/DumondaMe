@@ -1,7 +1,7 @@
 'use strict';
 
 var kue = require('kue');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('../logging').getLogger(__filename);
 var emailJobs;
 var delay;
 

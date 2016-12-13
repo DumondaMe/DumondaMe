@@ -6,7 +6,7 @@
 var user = require('./user')();
 var LocalStrategy = require('passport-local').Strategy;
 var passwordEncryption = require('./passwordEncryption');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('./logging').getLogger(__filename);
 
 /**
  * A helper method to retrieve a user from a local DB and ensure that the provided password matches.

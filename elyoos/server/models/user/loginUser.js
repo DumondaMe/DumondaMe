@@ -1,7 +1,7 @@
 'use strict';
 
 var db = requireDb();
-var time = requireLib('time');
+var time = require('elyoos-server-lib').time;
 
 var setTimestamp = function (userId) {
     var commands = [];

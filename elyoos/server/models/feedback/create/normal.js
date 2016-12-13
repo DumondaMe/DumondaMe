@@ -1,8 +1,8 @@
 'use strict';
 
 let db = requireDb();
-let time = requireLib('time');
-let uuid = requireLib('uuid');
+let time = require('elyoos-server-lib').time;
+let uuid = require('elyoos-server-lib').uuid;
 
 let getFeedbackType = function (params) {
     if (params.group === 'Bug' || params.group === 'Idea') {

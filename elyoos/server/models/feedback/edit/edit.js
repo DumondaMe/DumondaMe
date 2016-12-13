@@ -1,9 +1,9 @@
 'use strict';
 
 let db = requireDb();
-let time = requireLib('time');
-let exceptions = requireLib('error/exceptions');
-let logger = requireLogger.getLogger(__filename);
+let time = require('elyoos-server-lib').time;
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let checkAllowedToEdit = function (userId, feedbackId, req) {
     return db.cypher().match("(:User {userId: {userId}})-[:IS_CREATOR]->(feedback:Feedback {feedbackId: {feedbackId}})")

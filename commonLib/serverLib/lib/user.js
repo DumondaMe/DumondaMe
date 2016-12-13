@@ -1,7 +1,7 @@
 'use strict';
 
-var db = requireDb();
-var logger = requireLogger.getLogger(__filename);
+var db = require('./neo4j');
+var logger = require('./logging').getLogger(__filename);
 var LRU = require('lru-cache');
 var options = {
     max: 1000,

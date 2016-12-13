@@ -4,7 +4,7 @@
 'use strict';
 
 var db = requireDb();
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 var cdn = require('../util/cdn');
 var underscore = require('underscore');
 var unreadMessages = require('./../messages/util/unreadMessages');

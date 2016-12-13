@@ -1,5 +1,5 @@
 "use strict";
-var emailQueue = requireLib('eMail/eMailQueue');
+var emailQueue = require('elyoos-server-lib').eMailQueue;
 var messageReceivedJob = require('./jobs/messageReceivedJob');
 var resetPasswordJob = require('./jobs/resetPasswordJob');
 var registerUserRequestJob = require('./jobs/registerUserRequestJob');

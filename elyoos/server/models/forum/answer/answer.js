@@ -2,11 +2,11 @@
 
 var db = requireDb();
 var moment = require('moment');
-var uuid = requireLib('uuid');
+let uuid = require('elyoos-server-lib').uuid;
 var security = require('./../security');
 var securityAnswer = require('./security');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var createPageReference = function (pageId) {
     var command = db.cypher();

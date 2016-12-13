@@ -1,6 +1,6 @@
 'use strict';
 
-var libUser = require('../../../../../lib/user')();
+var libUser = require('elyoos-server-lib').user();
 var db = require('../util/db');
 var requestHandler = require('../util/request');
 var moment = require('moment');

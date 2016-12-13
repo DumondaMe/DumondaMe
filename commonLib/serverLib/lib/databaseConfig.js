@@ -1,5 +1,5 @@
 'use strict';
-var connection = require('../neo4j');
+var connection = require('./neo4j');
 var logger = require('./logging').getLogger(__filename);
 var promise = require('bluebird');
 
