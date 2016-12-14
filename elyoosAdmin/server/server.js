@@ -11,6 +11,7 @@ global.requireModel = function (name) {
 };
 
 require('elyoos-server-lib').jsonValidation;
+require('elyoos-server-lib').version.setVersion(require('./package.json').version);
 var Promise = require('bluebird');
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});

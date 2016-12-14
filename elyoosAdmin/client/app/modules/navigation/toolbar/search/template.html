@@ -1,0 +1,15 @@
+<div ng-class="{'ely-toolbar-search-expanded': ctrl.isExpanded, 'ely-toolbar-search-collapse': !ctrl.isExpanded}">
+    <div id="ely-toolbar-search" ng-if="ctrl.isExpanded">
+        <div class="search-container">
+            <md-icon md-svg-icon="icons:search" class="search-icon" ng-click="ctrl.commands.startSearch()"></md-icon>
+
+            <md-icon md-svg-icon="icons:close" class="search-close-icon" ng-click="ctrl.closeExpandAll()"
+                     ng-if="(ctrl.showClose && ctrl.lockOpen) || !ctrl.lockOpen"></md-icon>
+        </div>
+    </div>
+    <div ng-if="!ctrl.isExpanded" class="ely-toolbar-menu">
+        <md-button class="md-icon-button" aria-label="Search" ng-click="ctrl.openExpand()">
+            <md-icon md-svg-icon="icons:search"></md-icon>
+        </md-button>
+    </div>
+</div>

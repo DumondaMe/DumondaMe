@@ -19,6 +19,196 @@
 .md-button {
   text-transform: none !important; }
 
+#toolbar-header {
+  position: relative;
+  width: 100%;
+  margin-top: -56px; }
+  @media screen and (min-width: 960px) {
+    #toolbar-header {
+      margin-top: -64px; } }
+  #toolbar-header .title {
+    margin-left: 16px;
+    margin-right: 48px;
+    font-size: 22px;
+    color: white;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+    @media screen and (min-width: 1920px) {
+      #toolbar-header .title {
+        margin-right: 72px;
+        max-width: 400px; } }
+
+#ely-toolbar-sub-nav {
+  padding-left: 5px;
+  font-size: 16px; }
+  #ely-toolbar-sub-nav .md-select-value {
+    border-bottom-color: #3F51B5;
+    color: white; }
+
+.ely-message-info {
+  position: relative;
+  cursor: pointer; }
+  .ely-message-info .number {
+    font-size: 11px;
+    font-weight: 700;
+    height: 18px;
+    min-width: 18px;
+    color: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    background-color: #dc0d17; }
+  .ely-message-info .number:focus {
+    outline: none; }
+
+.ely-toolbar-search-expanded {
+  height: 100%;
+  width: 100%; }
+  .ely-toolbar-search-expanded #ely-toolbar-search {
+    height: 100%;
+    width: 100%;
+    padding: 7px 0 7px 10px; }
+    .ely-toolbar-search-expanded #ely-toolbar-search .search-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      background-color: #7986CB;
+      border-radius: 5px; }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+        cursor: pointer;
+        position: absolute;
+        z-index: 100;
+        padding: 9px 6px;
+        height: 42px;
+        width: 36px; }
+        @media screen and (min-width: 480px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+            height: 34px;
+            padding: 5px 6px; } }
+        @media screen and (min-width: 960px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-icon {
+            padding: 13px 6px;
+            height: 50px; } }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+        cursor: pointer;
+        position: absolute;
+        z-index: 100;
+        top: 9px;
+        right: 5px; }
+        @media screen and (min-width: 480px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+            top: 5px; } }
+        @media screen and (min-width: 960px) {
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .search-close-icon {
+            top: 13px; } }
+      .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container {
+        height: 100%; }
+        .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete {
+          width: 100%;
+          height: 100%;
+          min-width: 120px;
+          box-shadow: none;
+          background-color: #7986CB;
+          border-radius: 5px; }
+          .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap {
+            box-shadow: none;
+            width: 100%;
+            border-radius: 5px; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+              border-radius: 5px;
+              background-color: #7986CB;
+              color: white;
+              border: none;
+              width: 100%;
+              padding-left: 35px;
+              padding-right: 35px;
+              font-size: 16px;
+              font-weight: 400;
+              max-width: none;
+              height: 42px;
+              line-height: 42px; }
+              @media screen and (min-width: 480px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 34px;
+                  line-height: 34px; } }
+              @media screen and (min-width: 960px) {
+                .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input {
+                  height: 50px;
+                  line-height: 50px; } }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:focus {
+              outline: none; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-webkit-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input::-moz-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:-ms-input-placeholder {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap #toolbar-search-input:placeholder-shown {
+              color: white; }
+            .ely-toolbar-search-expanded #ely-toolbar-search .search-container .autocomplete-container md-autocomplete md-autocomplete-wrap button {
+              display: none !important; }
+
+.ely-toolbar-search-collapse {
+  width: 40px; }
+  .ely-toolbar-search-collapse .ely-toolbar-menu {
+    width: 40px; }
+
+#loginform {
+  height: 100%; }
+  #loginform .error-message {
+    margin: 0 16px;
+    padding: 4px;
+    background: #a94442;
+    color: white;
+    border-radius: 2px; }
+  #loginform .error-message.ng-hide-add, #loginform .error-message.ng-hide-remove {
+    transition: all linear 0.8s; }
+  #loginform .error-message.ng-hide {
+    line-height: 0;
+    opacity: 0; }
+  #loginform #login-container {
+    width: 300px; }
+    #loginform #login-container .login-form-container {
+      padding: 36px 16px 0 16px; }
+      @media screen and (max-height: 560px) {
+        #loginform #login-container .login-form-container {
+          padding-top: 24px; } }
+      #loginform #login-container .login-form-container .input-element {
+        margin-top: 4px;
+        margin-bottom: 4px; }
+        #loginform #login-container .login-form-container .input-element input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+          text-shadow: none; }
+  #loginform .action-container {
+    padding: 0 16px; }
+
+#check-login {
+  height: 100%; }
+
+#start-screen {
+  position: relative;
+  height: 100%;
+  background-color: #fafafa; }
+  @media screen and (min-width: 960px) {
+    #start-screen {
+      background-color: #FFFFFF; } }
+  #start-screen .ely-logo {
+    width: 150px; }
+    @media screen and (min-width: 600px) {
+      #start-screen .ely-logo {
+        width: 176px; } }
+    @media screen and (min-width: 1920px) {
+      #start-screen .ely-logo {
+        width: 220px; } }
+    @media screen and (max-height: 560px) {
+      #start-screen .ely-logo {
+        width: 120px; } }
+
 body, html {
   background-color: #e9ebee;
   height: 100%; }
@@ -43,21 +233,6 @@ body, html {
   padding-top: 0; }
   #viewport.viewport-toolbar-removed .ely-gt-md-content-container {
     padding-top: 0; }
-
-.ely-gt-md-content {
-  height: 100%;
-  position: relative; }
-  .ely-gt-md-content .ely-sidnav-expanded {
-    width: 250px;
-    height: 100%; }
-
-.ely-gt-md-content-container {
-  padding-top: 64px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 250px;
-  right: 0; }
 
 .content {
   height: 100%;

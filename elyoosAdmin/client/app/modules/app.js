@@ -48,15 +48,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                         template: '<ely-home></ely-home>'
                     }
                 },
-                data: {hasBackNav: false, hasSearch: true, searchServiceName: 'home', title: 'Home'}
-            })
-            .state('checkLoginState', {
-                url: '/',
-                views: {
-                    content: {
-                        template: '<ely-check-login-state></ely-check-login-state>'
-                    }
-                }
+                data: {hasBackNav: false, hasSearch: false, title: 'Home'}
             });
 
         $locationProvider.html5Mode(true);
@@ -85,24 +77,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
 
-    }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'userInfo', 'updateStateHandler',
-    function ($rootScope, $state, CheckLoginStateParamsContainer, userInfo, updateStateHandler) {
-        var firstRun = true;
+    }]).run([
+    function () {
 
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-            if (firstRun) {
-                firstRun = false;
-                if (!toState.isPublic) {
-                    event.preventDefault();
-                    CheckLoginStateParamsContainer.setParams(toState.name, toParams);
-                    $state.go('checkLoginState', null, {location: false});
-                }
-            }
-        });
-        $rootScope.$on('$stateChangeSuccess', function () {
-            if (updateStateHandler.isUpdateRequestPending()) {
-                updateStateHandler.setUpdateRequested(false);
-                window.location.reload();
-            }
-        });
     }]);
