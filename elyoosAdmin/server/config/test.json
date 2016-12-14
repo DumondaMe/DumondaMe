@@ -7,7 +7,7 @@
     "host": "http://localhost:7476"
   },
   "cdnStore": {
-    "bucket": "notExisting"
+    "bucket": "elyoos.test"
   },
   "emailConfig": {
     "host": "localhost",

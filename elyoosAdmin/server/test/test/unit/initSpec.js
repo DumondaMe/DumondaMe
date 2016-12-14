@@ -4,7 +4,7 @@ global.requireDb = function () {
     return require('elyoos-server-lib').neo4j;
 };
 global.requireModel = function (name) {
-    return require(`${__dirname}/models/${name}`);
+    return require(`${__dirname}/../../../models/${name}`);
 };
 
 if (!process.env.BASE_DIR) {

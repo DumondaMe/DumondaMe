@@ -9,14 +9,24 @@ let copyFile;
 let deleteFolder;
 let createFolderRegisterUser;
 
+let stubFunction = function (cdn, name) {
+    if (cdn.hasOwnProperty(name)) {
+        return sinon.stub(cdn, name);
+    }
+    return {
+        returns: function () {
+        }
+    };
+};
+
 module.exports = function () {
     return {
         stub: function (cdn) {
-            getUrl = sinon.stub(cdn, 'getUrl');
-            uploadFile = sinon.stub(cdn, 'uploadFile');
-            copyFile = sinon.stub(cdn, 'copyFile');
-            deleteFolder = sinon.stub(cdn, 'deleteFolder');
-            createFolderRegisterUser = sinon.stub(cdn, 'createFolderRegisterUser');
+            getUrl = stubFunction(cdn, 'getUrl');
+            uploadFile = stubFunction(cdn, 'uploadFile');
+            copyFile = stubFunction(cdn, 'copyFile');
+            deleteFolder = stubFunction(cdn, 'deleteFolder');
+            createFolderRegisterUser = stubFunction(cdn, 'createFolderRegisterUser');
 
             getUrl.returnsArg(0);
             uploadFile.returns(Promise.resolve());

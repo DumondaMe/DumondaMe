@@ -3,6 +3,11 @@
 var db = require('../db');
 var dbConnectionHandling = require('./dbConnectionHandling');
 
+var setUserRegisteredDate = function (userId, registerDate) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {registerDate: registerDate})
+        .end({userId: userId}).getCommand());
+};
+
 var setUserLastLoginTime = function (lastLogin) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: '1'})`).set("u", {lastLogin: lastLogin})
         .end().getCommand());
@@ -75,6 +80,7 @@ var setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
 };
 
 module.exports = {
+    setUserRegisteredDate: setUserRegisteredDate,
     setUserLastLoginTime: setUserLastLoginTime,
     setUserIsElyoosAdmin: setUserIsElyoosAdmin,
     createUser: createUser,
