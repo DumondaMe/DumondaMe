@@ -12,6 +12,7 @@ var db = require('./db');
 
 var init = function (numberOfUser, isElyoosAdmin) {
     var i = 0, userId;
+    isElyoosAdmin = isElyoosAdmin || false;
     recommendation.init();
     dbConnectionHandling.init();
     return db.clearDatabase().then(function () {
