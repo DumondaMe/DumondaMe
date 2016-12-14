@@ -8,6 +8,11 @@ var setUserLastLoginTime = function (lastLogin) {
         .end().getCommand());
 };
 
+var setUserIsElyoosAdmin = function (userId) {
+    dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {elyoosAdmin: true})
+        .end({userId: userId}).getCommand());
+};
+
 var createUser = function (userId, forename, surname, email) {
     var name = `${forename} ${surname}`;
     email = email || null;
@@ -71,6 +76,7 @@ var setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
 
 module.exports = {
     setUserLastLoginTime: setUserLastLoginTime,
+    setUserIsElyoosAdmin: setUserIsElyoosAdmin,
     createUser: createUser,
     blockUser: blockUser,
     createPrivacy: createPrivacy,

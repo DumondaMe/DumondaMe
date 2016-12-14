@@ -39,6 +39,7 @@ module.exports = {
     createBlog: blog.createBlog,
     createKeywords: keyword.createKeywords,
     setUserLastLoginTime: user.setUserLastLoginTime,
+    setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
     createUser: user.createUser,
     blockUser: user.blockUser,
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,

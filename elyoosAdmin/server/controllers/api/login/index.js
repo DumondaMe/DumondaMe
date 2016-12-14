@@ -25,6 +25,10 @@ module.exports = function (router) {
                 logger.warn('User not allowed to login', req, {httpStatusCode: 400});
                 return res.status(400).end();
             }
+            if(!user.elyoosAdmin) {
+                logger.warn('User not allowed to login. Is not elyoos admin.', req, {httpStatusCode: 400});
+                return res.status(400).end();
+            }
 
             req.logIn(user, function (errLogin) {
                 if (errLogin) {
