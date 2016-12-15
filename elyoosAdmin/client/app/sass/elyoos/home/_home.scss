@@ -1,0 +1,26 @@
+#ely-home {
+  position: relative;
+  height: 100%;
+  #ely-home-container {
+    padding: 24px;
+    @media screen and (max-width: $gt-sm) {
+      padding: 8px;
+    }
+  }
+  .ely-home-overview-element {
+    max-width: 350px;
+    height: 250px;
+    background-color: white;
+    .ely-home-title {
+      padding: 8px;
+      margin-bottom: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid $divider;
+    }
+  }
+}
+
+
+
+

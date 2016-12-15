@@ -19,6 +19,59 @@
 .md-button {
   text-transform: none !important; }
 
+#ely-home {
+  position: relative;
+  height: 100%; }
+  #ely-home #ely-home-container {
+    padding: 24px; }
+    @media screen and (max-width: 960px) {
+      #ely-home #ely-home-container {
+        padding: 8px; } }
+  #ely-home .ely-home-overview-element {
+    max-width: 350px;
+    height: 250px;
+    background-color: white; }
+    #ely-home .ely-home-overview-element .ely-home-title {
+      padding: 8px;
+      margin-bottom: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+
+#ely-home-overview-registered-user {
+  height: 100%; }
+  #ely-home-overview-registered-user .ely-content-container {
+    padding: 8px 0;
+    height: 190px; }
+    #ely-home-overview-registered-user .ely-content-container .overview-info {
+      padding: 0 8px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87); }
+      #ely-home-overview-registered-user .ely-content-container .overview-info .number {
+        font-weight: 500; }
+    #ely-home-overview-registered-user .ely-content-container .registered-user-container {
+      padding: 12px 8px 8px 8px;
+      height: 155px;
+      overflow-y: scroll; }
+      #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user {
+        margin-bottom: 4px; }
+        #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user .profile-image {
+          height: 48px;
+          width: 48px;
+          border-radius: 50%; }
+        #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user .user-info-container {
+          padding-left: 8px; }
+          #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user .user-info-container .name {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.87); }
+          #ely-home-overview-registered-user .ely-content-container .registered-user-container .registered-user .user-info-container .register-date {
+            padding-top: 4px;
+            bottom: 0;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.54); }
+
 #toolbar-header {
   position: relative;
   width: 100%;

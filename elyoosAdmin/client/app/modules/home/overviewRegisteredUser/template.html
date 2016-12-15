@@ -1,0 +1,21 @@
+<md-card class="ely-home-overview-element">
+    <div id="ely-home-overview-registered-user">
+        <div class="ely-home-title">Übersicht Benutzer</div>
+        <div class="ely-content-container">
+            <div class="overview-info">
+                Total <span class="number">{{ctrl.overviewRegisteredUser.numberOfUser}}</span> Benutzer
+            </div>
+            <div class="registered-user-container">
+                <div ng-repeat="user in ctrl.overviewRegisteredUser.user" class="registered-user" layout="row">
+                    <div flex="none">
+                        <img class="profile-image" ng-src="{{user.url}}"/>
+                    </div>
+                    <div flex class="user-info-container">
+                        <div class="name">{{user.name}}</div>
+                        <div class="register-date">{{ctrl.getFormattedDate(user.registerDate, 'LLL')}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-card>

@@ -1,10 +1,3 @@
-@import 'common/_closeSubToolbar';
-@import 'common/_modal';
-@import 'common/_modalError';
-@import 'common/_modalFilePreview';
-@import 'common/_toast';
-@import 'common/_websiteStructure';
-
 @import 'contact/modal/_addContact';
 @import 'contact/modal/_moveContact';
 @import 'contact/detail/modal/_infoContact';
@@ -149,9 +142,3 @@
 @import 'settings/_profile';
 @import 'settings/_profileImage';
 @import 'settings/_userPinwall';
-
-@import 'util/file/_previewPicture';
-@import 'util/file/_uploadCropImage';
-@import 'util/modal/_viewImage';
-@import 'util/_cookieCheck';
-@import 'util/_rightSidenav';

@@ -1,0 +1,47 @@
+#ely-home-overview-registered-user {
+  height: 100%;
+  .ely-content-container {
+    padding: 8px 0;
+    height: 190px;
+    .overview-info {
+      padding: 0 8px;
+      font-size: 14px;
+      color: $primary-text;
+      .number {
+        font-weight: 500;
+      }
+    }
+    .registered-user-container {
+      padding: 12px 8px 8px 8px;
+      height: 155px;
+      overflow-y: scroll;
+      .registered-user {
+        margin-bottom: 4px;
+        .profile-image {
+          height: 48px;
+          width: 48px;
+          border-radius: 50%;
+        }
+        .user-info-container {
+          padding-left: 8px;
+          .name {
+            font-size: 14px;
+            font-weight: 500;
+            color: $primary-text;
+          }
+          .register-date {
+            padding-top: 4px;
+            bottom: 0;
+            font-size: 12px;
+            font-weight: 400;
+            color: $secondary-text;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

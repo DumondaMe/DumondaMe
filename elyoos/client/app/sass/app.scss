@@ -1,24 +1,8 @@
-//include all partial scss files
 @import 'elyoos/_variables';
 @import 'mixins/_animation';
 @import 'mixins/_card';
 @import 'mixins/_screen';
 @import 'mixins/_util';
-@import 'common/_button';
-@import 'common/_cropper';
-@import 'common/_expandText';
-@import 'common/_formTextInput';
-@import 'common/_help';
-@import 'common/_iFrame';
-@import 'common/_loadImageButton';
-@import 'common/_loadScreen';
-@import 'common/_map';
-@import 'common/_searchBox';
-@import 'common/_selectElements';
-@import 'common/_sendButton';
-@import 'common/_topics';
-@import 'common/_topicsColorCode';
-@import 'common/_topicsColorVerticalCode';
 @import 'elyoos/_index';
 
 body, html {
