@@ -5,7 +5,7 @@
             <div class="overview-info">
                 Total <span class="number">{{ctrl.overviewRegisteredUser.numberOfUser}}</span> Benutzer
             </div>
-            <div class="registered-user-container">
+            <div class="registered-user-container" ely-infinite-scroll="ctrl.nextUser">
                 <div ng-repeat="user in ctrl.overviewRegisteredUser.user" class="registered-user" layout="row">
                     <div flex="none">
                         <img class="profile-image" ng-src="{{user.url}}"/>
