@@ -11,9 +11,21 @@ let getOrderBy = function (order) {
     return orderBy;
 };
 
+let getType = function (type) {
+    let result = "feedback:Discussion OR feedback:Bug OR feedback:Idea";
+    if (type === 'bug') {
+        result = 'feedback:Bug';
+    } else if (type === 'idea') {
+        result = 'feedback:Idea';
+    } else if (type === 'discussion') {
+        result = 'feedback:Discussion';
+    }
+    return result;
+};
+
 let getOverviewOfFeedback = function (params) {
     return db.cypher().match(`(feedback:Feedback {status: {status}})<-[:IS_CREATOR]-(creator:User)`)
-        .where("feedback:Discussion OR feedback:Bug OR feedback:Idea")
+        .where(getType(params.type))
         .optionalMatch("(feedback)<-[:RECOMMENDS|COMMENT|IS_IDEA]-(feedbackRef)")
         .with("feedback, creator, max(feedbackRef.created) AS feedbackRef1Created, max(feedbackRef.modified) AS feedbackRef1Modified")
         .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")

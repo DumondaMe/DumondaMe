@@ -14,6 +14,7 @@ let schemaGetFeedbackDetailOverview = {
     properties: {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        type: {enum: ['all', 'bug', 'idea', 'discussion']},
         status: {enum: ['open', 'closed']},
         order: {enum: ['created', 'newestModification']}
     }

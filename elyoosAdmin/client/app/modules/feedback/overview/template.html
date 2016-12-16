@@ -4,12 +4,25 @@
             <span flex></span>
             <div>
                 <md-input-container>
+                    <label>Typ</label>
+                    <md-select ng-model="ctrl.type" class="md-no-underline overview-status" md-on-close="ctrl.filterChanged()">
+                        <md-option value="all">Alle</md-option>
+                        <md-option value="bug">Fehler</md-option>
+                        <md-option value="idea">Idee</md-option>
+                        <md-option value="discussion">Diskussion</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container>
                     <label>Status</label>
                     <md-select ng-model="ctrl.status" class="md-no-underline overview-status" md-on-close="ctrl.filterChanged()">
                         <md-option value="open">Offen</md-option>
                         <md-option value="closed">erledigt</md-option>
                     </md-select>
                 </md-input-container>
+            </div>
+            <div>
                 <md-input-container>
                     <label>Sortiert nach</label>
                     <md-select ng-model="ctrl.order" class="md-no-underline overview-order" md-on-close="ctrl.filterChanged()">

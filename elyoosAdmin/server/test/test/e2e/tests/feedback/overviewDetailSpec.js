@@ -34,7 +34,7 @@ describe('Integration Tests for getting feedback detail overview', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, status: 'open', order: 'created'}, agent);
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'created'}, agent);
         }).then(function (res) {
             res.body.feedback.length.should.equals(3);
 
@@ -86,7 +86,7 @@ describe('Integration Tests for getting feedback detail overview', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, status: 'open', order: 'newestModification'}, agent);
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'open', order: 'newestModification'}, agent);
         }).then(function (res) {
             res.body.feedback.length.should.equals(4);
 
@@ -133,6 +133,146 @@ describe('Integration Tests for getting feedback detail overview', function () {
         });
     });
 
+    it('Getting open bug by latest modification detail overview', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('2', '3', 501, 512);
+        dbDsl.createFeedbackIdea('3', '2', 504);
+        dbDsl.createFeedbackIdea('4', '2', 505);
+        dbDsl.createFeedbackIdea('5', '3', 506, 506, 'closed');
+
+        dbDsl.createFeedbackDiscussion('6', '1', 400);
+
+        dbDsl.createFeedbackDiscussionIdea('7', '6', '1', 450);
+
+        dbDsl.createFeedbackComment('1', '8', '3', 505);
+
+        dbDsl.createFeedbackRecommendation('1', '9', '2', 513);
+        dbDsl.createFeedbackRecommendation('1', '10', '2', 400);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'bug', status: 'open', order: 'newestModification'}, agent);
+        }).then(function (res) {
+            res.body.feedback.length.should.equals(2);
+
+            res.body.feedback[0].title.should.equals("bug1Title");
+            res.body.feedback[0].created.should.equals(500);
+            res.body.feedback[0].lastModified.should.equals(513);
+            res.body.feedback[0].feedbackId.should.equals("1");
+            res.body.feedback[0].status.should.equals("open");
+            res.body.feedback[0].type.should.equals("bug");
+            res.body.feedback[0].creator.name.should.equals("user Meier");
+            res.body.feedback[0].numberOfRecommendations.should.equals(2);
+            res.body.feedback[0].numberOfComments.should.equals(1);
+
+            res.body.feedback[1].title.should.equals("bug2Title");
+            res.body.feedback[1].created.should.equals(501);
+            res.body.feedback[1].lastModified.should.equals(512);
+            res.body.feedback[1].feedbackId.should.equals("2");
+            res.body.feedback[1].status.should.equals("open");
+            res.body.feedback[1].type.should.equals("bug");
+            res.body.feedback[1].creator.name.should.equals("user Meier3");
+            res.body.feedback[1].numberOfRecommendations.should.equals(0);
+            res.body.feedback[1].numberOfComments.should.equals(0);
+        });
+    });
+
+    it('Getting open idea', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('2', '3', 501, 512);
+        dbDsl.createFeedbackIdea('3', '2', 504);
+        dbDsl.createFeedbackIdea('4', '3', 505);
+        dbDsl.createFeedbackIdea('5', '3', 506, 506, 'closed');
+
+        dbDsl.createFeedbackDiscussion('6', '1', 400);
+
+        dbDsl.createFeedbackDiscussionIdea('7', '6', '1', 450);
+
+        dbDsl.createFeedbackComment('3', '8', '3', 505);
+
+        dbDsl.createFeedbackRecommendation('3', '9', '2', 513);
+        dbDsl.createFeedbackRecommendation('3', '10', '2', 400);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'idea', status: 'open', order: 'created'}, agent);
+        }).then(function (res) {
+            res.body.feedback.length.should.equals(2);
+
+            res.body.feedback[0].title.should.equals("idea4Title");
+            res.body.feedback[0].created.should.equals(505);
+            res.body.feedback[0].lastModified.should.equals(505);
+            res.body.feedback[0].feedbackId.should.equals("4");
+            res.body.feedback[0].status.should.equals("open");
+            res.body.feedback[0].type.should.equals("idea");
+            res.body.feedback[0].creator.name.should.equals("user Meier3");
+            res.body.feedback[0].numberOfRecommendations.should.equals(0);
+            res.body.feedback[0].numberOfComments.should.equals(0);
+
+            res.body.feedback[1].title.should.equals("idea3Title");
+            res.body.feedback[1].created.should.equals(504);
+            res.body.feedback[1].lastModified.should.equals(513);
+            res.body.feedback[1].feedbackId.should.equals("3");
+            res.body.feedback[1].status.should.equals("open");
+            res.body.feedback[1].type.should.equals("idea");
+            res.body.feedback[1].creator.name.should.equals("user Meier2");
+            res.body.feedback[1].numberOfRecommendations.should.equals(2);
+            res.body.feedback[1].numberOfComments.should.equals(1);
+        });
+    });
+
+    it('Getting open discussion', function () {
+
+        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackIdea('2', '2', 504);
+        dbDsl.createFeedbackIdea('3', '3', 506, 506, 'closed');
+
+        dbDsl.createFeedbackDiscussion('4', '1', 400, 401);
+        dbDsl.createFeedbackDiscussion('5', '2', 402);
+
+        dbDsl.createFeedbackDiscussionIdea('6', '4', '1', 450);
+        dbDsl.createFeedbackDiscussionIdea('7', '4', '2', 451);
+
+        dbDsl.createFeedbackComment('2', '8', '3', 505);
+
+        dbDsl.createFeedbackRecommendation('1', '9', '2', 513);
+        dbDsl.createFeedbackRecommendation('1', '10', '2', 400);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'discussion', status: 'open', order: 'created'}, agent);
+        }).then(function (res) {
+            res.body.feedback.length.should.equals(2);
+
+            res.body.feedback[0].title.should.equals("discussion5Title");
+            res.body.feedback[0].created.should.equals(402);
+            res.body.feedback[0].lastModified.should.equals(402);
+            res.body.feedback[0].feedbackId.should.equals("5");
+            res.body.feedback[0].status.should.equals("open");
+            res.body.feedback[0].type.should.equals("discussion");
+            res.body.feedback[0].creator.name.should.equals("user Meier2");
+            res.body.feedback[0].numberOfRecommendations.should.equals(0);
+            res.body.feedback[0].numberOfComments.should.equals(0);
+            res.body.feedback[0].numberOfIdeas.should.equals(0);
+
+            res.body.feedback[1].title.should.equals("discussion4Title");
+            res.body.feedback[1].created.should.equals(400);
+            res.body.feedback[1].lastModified.should.equals(451);
+            res.body.feedback[1].feedbackId.should.equals("4");
+            res.body.feedback[1].status.should.equals("open");
+            res.body.feedback[1].type.should.equals("discussion");
+            res.body.feedback[1].creator.name.should.equals("user Meier");
+            res.body.feedback[1].numberOfRecommendations.should.equals(0);
+            res.body.feedback[1].numberOfComments.should.equals(0);
+            res.body.feedback[1].numberOfIdeas.should.equals(2);
+        });
+    });
+
     it('Getting closed feedback detail overview', function () {
 
         dbDsl.createFeedbackBug('1', '1', 500);
@@ -152,7 +292,7 @@ describe('Integration Tests for getting feedback detail overview', function () {
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
-            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, status: 'closed', order: 'created'}, agent);
+            return requestHandler.getWithData('/api/feedback/overviewDetail', {skip: 0, maxItems: 10, type: 'all', status: 'closed', order: 'created'}, agent);
         }).then(function (res) {
             res.body.feedback.length.should.equals(2);
 
