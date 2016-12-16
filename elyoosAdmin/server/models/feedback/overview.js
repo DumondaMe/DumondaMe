@@ -10,14 +10,14 @@ let getNumberOfOpenFeedback = function () {
 };
 
 let getOverviewOfFeedback = function (params) {
-    return db.cypher().match(`(feedback:Feedback)`)
+    return db.cypher().match(`(feedback:Feedback)<-[:IS_CREATOR|:RECOMMENDED_BY]-(creator:User)`)
         .where("NOT feedback:Discussion")
         .optionalMatch("(feedbackParent)<-[:RECOMMENDS|COMMENT]-(feedback)")
         .where("(feedback:Comment OR feedback:Recommendation)")
-        .with("feedback, feedbackParent")
+        .with("feedback, feedbackParent, creator")
         .optionalMatch("(discussionOfParent:Feedback:Discussion)<-[:IS_IDEA]-(feedbackParent)")
         .optionalMatch("(discussion:Feedback:Discussion)<-[:IS_IDEA]-(feedback)")
-        .return("feedback, feedbackParent, discussion, discussionOfParent, LABELS(feedback) AS label")
+        .return("feedback, feedbackParent, creator, discussion, discussionOfParent, LABELS(feedback) AS label")
         .orderBy("feedback.created DESC").skip("{skip}").limit("{maxItems}").end(params);
 };
 
@@ -62,6 +62,9 @@ let getFeedback = function (feedbacks) {
             formattedFeedback = getTypeIdea(feedback);
         } else if (_.contains(feedback.label, 'Recommendation') || _.contains(feedback.label, 'Comment')) {
             formattedFeedback = getTypeRecommendationAndComment(feedback);
+        }
+        if (formattedFeedback) {
+            formattedFeedback.creator = {name: feedback.creator.name};
         }
         formattedFeedbacks.push(formattedFeedback);
     });

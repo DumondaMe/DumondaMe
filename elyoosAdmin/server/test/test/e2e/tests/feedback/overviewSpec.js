@@ -45,6 +45,7 @@ describe('Integration Tests for getting feedback overview', function () {
             res.body.feedback[0].feedbackId.should.equals("1");
             res.body.feedback[0].status.should.equals("open");
             res.body.feedback[0].type.should.equals("recommendation");
+            res.body.feedback[0].creator.name.should.equals("user Meier2");
 
             res.body.feedback[1].title.should.equals("discussionIdea6Title");
             res.body.feedback[1].text.should.equals("comment7Text");
@@ -52,30 +53,35 @@ describe('Integration Tests for getting feedback overview', function () {
             res.body.feedback[1].feedbackId.should.equals("6");
             res.body.feedback[1].status.should.equals("closed");
             res.body.feedback[1].type.should.equals("comment");
+            res.body.feedback[1].creator.name.should.equals("user Meier3");
 
             res.body.feedback[2].title.should.equals("discussionIdea6Title");
             res.body.feedback[2].created.should.equals(510);
             res.body.feedback[2].feedbackId.should.equals("6");
             res.body.feedback[2].status.should.equals("closed");
             res.body.feedback[2].type.should.equals("idea");
+            res.body.feedback[2].creator.name.should.equals("user Meier2");
 
             res.body.feedback[3].title.should.equals("discussionIdea5Title");
             res.body.feedback[3].created.should.equals(509);
             res.body.feedback[3].feedbackId.should.equals("5");
             res.body.feedback[3].status.should.equals("open");
             res.body.feedback[3].type.should.equals("idea");
+            res.body.feedback[3].creator.name.should.equals("user Meier");
 
             res.body.feedback[4].title.should.equals("idea2Title");
             res.body.feedback[4].created.should.equals(506);
             res.body.feedback[4].feedbackId.should.equals("2");
             res.body.feedback[4].status.should.equals("closed");
             res.body.feedback[4].type.should.equals("idea");
+            res.body.feedback[4].creator.name.should.equals("user Meier3");
 
             res.body.feedback[5].title.should.equals("bug1Title");
             res.body.feedback[5].created.should.equals(500);
             res.body.feedback[5].feedbackId.should.equals("1");
             res.body.feedback[5].status.should.equals("open");
             res.body.feedback[5].type.should.equals("bug");
+            res.body.feedback[5].creator.name.should.equals("user Meier");
         });
     });
 });

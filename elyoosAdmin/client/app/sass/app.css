@@ -38,6 +38,53 @@
       font-weight: 500;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 
+#ely-home-overview-feedback {
+  height: 100%; }
+  #ely-home-overview-feedback .ely-content-container {
+    padding: 8px 0;
+    height: 190px; }
+    #ely-home-overview-feedback .ely-content-container .overview-info {
+      padding: 0 8px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87); }
+      #ely-home-overview-feedback .ely-content-container .overview-info .number {
+        font-weight: 500; }
+    #ely-home-overview-feedback .ely-content-container .feedback-container {
+      padding: 12px 8px 8px 8px;
+      height: 155px;
+      overflow-y: scroll; }
+      #ely-home-overview-feedback .ely-content-container .feedback-container .feedback {
+        margin-bottom: 8px; }
+        #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .icon {
+          padding: 4px;
+          height: 24px;
+          width: 24px; }
+        #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .open .icon {
+          color: green; }
+        #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .close .icon {
+          color: red; }
+        #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info {
+          padding-left: 8px; }
+          #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-title {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; }
+          #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-description {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.54); }
+            #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-description name {
+              font-weight: 500; }
+          #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .comment {
+            margin-top: 4px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.54);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; }
+
 #ely-home-overview-registered-user {
   height: 100%; }
   #ely-home-overview-registered-user .ely-content-container {
