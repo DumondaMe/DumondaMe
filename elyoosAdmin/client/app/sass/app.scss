@@ -17,9 +17,6 @@ body, html {
   @media screen and (min-width: $gt-sm) {
     padding-top: 64px;
   }
-  @media screen and (min-width: $gt-md) {
-    padding-top: 0;
-  }
   position: absolute;
   top: 0;
   bottom: 0;

@@ -390,9 +390,6 @@ body, html {
   @media screen and (min-width: 960px) {
     #viewport {
       padding-top: 64px; } }
-  @media screen and (min-width: 1280px) {
-    #viewport {
-      padding-top: 0; } }
 
 #viewport.viewport-toolbar-removed {
   padding-top: 0; }
