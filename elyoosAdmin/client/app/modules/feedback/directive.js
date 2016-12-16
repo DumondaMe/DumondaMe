@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = {
-    directive: [function () {
+    directive: [ function () {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
-            controller: function () {
+            scope: {
             },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/home/overviewFeedback/template.html'
+            templateUrl: 'app/modules/feedback/template.html'
         };
     }],
-    name: 'elyHomeOverviewFeedback'
+    name: 'elyFeedback'
 };

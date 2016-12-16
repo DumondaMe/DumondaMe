@@ -2,7 +2,7 @@
   height: 100%;
   .ely-content-container {
     padding: 8px 0;
-    height: 190px;
+    height: 100%;
     .overview-info {
       padding: 0 8px;
       font-size: 14px;
@@ -13,8 +13,8 @@
     }
     .feedback-container {
       padding: 12px 8px 8px 8px;
-      height: 155px;
       overflow-y: scroll;
+      height: 100%;
       .feedback {
         margin-bottom: 8px;
         .icon {
@@ -63,6 +63,13 @@
   }
 }
 
-
-
-
+.ely-home-overview-card-element {
+  #ely-home-overview-feedback {
+    .ely-content-container {
+      height: 190px;
+      .feedback-container {
+        height: 155px;
+      }
+    }
+  }
+}

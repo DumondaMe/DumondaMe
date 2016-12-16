@@ -1,27 +1,3 @@
-<md-card class="ely-home-overview-element">
-    <div id="ely-home-overview-feedback">
-        <div class="ely-home-title">Übersicht Feedback</div>
-        <div class="ely-content-container">
-            <div class="overview-info">
-                Total <span class="number">{{ctrl.overview.numberOfOpenFeedback}}</span> offene Feedback
-            </div>
-            <div class="feedback-container" ely-infinite-scroll="ctrl.nextFeedback">
-                <div ng-repeat="feedback in ctrl.overview.feedback" class="feedback" layout="row">
-                    <div flex="none" ng-class="{'open': feedback.status === 'open', 'close': feedback.status === 'closed'}">
-                        <md-icon ng-if="feedback.type === 'idea'" md-svg-icon="icons:bulb" class="icon"></md-icon>
-                        <md-icon ng-if="feedback.type === 'comment'" md-svg-icon="icons:comment" class="icon"></md-icon>
-                        <md-icon ng-if="feedback.type === 'recommendation'" md-svg-icon="icons:thumbUp" class="icon"></md-icon>
-                        <md-icon ng-if="feedback.type === 'bug'" md-svg-icon="icons:bug" class="icon"></md-icon>
-                    </div>
-                    <div class="feedback-info" flex>
-                        <div class="info-title">{{feedback.title}}</div>
-                        <div class="info-description">
-                            <span class="name">{{feedback.creator.name}}</span> {{ctrl.getFormattedDate(feedback.created, true)}}
-                        </div>
-                        <div class="comment" ng-if="feedback.type === 'comment'">{{feedback.text}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<md-card class="ely-home-overview-card-element">
+    <ely-home-overview-feedback-directive></ely-home-overview-feedback-directive>
 </md-card>

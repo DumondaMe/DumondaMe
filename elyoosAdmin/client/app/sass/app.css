@@ -19,6 +19,12 @@
 .md-button {
   text-transform: none !important; }
 
+#ely-feedback {
+  position: relative;
+  height: 100%; }
+  #ely-feedback .ely-sidenav-right {
+    width: 250px; }
+
 #ely-home {
   position: relative;
   height: 100%; }
@@ -27,22 +33,23 @@
     @media screen and (max-width: 960px) {
       #ely-home #ely-home-container {
         padding: 8px; } }
-  #ely-home .ely-home-overview-element {
+  #ely-home .ely-home-overview-element .ely-home-title {
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #ely-home .ely-home-overview-card-element {
     max-width: 350px;
     height: 250px;
     background-color: white; }
-    #ely-home .ely-home-overview-element .ely-home-title {
-      padding: 8px;
-      margin-bottom: 4px;
-      font-size: 16px;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 
 #ely-home-overview-feedback {
   height: 100%; }
   #ely-home-overview-feedback .ely-content-container {
     padding: 8px 0;
-    height: 190px; }
+    height: 100%; }
     #ely-home-overview-feedback .ely-content-container .overview-info {
       padding: 0 8px;
       font-size: 14px;
@@ -51,8 +58,8 @@
         font-weight: 500; }
     #ely-home-overview-feedback .ely-content-container .feedback-container {
       padding: 12px 8px 8px 8px;
-      height: 155px;
-      overflow-y: scroll; }
+      overflow-y: scroll;
+      height: 100%; }
       #ely-home-overview-feedback .ely-content-container .feedback-container .feedback {
         margin-bottom: 8px; }
         #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .icon {
@@ -84,6 +91,11 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; }
+
+.ely-home-overview-card-element #ely-home-overview-feedback .ely-content-container {
+  height: 190px; }
+  .ely-home-overview-card-element #ely-home-overview-feedback .ely-content-container .feedback-container {
+    height: 155px; }
 
 #ely-home-overview-registered-user {
   height: 100%; }
