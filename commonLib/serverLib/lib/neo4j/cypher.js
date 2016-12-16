@@ -92,6 +92,10 @@ var Cypher = function (connectionUrl) {
         return this.chainingQuery(condition, ' LIMIT ');
     };
 
+    this.unwind = function (condition) {
+        return this.chainingQuery(condition, ' UNWIND ');
+    };
+
     this.union = function () {
         chainedQuery = chainedQuery + ' UNION ';
         return this;

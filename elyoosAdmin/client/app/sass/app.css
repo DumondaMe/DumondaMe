@@ -75,7 +75,7 @@
           #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-description {
             font-size: 12px;
             color: rgba(0, 0, 0, 0.54); }
-            #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-description name {
+            #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .info-description .name {
               font-weight: 500; }
           #ely-home-overview-feedback .ely-content-container .feedback-container .feedback .feedback-info .comment {
             margin-top: 4px;
