@@ -78,8 +78,10 @@ describe('Integration Tests for getting feedback detail overview', function () {
         dbDsl.createFeedbackComment('7', '10', '3', 500);
         dbDsl.createFeedbackComment('7', '11', '3', 511);
 
-        dbDsl.createFeedbackRecommendation('1', '12', '2', 513);
-        dbDsl.createFeedbackRecommendation('1', '13', '2', 400);
+        dbDsl.createFeedbackComment('1', '12', '3', 505);
+
+        dbDsl.createFeedbackRecommendation('1', '13', '2', 513);
+        dbDsl.createFeedbackRecommendation('1', '14', '2', 400);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -95,6 +97,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
             res.body.feedback[0].status.should.equals("open");
             res.body.feedback[0].type.should.equals("bug");
             res.body.feedback[0].creator.name.should.equals("user Meier");
+            res.body.feedback[0].numberOfRecommendations.should.equals(2);
+            res.body.feedback[0].numberOfComments.should.equals(1);
 
             res.body.feedback[1].title.should.equals("bug2Title");
             res.body.feedback[1].created.should.equals(501);
@@ -103,6 +107,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
             res.body.feedback[1].status.should.equals("open");
             res.body.feedback[1].type.should.equals("bug");
             res.body.feedback[1].creator.name.should.equals("user Meier3");
+            res.body.feedback[1].numberOfRecommendations.should.equals(0);
+            res.body.feedback[1].numberOfComments.should.equals(0);
 
             res.body.feedback[2].title.should.equals("discussion5Title");
             res.body.feedback[2].created.should.equals(400);
@@ -111,6 +117,9 @@ describe('Integration Tests for getting feedback detail overview', function () {
             res.body.feedback[2].status.should.equals("open");
             res.body.feedback[2].type.should.equals("discussion");
             res.body.feedback[2].creator.name.should.equals("user Meier");
+            res.body.feedback[2].numberOfRecommendations.should.equals(0);
+            res.body.feedback[2].numberOfComments.should.equals(0);
+            res.body.feedback[2].numberOfIdeas.should.equals(2);
 
             res.body.feedback[3].title.should.equals("idea3Title");
             res.body.feedback[3].created.should.equals(505);
@@ -119,6 +128,8 @@ describe('Integration Tests for getting feedback detail overview', function () {
             res.body.feedback[3].status.should.equals("open");
             res.body.feedback[3].type.should.equals("idea");
             res.body.feedback[3].creator.name.should.equals("user Meier2");
+            res.body.feedback[3].numberOfRecommendations.should.equals(0);
+            res.body.feedback[3].numberOfComments.should.equals(0);
         });
     });
 

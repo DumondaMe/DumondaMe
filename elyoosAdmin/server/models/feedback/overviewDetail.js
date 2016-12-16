@@ -16,12 +16,20 @@ let getOverviewOfFeedback = function (params) {
         .where("feedback:Discussion OR feedback:Bug OR feedback:Idea")
         .optionalMatch("(feedback)<-[:RECOMMENDS|COMMENT|IS_IDEA]-(feedbackRef)")
         .with("feedback, creator, max(feedbackRef.created) AS feedbackRef1Created, max(feedbackRef.modified) AS feedbackRef1Modified")
+        .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
+        .with("feedback, creator, feedbackRef1Created, feedbackRef1Modified, count(recommendation) AS numberOfRecommendations")
+        .optionalMatch("(feedback)<-[:COMMENT]-(comment:Feedback:Comment)")
+        .with("feedback, creator, feedbackRef1Created, feedbackRef1Modified, numberOfRecommendations, count(comment) AS numberOfComments")
+        .optionalMatch("(feedback)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
+        .with(`feedback, creator, feedbackRef1Created, feedbackRef1Modified, numberOfRecommendations, numberOfComments, 
+               count(discussionIdea) AS numberOfIdeas`)
         .optionalMatch("(feedback)<-[IS_IDEA]-(feedbackRef)<-[:RECOMMENDS|COMMENT]-(feedbackRef2)")
-        .with(`feedback, creator, feedbackRef1Created, feedbackRef1Modified, 
+        .with(`feedback, creator, feedbackRef1Created, feedbackRef1Modified, numberOfRecommendations, numberOfComments, numberOfIdeas, 
                max(feedbackRef2.created) AS feedbackRef2Created, max(feedbackRef2.modified) AS feedbackRef2Modified`)
         .unwind(`[feedbackRef1Created, feedbackRef1Modified, feedbackRef2Created, feedbackRef2Modified, feedback.created, feedback.modified] 
                  AS feedbackRefModifiedCombined`)
-        .return("feedback, creator, LABELS(feedback) AS label, max(feedbackRefModifiedCombined) AS lastModified")
+        .return(`feedback, creator, LABELS(feedback) AS label, max(feedbackRefModifiedCombined) AS lastModified, 
+                 numberOfRecommendations, numberOfComments, numberOfIdeas`)
         .orderBy(getOrderBy(params.order)).skip("{skip}").limit("{maxItems}").end(params);
 };
 
@@ -48,6 +56,9 @@ let getFeedback = function (feedbacks) {
         formattedFeedback.status = feedback.feedback.status;
         formattedFeedback.type = getFeedbackType(feedback.label);
         formattedFeedback.creator = {name: feedback.creator.name};
+        formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
+        formattedFeedback.numberOfComments = feedback.numberOfComments;
+        formattedFeedback.numberOfIdeas = feedback.numberOfIdeas;
         formattedFeedbacks.push(formattedFeedback);
     });
     return formattedFeedbacks;

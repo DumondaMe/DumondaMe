@@ -1,0 +1,56 @@
+<div id="ely-feedback-overview">
+    <div id="ely-feedback-overview-container" layout="column">
+        <div id="overview-commands" layout="row" layout-wrap flex="none">
+            <span flex></span>
+            <div>
+                <md-input-container>
+                    <label>Status</label>
+                    <md-select ng-model="ctrl.status" class="md-no-underline overview-status" md-on-close="ctrl.filterChanged()">
+                        <md-option value="open">Offen</md-option>
+                        <md-option value="closed">erledigt</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>Sortiert nach</label>
+                    <md-select ng-model="ctrl.order" class="md-no-underline overview-order" md-on-close="ctrl.filterChanged()">
+                        <md-option value="created">Datum erstellt</md-option>
+                        <md-option value="newestModification">Zuletzt verändert</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </div>
+        <div id="overview-element-container" flex>
+            <div class="feedback-element" ng-repeat="feedback in ctrl.overview.feedback" layout="row">
+                <div class="feedback-icon-container" flex="none">
+                    <md-icon ng-if="feedback.type === 'bug'" md-svg-icon="icons:bug" class="feedback-icon"></md-icon>
+                    <md-icon ng-if="feedback.type === 'idea'" md-svg-icon="icons:bulb" class="feedback-icon"></md-icon>
+                    <md-icon ng-if="feedback.type === 'discussion'" md-svg-icon="icons:questionMark" class="feedback-icon"></md-icon>
+                </div>
+                <div class="feedback-element-info" flex>
+                    <div class="feedback-title">{{feedback.title}}</div>
+                    <div class="feedback-sub-title">
+                        Erstellt von <span class="name">{{feedback.creator.name}}</span> {{ctrl.getFormattedDate(feedback.created, true)}}
+                        <span ng-show="feedback.created !== feedback.lastModified && feedback.lastModified">
+                            - Zuletzt verändert {{ctrl.getFormattedDate(feedback.lastModified, true)}}
+                        </span>
+                    </div>
+                    <div class="info-container" layout="row">
+                        <md-icon md-svg-icon="icons:thumbUp" class="icon" ng-hide="feedback.type === 'discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-hide="feedback.type === 'discussion'">
+                            <span class="number">{{feedback.numberOfRecommendations}}</span>
+                        </div>
+                        <md-icon md-svg-icon="icons:comment" class="icon" flex="none" ng-hide="feedback.type === 'discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-hide="feedback.type === 'discussion'">
+                            <span class="number">{{feedback.numberOfComments}}</span>
+                        </div>
+                        <md-icon md-svg-icon="icons:bulb" class="icon" flex="none" ng-show="feedback.type === 'discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-show="feedback.type === 'discussion'">
+                            <span class="number">{{feedback.numberOfIdeas}}</span>
+                        </div>
+                        <span flex></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
