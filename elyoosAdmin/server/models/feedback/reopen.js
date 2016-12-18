@@ -28,7 +28,7 @@ let open = function (userId, params, req) {
         return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {userId}})")
             .set("feedback", {status: 'open'})
             .create(`(feedback)<-[:Test]-(:Feedback:Comment:Status {status:'open', feedbackId: {statusFeedbackId}, created: {closed}, 
-                        reasonText: {reasonText}})<-[:IS_CREATOR]-(user)`)
+                        text: {reasonText}})<-[:IS_CREATOR]-(user)`)
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
             .send().then(function () {
                 return {closedDate: closed, statusFeedbackId: statusFeedbackId};

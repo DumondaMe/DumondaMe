@@ -25,8 +25,8 @@ let close = function (userId, params, req) {
     return allowedToCloseFeedback(params.feedbackId, req).then(function () {
         return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {userId}})")
             .set("feedback", {status: 'closed'})
-            .create(`(feedback)<-[:Test]-(:Feedback:Comment:Status {status:'closed', feedbackId: {statusFeedbackId}, created: {closed}, 
-                        reasonText: {reasonText}})<-[:IS_CREATOR]-(user)`)
+            .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment:Status {status:'closed', feedbackId: {statusFeedbackId}, created: {closed}, 
+                        text: {reasonText}})<-[:IS_CREATOR]-(user)`)
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
             .send().then(function () {
                 return {closedDate: closed, statusFeedbackId: statusFeedbackId};

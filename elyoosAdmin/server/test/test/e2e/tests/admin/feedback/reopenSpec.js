@@ -40,7 +40,7 @@ describe('Integration Tests for reopen a feedback', function () {
             feedback.length.should.equals(1);
             feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
-            feedback[0].status.reasonText.should.equals("So ein Grund");
+            feedback[0].status.text.should.equals("So ein Grund");
             feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });
@@ -68,7 +68,7 @@ describe('Integration Tests for reopen a feedback', function () {
             feedback.length.should.equals(1);
             feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
-            feedback[0].status.reasonText.should.equals("So ein Grund");
+            feedback[0].status.text.should.equals("So ein Grund");
             feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });
@@ -97,7 +97,7 @@ describe('Integration Tests for reopen a feedback', function () {
             feedback.length.should.equals(1);
             feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
-            feedback[0].status.reasonText.should.equals("So ein Grund");
+            feedback[0].status.text.should.equals("So ein Grund");
             feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });

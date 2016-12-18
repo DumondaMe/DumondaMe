@@ -22,6 +22,7 @@ let getCommentMessage = function (comments) {
         let resultComment = {};
         if (comment.hasOwnProperty('comment')) {
             resultComment.text = comment.comment.text;
+            resultComment.status = comment.comment.status;
             resultComment.created = comment.comment.created;
             resultComment.feedbackId = comment.comment.feedbackId;
             resultComment.creator = {userId: comment.creator.userId, name: comment.creator.name};

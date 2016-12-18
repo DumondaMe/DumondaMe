@@ -103,11 +103,43 @@ var createFeedbackRecommendation = function (feedbackId, feedbackRecommendationI
         }).getCommand());
 };
 
+var closeFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
+    reasonText = reasonText || `closed${statusFeedbackId}Text`;
+    dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
+        .set("feedback", {status: 'closed'})
+        .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment:Status  {status: 'closed', text: {reasonText}, created: {created}, feedbackId: {statusFeedbackId}})
+        <-[:IS_CREATOR]-(user)`)
+        .end({
+            feedbackId: feedbackId,
+            statusFeedbackId: statusFeedbackId,
+            created: created,
+            creatorUserId: creatorUserId,
+            reasonText: reasonText
+        }).getCommand());
+};
+
+var reopenFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
+    reasonText = reasonText || `reopen${statusFeedbackId}Text`;
+    dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
+        .set("feedback", {status: 'open'})
+        .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment:Status  {status: 'open', text: {reasonText}, created: {created}, feedbackId: {statusFeedbackId}})
+        <-[:IS_CREATOR]-(user)`)
+        .end({
+            feedbackId: feedbackId,
+            statusFeedbackId: statusFeedbackId,
+            created: created,
+            creatorUserId: creatorUserId,
+            reasonText: reasonText
+        }).getCommand());
+};
+
 module.exports = {
     createFeedbackBug: createFeedbackBug,
     createFeedbackIdea: createFeedbackIdea,
     createFeedbackDiscussion: createFeedbackDiscussion,
     createFeedbackDiscussionIdea: createFeedbackDiscussionIdea,
     createFeedbackComment: createFeedbackComment,
-    createFeedbackRecommendation: createFeedbackRecommendation
+    createFeedbackRecommendation: createFeedbackRecommendation,
+    closeFeedback: closeFeedback,
+    reopenFeedback: reopenFeedback
 };
