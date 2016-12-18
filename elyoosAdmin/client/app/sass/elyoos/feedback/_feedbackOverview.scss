@@ -13,6 +13,7 @@
     #overview-element-container {
       overflow-y: scroll;
       .feedback-element {
+        cursor: pointer;
         max-width: 900px;
         width: 100%;
         margin: 0 auto 14px auto;

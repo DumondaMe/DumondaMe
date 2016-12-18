@@ -33,11 +33,11 @@
             </div>
         </div>
         <div id="overview-element-container" flex>
-            <div class="feedback-element" ng-repeat="feedback in ctrl.overview.feedback" layout="row">
+            <div class="feedback-element" ng-repeat="feedback in ctrl.overview.feedback" layout="row" ng-click="ctrl.openDetail(feedback)">
                 <div class="feedback-icon-container" flex="none">
-                    <md-icon ng-if="feedback.type === 'bug'" md-svg-icon="icons:bug" class="feedback-icon"></md-icon>
-                    <md-icon ng-if="feedback.type === 'idea'" md-svg-icon="icons:bulb" class="feedback-icon"></md-icon>
-                    <md-icon ng-if="feedback.type === 'discussion'" md-svg-icon="icons:questionMark" class="feedback-icon"></md-icon>
+                    <md-icon ng-if="feedback.type === 'Bug'" md-svg-icon="icons:bug" class="feedback-icon"></md-icon>
+                    <md-icon ng-if="feedback.type === 'Idea'" md-svg-icon="icons:bulb" class="feedback-icon"></md-icon>
+                    <md-icon ng-if="feedback.type === 'Discussion'" md-svg-icon="icons:questionMark" class="feedback-icon"></md-icon>
                 </div>
                 <div class="feedback-element-info" flex>
                     <div class="feedback-title">{{feedback.title}}</div>
@@ -48,16 +48,16 @@
                         </span>
                     </div>
                     <div class="info-container" layout="row">
-                        <md-icon md-svg-icon="icons:thumbUp" class="icon" ng-hide="feedback.type === 'discussion'"></md-icon>
-                        <div class="number-container" flex="none" ng-hide="feedback.type === 'discussion'">
+                        <md-icon md-svg-icon="icons:thumbUp" class="icon" ng-hide="feedback.type === 'Discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-hide="feedback.type === 'Discussion'">
                             <span class="number">{{feedback.numberOfRecommendations}}</span>
                         </div>
-                        <md-icon md-svg-icon="icons:comment" class="icon" flex="none" ng-hide="feedback.type === 'discussion'"></md-icon>
-                        <div class="number-container" flex="none" ng-hide="feedback.type === 'discussion'">
+                        <md-icon md-svg-icon="icons:comment" class="icon" flex="none" ng-hide="feedback.type === 'Discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-hide="feedback.type === 'Discussion'">
                             <span class="number">{{feedback.numberOfComments}}</span>
                         </div>
-                        <md-icon md-svg-icon="icons:bulb" class="icon" flex="none" ng-show="feedback.type === 'discussion'"></md-icon>
-                        <div class="number-container" flex="none" ng-show="feedback.type === 'discussion'">
+                        <md-icon md-svg-icon="icons:bulb" class="icon" flex="none" ng-show="feedback.type === 'Discussion'"></md-icon>
+                        <div class="number-container" flex="none" ng-show="feedback.type === 'Discussion'">
                             <span class="number">{{feedback.numberOfIdeas}}</span>
                         </div>
                         <span flex></span>

@@ -1,0 +1,62 @@
+<div id="ely-feedback-detail">
+    <div id="ely-feedback-detail2" ely-infinite-scroll="ctrl.commands.nextFeedbackComments">
+        <div id="ely-feedback-detail-container" ng-cloak>
+            <div id="ely-feedback-detail-inner-container">
+                <div class="ely-feedback-status-container">
+                    <span class="status-open status" ng-show="ctrl.detail.status === 'open'">Offen</span>
+                    <span class="status-closed status" ng-show="ctrl.detail.status === 'closed'">Erledigt</span>
+                    <span class="feedback-type" ng-show="ctrl.detail.type ==='Bug'">Kategorie: Fehler</span>
+                    <span class="feedback-type" ng-show="ctrl.detail.type ==='Idea' || ctrl.detail.type ==='DiscussionIdea'">Kategorie: Idee</span>
+                </div>
+                <div class="ely-feedback-detail-title">{{ctrl.detail.title}}</div>
+                <div class="ely-feedback-subheading">Erstellt {{ctrl.getFormattedDate(ctrl.detail.created, true)}} von
+                    <span class="name">{{ctrl.detail.creator.name}}</span>
+                    <span ng-show="ctrl.detail.created !== ctrl.detail.modified && ctrl.detail.modified">- Zuletzt bearbeitet
+                        {{ctrl.getFormattedDate(ctrl.detail.modified, true)}}
+                    </span>
+                </div>
+                <div class="ely-feedback-info-container" layout="row">
+                    <div>
+                        <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback" ng-hide="ctrl.runningUpload"
+                                   ng-disabled="ctrl.detail.recommendedByUser || ctrl.detail.createdByUser"
+                                   ng-click="ctrl.recommendFeedback()">
+                            <md-icon md-svg-icon="icons:thumbUp" class="action-icon"></md-icon>
+                        </md-button>
+                        <md-progress-circular ng-show="ctrl.runningUpload" class="load-feedback-recommendation" md-mode="indeterminate"
+                                              md-diameter="16"></md-progress-circular>
+                    </div>
+                    <div class="number-container" flex="none">
+                        <span class="number">{{ctrl.detail.numberOfRecommendations}}</span>
+                    </div>
+                    <md-icon md-svg-icon="icons:comment" class="chat-icon" flex="none"></md-icon>
+                    <div class="number-container" flex="none">
+                        <span class="number">{{ctrl.detail.numberOfComments}}</span>
+                    </div>
+                </div>
+                <ely-expand-text class="ely-feedback-detail-description" description="{{ctrl.detail.description}}" length="500"></ely-expand-text>
+                <div class="ely-feedback-commands" layout="row" layout-wrap>
+                    <div>
+                        <md-button class="md-raised md-primary create-comment" ng-click="ctrl.commands.createComment()" aria-label="create Comment">
+                            Kommentar erstellen
+                        </md-button>
+                    </div>
+                    <span flex></span>
+                    <div ng-show="ctrl.detail.numberOfComments > 1">
+                        <md-input-container>
+                            <label>Sortiert nach</label>
+                            <md-select ng-model="ctrl.orderComments" class="md-no-underline comments-order">
+                                <md-option value="new">Neuste</md-option>
+                                <md-option value="old">Älteste</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+            <div class="ely-feedback-detail-comments">
+                <div class="main-title">{{ctrl.detail.numberOfComments}} Kommentare</div>
+                <ely-feedback-detail-comment commands="ctrl.commands" added-comment="ctrl.addedComment()"
+                                             order-by="ctrl.orderComments"></ely-feedback-detail-comment>
+            </div>
+        </div>
+    </div>
+</div>

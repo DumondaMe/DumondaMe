@@ -6,7 +6,8 @@
                 Total <span class="number">{{ctrl.overview.numberOfOpenFeedback}}</span> offene Feedback
             </div>
             <div class="feedback-container" ely-infinite-scroll="ctrl.nextFeedback">
-                <div ng-repeat="feedback in ctrl.overview.feedback" class="feedback" layout="row">
+                <div ng-repeat="feedback in ctrl.overview.feedback" class="feedback" layout="row"
+                     ui-sref="feedback.detail({feedbackId: feedback.feedbackId})">
                     <div flex="none" ng-class="{'open': feedback.status === 'open', 'close': feedback.status === 'closed'}">
                         <md-icon ng-if="feedback.type === 'idea'" md-svg-icon="icons:bulb" class="icon"></md-icon>
                         <md-icon ng-if="feedback.type === 'comment'" md-svg-icon="icons:comment" class="icon"></md-icon>

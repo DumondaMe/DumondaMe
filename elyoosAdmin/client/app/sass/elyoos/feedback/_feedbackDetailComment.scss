@@ -1,0 +1,29 @@
+#ely-feedback-detail-comment-container {
+  margin-top: 12px;
+  .comment-container {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    .info-header {
+      .name {
+        font-size: 16px;
+        color: $primary-text;
+        font-weight: 500;
+      }
+      .date {
+        font-size: 14px;
+        color: $secondary-text;
+      }
+    }
+    .comment-text {
+      margin-top: 14px;
+      color: $secondary-text;
+      white-space: pre-wrap;
+      .ely-expand-text-description {
+        font-size: 16px;
+      }
+    }
+  }
+  .divider {
+    border-bottom: solid 1px $divider;
+  }
+}

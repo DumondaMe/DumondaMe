@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let _ = require('underscore');
+let util = require('./util');
 
 let getOrderBy = function (order) {
     let orderBy = "feedback.created DESC";
@@ -45,18 +45,6 @@ let getOverviewOfFeedback = function (params) {
         .orderBy(getOrderBy(params.order)).skip("{skip}").limit("{maxItems}").end(params);
 };
 
-let getFeedbackType = function (label) {
-    let type = null;
-    if (_.contains(label, 'Bug')) {
-        type = 'bug';
-    } else if (_.contains(label, 'Idea')) {
-        type = 'idea';
-    } else if (_.contains(label, 'Discussion')) {
-        type = 'discussion';
-    }
-    return type;
-};
-
 let getFeedback = function (feedbacks) {
     let formattedFeedbacks = [];
     feedbacks.forEach(function (feedback) {
@@ -66,7 +54,7 @@ let getFeedback = function (feedbacks) {
         formattedFeedback.lastModified = feedback.lastModified;
         formattedFeedback.feedbackId = feedback.feedback.feedbackId;
         formattedFeedback.status = feedback.feedback.status;
-        formattedFeedback.type = getFeedbackType(feedback.label);
+        formattedFeedback.type = util.getFeedbackType(feedback.label);
         formattedFeedback.creator = {name: feedback.creator.name};
         formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
         formattedFeedback.numberOfComments = feedback.numberOfComments;

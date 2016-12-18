@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['OverviewFeedbackDetail', 'dateFormatter', 'ScrollRequest', 'OverviewFeedbackDetailScrollRequestResponseHandler',
-    function (OverviewFeedbackDetail, dateFormatter, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler) {
+module.exports = ['$state', 'OverviewFeedbackDetail', 'dateFormatter', 'ScrollRequest', 'OverviewFeedbackDetailScrollRequestResponseHandler',
+    function ($state, OverviewFeedbackDetail, dateFormatter, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
@@ -36,6 +36,12 @@ module.exports = ['OverviewFeedbackDetail', 'dateFormatter', 'ScrollRequest', 'O
                 ctrl.orderPrevious = ctrl.order;
                 ctrl.typePrevious = ctrl.type;
                 ctrl.initNextFeedback();
+            }
+        };
+
+        ctrl.openDetail = function (feedback) {
+            if(feedback.type === 'Bug' || feedback.type === 'Idea') {
+                $state.go('feedback.detail', {feedbackId: feedback.feedbackId});
             }
         };
     }];
