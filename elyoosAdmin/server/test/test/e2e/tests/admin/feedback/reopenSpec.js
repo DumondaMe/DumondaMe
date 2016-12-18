@@ -6,7 +6,7 @@ let db = require('elyoos-server-test-util').db;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 
-describe('Integration Tests for closing a feedback', function () {
+describe('Integration Tests for reopen a feedback', function () {
 
     let requestAgent, startTime;
 
@@ -18,18 +18,18 @@ describe('Integration Tests for closing a feedback', function () {
         return requestHandler.logout();
     });
 
-    it('Close a bug', function () {
+    it('Reopen a bug', function () {
 
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackBug('1', '1', 500, 600);
+        dbDsl.createFeedbackBug('1', '1', 500, 600, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -38,26 +38,26 @@ describe('Integration Tests for closing a feedback', function () {
                 .return('feedback, status').end().send();
         }).then(function (feedback) {
             feedback.length.should.equals(1);
-            feedback[0].feedback.status.should.equals("closed");
+            feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
             feedback[0].status.reasonText.should.equals("So ein Grund");
-            feedback[0].status.status.should.equals("closed");
+            feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });
     });
 
-    it('Close a idea', function () {
+    it('Reopen a idea', function () {
 
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600);
+        dbDsl.createFeedbackIdea('1', '1', 500, 600, 'closed');
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -66,27 +66,27 @@ describe('Integration Tests for closing a feedback', function () {
                 .return('feedback, status').end().send();
         }).then(function (feedback) {
             feedback.length.should.equals(1);
-            feedback[0].feedback.status.should.equals("closed");
+            feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
             feedback[0].status.reasonText.should.equals("So ein Grund");
-            feedback[0].status.status.should.equals("closed");
+            feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });
     });
 
-    it('Close a discussion', function () {
+    it('Reopen a discussion', function () {
 
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
+        dbDsl.createFeedbackDiscussion('1', '1', 507, 507, 'closed');
         dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
@@ -95,43 +95,67 @@ describe('Integration Tests for closing a feedback', function () {
                 .return('feedback, status').end().send();
         }).then(function (feedback) {
             feedback.length.should.equals(1);
-            feedback[0].feedback.status.should.equals("closed");
+            feedback[0].feedback.status.should.equals("open");
             feedback[0].status.created.should.be.at.least(startTime);
             feedback[0].status.reasonText.should.equals("So ein Grund");
-            feedback[0].status.status.should.equals("closed");
+            feedback[0].status.status.should.equals("open");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
         });
     });
 
-    it('Close not existing feedback (400)', function () {
+    it('Reopen a non existing feedback (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600);
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        dbDsl.createFeedbackDiscussion('1', '1', 507, 507, 'closed');
+        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '3', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
     });
 
-    it('Close a discussionIdea is not allowed (400)', function () {
+    it('Reopen a discussionIdea is not allowed (400)', function () {
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
+        dbDsl.createFeedbackDiscussion('1', '1', 507, 507, 'closed');
         dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(feedback:Feedback {feedbackId: '2'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
+                .return('feedback, status').end().send();
+        }).then(function (feedback) {
+            feedback.length.should.equals(0);
+        });
+    });
+
+    it('Reopen a open feedback is not allowed (400)', function () {
+
+        startTime = Math.floor(moment.utc().valueOf() / 1000);
+
+        dbDsl.createFeedbackDiscussion('1', '1', 507);
+        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/admin/feedback/reopen', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
+            return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
         }).then(function (feedback) {
             feedback.length.should.equals(0);

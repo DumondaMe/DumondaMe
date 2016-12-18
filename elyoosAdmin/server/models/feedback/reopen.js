@@ -7,7 +7,7 @@ let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let allowedToCloseFeedback = function (feedbackId, req) {
+let allowedToOpenFeedback = function (feedbackId, req) {
     return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}})")
         .return("feedback, LABELS(feedback) AS type")
         .end({feedbackId: feedbackId}).send().then(function (resp) {
@@ -15,17 +15,19 @@ let allowedToCloseFeedback = function (feedbackId, req) {
                 return exceptions.getInvalidOperation(`Feedback does not exist ${feedbackId}`, logger, req);
             } else if(_.contains(resp[0].type, 'DiscussionIdea')) {
                 return exceptions.getInvalidOperation(`Admin tries to reopen a discussion idea ${feedbackId}`, logger, req);
+            }  else if(resp[0].feedback.status === 'open') {
+                return exceptions.getInvalidOperation(`Admin tries to reopen a open feedback ${feedbackId}`, logger, req);
             }
         });
 };
 
-let close = function (userId, params, req) {
+let open = function (userId, params, req) {
     let closed = time.getNowUtcTimestamp();
     let statusFeedbackId = uuid.generateUUID();
-    return allowedToCloseFeedback(params.feedbackId, req).then(function () {
+    return allowedToOpenFeedback(params.feedbackId, req).then(function () {
         return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {userId}})")
-            .set("feedback", {status: 'closed'})
-            .create(`(feedback)<-[:Test]-(:Feedback:Comment:Status {status:'closed', feedbackId: {statusFeedbackId}, created: {closed}, 
+            .set("feedback", {status: 'open'})
+            .create(`(feedback)<-[:Test]-(:Feedback:Comment:Status {status:'open', feedbackId: {statusFeedbackId}, created: {closed}, 
                         reasonText: {reasonText}})<-[:IS_CREATOR]-(user)`)
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
             .send().then(function () {
@@ -36,5 +38,5 @@ let close = function (userId, params, req) {
 
 
 module.exports = {
-    close: close
+    open: open
 };
