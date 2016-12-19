@@ -31,6 +31,8 @@ describe('Integration Tests for creating a discussion', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.created.should.be.at.least(startTime);
+            res.body.creator.name.should.equals('user Meier');
+            res.body.creator.userId.should.equals('1');
             feedbackId = res.body.feedbackId;
             return db.cypher().match("(feedback:Feedback:Discussion {feedbackId: {feedbackId}})<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback').end({feedbackId: feedbackId}).send();

@@ -19,6 +19,48 @@
 .md-button {
   text-transform: none !important; }
 
+.ely-add-feedback-comment {
+  width: 100%;
+  height: 100%; }
+  .ely-add-feedback-comment .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .ely-add-feedback-comment .description-container {
+    padding: 16px 24px; }
+    .ely-add-feedback-comment .description-container .input-container {
+      width: 100%;
+      margin: 16px 0 0 0; }
+
+#ely-add-feedback-comment-dialog {
+  width: 90%;
+  min-width: 300px;
+  max-width: 900px; }
+
+#ely-manage-discussion {
+  width: 100%;
+  height: 100%; }
+  #ely-manage-discussion .title {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #ely-manage-discussion .description-container {
+    padding: 16px 24px; }
+    #ely-manage-discussion .description-container .input-container {
+      width: 100%;
+      margin: 16px 0 0 0; }
+
+#ely-manage-discussion-dialog {
+  width: 90%;
+  min-width: 300px;
+  max-width: 600px; }
+
+#ely-feedback {
+  position: relative;
+  height: 100%; }
+  #ely-feedback .ely-sidenav-right {
+    width: 250px; }
+
 #ely-feedback {
   position: relative;
   height: 100%; }

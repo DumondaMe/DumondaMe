@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = ['$state', 'OverviewFeedbackDetail', 'dateFormatter', 'ScrollRequest', 'OverviewFeedbackDetailScrollRequestResponseHandler',
-    function ($state, OverviewFeedbackDetail, dateFormatter, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler) {
+    'ElyModal',
+    function ($state, OverviewFeedbackDetail, dateFormatter, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler, ElyModal) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
@@ -40,8 +41,15 @@ module.exports = ['$state', 'OverviewFeedbackDetail', 'dateFormatter', 'ScrollRe
         };
 
         ctrl.openDetail = function (feedback) {
-            if(feedback.type === 'Bug' || feedback.type === 'Idea') {
+            if (feedback.type === 'Bug' || feedback.type === 'Idea') {
                 $state.go('feedback.detail', {feedbackId: feedback.feedbackId});
             }
+        };
+
+        ctrl.createDiscussion = function () {
+            ElyModal.show('DiscussionManageCtrl', 'app/modules/feedback/modal/manageDiscussion/template.html').then(function (resp) {
+                ctrl.overview.feedback.unshift(resp);
+                ScrollRequest.addedElement('OverviewFeedbackDetail');
+            });
         };
     }];
