@@ -1,0 +1,19 @@
+<div id="feedback-discussion-container">
+    <div id="feedback-discussion-inner-container">
+        <div class="discussion-title">{{ctrl.discussion.title}}</div>
+        <div class="discussion-sub-title">
+            Erstellt von <span class="name">{{ctrl.discussion.creator.name}}</span> {{ctrl.getFormattedDate(ctrl.discussion.created, true)}}
+            <span ng-show="ctrl.discussion.created !== ctrl.discussion.lastModified && ctrl.discussion.lastModified">
+                            - Zuletzt verändert {{ctrl.getFormattedDate(ctrl.discussion.lastModified, true)}}
+                        </span>
+        </div>
+        <div class="info-container" layout="row">
+            <md-icon md-svg-icon="icons:bulb" class="icon" flex="none"></md-icon>
+            <div class="number-container" flex="none">
+                <span class="number">{{ctrl.discussion.numberOfIdeas}}</span>
+            </div>
+            <span flex></span>
+        </div>
+        <ely-expand-text class="discussion-description" description="{{ctrl.discussion.description}}" length="300"></ely-expand-text>
+    </div>
+</div>

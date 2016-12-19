@@ -29,7 +29,9 @@ module.exports = ['ElyModal', 'CreateDiscussion', 'EditDiscussion', 'CreateDiscu
             ctrl.getService(ctrl.isEditMode).save(message, function (resp) {
                 resp.title = ctrl.title;
                 resp.description = ctrl.description;
-                resp.numberOfIdeas = 0;
+                if (!ctrl.isEditMode) {
+                    resp.numberOfIdeas = 0;
+                }
                 resp.type = 'Discussion';
                 ctrl.uploadRunning = false;
                 ElyModal.hide(resp);

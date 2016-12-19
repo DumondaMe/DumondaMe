@@ -1,0 +1,48 @@
+#feedback-discussion-container {
+  margin: 0 auto 12px auto;
+  max-width: 900px;
+  border-bottom: 1px solid $divider;
+  #feedback-discussion-inner-container {
+    padding-left: 16px;
+    .discussion-title {
+      font-size: 18px;
+      color: $primary-text;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .discussion-sub-title {
+      .name {
+        font-weight: 500;
+        color: $primary-text;
+      }
+      font-size: 14px;
+      color: $secondary-text;
+    }
+    .info-container {
+      margin-top: 4px;
+      .icon {
+        margin: 0;
+        height: 24px;
+        width: 24px;
+      }
+      .number-container {
+        margin-right: 12px;
+        margin-left: 4px;
+        .number {
+          height: 24px;
+          line-height: 24px;
+          vertical-align: middle;
+          font-size: 14px;
+          font-weight: 500;
+          color: $primary-text;
+        }
+      }
+    }
+    .discussion-description {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  }
+}

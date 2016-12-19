@@ -17,6 +17,15 @@ app.config(['$stateProvider', function ($stateProvider) {
             },
             data: {hasBackNav: true, title: 'Feedback'}
         })
+        .state('feedback.discussion', {
+            url: '/discussion/{discussionId}',
+            views: {
+                'content@': {
+                    template: '<ely-feedback-discussion></ely-feedback-discussion>'
+                }
+            },
+            data: {hasBackNav: true, title: 'Feedback'}
+        })
         .state('feedback.detail', {
             url: '/detail/{feedbackId}/{discussionId}',
             views: {

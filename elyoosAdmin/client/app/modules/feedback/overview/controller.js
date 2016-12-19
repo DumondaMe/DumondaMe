@@ -1,11 +1,9 @@
 'use strict';
 
-module.exports = ['$state', 'OverviewFeedbackDetail', 'dateFormatter', 'ScrollRequest', 'OverviewFeedbackDetailScrollRequestResponseHandler',
+module.exports = ['$state', 'OverviewFeedbackDetail', 'ScrollRequest', 'OverviewFeedbackDetailScrollRequestResponseHandler',
     'ElyModal',
-    function ($state, OverviewFeedbackDetail, dateFormatter, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler, ElyModal) {
+    function ($state, OverviewFeedbackDetail, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler, ElyModal) {
         var ctrl = this;
-
-        ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
 
         ctrl.overview = {feedback: []};
         ctrl.status = 'open';
@@ -37,12 +35,6 @@ module.exports = ['$state', 'OverviewFeedbackDetail', 'dateFormatter', 'ScrollRe
                 ctrl.orderPrevious = ctrl.order;
                 ctrl.typePrevious = ctrl.type;
                 ctrl.initNextFeedback();
-            }
-        };
-
-        ctrl.openDetail = function (feedback) {
-            if (feedback.type === 'Bug' || feedback.type === 'Idea') {
-                $state.go('feedback.detail', {feedbackId: feedback.feedbackId});
             }
         };
 

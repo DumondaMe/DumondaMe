@@ -123,4 +123,24 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[2].numberOfComments.should.equals(1);
         });
     });
+
+    it('Getting discussion with no ideas', function () {
+
+        dbDsl.createFeedbackDiscussion('1', '1', 507, 511);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.getWithData('/api/feedback/overviewDiscussion', {skip: 0, maxItems: 10, discussionId: '1', order: 'rated'}, agent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            res.body.discussion.title.should.equals("discussion1Title");
+            res.body.discussion.description.should.equals("discussion1Description");
+            res.body.discussion.created.should.equals(507);
+            res.body.discussion.creator.name.should.equals('user Meier');
+            res.body.discussion.numberOfIdeas.should.equals(0);
+            res.body.discussion.status.should.equals('open');
+            res.body.feedback.length.should.equals(0);
+        });
+    });
 });

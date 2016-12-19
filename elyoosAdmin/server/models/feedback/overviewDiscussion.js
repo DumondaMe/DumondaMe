@@ -16,7 +16,7 @@ let getOrderBy = function (order) {
 let getDiscussionCommand = function (params) {
     return db.cypher().match(`(discussion:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch("(discussion)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
-        .with("discussion, creator, count(*) AS numberOfIdeas")
+        .with("discussion, creator, count(discussionIdea) AS numberOfIdeas")
         .optionalMatch("(discussion)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
         .with("discussion, discussionIdea, creator, numberOfIdeas")
         .optionalMatch("(discussionIdea)<-[:RECOMMENDS|COMMENT]-(feedbackRef)")
@@ -42,7 +42,7 @@ let getDiscussionIdeas = function (params) {
         .orderBy(getOrderBy(params.order)).skip("{skip}").limit("{maxItems}").end(params);
 };
 
-let getDiscussion = function(discussion) {
+let getDiscussion = function (discussion) {
     let formattedDiscussion = {};
     formattedDiscussion.title = discussion.discussion.title;
     formattedDiscussion.description = discussion.discussion.description;
@@ -58,15 +58,17 @@ let getFeedback = function (feedbacks) {
     let formattedFeedbacks = [];
     feedbacks.forEach(function (feedback) {
         let formattedFeedback = {};
-        formattedFeedback.title = feedback.discussionIdea.title;
-        formattedFeedback.created = feedback.discussionIdea.created;
-        formattedFeedback.lastModified = feedback.lastModified;
-        formattedFeedback.feedbackId = feedback.discussionIdea.feedbackId;
-        formattedFeedback.type = 'DiscussionIdea';
-        formattedFeedback.creator = {name: feedback.creator.name};
-        formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
-        formattedFeedback.numberOfComments = feedback.numberOfComments;
-        formattedFeedbacks.push(formattedFeedback);
+        if (feedback.hasOwnProperty('discussionIdea')) {
+            formattedFeedback.title = feedback.discussionIdea.title;
+            formattedFeedback.created = feedback.discussionIdea.created;
+            formattedFeedback.lastModified = feedback.lastModified;
+            formattedFeedback.feedbackId = feedback.discussionIdea.feedbackId;
+            formattedFeedback.type = 'DiscussionIdea';
+            formattedFeedback.creator = {name: feedback.creator.name};
+            formattedFeedback.numberOfRecommendations = feedback.numberOfRecommendations;
+            formattedFeedback.numberOfComments = feedback.numberOfComments;
+            formattedFeedbacks.push(formattedFeedback);
+        }
     });
     return formattedFeedbacks;
 };
@@ -75,7 +77,7 @@ let getOverview = function (params) {
     let commands = [];
     commands.push(getDiscussionCommand(params).getCommand());
     return getDiscussionIdeas(params).send(commands).then(function (resp) {
-        if(resp[0].length === 0) {
+        if (resp[0].length === 0) {
             return exceptions.getInvalidOperation(`Discussion does not exist ${params.discussionId}`, logger, req);
         }
         return {

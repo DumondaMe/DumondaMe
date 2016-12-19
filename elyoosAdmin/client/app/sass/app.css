@@ -177,13 +177,52 @@
   #ely-feedback-detail-comment-container .divider {
     border-bottom: solid 1px rgba(0, 0, 0, 0.12); }
 
+#feedback-discussion-container {
+  margin: 0 auto 12px auto;
+  max-width: 900px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #feedback-discussion-container #feedback-discussion-inner-container {
+    padding-left: 16px; }
+    #feedback-discussion-container #feedback-discussion-inner-container .discussion-title {
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    #feedback-discussion-container #feedback-discussion-inner-container .discussion-sub-title {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
+      #feedback-discussion-container #feedback-discussion-inner-container .discussion-sub-title .name {
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
+    #feedback-discussion-container #feedback-discussion-inner-container .info-container {
+      margin-top: 4px; }
+      #feedback-discussion-container #feedback-discussion-inner-container .info-container .icon {
+        margin: 0;
+        height: 24px;
+        width: 24px; }
+      #feedback-discussion-container #feedback-discussion-inner-container .info-container .number-container {
+        margin-right: 12px;
+        margin-left: 4px; }
+        #feedback-discussion-container #feedback-discussion-inner-container .info-container .number-container .number {
+          height: 24px;
+          line-height: 24px;
+          vertical-align: middle;
+          font-size: 14px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87); }
+    #feedback-discussion-container #feedback-discussion-inner-container .discussion-description {
+      margin-top: 12px;
+      margin-bottom: 12px; }
+
 #ely-feedback-overview {
   position: relative;
   height: 100%; }
   #ely-feedback-overview #ely-feedback-overview-container {
     height: 100%; }
     #ely-feedback-overview #ely-feedback-overview-container #overview-commands {
-      padding: 24px 24px 0 24px;
+      padding: 24px 0 0 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       max-width: 900px;
       width: 100%;
@@ -195,41 +234,42 @@
         max-width: 900px;
         width: 100%;
         margin: 0 auto 14px auto; }
-        #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-icon-container .feedback-icon {
-          padding: 4px;
-          height: 28px;
-          width: 28px; }
-        #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info {
-          padding-left: 16px; }
-          #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .feedback-title {
-            font-size: 18px;
-            color: rgba(0, 0, 0, 0.87);
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis; }
-          #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .feedback-sub-title {
-            font-size: 14px;
-            color: rgba(0, 0, 0, 0.54); }
-            #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .feedback-sub-title .name {
-              font-weight: 500;
-              color: rgba(0, 0, 0, 0.87); }
-          #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .info-container {
-            margin-top: 4px; }
-            #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .info-container .icon {
-              margin: 0;
-              height: 24px;
-              width: 24px; }
-            #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .info-container .number-container {
-              margin-right: 12px;
-              margin-left: 4px; }
-              #ely-feedback-overview #ely-feedback-overview-container #overview-element-container .feedback-element .feedback-element-info .info-container .number-container .number {
-                height: 24px;
-                line-height: 24px;
-                vertical-align: middle;
-                font-size: 14px;
-                font-weight: 500;
-                color: rgba(0, 0, 0, 0.87); }
+
+.feedback-info-container .feedback-icon-container .feedback-icon {
+  padding: 4px;
+  height: 28px;
+  width: 28px; }
+.feedback-info-container .feedback-element-info {
+  padding-left: 16px; }
+  .feedback-info-container .feedback-element-info .feedback-title {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .feedback-info-container .feedback-element-info .feedback-sub-title {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+    .feedback-info-container .feedback-element-info .feedback-sub-title .name {
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+  .feedback-info-container .feedback-element-info .info-container {
+    margin-top: 4px; }
+    .feedback-info-container .feedback-element-info .info-container .icon {
+      margin: 0;
+      height: 24px;
+      width: 24px; }
+    .feedback-info-container .feedback-element-info .info-container .number-container {
+      margin-right: 12px;
+      margin-left: 4px; }
+      .feedback-info-container .feedback-element-info .info-container .number-container .number {
+        height: 24px;
+        line-height: 24px;
+        vertical-align: middle;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87); }
 
 #ely-home {
   position: relative;
