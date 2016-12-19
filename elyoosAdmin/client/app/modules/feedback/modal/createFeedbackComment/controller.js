@@ -13,7 +13,7 @@ module.exports = ['ElyModal', 'CreateFeedbackComment', 'CreateFeedbackCommentMes
         };
 
         ctrl.uploadFeedbackComment = function () {
-            var message = CreateFeedbackCommentMessage.getCreateFeedbackCommentMessage(ctrl.text, ctrl.feedbackId);
+            var message = CreateFeedbackCommentMessage.createFeedbackCommentMessage(ctrl.text, ctrl.feedbackId);
             ctrl.uploadRunning = true;
             delete ctrl.error;
             CreateFeedbackComment.save(message, function (resp) {
