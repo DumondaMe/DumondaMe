@@ -77,17 +77,19 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
         }).getCommand());
 };
 
-var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text) {
+var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text, createdByAdmin) {
     text = text || `comment${feedbackCommentId}Text`;
+    createdByAdmin = createdByAdmin || null;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
-        .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment  {text: {text}, created: {created}, feedbackId: {feedbackCommentId}})
+        .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment  {text: {text}, created: {created}, feedbackId: {feedbackCommentId}, createdByAdmin: {createdByAdmin}})
         <-[:IS_CREATOR]-(user)`)
         .end({
             feedbackId: feedbackId,
             feedbackCommentId: feedbackCommentId,
             created: created,
             creatorUserId: creatorUserId,
-            text: text
+            text: text,
+            createdByAdmin: createdByAdmin
         }).getCommand());
 };
 
