@@ -7,13 +7,11 @@
 @import 'elyoos/_index';
 
 body, html {
-  background-color: $background-normal;
   height: 100%;
 }
 
 #viewport {
   padding-top: 56px;
-  background-color: $background-normal;
   @media screen and (min-width: $gt-sm) {
     padding-top: 64px;
   }
