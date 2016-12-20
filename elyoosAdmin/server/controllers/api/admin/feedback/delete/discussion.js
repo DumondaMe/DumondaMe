@@ -18,7 +18,7 @@ let schemaDeleteDiscussion = {
 
 module.exports = function (router) {
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
+    router.delete('/', auth.isAuthenticated(), function (req, res) {
 
         return controllerErrors('Error occurs deleting a discussion', req, res, logger, function () {
             return validation.validateRequest(req, schemaDeleteDiscussion, logger).then(function (request) {

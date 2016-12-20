@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = ['$state', '$stateParams', 'FeedbackDiscussionOverview', 'ScrollRequest', 'FeedbackDiscussionScrollRequestResponseHandler',
-    'ElyModal',
-    function ($state, $stateParams, FeedbackDiscussionOverview, ScrollRequest, FeedbackDiscussionScrollRequestResponseHandler, ElyModal) {
+    'ElyModal', '$mdDialog', 'FeedbackDeleteDiscussion', 'errorToast',
+    function ($state, $stateParams, FeedbackDiscussionOverview, ScrollRequest, FeedbackDiscussionScrollRequestResponseHandler, ElyModal, $mdDialog,
+              FeedbackDeleteDiscussion, errorToast) {
         var ctrl = this;
 
         ctrl.order = 'newestModification';
@@ -37,6 +38,27 @@ module.exports = ['$state', '$stateParams', 'FeedbackDiscussionOverview', 'Scrol
                 isEditMode: true, feedbackId: $stateParams.discussionId, title: ctrl.overview.discussion.title,
                 description: ctrl.overview.discussion.description
             }).then(function (resp) {
+                ctrl.overview.discussion.title = resp.title;
+                ctrl.overview.discussion.description = resp.description;
+                ctrl.overview.discussion.lastModified = resp.modified;
+            });
+        };
+
+        ctrl.deleteDiscussion = function () {
+            var confirm = $mdDialog.confirm()
+                .title("Diskussion löschen")
+                .textContent("Willst Du diese Diskussion wirklich löschen?")
+                .ariaLabel("Delete discussion")
+                .ok("Löschen")
+                .cancel("Abbrechen");
+            $mdDialog.show(confirm).then(function () {
+                FeedbackDeleteDiscussion.delete({
+                    discussionId: $stateParams.discussionId
+                }, function () {
+                    $state.go('feedback');
+                }, function () {
+                    errorToast.showError("Fehler beim Löschen der Discussion");
+                });
             });
         };
     }];

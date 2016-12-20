@@ -1,7 +1,6 @@
 'use strict';
 
 let db = requireDb();
-let util = require('./util');
 let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -20,8 +19,10 @@ let getDiscussionCommand = function (params) {
         .optionalMatch("(discussion)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
         .with("discussion, discussionIdea, creator, numberOfIdeas")
         .optionalMatch("(discussionIdea)<-[:RECOMMENDS|COMMENT]-(feedbackRef)")
-        .with("discussion, discussionIdea, creator, numberOfIdeas, max(feedbackRef.created) AS feedbackRef1Created, max(feedbackRef.modified) AS feedbackRef1Modified")
-        .unwind(`[feedbackRef1Created, feedbackRef1Modified, discussionIdea.created, discussionIdea.modified] AS feedbackRefModifiedCombined`)
+        .with(`discussion, discussionIdea, creator, numberOfIdeas, max(feedbackRef.created) AS feedbackRef1Created, 
+               max(feedbackRef.modified) AS feedbackRef1Modified`)
+        .unwind(`[feedbackRef1Created, feedbackRef1Modified, discussionIdea.created, discussionIdea.modified, 
+                discussion.modified] AS feedbackRefModifiedCombined`)
         .return("discussion, creator, numberOfIdeas, max(feedbackRefModifiedCombined) AS lastModified")
         .end(params);
 };

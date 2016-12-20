@@ -3,7 +3,12 @@
         <div id="overview-commands" layout="row" layout-wrap flex="none">
             <div>
                 <md-button class="md-raised md-primary" ng-click="ctrl.modifyDiscussion()" aria-label="modify discussion">
-                    Diskussion bearbeiten
+                    Bearbeiten
+                </md-button>
+            </div>
+            <div ng-if="ctrl.overview.discussion.numberOfIdeas === 0">
+                <md-button class="md-raised md-primary" ng-click="ctrl.deleteDiscussion()" aria-label="delete discussion">
+                    Löschen
                 </md-button>
             </div>
             <div>
@@ -16,7 +21,7 @@
                 <md-input-container>
                     <label>Sortiert nach</label>
                     <md-select ng-model="ctrl.order" class="md-no-underline overview-order" md-on-close="ctrl.filterChanged()">
-                        <md-option value="created">Datum erstellt</md-option>
+                        <md-option value="rated">Am besten Bewertet</md-option>
                         <md-option value="newestModification">Zuletzt geändert</md-option>
                     </md-select>
                 </md-input-container>

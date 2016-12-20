@@ -28,7 +28,7 @@ describe('Integration Tests for deleting a discussion', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/delete/discussion', {
+            return requestHandler.del('/api/admin/feedback/delete/discussion', {
                 discussionId: '1'
             }, requestAgent);
         }).then(function (res) {
@@ -51,7 +51,7 @@ describe('Integration Tests for deleting a discussion', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/delete/discussion', {
+            return requestHandler.del('/api/admin/feedback/delete/discussion', {
                 discussionId: '1'
             }, requestAgent);
         }).then(function (res) {
@@ -77,7 +77,7 @@ describe('Integration Tests for deleting a discussion', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/delete/discussion', {
+            return requestHandler.del('/api/admin/feedback/delete/discussion', {
                 discussionId: '3'
             }, requestAgent);
         }).then(function (res) {
