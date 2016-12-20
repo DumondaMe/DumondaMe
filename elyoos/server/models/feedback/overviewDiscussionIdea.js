@@ -50,6 +50,7 @@ let getOverview = function (userId, params) {
     return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(idea:Feedback:DiscussionIdea {status: {status}})
                                <-[:IS_CREATOR]-(creator)`)
         .optionalMatch("(idea)<-[:COMMENT]-(comments:Feedback:Comment)")
+        .where("NOT comments:Status")
         .with("count(comments) AS numberOfComments, idea, creator")
         .optionalMatch("(idea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
         .return(`idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations, 

@@ -4,7 +4,7 @@ var users = require('elyoos-server-test-util').user;
 var dbDsl = require('elyoos-server-test-util').dbDSL;
 var requestHandler = require('elyoos-server-test-util').requestHandler;
 
-describe('Integration Tests for getting bug detail comments', function () {
+describe('Integration Tests for getting detail comments', function () {
 
     var requestAgent;
 
@@ -20,10 +20,10 @@ describe('Integration Tests for getting bug detail comments', function () {
 
         dbDsl.createFeedbackBug('1', '1', 500);
 
-        dbDsl.createFeedbackComment('1', '2', '1', 501);
+        dbDsl.createFeedbackComment('1', '2', '1', 501, null, true);
         dbDsl.closeFeedback('1', '3', '3', 502);
         dbDsl.createFeedbackComment('1', '4', '2', 503);
-        dbDsl.createFeedbackComment('1', '5', '1', 504);
+        dbDsl.createFeedbackComment('1', '5', '1', 504, null, true);
         dbDsl.reopenFeedback('1', '6', '1', 505);
 
         return dbDsl.sendToDb().then(function () {
@@ -45,6 +45,7 @@ describe('Integration Tests for getting bug detail comments', function () {
             res.body.comments[1].text.should.equals('comment5Text');
             res.body.comments[1].created.should.equals(504);
             res.body.comments[1].feedbackId.should.equals('5');
+            res.body.comments[1].createdByAdmin.should.equals(true);
             res.body.comments[1].creator.userId.should.equals('1');
             res.body.comments[1].creator.name.should.equals('user Meier');
 
@@ -63,6 +64,7 @@ describe('Integration Tests for getting bug detail comments', function () {
             res.body.comments[4].text.should.equals('comment2Text');
             res.body.comments[4].created.should.equals(501);
             res.body.comments[4].feedbackId.should.equals('2');
+            res.body.comments[4].createdByAdmin.should.equals(true);
             res.body.comments[4].creator.userId.should.equals('1');
             res.body.comments[4].creator.name.should.equals('user Meier');
         });

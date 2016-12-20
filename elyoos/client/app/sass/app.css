@@ -562,6 +562,11 @@
             font-size: 14px;
             color: rgba(0, 0, 0, 0.87);
             margin-left: 8px; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .feedback-type .discussion-title {
+              font-weight: 500;
+              cursor: pointer; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .feedback-type .discussion-title:hover {
+              text-decoration: underline; }
         #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-detail-title {
           font-size: 29px;
           color: rgba(0, 0, 0, 0.87);
@@ -623,10 +628,16 @@
   #ely-feedback-detail-comment-container .comment-container {
     padding-bottom: 12px;
     margin-bottom: 12px; }
+    #ely-feedback-detail-comment-container .comment-container .info-header .status {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
     #ely-feedback-detail-comment-container .comment-container .info-header .name {
       font-size: 16px;
       color: rgba(0, 0, 0, 0.87);
       font-weight: 500; }
+    #ely-feedback-detail-comment-container .comment-container .info-header .admin {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87); }
     #ely-feedback-detail-comment-container .comment-container .info-header .date {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.54); }
@@ -636,6 +647,16 @@
       white-space: pre-wrap; }
       #ely-feedback-detail-comment-container .comment-container .comment-text .ely-expand-text-description {
         font-size: 16px; }
+  #ely-feedback-detail-comment-container .closed-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid #a94442;
+    background-color: #FFCDD2;
+    border-radius: 6px; }
+  #ely-feedback-detail-comment-container .open-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid #43a047;
+    background-color: #A5D6A7;
+    border-radius: 6px; }
   #ely-feedback-detail-comment-container .divider {
     border-bottom: solid 1px rgba(0, 0, 0, 0.12); }
 

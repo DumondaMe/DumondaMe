@@ -31,7 +31,7 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
         ctrl.deleteFeedback = function () {
             var confirm = $mdDialog.confirm()
                 .title("Feedback löschen")
-                .textContent("Willst du \"" + ctrl.detail.title +"\" wirklich löschen?")
+                .textContent("Willst du \"" + ctrl.detail.title + "\" wirklich löschen?")
                 .ariaLabel("Delete Feedback")
                 .ok("Löschen")
                 .cancel("Abbrechen");
@@ -39,7 +39,11 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
                 UserFeedback.delete({
                     feedbackId: $stateParams.feedbackId
                 }, function () {
-                    $state.go('feedback.overview', {group: ctrl.group, discussionId: $stateParams.discussionId});
+                    if (ctrl.group === 'DiscussionIdea') {
+                        $state.go('feedback.overview', {group: ctrl.group, discussionId: ctrl.detail.discussion.discussionId});
+                    } else {
+                        $state.go('feedback.overview', {group: ctrl.group});
+                    }
                 }, function () {
                     errorToast.showError("Fehler beim Löschen des Feedbacks");
                 });

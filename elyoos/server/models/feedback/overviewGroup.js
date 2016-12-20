@@ -43,6 +43,7 @@ let getOverview = function (userId, params) {
     return db.cypher().match("(feedback:Feedback {status: {status}})<-[:IS_CREATOR]-(creator)")
         .where("{group} IN labels(feedback)")
         .optionalMatch("(feedback)<-[:COMMENT]-(comments:Feedback:Comment)")
+        .where("NOT comments:Status")
         .with("count(comments) AS numberOfComments, feedback, creator")
         .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
         .with("count(recommendation) AS numberOfRecommendations, numberOfComments, feedback, creator")

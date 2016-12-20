@@ -6,7 +6,13 @@
                     <span class="status-open status" ng-show="ctrl.detail.status === 'open'">Offen</span>
                     <span class="status-closed status" ng-show="ctrl.detail.status === 'closed'">Erledigt</span>
                     <span class="feedback-type" ng-show="ctrl.group ==='Bug'">Kategorie: Fehler</span>
-                    <span class="feedback-type" ng-show="ctrl.group ==='Idea' || ctrl.group ==='DiscussionIdea'">Kategorie: Idee</span>
+                    <span class="feedback-type" ng-show="ctrl.detail.type ==='Idea'">Kategorie: Idee</span>
+                    <span class="feedback-type" ng-show="ctrl.detail.type ==='DiscussionIdea'">
+                        Kategorie: Idee zur Fragestellung -
+                        <span class="discussion-title"
+                              ui-sref="feedback.overview({group: 'DiscussionIdea', discussionId:ctrl.detail.discussion.discussionId})">
+                            {{ctrl.detail.discussion.title}}</span>
+                    </span>
                 </div>
                 <div class="ely-feedback-detail-title">{{ctrl.detail.title}}</div>
                 <div class="ely-feedback-subheading">Erstellt {{ctrl.getFormattedDate(ctrl.detail.created, true)}} von

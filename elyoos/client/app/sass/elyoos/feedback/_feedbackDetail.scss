@@ -32,6 +32,13 @@
             font-size: 14px;
             color: $primary-text;
             margin-left: 8px;
+            .discussion-title {
+              font-weight: 500;
+              cursor: pointer;
+            }
+            .discussion-title:hover {
+              text-decoration: underline;
+            }
           }
         }
         .ely-feedback-detail-title {

@@ -24,6 +24,7 @@ let getCommentMessage = function (comments) {
             resultComment.text = comment.comment.text;
             resultComment.status = comment.comment.status;
             resultComment.created = comment.comment.created;
+            resultComment.createdByAdmin = comment.comment.createdByAdmin;
             resultComment.feedbackId = comment.comment.feedbackId;
             resultComment.creator = {userId: comment.creator.userId, name: comment.creator.name};
             result.push(resultComment);
