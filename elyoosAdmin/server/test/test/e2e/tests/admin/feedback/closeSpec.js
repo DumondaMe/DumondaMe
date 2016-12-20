@@ -103,22 +103,9 @@ describe('Integration Tests for closing a feedback', function () {
         });
     });
 
-    it('Close not existing feedback (400)', function () {
+    it('Close a discussion idea', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600);
-
-        return dbDsl.sendToDb().then(function () {
-            return requestHandler.login(users.validUser);
-        }).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(400);
-        });
-    });
-
-    it('Close a discussionIdea is not allowed (400)', function () {
-
+        let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createFeedbackDiscussion('1', '1', 507);
@@ -130,11 +117,32 @@ describe('Integration Tests for closing a feedback', function () {
             requestAgent = agent;
             return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
         }).then(function (res) {
-            res.status.should.equal(400);
+            res.status.should.equal(200);
+            res.body.closedDate.should.be.at.least(startTime);
+            statusFeedbackId = res.body.statusFeedbackId;
             return db.cypher().match("(feedback:Feedback {feedbackId: '2'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
         }).then(function (feedback) {
-            feedback.length.should.equals(0);
+            feedback.length.should.equals(1);
+            feedback[0].feedback.status.should.equals("closed");
+            feedback[0].status.created.should.be.at.least(startTime);
+            feedback[0].status.text.should.equals("So ein Grund");
+            feedback[0].status.status.should.equals("closed");
+            feedback[0].status.feedbackId.should.equals(statusFeedbackId);
+        });
+    });
+
+    it('Close not existing feedback (400)', function () {
+
+        dbDsl.createFeedbackIdea('1', '1', 500, 600);
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '2', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
         });
     });
 });
