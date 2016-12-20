@@ -536,7 +536,7 @@
   #ely-feedback-detail #ely-feedback-detail2 {
     height: 100%;
     overflow-y: scroll;
-    background-color: #f1f1f1; }
+    background-color: white; }
     #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container {
       max-width: 900px;
       padding: 32px 16px 16px 16px;
@@ -644,7 +644,7 @@
   #ely-feedback-group-overview #ely-feedback-group-overview2 {
     height: 100%;
     overflow-y: scroll;
-    background-color: #f1f1f1; }
+    background-color: white; }
     #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container {
       max-width: 900px;
       padding: 32px 16px 16px 16px;
