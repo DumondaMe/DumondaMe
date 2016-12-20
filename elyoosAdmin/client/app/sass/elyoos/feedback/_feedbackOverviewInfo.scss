@@ -43,6 +43,21 @@
           color: $primary-text;
         }
       }
+      .status-container {
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        .status-open {
+          padding: 4px;
+          border-radius: 4px;
+          background-color: $open;
+        }
+        .status-closed {
+          padding: 4px;
+          border-radius: 4px;
+          background-color: $closed;
+        }
+      }
     }
   }
 }

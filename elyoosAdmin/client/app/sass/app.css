@@ -315,6 +315,18 @@
         font-size: 14px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.87); }
+    .feedback-info-container .feedback-element-info .info-container .status-container {
+      font-size: 12px;
+      font-weight: 500;
+      color: white; }
+      .feedback-info-container .feedback-element-info .info-container .status-container .status-open {
+        padding: 4px;
+        border-radius: 4px;
+        background-color: #43a047; }
+      .feedback-info-container .feedback-element-info .info-container .status-container .status-closed {
+        padding: 4px;
+        border-radius: 4px;
+        background-color: #a94442; }
 
 #ely-home {
   position: relative;

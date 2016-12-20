@@ -25,6 +25,10 @@
             <div class="number-container" flex="none" ng-show="ctrl.feedback.type === 'Discussion'">
                 <span class="number">{{ctrl.feedback.numberOfIdeas}}</span>
             </div>
+            <div class="status-container">
+                <div class="status-open" ng-if="ctrl.feedback.status === 'open'">Offen</div>
+                <div class="status-closed" ng-if="ctrl.feedback.status === 'closed'">Erledigt</div>
+            </div>
             <span flex></span>
         </div>
     </div>

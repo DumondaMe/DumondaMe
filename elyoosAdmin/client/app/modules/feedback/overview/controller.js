@@ -5,7 +5,6 @@ module.exports = ['$state', 'OverviewFeedbackDetail', 'ScrollRequest', 'Overview
     function ($state, OverviewFeedbackDetail, ScrollRequest, OverviewFeedbackDetailScrollRequestResponseHandler, ElyModal) {
         var ctrl = this;
 
-        ctrl.overview = {feedback: []};
         ctrl.status = 'open';
         ctrl.statusPrevious = ctrl.status;
         ctrl.order = 'newestModification';
@@ -23,6 +22,7 @@ module.exports = ['$state', 'OverviewFeedbackDetail', 'ScrollRequest', 'Overview
         };
 
         ctrl.initNextFeedback = function () {
+            ctrl.overview = {feedback: []};
             ScrollRequest.reset('OverviewFeedbackDetail', OverviewFeedbackDetail.get, OverviewFeedbackDetailScrollRequestResponseHandler);
             ctrl.nextFeedback();
         };

@@ -63,6 +63,7 @@ let getFeedback = function (feedbacks) {
         if (feedback.hasOwnProperty('discussionIdea')) {
             formattedFeedback.title = feedback.discussionIdea.title;
             formattedFeedback.created = feedback.discussionIdea.created;
+            formattedFeedback.status = feedback.discussionIdea.status;
             formattedFeedback.lastModified = feedback.lastModified;
             formattedFeedback.feedbackId = feedback.discussionIdea.feedbackId;
             formattedFeedback.type = 'DiscussionIdea';

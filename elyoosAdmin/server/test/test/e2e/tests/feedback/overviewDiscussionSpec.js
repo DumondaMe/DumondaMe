@@ -26,7 +26,8 @@ describe('Integration Tests for getting discussion overview', function () {
 
         dbDsl.createFeedbackComment('3', '6', '3', 512);
         dbDsl.closeFeedback('3', '10', '1', 502);
-        dbDsl.reopenFeedback('3', '11', '1', 513);
+        dbDsl.reopenFeedback('3', '11', '1', 511);
+        dbDsl.closeFeedback('3', '10', '1', 513);
 
         dbDsl.createFeedbackRecommendation('4', '7', '2', 513);
         dbDsl.createFeedbackRecommendation('4', '8', '3', 514);
@@ -51,6 +52,7 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[0].lastModified.should.equals(514);
             res.body.feedback[0].feedbackId.should.equals("4");
             res.body.feedback[0].type.should.equals("DiscussionIdea");
+            res.body.feedback[0].status.should.equals("open");
             res.body.feedback[0].creator.name.should.equals("user Meier2");
             res.body.feedback[0].numberOfRecommendations.should.equals(2);
             res.body.feedback[0].numberOfComments.should.equals(0);
@@ -60,6 +62,7 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[1].lastModified.should.equals(513);
             res.body.feedback[1].feedbackId.should.equals("3");
             res.body.feedback[1].type.should.equals("DiscussionIdea");
+            res.body.feedback[1].status.should.equals("closed");
             res.body.feedback[1].creator.name.should.equals("user Meier");
             res.body.feedback[1].numberOfRecommendations.should.equals(0);
             res.body.feedback[1].numberOfComments.should.equals(1);
@@ -72,7 +75,7 @@ describe('Integration Tests for getting discussion overview', function () {
 
         dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 450);
         dbDsl.createFeedbackDiscussionIdea('3', '1', '3', 509);
-        dbDsl.createFeedbackDiscussionIdea('4', '1', '2', 510);
+        dbDsl.createFeedbackDiscussionIdea('4', '1', '2', 510, 510, 'closed');
 
         dbDsl.createFeedbackComment('2', '5', '3', 500);
         dbDsl.createFeedbackComment('2', '6', '3', 505);
@@ -104,6 +107,7 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[0].lastModified.should.equals(514);
             res.body.feedback[0].feedbackId.should.equals("2");
             res.body.feedback[0].type.should.equals("DiscussionIdea");
+            res.body.feedback[0].status.should.equals("open");
             res.body.feedback[0].creator.name.should.equals("user Meier");
             res.body.feedback[0].numberOfRecommendations.should.equals(0);
             res.body.feedback[0].numberOfComments.should.equals(2);
@@ -113,6 +117,7 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[1].lastModified.should.equals(513);
             res.body.feedback[1].feedbackId.should.equals("3");
             res.body.feedback[1].type.should.equals("DiscussionIdea");
+            res.body.feedback[1].status.should.equals("open");
             res.body.feedback[1].creator.name.should.equals("user Meier3");
             res.body.feedback[1].numberOfRecommendations.should.equals(2);
             res.body.feedback[1].numberOfComments.should.equals(0);
@@ -122,6 +127,7 @@ describe('Integration Tests for getting discussion overview', function () {
             res.body.feedback[2].lastModified.should.equals(510);
             res.body.feedback[2].feedbackId.should.equals("4");
             res.body.feedback[2].type.should.equals("DiscussionIdea");
+            res.body.feedback[2].status.should.equals("closed");
             res.body.feedback[2].creator.name.should.equals("user Meier2");
             res.body.feedback[2].numberOfRecommendations.should.equals(0);
             res.body.feedback[2].numberOfComments.should.equals(1);
