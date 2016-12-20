@@ -36,6 +36,7 @@ let getDiscussionIdeas = function (params) {
         .optionalMatch("(discussionIdea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
         .with("creator, discussionIdea, feedbackRef1Created, feedbackRef1Modified, count(recommendation) AS numberOfRecommendations")
         .optionalMatch("(discussionIdea)<-[:COMMENT]-(comment:Feedback:Comment)")
+        .where("NOT comment:Status")
         .with("creator, discussionIdea, feedbackRef1Created, feedbackRef1Modified, numberOfRecommendations, count(comment) AS numberOfComments")
         .unwind(`[feedbackRef1Created, feedbackRef1Modified, discussionIdea.created, discussionIdea.modified] AS feedbackRefModifiedCombined`)
         .return(`creator, discussionIdea, max(feedbackRefModifiedCombined) AS lastModified, 

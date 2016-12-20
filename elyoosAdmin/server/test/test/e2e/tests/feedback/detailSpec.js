@@ -18,16 +18,18 @@ describe('Integration Tests for getting feedback detail', function () {
 
     it('Getting bug detail', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500, 600);
+        dbDsl.createFeedbackBug('1', '1', 400, 600);
 
         dbDsl.createFeedbackComment('1', '2', '1', 501);
         dbDsl.createFeedbackComment('1', '3', '2', 502);
         dbDsl.createFeedbackComment('1', '4', '1', 503);
+        dbDsl.closeFeedback('1', '6', '3', 450);
+        dbDsl.reopenFeedback('1', '5', '3', 451);
 
-        dbDsl.createFeedbackRecommendation('1', '5', '2', 504);
-        dbDsl.createFeedbackRecommendation('1', '6', '3', 505);
-        dbDsl.createFeedbackRecommendation('1', '7', '4', 506);
-        dbDsl.createFeedbackRecommendation('1', '8', '5', 506);
+        dbDsl.createFeedbackRecommendation('1', '7', '2', 504);
+        dbDsl.createFeedbackRecommendation('1', '8', '3', 505);
+        dbDsl.createFeedbackRecommendation('1', '9', '4', 506);
+        dbDsl.createFeedbackRecommendation('1', '10', '5', 506);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -42,7 +44,7 @@ describe('Integration Tests for getting feedback detail', function () {
             res.body.description.should.equals('bug1Description');
             res.body.status.should.equals('open');
             res.body.type.should.equals('Bug');
-            res.body.created.should.equals(500);
+            res.body.created.should.equals(400);
             res.body.modified.should.equals(600);
             res.body.creator.name.should.equals('user Meier');
             res.body.creator.userId.should.equals('1');

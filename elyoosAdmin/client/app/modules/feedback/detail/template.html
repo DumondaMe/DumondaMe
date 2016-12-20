@@ -18,8 +18,7 @@
                 <div class="ely-feedback-info-container" layout="row">
                     <div>
                         <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback" ng-hide="ctrl.runningUpload"
-                                   ng-disabled="ctrl.detail.recommendedByUser || ctrl.detail.createdByUser"
-                                   ng-click="ctrl.recommendFeedback()">
+                                   ng-disabled="true">
                             <md-icon md-svg-icon="icons:thumbUp" class="action-icon"></md-icon>
                         </md-button>
                         <md-progress-circular ng-show="ctrl.runningUpload" class="load-feedback-recommendation" md-mode="indeterminate"
@@ -38,6 +37,16 @@
                     <div>
                         <md-button class="md-raised md-primary create-comment" ng-click="ctrl.commands.createComment()" aria-label="create Comment">
                             Kommentar erstellen
+                        </md-button>
+                    </div>
+                    <div ng-if="ctrl.detail.status === 'open'">
+                        <md-button class="md-raised md-primary" ng-click="ctrl.closeDiscussion()" aria-label="close discussion">
+                            Schliessen
+                        </md-button>
+                    </div>
+                    <div ng-if="ctrl.detail.status === 'closed'">
+                        <md-button class="md-raised md-primary" ng-click="ctrl.reopenDiscussion()" aria-label="open discussion">
+                            Öffnen
                         </md-button>
                     </div>
                     <span flex></span>

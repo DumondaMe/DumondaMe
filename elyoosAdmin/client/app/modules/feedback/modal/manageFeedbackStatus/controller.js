@@ -24,7 +24,14 @@ module.exports = ['ElyModal', 'FeedbackClose', 'FeedbackReopen',
             delete ctrl.error;
             ctrl.getService(ctrl.action).save({feedbackId: ctrl.feedbackId, reasonText: ctrl.reasonText}, function (resp) {
                 resp.title = ctrl.title;
+                resp.text = ctrl.reasonText;
+                resp.created = resp.closedDate;
                 ctrl.uploadRunning = false;
+                if(ctrl.action === 'reopen') {
+                    resp.status = 'open';
+                } else {
+                    resp.status = 'closed';
+                }
                 ElyModal.hide(resp);
             }, function () {
                 ctrl.error = "Fehler beim ändern des Status";

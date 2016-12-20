@@ -25,6 +25,8 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackDiscussionIdea('5', '2', '2', 511);
 
         dbDsl.createFeedbackComment('3', '6', '3', 512);
+        dbDsl.closeFeedback('3', '10', '1', 502);
+        dbDsl.reopenFeedback('3', '11', '1', 513);
 
         dbDsl.createFeedbackRecommendation('4', '7', '2', 513);
         dbDsl.createFeedbackRecommendation('4', '8', '3', 514);
@@ -55,7 +57,7 @@ describe('Integration Tests for getting discussion overview', function () {
 
             res.body.feedback[1].title.should.equals("discussionIdea3Title");
             res.body.feedback[1].created.should.equals(509);
-            res.body.feedback[1].lastModified.should.equals(512);
+            res.body.feedback[1].lastModified.should.equals(513);
             res.body.feedback[1].feedbackId.should.equals("3");
             res.body.feedback[1].type.should.equals("DiscussionIdea");
             res.body.feedback[1].creator.name.should.equals("user Meier");
@@ -73,7 +75,9 @@ describe('Integration Tests for getting discussion overview', function () {
         dbDsl.createFeedbackDiscussionIdea('4', '1', '2', 510);
 
         dbDsl.createFeedbackComment('2', '5', '3', 500);
-        dbDsl.createFeedbackComment('2', '6', '3', 514);
+        dbDsl.createFeedbackComment('2', '6', '3', 505);
+        dbDsl.closeFeedback('2', '10', '1', 502);
+        dbDsl.reopenFeedback('2', '11', '1', 514);
 
         dbDsl.createFeedbackComment('4', '7', '3', 505);
 

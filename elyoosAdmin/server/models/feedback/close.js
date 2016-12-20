@@ -12,6 +12,8 @@ let allowedToCloseFeedback = function (feedbackId, req) {
         .end({feedbackId: feedbackId}).send().then(function (resp) {
             if (resp.length === 0) {
                 return exceptions.getInvalidOperation(`Feedback does not exist ${feedbackId}`, logger, req);
+            } else if (resp[0].feedback.status === 'closed') {
+                return exceptions.getInvalidOperation(`Feedback already closed ${feedbackId}`, logger, req);
             }
         });
 };
@@ -24,9 +26,10 @@ let close = function (userId, params, req) {
             .set("feedback", {status: 'closed'})
             .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment:Status {status:'closed', feedbackId: {statusFeedbackId}, created: {closed}, 
                         text: {reasonText}})<-[:IS_CREATOR]-(user)`)
+            .return("user.name AS name")
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
-            .send().then(function () {
-                return {closedDate: closed, statusFeedbackId: statusFeedbackId};
+            .send().then(function (resp) {
+                return {closedDate: closed, statusFeedbackId: statusFeedbackId, creator: {name: resp[0].name}};
             });
     });
 };

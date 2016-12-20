@@ -33,6 +33,7 @@ describe('Integration Tests for closing a feedback', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
+            res.body.creator.name.should.equals("user Meier");
             statusFeedbackId = res.body.statusFeedbackId;
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
@@ -61,6 +62,7 @@ describe('Integration Tests for closing a feedback', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
+            res.body.creator.name.should.equals("user Meier");
             statusFeedbackId = res.body.statusFeedbackId;
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
@@ -90,6 +92,7 @@ describe('Integration Tests for closing a feedback', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
+            res.body.creator.name.should.equals("user Meier");
             statusFeedbackId = res.body.statusFeedbackId;
             return db.cypher().match("(feedback:Feedback {feedbackId: '1'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
@@ -119,6 +122,7 @@ describe('Integration Tests for closing a feedback', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.closedDate.should.be.at.least(startTime);
+            res.body.creator.name.should.equals("user Meier");
             statusFeedbackId = res.body.statusFeedbackId;
             return db.cypher().match("(feedback:Feedback {feedbackId: '2'})<-[]-(status:Feedback:Comment:Status)<-[:IS_CREATOR]-(:User {userId: '1'})")
                 .return('feedback, status').end().send();
@@ -129,6 +133,20 @@ describe('Integration Tests for closing a feedback', function () {
             feedback[0].status.text.should.equals("So ein Grund");
             feedback[0].status.status.should.equals("closed");
             feedback[0].status.feedbackId.should.equals(statusFeedbackId);
+        });
+    });
+
+    it('Close already closed feedback (400)', function () {
+
+        dbDsl.createFeedbackIdea('1', '1', 500, 600, 'closed');
+
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/admin/feedback/close', {feedbackId: '1', reasonText: 'So ein Grund'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(400);
         });
     });
 

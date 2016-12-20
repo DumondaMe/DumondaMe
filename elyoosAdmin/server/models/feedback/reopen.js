@@ -24,11 +24,12 @@ let open = function (userId, params, req) {
     return allowedToOpenFeedback(params.feedbackId, req).then(function () {
         return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {userId}})")
             .set("feedback", {status: 'open'})
-            .create(`(feedback)<-[:Test]-(:Feedback:Comment:Status {status:'open', feedbackId: {statusFeedbackId}, created: {closed}, 
+            .create(`(feedback)<-[:COMMENT]-(:Feedback:Comment:Status {status:'open', feedbackId: {statusFeedbackId}, created: {closed}, 
                         text: {reasonText}})<-[:IS_CREATOR]-(user)`)
+            .return("user.name AS name")
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
-            .send().then(function () {
-                return {closedDate: closed, statusFeedbackId: statusFeedbackId};
+            .send().then(function (resp) {
+                return {closedDate: closed, statusFeedbackId: statusFeedbackId, creator: {name: resp[0].name}};
             });
     });
 };

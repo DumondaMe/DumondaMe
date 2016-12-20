@@ -34,6 +34,10 @@ module.exports = ['$scope', '$stateParams', 'FeedbackDetailComment', 'dateFormat
                     ctrl.addedComment();
                 });
             };
+            ctrl.commands.addStatus = function (status) {
+                ctrl.comments.comments.unshift(status);
+                ScrollRequest.addedElement('feedbackComments');
+            };
             ctrl.commands.nextFeedbackComments = ctrl.nextFeedbackComments;
         }
     }];

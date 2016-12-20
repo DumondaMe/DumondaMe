@@ -11,7 +11,7 @@ let getNumberOfOpenFeedback = function () {
 
 let getOverviewOfFeedback = function (params) {
     return db.cypher().match(`(feedback:Feedback)<-[:IS_CREATOR|:RECOMMENDED_BY]-(creator:User)`)
-        .where("NOT feedback:Discussion")
+        .where("NOT feedback:Discussion AND NOT feedback:Status")
         .optionalMatch("(feedbackParent)<-[:RECOMMENDS|COMMENT]-(feedback)")
         .where("(feedback:Comment OR feedback:Recommendation)")
         .with("feedback, feedbackParent, creator")

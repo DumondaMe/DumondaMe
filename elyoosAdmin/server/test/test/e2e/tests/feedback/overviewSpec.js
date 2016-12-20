@@ -30,6 +30,9 @@ describe('Integration Tests for getting feedback overview', function () {
 
         dbDsl.createFeedbackRecommendation('1', '8', '2', 512);
 
+        dbDsl.closeFeedback('1', '9', '3', 502);
+        dbDsl.reopenFeedback('1', '10', '1', 505);
+
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {

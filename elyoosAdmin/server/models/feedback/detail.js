@@ -6,6 +6,7 @@ let util = require('./util');
 let getFeedbackDetail = function (userId, feedbackId) {
     return db.cypher().match(`(feedback:Feedback {feedbackId: {feedbackId}})<-[:IS_CREATOR]-(creator:User)`)
         .optionalMatch("(feedback)<-[:COMMENT]-(comment:Feedback:Comment)")
+        .where("NOT comment:Status")
         .with("feedback, creator, count(comment) AS numberOfComments")
         .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
         .return(`feedback, LABELS(feedback) AS type, creator, numberOfComments, count(recommendation) AS numberOfRecommendations`)

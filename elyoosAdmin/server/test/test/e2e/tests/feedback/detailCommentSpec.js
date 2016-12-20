@@ -58,6 +58,7 @@ describe('Integration Tests for getting feedback detail comments', function () {
             res.body.comments[3].text.should.equals('closed3Text');
             res.body.comments[3].created.should.equals(502);
             res.body.comments[3].feedbackId.should.equals('3');
+            res.body.comments[3].status.should.equals('closed');
             res.body.comments[3].creator.userId.should.equals('3');
             res.body.comments[3].creator.name.should.equals('user Meier3');
 

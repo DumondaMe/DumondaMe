@@ -192,6 +192,16 @@
       white-space: pre-wrap; }
       #ely-feedback-detail-comment-container .comment-container .comment-text .ely-expand-text-description {
         font-size: 16px; }
+  #ely-feedback-detail-comment-container .closed-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid #a94442;
+    background-color: #FFCDD2;
+    border-radius: 6px; }
+  #ely-feedback-detail-comment-container .open-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid #43a047;
+    background-color: #A5D6A7;
+    border-radius: 6px; }
   #ely-feedback-detail-comment-container .divider {
     border-bottom: solid 1px rgba(0, 0, 0, 0.12); }
 

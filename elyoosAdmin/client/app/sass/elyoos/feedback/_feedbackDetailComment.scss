@@ -27,6 +27,18 @@
       }
     }
   }
+  .closed-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid $closed;
+    background-color: $closed-background;
+    border-radius: 6px;
+  }
+  .open-status {
+    padding: 8px 8px 12px 8px;
+    border: 3px solid $open;
+    background-color: $open-background;
+    border-radius: 6px;
+  }
   .divider {
     border-bottom: solid 1px $divider;
   }
