@@ -28,9 +28,12 @@ describe('Integration Tests edit bug feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/bug', {
                 title: 'title',
                 description: 'description',
+                screen: 'tablet',
+                browser: 'other',
+                operatingSystem: 'macOs',
                 feedbackId: '1'
             }, requestAgent);
         }).then(function (res) {
@@ -46,6 +49,9 @@ describe('Integration Tests edit bug feedback', function () {
             feedback[0].feedback.title.should.equals("title");
             feedback[0].feedback.description.should.equals("description");
             feedback[0].feedback.status.should.equals("open");
+            feedback[0].feedback.screen.should.equals("tablet");
+            feedback[0].feedback.browser.should.equals("other");
+            feedback[0].feedback.operatingSystem.should.equals("macOs");
         });
     });
 
@@ -57,9 +63,12 @@ describe('Integration Tests edit bug feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/bug', {
                 title: 'title',
                 description: 'description',
+                screen: 'tablet',
+                browser: 'other',
+                operatingSystem: 'macOs',
                 feedbackId: '1'
             }, requestAgent);
         }).then(function (res) {
@@ -84,9 +93,12 @@ describe('Integration Tests edit bug feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/bug', {
                 title: 'title',
                 description: 'description',
+                screen: 'tablet',
+                browser: 'other',
+                operatingSystem: 'macOs',
                 feedbackId: '1'
             }, requestAgent);
         }).then(function (res) {

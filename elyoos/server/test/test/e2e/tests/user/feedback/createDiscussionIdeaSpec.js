@@ -35,12 +35,10 @@ describe('Integration Tests creating a idea for a discussion', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/create', {
-                discussion: {
-                    title: 'title',
-                    description: 'description',
-                    discussionId: '5'
-                }
+            return requestHandler.post('/api/user/feedback/create/discussionIdea', {
+                title: 'title',
+                description: 'description',
+                discussionId: '5'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -74,12 +72,10 @@ describe('Integration Tests creating a idea for a discussion', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/create', {
-                discussion: {
-                    title: 'title',
-                    description: 'description',
-                    discussionId: '4'
-                }
+            return requestHandler.post('/api/user/feedback/create/discussionIdea', {
+                title: 'title',
+                description: 'description',
+                discussionId: '4'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);

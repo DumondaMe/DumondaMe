@@ -35,12 +35,12 @@ describe('Integration Tests creating bug feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/create', {
-                normal: {
-                    title: 'title',
-                    description: 'description',
-                    group: 'Bug'
-                }
+            return requestHandler.post('/api/user/feedback/create/bug', {
+                title: 'title',
+                description: 'description',
+                screen: 'desktop',
+                browser: 'chrome',
+                operatingSystem: 'linux'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -55,6 +55,9 @@ describe('Integration Tests creating bug feedback', function () {
             feedback[0].feedback.title.should.equals("title");
             feedback[0].feedback.description.should.equals("description");
             feedback[0].feedback.status.should.equals("open");
+            feedback[0].feedback.screen.should.equals("desktop");
+            feedback[0].feedback.browser.should.equals("chrome");
+            feedback[0].feedback.operatingSystem.should.equals("linux");
         });
     });
 });

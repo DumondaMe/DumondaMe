@@ -35,12 +35,9 @@ describe('Integration Tests creating idea feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/create', {
-                normal: {
-                    title: 'title',
-                    description: 'description',
-                    group: 'Idea'
-                }
+            return requestHandler.post('/api/user/feedback/create/idea', {
+                title: 'title',
+                description: 'description'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);

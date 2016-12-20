@@ -3,21 +3,29 @@
 var db = require('../db');
 var dbConnectionHandling = require('./dbConnectionHandling');
 
-var createFeedbackBug = function (feedbackId, creatorUserId, created, modified, status, title, description) {
-    title = title || `bug${feedbackId}Title`;
-    description = description || `bug${feedbackId}Description`;
+var createFeedbackBug = function (feedbackId, creatorUserId, created, modified, status, params) {
+    params = params || {};
+    params.title = params.title || `bug${feedbackId}Title`;
+    params.description = params.description || `bug${feedbackId}Description`;
+    params.operatingSystem = params.operatingSystem || `linux`;
+    params.screen = params.screen || `desktop`;
+    params.browser = params.browser || `firefox`;
     status = status || `open`;
     modified = modified || created;
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {creatorUserId}})').create(`(:Feedback:Bug  {title: {title}, 
-    description: {description}, status: {status}, created: {created}, modified: {modified}, feedbackId: {feedbackId}})<-[:IS_CREATOR]-(user)`)
+    description: {description}, status: {status}, created: {created}, modified: {modified}, feedbackId: {feedbackId}, 
+    operatingSystem: {operatingSystem}, screen: {screen}, browser: {browser}})<-[:IS_CREATOR]-(user)`)
         .end({
             feedbackId: feedbackId,
-            title: title,
-            description: description,
+            title: params.title,
+            description: params.description,
             created: created,
             modified: modified,
             creatorUserId: creatorUserId,
-            status: status
+            status: status,
+            operatingSystem: params.operatingSystem,
+            screen: params.screen,
+            browser: params.browser
         }).getCommand());
 };
 

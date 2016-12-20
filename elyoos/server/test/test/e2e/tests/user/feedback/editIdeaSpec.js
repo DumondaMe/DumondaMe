@@ -28,7 +28,7 @@ describe('Integration Tests edit idea feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '1'
@@ -57,7 +57,7 @@ describe('Integration Tests edit idea feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '1'
@@ -84,7 +84,7 @@ describe('Integration Tests edit idea feedback', function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/feedback/edit', {
+            return requestHandler.post('/api/user/feedback/edit/idea', {
                 title: 'title',
                 description: 'description',
                 feedbackId: '1'

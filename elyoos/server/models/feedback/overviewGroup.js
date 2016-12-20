@@ -10,6 +10,9 @@ let getFeedbackList = function (userId, feedbacks) {
         formattedFeedback.description = feedback.feedback.description;
         formattedFeedback.created = feedback.feedback.created;
         formattedFeedback.feedbackId = feedback.feedback.feedbackId;
+        formattedFeedback.operatingSystem = feedback.feedback.operatingSystem;
+        formattedFeedback.browser = feedback.feedback.browser;
+        formattedFeedback.screen = feedback.feedback.screen;
         formattedFeedback.creator = {userId: feedback.creator.userId, name: feedback.creator.name};
         formattedFeedback.createdByUser = feedback.creator.userId === userId;
         formattedFeedback.numberOfComments = feedback.numberOfComments;
