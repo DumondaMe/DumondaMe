@@ -4,6 +4,10 @@
     padding-bottom: 12px;
     margin-bottom: 12px;
     .info-header {
+      .status {
+        font-size: 14px;
+        color: $secondary-text;
+      }
       .name {
         font-size: 16px;
         color: $primary-text;

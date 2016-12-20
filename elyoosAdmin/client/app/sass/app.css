@@ -115,6 +115,11 @@
             font-size: 14px;
             color: rgba(0, 0, 0, 0.87);
             margin-left: 8px; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .feedback-type .discussion-title {
+              font-weight: 500;
+              cursor: pointer; }
+            #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-status-container .feedback-type .discussion-title:hover {
+              text-decoration: underline; }
         #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-detail-title {
           font-size: 29px;
           color: rgba(0, 0, 0, 0.87);
@@ -176,6 +181,9 @@
   #ely-feedback-detail-comment-container .comment-container {
     padding-bottom: 12px;
     margin-bottom: 12px; }
+    #ely-feedback-detail-comment-container .comment-container .info-header .status {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
     #ely-feedback-detail-comment-container .comment-container .info-header .name {
       font-size: 16px;
       color: rgba(0, 0, 0, 0.87);

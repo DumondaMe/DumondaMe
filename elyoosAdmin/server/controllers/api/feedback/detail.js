@@ -23,7 +23,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting feedback detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetDetail, logger).then(function (request) {
                 logger.info("User requests feedback detail", req);
-                return feedbackDetail.getDetail(req.user.id, request);
+                return feedbackDetail.getDetail(req.user.id, request, req);
             }).then(function (data) {
                 res.status(200).json(data);
             });
