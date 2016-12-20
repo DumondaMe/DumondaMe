@@ -61,4 +61,20 @@ module.exports = ['$state', '$stateParams', 'FeedbackDiscussionOverview', 'Scrol
                 });
             });
         };
+
+        ctrl.closeDiscussion = function() {
+            ElyModal.show('FeedbackManageStatusCtrl', 'app/modules/feedback/modal/manageFeedbackStatus/template.html', {
+                action: 'close', feedbackId: $stateParams.discussionId
+            }).then(function () {
+                ctrl.overview.discussion.status = 'closed';
+            });
+        };
+
+        ctrl.reopenDiscussion = function() {
+            ElyModal.show('FeedbackManageStatusCtrl', 'app/modules/feedback/modal/manageFeedbackStatus/template.html', {
+                action: 'reopen', feedbackId: $stateParams.discussionId
+            }).then(function () {
+                ctrl.overview.discussion.status = 'open';
+            });
+        };
     }];

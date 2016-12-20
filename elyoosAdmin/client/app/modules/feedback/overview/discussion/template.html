@@ -11,9 +11,14 @@
                     Löschen
                 </md-button>
             </div>
-            <div>
-                <md-button class="md-raised md-primary" ng-click="ctrl.createDiscussionIdea()" aria-label="create discussion idea">
-                    Idee hinzufügen
+            <div ng-if="ctrl.overview.discussion.status === 'open'">
+                <md-button class="md-raised md-primary" ng-click="ctrl.closeDiscussion()" aria-label="close discussion">
+                    Schliessen
+                </md-button>
+            </div>
+            <div ng-if="ctrl.overview.discussion.status === 'closed'">
+                <md-button class="md-raised md-primary" ng-click="ctrl.reopenDiscussion()" aria-label="reopen discussion">
+                    Öffnen
                 </md-button>
             </div>
             <span flex></span>

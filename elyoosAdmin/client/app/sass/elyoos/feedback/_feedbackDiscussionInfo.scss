@@ -4,6 +4,28 @@
   border-bottom: 1px solid $divider;
   #feedback-discussion-inner-container {
     padding-left: 16px;
+    .ely-feedback-status-container {
+      margin-bottom: 14px;
+      margin-top: 4px;
+      .status {
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 8px;
+      }
+      .status-open {
+        background-color: $success;
+      }
+      .status-closed {
+        background-color: #a94442;
+      }
+      .feedback-type {
+        font-size: 14px;
+        color: $primary-text;
+        margin-left: 8px;
+      }
+    }
     .discussion-title {
       font-size: 18px;
       color: $primary-text;
