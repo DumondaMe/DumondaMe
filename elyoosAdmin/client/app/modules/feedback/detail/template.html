@@ -20,6 +20,11 @@
                         {{ctrl.getFormattedDate(ctrl.detail.modified, true)}}
                     </span>
                 </div>
+                <div class="ely-feedback-bug-overview" ng-if="ctrl.detail.type ==='Bug'" layout="row">
+                    <div>Browser: <span class="bug-info">{{ctrl.browser}}</span></div>
+                    <div>Betriebssystem: <span class="bug-info">{{ctrl.operatingSystem}}</span></div>
+                    <div>Bildschirm: <span class="bug-info">{{ctrl.screen}}</span></div>
+                </div>
                 <div class="ely-feedback-info-container" layout="row">
                     <div>
                         <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback" ng-hide="ctrl.runningUpload"

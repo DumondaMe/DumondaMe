@@ -27,6 +27,9 @@ let getFeedbackMessage = function (feedback) {
         created: feedback.feedback.created,
         modified: feedback.feedback.modified,
         status: feedback.feedback.status,
+        operatingSystem: feedback.feedback.operatingSystem,
+        screen: feedback.feedback.screen,
+        browser: feedback.feedback.browser,
         creator: {name: feedback.creator.name, userId: feedback.creator.userId},
         numberOfComments: feedback.numberOfComments,
         numberOfRecommendations: feedback.numberOfRecommendations

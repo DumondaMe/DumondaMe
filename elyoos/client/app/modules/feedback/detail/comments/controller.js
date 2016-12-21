@@ -16,7 +16,6 @@ module.exports = ['$scope', '$stateParams', 'FeedbackDetailComment', 'dateFormat
                     ctrl.comments = comments;
                 });
         };
-        ctrl.nextFeedbackComments();
 
         $scope.$watch('orderBy', function (newOrderBy) {
             if (newOrderBy === 'new' || newOrderBy === 'old') {

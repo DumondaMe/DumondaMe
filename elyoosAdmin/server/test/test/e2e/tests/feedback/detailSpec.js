@@ -44,6 +44,9 @@ describe('Integration Tests for getting feedback detail', function () {
             res.body.description.should.equals('bug1Description');
             res.body.status.should.equals('open');
             res.body.type.should.equals('Bug');
+            res.body.operatingSystem.should.equals('linux');
+            res.body.screen.should.equals('desktop');
+            res.body.browser.should.equals('firefox');
             res.body.created.should.equals(400);
             res.body.modified.should.equals(600);
             res.body.creator.name.should.equals('user Meier');

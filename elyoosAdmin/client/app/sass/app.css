@@ -131,6 +131,13 @@
           #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-subheading .name {
             color: rgba(0, 0, 0, 0.87);
             font-weight: 500; }
+        #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-bug-overview {
+          margin-top: 4px;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54); }
+          #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-bug-overview .bug-info {
+            margin-right: 14px;
+            font-weight: 500; }
         #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container {
           margin-top: 8px; }
           #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container .ely-feedback-info-container .load-feedback-recommendation {
