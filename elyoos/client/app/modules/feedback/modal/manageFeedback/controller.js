@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'CreateFeedback', 'EditFeedback', 'CreateFeedbackMessage',
-    function (ElyModal, CreateFeedback, EditFeedback, CreateFeedbackMessage) {
+module.exports = ['ElyModal', 'FeedbackServiceManager', 'CreateFeedbackMessage',
+    function (ElyModal, FeedbackServiceManager, CreateFeedbackMessage) {
         var ctrl = this;
 
         ctrl.finish = function (data) {
@@ -12,27 +12,37 @@ module.exports = ['ElyModal', 'CreateFeedback', 'EditFeedback', 'CreateFeedbackM
             ElyModal.cancel();
         };
 
-        ctrl.getService = function (isEditMode) {
-            if (isEditMode) {
-                return EditFeedback;
+        ctrl.disableUpload = ctrl.data.isEditMode;
+
+        if (ctrl.data.isEditMode) {
+            ctrl.dataOriginal = {};
+            angular.copy(ctrl.data, ctrl.dataOriginal);
+        } else {
+            ctrl.data.browser = 'firefox';
+            ctrl.data.screen = 'desktop';
+            ctrl.data.operatingSystem = 'windows';
+        }
+
+        ctrl.changedInEditMode = function () {
+            if (ctrl.data.isEditMode) {
+                ctrl.disableUpload = angular.equals(ctrl.data, ctrl.dataOriginal);
             }
-            return CreateFeedback;
         };
 
-        ctrl.originalTitle = ctrl.title;
-        ctrl.originalDescription = ctrl.description;
-
         ctrl.uploadFeedback = function () {
-            var message = CreateFeedbackMessage.getCreateFeedbackMessage(ctrl.isEditMode, ctrl.title, ctrl.description, ctrl.group, ctrl.feedbackId);
+            var message = CreateFeedbackMessage.createFeedbackMessage(ctrl.data.isEditMode, ctrl.data.group, ctrl.data.feedbackId, ctrl.data.title,
+                ctrl.data.description, ctrl.data.screen, ctrl.data.operatingSystem, ctrl.data.browser);
             ctrl.uploadRunning = true;
             delete ctrl.error;
-            ctrl.getService(ctrl.isEditMode).save(message, function (resp) {
+            FeedbackServiceManager.getService(ctrl.data.isEditMode, ctrl.data.group).save(message, function (resp) {
                 resp.createdByUser = true;
-                resp.title = ctrl.title;
-                resp.description = ctrl.description;
-                resp.numberOfComments = 0;
-                resp.numberOfIdeas = 0;
-                resp.numberOfRecommendations = 0;
+                resp.title = ctrl.data.title;
+                resp.description = ctrl.data.description;
+                if (!ctrl.isEditMode) {
+                    resp.numberOfComments = 0;
+                    resp.numberOfIdeas = 0;
+                    resp.numberOfRecommendations = 0;
+                }
                 ctrl.uploadRunning = false;
                 ElyModal.hide(resp);
             }, function () {

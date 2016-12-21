@@ -18,8 +18,11 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
         ctrl.modifyFeedback = function () {
             ElyModal.show('FeedbackManageCtrl', 'app/modules/feedback/modal/manageFeedback/template.html',
                 {
-                    isEditMode: true, feedbackId: $stateParams.feedbackId, group: ctrl.group, title: ctrl.detail.title,
-                    description: ctrl.detail.description
+                    data: {
+                        isEditMode: true, feedbackId: $stateParams.feedbackId, group: ctrl.group, title: ctrl.detail.title,
+                        description: ctrl.detail.description, screen: ctrl.detail.screen, operatingSystem: ctrl.detail.operatingSystem,
+                        browser: ctrl.detail.browser
+                    }
                 })
                 .then(function (resp) {
                     ctrl.detail.title = resp.title;

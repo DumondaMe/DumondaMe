@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = ['$resource', function ($resource) {
-    return $resource('api/user/feedback/edit');
+    return $resource('api/user/feedback/create/idea');
 }];

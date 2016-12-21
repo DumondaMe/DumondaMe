@@ -2,17 +2,26 @@
 
 module.exports = [function () {
 
-    this.getCreateFeedbackMessage = function (isChangeMode, title, description, group, feedbackId) {
-        if (isChangeMode) {
-            return {title: title, description: description, feedbackId: feedbackId};
-        } else if (group === 'Bug' || group === 'Idea') {
-            return {
-                normal: {title: title, description: description, group: group}
-            };
-        } else if (group === 'DiscussionIdea') {
-            return {
-                discussion: {title: title, description: description, discussionId: feedbackId}
-            };
+    this.createFeedbackMessage = function (isEditMode, group, feedbackId, title, description, screen, operatingSystem, browser) {
+        var message = null;
+        if (isEditMode) {
+            if (group === 'Bug') {
+                message = {
+                    title: title, description: description, screen: screen, operatingSystem: operatingSystem, browser: browser,
+                    feedbackId: feedbackId
+                };
+            } else {
+                message = {title: title, description: description, feedbackId: feedbackId};
+            }
+        } else {
+            if (group === 'Bug') {
+                message = {title: title, description: description, screen: screen, operatingSystem: operatingSystem, browser: browser};
+            } else if (group === 'Idea') {
+                message = {title: title, description: description};
+            } else if (group === 'DiscussionIdea') {
+                message = {title: title, description: description, discussionId: feedbackId};
+            }
         }
+        return message;
     };
 }];

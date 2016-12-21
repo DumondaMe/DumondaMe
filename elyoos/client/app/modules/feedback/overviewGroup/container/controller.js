@@ -20,7 +20,7 @@ module.exports = ['dateFormatter', 'FeedbackOverviewResourceHandler', '$statePar
                     ctrl.loadRunning = false;
                     ctrl.feedbackGroupOverview = overview;
                     ctrl.numberOfFeedback = ctrl.feedbackGroupOverview.statistic;
-                    if(ctrl.feedbackGroupOverview.hasOwnProperty('discussion')) {
+                    if (ctrl.feedbackGroupOverview.hasOwnProperty('discussion')) {
                         ctrl.feedbackTitle = ctrl.feedbackGroupOverview.discussion.title;
                         ctrl.feedbackDescription = ctrl.feedbackGroupOverview.discussion.description;
                     }
@@ -31,7 +31,7 @@ module.exports = ['dateFormatter', 'FeedbackOverviewResourceHandler', '$statePar
         if (angular.isObject(ctrl.commands)) {
             ctrl.commands.createFeedback = function () {
                 ElyModal.show('FeedbackManageCtrl', 'app/modules/feedback/modal/manageFeedback/template.html',
-                    {group: ctrl.group, feedbackId: $stateParams.discussionId}).then(function (resp) {
+                    {data: {group: ctrl.group, feedbackId: $stateParams.discussionId}}).then(function (resp) {
                     ctrl.feedbackGroupOverview.feedbacks.unshift(resp);
                     ScrollRequest.addedElement(scrollName);
                     ctrl.feedbackGroupOverview.statistic.numberOfOpenFeedbacks++;
