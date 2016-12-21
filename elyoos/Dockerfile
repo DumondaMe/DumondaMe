@@ -6,6 +6,13 @@ COPY GraphicsMagick-1.3.25.tar.gz /tmp
 
 RUN cd /tmp && tar -xvf GraphicsMagick-1.3.25.tar.gz && cd /tmp/GraphicsMagick-1.3.25 && ./configure && make && make install && cd / && rm -r /tmp/*
 
+ADD serverLib /tmp/serverLib
+ADD server/package.json /tmp/package.json
+RUN cd /tmp && npm install --production && npm install ./serverLib
+RUN mkdir -p /usr/src/app/server && cp -a /tmp/node_modules /usr/src/app/server
+
+WORKDIR /usr/src/app/server
+
 RUN mkdir -p /usr/src/app/server/config
 
 RUN mkdir -p /usr/src/app/client/app/dist
@@ -14,8 +21,6 @@ RUN mkdir -p /usr/src/app/client/app/lib/imageCrop
 RUN mkdir -p /usr/src/app/client/app/lib/map
 RUN mkdir -p /usr/src/app/client/app/lib/map/images
 RUN mkdir -p /usr/src/app/client/app/sass
-
-WORKDIR /usr/src/app/server
 
 #Copy server files
 COPY server/package.json /usr/src/app/server
@@ -34,9 +39,6 @@ COPY client/app/lib/map/leaflet.css /usr/src/app/client/app/lib/map
 COPY client/app/sass/app.css /usr/src/app/client/app/sass
 COPY client/app/sass/app.css.map /usr/src/app/client/app/sass
 COPY client/app/index.html /usr/src/app/client/app
-
-RUN npm install --production
-RUN npm install --save ../../commonLib/serverLib
 
 EXPOSE 8080
 CMD [ "npm", "start" ]
