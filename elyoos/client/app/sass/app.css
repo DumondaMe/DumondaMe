@@ -500,7 +500,7 @@
 
 #ely-feedback {
   height: 100%;
-  overflow-y: scroll; }
+  overflow-y: auto; }
   #ely-feedback #ely-feedback-container {
     max-width: 900px;
     padding: 24px 16px 16px 16px;
@@ -534,14 +534,13 @@
 #ely-feedback-detail {
   height: 100%; }
   #ely-feedback-detail #ely-feedback-detail2 {
+    overflow-y: auto;
     height: 100%;
-    overflow-y: scroll;
     background-color: white; }
     #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container {
       max-width: 900px;
       padding: 32px 16px 16px 16px;
-      margin: 0 auto;
-      height: 100%; }
+      margin: 0 auto; }
       #ely-feedback-detail #ely-feedback-detail2 #ely-feedback-detail-container #ely-feedback-detail-inner-container {
         border-bottom: solid 1px rgba(0, 0, 0, 0.12);
         padding: 8px 0 0 0;
@@ -671,7 +670,7 @@
   height: 100%; }
   #ely-feedback-group-overview #ely-feedback-group-overview2 {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: white; }
     #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container {
       max-width: 900px;

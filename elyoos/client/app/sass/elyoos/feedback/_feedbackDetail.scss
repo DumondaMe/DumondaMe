@@ -1,14 +1,13 @@
 #ely-feedback-detail {
   height: 100%;
   #ely-feedback-detail2 {
+    overflow-y: auto;
     height: 100%;
-    overflow-y: scroll;
     background-color: $background-light;
     #ely-feedback-detail-container {
       max-width: 900px;
       padding: 32px 16px 16px 16px;
       margin: 0 auto;
-      height: 100%;
       #ely-feedback-detail-inner-container {
         border-bottom: solid 1px $divider;
         padding: 8px 0 0 0;
