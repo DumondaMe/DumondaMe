@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['moment', function (moment) {
+module.exports = ['moment', 'elyHelper', function (moment, elyHelper) {
 
     this.format = function (dateValue, format) {
         var endYesterday = moment().subtract(1, 'days').endOf('day'),
@@ -20,7 +20,10 @@ module.exports = ['moment', function (moment) {
         return dateValue.format('l');
     };
 
-    this.formatRelativeTimes = function (dateValue) {
+    this.formatRelativeTimes = function (dateValue, addAgo) {
+        if (elyHelper.isTrue(addAgo)) {
+            return moment.unix(dateValue).fromNow();
+        }
         return moment.unix(dateValue).fromNow(true);
     };
 

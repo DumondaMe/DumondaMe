@@ -7,18 +7,13 @@
 @import 'elyoos/_index';
 
 body, html {
-  background-color: $background-normal;
   height: 100%;
 }
 
 #viewport {
   padding-top: 56px;
-  background-color: $background-normal;
   @media screen and (min-width: $gt-sm) {
     padding-top: 64px;
-  }
-  @media screen and (min-width: $gt-md) {
-    padding-top: 0;
   }
   position: absolute;
   top: 0;
@@ -33,25 +28,6 @@ body, html {
   .ely-gt-md-content-container {
     padding-top: 0;
   }
-}
-
-.ely-gt-md-content {
-  height: 100%;
-  position: relative;
-  .ely-sidnav-expanded {
-    width: 250px;
-    height: 100%;
-  }
-}
-
-.ely-gt-md-content-container {
-  padding-top: 64px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 250px;
-  right: 0;
-
 }
 
 .content {

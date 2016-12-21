@@ -2,7 +2,7 @@
 
 var scrollRequest = {};
 
-module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, PinwallBlogService) {
+module.exports = ['$q', 'Home', function ($q, Home) {
 
     this.reset = function () {
         scrollRequest = {
@@ -12,7 +12,6 @@ module.exports = ['$q', 'Home', 'PinwallBlogService', function ($q, Home, Pinwal
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
-        PinwallBlogService.registerRequestService(this);
     };
 
     this.nextRequest = function (previousPinwall) {

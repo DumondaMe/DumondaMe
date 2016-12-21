@@ -2,12 +2,12 @@
 
 var db = requireDb();
 var image = require('./../images/uploadImageCDN');
-var uuid = requireLib('uuid');
-var time = requireLib('time');
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
 var cdn = require('../../util/cdn');
 var securityKeyword = require('../../keyword/security');
 var _ = require('underscore');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var createPlacePage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();

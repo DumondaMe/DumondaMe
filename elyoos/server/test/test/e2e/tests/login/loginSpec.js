@@ -2,10 +2,10 @@
 
 var app = require('../../../../../server');
 var request = require('supertest');
-var users = require('../util/user');
-var requestHandler = require('../util/request');
+var users = require('elyoos-server-test-util').user;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var moment = require('moment');
-var db = require('../util/db');
+var db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests Login', function () {
 

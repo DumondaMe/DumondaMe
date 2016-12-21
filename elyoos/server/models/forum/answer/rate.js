@@ -2,8 +2,8 @@
 
 var db = requireDb();
 var moment = require('moment');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var rateExists = function (userId, answerId, req) {
     return db.cypher().match("(:User {userId: {userId}})-[:RATE_POSITIVE]->(:ForumAnswer {answerId: {answerId}})")

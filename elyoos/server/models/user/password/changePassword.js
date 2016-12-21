@@ -1,9 +1,9 @@
 'use strict';
 
 var db = requireDb();
-var passwordEncryption = requireLib('passwordEncryption');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let passwordEncryption = require('elyoos-server-lib').passwordEncryption;
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var checkActualPassword = function (userId, actualPassword, req) {
 

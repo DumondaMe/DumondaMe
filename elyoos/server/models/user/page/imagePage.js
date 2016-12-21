@@ -1,8 +1,8 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 var gm = require('./../../util/gm');
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var Promise = require('bluebird');
 var ERROR_CODE_IMAGE_TO_SMALL = 2;
 

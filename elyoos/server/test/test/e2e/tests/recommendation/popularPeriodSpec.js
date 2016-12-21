@@ -1,8 +1,8 @@
 'use strict';
 
-var users = require('../util/user');
-var dbDsl = require('../util/dbDSL');
-var requestHandler = require('../util/request');
+var users = require('elyoos-server-test-util').user;
+var dbDsl = require('elyoos-server-test-util').dbDSL;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var moment = require('moment');
 
 describe('Integration Tests for getting popular recommendations filtered by period', function () {

@@ -1,6 +1,7 @@
 'use strict';
 
-var dateFormatter = require('../../../../app/modules/util/date/dateFormatter')[1];
+var dateFormatter = require('../../../../app/modules/util/date/dateFormatter')[2];
+var helper = require('../../../../app/modules/util/helper/helper')[0];
 var moment = require('moment');
 
 describe('Tests of the date formatting', function () {
@@ -13,7 +14,7 @@ describe('Tests of the date formatting', function () {
 
     it('Formatted Date is today', function () {
 
-        var formatter = new dateFormatter(moment),
+        var formatter = new dateFormatter(moment, helper),
             startTime = Math.floor(moment.utc().valueOf() / 1000),
             result;
         result = formatter.format(startTime - 10);
@@ -23,7 +24,7 @@ describe('Tests of the date formatting', function () {
 
     it('Formatted Date is yesterday', function () {
 
-        var formatter = new dateFormatter(moment),
+        var formatter = new dateFormatter(moment, helper),
             momentTest,
             result;
         momentTest = moment.utc().subtract(1, 'day');
@@ -34,7 +35,7 @@ describe('Tests of the date formatting', function () {
 
     it('Formatted Date older then two days', function () {
 
-        var formatter = new dateFormatter(moment),
+        var formatter = new dateFormatter(moment, helper),
             momentTest,
             result;
         momentTest = moment.utc().subtract(2, 'day');
@@ -45,7 +46,7 @@ describe('Tests of the date formatting', function () {
 
     it('Formatted exact date is today', function () {
 
-        var formatter = new dateFormatter(moment),
+        var formatter = new dateFormatter(moment, helper),
             startTime = Math.floor(moment.utc().valueOf() / 1000),
             result;
         result = formatter.formatExact(startTime - 10);
@@ -55,7 +56,7 @@ describe('Tests of the date formatting', function () {
 
     it('Formatted exact date is yesterday', function () {
 
-        var formatter = new dateFormatter(moment),
+        var formatter = new dateFormatter(moment, helper),
             momentTest,
             result,
             yesterday;

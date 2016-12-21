@@ -1,0 +1,67 @@
+.feedback-info-container {
+  .feedback-icon-container {
+    .feedback-icon {
+      padding: 4px;
+      height: 28px;
+      width: 28px;
+    }
+  }
+  .feedback-element-info {
+    padding-left: 16px;
+    .feedback-title {
+      font-size: 18px;
+      color: $primary-text;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .feedback-sub-title {
+      .name {
+        font-weight: 500;
+        color: $primary-text;
+      }
+      font-size: 14px;
+      color: $secondary-text;
+    }
+    .info-container {
+      margin-top: 4px;
+      .icon {
+        margin: 0;
+        height: 24px;
+        width: 24px;
+      }
+      .number-container {
+        margin-right: 12px;
+        margin-left: 4px;
+        .number {
+          height: 24px;
+          line-height: 24px;
+          vertical-align: middle;
+          font-size: 14px;
+          font-weight: 500;
+          color: $primary-text;
+        }
+      }
+      .status-container {
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        .status-open {
+          padding: 4px;
+          border-radius: 4px;
+          background-color: $open;
+        }
+        .status-closed {
+          padding: 4px;
+          border-radius: 4px;
+          background-color: $closed;
+        }
+      }
+    }
+  }
+}
+
+
+
+

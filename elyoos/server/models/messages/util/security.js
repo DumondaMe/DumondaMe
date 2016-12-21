@@ -1,9 +1,9 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
-var time = requireLib('time');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+let time = require('elyoos-server-lib').time;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var getNummberOfMessageCommand = function (userId) {
     return db.cypher()

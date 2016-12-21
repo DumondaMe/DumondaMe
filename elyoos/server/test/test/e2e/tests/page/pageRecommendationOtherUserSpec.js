@@ -1,8 +1,8 @@
 'use strict';
 
-var users = require('../util/user');
-var db = require('../util/db');
-var requestHandler = require('../util/request');
+var users = require('elyoos-server-test-util').user;
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var should = require('chai').should();
 
 describe('Integration Tests for getting the recommendation of an other user', function () {

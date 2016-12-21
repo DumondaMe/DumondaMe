@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

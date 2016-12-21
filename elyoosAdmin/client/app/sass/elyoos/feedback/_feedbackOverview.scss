@@ -1,0 +1,27 @@
+#ely-feedback-overview {
+  position: relative;
+  height: 100%;
+  #ely-feedback-overview-container {
+    height: 100%;
+    #overview-commands {
+      padding: 24px 0 0 0;
+      border-bottom: 1px solid $divider;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto 12px auto;
+    }
+    #overview-element-container {
+      overflow-y: scroll;
+      .feedback-element {
+        cursor: pointer;
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto 14px auto;
+      }
+    }
+  }
+}
+
+
+
+

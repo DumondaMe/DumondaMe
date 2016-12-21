@@ -1,13 +1,13 @@
 'use strict';
 
 var db = requireDb();
-var uuid = requireLib('uuid');
-var time = requireLib('time');
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
 var cdn = require('../util/cdn');
 var recommendation = require('../page/detail/recommendation');
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var securityRecommendation = require('./security');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var checkAddingRecommendationAllowed = function (userId, pageId, isBlog, req) {
     var commands = [];

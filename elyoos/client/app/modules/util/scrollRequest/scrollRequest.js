@@ -10,10 +10,10 @@ var getParams = function (maxItems, skip, additionalParams) {
     return params;
 };
 
-module.exports = ['$q', 'PinwallBlogService', function ($q, PinwallBlogService) {
-    var actualServiceName;
+module.exports = ['$q', function ($q) {
+    var actualServiceName, service = this;
 
-    this.reset = function (serviceName, requestService, responseHandler) {
+    service.reset = function (serviceName, requestService, responseHandler) {
 
         scrollRequests[serviceName] = {
             request: requestService,
@@ -24,14 +24,13 @@ module.exports = ['$q', 'PinwallBlogService', function ($q, PinwallBlogService) 
             requestPinwallElementsRunning: false
         };
         actualServiceName = serviceName;
-        PinwallBlogService.registerRequestService(this);
     };
 
-    this.hasNext = function (serviceName) {
+    service.hasNext = function (serviceName) {
         return scrollRequests[serviceName].requestPinwallElements;
     };
 
-    this.nextRequest = function (serviceName, previousPinwall, additionalParams) {
+    service.nextRequest = function (serviceName, previousPinwall, additionalParams) {
         var deferred = $q.defer(), newPinwall, scrollRequest = scrollRequests[serviceName];
         if (scrollRequest.requestPinwallElements && !scrollRequest.requestPinwallElementsRunning) {
             if (!previousPinwall) {
@@ -55,7 +54,7 @@ module.exports = ['$q', 'PinwallBlogService', function ($q, PinwallBlogService) 
         return deferred.promise;
     };
 
-    this.removedPinwallElement = function () {
+    service.removedPinwallElement = function () {
         var deferred = $q.defer(), newPinwall, scrollRequest = scrollRequests[actualServiceName], callServiceName = actualServiceName;
 
         newPinwall = scrollRequest.request({
@@ -73,16 +72,16 @@ module.exports = ['$q', 'PinwallBlogService', function ($q, PinwallBlogService) 
         return deferred.promise;
     };
 
-    this.removedElement = function (serviceName) {
+    service.removedElement = function (serviceName) {
         if (scrollRequests[serviceName].skip > 0) {
             scrollRequests[serviceName].skip = scrollRequests[serviceName].skip - 1;
         }
     };
 
-    this.addedElement = function (serviceName) {
+    service.addedElement = function (serviceName) {
         scrollRequests[serviceName].skip = scrollRequests[serviceName].skip + 1;
     };
-    this.addedMultibleElements = function (serviceName, count) {
+    service.addedMultibleElements = function (serviceName, count) {
         scrollRequests[serviceName].skip = scrollRequests[serviceName].skip + count;
     };
 }];

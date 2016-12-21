@@ -1,9 +1,9 @@
 "use strict";
 
 var db = requireDb();
-var uuid = requireLib('uuid');
-var time = requireLib('time');
-var eMailQueue = requireLib('eMail/eMailQueue');
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
+let eMailQueue = require('elyoos-server-lib').eMailQueue;
 
 var received = function (userId) {
     var jobId = uuid.generateUUID(), updateTime = time.getNowUtcTimestamp();

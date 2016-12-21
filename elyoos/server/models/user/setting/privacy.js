@@ -1,8 +1,8 @@
 'use strict';
 
 var db = requireDb();
-var logger = requireLogger.getLogger(__filename);
-var exceptions = requireLib('error/exceptions');
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
 
 var privacySettingCheck = function (id, privacySettingType, req, failCondition) {
     return db.cypher().match("(:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->(:Privacy)")

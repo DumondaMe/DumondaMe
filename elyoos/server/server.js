@@ -3,18 +3,17 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname;
 }
-global.requireLogger = require(__dirname + '/lib/logging');
+
 global.requireDb = function () {
-    return require(__dirname + '/neo4j');
+    return require('elyoos-server-lib').neo4j;
 };
-global.requireLib = function (name) {
-    return require(`${__dirname}/lib/${name}`);
-};
+
 global.requireModel = function (name) {
     return require(`${__dirname}/models/${name}`);
 };
 
-require('./lib/jsonValidation');
+require('elyoos-server-lib').jsonValidation;
+require('elyoos-server-lib').version.setVersion(require('./package.json').version);
 var Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
@@ -22,10 +21,10 @@ Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: tr
 
 var kraken = require('kraken-js');
 var emailService = require('./models/eMailService/eMail');
-var dbConfig = require('./lib/database');
+var dbConfig = require('elyoos-server-lib').databaseConfig;
 var app = require('express')();
-var options = require('./lib/spec')(app);
-var logger = requireLogger.getLogger(__filename);
+var options = require('elyoos-server-lib').spec(app);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 var port = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === 'production') {

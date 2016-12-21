@@ -1,9 +1,9 @@
 'use strict';
-var auth = requireLib('auth');
-var logger = requireLogger.getLogger(__filename);
+var auth = require('elyoos-server-lib').auth;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 var privacy = requireModel('user/setting/privacy');
-var controllerErrors = requireLib('error/controllerErrors');
-var validation = requireLib('jsonValidation');
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var validation = require('elyoos-server-lib').jsonValidation;
 
 var schemaPostNewPrivacy = {
     name: 'newPrivacy',

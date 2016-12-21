@@ -1,7 +1,7 @@
 'use strict';
 
 var db = requireDb();
-var time = requireLib('time');
+let time = require('elyoos-server-lib').time;
 var security = require('./security');
 var youtube = require('./youtubeUtils');
 

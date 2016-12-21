@@ -1,9 +1,9 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var pageRecommendation = require('./page');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var checkAddingRecommendationAllowed = function (userId, pageId, req) {
     var commands = [];

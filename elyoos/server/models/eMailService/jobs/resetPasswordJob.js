@@ -1,7 +1,7 @@
 "use strict";
 
 var db = requireDb();
-var email = requireLib('eMail/eMail');
+var email = require('elyoos-server-lib').eMail;
 
 var processDefinition = function (data, done) {
 

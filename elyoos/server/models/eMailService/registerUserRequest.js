@@ -1,7 +1,7 @@
 "use strict";
 
 var db = requireDb();
-var eMailQueue = requireLib('eMail/eMailQueue');
+let eMailQueue = require('elyoos-server-lib').eMailQueue;
 
 var sendRegisterUserVerification = function (email, linkId) {
     return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").return("user").end({linkId: linkId}).send()

@@ -1,9 +1,9 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var cdn = require('../../util/cdn');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var allowedToRemoveBlog = function (userId, pageId, req) {
     return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})")

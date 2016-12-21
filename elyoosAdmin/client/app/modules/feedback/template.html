@@ -1,0 +1,9 @@
+<md-content id="ely-feedback" layout="row">
+    <div class="ely-feedback-container" flex>
+        <ely-overview-feedback></ely-overview-feedback>
+    </div>
+    <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="rightFilterRecommendationNav"
+                md-is-locked-open="ctrl.$mdMedia('gt-sm')">
+        <ely-home-overview-feedback-directive hide-title="true" limit-height="false" flex></ely-home-overview-feedback-directive>
+    </md-sidenav>
+</md-content>

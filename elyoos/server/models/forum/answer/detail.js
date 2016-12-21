@@ -4,7 +4,7 @@ var db = requireDb();
 var cdn = require('../../util/cdn');
 var detailTitlePicture = require('./../../page/detail/detailTitlePicture');
 var _ = require('lodash');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var addType = function (resp) {
     if (_.includes(resp.labels, "ForumSolution")) {

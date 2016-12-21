@@ -3,13 +3,22 @@
 if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname + '../../../';
 }
-global.requireLogger = require(__dirname + '/../../../lib/logging');
 
-require('./../../../lib/jsonValidation');
+global.requireDb = function () {
+    return require('elyoos-server-lib').neo4j;
+};
 
-var stubEmailQueue = require('./../e2e/tests/util/stubEmailQueue');
+global.requireModel = function (name) {
+    return require(`${__dirname}/../../../models/${name}`);
+};
+
+require('elyoos-server-lib').jsonValidation;
+
+require('elyoos-server-test-util').init(require('elyoos-server-lib'));
+
+var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
 var Promise = require('bluebird');
-var dbConfig = require('../../../lib/database');
+var dbConfig = require('elyoos-server-lib').databaseConfig;
 Promise.promisifyAll(require('gm').prototype);
 
 describe('Initialize Server Unit Test', function () {

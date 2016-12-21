@@ -5,7 +5,7 @@ var cdn = require('../../util/cdn');
 var contactSummary = require('./contactSummary');
 var contactStatistic = require('../../contact/contactStatistic');
 var _ = require("lodash");
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var returnDetails = function (detailUserData, detailUser, detailUserPrivacy, userId, detailUserId, resp, req) {
 

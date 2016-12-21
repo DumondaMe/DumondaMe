@@ -2,8 +2,8 @@
 
 var db = requireDb();
 var userInfo = require('../userInfo');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var numberOfContacts = function (contactId) {
     return db.cypher().match('(:User {userId: {contactId}})-[:IS_CONTACT]->(:User)')

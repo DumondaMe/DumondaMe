@@ -13,11 +13,24 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        copy: {
+            main: {
+                files: [{
+                    src: ['../../elyoos/client/app/sass/common.css'],
+                    dest: 'app/dist/common.css',
+                    expand: false
+                }, {
+                    src: ['../../elyoos/client/app/sass/common.css.map'],
+                    dest: 'app/dist/common.css.map',
+                    expand: false
+                }]
+            }
+        },
         browserify: {
             dist: {
                 files: {
                     'app/dist/app.js': ['app/modules/**/*.js', '../../elyoos/client/app/modules/util/**/*.js',
-                        '../../elyoos/client/app/modules/public/checkLoginState/**/*.js']
+                        '../../elyoos/client/app/modules/common/**/*.js']
                 }
             }
         },
@@ -47,6 +60,9 @@ module.exports = function (grunt) {
             elyoosApp: {
                 options: {
                     module: 'elyoosApp',
+                    url: function (url) {
+                        return url.replace('../../elyoos/client/', '');
+                    },
                     htmlmin: {
                         collapseBooleanAttributes: true,
                         collapseWhitespace: true,
@@ -58,7 +74,7 @@ module.exports = function (grunt) {
                         removeStyleLinkTypeAttributes: true
                     }
                 },
-                src: 'app/modules/**/*.html',
+                src: ['app/modules/**/*.html', '../../elyoos/client/app/modules/common/**/*.html'],
                 dest: 'app/dist/templates.js'
             }
         },
@@ -111,6 +127,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('coverage', ['karma', 'sonarRunner']);
-    grunt.registerTask('build', ['clean', 'ngtemplates', 'ngconstant', 'browserify', 'uglify']);
-    grunt.registerTask('buildDebug', ['ngtemplates', 'ngconstant', 'browserify']);
+    grunt.registerTask('build', ['clean', 'ngtemplates', 'ngconstant', 'browserify', 'copy', 'uglify']);
+    grunt.registerTask('buildDebug', ['ngtemplates', 'ngconstant', 'browserify', 'copy']);
 };

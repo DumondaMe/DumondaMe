@@ -1,11 +1,11 @@
 'use strict';
 
-var libUser = require('../../../../../../lib/user')();
-var users = require('../../util/user');
-var requestHandler = require('../../util/request');
+var libUser = require('elyoos-server-lib').user();
+var users = require('elyoos-server-test-util').user;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var should = require('chai').should();
 var moment = require('moment');
-var db = require('../../util/db');
+var db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests for getting the pinwall of another user', function () {
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var AWS = require('aws-sdk');
-var cdnConfig = requireLib('cdn');
+var cdnConfig = require('elyoos-server-lib').cdn;
 var expiresAfterADay = 60 * 60 * 12;
 var Promise = require('bluebird');
 var fs = require('fs');

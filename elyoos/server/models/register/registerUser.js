@@ -4,10 +4,10 @@ var db = requireDb();
 var registerUserRequest = require('./../eMailService/registerUserRequest');
 var randomstring = require("randomstring");
 var recaptcha = require('./../util/recaptcha');
-var passwordEncryption = requireLib('passwordEncryption');
-var exceptions = requireLib('error/exceptions');
-var time = requireLib('time');
-var logger = requireLogger.getLogger(__filename);
+var passwordEncryption = require('elyoos-server-lib').passwordEncryption;
+let exceptions = require('elyoos-server-lib').exceptions;
+let time = require('elyoos-server-lib').time;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var ERROR_CODE_EMAIL_EXISTS = 2;
 

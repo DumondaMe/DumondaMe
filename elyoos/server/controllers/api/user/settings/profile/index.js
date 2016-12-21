@@ -1,10 +1,10 @@
 'use strict';
 
 var user = requireModel('user/user');
-var auth = requireLib('auth');
-var logger = requireLogger.getLogger(__filename);
-var controllerErrors = requireLib('error/controllerErrors');
-var validation = requireLib('jsonValidation');
+var auth = require('elyoos-server-lib').auth;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var validation = require('elyoos-server-lib').jsonValidation;
 
 var schemaPostNewProfileData = {
     name: 'newProfileData',

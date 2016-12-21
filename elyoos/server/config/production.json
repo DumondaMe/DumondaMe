@@ -68,7 +68,7 @@
     "session": {
       "priority": 70,
       "module": {
-        "name": "path:./lib/redisSession",
+        "name": "elyoos-server-lib/lib/redisSession",
         "arguments": [
           {
             "key": "sessionElyoos",
@@ -112,7 +112,7 @@
       "enabled": true,
       "priority": 1000,
       "module": {
-        "name": "path:./lib/error/errors",
+        "name": "elyoos-server-lib/lib/error/errors",
         "method": "handlingError"
       }
     }

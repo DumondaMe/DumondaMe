@@ -1,0 +1,39 @@
+<div>
+    <div ng-repeat="feedback in ctrl.feedbackGroupOverview.feedbacks" class="feedback-element">
+        <div class="feedback-group-element">
+            <div class="title" ui-sref="feedback.detail({group: ctrl.group, feedbackId: feedback.feedbackId, discussionId: ctrl.discussionId})"
+                 ng-hide="ctrl.group === 'Discussion'">
+                {{feedback.title}}
+            </div>
+            <div class="title" ui-sref="feedback.overview({group: 'DiscussionIdea', discussionId: feedback.feedbackId})"
+                 ng-show="ctrl.group === 'Discussion'">
+                {{feedback.title}}
+            </div>
+            <div class="feedback-created">Erstellt {{ctrl.getFormattedDate(feedback.created, true)}} von {{feedback.creator.name}}
+            </div>
+            <div class="info-container" layout="row">
+                <div ng-hide="ctrl.group === 'Discussion'">
+                    <md-button class="feedback-recommend md-fab md-mini" aria-label="Recommend Feedback" ng-hide="feedback.runningUpload"
+                               ng-disabled="feedback.recommendedByUser || feedback.createdByUser"
+                               ng-click="ctrl.recommendFeedback(feedback)">
+                        <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+                    </md-button>
+                    <md-progress-circular ng-show="feedback.runningUpload" class="load-feedback-recommendation" md-mode="indeterminate"
+                                          md-diameter="16"></md-progress-circular>
+                </div>
+                <div class="number-container" flex="none" ng-hide="ctrl.group === 'Discussion'">
+                    <span class="number">{{feedback.numberOfRecommendations}}</span>
+                </div>
+                <md-icon md-svg-icon="cardActions:chat" class="chat-icon" flex="none" ng-hide="ctrl.group === 'Discussion'"></md-icon>
+                <div class="number-container" flex="none" ng-hide="ctrl.group === 'Discussion'">
+                    <span class="number">{{feedback.numberOfComments}}</span>
+                </div>
+                <md-icon md-svg-icon="cardActions:idea" class="idea-icon" flex="none" ng-show="ctrl.group === 'Discussion'"></md-icon>
+                <div class="number-container" flex="none" ng-show="ctrl.group === 'Discussion'">
+                    <span class="number">{{feedback.numberOfIdeas}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
+</div>

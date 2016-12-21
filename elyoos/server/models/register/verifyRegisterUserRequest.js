@@ -1,11 +1,11 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
-var uuid = requireLib('uuid');
-var time = requireLib('time');
+let exceptions = require('elyoos-server-lib').exceptions;
+let uuid = require('elyoos-server-lib').uuid;
+let time = require('elyoos-server-lib').time;
 var cdn = require('./../util/cdn');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var EXPIRED = 60 * 60 * 12; // 12h
 

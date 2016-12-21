@@ -1,10 +1,10 @@
 'use strict';
 
 var db = requireDb();
-var exceptions = requireLib('error/exceptions');
+let exceptions = require('elyoos-server-lib').exceptions;
 var contactStatistic = require('./contactStatistic');
 var privacySettings = require('./privacySettings');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 var moment = require('moment');
 var userInfo = require('./../user/userInfo');
 

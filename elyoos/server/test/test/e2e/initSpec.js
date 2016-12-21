@@ -1,11 +1,15 @@
 'use strict';
 
-var app = require('../../../server');
-var dbConfig = require('../../../lib/database');
-require('./tests/util/stubCDN');
-require('./tests/util/stubEmailQueue');
-require('./tests/util/stubLimitRate');
-require('./tests/util/stubRecaptcha');
+let app = require('../../../server');
+let dbConfig = require('elyoos-server-lib').databaseConfig;
+let elyoosTestUtil = require('elyoos-server-test-util');
+
+elyoosTestUtil.init(require('elyoos-server-lib'), app);
+
+elyoosTestUtil.stubCDN().stub(require('../../../models/util/cdn'));
+elyoosTestUtil.stubEmailQueue();
+elyoosTestUtil.stubLimitRate();
+elyoosTestUtil.stubRecaptcha.stub(require('../../../models/util/recaptcha'));
 
 describe('Initialize Server for all integration tests', function () {
 

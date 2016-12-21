@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('underscore');
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var compare = function (a, b) {
     return b.pinwall.created - a.pinwall.created;

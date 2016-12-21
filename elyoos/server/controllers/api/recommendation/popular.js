@@ -1,13 +1,13 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var popularRecommendation = requireModel('recommendation/popular');
-var auth = requireLib('auth');
-var controllerErrors = requireLib('error/controllerErrors');
+var auth = require('elyoos-server-lib').auth;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
 var language = require("../../schema/language");
 var topic = require("../../schema/topic");
 var recommendationType = require("../../schema/recommendationType");
-var logger = requireLogger.getLogger(__filename);
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var schemaGetPopularRecommendations = {
     name: 'getPopularRecommendations',

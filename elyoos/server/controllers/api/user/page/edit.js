@@ -1,14 +1,14 @@
 'use strict';
 
-var validation = requireLib('jsonValidation');
+var validation = require('elyoos-server-lib').jsonValidation;
 var schema = require('./schema/schemaEdit');
 var underscore = require('underscore');
 var editBookPage = requireModel('user/page/editBookPage');
 var editVideoPage = requireModel('user/page/editVideoPage');
 var editLinkPage = requireModel('user/page/editLinkPage');
-var auth = requireLib('auth');
-var controllerErrors = requireLib('error/controllerErrors');
-var logger = requireLogger.getLogger(__filename);
+var auth = require('elyoos-server-lib').auth;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

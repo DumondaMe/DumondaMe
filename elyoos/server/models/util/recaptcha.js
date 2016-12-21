@@ -2,8 +2,8 @@
 
 var https = require('https');
 var promise = require('bluebird');
-var exceptions = requireLib('error/exceptions');
-var logger = requireLogger.getLogger(__filename);
+let exceptions = require('elyoos-server-lib').exceptions;
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 var ERROR_CODE_RECAPTCHA_FAILED = 1;
 var SECRET = '6LfWvyYTAAAAAOLH1SvjQ4-vAviNkZ0g2gOhtQss';

@@ -1,10 +1,10 @@
 'use strict';
 
-var libUser = require('../../../../../lib/user')();
-var db = require('../util/db');
-var requestHandler = require('../util/request');
+var libUser = require('elyoos-server-lib').user();
+var db = require('elyoos-server-test-util').db;
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var moment = require('moment');
-var stubEmailQueue = require('../util/stubEmailQueue');
+var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
 var sinon = require('sinon');
 
 describe('Integration Tests for request to register a new user', function () {

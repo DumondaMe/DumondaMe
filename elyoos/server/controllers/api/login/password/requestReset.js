@@ -1,9 +1,9 @@
 'use strict';
 
-var logger = requireLogger.getLogger(__filename);
-var rateLimit = requireLib('limiteRate');
-var controllerErrors = requireLib('error/controllerErrors');
-var validation = requireLib('jsonValidation');
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let rateLimit = require('elyoos-server-lib').limiteRate;
+var controllerErrors = require('elyoos-server-lib').controllerErrors;
+var validation = require('elyoos-server-lib').jsonValidation;
 var resetPassword = requireModel('eMailService/resetPassword');
 
 var schemaRequestPasswordReset = {

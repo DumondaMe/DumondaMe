@@ -2,7 +2,7 @@
 
 var db = requireDb();
 var moment = require('moment');
-var uuid = requireLib('uuid');
+let uuid = require('elyoos-server-lib').uuid;
 var security = require('./security');
 
 var createQuestion = function (userId, description, topic, language) {

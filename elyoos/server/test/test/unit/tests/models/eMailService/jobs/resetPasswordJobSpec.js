@@ -1,8 +1,8 @@
 'use strict';
 
 var testee = require('../../../../../../../models/eMailService/jobs/resetPasswordJob');
-var email = require('../../../../../../../lib/eMail/eMail');
-var db = require('../../../../../e2e/tests/util/db');
+var email = require('elyoos-server-lib').eMail;
+var db = require('elyoos-server-test-util').db;
 var sinon = require('sinon');
 var expect = require('chai').expect;
 

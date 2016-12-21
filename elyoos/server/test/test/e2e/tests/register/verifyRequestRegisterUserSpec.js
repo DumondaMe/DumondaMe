@@ -1,8 +1,8 @@
 'use strict';
 
-var db = require('../util/db');
+var db = require('elyoos-server-test-util').db;
 var should = require('chai').should();
-var requestHandler = require('../util/request');
+var requestHandler = require('elyoos-server-test-util').requestHandler;
 var moment = require('moment');
 var randomstring = require("randomstring");
 var _ = require('lodash');

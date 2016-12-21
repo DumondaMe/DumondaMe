@@ -3,8 +3,8 @@
 var passport = require('passport');
 var modification = requireModel('modification/modification');
 var loginUser = requireModel('user/loginUser');
-var logger = requireLogger.getLogger(__filename);
-var rateLimit = requireLib('limiteRate');
+var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let rateLimit = require('elyoos-server-lib').limiteRate;
 
 var apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
