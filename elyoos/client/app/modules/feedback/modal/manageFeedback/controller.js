@@ -38,6 +38,9 @@ module.exports = ['ElyModal', 'FeedbackServiceManager', 'CreateFeedbackMessage',
                 resp.createdByUser = true;
                 resp.title = ctrl.data.title;
                 resp.description = ctrl.data.description;
+                resp.operatingSystem = ctrl.data.operatingSystem;
+                resp.screen = ctrl.data.screen;
+                resp.browser = ctrl.data.browser;
                 if (!ctrl.isEditMode) {
                     resp.numberOfComments = 0;
                     resp.numberOfIdeas = 0;

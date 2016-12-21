@@ -55,6 +55,15 @@
             font-weight: 500;
           }
         }
+        .ely-feedback-bug-overview {
+          margin-top: 4px;
+          font-size: 14px;
+          color: $secondary-text;
+          .bug-info {
+            margin-right: 14px;
+            font-weight: 500;
+          }
+        }
         .ely-feedback-info-container {
           margin-top: 8px;
           .load-feedback-recommendation {
