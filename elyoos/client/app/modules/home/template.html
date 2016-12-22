@@ -3,7 +3,8 @@
     <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
         <div class="pinwall-inner-container">
             <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
-                         gap="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"></ely-pinwall>
+                         gap="true" show-info="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"
+                         add-remove-pinwall-element-service="ctrl.addRemovePinwallElementService"></ely-pinwall>
         </div>
     </div>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>

@@ -11,7 +11,9 @@ module.exports = {
                 recommendedUser: '=',
                 gap: '=',
                 breakpoint: '@',
+                showInfo: '@',
                 noPinwall: '=',
+                addRemovePinwallElementService: '=',
                 reloadPinwall: '='
             },
             controller: require('./controller.js'),

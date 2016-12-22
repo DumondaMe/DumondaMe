@@ -2,23 +2,27 @@
 
 module.exports =
     ['$scope', 'Home', '$mdSidenav', '$mdBottomSheet', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
-        function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome) {
+        'HomeAddRemovePinwallElementService',
+        function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome,
+                  HomeAddRemovePinwallElementService) {
             var ctrl = this;
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
 
-            ctrl.openCreatePage = function () {
-                $mdBottomSheet.show({
-                    templateUrl: 'app/modules/navigation/createPage/template.html',
-                    controller: 'CreatePageNavCtrl',
-                    controllerAs: 'ctrl',
-                    locals: {pinwall: ctrl.home.pinwall},
-                    clickOutsideToClose: true,
-                    parent: '#viewport'
-                });
-            };
+            ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
+
+                ctrl.openCreatePage = function () {
+                    $mdBottomSheet.show({
+                        templateUrl: 'app/modules/navigation/createPage/template.html',
+                        controller: 'CreatePageNavCtrl',
+                        controllerAs: 'ctrl',
+                        locals: {pinwall: ctrl.home.pinwall},
+                        clickOutsideToClose: true,
+                        parent: '#viewport'
+                    });
+                };
 
             HomeScrollRequest.reset();
 

@@ -10,3 +10,4 @@ app.factory('Blog', require('./services/blog'));
 app.factory('SearchHome', require('./services/searchHome'));
 
 app.service('HomeScrollRequest', require('./services/scrollRequest'));
+app.service('HomeAddRemovePinwallElementService', require('./services/addRemovePinwallElement'));

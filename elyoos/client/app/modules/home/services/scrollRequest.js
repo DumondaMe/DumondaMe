@@ -8,7 +8,7 @@ module.exports = ['$q', 'Home', function ($q, Home) {
         scrollRequest = {
             skipBlog: 0,
             skipRecommendation: 0,
-            itemsPerPage: 15,
+            itemsPerPage: 5,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };
