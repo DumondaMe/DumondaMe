@@ -29,7 +29,7 @@ module.exports = ['$q',
 
         this.addRecommendation = function (recommendation) {
             if(angular.isObject(service)) {
-                service.addedBlog(recommendation, pinwall);
+                service.addedRecommendation(recommendation, pinwall);
             }
         };
     }];
