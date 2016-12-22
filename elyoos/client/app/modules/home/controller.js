@@ -9,7 +9,7 @@ module.exports =
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
 
-            ctrl.openSideNavRight = function () {
+            ctrl.openCreatePage = function () {
                 $mdBottomSheet.show({
                     templateUrl: 'app/modules/navigation/createPage/template.html',
                     controller: 'CreatePageNavCtrl',
