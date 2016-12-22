@@ -1,6 +1,7 @@
 FROM node:6.9.1
 
 ENV NODE_ENV 'production'
+ENV NODE_LOGGING 'production'
 
 COPY GraphicsMagick-1.3.25.tar.gz /tmp
 

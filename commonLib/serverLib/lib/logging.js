@@ -29,14 +29,25 @@ var logger = new winston.Logger({
     levels: customLevels.levels,
     colors: customLevels.colors
 });
-
-if (process.env.NODE_ENV === 'production') {
-    logger.add(winstonCloudWatch, {
+var winstonCloudWatchConfig;
+if (process.env.NODE_LOGGING === 'production-admin') {
+    winstonCloudWatchConfig = {
+        logGroupName: 'elyoosWebserver',
+        logStreamName: 'webserverAdmin',
+        level: 'info',
+        awsRegion: 'eu-central-1'
+    };
+} else if (process.env.NODE_LOGGING === 'production') {
+    winstonCloudWatchConfig = {
         logGroupName: 'elyoosWebserver',
         logStreamName: 'webserver',
         level: 'info',
         awsRegion: 'eu-central-1'
-    });
+    };
+}
+
+if (process.env.NODE_LOGGING === 'production' || process.env.NODE_LOGGING === 'production-admin') {
+    logger.add(winstonCloudWatch, winstonCloudWatchConfig);
 }
 
 var log = function (module, level, message, metadata, request) {

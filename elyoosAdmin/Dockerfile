@@ -1,6 +1,7 @@
 FROM node:6.9.1
 
 ENV NODE_ENV 'production'
+ENV NODE_LOGGING 'production-admin'
 
 ADD serverLib /tmp/serverLib
 ADD server/package.json /tmp/package.json
