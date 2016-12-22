@@ -2559,12 +2559,28 @@
     font-size: 14px;
     vertical-align: middle; }
 
-.ely-pinwall-container #one-column-container {
+.ely-pinwall-container .important-message-container {
+  margin: 0 auto 12px auto;
+  padding: 8px;
+  border: 3px solid #FFB300;
+  border-radius: 8px;
+  background-color: #FFECB3;
+  min-height: 32px; }
+  .ely-pinwall-container .important-message-container .important-message-inner-container {
+    padding: 0 8px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87); }
+    .ely-pinwall-container .important-message-container .important-message-inner-container .link {
+      cursor: pointer;
+      color: #3F51B5; }
+    .ely-pinwall-container .important-message-container .important-message-inner-container .link:hover {
+      text-decoration: underline; }
+.ely-pinwall-container .one-column-container {
   margin: 0 auto;
   max-width: 400px; }
-.ely-pinwall-container #two-column-container {
+.ely-pinwall-container .two-column-container {
   margin: 0 auto;
-  width: 950px; }
+  width: 930px; }
 
 .card-recommendation-desktop {
   max-width: 450px;

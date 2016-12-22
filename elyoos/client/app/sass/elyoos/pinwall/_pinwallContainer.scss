@@ -1,11 +1,31 @@
 .ely-pinwall-container {
-  #one-column-container {
+  .important-message-container {
+    margin: 0 auto 12px auto;
+    padding: 8px;
+    border: 3px solid #FFB300;
+    border-radius: 8px;
+    background-color: #FFECB3;
+    min-height: 32px;
+    .important-message-inner-container {
+      padding: 0 8px;
+      font-size: 16px;
+      color: $primary-text;
+      .link {
+        cursor: pointer;
+        color: $primary-color;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .one-column-container {
     margin: 0 auto;
     max-width: 400px;
   }
-  #two-column-container {
+  .two-column-container {
     margin: 0 auto;
-    width: 950px;
+    width: 930px;
   }
 }
 
