@@ -37,7 +37,7 @@ module.exports = function (router) {
                 loginUser.setTimestamp(req.user.id).then(function () {
                     modification.initModificationOnSession(req.user.id, req.session, function () {
                         res.status(200).json({"username": user.email});
-                        logger.info('Successful login of user', req, {});
+                        logger.info(`Successful login of user ${req.user.id}`, req, {});
                     });
                 }).catch(function (errTimestamp) {
                     logger.error('Setting Timestamp failed', req, {error: errTimestamp});
