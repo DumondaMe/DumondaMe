@@ -9,6 +9,7 @@ let getFeedbackList = function (userId, feedbacks) {
         formattedFeedback.title = feedback.feedback.title;
         formattedFeedback.description = feedback.feedback.description;
         formattedFeedback.created = feedback.feedback.created;
+        formattedFeedback.lastModified = feedback.lastModified;
         formattedFeedback.feedbackId = feedback.feedback.feedbackId;
         formattedFeedback.operatingSystem = feedback.feedback.operatingSystem;
         formattedFeedback.browser = feedback.feedback.browser;
@@ -45,13 +46,22 @@ let getOverview = function (userId, params) {
 
     return db.cypher().match("(feedback:Feedback {status: {status}})<-[:IS_CREATOR]-(creator)")
         .where("{group} IN labels(feedback)")
+        .optionalMatch("(feedback)<-[:RECOMMENDS|COMMENT|IS_IDEA]-(feedbackRef)")
+        .with("feedback, creator, max(feedbackRef.created) AS feedbackRef1Created, max(feedbackRef.modified) AS feedbackRef1Modified")
         .optionalMatch("(feedback)<-[:COMMENT]-(comments:Feedback:Comment)")
         .where("NOT comments:Status")
-        .with("count(comments) AS numberOfComments, feedback, creator")
+        .with("count(comments) AS numberOfComments, feedback, creator, feedbackRef1Created, feedbackRef1Modified")
         .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
-        .with("count(recommendation) AS numberOfRecommendations, numberOfComments, feedback, creator")
+        .with("count(recommendation) AS numberOfRecommendations, numberOfComments, feedback, creator, feedbackRef1Created, feedbackRef1Modified")
         .optionalMatch("(feedback)<-[:IS_IDEA]-(discussionIdea:Feedback:DiscussionIdea)")
-        .return(`feedback, creator, count(discussionIdea) AS numberOfIdeas, numberOfComments, numberOfRecommendations,
+        .with(`count(discussionIdea) AS numberOfIdeas, numberOfRecommendations, numberOfComments, feedback, creator, feedbackRef1Created, 
+               feedbackRef1Modified`)
+        .optionalMatch("(feedback)<-[IS_IDEA]-(feedbackRef)<-[:RECOMMENDS|COMMENT]-(feedbackRef2)")
+        .with(`numberOfIdeas, numberOfRecommendations, numberOfComments, feedback, creator, feedbackRef1Created, 
+               feedbackRef1Modified, max(feedbackRef2.created) AS feedbackRef2Created, max(feedbackRef2.modified) AS feedbackRef2Modified`)
+        .unwind(`[feedbackRef1Created, feedbackRef1Modified, feedbackRef2Created, feedbackRef2Modified, feedback.created, feedback.modified] 
+                 AS feedbackRefModifiedCombined`)
+        .return(`feedback, creator, numberOfIdeas, numberOfComments, numberOfRecommendations, max(feedbackRefModifiedCombined) AS lastModified, 
                  EXISTS((feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC, numberOfIdeas DESC, feedback.created DESC")
         .skip("{skip}")

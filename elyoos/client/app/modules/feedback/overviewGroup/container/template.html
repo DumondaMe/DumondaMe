@@ -9,7 +9,11 @@
                  ng-show="ctrl.group === 'Discussion'">
                 {{feedback.title}}
             </div>
-            <div class="feedback-created">Erstellt {{ctrl.getFormattedDate(feedback.created, true)}} von {{feedback.creator.name}}
+            <div class="feedback-sub-title">
+                Erstellt von <span class="name">{{feedback.creator.name}}</span> {{ctrl.getFormattedDate(feedback.created, true)}}
+                <span ng-show="feedback.created !== feedback.lastModified && feedback.lastModified">
+                            - Zuletzt verändert {{ctrl.getFormattedDate(feedback.lastModified, true)}}
+                        </span>
             </div>
             <div class="info-container" layout="row">
                 <div ng-hide="ctrl.group === 'Discussion'">

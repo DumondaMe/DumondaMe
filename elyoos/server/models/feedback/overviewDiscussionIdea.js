@@ -12,6 +12,7 @@ let getIdeaList = function (userId, discussionIdeas) {
         formattedFeedback.title = idea.idea.title;
         formattedFeedback.description = idea.idea.description;
         formattedFeedback.created = idea.idea.created;
+        formattedFeedback.lastModified = idea.lastModified;
         formattedFeedback.feedbackId = idea.idea.feedbackId;
         formattedFeedback.creator = {userId: idea.creator.userId, name: idea.creator.name};
         formattedFeedback.createdByUser = idea.creator.userId === userId;
@@ -53,7 +54,12 @@ let getOverview = function (userId, params) {
         .where("NOT comments:Status")
         .with("count(comments) AS numberOfComments, idea, creator")
         .optionalMatch("(idea)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
-        .return(`idea, creator, numberOfComments, count(recommendation) AS numberOfRecommendations, 
+        .with("numberOfComments, idea, creator, count(recommendation) AS numberOfRecommendations")
+        .optionalMatch("(idea)<-[:RECOMMENDS|COMMENT]-(feedbackRef)")
+        .with(`numberOfComments, idea, creator, numberOfRecommendations, max(feedbackRef.created) AS feedbackRef1Created, 
+               max(feedbackRef.modified) AS feedbackRef1Modified`)
+        .unwind(`[feedbackRef1Created, feedbackRef1Modified, idea.created, idea.modified] AS feedbackRefModifiedCombined`)
+        .return(`idea, creator, numberOfComments, numberOfRecommendations, max(feedbackRefModifiedCombined) AS lastModified,
                  EXISTS((idea)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
         .orderBy("numberOfRecommendations DESC, numberOfComments DESC, idea.created DESC")
         .skip("{skip}")

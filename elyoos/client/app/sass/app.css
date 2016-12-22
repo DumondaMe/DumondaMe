@@ -702,10 +702,13 @@
     cursor: pointer; }
   .feedback-element .feedback-group-element .title:hover {
     text-decoration: underline; }
-  .feedback-element .feedback-group-element .feedback-created {
+  .feedback-element .feedback-group-element .feedback-sub-title {
     margin-top: 4px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }
+    .feedback-element .feedback-group-element .feedback-sub-title .name {
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
   .feedback-element .feedback-group-element .info-container {
     margin-top: 8px; }
     .feedback-element .feedback-group-element .info-container .load-feedback-recommendation {

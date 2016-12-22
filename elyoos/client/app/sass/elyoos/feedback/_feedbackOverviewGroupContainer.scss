@@ -10,7 +10,11 @@
     .title:hover {
       text-decoration: underline;
     }
-    .feedback-created {
+    .feedback-sub-title {
+      .name {
+        font-weight: 500;
+        color: $primary-text;
+      }
       margin-top: 4px;
       font-size: 14px;
       color: $secondary-text;

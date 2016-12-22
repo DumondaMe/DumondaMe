@@ -17,9 +17,6 @@
                 <div class="ely-feedback-detail-title">{{ctrl.detail.title}}</div>
                 <div class="ely-feedback-subheading">Erstellt {{ctrl.getFormattedDate(ctrl.detail.created, true)}} von
                     <span class="name">{{ctrl.detail.creator.name}}</span>
-                    <span ng-show="ctrl.detail.created !== ctrl.detail.modified && ctrl.detail.modified">- Zuletzt bearbeitet
-                        {{ctrl.getFormattedDate(ctrl.detail.modified, true)}}
-                    </span>
                 </div>
                 <div class="ely-feedback-bug-overview" ng-if="ctrl.group ==='Bug'" layout="row">
                     <div>Browser: <span class="bug-info">{{ctrl.browser}}</span></div>

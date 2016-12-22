@@ -37,21 +37,21 @@ describe('Integration Tests for getting bugs overview', function () {
     it('Getting open bugs overview', function () {
 
         dbDsl.createFeedbackBug('1', '1', 500);
-        dbDsl.createFeedbackBug('2', '2', 501, 501, 'open', {operatingSystem: 'windows', browser: 'ie', screen: 'mobile'});
-        dbDsl.createFeedbackBug('3', '3', 502, 501, 'open', {operatingSystem: 'macOs', browser: 'safari', screen: 'tablet'});
-        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
+        dbDsl.createFeedbackBug('2', '2', 501, 506, 'open', {operatingSystem: 'windows', browser: 'ie', screen: 'mobile'});
+        dbDsl.createFeedbackBug('3', '3', 502, 507, 'open', {operatingSystem: 'macOs', browser: 'safari', screen: 'tablet'});
+        dbDsl.createFeedbackBug('4', '4', 503, 508, 'closed');
 
         dbDsl.createFeedbackIdea('5', '1', 504);
         dbDsl.createFeedbackDiscussion('6', '1', 505);
 
         dbDsl.createFeedbackComment('1', '7', '1', 501);
-        dbDsl.createFeedbackComment('1', '8', '2', 502);
-        dbDsl.createFeedbackComment('2', '9', '1', 501);
+        dbDsl.createFeedbackComment('1', '8', '2', 511);
+        dbDsl.createFeedbackComment('2', '9', '1', 512);
 
-        dbDsl.createFeedbackRecommendation('3', '10', '1', 501);
-        dbDsl.createFeedbackRecommendation('3', '11', '2', 501);
-        dbDsl.createFeedbackRecommendation('3', '12', '4', 501);
-        dbDsl.createFeedbackRecommendation('2', '13', '4', 501);
+        dbDsl.createFeedbackRecommendation('3', '10', '1', 510);
+        dbDsl.createFeedbackRecommendation('3', '11', '2', 511);
+        dbDsl.createFeedbackRecommendation('3', '12', '4', 512);
+        dbDsl.createFeedbackRecommendation('2', '13', '4', 513);
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -67,6 +67,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[0].title.should.equals('bug3Title');
             res.body.feedbacks[0].description.should.equals('bug3Description');
             res.body.feedbacks[0].created.should.equals(502);
+            res.body.feedbacks[0].lastModified.should.equals(512);
             res.body.feedbacks[0].feedbackId.should.equals('3');
             res.body.feedbacks[0].operatingSystem.should.equals('macOs');
             res.body.feedbacks[0].browser.should.equals('safari');
@@ -80,6 +81,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[1].title.should.equals('bug2Title');
             res.body.feedbacks[1].description.should.equals('bug2Description');
             res.body.feedbacks[1].created.should.equals(501);
+            res.body.feedbacks[1].lastModified.should.equals(513);
             res.body.feedbacks[1].feedbackId.should.equals('2');
             res.body.feedbacks[1].operatingSystem.should.equals('windows');
             res.body.feedbacks[1].browser.should.equals('ie');
@@ -93,6 +95,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[2].title.should.equals('bug1Title');
             res.body.feedbacks[2].description.should.equals('bug1Description');
             res.body.feedbacks[2].created.should.equals(500);
+            res.body.feedbacks[2].lastModified.should.equals(511);
             res.body.feedbacks[2].feedbackId.should.equals('1');
             res.body.feedbacks[2].operatingSystem.should.equals('linux');
             res.body.feedbacks[2].browser.should.equals('firefox');
@@ -110,7 +113,7 @@ describe('Integration Tests for getting bugs overview', function () {
         dbDsl.createFeedbackBug('1', '1', 500);
         dbDsl.createFeedbackBug('2', '2', 501);
         dbDsl.createFeedbackBug('3', '3', 502);
-        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
+        dbDsl.createFeedbackBug('4', '4', 503, 512, 'closed');
 
         dbDsl.createFeedbackIdea('5', '1', 504);
         dbDsl.createFeedbackDiscussion('6', '1', 505);
@@ -134,6 +137,7 @@ describe('Integration Tests for getting bugs overview', function () {
             res.body.feedbacks[0].title.should.equals('bug4Title');
             res.body.feedbacks[0].description.should.equals('bug4Description');
             res.body.feedbacks[0].created.should.equals(503);
+            res.body.feedbacks[0].lastModified.should.equals(512);
             res.body.feedbacks[0].feedbackId.should.equals('4');
             res.body.feedbacks[0].operatingSystem.should.equals('linux');
             res.body.feedbacks[0].browser.should.equals('firefox');
