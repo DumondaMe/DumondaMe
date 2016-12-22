@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'BlogRecommendation',
-    'PinwallBlogService',
+    'PinwallHomeScrollService',
     function (dateFormatter, $mdDialog, Blog, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation,
-              PinwallBlogService) {
+              PinwallHomeScrollService) {
         var ctrl = this;
 
         ctrl.requestRunning = false;
@@ -27,7 +27,7 @@ module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTe
                     pageId: ctrl.element.pageId
                 }, function () {
                     ctrl.requestRunning = false;
-                    PinwallBlogService.removePinwallElement();
+                    PinwallHomeScrollService.removePinwallElement();
                 }, function () {
                     ctrl.requestRunning = false;
                     errorToast.showError("Fehler beim Löschen des Blogs");

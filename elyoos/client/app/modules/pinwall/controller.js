@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$scope', 'PinwallBlogService', '$mdMedia', 'PinwallHeightCalculator', 'PinwallColumnSelector',
-    function ($scope, PinwallBlogService, $mdMedia, PinwallHeightCalculator, PinwallColumnSelector) {
+module.exports = ['$scope', 'PinwallHomeScrollService', '$mdMedia', 'PinwallHeightCalculator', 'PinwallColumnSelector',
+    function ($scope, PinwallHomeScrollService, $mdMedia, PinwallHeightCalculator, PinwallColumnSelector) {
         var ctrl = this;
 
         if (angular.isString(ctrl.breakpoint)) {
@@ -14,7 +14,7 @@ module.exports = ['$scope', 'PinwallBlogService', '$mdMedia', 'PinwallHeightCalc
 
         $scope.$watchCollection('pinwall', function (newPinwall) {
             if (angular.isArray(newPinwall)) {
-                PinwallBlogService.addPinwall(newPinwall);
+                PinwallHomeScrollService.addPinwall(newPinwall);
                 PinwallHeightCalculator.setHeightPinwallElements(newPinwall);
                 ctrl.columns = PinwallColumnSelector.getColumns(newPinwall);
             }
