@@ -31,14 +31,6 @@
                 </div>
             </md-input-container>
             <md-input-container class="ely-input-container">
-                <label>Strasse (optional)</label>
-                <input name="street" ng-model="ctrl.userDataToChange.street" ng-disabled="ctrl.running" ng-change="ctrl.change()"/>
-            </md-input-container>
-            <md-input-container class="ely-input-container">
-                <label>Ort (optional)</label>
-                <input name="place" ng-model="ctrl.userDataToChange.place" ng-disabled="ctrl.running" ng-change="ctrl.change()"/>
-            </md-input-container>
-            <md-input-container class="ely-input-container">
                 <label>Land</label>
                 <md-select ng-model="ctrl.userDataToChange.selectedCountryCode" ng-model-options="{trackBy: '$value.code'}" ng-change="ctrl.change()">
                     <md-option ng-repeat="countryCode in ctrl.countryCodes" ng-value="countryCode">

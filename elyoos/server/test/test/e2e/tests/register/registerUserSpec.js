@@ -27,7 +27,7 @@ describe('Integration Tests for request to register a new user', function () {
         return requestHandler.logout();
     });
 
-    it('Start a register request for a valid new user (only mandatory fields) - Return 200', function () {
+    it('Start a register request for a valid new user - Return 200', function () {
         var newUser = {
             email: 'climberwoodi@gmx.ch',
             forename: 'user',
@@ -57,45 +57,6 @@ describe('Integration Tests for request to register a new user', function () {
             user[0].birthday.should.equals(newUser.birthday);
             user[0].country.should.equals(newUser.country);
             user[0].female.should.equals(newUser.female);
-            user[0].registerDate.should.be.at.least(startTime);
-            return requestHandler.logout();
-        });
-    });
-
-    it('Start a register request for a valid new user (all fields) - Return 200', function () {
-        var newUser = {
-            email: 'climberwoodi@gmx.ch',
-            forename: 'user',
-            surname: 'Waldvogel',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            password: '12345678',
-            street: 'irgendwo',
-            place: 'Urdorf',
-            response: '12'
-        }, startTime = Math.floor(moment.utc().valueOf() / 1000);
-
-        return requestHandler.post('/api/register', newUser).then(function (res) {
-            res.status.should.equal(200);
-            stubEmailQueue.createImmediatelyJob.calledWith("registerUserRequest", {
-                email: 'climberwoodi@gmx.ch',
-                linkId: sinon.match.any
-            }).should.be.true;
-            return db.cypher().match("(user:UserRegisterRequest {email: 'climberwoodi@gmx.ch'})")
-                .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, 
-                         user.country AS country, user.female AS female, user.street AS street,  user.place AS place, user.registerDate AS registerDate`)
-                .end().send();
-        }).then(function (user) {
-            user.length.should.equals(1);
-            user[0].name.should.equals('user Waldvogel');
-            user[0].forename.should.equals(newUser.forename);
-            user[0].surname.should.equals(newUser.surname);
-            user[0].birthday.should.equals(newUser.birthday);
-            user[0].country.should.equals(newUser.country);
-            user[0].female.should.equals(newUser.female);
-            user[0].street.should.equals(newUser.street);
-            user[0].place.should.equals(newUser.place);
             user[0].registerDate.should.be.at.least(startTime);
             return requestHandler.logout();
         });

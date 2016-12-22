@@ -61,14 +61,6 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="ely-input-container">
-                    <label>Strasse (optional)</label>
-                    <input name="street" ng-model="ctrl.userToRegister.street" ng-disabled="ctrl.running" md-maxlength="80"/>
-                </md-input-container>
-                <md-input-container class="ely-input-container">
-                    <label>Ort (optional)</label>
-                    <input name="place" ng-model="ctrl.userToRegister.place" ng-disabled="ctrl.running" md-maxlength="80"/>
-                </md-input-container>
-                <md-input-container class="ely-input-container">
                     <label>Land</label>
                     <md-select ng-model="ctrl.userToRegister.selectedCountryCode" ng-model-options="{trackBy: '$value.code'}"
                                ng-change="ctrl.change()">

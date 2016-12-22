@@ -9,8 +9,6 @@ module.exports = ['moment', 'CountryCodeConverter',
                 forename: data.forename,
                 surname: data.surname,
                 birthday: moment.utc(data.birthday, 'l', moment.locale(), true).valueOf() / 1000,
-                street: data.street,
-                place: data.place,
                 country: data.selectedCountryCode.code,
                 female: data.female === 'true'
             };

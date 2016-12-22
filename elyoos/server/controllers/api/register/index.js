@@ -18,8 +18,6 @@ var schemaRegisterUser = {
         country: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
         female: {type: 'boolean'},
         password: {type: 'string', format: 'notEmptyString', maxLength: 55, minLength: 8},
-        street: {type: 'string', maxLength: 80},
-        place: {type: 'string', maxLength: 80},
         response: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 3000},
     }
 };
