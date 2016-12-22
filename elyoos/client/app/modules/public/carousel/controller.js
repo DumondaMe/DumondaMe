@@ -9,10 +9,6 @@ module.exports = ['ElyModal', '$mdMedia', function (ElyModal, $mdMedia) {
         ElyModal.show('ThermsCtrl', 'app/modules/public/terms/modal/template.html', {});
     };
 
-    ctrl.openContact = function () {
-        ElyModal.show('PublicContactCtrl', 'app/modules/public/contact/template.html', {});
-    };
-
     ctrl.onSwipeDown = function () {
         if (ctrl.actualScreen > 0) {
             ctrl.actualScreen--;
