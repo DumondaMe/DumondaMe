@@ -1,4 +1,5 @@
-CALL git pull
+CALL git fetch --all
+CALL git reset --hard origin/master
 cd elyoos/client
 CALL npm update
 CALL grunt coverage
