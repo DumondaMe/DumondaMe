@@ -51,7 +51,7 @@ module.exports = function (grunt) {
                             }
                         },
 
-                        exclusions: 'node_modules/**/*,test/**/*,coverage/**/*,,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js,testResult/**/*'
+                        exclusions: ''
                     }
                 }
             }
@@ -62,7 +62,9 @@ module.exports = function (grunt) {
                 options: {
                     coverage: true,
                     coverageFolder: 'coverage',
-                    reportFormats: ['lcovonly']
+                    reportFormats: ['lcovonly'],
+                    timeout: 20000,
+                    nodeOptions: ['--preserve-symlinks']
                 }
             }
         }

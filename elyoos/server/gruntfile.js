@@ -21,7 +21,8 @@ module.exports = function (grunt) {
                     captureFile: 'testResult/xunit.xml', // Optionally capture the reporter output to a file
                     quiet: true, // Optionally suppress output to standard out (defaults to false)
                     clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false),
-                    timeout: 20000
+                    timeout: 20000,
+                    nodeOptions: ['--preserve-symlinks']
                 },
                 src: ['test/**/*.js']
             }
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server',
                         projectName: 'Elyoos Server',
                         projectVersion: '0.1',
-                        sources: 'controllers, models, server.js, node_modules/elyoos-server-lib/lib/**/*',
+                        sources: 'controllers, models, server.js',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
                         jdbc: {
@@ -59,7 +60,9 @@ module.exports = function (grunt) {
                 options: {
                     coverage: true,
                     coverageFolder: 'coverage',
-                    reportFormats: ['lcovonly']
+                    reportFormats: ['lcovonly'],
+                    timeout: 20000,
+                    nodeOptions: ['--preserve-symlinks']
                 }
             }
         }
