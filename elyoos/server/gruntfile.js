@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                         projectKey: 'javascript-sonar-runner-elyoos-server',
                         projectName: 'Elyoos Server',
                         projectVersion: '0.1',
-                        sources: 'controllers, lib, models, neo4j, server.js',
+                        sources: 'controllers, models, server.js, node_modules/elyoos-server-lib/lib/**/*',
                         sourceEncoding: 'UTF-8',
                         language: 'js',
                         jdbc: {
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
                                 reportPath: 'coverage/lcov.info'
                             }
                         },
-                        exclusions: 'node_modules/**/*,processing/**/*,test/**/*,coverage/**/*,db/**/*,config/**/*,data/**/*,.sonar/**/*,gruntfile.js,testResult/**/*'
+                        exclusions: ''
                     }
                 }
             }
