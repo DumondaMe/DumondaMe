@@ -37,10 +37,10 @@ var createLinkPage = function (pageId, language, topic, modified, link, heightPr
         }).getCommand());
 };
 
-var createPlacePage = function (pageId, adminId, language, topic, modified, title, coordinates) {
-    title = title || `page${pageId}Title`;
+var createGenericPage = function (pageId, adminId, language, topic, modified, title, coordinates) {
+    title = title || `generic${pageId}Title`;
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
-        .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Place', language: {language}, description: {description}, modified: {modified}, created: {modified}, topic: {topic},
+        .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {modified}, topic: {topic},
         pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng)}))`)
         .end({
@@ -59,6 +59,6 @@ module.exports = {
     createBookPage: createBookPage,
     createYoutubePage: createYoutubePage,
     createLinkPage: createLinkPage,
-    createPlacePage: createPlacePage,
+    createGenericPage: createGenericPage,
     addAdminToPage: addAdminToPage
 };

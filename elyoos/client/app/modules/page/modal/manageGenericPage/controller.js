@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
+module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
     'RecommendationResponseFormatter', 'Languages', 'ArrayHelper', 'Keywords', 'KeywordSuggestion',
-    function (ElyModal, Topics, PlacePageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
+    function (ElyModal, Topics, GenericPageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
               Languages, ArrayHelper, Keywords, KeywordSuggestion) {
         var ctrl = this;
 
@@ -66,18 +66,18 @@ module.exports = ['ElyModal', 'Topics', 'PlacePageCreateMessageService', 'fileUp
             ctrl.data.selectedPlaces.push(selectedPlace);
         };
 
-        ctrl.createPlace = function () {
-            var message = PlacePageCreateMessageService.getCreatePlacePageMessage(ctrl.data);
+        ctrl.createGenericPage = function () {
+            var message = GenericPageCreateMessageService.getCreateGenericPageMessage(ctrl.data);
             UploadPageService.uploadCreatePage(message, ctrl);
         };
 
-        ctrl.modifyPlace = function () {
-            var message = PlacePageCreateMessageService.getModifyPlacePageMessage(ctrl.data);
+        ctrl.modifyGenericPage = function () {
+            var message = GenericPageCreateMessageService.getModifyGenericPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
         };
 
         ctrl.recommendationFinish = function (recommendation) {
-            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Place');
+            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Generic');
             ElyModal.hide(ctrl.data);
         };
 

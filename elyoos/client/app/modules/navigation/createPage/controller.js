@@ -36,9 +36,9 @@ module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet'
                 });
         };
 
-        ctrl.createPlacePage = function () {
+        ctrl.createGenericPage = function () {
             $mdBottomSheet.hide();
-            ElyModal.show('ManagePlacePageCtrl', 'app/modules/page/modal/managePlacePage/template.html')
+            ElyModal.show('ManageGenericPageCtrl', 'app/modules/page/modal/manageGenericPage/template.html')
                 .then(function (resp) {
                     AddRemovePinwallElementService.addRecommendation(resp);
                 });

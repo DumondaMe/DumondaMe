@@ -2250,46 +2250,46 @@
       font-size: 14px;
       margin-bottom: 12px; }
 
-#manage-place-page .ely-dialog-content #title-image-container {
+#manage-generic-page .ely-dialog-content #title-image-container {
   width: 150px; }
-  #manage-place-page .ely-dialog-content #title-image-container .preview-image {
+  #manage-generic-page .ely-dialog-content #title-image-container .preview-image {
     width: 150px; }
-#manage-place-page .ely-dialog-content .search-place-button-container {
+#manage-generic-page .ely-dialog-content .search-place-button-container {
   height: 66px; }
-#manage-place-page .ely-dialog-content #place-list {
+#manage-generic-page .ely-dialog-content #place-list {
   padding: 12px 0; }
-  #manage-place-page .ely-dialog-content #place-list #place-title {
+  #manage-generic-page .ely-dialog-content #place-list #place-title {
     font-weight: 500;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54);
     margin-bottom: 8px; }
-  #manage-place-page .ely-dialog-content #place-list #selected-place-container {
+  #manage-generic-page .ely-dialog-content #place-list #selected-place-container {
     margin-bottom: 12px; }
-    #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place {
+    #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place {
       border-bottom: 1px solid #ccc;
       margin-bottom: 8px; }
-      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
+      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
         font-size: 14px;
         font-weight: 300;
         vertical-align: middle;
         line-height: 24px; }
-      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
+      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
         cursor: pointer;
         margin-left: 6px;
         height: 24px;
         width: 24px; }
-#manage-place-page .ely-dialog-content #keyword-container #keyword-title {
+#manage-generic-page .ely-dialog-content #keyword-container #keyword-title {
   font-weight: 500;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
   margin-bottom: 8px; }
-#manage-place-page .ely-dialog-content #keyword-container #keyword-list {
+#manage-generic-page .ely-dialog-content #keyword-container #keyword-list {
   font-weight: 400;
   font-size: 14px;
   font-style: italic;
   color: rgba(0, 0, 0, 0.87);
   margin-bottom: 6px; }
-  #manage-place-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
+  #manage-generic-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
     margin-right: 3px; }
 
 #manage-book-page .ely-dialog-content .preview-image {

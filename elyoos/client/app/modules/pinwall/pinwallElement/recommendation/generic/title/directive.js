@@ -7,14 +7,13 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '=',
-                requestRunning: '='
+                element: '='
             },
             controller: function () {
             },
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/place/template.html'
+            templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/generic/title/template.html'
         };
     }],
-    name: 'elyPinwallRecommendationPlace'
+    name: 'elyPinwallRecommendationGenericTitle'
 };

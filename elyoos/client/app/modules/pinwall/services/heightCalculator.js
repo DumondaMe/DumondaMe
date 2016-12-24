@@ -32,7 +32,7 @@ var heightCalculator = {
                 case "Link":
                     setLinkHeight(recommendation);
                     break;
-                case "Place":
+                case "Generic":
                     recommendation.pinwallHeight = 91;
                     break;
                 default:

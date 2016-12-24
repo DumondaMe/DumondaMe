@@ -12,8 +12,8 @@ module.exports = {
             bindToController: {
                 pageDetail: '='
             },
-            templateUrl: 'app/modules/page/detail/place/template.html'
+            templateUrl: 'app/modules/page/detail/generic/template.html'
         };
     }],
-    name: 'elyPageDetailPlace'
+    name: 'elyPageDetailGeneric'
 };

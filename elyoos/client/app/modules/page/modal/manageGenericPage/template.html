@@ -1,6 +1,6 @@
-<md-dialog id="manage-place-page" aria-label="Manage Place Page" class="manage-page"
-           ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
-    <form name="ctrl.managePlacePageForm"
+<md-dialog id="manage-generic-page" aria-label="Manage Generic Page" class="manage-page"
+           ng-class="{'create-generic-page-preview-image': ctrl.selectImage}">
+    <form name="ctrl.manageGenericPageForm"
           ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace && !ctrl.showKeywords" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
@@ -26,7 +26,7 @@
                         <label>Bezeichnung</label>
                         <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
                                ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
-                        <div ng-messages="ctrl.managePlacePageForm.title.$error">
+                        <div ng-messages="ctrl.manageGenericPageForm.title.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                         </div>
@@ -48,10 +48,10 @@
                         <label>Webseite</label>
                         <input type="url" name="website" ng-model="ctrl.data.website" md-maxlength="1000"
                                ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
-                        <div class="hint" ng-if="ctrl.managePlacePageForm.website.$valid || ctrl.managePlacePageForm.website.$pristine">
+                        <div class="hint" ng-if="ctrl.manageGenericPageForm.website.$valid || ctrl.manageGenericPageForm.website.$pristine">
                             Link zu der Webseite des Projektes
                         </div>
-                        <div ng-messages="ctrl.managePlacePageForm.website.$error">
+                        <div ng-messages="ctrl.manageGenericPageForm.website.$error">
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                             <div ng-message="url">Ungültiger Link</div>
                         </div>
@@ -60,10 +60,10 @@
                         <label>Allgemeine Beschreibung</label>
                         <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="1000"
                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
-                        <div class="hint" ng-if="ctrl.managePlacePageForm.description.$valid || ctrl.managePlacePageForm.description.$pristine">
+                        <div class="hint" ng-if="ctrl.manageGenericPageForm.description.$valid || ctrl.manageGenericPageForm.description.$pristine">
                             Beschreibe in einer allgemeinen Form worum es geht. Vermeide persönliche Kommentare.
                         </div>
-                        <div ng-messages="ctrl.managePlacePageForm.description.$error">
+                        <div ng-messages="ctrl.manageGenericPageForm.description.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>
                         </div>
@@ -94,12 +94,12 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.createPlace()" ng-if="!ctrl.isEditMode"
-                       ng-disabled="ctrl.uploadStarted || ctrl.managePlacePageForm.$invalid || !ctrl.data.selectedPlaces.length > 0
+            <md-button class="md-primary md-raised" ng-click="ctrl.createGenericPage()" ng-if="!ctrl.isEditMode"
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.data.selectedPlaces.length > 0
                        || !ctrl.data.selectedKeywords.length > 0">Erstellen
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.modifyPlace()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.managePlacePageForm.$invalid || !ctrl.dataHasChanged">
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyGenericPage()" ng-if="ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.dataHasChanged">
                 Ändern
             </md-button>
         </md-dialog-actions>

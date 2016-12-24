@@ -2,9 +2,9 @@
 
 module.exports = ['Topics', 'Languages', 'PlacesMessageService', function (Topics, Languages, PlacesMessageService) {
 
-    this.getCreatePlacePageMessage = function (data) {
+    this.getCreateGenericPageMessage = function (data) {
         return {
-            placePage: {
+            genericPage: {
                 title: data.title,
                 description: data.description,
                 topic: Topics.getCodes(data.selectedTopics),
@@ -16,9 +16,9 @@ module.exports = ['Topics', 'Languages', 'PlacesMessageService', function (Topic
         };
     };
 
-    this.getModifyPlacePageMessage = function (data) {
+    this.getModifyGenericPageMessage = function (data) {
         return {
-            placePage: {}
+            genericPage: {}
         };
     };
 }];
