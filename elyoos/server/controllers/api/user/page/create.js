@@ -6,7 +6,7 @@ var underscore = require('underscore');
 var createBookPage = requireModel('user/page/createBookPage');
 var createVideoPage = requireModel('user/page/createVideoPage');
 var createLinkPage = requireModel('user/page/createLinkPage');
-var createPlacePage = requireModel('user/page/createPlacePage');
+var createGenericPage = requireModel('user/page/createGenericPage');
 var auth = require('elyoos-server-lib').auth;
 var controllerErrors = require('elyoos-server-lib').controllerErrors;
 var logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -28,8 +28,8 @@ module.exports = function (router) {
                     return createVideoPage.createVideoPage(req.user.id, request.youtubePage);
                 } else if(request.linkPage) {
                     return createLinkPage.createLinkPage(req.user.id, request.linkPage, filePath, req);
-                } else if(request.placePage) {
-                    return createPlacePage.createPlacePage(req.user.id, request.placePage, filePath, req);
+                } else if(request.genericPage) {
+                    return createGenericPage.createGenericPage(req.user.id, request.genericPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

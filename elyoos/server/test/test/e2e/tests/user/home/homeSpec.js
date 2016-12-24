@@ -257,7 +257,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', '3', ['en'], ['health', 'personalDevelopment'], 1000, null, null, 'blogTitle4');
         dbDsl.createBlog('7', '3', ['en'], ['health', 'personalDevelopment'], 507, ['Freund'], null, 'blogTitle5');
 
-        dbDsl.createPlacePage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+        dbDsl.createGenericPage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
             description: 'Zuerich',
             lat: 47.376887,
             lng: 8.541694
@@ -412,7 +412,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].topic[1].should.equals('personalDevelopment');
 
             res.body.pinwall[7].pinwallType.should.equals('Recommendation');
-            res.body.pinwall[7].label.should.equals('Place');
+            res.body.pinwall[7].label.should.equals('Generic');
             res.body.pinwall[7].pageId.should.equals('8');
             res.body.pinwall[7].name.should.equals('user Meier2');
             res.body.pinwall[7].forename.should.equals('user');

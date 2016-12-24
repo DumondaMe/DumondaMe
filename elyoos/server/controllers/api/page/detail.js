@@ -13,7 +13,7 @@ var schemaGetPage = {
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['Book', 'Youtube', 'Link', 'Blog', 'Place']}
+        label: {enum: ['Book', 'Youtube', 'Link', 'Blog', 'Generic']}
     }
 };
 
@@ -22,7 +22,7 @@ var detail = {
     Youtube: requireModel('page/detail/videoDetail'),
     Link: requireModel('page/detail/linkDetail'),
     Blog: requireModel('page/detail/blogDetail'),
-    Place: requireModel('page/detail/placeDetail')
+    Generic: requireModel('page/detail/genericDetail')
 };
 
 module.exports = function (router) {

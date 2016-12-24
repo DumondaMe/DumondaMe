@@ -14,7 +14,7 @@ var compare = function (a, b) {
 var getRecommendationElement = function (pinwallElement) {
 
     var element = {};
-    element.label = 'Place';
+    element.label = 'Generic';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;
     element.topic = pinwallElement.recommendationElement.topic;

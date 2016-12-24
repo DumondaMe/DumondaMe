@@ -22,7 +22,7 @@ describe('Integration Tests for deleting a page', function () {
             dbDsl.createYoutubePage('2', ['de'], ['health', 'personalDevelopment'], 5092, 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
 
-            dbDsl.createPlacePage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
+            dbDsl.createGenericPage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
                 [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}],
                 [{description: 'Zuerich2', lat: 47.376887, lng: 8.541694}]);
 

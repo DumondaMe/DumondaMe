@@ -14,7 +14,7 @@ var addLabelElement = function (element, pinwallElement) {
         }
     } else if (element.label === 'Book') {
         element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
-    } else if (element.label === 'Place') {
+    } else if (element.label === 'Generic') {
         element.previewImage = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
     } else if (element.label === 'Youtube') {
         element.link = pinwallElement.pinwallData.link;

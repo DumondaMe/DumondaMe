@@ -29,7 +29,7 @@ describe('Integration Tests for getting popular recommendations', function () {
 
         dbDsl.createBlog('5', '5', ['en'], ['health'], 5077, null, 250);
         dbDsl.createBlog('6', '1', ['en'], ['spiritual'], 5077, null, null);
-        dbDsl.createPlacePage('7', '1', ['de'], ['health', 'personalDevelopment'], 5072, 'PlaceTitle',
+        dbDsl.createGenericPage('7', '1', ['de'], ['health', 'personalDevelopment'], 5072, 'PlaceTitle',
             [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}, {description: 'Zuerich Paradeplatz', lat: 47.369890, lng: 8.539127}]);
 
         dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}, {userId: '3', created: 501}]);
@@ -86,7 +86,7 @@ describe('Integration Tests for getting popular recommendations', function () {
                 res.body.recommendations[3].topic.length.should.equals(1);
                 res.body.recommendations[3].topic[0].should.equals('personalDevelopment');
 
-                res.body.recommendations[4].label.should.equals('Place');
+                res.body.recommendations[4].label.should.equals('Generic');
                 res.body.recommendations[4].pageId.should.equals('7');
                 res.body.recommendations[4].title.should.equals('PlaceTitle');
                 res.body.recommendations[4].numberOfRecommendations.should.equals(1);

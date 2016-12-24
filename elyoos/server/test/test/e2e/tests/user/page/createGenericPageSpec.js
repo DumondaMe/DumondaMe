@@ -8,7 +8,7 @@ var moment = require('moment');
 var stubCDN = require('elyoos-server-test-util').stubCDN();
 var sinon = require('sinon');
 
-describe('Integration Tests for creating new place pages', function () {
+describe('Integration Tests for creating new generic pages', function () {
 
     var requestAgent, startTime;
 
@@ -28,10 +28,10 @@ describe('Integration Tests for creating new place pages', function () {
         return requestHandler.logout();
     });
 
-    it('Create a new place page - Return 200', function () {
+    it('Create a new generic page - Return 200', function () {
 
         var createPage = {
-            placePage: {
+            genericPage: {
                 title: 'title',
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],
@@ -57,7 +57,7 @@ describe('Integration Tests for creating new place pages', function () {
             page.length.should.equals(1);
             page[0].page.created.should.be.at.least(startTime);
             page[0].page.modified.should.be.at.least(startTime);
-            page[0].page.label.should.equals("Place");
+            page[0].page.label.should.equals("Generic");
             page[0].page.title.should.equals("title");
             page[0].page.description.should.equals("description");
             page[0].page.website.should.equals("www.elyoos.com");
@@ -82,10 +82,10 @@ describe('Integration Tests for creating new place pages', function () {
         });
     });
 
-    it('Create a new place page with only mandatory properties - Return 200', function () {
+    it('Create a new generic page with only mandatory properties - Return 200', function () {
 
         var createPage = {
-            placePage: {
+            genericPage: {
                 title: 'title',
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],
@@ -110,7 +110,7 @@ describe('Integration Tests for creating new place pages', function () {
             page.length.should.equals(1);
             page[0].page.created.should.be.at.least(startTime);
             page[0].page.modified.should.be.at.least(startTime);
-            page[0].page.label.should.equals("Place");
+            page[0].page.label.should.equals("Generic");
             page[0].page.title.should.equals("title");
             page[0].page.description.should.equals("description");
             page[0].page.pageId.should.equals(pageId);
@@ -134,10 +134,10 @@ describe('Integration Tests for creating new place pages', function () {
         });
     });
 
-    it('Keyword is not existing - Return 400', function () {
+    it('Keyword does not exist - Return 400', function () {
 
         var createPage = {
-            placePage: {
+            genericPage: {
                 title: 'title',
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],

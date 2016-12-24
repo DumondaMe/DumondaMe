@@ -4,13 +4,13 @@ var users = require('elyoos-server-test-util').user;
 var dbDsl = require('elyoos-server-test-util').dbDSL;
 var requestHandler = require('elyoos-server-test-util').requestHandler;
 
-describe('Integration Tests for getting place page detail', function () {
+describe('Integration Tests for getting generic page detail', function () {
 
     var requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
-            dbDsl.createPlacePage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
+            dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694
@@ -39,7 +39,7 @@ describe('Integration Tests for getting place page detail', function () {
             requestAgent = agent;
             return requestHandler.getWithData('/api/page/detail', {
                 pageId: '1',
-                label: 'Place'
+                label: 'Generic'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -48,7 +48,7 @@ describe('Integration Tests for getting place page detail', function () {
             res.body.page.description.should.equals('page1Description');
             res.body.page.created.should.equals(100);
             res.body.page.modified.should.equals(100);
-            res.body.page.label.should.equals('Place');
+            res.body.page.label.should.equals('Generic');
             res.body.page.imagePreview.should.equals('pages/1/preview.jpg');
             res.body.page.imageNormal.should.equals('pages/1/normal.jpg');
 

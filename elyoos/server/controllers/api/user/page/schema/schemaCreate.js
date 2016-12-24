@@ -45,7 +45,7 @@ module.exports = {
                 language: language.languageMultiple
             }
         },
-        placePage: {
+        genericPage: {
             type: 'object',
             additionalProperties: false,
             required: ['title', 'topic', 'description', 'language', 'places', 'keywords'],

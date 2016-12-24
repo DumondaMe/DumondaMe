@@ -15,8 +15,8 @@ var getDetail = function (pageId, label, userId) {
     commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());
     commands.push(recommendation.getRecommendationSummaryContacts(pageId, userId).getCommand());
 
-    return db.cypher().match("(page:Page {pageId: {pageId}, label: 'Place'})")
-        .optionalMatch("(place)-[:HAS]->(address:Address)")
+    return db.cypher().match("(page:Page {pageId: {pageId}, label: 'Generic'})")
+        .optionalMatch("(page)-[:HAS]->(address:Address)")
         .return(`page.pageId AS pageId, page.title AS title, page.description AS description, page.topic AS topic, collect(address) AS addresses, 
                  page.created AS created, page.modified AS modified, page.label AS label, page.language AS language`)
         .end({pageId: pageId})
