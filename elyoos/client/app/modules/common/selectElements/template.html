@@ -25,14 +25,14 @@
                 </div>
             </div>
             <div class="suggestion-container" layout="row" layout-wrap flex ng-show="ctrl.suggestion.elements.length > 0">
-                <div flex="50" ng-repeat="element in ctrl.suggestion.elements">
+                <div flex="100" flex-gt-xs="50" ng-repeat="element in ctrl.suggestion.elements">
                     <md-checkbox ng-checked="ctrl.exists(element, ctrl.selected)" aria-label="{{element.description}}"
                                  ng-click="ctrl.toggle(element, ctrl.selected)"></md-checkbox>
                     {{element.description}}
                 </div>
             </div>
             <div ely-infinite-scroll="ctrl.nextElements" class="overview-container" layout="row" layout-wrap flex>
-                <div flex="50" ng-repeat="element in ctrl.overview.elements">
+                <div flex="100" flex-gt-xs="50" ng-repeat="element in ctrl.overview.elements">
                     <md-checkbox ng-checked="ctrl.exists(element, ctrl.selected)" aria-label="{{element.description}}"
                                  ng-click="ctrl.toggle(element, ctrl.selected)"></md-checkbox>
                     {{element.description}}

@@ -2,8 +2,8 @@
            ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
     <form name="ctrl.managePlacePageForm"
           ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace && !ctrl.showKeywords" ng-cloak>
-        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Standort Beitrag erstellen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Standort Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Beitrag erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
             bearbeiten
         </div>
         <md-dialog-content>
