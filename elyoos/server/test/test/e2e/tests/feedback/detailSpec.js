@@ -88,6 +88,7 @@ describe('Integration Tests for getting feedback detail', function () {
             res.body.modified.should.equals(600);
             res.body.creator.name.should.equals('user Meier2');
             res.body.creator.userId.should.equals('2');
+            res.body.recommendationId.should.equals('7');
             res.body.recommendedByUser.should.equals(true);
             res.body.createdByUser.should.equals(false);
         });

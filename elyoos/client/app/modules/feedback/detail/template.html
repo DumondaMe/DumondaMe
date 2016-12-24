@@ -48,14 +48,19 @@
                             Kommentar erstellen
                         </md-button>
                     </div>
+                    <div ng-show="ctrl.detail.recommendedByUser">
+                        <md-button class="md-raised md-primary" ng-click="ctrl.deleteRecommendation()" aria-label="delete recommendation">
+                            Empfehlung entfernen
+                        </md-button>
+                    </div>
                     <div ng-show="ctrl.detail.createdByUser">
                         <md-button class="md-raised md-primary" ng-click="ctrl.modifyFeedback()" aria-label="modifiy feedback">
-                            Bearbeiten
+                            Feedback Bearbeiten
                         </md-button>
                     </div>
                     <div ng-show="ctrl.detail.createdByUser && ctrl.detail.numberOfRecommendations === 0 && ctrl.detail.numberOfComments === 0">
                         <md-button class="md-raised md-primary" ng-click="ctrl.deleteFeedback()" aria-label="modifiy feedback">
-                            Löschen
+                            Feedback Löschen
                         </md-button>
                     </div>
                     <span flex></span>

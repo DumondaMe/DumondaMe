@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal', '$mdDialog', 'UserFeedback', 'errorToast', '$state', 'BrowserCode',
-    'OSCode', 'ScreenCode',
-    function ($stateParams, FeedbackDetail, dateFormatter, ElyModal, $mdDialog, UserFeedback, errorToast, $state, BrowserCode, OSCode, ScreenCode) {
+    'OSCode', 'ScreenCode', 'FeedbackRecommendation',
+    function ($stateParams, FeedbackDetail, dateFormatter, ElyModal, $mdDialog, UserFeedback, errorToast, $state, BrowserCode, OSCode, ScreenCode,
+              FeedbackRecommendation) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
@@ -61,6 +62,32 @@ module.exports = ['$stateParams', 'FeedbackDetail', 'dateFormatter', 'ElyModal',
                 }, function () {
                     errorToast.showError("Fehler beim Löschen des Feedbacks");
                 });
+            });
+        };
+
+        ctrl.recommendFeedback = function () {
+            ctrl.runningUpload = true;
+            FeedbackRecommendation.save({feedbackId: $stateParams.feedbackId}, function (resp) {
+                ctrl.runningUpload = false;
+                ctrl.detail.recommendedByUser = true;
+                ctrl.detail.recommendationId = resp.recommendationId;
+                ctrl.detail.numberOfRecommendations++;
+            }, function () {
+                ctrl.runningUpload = false;
+                errorToast.showError('Es ist ein Fehler aufgetreten!');
+            });
+        };
+
+        ctrl.deleteRecommendation = function () {
+            ctrl.runningUpload = true;
+            FeedbackRecommendation.delete({recommendationId: ctrl.detail.recommendationId}, function () {
+                ctrl.runningUpload = false;
+                ctrl.detail.recommendedByUser = false;
+                delete ctrl.detail.recommendationId;
+                ctrl.detail.numberOfRecommendations--;
+            }, function () {
+                ctrl.runningUpload = false;
+                errorToast.showError('Es ist ein Fehler aufgetreten!');
             });
         };
     }];

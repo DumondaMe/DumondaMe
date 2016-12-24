@@ -14,8 +14,10 @@ let getFeedbackDetail = function (userId, feedbackId) {
         .where("NOT comment:Status")
         .with("feedback, discussion, creator, count(comment) AS numberOfComments")
         .optionalMatch("(feedback)<-[:RECOMMENDS]-(recommendation:Feedback:Recommendation)")
+        .optionalMatch("(feedback)<-[:RECOMMENDS]-(userRecommendation:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})")
         .return(`feedback, discussion, LABELS(feedback) AS type, creator, numberOfComments, count(recommendation) AS numberOfRecommendations,
-                 EXISTS((feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser`)
+                 EXISTS((feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation)<-[:RECOMMENDED_BY]-(:User {userId: {userId}})) AS recommendedByUser, 
+                 userRecommendation.recommendationId AS recommendationId`)
         .end({userId: userId, feedbackId: feedbackId});
 };
 
@@ -35,6 +37,7 @@ let getFeedbackMessage = function (userId, feedback) {
         numberOfComments: feedback.numberOfComments,
         numberOfRecommendations: feedback.numberOfRecommendations,
         recommendedByUser: feedback.recommendedByUser,
+        recommendationId: feedback.recommendationId,
         createdByUser: userId === feedback.creator.userId
     };
     if (feedback.hasOwnProperty('discussion')) {
