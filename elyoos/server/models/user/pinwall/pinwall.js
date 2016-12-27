@@ -99,9 +99,9 @@ var getRecommendationPrivacyString = function (withCondition) {
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("isContact is NULL")
         .with("user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact" + withCondition)
-        .where(`((user)-[:RECOMMENDS]->(pinwall) OR 
-                (privacy.pinwall = true OR (privacy is null AND privacyNoContact.pinwall = true)) AND 
-                (privacy.profile = true OR (privacy is null AND privacyNoContact.profile = true))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
+        .where(`(user)-[:RECOMMENDS]->(pinwall) OR 
+                ((privacy.pinwall = true OR (privacy is null AND privacyNoContact.pinwall = true)) AND 
+                (privacy.profile = true OR (privacy is null AND privacyNoContact.profile = true)) AND NOT (contact)-[:IS_BLOCKED]->(user))`)
         .getCommandString();
 };
 
