@@ -23,7 +23,7 @@ var createGenericPage = function (userId, params, titlePicturePath) {
             return image.uploadImage(titlePicturePath, 'pages', params.pageId, 450, 1000, 'pages/default/landscape');
         }).then(function () {
             logger.info(`Created generic page with id ${params.pageId}`);
-            return {pageId: params.pageId, titlePreviewUrl: cdn.getUrl(`pages/${params.pageId}/preview.jpg`)};
+            return {pageId: params.pageId, previewImage: cdn.getUrl(`pages/${params.pageId}/preview.jpg`)};
         });
 };
 

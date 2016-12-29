@@ -47,7 +47,7 @@ describe('Integration Tests for creating new generic pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            res.body.titlePreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
+            res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
             return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page AS page, address.description AS address, address.latitude AS latitude, address.longitude AS longitude`)
                 .end().send();
@@ -94,7 +94,7 @@ describe('Integration Tests for creating new generic pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            res.body.titlePreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
+            res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
             return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
                 .return(`page AS page`)
                 .end().send();
