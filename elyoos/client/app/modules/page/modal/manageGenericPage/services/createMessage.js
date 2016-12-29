@@ -10,7 +10,6 @@ module.exports = ['Topics', 'Languages', 'PlacesMessageService', function (Topic
                 topic: Topics.getCodes(data.selectedTopics),
                 language: Languages.getCodes(data.selectedLanguages),
                 website: data.website,
-                keywords: data.selectedKeywords,
                 places: PlacesMessageService.getMessage(data.selectedPlaces)
             }
         };

@@ -37,8 +37,7 @@ var createLinkPage = function (pageId, language, topic, modified, link, heightPr
         }).getCommand());
 };
 
-var createGenericPage = function (pageId, adminId, language, topic, modified, title, coordinates) {
-    title = title || `generic${pageId}Title`;
+var createGenericPage = function (pageId, adminId, language, topic, modified, title = `generic${pageId}Title`, coordinates = null) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
         .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {modified}, topic: {topic},
         pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 

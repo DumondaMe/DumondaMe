@@ -37,8 +37,7 @@ describe('Integration Tests for creating new generic pages', function () {
                 language: ['en', 'de'],
                 description: 'description',
                 website: 'www.elyoos.com',
-                places: [{description: 'addressName', lat: -5.00, lng: 6.00}],
-                keywords: ['Yoga', 'Meditation']
+                places: [{description: 'addressName', lat: -5.00, lng: 6.00}]
             }
         }, pageId;
 
@@ -50,8 +49,7 @@ describe('Integration Tests for creating new generic pages', function () {
             pageId = res.body.pageId;
             res.body.titlePreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
             return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .optionalMatch("(page)-[:HAS_KEYWORD]->(keyword:Keyword)")
-                .return(`page AS page, address.description AS address, address.latitude AS latitude, address.longitude AS longitude, collect(keyword) AS keywords`)
+                .return(`page AS page, address.description AS address, address.latitude AS latitude, address.longitude AS longitude`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -72,9 +70,6 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.language.length.should.equals(2);
             page[0].page.language[0].should.equals('en');
             page[0].page.language[1].should.equals('de');
-            page[0].keywords.length.should.equals(2);
-            page[0].keywords.should.include({de: 'Meditation'});
-            page[0].keywords.should.include({de: 'Yoga'});
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/normal.jpg`).should.be.true;
@@ -89,9 +84,7 @@ describe('Integration Tests for creating new generic pages', function () {
                 title: 'title',
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],
-                description: 'description',
-                places: [{description: 'addressName', lat: -5.00, lng: 6.00}],
-                keywords: ['Yoga', 'Meditation']
+                description: 'description'
             }
         }, pageId;
 
@@ -102,9 +95,8 @@ describe('Integration Tests for creating new generic pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.titlePreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
-            return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .optionalMatch("(page)-[:HAS_KEYWORD]->(keyword:Keyword)")
-                .return(`page AS page, address.description AS address, address.latitude AS latitude, address.longitude AS longitude, collect(keyword) AS keywords`)
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+                .return(`page AS page`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -114,9 +106,6 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.title.should.equals("title");
             page[0].page.description.should.equals("description");
             page[0].page.pageId.should.equals(pageId);
-            page[0].address.should.equals("addressName");
-            page[0].latitude.should.equals(-5.00);
-            page[0].longitude.should.equals(6.00);
 
             page[0].page.topic.length.should.equals(2);
             page[0].page.topic[0].should.equals('health');
@@ -124,34 +113,10 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.language.length.should.equals(2);
             page[0].page.language[0].should.equals('en');
             page[0].page.language[1].should.equals('de');
-            page[0].keywords.length.should.equals(2);
-            page[0].keywords.should.include({de: 'Meditation'});
-            page[0].keywords.should.include({de: 'Yoga'});
 
             stubCDN.copyFile.calledWith('pages/default/landscape/preview.jpg', `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.copyFile.calledWith('pages/default/landscape/normal.jpg', `pages/${pageId}/normal.jpg`).should.be.true;
             stubCDN.copyFile.calledWith('pages/default/landscape/thumbnail.jpg', `pages/${pageId}/thumbnail.jpg`).should.be.true;
-        });
-    });
-
-    it('Keyword does not exist - Return 400', function () {
-
-        var createPage = {
-            genericPage: {
-                title: 'title',
-                topic: ['health', 'spiritual'],
-                language: ['en', 'de'],
-                description: 'description',
-                places: [{description: 'addressName', lat: -5.00, lng: 6.00}],
-                keywords: ['Yoga', 'Meditation', 'Irgendwas']
-            }
-        };
-
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
-        }).then(function (res) {
-            res.status.should.equal(400);
         });
     });
 });

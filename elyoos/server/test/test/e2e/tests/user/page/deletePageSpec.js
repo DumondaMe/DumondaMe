@@ -61,7 +61,7 @@ describe('Integration Tests for deleting a page', function () {
         });
     });
 
-    it('Delete Successfully a place page - Return 200', function () {
+    it('Delete Successfully a generic page - Return 200', function () {
 
         stubCDN.deleteFolder.reset();
         return requestHandler.login(users.validUser).then(function (agent) {
