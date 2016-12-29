@@ -1,45 +1,44 @@
 <div id="start-screen">
-    <div id="start-container">
-        <div layout="column" layout-align="start center">
-            <img src="app/img/start/logo.png" class="ely-logo" ui-sref="public">
-            <div class="description">Das soziale Netzwerk für bewusste Menschen</div>
-            <div class="reset-password">
-                <div id="container">
-                    <form name="ctrl.resetPasswordForm" class="form-container">
-                        <md-input-container class="ely-input-container">
-                            <label>Neues Passwort</label>
-                            <input name="newPassword" class="blog-input" ng-model="ctrl.newPassword" required type="password"
-                                   ng-disabled="ctrl.running" ng-change="ctrl.newPasswordChanged()"/>
-                            <div ng-messages="ctrl.resetPasswordForm.newPassword.$error" ng-show="ctrl.resetPasswordForm.newPassword.$dirty">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="ely-min-length">Das Passwort muss mindestens 8 Zeichen lang sein</div>
-                                <div ng-message="ely-char-missing">Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="ely-input-container">
-                            <label>Neues Passwort bestätigen</label>
-                            <input name="confirmNewPassword" class="blog-input" ng-model="ctrl.confirmNewPassword" required type="password"
-                                   ng-disabled="ctrl.running" ng-change="ctrl.confirmNewPasswordChanged()"/>
-                            <div ng-messages="ctrl.resetPasswordForm.confirmNewPassword.$error" ng-show="ctrl.resetPasswordForm.confirmNewPassword.$dirty">
-                                <div ng-message="required">Wird benötigt!</div>
-                                <div ng-message="ely-compare">Die Passwörter stimmen nicht überein</div>
-                            </div>
-                        </md-input-container>
-                    </form>
-                    <div class="success-message" ng-if="ctrl.success">{{ctrl.success}}</div>
-                    <div class="error-message" ng-if="ctrl.error">{{ctrl.error}}</div>
-                    <div layout="row" layout-align="end center">
-                        <md-button id="back" class="md-primary" type="submit" ui-sref="public">
-                            Zurück
-                        </md-button>
-                        <md-button id="reset" class="md-primary md-raised" type="submit" ng-click="ctrl.sendResetPassword()"
-                                   ng-disabled="resetPasswordForm.$invalid || ctrl.running" ng-hide="ctrl.success || ctrl.error">
-                            Zurücksetzten
-                        </md-button>
-                    </div>
-                    <div layout="row" layout-align="center center">
-                        <md-progress-circular ng-if="ctrl.running" md-mode="indeterminate"></md-progress-circular>
-                    </div>
+    <div id="start-container" layout="column" layout-align="center center">
+        <img src="app/img/start/logo.png" class="ely-logo" ui-sref="public">
+        <div class="description">Das soziale Netzwerk für bewusste Menschen</div>
+        <div class="reset-password">
+            <div id="container">
+                <form name="ctrl.resetPasswordForm" class="form-container">
+                    <md-input-container class="ely-input-container">
+                        <label>Neues Passwort</label>
+                        <input name="newPassword" class="blog-input" ng-model="ctrl.newPassword" required type="password"
+                               ng-disabled="ctrl.running" ng-change="ctrl.newPasswordChanged()"/>
+                        <div ng-messages="ctrl.resetPasswordForm.newPassword.$error" ng-show="ctrl.resetPasswordForm.newPassword.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="ely-min-length">Das Passwort muss mindestens 8 Zeichen lang sein</div>
+                            <div ng-message="ely-char-missing">Das Passwort muss mindestens ein Grossbuchstaben und eine Zahl enthalten</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="ely-input-container">
+                        <label>Neues Passwort bestätigen</label>
+                        <input name="confirmNewPassword" class="blog-input" ng-model="ctrl.confirmNewPassword" required type="password"
+                               ng-disabled="ctrl.running" ng-change="ctrl.confirmNewPasswordChanged()"/>
+                        <div ng-messages="ctrl.resetPasswordForm.confirmNewPassword.$error"
+                             ng-show="ctrl.resetPasswordForm.confirmNewPassword.$dirty">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="ely-compare">Die Passwörter stimmen nicht überein</div>
+                        </div>
+                    </md-input-container>
+                </form>
+                <div class="success-message" ng-if="ctrl.success">{{ctrl.success}}</div>
+                <div class="error-message" ng-if="ctrl.error">{{ctrl.error}}</div>
+                <div layout="row" layout-align="end center">
+                    <md-button id="back" class="md-primary" type="submit" ui-sref="public">
+                        Zurück
+                    </md-button>
+                    <md-button id="reset" class="md-primary md-raised" type="submit" ng-click="ctrl.sendResetPassword()"
+                               ng-disabled="resetPasswordForm.$invalid || ctrl.running" ng-hide="ctrl.success || ctrl.error">
+                        Zurücksetzten
+                    </md-button>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <md-progress-circular ng-if="ctrl.running" md-mode="indeterminate"></md-progress-circular>
                 </div>
             </div>
         </div>
