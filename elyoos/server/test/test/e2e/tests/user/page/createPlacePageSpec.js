@@ -36,7 +36,7 @@ describe('Integration Tests for creating new place pages', function () {
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],
                 description: 'description',
-                website: 'www.elyoos.com',
+                website: 'www.elyoos.org',
                 places: [{description: 'addressName', lat: -5.00, lng: 6.00}],
                 keywords: ['Yoga', 'Meditation']
             }
@@ -60,7 +60,7 @@ describe('Integration Tests for creating new place pages', function () {
             page[0].page.label.should.equals("Place");
             page[0].page.title.should.equals("title");
             page[0].page.description.should.equals("description");
-            page[0].page.website.should.equals("www.elyoos.com");
+            page[0].page.website.should.equals("www.elyoos.org");
             page[0].page.pageId.should.equals(pageId);
             page[0].address.should.equals("addressName");
             page[0].latitude.should.equals(-5.00);

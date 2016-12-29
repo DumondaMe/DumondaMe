@@ -31,7 +31,7 @@ var sendEMail = function (template, templateData, sendTo) {
                 return logger.error(error);
             }
             transporter.sendMail({
-                    from: 'Elyoos <info@elyoos.com>', to: sendTo, subject: emailTemplates[template].subject,
+                    from: 'Elyoos <info@elyoos.org>', to: sendTo, subject: emailTemplates[template].subject,
                     text: results.text, html: results.html
                 },
                 function (errorSendMail) {
