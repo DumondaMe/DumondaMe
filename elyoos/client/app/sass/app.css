@@ -2137,30 +2137,82 @@
         font-weight: 500;
         color: #3F51B5; }
 
-#ely-place-page-detail #ely-place-page-main-detail {
-  max-width: 600px;
-  min-width: 300px; }
-  #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-    cursor: pointer;
-    overflow: hidden; }
-    @media screen and (max-width: 600px) {
-      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-        max-height: 74px; } }
-    @media screen and (min-width: 960px) {
-      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-        font-size: 18px; } }
-  #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container {
-    padding: 0; }
-    #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container .button-settings {
-      margin: 0; }
-  #ely-place-page-detail #ely-place-page-main-detail .topic-description {
-    margin: 0 0 4px 0; }
-  #ely-place-page-detail #ely-place-page-main-detail .image-description-container {
-    cursor: pointer; }
-    #ely-place-page-detail #ely-place-page-main-detail .image-description-container .image {
-      width: 100%;
-      max-width: 552px;
-      margin-bottom: 8px; }
+#ely-generic-page-detail #ely-extended-toolbar {
+  position: relative;
+  height: 130px;
+  background-color: #3F51B5; }
+  #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+    position: absolute;
+    right: 30px;
+    bottom: -34px; }
+    @media screen and (max-width: 850px) {
+      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+        right: 15px; } }
+    @media screen and (min-width: 1400px) {
+      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+        right: 100px; } }
+#ely-generic-page-detail #ely-generic-detail-content {
+  position: relative;
+  top: -130px;
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%; }
+  @media screen and (max-width: 1050px) {
+    #ely-generic-page-detail #ely-generic-detail-content {
+      max-width: 600px; } }
+  @media screen and (max-width: 850px) {
+    #ely-generic-page-detail #ely-generic-detail-content {
+      max-width: 500px; } }
+
+#ely-generic-page-header #ely-generic-title {
+  padding: 8px;
+  font-size: 24px;
+  font-weight: 400;
+  color: white; }
+  @media screen and (max-width: 850px) {
+    #ely-generic-page-header #ely-generic-title {
+      font-size: 18px; } }
+#ely-generic-page-header #ely-generic-main-content {
+  width: 100%;
+  margin-top: 4px; }
+  #ely-generic-page-header #ely-generic-main-content #ely-main-image {
+    padding: 12px; }
+    #ely-generic-page-header #ely-generic-main-content #ely-main-image img {
+      border-radius: 2px;
+      width: 250px;
+      min-height: 186px; }
+  #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description {
+    padding: 12px 12px 0 12px;
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    overflow-y: auto; }
+    #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description #ely-generic-page-description-container {
+      height: 10em;
+      font-size: 14px; }
+
+#ely-generic-page-map {
+  height: 298px; }
+  #ely-generic-page-map #ely-map {
+    height: 100%; }
+    #ely-generic-page-map #ely-map #map-id {
+      height: 100%; }
+
+.ely-generic-overview {
+  height: 350px; }
+  .ely-generic-overview .header {
+    padding: 12px;
+    height: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    .ely-generic-overview .header .title {
+      cursor: pointer;
+      line-height: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+      .ely-generic-overview .header .title .number {
+        color: #3F51B5; }
+    .ely-generic-overview .header .title:hover {
+      text-decoration: underline; }
 
 #ely-page-recommendation {
   max-width: 600px;

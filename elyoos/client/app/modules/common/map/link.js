@@ -37,6 +37,9 @@ module.exports = {
                 scope.commands.addMarker = function (lat, lng, events) {
                     return mapMarker.addMarker(map, lat, lng, events);
                 };
+                scope.commands.addMarkerGroupAndCenter = function (markers, fitBoundOptions) {
+                    return mapMarker.addMarkerGroupAndCenter(map, markers, fitBoundOptions);
+                };
                 scope.commands.setSelectedMarker = function (marker) {
                     return mapMarker.setSelectedMarker(marker);
                 };
