@@ -1,6 +1,6 @@
 #ely-generic-page-header {
   #ely-generic-title {
-    padding: 8px;
+    padding: 0 8px 4px 8px;
     font-size: 24px;
     font-weight: 400;
     color: $primary-white-text;
@@ -21,12 +21,12 @@
       }
     }
     #ely-generic-page-description {
-      padding: 12px 12px 0 12px;
+      padding: 12px 0 0 12px;
       margin-bottom: 12px;
       color: $secondary-text;
-      overflow-y: auto;
       #ely-generic-page-description-container {
-        height: 10em;
+        padding-right: 12px;
+        overflow-y: auto;
         font-size: 14px;
       }
     }
