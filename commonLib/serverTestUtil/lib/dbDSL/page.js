@@ -41,7 +41,7 @@ var createGenericPage = function (pageId, adminId, language, topic, modified, ti
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
         .create(`(user)-[:IS_ADMIN]->(page:Page:PinwallElement  {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {modified}, topic: {topic},
         pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
-        longitude: toFloat(address.lng)}))`)
+        longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end({
             pageId: pageId, adminId: adminId, title: title, description: `page${pageId}Description`, language: language, topic: topic,
             modified: modified, coordinates: coordinates
