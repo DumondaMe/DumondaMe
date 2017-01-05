@@ -8,17 +8,25 @@ let cdn = require('../../util/cdn');
 let _ = require('underscore');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
+let addAddressIds = function (addresses) {
+    if (_.isArray(addresses)) {
+        addresses.forEach(function (address) {
+            address.addressId = uuid.generateUUID();
+        });
+    }
+};
+
 let createGenericPage = function (userId, params, titlePicturePath) {
     params.pageId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
-    params.places = params.places || [];
-    _.defaults(params, {website: null});
+    addAddressIds(params.places);
+    _.defaults(params, {website: null, places: []});
     return db.cypher().match("(user:User {userId: {userId}})")
         .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, modified: {created}, created: {created}, 
         label: 'Generic', description: {description}, topic: {topic}, language: {language}, website: {website}})
         foreach (address in {places} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
-        longitude: toFloat(address.lng)}))`)
+        longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end(params).send().then(function () {
             return image.uploadImage(titlePicturePath, 'pages', params.pageId, 450, 1000, 'pages/default/landscape');
         }).then(function () {

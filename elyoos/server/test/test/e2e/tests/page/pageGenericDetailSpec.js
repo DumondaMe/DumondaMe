@@ -13,7 +13,8 @@ describe('Integration Tests for getting generic page detail', function () {
             dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
                 description: 'Zuerich',
                 lat: 47.376887,
-                lng: 8.541694
+                lng: 8.541694,
+                addressId: '11'
             }]);
         });
     });
@@ -62,6 +63,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.addresses[0].description.should.equals('Zuerich');
             res.body.page.addresses[0].latitude.should.equals(47.376887);
             res.body.page.addresses[0].longitude.should.equals(8.541694);
+            res.body.page.addresses[0].addressId.should.equals('11');
 
             res.body.administrators.list.length.should.equals(1);
             res.body.administrators.list[0].name.should.equals('user Meier2');

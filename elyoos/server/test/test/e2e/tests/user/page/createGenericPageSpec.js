@@ -6,6 +6,7 @@ let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
 let stubCDN = require('elyoos-server-test-util').stubCDN();
+let should = require('chai').should();
 let sinon = require('sinon');
 
 describe('Integration Tests for creating new generic pages', function () {
@@ -37,7 +38,7 @@ describe('Integration Tests for creating new generic pages', function () {
                 language: ['en', 'de'],
                 description: 'description',
                 website: 'www.elyoos.com',
-                places: [{description: 'addressName', lat: -5.00, lng: 6.00}]
+                places: [{description: 'addressName', lat: -5.00, lng: 6.00}, {description: 'addressName2', lat: -4.00, lng: 7.00}]
             }
         }, pageId;
 
@@ -49,7 +50,7 @@ describe('Integration Tests for creating new generic pages', function () {
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
             return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return(`page AS page, address.description AS address, address.latitude AS latitude, address.longitude AS longitude`)
+                .return(`page AS page, collect(address) as addresses`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -60,9 +61,16 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.description.should.equals("description");
             page[0].page.website.should.equals("www.elyoos.com");
             page[0].page.pageId.should.equals(pageId);
-            page[0].address.should.equals("addressName");
-            page[0].latitude.should.equals(-5.00);
-            page[0].longitude.should.equals(6.00);
+
+            page[0].addresses.length.should.equals(2);
+            page[0].addresses[0].description.should.equals("addressName2");
+            page[0].addresses[0].latitude.should.equals(-4.00);
+            page[0].addresses[0].longitude.should.equals(7.00);
+            should.exist(page[0].addresses[0].addressId);
+            page[0].addresses[1].description.should.equals("addressName");
+            page[0].addresses[1].latitude.should.equals(-5.00);
+            page[0].addresses[1].longitude.should.equals(6.00);
+            should.exist(page[0].addresses[1].addressId);
 
             page[0].page.topic.length.should.equals(2);
             page[0].page.topic[0].should.equals('health');
