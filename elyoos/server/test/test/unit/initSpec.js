@@ -16,9 +16,9 @@ require('elyoos-server-lib').jsonValidation;
 
 require('elyoos-server-test-util').init(require('elyoos-server-lib'));
 
-var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-var Promise = require('bluebird');
-var dbConfig = require('elyoos-server-lib').databaseConfig;
+let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+let Promise = require('bluebird');
+let dbConfig = require('elyoos-server-lib').databaseConfig;
 Promise.promisifyAll(require('gm').prototype);
 
 describe('Initialize Server Unit Test', function () {

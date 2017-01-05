@@ -1,15 +1,15 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var popularRecommendation = requireModel('recommendation/popular');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var language = require("../../schema/language");
-var topic = require("../../schema/topic");
-var recommendationType = require("../../schema/recommendationType");
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let popularRecommendation = requireModel('recommendation/popular');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let language = require("../../schema/language");
+let topic = require("../../schema/topic");
+let recommendationType = require("../../schema/recommendationType");
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetPopularRecommendations = {
+let schemaGetPopularRecommendations = {
     name: 'getPopularRecommendations',
     type: 'object',
     additionalProperties: false,

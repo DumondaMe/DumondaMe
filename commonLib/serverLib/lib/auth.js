@@ -3,10 +3,10 @@
  */
 'use strict';
 
-var user = require('./user')();
-var LocalStrategy = require('passport-local').Strategy;
-var passwordEncryption = require('./passwordEncryption');
-var logger = require('./logging').getLogger(__filename);
+let user = require('./user')();
+let LocalStrategy = require('passport-local').Strategy;
+let passwordEncryption = require('./passwordEncryption');
+let logger = require('./logging').getLogger(__filename);
 
 /**
  * A helper method to retrieve a user from a local DB and ensure that the provided password matches.
@@ -18,7 +18,7 @@ exports.localStrategy = function () {
 
     return new LocalStrategy(function (username, password, done) {
 
-        var dbUser;
+        let dbUser;
         //Retrieve the user from the database by login
         user.searchUserWithEmail(username).then(function (user) {
 

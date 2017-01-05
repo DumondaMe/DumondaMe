@@ -1,12 +1,12 @@
 'use strict';
 
-var pinwall = requireModel('user/pinwall/pinwall');
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let pinwall = requireModel('user/pinwall/pinwall');
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaGetPinwallOfUser = {
+let schemaGetPinwallOfUser = {
     name: 'getPinwallOfUser',
     type: 'object',
     additionalProperties: false,

@@ -72,10 +72,10 @@ module.exports = function (grunt) {
     grunt.registerTask('coverage', ['env:dev', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
 
-    var outputFile = process.env.MOCHA_OUTPUT_FILE || 'testResult/xunit.xml';
+    let outputFile = process.env.MOCHA_OUTPUT_FILE || 'testResult/xunit.xml';
     grunt.registerTask('cleanXunitFile', 'Remove Mocha output from xunit file', function() {
         if (grunt.file.exists('./' + outputFile)) {
-            var file = grunt.file.read('./' + outputFile);
+            let file = grunt.file.read('./' + outputFile);
             if (file.indexOf("<testsuite")) {
                 grunt.file.write('./' + outputFile, file.substring(file.indexOf("<testsuite")));
             }

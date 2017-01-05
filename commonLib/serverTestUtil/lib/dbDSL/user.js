@@ -1,32 +1,32 @@
 'use strict';
 
-var db = require('../db');
-var dbConnectionHandling = require('./dbConnectionHandling');
+let db = require('../db');
+let dbConnectionHandling = require('./dbConnectionHandling');
 
-var setUserRegisteredDate = function (userId, registerDate) {
+let setUserRegisteredDate = function (userId, registerDate) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {registerDate: registerDate})
         .end({userId: userId}).getCommand());
 };
 
-var setUserLastLoginTime = function (lastLogin) {
+let setUserLastLoginTime = function (lastLogin) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: '1'})`).set("u", {lastLogin: lastLogin})
         .end().getCommand());
 };
 
-var setUserIsElyoosAdmin = function (userId) {
+let setUserIsElyoosAdmin = function (userId) {
     dbConnectionHandling.getCommands().push(db.cypher().match(`(u:User {userId: {userId}})`).set("u", {elyoosAdmin: true})
         .end({userId: userId}).getCommand());
 };
 
-var createUser = function (userId, forename, surname, email) {
-    var name = `${forename} ${surname}`;
+let createUser = function (userId, forename, surname, email) {
+    let name = `${forename} ${surname}`;
     email = email || null;
     dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {email: {email}, 
         name: {name}, surname: {surname}, forename: {forename}, userId: {userId}})`)
         .end({name: name, surname: surname, forename: forename, userId: userId, email: email}).getCommand());
 };
 
-var blockUser = function (userId, blockedUserId) {
+let blockUser = function (userId, blockedUserId) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {userId}}), (blockedUser:User {userId: {blockedUserId}})')
         .create(`(user)-[:IS_BLOCKED]->(blockedUser)`)
         .end({
@@ -34,8 +34,8 @@ var blockUser = function (userId, blockedUserId) {
         }).getCommand());
 };
 
-var createPrivacy = function (userIds, type, privacy) {
-    var idsCommand = null;
+let createPrivacy = function (userIds, type, privacy) {
+    let idsCommand = null;
     if (userIds) {
         idsCommand = "u.userId IN {userIds}";
     }
@@ -54,8 +54,8 @@ var createPrivacy = function (userIds, type, privacy) {
         }).getCommand());
 };
 
-var createPrivacyNoContact = function (userIds, privacy) {
-    var idsCommand = null;
+let createPrivacyNoContact = function (userIds, privacy) {
+    let idsCommand = null;
     if (userIds) {
         idsCommand = "u.userId IN {userIds}";
     }
@@ -73,7 +73,7 @@ var createPrivacyNoContact = function (userIds, privacy) {
         }).getCommand());
 };
 
-var setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
+let setRecommendedUserOnHomeScreen = function (showUserRecommendationOnHome) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(u:User {userId: '1'})")
         .set('u', {showUserRecommendationOnHome: showUserRecommendationOnHome})
         .end().getCommand());

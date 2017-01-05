@@ -1,15 +1,15 @@
 "use strict";
 
-var db = requireDb();
+let db = requireDb();
 let time = require('elyoos-server-lib').time;
 let eMailQueue = require('elyoos-server-lib').eMailQueue;
-var randomstring = require("randomstring");
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let randomstring = require("randomstring");
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var timeValid = 60 * 20;  //20 Minutes
+let timeValid = 60 * 20;  //20 Minutes
 
-var setPasswordIsRequested = function (userId) {
-    var linkId = randomstring.generate(64);
+let setPasswordIsRequested = function (userId) {
+    let linkId = randomstring.generate(64);
     return db.cypher().match("(user:User {userId: {userId}})").set("user", {
         resetPasswordRequestTimeout: time.getNowUtcTimestamp() + timeValid,
         resetPasswordLinkId: linkId
@@ -19,7 +19,7 @@ var setPasswordIsRequested = function (userId) {
         });
 };
 
-var sendReset = function (email) {
+let sendReset = function (email) {
     return db.cypher().match("(user:User {email: {email}})")
         .return("user").end({email: email}).send()
         .then(function (resp) {

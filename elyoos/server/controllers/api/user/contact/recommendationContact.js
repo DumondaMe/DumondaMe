@@ -1,9 +1,9 @@
 'use strict';
 
-var contactRecommendation = requireModel('user/contact/contactRecommendation');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let contactRecommendation = requireModel('user/contact/contactRecommendation');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

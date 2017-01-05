@@ -1,39 +1,39 @@
 'use strict';
 
-var db = requireDb();
-var image = require('./../images/uploadImageCDN');
-var _ = require('underscore');
+let db = requireDb();
+let image = require('./../images/uploadImageCDN');
+let _ = require('underscore');
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
-var cdn = require('../../util/cdn');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let cdn = require('../../util/cdn');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var MAX_BLOG_PER_HOUR = 50;
+let MAX_BLOG_PER_HOUR = 50;
 
-var getVisibility = function (visibility) {
+let getVisibility = function (visibility) {
     if (_.isArray(visibility)) {
         return visibility;
     }
     return null;
 };
 
-var checkVisibilityExists = function (userId, visibility) {
+let checkVisibilityExists = function (userId, visibility) {
     return db.cypher().match("(:User {userId: {userId}})-[privacy:HAS_PRIVACY]->(:Privacy)")
         .where("privacy.type IN {visibility}")
         .return("count(*) AS count")
         .end({userId: userId, visibility: visibility});
 };
 
-var checkMaxNumberOfMessageSent = function (userId) {
-    var lastHour = time.getNowUtcTimestamp() - 3600;
+let checkMaxNumberOfMessageSent = function (userId) {
+    let lastHour = time.getNowUtcTimestamp() - 3600;
     return db.cypher().match("(:User {userId: {userId}})-[:WRITTEN]->(blog:Blog)")
         .where("blog.created > {lastHour}")
         .return("count(*) AS count")
         .end({userId: userId, lastHour: lastHour});
 };
 
-var security = function (userId, visibility, req) {
+let security = function (userId, visibility, req) {
     if (_.isArray(visibility)) {
         return checkVisibilityExists(userId, visibility)
             .send([checkMaxNumberOfMessageSent(userId).getCommand()])
@@ -54,15 +54,15 @@ var security = function (userId, visibility, req) {
         });
 };
 
-var uploadFile = function (filePath, pageId) {
+let uploadFile = function (filePath, pageId) {
     if (_.isString(filePath)) {
         return image.uploadImage(filePath,'blog', pageId, 450, 1000);
     }
     return Promise.resolve(null);
 };
 
-var addBlog = function (userId, request, filePath, req) {
-    var commands = [], visibility = getVisibility(request.visibility), pageId = uuid.generateUUID();
+let addBlog = function (userId, request, filePath, req) {
+    let commands = [], visibility = getVisibility(request.visibility), pageId = uuid.generateUUID();
 
     return security(userId, request.visibility, req).then(function () {
         return uploadFile(filePath, pageId)

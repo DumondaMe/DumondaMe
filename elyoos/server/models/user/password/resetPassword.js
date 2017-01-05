@@ -6,7 +6,7 @@ let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let time = require('elyoos-server-lib').time;
 
-var checkLinkValid = function (linkId, req) {
+let checkLinkValid = function (linkId, req) {
 
     return db.cypher().match('(u:User {resetPasswordLinkId: {resetPasswordLinkId}})')
         .return('u.resetPasswordRequestTimeout AS expires').end({resetPasswordLinkId: linkId}).send()
@@ -18,7 +18,7 @@ var checkLinkValid = function (linkId, req) {
         });
 };
 
-var resetPassword = function (linkId, newPassword, req) {
+let resetPassword = function (linkId, newPassword, req) {
     return checkLinkValid(linkId, req)
         .then(function () {
             return passwordEncryption.generatePasswordHash(newPassword);

@@ -1,19 +1,19 @@
 'use strict';
 
-var searchPage = require('./../page/searchPage');
-var pagePreview = require('./../page/pagePreview');
-var searchUser = require('./../user/searchUser');
-var userInfo = require('./../user/userInfo');
-var _ = require('lodash');
+let searchPage = require('./../page/searchPage');
+let pagePreview = require('./../page/pagePreview');
+let searchUser = require('./../user/searchUser');
+let userInfo = require('./../user/userInfo');
+let _ = require('lodash');
 
-var concatText = function (pages) {
+let concatText = function (pages) {
     _.forEach(pages, function (page) {
         page.text = _.truncate(page.text, {length: 120});
     });
 };
 
-var search = function (userId, userQuery, maxItems, isSuggestion) {
-    var commands = [];
+let search = function (userId, userQuery, maxItems, isSuggestion) {
+    let commands = [];
     commands.push(searchUser.searchUsersQuery(userId, userQuery, maxItems, isSuggestion).getCommand());
 
     return searchPage.searchPageQuery(userId, userQuery, null, 0, maxItems)

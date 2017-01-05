@@ -1,6 +1,6 @@
 'use strict';
 
-var topic = require("../../../../schema/topic");
+let topic = require("../../../../schema/topic");
 
 module.exports = {
     id: {type: 'string', format: 'notEmptyString', maxLength: 30},

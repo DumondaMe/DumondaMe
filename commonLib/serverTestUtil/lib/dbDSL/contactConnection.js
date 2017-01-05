@@ -1,9 +1,9 @@
 'use strict';
 
-var db = require('../db');
-var dbConnectionHandling = require('./dbConnectionHandling');
+let db = require('../db');
+let dbConnectionHandling = require('./dbConnectionHandling');
 
-var createContactConnection = function (userId, contactId, type, contactAdded) {
+let createContactConnection = function (userId, contactId, type, contactAdded) {
     if (!type) {
         type = 'Freund';
     }

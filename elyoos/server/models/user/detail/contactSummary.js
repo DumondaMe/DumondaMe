@@ -1,11 +1,11 @@
 'use strict';
 
-var userInfo = require('../userInfo');
-var contact = require('./contact');
-var contacting = require('./contacting');
+let userInfo = require('../userInfo');
+let contact = require('./contact');
+let contacting = require('./contacting');
 
-var getContactInfo = function (userId, userDetailId, contactsPerPage, skipContacts) {
-    var commands = [];
+let getContactInfo = function (userId, userDetailId, contactsPerPage, skipContacts) {
+    let commands = [];
 
     commands.push(contact.numberOfContacts(userDetailId).getCommand());
     commands.push(contact.numberOfSameContacts(userId, userDetailId).getCommand());

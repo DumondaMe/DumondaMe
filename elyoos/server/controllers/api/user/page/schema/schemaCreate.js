@@ -1,7 +1,7 @@
 'use strict';
 
-var definitions = require("./schemaDefinitions");
-var language = require("../../../../schema/language");
+let definitions = require("./schemaDefinitions");
+let language = require("../../../../schema/language");
 
 module.exports = {
     name: 'createPage',

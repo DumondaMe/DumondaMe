@@ -1,14 +1,14 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
 
 describe('Integration Tests for searching people or pages', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 

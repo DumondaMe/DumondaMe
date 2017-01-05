@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
+let getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
 
     return db.cypher().match("(:ForumQuestion {questionId: {questionId}})-[:IS_ANSWER]->(answer:ForumAnswer" + label + ")")
         .optionalMatch("(answer)<-[rating:RATE_POSITIVE]-(:User)")
@@ -23,10 +23,10 @@ var getAnswerCommand = function (userId, questionId, skip, maxItems, label) {
         });
 };
 
-var getExplanationAnswerCommand = function (userId, questionId, skip, maxItems) {
+let getExplanationAnswerCommand = function (userId, questionId, skip, maxItems) {
     return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumExplanation');
 };
-var getSolutionAnswerCommand = function (userId, questionId, skip, maxItems) {
+let getSolutionAnswerCommand = function (userId, questionId, skip, maxItems) {
     return getAnswerCommand(userId, questionId, skip, maxItems, ':ForumSolution');
 };
 

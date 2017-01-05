@@ -1,14 +1,14 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var schema = require('./schema/schemaEdit');
-var underscore = require('underscore');
-var editBookPage = requireModel('user/page/editBookPage');
-var editVideoPage = requireModel('user/page/editVideoPage');
-var editLinkPage = requireModel('user/page/editLinkPage');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let schema = require('./schema/schemaEdit');
+let underscore = require('underscore');
+let editBookPage = requireModel('user/page/editBookPage');
+let editVideoPage = requireModel('user/page/editVideoPage');
+let editLinkPage = requireModel('user/page/editLinkPage');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 
@@ -16,7 +16,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error when editing a page occurs', req, res, logger, function () {
             return validation.validateRequest(req, schema, logger).then(function (request) {
-                var filePath;
+                let filePath;
                 if (req.files && req.files.file) {
                     filePath = req.files.file.path;
                 }

@@ -1,21 +1,21 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-var cdn = require('./../util/cdn');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let cdn = require('./../util/cdn');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var EXPIRED = 60 * 60 * 12; // 12h
+let EXPIRED = 60 * 60 * 12; // 12h
 
-var deleteInvalidLinkIdRequest = function (linkId, req) {
+let deleteInvalidLinkIdRequest = function (linkId, req) {
     return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})").delete("user").end({linkId: linkId}).send().then(function () {
         return exceptions.getInvalidOperation(`linkId is expired ${linkId}`, logger, req);
     });
 };
 
-var checkValidLinkId = function (linkId, req) {
+let checkValidLinkId = function (linkId, req) {
     return db.cypher().match("(user:UserRegisterRequest {linkId: {linkId}})")
         .return("user")
         .end({linkId: linkId})
@@ -32,11 +32,11 @@ var checkValidLinkId = function (linkId, req) {
         });
 };
 
-var verify = function (linkId, req) {
+let verify = function (linkId, req) {
 
-    var userId, email;
+    let userId, email;
     return checkValidLinkId(linkId, req).then(function (user) {
-        var commands = [], privacy = {
+        let commands = [], privacy = {
             profile: true,
             profileData: true,
             image: true,

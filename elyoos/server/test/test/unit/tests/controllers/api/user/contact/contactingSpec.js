@@ -1,16 +1,16 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/contact/contacting');
-var contacting = require('./../../../../../../../../models/contact/contacting');
-var request = require('../../../../request');
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../../controllers/api/user/contact/contacting');
+let contacting = require('./../../../../../../../../models/contact/contacting');
+let request = require('../../../../request');
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/contact/contacting', function () {
 
-    var sandbox,
+    let sandbox,
         checkInvalidGetRequest = function (request) {
-            var stubResponse = sandbox.stub(request.res, 'status');
+            let stubResponse = sandbox.stub(request.res, 'status');
             stubResponse.returns({
                 end: function () {
                 }
@@ -99,7 +99,7 @@ describe('Unit Test controllers/api/user/contact/contacting', function () {
             skip: '0'
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }

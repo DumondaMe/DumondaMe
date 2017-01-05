@@ -1,10 +1,10 @@
 'use strict';
 
-var libUser = require('elyoos-server-lib').user();
-var users = require('elyoos-server-test-util').user;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var db = require('elyoos-server-test-util').db;
-var moment = require('moment');
+let libUser = require('elyoos-server-lib').user();
+let users = require('elyoos-server-test-util').user;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let db = require('elyoos-server-test-util').db;
+let moment = require('moment');
 
 describe('Integration Tests User Name', function () {
 
@@ -14,7 +14,7 @@ describe('Integration Tests User Name', function () {
 
         return db.clearDatabase().then(function () {
 
-            var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+            let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId:'1'})").end().getCommand());
 
             commands.push(db.cypher().match("(u:User {userId: '1'})")

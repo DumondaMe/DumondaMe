@@ -3,15 +3,15 @@
  */
 'use strict';
 
-var db = requireDb();
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var cdn = require('../util/cdn');
-var underscore = require('underscore');
-var unreadMessages = require('./../messages/util/unreadMessages');
-var contacting = require('./../contact/contacting');
-var contactStatistic = require('./../contact/contactStatistic');
+let db = requireDb();
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let cdn = require('../util/cdn');
+let underscore = require('underscore');
+let unreadMessages = require('./../messages/util/unreadMessages');
+let contacting = require('./../contact/contacting');
+let contactStatistic = require('./../contact/contactStatistic');
 
-var getUser = function (resp, id, profileUrls, req) {
+let getUser = function (resp, id, profileUrls, req) {
     if (resp.length === 1) {
         underscore.forEach(profileUrls, function (profileUrl) {
             resp[0][profileUrl.property] = cdn.getUrl('profileImage/' + id + profileUrl.image);
@@ -26,9 +26,9 @@ var getUser = function (resp, id, profileUrls, req) {
     }
 };
 
-var getUserProfile = function (id, req) {
+let getUserProfile = function (id, req) {
 
-    var commands = [];
+    let commands = [];
     commands.push(contacting.getContactingStatistics(id).getCommand());
     commands.push(contactStatistic.getTotalNumberOfContacts(id).getCommand());
 
@@ -38,16 +38,16 @@ var getUserProfile = function (id, req) {
         .end({id: id})
         .send(commands)
         .then(function (resp) {
-            var profile = getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
+            let profile = getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
             profile.numberOfContacting = resp[0][0].count;
             profile.numberOfContacts = resp[1][0].numberOfContacts;
             return profile;
         });
 };
 
-var updateUserProfile = function (userId, userData) {
+let updateUserProfile = function (userId, userData) {
 
-    var name;
+    let name;
     if (userData.forename && userData.surname) {
         name = userData.forename + ' ' + userData.surname;
     }
@@ -68,9 +68,9 @@ var updateUserProfile = function (userId, userData) {
         .send();
 };
 
-var getUserInfo = function (id, req) {
+let getUserInfo = function (id, req) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(unreadMessages.getTotalNumberOfUnreadMessages(id).getCommand());
     commands.push(contactStatistic.getContactStatisticsCommand(id).getCommand());
@@ -80,7 +80,7 @@ var getUserInfo = function (id, req) {
         .end({id: id})
         .send(commands)
         .then(function (resp) {
-            var user = getUser(resp[2], id, [
+            let user = getUser(resp[2], id, [
                 {
                     property: 'profileImage',
                     image: '/thumbnail.jpg'

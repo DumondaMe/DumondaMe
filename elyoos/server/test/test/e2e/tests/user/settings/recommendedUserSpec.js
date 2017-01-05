@@ -1,9 +1,9 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var db = require('elyoos-server-test-util').db;
+let users = require('elyoos-server-test-util').user;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests for change setting of recommended user feature', function () {
 

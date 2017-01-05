@@ -1,11 +1,11 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var messageThread = requireModel('messages/messageThread');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let messageThread = requireModel('messages/messageThread');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaRequestGetMessages = {
+let schemaRequestGetMessages = {
     name: 'getMessages',
     type: 'object',
     additionalProperties: false,

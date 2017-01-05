@@ -1,12 +1,12 @@
 'use strict';
 
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let rateLimit = require('elyoos-server-lib').limiteRate;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
-var verifyUserRequest = requireModel('register/verifyRegisterUserRequest');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
+let verifyUserRequest = requireModel('register/verifyRegisterUserRequest');
 
-var schemaRequestPasswordReset = {
+let schemaRequestPasswordReset = {
     name: 'passwordReset',
     type: 'object',
     additionalProperties: false,
@@ -16,7 +16,7 @@ var schemaRequestPasswordReset = {
     }
 };
 
-var apiLimiter = rateLimit.getRate({
+let apiLimiter = rateLimit.getRate({
     windowMs: 60 * 60 * 1000, // 60 minutes
     delayAfter: 3,
     delayMs: 3 * 1000,

@@ -4,7 +4,7 @@ let validation = require('elyoos-server-lib').jsonValidation;
 let deleteFeedback = requireModel('feedback/delete');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let schemaDeleteFeedback = {
     name: 'deleteFeedback',

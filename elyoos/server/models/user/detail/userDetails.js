@@ -1,13 +1,13 @@
 'use strict';
 
-var db = requireDb();
-var cdn = require('../../util/cdn');
-var contactSummary = require('./contactSummary');
-var contactStatistic = require('../../contact/contactStatistic');
-var _ = require("lodash");
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let db = requireDb();
+let cdn = require('../../util/cdn');
+let contactSummary = require('./contactSummary');
+let contactStatistic = require('../../contact/contactStatistic');
+let _ = require("lodash");
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var returnDetails = function (detailUserData, detailUser, detailUserPrivacy, userId, detailUserId, resp, req) {
+let returnDetails = function (detailUserData, detailUser, detailUserPrivacy, userId, detailUserId, resp, req) {
 
     if (detailUserPrivacy.profile) {
         if (detailUserPrivacy.image) {
@@ -37,10 +37,10 @@ var returnDetails = function (detailUserData, detailUser, detailUserPrivacy, use
     return {user: detailUser, contacts: [], contactTypeStatistic: resp[0]};
 };
 
-var returnContactDetails = function (resp, userId, detailUserId, req) {
-    var detailUserData = resp[1][0];
-    var detailUserPrivacy = resp[1][0].privacy;
-    var detailUser = {
+let returnContactDetails = function (resp, userId, detailUserId, req) {
+    let detailUserData = resp[1][0];
+    let detailUserPrivacy = resp[1][0].privacy;
+    let detailUser = {
         userId: detailUserId,
         name: detailUserData.detailUser.name,
         forename: detailUserData.detailUser.forename,
@@ -64,9 +64,9 @@ var returnContactDetails = function (resp, userId, detailUserId, req) {
     };
 };
 
-var getUserDetails = function (userId, requestUserDetailId, req) {
+let getUserDetails = function (userId, requestUserDetailId, req) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(contactStatistic.getContactStatisticsCommand(userId).getCommand());
 

@@ -1,18 +1,18 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
 
 describe('Integration Tests for getting the contacting in user details', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1', female: true})").end().getCommand());
@@ -39,7 +39,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Getting all possible contacting for a user to which contact has no contact relationship. Test visibility of contacts. - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4','5','6','7','8']")
@@ -114,7 +114,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Testing skip an limit of returning contacting - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4','5','6','7','8']")
@@ -152,7 +152,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Do not return the contactings. contacts=false, (user)<-[:IS_CONTACT]-(otherUser) - Return 400', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4']")
@@ -179,7 +179,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Do not return the contactingss. profile=false, (user)<-[:IS_CONTACT]-(otherUser) - Return 400', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4']")
@@ -206,7 +206,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Do not return the contactsings contacts=false, (user) not contact (otherUser) - Return 400', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4']")
@@ -231,7 +231,7 @@ describe('Integration Tests for getting the contacting in user details', functio
 
     it('Do not return the contacting. profile=false, (user) not contact (otherUser) - Return 400', function () {
 
-        var commands = [];
+        let commands = [];
 
         //Set contact relationships
         commands.push(db.cypher().match("(a:User), (b:User {userId: '2'})").where("a.userId IN ['3','4']")

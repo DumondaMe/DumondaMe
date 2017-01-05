@@ -3,13 +3,13 @@
  */
 'use strict';
 
-var gm = require('./../util/gm');
-var cdn = require('./../util/cdn');
-var tmp = require('tmp');
+let gm = require('./../util/gm');
+let cdn = require('./../util/cdn');
+let tmp = require('tmp');
 
 module.exports = {
     generateProfileImage: function (originalFilePath, userId) {
-        var preview = tmp.fileSync({postfix: '.jpg'}),
+        let preview = tmp.fileSync({postfix: '.jpg'}),
             thumbnail = tmp.fileSync({postfix: '.jpg'}),
             profile = tmp.fileSync({postfix: '.jpg'});
         return gm.gm(originalFilePath).thumbAsync(100, 100, preview.name, 93)

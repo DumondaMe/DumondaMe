@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('../../user/userInfo');
+let db = requireDb();
+let userInfo = require('../../user/userInfo');
 
-var getMatchQuery = function (onlyContacts) {
-    var matchQuery = "(page:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
+let getMatchQuery = function (onlyContacts) {
+    let matchQuery = "(page:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(otherUser:User)";
     if (onlyContacts) {
         matchQuery = matchQuery.concat("<-[IS_CONTACT]-(user:User {userId: {userId}})");
     } else {
@@ -14,16 +14,16 @@ var getMatchQuery = function (onlyContacts) {
     return db.cypher().match(matchQuery);
 };
 
-var getTotalNumberOfComments = function (userId, pageId, onlyContacts) {
+let getTotalNumberOfComments = function (userId, pageId, onlyContacts) {
     return getMatchQuery(onlyContacts)
         .where("otherUser.userId <> {userId}")
         .return("count(*) AS totalNumberOfComments")
         .end({userId: userId, pageId: pageId}).getCommand();
 };
 
-var getComments = function (userId, requestParams) {
+let getComments = function (userId, requestParams) {
 
-    var matchQuery = getMatchQuery(requestParams.onlyContacts), commands = [];
+    let matchQuery = getMatchQuery(requestParams.onlyContacts), commands = [];
 
     commands.push(getTotalNumberOfComments(userId, requestParams.pageId, requestParams.onlyContacts));
 

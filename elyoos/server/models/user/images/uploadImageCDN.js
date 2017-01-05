@@ -1,11 +1,11 @@
 'use strict';
 
-var gm = require('./../../util/gm');
-var cdn = require('./../../util/cdn');
-var tmp = require('tmp');
+let gm = require('./../../util/gm');
+let cdn = require('./../../util/cdn');
+let tmp = require('tmp');
 
-var uploadImage = function (originalFilePath, directory, id, widthPreview, maxPreviewHeight) {
-    var preview = tmp.fileSync({postfix: '.jpg'}),
+let uploadImage = function (originalFilePath, directory, id, widthPreview, maxPreviewHeight) {
+    let preview = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         thumbnail = tmp.fileSync({postfix: '.jpg'}),
         sizeOriginal, previewHeight,
@@ -55,7 +55,7 @@ var uploadImage = function (originalFilePath, directory, id, widthPreview, maxPr
         });
 };
 
-var copyDefaultImages = function (sourcePath, destinationPath) {
+let copyDefaultImages = function (sourcePath, destinationPath) {
     return cdn.copyFile(`${sourcePath}/preview.jpg`, `${destinationPath}/preview.jpg`)
         .then(function () {
             cdn.copyFile(`${sourcePath}/thumbnail.jpg`, `${destinationPath}/thumbnail.jpg`);

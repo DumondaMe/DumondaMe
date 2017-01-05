@@ -1,12 +1,12 @@
 'use strict';
 
-var passport = require('passport');
-var modification = requireModel('modification/modification');
-var loginUser = requireModel('user/loginUser');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let passport = require('passport');
+let modification = requireModel('modification/modification');
+let loginUser = requireModel('user/loginUser');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let rateLimit = require('elyoos-server-lib').limiteRate;
 
-var apiLimiter = rateLimit.getRate({
+let apiLimiter = rateLimit.getRate({
     windowMs: 10 * 60 * 1000, // 10 minutes
     delayAfter: 3,
     delayMs: 3 * 1000,

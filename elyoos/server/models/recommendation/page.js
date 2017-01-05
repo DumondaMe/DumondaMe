@@ -1,16 +1,16 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-var cdn = require('../util/cdn');
-var recommendation = require('../page/detail/recommendation');
+let cdn = require('../util/cdn');
+let recommendation = require('../page/detail/recommendation');
 let exceptions = require('elyoos-server-lib').exceptions;
-var securityRecommendation = require('./security');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let securityRecommendation = require('./security');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var checkAddingRecommendationAllowed = function (userId, pageId, isBlog, req) {
-    var commands = [];
+let checkAddingRecommendationAllowed = function (userId, pageId, isBlog, req) {
+    let commands = [];
 
     commands.push(db.cypher().match("(blog:Blog {pageId: {pageId}})").return("blog").end({pageId: pageId}).getCommand());
 
@@ -27,10 +27,10 @@ var checkAddingRecommendationAllowed = function (userId, pageId, isBlog, req) {
         });
 };
 
-var deleteRecommendation = function (userId, recommendationId, pageId, req) {
+let deleteRecommendation = function (userId, recommendationId, pageId, req) {
     return securityRecommendation.checkDeleteRecommendationAllowed(userId, recommendationId, req).then(function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().match("(:User {userId: {userId}})-[rel:RECOMMENDS]->" +
             "(rec:Recommendation {recommendationId: {recommendationId}})-[rel2]->(page:Page)")
@@ -54,13 +54,13 @@ var deleteRecommendation = function (userId, recommendationId, pageId, req) {
     });
 };
 
-var addRecommendation = function (userId, pageId, comment, isBlog, req) {
+let addRecommendation = function (userId, pageId, comment, isBlog, req) {
     if (!comment) {
         comment = '';
     }
     return checkAddingRecommendationAllowed(userId, pageId, isBlog, req).then(function () {
 
-        var recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
+        let recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:Page {pageId: {pageId}})")
             .create("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, " +

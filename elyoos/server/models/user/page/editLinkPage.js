@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let time = require('elyoos-server-lib').time;
-var image = require('./../images/uploadImageCDN');
-var imagePage = require('./imagePage');
-var security = require('./security');
+let image = require('./../images/uploadImageCDN');
+let imagePage = require('./imagePage');
+let security = require('./security');
 
-var editLinkPage = function (userId, params, titlePicturePath, req) {
+let editLinkPage = function (userId, params, titlePicturePath, req) {
 
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {
         return security.checkAllowedToEditPage(userId, params.pageId, req);

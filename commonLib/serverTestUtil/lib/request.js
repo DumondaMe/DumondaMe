@@ -1,9 +1,9 @@
 'use strict';
 
-var request = require('supertest-as-promised');
-var agent = require('supertest');
+let request = require('supertest-as-promised');
+let agent = require('supertest');
 
-var lastUser = [], app;
+let lastUser = [], app;
 
 module.exports = {
     setApplication: function (newApp) {
@@ -14,20 +14,20 @@ module.exports = {
         return request(app).post('/api/login').
             send(user).
             then(function (res) {
-                var loginAgent = agent.agent(app);
+                let loginAgent = agent.agent(app);
                 loginAgent.saveCookies(res);
                 return loginAgent;
             });
     },
     logout: function () {
-        var user = lastUser.pop();
+        let user = lastUser.pop();
         if (user) {
             return request(app).post('/api/logout').
                 send(user);
         }
     },
     post: function (api, data, agent, pathToFile) {
-        var req = request(app).post(api);
+        let req = request(app).post(api);
         if (agent) {
             agent.attachCookies(req);
         }
@@ -39,7 +39,7 @@ module.exports = {
         return req.send(data);
     },
     del: function (api, data, agent) {
-        var req = request(app).post(api);
+        let req = request(app).post(api);
         if (agent) {
             agent.attachCookies(req);
         }
@@ -47,14 +47,14 @@ module.exports = {
         return req.send(data);
     },
     get: function (api, agent) {
-        var req = request(app).get(api);
+        let req = request(app).get(api);
         if (agent) {
             agent.attachCookies(req);
         }
         return req;
     },
     getWithData: function (api, data, agent) {
-        var req = request(app).get(api);
+        let req = request(app).get(api);
         if (agent) {
             agent.attachCookies(req);
         }

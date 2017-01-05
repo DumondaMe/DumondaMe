@@ -1,13 +1,13 @@
 'use strict';
 
-var db = requireDb();
-var moment = require('moment');
+let db = requireDb();
+let moment = require('moment');
 let uuid = require('elyoos-server-lib').uuid;
-var security = require('./security');
+let security = require('./security');
 
-var createQuestion = function (userId, description, topic, language) {
+let createQuestion = function (userId, description, topic, language) {
 
-    var timeCreatedQuestion = Math.floor(moment.utc().valueOf() / 1000),
+    let timeCreatedQuestion = Math.floor(moment.utc().valueOf() / 1000),
         questionId = uuid.generateUUID();
     return db.cypher().match("(u:User {userId: {userId}})")
         .createUnique("(u)-[:IS_ADMIN]->(question:ForumQuestion {questionId: {questionId}, description: {description}, topic: {topic}, " +
@@ -26,7 +26,7 @@ var createQuestion = function (userId, description, topic, language) {
         });
 };
 
-var deleteQuestion = function (userId, questionId, req) {
+let deleteQuestion = function (userId, questionId, req) {
     return security.allowedToDeleteQuestion(userId, questionId, req).then(function () {
         return db.cypher().match("(question:ForumQuestion {questionId: {questionId}})")
             .optionalMatch("(question)-[r]-()")

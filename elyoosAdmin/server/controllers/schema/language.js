@@ -1,6 +1,6 @@
 'use strict';
 
-var language = ['de', //German
+let language = ['de', //German
         'en', //English
         'fr', //French
         'it', //Italian

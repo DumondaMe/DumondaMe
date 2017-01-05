@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var cdn = require('../../util/cdn');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let cdn = require('../../util/cdn');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var allowedToRemoveBlog = function (userId, pageId, req) {
+let allowedToRemoveBlog = function (userId, pageId, req) {
     return db.cypher().match("(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})")
         .return("count(*) AS count")
         .end({userId: userId, pageId: pageId}).send()
@@ -17,7 +17,7 @@ var allowedToRemoveBlog = function (userId, pageId, req) {
         });
 };
 
-var removeBlog = function (userId, request, req) {
+let removeBlog = function (userId, request, req) {
     return allowedToRemoveBlog(userId, request.pageId, req).then(function () {
         return db.cypher().match(`(user:User {userId: {userId}})-[written:WRITTEN]->(blog:Blog {pageId: {pageId}})`)
             .optionalMatch(`(blog)<-[r1:RECOMMENDS]-(rec:Recommendation)<-[r2:RECOMMENDS]-()`)

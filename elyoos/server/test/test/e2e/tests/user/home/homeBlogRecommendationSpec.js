@@ -1,16 +1,16 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting recommended blogs on home screen for a user', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', forename:'user', userId: '2'})").end().getCommand());
@@ -26,7 +26,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Showing latest blog recommendation of contact when user is writer of blog', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -116,7 +116,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Showing latest blog recommendation of contact when user is not writer of blog', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -204,7 +204,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Showing blog recommended by user', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', title: 'blogTitle1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -262,7 +262,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Not showing blog recommendation when user is not included in visible group', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}, visible: {visible}})").end({topic: ['health', 'personalDevelopment'], visible: ['Freund']}).getCommand());
@@ -306,7 +306,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Not showing blog recommendation when contact HAS_PRIVACY_NO_CONTACT pinwall is set to false', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -350,7 +350,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Not showing blog recommendation when contact HAS_PRIVACY pinwall is set to false', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -396,7 +396,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Not showing blog recommendation when user is blocked by contact', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());
@@ -443,7 +443,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
 
     it('Not showing blog recommendation when user is blocked by writer of the blog', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {text: 'blogText1', created: 501, pageId: '1', heightPreviewImage: 200, " +
             "topic: {topic}})").end({topic: ['health', 'personalDevelopment']}).getCommand());

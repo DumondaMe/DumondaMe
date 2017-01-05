@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getContacting = function (userId) {
+let getContacting = function (userId) {
     return db.cypher().match(`(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)
                                -[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)`)
         .where(`relContacting.contactAdded >= user.previousLastLogin AND 
@@ -14,7 +14,7 @@ var getContacting = function (userId) {
         .end({userId: userId});
 };
 
-var getNumberOfContacting = function (userId) {
+let getNumberOfContacting = function (userId) {
     return db.cypher().match("(user:User {userId: {userId}})<-[relContacting:IS_CONTACT]-(contacting:User)")
         .where("relContacting.contactAdded >= user.previousLastLogin")
         .return("count(*) AS numberOfContacting")

@@ -1,6 +1,6 @@
 'use strict';
 
-var getNumberOfRecommendation = function (pinwallElement) {
+let getNumberOfRecommendation = function (pinwallElement) {
 
     if (pinwallElement.hasOwnProperty('numberOfPinwallDataRecommendations')) {
         return pinwallElement.numberOfPinwallDataRecommendations;

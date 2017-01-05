@@ -1,9 +1,9 @@
 'use strict';
 
-var db = requireDb();
-var recommendationElements = require('./recommendationElement/recommendationElement');
+let db = requireDb();
+let recommendationElements = require('./recommendationElement/recommendationElement');
 
-var getPopularPlaces = function (userId, params) {
+let getPopularPlaces = function (userId, params) {
 
     return db.cypher()
         .match(`(recommendationElement:Page {label:'Generic'})-[:HAS]->(address:Address)`)

@@ -11,7 +11,7 @@ if (!process.env.BASE_DIR) {
     process.env.BASE_DIR = __dirname + '../../../';
 }
 
-var dbConfig = require('elyoos-server-lib').databaseConfig;
+let dbConfig = require('elyoos-server-lib').databaseConfig;
 
 describe('Initialize Server Unit Test', function () {
 

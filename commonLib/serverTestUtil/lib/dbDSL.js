@@ -1,17 +1,17 @@
 'use strict';
 
-var contactConnections = require('./dbDSL/contactConnection');
-var recommendation = require('./dbDSL/recommendation');
-var page = require('./dbDSL/page');
-var blog = require('./dbDSL/blog');
-var user = require('./dbDSL/user');
-var feedback = require('./dbDSL/feedback');
-var keyword = require('./dbDSL/keyword');
-var dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
-var db = require('./db');
+let contactConnections = require('./dbDSL/contactConnection');
+let recommendation = require('./dbDSL/recommendation');
+let page = require('./dbDSL/page');
+let blog = require('./dbDSL/blog');
+let user = require('./dbDSL/user');
+let feedback = require('./dbDSL/feedback');
+let keyword = require('./dbDSL/keyword');
+let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
+let db = require('./db');
 
-var init = function (numberOfUser, isElyoosAdmin) {
-    var i = 0, userId;
+let init = function (numberOfUser, isElyoosAdmin) {
+    let i = 0, userId;
     isElyoosAdmin = isElyoosAdmin || false;
     recommendation.init();
     dbConnectionHandling.init();

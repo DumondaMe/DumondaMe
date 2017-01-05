@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
 let time = require('elyoos-server-lib').time;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var getNummberOfMessageCommand = function (userId) {
+let getNummberOfMessageCommand = function (userId) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread)-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(user)")
         .where("(thread:Thread) AND message.messageAdded > {timeFrame}")
@@ -16,7 +16,7 @@ var getNummberOfMessageCommand = function (userId) {
         }).getCommand();
 };
 
-var checkAllowedToAddMessage = function (userId, threadId, req) {
+let checkAllowedToAddMessage = function (userId, threadId, req) {
 
     function checkNumberOfAllowedMessagesPerHour(resp) {
         return resp[0][0].count > 1000;
@@ -30,7 +30,7 @@ var checkAllowedToAddMessage = function (userId, threadId, req) {
         return resp[1][0];
     }
 
-    var commands = [], params = {
+    let commands = [], params = {
         userId: userId,
         threadId: threadId
     };
@@ -61,7 +61,7 @@ var checkAllowedToAddMessage = function (userId, threadId, req) {
         });
 };
 
-var checkAllowedToCreateThread = function (userId, contactId, req) {
+let checkAllowedToCreateThread = function (userId, contactId, req) {
 
     function checkNumberOfAllowedMessagesPerHour(resp) {
         return resp[0][0].count > 1000;
@@ -71,7 +71,7 @@ var checkAllowedToCreateThread = function (userId, contactId, req) {
         return resp[1][0];
     }
 
-    var commands = [];
+    let commands = [];
 
     commands.push(getNummberOfMessageCommand(userId));
 

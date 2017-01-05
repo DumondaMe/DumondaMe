@@ -1,16 +1,16 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/settings/uploadProfileImage');
-var saveProfileImage  = require('../../../../../../../../models/image/generateProfileImages');
-var request = require('../../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../../controllers/api/user/settings/uploadProfileImage');
+let saveProfileImage  = require('../../../../../../../../models/image/generateProfileImages');
+let request = require('../../../../request');
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/settings/uploadProfileImage', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -25,7 +25,7 @@ describe('Unit Test controllers/api/user/settings/uploadProfileImage', function 
 
     it('Upload a new profile image - Return 200', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }
@@ -40,7 +40,7 @@ describe('Unit Test controllers/api/user/settings/uploadProfileImage', function 
 
     it('Error occurs while upload a new profile image - Return 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }

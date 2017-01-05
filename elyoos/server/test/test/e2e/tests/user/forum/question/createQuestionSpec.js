@@ -1,13 +1,13 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
 
 describe('Integration Tests for creating question in forum', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
         
@@ -25,7 +25,7 @@ describe('Integration Tests for creating question in forum', function () {
 
     it('Creating a new question in a forum - Return 200', function () {
 
-        var questionId,
+        let questionId,
             description = 'Warum ist Fleisch essen problematisch?', language = 'de', topic = ['environmental'];
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

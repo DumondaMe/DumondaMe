@@ -1,16 +1,16 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting youtube page detail', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -29,7 +29,7 @@ describe('Integration Tests for getting youtube page detail', function () {
 
     it('Getting the detail of the page for a youtube video', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +

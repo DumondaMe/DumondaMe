@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var image = require('./../images/uploadImageCDN');
+let db = requireDb();
+let image = require('./../images/uploadImageCDN');
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-var imagePage = require('./imagePage');
-var Url = require('url-parse');
+let imagePage = require('./imagePage');
+let Url = require('url-parse');
 let exceptions = require('elyoos-server-lib').exceptions;
-var cdn = require('../../util/cdn');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let cdn = require('../../util/cdn');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var getHostname = function (link, req) {
-    var host = new Url(link).host;
+let getHostname = function (link, req) {
+    let host = new Url(link).host;
     if (!host) {
         return exceptions.getInvalidOperation(`User tries to add invalid url ${link}`, logger, req);
     } else if (link.indexOf('youtube.com') > -1) {
@@ -20,7 +20,7 @@ var getHostname = function (link, req) {
     return host;
 };
 
-var createLinkPage = function (userId, params, titlePicturePath, req) {
+let createLinkPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
@@ -43,7 +43,7 @@ var createLinkPage = function (userId, params, titlePicturePath, req) {
         }
     }).then(function (pages) {
         logger.info(`Created link page with id ${params.pageId}`);
-        var resp = {pageId: params.pageId, hostname: params.hostname};
+        let resp = {pageId: params.pageId, hostname: params.hostname};
         if(pages && pages.length === 1) {
             resp.linkPreviewUrl = cdn.getUrl(`pages/${params.pageId}/preview.jpg`);
         }

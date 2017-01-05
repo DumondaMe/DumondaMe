@@ -2,13 +2,13 @@
 
 /*The complete tests of recommending users are done in home recommended user spec */
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests getting contact recommendations', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(10);

@@ -1,9 +1,9 @@
 "use strict";
 
-var db = requireDb();
-var email = require('elyoos-server-lib').eMail;
+let db = requireDb();
+let email = require('elyoos-server-lib').eMail;
 
-var processDefinition = function (data, done) {
+let processDefinition = function (data, done) {
 
     return db.cypher().match("(user:User {email: {email}})")
         .return("user").end({email: data.email}).send()

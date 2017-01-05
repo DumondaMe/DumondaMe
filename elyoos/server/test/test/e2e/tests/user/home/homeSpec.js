@@ -1,14 +1,14 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
 
 describe('Integration Tests for getting home screen information for a user', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
@@ -30,7 +30,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
     it('Getting the contacts who have added user since last login', function () {
 
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.createPrivacyNoContact('1', {profile: false, image: false, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacyNoContact('2', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
@@ -90,7 +90,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
     it('Showing recommendations which has correct visible for contact type', function () {
 
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.crateRecommendationsForPage('0', [{userId: '2', created: 503}]);
 
@@ -119,7 +119,7 @@ describe('Integration Tests for getting home screen information for a user', fun
 
     it('Showing recommendations which has correct visible for no contact visible setting', function () {
 
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         dbDsl.crateRecommendationsForPage('0', [{userId: '2', created: 503}]);
         dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});

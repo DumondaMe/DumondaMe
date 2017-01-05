@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
-var pagePreview = require('./pagePreview');
-var pageFilter = require('./pageFilter');
+let db = requireDb();
+let underscore = require('underscore');
+let pagePreview = require('./pagePreview');
+let pageFilter = require('./pageFilter');
 
-var searchPageQuery = function (userId, filterType) {
-    var filterQuery = pageFilter.getFilterQuery(filterType);
+let searchPageQuery = function (userId, filterType) {
+    let filterQuery = pageFilter.getFilterQuery(filterType);
 
     return db.cypher().match("(page:Page), (user:User {userId: {userId}})")
         .where("(" + filterQuery + ") AND (page.title =~ {search} OR page.link =~ {search})")
@@ -20,8 +20,8 @@ var searchPageQuery = function (userId, filterType) {
         .where("privacy is null");
 };
 
-var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
-    var searchRegEx = '(?i).*'.concat(search, '.*');
+let fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
+    let searchRegEx = '(?i).*'.concat(search, '.*');
     
     return searchPageQuery(userId, filterType)
         .return(`page.pageId AS pageId, page.title AS title, page.text AS text, page.label AS label, page.linkEmbed AS linkEmbed, page.link AS link,
@@ -40,9 +40,9 @@ var fullSearchPageQuery = function (userId, search, filterType, skip, limit) {
         });
 };
 
-var searchPage = function (userId, search, filterType, skip, limit) {
+let searchPage = function (userId, search, filterType, skip, limit) {
 
-    var orderBy = "page.modified DESC", 
+    let orderBy = "page.modified DESC",
         startQuery = searchPageQuery(userId, filterType),
         searchRegEx = '(?i).*'.concat(search.replace(/\?/, "\\?"), '.*');
 
@@ -54,9 +54,9 @@ var searchPage = function (userId, search, filterType, skip, limit) {
     }, orderBy, startQuery);
 };
 
-var searchUserRecommendedPage = function (userId, search, skip, limit) {
+let searchUserRecommendedPage = function (userId, search, skip, limit) {
 
-    var orderBy = "page.title, page.modified DESC",
+    let orderBy = "page.title, page.modified DESC",
         startQuery = db.cypher(),
         searchRegEx = '(?i).*'.concat(search, '.*'),
         commands = [],
@@ -94,9 +94,9 @@ var searchUserRecommendedPage = function (userId, search, skip, limit) {
         });
 };
 
-var searchSuggestionUserRecommendedPage = function (userId, search, skip, limit) {
+let searchSuggestionUserRecommendedPage = function (userId, search, skip, limit) {
 
-    var searchRegEx = '(?i).*'.concat(search, '.*');
+    let searchRegEx = '(?i).*'.concat(search, '.*');
 
     return db.cypher().match("(page:Page)<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(user:User {userId: {userId}})")
         .where("page.title =~ {search} ")

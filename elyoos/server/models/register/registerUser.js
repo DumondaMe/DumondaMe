@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var registerUserRequest = require('./../eMailService/registerUserRequest');
-var randomstring = require("randomstring");
-var recaptcha = require('./../util/recaptcha');
-var passwordEncryption = require('elyoos-server-lib').passwordEncryption;
+let db = requireDb();
+let registerUserRequest = require('./../eMailService/registerUserRequest');
+let randomstring = require("randomstring");
+let recaptcha = require('./../util/recaptcha');
+let passwordEncryption = require('elyoos-server-lib').passwordEncryption;
 let exceptions = require('elyoos-server-lib').exceptions;
 let time = require('elyoos-server-lib').time;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var ERROR_CODE_EMAIL_EXISTS = 2;
+let ERROR_CODE_EMAIL_EXISTS = 2;
 
-var checkEmailExists = function (email, req) {
+let checkEmailExists = function (email, req) {
     return db.cypher().match("(user:User {email: {email}})")
         .return("user.userId")
         .end({email: email})
@@ -22,15 +22,15 @@ var checkEmailExists = function (email, req) {
         });
 };
 
-var registerUser = function (params, req) {
+let registerUser = function (params, req) {
 
-    var linkId;
+    let linkId;
     return checkEmailExists(params.email, req).then(function () {
         return recaptcha.verifyRecaptcha(params.response, req);
     }).then(function () {
         return passwordEncryption.generatePasswordHash(params.password);
     }).then(function (hash) {
-        var paramsCypher = {
+        let paramsCypher = {
             userData: {
                 email: params.email,
                 forename: params.forename,

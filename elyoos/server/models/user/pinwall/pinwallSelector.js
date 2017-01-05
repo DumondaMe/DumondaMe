@@ -1,14 +1,14 @@
 'use strict';
 
-var _ = require('underscore');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let _ = require('underscore');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var compare = function (a, b) {
+let compare = function (a, b) {
     return b.pinwall.created - a.pinwall.created;
 };
 
-var sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog, limit) {
-    var result = {
+let sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog, limit) {
+    let result = {
         pinwall: [],
         skipBlog: skipBlog,
         skipRecommendation: skipRecommendation

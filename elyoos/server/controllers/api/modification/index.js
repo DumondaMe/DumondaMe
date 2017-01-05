@@ -1,11 +1,11 @@
 'use strict';
 
-var modification = requireModel('modification/modification');
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var validation = require('elyoos-server-lib').jsonValidation;
+let modification = requireModel('modification/modification');
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaRequestModification = {
+let schemaRequestModification = {
     name: 'requestModification',
     type: 'object',
     additionalProperties: false,

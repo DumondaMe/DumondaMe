@@ -1,11 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
+let _ = require('lodash');
 
-var preparePageResponse = function (questionElements) {
+let preparePageResponse = function (questionElements) {
 
     _.forEach(questionElements, function (questionElement) {
-        var page = {};
+        let page = {};
         if (questionElement.hasOwnProperty('page')) {
             page.pageId = questionElement.page.pageId;
             page.label = questionElement.page.label;

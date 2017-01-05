@@ -1,19 +1,19 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
 
 describe('Integration Tests for adding answers to a forum question', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
         
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
-            var commands = [];
+            let commands = [];
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1'})")
                 .end().getCommand());
 
@@ -32,7 +32,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new explanation answer for a forum question - Return 200', function () {
 
-        var answerId,
+        let answerId,
             description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -60,7 +60,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new solution answer for a forum question - Return 200', function () {
 
-        var answerId,
+        let answerId,
             description = 'Deshalb', title = "title";
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -88,7 +88,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new explanation answer with reference to page for a forum question - Return 200', function () {
 
-        var answerId,
+        let answerId,
             description = 'Deshalb';
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -115,7 +115,7 @@ describe('Integration Tests for adding answers to a forum question', function ()
 
     it('Creating a new solution answer with reference to page for a forum question - Return 200', function () {
 
-        var answerId,
+        let answerId,
             description = 'Deshalb';
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

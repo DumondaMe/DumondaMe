@@ -1,10 +1,10 @@
 'use strict';
 
-var libUser = require('elyoos-server-lib').user();
-var users = require('elyoos-server-test-util').user;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var db = require('elyoos-server-test-util').db;
+let libUser = require('elyoos-server-lib').user();
+let users = require('elyoos-server-test-util').user;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests User Profile Data', function () {
 
@@ -45,7 +45,7 @@ describe('Integration Tests User Profile Data', function () {
     });
 
     it('Get User Data when logged in - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
@@ -86,7 +86,7 @@ describe('Integration Tests User Profile Data', function () {
     });
 
     it('Post new user data when not logged in- Return a 401', function () {
-        var user = {
+        let user = {
             forename: 'user',
             surname: 'surname',
             birthday: 123546,
@@ -100,7 +100,7 @@ describe('Integration Tests User Profile Data', function () {
     });
 
     it('Post only required valid user data - Return a 200', function () {
-        var user = {
+        let user = {
             forename: 'user',
             surname: 'surname',
             birthday: 123546,
@@ -127,7 +127,7 @@ describe('Integration Tests User Profile Data', function () {
     });
 
     it('Post required and optional valid user data - Return a 200', function () {
-        var user = {
+        let user = {
             forename: 'user',
             surname: 'surname',
             birthday: 123546,
@@ -158,7 +158,7 @@ describe('Integration Tests User Profile Data', function () {
     });
 
     it('Remove the optional street and place values - Return a 200', function () {
-        var user = {
+        let user = {
             forename: 'user',
             surname: 'surname',
             birthday: 123546,

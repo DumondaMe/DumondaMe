@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getRecommendedByContactUsers = function (userId, limit) {
+let getRecommendedByContactUsers = function (userId, limit) {
     return db.cypher().match(`(user:User {userId: {userId}})-[:IS_CONTACT]->(:User)-[:IS_CONTACT]->(contactedUser:User)`)
         .where("contactedUser.userId <> user.userId AND NOT (user)-[:IS_CONTACT]->(contactedUser) AND NOT (user)-[:IS_BLOCKED]-(contactedUser)")
         .optionalMatch("(user)<-[relContactedUser:IS_CONTACT]-(contactedUser)-[privacyRel:HAS_PRIVACY]->(privacy:Privacy)")
@@ -20,7 +20,7 @@ var getRecommendedByContactUsers = function (userId, limit) {
         .end({userId: userId, limit: limit});
 };
 
-var getRecommendedUsers = function (userId, limit) {
+let getRecommendedUsers = function (userId, limit) {
     return db.cypher().match(`(contactingUser:User)-[:IS_CONTACT]->(contactedUser:User), (user:User {userId: {userId}})`)
         .where(`NOT (user)-[:IS_CONTACT]->()-[:IS_CONTACT]->(contactedUser) AND NOT (user)-[:IS_CONTACT]->(contactedUser) AND 
                 contactingUser.userId <> user.userId AND contactedUser.userId <> user.userId AND NOT (user)-[:IS_BLOCKED]-(contactedUser)`)

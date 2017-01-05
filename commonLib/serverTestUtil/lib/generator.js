@@ -1,9 +1,9 @@
 'use strict';
 
-var uuid = null;
+let uuid = null;
 
-var generateIdArray = function (numberOfIds) {
-    var i, ids = [];
+let generateIdArray = function (numberOfIds) {
+    let i, ids = [];
     for (i = 0; i < numberOfIds; i++) {
         ids.push(uuid.generateUUID());
     }

@@ -1,11 +1,11 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var answer = requireModel('forum/answer/answer');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let answer = requireModel('forum/answer/answer');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaAddQuestionAnswer = {
+let schemaAddQuestionAnswer = {
     name: 'createForumAnswer',
     type: 'object',
     additionalProperties: false,
@@ -38,7 +38,7 @@ var schemaAddQuestionAnswer = {
     }
 };
 
-var schemaDeleteAnswer = {
+let schemaDeleteAnswer = {
     name: 'deleteForumAnswer',
     type: 'object',
     additionalProperties: false,

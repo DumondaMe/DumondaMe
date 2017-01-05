@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var pinwall = requireModel('user/pinwall/pinwall');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let pinwall = requireModel('user/pinwall/pinwall');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetAdministratedPages = {
+let schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,

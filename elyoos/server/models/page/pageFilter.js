@@ -1,9 +1,9 @@
 'use strict';
 
-var underscore = require('underscore');
+let underscore = require('underscore');
 
-var getFilterQuery = function (filters) {
-    var filterQuery = '';
+let getFilterQuery = function (filters) {
+    let filterQuery = '';
     if (filters) {
         underscore.forEach(filters, function (filter) {
             filterQuery += "page.label = '" + filter + "' OR ";

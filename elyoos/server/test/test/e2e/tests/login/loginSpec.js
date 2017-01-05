@@ -1,11 +1,11 @@
 'use strict';
 
-var app = require('../../../../../server');
-var request = require('supertest');
-var users = require('elyoos-server-test-util').user;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
-var db = require('elyoos-server-test-util').db;
+let app = require('../../../../../server');
+let request = require('supertest');
+let users = require('elyoos-server-test-util').user;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+let db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests Login', function () {
 
@@ -29,7 +29,7 @@ describe('Integration Tests Login', function () {
     });
 
     it('Login and setting the flag last login - Return a 200', function () {
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return requestHandler.login(users.validUser).then(function () {
             return db.cypher().match("(user:User {userId: '1'})")

@@ -1,15 +1,15 @@
 'use strict';
 
-var db = requireDb();
-var moment = require('moment');
+let db = requireDb();
+let moment = require('moment');
 let uuid = require('elyoos-server-lib').uuid;
-var security = require('./../security');
-var securityAnswer = require('./security');
+let security = require('./../security');
+let securityAnswer = require('./security');
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var createPageReference = function (pageId) {
-    var command = db.cypher();
+let createPageReference = function (pageId) {
+    let command = db.cypher();
     if (pageId) {
         command.with("answer")
             .match("(page:Page {pageId: {pageId}})")
@@ -21,7 +21,7 @@ var createPageReference = function (pageId) {
     return command.getCommandString();
 };
 
-var getAnswerLabel = function (type, req) {
+let getAnswerLabel = function (type, req) {
     switch (type) {
         case "explanation":
             return "answer:ForumExplanation:ForumAnswer";
@@ -32,9 +32,9 @@ var getAnswerLabel = function (type, req) {
     }
 };
 
-var createAnswer = function (userId, questionId, title, description, type, pageId, req) {
+let createAnswer = function (userId, questionId, title, description, type, pageId, req) {
 
-    var timeCreatedExplanation = Math.floor(moment.utc().valueOf() / 1000),
+    let timeCreatedExplanation = Math.floor(moment.utc().valueOf() / 1000),
         answerId = uuid.generateUUID();
     return security.questionExists(questionId, req).then(function () {
         return getAnswerLabel(type, req);
@@ -58,7 +58,7 @@ var createAnswer = function (userId, questionId, title, description, type, pageI
     });
 };
 
-var deleteAnswer = function (userId, answerId, req) {
+let deleteAnswer = function (userId, answerId, req) {
     return securityAnswer.allowedToDeleteAnswer(userId, answerId, req).then(function () {
         return db.cypher().match("(answer:ForumAnswer {answerId: {answerId}})")
             .optionalMatch("(answer)-[r]-()")

@@ -1,18 +1,18 @@
 'use strict';
 
-var profileUrl = require('./profileUrl');
-var cdn = require('../../../util/cdn');
-var numberOfRecommendation = require('./numberOfRecommendation');
+let profileUrl = require('./profileUrl');
+let cdn = require('../../../util/cdn');
+let numberOfRecommendation = require('./numberOfRecommendation');
 
-var addUrl = function (element) {
+let addUrl = function (element) {
     if (element.heightPreviewImage) {
         element.url = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
         element.urlFull = cdn.getUrl(`blog/${element.pageId}/normal.jpg`);
     }
 };
 
-var getPinwallElement = function (pinwallElement) {
-    var element = {};
+let getPinwallElement = function (pinwallElement) {
+    let element = {};
     element.pinwallType = 'Recommendation';
     element.label = 'Blog';
     element.writerName = pinwallElement.writer.name;

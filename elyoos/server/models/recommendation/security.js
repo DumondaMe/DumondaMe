@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var checkDeleteRecommendationAllowed = function (userId, recommendationId, req) {
+let checkDeleteRecommendationAllowed = function (userId, recommendationId, req) {
     return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(rec:Recommendation {recommendationId: {recommendationId}})")
         .return("user.userId AS userId")
         .end({userId: userId, recommendationId: recommendationId}).send()

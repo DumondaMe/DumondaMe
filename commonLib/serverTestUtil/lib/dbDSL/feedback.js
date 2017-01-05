@@ -1,9 +1,9 @@
 'use strict';
 
-var db = require('../db');
-var dbConnectionHandling = require('./dbConnectionHandling');
+let db = require('../db');
+let dbConnectionHandling = require('./dbConnectionHandling');
 
-var createFeedbackBug = function (feedbackId, creatorUserId, created, modified, status, params) {
+let createFeedbackBug = function (feedbackId, creatorUserId, created, modified, status, params) {
     params = params || {};
     params.title = params.title || `bug${feedbackId}Title`;
     params.description = params.description || `bug${feedbackId}Description`;
@@ -29,7 +29,7 @@ var createFeedbackBug = function (feedbackId, creatorUserId, created, modified, 
         }).getCommand());
 };
 
-var createFeedbackIdea = function (feedbackId, creatorUserId, created, modified, status, title, description) {
+let createFeedbackIdea = function (feedbackId, creatorUserId, created, modified, status, title, description) {
     title = title || `idea${feedbackId}Title`;
     description = description || `idea${feedbackId}Description`;
     status = status || `open`;
@@ -47,7 +47,7 @@ var createFeedbackIdea = function (feedbackId, creatorUserId, created, modified,
         }).getCommand());
 };
 
-var createFeedbackDiscussion = function (feedbackId, creatorUserId, created, modified, status, title, description) {
+let createFeedbackDiscussion = function (feedbackId, creatorUserId, created, modified, status, title, description) {
     title = title || `discussion${feedbackId}Title`;
     description = description || `discussion${feedbackId}Description`;
     status = status || `open`;
@@ -65,7 +65,7 @@ var createFeedbackDiscussion = function (feedbackId, creatorUserId, created, mod
         }).getCommand());
 };
 
-var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, creatorUserId, created, modified, status, title, description) {
+let createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, creatorUserId, created, modified, status, title, description) {
     title = title || `discussionIdea${feedbackId}Title`;
     description = description || `discussionIdea${feedbackId}Description`;
     status = status || `open`;
@@ -85,7 +85,7 @@ var createFeedbackDiscussionIdea = function (feedbackId, discussionFeedbackId, c
         }).getCommand());
 };
 
-var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text, createdByAdmin) {
+let createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUserId, created, text, createdByAdmin) {
     text = text || `comment${feedbackCommentId}Text`;
     createdByAdmin = createdByAdmin || null;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
@@ -101,7 +101,7 @@ var createFeedbackComment = function (feedbackId, feedbackCommentId, creatorUser
         }).getCommand());
 };
 
-var createFeedbackRecommendation = function (feedbackId, feedbackRecommendationId, creatorUserId, created) {
+let createFeedbackRecommendation = function (feedbackId, feedbackRecommendationId, creatorUserId, created) {
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .create(`(feedback)<-[:RECOMMENDS]-(:Feedback:Recommendation  {created: {created}, recommendationId: {feedbackRecommendationId}})
         <-[:RECOMMENDED_BY]-(user)`)
@@ -113,7 +113,7 @@ var createFeedbackRecommendation = function (feedbackId, feedbackRecommendationI
         }).getCommand());
 };
 
-var closeFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
+let closeFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
     reasonText = reasonText || `closed${statusFeedbackId}Text`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .set("feedback", {status: 'closed'})
@@ -128,7 +128,7 @@ var closeFeedback = function (feedbackId, statusFeedbackId, creatorUserId, creat
         }).getCommand());
 };
 
-var reopenFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
+let reopenFeedback = function (feedbackId, statusFeedbackId, creatorUserId, created, reasonText) {
     reasonText = reasonText || `reopen${statusFeedbackId}Text`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(feedback:Feedback {feedbackId: {feedbackId}}), (user:User {userId: {creatorUserId}})')
         .set("feedback", {status: 'open'})

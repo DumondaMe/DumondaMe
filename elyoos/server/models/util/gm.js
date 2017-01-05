@@ -1,6 +1,6 @@
 'use strict';
 
-var gm = require('gm');
+let gm = require('gm');
 
 module.exports = {
     gm: gm

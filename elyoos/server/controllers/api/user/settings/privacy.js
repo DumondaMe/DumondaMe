@@ -1,11 +1,11 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var privacy = requireModel('user/setting/privacy');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let privacy = requireModel('user/setting/privacy');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaPostNewPrivacy = {
+let schemaPostNewPrivacy = {
     name: 'newPrivacy',
     type: 'object',
     additionalProperties: false,
@@ -64,7 +64,7 @@ var schemaPostNewPrivacy = {
     }
 };
 
-var schemaDeletePrivacySetting = {
+let schemaDeletePrivacySetting = {
     name: 'deletePrivacySetting',
     type: 'object',
     additionalProperties: false,

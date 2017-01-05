@@ -1,11 +1,11 @@
 'use strict';
 
-var request = require('request');
-var promise = require('bluebird');
+let request = require('request');
+let promise = require('bluebird');
 
-var Cypher = require('./cypher.js').Cypher;
-var helper = require('./helper');
-var connectionUrl;
+let Cypher = require('./cypher.js').Cypher;
+let helper = require('./helper');
+let connectionUrl;
 
 module.exports = {
     cypher: function () {

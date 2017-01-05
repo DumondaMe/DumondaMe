@@ -1,12 +1,12 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting popular recommendations filtered by recommendation type', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     before(function () {
         return dbDsl.init(8).then(function () {

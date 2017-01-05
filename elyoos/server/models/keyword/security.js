@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var allowedKeywords = function (keywords, req) {
+let allowedKeywords = function (keywords, req) {
 
     return db.cypher().match("(keyword:Keyword)")
         .where("keyword.de IN {keywords}")

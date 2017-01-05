@@ -1,12 +1,12 @@
 'use strict';
 
-var userInfo = require('../../user/userInfo');
-var administrator = require('./administrator');
-var recommendation = require('./recommendation');
+let userInfo = require('../../user/userInfo');
+let administrator = require('./administrator');
+let recommendation = require('./recommendation');
 
-var getResponse = function (resp, page, pageId, userId) {
+let getResponse = function (resp, page, pageId, userId) {
 
-    var returnValue, isAdmin = administrator.isUserAdministrator(resp[0]);
+    let returnValue, isAdmin = administrator.isUserAdministrator(resp[0]);
     userInfo.addImageForPreview(resp[0]);
     returnValue = {
         page: page,

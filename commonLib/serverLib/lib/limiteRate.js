@@ -1,8 +1,8 @@
 "use strict";
 
-var RateLimit = require('express-rate-limit');
+let RateLimit = require('express-rate-limit');
 
-var getRate = function (params) {
+let getRate = function (params) {
     return new RateLimit(params);
 };
 

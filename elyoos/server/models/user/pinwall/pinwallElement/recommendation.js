@@ -1,10 +1,10 @@
 'use strict';
 
-var profileUrl = require('./profileUrl');
-var cdn = require('../../../util/cdn');
-var numberOfRecommendation = require('./numberOfRecommendation');
+let profileUrl = require('./profileUrl');
+let cdn = require('../../../util/cdn');
+let numberOfRecommendation = require('./numberOfRecommendation');
 
-var addLabelElement = function (element, pinwallElement) {
+let addLabelElement = function (element, pinwallElement) {
     if (element.label === 'Link') {
         element.link = pinwallElement.pinwallData.link;
         element.hostname = pinwallElement.pinwallData.hostname;
@@ -22,8 +22,8 @@ var addLabelElement = function (element, pinwallElement) {
     }
 };
 
-var getPinwallElement = function (pinwallElement) {
-    var element = {};
+let getPinwallElement = function (pinwallElement) {
+    let element = {};
     element.pinwallType = 'Recommendation';
     element.created = pinwallElement.pinwall.created;
     element.label = pinwallElement.pinwallData.label;

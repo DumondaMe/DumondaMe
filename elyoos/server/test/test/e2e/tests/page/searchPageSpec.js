@@ -1,16 +1,16 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for searching Pages', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -28,7 +28,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a book title and ignore other categories- Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page?1Title', label: 'Book', description: 'page1', modified: 501, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page?2Title', label: 'Book', description: 'page2', modified: 502, pageId: '1'})").end().getCommand());
@@ -92,7 +92,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a title without filters- Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
@@ -139,7 +139,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a link in youtube Pages without filters- Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
@@ -174,7 +174,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a link in youtube Pages with filters- Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
@@ -210,7 +210,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a Link Page without filters. Search link - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
@@ -247,7 +247,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a Link Page without filters. Search title - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());
@@ -284,7 +284,7 @@ describe('Integration Tests for searching Pages', function () {
 
     it('Searching for a Link Page with filter. Search link - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().create("(:Page {title: 'page1Title', label: 'Book', description: 'page1', modified: 503, pageId: '0'})").end().getCommand());
         commands.push(db.cypher().create("(:Page {title: 'page2Title', label: 'Book', description: 'page2', modified: 501, pageId: '1'})").end().getCommand());

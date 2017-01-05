@@ -1,8 +1,8 @@
 'use strict';
 
-var userInfo = require('./../../userInfo');
+let userInfo = require('./../../userInfo');
 
-var addProfileUrl = function (element, pinwallElement) {
+let addProfileUrl = function (element, pinwallElement) {
     if (pinwallElement.hasOwnProperty('contact')) {
         element.name = pinwallElement.contact.name;
         element.forename = pinwallElement.contact.forename;

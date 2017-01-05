@@ -1,12 +1,12 @@
 'use strict';
 
-var request = require('request');
-var promise = require('bluebird');
-var underscore = require('underscore');
-var logger = require('../logging').getLogger(__filename);
+let request = require('request');
+let promise = require('bluebird');
+let underscore = require('underscore');
+let logger = require('../logging').getLogger(__filename);
 
-var createJson = function (result) {
-    var json = [], row, i, j;
+let createJson = function (result) {
+    let json = [], row, i, j;
 
     for (i = 0; i < result.data.length; i = i + 1) {
         row = {};
@@ -21,8 +21,8 @@ var createJson = function (result) {
     return json;
 };
 
-var Cypher = function (connectionUrl) {
-    var chainedQuery = '', paramsToSend = {};
+let Cypher = function (connectionUrl) {
+    let chainedQuery = '', paramsToSend = {};
 
     this.chainingQuery = function (condition, command) {
         chainedQuery = chainedQuery + command + condition;
@@ -108,7 +108,7 @@ var Cypher = function (connectionUrl) {
 
     this.set = function (ref, objectToSet) {
 
-        var setCondition = '', key, propertyAdded = false;
+        let setCondition = '', key, propertyAdded = false;
         for (key in objectToSet) {
             if (objectToSet.hasOwnProperty(key)) {
                 setCondition = setCondition.concat(ref, '.', key, ' = {', key, '},');
@@ -129,11 +129,11 @@ var Cypher = function (connectionUrl) {
     };
 
     this.replaceArrayElement = function (ref, propertyName, oldElementValue, newElementValue, hasPreviousWhere) {
-        var array = ref + '.' + propertyName;
-        var oldValueName = propertyName + 'old';
-        var newValueName = propertyName + 'new';
-        var whereCondition = ' WHERE {' + oldValueName + '} IN ' + array;
-        var setCondition = ' SET ' + array + ' = filter(x in ' + array + ' WHERE not(x={' + oldValueName + '})) + {' + newValueName + '}';
+        let array = ref + '.' + propertyName;
+        let oldValueName = propertyName + 'old';
+        let newValueName = propertyName + 'new';
+        let whereCondition = ' WHERE {' + oldValueName + '} IN ' + array;
+        let setCondition = ' SET ' + array + ' = filter(x in ' + array + ' WHERE not(x={' + oldValueName + '})) + {' + newValueName + '}';
         if (hasPreviousWhere) {
             whereCondition = ' AND {' + oldValueName + '} IN ' + array;
         }
@@ -169,7 +169,7 @@ var Cypher = function (connectionUrl) {
     };
 
     this.send = function (statementsToSend) {
-        var multiDataResponse = [];
+        let multiDataResponse = [];
         if (!statementsToSend || !(statementsToSend instanceof Array)) {
             statementsToSend = [];
         }

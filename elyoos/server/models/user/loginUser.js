@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
-var time = require('elyoos-server-lib').time;
+let db = requireDb();
+let time = require('elyoos-server-lib').time;
 
-var setTimestamp = function (userId) {
-    var commands = [];
+let setTimestamp = function (userId) {
+    let commands = [];
 
     commands.push(db.cypher().match("(user:User {userId: {userId}}) SET user.previousLastLogin = user.lastLogin")
         .end({userId: userId}).getCommand());

@@ -1,19 +1,19 @@
 'use strict';
 
-var profileUrl = require('./profileUrl');
-var cdn = require('../../../util/cdn');
-var numberOfRecommendation = require('./numberOfRecommendation');
+let profileUrl = require('./profileUrl');
+let cdn = require('../../../util/cdn');
+let numberOfRecommendation = require('./numberOfRecommendation');
 
-var addBlogUrl = function (blog, heightPreviewImage) {
+let addBlogUrl = function (blog, heightPreviewImage) {
     if (heightPreviewImage) {
         blog.heightPreviewImage = heightPreviewImage;
         blog.url = cdn.getUrl('blog/' + blog.pageId + '/preview.jpg');
     }
 };
 
-var getPinwallElement = function (pinwallElement) {
+let getPinwallElement = function (pinwallElement) {
 
-    var element = {};
+    let element = {};
     element.pinwallType = 'Blog';
     element.pageId = pinwallElement.pinwall.pageId;
     element.title = pinwallElement.pinwall.title;

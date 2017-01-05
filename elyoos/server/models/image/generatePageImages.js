@@ -3,12 +3,12 @@
  */
 'use strict';
 
-var gm = require('./../util/gm');
-var cdn = require('./../util/cdn');
-var tmp = require('tmp');
+let gm = require('./../util/gm');
+let cdn = require('./../util/cdn');
+let tmp = require('tmp');
 
-var uploadImages = function (originalFilePath, pageId) {
-    var preview = tmp.fileSync({postfix: '.jpg'}),
+let uploadImages = function (originalFilePath, pageId) {
+    let preview = tmp.fileSync({postfix: '.jpg'}),
         thumbnail = tmp.fileSync({postfix: '.jpg'}),
         normal = tmp.fileSync({postfix: '.jpg'}),
         original = tmp.fileSync({postfix: '.jpg'}),
@@ -49,7 +49,7 @@ var uploadImages = function (originalFilePath, pageId) {
         });
 };
 
-var copyDefaultImages = function (pageId) {
+let copyDefaultImages = function (pageId) {
     return cdn.copyFile('pages/default/pagePreview.jpg', 'pages/' + pageId + '/pagePreview.jpg')
         .then(function () {
             cdn.copyFile('pages/default/pageTitlePicture.jpg', 'pages/' + pageId + '/pageTitlePicture.jpg');

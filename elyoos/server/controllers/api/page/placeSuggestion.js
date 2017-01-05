@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var placeSuggestion = requireModel('page/placeSuggestion');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let placeSuggestion = requireModel('page/placeSuggestion');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetPlaceSuggestion = {
+let schemaGetPlaceSuggestion = {
     name: 'getPlaceSuggestion',
     type: 'object',
     additionalProperties: false,

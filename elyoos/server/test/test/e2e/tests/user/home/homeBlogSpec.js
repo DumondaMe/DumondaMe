@@ -1,17 +1,17 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
 
 describe('Integration Tests for getting blogs on home screen for a user', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', forename: 'user2', userId: '2'})").end().getCommand());
@@ -36,7 +36,7 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
     it('Showing blog which has correct visible for contact type', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', visible: {visible}})")
             .end({visible: ['Freund']}).getCommand());
@@ -81,7 +81,7 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
     it('Showing blog which is set to public', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1'})").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")
@@ -122,7 +122,7 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
     it('Not showing blog which has incorrect visible for contact', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1', visible:{visible}})")
             .end({visible: ['Familie']}).getCommand());
@@ -167,7 +167,7 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
 
     it('Not showing blog because contact has user blocked', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         commands.push(db.cypher().create("(:Blog:PinwallElement {title: 'blogTitle1', text: 'blogText1', created: 501, pageId: '1'})").end().getCommand());
         commands.push(db.cypher().match("(a:Blog {pageId: '1'}), (b:User {userId: '2'})")

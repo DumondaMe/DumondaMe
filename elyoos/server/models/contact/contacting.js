@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('./../user/userInfo');
-var contactStatistic = require('./contactStatistic');
-var privacySettings = require('./privacySettings');
+let db = requireDb();
+let userInfo = require('./../user/userInfo');
+let contactStatistic = require('./contactStatistic');
+let privacySettings = require('./privacySettings');
 
-var getContactingStatistics = function (userId) {
+let getContactingStatistics = function (userId) {
     return db.cypher().match('(:User {userId: {userId}})<-[:IS_CONTACT]-(:User)')
         .return('count(*) AS count')
         .end({userId: userId});
 };
 
-var getContacting = function (params) {
+let getContacting = function (params) {
     return db.cypher().match("(user:User {userId: {userId}})<-[rContact:IS_CONTACT]-(contact:User)")
         .with("contact, user, rContact")
         .orderBy("rContact.contactAdded DESC")
@@ -26,9 +26,9 @@ var getContacting = function (params) {
         .end(params);
 };
 
-var getContactingNormal = function (userId, itemsPerPage, skip) {
+let getContactingNormal = function (userId, itemsPerPage, skip) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(getContacting({
         userId: userId,
@@ -43,7 +43,7 @@ var getContactingNormal = function (userId, itemsPerPage, skip) {
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0]);
-            var data = {};
+            let data = {};
             data.contactingUsers = resp[0];
             data.statistic = resp[1];
             data.privacySettings = resp[2];

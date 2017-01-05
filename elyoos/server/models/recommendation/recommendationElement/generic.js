@@ -1,8 +1,8 @@
 'use strict';
 
-var cdn = require('../../util/cdn');
+let cdn = require('../../util/cdn');
 
-var compare = function (a, b) {
+let compare = function (a, b) {
     if (a.description < b.description) {
         return -1;
     } else if (a.description > b.description) {
@@ -11,9 +11,9 @@ var compare = function (a, b) {
     return 0;
 };
 
-var getRecommendationElement = function (pinwallElement) {
+let getRecommendationElement = function (pinwallElement) {
 
-    var element = {};
+    let element = {};
     element.label = 'Generic';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;

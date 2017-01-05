@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let time = require('elyoos-server-lib').time;
-var security = require('./security');
-var youtube = require('./youtubeUtils');
+let security = require('./security');
+let youtube = require('./youtubeUtils');
 
-var handlingLinkHistory = function (params) {
+let handlingLinkHistory = function (params) {
     return db.cypher().match("(page:Page {pageId: {pageId}})")
         .where("page.link <> {link}")
         .return("page")
@@ -19,7 +19,7 @@ var handlingLinkHistory = function (params) {
         });
 };
 
-var editVideoPage = function (userId, params, req) {
+let editVideoPage = function (userId, params, req) {
 
     return security.checkAllowedToEditPage(userId, params.pageId, req).then(function () {
         return handlingLinkHistory(params);

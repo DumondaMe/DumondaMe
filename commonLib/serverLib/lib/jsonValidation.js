@@ -1,10 +1,10 @@
 'use strict';
 
-var tv4 = require('tv4');
-var exceptions = require('./error/exceptions');
-var formats = require('tv4-formats');
-var Promise = require('bluebird');
-var _ = require('lodash');
+let tv4 = require('tv4');
+let exceptions = require('./error/exceptions');
+let formats = require('tv4-formats');
+let Promise = require('bluebird');
+let _ = require('lodash');
 
 tv4.addFormat(formats);
 
@@ -49,8 +49,8 @@ tv4.addFormat('id', function (data) {
     return 'String is empty';
 });
 
-var validate = function (req, data, requestSchema, logger) {
-    var errors = tv4.validateMultiple(data, requestSchema),
+let validate = function (req, data, requestSchema, logger) {
+    let errors = tv4.validateMultiple(data, requestSchema),
         invalidJsonException;
     if (errors.valid) {
         return Promise.resolve(data);
@@ -60,8 +60,8 @@ var validate = function (req, data, requestSchema, logger) {
     return Promise.reject(invalidJsonException);
 };
 
-var convertValues = function (data, requestSchema) {
-    var key;
+let convertValues = function (data, requestSchema) {
+    let key;
     for (key in requestSchema.properties) {
         if (requestSchema.properties.hasOwnProperty(key) && requestSchema.properties[key].type && data[key]) {
             if (requestSchema.properties[key].type === 'integer') {

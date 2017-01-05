@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var cdn = require('../../util/cdn');
-var detailTitlePicture = require('./../../page/detail/detailTitlePicture');
-var _ = require('lodash');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let db = requireDb();
+let cdn = require('../../util/cdn');
+let detailTitlePicture = require('./../../page/detail/detailTitlePicture');
+let _ = require('lodash');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var addType = function (resp) {
+let addType = function (resp) {
     if (_.includes(resp.labels, "ForumSolution")) {
         resp.type = "solution";
     } else if (_.includes(resp.labels, "ForumExplanation")) {
@@ -17,7 +17,7 @@ var addType = function (resp) {
     delete resp.labels;
 };
 
-var handlingPages = function (page) {
+let handlingPages = function (page) {
     if (page) {
         if (page.label === 'Book') {
             detailTitlePicture.addTitlePicture(page.pageId, page, 'Book');
@@ -27,7 +27,7 @@ var handlingPages = function (page) {
     }
 };
 
-var getDetail = function (userId, answerId) {
+let getDetail = function (userId, answerId) {
 
     return db.cypher().match("(answer:ForumAnswer {answerId: {answerId}})")
         .optionalMatch("(answer)<-[rate:RATE_POSITIVE]-(:User)")

@@ -1,9 +1,9 @@
 'use strict';
 
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var feedbackOverview = requireModel('feedback/overview');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let feedbackOverview = requireModel('feedback/overview');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

@@ -1,14 +1,14 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('./../userInfo');
-var pinwallElement = require('./pinwallElement/pinwallElement');
-var pinwallSelector = require('./pinwallSelector');
-var contacting = require('./contacting');
-var recommendedUser = require('./recommendedUser');
-var recommendedUserSetting = require('./../setting/recommendedUser');
+let db = requireDb();
+let userInfo = require('./../userInfo');
+let pinwallElement = require('./pinwallElement/pinwallElement');
+let pinwallSelector = require('./pinwallSelector');
+let contacting = require('./contacting');
+let recommendedUser = require('./recommendedUser');
+let recommendedUserSetting = require('./../setting/recommendedUser');
 
-var getPinwallOfUser = function (userId, request) {
+let getPinwallOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
@@ -30,7 +30,7 @@ var getPinwallOfUser = function (userId, request) {
         });
 };
 
-var getPinwallOfDetailUser = function (userId, request) {
+let getPinwallOfDetailUser = function (userId, request) {
 
     return db.cypher().match("(user:User {userId: {userId}}), " +
         "(privacyNoContact:Privacy)<-[:HAS_PRIVACY_NO_CONTACT]-(otherUser:User {userId: {detailUserId}})" +
@@ -70,7 +70,7 @@ var getPinwallOfDetailUser = function (userId, request) {
         });
 };
 
-var getBlogs = function (userId, request) {
+let getBlogs = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)")
         .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
@@ -92,7 +92,7 @@ var getBlogs = function (userId, request) {
         .end({userId: userId, skip: request.skipBlog, maxItems: request.maxItems});
 };
 
-var getRecommendationPrivacyString = function (withCondition) {
+let getRecommendationPrivacyString = function (withCondition) {
     return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
@@ -105,7 +105,7 @@ var getRecommendationPrivacyString = function (withCondition) {
         .getCommandString();
 };
 
-var getBlogRecommendationPrivacyString = function () {
+let getBlogRecommendationPrivacyString = function () {
     return db.cypher().optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
         .optionalMatch("(writer)-[writerContact:IS_CONTACT]->(user)")
@@ -116,7 +116,7 @@ var getBlogRecommendationPrivacyString = function () {
         .getCommandString();
 };
 
-var getRecommendations = function (userId, request) {
+let getRecommendations = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
         .addCommand(getRecommendationPrivacyString(''))
         .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
@@ -136,8 +136,8 @@ var getRecommendations = function (userId, request) {
 };
 
 
-var getPinwall = function (userId, request) {
-    var commands = [];
+let getPinwall = function (userId, request) {
+    let commands = [];
 
     return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
         commands.push(contacting.getContacting(userId).getCommand());
@@ -151,7 +151,7 @@ var getPinwall = function (userId, request) {
         return getRecommendations(userId, request)
             .send(commands)
             .then(function (resp) {
-                var pinwall, recommendedUserResult = [];
+                let pinwall, recommendedUserResult = [];
                 userInfo.addImageForThumbnail(resp[0]);
                 if (showUserRecommendation) {
                     userInfo.addImageForThumbnail(resp[2]);

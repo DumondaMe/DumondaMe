@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var pageRecommendation = require('./page');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let pageRecommendation = require('./page');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var checkAddingRecommendationAllowed = function (userId, pageId, req) {
-    var commands = [];
+let checkAddingRecommendationAllowed = function (userId, pageId, req) {
+    let commands = [];
 
     commands.push(db.cypher().match("(blog:Blog {pageId: {pageId}})").return("blog").end({pageId: pageId}).getCommand());
     return db.cypher().match(`(:Blog {pageId: {pageId}})<-[:WRITTEN]-(writer:User)`)
@@ -22,7 +22,7 @@ var checkAddingRecommendationAllowed = function (userId, pageId, req) {
         });
 };
 
-var addRecommendation = function (userId, pageId, comment, req) {
+let addRecommendation = function (userId, pageId, comment, req) {
 
     return checkAddingRecommendationAllowed(userId, pageId, req).then(function () {
         return pageRecommendation.addRecommendation(userId, pageId, comment, true, req);

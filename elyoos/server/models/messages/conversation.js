@@ -1,18 +1,18 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
+let db = requireDb();
+let underscore = require('underscore');
 let exceptions = require('elyoos-server-lib').exceptions;
-var modification = require('./../modification/modification');
-var userInfo = require('./../user/userInfo');
-var security = require('./util/security');
-var unread = require('./util/unreadMessages');
+let modification = require('./../modification/modification');
+let userInfo = require('./../user/userInfo');
+let security = require('./util/security');
+let unread = require('./util/unreadMessages');
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
-var messageReceived = require('./../eMailService/messageReceived');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let messageReceived = require('./../eMailService/messageReceived');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var addWriterInfo = function (userId, messages) {
+let addWriterInfo = function (userId, messages) {
     underscore.forEach(messages, function (message) {
         if (message.userId === userId) {
             message.profileVisible = true;
@@ -21,13 +21,13 @@ var addWriterInfo = function (userId, messages) {
     });
 };
 
-var getThreadInfos = function (params) {
+let getThreadInfos = function (params) {
     return db.cypher()
         .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread {threadId: {threadId}})<-[:ACTIVE]-(contact:User)")
         .return("contact.name AS description, contact.userId AS userIdThreadDescription").end(params);
 };
 
-var getNumberOfMessages = function (params) {
+let getNumberOfMessages = function (params) {
     return db.cypher()
         .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread" +
             " {threadId: {threadId}})-[:NEXT_MESSAGE*]->(message:Message)")
@@ -35,7 +35,7 @@ var getNumberOfMessages = function (params) {
         .end(params);
 };
 
-var getMessagesOfThreads = function (params, setTime) {
+let getMessagesOfThreads = function (params, setTime) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread{threadId: {threadId}})" +
             "-[:NEXT_MESSAGE*]->(message:Message)-[:WRITTEN]->(writer:User)")
@@ -49,9 +49,9 @@ var getMessagesOfThreads = function (params, setTime) {
         .end(params);
 };
 
-var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) {
+let getMessages = function (userId, threadId, itemsPerPage, skip, session, req) {
 
-    var commands = [], now = time.getNowUtcTimestamp();
+    let commands = [], now = time.getNowUtcTimestamp();
 
     commands.push(getThreadInfos({
         userId: userId,
@@ -83,7 +83,7 @@ var getMessages = function (userId, threadId, itemsPerPage, skip, session, req) 
         });
 };
 
-var startEmailJobForReceivingUser = function (userId, threadId) {
+let startEmailJobForReceivingUser = function (userId, threadId) {
     return db.cypher().match("(user:User)-[active:ACTIVE]->(thread:Thread {threadId: {threadId}})")
         .where("user.userId <> {userId}")
         .return("user.userId AS receivedUserId")
@@ -94,11 +94,11 @@ var startEmailJobForReceivingUser = function (userId, threadId) {
         });
 };
 
-var addMessageToThread = function (userId, threadId, text, session, req) {
+let addMessageToThread = function (userId, threadId, text, session, req) {
 
     return security.checkAllowedToAddMessage(userId, threadId, req)
         .then(function () {
-            var now = time.getNowUtcTimestamp();
+            let now = time.getNowUtcTimestamp();
             return db.cypher()
                 .match("(user:User {userId: {userId}})-[:ACTIVE]->(thread:Thread " +
                     "{threadId: {threadId}})-[:NEXT_MESSAGE]->(messagePrevious:Message)")
@@ -122,7 +122,7 @@ var addMessageToThread = function (userId, threadId, text, session, req) {
         });
 };
 
-var messageThreadExists = function (userId, contactId) {
+let messageThreadExists = function (userId, contactId) {
     return db.cypher()
         .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(:User {userId: {contactId}})")
         .return("thread.threadId AS threadId")
@@ -134,7 +134,7 @@ var messageThreadExists = function (userId, contactId) {
         });
 };
 
-var addMessageToUser = function (userId, contactId, text, session, req) {
+let addMessageToUser = function (userId, contactId, text, session, req) {
     return messageThreadExists(userId, contactId)
         .then(function (threadId) {
             if (threadId) {
@@ -146,7 +146,7 @@ var addMessageToUser = function (userId, contactId, text, session, req) {
             }
             return security.checkAllowedToCreateThread(userId, contactId, req)
                 .then(function () {
-                    var now = time.getNowUtcTimestamp(), newThreadId = uuid.generateUUID();
+                    let now = time.getNowUtcTimestamp(), newThreadId = uuid.generateUUID();
                     return db.cypher()
                         .match("(user:User {userId: {userId}}), (contact:User {userId: {contactId}})")
                         .createUnique("(user)-[:ACTIVE {lastTimeVisited: {lastTimeVisited}}]->(thread:Thread {threadId: {threadId}})" +

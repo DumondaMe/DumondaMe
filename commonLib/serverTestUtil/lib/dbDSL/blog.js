@@ -1,9 +1,9 @@
 'use strict';
 
-var db = require('../db');
-var dbConnectionHandling = require('./dbConnectionHandling');
+let db = require('../db');
+let dbConnectionHandling = require('./dbConnectionHandling');
 
-var createBlog = function (pageId, writerUserId, language, topic, created, visible, pictureHeight, title) {
+let createBlog = function (pageId, writerUserId, language, topic, created, visible, pictureHeight, title) {
     title = title || `blog${pageId}Title`;
     dbConnectionHandling.getCommands().push(db.cypher().match('(user:User {userId: {writerUserId}})')
         .create(`(:Blog:Page:PinwallElement {text: {text}, title: {title}, created: {created}, pageId: {pageId}, label: 'Blog',

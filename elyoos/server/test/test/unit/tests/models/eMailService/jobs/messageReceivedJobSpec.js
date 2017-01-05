@@ -1,14 +1,14 @@
 'use strict';
 
-var testee = require('../../../../../../../models/eMailService/jobs/messageReceivedJob');
-var email = require('elyoos-server-lib').eMail;
-var db = require('elyoos-server-test-util').db;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../models/eMailService/jobs/messageReceivedJob');
+let email = require('elyoos-server-lib').eMail;
+let db = require('elyoos-server-test-util').db;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -24,7 +24,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
     it('Send a Email to the user who received a message', function () {
 
-        var finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', forename: 'user', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -64,7 +64,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
     it('EMail not sent when no unread messages', function () {
 
-        var finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -104,7 +104,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
     it('Email not sent when lastJobId ist different to jobId', function () {
 
-        var finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -124,7 +124,7 @@ describe('Unit Test eMailService/jobs/messageReceivedJob', function () {
 
     it('Email not sent when EMailNotification is missing', function () {
 
-        var finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished = sinon.spy(), commands = [], sendEMail = sandbox.stub(email, 'sendEMail');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
 

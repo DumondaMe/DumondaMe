@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var pagePreview = require('./pagePreview');
-var underscore = require('underscore');
+let db = requireDb();
+let pagePreview = require('./pagePreview');
+let underscore = require('underscore');
 
-var getTotalAdministratedPages = function (userId) {
+let getTotalAdministratedPages = function (userId) {
     return db.cypher().match("(page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
-var getAdministratedUserPages = function (userId, skip, limit) {
+let getAdministratedUserPages = function (userId, skip, limit) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(getTotalAdministratedPages(userId));
 

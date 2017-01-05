@@ -1,8 +1,8 @@
 'use strict';
 
-var geocoder = require('./../util/geocoder');
+let geocoder = require('./../util/geocoder');
 
-var search = function (place) {
+let search = function (place) {
     return geocoder.geocode(place);
 };
 

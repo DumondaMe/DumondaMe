@@ -1,18 +1,18 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
 
 describe('Integration Tests for getting user details', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', forename: 'user', surname: 'Meier', userId: '1', female: true})").end().getCommand());
@@ -30,7 +30,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting all possible contact details for a user to which contact has no contact relationship - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
@@ -64,7 +64,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting only the name of a user with no contact relationship and restrictions - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
@@ -98,7 +98,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting only the name of a user with no contact relationship and restriction no profile - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
             "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
@@ -132,7 +132,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting all info details for a user-[IS_CONTACT]->userDetail - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
@@ -170,7 +170,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting only the name for a user when user-[IS_CONTACT]->userDetail- Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
@@ -211,7 +211,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting all possible contact details for a user<-[IS_CONTACT]-userDetail - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         //User2
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
@@ -343,7 +343,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting only the name for a user when user<-[IS_CONTACT]-userDetail - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
@@ -381,7 +381,7 @@ describe('Integration Tests for getting user details', function () {
 
     it('Getting only the name for a user when user<-[IS_CONTACT]-userDetail and profile of privacy is set to false - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
         "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")

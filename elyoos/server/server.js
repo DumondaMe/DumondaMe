@@ -14,18 +14,18 @@ global.requireModel = function (name) {
 
 require('elyoos-server-lib').jsonValidation;
 require('elyoos-server-lib').version.setVersion(require('./package.json').version);
-var Promise = require('bluebird');
+let Promise = require('bluebird');
 Promise.promisifyAll(require('gm').prototype);
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 
-var kraken = require('kraken-js');
-var emailService = require('./models/eMailService/eMail');
-var dbConfig = require('elyoos-server-lib').databaseConfig;
-var app = require('express')();
-var options = require('elyoos-server-lib').spec(app);
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var port = process.env.PORT || 8080;
+let kraken = require('kraken-js');
+let emailService = require('./models/eMailService/eMail');
+let dbConfig = require('elyoos-server-lib').databaseConfig;
+let app = require('express')();
+let options = require('elyoos-server-lib').spec(app);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let port = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === 'production') {
     app.enable('trust proxy');

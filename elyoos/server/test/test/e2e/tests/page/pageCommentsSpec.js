@@ -1,16 +1,16 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting page comments', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().match("(u:User {userId: '1'})")
@@ -64,7 +64,7 @@ describe('Integration Tests for getting page comments', function () {
     // Sorted by when the recommendation was added
     it('Getting only contact comments for a book recommendation - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")
@@ -152,7 +152,7 @@ describe('Integration Tests for getting page comments', function () {
 
     it('Getting all comments for a book recommendation - Return 200', function () {
 
-        var commands = [];
+        let commands = [];
 
         commands.push(db.cypher().match("(a:User {userId: '1'}), (b:User {userId: '2'})")
             .create("(b)-[:IS_CONTACT {type: 'Freund'}]->(a)-[:IS_CONTACT {type: 'Freund'}]->(b)")

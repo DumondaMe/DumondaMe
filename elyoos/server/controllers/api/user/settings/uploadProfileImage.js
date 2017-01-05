@@ -1,8 +1,8 @@
 'use strict';
 
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var saveProfileImage = requireModel('image/generateProfileImages');
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let saveProfileImage = requireModel('image/generateProfileImages');
 
 module.exports = function (router) {
 

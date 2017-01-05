@@ -1,12 +1,12 @@
 'use strict';
 
-var testee = require('elyoos-server-lib').passwordEncryption;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('elyoos-server-lib').passwordEncryption;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test lib/passwordEncryption', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();

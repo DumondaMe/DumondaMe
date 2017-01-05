@@ -1,12 +1,12 @@
 'use strict';
 
-var path = require('path');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let path = require('path');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 
     router.get('/*', function (req, res) {
-        var username = '';
+        let username = '';
         if (req.session && req.session.passport && req.session.passport.user) {
             username = req.session.passport.user;
         }

@@ -1,16 +1,16 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
-var stubCDN = require('elyoos-server-test-util').stubCDN();
-var sinon = require('sinon');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+let stubCDN = require('elyoos-server-test-util').stubCDN();
+let sinon = require('sinon');
 
 describe('Integration Tests for creating new generic pages', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
@@ -30,7 +30,7 @@ describe('Integration Tests for creating new generic pages', function () {
 
     it('Create a new generic page - Return 200', function () {
 
-        var createPage = {
+        let createPage = {
             genericPage: {
                 title: 'title',
                 topic: ['health', 'spiritual'],
@@ -79,7 +79,7 @@ describe('Integration Tests for creating new generic pages', function () {
 
     it('Create a new generic page with only mandatory properties - Return 200', function () {
 
-        var createPage = {
+        let createPage = {
             genericPage: {
                 title: 'title',
                 topic: ['health', 'spiritual'],

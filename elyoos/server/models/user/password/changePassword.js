@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let passwordEncryption = require('elyoos-server-lib').passwordEncryption;
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var checkActualPassword = function (userId, actualPassword, req) {
+let checkActualPassword = function (userId, actualPassword, req) {
 
     return db.cypher().match('(u:User {userId: {userId}})')
         .return('u.password AS password')
@@ -21,7 +21,7 @@ var checkActualPassword = function (userId, actualPassword, req) {
         });
 };
 
-var changePassword = function (userId, newPassword, actualPassword, req) {
+let changePassword = function (userId, newPassword, actualPassword, req) {
     return checkActualPassword(userId, actualPassword, req)
         .then(function () {
             return passwordEncryption.generatePasswordHash(newPassword);

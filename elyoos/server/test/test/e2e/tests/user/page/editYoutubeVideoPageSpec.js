@@ -1,17 +1,17 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
 
 describe('Integration Tests for editing youtube pages', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
@@ -47,7 +47,7 @@ describe('Integration Tests for editing youtube pages', function () {
 
     it('Edit a youtube video page- Return 200', function () {
 
-        var page = {
+        let page = {
             youtubePage: {
                 pageId: '0',
                 topic: ["environmental","spiritual"],
@@ -99,7 +99,7 @@ describe('Integration Tests for editing youtube pages', function () {
 
     it('Edit a youtube video page (playlist)- Return 200', function () {
 
-        var page = {
+        let page = {
             youtubePage: {
                 pageId: '0',
                 topic: ["environmental","spiritual"],
@@ -146,7 +146,7 @@ describe('Integration Tests for editing youtube pages', function () {
 
     it('Edit link of a youtube video page the second time- Return 200', function () {
 
-        var page = {
+        let page = {
             youtubePage: {
                 pageId: '2',
                 topic: ["environmental","spiritual"],
@@ -178,7 +178,7 @@ describe('Integration Tests for editing youtube pages', function () {
 
     it('Edit a youtube video page and do not change link history when link is the same- Return 200', function () {
 
-        var page = {
+        let page = {
             youtubePage: {
                 pageId: '0',
                 topic: ["environmental","spiritual"],
@@ -223,7 +223,7 @@ describe('Integration Tests for editing youtube pages', function () {
 
     it('Edit of video page without being administrator - Return 400', function () {
 
-        var page = {
+        let page = {
             youtubePage: {
                 pageId: '1',
                 topic: ["environmental","spiritual"],
