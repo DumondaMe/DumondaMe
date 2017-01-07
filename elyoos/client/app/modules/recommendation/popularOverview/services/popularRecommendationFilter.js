@@ -24,7 +24,7 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
         var service = this, filters = {onlyContact: false}, column = {};
 
         service.registerColumn = function (id, newColumn) {
-            column[id] = newColumn
+            column[id] = newColumn;
         };
 
         service.getFilterParams = function () {
@@ -44,6 +44,6 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
                     }
                 }
             }
-        }
+        };
     }]
 ;
