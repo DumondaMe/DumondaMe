@@ -3,6 +3,9 @@
 let validation = require('elyoos-server-lib').jsonValidation;
 let auth = require('elyoos-server-lib').auth;
 let pinwall = requireModel('user/pinwall/pinwall');
+let language = require("../../../schema/language");
+let topic = require("../../../schema/topic");
+let recommendationType = require("../../../schema/recommendationType");
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
@@ -10,11 +13,15 @@ let schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
-    required: ['skipBlog', 'skipRecommendation', 'maxItems'],
+    required: ['skipBlog', 'skipRecommendation', 'maxItems', 'onlyContact'],
     properties: {
         skipBlog: {type: 'integer', minimum: 0},
         skipRecommendation: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50}
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        onlyContact: {type: 'boolean'},
+        language: language.languageMultiple,
+        topic: topic.topicMultiple,
+        recommendationType: recommendationType.typeMultiple
     }
 };
 

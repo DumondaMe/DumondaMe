@@ -70,7 +70,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                 return requestHandler.getWithData('/api/user/home', {
                     skipBlog: 0,
                     skipRecommendation: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    onlyContact: true
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -111,7 +112,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                 return requestHandler.getWithData('/api/user/home', {
                     skipBlog: 0,
                     skipRecommendation: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    onlyContact: true
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -156,7 +158,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                 return requestHandler.getWithData('/api/user/home', {
                     skipBlog: 0,
                     skipRecommendation: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    onlyContact: true
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -200,7 +203,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                 return requestHandler.getWithData('/api/user/home', {
                     skipBlog: 0,
                     skipRecommendation: 0,
-                    maxItems: 10
+                    maxItems: 10,
+                    onlyContact: true
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);

@@ -70,9 +70,16 @@ let getPinwallOfDetailUser = function (userId, request) {
         });
 };
 
+let getBlogOnlyContactFilter = function (onlyContact) {
+    if(onlyContact) {
+        return "(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)";
+    }
+    return "(user:User {userId: {userId}}), (contact:User)-[:WRITTEN]->(pinwall:Blog)";
+};
+
 let getBlogs = function (userId, request) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)")
-        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall)")
+    return db.cypher().match(getBlogOnlyContactFilter(request.onlyContact))
+        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:WRITTEN]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
@@ -93,7 +100,7 @@ let getBlogs = function (userId, request) {
 };
 
 let getRecommendationPrivacyString = function (withCondition) {
-    return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
+    return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:RECOMMENDS]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
@@ -116,14 +123,21 @@ let getBlogRecommendationPrivacyString = function () {
         .getCommandString();
 };
 
+let getRecommendationOnlyContactFilter = function (onlyContact) {
+    if(onlyContact) {
+        return "(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
+    }
+    return "(user:User {userId: {userId}}), (contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
+};
+
 let getRecommendations = function (userId, request) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
+    return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
         .addCommand(getRecommendationPrivacyString(''))
         .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
         .orderBy("created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
+        .match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where("pinwall.created = created")
         .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
         .addCommand(getBlogRecommendationPrivacyString())

@@ -2,8 +2,12 @@
 
 let userInfo = require('./../../userInfo');
 
+let checkIsContactUser = function (contact, user) {
+    return (contact && user) && (contact.userId !== user.userId);
+};
+
 let addProfileUrl = function (element, pinwallElement) {
-    if (pinwallElement.hasOwnProperty('contact')) {
+    if (pinwallElement.hasOwnProperty('contact') && checkIsContactUser(pinwallElement.contact, pinwallElement.user)) {
         element.name = pinwallElement.contact.name;
         element.forename = pinwallElement.contact.forename;
         element.userId = pinwallElement.contact.userId;
