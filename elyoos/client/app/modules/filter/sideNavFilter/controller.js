@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = ['Topics', 'Languages', 'RecommendationTypes', 'PopularPageRecommendationFilters', '$timeout', '$mdMedia', '$mdSidenav',
-    function (Topics, Languages, RecommendationTypes, PopularPageRecommendationFilters, $timeout, $mdMedia, $mdSidenav) {
+module.exports = ['Topics', 'Languages', 'RecommendationTypes', 'BlogRecommendationFilters', '$timeout', '$mdMedia', '$mdSidenav',
+    function (Topics, Languages, RecommendationTypes, BlogRecommendationFilters, $timeout, $mdMedia, $mdSidenav) {
         var ctrl = this;
 
         ctrl.$mdMedia = $mdMedia;
-        ctrl.filters = PopularPageRecommendationFilters.getFilters();
+        ctrl.filters = BlogRecommendationFilters.getFilters();
 
         ctrl.topics = Topics.topics;
         ctrl.languages = Languages.languages;
@@ -29,7 +29,7 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes', 'PopularPageReco
         ctrl.filter = function () {
             $mdSidenav('rightFilterRecommendationNav').close();
             $timeout(function () {
-                PopularPageRecommendationFilters.filtersChanged(ctrl.filters);
+                BlogRecommendationFilters.filtersChanged(ctrl.filters);
                 ctrl.actualFilterSetting = angular.copy(ctrl.filters);
                 ctrl.actualFilterSettingEqual = true;
             }, 300);

@@ -10,8 +10,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
             },
-            templateUrl: 'app/modules/recommendation/popularOverview/sideNavFilter/template.html'
+            templateUrl: 'app/modules/filter/sideNavFilter/template.html'
         };
     }],
-    name: 'elyRecommendationPopularSideNavFilter'
+    name: 'elyBlogRecommendationSideNavFilter'
 };

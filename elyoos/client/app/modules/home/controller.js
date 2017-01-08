@@ -2,10 +2,10 @@
 
 module.exports =
     ['$scope', 'Home', '$mdSidenav', '$mdBottomSheet', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
-        'HomeAddRemovePinwallElementService',
+        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters',
         function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome,
-                  HomeAddRemovePinwallElementService) {
-            var ctrl = this;
+                  HomeAddRemovePinwallElementService, BlogRecommendationFilters) {
+            var ctrl = this, filters = BlogRecommendationFilters.getFilterParams();
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
@@ -44,9 +44,20 @@ module.exports =
                 ctrl.showSearch = false;
             };
             //---------------------
+            //Filter---------------
+            BlogRecommendationFilters.register('Home', this);
+
+            ctrl.filterChanged = function (newFilters) {
+                HomeScrollRequest.reset();
+                filters = newFilters;
+                ctrl.home = {pinwall: []};
+                ctrl.loadRunning = true;
+                ctrl.nextPinwallInfo();
+            };
+            //---------------------
 
             ctrl.nextPinwallInfo = function () {
-                HomeScrollRequest.nextRequest(ctrl.home.pinwall).then(function (pinwall) {
+                HomeScrollRequest.nextRequest(ctrl.home.pinwall, filters).then(function (pinwall) {
                     ctrl.home = pinwall;
                     ctrl.loadRunning = false;
                     if (pinwall.pinwall.length === 0) {
@@ -64,6 +75,10 @@ module.exports =
             };
 
             $scope.isSideNavOpen = false;
+
+            ctrl.openSideNavRight = function () {
+                $mdSidenav('rightFilterRecommendationNav').open();
+            };
 
             $scope.$watch('isSideNavOpen', function (isOpen) {
                 if (isOpen) {

@@ -8,7 +8,11 @@
         </div>
     </div>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
-    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openCreatePage()" ng-if="!ctrl.loadRunning">
-        <md-icon md-svg-icon="navFAB:add"></md-icon>
+    <md-button class="md-fab create-blog-fab" aria-label="Create blog" ng-click="ctrl.openSideNavRight()" ng-if="!ctrl.loadRunning">
+        <md-icon md-svg-icon="navFAB:filter"></md-icon>
     </md-button>
+    <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="rightFilterRecommendationNav"
+                md-is-locked-open="false">
+        <ely-blog-recommendation-side-nav-filter></ely-blog-recommendation-side-nav-filter>
+    </md-sidenav>
 </md-content>

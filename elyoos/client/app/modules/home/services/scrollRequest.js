@@ -2,6 +2,14 @@
 
 var scrollRequest = {};
 
+var getParams = function (maxItems, skipBlog, skipRecommendation, additionalParams) {
+    var params = {maxItems: maxItems, skipBlog: skipBlog, skipRecommendation: skipRecommendation};
+    if (additionalParams) {
+        angular.extend(params, additionalParams);
+    }
+    return params;
+};
+
 module.exports = ['$q', 'Home', function ($q, Home) {
 
     this.reset = function () {
@@ -14,18 +22,15 @@ module.exports = ['$q', 'Home', function ($q, Home) {
         };
     };
 
-    this.nextRequest = function (previousPinwall) {
+    this.nextRequest = function (previousPinwall, additionalParams) {
         var deferred = $q.defer(), newPinwall;
         if (scrollRequest.requestPinwallElements && !scrollRequest.requestPinwallElementsRunning) {
             if (!previousPinwall) {
                 previousPinwall = [];
             }
             scrollRequest.requestPinwallElementsRunning = true;
-            newPinwall = Home.get({
-                skipBlog: scrollRequest.skipBlog,
-                skipRecommendation: scrollRequest.skipRecommendation,
-                maxItems: scrollRequest.itemsPerPage
-            }, function () {
+            newPinwall = Home.get(getParams(scrollRequest.itemsPerPage, scrollRequest.skipBlog, scrollRequest.skipRecommendation,
+                additionalParams), function () {
 
                 newPinwall.pinwall = previousPinwall.concat(newPinwall.pinwall);
                 scrollRequest.requestPinwallElements = scrollRequest.skipBlog + scrollRequest.skipRecommendation + scrollRequest.itemsPerPage <=

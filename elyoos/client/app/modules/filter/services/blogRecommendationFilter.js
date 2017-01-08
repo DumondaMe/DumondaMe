@@ -21,10 +21,10 @@ var createFilterParams = function (filters, Topics, Languages, RecommendationTyp
 
 module.exports = ['Topics', 'Languages', 'RecommendationTypes',
     function (Topics, Languages, RecommendationTypes) {
-        var service = this, filters = {onlyContact: false}, column = {};
+        var service = this, filters = {onlyContact: false}, observers = {};
 
-        service.registerColumn = function (id, newColumn) {
-            column[id] = newColumn;
+        service.register = function (id, observer) {
+            observers[id] = observer;
         };
 
         service.getFilterParams = function () {
@@ -38,9 +38,9 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
         service.filtersChanged = function (newFilters) {
             if (!angular.equals(filters, newFilters)) {
                 angular.copy(newFilters, filters);
-                for (var property in column) {
-                    if (column.hasOwnProperty(property)) {
-                        column[property].filterChanged(createFilterParams(filters, Topics, Languages, RecommendationTypes));
+                for (var property in observers) {
+                    if (observers.hasOwnProperty(property)) {
+                        observers[property].filterChanged(createFilterParams(filters, Topics, Languages, RecommendationTypes));
                     }
                 }
             }
