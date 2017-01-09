@@ -2,6 +2,7 @@
 
 let db = requireDb();
 let userInfo = require('./../userInfo');
+let pinwallFilter = require('./pinwallFilter');
 let pinwallElement = require('./pinwallElement/pinwallElement');
 let pinwallSelector = require('./pinwallSelector');
 let contacting = require('./contacting');
@@ -71,14 +72,16 @@ let getPinwallOfDetailUser = function (userId, request) {
 };
 
 let getBlogOnlyContactFilter = function (onlyContact) {
-    if(onlyContact) {
+    if (onlyContact) {
         return "(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)";
     }
     return "(user:User {userId: {userId}}), (contact:User)-[:WRITTEN]->(pinwall:Blog)";
 };
 
 let getBlogs = function (userId, request) {
+    let filters = pinwallFilter.getBlogFilters(request, 'pinwall');
     return db.cypher().match(getBlogOnlyContactFilter(request.onlyContact))
+        .where(filters)
         .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:WRITTEN]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
@@ -96,7 +99,10 @@ let getBlogs = function (userId, request) {
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .end({userId: userId, skip: request.skipBlog, maxItems: request.maxItems});
+        .end({
+            userId: userId, skip: request.skipBlog, maxItems: request.maxItems, language: request.language, topic: request.topic,
+            recommendationType: request.recommendationType
+        });
 };
 
 let getRecommendationPrivacyString = function (withCondition) {
@@ -124,21 +130,23 @@ let getBlogRecommendationPrivacyString = function () {
 };
 
 let getRecommendationOnlyContactFilter = function (onlyContact) {
-    if(onlyContact) {
+    if (onlyContact) {
         return "(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
     }
     return "(user:User {userId: {userId}}), (contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
 };
 
 let getRecommendations = function (userId, request) {
+    let filters = pinwallFilter.getRecommendationFilters(request, 'pinwallData');
     return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
+        .where(filters)
         .addCommand(getRecommendationPrivacyString(''))
         .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
         .orderBy("created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
         .match(getRecommendationOnlyContactFilter(request.onlyContact))
-        .where("pinwall.created = created")
+        .where(`pinwall.created = created AND ${filters}`)
         .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
         .addCommand(getBlogRecommendationPrivacyString())
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
@@ -146,7 +154,10 @@ let getRecommendations = function (userId, request) {
             userRec.recommendationId AS userRecommendationId,
             EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
             SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfRecommendations`)
-        .end({userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems});
+        .end({
+            userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems, language: request.language, topic: request.topic,
+            recommendationType: request.recommendationType
+        });
 };
 
 
