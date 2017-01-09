@@ -14,13 +14,17 @@
       }
     }
   }
-  .create-blog-fab {
+  .filter-fab {
     position: fixed;
     bottom: 0;
     right: 0;
     @media screen and (min-width: $gt-sm) {
       bottom: 15px;
       right: 24px;
+    }
+    @media screen and (min-width: $gt-md) {
+      bottom: 25px;
+      right: 48px;
     }
   }
 }

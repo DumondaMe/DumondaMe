@@ -1111,14 +1111,18 @@
         #ely-home .pinwall-container .pinwall-inner-container {
           max-width: 950px;
           width: 950px; } }
-  #ely-home .create-blog-fab {
+  #ely-home .filter-fab {
     position: fixed;
     bottom: 0;
     right: 0; }
     @media screen and (min-width: 960px) {
-      #ely-home .create-blog-fab {
+      #ely-home .filter-fab {
         bottom: 15px;
         right: 24px; } }
+    @media screen and (min-width: 1280px) {
+      #ely-home .filter-fab {
+        bottom: 25px;
+        right: 48px; } }
 
 #ely-home-search-result .result-container {
   margin: 16px auto;
