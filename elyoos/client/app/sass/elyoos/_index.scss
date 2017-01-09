@@ -23,6 +23,8 @@
 @import 'feedback/_feedbackOverviewGroup';
 @import 'feedback/_feedbackOverviewGroupContainer';
 
+@import 'filter/_rightSidenavFilter';
+
 @import 'forum/answerDetail/_answerDetail';
 @import 'forum/answerDetail/_answerDetailBookPage';
 @import 'forum/answerDetail/_answerDetailYoutubePage';
@@ -130,7 +132,6 @@
 @import 'recommendation/_recommendation';
 @import 'recommendation/_recommendationPreview';
 @import 'recommendation/_recommendationPreviewMobile';
-@import 'recommendation/_recommendationRightSidenavFilter';
 
 @import 'settings/modal/_addGroup';
 @import 'settings/modal/_changePassword';

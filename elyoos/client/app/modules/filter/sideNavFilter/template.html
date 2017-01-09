@@ -1,4 +1,4 @@
-<div id="popular-recommendation-sidenav-filter">
+<div id="blog-recommendation-sidenav-filter">
     <div class="popular-filter-title">Filter Einstellungen</div>
     <md-input-container class="popular-sidnav-input-container">
         <label>Thema</label>
@@ -26,8 +26,8 @@
         Nur Kontakte
     </md-switch>
     <div layout="row">
+        <md-button ng-click="ctrl.resetFilters()" id="reset-filter-button">Reset Filter</md-button>
         <span flex></span>
-        <md-button ng-click="ctrl.resetFilters()">Reset Filter</md-button>
         <md-button class="md-raised md-primary" ng-click="ctrl.filter()" ng-if="!ctrl.$mdMedia('gt-md')"
                    ng-disabled="ctrl.actualFilterSettingEqual">Filtern
         </md-button>

@@ -740,6 +740,22 @@
       margin-left: 0;
       margin-right: 6px; }
 
+#blog-recommendation-sidenav-filter {
+  padding: 48px 16px; }
+  @media screen and (min-width: 1280px) {
+    #blog-recommendation-sidenav-filter {
+      height: 100%; } }
+  #blog-recommendation-sidenav-filter .popular-filter-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    padding-left: 4px; }
+  #blog-recommendation-sidenav-filter .popular-sidnav-input-container {
+    width: 100%;
+    margin-bottom: 8px; }
+  #blog-recommendation-sidenav-filter #reset-filter-button {
+    margin-left: 0; }
+
 #ely-answer-detail {
   height: 100%;
   background-color: #e9ebee; }
@@ -2165,7 +2181,7 @@
       max-width: 500px; } }
 
 #ely-generic-page-header #ely-generic-title {
-  padding: 8px;
+  padding: 0 8px 4px 8px;
   font-size: 24px;
   font-weight: 400;
   color: white; }
@@ -2182,12 +2198,12 @@
       width: 250px;
       min-height: 186px; }
   #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description {
-    padding: 12px 12px 0 12px;
+    padding: 12px 0 0 12px;
     margin-bottom: 12px;
-    color: rgba(0, 0, 0, 0.54);
-    overflow-y: auto; }
+    color: rgba(0, 0, 0, 0.54); }
     #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description #ely-generic-page-description-container {
-      height: 10em;
+      padding-right: 12px;
+      overflow-y: auto;
       font-size: 14px; }
 
 #ely-generic-page-map {
@@ -3499,22 +3515,6 @@
   line-height: 70px;
   font-size: 14px;
   padding-left: 16px; }
-
-#popular-recommendation-sidenav-filter {
-  padding: 48px 16px; }
-  @media screen and (min-width: 1280px) {
-    #popular-recommendation-sidenav-filter {
-      height: 100%; } }
-  #popular-recommendation-sidenav-filter .popular-filter-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    padding-left: 4px; }
-  #popular-recommendation-sidenav-filter .popular-sidnav-input-container {
-    width: 100%;
-    margin-bottom: 8px; }
-  #popular-recommendation-sidenav-filter .reset-icon {
-    cursor: pointer; }
 
 #add-group {
   max-width: 500px; }

@@ -1,4 +1,4 @@
-#popular-recommendation-sidenav-filter {
+#blog-recommendation-sidenav-filter {
   padding: 48px 16px;
   @media screen and (min-width: $gt-md) {
     height: 100%;
@@ -15,7 +15,7 @@
     width: 100%;
     margin-bottom: 8px;
   }
-  .reset-icon {
-    cursor: pointer;
+  #reset-filter-button{
+    margin-left: 0;
   }
 }
