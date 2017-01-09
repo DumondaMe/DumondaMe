@@ -3,11 +3,6 @@
         <div layout="row">
             <img ng-src="{{ctrl.userInfo.profileImagePreview}}" class="user-preview" flex="none" ng-click="ctrl.goToProfile()"/>
             <div class="header-commands" layout="row" layout-align="end none" flex="grow">
-                <md-icon md-svg-icon="sidenavHeader:logout" class="icon-header" ng-click="ctrl.logout()">
-                    <md-tooltip md-direction="bottom">
-                        Logout
-                    </md-tooltip>
-                </md-icon>
             </div>
         </div>
         <div class="user-info" ng-click="ctrl.goToProfile()">

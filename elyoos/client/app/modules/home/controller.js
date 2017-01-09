@@ -13,17 +13,6 @@ module.exports =
 
             ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
 
-                ctrl.openCreatePage = function () {
-                    $mdBottomSheet.show({
-                        templateUrl: 'app/modules/navigation/createPage/template.html',
-                        controller: 'CreatePageNavCtrl',
-                        controllerAs: 'ctrl',
-                        locals: {pinwall: ctrl.home.pinwall},
-                        clickOutsideToClose: true,
-                        parent: '#viewport'
-                    });
-                };
-
             HomeScrollRequest.reset();
 
             //toolbar search ----
