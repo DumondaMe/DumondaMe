@@ -2,19 +2,22 @@
     <div class="popular-filter-title">Filter Einstellungen</div>
     <md-input-container class="popular-sidnav-input-container">
         <label>Thema</label>
-        <md-select ng-model="ctrl.filters.selectedTopics" multiple="true" md-on-close="ctrl.dataChanged()">
+        <md-select ng-model="ctrl.filters.selectedTopics" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
             <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
         </md-select>
     </md-input-container>
     <md-input-container class="popular-sidnav-input-container">
         <label>Sprache</label>
-        <md-select ng-model="ctrl.filters.selectedLanguages" multiple="true" md-on-close="ctrl.dataChanged()">
+        <md-select ng-model="ctrl.filters.selectedLanguages" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
             <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
         </md-select>
     </md-input-container>
     <md-input-container class="popular-sidnav-input-container">
         <label>Type</label>
-        <md-select ng-model="ctrl.filters.selectedRecommendationTypes" multiple="true" md-on-close="ctrl.dataChanged()">
+        <md-select ng-model="ctrl.filters.selectedRecommendationTypes" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
             <md-option ng-value="recommendationType" ng-repeat="recommendationType in ctrl.recommendationTypes">{{ recommendationType.description }}
             </md-option>
         </md-select>
@@ -26,6 +29,7 @@
         <span flex></span>
         <md-button ng-click="ctrl.resetFilters()">Reset Filter</md-button>
         <md-button class="md-raised md-primary" ng-click="ctrl.filter()" ng-if="!ctrl.$mdMedia('gt-md')"
-                   ng-disabled="ctrl.actualFilterSettingEqual">Filtern</md-button>
+                   ng-disabled="ctrl.actualFilterSettingEqual">Filtern
+        </md-button>
     </div>
 </div>

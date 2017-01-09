@@ -19,13 +19,15 @@ var createFilterParams = function (filters, Topics, Languages, RecommendationTyp
     return params;
 };
 
-module.exports = ['Topics', 'Languages', 'RecommendationTypes',
-    function (Topics, Languages, RecommendationTypes) {
-        var service = this, filters = {onlyContact: false}, observers = {};
+module.exports = ['Topics', 'Languages', 'RecommendationTypes', 'WebStorageFilter',
+    function (Topics, Languages, RecommendationTypes, WebStorageFilter) {
+        var service = this, filters, observers = {};
 
         service.register = function (id, observer) {
             observers[id] = observer;
         };
+
+        filters = WebStorageFilter.getFilter();
 
         service.getFilterParams = function () {
             return createFilterParams(filters, Topics, Languages, RecommendationTypes);
@@ -38,6 +40,7 @@ module.exports = ['Topics', 'Languages', 'RecommendationTypes',
         service.filtersChanged = function (newFilters) {
             if (!angular.equals(filters, newFilters)) {
                 angular.copy(newFilters, filters);
+                WebStorageFilter.setFilter(newFilters);
                 for (var property in observers) {
                     if (observers.hasOwnProperty(property)) {
                         observers[property].filterChanged(createFilterParams(filters, Topics, Languages, RecommendationTypes));
