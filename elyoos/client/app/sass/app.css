@@ -1124,6 +1124,10 @@
         bottom: 25px;
         right: 48px; } }
 
+#ely-home-info {
+  height: 100%;
+  overflow-y: auto; }
+
 #ely-home-search-result .result-container {
   margin: 16px auto;
   width: 296px; }
@@ -2946,62 +2950,62 @@
   #start-screen #carousel #carousel-login #login-container {
     height: 100%; }
 
-#start-screen #carousel #carousel-vision {
+#carousel-vision {
   background-color: #fafafa;
   overflow-y: scroll;
   height: 100%; }
   @media screen and (min-width: 960px) {
-    #start-screen #carousel #carousel-vision {
+    #carousel-vision {
       background-color: #FFFFFF; } }
-  #start-screen #carousel #carousel-vision #carousel-vision-container {
+  #carousel-vision #carousel-vision-container {
     max-width: 500px;
     margin: 0 auto;
     padding: 32px 16px 0 16px; }
     @media screen and (min-width: 960px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         max-width: 600px; } }
     @media screen and (min-width: 1440px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         max-width: 700px; } }
     @media screen and (max-width: 960px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         padding-top: 54px; } }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text-bold {
+    #carousel-vision #carousel-vision-container .vision-text-bold {
       font-size: 18px;
       font-weight: 500;
       line-height: 26px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text {
+    #carousel-vision #carousel-vision-container .vision-text {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list {
+    #carousel-vision #carousel-vision-container .vision-list {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list li:before {
+      #carousel-vision #carousel-vision-container .vision-list li:before {
         color: rgba(0, 0, 0, 0.54); }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+    #carousel-vision #carousel-vision-container .vision-preview-image {
       margin: 0 auto;
       max-width: 400px; }
       @media screen and (min-width: 1280px) {
-        #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+        #carousel-vision #carousel-vision-container .vision-preview-image {
           max-width: 500px; } }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image img {
+      #carousel-vision #carousel-vision-container .vision-preview-image img {
         width: 100%; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .text-divider {
+    #carousel-vision #carousel-vision-container .text-divider {
       height: 4px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container {
+    #carousel-vision #carousel-vision-container .developer-container {
       padding: 16px 0 64px 0; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container img {
+      #carousel-vision #carousel-vision-container .developer-container img {
         height: 64px;
         width: 64px;
         border-radius: 50%;
         margin-right: 16px; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .name {
+      #carousel-vision #carousel-vision-container .developer-container .info .name {
         font-size: 16px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.87); }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .info-description {
+      #carousel-vision #carousel-vision-container .developer-container .info .info-description {
         font-size: 16px;
         color: rgba(0, 0, 0, 0.54); }
 
