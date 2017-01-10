@@ -4,14 +4,18 @@
   #pinwall-commands {
     height: 70px;
     max-width: 400px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 12px 0 8px;
     @media screen and (min-width: $gt-sm) {
       max-width: 950px;
       width: 950px;
     }
-    #create-content-fab {
-      #create-fab-text {
+    .pinwall-command-fab {
+      @media screen and (min-width: $gt-sm) {
+        margin-right: 18px;
+      }
+      .pinwall-command-text {
         margin-left: 4px;
         cursor: pointer;
         font-size: 16px;
@@ -19,8 +23,8 @@
         color: $primary-text;
       }
     }
-    #create-content-fab:hover {
-      #create-fab-text {
+    .pinwall-command-fab:hover {
+      .pinwall-command-text {
         text-decoration: underline;
       }
     }
@@ -38,19 +42,6 @@
       .ely-pinwall-container {
         padding-top: 0;
       }
-    }
-  }
-  .filter-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    @media screen and (min-width: $gt-sm) {
-      bottom: 15px;
-      right: 24px;
-    }
-    @media screen and (min-width: $gt-md) {
-      bottom: 25px;
-      right: 48px;
     }
   }
 }

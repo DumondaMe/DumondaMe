@@ -2,15 +2,16 @@
 
 module.exports =
     ['$scope', 'Home', '$mdSidenav', '$mdBottomSheet', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
-        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters',
+        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters', '$mdMedia',
         function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome,
-                  HomeAddRemovePinwallElementService, BlogRecommendationFilters) {
+                  HomeAddRemovePinwallElementService, BlogRecommendationFilters, $mdMedia) {
             var ctrl = this, filters = BlogRecommendationFilters.getFilterParams();
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
             ctrl.pinwallOrder = 'new';
+            ctrl.$mdMedia = $mdMedia;
 
             ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
 
