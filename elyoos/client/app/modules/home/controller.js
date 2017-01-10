@@ -10,6 +10,7 @@ module.exports =
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
+            ctrl.pinwallOrder = 'new';
 
             ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
 

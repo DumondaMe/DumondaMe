@@ -1104,7 +1104,7 @@
     height: 70px;
     max-width: 400px;
     margin: 0 auto;
-    padding: 0 8px; }
+    padding: 0 12px 0 8px; }
     @media screen and (min-width: 960px) {
       #ely-home #pinwall-commands {
         max-width: 950px;
