@@ -13,12 +13,13 @@ let schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
-    required: ['skipBlog', 'skipRecommendation', 'maxItems', 'onlyContact'],
+    required: ['skipBlog', 'skipRecommendation', 'maxItems', 'onlyContact', 'order'],
     properties: {
         skipBlog: {type: 'integer', minimum: 0},
         skipRecommendation: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
         onlyContact: {type: 'boolean'},
+        order: {enum: ['new', 'popular']},
         language: language.languageMultiple,
         topic: topic.topicMultiple,
         recommendationType: recommendationType.typeMultiple

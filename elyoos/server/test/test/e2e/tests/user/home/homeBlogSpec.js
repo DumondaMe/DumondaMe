@@ -71,7 +71,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                     skipBlog: 0,
                     skipRecommendation: 0,
                     maxItems: 10,
-                    onlyContact: true
+                    onlyContact: true,
+                    order: 'new'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -113,7 +114,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                     skipBlog: 0,
                     skipRecommendation: 0,
                     maxItems: 10,
-                    onlyContact: true
+                    onlyContact: true,
+                    order: 'new'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -159,7 +161,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                     skipBlog: 0,
                     skipRecommendation: 0,
                     maxItems: 10,
-                    onlyContact: true
+                    onlyContact: true,
+                    order: 'new'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);
@@ -204,7 +207,8 @@ describe('Integration Tests for getting blogs on home screen for a user', functi
                     skipBlog: 0,
                     skipRecommendation: 0,
                     maxItems: 10,
-                    onlyContact: true
+                    onlyContact: true,
+                    order: 'new'
                 }, requestAgent);
             }).then(function (res) {
                 res.status.should.equal(200);

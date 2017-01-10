@@ -49,6 +49,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 language: ['de'],
                 recommendationType: ['Blog']
             }, requestAgent);
@@ -71,6 +72,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Blog']
             }, requestAgent);
@@ -98,6 +100,7 @@ describe('Integration Tests for filtering blog on home screen', function () {
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health'],
                 recommendationType: ['Blog']
             }, requestAgent);

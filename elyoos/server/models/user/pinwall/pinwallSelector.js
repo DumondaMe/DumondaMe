@@ -14,14 +14,18 @@ let sortPinwall = function (blogs, recommendations, skipRecommendation, skipBlog
         skipRecommendation: skipRecommendation
     };
 
-    result.pinwall = result.pinwall.concat(recommendations, blogs);
+    if (blogs) {
+        result.pinwall = result.pinwall.concat(recommendations, blogs);
 
-    result.pinwall.sort(compare);
+        result.pinwall.sort(compare);
 
-    result.pinwall = result.pinwall.slice(0, limit);
+        result.pinwall = result.pinwall.slice(0, limit);
+    } else {
+        result.pinwall = recommendations;
+    }
 
     _.each(result.pinwall, function (pinwallElement) {
-        
+
         if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             result.skipBlog++;
         } else if (_.contains(pinwallElement.pinwallType, 'Recommendation')) {

@@ -50,6 +50,7 @@ describe('Integration Tests for filtering link recommendation on home screen', f
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 language: ['de'],
                 recommendationType: ['Link']
             }, requestAgent);
@@ -72,6 +73,7 @@ describe('Integration Tests for filtering link recommendation on home screen', f
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Link']
             }, requestAgent);
@@ -96,6 +98,7 @@ describe('Integration Tests for filtering link recommendation on home screen', f
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Link']
             }, requestAgent);

@@ -60,7 +60,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -110,7 +111,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -134,7 +136,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: false
+                onlyContact: false,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -161,7 +164,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -187,7 +191,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -213,7 +218,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -240,7 +246,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -266,7 +273,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -290,7 +298,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: false
+                onlyContact: false,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -335,7 +344,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -522,7 +532,8 @@ describe('Integration Tests for getting home screen information for a user', fun
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: false
+                onlyContact: false,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);

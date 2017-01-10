@@ -52,6 +52,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 language: ['de'],
                 recommendationType: ['Youtube']
             }, requestAgent);
@@ -74,6 +75,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Youtube']
             }, requestAgent);
@@ -98,6 +100,7 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
                 skipRecommendation: 0,
                 maxItems: 10,
                 onlyContact: false,
+                order: 'new',
                 topic: ['health', 'socialDevelopment'],
                 recommendationType: ['Youtube']
             }, requestAgent);

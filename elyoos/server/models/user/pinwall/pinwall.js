@@ -8,6 +8,7 @@ let pinwallSelector = require('./pinwallSelector');
 let contacting = require('./contacting');
 let recommendedUser = require('./recommendedUser');
 let recommendedUserSetting = require('./../setting/recommendedUser');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let getPinwallOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
@@ -136,8 +137,15 @@ let getRecommendationOnlyContactFilter = function (onlyContact) {
     return "(user:User {userId: {userId}}), (contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
 };
 
+let getRecommendationOrderFilter = function (order) {
+    if (order === 'popular') {
+        return "numberOfSamePinwallData DESC, created DESC";
+    }
+    return "created DESC";
+};
+
 let getFilterWithCreatedCondition = function (filters) {
-    if(filters) {
+    if (filters) {
         return `pinwall.created = created AND ${filters}`;
     }
     return `pinwall.created = created`;
@@ -148,8 +156,8 @@ let getRecommendations = function (userId, request) {
     return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where(filters)
         .addCommand(getRecommendationPrivacyString(''))
-        .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
-        .orderBy("created DESC")
+        .with("count(pinwall) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
+        .orderBy(getRecommendationOrderFilter(request.order))
         .skip("{skip}")
         .limit("{maxItems}")
         .match(getRecommendationOnlyContactFilter(request.onlyContact))
@@ -167,6 +175,22 @@ let getRecommendations = function (userId, request) {
         });
 };
 
+let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, request) {
+    let pinwall;
+    if (showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[4], skipRecommendation, skipBlog, maxItems);
+    } else if (showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], skipRecommendation, skipBlog, maxItems);
+    } else {
+        logger.error(`Error sorting pinwall (Order:${order}, showUserRecommendation: ${showUserRecommendation})`, request);
+    }
+    return pinwall;
+};
+
 
 let getPinwall = function (userId, request) {
     let commands = [];
@@ -178,7 +202,9 @@ let getPinwall = function (userId, request) {
             commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10).getCommand());
             commands.push(recommendedUser.getRecommendedUsers(userId, 10).getCommand());
         }
-        commands.push(getBlogs(userId, request).getCommand());
+        if (request.order !== 'popular') {
+            commands.push(getBlogs(userId, request).getCommand());
+        }
 
         return getRecommendations(userId, request)
             .send(commands)
@@ -189,10 +215,8 @@ let getPinwall = function (userId, request) {
                     userInfo.addImageForThumbnail(resp[2]);
                     userInfo.addImageForThumbnail(resp[3]);
                     recommendedUserResult = resp[2].concat(resp[3]);
-                    pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], request.skipRecommendation, request.skipBlog, request.maxItems);
-                } else {
-                    pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], request.skipRecommendation, request.skipBlog, request.maxItems);
                 }
+                pinwall = sortPinwall(resp, request.skipRecommendation, request.skipBlog, request.maxItems, request.order, showUserRecommendation);
 
                 return {
                     contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},

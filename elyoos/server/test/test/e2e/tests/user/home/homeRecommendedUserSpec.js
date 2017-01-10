@@ -42,7 +42,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -88,7 +89,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -135,7 +137,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -169,7 +172,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -204,7 +208,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -249,7 +254,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -287,7 +293,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -318,7 +325,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -345,7 +353,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -372,7 +381,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -410,7 +420,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -441,7 +452,8 @@ describe('Integration Tests for getting contact recommendation on the home scree
                 skipBlog: 0,
                 skipRecommendation: 0,
                 maxItems: 10,
-                onlyContact: true
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
