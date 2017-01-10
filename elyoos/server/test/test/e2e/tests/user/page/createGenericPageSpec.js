@@ -63,6 +63,9 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.pageId.should.equals(pageId);
 
             page[0].addresses.length.should.equals(2);
+            page[0].addresses.sort(function (a, b) {
+                return b.description - a.description;
+            });
             page[0].addresses[0].description.should.equals("addressName2");
             page[0].addresses[0].latitude.should.equals(-4.00);
             page[0].addresses[0].longitude.should.equals(7.00);
