@@ -1,6 +1,15 @@
-<md-content id="ely-home">
-    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
-    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
+<md-content id="ely-home" layout="column">
+    <div id="pinwall-commands" layout="row" flex="none" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
+        <div layout="row" layout-align="start center" id="create-content-fab">
+            <div>
+                <md-button class="md-fab md-mini create-fab" aria-label="Create Content" ng-click="ctrl.openCreatePage()">
+                    <md-icon md-svg-icon="navFAB:add"></md-icon>
+                </md-button>
+            </div>
+            <div id="create-fab-text" ng-click="ctrl.openCreatePage()">Neuer Beitrag</div>
+        </div>
+    </div>
+    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch" flex>
         <div class="pinwall-inner-container">
             <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
                          gap="true" show-info="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"

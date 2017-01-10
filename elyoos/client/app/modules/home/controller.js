@@ -15,6 +15,17 @@ module.exports =
 
             HomeScrollRequest.reset();
 
+            ctrl.openCreatePage = function () {
+                $mdBottomSheet.show({
+                    templateUrl: 'app/modules/navigation/createPage/template.html',
+                    controller: 'CreatePageNavCtrl',
+                    controllerAs: 'ctrl',
+                    locals: {},
+                    clickOutsideToClose: true,
+                    parent: '#viewport'
+                });
+            };
+
             //toolbar search ----
             SearchService.register(ctrl, SearchHome.query, SearchHome.query);
 

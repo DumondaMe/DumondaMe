@@ -1100,8 +1100,24 @@
 #ely-home {
   height: 100%;
   background-color: #e9ebee; }
+  #ely-home #pinwall-commands {
+    height: 70px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 8px; }
+    @media screen and (min-width: 960px) {
+      #ely-home #pinwall-commands {
+        max-width: 950px;
+        width: 950px; } }
+    #ely-home #pinwall-commands #create-content-fab #create-fab-text {
+      margin-left: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+    #ely-home #pinwall-commands #create-content-fab:hover #create-fab-text {
+      text-decoration: underline; }
   #ely-home .pinwall-container {
-    height: 100%;
     padding: 0 8px;
     overflow-y: auto; }
     #ely-home .pinwall-container .pinwall-inner-container {
@@ -1111,6 +1127,8 @@
         #ely-home .pinwall-container .pinwall-inner-container {
           max-width: 950px;
           width: 950px; } }
+      #ely-home .pinwall-container .pinwall-inner-container .ely-pinwall-container {
+        padding-top: 0; }
   #ely-home .filter-fab {
     position: fixed;
     bottom: 0;
@@ -2555,18 +2573,18 @@
   width: 100%;
   padding: 16px;
   margin: 8px 0;
-  background-color: #EF5350;
+  background-color: #9575CD;
   cursor: pointer; }
   .pinwall-info-element .info-pinwall-title {
     font-size: 20px;
     color: white;
     font-weight: 500;
     padding-bottom: 16px;
-    background-color: #EF5350; }
+    background-color: #9575CD; }
   .pinwall-info-element .info-pinwall-text {
     font-size: 14px;
     color: white;
-    background-color: #EF5350; }
+    background-color: #9575CD; }
 
 #ely-pinwall-contacting {
   max-width: 450px;

@@ -1,8 +1,31 @@
 #ely-home {
   height: 100%;
   background-color: $background-normal;
+  #pinwall-commands {
+    height: 70px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 8px;
+    @media screen and (min-width: $gt-sm) {
+      max-width: 950px;
+      width: 950px;
+    }
+    #create-content-fab {
+      #create-fab-text {
+        margin-left: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: $primary-text;
+      }
+    }
+    #create-content-fab:hover {
+      #create-fab-text {
+        text-decoration: underline;
+      }
+    }
+  }
   .pinwall-container {
-    height: 100%;
     padding: 0 8px;
     overflow-y: auto;
     .pinwall-inner-container {
@@ -11,6 +34,9 @@
       @media screen and (min-width: $gt-sm) {
         max-width: 950px;
         width: 950px;
+      }
+      .ely-pinwall-container {
+        padding-top: 0;
       }
     }
   }
