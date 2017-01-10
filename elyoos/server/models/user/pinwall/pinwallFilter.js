@@ -24,16 +24,11 @@ let getRecommendationTypeFilter = function (recommendationType, elementName) {
     return null;
 };
 
-let getRecommendationFilters = function (params, elementName) {
+let getFilters = function (params, elementName) {
     return db.concatCommandsWithAnd([getLanguageFilter(params.language, elementName),
          getTopicFilter(params.topic, elementName), getRecommendationTypeFilter(params.recommendationType, elementName)]);
 };
 
-let getBlogFilters = function (params, elementName) {
-    return db.concatCommandsWithAnd([getLanguageFilter(params.language, elementName), getTopicFilter(params.topic, elementName)]);
-};
-
 module.exports = {
-    getRecommendationFilters: getRecommendationFilters,
-    getBlogFilters: getBlogFilters
+    getFilters: getFilters
 };
