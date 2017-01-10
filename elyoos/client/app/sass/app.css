@@ -2549,6 +2549,25 @@
       font-size: 14px;
       vertical-align: middle; }
 
+.pinwall-info-element {
+  max-width: 450px;
+  min-width: 280px;
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: #EF5350;
+  cursor: pointer; }
+  .pinwall-info-element .info-pinwall-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: #EF5350; }
+  .pinwall-info-element .info-pinwall-text {
+    font-size: 14px;
+    color: white;
+    background-color: #EF5350; }
+
 #ely-pinwall-contacting {
   max-width: 450px;
   min-width: 280px;
@@ -2638,21 +2657,20 @@
     font-size: 14px;
     vertical-align: middle; }
 
-.ely-pinwall-container .important-message-container {
-  margin: 0 auto 12px auto;
-  padding: 8px;
-  border: 3px solid #FFB300;
-  border-radius: 8px;
-  background-color: #FFECB3;
-  min-height: 32px; }
-  .ely-pinwall-container .important-message-container .important-message-inner-container {
-    padding: 0 8px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.87); }
-    .ely-pinwall-container .important-message-container .important-message-inner-container .link {
+.ely-pinwall-container #pinwall-no-result {
+  margin: 48px auto 48px auto; }
+  .ely-pinwall-container #pinwall-no-result .title {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 12px; }
+  .ely-pinwall-container #pinwall-no-result .description {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+    .ely-pinwall-container #pinwall-no-result .description .link {
       cursor: pointer;
       color: #3F51B5; }
-    .ely-pinwall-container .important-message-container .important-message-inner-container .link:hover {
+    .ely-pinwall-container #pinwall-no-result .description .link:hover {
       text-decoration: underline; }
 .ely-pinwall-container .one-column-container {
   margin: 0 auto;

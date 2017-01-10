@@ -1,0 +1,24 @@
+$background-construction-info: #EF5350;
+
+.pinwall-info-element {
+  @include cardElement();
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: $background-construction-info;
+  cursor: pointer;
+  .info-pinwall-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: $background-construction-info;
+  }
+  .info-pinwall-text {
+    font-size: 14px;
+    color: white;
+    background-color: $background-construction-info;
+  }
+}
+
+
