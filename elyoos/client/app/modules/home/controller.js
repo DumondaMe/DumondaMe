@@ -2,15 +2,15 @@
 
 module.exports =
     ['$scope', 'Home', '$mdSidenav', '$mdBottomSheet', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
-        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters', '$mdMedia',
+        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters', '$mdMedia', 'WebStorageFilter',
         function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome,
-                  HomeAddRemovePinwallElementService, BlogRecommendationFilters, $mdMedia) {
+                  HomeAddRemovePinwallElementService, BlogRecommendationFilters, $mdMedia, WebStorageFilter) {
             var ctrl = this, filters = BlogRecommendationFilters.getFilterParams();
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
-            ctrl.pinwallOrder = 'new';
+            ctrl.filterOrder = WebStorageFilter.getFilterOrder();
             ctrl.$mdMedia = $mdMedia;
 
             ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
@@ -50,16 +50,27 @@ module.exports =
             BlogRecommendationFilters.register('Home', this);
 
             ctrl.filterChanged = function (newFilters) {
-                HomeScrollRequest.reset();
                 filters = newFilters;
+                ctrl.reset();
+            };
+
+            ctrl.orderChanged = function () {
+                WebStorageFilter.setFilterOrder(ctrl.filterOrder);
+                ctrl.reset();
+            };
+
+            ctrl.reset = function () {
+                HomeScrollRequest.reset();
                 ctrl.home = {pinwall: []};
                 ctrl.loadRunning = true;
                 ctrl.nextPinwallInfo();
             };
+
             //---------------------
 
             ctrl.nextPinwallInfo = function () {
-                HomeScrollRequest.nextRequest(ctrl.home.pinwall, filters).then(function (pinwall) {
+                var payload = angular.extend({}, filters, {order: ctrl.filterOrder});
+                HomeScrollRequest.nextRequest(ctrl.home.pinwall, payload).then(function (pinwall) {
                     ctrl.home = pinwall;
                     ctrl.loadRunning = false;
                     if (pinwall.pinwall.length === 0) {

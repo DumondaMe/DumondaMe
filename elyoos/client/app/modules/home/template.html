@@ -15,13 +15,13 @@
                         <md-icon md-svg-icon="navFAB:filter"></md-icon>
                     </md-button>
                 </div>
-                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openCreatePage()">Filter</div>
+                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openSideNavRight()">Filter</div>
             </div>
         </div>
         <span flex></span>
         <div id="pinwall-order">
             <md-input-container>
-                <md-select ng-model="ctrl.pinwallOrder" aria-label="Order pinwall" class="md-no-underline select-order"
+                <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
                            md-on-close="ctrl.orderChanged()">
                     <md-option value="new">Neuste Beiträge</md-option>
                     <md-option value="popular">Beliebteste Beiträge</md-option>

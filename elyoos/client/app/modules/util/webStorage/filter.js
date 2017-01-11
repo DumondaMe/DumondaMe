@@ -25,4 +25,18 @@ module.exports = [function () {
         }
         return filter;
     };
+
+    this.setFilterOrder = function (filter) {
+        localStorage.setItem("filterOrder", JSON.stringify(filter));
+    };
+
+    this.getFilterOrder = function () {
+        var filter = localStorage.getItem("filterOrder");
+        if (!filter) {
+            filter = 'new';
+        } else {
+            filter = JSON.parse(filter);
+        }
+        return filter;
+    };
 }];
