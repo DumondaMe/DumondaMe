@@ -7,7 +7,7 @@ let getNumberOfRecommendation = function (pinwallElement) {
     } else if (pinwallElement.hasOwnProperty('numberOfPinwallRecommendations')) {
         return pinwallElement.numberOfPinwallRecommendations;
     }
-    return pinwallElement.numberOfRecommendations;
+    return pinwallElement.totalNumberOfRecommendations;
 };
 
 

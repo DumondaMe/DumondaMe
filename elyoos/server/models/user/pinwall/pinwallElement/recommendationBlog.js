@@ -25,7 +25,8 @@ let getPinwallElement = function (pinwallElement) {
 
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
-    element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.totalNumberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
     element.userRecommendationId = pinwallElement.userRecommendationId;
     element.recommendedByUser = false;

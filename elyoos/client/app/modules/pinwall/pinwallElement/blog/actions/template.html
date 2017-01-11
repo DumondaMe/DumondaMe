@@ -8,11 +8,13 @@
         <md-tooltip md-direction="bottom" ng-show="!ctrl.element.recommendedByUser && !ctrl.element.isAdmin">Diesen Blog empfehlen</md-tooltip>
     </div>
     <div class="number-container ">
-        <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
+        <div ng-if="!ctrl.element.onlyContact">
+            <span class="number">{{ctrl.element.totalNumberOfRecommendations}}</span>
+        </div>
+        <div ng-if="ctrl.element.onlyContact">
+            <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
+            <span class="number" ng-if="ctrl.element.numberOfRecommendations !== ctrl.element.totalNumberOfRecommendations">
+                ({{ctrl.element.totalNumberOfRecommendations}})</span>
+        </div>
     </div>
-    <!--<div class="blog-action">
-        <md-button class="blog-action md-fab md-mini" aria-label="Comment Blog">
-            <md-icon md-svg-icon="cardActions:comment" class="action-icon"></md-icon>
-        </md-button>
-    </div>-->
 </div>

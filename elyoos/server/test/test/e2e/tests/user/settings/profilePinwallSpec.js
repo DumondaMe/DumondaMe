@@ -117,7 +117,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[0].recommendedByUser.should.equals(false);
             res.body.pinwall[0].isAdmin.should.equals(true);
             res.body.pinwall[0].isPublic.should.equals(false);
-            res.body.pinwall[0].numberOfRecommendations.should.equals(0);
+            res.body.pinwall[0].totalNumberOfRecommendations.should.equals(0);
             res.body.pinwall[0].topic.length.should.equals(2);
             res.body.pinwall[0].topic[0].should.equals('health');
             res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
@@ -134,7 +134,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[1].recommendedByUser.should.equals(false);
             res.body.pinwall[1].isAdmin.should.equals(true);
             res.body.pinwall[1].isPublic.should.equals(true);
-            res.body.pinwall[1].numberOfRecommendations.should.equals(0);
+            res.body.pinwall[1].totalNumberOfRecommendations.should.equals(0);
             res.body.pinwall[1].topic.length.should.equals(2);
             res.body.pinwall[1].topic[0].should.equals('health');
             res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
@@ -151,7 +151,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[2].recommendedByUser.should.equals(true);
             res.body.pinwall[2].thisRecommendationByUser.should.equals(true);
             res.body.pinwall[2].userRecommendationId.should.equals('0');
-            res.body.pinwall[2].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[2].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[2].topic.length.should.equals(2);
             res.body.pinwall[2].topic[0].should.equals('health');
             res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
@@ -166,7 +166,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[3].description.should.equals('youtubePage1');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
-            res.body.pinwall[3].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[3].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[3].userRecommendationId.should.equals('2');
             res.body.pinwall[3].topic.length.should.equals(2);
             res.body.pinwall[3].topic[0].should.equals('health');
@@ -191,7 +191,7 @@ describe('Integration Tests for getting the pinwall of the user', function () {
             res.body.pinwall[4].topic.length.should.equals(2);
             res.body.pinwall[4].topic[0].should.equals('health');
             res.body.pinwall[4].topic[1].should.equals('personalDevelopment');
-            res.body.pinwall[4].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[4].totalNumberOfRecommendations.should.equals(1);
         });
     });
 

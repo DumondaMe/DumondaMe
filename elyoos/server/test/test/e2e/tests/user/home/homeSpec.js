@@ -399,7 +399,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[2].description.should.equals('page1Description');
             res.body.pinwall[2].recommendedByUser.should.equals(false);
             res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[2].numberOfRecommendations.should.equals(2);
+            res.body.pinwall[2].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[2].topic.length.should.equals(2);
             res.body.pinwall[2].topic[0].should.equals('health');
             res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
@@ -417,7 +417,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
-            res.body.pinwall[3].numberOfRecommendations.should.equals(2);
+            res.body.pinwall[3].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[3].userRecommendationId.should.equals('0');
             res.body.pinwall[3].topic.length.should.equals(2);
             res.body.pinwall[3].topic[0].should.equals('health');
@@ -472,7 +472,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].description.should.equals('page2Description');
             res.body.pinwall[6].recommendedByUser.should.equals(false);
             res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[6].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[6].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[6].topic.length.should.equals(2);
             res.body.pinwall[6].topic[0].should.equals('health');
             res.body.pinwall[6].topic[1].should.equals('personalDevelopment');
@@ -490,7 +490,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].description.should.equals('page8Description');
             res.body.pinwall[7].recommendedByUser.should.equals(false);
             res.body.pinwall[7].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[7].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[7].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[7].topic.length.should.equals(2);
             res.body.pinwall[7].topic[0].should.equals('health');
             res.body.pinwall[7].topic[1].should.equals('personalDevelopment');
@@ -587,7 +587,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[2].description.should.equals('page1Description');
             res.body.pinwall[2].recommendedByUser.should.equals(false);
             res.body.pinwall[2].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[2].numberOfRecommendations.should.equals(2);
+            res.body.pinwall[2].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[2].topic.length.should.equals(2);
             res.body.pinwall[2].topic[0].should.equals('health');
             res.body.pinwall[2].topic[1].should.equals('personalDevelopment');
@@ -605,7 +605,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
-            res.body.pinwall[3].numberOfRecommendations.should.equals(2);
+            res.body.pinwall[3].totalNumberOfRecommendations.should.equals(2);
             res.body.pinwall[3].userRecommendationId.should.equals('0');
             res.body.pinwall[3].topic.length.should.equals(2);
             res.body.pinwall[3].topic[0].should.equals('health');
@@ -660,7 +660,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].description.should.equals('page2Description');
             res.body.pinwall[6].recommendedByUser.should.equals(false);
             res.body.pinwall[6].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[6].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[6].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[6].topic.length.should.equals(2);
             res.body.pinwall[6].topic[0].should.equals('health');
             res.body.pinwall[6].topic[1].should.equals('personalDevelopment');
@@ -678,7 +678,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].description.should.equals('page8Description');
             res.body.pinwall[7].recommendedByUser.should.equals(false);
             res.body.pinwall[7].thisRecommendationByUser.should.equals(false);
-            res.body.pinwall[7].numberOfRecommendations.should.equals(1);
+            res.body.pinwall[7].totalNumberOfRecommendations.should.equals(1);
             res.body.pinwall[7].topic.length.should.equals(2);
             res.body.pinwall[7].topic[0].should.equals('health');
             res.body.pinwall[7].topic[1].should.equals('personalDevelopment');

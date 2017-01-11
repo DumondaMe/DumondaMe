@@ -21,7 +21,7 @@ let getPinwallElement = function (pinwallElement) {
     element.created = pinwallElement.pinwall.created;
     element.isAdmin = pinwallElement.isAdmin;
     element.isPublic = pinwallElement.isPublic;
-    element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.totalNumberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
     element.userRecommendationId = pinwallElement.userRecommendationId || pinwallElement.userBlogRecommendationId;
     element.recommendedByUser = false;
     if(element.userRecommendationId) {

@@ -77,6 +77,9 @@ module.exports =
                 HomeScrollRequest.nextRequest(ctrl.home.pinwall, payload).then(function (pinwall) {
                     ctrl.home = pinwall;
                     ctrl.loadRunning = false;
+                    angular.forEach(ctrl.home.pinwall, function (pinwallElement) {
+                        pinwallElement.onlyContact = filters.onlyContact;
+                    });
                     if (pinwall.pinwall.length === 0) {
                         ctrl.noPinwall = true;
                     }

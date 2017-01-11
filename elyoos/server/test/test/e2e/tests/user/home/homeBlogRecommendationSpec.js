@@ -93,7 +93,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfRecommendations.should.equals(3);
+                res.body.pinwall[0].totalNumberOfRecommendations.should.equals(3);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].pageId.should.equals('1');
@@ -111,7 +111,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic.length.should.equals(2);
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[1].numberOfRecommendations.should.equals(3);
+                res.body.pinwall[1].totalNumberOfRecommendations.should.equals(3);
                 res.body.pinwall[1].recommendedByUser.should.equals(false);
             });
     });
@@ -182,7 +182,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfRecommendations.should.equals(2);
+                res.body.pinwall[0].totalNumberOfRecommendations.should.equals(2);
 
                 res.body.pinwall[1].pinwallType.should.equals('Blog');
                 res.body.pinwall[1].pageId.should.equals('1');
@@ -200,7 +200,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].topic.length.should.equals(2);
                 res.body.pinwall[1].topic[0].should.equals('health');
                 res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[1].numberOfRecommendations.should.equals(2);
+                res.body.pinwall[1].totalNumberOfRecommendations.should.equals(2);
                 res.body.pinwall[1].recommendedByUser.should.equals(true);
                 res.body.pinwall[1].userRecommendationId.should.equals('1');
             });
@@ -262,7 +262,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].topic.length.should.equals(2);
                 res.body.pinwall[0].topic[0].should.equals('health');
                 res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                res.body.pinwall[0].numberOfRecommendations.should.equals(1);
+                res.body.pinwall[0].totalNumberOfRecommendations.should.equals(1);
             });
     });
 

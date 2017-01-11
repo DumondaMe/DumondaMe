@@ -89,12 +89,12 @@ let getBlogs = function (userId, request) {
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("privacy is NULL")
         .optionalMatch("(pinwall)<-[:RECOMMENDS]-(recommendation:Recommendation)")
-        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, count(recommendation) AS numberOfRecommendations, 
+        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, count(recommendation) AS totalNumberOfRecommendations, 
                EXISTS((user)-[:WRITTEN]->(pinwall)) AS isAdmin`)
         .where(`((user)-[:WRITTEN]->(pinwall) OR (contact IS NOT null AND NOT EXISTS(pinwall.visible)) OR 
                 (contact IS NOT null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwall)")
-        .return(`user, numberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
+        .return(`user, totalNumberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
                  NOT EXISTS(pinwall.visible) AS isPublic, userRec.recommendationId AS userRecommendationId,
                  EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwall)) AS recommendedByUser`)
         .orderBy("pinwall.created DESC")
@@ -123,7 +123,7 @@ let getBlogRecommendationPrivacyString = function () {
     return db.cypher().optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
         .optionalMatch("(writer)-[writerContact:IS_CONTACT]->(user)")
-        .with(`user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact, numberOfSamePinwallData, writer, writerContact`)
+        .with(`user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact, numberOfRecommendations, writer, writerContact`)
         .where(`writer is null OR (writer is not null AND
                (NOT EXISTS(pinwallData.visible) OR (ANY(v IN pinwallData.visible WHERE v = writerContact.type)) OR writer.userId = user.userId) 
                 AND NOT EXISTS((writer)-[:IS_BLOCKED]->(user)))`)
@@ -139,7 +139,7 @@ let getRecommendationOnlyContactFilter = function (onlyContact) {
 
 let getRecommendationOrderFilter = function (order) {
     if (order === 'popular') {
-        return "numberOfSamePinwallData DESC, created DESC";
+        return "numberOfRecommendations DESC, created DESC";
     }
     return "created DESC";
 };
@@ -156,19 +156,19 @@ let getRecommendations = function (userId, request) {
     return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where(filters)
         .addCommand(getRecommendationPrivacyString(''))
-        .with("count(pinwall) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
+        .with("count(pinwall) AS numberOfRecommendations, max(pinwall.created) AS created, pinwallData")
         .orderBy(getRecommendationOrderFilter(request.order))
         .skip("{skip}")
         .limit("{maxItems}")
         .match(getRecommendationOnlyContactFilter(request.onlyContact))
         .where(getFilterWithCreatedCondition(filters))
-        .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
+        .addCommand(getRecommendationPrivacyString(', numberOfRecommendations '))
         .addCommand(getBlogRecommendationPrivacyString())
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
-        .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, writer,
+        .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfRecommendations, writer,
             userRec.recommendationId AS userRecommendationId,
             EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
-            SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfRecommendations`)
+            SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS totalNumberOfRecommendations`)
         .end({
             userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems, language: request.language, topic: request.topic,
             recommendationType: request.recommendationType

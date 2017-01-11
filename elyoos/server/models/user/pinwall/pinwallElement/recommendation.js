@@ -38,7 +38,8 @@ let getPinwallElement = function (pinwallElement) {
         element.recommendedByUser = true;
     }
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
-    element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.totalNumberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     profileUrl.addProfileUrl(element, pinwallElement);
     addLabelElement(element, pinwallElement);
     return element;
