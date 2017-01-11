@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var searchPage = requireModel('page/searchPage');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let searchPage = requireModel('page/searchPage');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaSearchPage = {
+let schemaSearchPage = {
     name: 'searchPage',
     type: 'object',
     additionalProperties: false,

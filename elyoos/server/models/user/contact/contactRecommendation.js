@@ -1,12 +1,12 @@
 'use strict';
 
-var userInfo = require('./../userInfo');
-var recommendedUser = require('./../pinwall/recommendedUser');
-var recommendedUserSetting = require('./../setting/recommendedUser');
+let userInfo = require('./../userInfo');
+let recommendedUser = require('./../pinwall/recommendedUser');
+let recommendedUserSetting = require('./../setting/recommendedUser');
 
-var getContactRecommendation = function (userId) {
+let getContactRecommendation = function (userId) {
 
-    var commands = [];
+    let commands = [];
 
     return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
         commands.push(recommendedUser.getRecommendedByContactUsers(userId, 20).getCommand());

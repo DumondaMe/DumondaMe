@@ -1,19 +1,19 @@
 'use strict';
 
-var moment = require('moment');
-var requestGetFunction;
-var executeGetRequest = function (req, res) {
+let moment = require('moment');
+let requestGetFunction;
+let executeGetRequest = function (req, res) {
     return requestGetFunction(req, res);
 };
-var requestPostFunction;
-var executePostRequest = function (req, res) {
+let requestPostFunction;
+let executePostRequest = function (req, res) {
     return requestPostFunction(req, res);
 };
-var requestDeleteFunction;
-var executeDeleteRequest = function (req, res) {
+let requestDeleteFunction;
+let executeDeleteRequest = function (req, res) {
     return requestDeleteFunction(req, res);
 };
-var requestMock = {
+let requestMock = {
     get: function (path, executeTestFunctionWithoutAuthentication, executeTestFunction) {
         if (executeTestFunction) {
             requestGetFunction = executeTestFunction;
@@ -33,8 +33,8 @@ var requestMock = {
     }
 };
 
-var getResponse = function () {
-    var statusResponse = {
+let getResponse = function () {
+    let statusResponse = {
         json: function (args) {
         },
         end: function () {
@@ -55,8 +55,8 @@ var getResponse = function () {
     return res;
 };
 
-var getRequest = function () {
-    var req = {
+let getRequest = function () {
+    let req = {
         user: {id: 1},
         session: {cookie: {_expires: moment().valueOf() + 999999}},
         files: { file: {path: 'test'}}

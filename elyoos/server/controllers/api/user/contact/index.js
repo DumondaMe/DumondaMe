@@ -1,13 +1,13 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var contact = requireModel('contact/contact');
+let validation = require('elyoos-server-lib').jsonValidation;
+let contact = requireModel('contact/contact');
 let exceptions = require('elyoos-server-lib').exceptions;
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaRequestGetContact = {
+let schemaRequestGetContact = {
     name: 'getContacts',
     type: 'object',
     additionalProperties: false,
@@ -25,7 +25,7 @@ var schemaRequestGetContact = {
     }
 };
 
-var schemaRequestContact = {
+let schemaRequestContact = {
     name: 'contactHandling',
     type: 'object',
     additionalProperties: false,
@@ -43,7 +43,7 @@ var schemaRequestContact = {
     }
 };
 
-var schemaDeleteContact = {
+let schemaDeleteContact = {
     name: 'deleteContact',
     type: 'object',
     additionalProperties: false,

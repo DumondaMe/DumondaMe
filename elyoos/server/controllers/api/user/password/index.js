@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var password = requireModel('user/password/changePassword');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let password = requireModel('user/password/changePassword');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaChangePasword = {
+let schemaChangePasword = {
     name: 'changePassword',
     type: 'object',
     additionalProperties: false,

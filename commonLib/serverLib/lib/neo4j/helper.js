@@ -1,7 +1,7 @@
 'use strict';
 
-var concatCommandsWithAnd = function (commands) {
-    var result = null, i, command;
+let concatCommandsWithAnd = function (commands) {
+    let result = null, i, command;
     for (i = 0; i < commands.length; i++) {
         command = commands[i];
         if (command && result === null) {

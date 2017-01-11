@@ -1,18 +1,18 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/settings/profile');
-var user = require('../../../../../../../../models/user/user');
-var request = require('../../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../../controllers/api/user/settings/profile');
+let user = require('../../../../../../../../models/user/user');
+let request = require('../../../../request');
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/settings/profile', function () {
 
-    var sandbox,
+    let sandbox,
         checkInvalidPostRequest = function (request) {
-            var stubResponse = sandbox.stub(request.res, 'status');
+            let stubResponse = sandbox.stub(request.res, 'status');
             stubResponse.returns({
                 end: function () {
                 }
@@ -38,7 +38,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
     it('Request the user profile data- Return 200', function () {
 
-        var userProfile = {
+        let userProfile = {
             name: 'Roger Waldvogel'
         }, spyResponse = sandbox.spy(request.res.status(), 'json');
         spyResponse.withArgs(userProfile);
@@ -52,7 +52,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
     it('Request the user profile data but error occurs- Return 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }
@@ -255,7 +255,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
             place: 'Urdorf'
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }
@@ -279,7 +279,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
             place: 'Urdorf'
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }

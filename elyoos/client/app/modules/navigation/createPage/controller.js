@@ -1,14 +1,14 @@
 'use strict';
 
-module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet',
-    function (ElyModal, AddRemovePinwallElementService, $mdBottomSheet) {
+module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet', '$state',
+    function (ElyModal, AddRemovePinwallElementService, $mdBottomSheet, $state) {
         var ctrl = this;
 
         ctrl.createBlog = function () {
             $mdBottomSheet.hide();
             ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
                 .then(function (resp) {
-                    AddRemovePinwallElementService.addBlog(resp);
+                    $state.go('page.detail', {label: 'Blog', pageId: resp.pageId});
                 });
         };
 
@@ -16,7 +16,7 @@ module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet'
             $mdBottomSheet.hide();
             ElyModal.show('ManageBookPageCtrl', 'app/modules/page/modal/manageBookPage/template.html')
                 .then(function (resp) {
-                    AddRemovePinwallElementService.addRecommendation(resp);
+                    $state.go('page.detail', {label: 'Book', pageId: resp.pageId});
                 });
         };
 
@@ -24,7 +24,7 @@ module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet'
             $mdBottomSheet.hide();
             ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html')
                 .then(function (resp) {
-                    AddRemovePinwallElementService.addRecommendation(resp);
+                    $state.go('page.detail', {label: 'Youtube', pageId: resp.pageId});
                 });
         };
 
@@ -32,15 +32,15 @@ module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet'
             $mdBottomSheet.hide();
             ElyModal.show('ManageLinkPageCtrl', 'app/modules/page/modal/manageLinkPage/template.html')
                 .then(function (resp) {
-                    AddRemovePinwallElementService.addRecommendation(resp);
+                    $state.go('page.detail', {label: 'Link', pageId: resp.pageId});
                 });
         };
 
-        ctrl.createPlacePage = function () {
+        ctrl.createGenericPage = function () {
             $mdBottomSheet.hide();
-            ElyModal.show('ManagePlacePageCtrl', 'app/modules/page/modal/managePlacePage/template.html')
+            ElyModal.show('ManageGenericPageCtrl', 'app/modules/page/modal/manageGenericPage/template.html')
                 .then(function (resp) {
-                    AddRemovePinwallElementService.addRecommendation(resp);
+                    $state.go('page.detail', {label: 'Generic', pageId: resp.pageId});
                 });
         };
     }];

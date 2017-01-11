@@ -1,9 +1,7 @@
 'use strict';
 
-module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation', 'BlogRecommendation',
-    'AddRemovePinwallElementService',
-    function (dateFormatter, $mdDialog, Blog, errorToast, PreviewTextService, UserDetailNavigation, BlogRecommendation,
-              AddRemovePinwallElementService) {
+module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTextService', 'UserDetailNavigation',
+    function (dateFormatter, $mdDialog, Blog, errorToast, PreviewTextService, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.requestRunning = false;
@@ -12,26 +10,5 @@ module.exports = ['dateFormatter', '$mdDialog', 'Blog', 'errorToast', 'PreviewTe
 
         ctrl.openUserDetail = function () {
             UserDetailNavigation.openUserDetail(ctrl.element.userId, ctrl.element.isAdmin);
-        };
-
-        ctrl.deleteBlog = function () {
-            var confirm = $mdDialog.confirm()
-                .title("Blog löschen")
-                .textContent("Willst Du diesen Blog wirklich löschen?")
-                .ariaLabel("Delete Blog")
-                .ok("Löschen")
-                .cancel("Abbrechen");
-            $mdDialog.show(confirm).then(function () {
-                ctrl.requestRunning = true;
-                Blog.delete({
-                    pageId: ctrl.element.pageId
-                }, function () {
-                    ctrl.requestRunning = false;
-                    AddRemovePinwallElementService.removePinwallElement();
-                }, function () {
-                    ctrl.requestRunning = false;
-                    errorToast.showError("Fehler beim Löschen des Blogs");
-                });
-            });
         };
     }];

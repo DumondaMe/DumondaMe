@@ -1,12 +1,12 @@
 'use strict';
 
-var AWS = require('aws-sdk');
-var cdnConfig = require('elyoos-server-lib').cdn;
-var expiresAfterADay = 60 * 60 * 12;
-var Promise = require('bluebird');
-var fs = require('fs');
-var _ = require('underscore');
-var deasync = require('deasync');
+let AWS = require('aws-sdk');
+let cdnConfig = require('elyoos-server-lib').cdn;
+let expiresAfterADay = 60 * 60 * 12;
+let Promise = require('bluebird');
+let fs = require('fs');
+let _ = require('underscore');
+let deasync = require('deasync');
 
 if ('production' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
@@ -14,10 +14,10 @@ if ('production' === process.env.NODE_ENV) {
     });
 }
 AWS.config.region = 'eu-central-1';
-var s3 = new AWS.S3();
+let s3 = new AWS.S3();
 
-var copyFile = function (source, destination) {
-    var params = {
+let copyFile = function (source, destination) {
+    let params = {
         Bucket: cdnConfig.getConfig().bucket,
         CopySource: cdnConfig.getConfig().bucket + '/' + source,
         Key: destination
@@ -35,7 +35,7 @@ var copyFile = function (source, destination) {
 
 module.exports = {
     getUrl: function (path) {
-        var params = {
+        let params = {
             Bucket: cdnConfig.getConfig().bucket,
             Key: path,
             Expires: expiresAfterADay
@@ -49,7 +49,7 @@ module.exports = {
     },
     uploadFile: function (fileName, key) {
         return new Promise(function (resolve, reject) {
-            var params = {
+            let params = {
                 Bucket: cdnConfig.getConfig().bucket, Key: key, Body: fs.createReadStream(fileName)
             };
             s3.upload(params)
@@ -64,7 +64,7 @@ module.exports = {
     },
     deleteFolder: function (folderName) {
         return new Promise(function (resolve, reject) {
-            var params = {Bucket: cdnConfig.getConfig().bucket, Prefix: folderName};
+            let params = {Bucket: cdnConfig.getConfig().bucket, Prefix: folderName};
             s3.listObjects(params, function (err, data) {
                 if (err) {
                     return reject(err);

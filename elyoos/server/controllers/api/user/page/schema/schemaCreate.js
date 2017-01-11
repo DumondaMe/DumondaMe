@@ -1,7 +1,7 @@
 'use strict';
 
-var definitions = require("./schemaDefinitions");
-var language = require("../../../../schema/language");
+let definitions = require("./schemaDefinitions");
+let language = require("../../../../schema/language");
 
 module.exports = {
     name: 'createPage',
@@ -45,18 +45,17 @@ module.exports = {
                 language: language.languageMultiple
             }
         },
-        placePage: {
+        genericPage: {
             type: 'object',
             additionalProperties: false,
-            required: ['title', 'topic', 'description', 'language', 'places', 'keywords'],
+            required: ['title', 'topic', 'description', 'language'],
             properties: {
                 topic: {'$ref': '#/definitions/topic'},
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 language: language.languageMultiple,
                 website: {'$ref': '#/definitions/link'},
-                places: {'$ref': '#/definitions/places'},
-                keywords: {'$ref': '#/definitions/keywords'},
+                places: {'$ref': '#/definitions/places'}
             }
         },
     },

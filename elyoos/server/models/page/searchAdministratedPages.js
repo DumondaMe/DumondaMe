@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
-var pagePreview = require('./pagePreview');
+let db = requireDb();
+let underscore = require('underscore');
+let pagePreview = require('./pagePreview');
 
-var searchPages = function (userId, search, skip, limit) {
+let searchPages = function (userId, search, skip, limit) {
 
-    var orderBy = "page.title, page.modified DESC",
+    let orderBy = "page.title, page.modified DESC",
         startQuery = db.cypher(),
         searchRegEx = '(?i).*'.concat(search, '.*'),
         commands = [],
@@ -46,9 +46,9 @@ var searchPages = function (userId, search, skip, limit) {
         });
 };
 
-var searchSuggestionModePages = function (userId, search, skip, limit) {
+let searchSuggestionModePages = function (userId, search, skip, limit) {
 
-    var searchRegEx = '(?i).*'.concat(search, '.*');
+    let searchRegEx = '(?i).*'.concat(search, '.*');
 
     return db.cypher().match("(page:Page)<-[:IS_ADMIN]-(user:User {userId: {userId}})")
         .where("page.title =~ {search} ")

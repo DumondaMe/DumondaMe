@@ -1,6 +1,6 @@
 'use strict';
 
-var type = ['Book', 'Youtube', 'Link'];
+let type = ['Book', 'Youtube', 'Link'];
 
 module.exports = {
     type: {

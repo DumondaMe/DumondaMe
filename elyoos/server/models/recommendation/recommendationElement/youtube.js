@@ -1,7 +1,7 @@
 'use strict';
 
-var getRecommendationElement = function (pinwallElement) {
-    var element = {};
+let getRecommendationElement = function (pinwallElement) {
+    let element = {};
     element.label = 'Youtube';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;

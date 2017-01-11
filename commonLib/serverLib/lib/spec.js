@@ -1,18 +1,18 @@
 'use strict';
 
-var passport = require('passport');
-var methodOverride = require('method-override');
-var csrf = require('csurf');
-var auth = require('./auth');
-var userLib = require('./user')();
-var db = require('./databaseConfig');
-var cdn = require('./cdn');
-var email = require('./eMail/eMailQueue');
-var version = require('./version');
+let passport = require('passport');
+let methodOverride = require('method-override');
+let csrf = require('csurf');
+let auth = require('./auth');
+let userLib = require('./user')();
+let db = require('./databaseConfig');
+let cdn = require('./cdn');
+let email = require('./eMail/eMailQueue');
+let version = require('./version');
 
 module.exports = function (app) {
 
-    var env = process.env.NODE_ENV || 'development';
+    let env = process.env.NODE_ENV || 'development';
     app.on('middleware:before:json', function () {
         if ('testing' !== env) {
             app.use(function (req, res, next) {
@@ -60,7 +60,7 @@ module.exports = function (app) {
     });
 
     app.use(function (req, res, next) {
-        var originalStatus = res.status;
+        let originalStatus = res.status;
         res.status = function (data) {
             if (req.headers.elyoosversion && req.headers.elyoosversion !== version.getVersion()) {
                 data = 418;
@@ -73,7 +73,7 @@ module.exports = function (app) {
     return {
         onconfig: function (config, next) {
 
-            var dbConfig = config.get('databaseConfig'),
+            let dbConfig = config.get('databaseConfig'),
                 cdnConfig = config.get('cdnStore'),
                 emailConfig = config.get('emailConfig');
 

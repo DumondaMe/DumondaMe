@@ -1,75 +1,71 @@
-#start-screen {
-  #carousel {
-    #carousel-vision {
-      background-color: #fafafa;
-      overflow-y: scroll;
-      height: 100%;
-      @media screen and (min-width: $gt-sm) {
-        background-color: #FFFFFF;
+#carousel-vision {
+  background-color: #fafafa;
+  overflow-y: scroll;
+  height: 100%;
+  @media screen and (min-width: $gt-sm) {
+    background-color: #FFFFFF;
+  }
+  #carousel-vision-container {
+    max-width: 500px;
+    @media screen and (min-width: $gt-sm) {
+      max-width: 600px;
+    }
+    @media screen and (min-width: $gt-xmd) {
+      max-width: 700px;
+    }
+    margin: 0 auto;
+    padding: 32px 16px 0 16px;
+    @media screen and (max-width: $gt-sm) {
+      padding-top: 54px;
+    }
+    .vision-text-bold {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 26px;
+    }
+    .vision-text {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+    }
+    .vision-list {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 26px;
+      li:before {
+        color: $secondary-text;
       }
-      #carousel-vision-container {
+    }
+    .vision-preview-image {
+      margin: 0 auto;
+      max-width: 400px;
+      @media screen and (min-width: $gt-md) {
         max-width: 500px;
-        @media screen and (min-width: $gt-sm) {
-          max-width: 600px;
-        }
-        @media screen and (min-width: $gt-xmd) {
-          max-width: 700px;
-        }
-        margin: 0 auto;
-        padding: 32px 16px 0 16px;
-        @media screen and (max-width: $gt-sm) {
-          padding-top: 54px;
-        }
-        .vision-text-bold {
-          font-size: 18px;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .text-divider {
+      height: 4px;
+    }
+    .developer-container {
+      padding: 16px 0 64px 0;
+      img {
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        margin-right: 16px;
+      }
+      .info {
+        .name {
+          font-size: 16px;
           font-weight: 500;
-          line-height: 26px;
+          color: $primary-text;
         }
-        .vision-text {
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 26px;
-        }
-        .vision-list {
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 26px;
-          li:before {
-            color: $secondary-text;
-          }
-        }
-        .vision-preview-image {
-          margin: 0 auto;
-          max-width: 400px;
-          @media screen and (min-width: $gt-md) {
-            max-width: 500px;
-          }
-          img {
-            width: 100%;
-          }
-        }
-        .text-divider {
-          height: 4px;
-        }
-        .developer-container {
-          padding: 16px 0 64px 0;
-          img {
-            height: 64px;
-            width: 64px;
-            border-radius: 50%;
-            margin-right: 16px;
-          }
-          .info {
-            .name {
-              font-size: 16px;
-              font-weight: 500;
-              color: $primary-text;
-            }
-            .info-description {
-              font-size: 16px;
-              color: $secondary-text;
-            }
-          }
+        .info-description {
+          font-size: 16px;
+          color: $secondary-text;
         }
       }
     }

@@ -8,16 +8,16 @@ var getScrollElement = function ($document, id) {
 var heightPreview = 82;
 
 module.exports = ['PopularRecommendation', '$document', 'ScrollRequest', 'PopularRecommendationScrollRequestResponseHandler',
-    'PopularPageRecommendationFilters',
-    function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler, PopularPageRecommendationFilters) {
-        var ctrl = this, filters = PopularPageRecommendationFilters.getFilterParams();
+    'BlogRecommendationFilters',
+    function (PopularRecommendation, $document, ScrollRequest, PopularRecommendationScrollRequestResponseHandler, BlogRecommendationFilters) {
+        var ctrl = this, filters = BlogRecommendationFilters.getFilterParams();
         ctrl.scrollTop = 0;
         ctrl.totalScrollHeight = 0;
         ctrl.scrollHeight = 0;
         ctrl.preview = {recommendations: []};
         ctrl.requestRunning = true;
 
-        PopularPageRecommendationFilters.registerColumn(ctrl.id, this);
+        BlogRecommendationFilters.register(ctrl.id, this);
         ScrollRequest.reset('popularRecommendations' + ctrl.id, PopularRecommendation.get, PopularRecommendationScrollRequestResponseHandler);
 
         ctrl.nextRecommendationServer = function () {

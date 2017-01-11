@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var pageRecommendation = requireModel('recommendation/page');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let pageRecommendation = requireModel('recommendation/page');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaAddPageRecommendation = {
+let schemaAddPageRecommendation = {
     name: 'addPageRecommendation',
     type: 'object',
     additionalProperties: false,
@@ -17,7 +17,7 @@ var schemaAddPageRecommendation = {
     }
 };
 
-var schemaDeletePageRecommendation = {
+let schemaDeletePageRecommendation = {
     name: 'deletePageRecommendation',
     type: 'object',
     additionalProperties: false,

@@ -1,0 +1,35 @@
+#ely-generic-page-detail {
+  #ely-extended-toolbar {
+    position: relative;
+    height: 130px;
+    background-color: $primary-color;
+    .create-page-content {
+      position: absolute;
+      right: 30px;
+      bottom: -34px;
+      @media screen and (max-width: 850px) {
+        right: 15px;
+      }
+      @media screen and (min-width: 1400px) {
+        right: 100px;
+      }
+    }
+  }
+  #ely-generic-detail-content {
+    position: relative;
+    top: -130px;
+    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+
+    @media screen and (max-width: 1050px) {
+      max-width: 600px;
+    }
+    @media screen and (max-width: 850px) {
+      max-width: 500px;
+    }
+    #ely-generic-page-content {
+
+    }
+  }
+}

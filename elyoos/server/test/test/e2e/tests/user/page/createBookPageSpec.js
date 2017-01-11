@@ -1,20 +1,20 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
-var stubCDN = require('elyoos-server-test-util').stubCDN();
-var sinon = require('sinon');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
+let stubCDN = require('elyoos-server-test-util').stubCDN();
+let sinon = require('sinon');
 
 describe('Integration Tests for creating new book pages', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         stubCDN.uploadFile.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
@@ -34,7 +34,7 @@ describe('Integration Tests for creating new book pages', function () {
 
     it('Create a new book page - Return 200', function () {
 
-        var createPage = {
+        let createPage = {
             bookPage: {
                 topic: ['health', 'spiritual'],
                 title: 'title',
@@ -80,7 +80,7 @@ describe('Integration Tests for creating new book pages', function () {
 
     it('Create a new book page without publish date - Return 200', function () {
 
-        var createPage = {
+        let createPage = {
             bookPage: {
                 topic: ['health', 'spiritual'],
                 title: 'title',
@@ -125,7 +125,7 @@ describe('Integration Tests for creating new book pages', function () {
 
     it('Create a new book page without a uploaded image- Return 200', function () {
 
-        var createPage = {
+        let createPage = {
             bookPage: {
                 topic: ['health', 'spiritual'],
                 title: 'title',
@@ -169,7 +169,7 @@ describe('Integration Tests for creating new book pages', function () {
 
     it('Create a new book page with to small width image - Return 400', function () {
 
-        var createPage = {
+        let createPage = {
             bookPage: {
                 topic: ['health', 'spiritual'],
                 title: 'title',
@@ -197,7 +197,7 @@ describe('Integration Tests for creating new book pages', function () {
 
     it('Create a new book page with to small height image - Return 400', function () {
 
-        var createPage = {
+        let createPage = {
             bookPage: {
                 topic: ['health', 'spiritual'],
                 title: 'title',

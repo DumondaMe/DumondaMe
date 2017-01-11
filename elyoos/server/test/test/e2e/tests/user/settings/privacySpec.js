@@ -1,11 +1,11 @@
 'use strict';
 
-var libUser = require('elyoos-server-lib').user();
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var moment = require('moment');
-var should = require('chai').should();
+let libUser = require('elyoos-server-lib').user();
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let moment = require('moment');
+let should = require('chai').should();
 
 describe('Integration Tests for the privacy settings', function () {
 
@@ -13,7 +13,7 @@ describe('Integration Tests for the privacy settings', function () {
 
         libUser.removeFromCache('user@irgendwo.ch');
         return db.clearDatabase().then(function () {
-            var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+            let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo3.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier3', userId: '3'})").end().getCommand());
@@ -96,7 +96,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Change the privacy settings for a contact type- Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 changePrivacySetting: {
                     privacySettings: {
                         profileVisible: false,
@@ -126,7 +126,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Change the privacy settings for a non existing type- Return a 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 changePrivacySetting: {
                     privacySettings: {
                         profileVisible: false,
@@ -146,7 +146,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Change the privacy settings for a all non contact types- Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 changePrivacyNoContactSetting: {
                     privacySettings: {
                         profileVisible: true,
@@ -175,7 +175,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Rename a privacy type and rename the corresponding -> (contact, blog) - Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 renamePrivacy: {
                     privacyDescription: 'Freund',
                     newPrivacyDescription: 'Freund2'
@@ -229,7 +229,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Rename a privacy to a existing privacy shall fail- Return a 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 renamePrivacy: {
                     privacyDescription: 'Freund',
                     newPrivacyDescription: 'Bekannter'
@@ -263,7 +263,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Add a new privacy type - Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 addNewPrivacy: {
                     privacyDescription: 'Irgendwas',
                     privacySettings: {
@@ -303,7 +303,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Adding a new privacy type fails because privacy type exists already- Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 addNewPrivacy: {
                     privacyDescription: 'Freund',
                     privacySettings: {
@@ -341,7 +341,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Delete a privacy setting and move the contacts to the new privacy settings- Return a 200', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 privacyDescription: 'Freund',
                 newPrivacyDescription: 'Familie'
             };
@@ -369,7 +369,7 @@ describe('Integration Tests for the privacy settings', function () {
 
     it('Delete a privacy setting fails because the privacy setting to move existing contacts does not exist- Return a 400', function () {
         return requestHandler.login(users.validUser).then(function (agent) {
-            var data = {
+            let data = {
                 privacyDescription: 'Freund',
                 newPrivacyDescription: 'Famili'
             };

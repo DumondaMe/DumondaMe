@@ -1,6 +1,6 @@
 'use strict';
 
-var db = {};
+let db = {};
 
 module.exports = {
     init: function (neo4j) {

@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var administrator = require('./administrator');
-var recommendation = require('./recommendation');
-var response = require('./detailResponse');
-var detailTitlePicture = require('./detailTitlePicture');
+let db = requireDb();
+let administrator = require('./administrator');
+let recommendation = require('./recommendation');
+let response = require('./detailResponse');
+let detailTitlePicture = require('./detailTitlePicture');
 
-var getBookAuthors = function (pageId, userId) {
+let getBookAuthors = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:IS_AUTHOR]-(u:User)")
         .return("u.name AS name, u.userId AS userId, u.userId = {userId} AS isLoggedInUser")
@@ -14,8 +14,8 @@ var getBookAuthors = function (pageId, userId) {
         .end({pageId: pageId, userId: userId});
 };
 
-var addAuthors = function (bookPage, authorLinks) {
-    var authors = [];
+let addAuthors = function (bookPage, authorLinks) {
+    let authors = [];
     if (bookPage.author) {
         authors.push({name: bookPage.author, isLoggedInUser: false});
         delete bookPage.author;
@@ -27,9 +27,9 @@ var addAuthors = function (bookPage, authorLinks) {
     bookPage.author = authors;
 };
 
-var getDetail = function (pageId, label, userId) {
+let getDetail = function (pageId, label, userId) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(administrator.getAdministrator(pageId, userId));
     commands.push(recommendation.getUserRecommendation(pageId, userId));

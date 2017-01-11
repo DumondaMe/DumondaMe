@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var recommendationElements = require('./recommendationElement/recommendationElement');
+let db = requireDb();
+let recommendationElements = require('./recommendationElement/recommendationElement');
 
-var getPopularPlaces = function (userId, params) {
+let getPopularPlaces = function (userId, params) {
 
     return db.cypher()
-        .match(`(recommendationElement:Page {label:'Place'})-[:HAS]->(address:Address)`)
+        .match(`(recommendationElement:Page {label:'Generic'})-[:HAS]->(address:Address)`)
         .where("toInt(distance(point(address),point({latitude: {centerLat}, longitude: {centerLng}})) / 1000) < {radius}")
         .optionalMatch("(recommender:User)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(recommendationElement)")
         .with(`COUNT(recommendation) AS numberOfRecommendations, MAX(recommendation.created) AS created, recommendationElement,

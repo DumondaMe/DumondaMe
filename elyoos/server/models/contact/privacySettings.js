@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getPrivacySettings = function (userId) {
+let getPrivacySettings = function (userId) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY]->(:Privacy)')
         .return('r.type AS type')
         .orderBy("type")

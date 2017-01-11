@@ -1,12 +1,12 @@
 'use strict';
 
-var sinon = require('sinon');
-var eMailQueue = null;
+let sinon = require('sinon');
+let eMailQueue = null;
 
-var sandbox = sinon.sandbox.create();
+let sandbox = sinon.sandbox.create();
 
-var createJob;
-var createImmediatelyJob;
+let createJob;
+let createImmediatelyJob;
 
 module.exports = function () {
     return {

@@ -1,9 +1,9 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('./userInfo');
+let db = requireDb();
+let userInfo = require('./userInfo');
 
-var searchUsersInSuggestionModeQuery = function (userId, userQuery, maxItems) {
+let searchUsersInSuggestionModeQuery = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
         .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .return('contact.name AS name')
@@ -16,7 +16,7 @@ var searchUsersInSuggestionModeQuery = function (userId, userQuery, maxItems) {
         .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems});
 };
 
-var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
+let searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
     return searchUsersInSuggestionModeQuery(userId, userQuery, maxItems)
         .send()
         .then(function (resp) {
@@ -27,7 +27,7 @@ var searchUsersInSuggestionMode = function (userId, userQuery, maxItems) {
         });
 };
 
-var searchUsersInNormalModeQuery = function (userId, userQuery, maxItems) {
+let searchUsersInNormalModeQuery = function (userId, userQuery, maxItems) {
     return db.cypher().match('(user:User {userId: {userId}})-[r:IS_CONTACT]->(contact:User)')
         .where('contact.surname =~ {userQueryRegEx} OR contact.name =~ {userQueryRegEx}')
         .with('contact, r, user')
@@ -52,7 +52,7 @@ var searchUsersInNormalModeQuery = function (userId, userQuery, maxItems) {
         .end({userId: userId, userQueryRegEx: userQuery, maxItems: maxItems});
 };
 
-var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
+let searchUsersInNormalMode = function (userId, userQuery, maxItems) {
     return searchUsersInNormalModeQuery(userId, userQuery, maxItems)
         .send()
         .then(function (resp) {
@@ -68,7 +68,7 @@ var searchUsersInNormalMode = function (userId, userQuery, maxItems) {
 module.exports = {
     searchUsers: function (userId, userQuery, maxItems, isSuggestion) {
 
-        var userQueryRegEx = '(?i)'.concat(userQuery, '.*');
+        let userQueryRegEx = '(?i)'.concat(userQuery, '.*');
 
         if (isSuggestion) {
             return searchUsersInSuggestionMode(userId, userQueryRegEx, maxItems);
@@ -78,7 +78,7 @@ module.exports = {
 
     },
     searchUsersQuery: function (userId, userQuery, maxItems) {
-        var userQueryRegEx = '(?i)'.concat(userQuery, '.*');
+        let userQueryRegEx = '(?i)'.concat(userQuery, '.*');
         return searchUsersInNormalModeQuery(userId, userQueryRegEx, maxItems);
     }
 };

@@ -20,14 +20,6 @@ module.exports = {
                     }
                 };
 
-                ctrl.logout = function () {
-                    Auth.logout().then(function () {
-                        $mdSidenav("left").close();
-                        delete ctrl.userInfo;
-                        $state.go('public');
-                    });
-                };
-
                 ctrl.goToProfile = function () {
                     $mdSidenav("left").close();
                     $state.go('settings.profile');

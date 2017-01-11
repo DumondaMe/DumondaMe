@@ -58,4 +58,15 @@ module.exports = ['elyHelper', function (elyHelper) {
         });
         markerCollection = [];
     };
+
+    service.addMarkerGroupAndCenter = function (map, markers, fitBoundOptions) {
+        var tmpMarkerCollection = [], group;
+        angular.forEach(markers, function (marker) {
+            tmpMarkerCollection.push(service.addMarker(map, marker.latitude, marker.longitude));
+        });
+        if (tmpMarkerCollection.length > 0) {
+            group = new L.featureGroup(tmpMarkerCollection);
+            map.fitBounds(group.getBounds().pad(0.07), fitBoundOptions);
+        }
+    };
 }];

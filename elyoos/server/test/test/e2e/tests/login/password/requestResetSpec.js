@@ -1,9 +1,9 @@
 'use strict';
 
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-var db = require('elyoos-server-test-util').db;
-var sinon = require('sinon');
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+let db = require('elyoos-server-test-util').db;
+let sinon = require('sinon');
 
 describe('Integration Tests for requesting a password reset Login', function () {
 
@@ -31,7 +31,7 @@ describe('Integration Tests for requesting a password reset Login', function () 
     });
 
     it('Request a password reset twice causes only first attempt to send link to email address - Return 200', function () {
-        var linkId;
+        let linkId;
         return requestHandler.post('/api/login/password/requestReset', {email: 'user@irgendwo.ch'}).then(function (res) {
             res.status.should.equal(200);
             stubEmailQueue.createImmediatelyJob.calledWith("resetPassword", {

@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var checkAllowedToEditPage = function (userId, pageId, req) {
+let checkAllowedToEditPage = function (userId, pageId, req) {
 
     function userNotAllowedToEditPage(resp) {
         return resp.length === 0;
@@ -21,9 +21,9 @@ var checkAllowedToEditPage = function (userId, pageId, req) {
         });
 };
 
-var checkAllowedToDeletePage = function (userId, pageId, req) {
+let checkAllowedToDeletePage = function (userId, pageId, req) {
 
-    var commands = [];
+    let commands = [];
 
     function userNotAdmin(resp) {
         return resp[1].length === 0;

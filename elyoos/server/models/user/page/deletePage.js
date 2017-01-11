@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
-var security = require('./security');
-var cdn = require('../../util/cdn');
+let db = requireDb();
+let security = require('./security');
+let cdn = require('../../util/cdn');
 
-var deletePage = function (userId, params, req) {
+let deletePage = function (userId, params, req) {
 
     return security.checkAllowedToDeletePage(userId, params.pageId, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})-[isAdmin:IS_ADMIN]->(page:Page {pageId: {pageId}})")

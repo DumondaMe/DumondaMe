@@ -1,28 +1,28 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetPage = {
+let schemaGetPage = {
     name: 'getPage',
     type: 'object',
     additionalProperties: false,
     required: ['pageId', 'label'],
     properties: {
         pageId: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        label: {enum: ['Book', 'Youtube', 'Link', 'Blog', 'Place']}
+        label: {enum: ['Book', 'Youtube', 'Link', 'Blog', 'Generic']}
     }
 };
 
-var detail = {
+let detail = {
     Book: requireModel('page/detail/bookDetail'),
     Youtube: requireModel('page/detail/videoDetail'),
     Link: requireModel('page/detail/linkDetail'),
     Blog: requireModel('page/detail/blogDetail'),
-    Place: requireModel('page/detail/placeDetail')
+    Generic: requireModel('page/detail/genericDetail')
 };
 
 module.exports = function (router) {
@@ -32,7 +32,7 @@ module.exports = function (router) {
         return controllerErrors('Error occurs when getting the page detail', req, res, logger, function () {
             return validation.validateQueryRequest(req, schemaGetPage, logger).then(function (request) {
 
-                var detailFunction = detail[request.label];
+                let detailFunction = detail[request.label];
                 if (detailFunction) {
                     logger.info("Getting detail information for page [" + request.pageId + "]", req);
                     return detailFunction.getDetail(request.pageId, request.label, req.user.id);

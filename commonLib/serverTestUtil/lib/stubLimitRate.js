@@ -1,9 +1,9 @@
 'use strict';
 
-var sinon = require('sinon');
-var limiteRate;
+let sinon = require('sinon');
+let limiteRate;
 
-var getRate;
+let getRate;
 
 module.exports = function () {
     return {

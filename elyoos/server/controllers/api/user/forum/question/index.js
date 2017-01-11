@@ -1,14 +1,14 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var question = requireModel('forum/question/question');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
-var topic = require("../../../../schema/topic");
-var language = require("../../../../schema/language");
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let question = requireModel('forum/question/question');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
+let topic = require("../../../../schema/topic");
+let language = require("../../../../schema/language");
 
 
-var schemaAddQuestion = {
+let schemaAddQuestion = {
     name: 'createForumQuestion',
     type: 'object',
     additionalProperties: false,
@@ -20,7 +20,7 @@ var schemaAddQuestion = {
     }
 };
 
-var schemaDeleteQuestion= {
+let schemaDeleteQuestion= {
     name: 'deleteForumQuestion',
     type: 'object',
     additionalProperties: false,

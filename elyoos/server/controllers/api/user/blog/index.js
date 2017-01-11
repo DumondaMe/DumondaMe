@@ -1,16 +1,16 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
 let exceptions = require('elyoos-server-lib').exceptions;
-var addBlog = requireModel('user/blog/addBlog');
-var removeBlog = requireModel('user/blog/removeBlog');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var topic = require("../../../schema/topic");
-var language = require("./../../../schema/language");
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let addBlog = requireModel('user/blog/addBlog');
+let removeBlog = requireModel('user/blog/removeBlog');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let topic = require("../../../schema/topic");
+let language = require("./../../../schema/language");
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaRequestBlog = {
+let schemaRequestBlog = {
     name: 'blogRequests',
     type: 'object',
     additionalProperties: false,
@@ -37,7 +37,7 @@ var schemaRequestBlog = {
     }
 };
 
-var schemaDeleteBlog = {
+let schemaDeleteBlog = {
     name: 'deleteBlog',
     type: 'object',
     additionalProperties: false,
@@ -47,7 +47,7 @@ var schemaDeleteBlog = {
     }
 };
 
-var getFilePath = function (req) {
+let getFilePath = function (req) {
     if (req.hasOwnProperty('files') && req.files.hasOwnProperty('file') && req.files.file.hasOwnProperty('path')) {
         return req.files.file.path;
     }
@@ -60,7 +60,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs when request blog is handled', req, res, logger, function () {
             return validation.validateRequest(req, schemaRequestBlog, logger).then(function (request) {
-                var path = getFilePath(req);
+                let path = getFilePath(req);
                 if (request.hasOwnProperty('addBlog')) {
                     logger.info('User adds a new blog', req);
                     return addBlog.addBlog(req.user.id, request.addBlog, path, req);

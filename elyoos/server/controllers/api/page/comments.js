@@ -1,12 +1,12 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var comments = requireModel('page/review/comments');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let comments = requireModel('page/review/comments');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetPageComments = {
+let schemaGetPageComments = {
     name: 'getPageComments',
     type: 'object',
     additionalProperties: false,

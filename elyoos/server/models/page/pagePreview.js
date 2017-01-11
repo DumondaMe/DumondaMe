@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
-var cdn = require('../util/cdn');
-var userInfo = require('../user/userInfo');
-var addPageUrl = function (previews, thumbnail) {
-    var bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',
+let db = requireDb();
+let underscore = require('underscore');
+let cdn = require('../util/cdn');
+let userInfo = require('../user/userInfo');
+let addPageUrl = function (previews, thumbnail) {
+    let bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',
         linkImage = thumbnail ? '/thumbnail.jpg' : '/preview.jpg';
     underscore.forEach(previews, function (preview) {
         if (preview.label === 'Book') {
@@ -19,7 +19,7 @@ var addPageUrl = function (previews, thumbnail) {
     });
 };
 
-var addRecommendation = function (previews) {
+let addRecommendation = function (previews) {
     underscore.forEach(previews, function (preview) {
 
         preview.recommendation = {
@@ -32,7 +32,7 @@ var addRecommendation = function (previews) {
     });
 };
 
-var addContactRecommendation = function (previews) {
+let addContactRecommendation = function (previews) {
     underscore.forEach(previews, function (preview) {
 
         preview.recommendation = {
@@ -51,9 +51,9 @@ var addContactRecommendation = function (previews) {
     });
 };
 
-var pagePreviewQuery = function (params, orderBy, startQuery) {
+let pagePreviewQuery = function (params, orderBy, startQuery) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(db.cypher().addCommand(startQuery.getCommandString())
         .return("count(*) AS totalNumberOfPages").end(params).getCommand());

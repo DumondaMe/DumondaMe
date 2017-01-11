@@ -1,10 +1,10 @@
 'use strict';
 
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-var db = require('elyoos-server-test-util').db;
-var moment = require('moment');
-var should = require('chai').should();
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+let db = require('elyoos-server-test-util').db;
+let moment = require('moment');
+let should = require('chai').should();
 
 describe('Integration Tests for reset a password with email link', function () {
 
@@ -18,7 +18,7 @@ describe('Integration Tests for reset a password with email link', function () {
     });
 
     it('Reset a password - Return 200', function () {
-        var resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
+        let resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
             expires = Math.floor(moment.utc().valueOf() / 1000) + 10, newPassword = "Krgvb8riomf";
         return db.cypher().match("(u:User {userId: '1'})").set("u", {
             resetPasswordLinkId: resetPasswordLinkId,
@@ -36,7 +36,7 @@ describe('Integration Tests for reset a password with email link', function () {
     });
 
     it('Reset a password fails because of expired timeout - Return 400', function () {
-        var resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
+        let resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
             expires = Math.floor(moment.utc().valueOf() / 1000) - 1, newPassword = "Krgvb8riomf";
         return db.cypher().match("(u:User {userId: '1'})").set("u", {
             resetPasswordLinkId: resetPasswordLinkId,
@@ -53,7 +53,7 @@ describe('Integration Tests for reset a password with email link', function () {
     });
 
     it('Reset a password fails because link does not exist - Return 400', function () {
-        var resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
+        let resetPasswordLinkId = "yrtcus4PnEvcz0UD8nsHMGqSRlnaQU3wHMyjvqkydfMWEXDh3tHQ4vVOwMbwtfl3",
             expires = Math.floor(moment.utc().valueOf() / 1000) + 10, newPassword = "Krgvb8riomf";
         return db.cypher().match("(u:User {userId: '1'})").set("u", {
             resetPasswordLinkId: resetPasswordLinkId,

@@ -1,20 +1,20 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
-var stubCDN = require('elyoos-server-test-util').stubCDN();
-var sinon = require('sinon');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
+let stubCDN = require('elyoos-server-test-util').stubCDN();
+let sinon = require('sinon');
 
 describe('Integration Tests for editing book pages', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
@@ -42,7 +42,7 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page without publish date - Return 200', function () {
-        var editPage = {
+        let editPage = {
             bookPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
@@ -87,7 +87,7 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit of book page without being administrator - Return 400', function () {
-        var editPage = {
+        let editPage = {
             bookPage: {
                 pageId: '1',
                 topic: ['health', 'socialDevelopment'],
@@ -130,7 +130,7 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page with to small width image - Return 400', function () {
-        var editPage = {
+        let editPage = {
             bookPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],
@@ -168,7 +168,7 @@ describe('Integration Tests for editing book pages', function () {
     });
 
     it('Edit a book page with to small height image - Return 400', function () {
-        var editPage = {
+        let editPage = {
             bookPage: {
                 pageId: '0',
                 topic: ['health', 'socialDevelopment'],

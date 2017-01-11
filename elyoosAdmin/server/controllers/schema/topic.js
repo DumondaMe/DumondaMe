@@ -1,6 +1,6 @@
 'use strict';
 
-var topic = ['health',
+let topic = ['health',
     'environmental',
     'spiritual',
     'personalDevelopment',

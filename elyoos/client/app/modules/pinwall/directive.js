@@ -9,7 +9,7 @@ module.exports = {
             bindToController: {
                 contacting: '=',
                 recommendedUser: '=',
-                gap: '=',
+                order: '=',
                 breakpoint: '@',
                 showInfo: '@',
                 noPinwall: '=',

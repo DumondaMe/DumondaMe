@@ -1,9 +1,9 @@
 'use strict';
 
-var NodeGeocoder = require('node-geocoder');
-var _ = require('lodash');
+let NodeGeocoder = require('node-geocoder');
+let _ = require('lodash');
 
-var options = {
+let options = {
     provider: 'opencage',
     httpAdapter: 'https',
     apiKey: 'e0a0c78a5098a52778cc8c5d51f63048',
@@ -11,11 +11,11 @@ var options = {
     formatter: null
 };
 
-var geoCoder = NodeGeocoder(options);
+let geoCoder = NodeGeocoder(options);
 
-var geocode = function (place) {
+let geocode = function (place) {
     return geoCoder.geocode(place).then(function (result) {
-        var formatedResult = [];
+        let formatedResult = [];
         _.forEach(result.raw.results, function (rawResult) {
             formatedResult.push({formatted: rawResult.formatted, geometry: rawResult.geometry});
         });

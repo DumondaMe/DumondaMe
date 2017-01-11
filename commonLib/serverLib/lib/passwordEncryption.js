@@ -1,17 +1,17 @@
 'use strict';
 
-var bcrypt = require('bcrypt');
-var Promise = require('bluebird');
+let bcrypt = require('bcrypt');
+let Promise = require('bluebird');
 
 Promise.promisifyAll(bcrypt);
 
-var generatePasswordHash = function (password) {
+let generatePasswordHash = function (password) {
     return bcrypt.genSaltAsync(10).then(function (salt) {
         return bcrypt.hashAsync(password, salt);
     });
 };
 
-var comparePassword = function (password, dbPassword) {
+let comparePassword = function (password, dbPassword) {
     return bcrypt.compareAsync(password, dbPassword);
 };
 

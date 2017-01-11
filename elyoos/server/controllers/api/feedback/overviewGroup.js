@@ -1,12 +1,12 @@
 'use strict';
 
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var feedbackGroupOverview = requireModel('feedback/overviewGroup');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let feedbackGroupOverview = requireModel('feedback/overviewGroup');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaGetGroupOverview = {
+let schemaGetGroupOverview = {
     name: 'getFeedbackGroupOverview',
     type: 'object',
     additionalProperties: false,

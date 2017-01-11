@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getQuestions = function (userId, maxItems, skip) {
+let getQuestions = function (userId, maxItems, skip) {
 
     return db.cypher().match("(question:ForumQuestion), (user:User {userId: {userId}})")
         .optionalMatch("(question)-[:IS_ANSWER]->(questionElement:ForumAnswer)<-[rating:RATE_POSITIVE]-(:User)")

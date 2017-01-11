@@ -1,15 +1,15 @@
 'use strict';
 
-var blog = require('./blog');
-var recommendation = require('./recommendation');
-var recommendationBlog = require('./recommendationBlog');
-var _ = require('underscore');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let blog = require('./blog');
+let recommendation = require('./recommendation');
+let recommendationBlog = require('./recommendationBlog');
+let _ = require('underscore');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var getPinwallElements = function (pinwallElements) {
-    var result = [];
+let getPinwallElements = function (pinwallElements) {
+    let result = [];
     _.each(pinwallElements, function (pinwallElement) {
-        var element;
+        let element;
         if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             element = blog.getPinwallElement(pinwallElement);
         } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && !pinwallElement.writer) {

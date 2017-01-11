@@ -1,8 +1,8 @@
 'use strict';
 
-var contactStatistic = requireModel('contact/contactStatistic');
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let contactStatistic = requireModel('contact/contactStatistic');
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 

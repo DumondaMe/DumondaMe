@@ -1,13 +1,13 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var deletePage = requireModel('user/page/deletePage');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let deletePage = requireModel('user/page/deletePage');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 
-var schemaDeleteBlog = {
+let schemaDeleteBlog = {
     name: 'deleteBlog',
     type: 'object',
     additionalProperties: false,

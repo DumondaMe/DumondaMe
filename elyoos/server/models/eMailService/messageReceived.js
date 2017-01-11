@@ -1,12 +1,12 @@
 "use strict";
 
-var db = requireDb();
+let db = requireDb();
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
 let eMailQueue = require('elyoos-server-lib').eMailQueue;
 
-var received = function (userId) {
-    var jobId = uuid.generateUUID(), updateTime = time.getNowUtcTimestamp();
+let received = function (userId) {
+    let jobId = uuid.generateUUID(), updateTime = time.getNowUtcTimestamp();
 
     return db.cypher().match("(email:EMailNotification {userId: {userId}})")
         .return("email").end({userId: userId}).send()

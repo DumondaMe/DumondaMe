@@ -1,8 +1,35 @@
 #ely-home {
   height: 100%;
   background-color: $background-normal;
+  #pinwall-commands {
+    height: 70px;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 12px 0 8px;
+    @media screen and (min-width: $gt-sm) {
+      max-width: 950px;
+      width: 950px;
+    }
+    .pinwall-command-fab {
+      @media screen and (min-width: $gt-sm) {
+        margin-right: 18px;
+      }
+      .pinwall-command-text {
+        margin-left: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: $primary-text;
+      }
+    }
+    .pinwall-command-fab:hover {
+      .pinwall-command-text {
+        text-decoration: underline;
+      }
+    }
+  }
   .pinwall-container {
-    height: 100%;
     padding: 0 8px;
     overflow-y: auto;
     .pinwall-inner-container {
@@ -12,15 +39,9 @@
         max-width: 950px;
         width: 950px;
       }
-    }
-  }
-  .create-blog-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    @media screen and (min-width: $gt-sm) {
-      bottom: 15px;
-      right: 24px;
+      .ely-pinwall-container {
+        padding-top: 0;
+      }
     }
   }
 }

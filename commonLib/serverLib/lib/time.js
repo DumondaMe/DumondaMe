@@ -1,8 +1,8 @@
 "use strict";
 
-var moment = require('moment');
+let moment = require('moment');
 
-var getNowUtcTimestamp = function () {
+let getNowUtcTimestamp = function () {
     return Math.floor(moment.utc().valueOf() / 1000);
 };
 

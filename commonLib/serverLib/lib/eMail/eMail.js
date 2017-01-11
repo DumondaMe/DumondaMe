@@ -1,14 +1,14 @@
 'use strict';
 
-var path = require('path');
-var nodemailer = require('nodemailer');
-var EmailTemplate = require('email-templates').EmailTemplate;
-var sesTransport = require('nodemailer-ses-transport');
-var transporter = nodemailer.createTransport(sesTransport({rateLimit: 2, region: 'eu-west-1'}));
-var logger = require('../logging').getLogger(__filename);
+let path = require('path');
+let nodemailer = require('nodemailer');
+let EmailTemplate = require('email-templates').EmailTemplate;
+let sesTransport = require('nodemailer-ses-transport');
+let transporter = nodemailer.createTransport(sesTransport({rateLimit: 2, region: 'eu-west-1'}));
+let logger = require('../logging').getLogger(__filename);
 
-var templatesDir = path.resolve(__dirname, 'templates');
-var emailTemplates = {
+let templatesDir = path.resolve(__dirname, 'templates');
+let emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
         subject: 'Du hast neue Nachrichten'
@@ -24,7 +24,7 @@ var emailTemplates = {
 };
 
 
-var sendEMail = function (template, templateData, sendTo) {
+let sendEMail = function (template, templateData, sendTo) {
     if (emailTemplates.hasOwnProperty(template)) {
         emailTemplates[template].template.render(templateData, function (error, results) {
             if (error) {

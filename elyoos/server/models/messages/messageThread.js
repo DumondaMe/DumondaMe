@@ -1,14 +1,14 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
-var userInfo = require('./../user/userInfo');
-var unreadMessages = require('./util/unreadMessages');
+let db = requireDb();
+let underscore = require('underscore');
+let userInfo = require('./../user/userInfo');
+let unreadMessages = require('./util/unreadMessages');
 
-var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
+let addHasNotReadMessages = function (threads, unreadMessagesPerType) {
 
     function addNumberOfUnreadMessages(thread) {
-        var unreadMessagesOfThread = underscore.findWhere(unreadMessagesPerType, {
+        let unreadMessagesOfThread = underscore.findWhere(unreadMessagesPerType, {
             threadId: thread.threadId
         });
         if (unreadMessagesOfThread) {
@@ -23,7 +23,7 @@ var addHasNotReadMessages = function (threads, unreadMessagesPerType) {
     });
 };
 
-var getThreads = function (params) {
+let getThreads = function (params) {
     return db.cypher().match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)")
         .optionalMatch("(contact:User)-[:ACTIVE]->(thread)-[:NEXT_MESSAGE]->(message:Message)")
         .where("contact.userId <> {userId}")
@@ -42,16 +42,16 @@ var getThreads = function (params) {
         .end(params);
 };
 
-var getNumberOfThreads = function (userId) {
+let getNumberOfThreads = function (userId) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)")
         .return("COUNT(*) AS numberOfThreads")
         .end({userId: userId});
 };
 
-var getMessageThreads = function (userId, maxItems, skip) {
+let getMessageThreads = function (userId, maxItems, skip) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(unreadMessages.getUnreadMessages(userId).getCommand());
     commands.push(getNumberOfThreads(userId).getCommand());

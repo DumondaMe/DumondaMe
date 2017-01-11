@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var allowedToDeleteAnswer = function (userId, answerId, req) {
+let allowedToDeleteAnswer = function (userId, answerId, req) {
     return db.cypher().match("(answer:ForumAnswer {answerId: {answerId}})<-[:IS_ADMIN]-(:User {userId: {userId}})").return("answer")
         .end({userId: userId, answerId: answerId})
         .send().then(function (resp) {

@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo', 'UnreadMessagesService',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService) {
+module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo', 'UnreadMessagesService', 'Auth',
+    '$mdBottomSheet',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService, Auth, $mdBottomSheet) {
         var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
@@ -23,6 +24,23 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
 
         ctrl.searchClose = function () {
             ctrl.searchExpanded = false;
+        };
+
+        ctrl.logout = function () {
+            Auth.logout().then(function () {
+                $state.go('public');
+            });
+        };
+
+        ctrl.openCreatePage = function () {
+            $mdBottomSheet.show({
+                templateUrl: 'app/modules/navigation/createPage/template.html',
+                controller: 'CreatePageNavCtrl',
+                controllerAs: 'ctrl',
+                locals: {},
+                clickOutsideToClose: true,
+                parent: '#viewport'
+            });
         };
 
         ctrl.navigateBack = function () {

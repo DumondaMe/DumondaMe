@@ -9,6 +9,13 @@
         <md-tooltip md-direction="bottom" ng-if="!ctrl.element.recommendedByUser">Diese Seite empfehlen</md-tooltip>
     </div>
     <div class="number-container ">
-        <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
+        <div ng-if="!ctrl.element.onlyContact">
+            <span class="number">{{ctrl.element.totalNumberOfRecommendations}}</span>
+        </div>
+        <div ng-if="ctrl.element.onlyContact">
+            <span class="number">{{ctrl.element.numberOfRecommendations}}</span>
+            <span class="number" ng-if="ctrl.element.numberOfRecommendations !== ctrl.element.totalNumberOfRecommendations">
+                ({{ctrl.element.totalNumberOfRecommendations}})</span>
+        </div>
     </div>
 </div>

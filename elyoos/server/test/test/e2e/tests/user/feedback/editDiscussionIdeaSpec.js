@@ -1,14 +1,14 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var db = require('elyoos-server-test-util').db;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let db = require('elyoos-server-test-util').db;
+let moment = require('moment');
 
 describe('Integration Tests edit discussion idea feedback', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);

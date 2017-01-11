@@ -1,15 +1,15 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
-var stubCDN = require('elyoos-server-test-util').stubCDN();
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+let stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for deleting a page', function () {
 
-    var requestAgent, startTime;
+    let requestAgent, startTime;
 
     beforeEach(function () {
 
@@ -22,7 +22,7 @@ describe('Integration Tests for deleting a page', function () {
             dbDsl.createYoutubePage('2', ['de'], ['health', 'personalDevelopment'], 5092, 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
 
-            dbDsl.createPlacePage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
+            dbDsl.createGenericPage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
                 [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}],
                 [{description: 'Zuerich2', lat: 47.376887, lng: 8.541694}]);
 
@@ -61,7 +61,7 @@ describe('Integration Tests for deleting a page', function () {
         });
     });
 
-    it('Delete Successfully a place page - Return 200', function () {
+    it('Delete Successfully a generic page - Return 200', function () {
 
         stubCDN.deleteFolder.reset();
         return requestHandler.login(users.validUser).then(function (agent) {

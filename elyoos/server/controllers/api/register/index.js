@@ -1,11 +1,11 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var registerUser = requireModel('register/registerUser');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let registerUser = requireModel('register/registerUser');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaRegisterUser = {
+let schemaRegisterUser = {
     name: 'registerUser',
     type: 'object',
     additionalProperties: false,

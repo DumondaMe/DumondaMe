@@ -1,8 +1,8 @@
 'use strict';
 
-var exceptions = require('./exceptions');
+let exceptions = require('./exceptions');
 
-var getErrorHandling = function (description, req, res, logger, controllerCode) {
+let getErrorHandling = function (description, req, res, logger, controllerCode) {
     return controllerCode().catch(exceptions.InvalidJsonRequest, function () {
         res.status(400).end();
     }).catch({name: 'invalidOperation'}, function (e) {

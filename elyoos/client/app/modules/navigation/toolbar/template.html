@@ -17,5 +17,19 @@
         <ely-toolbar-message-info ng-if="!ctrl.searchExpanded" count="ctrl.count"></ely-toolbar-message-info>
         <ely-toolbar-search ng-show="ctrl.hasSearch" search-open="ctrl.searchOpen()" search-close="ctrl.searchClose()"
                             hide-gt-sm></ely-toolbar-search>
+        <md-menu md-position-mode="target-right target" class="button-settings-container">
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.openCreatePage()">Neuer Beitrag</md-button>
+                </md-menu-item>
+                <md-divider></md-divider>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.logout()">Ausloggen</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
 </md-toolbar>

@@ -740,6 +740,22 @@
       margin-left: 0;
       margin-right: 6px; }
 
+#blog-recommendation-sidenav-filter {
+  padding: 48px 16px; }
+  @media screen and (min-width: 1280px) {
+    #blog-recommendation-sidenav-filter {
+      height: 100%; } }
+  #blog-recommendation-sidenav-filter .popular-filter-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    padding-left: 4px; }
+  #blog-recommendation-sidenav-filter .popular-sidnav-input-container {
+    width: 100%;
+    margin-bottom: 8px; }
+  #blog-recommendation-sidenav-filter #reset-filter-button {
+    margin-left: 0; }
+
 #ely-answer-detail {
   height: 100%;
   background-color: #e9ebee; }
@@ -1084,8 +1100,28 @@
 #ely-home {
   height: 100%;
   background-color: #e9ebee; }
+  #ely-home #pinwall-commands {
+    height: 70px;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 12px 0 8px; }
+    @media screen and (min-width: 960px) {
+      #ely-home #pinwall-commands {
+        max-width: 950px;
+        width: 950px; } }
+    @media screen and (min-width: 960px) {
+      #ely-home #pinwall-commands .pinwall-command-fab {
+        margin-right: 18px; } }
+    #ely-home #pinwall-commands .pinwall-command-fab .pinwall-command-text {
+      margin-left: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+    #ely-home #pinwall-commands .pinwall-command-fab:hover .pinwall-command-text {
+      text-decoration: underline; }
   #ely-home .pinwall-container {
-    height: 100%;
     padding: 0 8px;
     overflow-y: auto; }
     #ely-home .pinwall-container .pinwall-inner-container {
@@ -1095,14 +1131,12 @@
         #ely-home .pinwall-container .pinwall-inner-container {
           max-width: 950px;
           width: 950px; } }
-  #ely-home .create-blog-fab {
-    position: fixed;
-    bottom: 0;
-    right: 0; }
-    @media screen and (min-width: 960px) {
-      #ely-home .create-blog-fab {
-        bottom: 15px;
-        right: 24px; } }
+      #ely-home .pinwall-container .pinwall-inner-container .ely-pinwall-container {
+        padding-top: 0; }
+
+#ely-home-info {
+  height: 100%;
+  overflow-y: auto; }
 
 #ely-home-search-result .result-container {
   margin: 16px auto;
@@ -2137,30 +2171,82 @@
         font-weight: 500;
         color: #3F51B5; }
 
-#ely-place-page-detail #ely-place-page-main-detail {
-  max-width: 600px;
-  min-width: 300px; }
-  #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-    cursor: pointer;
-    overflow: hidden; }
-    @media screen and (max-width: 600px) {
-      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-        max-height: 74px; } }
-    @media screen and (min-width: 960px) {
-      #ely-place-page-detail #ely-place-page-main-detail .title-container .title {
-        font-size: 18px; } }
-  #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container {
-    padding: 0; }
-    #ely-place-page-detail #ely-place-page-main-detail .title-container .button-settings-container .button-settings {
-      margin: 0; }
-  #ely-place-page-detail #ely-place-page-main-detail .topic-description {
-    margin: 0 0 4px 0; }
-  #ely-place-page-detail #ely-place-page-main-detail .image-description-container {
-    cursor: pointer; }
-    #ely-place-page-detail #ely-place-page-main-detail .image-description-container .image {
-      width: 100%;
-      max-width: 552px;
-      margin-bottom: 8px; }
+#ely-generic-page-detail #ely-extended-toolbar {
+  position: relative;
+  height: 130px;
+  background-color: #3F51B5; }
+  #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+    position: absolute;
+    right: 30px;
+    bottom: -34px; }
+    @media screen and (max-width: 850px) {
+      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+        right: 15px; } }
+    @media screen and (min-width: 1400px) {
+      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
+        right: 100px; } }
+#ely-generic-page-detail #ely-generic-detail-content {
+  position: relative;
+  top: -130px;
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%; }
+  @media screen and (max-width: 1050px) {
+    #ely-generic-page-detail #ely-generic-detail-content {
+      max-width: 600px; } }
+  @media screen and (max-width: 850px) {
+    #ely-generic-page-detail #ely-generic-detail-content {
+      max-width: 500px; } }
+
+#ely-generic-page-header #ely-generic-title {
+  padding: 0 8px 4px 8px;
+  font-size: 24px;
+  font-weight: 400;
+  color: white; }
+  @media screen and (max-width: 850px) {
+    #ely-generic-page-header #ely-generic-title {
+      font-size: 18px; } }
+#ely-generic-page-header #ely-generic-main-content {
+  width: 100%;
+  margin-top: 4px; }
+  #ely-generic-page-header #ely-generic-main-content #ely-main-image {
+    padding: 12px; }
+    #ely-generic-page-header #ely-generic-main-content #ely-main-image img {
+      border-radius: 2px;
+      width: 250px;
+      min-height: 186px; }
+  #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description {
+    padding: 12px 0 0 12px;
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.54); }
+    #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description #ely-generic-page-description-container {
+      padding-right: 12px;
+      overflow-y: auto;
+      font-size: 14px; }
+
+#ely-generic-page-map {
+  height: 298px; }
+  #ely-generic-page-map #ely-map {
+    height: 100%; }
+    #ely-generic-page-map #ely-map #map-id {
+      height: 100%; }
+
+.ely-generic-overview {
+  height: 350px; }
+  .ely-generic-overview .header {
+    padding: 12px;
+    height: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    .ely-generic-overview .header .title {
+      cursor: pointer;
+      line-height: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87); }
+      .ely-generic-overview .header .title .number {
+        color: #3F51B5; }
+    .ely-generic-overview .header .title:hover {
+      text-decoration: underline; }
 
 #ely-page-recommendation {
   max-width: 600px;
@@ -2250,46 +2336,46 @@
       font-size: 14px;
       margin-bottom: 12px; }
 
-#manage-place-page .ely-dialog-content #title-image-container {
+#manage-generic-page .ely-dialog-content #title-image-container {
   width: 150px; }
-  #manage-place-page .ely-dialog-content #title-image-container .preview-image {
+  #manage-generic-page .ely-dialog-content #title-image-container .preview-image {
     width: 150px; }
-#manage-place-page .ely-dialog-content .search-place-button-container {
+#manage-generic-page .ely-dialog-content .search-place-button-container {
   height: 66px; }
-#manage-place-page .ely-dialog-content #place-list {
+#manage-generic-page .ely-dialog-content #place-list {
   padding: 12px 0; }
-  #manage-place-page .ely-dialog-content #place-list #place-title {
+  #manage-generic-page .ely-dialog-content #place-list #place-title {
     font-weight: 500;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54);
     margin-bottom: 8px; }
-  #manage-place-page .ely-dialog-content #place-list #selected-place-container {
+  #manage-generic-page .ely-dialog-content #place-list #selected-place-container {
     margin-bottom: 12px; }
-    #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place {
+    #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place {
       border-bottom: 1px solid #ccc;
       margin-bottom: 8px; }
-      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
+      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-description {
         font-size: 14px;
         font-weight: 300;
         vertical-align: middle;
         line-height: 24px; }
-      #manage-place-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
+      #manage-generic-page .ely-dialog-content #place-list #selected-place-container .selected-place .place-icon {
         cursor: pointer;
         margin-left: 6px;
         height: 24px;
         width: 24px; }
-#manage-place-page .ely-dialog-content #keyword-container #keyword-title {
+#manage-generic-page .ely-dialog-content #keyword-container #keyword-title {
   font-weight: 500;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
   margin-bottom: 8px; }
-#manage-place-page .ely-dialog-content #keyword-container #keyword-list {
+#manage-generic-page .ely-dialog-content #keyword-container #keyword-list {
   font-weight: 400;
   font-size: 14px;
   font-style: italic;
   color: rgba(0, 0, 0, 0.87);
   margin-bottom: 6px; }
-  #manage-place-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
+  #manage-generic-page .ely-dialog-content #keyword-container #keyword-list .keyword-element {
     margin-right: 3px; }
 
 #manage-book-page .ely-dialog-content .preview-image {
@@ -2473,6 +2559,25 @@
       font-size: 14px;
       vertical-align: middle; }
 
+.pinwall-info-element {
+  max-width: 450px;
+  min-width: 280px;
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: #9575CD;
+  cursor: pointer; }
+  .pinwall-info-element .info-pinwall-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: #9575CD; }
+  .pinwall-info-element .info-pinwall-text {
+    font-size: 14px;
+    color: white;
+    background-color: #9575CD; }
+
 #ely-pinwall-contacting {
   max-width: 450px;
   min-width: 280px;
@@ -2562,21 +2667,20 @@
     font-size: 14px;
     vertical-align: middle; }
 
-.ely-pinwall-container .important-message-container {
-  margin: 0 auto 12px auto;
-  padding: 8px;
-  border: 3px solid #FFB300;
-  border-radius: 8px;
-  background-color: #FFECB3;
-  min-height: 32px; }
-  .ely-pinwall-container .important-message-container .important-message-inner-container {
-    padding: 0 8px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.87); }
-    .ely-pinwall-container .important-message-container .important-message-inner-container .link {
+.ely-pinwall-container #pinwall-no-result {
+  margin: 48px auto 48px auto; }
+  .ely-pinwall-container #pinwall-no-result .title {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 12px; }
+  .ely-pinwall-container #pinwall-no-result .description {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54); }
+    .ely-pinwall-container #pinwall-no-result .description .link {
       cursor: pointer;
       color: #3F51B5; }
-    .ely-pinwall-container .important-message-container .important-message-inner-container .link:hover {
+    .ely-pinwall-container #pinwall-no-result .description .link:hover {
       text-decoration: underline; }
 .ely-pinwall-container .one-column-container {
   margin: 0 auto;
@@ -2627,6 +2731,13 @@
       vertical-align: middle;
       display: inline-block;
       margin-right: 8px; }
+    .card-recommendation-desktop .header .popular-recommendation-title {
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: 400;
+      color: #3F51B5; }
+    .card-recommendation-desktop .header .popular-recommendation-title:hover {
+      text-decoration: underline; }
 
 .blog-recommendation-desktop .blog-title {
   padding: 0 16px;
@@ -2874,62 +2985,62 @@
   #start-screen #carousel #carousel-login #login-container {
     height: 100%; }
 
-#start-screen #carousel #carousel-vision {
+#carousel-vision {
   background-color: #fafafa;
   overflow-y: scroll;
   height: 100%; }
   @media screen and (min-width: 960px) {
-    #start-screen #carousel #carousel-vision {
+    #carousel-vision {
       background-color: #FFFFFF; } }
-  #start-screen #carousel #carousel-vision #carousel-vision-container {
+  #carousel-vision #carousel-vision-container {
     max-width: 500px;
     margin: 0 auto;
     padding: 32px 16px 0 16px; }
     @media screen and (min-width: 960px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         max-width: 600px; } }
     @media screen and (min-width: 1440px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         max-width: 700px; } }
     @media screen and (max-width: 960px) {
-      #start-screen #carousel #carousel-vision #carousel-vision-container {
+      #carousel-vision #carousel-vision-container {
         padding-top: 54px; } }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text-bold {
+    #carousel-vision #carousel-vision-container .vision-text-bold {
       font-size: 18px;
       font-weight: 500;
       line-height: 26px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-text {
+    #carousel-vision #carousel-vision-container .vision-text {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list {
+    #carousel-vision #carousel-vision-container .vision-list {
       font-size: 18px;
       font-weight: 300;
       line-height: 26px; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-list li:before {
+      #carousel-vision #carousel-vision-container .vision-list li:before {
         color: rgba(0, 0, 0, 0.54); }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+    #carousel-vision #carousel-vision-container .vision-preview-image {
       margin: 0 auto;
       max-width: 400px; }
       @media screen and (min-width: 1280px) {
-        #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image {
+        #carousel-vision #carousel-vision-container .vision-preview-image {
           max-width: 500px; } }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .vision-preview-image img {
+      #carousel-vision #carousel-vision-container .vision-preview-image img {
         width: 100%; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .text-divider {
+    #carousel-vision #carousel-vision-container .text-divider {
       height: 4px; }
-    #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container {
+    #carousel-vision #carousel-vision-container .developer-container {
       padding: 16px 0 64px 0; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container img {
+      #carousel-vision #carousel-vision-container .developer-container img {
         height: 64px;
         width: 64px;
         border-radius: 50%;
         margin-right: 16px; }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .name {
+      #carousel-vision #carousel-vision-container .developer-container .info .name {
         font-size: 16px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.87); }
-      #start-screen #carousel #carousel-vision #carousel-vision-container .developer-container .info .info-description {
+      #carousel-vision #carousel-vision-container .developer-container .info .info-description {
         font-size: 16px;
         color: rgba(0, 0, 0, 0.54); }
 
@@ -3447,22 +3558,6 @@
   line-height: 70px;
   font-size: 14px;
   padding-left: 16px; }
-
-#popular-recommendation-sidenav-filter {
-  padding: 48px 16px; }
-  @media screen and (min-width: 1280px) {
-    #popular-recommendation-sidenav-filter {
-      height: 100%; } }
-  #popular-recommendation-sidenav-filter .popular-filter-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    padding-left: 4px; }
-  #popular-recommendation-sidenav-filter .popular-sidnav-input-container {
-    width: 100%;
-    margin-bottom: 8px; }
-  #popular-recommendation-sidenav-filter .reset-icon {
-    cursor: pointer; }
 
 #add-group {
   max-width: 500px; }

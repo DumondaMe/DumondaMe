@@ -1,24 +1,24 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-var contactStatistic = require('./contactStatistic');
-var privacySettings = require('./privacySettings');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var moment = require('moment');
-var userInfo = require('./../user/userInfo');
+let contactStatistic = require('./contactStatistic');
+let privacySettings = require('./privacySettings');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let moment = require('moment');
+let userInfo = require('./../user/userInfo');
 
-var returnStatistics = function (result, errorDescription, req) {
+let returnStatistics = function (result, errorDescription, req) {
     if (result.length === 3) {
         return {statistic: result[1], numberOfContacts: result[2][0].numberOfContacts};
     }
-    var invalidOperationException = new exceptions.InvalidOperation('Length of ' + errorDescription +
+    let invalidOperationException = new exceptions.InvalidOperation('Length of ' + errorDescription +
         ' result not as expected [' + result.length + ']');
     logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
 };
 
-var validAddContactCommand = function (userId, type, req) {
+let validAddContactCommand = function (userId, type, req) {
     return db.cypher().match('(u:User {userId: {userId}})-[r:HAS_PRIVACY {type: {type}}]->()')
         .return("r")
         .end({userId: userId, type: type}).send().then(function (resp) {
@@ -28,9 +28,9 @@ var validAddContactCommand = function (userId, type, req) {
         });
 };
 
-var addContact = function (userId, contactIds, type, req) {
+let addContact = function (userId, contactIds, type, req) {
 
-    var commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
+    let commands = [], timeAddedContact = Math.floor(moment.utc().valueOf() / 1000);
     return validAddContactCommand(userId, type, req).then(function () {
         commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
             .where('u2.userId IN {contactIds} AND NOT (u)-[:IS_CONTACT]->(u2)')
@@ -56,9 +56,9 @@ var addContact = function (userId, contactIds, type, req) {
     });
 };
 
-var deleteContact = function (userId, contactIds, req) {
+let deleteContact = function (userId, contactIds, req) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User)')
         .where('u2.userId IN {contactIds}')
@@ -78,9 +78,9 @@ var deleteContact = function (userId, contactIds, req) {
         });
 };
 
-var blockContact = function (userId, blockedUserIds, req) {
+let blockContact = function (userId, blockedUserIds, req) {
 
-    var commands = [];
+    let commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}}), (u2:User)')
         .where('u2.userId IN {blockedUserIds}')
         .createUnique('(u)-[:IS_BLOCKED]->(u2)')
@@ -102,9 +102,9 @@ var blockContact = function (userId, blockedUserIds, req) {
         });
 };
 
-var unblockContact = function (userId, blockedUserIds, req) {
+let unblockContact = function (userId, blockedUserIds, req) {
 
-    var commands = [];
+    let commands = [];
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[blocked:IS_BLOCKED]->(u2:User)')
         .where('u2.userId IN {blockedUserIds}')
         .delete('blocked')
@@ -123,9 +123,9 @@ var unblockContact = function (userId, blockedUserIds, req) {
         });
 };
 
-var changeContactState = function (userId, contactIds, type, req) {
+let changeContactState = function (userId, contactIds, type, req) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(db.cypher().match('(u:User {userId: {userId}})-[r:IS_CONTACT]->(u2:User)')
         .where('u2.userId IN {contactIds}')
@@ -142,13 +142,13 @@ var changeContactState = function (userId, contactIds, type, req) {
             if (rel[0].length === contactIds.length) {
                 return {statistic: rel[1]};
             }
-            var invalidOperationException = new exceptions.InvalidOperation('Not all contact connections are updated');
+            let invalidOperationException = new exceptions.InvalidOperation('Not all contact connections are updated');
             logger.warn(invalidOperationException.message, req, {error: ''});
             return Promise.reject(invalidOperationException);
         });
 };
 
-var getContact = function (params, where) {
+let getContact = function (params, where) {
     return db.cypher().match("(user:User)-[r:IS_CONTACT]->(contact:User)")
         .where(where)
         .with("contact, user, r")
@@ -164,9 +164,9 @@ var getContact = function (params, where) {
         .end(params);
 };
 
-var getContactsNormal = function (userId, itemsPerPage, skip) {
+let getContactsNormal = function (userId, itemsPerPage, skip) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(getContact({
         userId: userId,
@@ -181,7 +181,7 @@ var getContactsNormal = function (userId, itemsPerPage, skip) {
         .send(commands)
         .then(function (resp) {
             userInfo.addContactPreviewInfos(resp[0]);
-            var data = {};
+            let data = {};
             data.contacts = resp[0];
             data.statistic = resp[1];
             data.privacySettings = resp[2];
@@ -191,8 +191,8 @@ var getContactsNormal = function (userId, itemsPerPage, skip) {
         });
 };
 
-var getContactForTypes = function (userId, itemsPerPage, skip, types) {
-    var commands = [];
+let getContactForTypes = function (userId, itemsPerPage, skip, types) {
+    let commands = [];
 
     commands.push(getContact({
         userId: userId,
@@ -204,7 +204,7 @@ var getContactForTypes = function (userId, itemsPerPage, skip, types) {
     return contactStatistic.getTotalNumberOfContactsPerType(userId, types)
         .send(commands)
         .then(function (resp) {
-            var data = {};
+            let data = {};
             userInfo.addContactPreviewInfos(resp[0]);
             data.contacts = resp[0];
             data.numberOfContacts = resp[1][0].numberOfContacts;

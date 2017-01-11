@@ -6,7 +6,7 @@ let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting feedback detail comments', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(5, true);

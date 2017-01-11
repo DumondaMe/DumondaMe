@@ -1,12 +1,12 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting popular place recommendations', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(8);
@@ -22,15 +22,15 @@ describe('Integration Tests for getting popular place recommendations', function
         dbDsl.createContactConnection('1', '2');
         dbDsl.createContactConnection('1', '3');
 
-        dbDsl.createPlacePage('1', '1', ['de'], ['health', 'personalDevelopment'], 5072, 'Test1',
+        dbDsl.createGenericPage('1', '1', ['de'], ['health', 'personalDevelopment'], 5072, 'Test1',
             [{description: 'Zuerich', lat: 47.376887, lng: 8.541694}, {description: 'Zuerich Paradeplatz', lat: 47.369890, lng: 8.539127}]);
-        dbDsl.createPlacePage('2', '1', ['de'], ['health', 'personalDevelopment'], 5073, 'Test2',
+        dbDsl.createGenericPage('2', '1', ['de'], ['health', 'personalDevelopment'], 5073, 'Test2',
             [{description: 'Urdorf', lat: 47.386707, lng: 8.420693}]);
-        dbDsl.createPlacePage('3', '1', ['de'], ['health', 'personalDevelopment'], 5074, 'Test3',
+        dbDsl.createGenericPage('3', '1', ['de'], ['health', 'personalDevelopment'], 5074, 'Test3',
             [{description: 'Altstetten', lat: 47.388237, lng: 8.483051}]);
-        dbDsl.createPlacePage('4', '1', ['de'], ['health', 'personalDevelopment'], 5075, 'Test4',
+        dbDsl.createGenericPage('4', '1', ['de'], ['health', 'personalDevelopment'], 5075, 'Test4',
             [{description: 'Bern', lat: 46.947974, lng: 7.447447}]);
-        dbDsl.createPlacePage('5', '1', ['de'], ['health', 'personalDevelopment'], 5076, 'Test5',
+        dbDsl.createGenericPage('5', '1', ['de'], ['health', 'personalDevelopment'], 5076, 'Test5',
             [{description: 'Genf', lat: 46.204391, lng: 6.143158}]);
 
         dbDsl.crateRecommendationsForPage('2', [{userId: '2', created: 500}, {userId: '3', created: 501}]);

@@ -1,6 +1,6 @@
 'use strict';
 
-var config = '';
+let config = '';
 
 module.exports = {
     getConfig: function () {

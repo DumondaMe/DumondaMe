@@ -1,0 +1,38 @@
+<div id="ely-generic-page-detail">
+    <div id="ely-extended-toolbar">
+        <md-button class="md-fab create-page-content" aria-label="Create generic page content" ng-click="ctrl.createMessage()">
+            <md-icon md-svg-icon="navFAB:add"></md-icon>
+        </md-button>
+    </div>
+    <div id="ely-generic-detail-content">
+        <ely-page-detail-header-generic page-detail="ctrl.pageDetail"></ely-page-detail-header-generic>
+        <div id="ely-generic-page-content" layout="row" layout-wrap>
+            <div flex="50">
+                <md-card class="ely-generic-overview">
+                    <div class="header">
+                        <div class="title">Empfehlungen</div>
+                    </div>
+                </md-card>
+            </div>
+            <div flex="50">
+                <md-card class="ely-generic-overview">
+                    <ely-page-detail-map-generic addresses="ctrl.pageDetail.page.addresses"></ely-page-detail-map-generic>
+                </md-card>
+            </div>
+            <div flex="50">
+                <md-card class="ely-generic-overview">
+                    <div class="header">
+                        <div class="title">Angebote</div>
+                    </div>
+                </md-card>
+            </div>
+            <div flex="50">
+                <md-card class="ely-generic-overview">
+                    <div class="header">
+                        <div class="title">Veranstaltungen</div>
+                    </div>
+                </md-card>
+            </div>
+        </div>
+    </div>
+</div>

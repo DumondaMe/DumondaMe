@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('bluebird');
+let Promise = require('bluebird');
 
 function invalidJsonRequest(message) {
     this.message = message;
@@ -18,7 +18,7 @@ invalidOperation.prototype = Object.create(Error.prototype);
 invalidOperation.prototype.constructor = invalidOperation;
 
 function getInvalidOperation(message, logger, req, errorCode) {
-    var invalidOperationException = new invalidOperation(message, errorCode);
+    let invalidOperationException = new invalidOperation(message, errorCode);
     logger.warn(invalidOperationException.message, req, {error: ''});
     return Promise.reject(invalidOperationException);
 }

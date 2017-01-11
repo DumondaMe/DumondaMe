@@ -1,15 +1,15 @@
 'use strict';
 
-var db = require('elyoos-server-test-util').db;
-var should = require('chai').should();
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
-var randomstring = require("randomstring");
-var _ = require('lodash');
+let db = require('elyoos-server-test-util').db;
+let should = require('chai').should();
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+let randomstring = require("randomstring");
+let _ = require('lodash');
 
 describe('Integration Tests for verify registering a new user', function () {
 
-    var registerRequestUserValid = {
+    let registerRequestUserValid = {
         email: 'climberwoodi@gmx.ch',
         password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm',
         name: 'user Waldvogel',
@@ -23,7 +23,7 @@ describe('Integration Tests for verify registering a new user', function () {
     beforeEach(function () {
 
         return db.clearDatabase().then(function () {
-            var commands = [];
+            let commands = [];
 
             registerRequestUserExpired = _.cloneDeep(registerRequestUserValid);
             registerRequestUserValid.registerDate = startTime;

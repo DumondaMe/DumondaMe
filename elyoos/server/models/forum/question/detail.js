@@ -1,13 +1,13 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var statistic = require('./../answer/statistic');
-var pageResponse = require('./pageResponse');
+let statistic = require('./../answer/statistic');
+let pageResponse = require('./pageResponse');
 
-var getDetail = function (userId, questionId) {
+let getDetail = function (userId, questionId) {
 
-    var commands = [];
+    let commands = [];
     commands.push(statistic.getExplanationAnswerCommand(userId, questionId, 0, 10).getCommand());
     commands.push(statistic.getSolutionAnswerCommand(userId, questionId, 0, 10).getCommand());
 

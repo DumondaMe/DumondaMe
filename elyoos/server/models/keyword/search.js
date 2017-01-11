@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var searchKeywords = function (keyword) {
+let searchKeywords = function (keyword) {
 
-    var keyWordQueryRegEx = '(?i)'.concat(keyword, '.*');
+    let keyWordQueryRegEx = '(?i)'.concat(keyword, '.*');
 
     return db.cypher().match("(keyword:Keyword)")
         .where('keyword.de =~ {keyWordQueryRegEx}')

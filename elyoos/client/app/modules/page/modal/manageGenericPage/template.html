@@ -1,0 +1,109 @@
+<md-dialog id="manage-generic-page" aria-label="Manage Generic Page" class="manage-page"
+           ng-class="{'create-generic-page-preview-image': ctrl.selectImage}">
+    <form name="ctrl.manageGenericPageForm"
+          ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace" ng-cloak>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Beitrag erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
+            bearbeiten
+        </div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
+                <div>
+                    <div id="title-image-container" ng-show="ctrl.data.dataUri" layout="column" layout-align="start center">
+                        <img class="preview-image" ng-src="{{ctrl.data.dataUri}}">
+                        <div>
+                            <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
+                                       aria-label="Edit Picture">Titelbild ändern
+                            </md-button>
+                        </div>
+                    </div>
+                    <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                icon="system:image" ng-hide="ctrl.data.dataUri"></ely-button>
+
+                </div>
+                <div flex-offset-gt-sm="5" flex="grow">
+                    <md-input-container class="input-container">
+                        <label>Bezeichnung</label>
+                        <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                        <div ng-messages="ctrl.manageGenericPageForm.title.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required ng-change="ctrl.changeData()">
+                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                            </md-select>
+                        </div>
+                        <div flex="50" flex-offset="5">
+                            <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" required placeholder="Sprache"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
+                    <md-input-container class="input-container">
+                        <label>Allgemeine Beschreibung</label>
+                        <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="1000"
+                                  ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"></textarea>
+                        <div class="hint" ng-if="ctrl.manageGenericPageForm.description.$valid || ctrl.manageGenericPageForm.description.$pristine">
+                            Beschreibe in einer allgemeinen Form worum es geht. Vermeide persönliche Kommentare.
+                        </div>
+                        <div ng-messages="ctrl.manageGenericPageForm.description.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="input-container">
+                        <label>Webseite</label>
+                        <input type="url" name="website" ng-model="ctrl.data.website" md-maxlength="1000"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
+                        <div class="hint" ng-if="ctrl.manageGenericPageForm.website.$valid || ctrl.manageGenericPageForm.website.$pristine">
+                            Link zur Webseite
+                        </div>
+                        <div ng-messages="ctrl.manageGenericPageForm.website.$error">
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                            <div ng-message="url">Ungültiger Link</div>
+                        </div>
+                    </md-input-container>
+                    <div id="place-list">
+                        <div id="place-title">Standorte:</div>
+                        <div id="selected-place-container" ng-show="ctrl.data.selectedPlaces.length > 0">
+                            <div ng-repeat="selectedPlace in ctrl.data.selectedPlaces" class="selected-place" layout="row">
+                                <div class="place-description" flex>{{selectedPlace.formatted}}</div>
+                                <md-icon flex="none" md-svg-icon="system:deleteNormal" aria-label="Delete Place"
+                                         ng-click="ctrl.deletePlace(selectedPlace)" class="place-icon"></md-icon>
+                            </div>
+                        </div>
+                        <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.addPlace()" label="Standort hinzufügen"
+                                    orientation="landscape" icon="system:addPlace"></ely-button>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.createGenericPage()" ng-if="!ctrl.isEditMode"
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid">Erstellen
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.modifyGenericPage()" ng-if="ctrl.isEditMode"
+                       ng-disabled=" ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.dataHasChanged">
+                Ändern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+    <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
+
+    <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
+                         ng-if="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
+
+    <ely-add-place on-back="ctrl.closeAddPlace()" on-selected="ctrl.placeSelected" ng-show="ctrl.showAddPlace"></ely-add-place>
+
+    <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
+                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
+</md-dialog>

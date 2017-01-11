@@ -1,17 +1,17 @@
 'use strict';
 
-var blog = require('./blog');
-var book = require('./book');
-var link = require('./link');
-var place = require('./place');
-var youtube = require('./youtube');
-var _ = require('underscore');
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let blog = require('./blog');
+let book = require('./book');
+let link = require('./link');
+let generic = require('./generic');
+let youtube = require('./youtube');
+let _ = require('underscore');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var getRecommendationElements = function (recommendationElements) {
-    var result = [];
+let getRecommendationElements = function (recommendationElements) {
+    let result = [];
     _.each(recommendationElements, function (recommendationElement) {
-        var element;
+        let element;
         if (_.contains(recommendationElement.pinwallType, 'Blog')) {
             element = blog.getRecommendationElement(recommendationElement);
         } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Book') {
@@ -20,8 +20,8 @@ var getRecommendationElements = function (recommendationElements) {
             element = youtube.getRecommendationElement(recommendationElement);
         } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Link') {
             element = link.getRecommendationElement(recommendationElement);
-        } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Place') {
-            element = place.getRecommendationElement(recommendationElement);
+        } else if (_.contains(recommendationElement.pinwallType, 'Page') && recommendationElement.recommendationElement.label === 'Generic') {
+            element = generic.getRecommendationElement(recommendationElement);
         }else {
             logger.error(`Unknown Recommendation Element ${recommendationElement.pinwallType}`);
         }

@@ -1,19 +1,19 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/contact/search');
-var searchUser = require('./../../../../../../../../models/user/searchUser');
-var user = require('../../../../../../../../models/user/user');
-var request = require('../../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../../controllers/api/user/contact/search');
+let searchUser = require('./../../../../../../../../models/user/searchUser');
+let user = require('../../../../../../../../models/user/user');
+let request = require('../../../../request');
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/contact/search', function () {
 
-    var sandbox,
+    let sandbox,
         checkInvalidGetRequest = function (request) {
-            var stubResponse = sandbox.stub(request.res, 'status');
+            let stubResponse = sandbox.stub(request.res, 'status');
             stubResponse.returns({
                 end: function () {
                 }
@@ -111,7 +111,7 @@ describe('Unit Test controllers/api/user/contact/search', function () {
             isSuggestion: false
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }

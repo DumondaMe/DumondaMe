@@ -1,33 +1,33 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 let time = require('elyoos-server-lib').time;
-var recommendationElements = require('./recommendationElement/recommendationElement');
+let recommendationElements = require('./recommendationElement/recommendationElement');
 
-var twoWeeksConstant = 1209600;
+let twoWeeksConstant = 1209600;
 
-var getLanguageFilter = function (language) {
+let getLanguageFilter = function (language) {
     if (language) {
         return "ANY(l IN recommendationElement.language WHERE l IN {language})";
     }
     return null;
 };
 
-var getPeriodFilter = function (period) {
+let getPeriodFilter = function (period) {
     if (period === 'twoWeeks') {
         return "recommendation.created > {twoWeeks}";
     }
     return null;
 };
 
-var getTopicFilter = function (topic) {
+let getTopicFilter = function (topic) {
     if (topic) {
         return "ANY(l IN recommendationElement.topic WHERE l IN {topic})";
     }
     return null;
 };
 
-var getRecommendationTypeFilter = function (recommendationType) {
+let getRecommendationTypeFilter = function (recommendationType) {
     if (recommendationType) {
         return `(ANY(l IN LABELS(recommendationElement) WHERE l IN {recommendationType}) OR 
                  ANY(r IN {recommendationType} WHERE r = recommendationElement.label))`;
@@ -35,25 +35,25 @@ var getRecommendationTypeFilter = function (recommendationType) {
     return null;
 };
 
-var getIgnoreBlockedContacts = function () {
+let getIgnoreBlockedContacts = function () {
     return "NOT EXISTS((user)-[:IS_BLOCKED]->(recommender))";
 };
 
-var getFilters = function (params) {
+let getFilters = function (params) {
     return db.concatCommandsWithAnd([getLanguageFilter(params.language), getIgnoreBlockedContacts(),
         getPeriodFilter(params.period), getTopicFilter(params.topic), getRecommendationTypeFilter(params.recommendationType)]);
 };
 
-var getOnlyContacts = function (params) {
+let getOnlyContacts = function (params) {
     if (params.onlyContact) {
         return "(:User {userId: {userId}})-[:IS_CONTACT]->";
     }
     return "";
 };
 
-var getPopularRecommendations = function (userId, params) {
+let getPopularRecommendations = function (userId, params) {
 
-    var whereCondition = getFilters(params);
+    let whereCondition = getFilters(params);
     params.userId = userId;
     params.twoWeeks = time.getNowUtcTimestamp() - twoWeeksConstant;
 

@@ -1,11 +1,11 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var rate = requireModel('forum/answer/rate');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let rate = requireModel('forum/answer/rate');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaRateAnswer = {
+let schemaRateAnswer = {
     name: 'rateForumAnswer',
     type: 'object',
     additionalProperties: false,

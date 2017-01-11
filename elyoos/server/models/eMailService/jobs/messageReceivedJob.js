@@ -1,11 +1,11 @@
 "use strict";
 
-var db = requireDb();
-var email = require('elyoos-server-lib').eMail;
-var unreadMessages = require('./../../messages/util/unreadMessages');
+let db = requireDb();
+let email = require('elyoos-server-lib').eMail;
+let unreadMessages = require('./../../messages/util/unreadMessages');
 
-var processDefinition = function (data, done) {
-    var commands = [];
+let processDefinition = function (data, done) {
+    let commands = [];
     commands.push(unreadMessages.getTotalNumberOfUnreadMessages(data.userId).getCommand());
 
     return db.cypher().match("(user:User {userId: {userId}}), (email:EMailNotification {userId: {userId}})")

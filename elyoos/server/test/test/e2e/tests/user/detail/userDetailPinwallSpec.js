@@ -1,11 +1,11 @@
 'use strict';
 
-var libUser = require('elyoos-server-lib').user();
-var users = require('elyoos-server-test-util').user;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var moment = require('moment');
-var db = require('elyoos-server-test-util').db;
+let libUser = require('elyoos-server-lib').user();
+let users = require('elyoos-server-test-util').user;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let moment = require('moment');
+let db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests for getting the pinwall of another user', function () {
 
@@ -16,7 +16,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
 
         return db.clearDatabase().then(function () {
 
-            var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+            let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
@@ -109,7 +109,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                 .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: false, contacts: false, image: false})")
                 .end().send(commands)
                 .catch(function (err) {
-                    var test = err;
+                    let test = err;
                 });
         });
     });
@@ -119,7 +119,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
     });
 
     it('Getting the pinwall of another user - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: true})")
             .end().getCommand());
@@ -160,7 +160,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[0].topic.length.should.equals(2);
                     res.body.pinwall[0].topic[0].should.equals('health');
                     res.body.pinwall[0].topic[1].should.equals('personalDevelopment');
-                    res.body.pinwall[0].numberOfRecommendations.should.equals(1);
+                    res.body.pinwall[0].totalNumberOfRecommendations.should.equals(1);
 
                     res.body.pinwall[1].pinwallType.should.equals('Blog');
                     res.body.pinwall[1].pageId.should.equals('1');
@@ -176,7 +176,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[1].isPublic.should.equals(false);
                     res.body.pinwall[1].recommendedByUser.should.equals(true);
                     res.body.pinwall[1].userRecommendationId.should.equals('11');
-                    res.body.pinwall[1].numberOfRecommendations.should.equals(1);
+                    res.body.pinwall[1].totalNumberOfRecommendations.should.equals(1);
                     res.body.pinwall[1].topic.length.should.equals(2);
                     res.body.pinwall[1].topic[0].should.equals('health');
                     res.body.pinwall[1].topic[1].should.equals('personalDevelopment');
@@ -191,7 +191,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[2].url.should.equals('blog/2/preview.jpg');
                     res.body.pinwall[2].text.should.equals('blogText2');
                     res.body.pinwall[2].recommendedByUser.should.equals(false);
-                    res.body.pinwall[2].numberOfRecommendations.should.equals(0);
+                    res.body.pinwall[2].totalNumberOfRecommendations.should.equals(0);
                     res.body.pinwall[2].isAdmin.should.equals(false);
                     res.body.pinwall[2].isPublic.should.equals(true);
                     res.body.pinwall[2].topic.length.should.equals(2);
@@ -209,7 +209,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[3].description.should.equals('bookPage2');
                     res.body.pinwall[3].recommendedByUser.should.equals(false);
                     res.body.pinwall[3].thisRecommendationByUser.should.equals(false);
-                    res.body.pinwall[3].numberOfRecommendations.should.equals(1);
+                    res.body.pinwall[3].totalNumberOfRecommendations.should.equals(1);
                     res.body.pinwall[3].topic.length.should.equals(2);
                     res.body.pinwall[3].topic[0].should.equals('health');
                     res.body.pinwall[3].topic[1].should.equals('spiritual');
@@ -224,7 +224,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[4].description.should.equals('youtubePage2');
                     res.body.pinwall[4].recommendedByUser.should.equals(false);
                     res.body.pinwall[4].thisRecommendationByUser.should.equals(false);
-                    res.body.pinwall[4].numberOfRecommendations.should.equals(1);
+                    res.body.pinwall[4].totalNumberOfRecommendations.should.equals(1);
                     res.body.pinwall[4].topic.length.should.equals(2);
                     res.body.pinwall[4].topic[0].should.equals('socialDevelopment');
                     res.body.pinwall[4].topic[1].should.equals('personalDevelopment');
@@ -245,7 +245,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[5].recommendedByUser.should.equals(true);
                     res.body.pinwall[5].thisRecommendationByUser.should.equals(false);
                     res.body.pinwall[5].userRecommendationId.should.equals('5');
-                    res.body.pinwall[5].numberOfRecommendations.should.equals(2);
+                    res.body.pinwall[5].totalNumberOfRecommendations.should.equals(2);
                     res.body.pinwall[5].topic.length.should.equals(2);
                     res.body.pinwall[5].topic[0].should.equals('socialDevelopment');
                     res.body.pinwall[5].topic[1].should.equals('personalDevelopment');
@@ -254,7 +254,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
     });
 
     it('Privacy setting for this group allows only to show public blogs - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY {type: 'Freund2'}]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: false})")
             .end().getCommand());
@@ -282,7 +282,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
     });
 
     it('Privacy setting for profile allows only to show public blogs - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY {type: 'Freund2'}]->(:Privacy {profile: false, profileData: true, contacts: true, image: true, pinwall: true})")
             .end().getCommand());
@@ -310,7 +310,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
     });
 
     it('Privacy setting when no contact allows only to show public blogs - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, profileData: true, contacts: true, image: true, pinwall: false})")
             .end().getCommand());
@@ -332,7 +332,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
     });
 
     it('Privacy setting profile for no contact allows only to show public blogs - Return a 200', function () {
-        var commands = [];
+        let commands = [];
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, profileData: true, contacts: true, image: true, pinwall: true})")
             .end().getCommand());

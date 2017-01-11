@@ -1,9 +1,9 @@
 'use strict';
 
-var winston = require('winston');
-var winstonCloudWatch = require('winston-cloudwatch');
+let winston = require('winston');
+let winstonCloudWatch = require('winston-cloudwatch');
 
-var customLevels = {
+let customLevels = {
     levels: {
         fatal: 0,
         error: 1,
@@ -20,7 +20,7 @@ var customLevels = {
     }
 };
 
-var logger = new winston.Logger({
+let logger = new winston.Logger({
     transports: [
         new (winston.transports.Console)({
             colorize: true
@@ -29,7 +29,7 @@ var logger = new winston.Logger({
     levels: customLevels.levels,
     colors: customLevels.colors
 });
-var winstonCloudWatchConfig;
+let winstonCloudWatchConfig;
 if (process.env.NODE_LOGGING === 'production-admin') {
     winstonCloudWatchConfig = {
         logGroupName: 'elyoosWebserver',
@@ -50,7 +50,7 @@ if (process.env.NODE_LOGGING === 'production' || process.env.NODE_LOGGING === 'p
     logger.add(winstonCloudWatch, winstonCloudWatchConfig);
 }
 
-var log = function (module, level, message, metadata, request) {
+let log = function (module, level, message, metadata, request) {
 
     if (!metadata) {
         metadata = {};

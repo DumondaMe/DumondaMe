@@ -23,6 +23,8 @@
 @import 'feedback/_feedbackOverviewGroup';
 @import 'feedback/_feedbackOverviewGroupContainer';
 
+@import 'filter/_rightSidenavFilter';
+
 @import 'forum/answerDetail/_answerDetail';
 @import 'forum/answerDetail/_answerDetailBookPage';
 @import 'forum/answerDetail/_answerDetailYoutubePage';
@@ -42,6 +44,7 @@
 
 @import 'home/_createBlog';
 @import 'home/_home';
+@import 'home/_homeInfo';
 @import 'home/_homeSearchResult';
 @import 'home/_searchResultBlogPage';
 @import 'home/_searchResultBookPage';
@@ -76,12 +79,15 @@
 @import 'page/detail/_info';
 @import 'page/detail/_link';
 @import 'page/detail/_linkHistory';
-@import 'page/detail/_place';
+@import 'page/detail/_generic';
+@import 'page/detail/_genericHeader';
+@import 'page/detail/_genericMap';
+@import 'page/detail/_genericOverview';
 @import 'page/detail/_recommendation';
 @import 'page/detail/_youtube';
 @import 'page/modal/_commonAddPlace';
 @import 'page/modal/_managePage';
-@import 'page/modal/_managePlacePage';
+@import 'page/modal/_manageGenericPage';
 @import 'page/modal/_manageBookPage';
 @import 'page/modal/_manageLinkPage';
 @import 'page/modal/_manageYoutubePage';
@@ -92,6 +98,7 @@
 
 @import 'pinwall/_blog';
 @import 'pinwall/_blogActions';
+@import 'pinwall/_constructionInfoPinwallElement';
 @import 'pinwall/_contacting';
 @import 'pinwall/_noPinwallElement';
 @import 'pinwall/_pageRecommendationActions';
@@ -127,7 +134,6 @@
 @import 'recommendation/_recommendation';
 @import 'recommendation/_recommendationPreview';
 @import 'recommendation/_recommendationPreviewMobile';
-@import 'recommendation/_recommendationRightSidenavFilter';
 
 @import 'settings/modal/_addGroup';
 @import 'settings/modal/_changePassword';

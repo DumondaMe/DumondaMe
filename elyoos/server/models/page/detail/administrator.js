@@ -1,9 +1,9 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
+let db = requireDb();
+let underscore = require('underscore');
 
-var getAdministrator = function (pageId, userId) {
+let getAdministrator = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})" +
         "<-[:IS_ADMIN]-(u:User)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
@@ -17,8 +17,8 @@ var getAdministrator = function (pageId, userId) {
         .getCommand();
 };
 
-var isUserAdministrator = function (administrators) {
-    var isAdmin = false;
+let isUserAdministrator = function (administrators) {
+    let isAdmin = false;
     underscore.forEach(administrators, function (administrator) {
         if (administrator.userIsAdmin) {
             isAdmin = true;

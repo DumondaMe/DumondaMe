@@ -1,19 +1,19 @@
 'use strict';
 
-var testee = require('../../../../../../../../controllers/api/user/contact/index');
-var contact = require('./../../../../../../../../models/contact/contact');
-var validation = require('elyoos-server-lib').jsonValidation;
-var request = require('../../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../../controllers/api/user/contact/index');
+let contact = require('./../../../../../../../../models/contact/contact');
+let validation = require('elyoos-server-lib').jsonValidation;
+let request = require('../../../../request');
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/contact/index', function () {
 
-    var sandbox,
+    let sandbox,
         checkInvalidPostRequest = function (request) {
-            var stubResponse = sandbox.stub(request.res, 'status');
+            let stubResponse = sandbox.stub(request.res, 'status');
             stubResponse.returns({
                 end: function () {
                 }
@@ -25,7 +25,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
             });
         },
         checkInvalidDeleteRequest = function (request) {
-            var stubResponse = sandbox.stub(request.res, 'status');
+            let stubResponse = sandbox.stub(request.res, 'status');
             stubResponse.returns({
                 end: function () {
                 }
@@ -128,7 +128,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
             description: 'Test'
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }
@@ -142,7 +142,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
 
     it('Error occurred while getting all contacts - Return a 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
 
         request.req.query = {
             itemsPerPage: '10',
@@ -161,7 +161,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
 
     it('Error occurred while getting all contacts with type request- Return a 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
 
         request.req.query = {
             itemsPerPage: '10',
@@ -186,7 +186,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
             mode: 'addContact2'
         };
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }
@@ -217,7 +217,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
 
     it('To many contacts to delete- Return a 400', function () {
 
-        var i;
+        let i;
         request.req.body = {
             contactIds: []
         };
@@ -230,7 +230,7 @@ describe('Unit Test controllers/api/user/contact/index', function () {
 
     it('Error occurred while deleting contacts - Return a 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
 
         request.req.query = {
             contactIds: ['10']

@@ -1,16 +1,16 @@
 'use strict';
 
-var db = require('../db');
-var _ = require('lodash');
-var dbConnectionHandling = require('./dbConnectionHandling');
+let db = require('../db');
+let _ = require('lodash');
+let dbConnectionHandling = require('./dbConnectionHandling');
 
-var recommendationId = 0;
+let recommendationId = 0;
 
-var init = function () {
+let init = function () {
     recommendationId = 0;
 };
 
-var crateRecommendationsForPage = function (pageId, recommendedUserIds) {
+let crateRecommendationsForPage = function (pageId, recommendedUserIds) {
     _.forEach(recommendedUserIds, function (recommendedUserId) {
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Page {pageId: {pageId}}), (b:User {userId: {userId}})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}, comment: {comment}})-[:RECOMMENDS]->(a)")
@@ -28,7 +28,7 @@ var crateRecommendationsForPage = function (pageId, recommendedUserIds) {
     });
 };
 
-var crateRecommendationsForBlog = function (pageId, recommendedUserIds) {
+let crateRecommendationsForBlog = function (pageId, recommendedUserIds) {
     _.forEach(recommendedUserIds, function (recommendedUserId) {
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Blog {pageId: {pageId}}), (b:User {userId: {userId}})")
             .create("(b)-[:RECOMMENDS]->(:Recommendation:PinwallElement {created: {created}, recommendationId: {recommendationId}, comment: {comment}})-[:RECOMMENDS]->(a)")

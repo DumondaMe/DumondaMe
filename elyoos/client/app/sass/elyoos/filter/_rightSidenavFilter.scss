@@ -1,0 +1,21 @@
+#blog-recommendation-sidenav-filter {
+  padding: 48px 16px;
+  @media screen and (min-width: $gt-md) {
+    height: 100%;
+  }
+
+  .popular-filter-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  .popular-sidnav-input-container {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  #reset-filter-button{
+    margin-left: 0;
+  }
+}

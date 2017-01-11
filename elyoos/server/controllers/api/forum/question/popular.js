@@ -1,11 +1,11 @@
 'use strict';
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var popularQuestions = requireModel('forum/question/popular');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let popularQuestions = requireModel('forum/question/popular');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaGetPopularForumQuestion = {
+let schemaGetPopularForumQuestion = {
     name: 'getPopularForumQuestion',
     type: 'object',
     additionalProperties: false,

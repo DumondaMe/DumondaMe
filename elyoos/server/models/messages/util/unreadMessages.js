@@ -1,8 +1,8 @@
 "use strict";
 
-var db = requireDb();
+let db = requireDb();
 
-var getUnreadMessages = function (userId) {
+let getUnreadMessages = function (userId) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)-[:NEXT_MESSAGE*0..20]->(message:Message)" +
             "-[:WRITTEN]->(userWritten:User)")
@@ -20,7 +20,7 @@ var getUnreadMessages = function (userId) {
         .end({userId: userId});
 };
 
-var getTotalNumberOfUnreadMessages = function (userId) {
+let getTotalNumberOfUnreadMessages = function (userId) {
     return db.cypher()
         .match("(user:User {userId: {userId}})-[active:ACTIVE]->(thread:Thread)-[:NEXT_MESSAGE*0..20]->(message:Message)" +
             "-[:WRITTEN]->(userWritten:User)")

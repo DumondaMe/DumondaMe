@@ -1,10 +1,10 @@
 "use strict";
 
-var db = requireDb();
-var email = require('elyoos-server-lib').eMail;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let db = requireDb();
+let email = require('elyoos-server-lib').eMail;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var processDefinition = function (data, done) {
+let processDefinition = function (data, done) {
 
     return db.cypher().match("(user:UserRegisterRequest {email: {email}})")
         .return("user").end({email: data.email}).send()

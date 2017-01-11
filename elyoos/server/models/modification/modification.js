@@ -1,12 +1,12 @@
 'use strict';
 
-var underscore = require('underscore');
-var userInfo = require('./../user/userInfo');
-var unread = require('../messages/util/unreadMessages');
+let underscore = require('underscore');
+let userInfo = require('./../user/userInfo');
+let unread = require('../messages/util/unreadMessages');
 
-var checkNewUnreadMessages = function (unreadMessages, session) {
+let checkNewUnreadMessages = function (unreadMessages, session) {
 
-    var hasChanged = false, sessionUnreadMessage;
+    let hasChanged = false, sessionUnreadMessage;
     if (unreadMessages.length !== session.userData.unreadMessages.length) {
         session.userData.unreadMessages = unreadMessages;
         hasChanged = true;
@@ -23,24 +23,24 @@ var checkNewUnreadMessages = function (unreadMessages, session) {
     return hasChanged;
 };
 
-var hasModification = function (userId, session) {
-    var commands = [];
+let hasModification = function (userId, session) {
+    let commands = [];
     commands.push(unread.getTotalNumberOfUnreadMessages(userId).getCommand());
     return unread.getUnreadMessages(userId).send(commands).then(function (resp) {
-        var hasChanged, unreadMessages = resp[1];
+        let hasChanged, unreadMessages = resp[1];
         userInfo.addImageForThumbnail(unreadMessages);
         hasChanged = checkNewUnreadMessages(unreadMessages, session);
         return {hasChanged: hasChanged, messages: unreadMessages, totalUnreadMessages: resp[0][0].totalUnreadMessages};
     });
 };
 
-var resetModificationForThread = function (threadId, session) {
+let resetModificationForThread = function (threadId, session) {
     session.userData.unreadMessages = underscore.filter(session.userData.unreadMessages, function (messageState) {
         return messageState.threadId !== threadId;
     });
 };
 
-var initModificationOnSession = function (userId, session, callback) {
+let initModificationOnSession = function (userId, session, callback) {
     session.userData = {unreadMessages: []};
     unread.getUnreadMessages(userId).send().then(function (unreadMessages) {
         session.userData.unreadMessages = unreadMessages;

@@ -1,20 +1,28 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var auth = require('elyoos-server-lib').auth;
-var pinwall = requireModel('user/pinwall/pinwall');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let pinwall = requireModel('user/pinwall/pinwall');
+let language = require("../../../schema/language");
+let topic = require("../../../schema/topic");
+let recommendationType = require("../../../schema/recommendationType");
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var schemaGetAdministratedPages = {
+let schemaGetAdministratedPages = {
     name: 'getHomeInfos',
     type: 'object',
     additionalProperties: false,
-    required: ['skipBlog', 'skipRecommendation', 'maxItems'],
+    required: ['skipBlog', 'skipRecommendation', 'maxItems', 'onlyContact', 'order'],
     properties: {
         skipBlog: {type: 'integer', minimum: 0},
         skipRecommendation: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50}
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        onlyContact: {type: 'boolean'},
+        order: {enum: ['new', 'popular']},
+        language: language.languageMultiple,
+        topic: topic.topicMultiple,
+        recommendationType: recommendationType.typeMultiple
     }
 };
 

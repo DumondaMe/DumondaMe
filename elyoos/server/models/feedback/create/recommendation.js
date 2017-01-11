@@ -4,7 +4,7 @@ let db = requireDb();
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let checkRecommendationExists = function (userId, feedbackId) {
     return db.cypher().match(`(:User {userId: {userId}})-[:RECOMMENDED_BY]->(recommendation:Feedback:Recommendation)-[:RECOMMENDS]->

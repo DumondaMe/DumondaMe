@@ -1,17 +1,17 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var stubCDN = require('elyoos-server-test-util').stubCDN();
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for removing a blog', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -27,7 +27,7 @@ describe('Integration Tests for removing a blog', function () {
 
     it('Remove a blog of the user with recommendations', function () {
 
-        var commands = [];
+        let commands = [];
 
         stubCDN.deleteFolder.reset();
 
@@ -66,7 +66,7 @@ describe('Integration Tests for removing a blog', function () {
 
     it('Remove a blog of the user without recommendations', function () {
 
-        var commands = [];
+        let commands = [];
 
         stubCDN.deleteFolder.reset();
 
@@ -98,7 +98,7 @@ describe('Integration Tests for removing a blog', function () {
 
     it('Remove a blog of another user fails', function () {
 
-        var commands = [];
+        let commands = [];
 
         stubCDN.deleteFolder.reset();
 

@@ -1,22 +1,22 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var generator = require('elyoos-server-test-util').generator;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
-var sinon = require('sinon');
-var moment = require('moment');
-var _ = require('underscore');
-var stubCDN = require('elyoos-server-test-util').stubCDN();
+let users = require('elyoos-server-test-util').user;
+let generator = require('elyoos-server-test-util').generator;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
+let sinon = require('sinon');
+let moment = require('moment');
+let _ = require('underscore');
+let stubCDN = require('elyoos-server-test-util').stubCDN();
 
 describe('Integration Tests for adding a blog', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
 
-        var commands = [];
+        let commands = [];
         return db.clearDatabase().then(function () {
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
             commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -32,7 +32,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('User adds a new blog without picture uploaded and with visibility public', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
@@ -77,7 +77,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('User adds a new blog with landscape format picture uploaded and with visibility public', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         stubCDN.uploadFile.reset();
 
@@ -130,7 +130,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('User adds a new blog with portrait format picture uploaded and with visibility public', function () {
 
-        var commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let commands = [], startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         stubCDN.uploadFile.reset();
 
@@ -184,7 +184,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('User adds a new blog without picture uploaded and with visibility only to group Freund and Bekannter', function () {
 
-        var startTime = Math.floor(moment.utc().valueOf() / 1000);
+        let startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return db.cypher().match("(u:User {userId: '1'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: true, contacts: true}), " +
@@ -264,7 +264,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('More then 50 blog messages per hour per user causes an error', function () {
 
-        var commands = [],
+        let commands = [],
             ids = generator.generateIdArray(50),
             startTime = Math.floor(moment.utc().valueOf() / 1000) - 3500;
 
@@ -301,7 +301,7 @@ describe('Integration Tests for adding a blog', function () {
 
     it('More then 50 blog messages per hour per user with visibility causes an error', function () {
 
-        var commands = [],
+        let commands = [],
             ids = generator.generateIdArray(50),
             startTime = Math.floor(moment.utc().valueOf() / 1000) - 3500;
 

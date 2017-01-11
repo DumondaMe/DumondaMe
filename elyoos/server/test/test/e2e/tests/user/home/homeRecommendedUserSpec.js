@@ -1,12 +1,12 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
 
 describe('Integration Tests for getting contact recommendation on the home screen', function () {
 
-    var requestAgent;
+    let requestAgent;
 
     beforeEach(function () {
         return dbDsl.init(10);
@@ -41,7 +41,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -86,7 +88,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -132,7 +136,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -165,7 +171,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -199,7 +207,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -243,7 +253,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -280,7 +292,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -310,7 +324,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -336,7 +352,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -362,7 +380,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -399,7 +419,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
@@ -429,7 +451,9 @@ describe('Integration Tests for getting contact recommendation on the home scree
             return requestHandler.getWithData('/api/user/home', {
                 skipBlog: 0,
                 skipRecommendation: 0,
-                maxItems: 10
+                maxItems: 10,
+                onlyContact: true,
+                order: 'new'
             }, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);

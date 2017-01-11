@@ -1,0 +1,34 @@
+#ely-generic-page-header {
+  #ely-generic-title {
+    padding: 0 8px 4px 8px;
+    font-size: 24px;
+    font-weight: 400;
+    color: $primary-white-text;
+
+    @media screen and (max-width: 850px) {
+      font-size: 18px;
+    }
+  }
+  #ely-generic-main-content {
+    width: 100%;
+    margin-top: 4px;
+    #ely-main-image {
+      padding: 12px;
+      img {
+        border-radius: 2px;
+        width: 250px;
+        min-height: 186px;
+      }
+    }
+    #ely-generic-page-description {
+      padding: 12px 0 0 12px;
+      margin-bottom: 12px;
+      color: $secondary-text;
+      #ely-generic-page-description-container {
+        padding-right: 12px;
+        overflow-y: auto;
+        font-size: 14px;
+      }
+    }
+  }
+}

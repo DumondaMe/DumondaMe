@@ -1,11 +1,11 @@
 'use strict';
 
-var db = requireDb();
-var moment = require('moment');
+let db = requireDb();
+let moment = require('moment');
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var rateExists = function (userId, answerId, req) {
+let rateExists = function (userId, answerId, req) {
     return db.cypher().match("(:User {userId: {userId}})-[:RATE_POSITIVE]->(:ForumAnswer {answerId: {answerId}})")
         .return("COUNT(*) AS numberOfAnswers").end({userId: userId, answerId: answerId}).send().then(function (resp) {
             if (resp[0].numberOfAnswers > 0) {
@@ -14,10 +14,10 @@ var rateExists = function (userId, answerId, req) {
         });
 };
 
-var ratePositive = function (userId, answerId, req) {
+let ratePositive = function (userId, answerId, req) {
 
     return rateExists(userId, answerId, req).then(function () {
-        var timeCreatedRating = Math.floor(moment.utc().valueOf() / 1000);
+        let timeCreatedRating = Math.floor(moment.utc().valueOf() / 1000);
         return db.cypher().match("(u:User {userId: {userId}}), (answer:ForumAnswer {answerId: {answerId}})")
             .createUnique("(u)-[:RATE_POSITIVE {created: {timeCreatedRating}}]->(answer)")
             .end({
@@ -29,7 +29,7 @@ var ratePositive = function (userId, answerId, req) {
     });
 };
 
-var deleteRating = function (userId, answerId) {
+let deleteRating = function (userId, answerId) {
     return db.cypher().match("(:User {userId: {userId}})-[rating:RATE_POSITIVE]->(:ForumAnswer {answerId: {answerId}})")
         .delete("rating")
         .end({userId: userId, answerId: answerId})

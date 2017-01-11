@@ -1,11 +1,11 @@
 'use strict';
 
-var libUser = require('elyoos-server-lib').user();
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var moment = require('moment');
-var stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
-var sinon = require('sinon');
+let libUser = require('elyoos-server-lib').user();
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let moment = require('moment');
+let stubEmailQueue = require('elyoos-server-test-util').stubEmailQueue();
+let sinon = require('sinon');
 
 describe('Integration Tests for request to register a new user', function () {
 
@@ -14,7 +14,7 @@ describe('Integration Tests for request to register a new user', function () {
         libUser.removeFromCache('user@irgendwo.ch');
 
         return db.clearDatabase().then(function () {
-            var commands = [];
+            let commands = [];
 
             commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', userId: '0'})").end().getCommand());
 
@@ -28,7 +28,7 @@ describe('Integration Tests for request to register a new user', function () {
     });
 
     it('Start a register request for a valid new user - Return 200', function () {
-        var newUser = {
+        let newUser = {
             email: 'climberwoodi@gmx.ch',
             forename: 'user',
             surname: 'Waldvogel',
@@ -63,7 +63,7 @@ describe('Integration Tests for request to register a new user', function () {
     });
 
     it('Register a user for a email does already exists fails - Return 400', function () {
-        var newUser = {
+        let newUser = {
             email: 'user@irgendwo.ch',
             forename: 'user',
             surname: 'Waldvogel',

@@ -1,14 +1,14 @@
 'use strict';
 
-var testee = require('../../../../../../models/eMailService/messageReceived');
-var emailQueue = require('elyoos-server-lib').eMailQueue;
-var db = require('elyoos-server-test-util').db;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../models/eMailService/messageReceived');
+let emailQueue = require('elyoos-server-lib').eMailQueue;
+let db = require('elyoos-server-test-util').db;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test eMailService/messageReceived', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -24,7 +24,7 @@ describe('Unit Test eMailService/messageReceived', function () {
 
     it('Start Email job when message received. No previous message received.', function () {
 
-        var commands = [], createJob = sandbox.stub(emailQueue, 'createJob');
+        let commands = [], createJob = sandbox.stub(emailQueue, 'createJob');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
@@ -60,7 +60,7 @@ describe('Unit Test eMailService/messageReceived', function () {
 
     it('Start Email job when message received. Job for previous Message is already running.', function () {
 
-        var commands = [], createJob = sandbox.stub(emailQueue, 'createJob');
+        let commands = [], createJob = sandbox.stub(emailQueue, 'createJob');
 
         commands.push(db.cypher().create("(:User {email: 'test@gmx.ch', name: 'user Meier', userId: '1'})").end().getCommand());
         commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());

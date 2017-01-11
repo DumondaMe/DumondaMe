@@ -1,14 +1,16 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('./../userInfo');
-var pinwallElement = require('./pinwallElement/pinwallElement');
-var pinwallSelector = require('./pinwallSelector');
-var contacting = require('./contacting');
-var recommendedUser = require('./recommendedUser');
-var recommendedUserSetting = require('./../setting/recommendedUser');
+let db = requireDb();
+let userInfo = require('./../userInfo');
+let pinwallFilter = require('./pinwallFilter');
+let pinwallElement = require('./pinwallElement/pinwallElement');
+let pinwallSelector = require('./pinwallSelector');
+let contacting = require('./contacting');
+let recommendedUser = require('./recommendedUser');
+let recommendedUserSetting = require('./../setting/recommendedUser');
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var getPinwallOfUser = function (userId, request) {
+let getPinwallOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
         .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
         .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
@@ -30,7 +32,7 @@ var getPinwallOfUser = function (userId, request) {
         });
 };
 
-var getPinwallOfDetailUser = function (userId, request) {
+let getPinwallOfDetailUser = function (userId, request) {
 
     return db.cypher().match("(user:User {userId: {userId}}), " +
         "(privacyNoContact:Privacy)<-[:HAS_PRIVACY_NO_CONTACT]-(otherUser:User {userId: {detailUserId}})" +
@@ -70,74 +72,128 @@ var getPinwallOfDetailUser = function (userId, request) {
         });
 };
 
-var getBlogs = function (userId, request) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)")
-        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:WRITTEN]->(pinwall)")
+let getBlogOnlyContactFilter = function (onlyContact) {
+    if (onlyContact) {
+        return "(user:User {userId: {userId}})-[:IS_CONTACT|:WRITTEN*1..2]->(pinwall:Blog)";
+    }
+    return "(user:User {userId: {userId}}), (contact:User)-[:WRITTEN]->(pinwall:Blog)";
+};
+
+let getBlogs = function (userId, request) {
+    let filters = pinwallFilter.getFilters(request, 'pinwall');
+    return db.cypher().match(getBlogOnlyContactFilter(request.onlyContact))
+        .where(filters)
+        .optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:WRITTEN]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("privacy is NULL")
         .optionalMatch("(pinwall)<-[:RECOMMENDS]-(recommendation:Recommendation)")
-        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, count(recommendation) AS numberOfRecommendations, 
+        .with(`user, contact, pinwall, isContact, hasContact, privacy, privacyNoContact, count(recommendation) AS totalNumberOfRecommendations, 
                EXISTS((user)-[:WRITTEN]->(pinwall)) AS isAdmin`)
         .where(`((user)-[:WRITTEN]->(pinwall) OR (contact IS NOT null AND NOT EXISTS(pinwall.visible)) OR 
                 (contact IS NOT null AND ANY(v IN pinwall.visible WHERE v = isContact.type))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwall)")
-        .return(`user, numberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
+        .return(`user, totalNumberOfRecommendations, pinwall, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, isAdmin, 
                  NOT EXISTS(pinwall.visible) AS isPublic, userRec.recommendationId AS userRecommendationId,
                  EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwall)) AS recommendedByUser`)
         .orderBy("pinwall.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
-        .end({userId: userId, skip: request.skipBlog, maxItems: request.maxItems});
+        .end({
+            userId: userId, skip: request.skipBlog, maxItems: request.maxItems, language: request.language, topic: request.topic,
+            recommendationType: request.recommendationType
+        });
 };
 
-var getRecommendationPrivacyString = function (withCondition) {
-    return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact:User)-[:RECOMMENDS]->(pinwall)")
+let getRecommendationPrivacyString = function (withCondition) {
+    return db.cypher().optionalMatch("(user)-[hasContact:IS_CONTACT]->(contact)-[:RECOMMENDS]->(pinwall)")
         .optionalMatch("(user)<-[isContact:IS_CONTACT]-(contact)-[relPrivacy:HAS_PRIVACY]->(privacy:Privacy)")
         .where("isContact.type = relPrivacy.type")
         .optionalMatch("(contact)-[:HAS_PRIVACY_NO_CONTACT]->(privacyNoContact:Privacy)")
         .where("isContact is NULL")
         .with("user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact" + withCondition)
-        .where(`((user)-[:RECOMMENDS]->(pinwall) OR 
-                (privacy.pinwall = true OR (privacy is null AND privacyNoContact.pinwall = true)) AND 
-                (privacy.profile = true OR (privacy is null AND privacyNoContact.profile = true))) AND NOT (contact)-[:IS_BLOCKED]->(user)`)
+        .where(`(user)-[:RECOMMENDS]->(pinwall) OR 
+                ((privacy.pinwall = true OR (privacy is null AND privacyNoContact.pinwall = true)) AND 
+                (privacy.profile = true OR (privacy is null AND privacyNoContact.profile = true)) AND NOT (contact)-[:IS_BLOCKED]->(user))`)
         .getCommandString();
 };
 
-var getBlogRecommendationPrivacyString = function () {
+let getBlogRecommendationPrivacyString = function () {
     return db.cypher().optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
         .where("pinwallData:Blog")
         .optionalMatch("(writer)-[writerContact:IS_CONTACT]->(user)")
-        .with(`user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact, numberOfSamePinwallData, writer, writerContact`)
+        .with(`user, contact, pinwall, pinwallData, isContact, hasContact, privacy, privacyNoContact, numberOfRecommendations, writer, writerContact`)
         .where(`writer is null OR (writer is not null AND
                (NOT EXISTS(pinwallData.visible) OR (ANY(v IN pinwallData.visible WHERE v = writerContact.type)) OR writer.userId = user.userId) 
                 AND NOT EXISTS((writer)-[:IS_BLOCKED]->(user)))`)
         .getCommandString();
 };
 
-var getRecommendations = function (userId, request) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
+let getRecommendationOnlyContactFilter = function (onlyContact) {
+    if (onlyContact) {
+        return "(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
+    }
+    return "(user:User {userId: {userId}}), (contact:User)-[:RECOMMENDS]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)";
+};
+
+let getRecommendationOrderFilter = function (order) {
+    if (order === 'popular') {
+        return "numberOfRecommendations DESC, created DESC";
+    }
+    return "created DESC";
+};
+
+let getFilterWithCreatedCondition = function (filters) {
+    if (filters) {
+        return `pinwall.created = created AND ${filters}`;
+    }
+    return `pinwall.created = created`;
+};
+
+let getRecommendations = function (userId, request) {
+    let filters = pinwallFilter.getFilters(request, 'pinwallData');
+    return db.cypher().match(getRecommendationOnlyContactFilter(request.onlyContact))
+        .where(filters)
         .addCommand(getRecommendationPrivacyString(''))
-        .with("count(pinwallData) AS numberOfSamePinwallData, max(pinwall.created) AS created, pinwallData")
-        .orderBy("created DESC")
+        .with("count(pinwall) AS numberOfRecommendations, max(pinwall.created) AS created, pinwallData")
+        .orderBy(getRecommendationOrderFilter(request.order))
         .skip("{skip}")
         .limit("{maxItems}")
-        .match("(user:User {userId: {userId}})-[:IS_CONTACT|:RECOMMENDS*1..2]->(pinwall:Recommendation)-[:PINWALL_DATA]->(pinwallData)")
-        .where("pinwall.created = created")
-        .addCommand(getRecommendationPrivacyString(', numberOfSamePinwallData '))
+        .match(getRecommendationOnlyContactFilter(request.onlyContact))
+        .where(getFilterWithCreatedCondition(filters))
+        .addCommand(getRecommendationPrivacyString(', numberOfRecommendations '))
         .addCommand(getBlogRecommendationPrivacyString())
         .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
-        .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfSamePinwallData, writer,
+        .return(`user, pinwall, pinwallData, contact, LABELS(pinwall) AS pinwallType, privacy, privacyNoContact, numberOfRecommendations, writer,
             userRec.recommendationId AS userRecommendationId,
             EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
-            SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfRecommendations`)
-        .end({userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems});
+            SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS totalNumberOfRecommendations`)
+        .end({
+            userId: userId, skip: request.skipRecommendation, maxItems: request.maxItems, language: request.language, topic: request.topic,
+            recommendationType: request.recommendationType
+        });
+};
+
+let sortPinwall = function (resp, skipRecommendation, skipBlog, maxItems, order, showUserRecommendation, request) {
+    let pinwall;
+    if (showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[4], skipRecommendation, skipBlog, maxItems);
+    } else if (showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation && order === 'popular') {
+        pinwall = pinwallSelector.sortPinwall(null, resp[2], skipRecommendation, skipBlog, maxItems);
+    } else if (!showUserRecommendation) {
+        pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], skipRecommendation, skipBlog, maxItems);
+    } else {
+        logger.error(`Error sorting pinwall (Order:${order}, showUserRecommendation: ${showUserRecommendation})`, request);
+    }
+    return pinwall;
 };
 
 
-var getPinwall = function (userId, request) {
-    var commands = [];
+let getPinwall = function (userId, request) {
+    let commands = [];
 
     return recommendedUserSetting.showUserRecommendationOnHome(userId).then(function (showUserRecommendation) {
         commands.push(contacting.getContacting(userId).getCommand());
@@ -146,21 +202,21 @@ var getPinwall = function (userId, request) {
             commands.push(recommendedUser.getRecommendedByContactUsers(userId, 10).getCommand());
             commands.push(recommendedUser.getRecommendedUsers(userId, 10).getCommand());
         }
-        commands.push(getBlogs(userId, request).getCommand());
+        if (request.order !== 'popular') {
+            commands.push(getBlogs(userId, request).getCommand());
+        }
 
         return getRecommendations(userId, request)
             .send(commands)
             .then(function (resp) {
-                var pinwall, recommendedUserResult = [];
+                let pinwall, recommendedUserResult = [];
                 userInfo.addImageForThumbnail(resp[0]);
                 if (showUserRecommendation) {
                     userInfo.addImageForThumbnail(resp[2]);
                     userInfo.addImageForThumbnail(resp[3]);
                     recommendedUserResult = resp[2].concat(resp[3]);
-                    pinwall = pinwallSelector.sortPinwall(resp[4], resp[5], request.skipRecommendation, request.skipBlog, request.maxItems);
-                } else {
-                    pinwall = pinwallSelector.sortPinwall(resp[2], resp[3], request.skipRecommendation, request.skipBlog, request.maxItems);
                 }
+                pinwall = sortPinwall(resp, request.skipRecommendation, request.skipBlog, request.maxItems, request.order, showUserRecommendation);
 
                 return {
                     contacting: {users: resp[0], numberOfContacting: resp[1][0].numberOfContacting},

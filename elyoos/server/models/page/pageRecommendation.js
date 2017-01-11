@@ -1,10 +1,10 @@
 'use strict';
 
-var db = requireDb();
-var pagePreview = require('./pagePreview');
-var pageFilter = require('./pageFilter');
+let db = requireDb();
+let pagePreview = require('./pagePreview');
+let pageFilter = require('./pageFilter');
 
-var getTotalRecommendationContacts = function (userId, filterQuery) {
+let getTotalRecommendationContacts = function (userId, filterQuery) {
     return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User)<-[:IS_CONTACT]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .with("page, max(contactRec.created) AS created")
@@ -13,15 +13,15 @@ var getTotalRecommendationContacts = function (userId, filterQuery) {
         .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
-var getTotalRecommendationUser = function (userId, filterQuery) {
+let getTotalRecommendationUser = function (userId, filterQuery) {
     return db.cypher().match("(page)<-[:RECOMMENDS]-(contactRec:Recommendation)<-[:RECOMMENDS]-(:User {userId: {userId}})")
         .where("(" + filterQuery + ")")
         .return("count(*) AS totalNumberOfPages").end({userId: userId}).getCommand();
 };
 
-var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, filters) {
+let getRecommendationOtherUser = function (userId, otherUserId, skip, limit, filters) {
 
-    var filterQuery = pageFilter.getFilterQuery(filters),
+    let filterQuery = pageFilter.getFilterQuery(filters),
         commands = [];
 
     commands.push(getTotalRecommendationUser(otherUserId, filterQuery));
@@ -54,9 +54,9 @@ var getRecommendationOtherUser = function (userId, otherUserId, skip, limit, fil
         });
 };
 
-var getRecommendationUser = function (userId, skip, limit) {
+let getRecommendationUser = function (userId, skip, limit) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(getTotalRecommendationUser(userId, pageFilter.getFilterQuery()));
 
@@ -80,9 +80,9 @@ var getRecommendationUser = function (userId, skip, limit) {
         });
 };
 
-var getRecommendationContacts = function (userId, skip, limit, filters) {
+let getRecommendationContacts = function (userId, skip, limit, filters) {
 
-    var orderBy = "contactRec.created DESC",
+    let orderBy = "contactRec.created DESC",
         filterQuery = pageFilter.getFilterQuery(filters),
         commands = [];
 

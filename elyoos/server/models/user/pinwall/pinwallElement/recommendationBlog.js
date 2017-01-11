@@ -1,18 +1,18 @@
 'use strict';
 
-var profileUrl = require('./profileUrl');
-var cdn = require('../../../util/cdn');
-var numberOfRecommendation = require('./numberOfRecommendation');
+let profileUrl = require('./profileUrl');
+let cdn = require('../../../util/cdn');
+let numberOfRecommendation = require('./numberOfRecommendation');
 
-var addUrl = function (element) {
+let addUrl = function (element) {
     if (element.heightPreviewImage) {
         element.url = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
         element.urlFull = cdn.getUrl(`blog/${element.pageId}/normal.jpg`);
     }
 };
 
-var getPinwallElement = function (pinwallElement) {
-    var element = {};
+let getPinwallElement = function (pinwallElement) {
+    let element = {};
     element.pinwallType = 'Recommendation';
     element.label = 'Blog';
     element.writerName = pinwallElement.writer.name;
@@ -25,7 +25,8 @@ var getPinwallElement = function (pinwallElement) {
 
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
-    element.numberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.totalNumberOfRecommendations = numberOfRecommendation.getNumberOfRecommendation(pinwallElement);
+    element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
     element.thisRecommendationByUser = pinwallElement.thisRecommendationByUser;
     element.userRecommendationId = pinwallElement.userRecommendationId;
     element.recommendedByUser = false;

@@ -1,16 +1,16 @@
 'use strict';
 
-var testee = require('../../../../../../../controllers/api/user/userInfo');
-var user = require('./../../../../../../../models/user/user');
-var request = require('../../../request');
-var bluebird = require('bluebird');
-var Promise = bluebird.Promise;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../controllers/api/user/userInfo');
+let user = require('./../../../../../../../models/user/user');
+let request = require('../../../request');
+let bluebird = require('bluebird');
+let Promise = bluebird.Promise;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test controllers/api/user/userInfo', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -26,7 +26,7 @@ describe('Unit Test controllers/api/user/userInfo', function () {
 
     it('Error occurred while getting user Info - Return a 500', function () {
 
-        var stubResponse = sandbox.stub(request.res, 'status');
+        let stubResponse = sandbox.stub(request.res, 'status');
         stubResponse.returns({
             end: function () {
             }

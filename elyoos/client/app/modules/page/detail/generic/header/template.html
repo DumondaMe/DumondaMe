@@ -1,0 +1,14 @@
+<div id="ely-generic-page-header">
+    <div id="ely-generic-title">{{ctrl.pageDetail.page.title}}</div>
+    <div id="ely-generic-main-content">
+        <md-card layout="row">
+            <div id="ely-main-image" flex="none">
+                <img ng-src="{{ctrl.pageDetail.page.imagePreview}}">
+            </div>
+            <div id="ely-generic-page-description">
+                <ely-expand-text id="ely-generic-page-description-container" description="{{ctrl.pageDetail.page.description}}"
+                                 length="500"></ely-expand-text>
+            </div>
+        </md-card>
+    </div>
+</div>

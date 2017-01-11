@@ -1,18 +1,18 @@
 'use strict';
 
-var db = require('../db');
+let db = require('../db');
 
-var commands = [];
+let commands = [];
 
-var init = function () {
+let init = function () {
     commands = [];
 };
 
-var sendToDb = function () {
+let sendToDb = function () {
     return db.cypher().match("(s:Some)").return('s').end().send(commands);
 };
 
-var getCommands = function () {
+let getCommands = function () {
     return commands;
 };
 

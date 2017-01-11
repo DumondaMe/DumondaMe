@@ -1,10 +1,10 @@
 'use strict';
 
-var underscore = require('underscore');
-var cdn = require('../util/cdn');
-var _ = require("lodash");
+let underscore = require('underscore');
+let cdn = require('../util/cdn');
+let _ = require("lodash");
 
-var getImageForPreview = function (contact, profileType) {
+let getImageForPreview = function (contact, profileType) {
     if ((contact.profileVisible && contact.imageVisible) || (contact.profileVisibleNoContact && contact.imageVisibleNoContact)) {
         return cdn.getUrl('profileImage/' + contact.userId + '/' + profileType);
     }
@@ -12,7 +12,7 @@ var getImageForPreview = function (contact, profileType) {
 
 };
 
-var addImage = function (contacts, imageTyp) {
+let addImage = function (contacts, imageTyp) {
     underscore.each(contacts, function (contact) {
         contact.profileUrl = getImageForPreview(contact, imageTyp);
         delete contact.profileVisible;
@@ -22,15 +22,15 @@ var addImage = function (contacts, imageTyp) {
     });
 };
 
-var addImageForPreview = function (contacts) {
+let addImageForPreview = function (contacts) {
     addImage(contacts, 'profilePreview.jpg');
 };
 
-var addImageForThumbnail = function (contacts) {
+let addImageForThumbnail = function (contacts) {
     addImage(contacts, 'thumbnail.jpg');
 };
 
-var setUserImageVisible = function (userId, contacts) {
+let setUserImageVisible = function (userId, contacts) {
     _.each(contacts, function (contact) {
         if (contact.userId === userId) {
             contact.profileVisible = true;

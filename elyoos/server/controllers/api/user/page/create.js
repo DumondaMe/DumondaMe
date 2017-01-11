@@ -1,15 +1,15 @@
 'use strict';
 
-var validation = require('elyoos-server-lib').jsonValidation;
-var schema = require('./schema/schemaCreate');
-var underscore = require('underscore');
-var createBookPage = requireModel('user/page/createBookPage');
-var createVideoPage = requireModel('user/page/createVideoPage');
-var createLinkPage = requireModel('user/page/createLinkPage');
-var createPlacePage = requireModel('user/page/createPlacePage');
-var auth = require('elyoos-server-lib').auth;
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let validation = require('elyoos-server-lib').jsonValidation;
+let schema = require('./schema/schemaCreate');
+let underscore = require('underscore');
+let createBookPage = requireModel('user/page/createBookPage');
+let createVideoPage = requireModel('user/page/createVideoPage');
+let createLinkPage = requireModel('user/page/createLinkPage');
+let createGenericPage = requireModel('user/page/createGenericPage');
+let auth = require('elyoos-server-lib').auth;
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 module.exports = function (router) {
 
@@ -17,7 +17,7 @@ module.exports = function (router) {
 
         return controllerErrors('Error occurs', req, res, logger, function () {
             return validation.validateRequest(req, schema, logger).then(function (request) {
-                var filePath;
+                let filePath;
                 if (req.files && req.files.file) {
                     filePath = req.files.file.path;
                 }
@@ -28,8 +28,8 @@ module.exports = function (router) {
                     return createVideoPage.createVideoPage(req.user.id, request.youtubePage);
                 } else if(request.linkPage) {
                     return createLinkPage.createLinkPage(req.user.id, request.linkPage, filePath, req);
-                } else if(request.placePage) {
-                    return createPlacePage.createPlacePage(req.user.id, request.placePage, filePath, req);
+                } else if(request.genericPage) {
+                    return createGenericPage.createGenericPage(req.user.id, request.genericPage, filePath, req);
                 }
                 logger.error('Unknown mode: ' + request.mode);
                 res.status(500).end();

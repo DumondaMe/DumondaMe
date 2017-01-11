@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
+let _ = require('lodash');
 
-var getListElement = function (appendix) {
-    var result = '';
+let getListElement = function (appendix) {
+    let result = '';
     _.forEach(appendix, function (appendixElement) {
         if (appendixElement.indexOf('list=') !== -1) {
             result = appendixElement;
@@ -12,8 +12,8 @@ var getListElement = function (appendix) {
     return result;
 };
 
-var getIdElement = function (appendix) {
-    var result = '';
+let getIdElement = function (appendix) {
+    let result = '';
     _.forEach(appendix, function (appendixElement) {
         if (appendixElement.indexOf('v=') !== -1) {
             result = appendixElement.replace('v=', '');
@@ -22,7 +22,7 @@ var getIdElement = function (appendix) {
     return result;
 };
 
-var getBaseUrl = function (link) {
+let getBaseUrl = function (link) {
     if (link.indexOf('https://www.youtube.com/watch?v=') !== -1 && link.indexOf('list=') < 0) {
         return 'https://www.youtube.com/watch?v=';
     } else if(link.indexOf('https://www.youtube.com/watch?') !== -1) {
@@ -35,8 +35,8 @@ var getBaseUrl = function (link) {
     return '';
 };
 
-var getEmbedLink = function (link) {
-    var appendixLinkList, baseUrl;
+let getEmbedLink = function (link) {
+    let appendixLinkList, baseUrl;
     baseUrl = getBaseUrl(link);
     if (link.indexOf('list=') !== -1) {
         appendixLinkList = link.replace(baseUrl, '').split('&');

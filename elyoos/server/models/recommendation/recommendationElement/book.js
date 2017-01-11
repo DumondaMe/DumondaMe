@@ -1,10 +1,10 @@
 'use strict';
 
-var cdn = require('../../util/cdn');
+let cdn = require('../../util/cdn');
 
-var getRecommendationElement = function (pinwallElement) {
+let getRecommendationElement = function (pinwallElement) {
 
-    var element = {};
+    let element = {};
     element.label = 'Book';
     element.pageId = pinwallElement.recommendationElement.pageId;
     element.title = pinwallElement.recommendationElement.title;

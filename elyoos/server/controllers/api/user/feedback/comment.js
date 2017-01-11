@@ -1,7 +1,7 @@
 'use strict';
 
 let auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 let feedbackComment = requireModel('feedback/create/comment');
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let validation = require('elyoos-server-lib').jsonValidation;

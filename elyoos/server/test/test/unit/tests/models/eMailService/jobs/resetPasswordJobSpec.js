@@ -1,14 +1,14 @@
 'use strict';
 
-var testee = require('../../../../../../../models/eMailService/jobs/resetPasswordJob');
-var email = require('elyoos-server-lib').eMail;
-var db = require('elyoos-server-test-util').db;
-var sinon = require('sinon');
-var expect = require('chai').expect;
+let testee = require('../../../../../../../models/eMailService/jobs/resetPasswordJob');
+let email = require('elyoos-server-lib').eMail;
+let db = require('elyoos-server-test-util').db;
+let sinon = require('sinon');
+let expect = require('chai').expect;
 
 describe('Unit Test eMailService/jobs/resetPasswordJob', function () {
 
-    var sandbox;
+    let sandbox;
 
     before(function () {
         sandbox = sinon.sandbox.create();
@@ -24,7 +24,7 @@ describe('Unit Test eMailService/jobs/resetPasswordJob', function () {
 
     it('Send a email to a user with reset password link', function () {
 
-        var finished = sinon.spy(), linkId = 'abro8ueiQ', sendEMail = sandbox.stub(email, 'sendEMail');
+        let finished = sinon.spy(), linkId = 'abro8ueiQ', sendEMail = sandbox.stub(email, 'sendEMail');
 
         return db.cypher().create(`(:User {email: 'test@gmx.ch', userId: '1', resetPasswordLinkId: '${linkId}'})`)
             .end().send().then(function () {

@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('../userInfo');
+let db = requireDb();
+let userInfo = require('../userInfo');
 let exceptions = require('elyoos-server-lib').exceptions;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-var numberOfContacting = function (contactId) {
+let numberOfContacting = function (contactId) {
     return db.cypher().match('(:User {userId: {contactId}})<-[:IS_CONTACT]-(:User)')
         .return('count(*) AS numberOfContacting')
         .end({contactId: contactId});
 };
 
-var getContactingCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
+let getContactingCommand = function (userId, userDetailId, contactsPerPage, skipContacts) {
 
     return db.cypher().match('(:User {userId: {userDetailId}})<-[:IS_CONTACT]-(contactingOfUser:User)')
         .with('contactingOfUser')
@@ -28,7 +28,7 @@ var getContactingCommand = function (userId, userDetailId, contactsPerPage, skip
         .end({userDetailId: userDetailId, userId: userId, contactsPerPage: contactsPerPage, skipContacts: skipContacts});
 };
 
-var allowedToGetContactings = function (userId, userDetailId, req) {
+let allowedToGetContactings = function (userId, userDetailId, req) {
     return db.cypher().match("(userDetail:User {userId: {userDetailId}})-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(privacy:Privacy)")
         .optionalMatch("(user:User {userId: {userId}})<-[isContact:IS_CONTACT]-(userDetail)")
         .with("isContact, privacy, vr")
@@ -42,7 +42,7 @@ var allowedToGetContactings = function (userId, userDetailId, req) {
         });
 };
 
-var getContacting = function (userId, userDetailId, contactsPerPage, skipContacts, req) {
+let getContacting = function (userId, userDetailId, contactsPerPage, skipContacts, req) {
     return allowedToGetContactings(userId, userDetailId, req).then(function () {
         return getContactingCommand(userId, userDetailId, contactsPerPage, skipContacts)
             .send().then(function (resp) {

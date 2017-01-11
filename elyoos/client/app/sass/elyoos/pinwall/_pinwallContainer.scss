@@ -1,15 +1,15 @@
 .ely-pinwall-container {
-  .important-message-container {
-    margin: 0 auto 12px auto;
-    padding: 8px;
-    border: 3px solid #FFB300;
-    border-radius: 8px;
-    background-color: #FFECB3;
-    min-height: 32px;
-    .important-message-inner-container {
-      padding: 0 8px;
-      font-size: 16px;
+  #pinwall-no-result {
+    margin: 48px auto 48px auto;
+    .title {
+      font-size: 24px;
+      font-weight: 500;
       color: $primary-text;
+      margin-bottom: 12px;
+    }
+    .description {
+      font-size: 14px;
+      color: $secondary-text;
       .link {
         cursor: pointer;
         color: $primary-color;

@@ -1,17 +1,17 @@
 'use strict';
 
-var db = requireDb();
-var underscore = require('underscore');
-var cdn = require('../../util/cdn');
+let db = requireDb();
+let underscore = require('underscore');
+let cdn = require('../../util/cdn');
 
-var getRecommendationSummaryAll = function (pageId) {
+let getRecommendationSummaryAll = function (pageId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)")
         .return("count(*) AS numberOfRecommendations")
         .end({pageId: pageId});
 };
 
-var getRecommendationSummaryContacts = function (pageId, userId) {
+let getRecommendationSummaryContacts = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(:User)" +
         "<-[:IS_CONTACT]-(:User {userId: {userId}})")
@@ -19,7 +19,7 @@ var getRecommendationSummaryContacts = function (pageId, userId) {
         .end({pageId: pageId, userId: userId});
 };
 
-var getUserRecommendation = function (pageId, userId) {
+let getUserRecommendation = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
         .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.created AS created")
@@ -27,7 +27,7 @@ var getUserRecommendation = function (pageId, userId) {
         .getCommand();
 };
 
-var getOtherUserRecommendation = function (pageId, userId, limit, skip) {
+let getOtherUserRecommendation = function (pageId, userId, limit, skip) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User)")
         .where("u.userId <> {userId}")
@@ -39,11 +39,11 @@ var getOtherUserRecommendation = function (pageId, userId, limit, skip) {
         .getCommand();
 };
 
-var addProfileThumbnail = function (recommendation, userId) {
+let addProfileThumbnail = function (recommendation, userId) {
     recommendation.profileUrl = cdn.getUrl('profileImage/' + userId + '/thumbnail.jpg');
 };
 
-var addProfileThumbnails = function (recommendations) {
+let addProfileThumbnails = function (recommendations) {
     underscore.forEach(recommendations, function (recommendation) {
         recommendation.profileUrl = cdn.getUrl('profileImage/' + recommendation.userId + '/thumbnail.jpg');
     });

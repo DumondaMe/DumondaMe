@@ -1,9 +1,9 @@
 'use strict';
 
-var db = requireDb();
-var userInfo = require('./../user/userInfo');
+let db = requireDb();
+let userInfo = require('./../user/userInfo');
 
-var getPrivacyString = function (withCondition) {
+let getPrivacyString = function (withCondition) {
     return db.cypher()
         .with('user2, user' + withCondition)
         .match("(user2)-[vr:HAS_PRIVACY|HAS_PRIVACY_NO_CONTACT]->(v:Privacy)")
@@ -13,8 +13,8 @@ var getPrivacyString = function (withCondition) {
         .getCommandString();
 };
 
-var searchQuery = function (userId, query, maxItems, isSuggestion) {
-    var queryRegEx = '(?i)'.concat(query, '.*'), returnThread, returnContact, returnUser;
+let searchQuery = function (userId, query, maxItems, isSuggestion) {
+    let queryRegEx = '(?i)'.concat(query, '.*'), returnThread, returnContact, returnUser;
 
 
     if (!isSuggestion) {
@@ -56,7 +56,7 @@ var searchQuery = function (userId, query, maxItems, isSuggestion) {
         .end({userId: userId, queryRegEx: queryRegEx, maxItems: maxItems});
 };
 
-var searchThreads = function (userId, search, maxItems, isSuggestion) {
+let searchThreads = function (userId, search, maxItems, isSuggestion) {
 
     return searchQuery(userId, search, maxItems, isSuggestion)
         .send()
@@ -69,7 +69,7 @@ var searchThreads = function (userId, search, maxItems, isSuggestion) {
         });
 };
 
-var searchSingleThread = function (userId, conversationUserId) {
+let searchSingleThread = function (userId, conversationUserId) {
 
     return db.cypher()
         .match("(:User {userId: {userId}})-[:ACTIVE]->(thread:Thread)<-[:ACTIVE]-(:User {userId: {conversationUserId}})")

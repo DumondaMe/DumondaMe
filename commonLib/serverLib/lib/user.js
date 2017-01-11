@@ -1,16 +1,16 @@
 'use strict';
 
-var db = require('./neo4j');
-var logger = require('./logging').getLogger(__filename);
-var LRU = require('lru-cache');
-var options = {
+let db = require('./neo4j');
+let logger = require('./logging').getLogger(__filename);
+let LRU = require('lru-cache');
+let options = {
     max: 1000,
     //30 minutes in cache
     maxAge: 1000 * 60 * 30
 };
-var cache = LRU(options);
+let cache = LRU(options);
 
-var searchUserWithEmail = function (email) {
+let searchUserWithEmail = function (email) {
     return db.cypher().match('(u:User {email: {email}})')
         .return('u.password AS password, u.email AS email, u.userId AS id, u.elyoosAdmin AS elyoosAdmin')
         .end({email: email})
@@ -25,13 +25,13 @@ var searchUserWithEmail = function (email) {
         });
 };
 
-var UserLibrary = function () {
+let UserLibrary = function () {
     return {
         serialize: function (user, done) {
             done(null, user.email);
         },
         deserialize: function (email, done) {
-            var cachedUser = cache.get(email);
+            let cachedUser = cache.get(email);
             if (cachedUser) {
                 done(null, cachedUser);
             } else {

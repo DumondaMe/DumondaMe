@@ -1,8 +1,8 @@
 'use strict';
 
-var db = requireDb();
+let db = requireDb();
 
-var getKeywords = function (params) {
+let getKeywords = function (params) {
 
     return db.cypher().match("(keyword:Keyword)")
         .return("keyword.de AS description")

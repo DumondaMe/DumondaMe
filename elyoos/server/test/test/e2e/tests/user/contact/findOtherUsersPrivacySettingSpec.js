@@ -1,15 +1,15 @@
 'use strict';
 
-var app = require('../../../../../../server');
-var users = require('elyoos-server-test-util').user;
-var db = require('elyoos-server-test-util').db;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var should = require('chai').should();
+let app = require('../../../../../../server');
+let users = require('elyoos-server-test-util').user;
+let db = require('elyoos-server-test-util').db;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let should = require('chai').should();
 
 describe('Integration Tests for finding other users and applying the correct privacySetting', function () {
 
     before(function () {
-        var createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
+        let createUser = "(:User {email: {email}, password: {password}, name: {name}, userId: {userId}})";
         return db.clearDatabase().then(function () {
             return db.cypher().create(createUser)
                 .end({
@@ -106,7 +106,7 @@ describe('Integration Tests for finding other users and applying the correct pri
 
     it('Request only with forename - Return correct sorted list with correct privacy setting (Contacts first)', function () {
 
-        var requestAgent;
+        let requestAgent;
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;

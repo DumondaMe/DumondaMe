@@ -1,13 +1,13 @@
 'use strict';
 
-var db = requireDb();
-var administrator = require('./administrator');
-var recommendation = require('./recommendation');
-var response = require('./detailResponse');
+let db = requireDb();
+let administrator = require('./administrator');
+let recommendation = require('./recommendation');
+let response = require('./detailResponse');
 
-var getDetail = function (pageId, label, userId) {
+let getDetail = function (pageId, label, userId) {
 
-    var commands = [];
+    let commands = [];
 
     commands.push(administrator.getAdministrator(pageId, userId));
     commands.push(recommendation.getUserRecommendation(pageId, userId));

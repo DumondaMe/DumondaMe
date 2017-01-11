@@ -1,12 +1,12 @@
 'use strict';
 
-var db = requireDb();
-var recommendationCommand = require('./recommendation');
-var cdn = require('../../util/cdn');
-var profileUrl = require('./../../user/pinwall/pinwallElement/profileUrl');
+let db = requireDb();
+let recommendationCommand = require('./recommendation');
+let cdn = require('../../util/cdn');
+let profileUrl = require('./../../user/pinwall/pinwallElement/profileUrl');
 
-var getDetailMessage = function (queryBlogResult, userRecommendation, allRecommendation, contactRecommendation) {
-    var result = {page: {}};
+let getDetailMessage = function (queryBlogResult, userRecommendation, allRecommendation, contactRecommendation) {
+    let result = {page: {}};
     result.page.recommendedByUser = queryBlogResult.recommendedByUser;
     result.page.isAdmin = queryBlogResult.isAdmin;
     result.page.pageId = queryBlogResult.blog.pageId;
@@ -35,9 +35,9 @@ var getDetailMessage = function (queryBlogResult, userRecommendation, allRecomme
     return result;
 };
 
-var getDetail = function (pageId, label, userId) {
+let getDetail = function (pageId, label, userId) {
 
-    var commands = [];
+    let commands = [];
     commands.push(recommendationCommand.getUserRecommendation(pageId, userId));
     commands.push(recommendationCommand.getRecommendationSummaryAll(pageId).getCommand());
     commands.push(recommendationCommand.getRecommendationSummaryContacts(pageId, userId).getCommand());

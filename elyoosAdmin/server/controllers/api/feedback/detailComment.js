@@ -1,12 +1,12 @@
 'use strict';
 
-var auth = require('elyoos-server-lib').auth;
-var logger = require('elyoos-server-lib').logging.getLogger(__filename);
-var feedbackComment = requireModel('feedback/detailComment');
-var controllerErrors = require('elyoos-server-lib').controllerErrors;
-var validation = require('elyoos-server-lib').jsonValidation;
+let auth = require('elyoos-server-lib').auth;
+let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let feedbackComment = requireModel('feedback/detailComment');
+let controllerErrors = require('elyoos-server-lib').controllerErrors;
+let validation = require('elyoos-server-lib').jsonValidation;
 
-var schemaGetDetailComment = {
+let schemaGetDetailComment = {
     name: 'getFeedbackDetailComment',
     type: 'object',
     additionalProperties: false,
