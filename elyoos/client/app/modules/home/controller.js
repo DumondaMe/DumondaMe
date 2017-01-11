@@ -11,6 +11,7 @@ module.exports =
             ctrl.loadRunning = true;
             ctrl.showSearch = false;
             ctrl.filterOrder = WebStorageFilter.getFilterOrder();
+            ctrl.actualFilterOrder = angular.copy(ctrl.filterOrder);
             ctrl.$mdMedia = $mdMedia;
 
             ctrl.addRemovePinwallElementService = HomeAddRemovePinwallElementService;
@@ -55,8 +56,11 @@ module.exports =
             };
 
             ctrl.orderChanged = function () {
-                WebStorageFilter.setFilterOrder(ctrl.filterOrder);
-                ctrl.reset();
+                if (ctrl.filterOrder !== ctrl.actualFilterOrder) {
+                    ctrl.actualFilterOrder = angular.copy(ctrl.filterOrder);
+                    WebStorageFilter.setFilterOrder(ctrl.filterOrder);
+                    ctrl.reset();
+                }
             };
 
             ctrl.reset = function () {
