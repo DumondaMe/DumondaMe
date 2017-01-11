@@ -1,5 +1,5 @@
 <md-card class="card-recommendation-desktop">
-    <div class="header" layout="row">
+    <div class="header" layout="row" ng-if="ctrl.order !== 'popular'">
         <div ng-click="ctrl.openUserDetail()">
             <img class="user-image" ng-src="{{ctrl.element.profileUrl}}"/>
         </div>
@@ -7,7 +7,7 @@
             <div class="md-title recommendation-title">
                 <ely-pinwall-recommendation-blog-title element="ctrl.element"
                                                                ng-if="ctrl.element.label === 'Blog'"></ely-pinwall-recommendation-blog-title>
-                <ely-pinwall-recommendation-book-title element="ctrl.element"
+                <ely-pinwall-recommendation-book-title element="ctrl.element" order="ctrl.order"
                                                                ng-if="ctrl.element.label === 'Book'"></ely-pinwall-recommendation-book-title>
                 <ely-pinwall-recommendation-youtube-title element="ctrl.element"
                                                                   ng-if="ctrl.element.label === 'Youtube'"></ely-pinwall-recommendation-youtube-title>
@@ -20,6 +20,15 @@
                 <div class="md-subhead recommendation-created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
                 <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
             </div>
+        </div>
+    </div>
+    <div class="header" ng-if="ctrl.order === 'popular'">
+        <div class="popular-recommendation-title" ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">
+            {{ctrl.element.title}}</div>
+        <div>
+            <div class="md-subhead recommendation-created">
+                {{ctrl.getRecommendationType(ctrl.element.label)}}</div>
+            <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
         </div>
     </div>
     <ely-pinwall-recommendation-blog element="ctrl.element" request-running="ctrl.requestRunning"

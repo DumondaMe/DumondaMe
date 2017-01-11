@@ -2731,6 +2731,13 @@
       vertical-align: middle;
       display: inline-block;
       margin-right: 8px; }
+    .card-recommendation-desktop .header .popular-recommendation-title {
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: 400;
+      color: #3F51B5; }
+    .card-recommendation-desktop .header .popular-recommendation-title:hover {
+      text-decoration: underline; }
 
 .blog-recommendation-desktop .blog-title {
   padding: 0 16px;

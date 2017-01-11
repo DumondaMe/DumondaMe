@@ -23,4 +23,14 @@ module.exports = ['$log',
             }
             return result;
         };
+
+        service.getRecommendationType = function (code) {
+            var result = recommendationTypes[0].description;
+            angular.forEach(recommendationTypes, function (recommendationType) {
+                if (recommendationType.code === code) {
+                    result = recommendationType.description;
+                }
+            });
+            return result;
+        };
     }];

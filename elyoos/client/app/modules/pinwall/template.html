@@ -10,9 +10,8 @@
                 ng-show="ctrl.showInfo === 'true' && pinwall.length > 0"></ely-pinwall-construction-info>
         <ely-pinwall-recommended-user recommended-user="ctrl.recommendedUser" reload-pinwall="ctrl.reloadPinwall"
                                       ng-if="ctrl.recommendedUser.length > 0"></ely-pinwall-recommended-user>
-        <ely-pinwall-element flex="grow" element="pinwallElement"
+        <ely-pinwall-element flex="grow" element="pinwallElement" order="ctrl.order"
                              ng-repeat="pinwallElement in pinwall"></ely-pinwall-element>
-        <div class="pinwall-gab" ng-if="ctrl.gap && pinwall.length > 0"></div>
     </div>
     <div class="two-column-container" ng-if="ctrl.isBreakpoint" layout="row">
         <div flex="50" class="first-column">
@@ -22,11 +21,11 @@
                                     reload-pinwall="ctrl.reloadPinwall"></ely-pinwall-contacting>
             <ely-pinwall-recommended-user recommended-user="ctrl.recommendedUser" reload-pinwall="ctrl.reloadPinwall"
                                           ng-if="ctrl.recommendedUser.length > 0"></ely-pinwall-recommended-user>
-            <ely-pinwall-element element="pinwallElement"
+            <ely-pinwall-element element="pinwallElement" order="ctrl.order"
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallFirstColumn"></ely-pinwall-element>
         </div>
         <div flex="50" class="second-column">
-            <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement"
+            <ely-pinwall-element on-blog-removed="ctrl.blogRemoved" element="pinwallElement" order="ctrl.order"
                                  ng-repeat="pinwallElement in ctrl.columns.pinwallSecondColumn"></ely-pinwall-element>
         </div>
     </div>
