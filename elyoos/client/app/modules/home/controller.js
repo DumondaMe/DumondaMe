@@ -79,6 +79,7 @@ module.exports =
                     ctrl.loadRunning = false;
                     angular.forEach(ctrl.home.pinwall, function (pinwallElement) {
                         pinwallElement.onlyContact = filters.onlyContact;
+                        pinwallElement.order = ctrl.filterOrder;
                     });
                     if (pinwall.pinwall.length === 0) {
                         ctrl.noPinwall = true;

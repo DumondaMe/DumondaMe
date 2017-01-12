@@ -1,5 +1,5 @@
 <md-card class="card-recommendation-desktop">
-    <div class="header" layout="row" ng-if="ctrl.order !== 'popular'">
+    <div class="header" layout="row" ng-if="ctrl.element.order !== 'popular'">
         <div ng-click="ctrl.openUserDetail()">
             <img class="user-image" ng-src="{{ctrl.element.profileUrl}}"/>
         </div>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="header" ng-if="ctrl.order === 'popular'">
+    <div class="header" ng-if="ctrl.element.order === 'popular'">
         <div class="popular-recommendation-title" ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">
             {{ctrl.element.title}}</div>
         <div>
