@@ -36,6 +36,7 @@
                          add-remove-pinwall-element-service="ctrl.addRemovePinwallElementService"></ely-pinwall>
         </div>
     </div>
+    <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
     <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="rightFilterRecommendationNav"
                 md-is-locked-open="false">
