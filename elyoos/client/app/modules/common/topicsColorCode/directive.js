@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                topics: '='
+                topics: '=',
+                isTextExpanded: '='
             },
             templateUrl: 'app/modules/common/topicsColorCode/template.html',
             controller: function () {

@@ -1,23 +1,4 @@
-<md-card id="ely-page-recommendation" ng-show="ctrl.recommendation.user || ctrl.recommendation.summary.all.numberOfRecommendations > 0">
-    <md-card-content>
-        <div class="user-recommendation">
-            <div ng-show="ctrl.recommendation.user">
-                <div>
-                    <div>
-                        <div class="md-title title">Du hast {{ctrl.pageTypeDescription}} empfohlen</div>
-                        <div class="user-rating-date">am {{ctrl.recommendation.user.created}}</div>
-                    </div>
-                    <div class="button-delete">
-                        <md-button class="md-icon-button" aria-label="Delete Recommendation" ng-click="ctrl.deleteRecommendation()">
-                            <md-icon md-svg-icon="cardActions:delete"></md-icon>
-                            <md-tooltip md-direction="left">Empfehlung löschen</md-tooltip>
-                        </md-button>
-                    </div>
-                </div>
-                <ely-expand-text class="user-comment" description="{{ctrl.recommendation.user.comment}}" length="160"></ely-expand-text>
-            </div>
-        </div>
-        <md-divider ng-if="ctrl.recommendation.user && ctrl.recommendation.summary.all.numberOfRecommendations > 1"></md-divider>
-        <ely-page-detail-user-comments recommendation="ctrl.recommendation"></ely-page-detail-user-comments>
-    </md-card-content>
-</md-card>
+<div id="ely-page-recommendation" ng-show="ctrl.recommendation.summary.all.numberOfRecommendations > 0">
+    <div class="page-section-title">Empfehlungen</div>
+    <ely-page-detail-user-comments recommendation="ctrl.recommendation"></ely-page-detail-user-comments>
+</div>

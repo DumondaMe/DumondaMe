@@ -1,28 +1,22 @@
 #ely-book-page-detail {
   #ely-book-page-main-detail {
-    max-width: 600px;
-    min-width: 300px;
+    border-bottom: 1px solid $divider;
+    padding: 12px;
     .title-container {
       .title {
-        font-size: 16px;
+        font-size: 18px;
         overflow: hidden;
         @media screen and (max-width: $gt-xs) {
           max-height: 74px;
         }
         @media screen and (min-width: $gt-sm) {
-          font-size: 18px;
+          font-size: 20px;
         }
       }
       .authors {
         margin-top: 2px;
         font-size: 14px;
         color: $secondary-text;
-      }
-      .button-settings-container {
-        padding: 0;
-        .button-settings {
-          margin: 0;
-        }
       }
     }
 
@@ -42,43 +36,6 @@
         width: 100px;
         height: 165px;
         margin-right: 16px;
-      }
-    }
-    .info-container {
-      margin-top: 22px;
-      .page-action.md-fab.md-mini {
-        height: 28px;
-        width: 28px;
-        line-height: 28px;
-        min-height: 0;
-        margin: 0;
-        .action-icon {
-          height: 16px;
-          width: 16px;
-          min-height: 16px;
-          min-width: 16px;
-        }
-      }
-      .number-container {
-        margin-left: 8px;
-        color: $primary-text;
-        height: 28px;
-        .number {
-          line-height: 28px;
-          font-size: 14px;
-          vertical-align: middle;
-        }
-      }
-      .admin-container {
-        margin-right: 8px;
-        .admin-image {
-          cursor: pointer;
-          img {
-            height: 28px;
-            width: 28px;
-            border-radius: 50%;
-          }
-        }
       }
     }
   }

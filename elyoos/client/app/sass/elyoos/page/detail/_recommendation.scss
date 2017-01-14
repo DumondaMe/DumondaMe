@@ -1,31 +1,16 @@
 #ely-page-recommendation {
-  max-width: 600px;
-  min-width: 300px;
-  .user-recommendation {
-    position: relative;
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .user-rating-date {
-      color: $secondary-text;
-      margin-top: 4px;
-      font-size: 12px;
-    }
-    .button-delete {
-      position: absolute;
-      top: -10px;
-      right: -5px;
-    }
-    .user-comment {
-      margin: 8px 0;
-      .ely-expand-text-description {
-        font-size: 14px;
-        color: $primary-text;
-      }
-    }
-  }
+  padding: 12px;
+  border-top: 1px solid $divider;
+
   .overview-rating-tabs {
     min-height: 200px;
+  }
+}
+
+#ely-page-detail {
+  #ely-page-recommendation {
+    .page-section-title {
+      margin-bottom: 0;
+    }
   }
 }

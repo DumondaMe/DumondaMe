@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation',
-    function (ElyModal, moment, Languages, UserDetailNavigation) {
+module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation', 'PageUserRecommendation', 'errorToast',
+    function (ElyModal, moment, Languages, UserDetailNavigation, PageUserRecommendation, errorToast) {
         var ctrl = this;
 
         ctrl.getLanguage = Languages.getLanguage;
@@ -27,6 +27,19 @@ module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation',
                         label: ctrl.pageDetail.page.label
                     });
             }
+        };
+
+        ctrl.deleteRecommendation = function () {
+            PageUserRecommendation.delete({
+                pageId: ctrl.pageDetail.page.pageId,
+                recommendationId: ctrl.pageDetail.recommendation.user.recommendationId
+            }, function (resp) {
+                ctrl.pageDetail.recommendation.summary = resp.recommendation;
+                delete ctrl.pageDetail.recommendation.user;
+                //reloadRatingOverview(ctrl.ratingOverviewAllCommands, ctrl.ratingOverviewContactCommands);
+            }, function () {
+                errorToast.showError("Fehler beim Löschen der Empfehlung");
+            });
         };
     }];
 

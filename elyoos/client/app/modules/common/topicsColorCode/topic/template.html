@@ -1,3 +1,9 @@
-<div class="topic-circle {{ctrl.topicName}}">{{ctrl.getAcronym(ctrl.topicName)}}
-    <md-tooltip md-direction="bottom">{{ctrl.getTopic(ctrl.topicName)}}</md-tooltip>
+<div class="topic-circle {{ctrl.topicName}}" ng-class="{'text-expanded': ctrl.isTextExpanded === true}">
+    <div ng-if="!ctrl.isTextExpanded">
+        {{ctrl.getAcronym(ctrl.topicName)}}
+        <md-tooltip md-direction="bottom">{{ctrl.getTopic(ctrl.topicName)}}</md-tooltip>
+    </div>
+    <div ng-if="ctrl.isTextExpanded === true">
+        {{ctrl.getTopic(ctrl.topicName)}}
+    </div>
 </div>

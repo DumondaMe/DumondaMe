@@ -1,5 +1,77 @@
-<div class="ely-page-info-container" layout="row">
-    <div>
+<div class="ely-page-info-container">
+    <div class="page-section-title">Info</div>
+    <div class="ely-page-info-content">
+        <div layout="row" class="recommendation-content">
+            <div>
+                <md-button class="page-action md-fab md-mini" aria-label="Recommend Page"
+                           ng-disabled="ctrl.pageDetail.recommendation.user.recommendationId || ctrl.requestRunning"
+                           ng-click="ctrl.addRecommendation()">
+                    <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
+                </md-button>
+                <md-tooltip md-direction="bottom"
+                            ng-show="!ctrl.pageDetail.recommendation.user.recommendationId && !ctrl.pageDetail.administrators.isAdmin">Diesen Beitrag
+                    empfehlen
+                </md-tooltip>
+            </div>
+            <div class="number-container">
+                <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>
+                <span class="description">Empfehlungen</span>
+            </div>
+            <span flex></span>
+            <div ng-show="ctrl.pageDetail.recommendation.user">
+                <md-button class="page-action md-fab md-mini" aria-label="Remove Recommendation"
+                           ng-disabled="ctrl.requestRunning" ng-click="ctrl.deleteRecommendation()">
+                    <md-icon md-svg-icon="cardActions:thumbDown" class="action-icon"></md-icon>
+                </md-button>
+                <md-tooltip md-direction="bottom">Deine Empfehlung entfernen
+                </md-tooltip>
+            </div>
+        </div>
+        <div layout="row" class="info-detail-row" ng-if="ctrl.pageDetail.recommendation.user">
+            <span>Empfohlen von dir:</span>
+            <span flex></span>
+            <span class="right-column-info-detail">{{ctrl.pageDetail.recommendation.user.created}}</span>
+        </div>
+        <div layout="row" class="info-detail-row">
+            <span>Beitrag wurde erstellt:</span>
+            <span flex></span>
+            <span class="right-column-info-detail">{{ctrl.pageDetail.page.created}}</span>
+        </div>
+        <div layout="row" class="info-detail-row" ng-show="ctrl.pageDetail.page.created !== ctrl.pageDetail.page.modified">
+            <span>Zuletzt verändert:</span>
+            <span flex></span>
+            <span class="right-column-info-detail">{{ctrl.pageDetail.page.modified}}</span>
+        </div>
+        <div layout="row" class="info-detail-row"
+             ng-show="ctrl.pageDetail.page.created !== ctrl.pageDetail.page.modified && ctrl.pageDetail.page.label === 'Youtube'">
+            <span ng-class="{'link': ctrl.pageDetail.page.linkHistory.length > 0}" ng-click="ctrl.openLinkHistory()">Link verändert:</span>
+            <span flex></span>
+            <span class="right-column-info-detail" ng-if="ctrl.pageDetail.page.linkHistory.length === 0">Nie</span>
+            <span class="right-column-info-detail link" ng-click="ctrl.openLinkHistory()"
+                  ng-if="ctrl.pageDetail.page.linkHistory.length > 0">{{ctrl.pageDetail.page.linkHistory.length}} mal</span>
+        </div>
+        <div layout="row" class="info-detail-row">
+            <span>Sprache:</span>
+            <span flex></span>
+            <span class="right-column-info-detail" ng-repeat="language in ctrl.pageDetail.page.language">{{ctrl.getLanguage(language)}}</span>
+        </div>
+        <div class="topic-container">
+            <ely-topics-color is-text-expanded="true" topics="ctrl.pageDetail.page.topic"></ely-topics-color>
+        </div>
+       <!-- <div class="administrator-content" ng-if="ctrl.pageDetail.administrators.isAdmin">
+            <div class="title">Du bist Administrator dieses Beitrages</div>
+            <div layout="row">
+                <div>
+                    <md-button class="md-raised" ng-click="ctrl.modifyPage()">Beitrag bearbeiten</md-button>
+                    <md-button class="md-raised" ng-click="ctrl.deletePage()" ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 ||
+                        (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
+                        Beitrag löschen
+                    </md-button>
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <!--<div>
         <md-button class="page-action md-fab md-mini" aria-label="Recommend Page"
                    ng-disabled="ctrl.pageDetail.recommendation.user.recommendationId || ctrl.requestRunning"
                    ng-click="ctrl.addRecommendation()">
@@ -56,5 +128,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>

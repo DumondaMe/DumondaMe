@@ -1,34 +1,14 @@
-<md-card id="ely-book-page-main-detail" ng-cloak>
-    <md-card-content>
-        <div class="title-container" layout="row">
-            <div>
-                <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
-                <div class="authors">von
-                    <span class="author" ng-repeat="author in ctrl.pageDetail.page.author"><span ng-if="!$first">,</span>{{author.name}}</span>
-                </div>
+<div id="ely-book-page-main-detail" ng-cloak>
+    <div class="title-container" layout="row">
+        <div>
+            <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
+            <div class="authors">von
+                <span class="author" ng-repeat="author in ctrl.pageDetail.page.author"><span ng-if="!$first">,</span>{{author.name}}</span>
             </div>
-            <span flex></span>
-            <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
-                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
-                    <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
-                </md-button>
-                <md-menu-content>
-                    <md-menu-item>
-                        <md-button ng-click="ctrl.modifyPage()">Seite Bearbeiten</md-button>
-                    </md-menu-item>
-                    <md-menu-item ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 ||
-                        (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
-                        <md-button ng-click="ctrl.deletePage()">
-                            Seite Löschen
-                        </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
         </div>
-        <div class="image-description-container">
-            <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}" ng-click="ctrl.openImageView()">
-            <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
-        </div>
-        <ely-page-detail-info page-detail="ctrl.pageDetail"></ely-page-detail-info>
-    </md-card-content>
-</md-card>
+    </div>
+    <div class="image-description-container">
+        <img class="image" ng-src="{{ctrl.pageDetail.page.titleUrl}}" ng-click="ctrl.openImageView()">
+        <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
+    </div>
+</div>

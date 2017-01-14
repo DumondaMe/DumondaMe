@@ -462,6 +462,10 @@
     color: white !important;
     font-size: 12px;
     font-weight: 500; }
+  .ely-topics-color .topic-circle.text-expanded {
+    height: 19px;
+    line-height: 19px;
+    border-radius: 4px; }
   .ely-topics-color .health {
     background-color: #039BE5; }
   .ely-topics-color .environmental {

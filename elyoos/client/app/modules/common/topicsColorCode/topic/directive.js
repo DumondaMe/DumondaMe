@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                topicName: '@'
+                topicName: '@',
+                isTextExpanded: '='
             },
             templateUrl: 'app/modules/common/topicsColorCode/topic/template.html',
             controller: require('./controller.js'),
