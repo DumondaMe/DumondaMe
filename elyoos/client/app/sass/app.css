@@ -1883,6 +1883,21 @@
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54); }
 
+.ely-page-admin-container {
+  padding: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12); }
+  .ely-page-admin-container .page-admin-info {
+    font-size: 12px;
+    color: #3F51B5; }
+  .ely-page-admin-container .page-admin-images .admin-image img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%; }
+  .ely-page-admin-container .page-admin-actions-container {
+    margin-top: 8px; }
+    .ely-page-admin-container .page-admin-actions-container .page-admin-action {
+      margin-left: 0; }
+
 #ely-blog-detail #ely-blog-detail-main {
   max-width: 600px;
   min-width: 300px; }
@@ -1959,17 +1974,17 @@
       vertical-align: middle; }
 
 #ely-book-page-detail #ely-book-page-main-detail {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 12px; }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
-    font-size: 18px;
+    color: #3F51B5;
+    font-size: 20px;
     overflow: hidden; }
     @media screen and (max-width: 600px) {
       #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
         max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-book-page-detail #ely-book-page-main-detail .title-container .title {
-        font-size: 20px; } }
+        font-size: 24px; } }
   #ely-book-page-detail #ely-book-page-main-detail .title-container .authors {
     margin-top: 2px;
     font-size: 14px;
@@ -2029,74 +2044,8 @@
     margin-bottom: 8px; }
 
 .ely-page-info-container {
-  padding: 12px;
-  /* margin-top: 22px;
-   .page-action.md-fab.md-mini {
-     height: 28px;
-     width: 28px;
-     line-height: 28px;
-     min-height: 0;
-     margin: 0;
-     .action-icon {
-       height: 16px;
-       width: 16px;
-       min-height: 16px;
-       min-width: 16px;
-     }
-   }
-   .number-container {
-     margin-left: 8px;
-     color: $primary-text;
-     height: 28px;
-     .number {
-       line-height: 28px;
-       font-size: 14px;
-       vertical-align: middle;
-     }
-   }
-   .topic-container {
-     margin-bottom: 8px;
-   }
-   .info-detail-container {
-     margin-right: 8px;
-     .info-expand {
-       cursor: pointer;
-       height: 32px;
-       width: 100%;
-       .info-icon {
-         float: right;
-         margin: 2px;
-         height: 24px;
-         width: 24px;
-       }
-     }
-     .info-detail-expanded-container {
-       font-size: 12px;
-       color: $secondary-text;
-       .info-detail-row {
-         margin-bottom: 4px;
-         .right-column-info-detail {
-           margin-left: 8px;
-         }
-         .link {
-           cursor: pointer;
-         }
-         .link:hover {
-           text-decoration: underline;
-         }
-       }
-     }
-     .admin-image {
-       display: inline-block;
-       vertical-align: middle;
-       cursor: pointer;
-       img {
-         height: 28px;
-         width: 28px;
-         border-radius: 50%;
-       }
-     }
-   }*/ }
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px; }
   .ely-page-info-container .ely-page-info-content {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }

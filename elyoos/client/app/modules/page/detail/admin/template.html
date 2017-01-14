@@ -1,0 +1,22 @@
+<div class="ely-page-admin-container">
+    <div class="page-section-title">Administrator des Beitrages</div>
+    <div class="page-admin-info" ng-if="ctrl.pageDetail.administrators.isAdmin">Du bist Administrator dieses Beitrages</div>
+    <div class="page-admin-images" ng-if="!ctrl.pageDetail.administrators.isAdmin" layout="row">
+        <div ng-repeat="admin in ctrl.pageDetail.administrators.list" class="admin-image" ng-click="ctrl.goToUserDetail(admin.userId)">
+            <img ng-src="{{admin.profileUrl}}">
+        </div>
+    </div>
+    <div class="page-admin-actions-container" ng-if="ctrl.pageDetail.administrators.isAdmin" layout="row">
+        <div>
+            <md-button class="page-admin-action md-fab md-mini" aria-label="Edit Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.editPage()">
+                <md-icon md-svg-icon="cardActions:edit" class="action-icon"></md-icon>
+            </md-button>
+        </div>
+        <div ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 ||
+                  (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
+            <md-button class="md-fab md-mini" aria-label="Edit Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.deletePage()">
+                <md-icon md-svg-icon="cardActions:delete" class="action-icon"></md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>

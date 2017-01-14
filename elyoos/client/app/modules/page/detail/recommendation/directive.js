@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = {
-    directive: [ function () {
+    directive: [function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             bindToController: {
                 recommendation: '=',

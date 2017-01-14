@@ -1,16 +1,16 @@
 #ely-book-page-detail {
   #ely-book-page-main-detail {
-    border-bottom: 1px solid $divider;
     padding: 12px;
     .title-container {
       .title {
-        font-size: 18px;
+        color: $primary-color;
+        font-size: 20px;
         overflow: hidden;
         @media screen and (max-width: $gt-xs) {
           max-height: 74px;
         }
         @media screen and (min-width: $gt-sm) {
-          font-size: 20px;
+          font-size: 24px;
         }
       }
       .authors {

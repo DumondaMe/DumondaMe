@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    directive: [function () {
+    directive: [ function () {
         return {
             restrict: 'E',
             replace: true,
@@ -9,10 +9,12 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pageDetail: '='
+                pageDetail: '=',
+                editPage: '=',
+                deletePage: '='
             },
-            templateUrl: 'app/modules/page/detail/book/template.html'
+            templateUrl: 'app/modules/page/detail/admin/template.html'
         };
     }],
-    name: 'elyPageDetailBook'
+    name: 'elyPageDetailAdmin'
 };
