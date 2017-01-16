@@ -2238,17 +2238,18 @@
   margin-bottom: 0; }
 
 #ely-youtube-page-detail #ely-youtube-page-main-detail {
-  max-width: 600px;
-  min-width: 300px; }
+  padding: 12px; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
-    margin-bottom: 16px;
-    overflow: hidden; }
+    color: #3F51B5;
+    font-size: 20px;
+    overflow: hidden;
+    margin-bottom: 12px; }
     @media screen and (max-width: 600px) {
       #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
         max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .title {
-        font-size: 18px; } }
+        font-size: 24px; } }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container {
     padding: 0; }
     #ely-youtube-page-detail #ely-youtube-page-main-detail .title-container .button-settings-container .button-settings {
@@ -2258,7 +2259,7 @@
       padding-top: 0;
       padding-bottom: 0; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .description {
-    margin-top: 8px; }
+    margin-top: 12px; }
   #ely-youtube-page-detail #ely-youtube-page-main-detail .topic-description {
     margin: 0 0 4px 0; }
 

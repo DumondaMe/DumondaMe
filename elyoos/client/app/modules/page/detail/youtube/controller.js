@@ -4,7 +4,7 @@ module.exports = ['Topics', 'ElyModal', 'DeletePageService', 'Languages',
     function (Topics, ElyModal, DeletePageService, Languages) {
         var ctrl = this;
 
-        ctrl.modifyPage = function () {
+        ctrl.editPage = function () {
             ElyModal.show('ManageYoutubePageCtrl', 'app/modules/page/modal/manageYoutubePage/template.html',
                 {
                     data: {

@@ -1,16 +1,17 @@
 #ely-youtube-page-detail {
   #ely-youtube-page-main-detail {
-    max-width: 600px;
-    min-width: 300px;
+    padding: 12px;
     .title-container {
       .title {
-        margin-bottom: 16px;
+        color: $primary-color;
+        font-size: 20px;
         overflow: hidden;
+        margin-bottom: 12px;
         @media screen and (max-width: $gt-xs) {
           max-height: 74px;
         }
         @media screen and (min-width: $gt-sm) {
-          font-size: 18px;
+          font-size: 24px;
         }
       }
       .button-settings-container {
@@ -26,7 +27,7 @@
     }
 
     .description {
-      margin-top: 8px;
+      margin-top: 12px;
     }
 
     .topic-description {
