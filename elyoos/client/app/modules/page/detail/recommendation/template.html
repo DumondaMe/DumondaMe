@@ -1,5 +1,5 @@
-<div id="ely-page-recommendation" ng-if="ctrl.recommendation.summary.all.numberOfRecommendations > 0 &&
+<div id="ely-page-recommendation" ng-show="ctrl.recommendation.summary.all.numberOfRecommendations > 0 &&
          !(ctrl.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.recommendation.user)">
-    <div class="page-section-title">Empfehlungen</div>
+    <div class="page-section-title">Empfohlen von</div>
     <ely-page-detail-user-comments recommendation="ctrl.recommendation"></ely-page-detail-user-comments>
 </div>

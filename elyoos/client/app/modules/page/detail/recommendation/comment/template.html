@@ -1,6 +1,9 @@
 <div id="ely-page-comments">
     <div>
-        <md-tabs md-border-bottom md-dynamic-height md-center-tabs class="overview-rating-tabs">
+        <md-tabs md-dynamic-height class="overview-rating-tabs"
+                 ng-if="(ctrl.recommendation.summary.contact.numberOfRecommendations !== ctrl.recommendation.summary.all.numberOfRecommendations) &&
+            !(ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
+             ctrl.recommendation.user)">
             <md-tab>
                 <md-tab-label>
                     <div>Alle</div>
@@ -11,10 +14,7 @@
                     </md-content>
                 </md-tab-body>
             </md-tab>
-            <md-tab ng-if="ctrl.recommendation.summary.contact.numberOfRecommendations > 0 &&
-            (ctrl.recommendation.summary.contact.numberOfRecommendations !== ctrl.recommendation.summary.all.numberOfRecommendations) &&
-            !(ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
-             ctrl.recommendation.user)">
+            <md-tab>
                 <md-tab-label>
                     <span class="tab-me">Ich</span>
                     <md-icon md-svg-icon="tabs:arrowForward" class="icon ely-tab-icon"></md-icon>
@@ -28,5 +28,13 @@
                 </md-tab-body>
             </md-tab>
         </md-tabs>
+        <div ng-if="ctrl.recommendation.summary.all.numberOfRecommendations > 0 &&
+            (ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations ||
+            (ctrl.recommendation.summary.contact.numberOfRecommendations === ctrl.recommendation.summary.all.numberOfRecommendations - 1 &&
+             ctrl.recommendation.user))">
+            <md-content class="comments-content-container">
+                <ely-page-detail-user-comments-detail only-contact="false"></ely-page-detail-user-comments-detail>
+            </md-content>
+        </div>
     </div>
 </div>

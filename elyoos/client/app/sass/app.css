@@ -2037,6 +2037,10 @@
 #ely-page-detail {
   background-color: white;
   height: 100%; }
+  @media screen and (min-width: 650px) {
+    #ely-page-detail .page-container {
+      margin: 16px auto 0 auto;
+      max-width: 600px; } }
   #ely-page-detail .page-container .page-section-title {
     font-size: 16px;
     font-weight: 500;
