@@ -1,7 +1,7 @@
 <md-dialog id="manage-book-page" aria-label="Manage Book Page" class="manage-page"
            ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
     <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages" ng-cloak>
-        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für ein Buch erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Buch Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Buch <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
@@ -13,23 +13,31 @@
                     </div>
                     <div layout="row" layout-align="center center">
                         <div flex="nogrow">
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" hide show-gt-sm></ely-button>
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" orientation="landscape" hide-gt-sm></ely-button>
                             <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
-                                       aria-label="Add Picture">
-                                <span ng-if="!ctrl.data.dataUri">Titelbild hinzufügen</span>
-                                <span ng-if="ctrl.data.dataUri">Titelbild ändern</span>
+                                       aria-label="Edit Picture" ng-show="ctrl.data.dataUri">Titelbild ändern
                             </md-button>
                         </div>
                     </div>
                 </div>
-                <div flex-offset-gt-sm="10">
-                    <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                    </md-select>
-                    <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                    </md-select>
+                <div flex-offset-gt-sm="5" flex="grow">
+                    <div layout="row">
+                        <div flex="50">
+                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                            </md-select>
+                        </div>
+                        <div flex="50" flex-offset="5">
+                            <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
                     <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container" flex>
                             <label>Titel</label>

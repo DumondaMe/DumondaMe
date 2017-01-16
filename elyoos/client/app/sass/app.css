@@ -1932,7 +1932,7 @@
     #ely-blog-detail #ely-blog-detail-main .button-settings-container .button-settings {
       margin: 0; }
   #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
-    margin-top: 16px;
+    margin-top: 8px;
     margin-bottom: 16px;
     color: #3F51B5;
     font-size: 20px;
@@ -2375,6 +2375,8 @@
     padding: 8px 15px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }
+#manage-youtube-page .mobile-youtube-preview {
+  margin-bottom: 16px; }
 
 #ely-page-overview .ely-dialog-content {
   padding-top: 0; }

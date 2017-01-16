@@ -22,15 +22,6 @@
 
                 </div>
                 <div flex-offset-gt-sm="5" flex="grow">
-                    <md-input-container class="input-container">
-                        <label>Bezeichnung</label>
-                        <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
-                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
-                        <div ng-messages="ctrl.manageGenericPageForm.title.$error">
-                            <div ng-message="required">Wird benötigt!</div>
-                            <div ng-message="md-maxlength">Text ist zu lang</div>
-                        </div>
-                    </md-input-container>
                     <div layout="row">
                         <div flex="50">
                             <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required ng-change="ctrl.changeData()">
@@ -44,6 +35,15 @@
                             </md-select>
                         </div>
                     </div>
+                    <md-input-container class="input-container">
+                        <label>Überschrift</label>
+                        <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                        <div ng-messages="ctrl.manageGenericPageForm.title.$error">
+                            <div ng-message="required">Wird benötigt!</div>
+                            <div ng-message="md-maxlength">Text ist zu lang</div>
+                        </div>
+                    </md-input-container>
                     <md-input-container class="input-container">
                         <label>Allgemeine Beschreibung</label>
                         <textarea name="description" ng-model="ctrl.data.description" required md-maxlength="1000"

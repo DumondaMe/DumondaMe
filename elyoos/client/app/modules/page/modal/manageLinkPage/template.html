@@ -1,7 +1,7 @@
 <md-dialog id="manage-link-page" aria-label="Manage Link Page" class="manage-page">
     <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages"
           class="form-container" ng-cloak>
-        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für einen Link erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Link Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
@@ -13,23 +13,32 @@
                     </div>
                     <div layout="row" layout-align="center center">
                         <div flex="nogrow">
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" hide show-gt-sm></ely-button>
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" orientation="landscape" hide-gt-sm></ely-button>
                             <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
-                                       aria-label="Add Picture">
-                                <span ng-if="!ctrl.data.dataUri">Titelbild hinzufügen</span>
-                                <span ng-if="ctrl.data.dataUri">Titelbild ändern</span>
+                                       aria-label="Edit Picture" ng-show="ctrl.data.dataUri">Titelbild ändern
                             </md-button>
                         </div>
                     </div>
                 </div>
-                <div flex-offset-gt-sm="10" flex="grow">
-                    <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                    </md-select>
-                    <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" required placeholder="Sprache" class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                    </md-select>
+                <div flex-offset-gt-sm="5" flex="grow">
+                    <div layout="row">
+                        <div flex="50">
+                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                            </md-select>
+                        </div>
+                        <div flex="50" flex-offset="5">
+                            <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" required placeholder="Sprache"
+                                       class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
                     <div ng-if="!ctrl.isEditMode" layout="column" layout-align="center none">
                         <md-input-container class="input-container">
                             <label>Titel</label>
@@ -42,12 +51,14 @@
                         </md-input-container>
                         <md-input-container class="input-container">
                             <label>Link</label>
-                            <input type="url" name="link" ng-model="ctrl.data.link" ng-change="ctrl.linkHasChanged()" ng-disabled="ctrl.uploadStarted"
+                            <input type="url" name="link" ng-model="ctrl.data.link" ng-change="ctrl.linkHasChanged()"
+                                   ng-disabled="ctrl.uploadStarted"
                                    md-maxlength="1000" required/>
                             <div ng-messages="ctrl.manageLinkPageForm.link.$error" ng-show="ctrl.manageLinkPageForm.link.$dirty">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="url">Ungültiger Link</div>
-                                <div ng-message="youtube-link" class="error-youtube-link" ng-click="ctrl.openYoutubeManage()">Erstelle eine Youtube
+                                <div ng-message="youtube-link" class="error-youtube-link" ng-click="ctrl.openYoutubeManage()">Erstelle eine
+                                    Youtube
                                     Seite
                                 </div>
                                 <div ng-message="md-maxlength">Text ist zu lang</div>

@@ -1,6 +1,6 @@
 <md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" class="manage-page">
     <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages" ng-cloak>
-        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Seite für ein Youtube Video erstellen</div>
+        <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Youtube Video Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Video <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="row">
@@ -13,14 +13,20 @@
                     </div>
                 </div>
                 <div flex>
-                    <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
-                    </md-select>
-                    <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" placeholder="Sprache" required class="ely-select-topic"
-                               ng-change="ctrl.changeData()">
-                        <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
-                    </md-select>
+                    <div layout="row">
+                        <div flex="50">
+                            <md-select ng-model="ctrl.data.selectedTopics" multiple="true" placeholder="Thema" required class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+                            </md-select>
+                        </div>
+                        <div flex="50" flex-offset="5">
+                            <md-select ng-model="ctrl.data.selectedLanguages" multiple="true" placeholder="Sprache" required class="ely-select-topic"
+                                       ng-change="ctrl.changeData()">
+                                <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
                     <div ng-if="!ctrl.isEditMode">
                         <md-input-container class="input-container">
                             <label>Titel</label>
@@ -34,7 +40,7 @@
                     </div>
                     <ely-iframe width="270" height="180" secure-link="https://www.youtube.com/embed/" src="ctrl.youtubeLinkFormatted"
                                 ng-show="ctrl.manageYoutubePageForm.link.$valid && (ctrl.manageYoutubePageForm.link.$dirty || ctrl.isEditMode)"
-                                layout="row" layout-align="center center" hide-gt-sm></ely-iframe>
+                                layout="row" layout-align="center center" class="mobile-youtube-preview" hide-gt-sm></ely-iframe>
                     <md-input-container class="input-container">
                         <label>Link</label>
                         <input name="link" ng-model="ctrl.data.link" ng-disabled="ctrl.uploadStarted"
