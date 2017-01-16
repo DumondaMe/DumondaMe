@@ -2100,17 +2100,17 @@
         margin-bottom: 8px; }
 
 #ely-link-page-detail #ely-link-page-main-detail {
-  max-width: 600px;
-  min-width: 300px; }
+  padding: 12px; }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
-    cursor: pointer;
+    color: #3F51B5;
+    font-size: 20px;
     overflow: hidden; }
     @media screen and (max-width: 600px) {
       #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
         max-height: 74px; } }
     @media screen and (min-width: 960px) {
       #ely-link-page-detail #ely-link-page-main-detail .title-container .title {
-        font-size: 18px; } }
+        font-size: 24px; } }
   #ely-link-page-detail #ely-link-page-main-detail .title-container .page-link {
     cursor: pointer;
     display: inline-block;
@@ -2127,8 +2127,10 @@
   #ely-link-page-detail #ely-link-page-main-detail .image-description-container {
     cursor: pointer; }
     #ely-link-page-detail #ely-link-page-main-detail .image-description-container .image {
+      margin: 0 auto 8px auto;
       width: 100%;
-      max-width: 552px;
+      max-width: 400px; }
+    #ely-link-page-detail #ely-link-page-main-detail .image-description-container .description {
       margin-bottom: 8px; }
 
 .ely-link-history {

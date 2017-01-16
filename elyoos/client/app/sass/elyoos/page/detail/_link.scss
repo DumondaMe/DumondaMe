@@ -1,16 +1,16 @@
 #ely-link-page-detail {
   #ely-link-page-main-detail {
-    max-width: 600px;
-    min-width: 300px;
+    padding: 12px;
     .title-container {
       .title {
-        cursor: pointer;
+        color: $primary-color;
+        font-size: 20px;
         overflow: hidden;
         @media screen and (max-width: $gt-xs) {
           max-height: 74px;
         }
         @media screen and (min-width: $gt-sm) {
-          font-size: 18px;
+          font-size: 24px;
         }
       }
       .page-link {
@@ -37,8 +37,11 @@
     .image-description-container {
       cursor: pointer;
       .image {
+        margin: 0 auto 8px auto;
         width: 100%;
-        max-width: 552px;
+        max-width: 400px;
+      }
+      .description {
         margin-bottom: 8px;
       }
     }

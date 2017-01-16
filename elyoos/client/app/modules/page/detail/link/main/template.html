@@ -1,37 +1,17 @@
-<md-card id="ely-link-page-main-detail">
-    <md-card-content>
-        <div class="title-container" layout="row">
+<div id="ely-link-page-main-detail">
+    <div class="title-container" layout="row">
+        <div>
+            <div class="md-title title" ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">{{ctrl.pageDetail.page.title}}</div>
             <div>
-                <div class="md-title title" ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">{{ctrl.pageDetail.page.title}}</div>
-                <div>
-                    <div class="page-link" ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">{{ctrl.pageDetail.page.hostname}}
-                        <md-tooltip md-direction="right">{{ctrl.pageDetail.page.link}}</md-tooltip>
-                    </div>
+                <div class="page-link" ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">{{ctrl.pageDetail.page.hostname}}
+                    <md-tooltip md-direction="right">{{ctrl.pageDetail.page.link}}</md-tooltip>
                 </div>
             </div>
-            <span flex></span>
-            <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
-                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
-                    <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
-                </md-button>
-                <md-menu-content>
-                    <md-menu-item>
-                        <md-button ng-click="ctrl.modifyPage()">Seite Bearbeiten</md-button>
-                    </md-menu-item>
-                    <md-menu-item ng-if="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 ||
-                        (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
-                        <md-button ng-click="ctrl.deletePage()">
-                            Seite Löschen
-                        </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
         </div>
-        <div class="image-description-container">
-            <img class="image" ng-src="{{ctrl.pageDetail.page.imageUrl}}" ng-if="ctrl.pageDetail.page.imageUrl"
-                 ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">
-            <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
-        </div>
-        <ely-page-detail-info page-detail="ctrl.pageDetail"></ely-page-detail-info>
-    </md-card-content>
-</md-card>
+    </div>
+    <div class="image-description-container">
+        <img class="image" ng-src="{{ctrl.pageDetail.page.imageUrl}}" ng-if="ctrl.pageDetail.page.imageUrl"
+             ng-click="ctrl.openLink(ctrl.pageDetail.page.link)">
+        <ely-expand-text class="description" description="{{ctrl.pageDetail.page.description}}" length="300"></ely-expand-text>
+    </div>
+</div>
