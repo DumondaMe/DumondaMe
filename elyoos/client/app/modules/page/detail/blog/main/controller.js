@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$stateParams', '$state', 'dateFormatter', 'ImageViewService', '$mdDialog', 'Blog', 'errorToast', 'UserDetailNavigation',
-    function ($stateParams, $state, dateFormatter, ImageViewService, $mdDialog, Blog, errorToast, UserDetailNavigation) {
+module.exports = ['dateFormatter', 'ImageViewService', 'UserDetailNavigation',
+    function (dateFormatter, ImageViewService, UserDetailNavigation) {
         var ctrl = this;
 
         ctrl.getFormattedDate = dateFormatter.format;
@@ -12,24 +12,6 @@ module.exports = ['$stateParams', '$state', 'dateFormatter', 'ImageViewService',
 
         ctrl.openImageView = function () {
             ImageViewService.showImage(ctrl.blogDetail.page.url);
-        };
-
-        ctrl.deleteBlog = function () {
-            var confirm = $mdDialog.confirm()
-                .title("Blog löschen")
-                .textContent("Willst Du diesen Blog wirklich löschen?")
-                .ariaLabel("Delete Blog")
-                .ok("Löschen")
-                .cancel("Abbrechen");
-            $mdDialog.show(confirm).then(function () {
-                Blog.delete({
-                    pageId: $stateParams.pageId
-                }, function () {
-                    $state.go('home');
-                }, function () {
-                    errorToast.showError("Fehler beim Löschen des Blogs");
-                });
-            });
         };
     }];
 

@@ -1899,57 +1899,67 @@
       margin-left: 0; }
 
 #ely-blog-detail #ely-blog-detail-main {
-  max-width: 600px;
-  min-width: 300px; }
-  #ely-blog-detail #ely-blog-detail-main .user-avatar {
-    cursor: pointer; }
-  #ely-blog-detail #ely-blog-detail-main .blog-header .user-name {
+  padding: 12px; }
+  #ely-blog-detail #ely-blog-detail-main .blog-header-container .user-avatar {
+    cursor: pointer;
+    margin-right: 8px; }
+    #ely-blog-detail #ely-blog-detail-main .blog-header-container .user-avatar img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%; }
+  #ely-blog-detail #ely-blog-detail-main .blog-header-container .blog-header .user-name {
     cursor: pointer;
     line-height: 16px;
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
-  #ely-blog-detail #ely-blog-detail-main .blog-header .blog-created {
+  #ely-blog-detail #ely-blog-detail-main .blog-header-container .blog-header .blog-created {
     display: inline-block;
     margin-right: 8px;
     line-height: 14px;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.54); }
-  #ely-blog-detail #ely-blog-detail-main .blog-header .public-type {
+  #ely-blog-detail #ely-blog-detail-main .blog-header-container .blog-header .public-type {
     font-size: 14px;
     line-height: 16px;
     font-weight: 500;
     color: #3F51B5; }
-    #ely-blog-detail #ely-blog-detail-main .blog-header .public-type .private-visible-type {
+    #ely-blog-detail #ely-blog-detail-main .blog-header-container .blog-header .public-type .private-visible-type {
       margin-right: 8px; }
   #ely-blog-detail #ely-blog-detail-main .button-settings-container {
     padding: 0; }
     #ely-blog-detail #ely-blog-detail-main .button-settings-container .button-settings {
       margin: 0; }
-  #ely-blog-detail #ely-blog-detail-main .blog-content {
-    padding: 0 16px 16px 16px; }
-    #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
-      font-size: 18px;
-      font-weight: 500;
+  #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: #3F51B5;
+    font-size: 20px;
+    overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
+        max-height: 74px; } }
+    @media screen and (min-width: 960px) {
+      #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
+        font-size: 24px; } }
+  #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container {
+    margin-top: 18px; }
+    #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
+      cursor: pointer;
+      float: left;
+      max-width: 300px;
+      max-height: 400px;
+      margin-right: 16px;
       margin-bottom: 16px; }
-    #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container {
-      margin-top: 18px; }
-      #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
-        cursor: pointer;
-        float: left;
-        max-width: 300px;
-        max-height: 400px;
-        margin-right: 16px;
-        margin-bottom: 16px; }
-        @media screen and (min-width: 960px) {
-          #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
-            max-width: 200px; } }
-      #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .blog-text {
-        white-space: pre-wrap;
-        font-weight: 300; }
-    #ely-blog-detail #ely-blog-detail-main .blog-content .blog-page-info {
-      clear: both; }
+      @media screen and (min-width: 960px) {
+        #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
+          max-width: 200px; } }
+    #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .blog-text {
+      white-space: pre-wrap;
+      font-weight: 300; }
+  #ely-blog-detail #ely-blog-detail-main .blog-content .blog-page-info {
+    clear: both; }
 
 .ely-blog-info-container {
   margin-top: 22px; }

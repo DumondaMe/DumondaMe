@@ -11,9 +11,11 @@ let getDetailMessage = function (queryBlogResult, userRecommendation, allRecomme
     result.page.isAdmin = queryBlogResult.isAdmin;
     result.page.pageId = queryBlogResult.blog.pageId;
     result.page.created = queryBlogResult.blog.created;
+    result.page.modified = queryBlogResult.blog.modified;
     result.page.title = queryBlogResult.blog.title;
     result.page.text = queryBlogResult.blog.text;
     result.page.topic = queryBlogResult.blog.topic;
+    result.page.language = queryBlogResult.blog.language;
     result.page.visible = queryBlogResult.blog.visible;
     profileUrl.addProfileUrl(result.page, queryBlogResult);
     result.page.isPublic = true;

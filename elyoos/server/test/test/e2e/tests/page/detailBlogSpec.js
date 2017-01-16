@@ -23,7 +23,7 @@ describe('Integration Tests for getting blog details', function () {
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(null, 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
-        dbDsl.createBlog('1', '4', ['en'], ['health'], 5077, ['Freund', 'Bekannter'], 250);
+        dbDsl.createBlog('1', '4', ['en'], ['health'], 5077, ['Freund', 'Bekannter'], 250, null, 5078);
         dbDsl.crateRecommendationsForBlog('1', [{userId: '1', created: 508, comment: 'irgendwas'}, {userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
@@ -42,6 +42,7 @@ describe('Integration Tests for getting blog details', function () {
                 res.body.page.profileUrl.should.equals('profileImage/4/thumbnail.jpg');
                 res.body.page.recommendedByUser.should.equals(true);
                 res.body.page.created.should.equals(5077);
+                res.body.page.modified.should.equals(5078);
                 res.body.page.url.should.equals('blog/1/normal.jpg');
                 res.body.page.title.should.equals('blog1Title');
                 res.body.page.text.should.equals('blog1Text');
@@ -50,6 +51,8 @@ describe('Integration Tests for getting blog details', function () {
                 res.body.page.visible.length.should.equals(2);
                 res.body.page.visible[0].should.equals('Freund');
                 res.body.page.visible[1].should.equals('Bekannter');
+                res.body.page.language.length.should.equals(1);
+                res.body.page.language[0].should.equals('en');
 
                 res.body.page.topic.length.should.equals(1);
                 res.body.page.topic[0].should.equals('health');
@@ -93,6 +96,8 @@ describe('Integration Tests for getting blog details', function () {
                 res.body.page.isPublic.should.equals(true);
                 res.body.page.topic.length.should.equals(1);
                 res.body.page.topic[0].should.equals('health');
+                res.body.page.language.length.should.equals(1);
+                res.body.page.language[0].should.equals('en');
 
                 res.body.recommendation.summary.contact.numberOfRecommendations.should.equals(0);
                 res.body.recommendation.summary.all.numberOfRecommendations.should.equals(2);

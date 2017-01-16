@@ -1,33 +1,40 @@
 #ely-blog-detail {
   #ely-blog-detail-main {
-    max-width: 600px;
-    min-width: 300px;
-    .user-avatar {
-      cursor: pointer;
-    }
-    .blog-header {
-      .user-name {
+    padding: 12px;
+    .blog-header-container {
+      .user-avatar {
         cursor: pointer;
-        line-height: 16px;
-        font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .blog-created {
-        display: inline-block;
         margin-right: 8px;
-        line-height: 14px;
-        font-size: 12px;
-        color: $secondary-text;
+        img {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+        }
       }
-      .public-type {
-        font-size: 14px;
-        line-height: 16px;
-        font-weight: 500;
-        color: $primary-color;
-        .private-visible-type {
+      .blog-header {
+        .user-name {
+          cursor: pointer;
+          line-height: 16px;
+          font-size: 14px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .blog-created {
+          display: inline-block;
           margin-right: 8px;
+          line-height: 14px;
+          font-size: 12px;
+          color: $secondary-text;
+        }
+        .public-type {
+          font-size: 14px;
+          line-height: 16px;
+          font-weight: 500;
+          color: $primary-color;
+          .private-visible-type {
+            margin-right: 8px;
+          }
         }
       }
     }
@@ -38,11 +45,19 @@
       }
     }
     .blog-content {
-      padding: 0 16px 16px 16px;
+
       .blog-title {
-        font-size: 18px;
-        font-weight: 500;
+        margin-top: 8px;
         margin-bottom: 16px;
+        color: $primary-color;
+        font-size: 20px;
+        overflow: hidden;
+        @media screen and (max-width: $gt-xs) {
+          max-height: 74px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          font-size: 24px;
+        }
       }
       .image-description-container {
         margin-top: 18px;

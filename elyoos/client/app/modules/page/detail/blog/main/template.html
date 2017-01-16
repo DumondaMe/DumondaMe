@@ -1,8 +1,8 @@
-<md-card id="ely-blog-detail-main">
-    <md-card-header>
-        <md-card-avatar ng-click="ctrl.openUserDetail()" class="user-avatar">
-            <img class="md-user-avatar" ng-src="{{ctrl.blogDetail.page.profileUrl}}"/>
-        </md-card-avatar>
+<div id="ely-blog-detail-main">
+    <div class="blog-header-container" layout="row">
+        <div ng-click="ctrl.openUserDetail()" class="user-avatar">
+            <img ng-src="{{ctrl.blogDetail.page.profileUrl}}"/>
+        </div>
         <div class="blog-header">
             <div layout="row" layout-wrap>
                 <div class="md-title user-name" ng-if="!ctrl.blogDetail.page.isAdmin" ui-sref="user.detail({userId: ctrl.blogDetail.page.userId})">
@@ -21,28 +21,14 @@
             </div>
             <div>
                 <div class="blog-created">{{ctrl.blogDetail.page.created}}</div>
-                <ely-topics-color topics="ctrl.blogDetail.page.topic"></ely-topics-color>
             </div>
         </div>
-        <span flex></span>
-        <md-menu md-position-mode="target-right target" class="button-settings-container" ng-if="ctrl.blogDetail.page.isAdmin"
-                 ng-disabled="ctrl.requestBlogDeleteRunning">
-            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button button-settings" aria-label="Settings">
-                <md-icon md-svg-icon="cardActions:moreVert"></md-icon>
-            </md-button>
-            <md-menu-content>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.deleteBlog()">Löschen</md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    </md-card-header>
+    </div>
     <div class="blog-content">
         <div class="blog-title">{{ctrl.blogDetail.page.title}}</div>
         <div class="image-description-container">
             <img class="image" ng-src="{{ctrl.blogDetail.page.url}}" ng-if="ctrl.blogDetail.page.url" ng-click="ctrl.openImageView()">
             <div class="blog-text">{{ctrl.blogDetail.page.text}}</div>
         </div>
-        <ely-blog-detail-action class="blog-page-info" page-detail="ctrl.blogDetail"></ely-blog-detail-action>
     </div>
-</md-card>
+</div>

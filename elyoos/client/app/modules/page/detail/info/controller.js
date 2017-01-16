@@ -1,14 +1,15 @@
 'use strict';
 
-module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation', 'PageUserRecommendation', 'errorToast',
-    function (ElyModal, moment, Languages, UserDetailNavigation, PageUserRecommendation, errorToast) {
+module.exports = ['ElyModal', 'moment', 'Languages', 'UserDetailNavigation', 'PageUserRecommendation', 'errorToast', '$stateParams',
+    function (ElyModal, moment, Languages, UserDetailNavigation, PageUserRecommendation, errorToast, $stateParams) {
         var ctrl = this;
 
         ctrl.getLanguage = Languages.getLanguage;
+        ctrl.label = $stateParams.label;
 
         ctrl.addRecommendation = function () {
             ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
-                {pageId: ctrl.pageDetail.page.pageId, title: ctrl.pageDetail.page.title}).then(function (data) {
+                {pageId: ctrl.pageDetail.page.pageId, title: ctrl.pageDetail.page.title, isBlog: ctrl.label === 'Blog'}).then(function (data) {
                 ctrl.pageDetail.recommendation = data.recommendation;
                 ctrl.pageDetail.recommendation.user.created = moment.unix(ctrl.pageDetail.recommendation.user.created).format('LL');
             });
