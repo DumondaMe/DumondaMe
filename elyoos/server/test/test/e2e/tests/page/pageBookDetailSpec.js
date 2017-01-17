@@ -59,13 +59,13 @@ describe('Integration Tests for getting book page detail', function () {
             .create("(b)-[:IS_ADMIN]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '1'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas', recommendationId: '0'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, recommendationId: '0'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, comment: 'irgendwas2', recommendationId: '1'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 500, recommendationId: '1'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
         commands.push(db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '3'})")
-            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, comment: 'irgendwas3', recommendationId: '2'})-[:RECOMMENDS]->(a)")
+            .create("(b)-[:RECOMMENDS]->(:Recommendation {created: 501, recommendationId: '2'})-[:RECOMMENDS]->(a)")
             .end().getCommand());
 
         return db.cypher().match("(a:Page {pageId: '0'}), (b:User {userId: '2'})")
@@ -117,7 +117,6 @@ describe('Integration Tests for getting book page detail', function () {
                 res.body.administrators.isAdmin.should.be.true;
 
                 res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-                res.body.recommendation.user.comment.should.equals('irgendwas');
                 res.body.recommendation.user.created.should.equals(500);
                 res.body.recommendation.user.recommendationId.should.equals('0');
                 

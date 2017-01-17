@@ -54,24 +54,20 @@ let deleteRecommendation = function (userId, recommendationId, pageId, req) {
     });
 };
 
-let addRecommendation = function (userId, pageId, comment, isBlog, req) {
-    if (!comment) {
-        comment = '';
-    }
+let addRecommendation = function (userId, pageId, isBlog, req) {
     return checkAddingRecommendationAllowed(userId, pageId, isBlog, req).then(function () {
 
         let recommendationId = uuid.generateUUID(), commands = [], created = time.getNowUtcTimestamp();
 
         commands.push(db.cypher().match("(user:User {userId: {userId}}), (page:Page {pageId: {pageId}})")
             .create("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement {created: {created}, " +
-                "comment: {comment}, recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
+                "recommendationId: {recommendationId}})-[:RECOMMENDS]->(page)")
             .with("recommendation, page")
             .create("(recommendation)-[:PINWALL_DATA]->(page)")
             .end({
                 userId: userId,
                 pageId: pageId,
                 recommendationId: recommendationId,
-                comment: comment,
                 created: created
             }).getCommand());
         commands.push(recommendation.getRecommendationSummaryAll(pageId).getCommand());

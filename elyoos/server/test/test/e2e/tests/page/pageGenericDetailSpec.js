@@ -29,8 +29,8 @@ describe('Integration Tests for getting generic page detail', function () {
         dbDsl.createPrivacyNoContact(null, {profile: true, image: false, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500, comment: 'irgendwas'},
-            {userId: '2', created: 502, comment: 'irgendwas2'}, {userId: '3', created: 501, comment: 'irgendwas3'}]);
+        dbDsl.crateRecommendationsForPage('1', [{userId: '1', created: 500},
+            {userId: '2', created: 502}, {userId: '3', created: 501}]);
 
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
 
@@ -72,7 +72,6 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.administrators.isAdmin.should.be.false;
 
             res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.recommendation.user.comment.should.equals('irgendwas');
             res.body.recommendation.user.recommendationId.should.equals('0');
 
             res.body.recommendation.summary.contact.numberOfRecommendations.should.equals(1);

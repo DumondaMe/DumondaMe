@@ -22,10 +22,10 @@ let checkAddingRecommendationAllowed = function (userId, pageId, req) {
         });
 };
 
-let addRecommendation = function (userId, pageId, comment, req) {
+let addRecommendation = function (userId, pageId, req) {
 
     return checkAddingRecommendationAllowed(userId, pageId, req).then(function () {
-        return pageRecommendation.addRecommendation(userId, pageId, comment, true, req);
+        return pageRecommendation.addRecommendation(userId, pageId, true, req);
     });
 };
 

@@ -22,7 +22,7 @@ let getRecommendationSummaryContacts = function (pageId, userId) {
 let getUserRecommendation = function (pageId, userId) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User {userId: {userId}})")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, rec.created AS created")
+        .return("rec.recommendationId AS recommendationId, rec.created AS created")
         .end({pageId: pageId, userId: userId})
         .getCommand();
 };
@@ -31,7 +31,7 @@ let getOtherUserRecommendation = function (pageId, userId, limit, skip) {
 
     return db.cypher().match("(:Page {pageId: {pageId}})<-[:RECOMMENDS]-(rec:Recommendation)<-[:RECOMMENDS]-(u:User)")
         .where("u.userId <> {userId}")
-        .return("rec.recommendationId AS recommendationId, rec.comment AS comment, u.userId AS userId, u.name AS name")
+        .return("rec.recommendationId AS recommendationId, u.userId AS userId, u.name AS name")
         .orderBy("rec.created DESC")
         .skip("{skip}")
         .limit("{limit}")
