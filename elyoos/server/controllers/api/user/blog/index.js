@@ -4,6 +4,7 @@ let validation = require('elyoos-server-lib').jsonValidation;
 let auth = require('elyoos-server-lib').auth;
 let exceptions = require('elyoos-server-lib').exceptions;
 let addBlog = requireModel('user/blog/addBlog');
+let editBlog = requireModel('user/blog/editBlog');
 let removeBlog = requireModel('user/blog/removeBlog');
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let topic = require("../../../schema/topic");
@@ -30,6 +31,16 @@ let schemaRequestBlog = {
                     maxItems: 10,
                     uniqueItems: true
                 },
+                topic: topic.topicMultiple,
+                language: language.language
+            }
+        }, editBlog: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['pageId', 'text', 'topic', 'language'],
+            properties: {
+                pageId: {type: 'string', format: 'notEmptyString', maxLength: 30},
+                text: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 10000},
                 topic: topic.topicMultiple,
                 language: language.language
             }
@@ -64,6 +75,9 @@ module.exports = function (router) {
                 if (request.hasOwnProperty('addBlog')) {
                     logger.info('User adds a new blog', req);
                     return addBlog.addBlog(req.user.id, request.addBlog, path, req);
+                } else if (request.hasOwnProperty('editBlog')) {
+                    logger.info(`User edits new blog ${request.editBlog.pageId}`, req);
+                    return editBlog.editBlog(req.user.id, request.editBlog, path, req);
                 }
                 return exceptions.getInvalidOperation("Unknown request type", logger, req);
             }).then(function (page) {

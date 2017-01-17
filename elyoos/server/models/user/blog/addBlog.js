@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let image = require('./../images/uploadImageCDN');
+let upload = require('./upload');
 let _ = require('underscore');
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
@@ -9,7 +9,7 @@ let exceptions = require('elyoos-server-lib').exceptions;
 let cdn = require('../../util/cdn');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let MAX_BLOG_PER_HOUR = 50;
+const MAX_BLOG_PER_HOUR = 50;
 
 let getVisibility = function (visibility) {
     if (_.isArray(visibility)) {
@@ -54,18 +54,11 @@ let security = function (userId, visibility, req) {
         });
 };
 
-let uploadFile = function (filePath, pageId) {
-    if (_.isString(filePath)) {
-        return image.uploadImage(filePath,'blog', pageId, 450, 1000);
-    }
-    return Promise.resolve(null);
-};
-
 let addBlog = function (userId, request, filePath, req) {
     let commands = [], visibility = getVisibility(request.visibility), pageId = uuid.generateUUID();
 
     return security(userId, request.visibility, req).then(function () {
-        return uploadFile(filePath, pageId)
+        return upload.uploadFile(filePath, pageId)
             .then(function (height) {
                 return db.cypher().match("(user:User {userId: {userId}})")
                     .create(`(user)-[:WRITTEN]->(blog:Blog:Page:PinwallElement {text: {text}, title: {title}, created: {timestamp}, 
