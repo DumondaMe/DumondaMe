@@ -32,7 +32,7 @@
                             </md-select>
                         </div>
                         <div flex="50" flex-offset="5">
-                            <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" class="ely-select-topic"
+                            <md-select ng-model="ctrl.data.selectedLanguages" placeholder="Sprache" class="ely-select-topic" required
                                        ng-change="ctrl.changeData()">
                                 <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
                             </md-select>

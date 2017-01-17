@@ -6,18 +6,17 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl: 'app/modules/common/loadImageButton/template.html',
-            controller: require('./controller.js'),
-            link: require('./link.js'),
+            templateUrl: 'app/modules/common/loadImageButton/normal/template.html',
+            controller: require('./../controller.js'),
+            link: require('./../link.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 imageForUpload: '=',
                 label: '@',
                 ariaLabel: '@',
-                icon: '@',
                 openDialogInit: '@'
             }
         };
     }],
-    name: 'elyLoadImageButton'
+    name: 'elyLoadImageButtonNormal'
 };

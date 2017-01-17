@@ -373,15 +373,6 @@
 
 .ely-load-image-button {
   cursor: pointer; }
-  .ely-load-image-button .label-image-icon {
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: 500;
-    position: relative;
-    left: -7px;
-    top: 1px;
-    display: inline-block; }
-  .ely-load-image-button .label-image-icon:hover {
-    text-decoration: underline; }
 
 #ely-loading-screen {
   height: 100%;
