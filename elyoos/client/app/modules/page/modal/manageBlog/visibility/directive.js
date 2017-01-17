@@ -13,8 +13,8 @@ module.exports = {
             },
             controller: controller.directiveCtrl(),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/home/createBlog/visibility/template.html'
+            templateUrl: 'app/modules/page/modal/manageBlog/visibility/template.html'
         };
     }],
-    name: 'elyCreateBlogVisibility'
+    name: 'elyManageBlogVisibility'
 };

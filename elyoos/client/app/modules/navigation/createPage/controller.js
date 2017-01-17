@@ -6,7 +6,7 @@ module.exports = ['ElyModal', 'AddRemovePinwallElementService', '$mdBottomSheet'
 
         ctrl.createBlog = function () {
             $mdBottomSheet.hide();
-            ElyModal.show('HomePinwallCreateBlog', 'app/modules/home/createBlog/template.html', {element: ctrl.element})
+            ElyModal.show('ManageBlogCtrl', 'app/modules/page/modal/manageBlog/template.html', {element: ctrl.element})
                 .then(function (resp) {
                     $state.go('page.detail', {label: 'Blog', pageId: resp.pageId});
                 });

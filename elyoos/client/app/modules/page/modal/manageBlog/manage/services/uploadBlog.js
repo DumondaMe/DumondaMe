@@ -19,7 +19,8 @@ module.exports = ['CreateBlogVisibility', 'CreateBlogCheck', 'fileUpload', '$q',
             var deferred = $q.defer();
             if (CreateBlogCheck.isSendBlogAllowed(blogText, blogTitle, selectedTopics, selectedLanguage, false) && !uploadBlogIsRunning) {
                 uploadBlogIsRunning = true;
-                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage), 'api/user/blog')
+                fileUpload.uploadFileAndJson(blogImage, getParams(CreateBlogVisibility, blogText, blogTitle, selectedTopics, selectedLanguage),
+                    'api/user/blog')
                     .success(function (resp) {
                         uploadBlogIsRunning = false;
                         resp.isAdmin = true;

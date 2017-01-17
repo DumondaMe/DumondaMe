@@ -12,8 +12,8 @@ module.exports = {
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/home/createBlog/create/template.html'
+            templateUrl: 'app/modules/page/modal/manageBlog/manage/template.html'
         };
     }],
-    name: 'elyCreateBlog'
+    name: 'elyManageBlog'
 };

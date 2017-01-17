@@ -1,5 +1,5 @@
 <div>
-    <form name="createBlogForm" class="content-form">
+    <form name="manageBlogForm" class="content-form">
         <div class="header" layout="row">
             <img class="user-avatar" ng-src="{{ctrl.userInfo.profileImagePreview}}" flex="none">
             <div class="header-content">
@@ -24,7 +24,7 @@
                     <label>Titel</label>
                     <input name="blogTitle" class="blog-input" ng-model="ctrl.blogTitle" required md-maxlength="80"
                            ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"/>
-                    <div ng-messages="createBlogForm.blogTitle.$error" ng-show="createBlogForm.blogTitle.$dirty">
+                    <div ng-messages="manageBlogForm.blogTitle.$error" ng-show="manageBlogForm.blogTitle.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>
@@ -33,7 +33,7 @@
                     <label>Schreibe einen Beitrag...</label>
                     <textarea name="blogText" class="blog-input" ng-model="ctrl.blogText" required md-maxlength="10000" max-rows="10"
                               ng-disabled="ctrl.blogUploadStarted" ng-change="ctrl.dataChanged()"></textarea>
-                    <div ng-messages="createBlogForm.blogText.$error" ng-show="createBlogForm.blogText.$dirty">
+                    <div ng-messages="manageBlogForm.blogText.$error" ng-show="manageBlogForm.blogText.$dirty">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>

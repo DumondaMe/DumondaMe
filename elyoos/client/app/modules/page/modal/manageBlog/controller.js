@@ -4,7 +4,7 @@ module.exports = [
     function () {
         var ctrl = this;
         ctrl.mainView = true;
-        ctrl.createBlogCommands = {};
+        ctrl.manageBlogCommands = {};
 
         ctrl.openVisibility = function () {
             ctrl.mainView = false;
@@ -12,7 +12,7 @@ module.exports = [
 
         ctrl.closeVisibility = function () {
             ctrl.mainView = true;
-            ctrl.createBlogCommands.activateVisibility();
+            ctrl.manageBlogCommands.activateVisibility();
         };
     }];
 

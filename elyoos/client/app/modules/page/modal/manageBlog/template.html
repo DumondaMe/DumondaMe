@@ -1,0 +1,6 @@
+<md-dialog id="blog-manage" aria-label="Manage Blog" class="manage-page">
+    <ely-manage-blog ng-show="ctrl.mainView" on-open-visibility-event="ctrl.openVisibility()" commands="ctrl.manageBlogCommands"
+                     class="blog-manage-container" ng-cloak></ely-manage-blog>
+    <ely-manage-blog-visibility ng-show="!ctrl.mainView" on-close-visibility-event="ctrl.closeVisibility()"
+                                class="blog-manage-container"></ely-manage-blog-visibility>
+</md-dialog>
