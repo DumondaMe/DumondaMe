@@ -16,11 +16,12 @@ let createBookPage = function (userId, params, titlePicturePath, req) {
     params.language = [params.language];
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {
         return db.cypher().match("(user:User {userId: {userId}})")
-            .createUnique(`(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, 
+            .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, description: {description}, author: {author}, 
             publishDate: {publishDate}, modified: {created}, created: {created}, topic: {topic}, label: 'Book', language: {language}})
-            <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
-            .end(params)
-            .send();
+            <-[:RECOMMENDS]-(rec:Recommendation:PinwallElement {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
+            .with(`page, rec`)
+            .createUnique(`(rec)-[:PINWALL_DATA]->(page)`)
+            .end(params).send();
     }).then(function () {
         return uploadImage.generatePageImage(titlePicturePath, params.pageId);
     }).then(function () {

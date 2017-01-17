@@ -46,11 +46,12 @@ describe('Integration Tests for creating new link pages', function () {
             pageId = res.body.pageId;
             res.body.linkPreviewUrl.should.equals(`pages/${pageId}/preview.jpg`);
             res.body.hostname.should.equals(`www.example.com`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
                          page.modified AS modified, page.created AS created, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
-                         page.language AS language, recommendation`)
+                         page.language AS language, recommendation, pinwallData`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -66,6 +67,7 @@ describe('Integration Tests for creating new link pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');
@@ -99,11 +101,12 @@ describe('Integration Tests for creating new link pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.hostname.should.equals(`www.example.com`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {pageId: {pageId}})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.title AS title, 
                          page.modified AS modified, page.created AS created, page.link AS link, page.hostname AS hostname, page.heightPreviewImage AS heightPreviewImage,
-                         page.language AS language, recommendation`)
+                         page.language AS language, recommendation, pinwallData`)
                 .end({pageId: pageId}).send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -119,6 +122,7 @@ describe('Integration Tests for creating new link pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].topic.length.should.equals(2);
             page[0].topic[0].should.equals('health');

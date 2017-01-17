@@ -42,11 +42,12 @@ describe('Integration Tests for creating new youtube pages', function () {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
             pageId = res.body.pageId;
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -67,6 +68,7 @@ describe('Integration Tests for creating new youtube pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
@@ -93,11 +95,12 @@ describe('Integration Tests for creating new youtube pages', function () {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
             pageId = res.body.pageId;
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -118,6 +121,7 @@ describe('Integration Tests for creating new youtube pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
@@ -143,11 +147,12 @@ describe('Integration Tests for creating new youtube pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -168,6 +173,7 @@ describe('Integration Tests for creating new youtube pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
@@ -193,11 +199,12 @@ describe('Integration Tests for creating new youtube pages', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -218,6 +225,7 @@ describe('Integration Tests for creating new youtube pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);

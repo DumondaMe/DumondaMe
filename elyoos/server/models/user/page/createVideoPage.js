@@ -13,10 +13,11 @@ let createVideoPage = function (userId, params) {
     params.userId = userId;
     params.linkEmbed = youtube.getEmbedLink(params.link);
     return db.cypher().match("(user:User {userId: {userId}})")
-        .createUnique(`(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, linkEmbed: {linkEmbed}, 
-                            modified: {created}, created: {created}, topic: {topic}, label: 'Youtube', language: {language}, linkHistory: [], 
-                            linkHistoryDate: []})
-                            <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
+        .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, linkEmbed: {linkEmbed}, 
+               modified: {created}, created: {created}, topic: {topic}, label: 'Youtube', language: {language}, linkHistory: [], linkHistoryDate: []})
+               <-[:RECOMMENDS]-(rec:Recommendation:PinwallElement {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
+        .with(`page, rec`)
+        .createUnique(`(rec)-[:PINWALL_DATA]->(page)`)
         .end(params).send().then(function () {
             logger.info(`Created youtube page with id ${params.pageId}`);
             return {pageId: params.pageId, linkEmbed: params.linkEmbed};

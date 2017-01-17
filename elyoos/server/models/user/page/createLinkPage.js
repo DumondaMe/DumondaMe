@@ -30,9 +30,11 @@ let createLinkPage = function (userId, params, titlePicturePath, req) {
     }).then(function (hostname) {
         params.hostname = hostname;
         return db.cypher().match("(user:User {userId: {userId}})")
-            .createUnique(`(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, 
-                 modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}, language: {language}})
-                 <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
+            .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, 
+              modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}, language: {language}})
+              <-[:RECOMMENDS]-(rec:Recommendation:PinwallElement {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
+            .with(`page, rec`)
+            .createUnique(`(rec)-[:PINWALL_DATA]->(page)`)
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {

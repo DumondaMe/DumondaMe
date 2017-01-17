@@ -46,8 +46,10 @@ describe('Integration Tests for creating new generic pages', function () {
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
             return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(user:User {userId: '1'})")
-                .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(page:Page {title: 'title'})")
-                .return(`page, collect(address) as addresses, recommendation`)
+                .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->(page:Page {title: 'title'})")
+                .with("page, address, recommendation")
+                .match(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
+                .return(`page, collect(address) as addresses, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -81,6 +83,7 @@ describe('Integration Tests for creating new generic pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/normal.jpg`).should.be.true;
@@ -105,9 +108,10 @@ describe('Integration Tests for creating new generic pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
-                .return(`page, recommendation`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
+                .return(`page, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -127,6 +131,7 @@ describe('Integration Tests for creating new generic pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             stubCDN.copyFile.calledWith('pages/default/landscape/preview.jpg', `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.copyFile.calledWith('pages/default/landscape/normal.jpg', `pages/${pageId}/normal.jpg`).should.be.true;

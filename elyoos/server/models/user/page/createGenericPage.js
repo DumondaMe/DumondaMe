@@ -26,9 +26,11 @@ let createGenericPage = function (userId, params, titlePicturePath) {
     return db.cypher().match("(user:User {userId: {userId}})")
         .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, modified: {created}, created: {created}, 
         label: 'Generic', description: {description}, topic: {topic}, language: {language}, website: {website}})
-        <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)
+        <-[:RECOMMENDS]-(rec:Recommendation:PinwallElement {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)
         foreach (address in {places} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng), addressId: address.addressId}))`)
+        .with(`page, rec`)
+        .createUnique(`(rec)-[:PINWALL_DATA]->(page)`)
         .end(params).send().then(function () {
             return image.uploadImage(titlePicturePath, 'pages', params.pageId, 450, 1000, 'pages/default/landscape');
         }).then(function () {

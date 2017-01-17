@@ -46,10 +46,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(user:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language, recommendation')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language, recommendation, pinwallData')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -69,6 +70,7 @@ describe('Integration Tests for creating new book pages', function () {
 
             page[0].recommendation.created.should.be.at.least(startTime);
             should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
@@ -96,10 +98,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(user:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language, recommendation, pinwallData')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -116,6 +119,10 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].topic[1].should.equals('spiritual');
             page[0].language.length.should.equals(1);
             page[0].language[0].should.equals('en');
+
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
@@ -144,10 +151,11 @@ describe('Integration Tests for creating new book pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->
                                       (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .optionalMatch(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language, recommendation, pinwallData')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -164,6 +172,10 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].topic[1].should.equals('spiritual');
             page[0].language.length.should.equals(1);
             page[0].language[0].should.equals('fr');
+
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+            should.exist(page[0].pinwallData);
 
             stubCDN.uploadFile.called.should.be.false;
         });
