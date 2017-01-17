@@ -57,7 +57,7 @@
                         <md-input-container class="input-container" flex>
                             <label>Titel</label>
                             <input name="title" ng-model="ctrl.data.blogTitle" required md-maxlength="160"
-                                   ng-disabled="ctrl.uploadStarted" ng-change="ctrl.dataChanged()" ng-blur="ctrl.titleLostFocus()"/>
+                                   ng-disabled="ctrl.uploadStarted" ng-blur="ctrl.titleLostFocus()"/>
                             <div ng-messages="ctrl.manageBlogForm.title.$error">
                                 <div ng-message="required">Wird benötigt!</div>
                                 <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -84,7 +84,7 @@
             <md-button class="md-primary md-raised" ng-click="ctrl.createBlog()" ng-if="!ctrl.isEditMode"
                        ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid">Erstellen
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.modifyBlog()" ng-if="ctrl.isEditMode"
+            <md-button class="md-primary md-raised" ng-click="ctrl.editBlog()" ng-if="ctrl.isEditMode"
                        ng-disabled=" ctrl.uploadStarted || ctrl.manageBlogForm.$invalid || !ctrl.dataHasChanged">
                 Ändern
             </md-button>

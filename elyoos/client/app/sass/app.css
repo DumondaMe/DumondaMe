@@ -1877,7 +1877,8 @@
       #ely-blog-detail #ely-blog-detail-main .blog-content .blog-title {
         font-size: 24px; } }
   #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container {
-    margin-top: 18px; }
+    margin-top: 18px;
+    overflow: auto; }
     #ely-blog-detail #ely-blog-detail-main .blog-content .image-description-container .image {
       cursor: pointer;
       float: left;
@@ -1992,7 +1993,8 @@
 
 .ely-page-info-container {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 12px; }
+  padding: 12px;
+  clear: both; }
   .ely-page-info-container .ely-page-info-content {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54); }

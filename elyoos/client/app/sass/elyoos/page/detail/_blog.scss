@@ -45,7 +45,6 @@
       }
     }
     .blog-content {
-
       .blog-title {
         margin-top: 8px;
         margin-bottom: 16px;
@@ -61,6 +60,7 @@
       }
       .image-description-container {
         margin-top: 18px;
+        overflow: auto;
         .image {
           cursor: pointer;
           float: left;
