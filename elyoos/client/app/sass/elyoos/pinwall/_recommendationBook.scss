@@ -4,6 +4,7 @@
     .book-preview-image {
       width: 130px;
       margin-right: 12px;
+      cursor: pointer;
       img {
         border-radius: 2px;
       }
@@ -17,6 +18,7 @@
         }
       }
       .book-description {
+        cursor: pointer;
         height: 102px;
         overflow: hidden;
         font-size: 14px;

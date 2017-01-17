@@ -1,8 +1,8 @@
 <div class="link-recommendation-desktop">
-    <div class="link-preview-image" ng-click="ctrl.openLink(ctrl.element.link)" ng-if="ctrl.element.linkPreviewUrl">
+    <div class="link-preview-image" ui-sref="page.detail({label: 'Link', pageId: ctrl.element.pageId})" ng-if="ctrl.element.linkPreviewUrl">
         <img ng-src="{{ctrl.element.linkPreviewUrl}}">
     </div>
-    <div class="link-description" ng-click="ctrl.openLink(ctrl.element.link)">{{ctrl.element.description}}</div>
+    <div class="link-description" ui-sref="page.detail({label: 'Link', pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
     <div class="action-container">
         <ely-pinwall-page-recommendation-actions request-running="ctrl.requestRunning"
                                                  element="ctrl.element"></ely-pinwall-page-recommendation-actions>

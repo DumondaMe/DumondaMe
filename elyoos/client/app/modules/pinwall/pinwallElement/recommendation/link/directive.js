@@ -10,7 +10,8 @@ module.exports = {
                 element: '=',
                 requestRunning: '='
             },
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
             templateUrl: 'app/modules/pinwall/pinwallElement/recommendation/link/template.html'
         };
