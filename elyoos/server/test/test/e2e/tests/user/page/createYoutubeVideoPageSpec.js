@@ -2,25 +2,19 @@
 
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
+let should = require('chai').should();
 
 describe('Integration Tests for creating new youtube pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
-        let commands = [];
         startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
-
-            return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
-                .end().send(commands);
+        return dbDsl.init(1).then(function () {
         });
     });
 
@@ -40,17 +34,19 @@ describe('Integration Tests for creating new youtube pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/hTarMdJub0M');
             pageId = res.body.pageId;
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -69,6 +65,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].language[0].should.equals('en');
             page[0].language[1].should.equals('de');
 
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
         });
@@ -86,17 +85,19 @@ describe('Integration Tests for creating new youtube pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.linkEmbed.should.equals('https://www.youtube.com/embed/Lhku7ZBWEK8');
             pageId = res.body.pageId;
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -115,6 +116,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].language[0].should.equals('en');
             page[0].language[1].should.equals('de');
 
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
         });
@@ -132,16 +136,18 @@ describe('Integration Tests for creating new youtube pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -160,6 +166,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].language[0].should.equals('en');
             page[0].language[1].should.equals('de');
 
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
         });
@@ -177,16 +186,18 @@ describe('Integration Tests for creating new youtube pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return(`page.pageId AS pageId, page.topic AS topic, page.description AS description, page.link AS link, page.linkEmbed AS linkEmbed,
                          page.modified AS modified, page.created AS created, page.label AS label, page.language AS language,
-                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate`)
+                         page.linkHistory AS linkHistory, page.linkHistoryDate AS linkHistoryDate, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -205,6 +216,9 @@ describe('Integration Tests for creating new youtube pages', function () {
             page[0].language[0].should.equals('en');
             page[0].language[1].should.equals('de');
 
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
+
             page[0].linkHistory.length.should.equals(0);
             page[0].linkHistoryDate.length.should.equals(0);
         });
@@ -222,9 +236,10 @@ describe('Integration Tests for creating new youtube pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(400);
             return db.cypher().match("(page:Page {title: 'title'})").return("page").end().send();

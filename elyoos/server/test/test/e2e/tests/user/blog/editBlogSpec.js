@@ -12,7 +12,8 @@ describe('Integration Tests for edit a blog', function () {
 
     beforeEach(function () {
 
-        return dbDsl.init(6).then(function () {
+        stubCDN.uploadFile.reset();
+        return dbDsl.init(2).then(function () {
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 

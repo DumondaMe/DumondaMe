@@ -2,6 +2,7 @@
 
 let users = require('elyoos-server-test-util').user;
 let db = require('elyoos-server-test-util').db;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let should = require('chai').should();
 let moment = require('moment');
@@ -10,21 +11,13 @@ let sinon = require('sinon');
 
 describe('Integration Tests for creating new book pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
-        let commands = [];
         stubCDN.uploadFile.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
-        return db.clearDatabase().then(function () {
-            commands.push(db.cypher().create("(:User {email: 'user@irgendwo.ch', password: '$2a$10$JlKlyw9RSpt3.nt78L6VCe0Kw5KW4SPRaCGSPMmpW821opXpMgKAm', name: 'user Meier', surname: 'Meier', forename:'user', userId: '1'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier2', userId: '2'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier3', userId: '3'})").end().getCommand());
-            commands.push(db.cypher().create("(:User {name: 'user Meier4', userId: '4'})").end().getCommand());
-
-            return db.cypher().create("(:User {name: 'user Meier5', userId: '5'})")
-                .end().send(commands);
+        return dbDsl.init(1).then(function () {
         });
     });
 
@@ -45,16 +38,18 @@ describe('Integration Tests for creating new book pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
-                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
+                'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language, recommendation')
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -71,6 +66,9 @@ describe('Integration Tests for creating new book pages', function () {
             page[0].topic[1].should.equals('spiritual');
             page[0].language.length.should.equals(1);
             page[0].language[0].should.equals('de');
+
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pagePreview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/pageTitlePicture.jpg`).should.be.true;
@@ -90,14 +88,16 @@ describe('Integration Tests for creating new book pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
                 .end().send();
@@ -136,14 +136,16 @@ describe('Integration Tests for creating new book pages', function () {
             }
         }, pageId;
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.bookPreviewUrl.should.equals(`pages/${pageId}/pagePreview.jpg`);
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
                 .return('page.pageId AS pageId, page.label AS label, page.topic AS topic, page.description AS description, page.author AS author, ' +
                 'page.modified AS modified, page.created AS created, page.publishDate AS publishDate, page.language AS language')
                 .end().send();
@@ -180,9 +182,10 @@ describe('Integration Tests for creating new book pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/toSmallWidth.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             res.body.errorCode.should.equal(2);
@@ -208,9 +211,10 @@ describe('Integration Tests for creating new book pages', function () {
             }
         };
 
-        return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
+        return dbDsl.sendToDb().then(function () {
+            return requestHandler.login(users.validUser);
+        }).then(function (agent) {
+            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/toSmallHeight.jpg');
         }).then(function (res) {
             res.status.should.equal(400);
             res.body.errorCode.should.equal(2);

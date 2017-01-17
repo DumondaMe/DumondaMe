@@ -22,6 +22,7 @@ let getHostname = function (link, req) {
 
 let createLinkPage = function (userId, params, titlePicturePath, req) {
     params.pageId = uuid.generateUUID();
+    params.recommendationId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {
@@ -29,8 +30,9 @@ let createLinkPage = function (userId, params, titlePicturePath, req) {
     }).then(function (hostname) {
         params.hostname = hostname;
         return db.cypher().match("(user:User {userId: {userId}})")
-            .createUnique("(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, " +
-                "modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}, language: {language}})")
+            .createUnique(`(user)-[:IS_ADMIN]->(:Page {pageId: {pageId}, title: {title}, description: {description}, link: {link}, 
+                 modified: {created}, created: {created}, topic: {topic}, label: 'Link', hostname: {hostname}, language: {language}})
+                 <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)`)
             .end(params).send();
     }).then(function () {
         if (typeof titlePicturePath === 'string' && titlePicturePath.trim() !== '') {

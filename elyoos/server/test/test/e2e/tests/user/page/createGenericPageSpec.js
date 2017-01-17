@@ -11,16 +11,13 @@ let sinon = require('sinon');
 
 describe('Integration Tests for creating new generic pages', function () {
 
-    let requestAgent, startTime;
+    let startTime;
 
     beforeEach(function () {
 
         stubCDN.uploadFile.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(5).then(function () {
-            dbDsl.createKeywords('Yoga');
-            dbDsl.createKeywords('Meditation');
-            dbDsl.createKeywords('Shop');
             return dbDsl.sendToDb();
         });
     });
@@ -43,14 +40,14 @@ describe('Integration Tests for creating new generic pages', function () {
         }, pageId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+            return requestHandler.post('/api/user/page/create', createPage, agent, './test/test/e2e/tests/user/page/test.jpg');
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
-            return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return(`page AS page, collect(address) as addresses`)
+            return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(user:User {userId: '1'})")
+                .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(page:Page {title: 'title'})")
+                .return(`page, collect(address) as addresses, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -64,7 +61,7 @@ describe('Integration Tests for creating new generic pages', function () {
 
             page[0].addresses.length.should.equals(2);
             page[0].addresses.sort(function (a, b) {
-                return b.description - a.description;
+                return b.latitude - a.latitude;
             });
             page[0].addresses[0].description.should.equals("addressName2");
             page[0].addresses[0].latitude.should.equals(-4.00);
@@ -81,6 +78,9 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.language.length.should.equals(2);
             page[0].page.language[0].should.equals('en');
             page[0].page.language[1].should.equals('de');
+
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
 
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.uploadFile.calledWith(sinon.match.any, `pages/${pageId}/normal.jpg`).should.be.true;
@@ -100,14 +100,14 @@ describe('Integration Tests for creating new generic pages', function () {
         }, pageId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
-            requestAgent = agent;
-            return requestHandler.post('/api/user/page/create', createPage, requestAgent);
+            return requestHandler.post('/api/user/page/create', createPage, agent);
         }).then(function (res) {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
-            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})")
-                .return(`page AS page`)
+            return db.cypher().match(`(:User {userId: '1'})-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->
+                                      (page:Page {title: 'title'})<-[:IS_ADMIN]-(:User {userId: '1'})`)
+                .return(`page, recommendation`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -124,6 +124,9 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.language.length.should.equals(2);
             page[0].page.language[0].should.equals('en');
             page[0].page.language[1].should.equals('de');
+
+            page[0].recommendation.created.should.be.at.least(startTime);
+            should.exist(page[0].recommendation.recommendationId);
 
             stubCDN.copyFile.calledWith('pages/default/landscape/preview.jpg', `pages/${pageId}/preview.jpg`).should.be.true;
             stubCDN.copyFile.calledWith('pages/default/landscape/normal.jpg', `pages/${pageId}/normal.jpg`).should.be.true;

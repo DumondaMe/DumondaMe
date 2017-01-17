@@ -18,6 +18,7 @@ let addAddressIds = function (addresses) {
 
 let createGenericPage = function (userId, params, titlePicturePath) {
     params.pageId = uuid.generateUUID();
+    params.recommendationId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
     params.userId = userId;
     addAddressIds(params.places);
@@ -25,6 +26,7 @@ let createGenericPage = function (userId, params, titlePicturePath) {
     return db.cypher().match("(user:User {userId: {userId}})")
         .createUnique(`(user)-[:IS_ADMIN]->(page:Page {pageId: {pageId}, title: {title}, modified: {created}, created: {created}, 
         label: 'Generic', description: {description}, topic: {topic}, language: {language}, website: {website}})
+        <-[:RECOMMENDS]-(:Recommendation {recommendationId: {recommendationId}, created: {created}})<-[:RECOMMENDS]-(user)
         foreach (address in {places} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end(params).send().then(function () {
