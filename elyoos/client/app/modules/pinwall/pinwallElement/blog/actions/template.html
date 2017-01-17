@@ -1,11 +1,15 @@
 <div class="blog-actions" layout="row">
-    <div>
+    <div ng-hide="ctrl.uploadRunning">
         <md-button class="blog-action md-fab md-mini" aria-label="Recommend Blog"
                    ng-disabled="ctrl.element.recommendedByUser || ctrl.element.isAdmin || ctrl.requestRunning" ng-click="ctrl.recommendBlog()">
             <md-icon md-svg-icon="cardActions:thumbUp" class="action-icon"></md-icon>
         </md-button>
         <md-tooltip md-direction="bottom" ng-show="ctrl.element.recommendedByUser">Du hast diesen Blog empfohlen</md-tooltip>
         <md-tooltip md-direction="bottom" ng-show="!ctrl.element.recommendedByUser && !ctrl.element.isAdmin">Diesen Blog empfehlen</md-tooltip>
+    </div>
+    <div ng-show="ctrl.uploadRunning">
+        <md-progress-circular class="upload-recommendation" md-mode="indeterminate"
+                              md-diameter="16"></md-progress-circular>
     </div>
     <div class="number-container ">
         <div ng-if="!ctrl.element.onlyContact">

@@ -1,14 +1,18 @@
 'use strict';
 
-module.exports = ['ElyModal', function (ElyModal) {
+module.exports = ['BlogRecommendation', 'errorToast', function (BlogRecommendation, errorToast) {
     var ctrl = this;
 
     ctrl.recommendBlog = function () {
-        ElyModal.show('RecommendationAddCtrl', 'app/modules/recommendation/addRecommendation/template.html',
-            {pageId: ctrl.element.pageId, title: ctrl.element.title, isBlog: true}).then(function (resp) {
+        ctrl.uploadRunning = true;
+        BlogRecommendation.save({pageId: ctrl.element.pageId}, function (resp) {
+            ctrl.uploadRunning = false;
             ctrl.element.recommendedByUser = true;
             ctrl.element.userRecommendationId = resp.recommendationId;
-            ctrl.element.numberOfRecommendations++;
+            ctrl.element.totalNumberOfRecommendations++;
+        }, function () {
+            ctrl.uploadRunning = false;
+            errorToast.showError('Blog konnte nicht empfohlen werden!');
         });
     };
 }];

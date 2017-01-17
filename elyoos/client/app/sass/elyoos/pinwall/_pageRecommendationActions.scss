@@ -11,14 +11,20 @@
       min-width: 16px;
     }
   }
+  .upload-recommendation {
+    top: 12px;
+    left: 10px;
+    margin-right: 28px;
+  }
   .number-container {
     margin-left: 2px;
     margin-right: 8px;
-    color: $primary-text;
+    color: $primary-color;
     height: 40px;
     .number {
       line-height: 40px;
       font-size: 14px;
+      font-weight: 500;
       vertical-align: middle;
     }
   }

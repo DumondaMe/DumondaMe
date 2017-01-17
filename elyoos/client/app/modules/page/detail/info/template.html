@@ -2,7 +2,7 @@
     <div class="page-section-title">Info</div>
     <div class="ely-page-info-content">
         <div layout="row" class="recommendation-content">
-            <div>
+            <div ng-hide="ctrl.uploadRunning">
                 <md-button class="page-action md-fab md-mini" aria-label="Recommend Page"
                            ng-disabled="ctrl.pageDetail.recommendation.user.recommendationId || ctrl.requestRunning ||
                            (ctrl.label === 'Blog' && ctrl.pageDetail.page.isAdmin)"
@@ -13,6 +13,10 @@
                             ng-show="!ctrl.pageDetail.recommendation.user.recommendationId && !ctrl.pageDetail.administrators.isAdmin">Diesen Beitrag
                     empfehlen
                 </md-tooltip>
+            </div>
+            <div ng-show="ctrl.uploadRunning">
+                <md-progress-circular class="upload-recommendation" md-mode="indeterminate"
+                                      md-diameter="16"></md-progress-circular>
             </div>
             <div class="number-container">
                 <span class="number">{{ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations}}</span>

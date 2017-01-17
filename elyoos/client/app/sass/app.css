@@ -2009,6 +2009,10 @@
           width: 16px;
           min-height: 16px;
           min-width: 16px; }
+      .ely-page-info-container .ely-page-info-content .recommendation-content .upload-recommendation {
+        top: 6px;
+        left: 5px;
+        margin-right: 12px; }
       .ely-page-info-container .ely-page-info-content .recommendation-content .number-container {
         margin-left: 8px;
         height: 28px; }
@@ -2529,14 +2533,19 @@
       width: 16px;
       min-height: 16px;
       min-width: 16px; }
+  .blog-actions .upload-recommendation {
+    top: 12px;
+    left: 10px;
+    margin-right: 28px; }
   .blog-actions .number-container {
     margin-left: 2px;
     margin-right: 8px;
-    color: rgba(0, 0, 0, 0.87);
+    color: #3F51B5;
     height: 40px; }
     .blog-actions .number-container .number {
       line-height: 40px;
       font-size: 14px;
+      font-weight: 500;
       vertical-align: middle; }
 
 .pinwall-info-element {
@@ -2637,14 +2646,19 @@
     width: 16px;
     min-height: 16px;
     min-width: 16px; }
+.page-recommendation-actions .upload-recommendation {
+  top: 12px;
+  left: 10px;
+  margin-right: 28px; }
 .page-recommendation-actions .number-container {
   margin-left: 2px;
   margin-right: 8px;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3F51B5;
   height: 40px; }
   .page-recommendation-actions .number-container .number {
     line-height: 40px;
     font-size: 14px;
+    font-weight: 500;
     vertical-align: middle; }
 
 .ely-pinwall-container #pinwall-no-result {
