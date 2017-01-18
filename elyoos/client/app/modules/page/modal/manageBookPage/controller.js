@@ -74,9 +74,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
 
         ctrl.createBook = function () {
             var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
-                ElyModal.hide(resp.data);
-            });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyBook = function () {

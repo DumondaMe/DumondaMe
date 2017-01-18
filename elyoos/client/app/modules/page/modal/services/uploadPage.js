@@ -7,8 +7,7 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
 
         return fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create').then(
             function (resp) {
-                ctrl.uploadStarted = false;
-                return resp;
+                ElyModal.hide(resp.data);
             }, function (resp) {
                 ctrl.uploadStarted = false;
                 if (resp.data && resp.data.errorCode === 2) {

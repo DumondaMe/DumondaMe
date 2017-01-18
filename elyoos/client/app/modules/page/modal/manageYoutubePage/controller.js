@@ -65,11 +65,6 @@ module.exports = ['ElyModal', 'Topics', 'PageYoutubeLink', 'fileUpload', 'errorT
             UploadPageService.uploadModifyPage(message, ctrl);
         };
 
-        ctrl.recommendationFinish = function (recommendation) {
-            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Youtube');
-            ElyModal.hide(ctrl.data);
-        };
-
         ctrl.recommendationAbort = function () {
             ElyModal.cancel();
         };

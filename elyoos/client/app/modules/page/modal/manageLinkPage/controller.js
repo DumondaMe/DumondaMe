@@ -61,20 +61,12 @@ module.exports = ['ElyModal', 'Topics', 'PageLinkUrlCheck', 'fileUpload', 'LinkP
 
         ctrl.createLink = function () {
             var message = LinkPageCreateMessageService.getCreateLinkPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
-                ctrl.data.linkPreviewUrl = resp.data.linkPreviewUrl;
-                ctrl.data.hostname = resp.data.hostname;
-            });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyLink = function () {
             var message = LinkPageCreateMessageService.getModifyLinkPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
-        };
-
-        ctrl.recommendationFinish = function (recommendation) {
-            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Link');
-            ElyModal.hide(ctrl.data);
         };
 
         ctrl.recommendationAbort = function () {

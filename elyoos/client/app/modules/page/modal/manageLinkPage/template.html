@@ -1,5 +1,5 @@
 <md-dialog id="manage-link-page" aria-label="Manage Link Page" class="manage-page">
-    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages"
+    <form name="ctrl.manageLinkPageForm" ng-show="!ctrl.selectImage && !ctrl.showExistingPages"
           class="form-container" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Link Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Link <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
@@ -96,11 +96,8 @@
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 
     <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
-                         ng-if="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+                         ng-if="ctrl.selectImage"></ely-preview-picture>
 
-    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages"
                                        cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
-
-    <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
-                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
 </md-dialog>

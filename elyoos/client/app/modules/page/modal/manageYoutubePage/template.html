@@ -1,5 +1,5 @@
 <md-dialog id="manage-youtube-page" aria-label="Manage Youtube Page" class="manage-page">
-    <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.recommendPage && !ctrl.showExistingPages" ng-cloak>
+    <form name="ctrl.manageYoutubePageForm" ng-show="!ctrl.showExistingPages" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Youtube Video Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Video <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
@@ -80,9 +80,6 @@
     </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 
-    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages"
                                        cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
-
-    <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
-                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
 </md-dialog>
