@@ -1818,7 +1818,7 @@
 
 .ely-page-admin-container {
   padding: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .ely-page-admin-container .page-admin-info {
     font-size: 12px;
     color: #3F51B5; }

@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                 PORT: '8081'
             }
         },
-
+        clean: ['testResult/*.*'],
         mochaTest: {
             test: {
                 options: {
@@ -27,7 +27,6 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             }
         },
-
         sonarRunner: {
             analysis: {
                 options: {
@@ -68,8 +67,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('test', ['env:dev', 'mochaTest:test']);
-    grunt.registerTask('coverage', ['env:dev', 'mocha_istanbul:coverage']);
+    grunt.registerTask('test', ['env:dev', 'clean', 'mochaTest:test']);
+    grunt.registerTask('coverage', ['env:dev', 'clean', 'mocha_istanbul:coverage']);
     grunt.registerTask('analysis', ['sonarRunner:analysis']);
 
     let outputFile = process.env.MOCHA_OUTPUT_FILE || 'testResult/xunit.xml';
