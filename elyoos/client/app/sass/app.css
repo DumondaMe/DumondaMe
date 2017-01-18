@@ -2102,58 +2102,38 @@
         font-weight: 500;
         color: #3F51B5; }
 
-#ely-generic-page-detail #ely-extended-toolbar {
-  position: relative;
-  height: 130px;
-  background-color: #3F51B5; }
-  #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
-    position: absolute;
-    right: 30px;
-    bottom: -34px; }
-    @media screen and (max-width: 850px) {
-      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
-        right: 15px; } }
-    @media screen and (min-width: 1400px) {
-      #ely-generic-page-detail #ely-extended-toolbar .create-page-content {
-        right: 100px; } }
-#ely-generic-page-detail #ely-generic-detail-content {
-  position: relative;
-  top: -130px;
-  margin: 0 auto;
-  max-width: 800px;
-  width: 100%; }
-  @media screen and (max-width: 1050px) {
-    #ely-generic-page-detail #ely-generic-detail-content {
-      max-width: 600px; } }
-  @media screen and (max-width: 850px) {
-    #ely-generic-page-detail #ely-generic-detail-content {
-      max-width: 500px; } }
-
-#ely-generic-page-header #ely-generic-title {
-  padding: 0 8px 4px 8px;
-  font-size: 24px;
-  font-weight: 400;
-  color: white; }
-  @media screen and (max-width: 850px) {
-    #ely-generic-page-header #ely-generic-title {
-      font-size: 18px; } }
-#ely-generic-page-header #ely-generic-main-content {
-  width: 100%;
-  margin-top: 4px; }
-  #ely-generic-page-header #ely-generic-main-content #ely-main-image {
-    padding: 12px; }
-    #ely-generic-page-header #ely-generic-main-content #ely-main-image img {
-      border-radius: 2px;
-      width: 250px;
-      min-height: 186px; }
-  #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description {
-    padding: 12px 0 0 12px;
-    margin-bottom: 12px;
-    color: rgba(0, 0, 0, 0.54); }
-    #ely-generic-page-header #ely-generic-main-content #ely-generic-page-description #ely-generic-page-description-container {
-      padding-right: 12px;
-      overflow-y: auto;
-      font-size: 14px; }
+#ely-generic-page-detail #ely-generic-page-main-detail {
+  padding: 12px; }
+  #ely-generic-page-detail #ely-generic-page-main-detail .title-container .title {
+    color: #3F51B5;
+    font-size: 20px;
+    overflow: hidden; }
+    @media screen and (max-width: 600px) {
+      #ely-generic-page-detail #ely-generic-page-main-detail .title-container .title {
+        max-height: 74px; } }
+    @media screen and (min-width: 960px) {
+      #ely-generic-page-detail #ely-generic-page-main-detail .title-container .title {
+        font-size: 24px; } }
+  #ely-generic-page-detail #ely-generic-page-main-detail .topic-description {
+    margin: 0 0 4px 0; }
+    @media screen and (min-width: 1280px) {
+      #ely-generic-page-detail #ely-generic-page-main-detail .topic-description {
+        margin-bottom: 8px; } }
+  #ely-generic-page-detail #ely-generic-page-main-detail .image-description-container {
+    margin-top: 18px;
+    overflow: hidden; }
+    #ely-generic-page-detail #ely-generic-page-main-detail .image-description-container .image {
+      cursor: pointer;
+      float: left;
+      max-width: 200px;
+      margin-right: 16px;
+      border-radius: 2px; }
+      @media screen and (max-width: 600px) {
+        #ely-generic-page-detail #ely-generic-page-main-detail .image-description-container .image {
+          max-width: 120px; } }
+    #ely-generic-page-detail #ely-generic-page-main-detail .image-description-container .description {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54); }
 
 #ely-generic-page-map {
   height: 298px; }

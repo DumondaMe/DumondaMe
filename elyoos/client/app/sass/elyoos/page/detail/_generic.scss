@@ -1,35 +1,44 @@
 #ely-generic-page-detail {
-  #ely-extended-toolbar {
-    position: relative;
-    height: 130px;
-    background-color: $primary-color;
-    .create-page-content {
-      position: absolute;
-      right: 30px;
-      bottom: -34px;
-      @media screen and (max-width: 850px) {
-        right: 15px;
+  #ely-generic-page-main-detail {
+    padding: 12px;
+    .title-container {
+      .title {
+        color: $primary-color;
+        font-size: 20px;
+        overflow: hidden;
+        @media screen and (max-width: $gt-xs) {
+          max-height: 74px;
+        }
+        @media screen and (min-width: $gt-sm) {
+          font-size: 24px;
+        }
       }
-      @media screen and (min-width: 1400px) {
-        right: 100px;
+    }
+
+    .topic-description {
+      margin: 0 0 4px 0;
+      @media screen and (min-width: $gt-md) {
+        margin-bottom: 8px;
       }
     }
-  }
-  #ely-generic-detail-content {
-    position: relative;
-    top: -130px;
-    margin: 0 auto;
-    max-width: 800px;
-    width: 100%;
 
-    @media screen and (max-width: 1050px) {
-      max-width: 600px;
-    }
-    @media screen and (max-width: 850px) {
-      max-width: 500px;
-    }
-    #ely-generic-page-content {
-
+    .image-description-container {
+      margin-top: 18px;
+      overflow: hidden;
+      .image {
+        cursor: pointer;
+        float: left;
+        max-width: 200px;
+        @media screen and (max-width: $gt-xs) {
+          max-width: 120px;
+        }
+        margin-right: 16px;
+        border-radius: 2px;
+      }
+      .description {
+        font-size: 14px;
+        color: $secondary-text;
+      }
     }
   }
 }

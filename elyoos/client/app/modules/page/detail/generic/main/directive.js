@@ -1,19 +1,19 @@
 'use strict';
 
 module.exports = {
-    directive: [function () {
+    directive: [ function () {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
-            controller: function () {
+            scope: {
             },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 pageDetail: '='
             },
-            templateUrl: 'app/modules/page/detail/generic/header/template.html'
+            templateUrl: 'app/modules/page/detail/generic/main/template.html'
         };
     }],
-    name: 'elyPageDetailHeaderGeneric'
+    name: 'elyPageDetailMainGeneric'
 };
