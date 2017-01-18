@@ -45,6 +45,7 @@
       }
     }
     .blog-content {
+      background-color: $background-light;
       .blog-title {
         margin-top: 8px;
         margin-bottom: 16px;
@@ -60,7 +61,7 @@
       }
       .image-description-container {
         margin-top: 18px;
-        overflow: auto;
+        overflow: visible;
         .image {
           cursor: pointer;
           float: left;
@@ -76,9 +77,6 @@
           white-space: pre-wrap;
           font-weight: 300;
         }
-      }
-      .blog-page-info {
-        clear: both;
       }
     }
   }
