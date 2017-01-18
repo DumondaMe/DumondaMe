@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreateMessageService', 'fileUpload', 'moment',
-    'CheckPageExists', 'UploadPageService', 'RecommendationResponseFormatter', 'Languages',
+    'CheckPageExists', 'UploadPageService', 'Languages',
     function (ElyModal, DateFormatCheckService, Topics, BookPageCreateMessageService, fileUpload, moment, CheckPageExists,
-              UploadPageService, RecommendationResponseFormatter, Languages) {
+              UploadPageService, Languages) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -75,18 +75,13 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
         ctrl.createBook = function () {
             var message = BookPageCreateMessageService.getCreateBookPageMessage(ctrl.data);
             UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
-                ctrl.data.bookPreviewUrl = resp.data.bookPreviewUrl;
+                ElyModal.hide(resp.data);
             });
         };
 
         ctrl.modifyBook = function () {
             var message = BookPageCreateMessageService.getModifyBookPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
-        };
-
-        ctrl.recommendationFinish = function (recommendation) {
-            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Book');
-            ElyModal.hide(ctrl.data);
         };
 
         ctrl.recommendationAbort = function () {

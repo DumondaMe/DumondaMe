@@ -1,6 +1,6 @@
 <md-dialog id="manage-book-page" aria-label="Manage Book Page" class="manage-page"
            ng-class="{'create-book-page-preview-image': ctrl.selectImage}">
-    <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages" ng-cloak>
+    <form name="ctrl.manageBookPageForm" ng-show="!ctrl.selectImage && !ctrl.showExistingPages" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Buch Beitrag erstellen</div>
         <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Buch <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten</div>
         <md-dialog-content>
@@ -98,9 +98,9 @@
     <md-progress-linear ng-if="ctrl.uploadStarted && !ctrl.selectImage" md-mode="indeterminate"></md-progress-linear>
 
     <ely-preview-picture ratio="0.62745" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
-                         ng-if="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
+                         ng-if="ctrl.selectImage"></ely-preview-picture>
 
-    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
+    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages"
                                        cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
 
     <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"

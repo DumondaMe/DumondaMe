@@ -8,9 +8,6 @@ module.exports = ['fileUpload', 'errorToast', 'ElyModal', function (fileUpload, 
         return fileUpload.uploadFileAndJson(ctrl.blob, message, 'api/user/page/create').then(
             function (resp) {
                 ctrl.uploadStarted = false;
-                ctrl.data.pageId = resp.data.pageId;
-                ctrl.data.linkEmbed = resp.data.linkEmbed;
-                ctrl.recommendPage = true;
                 return resp;
             }, function (resp) {
                 ctrl.uploadStarted = false;
