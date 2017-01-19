@@ -10,7 +10,8 @@ COPY GraphicsMagick-1.3.25.tar.gz /tmp
 
 RUN cd /tmp && tar -xvf GraphicsMagick-1.3.25.tar.gz && cd /tmp/GraphicsMagick-1.3.25 && ./configure && make && make install && cd / && rm -r /tmp/*
 
-RUN mkdir -p /usr/src/app/server && cp -a node_modules /usr/src/app/server
+RUN mkdir -p /usr/src/app/server
+COPY node_modules /usr/src/app/server/node_modules
 
 WORKDIR /usr/src/app/server
 
