@@ -70,6 +70,12 @@ module.exports = function (app) {
         next();
     });
 
+    if (process.env.NODE_ENV === 'development') {
+        app.get('/robots.txt', function (req, res) {
+            res.type('text/plain');
+            res.send("User-agent: *\nDisallow: /");
+        });
+    }
     return {
         onconfig: function (config, next) {
 
