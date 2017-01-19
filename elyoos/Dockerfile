@@ -1,16 +1,16 @@
 FROM node:6.9.3
 
-ENV NODE_ENV 'production'
-ENV NODE_LOGGING 'production'
+ARG node_env='production'
+ARG node_logging='production'
+
+ENV NODE_ENV $node_env
+ENV NODE_LOGGING $node_logging
 
 COPY GraphicsMagick-1.3.25.tar.gz /tmp
 
 RUN cd /tmp && tar -xvf GraphicsMagick-1.3.25.tar.gz && cd /tmp/GraphicsMagick-1.3.25 && ./configure && make && make install && cd / && rm -r /tmp/*
 
-ADD serverLib /tmp/serverLib
-ADD server/package.json /tmp/package.json
-RUN cd /tmp && npm install --production && npm install ./serverLib
-RUN mkdir -p /usr/src/app/server && cp -a /tmp/node_modules /usr/src/app/server
+RUN mkdir -p /usr/src/app/server && cp -a node_modules /usr/src/app/server
 
 WORKDIR /usr/src/app/server
 
@@ -29,6 +29,7 @@ COPY server/controllers /usr/src/app/server/controllers
 COPY server/models /usr/src/app/server/models
 COPY server/server.js /usr/src/app/server
 COPY server/config/production.json /usr/src/app/server/config
+RUN if $node_env -eq "production"; then cp server/config/production.json /usr/src/app/server/config; else cp server/config/development.json /usr/src/app/server/config; fi
 
 #Copy client files
 COPY client/app/dist /usr/src/app/client/app/dist
