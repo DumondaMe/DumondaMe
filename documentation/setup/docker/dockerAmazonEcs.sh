@@ -5,3 +5,7 @@ docker run --name ecs-agent --privileged --detach=true --restart=on-failure:10 -
 #Getting the admin tool from the repo
 docker pull 746250133111.dkr.ecr.eu-central-1.amazonaws.com/elyoos_admin_webserver:latest
 docker run --name admin-tool --publish 8082:8082 746250133111.dkr.ecr.eu-central-1.amazonaws.com/elyoos_admin_webserver:latest
+
+#Getting the webserver test from the repo
+docker pull 746250133111.dkr.ecr.eu-central-1.amazonaws.com/elyoos_webserver_test:latest
+docker run --name webserver --net="host" --publish 8080:8080 746250133111.dkr.ecr.eu-central-1.amazonaws.com/elyoos_webserver_test:latest
