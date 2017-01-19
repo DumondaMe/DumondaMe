@@ -8,7 +8,7 @@ let fs = require('fs');
 let _ = require('underscore');
 let deasync = require('deasync');
 
-if ('production' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV ) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
         httpOptions: {timeout: 10000}
     });
