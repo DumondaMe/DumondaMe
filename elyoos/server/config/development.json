@@ -84,7 +84,7 @@
             "saveUninitialized": true
           },
           {
-            "host": "172.31.0.100",
+            "host": "localhost",
             "port": 6379
           }
         ]
