@@ -40,6 +40,7 @@ COPY client/app/lib/jquery/jquery.min.js /usr/src/app/client/app/lib/jquery
 COPY client/app/lib/imageCrop/cropper.min.js /usr/src/app/client/app/lib/imageCrop
 COPY client/app/lib/map/leaflet.js /usr/src/app/client/app/lib/map
 COPY client/app/lib/map/leaflet.css /usr/src/app/client/app/lib/map
+COPY client/app/lib/map/images /usr/src/app/client/app/lib/map/images
 COPY client/app/sass/app.css /usr/src/app/client/app/sass
 COPY client/app/sass/app.css.map /usr/src/app/client/app/sass
 COPY client/app/sass/common.css /usr/src/app/client/app/sass
