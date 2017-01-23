@@ -1,31 +1,21 @@
 @import '../common';
 
 .body {
-  padding: 16px;
   .description {
-    font-size: 16px;
-    padding: 24px 0px;
-    border-bottom: 1px solid #cccccc;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 6px;
     .name {
       font-weight: bold;
     }
   }
-  .overview {
-    .element {
-      font-size: 16px;
-      .number {
-        color: #3F51B5;
-        font-weight: bold;
-      }
-    }
-  }
   .navigate {
-    padding: 16px 0;
-    border-bottom: 1px solid #cccccc;
+    padding: 28px 0 12px 0;
   }
-  .footer {
-    padding-top: 16px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54)
-  }
+}
+
+.footer {
+  padding-top: 16px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54)
 }

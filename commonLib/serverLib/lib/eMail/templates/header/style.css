@@ -1,26 +1,5 @@
-.body {
-  max-width: 500px;
+#header #logo-image {
+  width: 170px;
   margin: 0 auto; }
-
-.body {
-  padding: 16px; }
-  .body .description {
-    font-size: 16px;
-    padding: 24px 0px;
-    border-bottom: 1px solid #cccccc; }
-    .body .description .name {
-      font-weight: bold; }
-  .body .overview .element {
-    font-size: 16px; }
-    .body .overview .element .number {
-      color: #3F51B5;
-      font-weight: bold; }
-  .body .navigate {
-    padding: 16px 0;
-    border-bottom: 1px solid #cccccc; }
-  .body .footer {
-    padding-top: 16px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54); }
 
 /*# sourceMappingURL=style.css.map */

@@ -12,7 +12,7 @@ let emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
         subject: 'Du hast neue Nachrichten',
-        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images'), cid: 'logoImage'}]
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
     },
     resetPassword: {
         template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),

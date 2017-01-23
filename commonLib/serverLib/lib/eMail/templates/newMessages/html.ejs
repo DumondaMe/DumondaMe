@@ -1,18 +1,22 @@
+<body>
 <div class="body">
     <%- include('../header/html') %>
-    <div class="description"><span class="name"><%= forename %></span>, Du hast ungelesene Nachrichten</div>
-    <ul class="overview">
-        <% if (numberOfUnreadMessages === 1) { %>
-        <li class="element"><span class="number"><%= numberOfUnreadMessages %></span> unglesene Nachricht</li>
-        <% } %>
-        <% if (numberOfUnreadMessages > 1) { %>
-        <li class="element"><span class="number"><%= numberOfUnreadMessages %></span> unglesene Nachrichten</li>
-        <% } %>
-    </ul>
-    <div class="navigate">
-        <a class="btn btn-default" href="https://www.elyoos.org">Elyoos öffnen</a>
+    <div id="header-bar"></div>
+    <div id="content-container">
+        <div class="description"><span class="name"><%= forename %></span>, Du hast
+            <% if (numberOfUnreadMessages === 1) { %>
+            <span class="number"><%= numberOfUnreadMessages %></span> ungelesene Nachricht
+            <% } %>
+            <% if (numberOfUnreadMessages > 1) { %>
+            <span class="number"><%= numberOfUnreadMessages %></span> ungelesene Nachrichten
+            <% } %>
+        </div>
+        <div class="navigate">
+            <a class="btn btn-default" href="https://www.elyoos.org">Elyoos öffnen</a>
+        </div>
     </div>
     <div class="footer">
         Diese Nachricht wurde von Elyoos versandt.
     </div>
 </div>
+</body>

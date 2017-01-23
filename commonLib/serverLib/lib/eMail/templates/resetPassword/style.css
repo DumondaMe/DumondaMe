@@ -1,6 +1,24 @@
+#header {
+  margin-top: 26px;
+  margin-bottom: 2px; }
+  #header #logo-image {
+    width: 70px; }
+    #header #logo-image img {
+      width: 100%; }
+
+body {
+  background-color: #e9ebee;
+  font-family: Helvetica, Arial, sans-serif; }
+
 .body {
-  max-width: 500px;
+  max-width: 650px;
   margin: 0 auto; }
+  .body #header-bar {
+    height: 8px;
+    background-color: #3F51B5; }
+  .body #content-container {
+    padding: 24px;
+    background-color: white; }
 
 .body {
   padding: 16px; }

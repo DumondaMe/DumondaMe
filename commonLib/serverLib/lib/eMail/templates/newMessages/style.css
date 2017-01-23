@@ -1,26 +1,37 @@
-.body {
-  max-width: 500px;
-  margin: 0 auto; }
+#header {
+  margin-top: 26px;
+  margin-bottom: 2px; }
+  #header #logo-image {
+    width: 70px; }
+    #header #logo-image img {
+      width: 100%; }
+
+body {
+  background-color: #e9ebee;
+  font-family: Helvetica, Arial, sans-serif; }
 
 .body {
-  padding: 16px; }
-  .body .description {
-    font-size: 16px;
-    padding: 24px 0px;
-    border-bottom: 1px solid #cccccc; }
-    .body .description .name {
-      font-weight: bold; }
-  .body .overview .element {
-    font-size: 16px; }
-    .body .overview .element .number {
-      color: #3F51B5;
-      font-weight: bold; }
-  .body .navigate {
-    padding: 16px 0;
-    border-bottom: 1px solid #cccccc; }
-  .body .footer {
-    padding-top: 16px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54); }
+  max-width: 650px;
+  margin: 0 auto; }
+  .body #header-bar {
+    height: 8px;
+    background-color: #3F51B5; }
+  .body #content-container {
+    padding: 24px;
+    background-color: white; }
+
+.body .description {
+  font-size: 18px;
+  padding-top: 12px;
+  padding-bottom: 6px; }
+  .body .description .name {
+    font-weight: bold; }
+.body .navigate {
+  padding: 28px 0 12px 0; }
+
+.footer {
+  padding-top: 16px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54); }
 
 /*# sourceMappingURL=style.css.map */

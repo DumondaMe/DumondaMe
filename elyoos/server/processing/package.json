@@ -2,7 +2,6 @@
   "name": "elyoos-processing",
   "version": "1.0.0",
   "dependencies": {
-    "fs-extra": "2.0.0",
     "lodash": "4.12.0",
     "gm": "1.22.0",
     "aws-sdk": "2.4.6",
