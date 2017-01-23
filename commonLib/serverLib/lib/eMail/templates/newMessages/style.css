@@ -19,6 +19,9 @@ body {
   .body #content-container {
     padding: 24px;
     background-color: white; }
+  .body #title {
+    font-weight: bold;
+    font-size: 22px; }
 
 .body .description {
   font-size: 18px;

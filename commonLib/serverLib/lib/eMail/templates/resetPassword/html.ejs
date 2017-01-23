@@ -1,10 +1,17 @@
+<body>
 <div class="body">
-    <div class="description">Um dein Passwort zurück zusetzen klicke auf den folgenden Link. Du hast 20 Minuten Zeit um dein Passwort zu ändern.
-    Danach ist der Link ungültig.</div>
-    <div class="navigate">
-        <a href="<%= link %>">Passwort zurück setzen</a>
+    <%- include('../header/html') %>
+    <div id="header-bar"></div>
+    <div id="content-container">
+        <div class="description">Um dein Passwort zu ändern, klicke auf den folgenden Link. Du hast 20 Minuten Zeit um dein Passwort zu ändern.
+            Danach ist der Link ungültig.
+        </div>
+        <div class="navigate">
+            <a href="<%= link %>">Passwort zurück setzen</a>
+        </div>
     </div>
     <div class="footer">
         Diese Nachricht wurde von Elyoos versandt.
     </div>
 </div>
+</body>

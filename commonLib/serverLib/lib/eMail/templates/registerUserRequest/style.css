@@ -19,15 +19,17 @@ body {
   .body #content-container {
     padding: 24px;
     background-color: white; }
+  .body #title {
+    font-weight: bold;
+    font-size: 22px; }
 
 .body {
   padding: 16px; }
   .body .description {
     font-size: 16px;
-    padding: 24px 0px; }
+    padding: 24px 0; }
   .body .navigate {
-    padding: 16px 0;
-    border-bottom: 1px solid #cccccc; }
+    padding: 16px 0; }
   .body .footer {
     padding-top: 16px;
     font-size: 14px;

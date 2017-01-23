@@ -16,11 +16,13 @@ let emailTemplates = {
     },
     resetPassword: {
         template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
-        subject: 'Passwort zurücksetzen'
+        subject: 'Passwort zurücksetzen',
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
     },
     registerUserRequest: {
         template: new EmailTemplate(path.join(templatesDir, 'registerUserRequest')),
-        subject: 'Willkommen auf Elyoos'
+        subject: 'Willkommen auf Elyoos',
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
     }
 };
 

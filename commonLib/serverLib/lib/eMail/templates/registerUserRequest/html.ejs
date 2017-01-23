@@ -1,11 +1,18 @@
+<body>
 <div class="body">
-    <div class="description">Um die Registrierung deines Benutzerkontos abzuschliessen klicke auf den nachfolgenden Link um deine Email Adresse
-        verifizieren. Der Link ist 12 Stunden gültig.
-    </div>
-    <div class="navigate">
-        <a href="<%= link %>">Registrierung bestätigen</a>
+    <%- include('../header/html') %>
+    <div id="header-bar"></div>
+    <div id="content-container">
+        <div id="title">Willkommen auf Elyoos</div>
+        <div class="description">Um die Registrierung deines Benutzerkontos abzuschliessen, klicke auf den nachfolgenden Link. Der Link ist 12 Stunden
+            gültig.
+        </div>
+        <div class="navigate">
+            <a href="<%= link %>">Registrierung bestätigen</a>
+        </div>
     </div>
     <div class="footer">
         Diese Nachricht wurde von Elyoos versandt.
     </div>
 </div>
+</body>
