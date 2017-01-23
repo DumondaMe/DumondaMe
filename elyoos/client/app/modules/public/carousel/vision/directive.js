@@ -8,8 +8,7 @@ module.exports = {
             scope: {},
             templateUrl: 'app/modules/public/carousel/vision/template.html',
             controllerAs: 'ctrl',
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             bindToController: {}
         };
     }],

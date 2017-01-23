@@ -2982,11 +2982,15 @@
       #carousel-vision #carousel-vision-container .vision-list li:before {
         color: rgba(0, 0, 0, 0.54); }
     #carousel-vision #carousel-vision-container .vision-preview-image {
+      cursor: pointer;
       margin: 0 auto;
       max-width: 400px; }
-      @media screen and (min-width: 1280px) {
+      @media screen and (min-width: 960px) {
         #carousel-vision #carousel-vision-container .vision-preview-image {
           max-width: 500px; } }
+      @media screen and (min-width: 1440px) {
+        #carousel-vision #carousel-vision-container .vision-preview-image {
+          max-width: 600px; } }
       #carousel-vision #carousel-vision-container .vision-preview-image img {
         width: 100%; }
     #carousel-vision #carousel-vision-container .text-divider {

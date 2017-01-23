@@ -37,10 +37,14 @@
       }
     }
     .vision-preview-image {
+      cursor: pointer;
       margin: 0 auto;
       max-width: 400px;
-      @media screen and (min-width: $gt-md) {
+      @media screen and (min-width: $gt-sm) {
         max-width: 500px;
+      }
+      @media screen and (min-width: $gt-xmd) {
+        max-width: 600px;
       }
       img {
         width: 100%;
