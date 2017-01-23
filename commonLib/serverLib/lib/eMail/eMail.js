@@ -11,7 +11,8 @@ let templatesDir = path.resolve(__dirname, 'templates');
 let emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
-        subject: 'Du hast neue Nachrichten'
+        subject: 'Du hast neue Nachrichten',
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images'), cid: 'logoImage'}]
     },
     resetPassword: {
         template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
@@ -32,7 +33,7 @@ let sendEMail = function (template, templateData, sendTo) {
             }
             transporter.sendMail({
                     from: 'Elyoos <info@elyoos.org>', to: sendTo, subject: emailTemplates[template].subject,
-                    text: results.text, html: results.html
+                    text: results.text, html: results.html, attachments: emailTemplates[template].attachments
                 },
                 function (errorSendMail) {
                     if (errorSendMail) {
