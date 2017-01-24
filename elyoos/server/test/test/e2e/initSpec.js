@@ -6,7 +6,7 @@ let elyoosTestUtil = require('elyoos-server-test-util');
 
 elyoosTestUtil.init(require('elyoos-server-lib'), app);
 
-elyoosTestUtil.stubCDN().stub(require('../../../models/util/cdn'));
+elyoosTestUtil.stubCDN().stub(require('elyoos-server-lib').cdn);
 elyoosTestUtil.stubEmailQueue();
 elyoosTestUtil.stubLimitRate();
 elyoosTestUtil.stubRecaptcha.stub(require('../../../models/util/recaptcha'));
