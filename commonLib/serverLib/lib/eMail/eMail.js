@@ -1,25 +1,34 @@
 'use strict';
 
 let nodemailer = require('nodemailer');
+let _ = require('lodash');
 let sesTransport = require('nodemailer-ses-transport');
 let transporter = nodemailer.createTransport(sesTransport({rateLimit: 2, region: 'eu-west-1'}));
 let logger = require('../logging').getLogger(__filename);
 
 let emailTemplates = require('./templates').emailTemplates;
 
+let closeTempFiles = function(files) {
+    if(_.isArray(files)) {
+        files.forEach(function (file) {
+            file.removeCallback();
+        });
+    }
+};
+
 let sendEMail = function (template, templateData, sendTo) {
     if (emailTemplates.hasOwnProperty(template)) {
-        let attachments = emailTemplates[template].attachments;
-        let subject = emailTemplates[template].subject;
+        let attachments = emailTemplates[template].attachments, subject = emailTemplates[template].subject, tempFiles = null;
 
         if (emailTemplates[template].hasOwnProperty('preProcessing')) {
-            let preProcessingResults = emailTemplates[template].preProcessing(templateData, emailTemplates[template].attachments,
-                emailTemplates[template].subject);
+            let preProcessingResults = emailTemplates[template].preProcessing(templateData, emailTemplates[template].attachments);
             attachments = preProcessingResults.attachments;
             subject = preProcessingResults.subject;
+            tempFiles = preProcessingResults.tempFiles;
         }
         emailTemplates[template].template.render(templateData, function (error, results) {
             if (error) {
+                closeTempFiles(tempFiles);
                 return logger.error(error);
             }
             transporter.sendMail({
@@ -27,6 +36,7 @@ let sendEMail = function (template, templateData, sendTo) {
                     text: results.text, html: results.html, attachments: attachments
                 },
                 function (errorSendMail) {
+                    closeTempFiles(tempFiles);
                     if (errorSendMail) {
                         return logger.error(errorSendMail);
                     }

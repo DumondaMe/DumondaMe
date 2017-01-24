@@ -23,7 +23,8 @@ let emailTemplates = {
     invitePerson: {
         template: new EmailTemplate(path.join(templatesDir, 'invitePerson')),
         preProcessing: preProcessingInvitePerson.preProcessing,
-        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'},
+            {filename: 'founder.jpg', path: path.join(templatesDir, 'images/founder.jpg'), cid: 'founderImage'}]
     }
 };
 

@@ -7,6 +7,7 @@ let errors = require('./error/errors');
 let exceptions = require('./error/exceptions');
 let neo4j = require('./neo4j');
 let auth = require('./auth');
+let cdnConfig = require('./cdnConfig');
 let cdn = require('./cdn');
 let databaseConfig = require('./databaseConfig');
 let jsonValidation = require('./jsonValidation');
@@ -30,6 +31,7 @@ module.exports.exceptions = exceptions;
 module.exports.neo4j = neo4j;
 
 module.exports.auth = auth;
+module.exports.cdnConfig = cdnConfig;
 module.exports.cdn = cdn;
 module.exports.databaseConfig = databaseConfig;
 module.exports.jsonValidation = jsonValidation;

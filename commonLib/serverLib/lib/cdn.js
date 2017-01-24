@@ -7,8 +7,9 @@ let Promise = require('bluebird');
 let fs = require('fs');
 let _ = require('underscore');
 let deasync = require('deasync');
+let logger = require('./logging').getLogger(__filename);
 
-if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV ) {
+if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
         httpOptions: {timeout: 10000}
     });
@@ -41,10 +42,15 @@ module.exports = {
             Expires: expiresAfterADay
         }, done = false, signedUrl = null;
         s3.getSignedUrl('getObject', params, function (err, generatedUrl) {
+            if (err) {
+                logger.error(`Getting Url ${path} from s3 failed`, null, err);
+            }
             signedUrl = generatedUrl;
             done = true;
         });
-        deasync.loopWhile(function(){return !done;});
+        deasync.loopWhile(function () {
+            return !done;
+        });
         return signedUrl;
     },
     uploadFile: function (fileName, key) {
@@ -97,5 +103,22 @@ module.exports = {
         }).then(function () {
             return copyFile('profileImage/default/thumbnail.jpg', 'profileImage/' + userId + '/thumbnail.jpg');
         });
+    },
+    getObject: function (path) {
+        let params = {
+            Bucket: cdnConfig.getConfig().bucket,
+            Key: path
+        }, done= false, result = null;
+        s3.getObject(params, function (err, data) {
+            if (err) {
+                logger.error(`Getting Object ${path} from s3 failed`, null, err);
+            }
+            result = data;
+            done = true;
+        });
+        deasync.loopWhile(function () {
+            return !done;
+        });
+        return result;
     }
 };
