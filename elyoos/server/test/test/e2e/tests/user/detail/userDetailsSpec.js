@@ -31,8 +31,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting all possible contact details for a user to which contact has no contact relationship - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
@@ -49,11 +48,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.false;
-                res.body.user.birthday.should.equals(1000);
-                res.body.user.country.should.equals('CH');
-                res.body.user.street.should.equals('irgendwo');
-                res.body.user.place.should.equals('sonstwo');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -65,8 +59,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting only the name of a user with no contact relationship and restrictions - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: true, image: false, profileData: false, contacts: false}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
@@ -83,11 +76,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.false;
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -99,8 +87,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting only the name of a user with no contact relationship and restriction no profile - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-            "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         return db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
                 "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: true, image: true, profileData: true, contacts: true}), " +
@@ -117,11 +104,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.false;
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -133,8 +115,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting all info details for a user-[IS_CONTACT]->userDetail - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '1' AND u2.userId = '2'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -155,12 +136,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.true;
-                res.body.user.birthday.should.equals(1000);
-                res.body.user.country.should.equals('CH');
-                res.body.user.street.should.equals('irgendwo');
-                res.body.user.place.should.equals('sonstwo');
-                res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 res.body.user.blocked.should.equals(false);
 
@@ -171,8 +146,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting only the name for a user when user-[IS_CONTACT]->userDetail- Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '1' AND u2.userId = '2'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -193,11 +167,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.false;
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.type.should.equals('Bekannter');
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 res.body.user.blocked.should.equals(false);
@@ -213,8 +182,7 @@ describe('Integration Tests for getting user details', function () {
 
         let commands = [];
         //User2
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().match("(u:User {userId: '2'})")
             .create("(u)-[:HAS_PRIVACY_NO_CONTACT]->(:Privacy {profile: false, image: false, profileData: false, contacts: false}), " +
             "(u)-[:HAS_PRIVACY {type: 'Freund'}]->(:Privacy {profile: false, image: true, profileData: true, contacts: true}), " +
@@ -291,11 +259,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.true;
-                res.body.user.birthday.should.equals(1000);
-                res.body.user.country.should.equals('CH');
-                res.body.user.street.should.equals('irgendwo');
-                res.body.user.place.should.equals('sonstwo');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -344,8 +307,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting only the name for a user when user<-[IS_CONTACT]-userDetail - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '2' AND u2.userId = '1'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -366,11 +328,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.true;
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);
@@ -382,8 +339,7 @@ describe('Integration Tests for getting user details', function () {
     it('Getting only the name for a user when user<-[IS_CONTACT]-userDetail and profile of privacy is set to false - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: true})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
         commands.push(db.cypher().match("(u:User), (u2:User)")
             .where("u.userId = '2' AND u2.userId = '1'")
             .create("(u)-[:IS_CONTACT {type: 'Bekannter', contactAdded: {contactAdded}}]->(u2)")
@@ -404,11 +360,6 @@ describe('Integration Tests for getting user details', function () {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
                 res.body.user.forename.should.equals('user2');
-                res.body.user.female.should.be.true;
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.contacts.length.should.equals(0);

@@ -33,10 +33,8 @@ let getUserProfile = function (id, req) {
     commands.push(contactStatistic.getTotalNumberOfContacts(id).getCommand());
 
     return db.cypher().match('(u:User {userId: {id}})')
-        .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email, ' +
-            'u.birthday AS birthday, u.street AS street, u.female AS female, u.country AS country, u.place AS place')
-        .end({id: id})
-        .send(commands)
+        .return('u.forename AS forename, u.surname AS surname, u.userId AS id, u.email AS email')
+        .end({id: id}).send(commands)
         .then(function (resp) {
             let profile = getUser(resp[2], id, [{property: 'profileImage', image: '/profile.jpg'}], req);
             profile.numberOfContacting = resp[0][0].count;
@@ -55,12 +53,7 @@ let updateUserProfile = function (userId, userData) {
         .set('u', {
             name: name,
             forename: userData.forename,
-            surname: userData.surname,
-            birthday: userData.birthday,
-            place: userData.place,
-            country: userData.country,
-            street: userData.street,
-            female: userData.female
+            surname: userData.surname
         })
         .end({
             id: userId

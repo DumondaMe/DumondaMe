@@ -31,8 +31,7 @@ describe('Integration Tests for getting user details when blocking is involved',
     it('User has blocked the user on which he request the details - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-        "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2',userId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(u1:User {userId: '1'}), (u2:User {userId: '2'})")
             .create("(u1)-[:IS_BLOCKED]->(u2)").end().getCommand());
@@ -52,11 +51,6 @@ describe('Integration Tests for getting user details when blocking is involved',
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
-                res.body.user.female.should.be.false;
-                res.body.user.birthday.should.equals(1000);
-                res.body.user.country.should.equals('CH');
-                res.body.user.street.should.equals('irgendwo');
-                res.body.user.place.should.equals('sonstwo');
                 res.body.user.profileUrl.should.equals('profileImage/2/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(true);
@@ -68,8 +62,7 @@ describe('Integration Tests for getting user details when blocking is involved',
     it('If the other user has blocked the requested only show name and default image - Return 200', function () {
 
         let commands = [];
-        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2'," +
-            "birthday: 1000, country: 'CH', street: 'irgendwo', place: 'sonstwo', userId: '2', female: false})").end().getCommand());
+        commands.push(db.cypher().create("(:User {email: 'user@irgendwo2.ch', password: '1234', name: 'user2 Meier2', forename: 'user2', surname: 'Meier2', userId: '2'})").end().getCommand());
 
         commands.push(db.cypher().match("(u1:User {userId: '1'}), (u2:User {userId: '2'})")
             .create("(u2)-[:IS_BLOCKED]->(u1)").end().getCommand());
@@ -89,11 +82,6 @@ describe('Integration Tests for getting user details when blocking is involved',
             }).then(function (res) {
                 res.status.should.equal(200);
                 res.body.user.name.should.equals('user2 Meier2');
-                should.not.exist(res.body.user.female);
-                should.not.exist(res.body.user.birthday);
-                should.not.exist(res.body.user.country);
-                should.not.exist(res.body.user.street);
-                should.not.exist(res.body.user.place);
                 res.body.user.profileUrl.should.equals('profileImage/default/profile.jpg');
                 should.not.exist(res.body.user.type);
                 res.body.user.blocked.should.equals(false);

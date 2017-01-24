@@ -15,12 +15,6 @@ let returnDetails = function (detailUserData, detailUser, detailUserPrivacy, use
         } else {
             detailUser.profileUrl = cdn.getUrl('profileImage/default/profile.jpg');
         }
-        if (detailUserPrivacy.profileData) {
-            detailUser.birthday = detailUserData.detailUser.birthday;
-            detailUser.country = detailUserData.detailUser.country;
-            detailUser.place = detailUserData.detailUser.place;
-            detailUser.street = detailUserData.detailUser.street;
-        }
         if (detailUserPrivacy.contacts) {
             logger.debug('Get detail of user ' + detailUserId + ' with contacts', req);
             return contactSummary.getContactInfo(userId, detailUserId, 9, 0).then(function (contact) {
@@ -44,7 +38,6 @@ let returnContactDetails = function (resp, userId, detailUserId, req) {
         userId: detailUserId,
         name: detailUserData.detailUser.name,
         forename: detailUserData.detailUser.forename,
-        female: detailUserData.detailUser.female,
         type: detailUserData.type,
         contactAdded: detailUserData.contactAdded,
         userAdded: detailUserData.userAdded,

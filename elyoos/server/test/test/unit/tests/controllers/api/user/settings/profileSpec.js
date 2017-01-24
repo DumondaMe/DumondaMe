@@ -69,10 +69,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
     it('Post empty forename - Return a 400', function () {
         request.req.body = {
             forename: '',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
+            surname: 'surname'
         };
 
         return checkInvalidPostRequest(request);
@@ -80,10 +77,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
     it('Post missing forename - Return a 400', function () {
         request.req.body = {
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
+            surname: 'surname'
         };
 
         return checkInvalidPostRequest(request);
@@ -93,9 +87,6 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
         request.req.body = {
             forename: 'asdfgghjklöqqwertiopmasdflkjadf',
             surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
         };
 
         return checkInvalidPostRequest(request);
@@ -104,10 +95,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
     it('Post empty surname - Return a 400', function () {
         request.req.body = {
             forename: 'user',
-            surname: '',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
+            surname: ''
         };
 
         return checkInvalidPostRequest(request);
@@ -115,10 +103,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
     it('Post missing surname - Return a 400', function () {
         request.req.body = {
-            forename: 'user',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
+            forename: 'user'
         };
 
         return checkInvalidPostRequest(request);
@@ -127,117 +112,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
     it('Post surname with more then 50 signs- Return a 400', function () {
         request.req.body = {
             forename: 'user',
-            surname: 'asdfgghjklöqqwertiopmasdflkjadfpoihtzruztredertghzq',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post wrong birthday format - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: '123546A',
-            country: 'Schweiz',
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post missing birthday - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            country: 'Schweiz',
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post empty country - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: '',
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post missing country - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post country with more then 50 signs - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'asdfgghjklöqqwertiopmasdflkjadfpoihtzruztredertghzq',
-            female: true
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post female in wrong format - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: 'efk'
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post female is missing - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz'
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post street with more then 80 Signs - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            street: 'asdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzh2'
-        };
-
-        return checkInvalidPostRequest(request);
-    });
-
-    it('Post place with more then 80 Signs - Return a 400', function () {
-        request.req.body = {
-            forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            place: 'asdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzhasdfegrtzh2'
+            surname: 'asdfgghjklöqqwertiopmasdflkjadfpoihtzruztredertghzq'
         };
 
         return checkInvalidPostRequest(request);
@@ -247,12 +122,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
         request.req.body = {
             forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            street: 'Main Street',
-            place: 'Urdorf'
+            surname: 'surname'
         };
 
         let stubResponse = sandbox.stub(request.res, 'status');
@@ -271,12 +141,7 @@ describe('Unit Test controllers/api/user/settings/profile', function () {
 
         request.req.body = {
             forename: 'user',
-            surname: 'surname',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
-            street: 'Main Street',
-            place: 'Urdorf'
+            surname: 'surname'
         };
 
         let stubResponse = sandbox.stub(request.res, 'status');

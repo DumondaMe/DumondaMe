@@ -10,15 +10,10 @@ let schemaPostNewProfileData = {
     name: 'newProfileData',
     type: 'object',
     additionalProperties: false,
-    required: ['forename', 'surname', 'birthday', 'country', 'female'],
+    required: ['forename', 'surname'],
     properties: {
         forename: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 30},
-        surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
-        birthday: {type: 'integer'},
-        country: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50},
-        female: {type: 'boolean'},
-        street: {type: 'string', maxLength: 80},
-        place: {type: 'string', maxLength: 80}
+        surname: {type: 'string', format: 'notEmptyString', minLength: 1, maxLength: 50}
     }
 };
 
