@@ -1,26 +1,15 @@
 'use strict';
 
 
-module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatCheckService', 'ProfileDataMessageService', '$state',
-    'vcRecaptchaService', 'ElyModal', 'CheckChangePasswordService',
-    function (Register, errorToast, CountryCodeConverter, DateFormatCheckService, ProfileDataMessageService, $state, vcRecaptchaService, ElyModal,
-              CheckChangePasswordService) {
+module.exports = ['Register', 'errorToast', '$state', 'vcRecaptchaService', 'ElyModal', 'CheckChangePasswordService',
+    function (Register, errorToast, $state, vcRecaptchaService, ElyModal, CheckChangePasswordService) {
         var ctrl = this;
 
         ctrl.userToRegister = {};
-        ctrl.userToRegister.female = "true";
         ctrl.agb = false;
         ctrl.showAgb = false;
         ctrl.successfulRegisterRequest = false;
-        ctrl.countryCodes = CountryCodeConverter.countryCodes;
         ctrl.uploadValid = false;
-        ctrl.getDateExample = DateFormatCheckService.getDateExample;
-        ctrl.userToRegister.selectedCountryCode = ctrl.countryCodes[0];
-
-
-        ctrl.change = function () {
-            ctrl.registerUserForm.birthday.$setValidity('birthday-format', DateFormatCheckService.isDateValid(ctrl.userToRegister.birthday));
-        };
 
         ctrl.newPasswordChanged = function () {
             var uploadValid = CheckChangePasswordService.checkNewPasswordIsValid(ctrl.userToRegister.password, ctrl.confirmNewPassword);
@@ -51,7 +40,9 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
         };
 
         ctrl.createAccount = function () {
-            var message = ProfileDataMessageService.getMessage(ctrl.userToRegister);
+            var message = {};
+            message.forename = ctrl.userToRegister.forename;
+            message.surname = ctrl.userToRegister.surname;
             message.email = ctrl.userToRegister.email;
             message.password = ctrl.userToRegister.password;
             message.response = ctrl.response;
@@ -62,8 +53,8 @@ module.exports = ['Register', 'errorToast', 'CountryCodeConverter', 'DateFormatC
             }, function (err) {
                 if (err.data && err.data.errorCode === 2) {
                     errorToast.showError('Für diese Email Adresse existiert bereits ein Konto');
-                } else if((err.data && err.data.errorCode === 1) ) {
-                    errorToast.showError('Validierung ob ein Mensch das Konto erstellen möchte ist fehlgeschlagen');
+                } else if ((err.data && err.data.errorCode === 1)) {
+                    errorToast.showError('Validierung ob eine Person das Konto erstellen möchte ist fehlgeschlagen');
                 } else {
                     errorToast.showError('Das Registrieren ist fehlgeschlagen');
                 }

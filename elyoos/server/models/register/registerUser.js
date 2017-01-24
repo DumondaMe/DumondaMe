@@ -37,11 +37,6 @@ let registerUser = function (params, req) {
                 surname: params.surname,
                 name: params.forename + ' ' + params.surname,
                 password: hash,
-                birthday: params.birthday,
-                country: params.country,
-                female: params.female,
-                street: params.street,
-                place: params.place,
                 registerDate: time.getNowUtcTimestamp()
             }
         };

@@ -4,7 +4,7 @@ let db = requireDb();
 let email = require('elyoos-server-lib').eMail;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let domain = "localhost/";
+let domain = "http://localhost:8080/";
 
 if (process.env.NODE_ENV === 'development') {
     domain = "https://preview.elyoos.org/";

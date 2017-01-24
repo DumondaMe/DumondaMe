@@ -15,9 +15,6 @@ describe('Integration Tests for verify registering a new user', function () {
         name: 'user Waldvogel',
         forename: 'user',
         surname: 'Waldvogel',
-        birthday: 123546,
-        country: 'Schweiz',
-        female: true,
         linkId: randomstring.generate(64)
     }, registerRequestUserExpired, startTime = Math.floor(moment.utc().valueOf() / 1000);
     beforeEach(function () {
@@ -56,9 +53,6 @@ describe('Integration Tests for verify registering a new user', function () {
             should.not.exist(user[0].user.linkId);
             user[0].user.forename.should.equals(registerRequestUserValid.forename);
             user[0].user.surname.should.equals(registerRequestUserValid.surname);
-            user[0].user.birthday.should.equals(registerRequestUserValid.birthday);
-            user[0].user.country.should.equals(registerRequestUserValid.country);
-            user[0].user.female.should.equals(registerRequestUserValid.female);
             user[0].user.registerDate.should.equals(startTime);
             user[0].friendPrivacy.profile.should.be.true;
             user[0].friendPrivacy.image.should.be.true;

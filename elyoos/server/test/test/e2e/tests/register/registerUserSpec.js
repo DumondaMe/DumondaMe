@@ -32,9 +32,6 @@ describe('Integration Tests for request to register a new user', function () {
             email: 'climberwoodi@gmx.ch',
             forename: 'user',
             surname: 'Waldvogel',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
             password: '12345678',
             response: '12'
         }, startTime = Math.floor(moment.utc().valueOf() / 1000);
@@ -46,17 +43,13 @@ describe('Integration Tests for request to register a new user', function () {
                 linkId: sinon.match.any
             }).should.be.true;
             return db.cypher().match("(user:UserRegisterRequest {email: 'climberwoodi@gmx.ch'})")
-                .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.birthday AS birthday, 
-                         user.country AS country, user.female AS female, user.registerDate AS registerDate`)
+                .return(`user.userId AS userId, user.name AS name, user.forename AS forename, user.surname AS surname, user.registerDate AS registerDate`)
                 .end().send();
         }).then(function (user) {
             user.length.should.equals(1);
             user[0].name.should.equals('user Waldvogel');
             user[0].forename.should.equals(newUser.forename);
             user[0].surname.should.equals(newUser.surname);
-            user[0].birthday.should.equals(newUser.birthday);
-            user[0].country.should.equals(newUser.country);
-            user[0].female.should.equals(newUser.female);
             user[0].registerDate.should.be.at.least(startTime);
             return requestHandler.logout();
         });
@@ -67,9 +60,6 @@ describe('Integration Tests for request to register a new user', function () {
             email: 'user@irgendwo.ch',
             forename: 'user',
             surname: 'Waldvogel',
-            birthday: 123546,
-            country: 'Schweiz',
-            female: true,
             password: '12345678',
             response: '12'
         };
