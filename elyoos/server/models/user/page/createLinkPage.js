@@ -7,7 +7,7 @@ let time = require('elyoos-server-lib').time;
 let imagePage = require('./imagePage');
 let Url = require('url-parse');
 let exceptions = require('elyoos-server-lib').exceptions;
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let getHostname = function (link, req) {

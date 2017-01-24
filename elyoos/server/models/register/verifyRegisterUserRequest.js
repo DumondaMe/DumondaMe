@@ -4,7 +4,7 @@ let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-let cdn = require('./../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let EXPIRED = 60 * 60 * 12; // 12h

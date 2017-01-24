@@ -6,7 +6,7 @@ let csrf = require('csurf');
 let auth = require('./auth');
 let userLib = require('./user')();
 let db = require('./databaseConfig');
-let cdn = require('./cdn');
+let cdn = require('./cdnConfig');
 let email = require('./eMail/eMailQueue');
 let version = require('./version');
 

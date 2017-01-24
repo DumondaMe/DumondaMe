@@ -2,7 +2,7 @@
 
 let db = requireDb();
 let underscore = require('underscore');
-let cdn = require('../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let userInfo = require('../user/userInfo');
 let addPageUrl = function (previews, thumbnail) {
     let bookImage = thumbnail ? '/thumbnail.jpg' : '/pagePreview.jpg',

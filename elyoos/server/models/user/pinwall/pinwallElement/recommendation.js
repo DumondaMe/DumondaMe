@@ -1,7 +1,7 @@
 'use strict';
 
 let profileUrl = require('./profileUrl');
-let cdn = require('../../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let numberOfRecommendation = require('./numberOfRecommendation');
 
 let addLabelElement = function (element, pinwallElement) {

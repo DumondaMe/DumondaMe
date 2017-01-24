@@ -4,7 +4,7 @@
 'use strict';
 
 let gm = require('./../util/gm');
-let cdn = require('./../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let tmp = require('tmp');
 
 let uploadImages = function (originalFilePath, pageId) {

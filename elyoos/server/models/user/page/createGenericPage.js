@@ -4,7 +4,7 @@ let db = requireDb();
 let image = require('./../images/uploadImageCDN');
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let _ = require('underscore');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 

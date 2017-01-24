@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let detailTitlePicture = require('./../../page/detail/detailTitlePicture');
 let _ = require('lodash');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);

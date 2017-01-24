@@ -1,6 +1,6 @@
 'use strict';
 
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 
 let compare = function (a, b) {
     if (a.description < b.description) {

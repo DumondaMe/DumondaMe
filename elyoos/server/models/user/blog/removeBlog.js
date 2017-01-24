@@ -2,7 +2,7 @@
 
 let db = requireDb();
 let exceptions = require('elyoos-server-lib').exceptions;
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let allowedToRemoveBlog = function (userId, pageId, req) {

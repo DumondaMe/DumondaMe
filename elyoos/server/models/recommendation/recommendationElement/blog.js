@@ -1,6 +1,6 @@
 'use strict';
 
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 
 let setProfileUrl = function (element, pinwallElement) {
     let privacy = pinwallElement.privacy || pinwallElement.privacyNoContact;

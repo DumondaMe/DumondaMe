@@ -6,7 +6,7 @@ let _ = require('underscore');
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 const MAX_BLOG_PER_HOUR = 50;

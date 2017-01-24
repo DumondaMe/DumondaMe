@@ -2,7 +2,7 @@
 
 let db = requireDb();
 let underscore = require('underscore');
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 
 let getRecommendationSummaryAll = function (pageId) {
 

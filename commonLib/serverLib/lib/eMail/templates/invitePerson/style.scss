@@ -1,0 +1,25 @@
+@import '../common';
+
+.body {
+  padding: 16px;
+  .invite-container {
+    .invite-preview-image {
+      float: left;
+      width: 100px;
+      height: 100px;
+      border-radius: 4px;
+    }
+    .description {
+      float: left;
+      font-size: 16px;
+    }
+  }
+  .navigate {
+    padding: 16px 0;
+  }
+  .footer {
+    padding-top: 16px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54)
+  }
+}

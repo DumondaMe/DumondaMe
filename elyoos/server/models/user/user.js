@@ -5,7 +5,7 @@
 
 let db = requireDb();
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
-let cdn = require('../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let underscore = require('underscore');
 let unreadMessages = require('./../messages/util/unreadMessages');
 let contacting = require('./../contact/contacting');

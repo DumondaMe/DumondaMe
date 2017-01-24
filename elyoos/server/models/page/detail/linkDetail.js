@@ -4,7 +4,7 @@ let db = requireDb();
 let administrator = require('./administrator');
 let recommendation = require('./recommendation');
 let response = require('./detailResponse');
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 
 let getDetail = function (pageId, label, userId) {
 

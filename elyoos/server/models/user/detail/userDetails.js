@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let contactSummary = require('./contactSummary');
 let contactStatistic = require('../../contact/contactStatistic');
 let _ = require("lodash");

@@ -1,41 +1,30 @@
 'use strict';
 
-let path = require('path');
 let nodemailer = require('nodemailer');
-let EmailTemplate = require('email-templates').EmailTemplate;
 let sesTransport = require('nodemailer-ses-transport');
 let transporter = nodemailer.createTransport(sesTransport({rateLimit: 2, region: 'eu-west-1'}));
 let logger = require('../logging').getLogger(__filename);
 
-let templatesDir = path.resolve(__dirname, 'templates');
-let emailTemplates = {
-    newMessages: {
-        template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
-        subject: 'Du hast neue Nachrichten',
-        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
-    },
-    resetPassword: {
-        template: new EmailTemplate(path.join(templatesDir, 'resetPassword')),
-        subject: 'Passwort zurücksetzen',
-        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
-    },
-    registerUserRequest: {
-        template: new EmailTemplate(path.join(templatesDir, 'registerUserRequest')),
-        subject: 'Willkommen auf Elyoos',
-        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
-    }
-};
-
+let emailTemplates = require('./templates').emailTemplates;
 
 let sendEMail = function (template, templateData, sendTo) {
     if (emailTemplates.hasOwnProperty(template)) {
+        let attachments = emailTemplates[template].attachments;
+        let subject = emailTemplates[template].subject;
+
+        if (emailTemplates[template].hasOwnProperty('preProcessing')) {
+            let preProcessingResults = emailTemplates[template].preProcessing(templateData, emailTemplates[template].attachments,
+                emailTemplates[template].subject);
+            attachments = preProcessingResults.attachments;
+            subject = preProcessingResults.subject;
+        }
         emailTemplates[template].template.render(templateData, function (error, results) {
             if (error) {
                 return logger.error(error);
             }
             transporter.sendMail({
-                    from: 'Elyoos <info@elyoos.org>', to: sendTo, subject: emailTemplates[template].subject,
-                    text: results.text, html: results.html, attachments: emailTemplates[template].attachments
+                    from: 'Elyoos <info@elyoos.org>', to: sendTo, subject: subject,
+                    text: results.text, html: results.html, attachments: attachments
                 },
                 function (errorSendMail) {
                     if (errorSendMail) {

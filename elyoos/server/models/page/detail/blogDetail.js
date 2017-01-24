@@ -2,7 +2,7 @@
 
 let db = requireDb();
 let recommendationCommand = require('./recommendation');
-let cdn = require('../../util/cdn');
+let cdn = require('elyoos-server-lib').cdn;
 let profileUrl = require('./../../user/pinwall/pinwallElement/profileUrl');
 
 let getDetailMessage = function (queryBlogResult, userRecommendation, allRecommendation, contactRecommendation) {
