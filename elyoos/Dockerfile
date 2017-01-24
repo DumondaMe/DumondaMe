@@ -29,9 +29,8 @@ COPY server/package.json /usr/src/app/server
 COPY server/controllers /usr/src/app/server/controllers
 COPY server/models /usr/src/app/server/models
 COPY server/server.js /usr/src/app/server
-COPY server/config/production.json /tmp
-COPY server/config/webserverTest.json /tmp/development.json
-RUN if $node_env -eq "production"; then cp /tmp/production.json /usr/src/app/server/config; else cp /tmp/development.json /usr/src/app/server/config; fi
+COPY server/config/production.json /usr/src/app/server/config/production.json
+COPY server/config/webserverTest.json /usr/src/app/server/config/development.json
 
 #Copy client files
 COPY client/app/dist /usr/src/app/client/app/dist
