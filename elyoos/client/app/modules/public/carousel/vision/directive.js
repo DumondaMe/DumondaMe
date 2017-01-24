@@ -9,7 +9,7 @@ module.exports = {
             templateUrl: 'app/modules/public/carousel/vision/template.html',
             controllerAs: 'ctrl',
             controller: require('./controller.js'),
-            bindToController: {}
+            bindToController: {showPreviewImage: '='}
         };
     }],
     name: 'elyCarouselVision'
