@@ -1,7 +1,7 @@
-<div class="ely-page-event-container" ng-if="ctrl.pageDetail.page.events.length > 0 || ctrl.pageDetail.administrators.isAdmin">
+<div class="ely-page-event-container" ng-show="ctrl.pageDetail.page.events.length > 0 || ctrl.pageDetail.administrators.isAdmin">
     <div class="page-section-title">Veranstaltungen</div>
     <div class="commands-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
-        <ely-icon-button class="first-element" icon="cardActions:add" label="Neue Veranstaltung" ng-click="ctrl.addEvent()"
+        <ely-icon-button class="first-element" icon="cardActions:add" label="Neue Veranstaltung" ng-click="ctrl.createEvent()"
                          show-label-always="true"></ely-icon-button>
     </div>
     <div class="ely-page-event-content">
