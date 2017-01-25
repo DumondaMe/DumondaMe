@@ -34,6 +34,17 @@ body, html {
   }
 }
 
+.ely-facebook-container {
+  position: fixed;
+  right: 34px;
+  bottom: 45px;
+
+  @media screen and (min-width: $gt-xs) {
+    right: 24px;
+    bottom: 60px;
+  }
+}
+
 .ely-gt-md-content {
   height: 100%;
   position: relative;
