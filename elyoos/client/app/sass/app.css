@@ -1980,6 +1980,13 @@
     color: rgba(0, 0, 0, 0.87);
     margin-bottom: 8px; }
 
+.ely-page-event-container {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px;
+  clear: both; }
+  .ely-page-event-container .commands-container .first-element .md-mini {
+    margin-left: 0; }
+
 .ely-page-info-container {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding: 12px;

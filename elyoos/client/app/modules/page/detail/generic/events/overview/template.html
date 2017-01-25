@@ -1,0 +1,24 @@
+<div class="ely-page-events-overview" ng-if="ctrl.pageDetail.page.events.actual > 0 || ctrl.pageDetail.page.events.past > 0">
+    <md-tabs md-dynamic-height>
+        <md-tab>
+            <md-tab-label>
+                <div>Aktuell</div>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content class="events-content-container">
+                    <ely-page-detail-events-overview-element events="ctrl.pageDetail.page.events.actual"></ely-page-detail-events-overview-element>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+        <md-tab>
+            <md-tab-label>
+                <div>Vergangenheit</div>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content class="events-content-container">
+                    <ely-page-detail-events-overview-element events="ctrl.pageDetail.page.events.past"></ely-page-detail-events-overview-element>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+</div>

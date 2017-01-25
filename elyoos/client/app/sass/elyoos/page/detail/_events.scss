@@ -1,0 +1,14 @@
+.ely-page-event-container {
+  border-top: 1px solid $divider;
+  padding: 12px;
+  clear: both;
+  .commands-container {
+    .first-element {
+      .md-mini {
+        margin-left: 0;
+      }
+    }
+  }
+  .ely-page-event-content {
+  }
+}

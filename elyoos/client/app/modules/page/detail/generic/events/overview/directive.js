@@ -1,19 +1,18 @@
 'use strict';
 
 module.exports = {
-    directive: [function () {
+    directive: [ function () {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 pageDetail: '='
             },
-            templateUrl: 'app/modules/page/detail/generic/places/template.html'
+            templateUrl: 'app/modules/page/detail/generic/events/overview/template.html'
         };
     }],
-    name: 'elyPageDetailPlaces'
+    name: 'elyPageDetailEventsOverview'
 };

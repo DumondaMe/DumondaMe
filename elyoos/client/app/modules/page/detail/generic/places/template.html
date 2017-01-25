@@ -1,4 +1,4 @@
-<div class="ely-page-place-container" ng-if="ctrl.pageDetail.page.addresses.length > 0">
+<div class="ely-page-place-container" ng-if="ctrl.pageDetail.page.addresses.length > 0 || ctrl.pageDetail.administrators.isAdmin">
     <div class="page-section-title">Standorte</div>
     <div class="commands-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
         <ely-icon-button class="first-element" icon="cardActions:add" label="Neuer Standort" ng-click="ctrl.addPlaces()"

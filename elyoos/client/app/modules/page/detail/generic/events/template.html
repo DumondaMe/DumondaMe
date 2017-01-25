@@ -1,0 +1,10 @@
+<div class="ely-page-event-container" ng-if="ctrl.pageDetail.page.events.length > 0 || ctrl.pageDetail.administrators.isAdmin">
+    <div class="page-section-title">Veranstaltungen</div>
+    <div class="commands-container" ng-if="ctrl.pageDetail.administrators.isAdmin">
+        <ely-icon-button class="first-element" icon="cardActions:add" label="Neue Veranstaltung" ng-click="ctrl.addEvent()"
+                         show-label-always="true"></ely-icon-button>
+    </div>
+    <div class="ely-page-event-content">
+        <ely-page-detail-events-overview page-detail="ctrl.pageDetail"></ely-page-detail-events-overview>
+    </div>
+</div>
