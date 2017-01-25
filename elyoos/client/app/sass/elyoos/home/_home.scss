@@ -11,23 +11,6 @@
       max-width: 950px;
       width: 950px;
     }
-    .pinwall-command-fab {
-      @media screen and (min-width: $gt-sm) {
-        margin-right: 18px;
-      }
-      .pinwall-command-text {
-        margin-left: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 500;
-        color: $primary-text;
-      }
-    }
-    .pinwall-command-fab:hover {
-      .pinwall-command-text {
-        text-decoration: underline;
-      }
-    }
   }
   .pinwall-container {
     padding: 0 8px;

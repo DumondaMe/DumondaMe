@@ -1,0 +1,9 @@
+<div>
+    <div class="place-description-container" ng-repeat="address in ctrl.addresses" layout="row">
+        <div class="description">{{address.description}}</div>
+        <span flex></span>
+        <div flex="none" ng-if="ctrl.isAdmin === true">
+            <md-icon md-svg-icon="cardActions:delete" class="edit-icon"></md-icon>
+        </div>
+    </div>
+</div>

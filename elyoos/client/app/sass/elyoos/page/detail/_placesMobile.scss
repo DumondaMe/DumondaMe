@@ -1,0 +1,13 @@
+.ely-page-place-container {
+  .ely-page-place-mobile-container {
+    font-size: 14px;
+    color: $secondary-text;
+    .place-content-container {
+      min-height: 50px;
+      padding-top: 24px;
+      .place-element {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

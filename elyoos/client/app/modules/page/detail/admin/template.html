@@ -2,25 +2,11 @@
     <div class="page-section-title">Du bist Administrator dieses Beitrages</div>
     <div class="page-admin-actions-container" layout="row">
         <div>
-            <md-button class="page-admin-action md-fab md-mini" aria-label="Edit Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.editPage()"
-                       ng-hide="ctrl.$mdMedia('gt-sm')">
-                <md-icon md-svg-icon="cardActions:edit" class="action-icon"></md-icon>
-            </md-button>
-            <md-button class="page-admin-action md-raised" aria-label="Edit Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.editPage()"
-                       ng-show="ctrl.$mdMedia('gt-sm')">
-                Beitrag bearbeiten
-            </md-button>
+            <ely-icon-button class="first-element" icon="cardActions:edit" label="Bearbeiten" ng-click="ctrl.editPage()"></ely-icon-button>
         </div>
         <div ng-show="ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 0 || ctrl.label === 'Blog' ||
                   (ctrl.pageDetail.recommendation.summary.all.numberOfRecommendations === 1 && ctrl.pageDetail.recommendation.user.recommendationId)">
-            <md-button class="md-fab md-mini" aria-label="Delete Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.deletePage()"
-                       ng-hide="ctrl.$mdMedia('gt-sm')">
-                <md-icon md-svg-icon="cardActions:delete" class="action-icon"></md-icon>
-            </md-button>
-            <md-button class="md-raised" aria-label="Delete Page" ng-disabled="ctrl.requestRunning" ng-click="ctrl.deletePage()"
-                       ng-show="ctrl.$mdMedia('gt-sm')">
-                Beitrag löschen
-            </md-button>
+            <ely-icon-button icon="cardActions:delete" label="Löschen" ng-click="ctrl.deletePage()"></ely-icon-button>
         </div>
     </div>
 </div>

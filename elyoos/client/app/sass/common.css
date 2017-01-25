@@ -19,7 +19,7 @@
 .md-button {
   text-transform: none !important; }
 
-.ely-icon-button {
+.ely-button {
   display: inline-block;
   cursor: pointer;
   color: #333;
@@ -27,32 +27,49 @@
   user-select: none;
   border: 2px solid #ccc;
   border-radius: 8px; }
-  .ely-icon-button .ely-button-label {
+  .ely-button .ely-button-label {
     font-size: 14px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54);
     text-align: center;
     vertical-align: middle; }
-  .ely-icon-button .portrait-format {
+  .ely-button .portrait-format {
     width: 100px;
     height: 100px; }
-    .ely-icon-button .portrait-format .ely-button-label {
+    .ely-button .portrait-format .ely-button-label {
       padding: 6px 12px 12px 12px; }
-    .ely-icon-button .portrait-format .ely-button-icon {
+    .ely-button .portrait-format .ely-button-icon {
       margin-top: 12px;
       height: 36px;
       width: 36px; }
-  .ely-icon-button .landscape-format {
+  .ely-button .landscape-format {
     padding: 0 8px; }
-    .ely-icon-button .landscape-format .ely-button-icon {
+    .ely-button .landscape-format .ely-button-icon {
       margin-top: 6px;
       margin-bottom: 6px;
       margin-right: 6px;
       height: 28px;
       width: 28px; }
 
-.ely-icon-button:hover {
+.ely-button:hover {
   background-color: #ccc; }
+
+.ely-icon-button {
+  cursor: pointer; }
+  @media screen and (min-width: 960px) {
+    .ely-icon-button {
+      margin-right: 18px; } }
+  .ely-icon-button .button-text {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87); }
+    @media screen and (min-width: 960px) {
+      .ely-icon-button .button-text {
+        font-size: 16px; } }
+
+.ely-icon-button:hover .button-text {
+  text-decoration: underline; }
 
 /*!
  * Cropper v2.3.3

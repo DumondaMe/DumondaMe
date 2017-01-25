@@ -1,22 +1,8 @@
 <md-content id="ely-home" layout="column">
     <div id="pinwall-commands" layout="row" flex="none" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
         <div layout="row" layout-align="start center">
-            <div class="pinwall-command-fab" layout="row" layout-align="start center">
-                <div>
-                    <md-button class="md-fab md-mini" aria-label="Create Content" ng-click="ctrl.openCreatePage()">
-                        <md-icon md-svg-icon="navFAB:add"></md-icon>
-                    </md-button>
-                </div>
-                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openCreatePage()">Neuer Beitrag</div>
-            </div>
-            <div class="pinwall-command-fab" layout="row" layout-align="start center">
-                <div>
-                    <md-button class="md-fab md-mini" aria-label="Filter pinwall" ng-click="ctrl.openSideNavRight()">
-                        <md-icon md-svg-icon="navFAB:filter"></md-icon>
-                    </md-button>
-                </div>
-                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openSideNavRight()">Filter</div>
-            </div>
+            <ely-icon-button icon="navFAB:add" label="Neuer Beitrag" ng-click="ctrl.openCreatePage()"></ely-icon-button>
+            <ely-icon-button icon="navFAB:filter" label="Filter" ng-click="ctrl.openSideNavRight()"></ely-icon-button>
         </div>
         <span flex></span>
         <div id="pinwall-order">
