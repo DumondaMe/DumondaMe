@@ -11,7 +11,9 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
         }
         ctrl.startTime = "12:00";
         ctrl.startDate = moment().add(1, 'days').toDate();
+        ctrl.endDate = moment().add(1, 'days').toDate();
         ctrl.minDate = moment().add(1, 'days').toDate();
+        ctrl.minEndDate = moment().add(1, 'days').toDate();
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
 
@@ -27,8 +29,23 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
         };
 
-        ctrl.dateChanged = function () {
+        ctrl.startDateChanged = function(startDate) {
+            ctrl.data.startDate = startDate;
+            ctrl.minEndDate = startDate.toDate();
+            ctrl.dateChanged();
+        };
 
+        ctrl.endDateChanged = function(endDate) {
+            ctrl.data.endDate = endDate;
+            ctrl.dateChanged();
+        };
+
+        ctrl.dateChanged = function () {
+            if (ctrl.data.endDate && ctrl.data.startDate && ctrl.data.endDate.isBefore(ctrl.data.startDate)) {
+                ctrl.manageEventForm.endTime.$setValidity('ely-custom-message', false);
+            } else if (ctrl.manageEventForm.endTime) {
+                ctrl.manageEventForm.endTime.$setValidity('ely-custom-message', true);
+            }
         };
 
         ctrl.createEvent = function () {

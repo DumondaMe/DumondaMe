@@ -9,12 +9,13 @@ module.exports = {
             scope: {},
             bindToController: {
                 dateDay: '=',
-                resultDate: '=',
                 time: '@',
                 minDate: '=',
-                messageError: '=',
+                formObject: '=',
                 formName: '@',
-                label: '@'
+                customErrorMessage: '@',
+                label: '@',
+                elyOnChange: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'
