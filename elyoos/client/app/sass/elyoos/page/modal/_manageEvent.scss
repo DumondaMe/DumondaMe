@@ -1,5 +1,23 @@
 #manage-event {
   .ely-dialog-content {
+    .ely-start-end-date-container {
+      padding-left: 4px;
+    }
+    #addresses-container {
+      margin-top: 24px;
+      margin-bottom: 12px;
+      padding-left: 4px;
+      #addresses-title {
+        color: $secondary-text;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+      #existing-addresses-container {
+        .existing-address {
 
+        }
+      }
+    }
   }
 }

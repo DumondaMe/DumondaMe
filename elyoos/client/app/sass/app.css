@@ -2163,9 +2163,9 @@
 
 #ely-generic-page-map {
   height: 298px; }
-  #ely-generic-page-map #ely-map {
+  #ely-generic-page-map .ely-map {
     height: 100%; }
-    #ely-generic-page-map #ely-map #map-id {
+    #ely-generic-page-map .ely-map .ely-map-container {
       height: 100%; }
 
 .ely-generic-overview {
@@ -2222,6 +2222,8 @@
 
 .add-place-dialog .ely-dialog-content .search-image-icon {
   padding-left: 12px; }
+.add-place-dialog .ely-dialog-content .load-screen-container {
+  height: 150px; }
 @media screen and (max-width: 600px) {
   .add-place-dialog .ely-dialog-content .map-container {
     margin-bottom: 12px; } }
@@ -2229,7 +2231,7 @@
   .add-place-dialog .ely-dialog-content .map-container {
     margin-left: 12px; } }
 @media screen and (max-width: 600px) {
-  .add-place-dialog .ely-dialog-content .map-container #ely-map #map-id {
+  .add-place-dialog .ely-dialog-content .map-container .ely-map .ely-map-container {
     height: 300px; } }
 
 #blog-manage .preview-image {
@@ -2357,6 +2359,18 @@
 .create-book-page-preview-image {
   max-width: 600px;
   height: 90%; }
+
+#manage-event .ely-dialog-content .ely-start-end-date-container {
+  padding-left: 4px; }
+#manage-event .ely-dialog-content #addresses-container {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  padding-left: 4px; }
+  #manage-event .ely-dialog-content #addresses-container #addresses-title {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px; }
 
 #manage-link-page .form-container {
   height: 100%; }

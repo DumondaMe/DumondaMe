@@ -48,6 +48,16 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             }
         };
 
+        ctrl.closeAddPlace = function () {
+            ctrl.showAddPlace = false;
+        };
+
+        ctrl.placeSelected = function (selectedPlace) {
+            ctrl.showAddPlace = false;
+            ctrl.addedPlace = selectedPlace;
+            ctrl.data.selectedAddress = selectedPlace;
+        };
+
         ctrl.createEvent = function () {
             var message = CreateEventMessageService.getCreateEventMessage(ctrl.data);
             //UploadPageService.uploadCreatePage(message, ctrl);
