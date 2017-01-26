@@ -9,8 +9,8 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
         } else {
             ctrl.data = {};
         }
-        ctrl.data.startTime = "12:00";
-        ctrl.data.startDate = moment().add(1, 'days').toDate();
+        ctrl.startTime = "12:00";
+        ctrl.startDate = moment().add(1, 'days').toDate();
         ctrl.minDate = moment().add(1, 'days').toDate();
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;

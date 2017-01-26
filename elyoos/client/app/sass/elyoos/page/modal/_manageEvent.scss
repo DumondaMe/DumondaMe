@@ -1,34 +1,5 @@
 #manage-event {
   .ely-dialog-content {
-    .ely-date-time-picker {
-      .ely-input-time-container {
-        position: relative;
-        top: -2px;
-        margin-left: 18px;
-        .clock-icon {
-          bottom: 7px;
-          color: $secondary-text;
-        }
-        .ely-input-time {
-          width: 50px;
-        }
-      }
-      .md-button.md-icon-button {
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 0;
-        padding-right: 0;
-        .md-datepicker-calendar-icon {
-          margin-left: 0;
-          margin-right: 0;
-        }
-      }
-      .md-icon-button + .md-datepicker-input-container {
-        margin-left: 0;
-        .md-datepicker-input {
-          min-width: 100px;
-        }
-      }
-    }
+
   }
 }

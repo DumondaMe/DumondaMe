@@ -2358,28 +2358,6 @@
   max-width: 600px;
   height: 90%; }
 
-#manage-event .ely-dialog-content .ely-date-time-picker .ely-input-time-container {
-  position: relative;
-  top: -2px;
-  margin-left: 18px; }
-  #manage-event .ely-dialog-content .ely-date-time-picker .ely-input-time-container .clock-icon {
-    bottom: 7px;
-    color: rgba(0, 0, 0, 0.54); }
-  #manage-event .ely-dialog-content .ely-date-time-picker .ely-input-time-container .ely-input-time {
-    width: 50px; }
-#manage-event .ely-dialog-content .ely-date-time-picker .md-button.md-icon-button {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0; }
-  #manage-event .ely-dialog-content .ely-date-time-picker .md-button.md-icon-button .md-datepicker-calendar-icon {
-    margin-left: 0;
-    margin-right: 0; }
-#manage-event .ely-dialog-content .ely-date-time-picker .md-icon-button + .md-datepicker-input-container {
-  margin-left: 0; }
-  #manage-event .ely-dialog-content .ely-date-time-picker .md-icon-button + .md-datepicker-input-container .md-datepicker-input {
-    min-width: 100px; }
-
 #manage-link-page .form-container {
   height: 100%; }
   #manage-link-page .form-container .ely-dialog-content .preview-image {
