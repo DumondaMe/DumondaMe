@@ -34,6 +34,11 @@ describe('Integration Tests for getting generic page detail', function () {
 
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
 
+        dbDsl.createPageEventNewAddress('1', {
+            eventId: '1', title: 'Event', description: 'Super Event',
+            startDate: 500, endDate: 600
+        }, {addressId: '13', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
@@ -70,6 +75,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.administrators.list[0].userId.should.equals('2');
             res.body.administrators.list[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
             res.body.administrators.isAdmin.should.be.false;
+            res.body.hasEvents.should.be.true;
 
             res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.recommendation.user.recommendationId.should.equals('0');

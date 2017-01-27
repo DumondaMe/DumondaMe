@@ -10,6 +10,7 @@ let getEventMessages = function (events) {
             eventId: event.event.eventId,
             title: event.event.title,
             startDate: event.event.startDate,
+            endDate: event.event.endDate,
             where: event.address.description,
         });
     });
@@ -19,7 +20,7 @@ let getEventMessages = function (events) {
 let getTotalNumberOfEvents = function (pageId, actual) {
 
     return db.cypher().match(`(:Page {pageId: {pageId}})-[:EVENT]->(event:Event)`)
-        .where("(event.startDate > {now} AND {actual} = true) OR (event.startDate < {now} AND {actual} = false)")
+        .where("(event.endDate > {now} AND {actual} = true) OR (event.endDate < {now} AND {actual} = false)")
         .return("count(*) AS totalNumberOfEvents")
         .end({pageId: pageId, now: time.getNowUtcTimestamp(), actual: actual}).getCommand();
 };
@@ -28,18 +29,17 @@ let getOrder = function (actual) {
     if (actual) {
         return "event.startDate";
     }
-    return "event.startDate DESC";
+    return "event.endDate DESC";
 };
 
 let getEventOverview = function (userId, requestParams) {
 
     let commands = [];
 
-    commands.push(getTotalNumberOfEvents(requestParams.pageId, true));
-    commands.push(getTotalNumberOfEvents(requestParams.pageId, false));
+    commands.push(getTotalNumberOfEvents(requestParams.pageId, requestParams.actual));
 
     return db.cypher().match(`(:Page {pageId: {pageId}})-[:EVENT]->(event:Event)-[:HAS]->(address:Address)`)
-        .where("(event.startDate > {now} AND {actual} = true) OR (event.startDate < {now} AND {actual} = false)")
+        .where("(event.endDate > {now} AND {actual} = true) OR (event.endDate < {now} AND {actual} = false)")
         .return("event, address")
         .orderBy(getOrder(requestParams.actual))
         .skip("{skip}")
@@ -50,8 +50,7 @@ let getEventOverview = function (userId, requestParams) {
         }).send(commands).then(function (resp) {
 
             return {
-                totalNumberActualEvents: resp[0][0].totalNumberOfEvents, totalNumberPastEvents: resp[1][0].totalNumberOfEvents,
-                events: getEventMessages(resp[2])
+                totalNumberOfEvents: resp[0][0].totalNumberOfEvents, events: getEventMessages(resp[1])
             };
         });
 };

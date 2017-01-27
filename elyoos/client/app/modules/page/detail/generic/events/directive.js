@@ -9,7 +9,10 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pageDetail: '='
+                pageId: '=',
+                addresses: '=',
+                hasEvents: '=',
+                isAdmin: '='
             },
             templateUrl: 'app/modules/page/detail/generic/events/template.html'
         };

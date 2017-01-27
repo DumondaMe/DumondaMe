@@ -26,19 +26,19 @@ describe('Integration Tests for getting page events', function () {
             }]);
             dbDsl.createPageEventNewAddress('1', {
                 eventId: '1', title: 'Event', description: 'Super Event',
-                startDate: startTime + 500, endDate: startTime + 600
+                startDate: startTime - 2, endDate: startTime + 600
             }, {addressId: '13', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('1', {
                 eventId: '2', title: 'Event2', description: 'Super Event2',
-                startDate: startTime + 550, endDate: startTime + 600
+                startDate: startTime + 550, endDate: startTime + 601
             }, {addressId: '14', description: 'Urdorf2', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('2', {
                 eventId: '3', title: 'Event3', description: 'Super Event3',
-                startDate: startTime + 550, endDate: startTime + 600
+                startDate: startTime + 550, endDate: startTime + 602
             }, {addressId: '15', description: 'Urdorf3', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('2', {
                 eventId: '13', title: 'Event13', description: 'Super Event13',
-                startDate: startTime - 500, endDate: startTime - 600
+                startDate: startTime - 500, endDate: startTime - 603
             }, {addressId: '16', description: 'Urdorf13', lat: 48.05642, lng: 8.36542});
         });
     });
@@ -73,16 +73,17 @@ describe('Integration Tests for getting page events', function () {
             res.body.events.length.should.equals(2);
             res.body.events[0].eventId.should.equals('1');
             res.body.events[0].title.should.equals('Event');
-            res.body.events[0].startDate.should.equals(startTime + 500);
+            res.body.events[0].startDate.should.equals(startTime - 2);
+            res.body.events[0].endDate.should.equals(startTime + 600);
             res.body.events[0].where.should.equals('Urdorf');
 
             res.body.events[1].eventId.should.equals('2');
             res.body.events[1].title.should.equals('Event2');
             res.body.events[1].startDate.should.equals(startTime + 550);
+            res.body.events[1].endDate.should.equals(startTime + 601);
             res.body.events[1].where.should.equals('Urdorf2');
 
-            res.body.totalNumberActualEvents.should.equals(3);
-            res.body.totalNumberPastEvents.should.equals(1);
+            res.body.totalNumberOfEvents.should.equals(3);
         });
     });
 
@@ -90,15 +91,15 @@ describe('Integration Tests for getting page events', function () {
 
         dbDsl.createPageEventExistingAddress('1', {
             eventId: '4', title: 'Event4', description: 'Super Event4',
-            startDate: startTime - 560, endDate: startTime - 400
+            startDate: startTime - 540, endDate: startTime - 402
         }, '11');
         dbDsl.createPageEventExistingAddress('1', {
             eventId: '5', title: 'Event5', description: 'Super Event5',
-            startDate: startTime - 550, endDate: startTime - 400
+            startDate: startTime - 550, endDate: startTime - 401
         }, '11');
         dbDsl.createPageEventExistingAddress('1', {
             eventId: '6', title: 'Event6', description: 'Super Event6',
-            startDate: startTime - 500, endDate: startTime - 400
+            startDate: startTime - 560, endDate: startTime - 400
         }, '11');
 
         return dbDsl.sendToDb().then(function () {
@@ -116,16 +117,17 @@ describe('Integration Tests for getting page events', function () {
             res.body.events.length.should.equals(2);
             res.body.events[0].eventId.should.equals('6');
             res.body.events[0].title.should.equals('Event6');
-            res.body.events[0].startDate.should.equals(startTime - 500);
+            res.body.events[0].startDate.should.equals(startTime - 560);
+            res.body.events[0].endDate.should.equals(startTime - 400);
             res.body.events[0].where.should.equals('Zuerich');
 
             res.body.events[1].eventId.should.equals('5');
             res.body.events[1].title.should.equals('Event5');
             res.body.events[1].startDate.should.equals(startTime - 550);
+            res.body.events[1].endDate.should.equals(startTime - 401);
             res.body.events[1].where.should.equals('Zuerich');
 
-            res.body.totalNumberActualEvents.should.equals(2);
-            res.body.totalNumberPastEvents.should.equals(3);
+            res.body.totalNumberOfEvents.should.equals(3);
         });
     });
 });

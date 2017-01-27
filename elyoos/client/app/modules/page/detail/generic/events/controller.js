@@ -6,9 +6,9 @@ module.exports = ['ElyModal',
 
         ctrl.createEvent = function () {
             ElyModal.show('ManageEventCtrl', 'app/modules/page/modal/manageEvent/template.html', {
-                genericPageId: ctrl.pageDetail.page.pageId, addresses: ctrl.pageDetail.page.addresses
+                genericPageId: ctrl.pageId, addresses: ctrl.addresses
             }).then(function (resp) {
-                //$state.go('page.detail', {label: 'Blog', pageId: resp.pageId});
+
             });
         };
     }];

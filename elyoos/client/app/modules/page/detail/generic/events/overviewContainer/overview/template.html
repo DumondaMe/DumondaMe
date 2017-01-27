@@ -1,0 +1,8 @@
+<div class="ely-page-events-overview">
+    <div ng-repeat="event in ctrl.events.events" class="ely-page-events-overview-element">
+        <div class="event-title">{{event.title}}</div>
+        <div class="event-sub-descriptions">Von {{ctrl.getTime(event.startDate, 'l LT')}} bis {{ctrl.getEndDate(event.startDate, event.endDate)}}
+        </div>
+        <div class="event-sub-descriptions">{{event.where}}</div>
+    </div>
+</div>

@@ -9,9 +9,9 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pageDetail: '='
+                isActual: '@'
             },
-            templateUrl: 'app/modules/page/detail/generic/events/overview/template.html'
+            templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/overview/template.html'
         };
     }],
     name: 'elyPageDetailEventsOverview'
