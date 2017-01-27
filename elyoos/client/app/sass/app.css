@@ -2105,7 +2105,10 @@
   .place-description-container .description {
     height: 24px;
     line-height: 24px;
-    text-align: center; }
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   .place-description-container .edit-icon {
     height: 24px;
     width: 24px;
