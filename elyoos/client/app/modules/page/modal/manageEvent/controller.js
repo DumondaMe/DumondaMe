@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageService', 'moment',
-    function (ElyModal, DateFormatCheckService, CreateEventMessageService, moment) {
+module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageService', 'moment', 'PageEvents', 'errorToast',
+    function (ElyModal, DateFormatCheckService, CreateEventMessageService, moment, PageEvents, errorToast) {
         var ctrl = this;
 
         if (ctrl.isEditMode) {
@@ -29,13 +29,13 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             ctrl.dataHasChanged = !angular.equals(ctrl.dataOnServer, ctrl.data);
         };
 
-        ctrl.startDateChanged = function(startDate) {
+        ctrl.startDateChanged = function (startDate) {
             ctrl.data.startDate = startDate;
             ctrl.minEndDate = startDate.toDate();
             ctrl.dateChanged();
         };
 
-        ctrl.endDateChanged = function(endDate) {
+        ctrl.endDateChanged = function (endDate) {
             ctrl.data.endDate = endDate;
             ctrl.dateChanged();
         };
@@ -59,8 +59,12 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
         };
 
         ctrl.createEvent = function () {
-            var message = CreateEventMessageService.getCreateEventMessage(ctrl.data);
-            //UploadPageService.uploadCreatePage(message, ctrl);
+            var message = CreateEventMessageService.getCreateEventMessage(ctrl.data, ctrl.genericPageId);
+            PageEvents.save(message, function (resp) {
+                ElyModal.hide(resp);
+            }, function () {
+                errorToast.showError('Das erstellen einer Verandstaltung ist fehlgeschlagen.');
+            });
         };
 
         ctrl.modifyEvent = function () {

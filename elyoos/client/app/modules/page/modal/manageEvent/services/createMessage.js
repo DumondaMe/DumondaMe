@@ -1,30 +1,32 @@
 'use strict';
 
-module.exports = ['DateConverter', 'Topics', 'Languages', function (DateConverter, Topics, Languages) {
-
-    this.getCreateEventMessage = function (data) {
-        return {
-            bookPage: {
-                title: data.title,
-                description: data.description,
-                author: data.author,
-                publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                topic: Topics.getCodes(data.selectedTopics),
-                language: data.selectedLanguages.code
-            }
+var setAddress = function (message, data) {
+    if (data.selectedAddress.hasOwnProperty('addressId')) {
+        message.existingAddressId = data.selectedAddress.addressId;
+    } else {
+        message.address = {
+            description: data.selectedAddress.formatted,
+            lat: data.selectedAddress.geometry.lat,
+            lng: data.selectedAddress.geometry.lng
         };
+    }
+};
+
+module.exports = [function () {
+
+    this.getCreateEventMessage = function (data, genericPageId) {
+        var message = {
+            title: data.title,
+            description: data.description,
+            genericPageId: genericPageId,
+            startDate: Math.floor(data.startDate.valueOf() / 1000),
+            endDate: Math.floor(data.endDate.valueOf() / 1000)
+        };
+        setAddress(message, data);
+        return message;
     };
 
     this.getModifyEventMessage = function (data) {
-        return {
-            bookPage: {
-                pageId: data.pageId,
-                description: data.description,
-                author: data.author,
-                publishDate: DateConverter.convertDisplayToInteger(data.publishDate),
-                topic: Topics.getCodes(data.selectedTopics),
-                language: data.selectedLanguages.code
-            }
-        };
+        return {};
     };
 }];

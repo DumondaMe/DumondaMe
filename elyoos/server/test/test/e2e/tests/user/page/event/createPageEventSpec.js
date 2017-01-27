@@ -50,7 +50,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
@@ -65,6 +65,7 @@ describe('Integration Tests for creating new events for generic pages', function
             resp[0].address.description.should.equals("Zuerich");
             resp[0].address.latitude.should.equals(47.376887);
             resp[0].address.longitude.should.equals(8.541694);
+            should.exist(resp[0].address.addressId);
             should.not.exist(resp[0].rel);
 
             resp[0].event.title.should.equals("title");
@@ -89,7 +90,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
@@ -128,7 +129,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -147,7 +148,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -166,7 +167,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -185,7 +186,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -204,7 +205,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event/create', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
