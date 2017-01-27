@@ -6,6 +6,7 @@ let page = require('./dbDSL/page');
 let blog = require('./dbDSL/blog');
 let user = require('./dbDSL/user');
 let feedback = require('./dbDSL/feedback');
+let events = require('./dbDSL/events');
 let keyword = require('./dbDSL/keyword');
 let dbConnectionHandling = require('./dbDSL/dbConnectionHandling');
 let db = require('./db');
@@ -54,5 +55,7 @@ module.exports = {
     createFeedbackComment: feedback.createFeedbackComment,
     createFeedbackRecommendation: feedback.createFeedbackRecommendation,
     closeFeedback: feedback.closeFeedback,
-    reopenFeedback: feedback.reopenFeedback
+    reopenFeedback: feedback.reopenFeedback,
+    createPageEventNewAddress: events.createPageEventNewAddress,
+    createPageEventExistingAddress: events.createPageEventExistingAddress
 };
