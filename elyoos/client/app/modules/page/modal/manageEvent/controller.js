@@ -14,6 +14,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
         ctrl.endDate = moment().add(1, 'days').toDate();
         ctrl.minDate = moment().add(1, 'days').toDate();
         ctrl.minEndDate = moment().add(1, 'days').toDate();
+        ctrl.commandsEndDate = {};
 
         ctrl.getDateExample = DateFormatCheckService.getDateExample;
 
@@ -33,6 +34,9 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             ctrl.data.startDate = startDate;
             ctrl.minEndDate = startDate.toDate();
             ctrl.dateChanged();
+            if(ctrl.data.endDate && ctrl.data.endDate.isBefore(startDate)) {
+                ctrl.commandsEndDate.dateDayChanged(startDate.toDate());
+            }
         };
 
         ctrl.endDateChanged = function (endDate) {

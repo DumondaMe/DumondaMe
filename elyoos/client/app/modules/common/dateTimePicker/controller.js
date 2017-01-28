@@ -12,5 +12,12 @@ module.exports = ['moment', 'DateTimePickerParseTime', function (moment, DateTim
         }
     };
 
+    if (angular.isObject(ctrl.commands)) {
+        ctrl.commands.dateDayChanged = function(dateDay) {
+            ctrl.dateDay = dateDay;
+            ctrl.dateChanged();
+        };
+    }
+
     ctrl.dateChanged();
 }];

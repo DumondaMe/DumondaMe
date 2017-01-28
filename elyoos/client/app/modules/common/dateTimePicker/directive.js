@@ -15,7 +15,8 @@ module.exports = {
                 formName: '@',
                 customErrorMessage: '@',
                 label: '@',
-                elyOnChange: '='
+                elyOnChange: '=',
+                commands: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'
