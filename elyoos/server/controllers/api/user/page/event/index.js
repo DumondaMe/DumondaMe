@@ -3,6 +3,7 @@
 let validation = require('elyoos-server-lib').jsonValidation;
 let deleteEvent = requireModel('user/page/delete/deleteEvent');
 let createEvent = requireModel('user/page/create/pageEvent');
+let editEvent = requireModel('user/page/edit/pageEvent');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let exceptions = require('elyoos-server-lib').exceptions;
@@ -19,6 +20,28 @@ let schemaManagePageEvent = {
             required: ['title', 'description', 'genericPageId', 'startDate', 'endDate'],
             properties: {
                 genericPageId: {type: 'string', format: 'notEmptyString', maxLength: 50},
+                title: {type: 'string', format: 'notEmptyString', maxLength: 160},
+                description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
+                startDate: {type: 'integer'},
+                endDate: {type: 'integer'},
+                address: {
+                    type: 'object',
+                    additionalProperties: false,
+                    required: ['description', 'lat', 'lng'],
+                    properties: {
+                        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                        lat: {type: 'number'},
+                        lng: {type: 'number'}
+                    }
+                },
+                existingAddressId: {type: 'string', format: 'notEmptyString', maxLength: 50}
+            }
+        }, edit: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['title', 'description', 'eventId', 'startDate', 'endDate'],
+            properties: {
+                eventId: {type: 'string', format: 'notEmptyString', maxLength: 50},
                 title: {type: 'string', format: 'notEmptyString', maxLength: 160},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
                 startDate: {type: 'integer'},
@@ -60,6 +83,12 @@ module.exports = function (router) {
                         return createEvent.createEvent(req.user.id, request.create, req);
                     } else if (request.create.hasOwnProperty('existingAddressId')) {
                         return createEvent.createEventWithExistingAddress(req.user.id, request.create, req);
+                    }
+                } else if(request.hasOwnProperty('edit')) {
+                    if (request.edit.hasOwnProperty('address')) {
+                        return editEvent.editEvent(req.user.id, request.edit, req);
+                    } else if (request.edit.hasOwnProperty('existingAddressId')) {
+                        return editEvent.editEventWithExistingAddress(req.user.id, request.edit, req);
                     }
                 }
                 return exceptions.getInvalidOperation(`Missing address or existingAddressId request`, logger, req);
