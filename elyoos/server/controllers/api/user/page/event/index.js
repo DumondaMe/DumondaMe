@@ -1,6 +1,7 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
+let deleteEvent = requireModel('user/page/delete/deleteEvent');
 let createEvent = requireModel('user/page/create/pageEvent');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
@@ -32,6 +33,16 @@ let schemaCreatePageEvent = {
     }
 };
 
+let schemaDeleteEvent = {
+    name: 'deleteEvent',
+    type: 'object',
+    additionalProperties: false,
+    required: ['eventId'],
+    properties: {
+        eventId: {type: 'string', format: 'id', maxLength: 50}
+    }
+};
+
 module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
@@ -46,6 +57,16 @@ module.exports = function (router) {
                 return exceptions.getInvalidOperation(`Missing address or existingAddressId request`, logger, req);
             }).then(function (recommendation) {
                 res.status(200).json(recommendation);
+            });
+        });
+    });
+
+    router.delete('/', auth.isAuthenticated(), function (req, res) {
+        return controllerErrors('Error occurs while deleting an event', req, res, logger, function () {
+            return validation.validateRequest(req, schemaDeleteEvent, logger).then(function (request) {
+                return deleteEvent.deleteEvent(req.user.id, request, req);
+            }).then(function () {
+                res.status(200).end();
             });
         });
     });
