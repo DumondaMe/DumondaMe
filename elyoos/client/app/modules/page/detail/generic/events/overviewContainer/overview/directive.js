@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                isActual: '@'
+                isActual: '@',
+                isAdmin: '='
             },
             templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/overview/template.html'
         };
