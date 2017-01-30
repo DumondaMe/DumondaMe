@@ -10,7 +10,8 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 isActual: '@',
-                isAdmin: '='
+                isAdmin: '=',
+                commands: '='
             },
             templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/overview/template.html'
         };

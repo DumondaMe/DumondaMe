@@ -48,7 +48,7 @@ let createEvent = function (userId, params, req) {
                             latitude: toFloat({addressLat}), longitude: toFloat({addressLng}), addressId: {addressId}})`)
             .end(params).send();
     }).then(function () {
-        return {eventId: params.eventId};
+        return {eventId: params.eventId, where: params.addressDescription};
     });
 };
 
@@ -59,9 +59,9 @@ let createEventWithExistingAddress = function (userId, params, req) {
         return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'}), (address:Address {addressId: {existingAddressId}})")
             .createUnique(`(page)-[:EVENT]->(:Event {eventId: {eventId}, title: {title}, description: {description}, startDate: {startDate}, 
                             created: {created}, endDate: {endDate}})-[:HAS]->(address)`)
-            .end(params).send();
-    }).then(function () {
-        return {eventId: params.eventId};
+            .return("address.description AS where").end(params).send();
+    }).then(function (resp) {
+        return {eventId: params.eventId, where: resp[0].where};
     });
 };
 

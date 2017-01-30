@@ -45,7 +45,7 @@ describe('Integration Tests for creating new events for generic pages', function
             genericPageId: '1',
             startDate: startTime + 500,
             endDate: startTime + 600,
-            address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            address: {description: 'Zuerich2', lat: 47.376887, lng: 8.541694}
         }, eventId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -54,6 +54,7 @@ describe('Integration Tests for creating new events for generic pages', function
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
+            res.body.where.should.equals('Zuerich2');
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '1'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .return(`event, address, page, rel`)
@@ -62,7 +63,7 @@ describe('Integration Tests for creating new events for generic pages', function
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
 
-            resp[0].address.description.should.equals("Zuerich");
+            resp[0].address.description.should.equals("Zuerich2");
             resp[0].address.latitude.should.equals(47.376887);
             resp[0].address.longitude.should.equals(8.541694);
             should.exist(resp[0].address.addressId);
@@ -94,6 +95,7 @@ describe('Integration Tests for creating new events for generic pages', function
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
+            res.body.where.should.equals('Zuerich');
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '1'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .return(`event, address, page, rel`)

@@ -9,7 +9,7 @@ module.exports = {
             controller: function () {
             },
             controllerAs: 'ctrl',
-            bindToController: {isAdmin: '='},
+            bindToController: {isAdmin: '=', commands: '='},
             templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/template.html'
         };
     }],
