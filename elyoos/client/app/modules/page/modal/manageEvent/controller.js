@@ -71,7 +71,7 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
                 event.endDate = Math.floor(ctrl.data.endDate.valueOf() / 1000);
                 ElyModal.hide(event);
             }, function () {
-                errorToast.showError('Das erstellen einer Verandstaltung ist fehlgeschlagen.');
+                errorToast.showError('Das erstellen einer Veranstaltung ist fehlgeschlagen.');
             });
         };
 

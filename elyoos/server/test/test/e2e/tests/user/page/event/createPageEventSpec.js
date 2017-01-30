@@ -40,12 +40,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event - Return 200', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '1',
-            startDate: startTime + 500,
-            endDate: startTime + 600,
-            address: {description: 'Zuerich2', lat: 47.376887, lng: 8.541694}
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '1',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                address: {description: 'Zuerich2', lat: 47.376887, lng: 8.541694}
+            }
         }, eventId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -81,12 +83,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event with existing address- Return 200', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '1',
-            startDate: startTime + 500,
-            endDate: startTime + 600,
-            existingAddressId: '1'
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '1',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                existingAddressId: '1'
+            }
         }, eventId;
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -121,12 +125,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event with existing address failed because of not existing address (400)', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '1',
-            startDate: startTime + 500,
-            endDate: startTime + 600,
-            existingAddressId: '2'
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '1',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                existingAddressId: '2'
+            }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -140,12 +146,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event fails because page does not exist (400)', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '10',
-            startDate: startTime + 500,
-            endDate: startTime + 600,
-            address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '10',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -159,12 +167,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event fails because user is not admin of page (400)', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '2',
-            startDate: startTime + 500,
-            endDate: startTime + 600,
-            address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '2',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -178,12 +188,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event fails because end data is before start date (400)', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '1',
-            startDate: startTime + 500,
-            endDate: startTime + 499,
-            address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '1',
+                startDate: startTime + 500,
+                endDate: startTime + 499,
+                address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {
@@ -197,12 +209,14 @@ describe('Integration Tests for creating new events for generic pages', function
     it('Create a new event fails because start date is in the past (400)', function () {
 
         let createEvent = {
-            title: 'title',
-            description: 'description',
-            genericPageId: '1',
-            startDate: startTime - 1,
-            endDate: startTime + 20,
-            address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            create: {
+                title: 'title',
+                description: 'description',
+                genericPageId: '1',
+                startDate: startTime - 1,
+                endDate: startTime + 20,
+                address: {description: 'Zuerich', lat: 47.376887, lng: 8.541694}
+            }
         };
 
         return requestHandler.login(users.validUser).then(function (agent) {

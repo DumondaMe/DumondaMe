@@ -16,13 +16,15 @@ module.exports = [function () {
 
     this.getCreateEventMessage = function (data, genericPageId) {
         var message = {
-            title: data.title,
-            description: data.description,
-            genericPageId: genericPageId,
-            startDate: Math.floor(data.startDate.valueOf() / 1000),
-            endDate: Math.floor(data.endDate.valueOf() / 1000)
+            create: {
+                title: data.title,
+                description: data.description,
+                genericPageId: genericPageId,
+                startDate: Math.floor(data.startDate.valueOf() / 1000),
+                endDate: Math.floor(data.endDate.valueOf() / 1000)
+            }
         };
-        setAddress(message, data);
+        setAddress(message.create, data);
         return message;
     };
 
