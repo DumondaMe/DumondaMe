@@ -53,9 +53,7 @@ module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'file
 
         ctrl.createGenericPage = function () {
             var message = GenericPageCreateMessageService.getCreateGenericPageMessage(ctrl.data);
-            UploadPageService.uploadCreatePage(message, ctrl).then(function (resp) {
-                ctrl.data.previewImage = resp.data.previewImage;
-            });
+            UploadPageService.uploadCreatePage(message, ctrl);
         };
 
         ctrl.modifyGenericPage = function () {

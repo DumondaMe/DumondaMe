@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ['Topics', 'Languages', 'PlacesMessageService', function (Topics, Languages, PlacesMessageService) {
+module.exports = ['Topics', 'Languages', function (Topics, Languages) {
 
     this.getCreateGenericPageMessage = function (data) {
         return {
@@ -9,8 +9,7 @@ module.exports = ['Topics', 'Languages', 'PlacesMessageService', function (Topic
                 description: data.description,
                 topic: Topics.getCodes(data.selectedTopics),
                 language: Languages.getCodes(data.selectedLanguages),
-                website: data.website,
-                places: PlacesMessageService.getMessage(data.selectedPlaces)
+                website: data.website
             }
         };
     };

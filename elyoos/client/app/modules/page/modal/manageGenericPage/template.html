@@ -9,17 +9,22 @@
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content" layout="column" layout-gt-sm="row">
                 <div>
-                    <div id="title-image-container" ng-show="ctrl.data.dataUri" layout="column" layout-align="start center">
-                        <img class="preview-image" ng-src="{{ctrl.data.dataUri}}">
-                        <div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow" id="title-image-container">
+                            <img class="preview-image" ng-src="{{ctrl.data.dataUri}}" ng-show="ctrl.data.dataUri">
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <div flex="nogrow">
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" hide show-gt-sm></ely-button>
+                            <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
+                                        icon="system:image" ng-hide="ctrl.data.dataUri" orientation="landscape" hide-gt-sm></ely-button>
                             <md-button class="md-primary" ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true"
-                                       aria-label="Edit Picture">Titelbild ändern
+                                       aria-label="Edit Picture" ng-show="ctrl.data.dataUri">Titelbild ändern
                             </md-button>
                         </div>
                     </div>
-                    <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.selectImage = true" label="Titelbild hinzufügen"
-                                icon="system:image" ng-hide="ctrl.data.dataUri"></ely-button>
-
                 </div>
                 <div flex-offset-gt-sm="5" flex="grow">
                     <div layout="row">
@@ -68,18 +73,6 @@
                             <div ng-message="url">Ungültiger Link</div>
                         </div>
                     </md-input-container>
-                    <div id="place-list">
-                        <div id="place-title">Standorte:</div>
-                        <div id="selected-place-container" ng-show="ctrl.data.selectedPlaces.length > 0">
-                            <div ng-repeat="selectedPlace in ctrl.data.selectedPlaces" class="selected-place" layout="row">
-                                <div class="place-description" flex>{{selectedPlace.formatted}}</div>
-                                <md-icon flex="none" md-svg-icon="system:deleteNormal" aria-label="Delete Place"
-                                         ng-click="ctrl.deletePlace(selectedPlace)" class="place-icon"></md-icon>
-                            </div>
-                        </div>
-                        <ely-button ng-disabled="ctrl.uploadStarted" ng-click="ctrl.addPlace()" label="Standort hinzufügen"
-                                    orientation="landscape" icon="system:addPlace"></ely-button>
-                    </div>
                 </div>
             </div>
         </md-dialog-content>
