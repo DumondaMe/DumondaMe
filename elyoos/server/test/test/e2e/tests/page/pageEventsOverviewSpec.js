@@ -73,15 +73,19 @@ describe('Integration Tests for getting page events', function () {
             res.body.events.length.should.equals(2);
             res.body.events[0].eventId.should.equals('1');
             res.body.events[0].title.should.equals('Event');
+            res.body.events[0].description.should.equals('Super Event');
             res.body.events[0].startDate.should.equals(startTime - 2);
             res.body.events[0].endDate.should.equals(startTime + 600);
-            res.body.events[0].where.should.equals('Urdorf');
+            res.body.events[0].address.description.should.equals('Urdorf');
+            res.body.events[0].address.addressId.should.equals('13');
 
             res.body.events[1].eventId.should.equals('2');
             res.body.events[1].title.should.equals('Event2');
+            res.body.events[1].description.should.equals('Super Event2');
             res.body.events[1].startDate.should.equals(startTime + 550);
             res.body.events[1].endDate.should.equals(startTime + 601);
-            res.body.events[1].where.should.equals('Urdorf2');
+            res.body.events[1].address.description.should.equals('Urdorf2');
+            res.body.events[1].address.addressId.should.equals('14');
 
             res.body.totalNumberOfEvents.should.equals(3);
         });
@@ -117,15 +121,19 @@ describe('Integration Tests for getting page events', function () {
             res.body.events.length.should.equals(2);
             res.body.events[0].eventId.should.equals('6');
             res.body.events[0].title.should.equals('Event6');
+            res.body.events[0].description.should.equals('Super Event6');
             res.body.events[0].startDate.should.equals(startTime - 560);
             res.body.events[0].endDate.should.equals(startTime - 400);
-            res.body.events[0].where.should.equals('Zuerich');
+            res.body.events[0].address.description.should.equals('Zuerich');
+            res.body.events[0].address.addressId.should.equals('11');
 
             res.body.events[1].eventId.should.equals('5');
             res.body.events[1].title.should.equals('Event5');
+            res.body.events[1].description.should.equals('Super Event5');
             res.body.events[1].startDate.should.equals(startTime - 550);
             res.body.events[1].endDate.should.equals(startTime - 401);
-            res.body.events[1].where.should.equals('Zuerich');
+            res.body.events[1].address.description.should.equals('Zuerich');
+            res.body.events[1].address.addressId.should.equals('11');
 
             res.body.totalNumberOfEvents.should.equals(3);
         });

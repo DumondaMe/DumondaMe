@@ -6,7 +6,7 @@
             </md-tab-label>
             <md-tab-body>
                 <md-content>
-                    <ely-page-detail-events-overview is-actual="true" is-admin="ctrl.isAdmin"
+                    <ely-page-detail-events-overview is-actual="true" is-admin="ctrl.isAdmin" addresses="ctrl.addresses" edit-allowed="true"
                                                      commands="ctrl.commands"></ely-page-detail-events-overview>
                 </md-content>
             </md-tab-body>
@@ -17,7 +17,7 @@
             </md-tab-label>
             <md-tab-body>
                 <md-content>
-                    <ely-page-detail-events-overview is-actual="false" is-admin="ctrl.isAdmin"></ely-page-detail-events-overview>
+                    <ely-page-detail-events-overview is-actual="false" is-admin="ctrl.isAdmin" edit-allowed="false"></ely-page-detail-events-overview>
                 </md-content>
             </md-tab-body>
         </md-tab>

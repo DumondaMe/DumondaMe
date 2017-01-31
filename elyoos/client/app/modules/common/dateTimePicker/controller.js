@@ -4,6 +4,10 @@
 module.exports = ['moment', 'DateTimePickerParseTime', function (moment, DateTimePickerParseTime) {
     var ctrl = this;
 
+    if (ctrl.elyDisabled) {
+        ctrl.minDate = new Date(0);
+    }
+
     ctrl.dateChanged = function () {
         var time = DateTimePickerParseTime.parseTime(ctrl.time);
         if (angular.isDate(ctrl.dateDay) && angular.isNumber(time.hour) && angular.isNumber(time.minute)) {
@@ -13,7 +17,7 @@ module.exports = ['moment', 'DateTimePickerParseTime', function (moment, DateTim
     };
 
     if (angular.isObject(ctrl.commands)) {
-        ctrl.commands.dateDayChanged = function(dateDay) {
+        ctrl.commands.dateDayChanged = function (dateDay) {
             ctrl.dateDay = dateDay;
             ctrl.dateChanged();
         };

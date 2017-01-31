@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog',
-    function (EventOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog) {
+module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog', 'ElyModal',
+    function (EventOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog, ElyModal) {
         var ctrl = this;
 
         ctrl.getTime = dateFormatter.getTime;
@@ -29,7 +29,18 @@ module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'P
             });
         };
 
-        if(ctrl.commands) {
+        ctrl.editEvent = function (eventToEdit, index) {
+            ElyModal.show('ManageEventCtrl', 'app/modules/page/modal/manageEvent/template.html', {
+                isEditMode: true, eventId: eventToEdit.eventId, addresses: ctrl.addresses, actualAddress: eventToEdit.address,
+                data: {
+                    title: eventToEdit.title, description: eventToEdit.description, startDate: eventToEdit.startDate, endDate: eventToEdit.endDate
+                }
+            }).then(function (resp) {
+                ctrl.events.events[index] = resp;
+            });
+        };
+
+        if (ctrl.commands) {
             ctrl.commands.addEvent = function (event) {
                 ctrl.events.events.unshift(event);
             };

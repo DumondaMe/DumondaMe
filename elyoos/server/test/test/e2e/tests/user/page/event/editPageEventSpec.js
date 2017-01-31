@@ -58,7 +58,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Edit an event and add new address (Previous address belongs to generic page)- Return 200', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '10',
                 title: 'title',
@@ -71,9 +71,11 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.address.description.should.equals('Zuerich2');
+            should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: '10'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .optionalMatch("(page)-[rel2:HAS]->(:Address {addressId: '1'})")
@@ -100,7 +102,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Edit an event and add new address (Previous address belongs only to event)- Return 200', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '12',
                 title: 'title',
@@ -113,9 +115,11 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.address.description.should.equals('Zuerich2');
+            should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: '12'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .optionalMatch("(page)-[rel2:HAS]->(:Address {addressId: '10'})")
@@ -142,7 +146,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Edit an event and add existing address (Previous address belongs to generic page)- Return 200', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '10',
                 title: 'title',
@@ -155,9 +159,11 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.address.description.should.equals('Zuerich10');
+            res.body.address.addressId.should.equals('2');
             return db.cypher().match("(address:Address {addressId: '2'})<-[:HAS]-(event:Event {eventId: '10'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .optionalMatch("(page)-[rel2:HAS]->(:Address {addressId: '1'})")
@@ -183,7 +189,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Edit an event and add existing address (Previous address belongs only to event)- Return 200', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '12',
                 title: 'title',
@@ -196,9 +202,11 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
+            res.body.address.description.should.equals('Zuerich10');
+            res.body.address.addressId.should.equals('2');
             return db.cypher().match("(address:Address {addressId: '2'})<-[:HAS]-(event:Event {eventId: '12'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .optionalMatch("(previousAddress:Address {addressId: '10'})")
@@ -224,7 +232,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Not allowed to edit event of other admin - Return 400', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '11',
                 title: 'title',
@@ -237,7 +245,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });
@@ -245,7 +253,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
     it('Not allowed to link to a address of other page - Return 400', function () {
 
-        let createEvent = {
+        let editEvent = {
             edit: {
                 eventId: '10',
                 title: 'title',
@@ -258,7 +266,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+            return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(400);
         });

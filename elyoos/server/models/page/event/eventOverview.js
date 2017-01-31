@@ -9,9 +9,10 @@ let getEventMessages = function (events) {
         result.push({
             eventId: event.event.eventId,
             title: event.event.title,
+            description: event.event.description,
             startDate: event.event.startDate,
             endDate: event.event.endDate,
-            where: event.address.description,
+            address: event.address,
         });
     });
     return result;

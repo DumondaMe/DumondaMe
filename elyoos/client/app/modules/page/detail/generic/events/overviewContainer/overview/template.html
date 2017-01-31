@@ -4,17 +4,17 @@
             <div class="event-title">{{event.title}}</div>
             <div class="event-sub-descriptions">Von {{ctrl.getTime(event.startDate, 'l LT')}} bis {{ctrl.getEndDate(event.startDate, event.endDate)}}
             </div>
-            <div class="event-sub-descriptions">{{event.where}}</div>
+            <div class="event-sub-descriptions">{{event.address.description}}</div>
         </div>
         <div flex="none" class="admin-menu-container" ng-show="ctrl.isAdmin">
             <md-menu md-position-mode="target-right target" class="admin-menu">
                 <md-icon ng-click="$mdOpenMenu($event)" md-svg-icon="cardActions:setting" aria-label="Event Settings"></md-icon>
                 <md-menu-content>
-                    <md-menu-item>
-                        <md-button ng-click="ctrl.deleteEvent(event)">Löschen</md-button>
+                    <md-menu-item ng-show="ctrl.editAllowed === 'true'">
+                        <md-button ng-click="ctrl.editEvent(event, $index)">Bearbeiten</md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button ng-click="ctrl.editEvent(event)">Bearbeiten</md-button>
+                        <md-button ng-click="ctrl.deleteEvent(event)">Löschen</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>

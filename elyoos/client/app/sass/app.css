@@ -2380,6 +2380,11 @@
 
 #manage-event .ely-dialog-content .ely-start-end-date-container {
   padding-left: 4px; }
+  #manage-event .ely-dialog-content .ely-start-end-date-container .edit-not-allowed {
+    font-size: 14px;
+    font-weight: 500;
+    color: #EF6C00;
+    margin-bottom: 12px; }
 #manage-event .ely-dialog-content #addresses-container {
   margin-top: 24px;
   margin-bottom: 12px;

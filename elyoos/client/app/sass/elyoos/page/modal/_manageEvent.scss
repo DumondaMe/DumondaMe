@@ -2,6 +2,12 @@
   .ely-dialog-content {
     .ely-start-end-date-container {
       padding-left: 4px;
+      .edit-not-allowed {
+        font-size: 14px;
+        font-weight: 500;
+        color: $warning;
+        margin-bottom: 12px;
+      }
     }
     #addresses-container {
       margin-top: 24px;

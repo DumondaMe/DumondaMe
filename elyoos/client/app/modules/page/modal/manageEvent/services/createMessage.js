@@ -28,7 +28,17 @@ module.exports = [function () {
         return message;
     };
 
-    this.getModifyEventMessage = function (data) {
-        return {};
+    this.getModifyEventMessage = function (data, eventId) {
+        var message = {
+            edit: {
+                title: data.title,
+                description: data.description,
+                eventId: eventId,
+                startDate: Math.floor(data.startDate.valueOf() / 1000),
+                endDate: Math.floor(data.endDate.valueOf() / 1000)
+            }
+        };
+        setAddress(message.edit, data);
+        return message;
     };
 }];

@@ -56,7 +56,8 @@ describe('Integration Tests for creating new events for generic pages', function
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
-            res.body.where.should.equals('Zuerich2');
+            res.body.address.description.should.equals('Zuerich2');
+            should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '1'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .return(`event, address, page, rel`)
@@ -99,7 +100,8 @@ describe('Integration Tests for creating new events for generic pages', function
         }).then(function (res) {
             res.status.should.equal(200);
             eventId = res.body.eventId;
-            res.body.where.should.equals('Zuerich');
+            res.body.address.description.should.equals('Zuerich');
+            should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '1'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
                 .return(`event, address, page, rel`)

@@ -1,13 +1,15 @@
 <md-dialog id="manage-event" aria-label="Manage Events" class="manage-page">
     <form name="ctrl.manageEventForm" ng-cloak ng-hide="ctrl.showAddPlace">
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Veranstaltung erstellen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Veranstaltung <span class="highlighted">{{ctrl.data.title}}</span> bearbeiten
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Veranstaltung <span class="highlighted">{{ctrl.dataOnServer.title}}</span>
+            bearbeiten
         </div>
         <md-dialog-content>
             <div class="md-dialog-content ely-dialog-content">
-                <md-input-container class="input-container" flex ng-if="!ctrl.isEditMode">
+                <md-input-container class="input-container" flex>
                     <label>Titel</label>
-                    <input name="title" ng-model="ctrl.data.title" required md-maxlength="120" ng-disabled="ctrl.uploadStarted"/>
+                    <input name="title" ng-model="ctrl.data.title" required md-maxlength="120" ng-disabled="ctrl.uploadStarted"
+                           ng-change="ctrl.changeData()"/>
                     <div ng-messages="ctrl.manageEventForm.title.$error">
                         <div ng-message="required">Wird benötigt!</div>
                         <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -23,18 +25,23 @@
                     </div>
                 </md-input-container>
                 <div class="ely-start-end-date-container">
-                    <ely-date-time-picker label="Beginnt am:" date-day="ctrl.startDate" time="12:00"
+                    <div class="edit-not-allowed" ng-if="ctrl.editDateNotAllowed">Das Ändern der Startzeit ist zu kurzfristig. Diese kann maximal
+                        einen Tag zuvor noch verändert werden.
+                    </div>
+                    <ely-date-time-picker label="Beginnt am:" date-day="ctrl.startDate" time="{{ctrl.startTime}}"
+                                          ely-disabled="ctrl.editDateNotAllowed"
                                           form-name="startTime" min-date="ctrl.minDate" form-object="ctrl.manageEventForm.startTime"
                                           ely-on-change="ctrl.startDateChanged">
                     </ely-date-time-picker>
-                    <ely-date-time-picker label="Endet am:" date-day="ctrl.endDate" time="13:00" commands="ctrl.commandsEndDate"
+                    <ely-date-time-picker label="Endet am:" date-day="ctrl.endDate" time="{{ctrl.endTime}}" commands="ctrl.commandsEndDate"
                                           form-name="endTime" min-date="ctrl.minEndDate" form-object="ctrl.manageEventForm.endTime"
-                                          ely-on-change="ctrl.endDateChanged" custom-error-message="Vor Startzeit">
+                                          ely-on-change="ctrl.endDateChanged" custom-error-message="Vor Startzeit"
+                                          ely-disabled="ctrl.editDateNotAllowed">
                     </ely-date-time-picker>
                 </div>
                 <div id="addresses-container" ng-show="ctrl.addresses.length > 0">
                     <div id="addresses-title">Wo findet die Veranstaltung statt:</div>
-                    <md-radio-group id="existing-addresses-container" ng-model="ctrl.data.selectedAddress">
+                    <md-radio-group id="existing-addresses-container" ng-model="ctrl.data.selectedAddress" ng-change="ctrl.changeData()">
                         <md-radio-button ng-value="address" ng-repeat="address in ctrl.addresses" class="existing-address">{{address.description}}
                         </md-radio-button>
                         <md-radio-button ng-if="ctrl.addedPlace" ng-value="ctrl.addedPlace" class="existing-address">{{ctrl.addedPlace.formatted}}
@@ -47,10 +54,10 @@
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.createEvent()" ng-if="!ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageEventForm.$invalid || !ctrl.data.selectedAddress">Erstellen
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageEventForm.$invalid || !ctrl.data.selectedAddress">Erstellen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.modifyEvent()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageEventForm.$invalid || !ctrl.dataHasChanged || !ctrl.data.selectedAddress">
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageEventForm.$invalid || !ctrl.dataHasChanged">
                 Ändern
             </md-button>
         </md-dialog-actions>

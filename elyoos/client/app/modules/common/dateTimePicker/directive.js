@@ -16,6 +16,7 @@ module.exports = {
                 customErrorMessage: '@',
                 label: '@',
                 elyOnChange: '=',
+                elyDisabled: '=',
                 commands: '='
             },
             controller: require('./controller'),
