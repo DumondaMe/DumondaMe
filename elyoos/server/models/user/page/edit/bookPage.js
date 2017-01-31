@@ -2,9 +2,9 @@
 
 let db = requireDb();
 let time = require('elyoos-server-lib').time;
-let uploadImage = require('./../../image/generatePageImages');
-let imagePage = require('./imagePage');
-let security = require('./security');
+let uploadImage = require('./../../../image/generatePageImages');
+let imagePage = require('./../imagePage');
+let security = require('./../security');
 
 let editBookPage = function (userId, params, titlePicturePath, req) {
     return imagePage.checkImageSize(titlePicturePath, req).then(function () {

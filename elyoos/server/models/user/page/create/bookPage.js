@@ -3,8 +3,8 @@
 let db = requireDb();
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-let uploadImage = require('./../../image/generatePageImages');
-let imagePage = require('./imagePage');
+let uploadImage = require('./../../../image/generatePageImages');
+let imagePage = require('./../imagePage');
 let cdn = require('elyoos-server-lib').cdn;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 

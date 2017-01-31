@@ -1,7 +1,7 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
-let deleteEvent = requireModel('user/page/delete/deleteEvent');
+let deleteEvent = requireModel('user/page/delete/event');
 let createEvent = requireModel('user/page/create/pageEvent');
 let editEvent = requireModel('user/page/edit/pageEvent');
 let auth = require('elyoos-server-lib').auth;

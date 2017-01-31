@@ -3,7 +3,7 @@
 let db = requireDb();
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
-let youtube = require('./youtubeUtils');
+let youtube = require('./../youtubeUtils');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let createVideoPage = function (userId, params) {

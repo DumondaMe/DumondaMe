@@ -2,8 +2,8 @@
 
 let db = requireDb();
 let time = require('elyoos-server-lib').time;
-let security = require('./security');
-let youtube = require('./youtubeUtils');
+let security = require('./../security');
+let youtube = require('./../youtubeUtils');
 
 let handlingLinkHistory = function (params) {
     return db.cypher().match("(page:Page {pageId: {pageId}})")

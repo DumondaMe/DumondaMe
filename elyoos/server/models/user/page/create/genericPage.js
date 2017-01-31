@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let image = require('./../images/uploadImageCDN');
+let image = require('./../../images/uploadImageCDN');
 let uuid = require('elyoos-server-lib').uuid;
 let time = require('elyoos-server-lib').time;
 let cdn = require('elyoos-server-lib').cdn;

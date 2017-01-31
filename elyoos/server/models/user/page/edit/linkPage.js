@@ -2,9 +2,9 @@
 
 let db = requireDb();
 let time = require('elyoos-server-lib').time;
-let image = require('./../images/uploadImageCDN');
-let imagePage = require('./imagePage');
-let security = require('./security');
+let image = require('./../../images/uploadImageCDN');
+let imagePage = require('./../imagePage');
+let security = require('./../security');
 
 let editLinkPage = function (userId, params, titlePicturePath, req) {
 

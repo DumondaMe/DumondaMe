@@ -1,7 +1,7 @@
 'use strict';
 
 let db = requireDb();
-let security = require('./security');
+let security = require('./../security');
 let cdn = require('elyoos-server-lib').cdn;
 
 let deletePage = function (userId, params, req) {

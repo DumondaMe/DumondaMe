@@ -2,7 +2,7 @@
 
 let validation = require('elyoos-server-lib').jsonValidation;
 let auth = require('elyoos-server-lib').auth;
-let deletePage = requireModel('user/page/deletePage');
+let deletePage = requireModel('user/page/delete/page');
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
