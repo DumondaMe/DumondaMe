@@ -13,8 +13,8 @@ module.exports = {
                 onBack: '&',
                 onSelected: '='
             },
-            templateUrl: 'app/modules/page/modal/common/addPlace/template.html'
+            templateUrl: 'app/modules/page/modal/managePlace/directive/template.html'
         };
     }],
-    name: 'elyAddPlace'
+    name: 'elyManagePlace'
 };

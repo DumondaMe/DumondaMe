@@ -2238,20 +2238,6 @@
   #ely-youtube-page-detail #ely-youtube-page-main-detail .topic-description {
     margin: 0 0 4px 0; }
 
-.add-place-dialog .ely-dialog-content .search-image-icon {
-  padding-left: 12px; }
-.add-place-dialog .ely-dialog-content .load-screen-container {
-  height: 150px; }
-@media screen and (max-width: 600px) {
-  .add-place-dialog .ely-dialog-content .map-container {
-    margin-bottom: 12px; } }
-@media screen and (min-width: 600px) {
-  .add-place-dialog .ely-dialog-content .map-container {
-    margin-left: 12px; } }
-@media screen and (max-width: 600px) {
-  .add-place-dialog .ely-dialog-content .map-container .ely-map .ely-map-container {
-    height: 300px; } }
-
 #blog-manage .preview-image {
   max-width: 150px;
   max-height: 300px; }
@@ -2328,6 +2314,20 @@
       color: #EF6C00;
       font-size: 14px;
       margin-bottom: 12px; }
+
+.manage-place .ely-dialog-content .search-image-icon {
+  padding-left: 12px; }
+.manage-place .ely-dialog-content .load-screen-container {
+  height: 150px; }
+@media screen and (max-width: 600px) {
+  .manage-place .ely-dialog-content .map-container {
+    margin-bottom: 12px; } }
+@media screen and (min-width: 600px) {
+  .manage-place .ely-dialog-content .map-container {
+    margin-left: 12px; } }
+@media screen and (max-width: 600px) {
+  .manage-place .ely-dialog-content .map-container .ely-map .ely-map-container {
+    height: 300px; } }
 
 #manage-generic-page .ely-dialog-content #title-image-container {
   width: 150px; }

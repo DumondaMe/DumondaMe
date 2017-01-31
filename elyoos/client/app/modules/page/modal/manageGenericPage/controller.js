@@ -60,14 +60,5 @@ module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'file
             var message = GenericPageCreateMessageService.getModifyGenericPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
         };
-
-        ctrl.recommendationFinish = function (recommendation) {
-            RecommendationResponseFormatter.format(ctrl.data, recommendation, 'Generic');
-            ElyModal.hide(ctrl.data);
-        };
-
-        ctrl.recommendationAbort = function () {
-            ElyModal.cancel();
-        };
     }];
 
