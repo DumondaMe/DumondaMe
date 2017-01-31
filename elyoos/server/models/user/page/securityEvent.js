@@ -6,21 +6,22 @@ let _ = require('underscore');
 let time = require('elyoos-server-lib').time;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let checkAllowedToAddEvent = function (params, userId, req) {
+let checkAddEditEvent = function (params, userId, req, matchQuery, invalidMessage, matchParam) {
+    let paramsQuery;
     if (params.endDate < params.startDate) {
         return exceptions.getInvalidOperation(`Start date ${params.startDate} before end date ${params.endDate}`, logger, req);
     } else if (params.startDate < time.getNowUtcTimestamp()) {
         return exceptions.getInvalidOperation(`Start date ${params.startDate} ist in the past`, logger, req);
     }
-    params.genericPageId = params.genericPageId || null;
     params.existingAddressId = params.existingAddressId || null;
-    return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'}), (user:User {userId: {userId}})")
+    paramsQuery = {existingAddressId: params.existingAddressId, userId: userId};
+    return db.cypher().match(matchQuery)
         .optionalMatch("(page)-[:HAS]->(address:Address {addressId: {existingAddressId}})")
         .optionalMatch("(page)<-[isAdminRel:IS_ADMIN]-(user)")
         .return("page, address, isAdminRel")
-        .end({genericPageId: params.genericPageId, existingAddressId: params.existingAddressId, userId: userId}).send().then(function (resp) {
+        .end(_.extend(paramsQuery, matchParam)).send().then(function (resp) {
             if (resp.length === 0) {
-                return exceptions.getInvalidOperation(`Invalid page to add event ${params.genericPageId}`, logger, req);
+                return exceptions.getInvalidOperation(invalidMessage, logger, req);
             } else if (!resp[0].hasOwnProperty('address') && _.isString(params.existingAddressId)) {
                 return exceptions.getInvalidOperation(`Address for id ${params.existingAddressId} does not exist`, logger, req);
             } else if (!resp[0].hasOwnProperty('isAdminRel')) {
@@ -29,27 +30,14 @@ let checkAllowedToAddEvent = function (params, userId, req) {
         });
 };
 
+let checkAllowedToAddEvent = function (params, userId, req) {
+    return checkAddEditEvent(params, userId, req, "(page:Page {pageId: {genericPageId}, label: 'Generic'}), (user:User {userId: {userId}})",
+        `Invalid page to add event ${params.genericPageId}`, {genericPageId: params.genericPageId});
+};
+
 let checkAllowedToEditPageEvent = function (params, userId, req) {
-    if (params.endDate < params.startDate) {
-        return exceptions.getInvalidOperation(`Start date ${params.startDate} before end date ${params.endDate}`, logger, req);
-    } else if (params.startDate < time.getNowUtcTimestamp()) {
-        return exceptions.getInvalidOperation(`Start date ${params.startDate} ist in the past`, logger, req);
-    }
-    params.genericPageId = params.genericPageId || null;
-    params.existingAddressId = params.existingAddressId || null;
-    return db.cypher().match("(page:Page)-[:EVENT]->(:Event {eventId: {eventId}}), (user:User {userId: {userId}})")
-        .optionalMatch("(page)-[:HAS]->(address:Address {addressId: {existingAddressId}})")
-        .optionalMatch("(page)<-[isAdminRel:IS_ADMIN]-(user)")
-        .return("page, address, isAdminRel")
-        .end({eventId: params.eventId, existingAddressId: params.existingAddressId, userId: userId}).send().then(function (resp) {
-            if (resp.length === 0) {
-                return exceptions.getInvalidOperation(`Invalid eventId ${params.eventId}`, logger, req);
-            } else if (!resp[0].hasOwnProperty('address') && _.isString(params.existingAddressId)) {
-                return exceptions.getInvalidOperation(`Address for id ${params.existingAddressId} does not exist`, logger, req);
-            } else if (!resp[0].hasOwnProperty('isAdminRel')) {
-                return exceptions.getInvalidOperation(`User ${userId} ist not admin of page ${resp[0].page.pageId}`, logger, req);
-            }
-        });
+    return checkAddEditEvent(params, userId, req, "(page:Page)-[:EVENT]->(:Event {eventId: {eventId}}), (user:User {userId: {userId}})",
+        `Invalid eventId ${params.eventId}`, {eventId: params.eventId});
 };
 
 let checkAllowedToDeletePageEvent = function (userId, eventId, req) {
