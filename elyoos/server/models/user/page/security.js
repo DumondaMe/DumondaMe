@@ -16,7 +16,7 @@ let checkAllowedToEditPage = function (userId, pageId, req) {
         .end({userId: userId, pageId: pageId}).send()
         .then(function (resp) {
             if (userNotAllowedToEditPage(resp)) {
-                return exceptions.getInvalidOperation('User tried to edit page with no Admin rights ' + pageId, logger, req);
+                return exceptions.getInvalidOperation('User tried to edit page with no Admin permissions ' + pageId, logger, req);
             }
         });
 };

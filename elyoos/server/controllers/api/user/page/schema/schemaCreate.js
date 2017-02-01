@@ -56,7 +56,7 @@ module.exports = {
                 language: language.languageMultiple,
                 website: {'$ref': '#/definitions/link'}
             }
-        },
+        }
     },
     definitions: definitions
 };

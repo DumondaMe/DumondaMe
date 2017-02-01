@@ -43,6 +43,19 @@ module.exports = {
                 description: {'$ref': '#/definitions/description'},
                 language: language.languageMultiple
             }
+        },
+        genericPage: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['pageId', 'title', 'topic', 'description', 'language'],
+            properties: {
+                pageId: {'$ref': '#/definitions/id'},
+                topic: {'$ref': '#/definitions/topic'},
+                title: {'$ref': '#/definitions/title'},
+                description: {'$ref': '#/definitions/description'},
+                language: language.languageMultiple,
+                website: {'$ref': '#/definitions/link'}
+            }
         }
     },
     definitions: definitions
