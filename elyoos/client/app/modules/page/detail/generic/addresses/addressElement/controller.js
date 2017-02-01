@@ -22,7 +22,12 @@ module.exports = ['$mdDialog', 'PageAddress', 'errorToast', 'ArrayHelper', 'ElyM
 
         ctrl.editAddress = function (addressToEdit, index) {
             ElyModal.show('ManageAddressCtrl', 'app/modules/page/modal/manageAddress/template.html', {
-                isEditMode: true, addressId: addressToEdit.addressId, description: addressToEdit.description
+                isEditMode: true,
+                description: addressToEdit.description,
+                actualAddress: {
+                    formatted: addressToEdit.address, addressId: addressToEdit.addressId,
+                    geometry: {lat: addressToEdit.latitude, lng: addressToEdit.longitude}
+                }
             }).then(function (resp) {
                 ctrl.addresses[index] = resp;
             });

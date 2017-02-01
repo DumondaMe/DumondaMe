@@ -10,6 +10,8 @@ let editAddress = function (userId, params, req) {
         return db.cypher().match("(address:Address {addressId: {addressId}})")
             .set('address', {address: params.address, description: params.description, latitude: params.lat, longitude: params.lng})
             .end(params).send();
+    }).then(function () {
+        return {};
     });
 };
 

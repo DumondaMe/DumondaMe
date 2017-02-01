@@ -5,6 +5,7 @@ let db = require('elyoos-server-test-util').db;
 let dbDsl = require('elyoos-server-test-util').dbDSL;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let moment = require('moment');
+let should = require('chai').should();
 
 describe('Integration Tests for edit address of generic pages', function () {
 
@@ -68,6 +69,35 @@ describe('Integration Tests for edit address of generic pages', function () {
 
             resp[0].address.address.should.equals("ZürichNeu");
             resp[0].address.description.should.equals("description");
+            resp[0].address.latitude.should.equals(47.37);
+            resp[0].address.longitude.should.equals(8.54);
+        });
+    });
+
+    it('Edit an address without description- Return 200', function () {
+
+        let editAddress = {
+            edit: {
+                addressId: '1',
+                address: 'ZürichNeu',
+                lat: 47.37,
+                lng: 8.54,
+            }
+        }, eventId;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/address', editAddress, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(address:Address {addressId :'1'})<-[:HAS]-(page:Page {pageId: '0'})")
+                .return(`address`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+
+            resp[0].address.address.should.equals("ZürichNeu");
+            should.not.exist(resp[0].address.description);
             resp[0].address.latitude.should.equals(47.37);
             resp[0].address.longitude.should.equals(8.54);
         });

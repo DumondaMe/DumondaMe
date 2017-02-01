@@ -14,7 +14,19 @@ module.exports = [function () {
         };
     };
 
-    this.getModifyAddressMessage = function (data) {
-        return {};
+    this.getEditAddressMessage = function (addressId, address, description) {
+        var result = {
+            edit: {
+                addressId: addressId,
+                address: address.formatted,
+                lat: address.geometry.lat,
+                lng: address.geometry.lng
+            }
+        };
+
+        if(angular.isString(description) && description.trim() !== "") {
+            result.edit.description = description;
+        }
+        return result;
     };
 }];

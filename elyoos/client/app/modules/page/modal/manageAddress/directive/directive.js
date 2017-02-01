@@ -11,7 +11,10 @@ module.exports = {
             controllerAs: 'ctrl',
             bindToController: {
                 onBack: '&',
-                onSelected: '='
+                onSelected: '=',
+                isEditMode: '=',
+                actualDescription: '=',
+                actualAddress: '='
             },
             templateUrl: 'app/modules/page/modal/manageAddress/directive/template.html'
         };
