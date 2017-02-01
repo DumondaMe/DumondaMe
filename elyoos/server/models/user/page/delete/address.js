@@ -12,7 +12,7 @@ let hasEvents = function (userId, addressId) {
 };
 
 let getDeleteElement = function (result) {
-    if (result.length === 1 && result[0].hasOwnProperty('event')) {
+    if (result.length > 0 && result[0].hasOwnProperty('event')) {
         return "relAddress";
     }
     return "addressToDelete, relAddress";

@@ -40,6 +40,14 @@ describe('Integration Tests for deleting an event of a page', function () {
                 eventId: '12', title: 'Event3', description: 'Super Event3',
                 startDate: startTime - 2, endDate: startTime + 600
             }, {addressId: '10', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            dbDsl.createPageEventNewAddress('0', {
+                eventId: '13', title: 'Event4', description: 'Super Event4',
+                startDate: startTime + 200, endDate: startTime + 600
+            }, {addressId: '11', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            dbDsl.createPageEventExistingAddress('0', {
+                eventId: '14', title: 'Event5', description: 'Super Event5',
+                startDate: startTime + 555, endDate: startTime + 566
+            }, '11');
             return dbDsl.sendToDb();
         });
     });
@@ -48,7 +56,7 @@ describe('Integration Tests for deleting an event of a page', function () {
         return requestHandler.logout();
     });
 
-    it('Delete Successfully an event of a page (Address belongs to page)- Return 200', function () {
+    it('Delete successfully an event of a page (Address belongs to page)- Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -67,7 +75,7 @@ describe('Integration Tests for deleting an event of a page', function () {
 
     });
 
-    it('Delete Successfully an event of a page (Address belongs to event)- Return 200', function () {
+    it('Delete successfully an event of a page (Address belongs to event)- Return 200', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
@@ -82,6 +90,25 @@ describe('Integration Tests for deleting an event of a page', function () {
                 .return('address').end().send();
         }).then(function (address) {
             address.length.should.equals(0);
+        });
+
+    });
+
+    it('Delete successfully an event of a page (Address belongs to multiple events)- Return 200', function () {
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.del('/api/user/page/event', {eventId: '13'}, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            return db.cypher().match("(event:Event {eventId: '13'})")
+                .return('event').end().send();
+        }).then(function (event) {
+            event.length.should.equals(0);
+            return db.cypher().match("(address:Address {addressId: '11'})")
+                .return('address').end().send();
+        }).then(function (address) {
+            address.length.should.equals(1);
         });
 
     });

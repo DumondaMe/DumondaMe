@@ -42,6 +42,11 @@ describe('Integration Tests for deleting an address of a page', function () {
                 startDate: startTime + 500, endDate: startTime + 550
             }, '2');
 
+            dbDsl.createPageEventExistingAddress('0', {
+                eventId: '2', title: 'Event2', description: 'Super Event2',
+                startDate: startTime + 550, endDate: startTime + 570
+            }, '2');
+
             return dbDsl.sendToDb();
         });
     });
