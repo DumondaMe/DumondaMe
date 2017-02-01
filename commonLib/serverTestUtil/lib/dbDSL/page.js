@@ -40,7 +40,7 @@ let createLinkPage = function (pageId, language, topic, modified, link, heightPr
 let createGenericPage = function (pageId, adminId, language, topic, modified, title = `generic${pageId}Title`, coordinates = null) {
     dbConnectionHandling.getCommands().push(db.cypher().match("(user:User {userId: {adminId}})")
         .create(`(user)-[:IS_ADMIN]->(page:Page  {title: {title}, label: 'Generic', language: {language}, description: {description}, modified: {modified}, created: {modified}, topic: {topic},
-        pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {description: address.description, latitude: toFloat(address.lat), 
+        pageId: {pageId}}) foreach (address in {coordinates} | CREATE (page)-[:HAS]->(:Address {address: address.address, description: address.description, latitude: toFloat(address.lat), 
         longitude: toFloat(address.lng), addressId: address.addressId}))`)
         .end({
             pageId: pageId, adminId: adminId, title: title, description: `page${pageId}Description`, language: language, topic: topic,

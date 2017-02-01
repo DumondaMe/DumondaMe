@@ -19,7 +19,7 @@ let schemaManagePageEvent = {
             additionalProperties: false,
             required: ['title', 'description', 'genericPageId', 'startDate', 'endDate'],
             properties: {
-                genericPageId: {type: 'string', format: 'notEmptyString', maxLength: 50},
+                genericPageId: {type: 'string', format: 'id', maxLength: 50},
                 title: {type: 'string', format: 'notEmptyString', maxLength: 160},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
                 startDate: {type: 'integer'},
@@ -41,7 +41,7 @@ let schemaManagePageEvent = {
             additionalProperties: false,
             required: ['title', 'description', 'eventId', 'startDate', 'endDate'],
             properties: {
-                eventId: {type: 'string', format: 'notEmptyString', maxLength: 50},
+                eventId: {type: 'string', format: 'id', maxLength: 50},
                 title: {type: 'string', format: 'notEmptyString', maxLength: 160},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
                 startDate: {type: 'integer'},
@@ -76,7 +76,7 @@ module.exports = function (router) {
 
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
-        return controllerErrors('Error occurs creating a page event', req, res, logger, function () {
+        return controllerErrors('Error occurs managing a page event', req, res, logger, function () {
             return validation.validateRequest(req, schemaManagePageEvent, logger).then(function (request) {
                 if(request.hasOwnProperty('create')) {
                     if (request.create.hasOwnProperty('address')) {
