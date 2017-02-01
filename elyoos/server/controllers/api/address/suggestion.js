@@ -3,16 +3,16 @@
 let validation = require('elyoos-server-lib').jsonValidation;
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
-let placeSuggestion = requireModel('page/placeSuggestion');
+let addressSuggestion = requireModel('address/suggestion');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let schemaGetPlaceSuggestion = {
-    name: 'getPlaceSuggestion',
+let schemaGetAddressSuggestion = {
+    name: 'getAddressSuggestion',
     type: 'object',
     additionalProperties: false,
-    required: ['place'],
+    required: ['address'],
     properties: {
-        place: {type: 'string', format: 'notEmptyString', minLength: 3, maxLength: 150}
+        address: {type: 'string', format: 'notEmptyString', minLength: 3, maxLength: 150}
     }
 };
 
@@ -21,9 +21,9 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        return controllerErrors('Error occurs when getting place suggestion', req, res, logger, function () {
-            return validation.validateQueryRequest(req, schemaGetPlaceSuggestion, logger).then(function (request) {
-                return placeSuggestion.search(request.place);
+        return controllerErrors('Error occurs when getting address suggestion', req, res, logger, function () {
+            return validation.validateQueryRequest(req, schemaGetAddressSuggestion, logger).then(function (request) {
+                return addressSuggestion.search(request.address);
             }).then(function (suggestion) {
                 res.status(200).json(suggestion);
             });
