@@ -1,0 +1,54 @@
+<form name="ctrl.addAddressForm" class="manage-address" aria-label="Manage Address" ng-cloak>
+    <div class="md-title ely-dialog-title">Ort hinzufügen</div>
+    <md-dialog-content>
+        <div class="md-dialog-content ely-dialog-content">
+            <md-input-container class="input-container">
+                <label>Allgemeine Beschreibung</label>
+                <textarea name="description" ng-model="ctrl.description" md-maxlength="500"
+                          ng-disabled="ctrl.uploadStarted"></textarea>
+                <div ng-messages="ctrl.addAddressForm.description.$error">
+                    <div ng-message="required">Wird benötigt!</div>
+                    <div ng-message="md-maxlength">Text ist zu lang</div>
+                </div>
+            </md-input-container>
+            <div layout="row">
+                <md-input-container class="input-container">
+                    <label>Ort</label>
+                    <input name="address" ng-model="ctrl.data.address" required md-maxlength="150" minlength="3"
+                           ng-disabled="ctrl.requestStarted" md-no-asterisk
+                           ng-keypress="ctrl.keyPressed($event)"/>
+                    <div ng-messages="ctrl.addAddressForm.address.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                    </div>
+                </md-input-container>
+                <div class="search-image-icon">
+                    <md-button class="md-fab md-mini" aria-label="Search Place" ng-click="ctrl.searchAddress()"
+                               ng-disabled="ctrl.requestStarted || ctrl.addAddressForm.$invalid || ctrl.lastRequestString === ctrl.data.address">
+                        <md-icon md-svg-icon="system:search" class="icon"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+            <div ng-show="ctrl.requestStarted" class="load-screen-container">
+                <ely-load-screen></ely-load-screen>
+            </div>
+            <div layout="column" layout-gt-xs="row" ng-if="ctrl.addresses.length > 0">
+                <div flex="100" flex-gt-xs="50" flex-order="1">
+                    <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary">
+                        <md-radio-button ng-repeat="address in ctrl.addresses" ng-value="address" aria-label="address.formatted">
+                            {{address.formatted}}
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2" class="map-container">
+                    <ely-map center="ctrl.selectedAddress.geometry" has-marker-center="true" zoom="15"></ely-map>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="ctrl.onBack()">Abbrechen</md-button>
+        <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-disabled="!ctrl.selectedAddress">Hinzufügen
+        </md-button>
+    </md-dialog-actions>
+</form>

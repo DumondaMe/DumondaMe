@@ -70,6 +70,8 @@
 @import 'navigation/_toolbarSearchPage';
 @import 'navigation/_toolbarSearchUser';
 
+@import 'page/detail/_addressElement';
+@import 'page/detail/_addresses';
 @import 'page/detail/_admin';
 @import 'page/detail/_blog';
 @import 'page/detail/_blogActions';
@@ -81,17 +83,15 @@
 @import 'page/detail/_info';
 @import 'page/detail/_link';
 @import 'page/detail/_linkHistory';
-@import 'page/detail/_placeAddressElement';
-@import 'page/detail/_places';
 @import 'page/detail/_placesMobile';
 @import 'page/detail/_generic';
 @import 'page/detail/_genericMap';
 @import 'page/detail/_genericOverview';
 @import 'page/detail/_recommendation';
 @import 'page/detail/_youtube';
+@import 'page/modal/_manageAddress';
 @import 'page/modal/_manageBlog';
 @import 'page/modal/_managePage';
-@import 'page/modal/_managePlace';
 @import 'page/modal/_manageGenericPage';
 @import 'page/modal/_manageBookPage';
 @import 'page/modal/_manageEvent';

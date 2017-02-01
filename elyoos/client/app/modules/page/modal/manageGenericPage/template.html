@@ -82,7 +82,7 @@
                        ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid">Erstellen
             </md-button>
             <md-button class="md-primary md-raised" ng-click="ctrl.modifyGenericPage()" ng-if="ctrl.isEditMode"
-                       ng-disabled=" ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.dataHasChanged">
+                       ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.dataHasChanged">
                 Ändern
             </md-button>
         </md-dialog-actions>

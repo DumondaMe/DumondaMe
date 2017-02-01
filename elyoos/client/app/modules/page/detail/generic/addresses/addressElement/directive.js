@@ -12,8 +12,8 @@ module.exports = {
                 addresses: '=',
                 isAdmin: '='
             },
-            templateUrl: 'app/modules/page/detail/generic/places/addressElement/template.html'
+            templateUrl: 'app/modules/page/detail/generic/addresses/addressElement/template.html'
         };
     }],
-    name: 'elyPageDetailPlaceElement'
+    name: 'elyPageDetailAddressElement'
 };

@@ -63,5 +63,5 @@
         </md-dialog-actions>
     </form>
     <md-progress-linear ng-if="ctrl.uploadStarted && !ctrl.selectImage" md-mode="indeterminate"></md-progress-linear>
-    <ely-manage-place on-back="ctrl.closeAddPlace()" on-selected="ctrl.placeSelected" ng-show="ctrl.showAddPlace"></ely-manage-place>
+    <ely-manage-address on-back="ctrl.closeAddPlace()" on-selected="ctrl.placeSelected" ng-show="ctrl.showAddPlace"></ely-manage-address>
 </md-dialog>

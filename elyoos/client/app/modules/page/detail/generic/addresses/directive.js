@@ -1,20 +1,18 @@
 'use strict';
 
 module.exports = {
-    directive: [ function () {
+    directive: [function () {
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-            },
+            scope: {},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                onBack: '&',
-                onSelected: '='
+                pageDetail: '='
             },
-            templateUrl: 'app/modules/page/modal/managePlace/directive/template.html'
+            templateUrl: 'app/modules/page/detail/generic/addresses/template.html'
         };
     }],
-    name: 'elyManagePlace'
+    name: 'elyPageDetailAddresses'
 };

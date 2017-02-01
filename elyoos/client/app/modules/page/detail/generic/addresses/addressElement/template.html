@@ -1,0 +1,21 @@
+<div class="address-description-container">
+    <div class="address-description-element" ng-repeat="address in ctrl.addresses" layout="row">
+        <div flex="grow">
+            <div class="address-title">{{address.address}}</div>
+            <div class="description">{{address.description}}</div>
+        </div>
+        <div flex="none" ng-if="ctrl.isAdmin === true" class="edit-address-container">
+            <md-menu md-position-mode="target-right target" class="admin-menu">
+                <md-icon ng-click="$mdOpenMenu($event)" md-svg-icon="cardActions:setting" aria-label="Address Settings"></md-icon>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button ng-click="ctrl.editAddress(address, $index)">Bearbeiten</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="ctrl.deleteAddress(address)">Löschen</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+</div>

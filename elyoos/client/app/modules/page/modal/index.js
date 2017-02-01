@@ -8,3 +8,4 @@ app.service('RecommendationResponseFormatter', require('./services/recommendatio
 app.service('Keywords', require('./services/keywords'));
 app.service('KeywordSuggestion', require('./services/keywordsSuggestion'));
 app.service('PageEvents', require('./services/pageEvents'));
+app.service('PageAddress', require('./services/pageAddress'));

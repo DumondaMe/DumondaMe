@@ -7,7 +7,7 @@ app.service('PageRecommendationOtherUser', require('./services/pageRecommendatio
 app.service('PageDetail', require('./services/pageDetail'));
 app.service('UserPage', require('./services/userPage'));
 app.service('SearchPage', require('./services/searchPage'));
-app.service('PlaceSuggestion', require('./services/placeSuggestion'));
+app.service('AddressSuggestion', require('./services/addressSuggestion'));
 app.service('PopularPages', require('./services/popularPages'));
 app.service('PageCategories', require('./services/categories'));
 app.service('PageUserRecommendation', require('./services/pageUserRecommendation'));

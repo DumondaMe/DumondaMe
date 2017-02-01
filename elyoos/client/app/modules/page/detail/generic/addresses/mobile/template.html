@@ -1,13 +1,13 @@
-<div ng-if="!ctrl.$mdMedia('gt-sm')" class="ely-page-place-mobile-container">
+<div ng-if="!ctrl.$mdMedia('gt-sm')" class="ely-page-address-mobile-container">
     <md-tabs md-dynamic-height>
         <md-tab>
             <md-tab-label>
                 <div>Beschreibung</div>
             </md-tab-label>
             <md-tab-body>
-                <md-content class="place-content-container">
-                    <ely-page-detail-place-element is-admin="ctrl.pageDetail.administrators.isAdmin" addresses="ctrl.pageDetail.page.addresses">
-                    </ely-page-detail-place-element>
+                <md-content class="address-content-container">
+                    <ely-page-detail-address-element is-admin="ctrl.pageDetail.administrators.isAdmin" addresses="ctrl.pageDetail.page.addresses">
+                    </ely-page-detail-address-element>
                 </md-content>
             </md-tab-body>
         </md-tab>
@@ -16,7 +16,7 @@
                 <div>Karte</div>
             </md-tab-label>
             <md-tab-body>
-                <md-content class="place-content-container">
+                <md-content class="address-content-container">
                     <ely-page-detail-map-generic addresses="ctrl.pageDetail.page.addresses"></ely-page-detail-map-generic>
                 </md-content>
             </md-tab-body>

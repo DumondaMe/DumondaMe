@@ -5,14 +5,16 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {
+            },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pageDetail: '='
+                onBack: '&',
+                onSelected: '='
             },
-            templateUrl: 'app/modules/page/detail/generic/places/mobile/template.html'
+            templateUrl: 'app/modules/page/modal/manageAddress/directive/template.html'
         };
     }],
-    name: 'elyPageDetailPlaceMobileContent'
+    name: 'elyManageAddress'
 };
