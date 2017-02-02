@@ -15,7 +15,7 @@ describe('Integration Tests for getting generic page detail', function () {
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
-            }]);
+            }], 'www.elyoos.org');
         });
     });
 
@@ -52,6 +52,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.pageId.should.equals('1');
             res.body.page.title.should.equals('Test1Place');
             res.body.page.description.should.equals('page1Description');
+            res.body.page.website.should.equals('www.elyoos.org');
             res.body.page.created.should.equals(100);
             res.body.page.modified.should.equals(100);
             res.body.page.label.should.equals('Generic');

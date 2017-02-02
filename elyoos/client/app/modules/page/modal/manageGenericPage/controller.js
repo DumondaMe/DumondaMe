@@ -1,15 +1,19 @@
 'use strict';
 
-module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'fileUpload', 'CheckPageExists', 'UploadPageService',
-    'RecommendationResponseFormatter', 'Languages', 'ArrayHelper',
-    function (ElyModal, Topics, GenericPageCreateMessageService, fileUpload, CheckPageExists, UploadPageService, RecommendationResponseFormatter,
-              Languages, ArrayHelper) {
+module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'UploadPageService', 'Languages',
+    function (ElyModal, Topics, GenericPageCreateMessageService, UploadPageService, Languages) {
         var ctrl = this;
 
         ctrl.languages = Languages.languages;
-        CheckPageExists.reset();
         ctrl.topics = Topics.topics;
-        ctrl.data = {selectedPlaces: []};
+        if (ctrl.isEditMode) {
+            ctrl.actualTitle = angular.copy(ctrl.data.title);
+            ctrl.data.selectedTopics = Topics.getTopics(ctrl.data.selectedTopics);
+            ctrl.data.selectedLanguages = Languages.getLanguages(ctrl.data.selectedLanguages);
+            ctrl.dataOnServer = angular.copy(ctrl.data);
+        } else {
+            ctrl.data = {};
+        }
 
         ctrl.cancel = function () {
             ElyModal.cancel();
@@ -34,30 +38,13 @@ module.exports = ['ElyModal', 'Topics', 'GenericPageCreateMessageService', 'file
             ctrl.showExistingPages = false;
         };
 
-        ctrl.addPlace = function () {
-            ctrl.showAddPlace = true;
-        };
-
-        ctrl.deletePlace = function (placeToDelete) {
-            ArrayHelper.removeElementByObject(ctrl.data.selectedPlaces, placeToDelete);
-        };
-
-        ctrl.closeAddPlace = function () {
-            ctrl.showAddPlace = false;
-        };
-
-        ctrl.placeSelected = function (selectedPlace) {
-            ctrl.showAddPlace = false;
-            ctrl.data.selectedPlaces.push(selectedPlace);
-        };
-
         ctrl.createGenericPage = function () {
             var message = GenericPageCreateMessageService.getCreateGenericPageMessage(ctrl.data);
             UploadPageService.uploadCreatePage(message, ctrl);
         };
 
-        ctrl.modifyGenericPage = function () {
-            var message = GenericPageCreateMessageService.getModifyGenericPageMessage(ctrl.data);
+        ctrl.editGenericPage = function () {
+            var message = GenericPageCreateMessageService.getEditGenericPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
         };
     }];

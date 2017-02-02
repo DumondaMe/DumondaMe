@@ -1,9 +1,9 @@
 <md-dialog id="manage-generic-page" aria-label="Manage Generic Page" class="manage-page"
            ng-class="{'create-generic-page-preview-image': ctrl.selectImage}">
     <form name="ctrl.manageGenericPageForm"
-          ng-if="!ctrl.selectImage && !ctrl.recommendPage && !ctrl.showExistingPages && !ctrl.showAddPlace" ng-cloak>
+          ng-if="!ctrl.selectImage" ng-cloak>
         <div class="md-title ely-dialog-title" ng-if="!ctrl.isEditMode">Beitrag erstellen</div>
-        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.data.title}}</span>
+        <div class="md-title ely-dialog-title" ng-if="ctrl.isEditMode">Beitrag <span class="highlighted">{{ctrl.actualTitle}}</span>
             bearbeiten
         </div>
         <md-dialog-content>
@@ -43,7 +43,7 @@
                     <md-input-container class="input-container">
                         <label>Überschrift</label>
                         <input name="title" ng-model="ctrl.data.title" required md-maxlength="160"
-                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.titleHasChanged()"/>
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
                         <div ng-messages="ctrl.manageGenericPageForm.title.$error">
                             <div ng-message="required">Wird benötigt!</div>
                             <div ng-message="md-maxlength">Text ist zu lang</div>
@@ -63,14 +63,15 @@
                     </md-input-container>
                     <md-input-container class="input-container">
                         <label>Webseite</label>
-                        <input type="url" name="website" ng-model="ctrl.data.website" md-maxlength="1000"
-                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"/>
+                        <input name="website" ng-model="ctrl.data.website" md-maxlength="1000"
+                               ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"
+                               ng-pattern="/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/"/>
                         <div class="hint" ng-if="ctrl.manageGenericPageForm.website.$valid || ctrl.manageGenericPageForm.website.$pristine">
                             Link zur Webseite
                         </div>
                         <div ng-messages="ctrl.manageGenericPageForm.website.$error">
                             <div ng-message="md-maxlength">Text ist zu lang</div>
-                            <div ng-message="url">Ungültiger Link</div>
+                            <div ng-message="pattern">Ungültiger Link</div>
                         </div>
                     </md-input-container>
                 </div>
@@ -81,7 +82,7 @@
             <md-button class="md-primary md-raised" ng-click="ctrl.createGenericPage()" ng-if="!ctrl.isEditMode"
                        ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid">Erstellen
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="ctrl.modifyGenericPage()" ng-if="ctrl.isEditMode"
+            <md-button class="md-primary md-raised" ng-click="ctrl.editGenericPage()" ng-if="ctrl.isEditMode"
                        ng-disabled="ctrl.uploadStarted || ctrl.manageGenericPageForm.$invalid || !ctrl.dataHasChanged">
                 Ändern
             </md-button>
@@ -90,13 +91,5 @@
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 
     <ely-preview-picture ratio="1.3364" cancel="ctrl.cancelPreviewImage" finish="ctrl.setPreviewImage"
-                         ng-if="ctrl.selectImage && !ctrl.recommendPage"></ely-preview-picture>
-
-    <ely-existing-page-overview-dialog pages="ctrl.searchResult.pages" ng-if="ctrl.showExistingPages && !ctrl.recommendPage"
-                                       cancel="ctrl.cancel" finish="ctrl.closeOverviewPages"></ely-existing-page-overview-dialog>
-
-    <ely-manage-place on-back="ctrl.closeAddPlace()" on-selected="ctrl.placeSelected" ng-show="ctrl.showAddPlace"></ely-manage-place>
-
-    <ely-add-recommendation ng-if="ctrl.recommendPage" title-recommendation="ctrl.data.title" page-id="ctrl.data.pageId" abort-disabled="true"
-                            finish="ctrl.recommendationFinish" abort="ctrl.recommendationAbort"></ely-add-recommendation>
+                         ng-if="ctrl.selectImage"></ely-preview-picture>
 </md-dialog>

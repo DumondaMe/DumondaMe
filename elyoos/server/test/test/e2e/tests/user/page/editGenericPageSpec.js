@@ -52,7 +52,7 @@ describe('Integration Tests for editing generic pages', function () {
 
         return requestHandler.login(users.validUser).then(function (agent) {
             requestAgent = agent;
-            return requestHandler.post('/api/user/page/edit', editPage, requestAgent, './test/test/e2e/tests/user/page/test.jpg');
+            return requestHandler.post('/api/user/page/edit', editPage, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
             return db.cypher().match("(page:Page {pageId: '1'})")
@@ -68,9 +68,7 @@ describe('Integration Tests for editing generic pages', function () {
             page[0].page.label.should.equals("Generic");
             should.not.exist(page[0].page.website);
 
-            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/preview.jpg").should.be.true;
-            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/normal.jpg").should.be.true;
-            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/thumbnail.jpg").should.be.true;
+            stubCDN.uploadFile.called.should.be.false;
 
             page[0].page.topic.length.should.equals(2);
             page[0].page.topic[0].should.equals('health');
@@ -105,6 +103,10 @@ describe('Integration Tests for editing generic pages', function () {
         }).then(function (page) {
             page.length.should.equals(1);
             page[0].page.website.should.equals('www.elyoos.org');
+
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/preview.jpg").should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/normal.jpg").should.be.true;
+            stubCDN.uploadFile.calledWith(sinon.match.any, "pages/1/thumbnail.jpg").should.be.true;
         });
     });
 
