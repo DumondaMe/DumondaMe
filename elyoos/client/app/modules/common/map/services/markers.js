@@ -66,7 +66,7 @@ module.exports = ['elyHelper', function (elyHelper) {
         });
         if (tmpMarkerCollection.length > 0) {
             group = new L.featureGroup(tmpMarkerCollection);
-            map.fitBounds(group.getBounds().pad(0.07), fitBoundOptions);
+            map.fitBounds(group.getBounds().pad(0.2), fitBoundOptions);
         }
     };
 }];
