@@ -13,7 +13,8 @@ module.exports = {
                 editAllowed: '@',
                 isAdmin: '=',
                 commands: '=',
-                addresses: '='
+                addresses: '=',
+                hasEvents: '='
             },
             templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/overview/template.html'
         };

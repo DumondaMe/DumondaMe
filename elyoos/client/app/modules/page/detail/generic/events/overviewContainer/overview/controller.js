@@ -23,6 +23,7 @@ module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'P
             $mdDialog.show(confirm).then(function () {
                 PageEvents.delete({eventId: eventToDelete.eventId}, function () {
                     ArrayHelper.removeElement(ctrl.events.events, 'eventId', eventToDelete.eventId);
+                    ctrl.hasEvents(ctrl.events.events.length > 0);
                 }, function () {
                     errorToast.showError("Fehler beim Löschen des Events");
                 });
@@ -43,9 +44,12 @@ module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'P
         if (ctrl.commands) {
             ctrl.commands.addEvent = function (event) {
                 ctrl.events.events.unshift(event);
+                ctrl.hasEvents(ctrl.events.events.length > 0);
             };
         }
 
-        ctrl.events = EventOverview.get({skip: 0, maxItems: 10, actual: ctrl.isActual === 'true', pageId: $stateParams.pageId});
+        ctrl.events = EventOverview.get({skip: 0, maxItems: 10, actual: ctrl.isActual === 'true', pageId: $stateParams.pageId}, function () {
+            ctrl.hasEvents(ctrl.events.events.length > 0);
+        });
     }];
 

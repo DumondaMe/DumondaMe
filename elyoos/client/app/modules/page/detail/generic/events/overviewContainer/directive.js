@@ -6,8 +6,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {isAdmin: '=', commands: '=', addresses: '='},
             templateUrl: 'app/modules/page/detail/generic/events/overviewContainer/template.html'
