@@ -5,7 +5,7 @@ var setAddress = function (message, data) {
         message.existingAddressId = data.selectedAddress.addressId;
     } else {
         message.address = {
-            description: data.selectedAddress.formatted,
+            address: data.selectedAddress.formatted,
             lat: data.selectedAddress.geometry.lat,
             lng: data.selectedAddress.geometry.lng
         };

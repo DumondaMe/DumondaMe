@@ -85,9 +85,10 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'CreateEventMessageServi
             ctrl.showAddPlace = false;
         };
 
-        ctrl.placeSelected = function (selectedPlace) {
+        ctrl.placeSelected = function (selectedPlace, description) {
             ctrl.showAddPlace = false;
             ctrl.addedPlace = selectedPlace;
+            selectedPlace.description = description;
             ctrl.data.selectedAddress = selectedPlace;
             ctrl.changeData();
         };

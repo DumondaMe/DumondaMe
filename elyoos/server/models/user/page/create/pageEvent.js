@@ -14,7 +14,7 @@ let createEvent = function (userId, params, req) {
         return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'})")
             .createUnique(`(page)-[:EVENT]->(:Event {eventId: {eventId}, title: {title}, description: {description}, startDate: {startDate}, 
                             created: {created}, endDate: {endDate}})-[:HAS]->(address:Address {description: {addressDescription}, 
-                            latitude: toFloat({addressLat}), longitude: toFloat({addressLng}), addressId: {addressId}})`)
+                            address: {addressAddress}, latitude: toFloat({addressLat}), longitude: toFloat({addressLng}), addressId: {addressId}})`)
             .return("address")
             .end(params).send();
     }).then(function (resp) {

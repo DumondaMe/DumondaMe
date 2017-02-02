@@ -16,13 +16,13 @@ describe('Integration Tests for deleting an event of a page', function () {
 
         return dbDsl.init(4).then(function () {
             dbDsl.createGenericPage('0', '1', ['de'], ['health', 'personalDevelopment'], 100, null, [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }]);
             dbDsl.createGenericPage('1', '2', ['de'], ['health', 'personalDevelopment'], 100, null, [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '2'
@@ -39,11 +39,11 @@ describe('Integration Tests for deleting an event of a page', function () {
             dbDsl.createPageEventNewAddress('0', {
                 eventId: '12', title: 'Event3', description: 'Super Event3',
                 startDate: startTime - 2, endDate: startTime + 600
-            }, {addressId: '10', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '10', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('0', {
                 eventId: '13', title: 'Event4', description: 'Super Event4',
                 startDate: startTime + 200, endDate: startTime + 600
-            }, {addressId: '11', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '11', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventExistingAddress('0', {
                 eventId: '14', title: 'Event5', description: 'Super Event5',
                 startDate: startTime + 555, endDate: startTime + 566

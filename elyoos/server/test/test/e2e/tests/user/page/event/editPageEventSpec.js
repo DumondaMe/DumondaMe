@@ -18,18 +18,18 @@ describe('Integration Tests for edit events of generic pages', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(2).then(function () {
             dbDsl.createGenericPage('0', '1', ['de'], ['health', 'personalDevelopment'], 100, null, [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }, {
-                description: 'Zuerich10',
+                address: 'Zuerich10',
                 lat: 47.37688734,
                 lng: 8.54169456,
                 addressId: '2'
             }]);
             dbDsl.createGenericPage('1', '2', ['de'], ['health', 'personalDevelopment'], 100, null, [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.3768874,
                 lng: 8.5416944,
                 addressId: '3'
@@ -65,7 +65,7 @@ describe('Integration Tests for edit events of generic pages', function () {
                 description: 'description',
                 startDate: startTime + 600,
                 endDate: startTime + 700,
-                address: {description: 'Zuerich2', lat: 47.37688, lng: 8.54169}
+                address: {address: 'Zuerich2', description: 'addressDescription', lat: 47.37688, lng: 8.54169}
             }
         }, eventId;
 
@@ -74,7 +74,8 @@ describe('Integration Tests for edit events of generic pages', function () {
             return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.address.description.should.equals('Zuerich2');
+            res.body.address.address.should.equals('Zuerich2');
+            res.body.address.description.should.equals('addressDescription');
             should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: '10'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
@@ -85,7 +86,8 @@ describe('Integration Tests for edit events of generic pages', function () {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
 
-            resp[0].address.description.should.equals("Zuerich2");
+            resp[0].address.address.should.equals("Zuerich2");
+            resp[0].address.description.should.equals("addressDescription");
             resp[0].address.latitude.should.equals(47.37688);
             resp[0].address.longitude.should.equals(8.54169);
             should.exist(resp[0].address.addressId);
@@ -109,7 +111,7 @@ describe('Integration Tests for edit events of generic pages', function () {
                 description: 'description',
                 startDate: startTime + 600,
                 endDate: startTime + 700,
-                address: {description: 'Zuerich2', lat: 47.37688, lng: 8.54169}
+                address: {address: 'Zuerich2', description: 'addressDescription', lat: 47.37688, lng: 8.54169}
             }
         }, eventId;
 
@@ -118,7 +120,8 @@ describe('Integration Tests for edit events of generic pages', function () {
             return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.address.description.should.equals('Zuerich2');
+            res.body.address.address.should.equals('Zuerich2');
+            res.body.address.description.should.equals('addressDescription');
             should.exist(res.body.address.addressId);
             return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: '12'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
@@ -129,7 +132,8 @@ describe('Integration Tests for edit events of generic pages', function () {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
 
-            resp[0].address.description.should.equals("Zuerich2");
+            resp[0].address.address.should.equals("Zuerich2");
+            resp[0].address.description.should.equals("addressDescription");
             resp[0].address.latitude.should.equals(47.37688);
             resp[0].address.longitude.should.equals(8.54169);
             should.exist(resp[0].address.addressId);
@@ -162,7 +166,7 @@ describe('Integration Tests for edit events of generic pages', function () {
             return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.address.description.should.equals('Zuerich10');
+            res.body.address.address.should.equals('Zuerich10');
             res.body.address.addressId.should.equals('2');
             return db.cypher().match("(address:Address {addressId: '2'})<-[:HAS]-(event:Event {eventId: '10'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
@@ -173,7 +177,7 @@ describe('Integration Tests for edit events of generic pages', function () {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
 
-            resp[0].address.description.should.equals("Zuerich10");
+            resp[0].address.address.should.equals("Zuerich10");
             resp[0].address.latitude.should.equals(47.37688734);
             resp[0].address.longitude.should.equals(8.54169456);
             should.exist(resp[0].rel);
@@ -205,7 +209,7 @@ describe('Integration Tests for edit events of generic pages', function () {
             return requestHandler.post('/api/user/page/event', editEvent, requestAgent);
         }).then(function (res) {
             res.status.should.equal(200);
-            res.body.address.description.should.equals('Zuerich10');
+            res.body.address.address.should.equals('Zuerich10');
             res.body.address.addressId.should.equals('2');
             return db.cypher().match("(address:Address {addressId: '2'})<-[:HAS]-(event:Event {eventId: '12'})<-[:EVENT]-(page:Page {pageId: '0'})")
                 .optionalMatch("(page)-[rel:HAS]->(address)")
@@ -216,7 +220,7 @@ describe('Integration Tests for edit events of generic pages', function () {
             resp.length.should.equals(1);
             resp[0].page.label.should.equals("Generic");
 
-            resp[0].address.description.should.equals("Zuerich10");
+            resp[0].address.address.should.equals("Zuerich10");
             resp[0].address.latitude.should.equals(47.37688734);
             resp[0].address.longitude.should.equals(8.54169456);
             should.exist(resp[0].rel);

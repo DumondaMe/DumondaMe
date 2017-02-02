@@ -39,12 +39,16 @@
                                           ely-disabled="ctrl.editDateNotAllowed">
                     </ely-date-time-picker>
                 </div>
-                <div id="addresses-container" ng-show="ctrl.addresses.length > 0">
+                <div id="addresses-container">
                     <div id="addresses-title">Wo findet die Veranstaltung statt:</div>
                     <md-radio-group id="existing-addresses-container" ng-model="ctrl.data.selectedAddress" ng-change="ctrl.changeData()">
-                        <md-radio-button ng-value="address" ng-repeat="address in ctrl.addresses" class="existing-address">{{address.description}}
+                        <md-radio-button ng-value="address" ng-repeat="address in ctrl.addresses" class="existing-address">
+                            <div>{{address.address}}</div>
+                            <div class="description">{{address.description}}</div>
                         </md-radio-button>
-                        <md-radio-button ng-if="ctrl.addedPlace" ng-value="ctrl.addedPlace" class="existing-address">{{ctrl.addedPlace.formatted}}
+                        <md-radio-button ng-if="ctrl.addedPlace" ng-value="ctrl.addedPlace" class="existing-address">
+                            <div>{{ctrl.addedPlace.formatted}}</div>
+                            <div class="description">{{ctrl.addedPlace.description}}</div>
                         </md-radio-button>
                     </md-radio-group>
                     <md-button class="md-primary md-raised" ng-click="ctrl.showAddPlace = true">Standort suchen</md-button>

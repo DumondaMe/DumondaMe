@@ -6,7 +6,8 @@
         </div>
         <div flex="none" ng-if="ctrl.isAdmin === true" class="edit-address-container">
             <md-menu md-position-mode="target-right target" class="admin-menu">
-                <md-icon ng-click="$mdOpenMenu($event)" md-svg-icon="cardActions:setting" aria-label="Address Settings"></md-icon>
+                <md-icon ng-click="$mdOpenMenu($event)" md-svg-icon="cardActions:setting" aria-label="Address Settings"
+                         class="admin-menu-icon"></md-icon>
                 <md-menu-content>
                     <md-menu-item>
                         <md-button ng-click="ctrl.editAddress(address, $index)">Bearbeiten</md-button>

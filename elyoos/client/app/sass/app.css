@@ -1813,6 +1813,8 @@
     .address-description-container .address-description-element .edit-address-container {
       width: 24px;
       margin-left: 18px; }
+      .address-description-container .address-description-element .edit-address-container .admin-menu .admin-menu-icon {
+        cursor: pointer; }
 
 .ely-page-address-container {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
@@ -2017,6 +2019,8 @@
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54);
       font-weight: 400; }
+    .ely-page-events-overview-container .ely-page-events-overview .ely-page-events-overview-element .admin-menu-container .admin-menu-icon {
+      cursor: pointer; }
 
 .ely-page-info-container {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
@@ -2384,6 +2388,11 @@
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 16px; }
+  #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address {
+    font-size: 16px; }
+    #manage-event .ely-dialog-content #addresses-container #existing-addresses-container .existing-address .description {
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 14px; }
 
 #manage-link-page .form-container {
   height: 100%; }

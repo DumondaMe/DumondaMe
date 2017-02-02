@@ -27,9 +27,10 @@ let schemaManagePageEvent = {
                 address: {
                     type: 'object',
                     additionalProperties: false,
-                    required: ['description', 'lat', 'lng'],
+                    required: ['address', 'lat', 'lng'],
                     properties: {
-                        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                        address: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                        description: {type: 'string', format: 'notEmptyString', maxLength: 500},
                         lat: {type: 'number'},
                         lng: {type: 'number'}
                     }
@@ -49,9 +50,10 @@ let schemaManagePageEvent = {
                 address: {
                     type: 'object',
                     additionalProperties: false,
-                    required: ['description', 'lat', 'lng'],
+                    required: ['address', 'lat', 'lng'],
                     properties: {
-                        description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                        address: {type: 'string', format: 'notEmptyString', maxLength: 1000},
+                        description: {type: 'string', format: 'notEmptyString', maxLength: 500},
                         lat: {type: 'number'},
                         lng: {type: 'number'}
                     }

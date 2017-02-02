@@ -21,7 +21,11 @@
       }
       #existing-addresses-container {
         .existing-address {
-
+          font-size: 16px;
+          .description {
+            color: $secondary-text;
+            font-size: 14px;
+          }
         }
       }
     }

@@ -27,7 +27,7 @@ let editEvent = function (userId, params, req) {
     params.modified = time.getNowUtcTimestamp();
     return security.checkAllowedToEditPageEvent(params, userId, req).then(function () {
         return getEditCommand(params)
-            .createUnique(`(event)-[:HAS]->(address:Address {description: {addressDescription}, 
+            .createUnique(`(event)-[:HAS]->(address:Address {address: {addressAddress}, description: {addressDescription}, 
                             latitude: toFloat({addressLat}), longitude: toFloat({addressLng}), addressId: {addressId}})`)
             .return("address")
             .end(params).send();
