@@ -2138,15 +2138,6 @@
         font-weight: 500;
         color: #3F51B5; }
 
-.ely-page-place-container .ely-page-place-mobile-container {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54); }
-  .ely-page-place-container .ely-page-place-mobile-container .place-content-container {
-    min-height: 50px;
-    padding-top: 24px; }
-    .ely-page-place-container .ely-page-place-mobile-container .place-content-container .place-element {
-      margin-bottom: 8px; }
-
 #ely-generic-page-detail #ely-generic-page-main-detail {
   padding: 12px; }
   #ely-generic-page-detail #ely-generic-page-main-detail .title-container .title {
