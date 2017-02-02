@@ -1,7 +1,8 @@
 <div id="ely-generic-page-main-detail" ng-cloak>
-    <div class="title-container" layout="row">
-        <div>
-            <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
+    <div class="title-container">
+        <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
+        <div class="sub-title" ng-show="ctrl.pageDetail.page.website" ng-click="ctrl.openLink(ctrl.pageDetail.page.website)">
+            {{ctrl.pageDetail.page.website}}
         </div>
     </div>
     <div class="image-description-container">
