@@ -1,14 +1,14 @@
 'use strict';
 
-module.exports = ['$scope', 'PopularPlaceRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService',
-    function ($scope, PopularPlaceRecommendation, WebStorageMapCenter, ElyMapMarkerService) {
+module.exports = ['$scope', 'PopularAddressRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService',
+    function ($scope, PopularAddressRecommendation, WebStorageMapCenter, ElyMapMarkerService) {
     var ctrl = this;
 
     ctrl.commandsMap = {};
     ctrl.initMapParams = WebStorageMapCenter.getMapCenter();
 
     ctrl.mapChanged = function (radius, center, zoom) {
-        ctrl.popularPlaces = PopularPlaceRecommendation.get({
+        ctrl.popularAddresses = PopularAddressRecommendation.get({
             skip: 0,
             maxItems: 30,
             centerLat: center.lat,
@@ -17,7 +17,7 @@ module.exports = ['$scope', 'PopularPlaceRecommendation', 'WebStorageMapCenter',
         }, function () {
             WebStorageMapCenter.setNewCenter(center.lat, center.lng, zoom);
             ctrl.commandsMap.clearAllMarkers();
-            ElyMapMarkerService.addMarkers(ctrl.popularPlaces.recommendations, ctrl.commandsMap, $scope);
+            ElyMapMarkerService.addMarkers(ctrl.popularAddresses.recommendations, ctrl.commandsMap, $scope);
         }, function () {
 
         });

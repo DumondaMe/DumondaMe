@@ -8,7 +8,7 @@ module.exports = {
             scope: {},
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            bindToController: {popularPlaces: '=', commandsMap: '='},
+            bindToController: {popularAddresses: '=', commandsMap: '='},
             templateUrl: 'app/modules/map/overviewRecommendations/template.html'
         };
     }],
