@@ -440,9 +440,11 @@
   width: 100%; }
 
 .ely-map {
-  z-index: 0; }
+  z-index: 0;
+  height: 100%; }
   .ely-map .ely-map-container {
-    z-index: 0; }
+    z-index: 0;
+    height: 100%; }
 
 .searchBoxForm {
   width: 100%;

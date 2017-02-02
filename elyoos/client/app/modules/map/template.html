@@ -1,9 +1,9 @@
-<div id="ely-map-view">
-    <div id="map-container">
-        <ely-map on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="7" center="ctrl.initMapParams"
-                 zoom="ctrl.initMapParams.zoom" commands="ctrl.commandsMap"></ely-map>
+<div id="ely-map-view" layout="row">
+    <div id="map-container" flex="grow">
+        <ely-map on-map-change="ctrl.mapChanged" map-init="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="7"
+                 center="ctrl.initMapParams" zoom="ctrl.initMapParams.zoom" commands="ctrl.commandsMap"></ely-map>
     </div>
-    <div id="map-legend">
+    <div id="map-legend" flex="none">
         <ely-map-overview-recommendations commands-map="ctrl.commandsMap" popular-places="ctrl.popularPlaces"></ely-map-overview-recommendations>
     </div>
 </div>

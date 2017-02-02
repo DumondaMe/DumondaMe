@@ -1,6 +1,6 @@
-<div id="ely-generic-page-map">
+<div id="ely-generic-page-map" ng-show="ctrl.addresses.length > 0">
     <div class="content">
-        <ely-map map-id="generic-detail-addresses" on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="5"
+        <ely-map map-id="generic-detail-addresses" map-init="ctrl.mapInit" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="5"
                  commands="ctrl.commandsMap"></ely-map>
     </div>
 </div>

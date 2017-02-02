@@ -8,6 +8,7 @@ let security = require('./../securityAddress');
 let createAddress = function (userId, params, req) {
     params.addressId = uuid.generateUUID();
     params.created = time.getNowUtcTimestamp();
+    params.description = params.description || null;
     return security.checkAllowedToAddAddress(params, userId, req).then(function () {
         return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'})")
             .createUnique(`(page)-[:HAS]->(address:Address {address: {address},  description: {description}, 

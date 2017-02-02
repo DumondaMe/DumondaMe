@@ -9,3 +9,4 @@ app.service('MapCenter', require('./services/center'));
 app.service('MapDistanceCalculator', require('./services/distanceCalculator'));
 app.service('MapChangeHandler', require('./services/mapChangeHandler'));
 app.service('MapMarker', require('./services/markers'));
+app.service('MapView', require('./services/view'));

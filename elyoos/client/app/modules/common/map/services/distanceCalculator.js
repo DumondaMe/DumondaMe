@@ -3,7 +3,9 @@
 
 module.exports = [
     function () {
-        this.calculateDistance = function (lat1, lon1, lat2, lon2) {
+        var service = this;
+
+        var calculateDistance = function (lat1, lon1, lat2, lon2) {
             var radlat1 = Math.PI * lat1 / 180;
             var radlat2 = Math.PI * lat2 / 180;
             var theta = lon1 - lon2;
@@ -13,5 +15,18 @@ module.exports = [
             dist = dist * 180 / Math.PI;
             dist = dist * 60 * 1.853159616;
             return dist;
+        };
+
+        service.getRadius = function (map) {
+
+            var width = calculateDistance(map.getBounds().getEast(), map.getBounds().getNorth(), map.getBounds().getWest(),
+                map.getBounds().getNorth());
+            var height = calculateDistance(map.getBounds().getEast(), map.getBounds().getNorth(), map.getBounds().getEast(),
+                map.getBounds().getSouth());
+
+            if (width > height) {
+                return height / 2;
+            }
+            return width / 2;
         };
     }];

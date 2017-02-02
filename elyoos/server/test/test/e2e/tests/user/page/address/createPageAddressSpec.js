@@ -65,6 +65,35 @@ describe('Integration Tests for creating new address for generic pages', functio
         });
     });
 
+    it('Create a new address with only mandatory properties - Return 200', function () {
+
+        let createAddress = {
+            create: {
+                genericPageId: '1',
+                address: 'Zuerich2',
+                lat: 47.3768871,
+                lng: 8.5416941
+            }
+        }, addressId;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/address', createAddress, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            addressId = res.body.addressId;
+            return db.cypher().match("(address:Address {addressId: {addressId}})<-[:HAS]-(page:Page {pageId: '1'})")
+                .return(`address, page`).end({addressId: addressId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].page.label.should.equals("Generic");
+
+            resp[0].address.address.should.equals("Zuerich2");
+            resp[0].address.latitude.should.equals(47.3768871);
+            resp[0].address.longitude.should.equals(8.5416941);
+        });
+    });
+
     it('Create a new address fails because page does not exist (400)', function () {
 
         let createAddress = {

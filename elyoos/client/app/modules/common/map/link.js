@@ -1,16 +1,10 @@
 'use strict';
 
-var invalidateSize = function ($timeout, map) {
-    $timeout(function () {
-        map.invalidateSize();
-    }, 50);
-};
-
 module.exports = {
-    directiveLink: function ($timeout, elyHelper, MapChangeHandler, mapMarker, MapCenter) {
+    directiveLink: function ($timeout, elyHelper, MapChangeHandler, mapMarker, MapCenter, MapView, MapDistanceCalculator) {
         return function (scope, element) {
 
-            var map = L.map(element[0]);
+            var map = L.map(element[0]), isInit = false;
             var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 maxZoom: 18,
@@ -19,18 +13,29 @@ module.exports = {
             });
             tileLayer.addTo(map);
             map.scrollWheelZoom.disable();
-            MapCenter.setCenter(scope.center, scope.defaultCenter, scope.zoom, scope.defaultZoom, scope.hasMarkerCenter, elyHelper, map);
 
             map.on('dragend', function () {
-                MapChangeHandler.mapChanged(map, scope.onMapChange);
+                if (isInit) {
+                    $timeout(function () {
+                        MapChangeHandler.mapChanged(map, scope.onMapChange);
+                    }, 0);
+                }
             });
 
             map.on('zoomend', function () {
-                MapChangeHandler.mapChanged(map, scope.onMapChange);
+                if (isInit) {
+                    $timeout(function () {
+                        MapChangeHandler.mapChanged(map, scope.onMapChange);
+                    }, 0);
+                }
             });
 
             map.on('resize', function () {
-                MapChangeHandler.mapChanged(map, scope.onMapChange);
+                if (isInit) {
+                    $timeout(function () {
+                        MapChangeHandler.mapChanged(map, scope.onMapChange);
+                    }, 0);
+                }
             });
 
             if (elyHelper.isDefined(scope.commands)) {
@@ -51,17 +56,28 @@ module.exports = {
                 };
             }
 
-            invalidateSize($timeout, map);
+            map.whenReady(function () {
+                $timeout(function () {
+                    map.invalidateSize();
+                    isInit = true;
+                    if (angular.isFunction(scope.mapInit)) {
+                        scope.mapInit(MapDistanceCalculator.getRadius(map), map.getCenter(), map.getZoom());
+                    }
+                }, 0);
+            });
 
             scope.$watchCollection('center', function (newCenter) {
                 if (elyHelper.isDefined(newCenter)) {
-                    MapCenter.setCenter(scope.center, scope.defaultCenter, scope.zoom, scope.defaultZoom, scope.hasMarkerCenter, elyHelper, map);
+                    MapCenter.setCenter(scope.center, scope.zoom, scope.hasMarkerCenter, elyHelper, map);
                 }
             });
 
-            scope.$on('invalidateSize', function () {
-                invalidateSize($timeout, map);
+            scope.$on('$destroy', function () {
+                map.remove();
             });
+            $timeout(function () {
+                MapView.setView(scope.center, scope.defaultCenter, scope.zoom, scope.defaultZoom, scope.hasMarkerCenter, elyHelper, map);
+            }, 0);
         };
     }
 };

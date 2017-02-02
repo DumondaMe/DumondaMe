@@ -15,6 +15,7 @@
       }
       .ely-map {
         .ely-map-container {
+          height: 400px;
           @media screen and (max-width: $gt-xs) {
             height: 300px;
           }
