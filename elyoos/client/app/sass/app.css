@@ -1033,28 +1033,78 @@
 #ely-home {
   height: 100%;
   background-color: #e9ebee; }
-  #ely-home #pinwall-commands {
-    height: 70px;
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 12px 0 8px; }
-    @media screen and (min-width: 960px) {
-      #ely-home #pinwall-commands {
-        max-width: 950px;
-        width: 950px; } }
-  #ely-home .pinwall-container {
-    padding: 0 8px;
+  #ely-home #ely-home-content-container {
+    height: 100%;
     overflow-y: auto; }
-    #ely-home .pinwall-container .pinwall-inner-container {
-      max-width: 400px;
-      margin: 0 auto; }
+    @media screen and (min-width: 600px) {
+      #ely-home #ely-home-content-container #pinwall-commands-container {
+        padding: 0 230px 0 0; } }
+    @media screen and (min-width: 1000px) {
+      #ely-home #ely-home-content-container #pinwall-commands-container {
+        padding: 0 255px 0 0; } }
+    @media screen and (min-width: 1280px) {
+      #ely-home #ely-home-content-container #pinwall-commands-container {
+        padding: 0 320px 0 0; } }
+    #ely-home #ely-home-content-container #pinwall-commands-container #pinwall-commands {
+      height: 70px;
+      max-width: 340px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 12px 0 8px; }
       @media screen and (min-width: 960px) {
-        #ely-home .pinwall-container .pinwall-inner-container {
+        #ely-home #ely-home-content-container #pinwall-commands-container #pinwall-commands {
+          max-width: 710px;
+          width: 710px; } }
+      @media screen and (min-width: 1500px) {
+        #ely-home #ely-home-content-container #pinwall-commands-container #pinwall-commands {
           max-width: 950px;
           width: 950px; } }
-      #ely-home .pinwall-container .pinwall-inner-container .ely-pinwall-container {
-        padding-top: 0; }
+    #ely-home #ely-home-content-container .pinwall-container {
+      padding: 0 8px;
+      overflow-y: auto; }
+      @media screen and (min-width: 600px) {
+        #ely-home #ely-home-content-container .pinwall-container {
+          padding: 0 230px 0 0; } }
+      @media screen and (min-width: 1000px) {
+        #ely-home #ely-home-content-container .pinwall-container {
+          padding: 0 255px 0 0; } }
+      @media screen and (min-width: 1280px) {
+        #ely-home #ely-home-content-container .pinwall-container {
+          padding: 0 320px 0 0; } }
+      #ely-home #ely-home-content-container .pinwall-container .pinwall-inner-container {
+        max-width: 340px;
+        margin: 0 auto; }
+        @media screen and (min-width: 960px) {
+          #ely-home #ely-home-content-container .pinwall-container .pinwall-inner-container {
+            max-width: 710px;
+            width: 710px; } }
+        @media screen and (min-width: 1500px) {
+          #ely-home #ely-home-content-container .pinwall-container .pinwall-inner-container {
+            max-width: 950px;
+            width: 950px; } }
+        #ely-home #ely-home-content-container .pinwall-container .pinwall-inner-container .ely-pinwall-container {
+          padding-top: 0; }
+  #ely-home #info-container {
+    background-color: white;
+    position: fixed;
+    right: 15px;
+    top: 118px;
+    bottom: 10px;
+    width: 215px; }
+    @media screen and (min-width: 960px) {
+      #ely-home #info-container {
+        top: 134px; } }
+    @media screen and (min-width: 1000px) {
+      #ely-home #info-container {
+        right: 25px;
+        width: 230px; } }
+    @media screen and (min-width: 1280px) {
+      #ely-home #info-container {
+        right: 30px;
+        width: 270px; } }
+    @media screen and (min-width: 1550px) {
+      #ely-home #info-container {
+        right: 50px; } }
 
 #ely-home-info {
   height: 100%;
@@ -2484,10 +2534,13 @@
       max-height: none; } }
 
 .pinwall-blog-card {
-  max-width: 450px;
+  max-width: 340px;
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
+  @media screen and (min-width: 1500px) {
+    .pinwall-blog-card {
+      max-width: 450px; } }
   .pinwall-blog-card .user-avatar {
     cursor: pointer;
     width: 40px !important;
@@ -2576,13 +2629,16 @@
       vertical-align: middle; }
 
 .pinwall-info-element {
-  max-width: 450px;
+  max-width: 340px;
   min-width: 280px;
   width: 100%;
   padding: 16px;
   margin: 8px 0;
   background-color: #9575CD;
   cursor: pointer; }
+  @media screen and (min-width: 1500px) {
+    .pinwall-info-element {
+      max-width: 450px; } }
   .pinwall-info-element .info-pinwall-title {
     font-size: 20px;
     color: white;
@@ -2595,10 +2651,13 @@
     background-color: #9575CD; }
 
 #ely-pinwall-contacting {
-  max-width: 450px;
+  max-width: 340px;
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
+  @media screen and (min-width: 1500px) {
+    #ely-pinwall-contacting {
+      max-width: 450px; } }
   #ely-pinwall-contacting .card-title {
     cursor: pointer;
     font-size: 14px;
@@ -2637,12 +2696,15 @@
       color: #3F51B5; }
 
 .pinwall-no-element {
-  max-width: 450px;
+  max-width: 340px;
   min-width: 280px;
   width: 100%;
   padding: 16px;
   margin: 8px 0;
   background-color: white; }
+  @media screen and (min-width: 1500px) {
+    .pinwall-no-element {
+      max-width: 450px; } }
   .pinwall-no-element .no-pinwall-title {
     font-size: 20px;
     color: rgba(0, 0, 0, 0.87);
@@ -2705,14 +2767,21 @@
       text-decoration: underline; }
 .ely-pinwall-container .one-column-container {
   margin: 0 auto;
-  max-width: 400px; }
+  max-width: 340px; }
 .ely-pinwall-container .two-column-container {
   margin: 0 auto;
-  width: 930px; }
+  width: 710px; }
+  @media screen and (min-width: 1500px) {
+    .ely-pinwall-container .two-column-container {
+      width: 930px; } }
 
 .card-recommendation-desktop {
-  max-width: 450px;
+  max-width: 340px;
+  min-width: 280px;
   margin: 8px 0; }
+  @media screen and (min-width: 1500px) {
+    .card-recommendation-desktop {
+      max-width: 450px; } }
   .card-recommendation-desktop .header {
     padding: 16px; }
     .card-recommendation-desktop .header .user-image {
@@ -2884,10 +2953,13 @@
     font-weight: 500; }
 
 #ely-pinwall-recommended-user {
-  max-width: 450px;
+  max-width: 340px;
   min-width: 280px;
   width: 100%;
   margin: 8px 0; }
+  @media screen and (min-width: 1500px) {
+    #ely-pinwall-recommended-user {
+      max-width: 450px; } }
   #ely-pinwall-recommended-user .title-container {
     margin-bottom: 12px; }
     #ely-pinwall-recommended-user .title-container .menu-container {

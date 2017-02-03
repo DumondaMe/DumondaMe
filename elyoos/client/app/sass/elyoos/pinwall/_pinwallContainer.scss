@@ -21,11 +21,14 @@
   }
   .one-column-container {
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 340px;
   }
   .two-column-container {
     margin: 0 auto;
-    width: 930px;
+    width: 710px;
+    @media screen and (min-width: 1500px) {
+      width: 930px;
+    }
   }
 }
 
