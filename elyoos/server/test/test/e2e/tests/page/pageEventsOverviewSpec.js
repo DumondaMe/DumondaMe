@@ -27,19 +27,19 @@ describe('Integration Tests for getting page events', function () {
             dbDsl.createPageEventNewAddress('1', {
                 eventId: '1', title: 'Event', description: 'Super Event',
                 startDate: startTime - 2, endDate: startTime + 600
-            }, {addressId: '13', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '13', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('1', {
                 eventId: '2', title: 'Event2', description: 'Super Event2',
                 startDate: startTime + 550, endDate: startTime + 601
-            }, {addressId: '14', description: 'Urdorf2', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '14', address: 'Urdorf2', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('2', {
                 eventId: '3', title: 'Event3', description: 'Super Event3',
                 startDate: startTime + 550, endDate: startTime + 602
-            }, {addressId: '15', description: 'Urdorf3', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '15', address: 'Urdorf3', lat: 48.05642, lng: 8.36542});
             dbDsl.createPageEventNewAddress('2', {
                 eventId: '13', title: 'Event13', description: 'Super Event13',
                 startDate: startTime - 500, endDate: startTime - 603
-            }, {addressId: '16', description: 'Urdorf13', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '16', address: 'Urdorf13', lat: 48.05642, lng: 8.36542});
         });
     });
 
@@ -76,7 +76,7 @@ describe('Integration Tests for getting page events', function () {
             res.body.events[0].description.should.equals('Super Event');
             res.body.events[0].startDate.should.equals(startTime - 2);
             res.body.events[0].endDate.should.equals(startTime + 600);
-            res.body.events[0].address.description.should.equals('Urdorf');
+            res.body.events[0].address.address.should.equals('Urdorf');
             res.body.events[0].address.addressId.should.equals('13');
 
             res.body.events[1].eventId.should.equals('2');
@@ -84,7 +84,7 @@ describe('Integration Tests for getting page events', function () {
             res.body.events[1].description.should.equals('Super Event2');
             res.body.events[1].startDate.should.equals(startTime + 550);
             res.body.events[1].endDate.should.equals(startTime + 601);
-            res.body.events[1].address.description.should.equals('Urdorf2');
+            res.body.events[1].address.address.should.equals('Urdorf2');
             res.body.events[1].address.addressId.should.equals('14');
 
             res.body.totalNumberOfEvents.should.equals(3);

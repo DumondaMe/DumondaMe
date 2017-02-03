@@ -11,7 +11,7 @@ describe('Integration Tests for getting generic page detail', function () {
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
             dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
@@ -37,7 +37,7 @@ describe('Integration Tests for getting generic page detail', function () {
         dbDsl.createPageEventNewAddress('1', {
             eventId: '1', title: 'Event', description: 'Super Event',
             startDate: 500, endDate: 600
-        }, {addressId: '13', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+        }, {addressId: '13', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -66,7 +66,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.language[0].should.equals('en');
             res.body.page.language[1].should.equals('de');
             res.body.page.addresses.length.should.equals(1);
-            res.body.page.addresses[0].description.should.equals('Zuerich');
+            res.body.page.addresses[0].address.should.equals('Zuerich');
             res.body.page.addresses[0].latitude.should.equals(47.376887);
             res.body.page.addresses[0].longitude.should.equals(8.541694);
             res.body.page.addresses[0].addressId.should.equals('11');

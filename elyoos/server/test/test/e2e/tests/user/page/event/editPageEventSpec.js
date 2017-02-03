@@ -46,7 +46,7 @@ describe('Integration Tests for edit events of generic pages', function () {
             dbDsl.createPageEventNewAddress('0', {
                 eventId: '12', title: 'Event3', description: 'Super Event3',
                 startDate: startTime - 2, endDate: startTime + 600
-            }, {addressId: '10', description: 'Urdorf', lat: 48.05642, lng: 8.36542});
+            }, {addressId: '10', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
 
             return dbDsl.sendToDb();
         });
