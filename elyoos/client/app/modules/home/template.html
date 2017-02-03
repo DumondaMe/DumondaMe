@@ -28,8 +28,8 @@
     </div>
     <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
-    <md-card id="info-container" ng-if="ctrl.$mdMedia('(min-width: 600px)')">
-
+    <md-card id="info-container" ng-if="ctrl.$mdMedia('(min-width: 600px)') && !ctrl.showSearch">
+        <ely-home-info-container></ely-home-info-container>
     </md-card>
     <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="rightFilterRecommendationNav"
                 md-is-locked-open="false">

@@ -1045,6 +1045,9 @@
     @media screen and (min-width: 1280px) {
       #ely-home #ely-home-content-container #pinwall-commands-container {
         padding: 0 320px 0 0; } }
+    @media screen and (min-width: 1750px) {
+      #ely-home #ely-home-content-container #pinwall-commands-container {
+        padding: 0 360px 0 0; } }
     #ely-home #ely-home-content-container #pinwall-commands-container #pinwall-commands {
       height: 70px;
       max-width: 340px;
@@ -1071,6 +1074,9 @@
       @media screen and (min-width: 1280px) {
         #ely-home #ely-home-content-container .pinwall-container {
           padding: 0 320px 0 0; } }
+      @media screen and (min-width: 1750px) {
+        #ely-home #ely-home-content-container .pinwall-container {
+          padding: 0 360px 0 0; } }
       #ely-home #ely-home-content-container .pinwall-container .pinwall-inner-container {
         max-width: 340px;
         margin: 0 auto; }
@@ -1105,10 +1111,28 @@
     @media screen and (min-width: 1550px) {
       #ely-home #info-container {
         right: 50px; } }
+    @media screen and (min-width: 1750px) {
+      #ely-home #info-container {
+        width: 310px; } }
 
-#ely-home-info {
-  height: 100%;
-  overflow-y: auto; }
+#ely-home-info-container .ely-home-info-event-container {
+  padding: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #ely-home-info-container .ely-home-info-event-container .ely-home-info-event .event-title {
+    margin-bottom: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3F51B5; }
+  #ely-home-info-container .ely-home-info-event-container .ely-home-info-event .event-title:hover {
+    text-decoration: underline; }
+  #ely-home-info-container .ely-home-info-event-container .ely-home-info-event .event-date {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    margin-bottom: 2px; }
+  #ely-home-info-container .ely-home-info-event-container .ely-home-info-event .event-address {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54); }
 
 #ely-home-search-result .result-container {
   margin: 16px auto;
@@ -1140,6 +1164,10 @@
   font-size: 16px;
   line-height: 32px;
   margin: 16px auto; }
+
+#ely-home-vision {
+  height: 100%;
+  overflow-y: auto; }
 
 .ely-search-result-blog-page {
   width: 280px;

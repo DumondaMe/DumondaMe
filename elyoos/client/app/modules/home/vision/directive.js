@@ -9,8 +9,8 @@ module.exports = {
             controller: function() {},
             controllerAs: 'ctrl',
             bindToController: true,
-            templateUrl: 'app/modules/home/info/template.html'
+            templateUrl: 'app/modules/home/vision/template.html'
         };
     }],
-    name: 'elyHomeInfo'
+    name: 'elyHomeVision'
 };

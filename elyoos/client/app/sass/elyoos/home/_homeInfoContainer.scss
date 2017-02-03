@@ -1,0 +1,27 @@
+#ely-home-info-container {
+  .ely-home-info-event-container {
+    padding: 8px;
+    border-bottom: 1px solid $divider;
+    .ely-home-info-event {
+      .event-title {
+        margin-bottom: 2px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: $primary-color;
+      }
+      .event-title:hover {
+        text-decoration: underline;
+      }
+      .event-date {
+        font-size: 12px;
+        color: $secondary-text;
+        margin-bottom: 2px;
+      }
+      .event-address {
+        font-size: 12px;
+        color: $secondary-text;
+      }
+    }
+  }
+}

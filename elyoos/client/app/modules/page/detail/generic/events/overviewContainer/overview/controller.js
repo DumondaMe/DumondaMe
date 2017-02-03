@@ -1,17 +1,11 @@
 'use strict';
 
-module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog', 'ElyModal',
-    function (EventOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog, ElyModal) {
+module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog', 'ElyModal',
+    function (EventPageDetailOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog, ElyModal) {
         var ctrl = this;
 
         ctrl.getTime = dateFormatter.getTime;
-
-        ctrl.getEndDate = function (startDate, endDate) {
-            if (moment.unix(startDate).isBetween(moment.unix(endDate).startOf('day'), moment.unix(endDate).endOf('day'))) {
-                return ctrl.getTime(endDate, 'LT');
-            }
-            return ctrl.getTime(endDate, 'l LT');
-        };
+        ctrl.getEndDate = dateFormatter.getEndDate;
 
         ctrl.deleteEvent = function (eventToDelete) {
             var confirm = $mdDialog.confirm()
@@ -48,7 +42,7 @@ module.exports = ['EventOverview', '$stateParams', 'dateFormatter', 'moment', 'P
             };
         }
 
-        ctrl.events = EventOverview.get({skip: 0, maxItems: 10, actual: ctrl.isActual === 'true', pageId: $stateParams.pageId}, function () {
+        ctrl.events = EventPageDetailOverview.get({skip: 0, maxItems: 10, actual: ctrl.isActual === 'true', pageId: $stateParams.pageId}, function () {
             ctrl.hasEvents(ctrl.events.events.length > 0);
         });
     }];
