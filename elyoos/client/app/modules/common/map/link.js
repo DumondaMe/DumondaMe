@@ -30,6 +30,14 @@ module.exports = {
                 }
             });
 
+            map.on('resize', function () {
+                if (isInit) {
+                    $timeout(function () {
+                        map.invalidateSize();
+                    }, 0);
+                }
+            });
+
             if (elyHelper.isDefined(scope.commands)) {
                 scope.commands.addMarker = function (lat, lng, events) {
                     return mapMarker.addMarker(map, lat, lng, events);

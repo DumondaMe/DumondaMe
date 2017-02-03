@@ -6,7 +6,9 @@
                 <img ng-src="{{recommendation.url}}"/>
             </div>
             <div flex class="recommendation-container">
-                <div class="recommendation-title">{{recommendation.title}}</div>
+                <div class="recommendation-title" ui-sref="page.detail({label: recommendation.label, pageId: recommendation.pageId})">
+                    {{recommendation.title}}
+                </div>
                 <div class="number-of-recommendations">
                     <md-icon md-svg-icon="cardActions:thumbUp" class="thumb-up-icon"></md-icon>
                     <span class="number">{{recommendation.numberOfRecommendations}}</span>

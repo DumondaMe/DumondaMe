@@ -4,8 +4,8 @@ module.exports = ['MapCenter', function (MapCenter) {
     var service = this;
 
     var setView = function (center, markerCenter, zoom, elyHelper, map) {
-        map.setView([center.lat, center.lng], zoom);
         MapCenter.setCenterMarker(markerCenter, center, elyHelper, map);
+        map.setView([center.lat, center.lng], zoom);
     };
 
     service.setView = function (center, defaultCenter, zoom, defaultZoom, markerCenter, elyHelper, map) {

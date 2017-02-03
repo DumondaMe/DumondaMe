@@ -45,11 +45,15 @@ module.exports = ['elyHelper', function (elyHelper) {
     };
 
     service.setSelectedMarker = function (marker) {
-        marker.setIcon(selectedIcon);
+        if (angular.isObject(marker)) {
+            marker.setIcon(selectedIcon);
+        }
     };
 
     service.setDefaultMarker = function (marker) {
-        marker.setIcon(defaultIcon);
+        if (angular.isObject(marker)) {
+            marker.setIcon(defaultIcon);
+        }
     };
 
     service.deleteAllMarker = function (map) {

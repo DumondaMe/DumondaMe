@@ -19,7 +19,8 @@ module.exports = {
                     mapInit: '='
                 },
                 templateUrl: 'app/modules/common/map/template.html',
-                controller: require('./controller.js'),
+                controller: function () {
+                },
                 link: link.directiveLink($timeout, elyHelper, MapChangeHandler, MapMarker, MapCenter, MapView, MapDistanceCalculator),
                 controllerAs: 'ctrl',
                 bindToController: {}

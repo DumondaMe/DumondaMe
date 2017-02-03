@@ -16,5 +16,5 @@ module.exports = [function () {
         map.panTo([center.lat, center.lng]);
         map.setZoom(zoom);
         service.setCenterMarker(markerCenter, center, elyHelper, map);
-    }
+    };
 }];
