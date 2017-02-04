@@ -6,7 +6,11 @@
     .load-screen-container {
       height: 150px;
     }
+    .address-input-container {
+      margin: 0;
+    }
     .map-container {
+      height: 400px;
       @media screen and (max-width: $gt-xs) {
         margin-bottom: 12px;
       }

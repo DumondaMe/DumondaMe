@@ -8,24 +8,19 @@
                 <textarea name="description" ng-model="ctrl.description" md-maxlength="500"
                           ng-disabled="ctrl.uploadStarted"></textarea>
                 <div ng-messages="ctrl.addAddressForm.description.$error">
-                    <div ng-message="required">Wird benötigt!</div>
                     <div ng-message="md-maxlength">Text ist zu lang</div>
                 </div>
             </md-input-container>
             <div layout="row">
                 <md-input-container class="input-container">
                     <label>Ort</label>
-                    <input name="address" ng-model="ctrl.data.address" required md-maxlength="150" minlength="3"
-                           ng-disabled="ctrl.requestStarted" md-no-asterisk
+                    <input ng-model="ctrl.addressSearch" ng-change="ctrl.addressSearchChanged()"
+                           ng-disabled="ctrl.requestStarted"
                            ng-keypress="ctrl.keyPressed($event)"/>
-                    <div ng-messages="ctrl.addAddressForm.address.$error">
-                        <div ng-message="required">Wird benötigt!</div>
-                        <div ng-message="md-maxlength">Text ist zu lang</div>
-                    </div>
                 </md-input-container>
                 <div class="search-image-icon">
                     <md-button class="md-fab md-mini" aria-label="Search Place" ng-click="ctrl.searchAddress()"
-                               ng-disabled="ctrl.requestStarted || ctrl.addAddressForm.$invalid || ctrl.lastRequestString === ctrl.data.address">
+                               ng-disabled="ctrl.requestStarted || !ctrl.addressSearchIsValid || ctrl.lastRequestString === ctrl.addressSearch">
                         <md-icon md-svg-icon="system:search" class="icon"></md-icon>
                     </md-button>
                 </div>
@@ -34,29 +29,40 @@
                 <ely-load-screen></ely-load-screen>
             </div>
             <div layout="column" layout-gt-xs="row" ng-if="ctrl.addresses.length > 0 || ctrl.isEditMode">
-                <div flex="100" flex-gt-xs="50" flex-order="1">
+                <div flex="100" flex-gt-xs="50" flex-order="1" name="ctrl.addAddressSelectForm">
                     <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary">
-                        <md-radio-button ng-show="ctrl.isEditMode" ng-value="ctrl.actualAddress" aria-label="ctrl.actualAddress.formatted">
-                            {{ctrl.actualAddress.formatted}}
-                        </md-radio-button>
-                        <md-radio-button ng-repeat="address in ctrl.addresses" ng-value="address" aria-label="address.formatted"
-                                         ng-hide="address.formatted === ctrl.actualAddress.formatted">
-                            {{address.formatted}}
-                        </md-radio-button>
+                        <div layout="row" ng-show="ctrl.isEditMode">
+                            <md-radio-button ng-value="ctrl.actualAddress" aria-label="ctrl.actualAddress.formatted">
+                            </md-radio-button>
+                            <md-input-container flex class="address-input-container">
+                                <input ng-model="ctrl.actualAddress.formatted" aria-label="ctrl.actualAddress.formatted" required md-maxlength="500"
+                                       md-no-asterisk>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" ng-repeat="address in ctrl.addresses" ng-hide="address.formatted === ctrl.actualAddressCompare.formatted">
+                            <md-radio-button ng-value="address" aria-label="address.formatted">
+                            </md-radio-button>
+                            <md-input-container flex class="address-input-container">
+                                <input ng-model="address.formatted" aria-label="address.formatted" required md-maxlength="500" md-no-asterisk>
+                            </md-input-container>
+                        </div>
                     </md-radio-group>
                 </div>
-                <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2" class="map-container">
-                    <ely-map center="ctrl.selectedAddress.geometry" has-marker-center="true" zoom="15"></ely-map>
+                <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2" >
+                    <ely-map center="ctrl.selectedAddress.geometry" has-marker-center="true" zoom="15" class="map-container"></ely-map>
                 </div>
             </div>
         </div>
     </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="ctrl.onBack()">Abbrechen</md-button>
-        <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-disabled="!ctrl.selectedAddress" ng-show="!ctrl.isEditMode">Hinzufügen
+        <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-disabled="!ctrl.selectedAddress || ctrl.addAddressForm.$invalid"
+                   ng-show="!ctrl.isEditMode">Hinzufügen
         </md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-show="ctrl.isEditMode"
-                   ng-disabled="ctrl.selectedAddress === ctrl.actualAddress && ctrl.description === ctrl.actualDescription">Ändern
+                   ng-disabled="(ctrl.selectedAddress.formatted === ctrl.actualAddressCompare.formatted && ctrl.selectedAddress === ctrl.actualAddress &&
+                   ctrl.description === ctrl.actualDescription) || ctrl.addAddressForm.$invalid">
+            Ändern
         </md-button>
     </md-dialog-actions>
 </form>

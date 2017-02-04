@@ -2324,17 +2324,21 @@
   padding-left: 12px; }
 .manage-address .ely-dialog-content .load-screen-container {
   height: 150px; }
-@media screen and (max-width: 600px) {
-  .manage-address .ely-dialog-content .map-container {
-    margin-bottom: 12px; } }
-@media screen and (min-width: 600px) {
-  .manage-address .ely-dialog-content .map-container {
-    margin-left: 12px; } }
-.manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
+.manage-address .ely-dialog-content .address-input-container {
+  margin: 0; }
+.manage-address .ely-dialog-content .map-container {
   height: 400px; }
   @media screen and (max-width: 600px) {
-    .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
-      height: 300px; } }
+    .manage-address .ely-dialog-content .map-container {
+      margin-bottom: 12px; } }
+  @media screen and (min-width: 600px) {
+    .manage-address .ely-dialog-content .map-container {
+      margin-left: 12px; } }
+  .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
+    height: 400px; }
+    @media screen and (max-width: 600px) {
+      .manage-address .ely-dialog-content .map-container .ely-map .ely-map-container {
+        height: 300px; } }
 
 #blog-manage .preview-image {
   max-width: 150px;
