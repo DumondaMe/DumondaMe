@@ -5,7 +5,7 @@
                 <div>Aktuell</div>
             </md-tab-label>
             <md-tab-body>
-                <md-content>
+                <md-content class="event-tab-content">
                     <ely-page-detail-events-overview is-actual="true" is-admin="ctrl.isAdmin" addresses="ctrl.addresses" edit-allowed="true"
                                                      commands="ctrl.commands" has-events="ctrl.setActualHasEvents"></ely-page-detail-events-overview>
                 </md-content>
@@ -16,7 +16,7 @@
                 <div>Bisherige</div>
             </md-tab-label>
             <md-tab-body>
-                <md-content>
+                <md-content class="event-tab-content">
                     <ely-page-detail-events-overview is-actual="false" is-admin="ctrl.isAdmin" edit-allowed="false"
                                                      has-events="ctrl.setPreviousHasEvents"></ely-page-detail-events-overview>
                 </md-content>
