@@ -8,7 +8,7 @@ module.exports = {
 
             $timeout(function () {
                 scope.elyHeight(elem.height());
-            }, 0);
+            }, 200);
 
             w.bind('resize', function () {
                 scope.elyHeight(elem.height());
