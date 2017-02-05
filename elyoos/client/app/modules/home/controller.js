@@ -2,10 +2,10 @@
 
 module.exports =
     ['$scope', 'Home', '$mdSidenav', '$mdBottomSheet', 'HomeScrollRequest', 'ToolbarService', 'ElyModal', 'SearchService', 'SearchHome',
-        'HomeAddRemovePinwallElementService', 'BlogRecommendationFilters', '$mdMedia', 'WebStorageFilter',
+        'HomeAddRemovePinwallElementService', 'HomeScreenFilter', '$mdMedia', 'WebStorageFilter',
         function ($scope, Home, $mdSidenav, $mdBottomSheet, HomeScrollRequest, ToolbarService, ElyModal, SearchService, SearchHome,
-                  HomeAddRemovePinwallElementService, BlogRecommendationFilters, $mdMedia, WebStorageFilter) {
-            var ctrl = this, filters = BlogRecommendationFilters.getFilterParams();
+                  HomeAddRemovePinwallElementService, HomeScreenFilter, $mdMedia, WebStorageFilter) {
+            var ctrl = this, filters = HomeScreenFilter.getFilterParams();
             ctrl.home = {pinwall: []};
             ctrl.noPinwall = false;
             ctrl.loadRunning = true;
@@ -48,7 +48,7 @@ module.exports =
             };
             //---------------------
             //Filter---------------
-            BlogRecommendationFilters.register('Home', this);
+            HomeScreenFilter.register('Home', this);
 
             ctrl.filterChanged = function (newFilters) {
                 filters = newFilters;
@@ -97,8 +97,8 @@ module.exports =
 
             $scope.isSideNavOpen = false;
 
-            ctrl.openSideNavRight = function () {
-                $mdSidenav('rightFilterRecommendationNav').open();
+            ctrl.openFilterDialog = function () {
+                ElyModal.show('HomeScreenFilterCtrl', 'app/modules/home/modal/filter/template.html', {});
             };
 
             $scope.$watch('isSideNavOpen', function (isOpen) {

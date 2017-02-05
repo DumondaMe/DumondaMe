@@ -1,0 +1,98 @@
+<md-dialog id="ely-home-filter">
+    <form name="ctrl.filterHomeScreenForm" aria-label="Filter Home Screen" ng-cloak>
+        <md-dialog-content>
+            <div class="md-dialog-content" id="ely-filter-content">
+                <div id="ely-filter-topics" layout="row" layout-align="center center" layout-wrap>
+                    <ely-home-filter-element icon="nav:socialDevelopment" description="Gesellschaft" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'socialDevelopment')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:environmental" description="Umwelt" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'environmental')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:politics" description="Politik" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'politics')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:economy" description="Wirtschaft" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'economy')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:personalDevelopment" description="Persönliche Entwicklung" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'personalDevelopment')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:education" description="Bildung" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'education')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:health" description="Gesundheit" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'health')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:spiritual" description="Spiritualität" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.topics, 'code', 'spiritual')"></ely-home-filter-element>
+                </div>
+                <div id="ely-filter-page-type" layout="row" layout-align="center center" layout-wrap>
+                    <ely-home-filter-element icon="nav:blog" description="Blog" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.recommendationTypes, 'code', 'Blog')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:book" description="Buch" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.recommendationTypes, 'code', 'Book')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:video" description="Youtube" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.recommendationTypes, 'code', 'Youtube')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:link" description="Link" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.recommendationTypes, 'code', 'Link')"></ely-home-filter-element>
+                    <ely-home-filter-element icon="nav:place" description="Allgemein" ely-on-change="ctrl.dataChanged"
+                                             element="ctrl.getObjectElement(ctrl.recommendationTypes, 'code', 'Generic')"></ely-home-filter-element>
+                </div>
+                <div id="ely-filter-miscellaneous" layout="column" layout-gt-xs="row">
+                    <span flex></span>
+                    <md-input-container class="popular-sidnav-input-container">
+                        <label>Sprache</label>
+                        <md-select ng-model="ctrl.filters.selectedLanguages" multiple="true" md-on-close="ctrl.dataChanged()"
+                                   ng-model-options="{trackBy: '$value.code'}">
+                            <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-switch id="filter-is-contact" ng-model="ctrl.filters.onlyContact" aria-label="Filter only Contacts" class="md-primary"
+                               ng-change="ctrl.dataChanged()" md-no-ink>
+                        Nur Kontakte
+                    </md-switch>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button ng-click="ctrl.resetFilters()" hide-xs>Filter zurücksetzen</md-button>
+            <md-button class="md-icon-button" ng-click="ctrl.resetFilters()" hide show-xs aria-label="reset filter">
+                <md-icon md-svg-icon="system:reset"></md-icon>
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="ctrl.filterHomeScreen()"
+                       ng-disabled="ctrl.actualFilterSettingEqual">Filtern
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+<!--<div id="blog-recommendation-sidenav-filter">
+    <div class="popular-filter-title">Filter Einstellungen</div>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Thema</label>
+        <md-select ng-model="ctrl.filters.selectedTopics" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
+            <md-option ng-value="topic" ng-repeat="topic in ctrl.topics">{{ topic.description }}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Sprache</label>
+        <md-select ng-model="ctrl.filters.selectedLanguages" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
+            <md-option ng-value="language" ng-repeat="language in ctrl.languages">{{ language.description }}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="popular-sidnav-input-container">
+        <label>Type</label>
+        <md-select ng-model="ctrl.filters.selectedRecommendationTypes" multiple="true" md-on-close="ctrl.dataChanged()"
+                   ng-model-options="{trackBy: '$value.code'}">
+            <md-option ng-value="recommendationType" ng-repeat="recommendationType in ctrl.recommendationTypes">{{ recommendationType.description }}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-switch ng-model="ctrl.filters.onlyContact" aria-label="Filter only Contacts" ng-change="ctrl.dataChanged()">
+        Nur Kontakte
+    </md-switch>
+    <div layout="row">
+        <md-button ng-click="ctrl.resetFilters()" id="reset-filter-button">Reset Filter</md-button>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="ctrl.filter()" ng-if="!ctrl.$mdMedia('gt-md')"
+                   ng-disabled="ctrl.actualFilterSettingEqual">Filtern
+        </md-button>
+    </div>
+</div>-->
