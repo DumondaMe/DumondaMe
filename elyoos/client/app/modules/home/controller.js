@@ -19,14 +19,7 @@ module.exports =
             HomeScrollRequest.reset();
 
             ctrl.openCreatePage = function () {
-                $mdBottomSheet.show({
-                    templateUrl: 'app/modules/navigation/createPage/template.html',
-                    controller: 'CreatePageNavCtrl',
-                    controllerAs: 'ctrl',
-                    locals: {},
-                    clickOutsideToClose: true,
-                    parent: '#viewport'
-                });
+                ElyModal.show('CreatePageNavCtrl', 'app/modules/navigation/createPage/template.html', {});
             };
 
             //toolbar search ----

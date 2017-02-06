@@ -10,9 +10,12 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
+                elyOnClick: '=',
+                icon: '@',
+                description: '@'
             },
-            templateUrl: 'app/modules/navigation/createPage/template.html'
+            templateUrl: 'app/modules/navigation/createPage/element/template.html'
         };
     }],
-    name: 'elyNavCreatePage'
+    name: 'elyNavCreatePageElement'
 };

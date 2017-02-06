@@ -64,7 +64,9 @@
     }
     #ely-filter-miscellaneous {
       #filter-is-contact {
-        margin: 19px 0 0 32px;
+        @media screen and (min-width: $gt-xs) {
+          margin: 19px 0 0 32px;
+        }
       }
     }
   }

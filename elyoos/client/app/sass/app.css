@@ -1168,8 +1168,9 @@
   @media screen and (min-width: 600px) {
     #ely-home-filter #ely-filter-content #ely-filter-page-type {
       padding-bottom: 16px; } }
-#ely-home-filter #ely-filter-content #ely-filter-miscellaneous #filter-is-contact {
-  margin: 19px 0 0 32px; }
+@media screen and (min-width: 600px) {
+  #ely-home-filter #ely-filter-content #ely-filter-miscellaneous #filter-is-contact {
+    margin: 19px 0 0 32px; } }
 
 #ely-home-info-container {
   height: 100%; }
@@ -1583,41 +1584,36 @@
           margin-left: 8px;
           margin-right: 8px; } }
 
-#ely-create-page-nav .action-description {
-  margin-top: 12px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.54); }
-#ely-create-page-nav .md-grid-item-content {
-  height: 90px;
-  min-width: 96px;
-  padding-top: 10px; }
-  #ely-create-page-nav .md-grid-item-content md-icon {
-    height: 48px;
-    width: 48px; }
-    @media screen and (max-width: 600px) {
-      #ely-create-page-nav .md-grid-item-content md-icon {
-        height: 28px;
-        width: 28px; } }
-  #ely-create-page-nav .md-grid-item-content .md-grid-text {
-    font-weight: 300;
-    padding-bottom: 5px;
-    width: auto; }
-#ely-create-page-nav .md-inline-list-icon-label {
-  display: inline-block;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: -10px;
-  height: 24px;
-  vertical-align: middle; }
-#ely-create-page-nav .md-subheader .md-subheader-inner {
-  padding: 0; }
-#ely-create-page-nav md-toast .md-toast-content {
-  background-color: #B14141; }
 @media screen and (min-width: 600px) {
-  #ely-create-page-nav md-list-item {
-    max-width: 120px; } }
-#ely-create-page-nav md-list-item .md-list-item-inner {
-  min-height: 48px; }
+  #ely-create-page-nav #ely-create-page-content {
+    padding: 32px; } }
+#ely-create-page-nav #ely-create-page-content .create-page-element-container {
+  cursor: pointer; }
+  #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element {
+    width: 100px;
+    height: 100px; }
+    @media screen and (min-width: 600px) {
+      #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element {
+        width: 120px;
+        height: 120px;
+        margin: 0 8px; } }
+    #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
+      padding: 0 31px 16px 31px;
+      height: 38px;
+      width: 38px; }
+      @media screen and (min-width: 600px) {
+        #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-icon {
+          padding: 0 36px 16px 36px;
+          height: 48px;
+          width: 48px; } }
+    #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-description {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
+      font-weight: 500; }
+      @media screen and (min-width: 600px) {
+        #ely-create-page-nav #ely-create-page-content .create-page-element-container .create-page-element .page-description {
+          font-size: 16px; } }
 
 .ely-sidnav {
   width: 250px;
@@ -4002,6 +3998,9 @@ body, html {
 
 md-dialog {
   max-height: 95%; }
+  @media screen and (max-width: 600px) {
+    md-dialog {
+      max-width: 100%; } }
 
 #no-javascript {
   position: fixed;

@@ -9,7 +9,7 @@ module.exports = ['ElyModal', '$state',
         };
 
         ctrl.createBlog = function () {
-            ElyModal.show('ManageBlogCtrl', 'app/modules/page/modal/manageBlog/template.html')
+            ElyModal.show('ManageBlogCtrl', 'app/modules/page/modal/manageBlog/template.html', {element: ctrl.element})
                 .then(function (resp) {
                     $state.go('page.detail', {label: 'Blog', pageId: resp.pageId});
                 });
