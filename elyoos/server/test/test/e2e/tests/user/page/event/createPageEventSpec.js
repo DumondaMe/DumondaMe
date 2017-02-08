@@ -44,10 +44,11 @@ describe('Integration Tests for creating new events for generic pages', function
             create: {
                 title: 'title',
                 description: 'description',
+                linkDescription: 'www.link.org',
                 genericPageId: '1',
                 startDate: startTime + 500,
                 endDate: startTime + 600,
-                address: {address: 'Zuerich2', description: 'description', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich2', description: 'description', latitude: 47.376887, longitude: 8.541694}
             }
         }, eventId;
 
@@ -77,6 +78,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            resp[0].event.linkDescription.should.equals("www.link.org");
             resp[0].event.created.should.be.at.least(startTime);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
@@ -93,7 +95,7 @@ describe('Integration Tests for creating new events for generic pages', function
                 genericPageId: '1',
                 startDate: startTime + 500,
                 endDate: startTime + 600,
-                address: {address: 'Zuerich2', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich2', latitude: 47.376887, longitude: 8.541694}
             }
         }, eventId;
 
@@ -123,6 +125,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            should.not.exist(resp[0].event.linkDescription);
             resp[0].event.created.should.be.at.least(startTime);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
@@ -131,6 +134,53 @@ describe('Integration Tests for creating new events for generic pages', function
     });
 
     it('Create a new event with existing address- Return 200', function () {
+
+        let createEvent = {
+            create: {
+                title: 'title',
+                description: 'description2',
+                linkDescription: 'www.link.org',
+                genericPageId: '1',
+                startDate: startTime + 500,
+                endDate: startTime + 600,
+                existingAddressId: '1'
+            }
+        }, eventId;
+
+        return requestHandler.login(users.validUser).then(function (agent) {
+            requestAgent = agent;
+            return requestHandler.post('/api/user/page/event', createEvent, requestAgent);
+        }).then(function (res) {
+            res.status.should.equal(200);
+            eventId = res.body.eventId;
+            res.body.address.address.should.equals('Zuerich');
+            res.body.address.description.should.equals('description');
+            should.exist(res.body.address.addressId);
+            return db.cypher().match("(address:Address)<-[:HAS]-(event:Event {eventId: {eventId}})<-[:EVENT]-(page:Page {pageId: '1'})")
+                .optionalMatch("(page)-[rel:HAS]->(address)")
+                .return(`event, address, page, rel`)
+                .end({eventId: eventId}).send();
+        }).then(function (resp) {
+            resp.length.should.equals(1);
+            resp[0].page.label.should.equals("Generic");
+
+            resp[0].address.address.should.equals("Zuerich");
+            resp[0].address.description.should.equals("description");
+            resp[0].address.latitude.should.equals(47.376887);
+            resp[0].address.longitude.should.equals(8.541694);
+            should.exist(resp[0].rel);
+
+            resp[0].event.title.should.equals("title");
+            resp[0].event.description.should.equals("description2");
+            resp[0].event.linkDescription.should.equals("www.link.org");
+            resp[0].event.created.should.be.at.least(startTime);
+            resp[0].event.eventId.should.equals(eventId);
+            resp[0].event.startDate.should.equals(startTime + 500);
+            resp[0].event.endDate.should.equals(startTime + 600);
+        });
+    });
+
+    it('Create a new event with existing address with only mandatory properties- Return 200', function () {
 
         let createEvent = {
             create: {
@@ -168,6 +218,7 @@ describe('Integration Tests for creating new events for generic pages', function
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description2");
+            should.not.exist(resp[0].event.linkDescription);
             resp[0].event.created.should.be.at.least(startTime);
             resp[0].event.eventId.should.equals(eventId);
             resp[0].event.startDate.should.equals(startTime + 500);
@@ -205,7 +256,7 @@ describe('Integration Tests for creating new events for generic pages', function
                 genericPageId: '10',
                 startDate: startTime + 500,
                 endDate: startTime + 600,
-                address: {address: 'Zuerich', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich', latitude: 47.376887, longitude: 8.541694}
             }
         };
 
@@ -226,7 +277,7 @@ describe('Integration Tests for creating new events for generic pages', function
                 genericPageId: '2',
                 startDate: startTime + 500,
                 endDate: startTime + 600,
-                address: {address: 'Zuerich', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich', latitude: 47.376887, longitude: 8.541694}
             }
         };
 
@@ -247,7 +298,7 @@ describe('Integration Tests for creating new events for generic pages', function
                 genericPageId: '1',
                 startDate: startTime + 500,
                 endDate: startTime + 499,
-                address: {address: 'Zuerich', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich', latitude: 47.376887, longitude: 8.541694}
             }
         };
 
@@ -268,7 +319,7 @@ describe('Integration Tests for creating new events for generic pages', function
                 genericPageId: '1',
                 startDate: startTime - 1,
                 endDate: startTime + 20,
-                address: {address: 'Zuerich', lat: 47.376887, lng: 8.541694}
+                address: {address: 'Zuerich', latitude: 47.376887, longitude: 8.541694}
             }
         };
 

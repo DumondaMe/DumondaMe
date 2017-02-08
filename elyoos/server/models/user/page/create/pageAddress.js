@@ -12,7 +12,7 @@ let createAddress = function (userId, params, req) {
     return security.checkAllowedToAddAddress(params, userId, req).then(function () {
         return db.cypher().match("(page:Page {pageId: {genericPageId}, label: 'Generic'})")
             .createUnique(`(page)-[:HAS]->(address:Address {address: {address},  description: {description}, 
-                            latitude: toFloat({lat}), longitude: toFloat({lng}), addressId: {addressId}})`)
+                            latitude: toFloat({latitude}), longitude: toFloat({longitude}), addressId: {addressId}})`)
             .end(params).send();
     }).then(function () {
         return {addressId: params.addressId};

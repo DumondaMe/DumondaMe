@@ -24,6 +24,19 @@
                         <div ng-message="md-maxlength">Text ist zu lang</div>
                     </div>
                 </md-input-container>
+                <md-input-container class="input-container">
+                    <label>Link</label>
+                    <input name="linkDescription" ng-model="ctrl.data.linkDescription" md-maxlength="1000"
+                           ng-disabled="ctrl.uploadStarted" ng-change="ctrl.changeData()"
+                           ng-pattern="/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/"/>
+                    <div class="hint" ng-if="ctrl.manageEventForm.linkDescription.$valid || ctrl.manageEventForm.linkDescription.$pristine">
+                        Link zur Beschreibung der Veranstaltung
+                    </div>
+                    <div ng-messages="ctrl.manageEventForm.linkDescription.$error">
+                        <div ng-message="md-maxlength">Text ist zu lang</div>
+                        <div ng-message="pattern">Ungültiger Link</div>
+                    </div>
+                </md-input-container>
                 <div class="ely-start-end-date-container">
                     <div class="edit-not-allowed" ng-if="ctrl.editDateNotAllowed">Das Ändern der Startzeit ist zu kurzfristig. Diese kann maximal
                         einen Tag zuvor noch verändert werden.
@@ -47,7 +60,7 @@
                             <div class="description">{{address.description}}</div>
                         </md-radio-button>
                         <md-radio-button ng-if="ctrl.addedPlace" ng-value="ctrl.addedPlace" class="existing-address">
-                            <div>{{ctrl.addedPlace.formatted}}</div>
+                            <div>{{ctrl.addedPlace.address}}</div>
                             <div class="description">{{ctrl.addedPlace.description}}</div>
                         </md-radio-button>
                     </md-radio-group>

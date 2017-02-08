@@ -25,8 +25,8 @@ module.exports = ['$mdDialog', 'PageAddress', 'errorToast', 'ArrayHelper', 'ElyM
                 isEditMode: true,
                 description: addressToEdit.description,
                 actualAddress: {
-                    formatted: addressToEdit.address, addressId: addressToEdit.addressId,
-                    geometry: {lat: addressToEdit.latitude, lng: addressToEdit.longitude}
+                    address: addressToEdit.address, addressId: addressToEdit.addressId,
+                    latitude: addressToEdit.latitude, longitude: addressToEdit.longitude
                 }
             }).then(function (resp) {
                 ctrl.addresses[index] = resp;

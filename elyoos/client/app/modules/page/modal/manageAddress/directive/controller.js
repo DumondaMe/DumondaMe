@@ -2,10 +2,31 @@
 
 var charCodeEnter = 13;
 
+var resetValidation = function (ctrl) {
+    ctrl.isAllowedToSend = true;
+    if (ctrl.addAddressForm.hasOwnProperty('actualAddress')) {
+        ctrl.addAddressForm.actualAddress.$setValidity('ely-required', true);
+        ctrl.addAddressForm.actualAddress.$setValidity('ely-max-length', true);
+    }
+    if (ctrl.addAddressForm.hasOwnProperty('description')) {
+        ctrl.addAddressForm.actualAddress.$setValidity('ely-max-length', true);
+    }
+    if (angular.isArray(ctrl.addresses)) {
+        ctrl.addresses.forEach(function (address, index) {
+            if (ctrl.addAddressForm.hasOwnProperty(index + 'address')) {
+                ctrl.addAddressForm[index + 'address'].$setValidity('ely-required', true);
+                ctrl.addAddressForm[index + 'address'].$setValidity('ely-max-length', true);
+            }
+        });
+    }
+};
+
 module.exports = ['AddressSuggestion', function (AddressSuggestion) {
     var ctrl = this;
+    ctrl.isAllowedDescriptionToSend = true;
 
     if (ctrl.isEditMode) {
+        ctrl.isAllowedToSend = true;
         ctrl.selectedAddress = ctrl.actualAddress;
         ctrl.actualAddressCompare = angular.copy(ctrl.actualAddress);
         ctrl.description = angular.copy(ctrl.actualDescription);
@@ -18,6 +39,33 @@ module.exports = ['AddressSuggestion', function (AddressSuggestion) {
         }
     };
 
+    ctrl.selectedDescriptionChanged = function () {
+        ctrl.isAllowedDescriptionToSend = true;
+        if (angular.isString(ctrl.description) && ctrl.description.length > 500) {
+            ctrl.addAddressForm.description.$setValidity('ely-max-length', false);
+            ctrl.isAllowedDescriptionToSend = false;
+        }
+        if (angular.isString(ctrl.description) && ctrl.description.trim() === "") {
+            delete ctrl.description;
+        }
+    };
+
+    ctrl.selectAddressChanged = function (newSelectedAddress, addressName) {
+        ctrl.selectedAddress = newSelectedAddress;
+        ctrl.selectAddressValueChanged(newSelectedAddress, addressName);
+    };
+
+    ctrl.selectAddressValueChanged = function (addressValue, addressName) {
+        resetValidation(ctrl);
+        if ((!angular.isString(addressValue.address) || angular.isString(addressValue.address) && addressValue.address.trim() === "")) {
+            ctrl.addAddressForm[addressName].$setValidity('ely-required', false);
+            ctrl.isAllowedToSend = false;
+        } else if (angular.isString(addressValue.address) && addressValue.address.length > 500) {
+            ctrl.addAddressForm[addressName].$setValidity('ely-max-length', false);
+            ctrl.isAllowedToSend = false;
+        }
+    };
+
     ctrl.searchAddress = function () {
         if (angular.isString(ctrl.addressSearch) && ctrl.addressSearch.trim() !== "") {
             ctrl.requestStarted = true;
@@ -27,6 +75,7 @@ module.exports = ['AddressSuggestion', function (AddressSuggestion) {
                     ctrl.lastRequestString = ctrl.addressSearch;
                     if (!ctrl.isEditMode) {
                         ctrl.selectedAddress = ctrl.addresses[0];
+                        ctrl.isAllowedToSend = true;
                     }
                 }
             }, function () {

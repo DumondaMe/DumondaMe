@@ -41,8 +41,8 @@ describe('Integration Tests for creating new address for generic pages', functio
                 genericPageId: '1',
                 address: 'Zuerich2',
                 description: 'description',
-                lat: 47.3768871,
-                lng: 8.5416941
+                latitude: 47.3768871,
+                longitude: 8.5416941
             }
         }, addressId;
 
@@ -71,8 +71,8 @@ describe('Integration Tests for creating new address for generic pages', functio
             create: {
                 genericPageId: '1',
                 address: 'Zuerich2',
-                lat: 47.3768871,
-                lng: 8.5416941
+                latitude: 47.3768871,
+                longitude: 8.5416941
             }
         }, addressId;
 
@@ -101,8 +101,8 @@ describe('Integration Tests for creating new address for generic pages', functio
                 genericPageId: '3',
                 address: 'Zuerich2',
                 description: 'description',
-                lat: 47.3768871,
-                lng: 8.5416941
+                latitude: 47.3768871,
+                longitude: 8.5416941
             }
         };
 
@@ -121,8 +121,8 @@ describe('Integration Tests for creating new address for generic pages', functio
                 genericPageId: '2',
                 address: 'Zuerich2',
                 description: 'description',
-                lat: 47.3768871,
-                lng: 8.5416941
+                latitude: 47.3768871,
+                longitude: 8.5416941
             }
         };
 

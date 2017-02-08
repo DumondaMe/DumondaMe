@@ -5,8 +5,8 @@
         <div class="md-dialog-content ely-dialog-content">
             <md-input-container class="input-container">
                 <label>Allgemeine Beschreibung</label>
-                <textarea name="description" ng-model="ctrl.description" md-maxlength="500"
-                          ng-disabled="ctrl.uploadStarted"></textarea>
+                <textarea name="description" ng-model="ctrl.description" ng-disabled="ctrl.uploadStarted" md-maxlength="500"
+                          ng-change="ctrl.selectedDescriptionChanged()"></textarea>
                 <div ng-messages="ctrl.addAddressForm.description.$error">
                     <div ng-message="md-maxlength">Text ist zu lang</div>
                 </div>
@@ -14,9 +14,8 @@
             <div layout="row">
                 <md-input-container class="input-container">
                     <label>Ort</label>
-                    <input ng-model="ctrl.addressSearch" ng-change="ctrl.addressSearchChanged()"
-                           ng-disabled="ctrl.requestStarted"
-                           ng-keypress="ctrl.keyPressed($event)"/>
+                    <input name="addressSearch" ng-model="ctrl.addressSearch" ng-change="ctrl.addressSearchChanged()"
+                           ng-disabled="ctrl.requestStarted" ng-keypress="ctrl.keyPressed($event)"/>
                 </md-input-container>
                 <div class="search-image-icon">
                     <md-button class="md-fab md-mini" aria-label="Search Place" ng-click="ctrl.searchAddress()"
@@ -32,36 +31,44 @@
                 <div flex="100" flex-gt-xs="50" flex-order="1" name="ctrl.addAddressSelectForm">
                     <md-radio-group ng-model="ctrl.selectedAddress" class="md-primary">
                         <div layout="row" ng-show="ctrl.isEditMode">
-                            <md-radio-button ng-value="ctrl.actualAddress" aria-label="ctrl.actualAddress.formatted">
+                            <md-radio-button ng-value="ctrl.actualAddress" aria-label="ctrl.actualAddress.address">
                             </md-radio-button>
                             <md-input-container flex class="address-input-container">
-                                <input ng-model="ctrl.actualAddress.formatted" aria-label="ctrl.actualAddress.formatted" required md-maxlength="500"
-                                       md-no-asterisk>
+                                <input name="actualAddress" ng-model="ctrl.actualAddress.address" aria-label="ctrl.actualAddress.address"
+                                       ng-change="ctrl.selectAddressValueChanged(ctrl.actualAddress, 'actualAddress')"
+                                       ng-focus="ctrl.selectAddressChanged(ctrl.actualAddress, 'actualAddress')">
                             </md-input-container>
                         </div>
-                        <div layout="row" ng-repeat="address in ctrl.addresses" ng-hide="address.formatted === ctrl.actualAddressCompare.formatted">
-                            <md-radio-button ng-value="address" aria-label="address.formatted">
+                        <div layout="row" ng-repeat="address in ctrl.addresses" ng-hide="address.address === ctrl.actualAddressCompare.address">
+                            <md-radio-button ng-value="address" aria-label="address.address">
                             </md-radio-button>
                             <md-input-container flex class="address-input-container">
-                                <input ng-model="address.formatted" aria-label="address.formatted" required md-maxlength="500" md-no-asterisk>
+                                <input name="{{$index + 'address'}}" ng-model="address.address" aria-label="address.address"
+                                       ng-change="ctrl.selectAddressValueChanged(address, $index + 'address')"
+                                       ng-focus="ctrl.selectAddressChanged(address, $index + 'address')">
+                                <div ng-messages="ctrl.addAddressForm[$index + 'address'].$error">
+                                    <div ng-message="ely-max-length">Text darf nicht länger als 500 Zeichen sein</div>
+                                    <div ng-message="ely-required">Text darf nicht leer sein</div>
+                                </div>
                             </md-input-container>
                         </div>
                     </md-radio-group>
                 </div>
-                <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2" >
-                    <ely-map center="ctrl.selectedAddress.geometry" has-marker-center="true" zoom="15" class="map-container"></ely-map>
+                <div flex="100" flex-gt-xs="50" flex-order="-1" flex-order-gt-xs="2">
+                    <ely-map center="ctrl.selectedAddress" has-marker-center="true" zoom="15" class="map-container"></ely-map>
                 </div>
             </div>
         </div>
     </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="ctrl.onBack()">Abbrechen</md-button>
-        <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-disabled="!ctrl.selectedAddress || ctrl.addAddressForm.$invalid"
+        <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()"
+                   ng-disabled="!ctrl.selectedAddress || !ctrl.isAllowedToSend || !ctrl.isAllowedDescriptionToSend"
                    ng-show="!ctrl.isEditMode">Hinzufügen
         </md-button>
         <md-button class="md-primary md-raised" ng-click="ctrl.addAddress()" ng-show="ctrl.isEditMode"
-                   ng-disabled="(ctrl.selectedAddress.formatted === ctrl.actualAddressCompare.formatted && ctrl.selectedAddress === ctrl.actualAddress &&
-                   ctrl.description === ctrl.actualDescription) || ctrl.addAddressForm.$invalid">
+                   ng-disabled="(ctrl.selectedAddress.address === ctrl.actualAddressCompare.address && ctrl.selectedAddress === ctrl.actualAddress &&
+                   ctrl.description === ctrl.actualDescription) || !ctrl.isAllowedToSend || !ctrl.isAllowedDescriptionToSend">
             Ändern
         </md-button>
     </md-dialog-actions>

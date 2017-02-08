@@ -25,8 +25,8 @@ var defaultIcon = L.icon({
 module.exports = ['elyHelper', function (elyHelper) {
     var service = this, markerCollection = [];
 
-    service.addMarker = function (map, lat, lng, events) {
-        var marker = L.marker([lat, lng]);
+    service.addMarker = function (map, latitude, longitude, events) {
+        var marker = L.marker([latitude, longitude]);
         if (elyHelper.isDefined(events)) {
             marker.on('mouseover', function () {
                 if (elyHelper.isFunction(events.mouseOverMarker)) {

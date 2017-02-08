@@ -51,8 +51,8 @@ describe('Integration Tests for edit address of generic pages', function () {
                 addressId: '1',
                 address: 'ZürichNeu',
                 description: 'description',
-                lat: 47.37,
-                lng: 8.54,
+                latitude: 47.37,
+                longitude: 8.54,
             }
         }, eventId;
 
@@ -80,8 +80,8 @@ describe('Integration Tests for edit address of generic pages', function () {
             edit: {
                 addressId: '1',
                 address: 'ZürichNeu',
-                lat: 47.37,
-                lng: 8.54,
+                latitude: 47.37,
+                longitude: 8.54,
             }
         }, eventId;
 
@@ -110,8 +110,8 @@ describe('Integration Tests for edit address of generic pages', function () {
                 addressId: '3',
                 address: 'ZürichNeu',
                 description: 'description',
-                lat: 47.37,
-                lng: 8.54,
+                latitude: 47.37,
+                longitude: 8.54,
             }
         };
 

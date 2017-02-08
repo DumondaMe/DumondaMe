@@ -22,17 +22,18 @@ let schemaManagePageEvent = {
                 genericPageId: {type: 'string', format: 'id', maxLength: 50},
                 title: {type: 'string', format: 'notEmptyString', maxLength: 160},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
+                linkDescription: {type: 'string', format: 'url', maxLength: 1000},
                 startDate: {type: 'integer'},
                 endDate: {type: 'integer'},
                 address: {
                     type: 'object',
                     additionalProperties: false,
-                    required: ['address', 'lat', 'lng'],
+                    required: ['address', 'latitude', 'longitude'],
                     properties: {
                         address: {type: 'string', format: 'notEmptyString', maxLength: 1000},
                         description: {type: 'string', format: 'notEmptyString', maxLength: 500},
-                        lat: {type: 'number'},
-                        lng: {type: 'number'}
+                        latitude: {type: 'number'},
+                        longitude: {type: 'number'}
                     }
                 },
                 existingAddressId: {type: 'string', format: 'notEmptyString', maxLength: 50}
@@ -45,17 +46,18 @@ let schemaManagePageEvent = {
                 eventId: {type: 'string', format: 'id', maxLength: 50},
                 title: {type: 'string', format: 'notEmptyString', maxLength: 160},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 2000},
+                linkDescription: {type: 'string', format: 'url', maxLength: 1000},
                 startDate: {type: 'integer'},
                 endDate: {type: 'integer'},
                 address: {
                     type: 'object',
                     additionalProperties: false,
-                    required: ['address', 'lat', 'lng'],
+                    required: ['address', 'latitude', 'longitude'],
                     properties: {
                         address: {type: 'string', format: 'notEmptyString', maxLength: 1000},
                         description: {type: 'string', format: 'notEmptyString', maxLength: 500},
-                        lat: {type: 'number'},
-                        lng: {type: 'number'}
+                        latitude: {type: 'number'},
+                        longitude: {type: 'number'}
                     }
                 },
                 existingAddressId: {type: 'string', format: 'notEmptyString', maxLength: 50}

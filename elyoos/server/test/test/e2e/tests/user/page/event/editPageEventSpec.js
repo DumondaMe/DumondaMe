@@ -63,9 +63,10 @@ describe('Integration Tests for edit events of generic pages', function () {
                 eventId: '10',
                 title: 'title',
                 description: 'description',
+                linkDescription: 'www.link.org',
                 startDate: startTime + 600,
                 endDate: startTime + 700,
-                address: {address: 'Zuerich2', description: 'addressDescription', lat: 47.37688, lng: 8.54169}
+                address: {address: 'Zuerich2', description: 'addressDescription', latitude: 47.37688, longitude: 8.54169}
             }
         }, eventId;
 
@@ -96,6 +97,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            resp[0].event.linkDescription.should.equals("www.link.org");
             resp[0].event.modified.should.be.at.least(startTime);
             resp[0].event.startDate.should.equals(startTime + 600);
             resp[0].event.endDate.should.equals(startTime + 700);
@@ -111,7 +113,7 @@ describe('Integration Tests for edit events of generic pages', function () {
                 description: 'description',
                 startDate: startTime + 600,
                 endDate: startTime + 700,
-                address: {address: 'Zuerich2', description: 'addressDescription', lat: 47.37688, lng: 8.54169}
+                address: {address: 'Zuerich2', description: 'addressDescription', latitude: 47.37688, longitude: 8.54169}
             }
         }, eventId;
 
@@ -142,6 +144,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            should.not.exist(resp[0].event.linkDescription);
             resp[0].event.modified.should.be.at.least(startTime);
             resp[0].event.startDate.should.equals(startTime + 600);
             resp[0].event.endDate.should.equals(startTime + 700);
@@ -155,6 +158,7 @@ describe('Integration Tests for edit events of generic pages', function () {
                 eventId: '10',
                 title: 'title',
                 description: 'description',
+                linkDescription: 'www.link.org',
                 startDate: startTime + 600,
                 endDate: startTime + 700,
                 existingAddressId: '2'
@@ -185,6 +189,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            resp[0].event.linkDescription.should.equals("www.link.org");
             resp[0].event.modified.should.be.at.least(startTime);
             resp[0].event.startDate.should.equals(startTime + 600);
             resp[0].event.endDate.should.equals(startTime + 700);
@@ -228,6 +233,7 @@ describe('Integration Tests for edit events of generic pages', function () {
 
             resp[0].event.title.should.equals("title");
             resp[0].event.description.should.equals("description");
+            should.not.exist(resp[0].event.linkDescription);
             resp[0].event.modified.should.be.at.least(startTime);
             resp[0].event.startDate.should.equals(startTime + 600);
             resp[0].event.endDate.should.equals(startTime + 700);

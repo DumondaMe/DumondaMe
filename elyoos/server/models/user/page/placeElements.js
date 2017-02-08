@@ -6,8 +6,8 @@ let addPlaceElements = function (params) {
     params.addressId = uuid.generateUUID();
     params.addressDescription = params.address.description || null;
     params.addressAddress = params.address.address;
-    params.addressLat = params.address.lat;
-    params.addressLng = params.address.lng;
+    params.addressLat = params.address.latitude;
+    params.addressLng = params.address.longitude;
 };
 
 module.exports = {

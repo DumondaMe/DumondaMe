@@ -15,8 +15,8 @@ module.exports = ['ElyModal', 'AddressCreateMessageService', 'PageAddress', 'err
                     addressId: resp.addressId,
                     address: message.create.address,
                     description: message.create.description,
-                    latitude: message.create.lat,
-                    longitude: message.create.lng
+                    latitude: message.create.latitude,
+                    longitude: message.create.longitude
                 };
                 ElyModal.hide(result);
             }, function () {
@@ -31,8 +31,8 @@ module.exports = ['ElyModal', 'AddressCreateMessageService', 'PageAddress', 'err
                     addressId: message.edit.addressId,
                     address: message.edit.address,
                     description: message.edit.description,
-                    latitude: message.edit.lat,
-                    longitude: message.edit.lng
+                    latitude: message.edit.latitude,
+                    longitude: message.edit.longitude
                 };
                 ElyModal.hide(result);
             }, function () {

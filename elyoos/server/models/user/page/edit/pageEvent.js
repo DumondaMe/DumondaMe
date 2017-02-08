@@ -10,6 +10,7 @@ let getEditCommand = function (params) {
         .set('event', {
             title: params.title,
             description: params.description,
+            linkDescription: params.linkDescription || null,
             modified: params.modified,
             startDate: params.startDate,
             endDate: params.endDate

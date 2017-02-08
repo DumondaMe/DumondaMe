@@ -5,9 +5,9 @@ var setAddress = function (message, data) {
         message.existingAddressId = data.selectedAddress.addressId;
     } else {
         message.address = {
-            address: data.selectedAddress.formatted,
-            lat: data.selectedAddress.geometry.lat,
-            lng: data.selectedAddress.geometry.lng
+            address: data.selectedAddress.address,
+            latitude: data.selectedAddress.latitude,
+            longitude: data.selectedAddress.longitude
         };
     }
 };
@@ -19,6 +19,7 @@ module.exports = [function () {
             create: {
                 title: data.title,
                 description: data.description,
+                linkDescription: data.linkDescription,
                 genericPageId: genericPageId,
                 startDate: Math.floor(data.startDate.valueOf() / 1000),
                 endDate: Math.floor(data.endDate.valueOf() / 1000)
@@ -33,6 +34,7 @@ module.exports = [function () {
             edit: {
                 title: data.title,
                 description: data.description,
+                linkDescription: data.linkDescription,
                 eventId: eventId,
                 startDate: Math.floor(data.startDate.valueOf() / 1000),
                 endDate: Math.floor(data.endDate.valueOf() / 1000)

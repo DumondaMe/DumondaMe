@@ -39,8 +39,8 @@ module.exports = {
             });
 
             if (elyHelper.isDefined(scope.commands)) {
-                scope.commands.addMarker = function (lat, lng, events) {
-                    return mapMarker.addMarker(map, lat, lng, events);
+                scope.commands.addMarker = function (latitude, longitude, events) {
+                    return mapMarker.addMarker(map, latitude, longitude, events);
                 };
                 scope.commands.addMarkerGroupAndCenter = function (markers, fitBoundOptions) {
                     return mapMarker.addMarkerGroupAndCenter(map, markers, fitBoundOptions);

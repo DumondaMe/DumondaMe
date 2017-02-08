@@ -17,24 +17,24 @@ let schemaManagePageAddress = {
         create: {
             type: 'object',
             additionalProperties: false,
-            required: ['genericPageId', 'address', 'lat', 'lng'],
+            required: ['genericPageId', 'address', 'latitude', 'longitude'],
             properties: {
                 genericPageId: {type: 'string', format: 'id', maxLength: 50},
                 address: {type: 'string', format: 'notEmptyString', maxLength: 500},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-                lat: {type: 'number'},
-                lng: {type: 'number'}
+                latitude: {type: 'number'},
+                longitude: {type: 'number'}
             }
         }, edit: {
             type: 'object',
             additionalProperties: false,
-            required: ['address', 'lat', 'lng'],
+            required: ['address', 'latitude', 'longitude'],
             properties: {
                 addressId: {type: 'string', format: 'id', maxLength: 50},
                 address: {type: 'string', format: 'notEmptyString', maxLength: 500},
                 description: {type: 'string', format: 'notEmptyString', maxLength: 1000},
-                lat: {type: 'number'},
-                lng: {type: 'number'}
+                latitude: {type: 'number'},
+                longitude: {type: 'number'}
             }
         }
     }
