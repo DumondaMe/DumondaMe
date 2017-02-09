@@ -4,6 +4,8 @@ module.exports = ['$mdDialog', 'PageAddress', 'errorToast', 'ArrayHelper', 'ElyM
     function ($mdDialog, PageAddress, errorToast, ArrayHelper, ElyModal) {
         var ctrl = this;
 
+        ctrl.maxNumberOfAddresses = 5;
+
         ctrl.deleteAddress = function (addressToDelete) {
             var confirm = $mdDialog.confirm()
                 .title("Adresse " + addressToDelete.address + " löschen")

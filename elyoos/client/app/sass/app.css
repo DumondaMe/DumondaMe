@@ -1970,7 +1970,6 @@
       color: rgba(0, 0, 0, 0.54); }
 
 .address-description-container {
-  max-height: 200px;
   padding-top: 24px; }
   .address-description-container .address-description-element {
     margin-bottom: 12px; }
@@ -1978,7 +1977,7 @@
       font-size: 14px;
       color: #3F51B5;
       font-weight: 500; }
-    .address-description-container .address-description-element .description {
+    .address-description-container .address-description-element .description.ely-expand-text .ely-expand-text-description {
       margin-top: 2px;
       font-size: 12px;
       color: rgba(0, 0, 0, 0.54);
@@ -2198,10 +2197,11 @@
       font-weight: 400; }
     .ely-page-events-overview-container .ely-page-events-overview .ely-page-events-overview-element .admin-menu-container .admin-menu-icon {
       cursor: pointer; }
-.ely-page-events-overview-container .next-button {
+
+.next-button {
   margin-left: 0;
   padding-left: 0; }
-  .ely-page-events-overview-container .next-button .next-button-icon {
+  .next-button .next-button-icon {
     margin-right: 6px;
     margin-bottom: 2px; }
 

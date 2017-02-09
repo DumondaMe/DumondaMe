@@ -1,8 +1,8 @@
 <div class="address-description-container">
-    <div class="address-description-element" ng-repeat="address in ctrl.addresses" layout="row">
+    <div class="address-description-element" ng-repeat="address in ctrl.addresses | limitTo: ctrl.maxNumberOfAddresses" layout="row">
         <div flex="grow">
             <div class="address-title">{{address.address}}</div>
-            <div class="description">{{address.description}}</div>
+            <ely-expand-text class="description" description="{{address.description}}" length="120"></ely-expand-text>
         </div>
         <div flex="none" ng-if="ctrl.isAdmin === true" class="edit-address-container">
             <md-menu md-position-mode="target-right target" class="admin-menu">
@@ -19,4 +19,9 @@
             </md-menu>
         </div>
     </div>
+    <md-button ng-show="ctrl.maxNumberOfAddresses < ctrl.addresses.length" ng-click="ctrl.maxNumberOfAddresses = ctrl.maxNumberOfAddresses + 5"
+               md-no-ink class="md-primary ely-next-button">
+        <md-icon md-svg-icon="cardActions:arrowForward" aria-label="Next Events" class="ely-next-button-icon"></md-icon>
+        Nächsten Standorte
+    </md-button>
 </div>

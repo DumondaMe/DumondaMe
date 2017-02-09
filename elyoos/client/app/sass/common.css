@@ -568,6 +568,13 @@
 .ely-topics-vertical-color.two-columns {
   width: 32px; }
 
+.ely-next-button {
+  margin-left: 0;
+  padding-left: 0; }
+  .ely-next-button .ely-next-button-icon {
+    margin-right: 6px;
+    margin-bottom: 2px; }
+
 .ely-close-sub-toolbar {
   position: fixed;
   bottom: 0;
