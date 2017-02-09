@@ -11,11 +11,11 @@ module.exports = ['$scope', 'PopularAddressRecommendation', 'WebStorageMapCenter
         ctrl.popularAddresses = PopularAddressRecommendation.get({
             skip: 0,
             maxItems: 30,
-            centerLat: center.latitude,
-            centerLng: center.longitude,
+            centerLat: center.lat,
+            centerLng: center.lng,
             radius: radius
         }, function () {
-            WebStorageMapCenter.setNewCenter(center.latitude, center.longitude, zoom);
+            WebStorageMapCenter.setNewCenter(center.lat, center.lng, zoom);
             ctrl.commandsMap.clearAllMarkers();
             ElyMapMarkerService.addMarkers(ctrl.popularAddresses.recommendations, ctrl.commandsMap, $scope);
         }, function () {

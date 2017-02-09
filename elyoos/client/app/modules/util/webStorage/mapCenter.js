@@ -10,6 +10,10 @@ module.exports = [function () {
     };
 
     this.getMapCenter = function () {
-        return {lat: localStorage.getItem("mapCenterLat"), lng: localStorage.getItem("mapCenterLng"), zoom: localStorage.getItem("mapCenterLZoom")};
+        return {
+            latitude: localStorage.getItem("mapCenterLat"),
+            longitude: localStorage.getItem("mapCenterLng"),
+            zoom: localStorage.getItem("mapCenterLZoom")
+        };
     };
 }];
