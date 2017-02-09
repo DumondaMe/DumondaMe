@@ -28,6 +28,10 @@
             <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/>
             <path d="M0-.5h24v24H0z" fill="none"/>
         </g>
+        <g id="arrowForward">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+        </g>
         <g id="arrowSubDirectoryRight">
             <path d="M19,15L13,21L11.58,19.58L15.17,16H4V4H6V14H15.17L11.58,10.42L13,9L19,15Z"/>
         </g>

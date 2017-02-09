@@ -3,7 +3,7 @@
     background-color: $background-light;
   }
   .ely-page-events-overview {
-    max-height: 200px;
+    //max-height: 200px;
     padding-top: 24px;
     .ely-page-events-overview-element {
       margin-bottom: 12px;
@@ -27,6 +27,14 @@
           cursor: pointer;
         }
       }
+    }
+  }
+  .next-button {
+    margin-left: 0;
+    padding-left: 0;
+    .next-button-icon {
+      margin-right: 6px;
+      margin-bottom: 2px;
     }
   }
 }

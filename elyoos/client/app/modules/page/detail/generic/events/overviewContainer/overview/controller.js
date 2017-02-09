@@ -1,11 +1,17 @@
 'use strict';
 
-module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog', 'ElyModal',
-    function (EventPageDetailOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog, ElyModal) {
+module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'moment', 'PageEvents', 'ArrayHelper', 'errorToast', '$mdDialog',
+    'ElyModal', 'ScrollRequest', 'PageEventsScrollRequestResponseHandler',
+    function (EventPageDetailOverview, $stateParams, dateFormatter, moment, PageEvents, ArrayHelper, errorToast, $mdDialog, ElyModal, ScrollRequest,
+              PageEventsScrollRequestResponseHandler) {
         var ctrl = this;
 
+        ctrl.scrollName = 'genericPageEventOverview' + ctrl.isActual;
+        ctrl.events = {events: []};
         ctrl.getTime = dateFormatter.getTime;
         ctrl.getEndDate = dateFormatter.getEndDate;
+
+        ScrollRequest.reset(ctrl.scrollName, EventPageDetailOverview.get, PageEventsScrollRequestResponseHandler, 5);
 
         ctrl.deleteEvent = function (eventToDelete) {
             var confirm = $mdDialog.confirm()
@@ -40,6 +46,16 @@ module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'm
                 {eventId: eventId});
         };
 
+        ctrl.nextEvents = function () {
+            ScrollRequest.nextRequest(ctrl.scrollName, ctrl.events.events, {
+                actual: ctrl.isActual === 'true', pageId: $stateParams.pageId
+            }).then(function (events) {
+                ctrl.events = events;
+                ctrl.hasMoreEvents = ScrollRequest.hasNext(ctrl.scrollName);
+                ctrl.hasEvents(ctrl.events.events.length > 0);
+            });
+        };
+
         if (ctrl.commands) {
             ctrl.commands.addEvent = function (event) {
                 ctrl.events.events.unshift(event);
@@ -47,8 +63,6 @@ module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'm
             };
         }
 
-        ctrl.events = EventPageDetailOverview.get({skip: 0, maxItems: 10, actual: ctrl.isActual === 'true', pageId: $stateParams.pageId}, function () {
-            ctrl.hasEvents(ctrl.events.events.length > 0);
-        });
+        ctrl.nextEvents();
     }];
 

@@ -20,4 +20,8 @@
             </md-menu>
         </div>
     </div>
+    <md-button ng-show="ctrl.hasMoreEvents" ng-click="ctrl.nextEvents()" md-no-ink class="md-primary next-button">
+        <md-icon md-svg-icon="cardActions:arrowForward" aria-label="Next Events" class="next-button-icon"></md-icon>
+        Nächsten Veranstalungen
+    </md-button>
 </div>
