@@ -2,6 +2,9 @@
     <ely-page-detail-admin edit-page="ctrl.editPage" delete-page="ctrl.deletePage" page-detail="ctrl.pageDetail"></ely-page-detail-admin>
     <ely-page-detail-main-generic page-detail="ctrl.pageDetail"></ely-page-detail-main-generic>
     <ely-page-detail-info page-detail="ctrl.pageDetail"></ely-page-detail-info>
+    <ely-page-detail-events has-events="ctrl.pageDetail.hasEvents" is-admin="ctrl.pageDetail.administrators.isAdmin"
+                            page-id="ctrl.pageDetail.page.pageId" addresses="ctrl.pageDetail.page.addresses"></ely-page-detail-events>
+    <ely-page-detail-addresses page-detail="ctrl.pageDetail"></ely-page-detail-addresses>
     <ely-page-detail-recommendation page-id="ctrl.pageDetail.page.pageId" page-type-description="dieses Buch"
                                     recommendation="ctrl.pageDetail.recommendation"
                                     title-recommendation="ctrl.pageDetail.page.title" category="Buch"></ely-page-detail-recommendation>

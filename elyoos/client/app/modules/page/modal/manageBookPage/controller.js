@@ -81,9 +81,5 @@ module.exports = ['ElyModal', 'DateFormatCheckService', 'Topics', 'BookPageCreat
             var message = BookPageCreateMessageService.getModifyBookPageMessage(ctrl.data);
             UploadPageService.uploadModifyPage(message, ctrl);
         };
-
-        ctrl.recommendationAbort = function () {
-            ElyModal.cancel();
-        };
     }];
 

@@ -13,13 +13,13 @@ var getParams = function (maxItems, skip, additionalParams) {
 module.exports = ['$q', function ($q) {
     var actualServiceName, service = this;
 
-    service.reset = function (serviceName, requestService, responseHandler) {
+    service.reset = function (serviceName, requestService, responseHandler, itemsPerPage) {
 
         scrollRequests[serviceName] = {
             request: requestService,
             responseHandler: responseHandler,
             skip: 0,
-            itemsPerPage: 30,
+            itemsPerPage: itemsPerPage || 30,
             requestPinwallElements: true,
             requestPinwallElementsRunning: false
         };

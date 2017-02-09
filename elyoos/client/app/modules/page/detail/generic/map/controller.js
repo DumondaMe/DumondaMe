@@ -1,17 +1,20 @@
 'use strict';
 
-module.exports = [
-    function () {
-        var ctrl = this;
+module.exports = ['$scope', function ($scope) {
+    var ctrl = this, init = false;
 
-        ctrl.commandsMap = {};
-        ctrl.init = true;
+    ctrl.commandsMap = {};
 
-        ctrl.mapChanged = function () {
-            if (ctrl.init) {
-                ctrl.init = false;
-                ctrl.commandsMap.addMarkerGroupAndCenter(ctrl.addresses, {maxZoom: 12});
-            }
-        };
-    }];
+    ctrl.mapInit = function () {
+        init = true;
+        ctrl.commandsMap.addMarkerGroupAndCenter($scope.addresses, {maxZoom: 12});
+    };
+
+    $scope.$watchCollection('addresses', function (newAddresses) {
+        if(newAddresses && init) {
+            ctrl.commandsMap.clearAllMarkers();
+            ctrl.commandsMap.addMarkerGroupAndCenter($scope.addresses, {maxZoom: 12});
+        }
+    });
+}];
 

@@ -3,8 +3,8 @@
 var link = require('./link.js');
 
 module.exports = {
-    directive: ['$timeout', 'elyHelper', 'MapChangeHandler', 'MapMarker', 'MapCenter',
-        function ($timeout, elyHelper, MapChangeHandler, MapMarker, MapCenter) {
+    directive: ['$timeout', 'elyHelper', 'MapChangeHandler', 'MapMarker', 'MapCenter', 'MapView', 'MapDistanceCalculator',
+        function ($timeout, elyHelper, MapChangeHandler, MapMarker, MapCenter, MapView, MapDistanceCalculator) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -15,11 +15,13 @@ module.exports = {
                     hasMarkerCenter: '@',
                     zoom: '=',
                     defaultZoom: '=',
-                    onMapChange: '='
+                    onMapChange: '=',
+                    mapInit: '='
                 },
                 templateUrl: 'app/modules/common/map/template.html',
-                controller: require('./controller.js'),
-                link: link.directiveLink($timeout, elyHelper, MapChangeHandler, MapMarker, MapCenter),
+                controller: function () {
+                },
+                link: link.directiveLink($timeout, elyHelper, MapChangeHandler, MapMarker, MapCenter, MapView, MapDistanceCalculator),
                 controllerAs: 'ctrl',
                 bindToController: {}
             };

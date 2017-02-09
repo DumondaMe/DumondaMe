@@ -1,14 +1,15 @@
 'use strict';
 
-module.exports = ['$scope', 'PopularPlaceRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService',
-    function ($scope, PopularPlaceRecommendation, WebStorageMapCenter, ElyMapMarkerService) {
+module.exports = ['$scope', '$mdMedia', 'PopularAddressRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService', '$mdSidenav',
+    function ($scope, $mdMedia, PopularAddressRecommendation, WebStorageMapCenter, ElyMapMarkerService, $mdSidenav) {
     var ctrl = this;
 
     ctrl.commandsMap = {};
+    ctrl.$mdMedia = $mdMedia;
     ctrl.initMapParams = WebStorageMapCenter.getMapCenter();
 
     ctrl.mapChanged = function (radius, center, zoom) {
-        ctrl.popularPlaces = PopularPlaceRecommendation.get({
+        ctrl.popularAddresses = PopularAddressRecommendation.get({
             skip: 0,
             maxItems: 30,
             centerLat: center.lat,
@@ -17,10 +18,14 @@ module.exports = ['$scope', 'PopularPlaceRecommendation', 'WebStorageMapCenter',
         }, function () {
             WebStorageMapCenter.setNewCenter(center.lat, center.lng, zoom);
             ctrl.commandsMap.clearAllMarkers();
-            ElyMapMarkerService.addMarkers(ctrl.popularPlaces.recommendations, ctrl.commandsMap, $scope);
+            ElyMapMarkerService.addMarkers(ctrl.popularAddresses.recommendations, ctrl.commandsMap, $scope);
         }, function () {
 
         });
+    };
+
+    ctrl.toggleMapList = function () {
+        $mdSidenav("mapList").toggle();
     };
 }];
 

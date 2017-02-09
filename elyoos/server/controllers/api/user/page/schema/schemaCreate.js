@@ -54,10 +54,9 @@ module.exports = {
                 title: {'$ref': '#/definitions/title'},
                 description: {'$ref': '#/definitions/description'},
                 language: language.languageMultiple,
-                website: {'$ref': '#/definitions/link'},
-                places: {'$ref': '#/definitions/places'}
+                website: {'$ref': '#/definitions/link'}
             }
-        },
+        }
     },
     definitions: definitions
 };

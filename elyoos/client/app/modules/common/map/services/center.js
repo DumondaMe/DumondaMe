@@ -1,23 +1,22 @@
 'use strict';
 
-module.exports = [function () {
+module.exports = ['elyHelper', function (elyHelper) {
     var service = this, marker;
 
-    var setView = function (center, markerCenter, zoom, elyHelper, map) {
-        map.setView([center.lat, center.lng], zoom);
-        if (elyHelper.isTrue(markerCenter)) {
+    service.setCenterMarker = function (markerCenter, center, map) {
+        if (elyHelper.isTrue(markerCenter) && elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude)) {
             if (elyHelper.isDefined(marker)) {
                 map.removeLayer(marker);
             }
-            marker = L.marker([center.lat, center.lng]).addTo(map);
+            marker = L.marker([center.latitude, center.longitude]).addTo(map);
         }
     };
 
-    service.setCenter = function (center, defaultCenter, zoom, defaultZoom, markerCenter, elyHelper, map) {
-        if (elyHelper.isDefined(center) && elyHelper.isDefined(zoom)) {
-            setView(center, markerCenter, zoom, elyHelper, map);
-        } else if (elyHelper.isDefined(defaultCenter) && elyHelper.isDefined(defaultZoom)) {
-            setView(defaultCenter, markerCenter, defaultZoom, elyHelper, map);
+    service.setCenter = function (center, zoom, markerCenter, map) {
+        if (elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude) && elyHelper.isDefined(center.zoom)) {
+            map.panTo([center.latitude, center.longitude]);
+            map.setZoom(zoom);
+            service.setCenterMarker(markerCenter, center, elyHelper, map);
         }
     };
 }];

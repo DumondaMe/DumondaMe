@@ -1,11 +1,13 @@
 'use strict';
 
 let validation = require('elyoos-server-lib').jsonValidation;
+let exception = require('elyoos-server-lib').exceptions;
 let schema = require('./schema/schemaEdit');
 let underscore = require('underscore');
-let editBookPage = requireModel('user/page/editBookPage');
-let editVideoPage = requireModel('user/page/editVideoPage');
-let editLinkPage = requireModel('user/page/editLinkPage');
+let editBookPage = requireModel('user/page/edit/bookPage');
+let editVideoPage = requireModel('user/page/edit/videoPage');
+let editLinkPage = requireModel('user/page/edit/linkPage');
+let editGenericPage = requireModel('user/page/edit/genericPage');
 let auth = require('elyoos-server-lib').auth;
 let controllerErrors = require('elyoos-server-lib').controllerErrors;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
@@ -27,9 +29,10 @@ module.exports = function (router) {
                     return editVideoPage.editVideoPage(req.user.id, request.youtubePage, req);
                 } else if (request.hasOwnProperty('linkPage')) {
                     return editLinkPage.editLinkPage(req.user.id, request.linkPage, filePath, req);
+                } else if (request.hasOwnProperty('genericPage')) {
+                    return editGenericPage.editGenericPage(req.user.id, request.genericPage, filePath, req);
                 }
-                logger.error('Unknown mode: ' + request.mode);
-                res.status(500).end();
+                throw new exception.InvalidOperation(`Unknown mode: ${request.mode}`);
             }).then(function (data) {
                 res.status(200).json(data);
             });

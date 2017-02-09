@@ -15,6 +15,8 @@
 @import 'contact/_contactRecommendationOverview';
 @import 'contact/_searchUserOverview';
 
+@import 'event/modal/_info';
+
 @import 'feedback/modal/_createFeedback';
 @import 'feedback/modal/_createFeedbackComment';
 @import 'feedback/_feedback';
@@ -43,8 +45,10 @@
 @import 'forum/_questionElement';
 
 @import 'home/_home';
-@import 'home/_homeInfo';
+@import 'home/_homeFilter';
+@import 'home/_homeInfoContainer';
 @import 'home/_homeSearchResult';
+@import 'home/_homeVision';
 @import 'home/_searchResultBlogPage';
 @import 'home/_searchResultBookPage';
 @import 'home/_searchResultLinkPage';
@@ -70,12 +74,16 @@
 @import 'navigation/_toolbarSearchPage';
 @import 'navigation/_toolbarSearchUser';
 
+@import 'page/detail/_addressElement';
+@import 'page/detail/_addresses';
 @import 'page/detail/_admin';
 @import 'page/detail/_blog';
 @import 'page/detail/_blogActions';
 @import 'page/detail/_book';
 @import 'page/detail/_comments';
 @import 'page/detail/_detail';
+@import 'page/detail/_events';
+@import 'page/detail/_eventsOverview';
 @import 'page/detail/_info';
 @import 'page/detail/_link';
 @import 'page/detail/_linkHistory';
@@ -84,11 +92,12 @@
 @import 'page/detail/_genericOverview';
 @import 'page/detail/_recommendation';
 @import 'page/detail/_youtube';
-@import 'page/modal/_commonAddPlace';
+@import 'page/modal/_manageAddress';
 @import 'page/modal/_manageBlog';
 @import 'page/modal/_managePage';
 @import 'page/modal/_manageGenericPage';
 @import 'page/modal/_manageBookPage';
+@import 'page/modal/_manageEvent';
 @import 'page/modal/_manageLinkPage';
 @import 'page/modal/_manageYoutubePage';
 @import 'page/modal/_pageOverview';

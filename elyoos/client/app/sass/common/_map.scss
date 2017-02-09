@@ -1,7 +1,8 @@
-#ely-map {
+.ely-map {
   z-index: 0;
-  #map-id {
+  height: 100%;
+  .ely-map-container {
     z-index: 0;
-    height: 400px;
+    height: 100%;
   }
 }

@@ -1,0 +1,27 @@
+<div class="ely-page-events-overview">
+    <div ng-repeat="event in ctrl.events.events" class="ely-page-events-overview-element" layout="row">
+        <div flex="grow">
+            <div class="event-title" ng-click="ctrl.openEventInfo(event.eventId)">{{event.title}}</div>
+            <div class="event-sub-descriptions">Von {{ctrl.getTime(event.startDate, 'l LT')}} bis {{ctrl.getEndDate(event.startDate, event.endDate)}}
+            </div>
+            <div class="event-sub-descriptions">{{event.address.address}}</div>
+        </div>
+        <div flex="none" class="admin-menu-container" ng-show="ctrl.isAdmin">
+            <md-menu md-position-mode="target-right target" class="admin-menu">
+                <md-icon ng-click="$mdOpenMenu($event)" md-svg-icon="cardActions:setting" aria-label="Event Settings" class="admin-menu-icon"></md-icon>
+                <md-menu-content>
+                    <md-menu-item ng-show="ctrl.editAllowed === 'true'">
+                        <md-button ng-click="ctrl.editEvent(event, $index)">Bearbeiten</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="ctrl.deleteEvent(event)">Löschen</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+    <md-button ng-show="ctrl.hasMoreEvents" ng-click="ctrl.nextEvents()" md-no-ink class="md-primary ely-next-button">
+        <md-icon md-svg-icon="cardActions:arrowForward" aria-label="Next Events" class="ely-next-button-icon"></md-icon>
+        Weitere Veranstalungen
+    </md-button>
+</div>

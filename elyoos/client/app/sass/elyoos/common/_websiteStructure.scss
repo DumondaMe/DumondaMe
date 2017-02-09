@@ -15,3 +15,20 @@
 *:focus {
   outline: none;
 }
+
+#beta-message {
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: $background-info;
+  cursor: pointer;
+  color: white;
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .description {
+    font-size: 14px;
+  }
+}

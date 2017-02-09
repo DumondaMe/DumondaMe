@@ -1,45 +1,34 @@
-<md-content id="ely-home" layout="column">
-    <div id="pinwall-commands" layout="row" flex="none" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
-        <div layout="row" layout-align="start center">
-            <div class="pinwall-command-fab" layout="row" layout-align="start center">
-                <div>
-                    <md-button class="md-fab md-mini" aria-label="Create Content" ng-click="ctrl.openCreatePage()">
-                        <md-icon md-svg-icon="navFAB:add"></md-icon>
-                    </md-button>
+<md-content id="ely-home">
+    <div layout="column" id="ely-home-content-container" ng-if="!ctrl.loadRunning && !ctrl.showSearch">
+        <div id="pinwall-commands-container">
+            <div id="pinwall-commands" layout="row" flex="none">
+                <div layout="row" layout-align="start center">
+                    <ely-icon-button icon="navFAB:add" label="Neuer Beitrag" ng-click="ctrl.openCreatePage()"></ely-icon-button>
+                    <ely-icon-button icon="navFAB:filter" label="Filter" ng-click="ctrl.openFilterDialog()"></ely-icon-button>
                 </div>
-                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openCreatePage()">Neuer Beitrag</div>
-            </div>
-            <div class="pinwall-command-fab" layout="row" layout-align="start center">
-                <div>
-                    <md-button class="md-fab md-mini" aria-label="Filter pinwall" ng-click="ctrl.openSideNavRight()">
-                        <md-icon md-svg-icon="navFAB:filter"></md-icon>
-                    </md-button>
+                <span flex></span>
+                <div id="pinwall-order">
+                    <md-input-container>
+                        <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
+                                   md-on-close="ctrl.orderChanged()">
+                            <md-option value="new">Neue Empfehlungen</md-option>
+                            <md-option value="popular">Beliebteste Beiträge</md-option>
+                        </md-select>
+                    </md-input-container>
                 </div>
-                <div class="pinwall-command-text" ng-show="ctrl.$mdMedia('gt-sm')" ng-click="ctrl.openSideNavRight()">Filter</div>
             </div>
         </div>
-        <span flex></span>
-        <div id="pinwall-order">
-            <md-input-container>
-                <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
-                           md-on-close="ctrl.orderChanged()">
-                    <md-option value="new">Neue Empfehlungen</md-option>
-                    <md-option value="popular">Beliebteste Beiträge</md-option>
-                </md-select>
-            </md-input-container>
-        </div>
-    </div>
-    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" ng-if="!ctrl.loadRunning && !ctrl.showSearch" flex>
-        <div class="pinwall-inner-container">
-            <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
-                         show-info="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"
-                         add-remove-pinwall-element-service="ctrl.addRemovePinwallElementService"></ely-pinwall>
+        <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex>
+            <div class="pinwall-inner-container">
+                <ely-pinwall flex="none" contacting="ctrl.home.contacting" recommended-user="ctrl.home.recommendedUser" pinwall="ctrl.home.pinwall"
+                             show-info="true" no-pinwall="ctrl.noPinwall" reload-pinwall="ctrl.reloadPinwall"
+                             add-remove-pinwall-element-service="ctrl.addRemovePinwallElementService"></ely-pinwall>
+            </div>
         </div>
     </div>
     <ely-load-screen ng-if="ctrl.loadRunning"></ely-load-screen>
     <ely-home-search-result search-result="ctrl.searchResult" ng-if="!ctrl.loadRunning && ctrl.showSearch"></ely-home-search-result>
-    <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="rightFilterRecommendationNav"
-                md-is-locked-open="false">
-        <ely-blog-recommendation-side-nav-filter></ely-blog-recommendation-side-nav-filter>
-    </md-sidenav>
+    <md-card id="info-container" ng-if="ctrl.$mdMedia('(min-width: 600px)') && !ctrl.showSearch">
+        <ely-home-info-container></ely-home-info-container>
+    </md-card>
 </md-content>

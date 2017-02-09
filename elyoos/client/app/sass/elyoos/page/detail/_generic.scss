@@ -1,6 +1,10 @@
 #ely-generic-page-detail {
   #ely-generic-page-main-detail {
     padding: 12px;
+
+    #beta-message {
+      margin: 8px 0;
+    }
     .title-container {
       .title {
         color: $primary-color;
@@ -12,6 +16,12 @@
         @media screen and (min-width: $gt-sm) {
           font-size: 24px;
         }
+      }
+      .sub-title {
+        cursor: pointer;
+        color: $secondary-text;
+        font-size: 16px;
+        overflow: hidden;
       }
     }
 

@@ -1,13 +1,6 @@
-<div id="ely-generic-page-map">
-    <div class="header">
-        <div class="title"><span class="number">{{ctrl.addresses.length}}</span>
-            <ng-pluralize count="ctrl.addresses.length"
-                          when="{'1': ' Standort', 'other': ' Standorte'}">
-            </ng-pluralize>
-        </div>
-    </div>
+<div id="ely-generic-page-map" ng-show="addresses.length > 0">
     <div class="content">
-        <ely-map on-map-change="ctrl.mapChanged" default-center="{lat:47.3560363, lng:7.9961821}" default-zoom="5"
+        <ely-map map-id="generic-detail-addresses" map-init="ctrl.mapInit" default-center="{latitude:47.3560363, longitude:7.9961821}" default-zoom="5"
                  commands="ctrl.commandsMap"></ely-map>
     </div>
 </div>

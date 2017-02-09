@@ -25,8 +25,8 @@ var defaultIcon = L.icon({
 module.exports = ['elyHelper', function (elyHelper) {
     var service = this, markerCollection = [];
 
-    service.addMarker = function (map, lat, lng, events) {
-        var marker = L.marker([lat, lng]);
+    service.addMarker = function (map, latitude, longitude, events) {
+        var marker = L.marker([latitude, longitude]);
         if (elyHelper.isDefined(events)) {
             marker.on('mouseover', function () {
                 if (elyHelper.isFunction(events.mouseOverMarker)) {
@@ -45,11 +45,15 @@ module.exports = ['elyHelper', function (elyHelper) {
     };
 
     service.setSelectedMarker = function (marker) {
-        marker.setIcon(selectedIcon);
+        if (angular.isObject(marker)) {
+            marker.setIcon(selectedIcon);
+        }
     };
 
     service.setDefaultMarker = function (marker) {
-        marker.setIcon(defaultIcon);
+        if (angular.isObject(marker)) {
+            marker.setIcon(defaultIcon);
+        }
     };
 
     service.deleteAllMarker = function (map) {
@@ -66,7 +70,7 @@ module.exports = ['elyHelper', function (elyHelper) {
         });
         if (tmpMarkerCollection.length > 0) {
             group = new L.featureGroup(tmpMarkerCollection);
-            map.fitBounds(group.getBounds().pad(0.07), fitBoundOptions);
+            map.fitBounds(group.getBounds().pad(0.2), fitBoundOptions);
         }
     };
 }];

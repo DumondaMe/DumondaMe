@@ -1,49 +1,18 @@
-<md-bottom-sheet layout="column" id="ely-create-page-nav" class="md-grid">
-    <div layout="row" layout-align="center center" ng-cloak>
-        <div class="action-description">Neuer Beitrag erstellen:</div>
-    </div>
-    <div ng-cloak>
-        <md-list layout="row" layout-align="center center">
-            <md-list-item>
-                <div>
-                    <md-button class="md-grid-item-content" ng-click="ctrl.createBlog()">
-                        <md-icon md-svg-icon="nav:blog"></md-icon>
-                        <div class="md-grid-text">Blog</div>
-                    </md-button>
-                </div>
-            </md-list-item>
-            <md-list-item>
-                <div>
-                    <md-button class="md-grid-item-content" ng-click="ctrl.createBookPage()">
-                        <md-icon md-svg-icon="nav:book"></md-icon>
-                        <div class="md-grid-text">Buch</div>
-                    </md-button>
-                </div>
-            </md-list-item>
-            <md-list-item>
-                <div>
-                    <md-button class="md-grid-item-content" ng-click="ctrl.createYoutubePage()">
-                        <md-icon md-svg-icon="nav:video"></md-icon>
-                        <div class="md-grid-text">Youtube</div>
-                    </md-button>
-                </div>
-            </md-list-item>
-            <md-list-item>
-                <div>
-                    <md-button class="md-grid-item-content" ng-click="ctrl.createLinkPage()">
-                        <md-icon md-svg-icon="nav:link"></md-icon>
-                        <div class="md-grid-text">Link</div>
-                    </md-button>
-                </div>
-            </md-list-item>
-            <!--<md-list-item>
-                <div>
-                    <md-button class="md-grid-item-content" ng-click="ctrl.createGenericPage()">
-                        <md-icon md-svg-icon="nav:place"></md-icon>
-                        <div class="md-grid-text">Allgemein</div>
-                    </md-button>
-                </div>
-            </md-list-item>-->
-        </md-list>
-    </div>
-</md-bottom-sheet>
+<md-dialog id="ely-create-page-nav">
+    <form name="ctrl.createPageForm" aria-label="Create Page" ng-cloak>
+        <md-dialog-content>
+            <div class="md-dialog-content" id="ely-create-page-content" layout="row" layout-align="center center" layout-wrap>
+                <ely-nav-create-page-element icon="nav:blog" description="Blog" ely-on-click="ctrl.createBlog"></ely-nav-create-page-element>
+                <ely-nav-create-page-element icon="nav:book" description="Buch" ely-on-click="ctrl.createBookPage"></ely-nav-create-page-element>
+                <ely-nav-create-page-element icon="nav:video" description="Youtube"
+                                             ely-on-click="ctrl.createYoutubePage"></ely-nav-create-page-element>
+                <ely-nav-create-page-element icon="nav:link" description="Link" ely-on-click="ctrl.createLinkPage"></ely-nav-create-page-element>
+                <ely-nav-create-page-element icon="nav:generic" description="Organisationen Projekte Diverses"
+                                             ely-on-click="ctrl.createGenericPage"></ely-nav-create-page-element>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

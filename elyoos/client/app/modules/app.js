@@ -63,7 +63,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
                 url: '/info/',
                 views: {
                     content: {
-                        template: '<ely-home-info></ely-home-info>'
+                        template: '<ely-home-vision></ely-home-vision>'
                     }
                 },
                 data: {hasBackNav: true, hasSearch: false, title: 'Um was geht es?'}

@@ -11,11 +11,11 @@ describe('Integration Tests for getting generic page detail', function () {
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
             dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
-                description: 'Zuerich',
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
-            }]);
+            }], 'www.elyoos.org');
         });
     });
 
@@ -34,6 +34,11 @@ describe('Integration Tests for getting generic page detail', function () {
 
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
 
+        dbDsl.createPageEventNewAddress('1', {
+            eventId: '1', title: 'Event', description: 'Super Event',
+            startDate: 500, endDate: 600
+        }, {addressId: '13', address: 'Urdorf', lat: 48.05642, lng: 8.36542});
+
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
@@ -47,6 +52,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.pageId.should.equals('1');
             res.body.page.title.should.equals('Test1Place');
             res.body.page.description.should.equals('page1Description');
+            res.body.page.website.should.equals('www.elyoos.org');
             res.body.page.created.should.equals(100);
             res.body.page.modified.should.equals(100);
             res.body.page.label.should.equals('Generic');
@@ -60,7 +66,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.page.language[0].should.equals('en');
             res.body.page.language[1].should.equals('de');
             res.body.page.addresses.length.should.equals(1);
-            res.body.page.addresses[0].description.should.equals('Zuerich');
+            res.body.page.addresses[0].address.should.equals('Zuerich');
             res.body.page.addresses[0].latitude.should.equals(47.376887);
             res.body.page.addresses[0].longitude.should.equals(8.541694);
             res.body.page.addresses[0].addressId.should.equals('11');
@@ -70,6 +76,7 @@ describe('Integration Tests for getting generic page detail', function () {
             res.body.administrators.list[0].userId.should.equals('2');
             res.body.administrators.list[0].profileUrl.should.equals('profileImage/default/profilePreview.jpg');
             res.body.administrators.isAdmin.should.be.false;
+            res.body.hasEvents.should.be.true;
 
             res.body.recommendation.user.profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             res.body.recommendation.user.recommendationId.should.equals('0');

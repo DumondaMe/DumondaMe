@@ -3,9 +3,9 @@
 let cdn = require('elyoos-server-lib').cdn;
 
 let compare = function (a, b) {
-    if (a.description < b.description) {
+    if (a.addressId < b.addressId) {
         return -1;
-    } else if (a.description > b.description) {
+    } else if (a.addressId > b.addressId) {
         return 1;
     }
     return 0;
@@ -20,9 +20,9 @@ let getRecommendationElement = function (pinwallElement) {
     element.topic = pinwallElement.recommendationElement.topic;
     element.url = cdn.getUrl(`pages/${element.pageId}/thumbnail.jpg`);
     element.numberOfRecommendations = pinwallElement.numberOfRecommendations;
-    if (pinwallElement.hasOwnProperty("places")) {
-        element.places = pinwallElement.places;
-        element.places.sort(compare);
+    if (pinwallElement.hasOwnProperty("addresses")) {
+        element.addresses = pinwallElement.addresses;
+        element.addresses.sort(compare);
     }
     return element;
 };

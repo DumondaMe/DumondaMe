@@ -1,0 +1,11 @@
+<div ng-if="ctrl.$mdMedia('gt-sm')" class="ely-page-address-desktop-container">
+    <div layout="row">
+        <div classs="address-container" flex="50">
+            <ely-page-detail-address-element is-admin="ctrl.pageDetail.administrators.isAdmin" addresses="ctrl.pageDetail.page.addresses">
+            </ely-page-detail-address-element>
+        </div>
+        <div classs="map-container" flex="50" flex-offset="5">
+            <ely-page-detail-map-generic addresses="ctrl.pageDetail.page.addresses"></ely-page-detail-map-generic>
+        </div>
+    </div>
+</div>

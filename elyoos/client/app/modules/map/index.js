@@ -6,6 +6,7 @@ var directive = require('./directive.js');
 app.directive(directive.name, directive.directive);
 
 app.service('ElyMapMarkerService', require('./services/marker'));
+app.service('PopularAddressRecommendation', require('./services/popularAddressRecommendation'));
 
 app.config(['$stateProvider', function ($stateProvider) {
 

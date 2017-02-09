@@ -16,8 +16,10 @@
   }
   .page-admin-actions-container {
     margin-top: 8px;
-    .page-admin-action {
-      margin-left: 0;
+    .first-element {
+      .md-mini {
+        margin-left: 0;
+      }
     }
   }
 }

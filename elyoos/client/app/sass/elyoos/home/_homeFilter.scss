@@ -1,0 +1,73 @@
+#ely-home-filter {
+  #ely-filter-content {
+    .filter-element {
+      cursor: pointer;
+      width: 84px;
+      height: 80px;
+      @media screen and (min-width: $gt-xs) {
+        width: 100px;
+        height: 100px;
+      }
+      @media screen and (min-width: $gt-md) {
+        width: 120px;
+        height: 110px;
+      }
+      .filter-icon {
+        padding: 0 30px 16px 30px;
+        height: 24px;
+        width: 24px;
+        @media screen and (min-width: $gt-xs) {
+          padding: 0 31px 16px 31px;
+          height: 38px;
+          width: 38px;
+        }
+        @media screen and (min-width: $gt-md) {
+          padding: 0 36px 16px 36px;
+          height: 48px;
+          width: 48px;
+        }
+      }
+      .filter-description {
+        text-align: center;
+        font-size: 14px;
+        color: $secondary-text;
+        font-weight: 500;
+        @media screen and (min-width: $gt-xs) {
+          font-size: 16px;
+        }
+      }
+    }
+    .filter-element.is-selected {
+      .filter-icon {
+        color: $primary-color;
+      }
+      .filter-description {
+        color: $primary-color;
+      }
+    }
+    #ely-filter-topics {
+      border-bottom: solid 1px $divider;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      @media screen and (min-width: $gt-xs) {
+        padding-bottom: 32px;
+        margin-bottom: 38px;
+        margin-top: 24px;
+      }
+    }
+    #ely-filter-page-type {
+      border-bottom: solid 1px $divider;
+      margin-bottom: 16px;
+      @media screen and (min-width: $gt-xs) {
+        padding-bottom: 16px;
+      }
+    }
+    #ely-filter-miscellaneous {
+      #filter-is-contact {
+        @media screen and (min-width: $gt-xs) {
+          margin: 19px 0 0 32px;
+        }
+      }
+    }
+  }
+}

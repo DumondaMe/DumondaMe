@@ -10,7 +10,6 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                pinwall: '='
             },
             templateUrl: 'app/modules/navigation/createPage/template.html'
         };

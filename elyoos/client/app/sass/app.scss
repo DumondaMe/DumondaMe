@@ -71,6 +71,9 @@ body, html {
 
 md-dialog {
   max-height: 95%;
+  @media screen and (max-width: $gt-xs) {
+    max-width: 100%;
+  }
 }
 
 #no-javascript {

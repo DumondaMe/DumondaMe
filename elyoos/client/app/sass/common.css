@@ -19,7 +19,7 @@
 .md-button {
   text-transform: none !important; }
 
-.ely-icon-button {
+.ely-button {
   display: inline-block;
   cursor: pointer;
   color: #333;
@@ -27,32 +27,49 @@
   user-select: none;
   border: 2px solid #ccc;
   border-radius: 8px; }
-  .ely-icon-button .ely-button-label {
+  .ely-button .ely-button-label {
     font-size: 14px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54);
     text-align: center;
     vertical-align: middle; }
-  .ely-icon-button .portrait-format {
+  .ely-button .portrait-format {
     width: 100px;
     height: 100px; }
-    .ely-icon-button .portrait-format .ely-button-label {
+    .ely-button .portrait-format .ely-button-label {
       padding: 6px 12px 12px 12px; }
-    .ely-icon-button .portrait-format .ely-button-icon {
+    .ely-button .portrait-format .ely-button-icon {
       margin-top: 12px;
       height: 36px;
       width: 36px; }
-  .ely-icon-button .landscape-format {
+  .ely-button .landscape-format {
     padding: 0 8px; }
-    .ely-icon-button .landscape-format .ely-button-icon {
+    .ely-button .landscape-format .ely-button-icon {
       margin-top: 6px;
       margin-bottom: 6px;
       margin-right: 6px;
       height: 28px;
       width: 28px; }
 
-.ely-icon-button:hover {
+.ely-button:hover {
   background-color: #ccc; }
+
+.ely-icon-button {
+  cursor: pointer; }
+  @media screen and (min-width: 960px) {
+    .ely-icon-button {
+      margin-right: 18px; } }
+  .ely-icon-button .button-text {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87); }
+    @media screen and (min-width: 960px) {
+      .ely-icon-button .button-text {
+        font-size: 16px; } }
+
+.ely-icon-button:hover .button-text {
+  text-decoration: underline; }
 
 /*!
  * Cropper v2.3.3
@@ -325,6 +342,41 @@
 .cropper-disabled .cropper-drag-box, .cropper-disabled .cropper-face, .cropper-disabled .cropper-line, .cropper-disabled .cropper-point {
   cursor: not-allowed; }
 
+.ely-date-time-picker {
+  max-width: 380px; }
+  .ely-date-time-picker .ely-date-time-title {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 500; }
+    @media screen and (min-width: 600px) {
+      .ely-date-time-picker .ely-date-time-title {
+        text-align: center;
+        line-height: 40px;
+        margin-right: 12px; } }
+  .ely-date-time-picker .ely-date-picker-container {
+    margin-right: 18px; }
+  .ely-date-time-picker .ely-input-time-container {
+    position: relative;
+    top: -2px;
+    margin-left: 18px; }
+    .ely-date-time-picker .ely-input-time-container .clock-icon {
+      bottom: 7px;
+      color: rgba(0, 0, 0, 0.54); }
+    .ely-date-time-picker .ely-input-time-container .ely-input-time {
+      width: 50px; }
+  .ely-date-time-picker .md-button.md-icon-button {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0; }
+    .ely-date-time-picker .md-button.md-icon-button .md-datepicker-calendar-icon {
+      margin-left: 0;
+      margin-right: 0; }
+  .ely-date-time-picker .md-icon-button + .md-datepicker-input-container {
+    margin-left: 0; }
+    .ely-date-time-picker .md-icon-button + .md-datepicker-input-container .md-datepicker-input {
+      min-width: 100px; }
+
 .ely-expand-text .ely-expand-text-description {
   font-size: 14px;
   font-weight: 400;
@@ -387,11 +439,12 @@
   height: 100%;
   width: 100%; }
 
-#ely-map {
-  z-index: 0; }
-  #ely-map #map-id {
+.ely-map {
+  z-index: 0;
+  height: 100%; }
+  .ely-map .ely-map-container {
     z-index: 0;
-    height: 400px; }
+    height: 100%; }
 
 .searchBoxForm {
   width: 100%;
@@ -515,6 +568,13 @@
 .ely-topics-vertical-color.two-columns {
   width: 32px; }
 
+.ely-next-button {
+  margin-left: 0;
+  padding-left: 0; }
+  .ely-next-button .ely-next-button-icon {
+    margin-right: 6px;
+    margin-bottom: 2px; }
+
 .ely-close-sub-toolbar {
   position: fixed;
   bottom: 0;
@@ -605,6 +665,20 @@ md-toast.md-error-toast-theme {
 
 *:focus {
   outline: none; }
+
+#beta-message {
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #9575CD;
+  cursor: pointer;
+  color: white; }
+  #beta-message .title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px; }
+  #beta-message .description {
+    font-size: 14px; }
 
 #ely-preview-picture {
   height: 100%;

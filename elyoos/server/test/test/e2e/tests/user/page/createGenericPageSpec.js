@@ -34,8 +34,7 @@ describe('Integration Tests for creating new generic pages', function () {
                 topic: ['health', 'spiritual'],
                 language: ['en', 'de'],
                 description: 'description',
-                website: 'www.elyoos.com',
-                places: [{description: 'addressName', lat: -5.00, lng: 6.00}, {description: 'addressName2', lat: -4.00, lng: 7.00}]
+                website: 'www.elyoos.com'
             }
         }, pageId;
 
@@ -45,11 +44,11 @@ describe('Integration Tests for creating new generic pages', function () {
             res.status.should.equal(200);
             pageId = res.body.pageId;
             res.body.previewImage.should.equals(`pages/${pageId}/preview.jpg`);
-            return db.cypher().match("(address:Address)<-[:HAS]-(page:Page {title: 'title'})<-[:IS_ADMIN]-(user:User {userId: '1'})")
+            return db.cypher().match("(page:Page {title: 'title'})<-[:IS_ADMIN]-(user:User {userId: '1'})")
                 .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation:PinwallElement)-[:RECOMMENDS]->(page:Page {title: 'title'})")
-                .with("page, address, recommendation")
+                .with("page, recommendation")
                 .match(`(recommendation)-[pinwallData:PINWALL_DATA]->(page)`)
-                .return(`page, collect(address) as addresses, recommendation, pinwallData`)
+                .return(`page, recommendation, pinwallData`)
                 .end().send();
         }).then(function (page) {
             page.length.should.equals(1);
@@ -60,19 +59,6 @@ describe('Integration Tests for creating new generic pages', function () {
             page[0].page.description.should.equals("description");
             page[0].page.website.should.equals("www.elyoos.com");
             page[0].page.pageId.should.equals(pageId);
-
-            page[0].addresses.length.should.equals(2);
-            page[0].addresses.sort(function (a, b) {
-                return b.latitude - a.latitude;
-            });
-            page[0].addresses[0].description.should.equals("addressName2");
-            page[0].addresses[0].latitude.should.equals(-4.00);
-            page[0].addresses[0].longitude.should.equals(7.00);
-            should.exist(page[0].addresses[0].addressId);
-            page[0].addresses[1].description.should.equals("addressName");
-            page[0].addresses[1].latitude.should.equals(-5.00);
-            page[0].addresses[1].longitude.should.equals(6.00);
-            should.exist(page[0].addresses[1].addressId);
 
             page[0].page.topic.length.should.equals(2);
             page[0].page.topic[0].should.equals('health');

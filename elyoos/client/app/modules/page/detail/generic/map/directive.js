@@ -5,12 +5,10 @@ module.exports = {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {addresses: '='},
             controller: require('./controller'),
             controllerAs: 'ctrl',
-            bindToController: {
-                addresses: '='
-            },
+            bindToController: {},
             templateUrl: 'app/modules/page/detail/generic/map/template.html'
         };
     }],

@@ -1,5 +1,5 @@
 .card-recommendation-desktop {
-  max-width: 450px;
+  @include cardElement();
   margin: 8px 0;
   .header {
     padding: 16px;
