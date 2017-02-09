@@ -3,6 +3,9 @@
         <div id="ely-home-info-content-inner-container" ely-infinite-scroll="ctrl.nextEvents"
              scroll-position="ctrl.setScrollPosition">
             <div ely-height="ctrl.setTotalHeightColumn">
+                <div class="ely-no-events-container" ng-if="ctrl.noEvents">
+                    Es finden noch keine Veranstaltungen statt.
+                </div>
                 <div class="ely-home-info-event-container" ng-repeat="event in ctrl.events.events">
                     <ely-home-info-container-event event="event"></ely-home-info-container-event>
                 </div>

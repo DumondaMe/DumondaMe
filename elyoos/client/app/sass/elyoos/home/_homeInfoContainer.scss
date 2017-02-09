@@ -8,6 +8,12 @@
       height: 100%;
       overflow-y: scroll;
       padding-right: 22px;
+      .ely-no-events-container {
+        padding: 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $secondary-text;
+      }
       .ely-home-info-event-container {
         padding: 8px;
         border-bottom: 1px solid $divider;

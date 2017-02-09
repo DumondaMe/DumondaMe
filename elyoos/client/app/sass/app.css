@@ -1213,6 +1213,11 @@
       height: 100%;
       overflow-y: scroll;
       padding-right: 22px; }
+      #ely-home-info-container #ely-home-info-content-container #ely-home-info-content-inner-container .ely-no-events-container {
+        padding: 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.54); }
       #ely-home-info-container #ely-home-info-content-container #ely-home-info-content-inner-container .ely-home-info-event-container {
         padding: 8px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12); }

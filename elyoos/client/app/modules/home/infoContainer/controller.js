@@ -1,7 +1,5 @@
 'use strict';
 
-var heightPreview = 67;
-
 module.exports = ['EventOverview', 'ScrollRequest', 'EventOverviewScrollRequestResponseHandler', '$document',
     function (EventOverview, ScrollRequest, EventOverviewScrollRequestResponseHandler, $document) {
         var ctrl = this;
@@ -15,10 +13,13 @@ module.exports = ['EventOverview', 'ScrollRequest', 'EventOverviewScrollRequestR
         ScrollRequest.reset('eventOverview', EventOverview.get, EventOverviewScrollRequestResponseHandler);
 
         ctrl.nextEvents = function () {
+            ctrl.noEvents = false;
             ScrollRequest.nextRequest('eventOverview', ctrl.events.events).then(function (events) {
                 ctrl.requestRunning = false;
                 ctrl.events = events;
-                //ctrl.totalScrollHeight = ctrl.events.events.length * heightPreview;
+                if(ctrl.events.events.length === 0) {
+                    ctrl.noEvents = true;
+                }
             });
         };
 
