@@ -68,7 +68,7 @@ module.exports = {
 
             scope.$watchCollection('center', function (newCenter) {
                 if (elyHelper.isDefined(newCenter)) {
-                    MapCenter.setCenter(scope.center, scope.zoom, scope.hasMarkerCenter, elyHelper, map);
+                    MapCenter.setCenter(scope.center, scope.zoom, scope.hasMarkerCenter, map);
                 }
             });
 
@@ -76,7 +76,7 @@ module.exports = {
                 map.remove();
             });
             $timeout(function () {
-                MapView.setView(scope.center, scope.defaultCenter, scope.zoom, scope.defaultZoom, scope.hasMarkerCenter, elyHelper, map);
+                MapView.setView(scope.center, scope.defaultCenter, scope.zoom, scope.defaultZoom, scope.hasMarkerCenter, map);
             }, 0);
         };
     }

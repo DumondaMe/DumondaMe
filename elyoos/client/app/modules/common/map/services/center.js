@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = [function () {
+module.exports = ['elyHelper', function (elyHelper) {
     var service = this, marker;
 
-    service.setCenterMarker = function (markerCenter, center, elyHelper, map) {
+    service.setCenterMarker = function (markerCenter, center, map) {
         if (elyHelper.isTrue(markerCenter) && elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude)) {
             if (elyHelper.isDefined(marker)) {
                 map.removeLayer(marker);
@@ -12,9 +12,11 @@ module.exports = [function () {
         }
     };
 
-    service.setCenter = function (center, zoom, markerCenter, elyHelper, map) {
-        map.panTo([center.latitude, center.longitude]);
-        map.setZoom(zoom);
-        service.setCenterMarker(markerCenter, center, elyHelper, map);
+    service.setCenter = function (center, zoom, markerCenter, map) {
+        if (elyHelper.isDefined(center.latitude) && elyHelper.isDefined(center.longitude) && elyHelper.isDefined(center.zoom)) {
+            map.panTo([center.latitude, center.longitude]);
+            map.setZoom(zoom);
+            service.setCenterMarker(markerCenter, center, elyHelper, map);
+        }
     };
 }];
