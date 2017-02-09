@@ -2327,6 +2327,8 @@
 
 #ely-generic-page-detail #ely-generic-page-main-detail {
   padding: 12px; }
+  #ely-generic-page-detail #ely-generic-page-main-detail #beta-message {
+    margin: 8px 0; }
   #ely-generic-page-detail #ely-generic-page-main-detail .title-container .title {
     color: #3F51B5;
     font-size: 20px;

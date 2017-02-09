@@ -1,4 +1,11 @@
 <div id="ely-generic-page-main-detail" ng-cloak>
+
+    <div id="beta-message" ui-sref="feedback.overview({group: 'DiscussionIdea', discussionId: '5649646897f51000'})">
+        <div class="title">Preview Version</div>
+        <div class="description">Mit diesen Beiträgen sollen sich Organisationen, Projekte und dergleichen auf Elyoos präsentieren können. Welche
+            Funktionen wären noch nützlich?
+        </div>
+    </div>
     <div class="title-container">
         <div class="md-title title">{{ctrl.pageDetail.page.title}}</div>
         <div class="sub-title" ng-show="ctrl.pageDetail.page.website" ng-click="ctrl.openLink(ctrl.pageDetail.page.website)">

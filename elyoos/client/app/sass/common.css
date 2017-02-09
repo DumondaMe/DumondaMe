@@ -666,6 +666,20 @@ md-toast.md-error-toast-theme {
 *:focus {
   outline: none; }
 
+#beta-message {
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #9575CD;
+  cursor: pointer;
+  color: white; }
+  #beta-message .title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px; }
+  #beta-message .description {
+    font-size: 14px; }
+
 #ely-preview-picture {
   height: 100%;
   width: 100%;
