@@ -17,12 +17,13 @@ let createPageEventNewAddress = function (pageId, eventData, address) {
 };
 
 let createPageEventExistingAddress = function (pageId, eventData, addressId) {
+    eventData.linkDescription = eventData.linkDescription || null;
     dbConnectionHandling.getCommands().push(db.cypher().match(`(page:Page {pageId: {pageId}}), (address:Address {addressId: {addressId}})`)
         .create(`(page)-[:EVENT]->(:Event {eventId: {eventId}, title: {title}, description: {description}, startDate: {startDate}, 
-                  endDate: {endDate}})-[:HAS]->(address)`)
+                  endDate: {endDate}, linkDescription: {linkDescription}})-[:HAS]->(address)`)
         .end({
             pageId: pageId, eventId: eventData.eventId, title: eventData.title, description: eventData.description, startDate: eventData.startDate,
-            endDate: eventData.endDate, addressId: addressId
+            endDate: eventData.endDate, linkDescription: eventData.linkDescription, addressId: addressId
         }).getCommand());
 };
 

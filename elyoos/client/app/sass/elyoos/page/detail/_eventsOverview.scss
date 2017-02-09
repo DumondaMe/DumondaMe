@@ -8,9 +8,13 @@
     .ely-page-events-overview-element {
       margin-bottom: 12px;
       .event-title {
+        cursor: pointer;
         font-size: 14px;
         color: $primary-color;
         font-weight: 500;
+      }
+      .event-title:hover {
+        text-decoration: underline;
       }
       .event-sub-descriptions {
         margin-top: 2px;

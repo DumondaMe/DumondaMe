@@ -35,6 +35,11 @@ module.exports = ['EventPageDetailOverview', '$stateParams', 'dateFormatter', 'm
             });
         };
 
+        ctrl.openEventInfo = function (eventId) {
+            ElyModal.show('InfoEventCtrl', 'app/modules/event/modal/info/template.html',
+                {eventId: eventId});
+        };
+
         if (ctrl.commands) {
             ctrl.commands.addEvent = function (event) {
                 ctrl.events.events.unshift(event);
