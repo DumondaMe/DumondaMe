@@ -4,9 +4,13 @@
   #map-container {
     height: 100%;
   }
-  #map-legend {
+  #map-list{
     width: 300px;
     height: 100%;
+  }
+  #open-map-list {
+    @include ely-fab-button();
+    bottom: 35px;
   }
 }
 

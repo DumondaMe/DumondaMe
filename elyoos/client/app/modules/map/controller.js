@@ -1,10 +1,11 @@
 'use strict';
 
-module.exports = ['$scope', 'PopularAddressRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService',
-    function ($scope, PopularAddressRecommendation, WebStorageMapCenter, ElyMapMarkerService) {
+module.exports = ['$scope', '$mdMedia', 'PopularAddressRecommendation', 'WebStorageMapCenter', 'ElyMapMarkerService', '$mdSidenav',
+    function ($scope, $mdMedia, PopularAddressRecommendation, WebStorageMapCenter, ElyMapMarkerService, $mdSidenav) {
     var ctrl = this;
 
     ctrl.commandsMap = {};
+    ctrl.$mdMedia = $mdMedia;
     ctrl.initMapParams = WebStorageMapCenter.getMapCenter();
 
     ctrl.mapChanged = function (radius, center, zoom) {
@@ -21,6 +22,10 @@ module.exports = ['$scope', 'PopularAddressRecommendation', 'WebStorageMapCenter
         }, function () {
 
         });
+    };
+
+    ctrl.toggleMapList = function () {
+        $mdSidenav("mapList").toggle();
     };
 }];
 
