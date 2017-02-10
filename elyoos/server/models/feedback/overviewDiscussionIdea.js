@@ -2,7 +2,6 @@
 
 let db = requireDb();
 let exception = require('elyoos-server-lib').exceptions;
-let overviewGroup = require('./overviewGroup');
 
 let getIdeaList = function (userId, discussionIdeas) {
     let formattedListDiscussionIdeas = [];
@@ -40,13 +39,20 @@ let getDiscussionCommand = function (params) {
         .return("discussion").end(params).getCommand();
 };
 
+let getNumberOfGroupFeedbackCommand = function (discussionId) {
+    return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(discussion:Feedback:DiscussionIdea {status: 'open'})`)
+        .with("count(discussion) AS numberOfOpenFeedbacks")
+        .optionalMatch(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(discussion:Feedback:DiscussionIdea {status: 'closed'})`)
+        .return("count(discussion) AS numberOfClosedFeedbacks, numberOfOpenFeedbacks").end({discussionId: discussionId}).getCommand();
+};
+
 let getOverview = function (userId, params) {
 
     let commands = [];
     params.userId = userId;
 
     commands.push(getDiscussionCommand(params));
-    commands.push(overviewGroup.getNumberOfGroupFeedbackCommand('DiscussionIdea'));
+    commands.push(getNumberOfGroupFeedbackCommand(params.discussionId));
 
     return db.cypher().match(`(:Feedback:Discussion {feedbackId: {discussionId}})<-[:IS_IDEA]-(idea:Feedback:DiscussionIdea {status: {status}})
                                <-[:IS_CREATOR]-(creator)`)

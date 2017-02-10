@@ -39,6 +39,9 @@ describe('Integration Tests for getting discussion ideas overview', function () 
         dbDsl.createFeedbackRecommendation('5', '14', '3', 516);
         dbDsl.createFeedbackRecommendation('4', '15', '3', 501);
 
+        dbDsl.createFeedbackDiscussion('50', '1', 500);
+        dbDsl.createFeedbackDiscussionIdea('51', '50', '1', 501);
+
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
         }).then(function (agent) {
