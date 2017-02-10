@@ -4,6 +4,7 @@ let path = require('path');
 let EmailTemplate = require('email-templates').EmailTemplate;
 let templatesDir = path.resolve(__dirname, 'templates');
 let preProcessingInvitePerson = require('./templates/invitePerson/preProcessing');
+let preProcessingFeedbackNewComment = require('./templates/feedbackNewComment/preProcessing');
 let emailTemplates = {
     newMessages: {
         template: new EmailTemplate(path.join(templatesDir, 'newMessages')),
@@ -25,6 +26,11 @@ let emailTemplates = {
         preProcessing: preProcessingInvitePerson.preProcessing,
         attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'},
             {filename: 'founder.jpg', path: path.join(templatesDir, 'images/founder.jpg'), cid: 'founderImage'}]
+    },
+    feedbackNewComment: {
+        template: new EmailTemplate(path.join(templatesDir, 'feedbackNewComment')),
+        preProcessing: preProcessingFeedbackNewComment.preProcessing,
+        attachments: [{filename: 'logo.png', path: path.join(templatesDir, 'images/logo.png'), cid: 'logoImage'}]
     }
 };
 

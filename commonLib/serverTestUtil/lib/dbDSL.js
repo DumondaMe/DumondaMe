@@ -22,7 +22,7 @@ let init = function (numberOfUser, isElyoosAdmin) {
         for (i = 0; i < numberOfUser - 1; i++) {
             userId = i + 2;
             dbConnectionHandling.getCommands().push(db.cypher().create(`(:User {name: 'user Meier${userId}', surname: 'Meier${userId}', forename:'user', 
-            userId: '${userId}'})`).end().getCommand());
+            userId: '${userId}', email: 'user${userId}@irgendwo.ch'})`).end().getCommand());
         }
     });
 };
