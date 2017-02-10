@@ -1,11 +1,11 @@
 'use strict';
 
 let AWS = require('aws-sdk');
-let cdnConfig = require('elyoos-server-lib').cdn;
+let cdnConfig = require('elyoos-server-lib').cdnConfig;
 let expiresAfterADay = 60 * 60 * 12;
 let deasync = require('deasync');
 
-if ('production' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
     AWS.config.credentials = new AWS.EC2MetadataCredentials({
         httpOptions: {timeout: 10000}
     });
