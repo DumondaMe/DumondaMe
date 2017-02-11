@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'ToolbarService', 'userInfo', 'UnreadMessagesService', 'Auth',
-    '$mdBottomSheet',
-    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService, Auth, $mdBottomSheet) {
+    'ElyModal',
+    function ($rootScope, $mdSidenav, loginStateHandler, $state, ToolbarService, userInfo, UnreadMessagesService, Auth, ElyModal) {
         var ctrl = this, previousState, previousParams, backNavToState, defaultBackNavState = null;
         ToolbarService.registerToolbar(ctrl);
         userInfo.register('toolbar', ctrl);
@@ -33,14 +33,7 @@ module.exports = ['$rootScope', '$mdSidenav', 'loginStateHandler', '$state', 'To
         };
 
         ctrl.openCreatePage = function () {
-            $mdBottomSheet.show({
-                templateUrl: 'app/modules/navigation/createPage/template.html',
-                controller: 'CreatePageNavCtrl',
-                controllerAs: 'ctrl',
-                locals: {},
-                clickOutsideToClose: true,
-                parent: '#viewport'
-            });
+            ElyModal.show('CreatePageNavCtrl', 'app/modules/navigation/createPage/template.html', {});
         };
 
         ctrl.navigateBack = function () {
