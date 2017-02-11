@@ -714,6 +714,7 @@
         color: rgba(0, 0, 0, 0.87);
         font-weight: 300; }
       #ely-feedback-group-overview #ely-feedback-group-overview2 #ely-feedback-group-overview-container #ely-feedback-group-inner-container .ely-feedback-overview-description {
+        white-space: pre-wrap;
         margin-top: 12px;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.54); }
