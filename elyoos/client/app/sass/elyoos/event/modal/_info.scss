@@ -36,6 +36,8 @@
       margin-top: 16px;
       font-size: 14px;
       color: $secondary-text;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
   }
 }
