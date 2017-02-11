@@ -1,0 +1,26 @@
+<body>
+<div class="body">
+    <%- include('../header/html') %>
+    <div id="header-bar"></div>
+    <div id="content-container">
+        <div class="description">
+            <span class="name"><%= userChangedStatusFeedback %></span> hat <span class="title"><%= titleFeedback %></span>
+            <% if (status === 'closed') { %>
+            geschlossen.
+            <% } %>
+            <% if (status === 'open') { %>
+            wieder geöffnet.
+            <% } %>
+        </div>
+        <div class="comment">
+            <%= reasonText %>
+        </div>
+        <div class="navigate">
+            <a class="btn btn-default" href="https://www.elyoos.org">Elyoos öffnen</a>
+        </div>
+    </div>
+    <div class="footer">
+        Diese Nachricht wurde von Elyoos versandt.
+    </div>
+</div>
+</body>

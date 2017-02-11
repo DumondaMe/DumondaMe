@@ -16,6 +16,7 @@ let Promise = require('bluebird');
 
 Promise.Promise.config({warnings: false, longStackTraces: true, cancellation: true});
 
+let emailService = require('./models/eMailService/eMail');
 let kraken = require('kraken-js');
 let dbConfig = require('elyoos-server-lib').databaseConfig;
 let app = require('express')();
@@ -40,6 +41,7 @@ app.listen(port, function (err) {
 
 app.on('start', function () {
     dbConfig.connected.then(function () {
+        emailService.start();
         logger.info('Admin Server started');
     });
 });

@@ -5,6 +5,7 @@ let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let feedbackEmail = require('../eMailService/feedback');
 
 let allowedToCloseFeedback = function (feedbackId, req) {
     return db.cypher().match("(feedback:Feedback {feedbackId: {feedbackId}})")
@@ -29,6 +30,7 @@ let close = function (userId, params, req) {
             .return("user.name AS name")
             .end({closed: closed, statusFeedbackId: statusFeedbackId, userId: userId, feedbackId: params.feedbackId, reasonText: params.reasonText})
             .send().then(function (resp) {
+                feedbackEmail.statusChanged(statusFeedbackId);
                 return {closedDate: closed, statusFeedbackId: statusFeedbackId, creator: {name: resp[0].name}};
             });
     });
