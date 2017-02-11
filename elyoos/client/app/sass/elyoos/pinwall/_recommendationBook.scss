@@ -2,16 +2,21 @@
   padding: 0 16px 16px 16px;
   .content-container {
     .book-preview-image {
-      width: 130px;
+      width: 115px;
+      min-height: 150px;
       margin-right: 12px;
       cursor: pointer;
+      @media screen and (min-width: 1500px) {
+        width: 130px;
+        min-height: 180px;
+      }
       img {
+        width: 100%;
         border-radius: 2px;
       }
     }
     .description-container {
       position: relative;
-      height: 207px;
       .topic-description {
         .topic-type {
           margin-top: 0;
@@ -19,7 +24,7 @@
       }
       .book-description {
         cursor: pointer;
-        height: 102px;
+        max-height: 102px;
         overflow: hidden;
         font-size: 14px;
         color: $secondary-text;
@@ -27,12 +32,12 @@
         -ms-scroll-limit: 0 0 0 0;
         @media screen and (max-width: $gt-xxs) {
           font-size: 12px;
-          height: 155px;
+          max-height: 155px;
         }
       }
       .action-container {
         position: absolute;
-        bottom: -8px;
+        bottom: -2px;
         left: -8px;
       }
     }
