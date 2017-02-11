@@ -1,10 +1,12 @@
 "use strict";
 
-let db = requireDb();
-let eMailQueue = require('elyoos-server-lib').eMailQueue;
+let db = require('./../../neo4j');
+let eMailQueue = require('./../eMailQueue');
 
 let getJobData = function (resp) {
-    resp.notified.unshift(resp.feedbackCreator.email);
+    if (resp.creator.userId !== resp.feedbackCreator.userId) {
+        resp.notified.unshift(resp.feedbackCreator.email);
+    }
     return {
         userCommentName: resp.creator.name, titleFeedback: resp.feedback.title, textComment: resp.comment.text,
         emails: resp.notified
@@ -12,7 +14,7 @@ let getJobData = function (resp) {
 };
 
 let checkSendFeedbackComment = function (resp) {
-   return  resp.notified.length > 0 || (resp.notified.length === 0 && resp.feedbackCreator.userId !== resp.creator.userId)
+    return resp.notified.length > 0 || (resp.notified.length === 0 && resp.feedbackCreator.userId !== resp.creator.userId)
 };
 
 let newComment = function (commentId) {

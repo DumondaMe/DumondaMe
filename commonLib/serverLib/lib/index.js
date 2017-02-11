@@ -1,6 +1,7 @@
 "use strict";
 
 let eMail = require('./eMail/eMail');
+let eMailService = require('./eMail/eMailService/eMail');
 let eMailQueue = require('./eMail/eMailQueue');
 let controllerErrors = require('./error/controllerErrors');
 let errors = require('./error/errors');
@@ -22,6 +23,7 @@ let uuid = require('./uuid');
 let version = require('./version');
 
 module.exports.eMail = eMail;
+module.exports.eMailService = eMailService;
 module.exports.eMailQueue = eMailQueue;
 
 module.exports.controllerErrors = controllerErrors;

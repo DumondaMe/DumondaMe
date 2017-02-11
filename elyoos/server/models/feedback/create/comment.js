@@ -4,7 +4,7 @@ let db = requireDb();
 let time = require('elyoos-server-lib').time;
 let uuid = require('elyoos-server-lib').uuid;
 let exceptions = require('elyoos-server-lib').exceptions;
-let feedbackMail = require('./../../eMailService/feedback');
+let eMailService = require('elyoos-server-lib').eMailService;
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let create = function (userId, params, req) {
@@ -20,7 +20,7 @@ let create = function (userId, params, req) {
             created: created, feedbackCommentId: feedbackCommentId
         }).send().then(function (resp) {
             if (resp.length === 1) {
-                feedbackMail.newComment(feedbackCommentId);
+                eMailService.feedbackNewComment(feedbackCommentId);
                 return {feedbackId: feedbackCommentId, created: created, creator: {name: resp[0].user.name}};
             }
             return exceptions.getInvalidOperation(`Feedback does not exist for feedbackId ${params.feedbackId}`, logger, req);

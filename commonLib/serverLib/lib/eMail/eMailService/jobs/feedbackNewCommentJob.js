@@ -1,8 +1,8 @@
 "use strict";
 
-let email = require('elyoos-server-lib').eMail;
+let email = require('./../../eMail');
 let _ = require('lodash');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
+let logger = require('../../../logging').getLogger(__filename);
 
 let processDefinition = function (data, done) {
 
