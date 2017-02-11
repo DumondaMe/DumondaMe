@@ -20,6 +20,7 @@ app.constant('VERSION', require('../../package.json').version);
 require('templates');
 require('duScroll');
 require('vcRecaptcha');
+var moment = require('moment');
 
 var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
@@ -38,10 +39,22 @@ var setMaterialDesignSettings = function ($mdThemingProvider, $mdIconProvider) {
     $mdIconProvider.iconSet('tabs', 'app/img/tabs.svg', 24);
 };
 
+var setMdDateLocalProvider = function ($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+        var m = moment(dateString, 'L', true);
+        return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+        var m = moment(date);
+        return m.isValid() ? m.format('L') : '';
+    };
+};
+
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', '$compileProvider', '$mdThemingProvider',
-    '$mdIconProvider', 'elyoosVersion',
+    '$mdIconProvider', 'elyoosVersion', '$mdDateLocaleProvider',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $compileProvider, $mdThemingProvider,
-              $mdIconProvider, elyoosVersion) {
+              $mdIconProvider, elyoosVersion, $mdDateLocaleProvider) {
 
         $compileProvider.debugInfoEnabled(false);
 
@@ -102,6 +115,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
         setMaterialDesignSettings($mdThemingProvider, $mdIconProvider);
+        setMdDateLocalProvider($mdDateLocaleProvider);
 
     }]).run(['$rootScope', '$state', 'CheckLoginStateParamsContainer', 'loginStateHandler', 'userInfo', 'updateStateHandler',
     function ($rootScope, $state, CheckLoginStateParamsContainer, loginStateHandler, userInfo, updateStateHandler) {
