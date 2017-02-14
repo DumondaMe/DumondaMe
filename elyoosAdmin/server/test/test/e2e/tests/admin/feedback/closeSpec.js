@@ -23,7 +23,7 @@ describe('Integration Tests for closing a feedback', function () {
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackBug('1', '1', 500, 600);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500, modified: 600});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -52,7 +52,7 @@ describe('Integration Tests for closing a feedback', function () {
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 500, modified: 600});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -81,8 +81,8 @@ describe('Integration Tests for closing a feedback', function () {
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -111,8 +111,8 @@ describe('Integration Tests for closing a feedback', function () {
         let statusFeedbackId;
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -138,7 +138,7 @@ describe('Integration Tests for closing a feedback', function () {
 
     it('Close already closed feedback (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600, 'closed');
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 500, modified: 600, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -152,7 +152,7 @@ describe('Integration Tests for closing a feedback', function () {
 
     it('Close not existing feedback (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 500, 600);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 500, modified: 600});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

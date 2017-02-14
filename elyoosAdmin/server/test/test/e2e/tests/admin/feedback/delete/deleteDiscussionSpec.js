@@ -22,7 +22,7 @@ describe('Integration Tests for deleting a discussion', function () {
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 507});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -44,8 +44,8 @@ describe('Integration Tests for deleting a discussion', function () {
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -70,8 +70,8 @@ describe('Integration Tests for deleting a discussion', function () {
 
     it('Delete non existing discussion (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

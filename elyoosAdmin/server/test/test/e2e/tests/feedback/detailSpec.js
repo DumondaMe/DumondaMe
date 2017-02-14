@@ -18,18 +18,18 @@ describe('Integration Tests for getting feedback detail', function () {
 
     it('Getting bug detail', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 400, 600);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 400, modified: 600});
 
-        dbDsl.createFeedbackComment('1', '2', '1', 501);
-        dbDsl.createFeedbackComment('1', '3', '2', 502);
-        dbDsl.createFeedbackComment('1', '4', '1', 503);
-        dbDsl.closeFeedback('1', '5', '3', 450);
-        dbDsl.reopenFeedback('1', '6', '3', 451);
+        dbDsl.createFeedbackComment('2', {feedbackId: '1', creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 502});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '1', created: 503});
+        dbDsl.closeFeedback('5', {feedbackId: '1', creatorUserId: '3', created: 450});
+        dbDsl.reopenFeedback('6', {feedbackId: '1', creatorUserId: '3', created: 451});
 
-        dbDsl.createFeedbackRecommendation('1', '7', '2', 504);
-        dbDsl.createFeedbackRecommendation('1', '8', '3', 505);
-        dbDsl.createFeedbackRecommendation('1', '9', '4', 506);
-        dbDsl.createFeedbackRecommendation('1', '10', '5', 506);
+        dbDsl.createFeedbackRecommendation('7', {feedbackId: '1', creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('8', {feedbackId: '1', creatorUserId: '3', created: 505});
+        dbDsl.createFeedbackRecommendation('9', {feedbackId: '1', creatorUserId: '4', created: 506});
+        dbDsl.createFeedbackRecommendation('10', {feedbackId: '1', creatorUserId: '5', created: 506});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -56,18 +56,18 @@ describe('Integration Tests for getting feedback detail', function () {
 
     it('Getting idea detail', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 400, 600);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 400, modified: 600});
 
-        dbDsl.createFeedbackComment('1', '2', '1', 501);
-        dbDsl.createFeedbackComment('1', '3', '2', 502);
-        dbDsl.createFeedbackComment('1', '4', '1', 503);
-        dbDsl.closeFeedback('1', '5', '3', 450);
-        dbDsl.reopenFeedback('1', '6', '3', 451);
+        dbDsl.createFeedbackComment('2', {feedbackId: '1', creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 502});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '1', created: 503});
+        dbDsl.closeFeedback('5', {feedbackId: '1', creatorUserId: '3', created: 450});
+        dbDsl.reopenFeedback('6', {feedbackId: '1', creatorUserId: '3', created: 451});
 
-        dbDsl.createFeedbackRecommendation('1', '7', '2', 504);
-        dbDsl.createFeedbackRecommendation('1', '8', '3', 505);
-        dbDsl.createFeedbackRecommendation('1', '9', '4', 506);
-        dbDsl.createFeedbackRecommendation('1', '10', '5', 506);
+        dbDsl.createFeedbackRecommendation('7', {feedbackId: '1', creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('8', {feedbackId: '1', creatorUserId: '3', created: 505});
+        dbDsl.createFeedbackRecommendation('9', {feedbackId: '1', creatorUserId: '4', created: 506});
+        dbDsl.createFeedbackRecommendation('10', {feedbackId: '1', creatorUserId: '5', created: 506});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -91,19 +91,20 @@ describe('Integration Tests for getting feedback detail', function () {
 
     it('Getting discussion idea detail', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507, 507, 'closed');
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509, 510);
 
-        dbDsl.createFeedbackComment('2', '3', '1', 501);
-        dbDsl.createFeedbackComment('2', '4', '2', 502);
-        dbDsl.createFeedbackComment('2', '5', '1', 503);
-        dbDsl.closeFeedback('2', '6', '3', 450);
-        dbDsl.reopenFeedback('2', '7', '3', 451);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', status: 'closed', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509, modified: 510});
 
-        dbDsl.createFeedbackRecommendation('2', '8', '2', 504);
-        dbDsl.createFeedbackRecommendation('2', '9', '3', 505);
-        dbDsl.createFeedbackRecommendation('2', '10', '4', 506);
-        dbDsl.createFeedbackRecommendation('2', '11', '5', 506);
+        dbDsl.createFeedbackComment('3', {feedbackId: '2', creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackComment('4', {feedbackId: '2', creatorUserId: '2', created: 502});
+        dbDsl.createFeedbackComment('5', {feedbackId: '2', creatorUserId: '1', created: 503});
+        dbDsl.closeFeedback('6', {feedbackId: '2', creatorUserId: '3', created: 450});
+        dbDsl.reopenFeedback('7', {feedbackId: '2', creatorUserId: '3', created: 451});
+
+        dbDsl.createFeedbackRecommendation('8', {feedbackId: '2', creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('9', {feedbackId: '2', creatorUserId: '3', created: 505});
+        dbDsl.createFeedbackRecommendation('10', {feedbackId: '2', creatorUserId: '4', created: 506});
+        dbDsl.createFeedbackRecommendation('11', {feedbackId: '2', creatorUserId: '5', created: 506});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -131,8 +132,8 @@ describe('Integration Tests for getting feedback detail', function () {
 
     it('Getting discussion detail is not a valid operation (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 507, 507, 'closed');
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 509, 510);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', status: 'closed', created: 507});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 509, modified: 510});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
