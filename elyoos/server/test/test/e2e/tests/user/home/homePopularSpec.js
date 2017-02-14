@@ -10,11 +10,12 @@ describe('Integration Tests for getting most popular content on home screen', fu
         return dbDsl.init(9).then(function () {
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 501, 'HansMuster', 1000);
-            dbDsl.createLinkPage('2', ['de'], ['health', 'personalDevelopment'], 502, 'www.host.com/test', 200, 'linkPageTitle');
-            dbDsl.createYoutubePage('1', ['de'], ['health', 'personalDevelopment'], 503, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
-
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 502, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createYoutubePage('1', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 503, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
             dbDsl.createBlog('3', {
                 blogWriterUserId: '4',
                 language: ['en'],
@@ -23,8 +24,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
                 pictureHeight: 400
             });
             dbDsl.createBlog('4', {blogWriterUserId: '6', language: ['en'], topic: ['health'], created: 511, pictureHeight: 400});
-
-            dbDsl.createGenericPage('5', '2', ['de'], ['health', 'personalDevelopment'], 506, 'Test1Place', [{
+            dbDsl.createGenericPage('5', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 506}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694
@@ -66,7 +66,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[0].name.should.equals('user Meier6');
             res.body.pinwall[0].forename.should.equals('user');
             res.body.pinwall[0].userId.should.equals('6');
-            res.body.pinwall[0].title.should.equals('Test1Place');
+            res.body.pinwall[0].title.should.equals('generic5Title');
             res.body.pinwall[0].created.should.equals(514);
             res.body.pinwall[0].previewImage.should.equals('pages/5/preview.jpg');
             res.body.pinwall[0].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
@@ -106,7 +106,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[2].link.should.equals('www.host.com/test');
             res.body.pinwall[2].hostname.should.equals('www.host.com');
             res.body.pinwall[2].userId.should.equals('3');
-            res.body.pinwall[2].title.should.equals('linkPageTitle');
+            res.body.pinwall[2].title.should.equals('page2Title');
             res.body.pinwall[2].created.should.equals(512);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.pinwall[2].linkPreviewUrl.should.equals('pages/2/preview.jpg');
@@ -128,7 +128,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[3].name.should.equals('user Meier2');
             res.body.pinwall[3].forename.should.equals('user');
             res.body.pinwall[3].userId.should.equals('2');
-            res.body.pinwall[3].title.should.equals('youtubePage2Title');
+            res.body.pinwall[3].title.should.equals('page1Title');
             res.body.pinwall[3].created.should.equals(518);
             res.body.pinwall[3].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[3].description.should.equals('page1Description');
@@ -193,7 +193,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[0].name.should.equals('user Meier4');
             res.body.pinwall[0].forename.should.equals('user');
             res.body.pinwall[0].userId.should.equals('4');
-            res.body.pinwall[0].title.should.equals('Test1Place');
+            res.body.pinwall[0].title.should.equals('generic5Title');
             res.body.pinwall[0].created.should.equals(513);
             res.body.pinwall[0].previewImage.should.equals('pages/5/preview.jpg');
             res.body.pinwall[0].profileUrl.should.equals('profileImage/4/thumbnail.jpg');
@@ -214,7 +214,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[1].link.should.equals('www.host.com/test');
             res.body.pinwall[1].hostname.should.equals('www.host.com');
             res.body.pinwall[1].userId.should.equals('3');
-            res.body.pinwall[1].title.should.equals('linkPageTitle');
+            res.body.pinwall[1].title.should.equals('page2Title');
             res.body.pinwall[1].created.should.equals(512);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             res.body.pinwall[1].linkPreviewUrl.should.equals('pages/2/preview.jpg');
@@ -236,7 +236,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[2].name.should.equals('user Meier2');
             res.body.pinwall[2].forename.should.equals('user');
             res.body.pinwall[2].userId.should.equals('2');
-            res.body.pinwall[2].title.should.equals('youtubePage2Title');
+            res.body.pinwall[2].title.should.equals('page1Title');
             res.body.pinwall[2].created.should.equals(518);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[2].description.should.equals('page1Description');

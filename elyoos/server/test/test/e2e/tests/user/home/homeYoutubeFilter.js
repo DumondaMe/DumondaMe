@@ -13,16 +13,22 @@ describe('Integration Tests for filtering youtube recommendation on home screen'
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createYoutubePage('0', ['de'], ['health', 'personalDevelopment'], 501, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage1Title');
-            dbDsl.createYoutubePage('1', ['fr'], ['socialDevelopment'], 502, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage1Title');
-            dbDsl.createYoutubePage('2', ['en'], ['personalDevelopment'], 503, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage1Title');
-            dbDsl.createLinkPage('10', ['de'], ['health', 'personalDevelopment'], 511, 'www.host.com/test', 200, 'linkPageTitle');
-            dbDsl.createBookPage('11', ['de'], ['health', 'personalDevelopment'], 512, 'HansMuster', 1000);
+            dbDsl.createYoutubePage('0', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createYoutubePage('1', {
+                language: ['fr'], topic: ['socialDevelopment'], modified: 502, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createYoutubePage('2', {
+                language: ['en'], topic: ['personalDevelopment'], modified: 503, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createLinkPage('10', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 511, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createBookPage('11', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 512, author: 'HansMuster', publishDate: 1000});
             dbDsl.createBlog('12', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 533, pictureHeight: 400});
-            dbDsl.createGenericPage('13', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+            dbDsl.createGenericPage('13', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694

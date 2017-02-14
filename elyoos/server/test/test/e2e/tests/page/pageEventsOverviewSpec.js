@@ -12,18 +12,20 @@ describe('Integration Tests for getting page events', function () {
     beforeEach(function () {
         return dbDsl.init(2).then(function () {
             startTime = Math.floor(moment.utc().valueOf() / 1000);
-            dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
-                description: 'Zuerich',
+
+            dbDsl.createGenericPage('1', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [{
+                address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
             }]);
-            dbDsl.createGenericPage('2', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
-                description: 'Zuerich',
+            dbDsl.createGenericPage('2', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [{
+                address: 'Zuerich1',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '12'
             }]);
+
             dbDsl.createPageEventNewAddress('1', {
                 eventId: '1', title: 'Event', description: 'Super Event',
                 startDate: startTime - 2, endDate: startTime + 600
@@ -124,7 +126,7 @@ describe('Integration Tests for getting page events', function () {
             res.body.events[0].description.should.equals('Super Event6');
             res.body.events[0].startDate.should.equals(startTime - 560);
             res.body.events[0].endDate.should.equals(startTime - 400);
-            res.body.events[0].address.description.should.equals('Zuerich');
+            res.body.events[0].address.address.should.equals('Zuerich');
             res.body.events[0].address.addressId.should.equals('11');
 
             res.body.events[1].eventId.should.equals('5');
@@ -132,7 +134,7 @@ describe('Integration Tests for getting page events', function () {
             res.body.events[1].description.should.equals('Super Event5');
             res.body.events[1].startDate.should.equals(startTime - 550);
             res.body.events[1].endDate.should.equals(startTime - 401);
-            res.body.events[1].address.description.should.equals('Zuerich');
+            res.body.events[1].address.address.should.equals('Zuerich');
             res.body.events[1].address.addressId.should.equals('11');
 
             res.body.totalNumberOfEvents.should.equals(3);

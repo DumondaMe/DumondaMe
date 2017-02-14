@@ -21,15 +21,15 @@ describe('Integration Tests for searching people or pages', function () {
                 dbDsl.createUser('6', 'user?', 'sMeier6');
                 dbDsl.createContactConnection('1', '5', 'Freund');
                 dbDsl.createContactConnection('1', '3', 'Freund');
-                dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 501, 'Hans Muster', 1000, 'book written by user?');
-                dbDsl.createBookPage('1', ['de'], ['health', 'personalDevelopment'], 502, 'Hans Muster', 1000, 'book written by Meier');
-                dbDsl.createBookPage('2', ['de'], ['health', 'personalDevelopment'], 500, 'Hans Muster', 1000, 'y written by user?');
-                dbDsl.createYoutubePage('3', ['de'], ['health', 'personalDevelopment'], 503, 'www.test.ch', 'www.test.ch/embed', 'youtube movie by user?');
-                dbDsl.createYoutubePage('4', ['de'], ['health', 'personalDevelopment'], 504, 'www.test2.ch', 'www.test.ch2/embed', 'youtube movie by Meier');
-                dbDsl.createYoutubePage('5', ['de'], ['health', 'personalDevelopment'], 499, 'www.test3.ch', 'www.test.ch3/embed', 'y movie by Meier');
-                dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
-                dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 510, 'www.test5.ch', null, 'ly by user?');
-                dbDsl.createLinkPage('8', ['de'], ['health', 'personalDevelopment'], 509, 'www.test6.ch', null, 'Irgendas mit Meier');
+                dbDsl.createBookPage('0', {title:'book written by user?', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, author: 'HansMuster', publishDate: 1000});
+                dbDsl.createBookPage('1', {title:'book written by Meier', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 502, author: 'HansMuster', publishDate: 1000});
+                dbDsl.createBookPage('2', {title:'y written by user?', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 500, author: 'HansMuster', publishDate: 1000});
+                dbDsl.createYoutubePage('3', {title: 'youtube movie by user?', language: ['en'], topic: ['health', 'personalDevelopment'], modified: 503, link: 'www.test.ch', linkEmbed: 'www.test.ch/embed'});
+                dbDsl.createYoutubePage('4', {title: 'youtube movie by Meier', language: ['en'], topic: ['health', 'personalDevelopment'], modified: 504, link: 'www.test2.ch', linkEmbed: 'www.test.ch2/embed'});
+                dbDsl.createYoutubePage('5', {title: 'y movie by Meier', language: ['en'], topic: ['health', 'personalDevelopment'], modified: 499, link: 'www.test3.ch', linkEmbed: 'www.test.ch3/embed'});
+                dbDsl.createLinkPage('6', {title: 'link by user?', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 508, link: 'www.test4.ch', heightPreviewImage: 200});
+                dbDsl.createLinkPage('7', {title: 'ly by user?', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 510, link: 'www.test5.ch'});
+                dbDsl.createLinkPage('8', {title: 'Irgendas mit Meier', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 509, link: 'www.test6.ch'});
                 dbDsl.createBlog('9', {
                     blogWriterUserId: '2',
                     language: ['de'],

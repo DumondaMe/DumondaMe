@@ -12,14 +12,13 @@ describe('Integration Tests for getting home screen information for a user', fun
 
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
-            dbDsl.createKeywords('Yoga');
-            dbDsl.createKeywords('Meditation');
-            dbDsl.createKeywords('Shop');
 
-            dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 501, 'HansMuster', 1000);
-            dbDsl.createLinkPage('2', ['de'], ['health', 'personalDevelopment'], 501, 'www.host.com/test', 200, 'linkPageTitle');
-            dbDsl.createYoutubePage('1', ['de'], ['health', 'personalDevelopment'], 501, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createYoutubePage('1', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
         });
     });
 
@@ -321,7 +320,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
         dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
-        dbDsl.createGenericPage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
             description: 'Zuerich',
             lat: 47.376887,
             lng: 8.541694
@@ -392,7 +391,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[2].name.should.equals('user Meier2');
             res.body.pinwall[2].forename.should.equals('user');
             res.body.pinwall[2].userId.should.equals('2');
-            res.body.pinwall[2].title.should.equals('youtubePage2Title');
+            res.body.pinwall[2].title.should.equals('page1Title');
             res.body.pinwall[2].created.should.equals(504);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[2].description.should.equals('page1Description');
@@ -463,7 +462,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].link.should.equals('www.host.com/test');
             res.body.pinwall[6].hostname.should.equals('www.host.com');
             res.body.pinwall[6].userId.should.equals('2');
-            res.body.pinwall[6].title.should.equals('linkPageTitle');
+            res.body.pinwall[6].title.should.equals('page2Title');
             res.body.pinwall[6].created.should.equals(499);
             res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
@@ -482,7 +481,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].name.should.equals('user Meier2');
             res.body.pinwall[7].forename.should.equals('user');
             res.body.pinwall[7].userId.should.equals('2');
-            res.body.pinwall[7].title.should.equals('Test1Place');
+            res.body.pinwall[7].title.should.equals('generic8Title');
             res.body.pinwall[7].created.should.equals(498);
             res.body.pinwall[7].previewImage.should.equals('pages/8/preview.jpg');
             res.body.pinwall[7].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
@@ -509,7 +508,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
         dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
-        dbDsl.createGenericPage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
             description: 'Zuerich',
             lat: 47.376887,
             lng: 8.541694
@@ -580,7 +579,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[2].name.should.equals('user Meier2');
             res.body.pinwall[2].forename.should.equals('user');
             res.body.pinwall[2].userId.should.equals('2');
-            res.body.pinwall[2].title.should.equals('youtubePage2Title');
+            res.body.pinwall[2].title.should.equals('page1Title');
             res.body.pinwall[2].created.should.equals(504);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[2].description.should.equals('page1Description');
@@ -651,7 +650,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].link.should.equals('www.host.com/test');
             res.body.pinwall[6].hostname.should.equals('www.host.com');
             res.body.pinwall[6].userId.should.equals('2');
-            res.body.pinwall[6].title.should.equals('linkPageTitle');
+            res.body.pinwall[6].title.should.equals('page2Title');
             res.body.pinwall[6].created.should.equals(499);
             res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
@@ -670,7 +669,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].name.should.equals('user Meier2');
             res.body.pinwall[7].forename.should.equals('user');
             res.body.pinwall[7].userId.should.equals('2');
-            res.body.pinwall[7].title.should.equals('Test1Place');
+            res.body.pinwall[7].title.should.equals('generic8Title');
             res.body.pinwall[7].created.should.equals(498);
             res.body.pinwall[7].previewImage.should.equals('pages/8/preview.jpg');
             res.body.pinwall[7].profileUrl.should.equals('profileImage/2/thumbnail.jpg');

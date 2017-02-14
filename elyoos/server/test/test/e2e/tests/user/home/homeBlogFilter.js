@@ -22,12 +22,13 @@ describe('Integration Tests for filtering blog on home screen', function () {
             });
             dbDsl.createBlog('1', {blogWriterUserId: '3', language: ['fr'], topic: ['socialDevelopment'], created: 502, pictureHeight: 400});
             dbDsl.createBlog('2', {blogWriterUserId: '3', language: ['en'], topic: ['personalDevelopment'], created: 503, pictureHeight: 400});
-
-            dbDsl.createLinkPage('10', ['de'], ['health', 'personalDevelopment'], 511, 'www.host.com/test', 200, 'linkPageTitle');
-            dbDsl.createYoutubePage('11', ['de'], ['health', 'personalDevelopment'], 512, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
-            dbDsl.createBookPage('12', ['en'], ['health', 'personalDevelopment'], 533, 'HansMuster', 1000);
-            dbDsl.createGenericPage('13', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
+            dbDsl.createLinkPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 511, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createYoutubePage('11', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 512, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createBookPage('12', {language: ['en'], topic: ['health', 'personalDevelopment'], modified: 533, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createGenericPage('13', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694

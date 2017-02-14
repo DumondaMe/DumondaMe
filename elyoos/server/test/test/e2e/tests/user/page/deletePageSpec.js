@@ -16,14 +16,17 @@ describe('Integration Tests for deleting a page', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return dbDsl.init(4).then(function () {
-            dbDsl.createBookPage('0', ['de'], ['health', 'personalDevelopment'], 5090, 'HansMuster', 1000);
-            dbDsl.createYoutubePage('1', ['de'], ['health', 'personalDevelopment'], 5091, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage1Title');
-            dbDsl.createYoutubePage('2', ['de'], ['health', 'personalDevelopment'], 5092, 'https://www.youtube.com/watch?v=hTarMdJub0M',
-                'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
-
-            dbDsl.createGenericPage('3', '1', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place',
-                [{description: 'Zuerich', lat: 47.376887, lng: 8.541694},
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5090, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createYoutubePage('1', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5091, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createYoutubePage('2', {
+                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5092, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
+            });
+            dbDsl.createGenericPage('3', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [
+                {description: 'Zuerich', lat: 47.376887, lng: 8.541694},
                 {description: 'Zuerich2', lat: 47.376887, lng: 8.541694}]);
 
             dbDsl.addAdminToPage('1', '0');

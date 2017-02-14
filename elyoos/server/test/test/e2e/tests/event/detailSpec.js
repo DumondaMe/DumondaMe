@@ -12,20 +12,20 @@ describe('Integration Tests for getting event detail', function () {
     beforeEach(function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(2).then(function () {
-            dbDsl.createGenericPage('0', '1', ['de'], ['health', 'personalDevelopment'], 100, null, [{
+
+            dbDsl.createGenericPage('0', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
                 address: 'Zuerich',
                 description: 'ZuerichDescription',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }]);
-            dbDsl.createGenericPage('1', '2', ['en'], ['health', 'spiritual'], 100, null, [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['en'], topic: ['health', 'spiritual'], modified: 100}, [{
                 address: 'Zuerich1',
                 lat: 47.37,
                 lng: 8.54,
                 addressId: '2'
             }]);
-
             dbDsl.createPageEventExistingAddress('0', {
                 eventId: '10', title: 'Event1', description: 'Super Event1', linkDescription: 'www.link.org',
                 startDate: startTime + 300, endDate: startTime + 550

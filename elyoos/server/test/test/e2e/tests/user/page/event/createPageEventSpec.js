@@ -17,14 +17,14 @@ describe('Integration Tests for creating new events for generic pages', function
         stubCDN.uploadFile.reset();
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(5).then(function () {
-            dbDsl.createGenericPage('1', '1', ['de'], ['health', 'personalDevelopment'], 100, null, [{
+            dbDsl.createGenericPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
                 address: 'Zuerich',
                 description: 'description',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }]);
-            dbDsl.createGenericPage('2', '2', ['de'], ['health', 'personalDevelopment'], 100, null, [{
+            dbDsl.createGenericPage('2', {adminId: '2', language: ['en'], topic: ['health', 'spiritual'], modified: 100}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,

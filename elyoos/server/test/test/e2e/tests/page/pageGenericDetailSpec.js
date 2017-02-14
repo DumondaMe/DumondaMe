@@ -10,12 +10,12 @@ describe('Integration Tests for getting generic page detail', function () {
 
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
-            dbDsl.createGenericPage('1', '2', ['en', 'de'], ['environmental', 'spiritual'], 100, 'Test1Place', [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100, website: 'www.elyoos.org'}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
-            }], 'www.elyoos.org');
+            }]);
         });
     });
 
@@ -50,7 +50,7 @@ describe('Integration Tests for getting generic page detail', function () {
         }).then(function (res) {
             res.status.should.equal(200);
             res.body.page.pageId.should.equals('1');
-            res.body.page.title.should.equals('Test1Place');
+            res.body.page.title.should.equals('generic1Title');
             res.body.page.description.should.equals('page1Description');
             res.body.page.website.should.equals('www.elyoos.org');
             res.body.page.created.should.equals(100);
