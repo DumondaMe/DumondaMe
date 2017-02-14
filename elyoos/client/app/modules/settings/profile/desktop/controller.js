@@ -20,6 +20,6 @@ module.exports = ['ElyModal', function (ElyModal) {
     };
 
     ctrl.openFilterDialog = function () {
-        ElyModal.show('HomeScreenFilterCtrl', 'app/modules/home/modal/filter/template.html', {no});
+        ElyModal.show('HomeScreenFilterCtrl', 'app/modules/home/modal/filter/template.html', {});
     };
 }];
