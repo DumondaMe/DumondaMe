@@ -18,10 +18,9 @@ describe('Integration Tests for getting discussion overview', function () {
 
     it('No open discussion for overview', function () {
 
-        dbDsl.createFeedbackBug('4', '4', 503);
-
-        dbDsl.createFeedbackIdea('5', '1', 504);
-        dbDsl.createFeedbackDiscussion('6', '1', 505, 505, 'closed');
+        dbDsl.createFeedbackBug('4', {creatorUserId: '4', created: 503});
+        dbDsl.createFeedbackIdea('5', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackDiscussion('6', {creatorUserId: '1', created: 505, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -36,20 +35,21 @@ describe('Integration Tests for getting discussion overview', function () {
 
     it('Getting open discussion overview', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 500);
-        dbDsl.createFeedbackDiscussion('2', '2', 501, 520);
-        dbDsl.createFeedbackDiscussion('3', '3', 502);
-        dbDsl.createFeedbackDiscussion('4', '4', 503, 503, 'closed');
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackDiscussion('2', {creatorUserId: '2', created: 501, modified: 520});
+        dbDsl.createFeedbackDiscussion('3', {creatorUserId: '3', created: 502});
+        dbDsl.createFeedbackDiscussion('4', {creatorUserId: '4', created: 503, status: 'closed'});
 
-        dbDsl.createFeedbackBug('5', '1', 504);
-        dbDsl.createFeedbackIdea('6', '1', 505);
+        dbDsl.createFeedbackBug('5', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackIdea('6', {creatorUserId: '1', created: 505});
 
-        dbDsl.createFeedbackDiscussionIdea('7', '1', '1', 501, 503);
-        dbDsl.createFeedbackDiscussionIdea('8', '1', '2', 502, 510);
-        dbDsl.createFeedbackComment('7', '9', '1', 511);
+        dbDsl.createFeedbackDiscussionIdea('7', {creatorUserId: '1', discussionFeedbackId: '1', created: 501, modified: 503});
+        dbDsl.createFeedbackDiscussionIdea('8', {creatorUserId: '2', discussionFeedbackId: '1', created: 502, modified: 510});
 
-        dbDsl.createFeedbackDiscussionIdea('10', '3', '1', 501, 511);
-        dbDsl.createFeedbackRecommendation('10', '11', '2', 512);
+        dbDsl.createFeedbackComment('9', {feedbackId: '7', creatorUserId: '1', created: 511});
+
+        dbDsl.createFeedbackDiscussionIdea('10', {creatorUserId: '1', discussionFeedbackId: '3', created: 501, modified: 511});
+        dbDsl.createFeedbackRecommendation('11', {feedbackId: '10', creatorUserId: '2', created: 512});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -91,15 +91,15 @@ describe('Integration Tests for getting discussion overview', function () {
 
     it('Getting closed discussion overview', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 500);
-        dbDsl.createFeedbackDiscussion('2', '2', 501);
-        dbDsl.createFeedbackDiscussion('3', '3', 502);
-        dbDsl.createFeedbackDiscussion('4', '4', 503, 511, 'closed');
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackDiscussion('2', {creatorUserId: '2', created: 501});
+        dbDsl.createFeedbackDiscussion('3', {creatorUserId: '3', created: 502});
+        dbDsl.createFeedbackDiscussion('4', {creatorUserId: '4', created: 503, modified: 511, status: 'closed'});
 
-        dbDsl.createFeedbackBug('5', '1', 504);
-        dbDsl.createFeedbackIdea('6', '1', 505);
+        dbDsl.createFeedbackBug('5', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackIdea('6', {creatorUserId: '1', created: 505});
 
-        dbDsl.createFeedbackDiscussionIdea('7', '4', '1', 501);
+        dbDsl.createFeedbackDiscussionIdea('7', {creatorUserId: '1', discussionFeedbackId: '4', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

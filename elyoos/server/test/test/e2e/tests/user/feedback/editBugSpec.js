@@ -22,7 +22,7 @@ describe('Integration Tests edit bug feedback', function () {
 
     it('Edit bug feedback', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 504);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -57,7 +57,7 @@ describe('Integration Tests edit bug feedback', function () {
 
     it('Edit bug of other user fails', function () {
 
-        dbDsl.createFeedbackBug('1', '2', 504);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '2', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -87,7 +87,7 @@ describe('Integration Tests edit bug feedback', function () {
 
     it('Closed bug feedback can not be edited', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 504, 504, 'closed');
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 504, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

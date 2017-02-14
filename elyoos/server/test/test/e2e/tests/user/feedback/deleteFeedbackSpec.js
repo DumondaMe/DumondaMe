@@ -22,7 +22,7 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Deleting idea feedback', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -42,7 +42,7 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Deleting bug feedback', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 504);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -62,8 +62,8 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Deleting discussionIdea feedback', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '2', 501);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '2', created: 501});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -83,7 +83,7 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Not allowed to delete feedback of other user (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 504);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -103,7 +103,7 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Not allowed to delete closed feedback (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504, 504, 'closed');
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -123,8 +123,8 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Not allowed to delete discussion (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 501);
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -144,9 +144,8 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Not allowed to delete feedback with comments (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504);
-
-        dbDsl.createFeedbackComment('1', '2', '1', 501);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackComment('2', {feedbackId: '1', creatorUserId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -166,9 +165,8 @@ describe('Integration Tests for deleting a feedback', function () {
 
     it('Not allowed to delete feedback with recommendation (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504);
-
-        dbDsl.createFeedbackRecommendation('1', '2', '1', 501);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackRecommendation('2', {feedbackId: '1', creatorUserId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

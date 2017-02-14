@@ -19,17 +19,17 @@ describe('Integration Tests for getting feedback overview', function () {
 
     it('Getting feedback overview', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
-        dbDsl.createFeedbackBug('2', '2', 501);
-        dbDsl.createFeedbackBug('3', '3', 502);
-        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackBug('2', {creatorUserId: '2', created: 501});
+        dbDsl.createFeedbackBug('3', {creatorUserId: '3', created: 502});
+        dbDsl.createFeedbackBug('4', {creatorUserId: '4', created: 503, status: 'closed'});
 
-        dbDsl.createFeedbackIdea('5', '1', 504);
-        dbDsl.createFeedbackIdea('6', '2', 505);
-        dbDsl.createFeedbackIdea('7', '3', 506, 506, 'closed');
+        dbDsl.createFeedbackIdea('5', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackIdea('6', {creatorUserId: '2', created: 505});
+        dbDsl.createFeedbackIdea('7', {creatorUserId: '3', created: 506, status: 'closed'});
 
-        dbDsl.createFeedbackDiscussion('8', '1', 507);
-        dbDsl.createFeedbackDiscussion('9', '2', 508, 508, 'closed');
+        dbDsl.createFeedbackDiscussion('8', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussion('9', {creatorUserId: '1', created: 508, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -46,10 +46,10 @@ describe('Integration Tests for getting feedback overview', function () {
 
     it('Getting feedback overview only bugs existing', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
-        dbDsl.createFeedbackBug('2', '2', 501);
-        dbDsl.createFeedbackBug('3', '3', 502);
-        dbDsl.createFeedbackBug('4', '4', 503, 503, 'closed');
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackBug('2', {creatorUserId: '2', created: 501});
+        dbDsl.createFeedbackBug('3', {creatorUserId: '3', created: 502});
+        dbDsl.createFeedbackBug('4', {creatorUserId: '4', created: 503, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

@@ -1,10 +1,10 @@
 'use strict';
 
-var users = require('elyoos-server-test-util').user;
-var dbDsl = require('elyoos-server-test-util').dbDSL;
-var requestHandler = require('elyoos-server-test-util').requestHandler;
-var db = require('elyoos-server-test-util').db;
-var moment = require('moment');
+let users = require('elyoos-server-test-util').user;
+let dbDsl = require('elyoos-server-test-util').dbDSL;
+let requestHandler = require('elyoos-server-test-util').requestHandler;
+let db = require('elyoos-server-test-util').db;
+let moment = require('moment');
 
 describe('Integration Tests for deleting a feedback recommendation', function () {
 
@@ -22,9 +22,8 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
     it('Deleting feedback recommendation', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 504);
-
-        dbDsl.createFeedbackRecommendation('1', '2', '1', 510);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('2', {feedbackId: '1', creatorUserId: '1', created: 510});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -44,9 +43,8 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
     it('Not allowed to delete feedback recommendation of other user (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 504);
-
-        dbDsl.createFeedbackRecommendation('1', '2', '2', 510);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('2', {feedbackId: '1', creatorUserId: '2', created: 510});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -66,9 +64,8 @@ describe('Integration Tests for deleting a feedback recommendation', function ()
 
     it('Try to delete non existing recommendation (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 504);
-
-        dbDsl.createFeedbackRecommendation('1', '2', '1', 510);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 504});
+        dbDsl.createFeedbackRecommendation('2', {feedbackId: '1', creatorUserId: '1', created: 510});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

@@ -22,7 +22,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation for a bug', function () {
 
-        dbDsl.createFeedbackBug('1', '2', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '2', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -43,7 +43,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Recommendation for a bug created by the user (400)', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -57,7 +57,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommend a bug twice (400)', function () {
 
-        dbDsl.createFeedbackBug('1', '2', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '2', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -74,7 +74,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation for an idea', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 500);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -95,7 +95,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation for an idea created by the user (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 500);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -109,7 +109,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation twice for an idea (400)', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 500);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -126,9 +126,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation for discussion idea', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 501);
-
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '2', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '2', discussionFeedbackId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -149,9 +148,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation for discussion idea created by the user (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 501);
-
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -165,9 +163,8 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Create recommendation twice for an discussion idea (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 501);
-
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '2', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '2', discussionFeedbackId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -184,7 +181,7 @@ describe('Integration Tests recommending feedback elements', function () {
 
     it('Recommending a discussion is not possible (400)', function () {
 
-        dbDsl.createFeedbackDiscussion('1', '1', 501);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 501});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

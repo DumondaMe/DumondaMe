@@ -22,14 +22,12 @@ describe('Integration Tests creating idea feedback', function () {
 
     it('Create idea feedback', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
-        dbDsl.createFeedbackBug('2', '4', 503, 'closed');
-
-        dbDsl.createFeedbackIdea('3', '1', 504);
-        dbDsl.createFeedbackIdea('4', '3', 506, 'closed');
-
-        dbDsl.createFeedbackDiscussion('5', '1', 507);
-        dbDsl.createFeedbackDiscussion('6', '2', 508, 'closed');
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackBug('2', {creatorUserId: '4', created: 503, status: 'closed'});
+        dbDsl.createFeedbackIdea('3', {creatorUserId: '1', created: 504});
+        dbDsl.createFeedbackIdea('4', {creatorUserId: '3', created: 506, status: 'closed'});
+        dbDsl.createFeedbackDiscussion('5', {creatorUserId: '1', created: 507});
+        dbDsl.createFeedbackDiscussion('6', {creatorUserId: '2', created: 508, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

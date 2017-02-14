@@ -18,13 +18,13 @@ describe('Integration Tests for getting detail comments', function () {
 
     it('Getting bug detail comments order by latest', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
 
-        dbDsl.createFeedbackComment('1', '2', '1', 501, null, true);
-        dbDsl.closeFeedback('1', '3', '3', 502);
-        dbDsl.createFeedbackComment('1', '4', '2', 503);
-        dbDsl.createFeedbackComment('1', '5', '1', 504, null, true);
-        dbDsl.reopenFeedback('1', '6', '1', 505);
+        dbDsl.createFeedbackComment('2', {feedbackId: '1', creatorUserId: '1', created: 501, createdByAdmin: true});
+        dbDsl.closeFeedback('3', {feedbackId: '1', creatorUserId: '3', created: 502});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '2', created: 503});
+        dbDsl.createFeedbackComment('5', {feedbackId: '1', creatorUserId: '1', created: 504, createdByAdmin: true});
+        dbDsl.reopenFeedback('6', {feedbackId: '1', creatorUserId: '1', created: 505});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -72,11 +72,11 @@ describe('Integration Tests for getting detail comments', function () {
 
     it('Getting bug detail comments order by oldest', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
 
-        dbDsl.createFeedbackComment('1', '2', '1', 501);
-        dbDsl.createFeedbackComment('1', '3', '2', 502);
-        dbDsl.createFeedbackComment('1', '4', '1', 503);
+        dbDsl.createFeedbackComment('2', {feedbackId: '1', creatorUserId: '1', created: 501});
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 502});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '1', created: 503});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -109,7 +109,7 @@ describe('Integration Tests for getting detail comments', function () {
 
     it('No comments created so far', function () {
 
-        dbDsl.createFeedbackBug('1', '1', 500);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 500});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

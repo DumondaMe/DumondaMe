@@ -22,7 +22,7 @@ describe('Integration Tests edit idea feedback', function () {
 
     it('Edit idea feedback', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -51,7 +51,7 @@ describe('Integration Tests edit idea feedback', function () {
 
     it('Edit idea of other user fails', function () {
 
-        dbDsl.createFeedbackIdea('1', '2', 504);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '2', created: 504});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);
@@ -78,7 +78,7 @@ describe('Integration Tests edit idea feedback', function () {
 
     it('Closed idea feedback can not be edited', function () {
 
-        dbDsl.createFeedbackIdea('1', '1', 504, 504, 'closed');
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 504, status: 'closed'});
 
         return dbDsl.sendToDb().then(function () {
             return requestHandler.login(users.validUser);

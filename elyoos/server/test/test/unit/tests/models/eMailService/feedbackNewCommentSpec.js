@@ -26,13 +26,13 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackIdea('1', '1', 505);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 505});
 
-        dbDsl.createFeedbackComment('1', '3', '2', 517);
-        dbDsl.createFeedbackComment('1', '4', '3', 510);
-        dbDsl.createFeedbackComment('1', '5', '4', 511);
-        dbDsl.createFeedbackComment('1', '6', '4', 512);
-        dbDsl.createFeedbackComment('1', '7', '4', 513);
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 517});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '3', created: 510});
+        dbDsl.createFeedbackComment('5', {feedbackId: '1', creatorUserId: '4', created: 511});
+        dbDsl.createFeedbackComment('6', {feedbackId: '1', creatorUserId: '4', created: 512});
+        dbDsl.createFeedbackComment('7', {feedbackId: '1', creatorUserId: '4', created: 513});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
@@ -50,13 +50,13 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackIdea('1', '1', 505);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 505});
 
-        dbDsl.createFeedbackComment('1', '3', '1', 517);
-        dbDsl.createFeedbackComment('1', '4', '3', 510);
-        dbDsl.createFeedbackComment('1', '5', '4', 511);
-        dbDsl.createFeedbackComment('1', '6', '4', 512);
-        dbDsl.createFeedbackComment('1', '7', '4', 513);
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '1', created: 517});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '3', created: 510});
+        dbDsl.createFeedbackComment('5', {feedbackId: '1', creatorUserId: '4', created: 511});
+        dbDsl.createFeedbackComment('6', {feedbackId: '1', creatorUserId: '4', created: 512});
+        dbDsl.createFeedbackComment('7', {feedbackId: '1', creatorUserId: '4', created: 513});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
@@ -74,9 +74,8 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackIdea('1', '1', 505);
-
-        dbDsl.createFeedbackComment('1', '3', '1', 517);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 505});
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '1', created: 517});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
@@ -89,9 +88,8 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackIdea('1', '1', 505);
-
-        dbDsl.createFeedbackComment('1', '3', '2', 517);
+        dbDsl.createFeedbackIdea('1', {creatorUserId: '1', created: 505});
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 517});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
@@ -109,11 +107,11 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackBug('1', '1', 505);
+        dbDsl.createFeedbackBug('1', {creatorUserId: '1', created: 505});
 
-        dbDsl.createFeedbackComment('1', '3', '2', 517);
-        dbDsl.createFeedbackComment('1', '4', '3', 510);
-        dbDsl.createFeedbackComment('1', '5', '4', 511);
+        dbDsl.createFeedbackComment('3', {feedbackId: '1', creatorUserId: '2', created: 517});
+        dbDsl.createFeedbackComment('4', {feedbackId: '1', creatorUserId: '3', created: 510});
+        dbDsl.createFeedbackComment('5', {feedbackId: '1', creatorUserId: '4', created: 511});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
@@ -131,13 +129,12 @@ describe('Unit Test eMailService/feedbackNewComment', function () {
 
         let createJob = sandbox.stub(emailQueue, 'createImmediatelyJob');
 
-        dbDsl.createFeedbackDiscussion('1', '1', 500);
+        dbDsl.createFeedbackDiscussion('1', {creatorUserId: '1', created: 500});
+        dbDsl.createFeedbackDiscussionIdea('2', {creatorUserId: '1', discussionFeedbackId: '1', created: 501});
 
-        dbDsl.createFeedbackDiscussionIdea('2', '1', '1', 501);
-
-        dbDsl.createFeedbackComment('2', '3', '2', 517);
-        dbDsl.createFeedbackComment('2', '4', '3', 510);
-        dbDsl.createFeedbackComment('2', '5', '4', 511);
+        dbDsl.createFeedbackComment('3', {feedbackId: '2', creatorUserId: '2', created: 517});
+        dbDsl.createFeedbackComment('4', {feedbackId: '2', creatorUserId: '3', created: 510});
+        dbDsl.createFeedbackComment('5', {feedbackId: '2', creatorUserId: '4', created: 511});
 
         return dbDsl.sendToDb().then(function () {
             return testee.feedbackNewComment('3');
