@@ -36,7 +36,7 @@ let crateRecommendationsForBlog = function (pageId, recommendedUserIds) {
             }).getCommand());
         dbConnectionHandling.getCommands().push(db.cypher().match("(a:Blog {pageId: {pageId}}), (b:Recommendation {recommendationId: {recommendationId}})")
             .create("(b)-[:PINWALL_DATA]->(a)")
-            .end({pageId: pageId, recommendationId: recommendationId}).getCommand());
+            .end({pageId: pageId, recommendationId: `${recommendationId}`}).getCommand());
         recommendationId++;
     });
 };
