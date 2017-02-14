@@ -19,7 +19,7 @@ describe('Integration Tests for filtering link recommendation on home screen', f
             dbDsl.createBookPage('10', ['en'], ['personalDevelopment'], 504, 'HansMuster3', 1002);
             dbDsl.createYoutubePage('11', ['de'], ['health', 'personalDevelopment'], 512, 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
-            dbDsl.createBlog('12', '2', ['en'], ['health', 'personalDevelopment'], 533, null, 400, 'blogTitle1');
+            dbDsl.createBlog('12', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 533, pictureHeight: 400});
             dbDsl.createGenericPage('13', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
                 description: 'Zuerich',
                 lat: 47.376887,

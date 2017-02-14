@@ -315,11 +315,11 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-        dbDsl.createBlog('3', '2', ['en'], ['health', 'personalDevelopment'], 501, ['Freund'], 400, 'blogTitle1');
-        dbDsl.createBlog('4', '2', ['en'], ['health', 'personalDevelopment'], 502, ['Freund'], null, 'blogTitle2');
-        dbDsl.createBlog('5', '1', ['en'], ['health', 'personalDevelopment'], 505, null, null, 'blogTitle3');
-        dbDsl.createBlog('6', '3', ['en'], ['health', 'personalDevelopment'], 1000, null, null, 'blogTitle4');
-        dbDsl.createBlog('7', '3', ['en'], ['health', 'personalDevelopment'], 507, ['Freund'], null, 'blogTitle5');
+        dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 501, visible: ['Freund'], pictureHeight: 400});
+        dbDsl.createBlog('4', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 502, visible: ['Freund']});
+        dbDsl.createBlog('5', {blogWriterUserId: '1', language: ['en'], topic: ['health', 'personalDevelopment'], created: 505});
+        dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
+        dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
         dbDsl.createGenericPage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
             description: 'Zuerich',
@@ -356,11 +356,10 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[0].name.should.equals('user Meier3');
             res.body.pinwall[0].forename.should.equals('user');
             res.body.pinwall[0].userId.should.equals('3');
-            res.body.pinwall[0].title.should.equals('blogTitle4');
+            res.body.pinwall[0].title.should.equals('blog6Title');
             res.body.pinwall[0].created.should.equals(1000);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             should.not.exist(res.body.pinwall[0].url);
-            res.body.pinwall[0].title.should.equals('blogTitle4');
             res.body.pinwall[0].text.should.equals('blog6Text');
             res.body.pinwall[0].isAdmin.should.equals(false);
             res.body.pinwall[0].isPublic.should.equals(true);
@@ -377,7 +376,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[1].created.should.equals(505);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             should.not.exist(res.body.pinwall[1].url);
-            res.body.pinwall[1].title.should.equals('blogTitle3');
+            res.body.pinwall[1].title.should.equals('blog5Title');
             res.body.pinwall[1].text.should.equals('blog5Text');
             res.body.pinwall[1].isAdmin.should.equals(true);
             res.body.pinwall[1].isPublic.should.equals(true);
@@ -432,7 +431,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[4].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             should.not.exist(res.body.pinwall[4].url);
             should.not.exist(res.body.pinwall[4].urlFull);
-            res.body.pinwall[4].title.should.equals('blogTitle2');
+            res.body.pinwall[4].title.should.equals('blog4Title');
             res.body.pinwall[4].text.should.equals('blog4Text');
             res.body.pinwall[4].isAdmin.should.equals(false);
             res.body.pinwall[4].isPublic.should.equals(false);
@@ -448,7 +447,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[5].created.should.equals(501);
             res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[5].url.should.equals('blog/3/preview.jpg');
-            res.body.pinwall[5].title.should.equals('blogTitle1');
+            res.body.pinwall[5].title.should.equals('blog3Title');
             res.body.pinwall[5].text.should.equals('blog3Text');
             res.body.pinwall[5].isAdmin.should.equals(false);
             res.body.pinwall[5].isPublic.should.equals(false);
@@ -504,11 +503,11 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createPrivacy(['1', '2', '3'], 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(['1'], 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-        dbDsl.createBlog('3', '2', ['en'], ['health', 'personalDevelopment'], 501, ['Freund'], 400, 'blogTitle1');
-        dbDsl.createBlog('4', '2', ['en'], ['health', 'personalDevelopment'], 502, ['Freund'], null, 'blogTitle2');
-        dbDsl.createBlog('5', '1', ['en'], ['health', 'personalDevelopment'], 505, null, null, 'blogTitle3');
-        dbDsl.createBlog('6', '3', ['en'], ['health', 'personalDevelopment'], 1000, null, null, 'blogTitle4');
-        dbDsl.createBlog('7', '3', ['en'], ['health', 'personalDevelopment'], 507, ['Freund'], null, 'blogTitle5');
+        dbDsl.createBlog('3', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 501, visible: ['Freund'], pictureHeight: 400});
+        dbDsl.createBlog('4', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 502, visible: ['Freund']});
+        dbDsl.createBlog('5', {blogWriterUserId: '1', language: ['en'], topic: ['health', 'personalDevelopment'], created: 505});
+        dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
+        dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
         dbDsl.createGenericPage('8', '2', ['de'], ['health', 'personalDevelopment'], 100, 'Test1Place', [{
             description: 'Zuerich',
@@ -544,11 +543,11 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[0].name.should.equals('user Meier3');
             res.body.pinwall[0].forename.should.equals('user');
             res.body.pinwall[0].userId.should.equals('3');
-            res.body.pinwall[0].title.should.equals('blogTitle4');
+            res.body.pinwall[0].title.should.equals('blog6Title');
             res.body.pinwall[0].created.should.equals(1000);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
             should.not.exist(res.body.pinwall[0].url);
-            res.body.pinwall[0].title.should.equals('blogTitle4');
+            res.body.pinwall[0].title.should.equals('blog6Title');
             res.body.pinwall[0].text.should.equals('blog6Text');
             res.body.pinwall[0].isAdmin.should.equals(false);
             res.body.pinwall[0].isPublic.should.equals(true);
@@ -565,7 +564,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[1].created.should.equals(505);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
             should.not.exist(res.body.pinwall[1].url);
-            res.body.pinwall[1].title.should.equals('blogTitle3');
+            res.body.pinwall[1].title.should.equals('blog5Title');
             res.body.pinwall[1].text.should.equals('blog5Text');
             res.body.pinwall[1].isAdmin.should.equals(true);
             res.body.pinwall[1].isPublic.should.equals(true);
@@ -620,7 +619,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[4].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             should.not.exist(res.body.pinwall[4].url);
             should.not.exist(res.body.pinwall[4].urlFull);
-            res.body.pinwall[4].title.should.equals('blogTitle2');
+            res.body.pinwall[4].title.should.equals('blog4Title');
             res.body.pinwall[4].text.should.equals('blog4Text');
             res.body.pinwall[4].isAdmin.should.equals(false);
             res.body.pinwall[4].isPublic.should.equals(false);
@@ -636,7 +635,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[5].created.should.equals(501);
             res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[5].url.should.equals('blog/3/preview.jpg');
-            res.body.pinwall[5].title.should.equals('blogTitle1');
+            res.body.pinwall[5].title.should.equals('blog3Title');
             res.body.pinwall[5].text.should.equals('blog3Text');
             res.body.pinwall[5].isAdmin.should.equals(false);
             res.body.pinwall[5].isPublic.should.equals(false);

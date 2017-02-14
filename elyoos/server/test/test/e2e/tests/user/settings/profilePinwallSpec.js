@@ -5,6 +5,7 @@ let users = require('elyoos-server-test-util').user;
 let requestHandler = require('elyoos-server-test-util').requestHandler;
 let should = require('chai').should();
 let moment = require('moment');
+let dbDsl = require('elyoos-server-test-util').dbDSL;
 let db = require('elyoos-server-test-util').db;
 
 describe('Integration Tests for getting the pinwall of the user', function () {
@@ -13,6 +14,19 @@ describe('Integration Tests for getting the pinwall of the user', function () {
 
         libUser.removeFromCache('user@irgendwo.ch');
         libUser.removeFromCache('userchange@irgendwo.ch');
+
+        /*return dbDsl.init(2).then(function () {
+            let startTime = Math.floor(moment.utc().valueOf() / 1000);
+            dbDsl.createPrivacyNoContact(['1'], {profile: true, image: true, profileData: true, contacts: false, pinwall: true});
+            dbDsl.createPrivacy(['1'], 'Freund', {profile: false, image: false, profileData: false, contacts: false, pinwall: false});
+
+            dbDsl.createContactConnection('1', '2', 'Freund', startTime - 86401);
+
+            dbDsl.createBlog('1', '1', ['de'], ['health', 'personalDevelopment'], 507, ['Freund'], 507, 'blogTitle');
+            dbDsl.createBlog('1', '1', ['de'], ['health', 'personalDevelopment'], 507, ['Freund'], 507, 'blogTitle');
+            dbDsl.createBlog('1', '1', ['de'], ['health', 'personalDevelopment'], 507, ['Freund'], 507, 'blogTitle');
+            dbDsl.createBlog('1', '1', ['de'], ['health', 'personalDevelopment'], 507, ['Freund'], 507, 'blogTitle');
+        });*/
 
         return db.clearDatabase().then(function () {
 

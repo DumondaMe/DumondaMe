@@ -30,7 +30,14 @@ describe('Integration Tests for searching people or pages', function () {
                 dbDsl.createLinkPage('6', ['de'], ['health', 'personalDevelopment'], 508, 'www.test4.ch', 200, 'link by user?');
                 dbDsl.createLinkPage('7', ['de'], ['health', 'personalDevelopment'], 510, 'www.test5.ch', null, 'ly by user?');
                 dbDsl.createLinkPage('8', ['de'], ['health', 'personalDevelopment'], 509, 'www.test6.ch', null, 'Irgendas mit Meier');
-                dbDsl.createBlog('9', '2', ['de'], ['health', 'personalDevelopment'], 511, null, 200, "zuser?");
+                dbDsl.createBlog('9', {
+                    blogWriterUserId: '2',
+                    language: ['de'],
+                    topic: ['health', 'personalDevelopment'],
+                    created: 511,
+                    pictureHeight: 200,
+                    title: "zuser?"
+                });
             });
         });
     });

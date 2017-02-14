@@ -17,8 +17,22 @@ describe('Integration Tests for edit a blog', function () {
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createBlog('0', '1', ['de'], ['health', 'personalDevelopment'], 501, null, 400, 'blogTitle1');
-            dbDsl.createBlog('1', '2', ['en'], ['social'], 502, null, 401, 'blogTitle2');
+            dbDsl.createBlog('0', {
+                blogWriterUserId: '1',
+                language: ['en'],
+                topic: ['health', 'personalDevelopment'],
+                created: 501,
+                pictureHeight: 400,
+                title: 'blogTitle1'
+            });
+            dbDsl.createBlog('1', {
+                blogWriterUserId: '2',
+                language: ['en'],
+                topic: ['social'],
+                created: 502,
+                pictureHeight: 401,
+                title: 'blogTitle2'
+            });
 
         });
     });

@@ -13,9 +13,16 @@ describe('Integration Tests for filtering blog on home screen', function () {
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createBlog('0', '2', ['de'], ['health', 'personalDevelopment'], 501, null, 400, 'blogTitle1');
-            dbDsl.createBlog('1', '3', ['fr'], ['socialDevelopment'], 502, null, 400, 'blogTitle2');
-            dbDsl.createBlog('2', '3', ['en'], ['personalDevelopment'], 503, null, 400, 'blogTitle3');
+            dbDsl.createBlog('0', {
+                blogWriterUserId: '2',
+                language: ['de'],
+                topic: ['health', 'personalDevelopment'],
+                created: 501,
+                pictureHeight: 400
+            });
+            dbDsl.createBlog('1', {blogWriterUserId: '3', language: ['fr'], topic: ['socialDevelopment'], created: 502, pictureHeight: 400});
+            dbDsl.createBlog('2', {blogWriterUserId: '3', language: ['en'], topic: ['personalDevelopment'], created: 503, pictureHeight: 400});
+
             dbDsl.createLinkPage('10', ['de'], ['health', 'personalDevelopment'], 511, 'www.host.com/test', 200, 'linkPageTitle');
             dbDsl.createYoutubePage('11', ['de'], ['health', 'personalDevelopment'], 512, 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');

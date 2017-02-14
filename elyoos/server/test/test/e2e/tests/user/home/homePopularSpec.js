@@ -15,8 +15,14 @@ describe('Integration Tests for getting most popular content on home screen', fu
             dbDsl.createYoutubePage('1', ['de'], ['health', 'personalDevelopment'], 503, 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 'https://www.youtube.com/embed/hTarMdJub0M', 'youtubePage2Title');
 
-            dbDsl.createBlog('3', '2', ['en'], ['health', 'personalDevelopment'], 504, null, 400);
-            dbDsl.createBlog('4', '6', ['en'], ['health'], 511, null, 400);
+            dbDsl.createBlog('3', {
+                blogWriterUserId: '4',
+                language: ['en'],
+                topic: ['health', 'personalDevelopment'],
+                created: 504,
+                pictureHeight: 400
+            });
+            dbDsl.createBlog('4', {blogWriterUserId: '6', language: ['en'], topic: ['health'], created: 511, pictureHeight: 400});
 
             dbDsl.createGenericPage('5', '2', ['de'], ['health', 'personalDevelopment'], 506, 'Test1Place', [{
                 description: 'Zuerich',

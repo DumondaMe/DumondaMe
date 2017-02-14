@@ -23,7 +23,7 @@ describe('Integration Tests for getting blog details', function () {
         dbDsl.createPrivacy(null, 'Freund', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createPrivacy(null, 'Bekannter', {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
         dbDsl.createContactConnection('1', '2', 'Freund', 500);
-        dbDsl.createBlog('1', '4', ['en'], ['health'], 5077, ['Freund', 'Bekannter'], 250, null, 5078);
+        dbDsl.createBlog('1', {blogWriterUserId: '4', language: ['en'], topic: ['health'], created: 5077, visible: ['Freund', 'Bekannter'], pictureHeight: 250, modified: 5078});
         dbDsl.crateRecommendationsForBlog('1', [{userId: '1', created: 508}, {userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
@@ -69,7 +69,7 @@ describe('Integration Tests for getting blog details', function () {
     it('Getting detail for blog written by the user- Return 200', function () {
 
         dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
-        dbDsl.createBlog('1', '1', ['en'], ['health'], 5077, null, null);
+        dbDsl.createBlog('1', {blogWriterUserId: '1', language: ['en'], topic: ['health'], created: 5077});
         dbDsl.crateRecommendationsForBlog('1', [{userId: '2', created: 509}, {userId: '3', created: 510}]);
 
         return dbDsl.sendToDb().then(function () {
