@@ -1,10 +1,33 @@
 <div class="desktop-setting-profile" layout="row">
-    <div class="container" ely-infinite-scroll="ctrl.commands.nextPinwallInfo" flex>
-        <div class="container-inner" layout="column" layout-align="start center">
-            <ely-settings-user-pinwall breakpoint="min-width: 1440px" commands="ctrl.commands"></ely-settings-user-pinwall>
+    <div layout="column" flex="grow">
+        <div id="user-pinwall-commands-container" flex="none" ng-if="ctrl.showPagesView">
+            <div id="pinwall-commands" layout="row">
+                <div layout="row" layout-align="start center">
+                    <ely-icon-button icon="navFAB:add" label="Neuer Beitrag" ng-click="ctrl.openCreatePage()"></ely-icon-button>
+                    <ely-icon-button icon="navFAB:filter" label="Filter" ng-click="ctrl.openFilterDialog()"></ely-icon-button>
+                </div>
+                <span flex></span>
+                <div id="pinwall-order">
+                    <md-input-container>
+                        <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
+                                   md-on-close="ctrl.orderChanged()">
+                            <md-option value="recommendation">Deine Empfehlungen</md-option>
+                            <md-option value="admin">Deine Beiträge</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="container" ely-infinite-scroll="ctrl.commands.nextPinwallInfo" flex="grow" ng-if="ctrl.showPagesView">
+            <div class="container-inner" layout="column" layout-align="start center">
+                <ely-settings-user-pinwall breakpoint="min-width: 1440px" commands="ctrl.commands"></ely-settings-user-pinwall>
+            </div>
+        </div>
+        <div ng-if="ctrl.showContactsView" flex="grow">
+            <ely-contact></ely-contact>
         </div>
     </div>
     <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="true">
-        <ely-settings-profile-sidnav profile="ctrl.profile"></ely-settings-profile-sidnav>
+        <ely-settings-profile-sidnav profile="ctrl.profile" show-pages="ctrl.showPages" show-contacts="ctrl.showContacts"></ely-settings-profile-sidnav>
     </md-sidenav>
 </div>

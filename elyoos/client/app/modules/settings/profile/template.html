@@ -1,4 +1,4 @@
 <md-content id="ely-setting-profile">
-    <ely-settings-profile-mobile profile="ctrl.profile" commands="ctrl.commands" ng-if="!ctrl.$mdMedia('gt-md')"></ely-settings-profile-mobile>
-    <ely-settings-profile-desktop profile="ctrl.profile" commands="ctrl.commands" ng-if="ctrl.$mdMedia('gt-md')"></ely-settings-profile-desktop>
+    <ely-settings-profile-mobile profile="ctrl.profile" commands="ctrl.commands" ng-if="!ctrl.$mdMedia('min-width: 900px')"></ely-settings-profile-mobile>
+    <ely-settings-profile-desktop profile="ctrl.profile" commands="ctrl.commands" ng-if="ctrl.$mdMedia('min-width: 900px')"></ely-settings-profile-desktop>
 </md-content>

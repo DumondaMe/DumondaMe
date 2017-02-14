@@ -6,6 +6,9 @@
   user-select: none;
   border: 2px solid #ccc;
   border-radius: 8px;
+  .is-selected {
+    background-color: #ccc;
+  }
 
   .ely-button-label {
     font-size: 14px;
@@ -13,6 +16,11 @@
     color: $secondary-text;
     text-align: center;
     vertical-align: middle;
+  }
+  .ely-button-label-landscape {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary-text;
   }
 
   .portrait-format {
@@ -38,6 +46,7 @@
     }
   }
 }
+
 .ely-button:hover {
   background-color: #ccc;
 }

@@ -1,10 +1,12 @@
 <div class="ely-button" layout="column" layout-align="center center">
-    <div layout="column" layout-align="center center" ng-if="ctrl.orientation !== 'landscape'" class="portrait-format">
+    <div layout="column" layout-align="center center" ng-if="ctrl.orientation !== 'landscape'" class="portrait-format"
+         ng-class="{'is-selected': ctrl.isButtonSelected}">
         <md-icon md-svg-icon="{{ctrl.icon}}" aria-label="{{ctrl.label}}" class="ely-button-icon"></md-icon>
         <div class="ely-button-label">{{ctrl.label}}</div>
     </div>
-    <div layout="row" layout-align="start center" ng-if="ctrl.orientation === 'landscape'" class="landscape-format">
-        <md-icon md-svg-icon="{{ctrl.icon}}" aria-label="{{ctrl.label}}" class="ely-button-icon"></md-icon>
-        <div class="ely-button-label">{{ctrl.label}}</div>
+    <div layout="row" layout-align="start center" ng-if="ctrl.orientation === 'landscape'" class="landscape-format"
+         ng-class="{'is-selected': ctrl.isButtonSelected}">
+        <md-icon md-svg-icon="{{ctrl.icon}}" aria-label="{{ctrl.label}}" class="ely-button-icon" flex="none"></md-icon>
+        <div class="ely-button-label-landscape" flex="grow">{{ctrl.label}}</div>
     </div>
 </div>

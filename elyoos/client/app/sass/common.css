@@ -27,12 +27,18 @@
   user-select: none;
   border: 2px solid #ccc;
   border-radius: 8px; }
+  .ely-button .is-selected {
+    background-color: #ccc; }
   .ely-button .ely-button-label {
     font-size: 14px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.54);
     text-align: center;
     vertical-align: middle; }
+  .ely-button .ely-button-label-landscape {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
   .ely-button .portrait-format {
     width: 100px;
     height: 100px; }

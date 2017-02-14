@@ -6,11 +6,12 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                profile: '='
+                profile: '=',
+                showPages: '=',
+                showContacts: '='
             },
             templateUrl: 'app/modules/settings/profile/desktop/sidnav/template.html'
         };

@@ -11,7 +11,8 @@ module.exports = {
                 size: '@',
                 icon: '@',
                 orientation: '@',
-                label: '@'
+                label: '@',
+                isButtonSelected: '='
             },
             controller: require('./controller'),
             controllerAs: 'ctrl'

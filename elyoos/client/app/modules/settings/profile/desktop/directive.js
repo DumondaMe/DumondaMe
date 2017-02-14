@@ -6,8 +6,7 @@ module.exports = {
             restrict: 'E',
             replace: true,
             scope: {},
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
                 commands: '=',

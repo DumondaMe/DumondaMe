@@ -1,4 +1,16 @@
 <div class="ely-setting-profile-sidenav">
-    <ely-settings-profile-image profile="ctrl.profile"></ely-settings-profile-image>
-    <ely-settings-overview-desktop></ely-settings-overview-desktop>
+    <div class="profile-sidnav-title">Einstellungen:</div>
+    <ely-button  ng-click="ctrl.uploadProfileImage()" label="Profilbild ändern" class="ely-nav-button"
+                icon="system:image" orientation="landscape"></ely-button>
+    <ely-button  ng-click="ctrl.openChangeProfileData()" label="Profil" class="ely-nav-button"
+                 icon="nav:profile" orientation="landscape"></ely-button>
+    <ely-button  ng-click="ctrl.openChangePassword()" label="Passwort ändern" class="ely-nav-button"
+                 icon="system:key" orientation="landscape"></ely-button>
+    <ely-button  ng-click="ctrl.openPrivacyOverview()" label="Privatsphäre" class="ely-nav-button"
+                 icon="system:privacy" orientation="landscape"></ely-button>
+    <div class="profile-sidnav-title">Ansicht:</div>
+    <ely-button  ng-click="ctrl.showPagesEnabled()" label="Beiträge" is-button-selected="ctrl.showPagesSelected" class="ely-nav-button"
+                 icon="system:privacy" orientation="landscape"></ely-button>
+    <ely-button  ng-click="ctrl.showContactsEnabled()" label="Kontakte" class="ely-nav-button" is-button-selected="ctrl.showContactsSelected"
+                 icon="system:privacy" orientation="landscape"></ely-button>
 </div>
