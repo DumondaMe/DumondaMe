@@ -411,7 +411,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[3].title.should.equals('page0Title');
             res.body.pinwall[3].created.should.equals(503);
             res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
+            res.body.pinwall[3].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
@@ -428,7 +428,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[4].userId.should.equals('2');
             res.body.pinwall[4].created.should.equals(502);
             res.body.pinwall[4].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            should.not.exist(res.body.pinwall[4].url);
+            should.not.exist(res.body.pinwall[4].previewUrl);
             should.not.exist(res.body.pinwall[4].urlFull);
             res.body.pinwall[4].title.should.equals('blog4Title');
             res.body.pinwall[4].text.should.equals('blog4Text');
@@ -445,7 +445,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[5].userId.should.equals('2');
             res.body.pinwall[5].created.should.equals(501);
             res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            res.body.pinwall[5].url.should.equals('blog/3/preview.jpg');
+            res.body.pinwall[5].previewUrl.should.equals('blog/3/preview.jpg');
             res.body.pinwall[5].title.should.equals('blog3Title');
             res.body.pinwall[5].text.should.equals('blog3Text');
             res.body.pinwall[5].isAdmin.should.equals(false);
@@ -465,7 +465,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].title.should.equals('page2Title');
             res.body.pinwall[6].created.should.equals(499);
             res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
+            res.body.pinwall[6].previewUrl.should.equals('pages/2/preview.jpg');
             res.body.pinwall[6].heightPreviewImage.should.equals(200);
             res.body.pinwall[6].description.should.equals('page2Description');
             res.body.pinwall[6].recommendedByUser.should.equals(false);
@@ -483,7 +483,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].userId.should.equals('2');
             res.body.pinwall[7].title.should.equals('generic8Title');
             res.body.pinwall[7].created.should.equals(498);
-            res.body.pinwall[7].previewImage.should.equals('pages/8/preview.jpg');
+            res.body.pinwall[7].previewUrl.should.equals('pages/8/preview.jpg');
             res.body.pinwall[7].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[7].description.should.equals('page8Description');
             res.body.pinwall[7].recommendedByUser.should.equals(false);
@@ -545,7 +545,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[0].title.should.equals('blog6Title');
             res.body.pinwall[0].created.should.equals(1000);
             res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
-            should.not.exist(res.body.pinwall[0].url);
+            should.not.exist(res.body.pinwall[0].previewUrl);
             res.body.pinwall[0].title.should.equals('blog6Title');
             res.body.pinwall[0].text.should.equals('blog6Text');
             res.body.pinwall[0].isAdmin.should.equals(false);
@@ -562,7 +562,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[1].userId.should.equals('1');
             res.body.pinwall[1].created.should.equals(505);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            should.not.exist(res.body.pinwall[1].url);
+            should.not.exist(res.body.pinwall[1].previewUrl);
             res.body.pinwall[1].title.should.equals('blog5Title');
             res.body.pinwall[1].text.should.equals('blog5Text');
             res.body.pinwall[1].isAdmin.should.equals(true);
@@ -599,7 +599,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[3].title.should.equals('page0Title');
             res.body.pinwall[3].created.should.equals(503);
             res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
+            res.body.pinwall[3].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);
@@ -616,7 +616,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[4].userId.should.equals('2');
             res.body.pinwall[4].created.should.equals(502);
             res.body.pinwall[4].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            should.not.exist(res.body.pinwall[4].url);
+            should.not.exist(res.body.pinwall[4].previewUrl);
             should.not.exist(res.body.pinwall[4].urlFull);
             res.body.pinwall[4].title.should.equals('blog4Title');
             res.body.pinwall[4].text.should.equals('blog4Text');
@@ -633,7 +633,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[5].userId.should.equals('2');
             res.body.pinwall[5].created.should.equals(501);
             res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            res.body.pinwall[5].url.should.equals('blog/3/preview.jpg');
+            res.body.pinwall[5].previewUrl.should.equals('blog/3/preview.jpg');
             res.body.pinwall[5].title.should.equals('blog3Title');
             res.body.pinwall[5].text.should.equals('blog3Text');
             res.body.pinwall[5].isAdmin.should.equals(false);
@@ -653,7 +653,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[6].title.should.equals('page2Title');
             res.body.pinwall[6].created.should.equals(499);
             res.body.pinwall[6].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-            res.body.pinwall[6].linkPreviewUrl.should.equals('pages/2/preview.jpg');
+            res.body.pinwall[6].previewUrl.should.equals('pages/2/preview.jpg');
             res.body.pinwall[6].heightPreviewImage.should.equals(200);
             res.body.pinwall[6].description.should.equals('page2Description');
             res.body.pinwall[6].recommendedByUser.should.equals(false);
@@ -671,7 +671,7 @@ describe('Integration Tests for getting home screen information for a user', fun
             res.body.pinwall[7].userId.should.equals('2');
             res.body.pinwall[7].title.should.equals('generic8Title');
             res.body.pinwall[7].created.should.equals(498);
-            res.body.pinwall[7].previewImage.should.equals('pages/8/preview.jpg');
+            res.body.pinwall[7].previewUrl.should.equals('pages/8/preview.jpg');
             res.body.pinwall[7].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
             res.body.pinwall[7].description.should.equals('page8Description');
             res.body.pinwall[7].recommendedByUser.should.equals(false);

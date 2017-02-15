@@ -68,7 +68,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[0].userId.should.equals('6');
             res.body.pinwall[0].title.should.equals('generic5Title');
             res.body.pinwall[0].created.should.equals(514);
-            res.body.pinwall[0].previewImage.should.equals('pages/5/preview.jpg');
+            res.body.pinwall[0].previewUrl.should.equals('pages/5/preview.jpg');
             res.body.pinwall[0].profileUrl.should.equals('profileImage/6/thumbnail.jpg');
             res.body.pinwall[0].description.should.equals('page5Description');
             res.body.pinwall[0].recommendedByUser.should.equals(true);
@@ -87,7 +87,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[1].userId.should.equals('4');
             res.body.pinwall[1].title.should.equals('blog4Title');
             res.body.pinwall[1].created.should.equals(513);
-            res.body.pinwall[1].url.should.equals('blog/4/preview.jpg');
+            res.body.pinwall[1].previewUrl.should.equals('blog/4/preview.jpg');
             res.body.pinwall[1].urlFull.should.equals('blog/4/normal.jpg');
             res.body.pinwall[1].profileUrl.should.equals('profileImage/4/thumbnail.jpg');
             res.body.pinwall[1].text.should.equals('blog4Text');
@@ -109,7 +109,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[2].title.should.equals('page2Title');
             res.body.pinwall[2].created.should.equals(512);
             res.body.pinwall[2].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
-            res.body.pinwall[2].linkPreviewUrl.should.equals('pages/2/preview.jpg');
+            res.body.pinwall[2].previewUrl.should.equals('pages/2/preview.jpg');
             res.body.pinwall[2].heightPreviewImage.should.equals(200);
             res.body.pinwall[2].description.should.equals('page2Description');
             res.body.pinwall[2].recommendedByUser.should.equals(true);
@@ -149,7 +149,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[4].title.should.equals('page0Title');
             res.body.pinwall[4].created.should.equals(520);
             res.body.pinwall[4].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[4].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
+            res.body.pinwall[4].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[4].description.should.equals('page0Description');
             res.body.pinwall[4].recommendedByUser.should.equals(true);
             res.body.pinwall[4].thisRecommendationByUser.should.equals(true);
@@ -195,7 +195,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[0].userId.should.equals('4');
             res.body.pinwall[0].title.should.equals('generic5Title');
             res.body.pinwall[0].created.should.equals(513);
-            res.body.pinwall[0].previewImage.should.equals('pages/5/preview.jpg');
+            res.body.pinwall[0].previewUrl.should.equals('pages/5/preview.jpg');
             res.body.pinwall[0].profileUrl.should.equals('profileImage/4/thumbnail.jpg');
             res.body.pinwall[0].description.should.equals('page5Description');
             res.body.pinwall[0].recommendedByUser.should.equals(true);
@@ -217,7 +217,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[1].title.should.equals('page2Title');
             res.body.pinwall[1].created.should.equals(512);
             res.body.pinwall[1].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
-            res.body.pinwall[1].linkPreviewUrl.should.equals('pages/2/preview.jpg');
+            res.body.pinwall[1].previewUrl.should.equals('pages/2/preview.jpg');
             res.body.pinwall[1].heightPreviewImage.should.equals(200);
             res.body.pinwall[1].description.should.equals('page2Description');
             res.body.pinwall[1].recommendedByUser.should.equals(true);
@@ -257,7 +257,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
             res.body.pinwall[3].title.should.equals('page0Title');
             res.body.pinwall[3].created.should.equals(520);
             res.body.pinwall[3].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
-            res.body.pinwall[3].bookPreviewUrl.should.equals('pages/0/pagePreview.jpg');
+            res.body.pinwall[3].previewUrl.should.equals('pages/0/pagePreview.jpg');
             res.body.pinwall[3].description.should.equals('page0Description');
             res.body.pinwall[3].recommendedByUser.should.equals(true);
             res.body.pinwall[3].thisRecommendationByUser.should.equals(true);

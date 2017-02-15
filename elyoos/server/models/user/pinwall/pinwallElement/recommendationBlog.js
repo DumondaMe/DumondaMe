@@ -6,7 +6,7 @@ let numberOfRecommendation = require('./numberOfRecommendation');
 
 let addUrl = function (element) {
     if (element.heightPreviewImage) {
-        element.url = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
+        element.previewUrl = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
         element.urlFull = cdn.getUrl(`blog/${element.pageId}/normal.jpg`);
     }
 };

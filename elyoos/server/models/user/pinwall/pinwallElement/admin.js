@@ -7,18 +7,18 @@ let addLabelElement = function (element, pinwallElement) {
         element.link = pinwallElement.page.link;
         element.hostname = pinwallElement.page.hostname;
         if (pinwallElement.page.hasOwnProperty('heightPreviewImage')) {
-            element.linkPreviewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+            element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
         }
     } else if (element.label === 'Book') {
-        element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
+        element.previewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
     } else if (element.label === 'Generic') {
-        element.previewImage = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+        element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
     } else if (element.label === 'Youtube') {
         element.link = pinwallElement.page.link;
         element.linkEmbed = pinwallElement.page.linkEmbed;
     } else if (element.label === 'Blog') {
         if (pinwallElement.page.hasOwnProperty('heightPreviewImage')) {
-            element.url = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
+            element.previewUrl = cdn.getUrl(`blog/${element.pageId}/preview.jpg`);
         }
     }
 };

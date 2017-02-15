@@ -153,7 +153,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[0].created.should.equals(508);
                     res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                     res.body.pinwall[0].heightPreviewImage.should.equals(200);
-                    res.body.pinwall[0].url.should.equals('blog/4/preview.jpg');
+                    res.body.pinwall[0].previewUrl.should.equals('blog/4/preview.jpg');
                     res.body.pinwall[0].urlFull.should.equals('blog/4/normal.jpg');
                     res.body.pinwall[0].text.should.equals('blogText4');
                     res.body.pinwall[0].isAdmin.should.equals(true);
@@ -169,7 +169,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[1].title.should.equals('blogTitle');
                     res.body.pinwall[1].created.should.equals(506);
                     res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                    should.not.exist(res.body.pinwall[1].url);
+                    should.not.exist(res.body.pinwall[1].previewUrl);
                     should.not.exist(res.body.pinwall[1].urlFull);
                     res.body.pinwall[1].text.should.equals('blogText');
                     res.body.pinwall[1].isAdmin.should.equals(false);
@@ -188,7 +188,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[2].title.should.equals('blogTitle2');
                     res.body.pinwall[2].created.should.equals(505);
                     res.body.pinwall[2].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                    res.body.pinwall[2].url.should.equals('blog/2/preview.jpg');
+                    res.body.pinwall[2].previewUrl.should.equals('blog/2/preview.jpg');
                     res.body.pinwall[2].text.should.equals('blogText2');
                     res.body.pinwall[2].recommendedByUser.should.equals(false);
                     res.body.pinwall[2].totalNumberOfRecommendations.should.equals(0);
@@ -239,7 +239,7 @@ describe('Integration Tests for getting the pinwall of another user', function (
                     res.body.pinwall[5].title.should.equals('linkPageTitle');
                     res.body.pinwall[5].created.should.equals(502);
                     res.body.pinwall[5].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
-                    res.body.pinwall[5].linkPreviewUrl.should.equals('pages/4/preview.jpg');
+                    res.body.pinwall[5].previewUrl.should.equals('pages/4/preview.jpg');
                     res.body.pinwall[5].heightPreviewImage.should.equals(200);
                     res.body.pinwall[5].description.should.equals('linkPage');
                     res.body.pinwall[5].recommendedByUser.should.equals(true);

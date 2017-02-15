@@ -10,12 +10,12 @@ let addLabelElement = function (element, pinwallElement) {
         element.hostname = pinwallElement.pinwallData.hostname;
         element.heightPreviewImage = pinwallElement.pinwallData.heightPreviewImage;
         if (element.heightPreviewImage) {
-            element.linkPreviewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+            element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
         }
     } else if (element.label === 'Book') {
-        element.bookPreviewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
+        element.previewUrl = cdn.getUrl(`pages/${element.pageId}/pagePreview.jpg`);
     } else if (element.label === 'Generic') {
-        element.previewImage = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
+        element.previewUrl = cdn.getUrl(`pages/${element.pageId}/preview.jpg`);
     } else if (element.label === 'Youtube') {
         element.link = pinwallElement.pinwallData.link;
         element.linkEmbed = pinwallElement.pinwallData.linkEmbed;

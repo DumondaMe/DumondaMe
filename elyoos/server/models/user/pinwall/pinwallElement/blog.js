@@ -7,7 +7,7 @@ let numberOfRecommendation = require('./numberOfRecommendation');
 let addBlogUrl = function (blog, heightPreviewImage) {
     if (heightPreviewImage) {
         blog.heightPreviewImage = heightPreviewImage;
-        blog.url = cdn.getUrl('blog/' + blog.pageId + '/preview.jpg');
+        blog.previewUrl = cdn.getUrl('blog/' + blog.pageId + '/preview.jpg');
     }
 };
 

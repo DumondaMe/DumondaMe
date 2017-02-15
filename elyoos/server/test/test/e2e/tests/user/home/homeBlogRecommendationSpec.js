@@ -86,7 +86,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].created.should.equals(503);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
-                res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[0].previewUrl.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(true);
@@ -103,7 +103,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].created.should.equals(501);
                 res.body.pinwall[1].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.pinwall[1].heightPreviewImage.should.equals(200);
-                res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[1].previewUrl.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[1].title.should.equals('blogTitle1');
                 res.body.pinwall[1].text.should.equals('blogText1');
                 res.body.pinwall[1].isAdmin.should.equals(true);
@@ -175,7 +175,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].created.should.equals(504);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/3/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
-                res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[0].previewUrl.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].isAdmin.should.equals(false);
@@ -192,7 +192,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[1].created.should.equals(501);
                 res.body.pinwall[1].profileUrl.should.equals('profileImage/2/thumbnail.jpg');
                 res.body.pinwall[1].heightPreviewImage.should.equals(200);
-                res.body.pinwall[1].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[1].previewUrl.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[1].title.should.equals('blogTitle1');
                 res.body.pinwall[1].text.should.equals('blogText1');
                 res.body.pinwall[1].isAdmin.should.equals(false);
@@ -255,7 +255,7 @@ describe('Integration Tests for getting recommended blogs on home screen for a u
                 res.body.pinwall[0].created.should.equals(503);
                 res.body.pinwall[0].profileUrl.should.equals('profileImage/1/thumbnail.jpg');
                 res.body.pinwall[0].heightPreviewImage.should.equals(200);
-                res.body.pinwall[0].url.should.equals('blog/1/preview.jpg');
+                res.body.pinwall[0].previewUrl.should.equals('blog/1/preview.jpg');
                 res.body.pinwall[0].title.should.equals('blogTitle1');
                 res.body.pinwall[0].text.should.equals('blogText1');
                 res.body.pinwall[0].isAdmin.should.equals(false);
