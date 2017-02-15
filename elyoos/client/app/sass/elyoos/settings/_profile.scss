@@ -1,13 +1,45 @@
-#ely-setting-profile {
+#setting-profile {
   height: 100%;
-  background-color: $background-normal;
+  #user-pinwall-commands-container {
+    #pinwall-commands {
+      max-width: 340px;
+      margin: 0 auto;
 
+      @media screen and (min-width: 960px) {
+        max-width: 720px;
+      }
+      @media screen and (min-width: 1500px) {
+        max-width: 920px;
+      }
+    }
+  }
   .container {
     height: 100%;
-    overflow-y: auto;
-    .container-inner {
-      @media screen and (min-width: $gt-md) {
-        padding-top: 16px;
+    overflow-y: scroll;
+  }
+  .open-nav-fab {
+    position: fixed;
+    bottom: 16px;
+    right: 8px;
+  }
+  .ely-sidenav-right {
+    height: 100%;
+    width: 220px;
+    .ely-setting-profile-sidenav {
+      padding: 12px;
+      margin-top: 12px;
+      .profile-sidnav-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+        font-weight: 700;
+        color: $secondary-text;
+      }
+      .ely-nav-button {
+        width: 100%;
+        margin-bottom: 12px;
+        .ely-button-icon {
+          margin-right: 12px;
+        }
       }
     }
   }

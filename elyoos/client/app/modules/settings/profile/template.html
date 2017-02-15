@@ -1,4 +1,36 @@
-<md-content id="ely-setting-profile">
-    <ely-settings-profile-mobile profile="ctrl.profile" commands="ctrl.commands" ng-if="!ctrl.$mdMedia('min-width: 900px')"></ely-settings-profile-mobile>
-    <ely-settings-profile-desktop profile="ctrl.profile" commands="ctrl.commands" ng-if="ctrl.$mdMedia('min-width: 900px')"></ely-settings-profile-desktop>
-</md-content>
+<div id="setting-profile" layout="row">
+    <div layout="column" flex="grow">
+        <div id="user-pinwall-commands-container" flex="none" ng-if="ctrl.showPagesView">
+            <div id="pinwall-commands" layout="row">
+                <div layout="row" layout-align="start center">
+                    <ely-icon-button icon="navFAB:add" label="Neuer Beitrag" ng-click="ctrl.openCreatePage()"></ely-icon-button>
+                    <ely-icon-button icon="navFAB:filter" label="Filter" ng-click="ctrl.openFilterDialog()"></ely-icon-button>
+                </div>
+                <span flex></span>
+                <div id="pinwall-order">
+                    <md-input-container>
+                        <md-select ng-model="ctrl.filterType" aria-label="Order pinwall" class="md-no-underline select-order"
+                                   md-on-close="ctrl.filterTypeChanged()">
+                            <md-option value="recommendation">Deine Empfehlungen</md-option>
+                            <md-option value="admin">Deine Beiträge</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView && ctrl.filterType === 'recommendation'">
+            <div class="container-inner">
+                <ely-pinwall-user-recommendation pinwall="ctrl.pinwall.pinwall"></ely-pinwall-user-recommendation>
+            </div>
+        </div>
+        <div ng-if="ctrl.showContactsView" flex>
+            <ely-contact></ely-contact>
+        </div>
+    </div>
+    <md-button class="md-fab open-nav-fab" aria-label="Open Setting Navigation" ng-click="ctrl.openNav()" ng-if="!ctrl.$mdMedia('gt-xs')">
+        <md-icon md-svg-icon="navFAB:setting"></md-icon>
+    </md-button>
+    <md-sidenav flex="none" class="md-sidenav-right md-whiteframe-z2 ely-sidenav-right" md-component-id="right" md-is-locked-open="ctrl.$mdMedia('gt-xs')">
+        <ely-settings-profile-sidnav profile="ctrl.profile" show-pages="ctrl.showPages" show-contacts="ctrl.showContacts"></ely-settings-profile-sidnav>
+    </md-sidenav>
+</div>

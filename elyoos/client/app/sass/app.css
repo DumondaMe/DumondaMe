@@ -3992,125 +3992,40 @@
       #rename-group-name .ely-dialog-content .title .name {
         color: #3F51B5; }
 
-.desktop-setting-profile {
+#setting-profile {
   height: 100%; }
-  .desktop-setting-profile #user-pinwall-commands-container #pinwall-commands {
-    max-width: 720px;
+  #setting-profile #user-pinwall-commands-container #pinwall-commands {
+    max-width: 340px;
     margin: 0 auto; }
+    @media screen and (min-width: 960px) {
+      #setting-profile #user-pinwall-commands-container #pinwall-commands {
+        max-width: 720px; } }
     @media screen and (min-width: 1500px) {
-      .desktop-setting-profile #user-pinwall-commands-container #pinwall-commands {
+      #setting-profile #user-pinwall-commands-container #pinwall-commands {
         max-width: 920px; } }
-  .desktop-setting-profile .ely-sidenav-right {
+  #setting-profile .container {
+    height: 100%;
+    overflow-y: scroll; }
+  #setting-profile .open-nav-fab {
+    position: fixed;
+    bottom: 16px;
+    right: 8px; }
+  #setting-profile .ely-sidenav-right {
     height: 100%;
     width: 220px; }
-    .desktop-setting-profile .ely-sidenav-right .ely-setting-profile-sidenav {
+    #setting-profile .ely-sidenav-right .ely-setting-profile-sidenav {
       padding: 12px;
       margin-top: 12px; }
-      .desktop-setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .profile-sidnav-title {
+      #setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .profile-sidnav-title {
         font-size: 14px;
         margin-bottom: 12px;
         font-weight: 700;
         color: rgba(0, 0, 0, 0.54); }
-      .desktop-setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .ely-nav-button {
+      #setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .ely-nav-button {
         width: 100%;
         margin-bottom: 12px; }
-        .desktop-setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .ely-nav-button .ely-button-icon {
+        #setting-profile .ely-sidenav-right .ely-setting-profile-sidenav .ely-nav-button .ely-button-icon {
           margin-right: 12px; }
-
-#ely-setting-overview-desktop {
-  margin-top: 32px; }
-  #ely-setting-overview-desktop .setting {
-    cursor: pointer;
-    margin: 6px 0;
-    font-weight: 500;
-    font-size: 12px;
-    min-width: 100px; }
-  #ely-setting-overview-desktop .setting:hover {
-    text-decoration: underline; }
-
-#ely-setting-overview {
-  width: 300px;
-  margin: 0;
-  cursor: pointer; }
-  #ely-setting-overview .title {
-    position: relative;
-    height: 48px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-    #ely-setting-overview .title .setting-icon-left {
-      position: absolute;
-      margin: 0;
-      left: 16px;
-      top: 12px; }
-    #ely-setting-overview .title .setting-icon-right {
-      position: absolute;
-      margin: 0;
-      right: 16px;
-      top: 12px; }
-    #ely-setting-overview .title .description-container {
-      height: 100%;
-      width: 100%; }
-      #ely-setting-overview .title .description-container .description {
-        font-size: 18px;
-        font-weight: 500;
-        color: #3F51B5; }
-  #ely-setting-overview .content .setting {
-    height: 36px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-    #ely-setting-overview .content .setting .setting-description {
-      font-size: 16px;
-      font-weight: 500; }
-  #ely-setting-overview .content .setting:hover {
-    background-color: #C5CAE9; }
-
-#ely-setting-profile {
-  height: 100%;
-  background-color: #e9ebee; }
-  #ely-setting-profile .container {
-    height: 100%;
-    overflow-y: auto; }
-    @media screen and (min-width: 1280px) {
-      #ely-setting-profile .container .container-inner {
-        padding-top: 16px; } }
-
-#ely-setting-profile-image-card {
-  width: 100%;
-  max-width: 300px;
-  margin: 8px 0;
-  background-color: white; }
-
-.ely-setting-profile-image .profile-image {
-  cursor: pointer;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%; }
-  @media screen and (min-width: 1280px) {
-    .ely-setting-profile-image .profile-image {
-      width: 140px;
-      height: 140px;
-      margin-top: 16px; } }
-.ely-setting-profile-image .contact-statistic {
-  cursor: pointer;
-  font-size: 16px; }
-  .ely-setting-profile-image .contact-statistic .number-of-contacting {
-    position: relative;
-    font-weight: 500;
-    top: 1px;
-    left: 4px;
-    color: #3F51B5; }
-
-#setting-user-pinwall {
-  max-width: 400px;
-  margin: 0 auto; }
-  @media screen and (min-width: 1440px) {
-    #setting-user-pinwall {
-      max-width: 950px;
-      width: 950px; } }
-  #setting-user-pinwall .setting-title {
-    margin-top: 16px;
-    margin-left: 16px;
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54); }
 
 body, html {
   background-color: #e9ebee;

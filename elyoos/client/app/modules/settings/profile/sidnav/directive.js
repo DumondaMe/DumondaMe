@@ -9,10 +9,12 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-                profile: '='
+                profile: '=',
+                showPages: '=',
+                showContacts: '='
             },
-            templateUrl: 'app/modules/settings/profile/image/template.html'
+            templateUrl: 'app/modules/settings/profile/sidnav/template.html'
         };
     }],
-    name: 'elySettingsProfileImage'
+    name: 'elySettingsProfileSidnav'
 };
