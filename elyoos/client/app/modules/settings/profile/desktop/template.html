@@ -9,8 +9,8 @@
                 <span flex></span>
                 <div id="pinwall-order">
                     <md-input-container>
-                        <md-select ng-model="ctrl.filterOrder" aria-label="Order pinwall" class="md-no-underline select-order"
-                                   md-on-close="ctrl.orderChanged()">
+                        <md-select ng-model="ctrl.filterType" aria-label="Order pinwall" class="md-no-underline select-order"
+                                   md-on-close="ctrl.filterTypeChanged()">
                             <md-option value="recommendation">Deine Empfehlungen</md-option>
                             <md-option value="admin">Deine Beiträge</md-option>
                         </md-select>
@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
-        <div class="container" ely-infinite-scroll="ctrl.commands.nextPinwallInfo" flex="grow" ng-if="ctrl.showPagesView">
+        <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex="grow" ng-if="ctrl.showPagesView && ctrl.filterType=== 'recommendation'">
             <div class="container-inner" layout="column" layout-align="start center">
-                <ely-settings-user-pinwall breakpoint="min-width: 1440px" commands="ctrl.commands"></ely-settings-user-pinwall>
+                <ely-pinwall-user-recommendation pinwall="ctrl.pinwall.pinwall"></ely-pinwall-user-recommendation>
             </div>
         </div>
         <div ng-if="ctrl.showContactsView" flex="grow">

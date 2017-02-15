@@ -3146,6 +3146,9 @@
       font-weight: 500;
       cursor: pointer; }
 
+#ely-pinwall-user-recommendation {
+  padding: 0 16px; }
+
 #start-screen #carousel {
   height: 100%;
   width: 100%; }

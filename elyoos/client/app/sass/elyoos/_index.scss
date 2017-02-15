@@ -105,21 +105,23 @@
 @import 'page/modal/_pageOverviewLink';
 @import 'page/modal/_pageOverviewYoutube';
 
-@import 'pinwall/_blog';
-@import 'pinwall/_blogActions';
-@import 'pinwall/_constructionInfoPinwallElement';
-@import 'pinwall/_contacting';
-@import 'pinwall/_noPinwallElement';
-@import 'pinwall/_pageRecommendationActions';
-@import 'pinwall/_pinwallContainer';
-@import 'pinwall/_recommendation';
-@import 'pinwall/_recommendationBlog';
-@import 'pinwall/_recommendationBook';
-@import 'pinwall/_recommendationLink';
-@import 'pinwall/_recommendationPlace';
-@import 'pinwall/_recommendationYoutube';
-@import 'pinwall/_recommendationRatingOverview';
-@import 'pinwall/_recommendedUser';
+@import 'pinwall/home/_blog';
+@import 'pinwall/home/_blogActions';
+@import 'pinwall/home/_constructionInfoPinwallElement';
+@import 'pinwall/home/_contacting';
+@import 'pinwall/home/_noPinwallElement';
+@import 'pinwall/home/_pageRecommendationActions';
+@import 'pinwall/home/_pinwallContainer';
+@import 'pinwall/home/_recommendation';
+@import 'pinwall/home/_recommendationBlog';
+@import 'pinwall/home/_recommendationBook';
+@import 'pinwall/home/_recommendationLink';
+@import 'pinwall/home/_recommendationPlace';
+@import 'pinwall/home/_recommendationYoutube';
+@import 'pinwall/home/_recommendationRatingOverview';
+@import 'pinwall/home/_recommendedUser';
+
+@import 'pinwall/userRecommendation/_pinwallContainer';
 
 @import 'public/_carousel';
 @import 'public/_carouselLogin';
