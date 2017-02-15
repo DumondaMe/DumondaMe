@@ -10,10 +10,10 @@ describe('Integration Tests for getting most popular content on home screen', fu
         return dbDsl.init(9).then(function () {
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, author: 'HansMuster', publishDate: 1000});
-            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 502, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 502, link: 'www.host.com/test', heightPreviewImage: 200});
             dbDsl.createYoutubePage('1', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 503, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                language: ['de'], topic: ['health', 'personalDevelopment'], created: 503, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
             dbDsl.createBlog('3', {
@@ -24,7 +24,7 @@ describe('Integration Tests for getting most popular content on home screen', fu
                 pictureHeight: 400
             });
             dbDsl.createBlog('4', {blogWriterUserId: '6', language: ['en'], topic: ['health'], created: 511, pictureHeight: 400});
-            dbDsl.createGenericPage('5', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 506}, [{
+            dbDsl.createGenericPage('5', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 506}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694

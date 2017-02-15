@@ -13,13 +13,13 @@ describe('Integration Tests for getting page events', function () {
         return dbDsl.init(2).then(function () {
             startTime = Math.floor(moment.utc().valueOf() / 1000);
 
-            dbDsl.createGenericPage('1', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [{
+            dbDsl.createGenericPage('1', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '11'
             }]);
-            dbDsl.createGenericPage('2', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [{
+            dbDsl.createGenericPage('2', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100}, [{
                 address: 'Zuerich1',
                 lat: 47.376887,
                 lng: 8.541694,

@@ -17,7 +17,7 @@ describe('Integration Tests for deleting an address of a page', function () {
 
         return dbDsl.init(4).then(function () {
 
-            dbDsl.createGenericPage('0', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('0', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 address: 'Zuerich',
                 description: 'ZuerichEvent',
                 lat: 47.376887,
@@ -30,7 +30,7 @@ describe('Integration Tests for deleting an address of a page', function () {
                 lng: 8.52,
                 addressId: '2'
             }]);
-            dbDsl.createGenericPage('1', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 address: 'Zuerich3',
                 description: 'Zuerich3Event',
                 lat: 47.376887,

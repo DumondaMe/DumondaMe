@@ -18,13 +18,13 @@ describe('Integration Tests for editing generic pages', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(2).then(function () {
 
-            dbDsl.createGenericPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100, website: 'www.example.org'}, [{
+            dbDsl.createGenericPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100, website: 'www.example.org'}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }]);
-            dbDsl.createGenericPage('2', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 200, website: 'www.example2.org'}, [{
+            dbDsl.createGenericPage('2', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 200, website: 'www.example2.org'}, [{
                 address: 'Zuerich1',
                 lat: 47.376887,
                 lng: 8.541694,

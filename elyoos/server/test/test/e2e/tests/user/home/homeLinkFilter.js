@@ -13,17 +13,17 @@ describe('Integration Tests for filtering link recommendation on home screen', f
 
             dbDsl.createPrivacyNoContact(null, {profile: true, image: true, profileData: true, contacts: true, pinwall: true});
 
-            dbDsl.createLinkPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'www.host.com/test', heightPreviewImage: 200});
-            dbDsl.createLinkPage('1', {language: ['fr'], topic: ['socialDevelopment'], modified: 502, link: 'www.host.com/test1', heightPreviewImage: 200});
-            dbDsl.createLinkPage('2', {language: ['en'], topic: ['personalDevelopment'], modified: 503, link: 'www.host.com/test2', heightPreviewImage: 200});
-            dbDsl.createBookPage('10', {language: ['en'], topic: ['personalDevelopment'], modified: 504, author: 'HansMuster3', publishDate: 1002});
+            dbDsl.createLinkPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createLinkPage('1', {language: ['fr'], topic: ['socialDevelopment'], created: 502, link: 'www.host.com/test1', heightPreviewImage: 200});
+            dbDsl.createLinkPage('2', {language: ['en'], topic: ['personalDevelopment'], created: 503, link: 'www.host.com/test2', heightPreviewImage: 200});
+            dbDsl.createBookPage('10', {language: ['en'], topic: ['personalDevelopment'], created: 504, author: 'HansMuster3', publishDate: 1002});
             dbDsl.createYoutubePage('11', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 512, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                language: ['de'], topic: ['health', 'personalDevelopment'], created: 512, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
 
             dbDsl.createBlog('12', {blogWriterUserId: '2', language: ['en'], topic: ['health', 'personalDevelopment'], created: 533, pictureHeight: 400});
-            dbDsl.createGenericPage('13', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('13', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 description: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694

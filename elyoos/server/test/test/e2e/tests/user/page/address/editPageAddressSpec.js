@@ -15,7 +15,7 @@ describe('Integration Tests for edit address of generic pages', function () {
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(2).then(function () {
-            dbDsl.createGenericPage('0', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('0', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 address: 'Zuerich',
                 description: 'description1',
                 lat: 47.376887,
@@ -28,7 +28,7 @@ describe('Integration Tests for edit address of generic pages', function () {
                 lng: 8.54169456,
                 addressId: '2'
             }]);
-            dbDsl.createGenericPage('1', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 address: 'Zuerich',
                 description: 'description2',
                 lat: 47.3768874,

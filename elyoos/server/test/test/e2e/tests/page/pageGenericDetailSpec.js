@@ -10,7 +10,7 @@ describe('Integration Tests for getting generic page detail', function () {
 
     beforeEach(function () {
         return dbDsl.init(3).then(function () {
-            dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100, website: 'www.elyoos.org'}, [{
+            dbDsl.createGenericPage('1', {adminId: '2', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100, website: 'www.elyoos.org'}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,

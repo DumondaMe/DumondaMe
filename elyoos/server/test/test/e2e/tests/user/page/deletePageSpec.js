@@ -16,22 +16,18 @@ describe('Integration Tests for deleting a page', function () {
         startTime = Math.floor(moment.utc().valueOf() / 1000);
 
         return dbDsl.init(4).then(function () {
-            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5090, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createBookPage('0', {adminId: '1',language: ['de'], topic: ['health', 'personalDevelopment'], created: 5090, author: 'HansMuster', publishDate: 1000});
             dbDsl.createYoutubePage('1', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5091, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 5091, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
             dbDsl.createYoutubePage('2', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 5092, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 5092, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
-            dbDsl.createGenericPage('3', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], modified: 100}, [
+            dbDsl.createGenericPage('3', {adminId: '1', language: ['en', 'de'], topic: ['environmental', 'spiritual'], created: 100}, [
                 {description: 'Zuerich', lat: 47.376887, lng: 8.541694},
                 {description: 'Zuerich2', lat: 47.376887, lng: 8.541694}]);
-
-            dbDsl.addAdminToPage('1', '0');
-            dbDsl.addAdminToPage('1', '1');
-            dbDsl.addAdminToPage('2', '2');
 
             dbDsl.crateRecommendationsForPage('0', [{userId: '1', created: 507}]);
             dbDsl.crateRecommendationsForPage('1', [{userId: '2', created: 508}]);

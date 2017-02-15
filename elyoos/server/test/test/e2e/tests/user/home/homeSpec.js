@@ -13,10 +13,10 @@ describe('Integration Tests for getting home screen information for a user', fun
     beforeEach(function () {
         return dbDsl.init(6).then(function () {
 
-            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, author: 'HansMuster', publishDate: 1000});
-            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'www.host.com/test', heightPreviewImage: 200});
+            dbDsl.createBookPage('0', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, author: 'HansMuster', publishDate: 1000});
+            dbDsl.createLinkPage('2', {language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'www.host.com/test', heightPreviewImage: 200});
             dbDsl.createYoutubePage('1', {
-                language: ['de'], topic: ['health', 'personalDevelopment'], modified: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
+                language: ['de'], topic: ['health', 'personalDevelopment'], created: 501, link: 'https://www.youtube.com/watch?v=hTarMdJub0M',
                 linkEmbed: 'https://www.youtube.com/embed/hTarMdJub0M'
             });
         });
@@ -320,7 +320,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
         dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
-        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
             description: 'Zuerich',
             lat: 47.376887,
             lng: 8.541694
@@ -508,7 +508,7 @@ describe('Integration Tests for getting home screen information for a user', fun
         dbDsl.createBlog('6', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 1000});
         dbDsl.createBlog('7', {blogWriterUserId: '3', language: ['en'], topic: ['health', 'personalDevelopment'], created: 507, visible: ['Freund']});
 
-        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+        dbDsl.createGenericPage('8', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
             description: 'Zuerich',
             lat: 47.376887,
             lng: 8.541694

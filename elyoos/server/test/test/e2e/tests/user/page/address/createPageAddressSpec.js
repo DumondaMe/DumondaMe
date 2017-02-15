@@ -14,13 +14,13 @@ describe('Integration Tests for creating new address for generic pages', functio
 
         startTime = Math.floor(moment.utc().valueOf() / 1000);
         return dbDsl.init(5).then(function () {
-            dbDsl.createGenericPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 100}, [{
+            dbDsl.createGenericPage('1', {adminId: '1', language: ['de'], topic: ['health', 'personalDevelopment'], created: 100}, [{
                 address: 'Zuerich',
                 lat: 47.376887,
                 lng: 8.541694,
                 addressId: '1'
             }]);
-            dbDsl.createGenericPage('2', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], modified: 200}, [{
+            dbDsl.createGenericPage('2', {adminId: '2', language: ['de'], topic: ['health', 'personalDevelopment'], created: 200}, [{
                 address: 'Zuerich1',
                 lat: 47.376887,
                 lng: 8.541694,
