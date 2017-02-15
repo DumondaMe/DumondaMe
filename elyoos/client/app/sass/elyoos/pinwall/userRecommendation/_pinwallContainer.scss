@@ -1,7 +1,12 @@
 #ely-pinwall-user-recommendation {
   padding: 0 16px;
   #ely-pinwall-user-recommendation-container {
+    margin: 0 auto;
+    max-width: 750px;
 
+    @media screen and (min-width: 1500px) {
+      max-width: 950px;
+    }
   }
 }
 

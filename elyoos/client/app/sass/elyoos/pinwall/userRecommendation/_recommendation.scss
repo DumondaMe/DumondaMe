@@ -1,6 +1,75 @@
 .card-user-recommendation {
   @include cardElement();
-  margin: 8px 0;
+  margin: 8px auto;
+}
+
+.user-recommendation {
+  padding: 8px 8px 8px 0;
+  height: 155px;
+  .preview-image {
+    width: 80px;
+    padding-bottom: 10px;
+    .preview-image-container {
+      cursor: pointer;
+      position: relative;
+      margin-top: 2px;
+      margin-left: 8px;
+      width: 70px;
+      height: 70px !important;
+      border-radius: 4px;
+      opacity: 0.99;
+      overflow: hidden;
+      img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+      img.book {
+        height: 170% !important;
+      }
+      .recommendation-type-image-icon {
+        height: 32px;
+        width: 32px;
+        margin: 8px;
+      }
+    }
+  }
+  .user-recommendation-content {
+    margin-left: 8px;
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+      color: $primary-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .recommendation-created {
+      display: inline-block;
+      font-size: 12px;
+      color: $secondary-text;
+      margin-bottom: 8px;
+      margin-right: 8px;
+    }
+    .description {
+      font-size: 12px;
+      color: $secondary-text;
+      line-height: 1.2em;
+      max-height: 4.8em;
+      overflow: hidden;
+    }
+    .action-container {
+      margin-left: -8px;
+      .blog-actions {
+        padding: 0;
+      }
+    }
+  }
 }
 
 

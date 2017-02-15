@@ -2,8 +2,12 @@
   height: 100%;
   #user-pinwall-commands-container {
     #pinwall-commands {
-      max-width: 500px;
+      max-width: 720px;
       margin: 0 auto;
+
+      @media screen and (min-width: 1500px) {
+        max-width: 920px;
+      }
     }
   }
   .ely-sidenav-right {

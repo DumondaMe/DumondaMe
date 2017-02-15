@@ -5,8 +5,8 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         var ctrl = this;
 
         ctrl.pinwall = {pinwall: []};
-        ctrl.filterType = 'admin';
-        ctrl.previousFilterType = 'admin';
+        ctrl.filterType = 'recommendation';
+        ctrl.previousFilterType = 'recommendation';
 
         ctrl.showPages = function () {
             ctrl.showPagesView = true;
@@ -28,7 +28,7 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
 
         ctrl.filterTypeChanged = function () {
             if (ctrl.previousFilterType !== ctrl.filterType) {
-                ctrl.previousFilterType = ctrl.filterType;
+                ctrl.previousFilterType = angular.copy(ctrl.filterType);
                 ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
                 ctrl.nextPinwallInfo();
             }
@@ -44,4 +44,5 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
                 }
             });
         };
+        ctrl.nextPinwallInfo();
     }];
