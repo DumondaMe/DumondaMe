@@ -24,8 +24,8 @@
         </div>
     </md-card-header>
     <div class="blog-title" ng-if="ctrl.element.title" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">{{ctrl.element.title}}</div>
-    <div class="blog-image-container" ng-if="ctrl.element.url" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">
-        <img ng-src="{{ctrl.element.url}}" class="md-card-image">
+    <div class="blog-image-container" ng-if="ctrl.element.previewUrl" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">
+        <img ng-src="{{ctrl.element.previewUrl}}" class="md-card-image">
     </div>
     <md-card-content class="card-content-container">
         <div class="md-body-1 blog-text" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">{{ctrl.previewText}}</div>

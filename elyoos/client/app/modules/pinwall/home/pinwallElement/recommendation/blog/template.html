@@ -1,6 +1,6 @@
 <div class="blog-recommendation-desktop">
-    <div class="blog-image-container" ng-if="ctrl.element.url" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">
-        <img ng-src="{{ctrl.element.url}}" class="md-card-image">
+    <div class="blog-image-container" ng-if="ctrl.element.previewUrl" ui-sref="page.detail({pageId: ctrl.element.pageId, label: 'Blog'})">
+        <img ng-src="{{ctrl.element.previewUrl}}" class="md-card-image">
     </div>
     <div layout="row" class="content-container">
         <div class="description-container">
