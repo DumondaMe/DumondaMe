@@ -1,5 +1,6 @@
 'use strict';
 
+let admin = require('./admin');
 let blog = require('./blog');
 let recommendation = require('./recommendation');
 let recommendationBlog = require('./recommendationBlog');
@@ -10,7 +11,9 @@ let getPinwallElements = function (pinwallElements) {
     let result = [];
     _.each(pinwallElements, function (pinwallElement) {
         let element;
-        if (_.contains(pinwallElement.pinwallType, 'Blog')) {
+        if (pinwallElement.isAdminType === true) {
+            element = admin.getPinwallElement(pinwallElement);
+        } else if (_.contains(pinwallElement.pinwallType, 'Blog')) {
             element = blog.getPinwallElement(pinwallElement);
         } else if (_.contains(pinwallElement.pinwallType, 'Recommendation') && !pinwallElement.writer) {
             element = recommendation.getPinwallElement(pinwallElement);

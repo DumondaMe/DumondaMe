@@ -31,6 +31,7 @@ let getPinwallElement = function (pinwallElement) {
     element.description = pinwallElement.pinwallData.description;
     element.title = pinwallElement.pinwallData.title;
     element.topic = pinwallElement.pinwallData.topic;
+    element.isAdmin = pinwallElement.isAdmin;
     element.recommendedByUser = pinwallElement.recommendedByUser;
     element.userRecommendationId = pinwallElement.userRecommendationId;
     element.recommendedByUser = false;

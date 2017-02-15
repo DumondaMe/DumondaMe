@@ -10,19 +10,30 @@ let recommendedUser = require('./recommendedUser');
 let recommendedUserSetting = require('./../setting/recommendedUser');
 let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
-let getPinwallOfUser = function (userId, request) {
-    return db.cypher().match("(user:User {userId: {userId}})-[:WRITTEN|:RECOMMENDS]->(pinwall:PinwallElement)")
-        .optionalMatch("(pinwall)-[:PINWALL_DATA]->(pinwallData)")
+let getRecommendationOfUser = function (userId, request) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:RECOMMENDS]->(pinwall:Recommendation)-[:RECOMMENDS]->(pinwallData)")
         .optionalMatch("(pinwallData)<-[:WRITTEN]-(writer:User)")
-        .where("pinwallData:Blog")
-        .optionalMatch("(user)-[:RECOMMENDS]->(userRec:Recommendation)-[:RECOMMENDS]->(pinwallData)")
-        .return(`user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, true AS isAdmin, writer,
-                 userRec.recommendationId AS userRecommendationId, NOT EXISTS(pinwall.visible) AS isPublic,
-                 EXISTS((user)-[:RECOMMENDS]->(:Recommendation)-[:RECOMMENDS]->(pinwallData)) AS recommendedByUser,
-                 EXISTS((user)-[:RECOMMENDS]->(pinwall)) AS thisRecommendationByUser,
-                 SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallDataRecommendations,
-                 SIZE((pinwall)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallRecommendations`)
+        .return(`user, pinwall, pinwallData, LABELS(pinwall) AS pinwallType, writer, true AS recommendedByUser, true AS thisRecommendationByUser,
+                 pinwall.recommendationId AS userRecommendationId, NOT EXISTS(pinwall.visible) AS isPublic,
+                 EXISTS((user)-[:IS_ADMIN]->(pinwallData)) AS isAdmin,
+                 SIZE((pinwallData)<-[:RECOMMENDS]-(:Recommendation)) AS numberOfPinwallDataRecommendations`)
         .orderBy("pinwall.created DESC")
+        .skip("{skip}")
+        .limit("{maxItems}")
+        .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
+        .send()
+        .then(function (resp) {
+            return {pinwall: pinwallElement.getPinwallElements(resp)};
+        });
+};
+
+let getPagesOfUser = function (userId, request) {
+    return db.cypher().match("(user:User {userId: {userId}})-[:IS_ADMIN|WRITTEN]->(page:Page)")
+        .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(page)")
+        .return(`user, page, LABELS(page) AS pinwallType, true AS isAdminType, NOT EXISTS(page.visible) AS isPublic, 
+                 recommendation.recommendationId AS userRecommendationId,
+                 SIZE((page)<-[:RECOMMENDS]-(:Recommendation)) AS totalNumberOfRecommendations`)
+        .orderBy("page.created DESC")
         .skip("{skip}")
         .limit("{maxItems}")
         .end({userId: userId, skip: request.skip, maxItems: request.maxItems})
@@ -231,6 +242,7 @@ let getPinwall = function (userId, request) {
 
 module.exports = {
     getPinwall: getPinwall,
-    getPinwallOfUser: getPinwallOfUser,
+    getRecommendationOfUser: getRecommendationOfUser,
+    getPagesOfUser: getPagesOfUser,
     getPinwallOfDetailUser: getPinwallOfDetailUser
 };
