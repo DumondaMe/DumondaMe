@@ -5,7 +5,11 @@
 
 .user-recommendation {
   padding: 8px 8px 8px 0;
-  height: 155px;
+  min-height: 90px;
+  width: 100%;
+  @media screen and (min-width: $gt-xs) {
+    height: 155px;
+  }
   .preview-image {
     width: 80px;
     padding-bottom: 10px;
@@ -57,11 +61,16 @@
       margin-right: 8px;
     }
     .description {
-      font-size: 12px;
+      font-size: 11px;
       color: $secondary-text;
       line-height: 1.2em;
-      max-height: 4.8em;
+      max-height: 3.6em;
       overflow: hidden;
+
+      @media screen and (min-width: $gt-xs) {
+        font-size: 12px;
+        max-height: 4.8em;
+      }
     }
     .action-container {
       margin-left: -8px;
@@ -72,4 +81,7 @@
   }
 }
 
-
+.user-recommendation.show-bottom-line {
+  border-bottom: 1px solid $divider;
+  margin-bottom: 8px;
+}

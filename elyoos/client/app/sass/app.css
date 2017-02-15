@@ -3148,6 +3148,9 @@
 
 #ely-pinwall-user-recommendation {
   padding: 0 16px; }
+  @media screen and (max-width: 600px) {
+    #ely-pinwall-user-recommendation {
+      background-color: white; } }
   #ely-pinwall-user-recommendation #ely-pinwall-user-recommendation-container {
     margin: 0 auto;
     max-width: 750px; }
@@ -3165,7 +3168,11 @@
 
 .user-recommendation {
   padding: 8px 8px 8px 0;
-  height: 155px; }
+  min-height: 90px;
+  width: 100%; }
+  @media screen and (min-width: 600px) {
+    .user-recommendation {
+      height: 155px; } }
   .user-recommendation .preview-image {
     width: 80px;
     padding-bottom: 10px; }
@@ -3210,15 +3217,23 @@
       margin-bottom: 8px;
       margin-right: 8px; }
     .user-recommendation .user-recommendation-content .description {
-      font-size: 12px;
+      font-size: 11px;
       color: rgba(0, 0, 0, 0.54);
       line-height: 1.2em;
-      max-height: 4.8em;
+      max-height: 3.6em;
       overflow: hidden; }
+      @media screen and (min-width: 600px) {
+        .user-recommendation .user-recommendation-content .description {
+          font-size: 12px;
+          max-height: 4.8em; } }
     .user-recommendation .user-recommendation-content .action-container {
       margin-left: -8px; }
       .user-recommendation .user-recommendation-content .action-container .blog-actions {
         padding: 0; }
+
+.user-recommendation.show-bottom-line {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 8px; }
 
 #start-screen #carousel {
   height: 100%;
@@ -3993,19 +4008,26 @@
         color: #3F51B5; }
 
 #setting-profile {
-  height: 100%; }
-  #setting-profile #user-pinwall-commands-container #pinwall-commands {
-    max-width: 340px;
-    margin: 0 auto; }
-    @media screen and (min-width: 960px) {
-      #setting-profile #user-pinwall-commands-container #pinwall-commands {
-        max-width: 720px; } }
-    @media screen and (min-width: 1500px) {
-      #setting-profile #user-pinwall-commands-container #pinwall-commands {
-        max-width: 920px; } }
-  #setting-profile .container {
-    height: 100%;
-    overflow-y: scroll; }
+  height: 100%;
+  width: 100%; }
+  #setting-profile #setting-profile-container {
+    width: 100%; }
+    @media screen and (max-width: 600px) {
+      #setting-profile #setting-profile-container #user-pinwall-commands-container {
+        background-color: white; } }
+    #setting-profile #setting-profile-container #user-pinwall-commands-container #pinwall-commands {
+      max-width: 340px;
+      margin: 0 auto; }
+      @media screen and (min-width: 960px) {
+        #setting-profile #setting-profile-container #user-pinwall-commands-container #pinwall-commands {
+          max-width: 720px; } }
+      @media screen and (min-width: 1500px) {
+        #setting-profile #setting-profile-container #user-pinwall-commands-container #pinwall-commands {
+          max-width: 920px; } }
+    #setting-profile #setting-profile-container .container {
+      height: 100%;
+      width: 100%;
+      overflow-y: scroll; }
   #setting-profile .open-nav-fab {
     position: fixed;
     bottom: 16px;

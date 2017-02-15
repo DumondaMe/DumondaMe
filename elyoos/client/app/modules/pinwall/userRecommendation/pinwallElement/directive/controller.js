@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = ['$state', 'dateFormatter', 'YoutubeThumbnail',
-    function ($state, dateFormatter, YoutubeThumbnail) {
+module.exports = ['$mdMedia', 'dateFormatter', 'YoutubeThumbnail',
+    function ($mdMedia, dateFormatter, YoutubeThumbnail) {
         var ctrl = this;
 
+        ctrl.$mdMedia = $mdMedia;
         ctrl.getYoutubeImage = YoutubeThumbnail.getImage;
         ctrl.getFormattedDate = dateFormatter.formatRelativeTimes;
     }];

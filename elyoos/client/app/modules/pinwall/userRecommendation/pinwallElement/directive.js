@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                element: '='
+                element: '=',
+                showBottomLine: '@'
             },
             controller: function () {
             },

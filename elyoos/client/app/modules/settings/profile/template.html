@@ -1,5 +1,5 @@
 <div id="setting-profile" layout="row">
-    <div layout="column" flex="grow">
+    <div layout="column" flex="grow" id="setting-profile-container">
         <div id="user-pinwall-commands-container" flex="none" ng-if="ctrl.showPagesView">
             <div id="pinwall-commands" layout="row">
                 <div layout="row" layout-align="start center">
@@ -19,9 +19,7 @@
             </div>
         </div>
         <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView && ctrl.filterType === 'recommendation'">
-            <div class="container-inner">
-                <ely-pinwall-user-recommendation pinwall="ctrl.pinwall.pinwall"></ely-pinwall-user-recommendation>
-            </div>
+            <ely-pinwall-user-recommendation pinwall="ctrl.pinwall.pinwall"></ely-pinwall-user-recommendation>
         </div>
         <div ng-if="ctrl.showContactsView" flex>
             <ely-contact></ely-contact>

@@ -1,4 +1,4 @@
-<div class="user-recommendation" layout="row">
+<div class="user-recommendation" layout="row" ng-class="{'show-bottom-line': ctrl.showBottomLine}">
     <div class="preview-image" flex="none" ng-hide="(ctrl.element.label === 'Link' || ctrl.element.label === 'Blog') && !ctrl.element.previewUrl">
         <div class="preview-image-container">
             <img ng-src="{{ctrl.element.previewUrl}}" ng-class="{'book': ctrl.element.label === 'Book'}" ng-if="ctrl.element.label !== 'Youtube'">
@@ -13,7 +13,7 @@
         </div>
         <div class="description" ng-if="ctrl.element.description">{{ctrl.element.description}}</div>
         <div class="description" ng-if="ctrl.element.text">{{ctrl.element.text}}</div>
-        <span flex></span>
+        <span flex ng-if="ctrl.$mdMedia('gt-xs')"></span>
         <div class="action-container">
             <ely-blog-actions element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-blog-actions>
             <ely-pinwall-page-recommendation-actions element="ctrl.element" ng-if="ctrl.element.label !== 'Blog'"></ely-pinwall-page-recommendation-actions>

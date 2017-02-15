@@ -1,21 +1,29 @@
 #setting-profile {
   height: 100%;
-  #user-pinwall-commands-container {
-    #pinwall-commands {
-      max-width: 340px;
-      margin: 0 auto;
-
-      @media screen and (min-width: 960px) {
-        max-width: 720px;
+  width: 100%;
+  #setting-profile-container {
+    width: 100%;
+    #user-pinwall-commands-container {
+      @media screen and (max-width: $gt-xs) {
+        background-color: $background-light;
       }
-      @media screen and (min-width: 1500px) {
-        max-width: 920px;
+      #pinwall-commands {
+        max-width: 340px;
+        margin: 0 auto;
+
+        @media screen and (min-width: 960px) {
+          max-width: 720px;
+        }
+        @media screen and (min-width: 1500px) {
+          max-width: 920px;
+        }
       }
     }
-  }
-  .container {
-    height: 100%;
-    overflow-y: scroll;
+    .container {
+      height: 100%;
+      width: 100%;
+      overflow-y: scroll;
+    }
   }
   .open-nav-fab {
     position: fixed;
