@@ -148,7 +148,7 @@
         #ely-user-detail .container #detail-user-pinwall {
           background-color: white; }
           #ely-user-detail .container #detail-user-pinwall #ely-pinwall-compact {
-            width: 292px;
+            max-width: 292px;
             margin: 0 auto; } }
   #ely-user-detail .container-desktop {
     height: 100%; }
@@ -222,10 +222,24 @@
 #ely-user-detail-profile-sidenav .commands-user {
   margin-top: 16px; }
 
-#detail-user-pinwall .pinwall-container {
-  margin-top: 8px; }
-#detail-user-pinwall .pinwall-no-element {
-  margin: 0 auto; }
+#detail-user-pinwall {
+  height: 100%; }
+  @media screen and (max-width: 600px) {
+    #detail-user-pinwall #user-pinwall-commands-container {
+      background-color: white; } }
+  #detail-user-pinwall #user-pinwall-commands-container #pinwall-commands {
+    max-width: 340px;
+    margin: 0 auto; }
+    @media screen and (min-width: 1500px) {
+      #detail-user-pinwall #user-pinwall-commands-container #pinwall-commands {
+        max-width: 450px; } }
+    @media screen and (min-width: 1750px) {
+      #detail-user-pinwall #user-pinwall-commands-container #pinwall-commands {
+        max-width: 920px; } }
+  #detail-user-pinwall .pinwall-container {
+    overflow-y: auto; }
+  #detail-user-pinwall .pinwall-no-element {
+    margin: 0 auto; }
 
 #ely-contact {
   height: 100%;
@@ -2943,36 +2957,6 @@
       font-weight: 500;
       color: #3F51B5; }
 
-.pinwall-no-element {
-  max-width: 340px;
-  min-width: 280px;
-  width: 100%;
-  padding: 16px;
-  margin: 8px 0;
-  background-color: white; }
-  @media screen and (min-width: 1500px) {
-    .pinwall-no-element {
-      max-width: 450px; } }
-  .pinwall-no-element .no-pinwall-title {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.87);
-    font-weight: 500;
-    padding-bottom: 16px;
-    background-color: white; }
-  .pinwall-no-element .no-pinwall-text {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.54);
-    background-color: white; }
-    .pinwall-no-element .no-pinwall-text .link {
-      cursor: pointer;
-      color: #3F51B5; }
-    .pinwall-no-element .no-pinwall-text .link:hover {
-      text-decoration: underline; }
-  .pinwall-no-element .no-pinwall-text-primary {
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.87);
-    background-color: white; }
-
 .page-recommendation-actions .page-action.md-fab.md-mini {
   height: 28px;
   width: 28px;
@@ -3237,6 +3221,35 @@
       font-size: 16px;
       font-weight: 500;
       cursor: pointer; }
+
+.pinwall-no-element {
+  max-width: 340px;
+  min-width: 280px;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: white; }
+  @media screen and (min-width: 1500px) {
+    .pinwall-no-element {
+      max-width: 450px; } }
+  .pinwall-no-element .no-pinwall-title {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    padding-bottom: 16px;
+    background-color: white; }
+  .pinwall-no-element .no-pinwall-text {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+    background-color: white; }
+    .pinwall-no-element .no-pinwall-text .link {
+      cursor: pointer;
+      color: #3F51B5; }
+    .pinwall-no-element .no-pinwall-text .link:hover {
+      text-decoration: underline; }
+  .pinwall-no-element .no-pinwall-text-primary {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: white; }
 
 #start-screen #carousel {
   height: 100%;
@@ -4030,7 +4043,9 @@
     #setting-profile #setting-profile-container .container {
       height: 100%;
       width: 100%;
-      overflow-y: scroll; }
+      overflow-y: auto; }
+    #setting-profile #setting-profile-container .pinwall-no-element {
+      margin: 0 auto; }
   #setting-profile .open-nav-fab {
     position: fixed;
     bottom: 16px;

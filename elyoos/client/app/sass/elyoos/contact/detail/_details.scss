@@ -9,7 +9,7 @@
       @media screen and (max-width: 800px) {
         background-color: $background-light;
         #ely-pinwall-compact {
-          width: 292px;
+          max-width: 292px;
           margin: 0 auto;
         }
       }

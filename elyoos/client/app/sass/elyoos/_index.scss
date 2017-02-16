@@ -112,7 +112,6 @@
 @import 'pinwall/home/_blogActions';
 @import 'pinwall/home/_constructionInfoPinwallElement';
 @import 'pinwall/home/_contacting';
-@import 'pinwall/home/_noPinwallElement';
 @import 'pinwall/home/_pageRecommendationActions';
 @import 'pinwall/home/_pinwallContainer';
 @import 'pinwall/home/_recommendation';
@@ -123,6 +122,8 @@
 @import 'pinwall/home/_recommendationYoutube';
 @import 'pinwall/home/_recommendationRatingOverview';
 @import 'pinwall/home/_recommendedUser';
+
+@import 'pinwall/_noPinwallElement';
 
 @import 'public/_carousel';
 @import 'public/_carouselLogin';

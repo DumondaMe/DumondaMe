@@ -20,6 +20,14 @@
             </div>
         </div>
         <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView">
+            <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall && ctrl.$mdMedia('gt-xs')">
+                <md-card-content>
+                    <div class="no-pinwall-text-primary">Du hast keine Beiträge die Du mit diesen Einstellungen sehen kannst.</div>
+                </md-card-content>
+            </md-card>
+            <div class="pinwall-no-element" ng-if="ctrl.noPinwall && !ctrl.$mdMedia('gt-xs')">
+                <div class="no-pinwall-text-primary">Du hast keine Beiträge die Du mit diesen Einstellungen sehen kannst.</div>
+            </div>
             <ely-pinwall-compact pinwall="ctrl.pinwall.pinwall"></ely-pinwall-compact>
         </div>
         <div ng-if="ctrl.showContactsView" flex>
