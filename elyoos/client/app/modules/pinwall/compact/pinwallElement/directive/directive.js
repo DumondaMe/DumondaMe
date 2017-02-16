@@ -10,11 +10,10 @@ module.exports = {
                 element: '=',
                 showBottomLine: '@'
             },
-            controller: function () {
-            },
+            controller: require('./controller.js'),
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/userRecommendation/pinwallElement/template.html'
+            templateUrl: 'app/modules/pinwall/compact/pinwallElement/directive/template.html'
         };
     }],
-    name: 'elyUserPinwallRecommendationCard'
+    name: 'elyPinwallCompactElement'
 };

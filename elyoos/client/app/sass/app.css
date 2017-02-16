@@ -2689,6 +2689,94 @@
       font-size: 18px;
       max-height: none; } }
 
+#ely-pinwall-compact {
+  padding: 0 16px; }
+  @media screen and (max-width: 600px) {
+    #ely-pinwall-compact {
+      background-color: white; } }
+  #ely-pinwall-compact #ely-pinwall-compact-container {
+    margin: 0 auto;
+    max-width: 750px; }
+    @media screen and (min-width: 1500px) {
+      #ely-pinwall-compact #ely-pinwall-compact-container {
+        max-width: 950px; } }
+
+.card-compact-pinwall-element {
+  max-width: 340px;
+  min-width: 280px;
+  margin: 8px auto; }
+  @media screen and (min-width: 1500px) {
+    .card-compact-pinwall-element {
+      max-width: 450px; } }
+
+.compact-pinwall-element {
+  padding: 8px 8px 8px 0;
+  min-height: 90px;
+  width: 100%; }
+  @media screen and (min-width: 600px) {
+    .compact-pinwall-element {
+      height: 155px; } }
+  .compact-pinwall-element .preview-image {
+    width: 80px;
+    padding-bottom: 10px; }
+    .compact-pinwall-element .preview-image .preview-image-container {
+      cursor: pointer;
+      position: relative;
+      margin-top: 2px;
+      margin-left: 8px;
+      width: 70px;
+      height: 70px !important;
+      border-radius: 4px;
+      opacity: 0.99;
+      overflow: hidden; }
+      .compact-pinwall-element .preview-image .preview-image-container img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+      .compact-pinwall-element .preview-image .preview-image-container img.book {
+        height: 170% !important; }
+  .compact-pinwall-element .compact-pinwall-element-content {
+    margin-left: 8px; }
+    .compact-pinwall-element .compact-pinwall-element-content .title {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #3F51B5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .compact-pinwall-element .compact-pinwall-element-content .created {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54);
+      margin-bottom: 8px;
+      margin-right: 8px; }
+    .compact-pinwall-element .compact-pinwall-element-content .description {
+      cursor: pointer;
+      font-size: 11px;
+      color: rgba(0, 0, 0, 0.54);
+      line-height: 1.2em;
+      max-height: 3.6em;
+      overflow: hidden; }
+      @media screen and (min-width: 600px) {
+        .compact-pinwall-element .compact-pinwall-element-content .description {
+          font-size: 12px;
+          max-height: 4.8em; } }
+    .compact-pinwall-element .compact-pinwall-element-content .action-container {
+      margin-left: -8px; }
+      .compact-pinwall-element .compact-pinwall-element-content .action-container .blog-actions {
+        padding: 0; }
+
+.compact-pinwall-element.show-bottom-line {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 8px; }
+
 .pinwall-blog-card {
   max-width: 340px;
   min-width: 280px;
@@ -3145,95 +3233,6 @@
       font-size: 16px;
       font-weight: 500;
       cursor: pointer; }
-
-#ely-pinwall-user-recommendation {
-  padding: 0 16px; }
-  @media screen and (max-width: 600px) {
-    #ely-pinwall-user-recommendation {
-      background-color: white; } }
-  #ely-pinwall-user-recommendation #ely-pinwall-user-recommendation-container {
-    margin: 0 auto;
-    max-width: 750px; }
-    @media screen and (min-width: 1500px) {
-      #ely-pinwall-user-recommendation #ely-pinwall-user-recommendation-container {
-        max-width: 950px; } }
-
-.card-user-recommendation {
-  max-width: 340px;
-  min-width: 280px;
-  margin: 8px auto; }
-  @media screen and (min-width: 1500px) {
-    .card-user-recommendation {
-      max-width: 450px; } }
-
-.user-recommendation {
-  padding: 8px 8px 8px 0;
-  min-height: 90px;
-  width: 100%; }
-  @media screen and (min-width: 600px) {
-    .user-recommendation {
-      height: 155px; } }
-  .user-recommendation .preview-image {
-    width: 80px;
-    padding-bottom: 10px; }
-    .user-recommendation .preview-image .preview-image-container {
-      cursor: pointer;
-      position: relative;
-      margin-top: 2px;
-      margin-left: 8px;
-      width: 70px;
-      height: 70px !important;
-      border-radius: 4px;
-      opacity: 0.99;
-      overflow: hidden; }
-      .user-recommendation .preview-image .preview-image-container img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        height: 100%;
-        width: auto;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%); }
-      .user-recommendation .preview-image .preview-image-container img.book {
-        height: 170% !important; }
-      .user-recommendation .preview-image .preview-image-container .recommendation-type-image-icon {
-        height: 32px;
-        width: 32px;
-        margin: 8px; }
-  .user-recommendation .user-recommendation-content {
-    margin-left: 8px; }
-    .user-recommendation .user-recommendation-content .title {
-      font-size: 14px;
-      font-weight: 500;
-      color: #3F51B5;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-    .user-recommendation .user-recommendation-content .recommendation-created {
-      display: inline-block;
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.54);
-      margin-bottom: 8px;
-      margin-right: 8px; }
-    .user-recommendation .user-recommendation-content .description {
-      font-size: 11px;
-      color: rgba(0, 0, 0, 0.54);
-      line-height: 1.2em;
-      max-height: 3.6em;
-      overflow: hidden; }
-      @media screen and (min-width: 600px) {
-        .user-recommendation .user-recommendation-content .description {
-          font-size: 12px;
-          max-height: 4.8em; } }
-    .user-recommendation .user-recommendation-content .action-container {
-      margin-left: -8px; }
-      .user-recommendation .user-recommendation-content .action-container .blog-actions {
-        padding: 0; }
-
-.user-recommendation.show-bottom-line {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  margin-bottom: 8px; }
 
 #start-screen #carousel {
   height: 100%;

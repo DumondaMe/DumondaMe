@@ -1,0 +1,24 @@
+<div class="compact-pinwall-element" layout="row" ng-class="{'show-bottom-line': ctrl.showBottomLine}">
+    <div class="preview-image" flex="none" ng-hide="(ctrl.element.label === 'Link' || ctrl.element.label === 'Blog') && !ctrl.element.previewUrl">
+        <div class="preview-image-container" ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">
+            <img ng-src="{{ctrl.element.previewUrl}}" ng-class="{'book': ctrl.element.label === 'Book'}" ng-if="ctrl.element.label !== 'Youtube'">
+            <img ng-src="{{ctrl.getYoutubeImage(ctrl.element.linkEmbed)}}" ng-if="ctrl.element.label === 'Youtube'"/>
+        </div>
+    </div>
+    <div class="compact-pinwall-element-content" flex layout="column">
+        <div class="title" ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">{{ctrl.element.title}}</div>
+        <div ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">
+            <div class="created">{{ctrl.getFormattedDate(ctrl.element.created, 'LLL')}}</div>
+            <ely-topics-color topics="ctrl.element.topic"></ely-topics-color>
+        </div>
+        <div class="description" ng-if="ctrl.element.description"
+             ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">{{ctrl.element.description}}</div>
+        <div class="description" ng-if="ctrl.element.text"
+             ui-sref="page.detail({label: ctrl.element.label, pageId: ctrl.element.pageId})">{{ctrl.element.text}}</div>
+        <span flex ng-if="ctrl.$mdMedia('gt-xs')"></span>
+        <div class="action-container">
+            <ely-blog-actions element="ctrl.element" ng-if="ctrl.element.label === 'Blog'"></ely-blog-actions>
+            <ely-pinwall-page-recommendation-actions element="ctrl.element" ng-if="ctrl.element.label !== 'Blog'"></ely-pinwall-page-recommendation-actions>
+        </div>
+    </div>
+</div>

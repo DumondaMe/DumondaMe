@@ -1,9 +1,9 @@
-.card-user-recommendation {
+.card-compact-pinwall-element {
   @include cardElement();
   margin: 8px auto;
 }
 
-.user-recommendation {
+.compact-pinwall-element {
   padding: 8px 8px 8px 0;
   min-height: 90px;
   width: 100%;
@@ -36,16 +36,12 @@
       img.book {
         height: 170% !important;
       }
-      .recommendation-type-image-icon {
-        height: 32px;
-        width: 32px;
-        margin: 8px;
-      }
     }
   }
-  .user-recommendation-content {
+  .compact-pinwall-element-content {
     margin-left: 8px;
     .title {
+      cursor: pointer;
       font-size: 14px;
       font-weight: 500;
       color: $primary-color;
@@ -53,7 +49,8 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .recommendation-created {
+    .created {
+      cursor: pointer;
       display: inline-block;
       font-size: 12px;
       color: $secondary-text;
@@ -61,6 +58,7 @@
       margin-right: 8px;
     }
     .description {
+      cursor: pointer;
       font-size: 11px;
       color: $secondary-text;
       line-height: 1.2em;
@@ -81,7 +79,7 @@
   }
 }
 
-.user-recommendation.show-bottom-line {
+.compact-pinwall-element.show-bottom-line {
   border-bottom: 1px solid $divider;
   margin-bottom: 8px;
 }

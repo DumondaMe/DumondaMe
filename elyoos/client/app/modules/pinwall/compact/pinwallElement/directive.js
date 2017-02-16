@@ -7,12 +7,14 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                pinwall: '='
+                element: '=',
+                showBottomLine: '@'
             },
-            controller: require('./controller.js'),
+            controller: function () {
+            },
             controllerAs: 'ctrl',
-            templateUrl: 'app/modules/pinwall/userRecommendation/template.html'
+            templateUrl: 'app/modules/pinwall/compact/pinwallElement/template.html'
         };
     }],
-    name: 'elyPinwallUserRecommendation'
+    name: 'elyPinwallCompactElementCard'
 };

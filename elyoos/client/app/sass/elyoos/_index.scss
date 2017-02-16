@@ -105,6 +105,9 @@
 @import 'page/modal/_pageOverviewLink';
 @import 'page/modal/_pageOverviewYoutube';
 
+@import 'pinwall/compact/_pinwallContainer';
+@import 'pinwall/compact/_recommendation';
+
 @import 'pinwall/home/_blog';
 @import 'pinwall/home/_blogActions';
 @import 'pinwall/home/_constructionInfoPinwallElement';
@@ -120,9 +123,6 @@
 @import 'pinwall/home/_recommendationYoutube';
 @import 'pinwall/home/_recommendationRatingOverview';
 @import 'pinwall/home/_recommendedUser';
-
-@import 'pinwall/userRecommendation/_pinwallContainer';
-@import 'pinwall/userRecommendation/_recommendation';
 
 @import 'public/_carousel';
 @import 'public/_carouselLogin';
