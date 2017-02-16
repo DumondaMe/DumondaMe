@@ -29,7 +29,7 @@ let getRecommendationOfUser = function (userId, request) {
 
 let getPagesOfUserOrder = function (type) {
     if(type === 'adminPopular') {
-        return "totalNumberOfRecommendations DESC";
+        return "totalNumberOfRecommendations DESC, page.created DESC";
     }
     return "page.created DESC";
 };
