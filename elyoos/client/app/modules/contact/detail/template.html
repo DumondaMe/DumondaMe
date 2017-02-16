@@ -1,6 +1,6 @@
 <md-content id="ely-user-detail">
     <!--Mobile View-->
-    <div class="container" ng-if="!ctrl.$mdMedia('gt-md')" ely-infinite-scroll="ctrl.activeNext.next">
+    <div class="container" ng-if="!ctrl.$mdMedia('(min-width: 800px)')" ely-infinite-scroll="ctrl.activeNext.next">
         <div layout="row" layout-align="center">
             <ely-user-detail-profile-card detail="ctrl.userDetail" number-of-groups="ctrl.numberOfGroups"></ely-user-detail-profile-card>
         </div>
@@ -25,7 +25,7 @@
                                ng-if="ctrl.showOverviewContacting"></ely-close-sub-toolbar>
     </div>
     <!--Desktop View-->
-    <div class="container-desktop" ng-if="ctrl.$mdMedia('gt-md')" layout="row">
+    <div class="container-desktop" ng-if="ctrl.$mdMedia('(min-width: 800px)')" layout="row">
         <div flex="none" class="user-contact-container"
              ng-if="ctrl.userDetail.contacts.length > 0 || ctrl.userDetail.contacting.length > 0">
             <ely-user-detail-contacts-preview detail="ctrl.userDetail" show-detail="ctrl.showContactOverview" show-close="true"
@@ -35,8 +35,7 @@
                                                 events="ctrl.contactingPreviewEvents" on-detail-closed="ctrl.close()"
                                                 ng-if="ctrl.userDetail.contacting.length > 0"></ely-user-detail-contacting-preview>
         </div>
-        <md-content flex="grow" class="user-detail-content"
-                    ely-infinite-scroll="ctrl.activeNext.next">
+        <md-content flex="grow" class="user-detail-content" ely-infinite-scroll="ctrl.activeNext.next">
             <ely-user-detail-pinwall ng-if="!ctrl.showOverviewContact && !ctrl.showOverviewContacting" breakpoint="gt-lg" commands="ctrl.activeNext"
                                      user-name="ctrl.userName" show-title="false"></ely-user-detail-pinwall>
             <ely-user-detail-overview-contact service="ctrl.UserDetailContacts" show-title="false" ng-if="ctrl.showOverviewContact"

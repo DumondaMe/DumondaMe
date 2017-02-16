@@ -6,6 +6,10 @@
   @media screen and (min-width: $gt-md) {
     margin: 8px auto 0px auto;
   }
+  @media screen and (max-width: 950px) and (min-width: 800px) {
+    max-width: 220px;
+    width: 220px;
+  }
   .header {
     padding: 16px;
     cursor: pointer;
@@ -49,6 +53,12 @@
         width: 84px;
         min-height: 84px;
         min-width: 84px;
+        @media screen and (max-width: 950px) and (min-width: 800px){
+          height: 60px;
+          width: 60px;
+          min-height: 60px;
+          min-width: 60px;
+        }
       }
       .name {
         position: absolute;
@@ -59,6 +69,9 @@
         bottom: 0;
         color: #ffffff;
         background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+        @media screen and (max-width: 950px) and (min-width: 800px) {
+          font-size: 10px;
+        }
       }
     }
   }

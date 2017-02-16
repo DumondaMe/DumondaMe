@@ -1,9 +1,6 @@
 <div id="detail-user-pinwall">
-    <div class="title" ng-show="ctrl.showTitle" ng-class="{'title-two-column': ctrl.isBreakpoint}">{{ctrl.userName}}'s Pinwand</div>
-    <div class="pinwall-container">
-        <div class="pinwall-inner-container">
-            <ely-pinwall breakpoint="{{ctrl.breakpoint}}" pinwall="ctrl.user.pinwall" gap="false"></ely-pinwall>
-        </div>
+    <div class="pinwall-container" ely-infinite-scroll="ctrl.nextPinwallInfo">
+        <ely-pinwall-compact pinwall="ctrl.pinwall.pinwall" breakpoint="(min-width: 1750px)"></ely-pinwall-compact>
     </div>
     <md-card class="pinwall-no-element" ng-if="ctrl.noPinwall">
         <md-card-content>

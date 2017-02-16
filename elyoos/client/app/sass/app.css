@@ -73,6 +73,10 @@
   @media screen and (min-width: 1280px) {
     #ely-user-detail-contact-preview {
       margin: 8px auto 0px auto; } }
+  @media screen and (max-width: 950px) and (min-width: 800px) {
+    #ely-user-detail-contact-preview {
+      max-width: 220px;
+      width: 220px; } }
   #ely-user-detail-contact-preview .header {
     padding: 16px;
     cursor: pointer; }
@@ -110,6 +114,12 @@
         width: 84px;
         min-height: 84px;
         min-width: 84px; }
+        @media screen and (max-width: 950px) and (min-width: 800px) {
+          #ely-user-detail-contact-preview .preview-container .preview-image .image {
+            height: 60px;
+            width: 60px;
+            min-height: 60px;
+            min-width: 60px; } }
       #ely-user-detail-contact-preview .preview-container .preview-image .name {
         position: absolute;
         padding: 5px;
@@ -119,6 +129,9 @@
         bottom: 0;
         color: #ffffff;
         background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)); }
+        @media screen and (max-width: 950px) and (min-width: 800px) {
+          #ely-user-detail-contact-preview .preview-container .preview-image .name {
+            font-size: 10px; } }
   #ely-user-detail-contact-preview .close-overview-button {
     float: right;
     margin-right: 16px; }
@@ -127,9 +140,16 @@
   height: 100%;
   background-color: #e9ebee; }
   #ely-user-detail .container {
-    padding: 0 6px;
     height: 100%;
     overflow-y: auto; }
+    #ely-user-detail .container #detail-user-pinwall {
+      padding: 0 6px; }
+      @media screen and (max-width: 800px) {
+        #ely-user-detail .container #detail-user-pinwall {
+          background-color: white; }
+          #ely-user-detail .container #detail-user-pinwall #ely-pinwall-compact {
+            width: 292px;
+            margin: 0 auto; } }
   #ely-user-detail .container-desktop {
     height: 100%; }
     #ely-user-detail .container-desktop .user-contact-container {
@@ -137,6 +157,9 @@
       height: 100%;
       overflow-y: auto;
       padding: 16px 0 0 8px; }
+      @media screen and (max-width: 950px) and (min-width: 800px) {
+        #ely-user-detail .container-desktop .user-contact-container {
+          width: 260px; } }
     #ely-user-detail .container-desktop .user-detail-content {
       height: 100%;
       overflow-y: auto;
@@ -199,27 +222,8 @@
 #ely-user-detail-profile-sidenav .commands-user {
   margin-top: 16px; }
 
-#detail-user-pinwall .title {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.54);
-  max-width: 400px;
-  margin: 16px auto 0 auto; }
-#detail-user-pinwall .title-two-column {
-  width: 880px;
-  max-width: 880px; }
 #detail-user-pinwall .pinwall-container {
-  height: 100%;
-  padding: 0 8px;
-  overflow-x: hidden;
-  overflow-y: auto; }
-  #detail-user-pinwall .pinwall-container .pinwall-inner-container {
-    max-width: 400px;
-    margin: 0 auto; }
-    @media screen and (min-width: 960px) {
-      #detail-user-pinwall .pinwall-container .pinwall-inner-container {
-        max-width: 950px;
-        width: 950px; } }
+  margin-top: 8px; }
 #detail-user-pinwall .pinwall-no-element {
   margin: 0 auto; }
 

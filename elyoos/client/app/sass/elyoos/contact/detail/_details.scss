@@ -2,9 +2,18 @@
   height: 100%;
   background-color: $background-normal;
   .container {
-    padding: 0 6px;
     height: 100%;
     overflow-y: auto;
+    #detail-user-pinwall {
+      padding: 0 6px;
+      @media screen and (max-width: 800px) {
+        background-color: $background-light;
+        #ely-pinwall-compact {
+          width: 292px;
+          margin: 0 auto;
+        }
+      }
+    }
   }
   .container-desktop {
     height: 100%;
@@ -13,6 +22,9 @@
       height: 100%;
       overflow-y: auto;
       padding: 16px 0 0 8px;
+      @media screen and (max-width: 950px) and (min-width: 800px) {
+        width: 260px;
+      }
     }
     .user-detail-content {
       height: 100%;

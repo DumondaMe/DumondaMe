@@ -1,28 +1,6 @@
 #detail-user-pinwall {
-  .title {
-    font-size: 16px;
-    font-weight: 500;
-    color: $secondary-text;
-    max-width: 400px;
-    margin: 16px auto 0 auto;
-  }
-  .title-two-column {
-    width: 880px;
-    max-width: 880px;
-  }
   .pinwall-container {
-    height: 100%;
-    padding: 0 8px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    .pinwall-inner-container {
-      max-width: 400px;
-      margin: 0 auto;
-      @media screen and (min-width: $gt-sm) {
-        max-width: 950px;
-        width: 950px;
-      }
-    }
+    margin-top: 8px;
   }
   .pinwall-no-element {
     margin: 0 auto;

@@ -7,7 +7,8 @@ module.exports = {
             replace: true,
             scope: {},
             bindToController: {
-                pinwall: '='
+                pinwall: '=',
+                breakpoint: '@'
             },
             controller: require('./controller.js'),
             controllerAs: 'ctrl',

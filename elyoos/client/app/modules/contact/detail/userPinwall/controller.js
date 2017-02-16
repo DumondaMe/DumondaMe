@@ -4,7 +4,7 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
     function (UserDetailPinwall, PinwallScrollRequestResponseHandler, ScrollRequest, $stateParams, $mdMedia) {
         var ctrl = this;
 
-        ctrl.user = {pinwall: []};
+        ctrl.pinwall = {pinwall: []};
         ctrl.noPinwall = false;
         ctrl.commands = {};
         if(ctrl.breakpoint) {
@@ -13,15 +13,15 @@ module.exports = ['UserDetailPinwall', 'PinwallScrollRequestResponseHandler', 'S
 
         ScrollRequest.reset('UserDetailPinwall', UserDetailPinwall.get, PinwallScrollRequestResponseHandler);
 
-        ctrl.commands.next = function () {
-            ScrollRequest.nextRequest('UserDetailPinwall', ctrl.user.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
-                ctrl.user = pinwall;
+        ctrl.nextPinwallInfo = function () {
+            ScrollRequest.nextRequest('UserDetailPinwall', ctrl.pinwall.pinwall, {userId: $stateParams.userId}).then(function (pinwall) {
+                ctrl.pinwall = pinwall;
                 if (pinwall.pinwall.length === 0) {
                     ctrl.noPinwall = true;
                 }
             });
         };
 
-        ctrl.commands.next();
+        ctrl.nextPinwallInfo();
     }];
 
