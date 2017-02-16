@@ -27,13 +27,20 @@ let getRecommendationOfUser = function (userId, request) {
         });
 };
 
+let getPagesOfUserOrder = function (type) {
+    if(type === 'adminPopular') {
+        return "totalNumberOfRecommendations DESC";
+    }
+    return "page.created DESC";
+};
+
 let getPagesOfUser = function (userId, request) {
     return db.cypher().match("(user:User {userId: {userId}})-[:IS_ADMIN|WRITTEN]->(page:Page)")
         .optionalMatch("(user)-[:RECOMMENDS]->(recommendation:Recommendation)-[:RECOMMENDS]->(page)")
         .return(`user, page, LABELS(page) AS pinwallType, true AS isAdminType, NOT EXISTS(page.visible) AS isPublic, 
                  recommendation.recommendationId AS userRecommendationId,
                  SIZE((page)<-[:RECOMMENDS]-(:Recommendation)) AS totalNumberOfRecommendations`)
-        .orderBy("page.created DESC")
+        .orderBy(getPagesOfUserOrder(request.type))
         .skip("{skip}")
         .limit("{maxItems}")
         .end({userId: userId, skip: request.skip, maxItems: request.maxItems})

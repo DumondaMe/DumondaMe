@@ -11,14 +11,15 @@
                     <md-input-container>
                         <md-select ng-model="ctrl.filterType" aria-label="Order pinwall" class="md-no-underline select-order"
                                    md-on-close="ctrl.filterTypeChanged()">
+                            <md-option value="adminPopular">Deine beliebtesten Beiträge</md-option>
+                            <md-option value="adminNewest">Deine neusten Beiträge</md-option>
                             <md-option value="recommendation">Deine Empfehlungen</md-option>
-                            <md-option value="admin">Deine Beiträge</md-option>
                         </md-select>
                     </md-input-container>
                 </div>
             </div>
         </div>
-        <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView && ctrl.filterType === 'recommendation'">
+        <div class="container" ely-infinite-scroll="ctrl.nextPinwallInfo" flex ng-if="ctrl.showPagesView">
             <ely-pinwall-user-recommendation pinwall="ctrl.pinwall.pinwall"></ely-pinwall-user-recommendation>
         </div>
         <div ng-if="ctrl.showContactsView" flex>

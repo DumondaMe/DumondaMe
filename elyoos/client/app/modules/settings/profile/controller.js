@@ -5,8 +5,8 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
         var ctrl = this;
 
         ctrl.pinwall = {pinwall: []};
-        ctrl.filterType = 'recommendation';
-        ctrl.previousFilterType = 'recommendation';
+        ctrl.filterType = 'adminPopular';
+        ctrl.previousFilterType = 'adminPopular';
         ctrl.$mdMedia = $mdMedia;
 
         ctrl.openNav = function () {
@@ -35,6 +35,7 @@ module.exports = ['ElyModal', 'UserPinwall', 'ScrollRequest', 'PinwallScrollRequ
             if (ctrl.previousFilterType !== ctrl.filterType) {
                 ctrl.previousFilterType = angular.copy(ctrl.filterType);
                 ScrollRequest.reset('UserPinwall', UserPinwall.get, PinwallScrollRequestResponseHandler);
+                ctrl.pinwall = {pinwall: []};
                 ctrl.nextPinwallInfo();
             }
         };

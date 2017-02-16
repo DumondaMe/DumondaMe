@@ -15,7 +15,7 @@ let schemaGetPinwallOfUser = {
     properties: {
         skip: {type: 'integer', minimum: 0},
         maxItems: {type: 'integer', minimum: 1, maximum: 50},
-        type: {enum: ['admin', 'recommendation']},
+        type: {enum: ['adminNewest', 'adminPopular', 'recommendation']},
     }
 };
 
@@ -28,7 +28,7 @@ module.exports = function (router) {
                 logger.info('Request pinwall of user', req);
                 if(request.type === 'recommendation') {
                     return pinwall.getRecommendationOfUser(req.user.id, request, req);
-                } else if(request.type === 'admin') {
+                } else if(request.type === 'adminNewest' || request.type === 'adminPopular') {
                     return pinwall.getPagesOfUser(req.user.id, request, req);
                 }
                 return exceptions.getInvalidOperation(`Unknown request type ${request.type}`, logger, req);
