@@ -33,6 +33,7 @@ let getPinwallElement = function (pinwallElement) {
     element.title = pinwallElement.page.title;
     element.topic = pinwallElement.page.topic;
     element.userRecommendationId = pinwallElement.userRecommendationId;
+    element.isPublic = pinwallElement.isPublic;
     element.recommendedByUser = false;
     element.isAdmin = true;
     if (element.userRecommendationId) {

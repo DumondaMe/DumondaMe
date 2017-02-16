@@ -11,11 +11,12 @@ let schemaRequestUserPinwall = {
     name: 'getUserDetailsPinwall',
     type: 'object',
     additionalProperties: false,
-    required: ['userId'],
+    required: ['userId', 'skip', 'maxItems', 'type'],
     properties: {
         userId: {type: 'string', format: 'notEmptyString', maxLength: 30},
         skip: {type: 'integer', minimum: 0},
-        maxItems: {type: 'integer', minimum: 1, maximum: 50}
+        maxItems: {type: 'integer', minimum: 1, maximum: 50},
+        type: {enum: ['adminNewest', 'adminPopular', 'recommendation']},
     }
 };
 
@@ -27,7 +28,12 @@ module.exports = function (router) {
                 .then(function (request) {
                     logger.info("User requests pinwall of user " + request.userId, req);
                     if (request.userId !== req.user.id) {
-                        return pinwall.getPinwallOfDetailUser(req.user.id, request);
+                        if (request.type === 'adminPopular' || request.type === 'adminNewest') {
+                            return pinwall.getPagesOfOtherUser(req.user.id, request);
+                        } else if (request.type === 'recommendation') {
+                            return pinwall.getRecommendationOfOtherUser(req.user.id, request, req);
+                        }
+                        return exceptions.getInvalidOperation(`Unknown request type ${request.type}`, logger, req);
                     } else {
                         return exceptions.getInvalidOperation("Users id and userId are the same", logger, req);
                     }
