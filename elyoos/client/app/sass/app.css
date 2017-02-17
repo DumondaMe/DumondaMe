@@ -24,6 +24,31 @@
   #add-contact .ely-dialog-title {
     margin-bottom: 32px; }
 
+#invite-friends-dialog .ely-dialog-title {
+  padding: 16px 24px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+#invite-friends-dialog .ely-dialog-content #contact-import-source-container .title {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 12px; }
+#invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container {
+  margin-bottom: 6px;
+  cursor: pointer; }
+  #invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container .image-container {
+    margin-right: 12px;
+    height: 24px;
+    width: 24px; }
+  #invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container .source-description {
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    vertical-align: middle; }
+#invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container:hover {
+  text-decoration: underline; }
+
 #move-contact .ely-dialog-title {
   margin-bottom: 32px; }
 

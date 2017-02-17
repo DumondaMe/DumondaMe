@@ -1,0 +1,36 @@
+#invite-friends-dialog {
+  .ely-dialog-title {
+    padding: 16px 24px;
+    margin-bottom: 0;
+    border-bottom: 1px solid $divider;
+  }
+  .ely-dialog-content {
+    #contact-import-source-container {
+      .title {
+        font-size: 14px;
+        font-weight: 700;
+        color: $secondary-text;
+        margin-bottom: 12px;
+      }
+      .source-container {
+        margin-bottom: 6px;
+        cursor: pointer;
+        .image-container {
+          margin-right: 12px;
+          height: 24px;
+          width: 24px;
+        }
+        .source-description {
+          font-size: 14px;
+          line-height: 24px;
+          color: $primary-text;
+          font-weight: 500;
+          vertical-align: middle;
+        }
+      }
+      .source-container:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

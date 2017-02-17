@@ -8,22 +8,22 @@ var getHighlightedStyle = function ($state, baseState) {
     return {};
 };
 
-module.exports = {
-    directiveCtrl: function () {
-        return ['$state', '$rootScope', '$mdSidenav', function ($state, $rootScope, $mdSidenav) {
+module.exports = ['$state', '$rootScope', '$mdSidenav', function ($state, $rootScope, $mdSidenav) {
 
-            var ctrl = this;
+    var ctrl = this;
 
-            ctrl.$state = $state;
+    ctrl.$state = $state;
 
-            ctrl.goToState = function () {
-                $mdSidenav("left").close();
-                $state.go(ctrl.state, {}, {reload: true});
-            };
+    ctrl.goToState = function () {
+        $mdSidenav("left").close();
+        if (angular.isFunction(ctrl.onClick)) {
+            ctrl.onClick();
+        } else {
+            $state.go(ctrl.state, {}, {reload: true});
+        }
+    };
 
-            $rootScope.$on('$stateChangeSuccess', function () {
-                ctrl.highlightedStyle = getHighlightedStyle($state, ctrl.baseState);
-            });
-        }];
-    }
-};
+    $rootScope.$on('$stateChangeSuccess', function () {
+        ctrl.highlightedStyle = getHighlightedStyle($state, ctrl.baseState);
+    });
+}];

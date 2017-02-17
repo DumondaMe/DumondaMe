@@ -1,7 +1,5 @@
 'use strict';
 
-var controller = require('./controller.js');
-
 module.exports = {
     directive: [function () {
         return {
@@ -13,11 +11,12 @@ module.exports = {
                 baseState: '@',
                 icon: '@',
                 description: '@',
-                count: '='
+                count: '=',
+                onClick: '='
             },
             templateUrl: 'app/modules/navigation/leftNav/element/template.html',
             controllerAs: 'ctrl',
-            controller: controller.directiveCtrl()
+            controller: require('./controller.js')
         };
     }],
     name: 'elyLeftNavElement'
