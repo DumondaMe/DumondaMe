@@ -12,7 +12,7 @@ module.exports = ['ImportGmailContacts', 'ElyModal', '$window', 'InviteFriendsTo
                 newWindow.focus();
             }
             $window.elyChildWindowUrl = function (newUrl) {
-                ctrl.contacts = ImportGmailContacts.get({token: InviteFriendsTokenParser.parseGoogleUrl(newUrl)});
+                ctrl.contacts = ImportGmailContacts.get({code: InviteFriendsTokenParser.parseGoogleUrl(newUrl)});
             };
 
         };

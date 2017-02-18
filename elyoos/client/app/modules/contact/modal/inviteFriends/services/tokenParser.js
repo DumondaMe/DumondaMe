@@ -3,7 +3,8 @@
 module.exports = [function () {
 
     this.parseGoogleUrl = function (url) {
-        return url.substr(url.indexOf('?code=') + 6);
+        var token = url.substr(url.indexOf('?code=') + 6);
+        return token.substr(0, token.length - 1);
     };
 
 }];
