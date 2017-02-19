@@ -11,7 +11,7 @@ let getAccessToken = function (code) {
         form: {
             client_id: 'dj0yJmk9YmxtcnBNTVdkUTUwJmQ9WVdrOVFtRnFNMkpUTm1zbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wMw--',
             client_secret: '83bee10dae9655f9781e4abb9989e9ddd6fc2a47',
-            redirect_uri: 'http://preview.elyoos.org/auth',
+            redirect_uri: 'https://preview.elyoos.org/auth',
             code: code,
             grant_type: 'authorization_code'
         },
