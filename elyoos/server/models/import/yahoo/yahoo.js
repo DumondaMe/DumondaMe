@@ -2,7 +2,6 @@
 
 let rp = require('request-promise');
 let parser = require('./parser');
-let logger = require('elyoos-server-lib').logging.getLogger(__filename);
 
 let getAccessToken = function (code) {
     let option = {
@@ -39,8 +38,7 @@ let importYahooContacts = function (userId, request) {
         };
         return rp(option);
     }).then(function (resp) {
-        logger.info(resp);
-        //return {addresses: parser.parse((resp))};
+        return {addresses: parser.parse((resp))};
     });
 };
 
