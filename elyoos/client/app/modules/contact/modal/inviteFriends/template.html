@@ -2,19 +2,29 @@
     <form name="ctrl.addContactForm" ng-cloak>
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
         <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div id="contact-import-source-container">
+            <div id="contact-import-source-container" ng-hide="ctrl.contacts.addresses.length > 0 || ctrl.importStarted">
                 <div class="title">Kontakte importieren von:</div>
-                <div class="source-container" layout="row" ng-click="ctrl.openGmail()">
-                    <div flex="none" class="image-container">
-                        <md-icon md-svg-icon="cardActions:gMail"></md-icon>
+                <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
+                                  contacts="ctrl.contacts"></ely-import-gmail>
+            </div>
+            <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
+                <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
+                    <div>
+                        <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
+                                     aria-label="Select Email {{contact.email}}">
+                            {{contact.email}} <br/>
+                            <span class="name">{{contact.name}}</span>
+                        </md-checkbox>
                     </div>
-                    <div flex class="source-description">Gmail</div>
                 </div>
+            </div>
+            <div ng-show="ctrl.importStarted" class="load-screen-container">
+                <ely-load-screen></ely-load-screen>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-raised md-primary" ng-click="" ng-disable="ctrl.uploadStarted">Einladen</md-button>
+            <md-button class="md-raised md-primary" ng-click="" ng-disable="ctrl.uploadStarted || ">Einladen</md-button>
         </md-dialog-actions>
     </form>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>

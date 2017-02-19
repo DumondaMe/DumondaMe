@@ -1,20 +1,30 @@
 'use strict';
 
-module.exports = ['ImportGmailContacts', 'ElyModal', '$window', 'InviteFriendsTokenParser',
-    function (ImportGmailContacts, ElyModal, $window, InviteFriendsTokenParser) {
+module.exports = ['ElyModal',
+    function (ElyModal) {
         var ctrl = this;
+        ctrl.selectedAddresses = [];
 
+        ctrl.sourceImportStarted = function () {
+            ctrl.importStarted = true;
+        };
 
-        ctrl.openGmail = function () {
-            var newWindow = $window.open('https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=270929621236-4cauqnck95vm8ohkvu3rokhp74jued28.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcontacts.readonly&redirect_uri=http%3A%2F%2Flocalhost:8080%2Fauth', 'name',
-                'height=600,width=450');
-            if (angular.isFunction(newWindow.focus)) {
-                newWindow.focus();
+        ctrl.sourceImportFinish = function () {
+            ctrl.importStarted = false;
+        };
+
+        ctrl.emailExists = function (item, selectedList) {
+            return selectedList.indexOf(item) > -1;
+        };
+
+        ctrl.toggleEmail = function (item, selectedList) {
+            var idx = selectedList.indexOf(item);
+            if (idx > -1) {
+                selectedList.splice(idx, 1);
             }
-            $window.elyChildWindowUrl = function (newUrl) {
-                ctrl.contacts = ImportGmailContacts.get({code: InviteFriendsTokenParser.parseGoogleUrl(newUrl)});
-            };
-
+            else {
+                selectedList.push(item);
+            }
         };
 
         ctrl.cancel = function () {

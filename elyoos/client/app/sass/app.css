@@ -33,20 +33,30 @@
   font-weight: 700;
   color: rgba(0, 0, 0, 0.54);
   margin-bottom: 12px; }
-#invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container {
+#invite-friends-dialog .ely-dialog-content #contact-list-container .contact-list-element {
+  margin-bottom: 8px; }
+  #invite-friends-dialog .ely-dialog-content #contact-list-container .contact-list-element .name {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54); }
+#invite-friends-dialog .load-screen-container {
+  height: 200px; }
+  #invite-friends-dialog .load-screen-container .ely-loading-screen {
+    height: 200px; }
+
+#invite-friends-dialog .ely-import-oauth-source .source-container {
   margin-bottom: 6px;
   cursor: pointer; }
-  #invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container .image-container {
+  #invite-friends-dialog .ely-import-oauth-source .source-container .image-container {
     margin-right: 12px;
     height: 24px;
     width: 24px; }
-  #invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container .source-description {
+  #invite-friends-dialog .ely-import-oauth-source .source-container .source-description {
     font-size: 14px;
     line-height: 24px;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
     vertical-align: middle; }
-#invite-friends-dialog .ely-dialog-content #contact-import-source-container .source-container:hover {
+#invite-friends-dialog .ely-import-oauth-source .source-container:hover {
   text-decoration: underline; }
 
 #move-contact .ely-dialog-title {

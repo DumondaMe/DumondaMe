@@ -1,0 +1,23 @@
+#invite-friends-dialog {
+  .ely-import-oauth-source {
+    .source-container {
+      margin-bottom: 6px;
+      cursor: pointer;
+      .image-container {
+        margin-right: 12px;
+        height: 24px;
+        width: 24px;
+      }
+      .source-description {
+        font-size: 14px;
+        line-height: 24px;
+        color: $primary-text;
+        font-weight: 500;
+        vertical-align: middle;
+      }
+    }
+    .source-container:hover {
+      text-decoration: underline;
+    }
+  }
+}
