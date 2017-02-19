@@ -8,6 +8,8 @@
                                   contacts="ctrl.contacts"></ely-import-gmail>
                 <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
                                   contacts="ctrl.contacts"></ely-import-outlook>
+                <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
+                                    contacts="ctrl.contacts"></ely-import-yahoo>
             </div>
             <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
