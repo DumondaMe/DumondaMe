@@ -24,6 +24,16 @@
   #add-contact .ely-dialog-title {
     margin-bottom: 32px; }
 
+@media screen and (min-width: 600px) {
+  #invite-friends-dialog .ely-import-basic-auth {
+    min-width: 500px; } }
+#invite-friends-dialog .ely-import-basic-auth .ely-dialog-title .service-name {
+  font-weight: 700;
+  color: #3F51B5; }
+#invite-friends-dialog .ely-import-basic-auth #dialog-container {
+  max-width: 250px;
+  margin: 0 auto; }
+
 #invite-friends-dialog .ely-dialog-title {
   padding: 16px 24px;
   margin-bottom: 0;
@@ -43,20 +53,20 @@
   #invite-friends-dialog .load-screen-container .ely-loading-screen {
     height: 200px; }
 
-#invite-friends-dialog .ely-import-oauth-source .source-container {
+#invite-friends-dialog .ely-import-container .source-container {
   margin-bottom: 6px;
   cursor: pointer; }
-  #invite-friends-dialog .ely-import-oauth-source .source-container .image-container {
+  #invite-friends-dialog .ely-import-container .source-container .image-container {
     margin-right: 12px;
     height: 24px;
     width: 24px; }
-  #invite-friends-dialog .ely-import-oauth-source .source-container .source-description {
+  #invite-friends-dialog .ely-import-container .source-container .source-description {
     font-size: 14px;
     line-height: 24px;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
     vertical-align: middle; }
-#invite-friends-dialog .ely-import-oauth-source .source-container:hover {
+#invite-friends-dialog .ely-import-container .source-container:hover {
   text-decoration: underline; }
 
 #move-contact .ely-dialog-title {

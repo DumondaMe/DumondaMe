@@ -1,5 +1,5 @@
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
-    <form name="ctrl.addContactForm" ng-cloak>
+    <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div id="contact-import-source-container" ng-hide="ctrl.contacts.addresses.length > 0 || ctrl.importStarted">
@@ -10,6 +10,7 @@
                                   contacts="ctrl.contacts"></ely-import-outlook>
                 <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
                                     contacts="ctrl.contacts"></ely-import-yahoo>
+                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx"></ely-import-gmx>
             </div>
             <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
@@ -31,5 +32,7 @@
             <md-button class="md-raised md-primary" ng-click="" ng-disable="ctrl.uploadStarted || ">Einladen</md-button>
         </md-dialog-actions>
     </form>
+    <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
+                           finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
 </md-dialog>

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal',
-    function (ElyModal) {
+module.exports = ['ElyModal', 'ImportGmxContacts',
+    function (ElyModal, ImportGmxContacts) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
 
@@ -11,6 +11,15 @@ module.exports = ['ElyModal',
 
         ctrl.sourceImportFinish = function () {
             ctrl.importStarted = false;
+        };
+
+        ctrl.openBasicAuthGmx = function () {
+            ctrl.basicAuthName = 'GMX';
+            ctrl.basicAuthService = ImportGmxContacts;
+            ctrl.showBasicAuth = true;
+        };
+        ctrl.closeBasicAuth = function () {
+            ctrl.showBasicAuth = false;
         };
 
         ctrl.emailExists = function (item, selectedList) {

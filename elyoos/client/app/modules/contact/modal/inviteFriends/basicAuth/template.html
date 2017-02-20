@@ -1,0 +1,34 @@
+<div class="ely-import-basic-auth">
+    <form name="ctrl.basicAuthForm" ng-cloak>
+        <div class="md-title ely-dialog-title">Lade dein Addressbuch von <span class="service-name">{{ctrl.serviceName}}</span></div>
+        <md-dialog-content class="md-dialog-content ely-dialog-content">
+            <div id="dialog-container">
+                <md-input-container class="input-element md-block">
+                    <label>Email</label>
+                    <input required type="email" name="username" id="username" aria-label="Email"
+                           ng-model="ctrl.username" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
+
+                    <div ng-messages="ctrl.basicAuthForm.username.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                        <div ng-message="email">Keine gültige E-Mail Adresse!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="input-element md-block">
+                    <label>Passwort</label>
+                    <input type="password" required name="password" id="password" aria-label="Passwort" md-autofocus
+                           ng-model="ctrl.password" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
+
+                    <div ng-messages="ctrl.basicAuthForm.password.$error">
+                        <div ng-message="required">Wird benötigt!</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.loadAddressBook()"
+                       ng-disabled="ctrl.basicAuthForm.$invalid">Addressbuch laden
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</div>
