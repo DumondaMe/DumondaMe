@@ -1,5 +1,6 @@
 #invite-friends-dialog {
   .ely-import-container {
+    margin-bottom: 12px;
     .source-container {
       margin-bottom: 6px;
       cursor: pointer;
@@ -7,6 +8,14 @@
         margin-right: 12px;
         height: 24px;
         width: 24px;
+        @media screen and (min-width: $gt-xs) {
+          height: 48px;
+          width: 48px;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+        }
       }
       .source-description {
         font-size: 14px;
@@ -14,6 +23,10 @@
         color: $primary-text;
         font-weight: 500;
         vertical-align: middle;
+        @media screen and (min-width: $gt-xs) {
+          font-size: 18px;
+          line-height: 48px;
+        }
       }
     }
     .source-container:hover {

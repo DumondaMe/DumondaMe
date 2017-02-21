@@ -53,21 +53,34 @@
   #invite-friends-dialog .load-screen-container .ely-loading-screen {
     height: 200px; }
 
-#invite-friends-dialog .ely-import-container .source-container {
-  margin-bottom: 6px;
-  cursor: pointer; }
-  #invite-friends-dialog .ely-import-container .source-container .image-container {
-    margin-right: 12px;
-    height: 24px;
-    width: 24px; }
-  #invite-friends-dialog .ely-import-container .source-container .source-description {
-    font-size: 14px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.87);
-    font-weight: 500;
-    vertical-align: middle; }
-#invite-friends-dialog .ely-import-container .source-container:hover {
-  text-decoration: underline; }
+#invite-friends-dialog .ely-import-container {
+  margin-bottom: 12px; }
+  #invite-friends-dialog .ely-import-container .source-container {
+    margin-bottom: 6px;
+    cursor: pointer; }
+    #invite-friends-dialog .ely-import-container .source-container .image-container {
+      margin-right: 12px;
+      height: 24px;
+      width: 24px; }
+      @media screen and (min-width: 600px) {
+        #invite-friends-dialog .ely-import-container .source-container .image-container {
+          height: 48px;
+          width: 48px; } }
+      #invite-friends-dialog .ely-import-container .source-container .image-container img {
+        height: 100%;
+        width: 100%; }
+    #invite-friends-dialog .ely-import-container .source-container .source-description {
+      font-size: 14px;
+      line-height: 24px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
+      vertical-align: middle; }
+      @media screen and (min-width: 600px) {
+        #invite-friends-dialog .ely-import-container .source-container .source-description {
+          font-size: 18px;
+          line-height: 48px; } }
+  #invite-friends-dialog .ely-import-container .source-container:hover {
+    text-decoration: underline; }
 
 #move-contact .ely-dialog-title {
   margin-bottom: 32px; }

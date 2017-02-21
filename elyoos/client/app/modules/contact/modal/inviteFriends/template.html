@@ -4,14 +4,16 @@
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div id="contact-import-source-container" ng-hide="ctrl.contacts.addresses.length > 0 || ctrl.importStarted">
                 <div class="title">Kontakte importieren von:</div>
-                <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
-                                  contacts="ctrl.contacts"></ely-import-gmail>
-                <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
-                                  contacts="ctrl.contacts"></ely-import-outlook>
-                <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
-                                    contacts="ctrl.contacts"></ely-import-yahoo>
-                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx"></ely-import-gmx>
-                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe"></ely-import-web-de>
+                <div layout="row" layout-wrap>
+                    <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                      contacts="ctrl.contacts"></ely-import-gmail>
+                    <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                        contacts="ctrl.contacts"></ely-import-outlook>
+                    <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                      contacts="ctrl.contacts"></ely-import-yahoo>
+                    <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"></ely-import-gmx>
+                    <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"></ely-import-web-de>
+                </div>
             </div>
             <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
