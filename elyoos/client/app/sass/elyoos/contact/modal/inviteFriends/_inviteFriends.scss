@@ -4,7 +4,18 @@
     margin-bottom: 0;
     border-bottom: 1px solid $divider;
   }
+  #add-contact-container {
+    padding: 0 24px;
+    min-height: 70px;
+    #ely-contact-input {
+      margin-bottom: 0;
+    }
+    #add-email-image-icon {
+      padding-left: 12px;
+    }
+  }
   .ely-dialog-content {
+    padding-top: 0;
     #contact-import-source-container {
       .title {
         font-size: 14px;
@@ -14,6 +25,7 @@
       }
     }
     #contact-list-container {
+      overflow-y: auto;
       .contact-list-element {
         margin-bottom: 8px;
         .name {

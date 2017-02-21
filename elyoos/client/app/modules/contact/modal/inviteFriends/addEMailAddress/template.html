@@ -1,0 +1,21 @@
+<div id="add-email-container">
+    <form name="ctrl.addEmailAddressForm" layout="row">
+        <div flex>
+            <md-input-container class="input-element md-block" id="ely-contact-input">
+                <label>E-Mail-Addressen hinzufügen</label>
+                <input name="user" id="emailAddresses" aria-label="Email"
+                       ng-model="ctrl.newEmailAddresses">
+
+                <div ng-messages="ctrl.addEmailAddressForm.emailAddresses.$error">
+                    <div ng-message="ely-custom-message">Ungültige E-Mail-Addressen</div>
+                </div>
+            </md-input-container>
+        </div>
+        <div flex="none" id="add-email-image-icon">
+            <md-button class="md-fab md-mini" aria-label="Add email addresses" ng-click="ctrl.addEmailAddress()"
+                       ng-disabled="!ctrl.emailAddressIsValid">
+                <md-icon md-svg-icon="navFAB:add" class="icon"></md-icon>
+            </md-button>
+        </div>
+    </form>
+</div>

@@ -1,6 +1,7 @@
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
     <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
+        <ely-import-add-email-address ng-hide="ctrl.importStarted"></ely-import-add-email-address>
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div id="contact-import-source-container" ng-hide="ctrl.contacts.addresses.length > 0 || ctrl.importStarted">
                 <div class="title">Kontakte importieren von:</div>
@@ -32,7 +33,7 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
-            <md-button class="md-raised md-primary" ng-click="" ng-disable="ctrl.uploadStarted || ">Einladen</md-button>
+            <md-button class="md-raised md-primary" ng-click="" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
         </md-dialog-actions>
     </form>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"

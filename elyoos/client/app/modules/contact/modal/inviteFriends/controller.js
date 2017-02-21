@@ -4,6 +4,7 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
     function (ElyModal, ImportGmxContacts, ImportWebDeContacts) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
+        ctrl.emailAddressIsValid = false;
 
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
