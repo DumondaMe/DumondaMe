@@ -1,11 +1,13 @@
 <div class="ely-import-basic-auth">
     <form name="ctrl.basicAuthForm" ng-cloak>
-        <div class="md-title ely-dialog-title">Lade dein Addressbuch von <span class="service-name">{{ctrl.serviceName}}</span></div>
+        <input style="display:none" type="email" name="fakeusernameremembered"/>
+        <input style="display:none" type="password" name="fakepasswordremembered"/>
+        <div class="md-title ely-dialog-title">Lade dein <span class="service-name">{{ctrl.serviceName}}</span> Addressbuch</div>
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div id="dialog-container">
                 <md-input-container class="input-element md-block">
                     <label>Email</label>
-                    <input required type="email" name="username" id="username" aria-label="Email"
+                    <input required type="email" name="user" id="user" aria-label="Email"
                            ng-model="ctrl.username" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
 
                     <div ng-messages="ctrl.basicAuthForm.username.$error">
@@ -15,10 +17,10 @@
                 </md-input-container>
                 <md-input-container class="input-element md-block">
                     <label>Passwort</label>
-                    <input type="password" required name="password" id="password" aria-label="Passwort" md-autofocus
+                    <input type="password" required name="password" id="pass" aria-label="Passwort"
                            ng-model="ctrl.password" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
 
-                    <div ng-messages="ctrl.basicAuthForm.password.$error">
+                    <div ng-messages="ctrl.basicAuthForm.pass.$error">
                         <div ng-message="required">Wird benötigt!</div>
                     </div>
                 </md-input-container>

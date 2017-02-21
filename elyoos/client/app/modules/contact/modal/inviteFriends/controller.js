@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['ElyModal', 'ImportGmxContacts',
-    function (ElyModal, ImportGmxContacts) {
+module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
+    function (ElyModal, ImportGmxContacts, ImportWebDeContacts) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
 
@@ -18,6 +18,13 @@ module.exports = ['ElyModal', 'ImportGmxContacts',
             ctrl.basicAuthService = ImportGmxContacts;
             ctrl.showBasicAuth = true;
         };
+
+        ctrl.openBasicAuthWebDe = function () {
+            ctrl.basicAuthName = 'WEB.DE';
+            ctrl.basicAuthService = ImportWebDeContacts;
+            ctrl.showBasicAuth = true;
+        };
+
         ctrl.closeBasicAuth = function () {
             ctrl.showBasicAuth = false;
         };

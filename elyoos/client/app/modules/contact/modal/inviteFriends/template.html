@@ -11,6 +11,7 @@
                 <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish"
                                     contacts="ctrl.contacts"></ely-import-yahoo>
                 <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx"></ely-import-gmx>
+                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe"></ely-import-web-de>
             </div>
             <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">

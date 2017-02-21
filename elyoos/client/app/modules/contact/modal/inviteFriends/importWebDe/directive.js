@@ -11,8 +11,8 @@ module.exports = {
             bindToController: {
                 openBasicAuth: '='
             },
-            templateUrl: 'app/modules/contact/modal/inviteFriends/importGmx/template.html'
+            templateUrl: 'app/modules/contact/modal/inviteFriends/importWebDe/template.html'
         };
     }],
-    name: 'elyImportGmx'
+    name: 'elyImportWebDe'
 };
