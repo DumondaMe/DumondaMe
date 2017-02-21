@@ -12,6 +12,16 @@
     #dialog-container {
       max-width: 250px;
       margin: 0 auto;
+      #ely-import-info {
+        font-size: 14px;
+        font-weight: 500;
+        color: $secondary-text;
+      }
+    }
+    #error-message {
+      font-size: 12px;
+      font-weight: 500;
+      color: $error-text;
     }
   }
 }

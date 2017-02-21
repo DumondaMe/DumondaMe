@@ -6,7 +6,7 @@
         <md-dialog-content class="md-dialog-content ely-dialog-content">
             <div id="dialog-container">
                 <md-input-container class="input-element md-block">
-                    <label>Email</label>
+                    <label>Deine E-Mail-Adresse von {{ctrl.serviceName}}</label>
                     <input required type="email" name="user" id="user" aria-label="Email"
                            ng-model="ctrl.username" ng-disabled="ctrl.uploadRunning" md-no-asterisk>
 
@@ -24,10 +24,15 @@
                         <div ng-message="required">Wird benötigt!</div>
                     </div>
                 </md-input-container>
+                <div id="ely-import-info">
+                    Deine Logindaten werden von Elyoos nicht gespeichert. Diese Informationen werden lediglich benötigt um das Addressbuch zu laden.
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
+            <div id="error-message">{{ctrl.errorMessage}}</div>
+            <span flex></span>
+            <md-button ng-click="ctrl.finish()">Zurück</md-button>
             <md-button class="md-raised md-primary" ng-click="ctrl.loadAddressBook()"
                        ng-disabled="ctrl.basicAuthForm.$invalid">Addressbuch laden
             </md-button>

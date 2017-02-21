@@ -3,6 +3,7 @@
 let xpath = require('xpath');
 let dom = require('xmldom').DOMParser;
 let rp = require('request-promise');
+let exception = require('elyoos-server-lib').exceptions;
 
 let getAddressUrl = function (username, password, baseUrl) {
     let option = {
@@ -15,14 +16,19 @@ let getAddressUrl = function (username, password, baseUrl) {
         headers: {
             'Depth': 0,
             'Content-Type': 'text/xml ; charset=utf-8'
-        }/*,
-         body: `<d:propfind xmlns:d=\"DAV:\" xmlns:cs=\"https://${baseUrl}/ns/\"><d:prop><d:displayname /><cs:getctag /></d:prop></d:propfind>`*/
+        }
     };
     return rp(option).then(function (resp) {
         let doc = new dom().parseFromString(resp);
         let select = xpath.useNamespaces({"C": "urn:ietf:params:xml:ns:carddav"});
         let defaultAddressBook = select("//C:default-addressbook-URL/*/text()", doc);
         return defaultAddressBook[0].data;
+    }).catch(function (err) {
+        if(err.statusCode === 401) {
+            throw new exception.InvalidAuthentication(`Authentication failed to ${username}`);
+        } else {
+            throw err;
+        }
     });
 };
 

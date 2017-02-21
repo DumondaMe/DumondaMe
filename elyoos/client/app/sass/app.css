@@ -33,6 +33,14 @@
 #invite-friends-dialog .ely-import-basic-auth #dialog-container {
   max-width: 250px;
   margin: 0 auto; }
+  #invite-friends-dialog .ely-import-basic-auth #dialog-container #ely-import-info {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54); }
+#invite-friends-dialog .ely-import-basic-auth #error-message {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ff5722; }
 
 #invite-friends-dialog .ely-dialog-title {
   padding: 16px 24px;
