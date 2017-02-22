@@ -1,27 +1,18 @@
 'use strict';
 
-module.exports = ['$window', 'ImportYahooContacts', 'ImportYahooCodeParser', 'SourceImportModification', 'OAUTH_YAHOO_URL',
-    function ($window, ImportYahooContacts, ImportYahooCodeParser, SourceImportModification, OAUTH_YAHOO_URL) {
-        var ctrl = this;
+module.exports = ['$scope', '$interval',  'ImportYahooContacts', 'ImportYahooCodeParser', 'SourceImportModification', 'OAUTH_YAHOO_URL', 'OAuthOpenWindow',
+    function ($scope, $interval, ImportYahooContacts, ImportYahooCodeParser, SourceImportModification, OAUTH_YAHOO_URL, OAuthOpenWindow) {
+        var ctrl = this, intervalCheckWindow;
 
         ctrl.openYahoo = function () {
-            var newWindow = $window.open(OAUTH_YAHOO_URL, 'name',
-                'height=600,width=450');
-            if (angular.isFunction(newWindow.focus)) {
-                newWindow.focus();
-            }
-            ctrl.importStarted();
-            $window.elyChildWindowUrl = function (newUrl) {
-                if (angular.isString(newUrl)) {
-                    ctrl.yahooContacts = ImportYahooContacts.get({code: ImportYahooCodeParser.parseYahooUrl(newUrl)}, function () {
-                        SourceImportModification.addSourceDescription(ctrl.yahooContacts.addresses, 'Yahoo');
-                        ctrl.contacts.addresses = ctrl.contacts.addresses.concat(ctrl.yahooContacts.addresses);
-                        ctrl.importFinish(null, 'yahoo');
-                    }, function () {
-                        ctrl.importFinish();
-                    });
-                }
-            };
+            intervalCheckWindow = OAuthOpenWindow.open(OAUTH_YAHOO_URL, ctrl.importFinish, ctrl.importStarted, ctrl.contacts,
+                ImportYahooContacts, ImportYahooCodeParser, 'yahoo', 'Yahoo');
         };
+
+        $scope.$on('$destroy', function () {
+            if (angular.isDefined(intervalCheckWindow)) {
+                $interval.cancel(intervalCheckWindow);
+            }
+        });
     }];
 
