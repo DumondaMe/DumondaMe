@@ -1,6 +1,9 @@
 #invite-friends-dialog {
   .ely-import-container {
-    margin-bottom: 12px;
+    margin-bottom: 6px;
+    @media screen and (min-width: $gt-xs) {
+      margin-bottom: 12px;
+    }
     .source-container {
       margin-bottom: 6px;
       cursor: pointer;

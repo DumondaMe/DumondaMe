@@ -24,13 +24,14 @@
   #add-contact .ely-dialog-title {
     margin-bottom: 32px; }
 
-#invite-friends-dialog #add-email-container {
-  padding: 0 24px;
-  min-height: 70px; }
-  #invite-friends-dialog #add-email-container #ely-contact-input {
-    margin-bottom: 0; }
-  #invite-friends-dialog #add-email-container #add-email-image-icon {
-    padding-left: 12px; }
+@media screen and (min-width: 600px) {
+  #invite-friends-dialog #add-email-container {
+    min-width: 400px; } }
+#invite-friends-dialog #add-email-container #overview-valid-email-container .valid-email {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 6px; }
 
 @media screen and (min-width: 600px) {
   #invite-friends-dialog .ely-import-basic-auth {
@@ -50,25 +51,26 @@
   font-weight: 500;
   color: #ff5722; }
 
+@media screen and (max-width: 600px) {
+  #invite-friends-dialog {
+    max-height: 95%; } }
 #invite-friends-dialog .ely-dialog-title {
   padding: 16px 24px;
   margin-bottom: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-#invite-friends-dialog #add-contact-container {
-  padding: 0 24px;
-  min-height: 70px; }
-  #invite-friends-dialog #add-contact-container #ely-contact-input {
-    margin-bottom: 0; }
-  #invite-friends-dialog #add-contact-container #add-email-image-icon {
-    padding-left: 12px; }
-#invite-friends-dialog .ely-dialog-content {
-  padding-top: 0; }
-  #invite-friends-dialog .ely-dialog-content #contact-import-source-container .title {
+#invite-friends-dialog #contact-import-source-container {
+  padding: 12px 24px 24px 24px; }
+  #invite-friends-dialog #contact-import-source-container .title {
     font-size: 14px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.54);
     margin-bottom: 12px; }
+  #invite-friends-dialog #contact-import-source-container #open-custom-emails {
+    margin-left: 0; }
+#invite-friends-dialog .ely-dialog-content {
+  padding-top: 0; }
   #invite-friends-dialog .ely-dialog-content #contact-list-container {
+    padding-top: 18px;
     overflow-y: auto; }
     #invite-friends-dialog .ely-dialog-content #contact-list-container .contact-list-element {
       margin-bottom: 8px; }
@@ -81,7 +83,10 @@
     height: 200px; }
 
 #invite-friends-dialog .ely-import-container {
-  margin-bottom: 12px; }
+  margin-bottom: 6px; }
+  @media screen and (min-width: 600px) {
+    #invite-friends-dialog .ely-import-container {
+      margin-bottom: 12px; } }
   #invite-friends-dialog .ely-import-container .source-container {
     margin-bottom: 6px;
     cursor: pointer; }

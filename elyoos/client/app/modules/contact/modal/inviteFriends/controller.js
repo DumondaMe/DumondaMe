@@ -5,6 +5,7 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.emailAddressIsValid = false;
+        ctrl.contacts = {addresses: []};
 
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
@@ -42,6 +43,15 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
             else {
                 selectedList.push(item);
             }
+        };
+
+        ctrl.addEmails = function (emails) {
+            ctrl.contacts.addresses = ctrl.contacts.addresses.concat(emails);
+            ctrl.showAddEmails = false;
+        };
+
+        ctrl.closeAddCustomEmails = function () {
+            ctrl.showAddEmails = false;
         };
 
         ctrl.cancel = function () {

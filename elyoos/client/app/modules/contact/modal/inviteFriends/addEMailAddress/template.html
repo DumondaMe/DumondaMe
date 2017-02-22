@@ -1,21 +1,29 @@
 <div id="add-email-container">
-    <form name="ctrl.addEmailAddressForm" layout="row">
-        <div flex>
-            <md-input-container class="input-element md-block" id="ely-contact-input">
-                <label>E-Mail-Addressen hinzufügen</label>
-                <input name="user" id="emailAddresses" aria-label="Email"
-                       ng-model="ctrl.newEmailAddresses">
+    <form name="ctrl.addEmailAddressForm">
+        <div class="md-title ely-dialog-title">E-Mail-Addressen hinzufügen</div>
+        <md-dialog-content>
+            <div class="md-dialog-content ely-dialog-content">
+                <md-input-container class="input-element md-block" id="ely-contact-input">
+                    <label>E-Mail-Addressen</label>
+                    <textarea name="emailAddresses" id="emailAddresses" aria-label="Email" ng-change="ctrl.emailChanged()"
+                              ng-model="ctrl.newEmailAddresses" max-rows="7"></textarea>
 
-                <div ng-messages="ctrl.addEmailAddressForm.emailAddresses.$error">
-                    <div ng-message="ely-custom-message">Ungültige E-Mail-Addressen</div>
+                    <div ng-messages="ctrl.addEmailAddressForm.emailAddresses.$error">
+                        <div ng-message="ely-custom-message">Ungültige E-Mail-Addressen</div>
+                    </div>
+                </md-input-container>
+                <div id="overview-valid-email-container">
+                    <div ng-repeat="email in ctrl.overviewValidEmails" class="valid-email">
+                        {{email.email}}
+                    </div>
                 </div>
-            </md-input-container>
-        </div>
-        <div flex="none" id="add-email-image-icon">
-            <md-button class="md-fab md-mini" aria-label="Add email addresses" ng-click="ctrl.addEmailAddress()"
-                       ng-disabled="!ctrl.emailAddressIsValid">
-                <md-icon md-svg-icon="navFAB:add" class="icon"></md-icon>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="ctrl.cancel()">Zurück</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.addEmailAddresses()"
+                       ng-disabled="!ctrl.emailAddressIsValid">Hinzufügen
             </md-button>
-        </div>
+        </md-dialog-actions>
     </form>
 </div>

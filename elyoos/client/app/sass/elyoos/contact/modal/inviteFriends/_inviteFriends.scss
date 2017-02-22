@@ -1,30 +1,28 @@
 #invite-friends-dialog {
+  @media screen and (max-width: $gt-xs) {
+    max-height: 95%;
+  }
   .ely-dialog-title {
     padding: 16px 24px;
     margin-bottom: 0;
     border-bottom: 1px solid $divider;
   }
-  #add-contact-container {
-    padding: 0 24px;
-    min-height: 70px;
-    #ely-contact-input {
-      margin-bottom: 0;
+  #contact-import-source-container {
+    padding: 12px 24px 24px 24px;
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: $secondary-text;
+      margin-bottom: 12px;
     }
-    #add-email-image-icon {
-      padding-left: 12px;
+    #open-custom-emails {
+      margin-left: 0;
     }
   }
   .ely-dialog-content {
     padding-top: 0;
-    #contact-import-source-container {
-      .title {
-        font-size: 14px;
-        font-weight: 700;
-        color: $secondary-text;
-        margin-bottom: 12px;
-      }
-    }
     #contact-list-container {
+      padding-top: 18px;
       overflow-y: auto;
       .contact-list-element {
         margin-bottom: 8px;

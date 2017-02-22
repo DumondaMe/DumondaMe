@@ -9,7 +9,8 @@ module.exports = {
             controller: require('./controller.js'),
             controllerAs: 'ctrl',
             bindToController: {
-
+                addedEmails: '=',
+                cancel: '='
             },
             templateUrl: 'app/modules/contact/modal/inviteFriends/addEMailAddress/template.html'
         };

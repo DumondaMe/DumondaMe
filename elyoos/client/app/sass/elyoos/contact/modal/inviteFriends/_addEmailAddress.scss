@@ -1,12 +1,15 @@
 #invite-friends-dialog {
   #add-email-container {
-    padding: 0 24px;
-    min-height: 70px;
-    #ely-contact-input {
-      margin-bottom: 0;
+    @media screen and (min-width: $gt-xs) {
+      min-width: 400px;
     }
-    #add-email-image-icon {
-      padding-left: 12px;
+    #overview-valid-email-container {
+      .valid-email {
+        font-size: 14px;
+        font-weight: 500;
+        color: $secondary-text;
+        margin-bottom: 6px;
+      }
     }
   }
 }

@@ -1,22 +1,29 @@
 <md-dialog id="invite-friends-dialog" aria-label="Invite Friends">
-    <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth">
+    <form name="ctrl.addContactForm" ng-cloak ng-if="!ctrl.showBasicAuth && !ctrl.showAddEmails">
         <div class="md-title ely-dialog-title">Freund einladen um auf Elyoos ein Konto zu erstellen</div>
-        <ely-import-add-email-address ng-hide="ctrl.importStarted"></ely-import-add-email-address>
-        <md-dialog-content class="md-dialog-content ely-dialog-content">
-            <div id="contact-import-source-container" ng-hide="ctrl.contacts.addresses.length > 0 || ctrl.importStarted">
-                <div class="title">Kontakte importieren von:</div>
-                <div layout="row" layout-wrap>
-                    <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                      contacts="ctrl.contacts"></ely-import-gmail>
-                    <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                        contacts="ctrl.contacts"></ely-import-outlook>
-                    <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                      contacts="ctrl.contacts"></ely-import-yahoo>
-                    <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"></ely-import-gmx>
-                    <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"></ely-import-web-de>
+        <div id="contact-import-source-container" ng-hide="ctrl.importStarted">
+            <div class="title" hide show-gt-xs>Importieren von:</div>
+            <div layout="row" layout-wrap>
+                <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                  contacts="ctrl.contacts"></ely-import-gmail>
+                <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                    contacts="ctrl.contacts"></ely-import-outlook>
+                <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
+                                  contacts="ctrl.contacts"></ely-import-yahoo>
+                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"></ely-import-gmx>
+                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"></ely-import-web-de>
+                <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
+                    <md-button class="md-raised md-primary" id="open-custom-emails" ng-click="ctrl.showAddEmails = true">
+                        Sonstige E-Mail-Addressen
+                    </md-button>
                 </div>
             </div>
-            <div id="contact-list-container" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
+        </div>
+        <div ng-show="ctrl.importStarted" class="load-screen-container">
+            <ely-load-screen></ely-load-screen>
+        </div>
+        <md-dialog-content class="md-dialog-content ely-dialog-content" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
+            <div id="contact-list-container">
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
                     <div>
                         <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
@@ -27,15 +34,13 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="ctrl.importStarted" class="load-screen-container">
-                <ely-load-screen></ely-load-screen>
-            </div>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-raised md-primary" ng-click="" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
         </md-dialog-actions>
     </form>
+    <ely-import-add-email-address ng-if="ctrl.showAddEmails" added-emails="ctrl.addEmails" cancel="ctrl.closeAddCustomEmails"></ely-import-add-email-address>
     <ely-import-basic-auth ng-if="ctrl.showBasicAuth" service-name="{{ctrl.basicAuthName}}" service="ctrl.basicAuthService"
                            finish="ctrl.closeBasicAuth" contacts="ctrl.contacts"></ely-import-basic-auth>
     <md-progress-linear ng-if="ctrl.uploadStarted" md-mode="indeterminate"></md-progress-linear>
