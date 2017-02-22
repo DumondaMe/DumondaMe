@@ -5,16 +5,18 @@
             <div class="title" hide show-gt-xs>Importieren von:</div>
             <div layout="row" layout-wrap>
                 <ely-import-gmail import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                  contacts="ctrl.contacts"></ely-import-gmail>
+                                  contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('gmail')"></ely-import-gmail>
                 <ely-import-outlook import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                    contacts="ctrl.contacts"></ely-import-outlook>
+                                    contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('outlook')"></ely-import-outlook>
                 <ely-import-yahoo import-started="ctrl.sourceImportStarted" import-finish="ctrl.sourceImportFinish" flex="50" flex-gt-sm="33"
-                                  contacts="ctrl.contacts"></ely-import-yahoo>
-                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"></ely-import-gmx>
-                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"></ely-import-web-de>
+                                  contacts="ctrl.contacts" ng-hide="ctrl.successfullyImportedServices.includes('yahoo')"></ely-import-yahoo>
+                <ely-import-gmx open-basic-auth="ctrl.openBasicAuthGmx" flex="50" flex-gt-sm="33"
+                                ng-hide="ctrl.successfullyImportedServices.includes('GMX')"></ely-import-gmx>
+                <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
+                                   ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
                 <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
                     <md-button class="md-raised md-primary" id="open-custom-emails" ng-click="ctrl.showAddEmails = true">
-                        Sonstige E-Mail-Addressen
+                        E-Mail erfassen
                     </md-button>
                 </div>
             </div>
@@ -29,7 +31,9 @@
                         <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"
                                      aria-label="Select Email {{contact.email}}">
                             {{contact.email}} <br/>
-                            <span class="name">{{contact.name}}</span>
+                            <span class="name">{{contact.name}}
+                                <span ng-if="contact.sourceImportDescription">(Importiert von {{contact.sourceImportDescription}})</span>
+                            </span>
                         </md-checkbox>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$window', 'ImportYahooContacts', 'ImportYahooCodeParser',
-    function ($window, ImportYahooContacts, ImportYahooCodeParser) {
+module.exports = ['$window', 'ImportYahooContacts', 'ImportYahooCodeParser', 'SourceImportModification',
+    function ($window, ImportYahooContacts, ImportYahooCodeParser, SourceImportModification) {
         var ctrl = this;
 
         ctrl.openYahoo = function () {
@@ -13,8 +13,10 @@ module.exports = ['$window', 'ImportYahooContacts', 'ImportYahooCodeParser',
             ctrl.importStarted();
             $window.elyChildWindowUrl = function (newUrl) {
                 if (angular.isString(newUrl)) {
-                    ctrl.contacts = ImportYahooContacts.get({code: ImportYahooCodeParser.parseYahooUrl(newUrl)}, function () {
-                        ctrl.importFinish();
+                    ctrl.yahooContacts = ImportYahooContacts.get({code: ImportYahooCodeParser.parseYahooUrl(newUrl)}, function () {
+                        SourceImportModification.addSourceDescription(ctrl.yahooContacts.addresses, 'Yahoo');
+                        ctrl.contacts.addresses = ctrl.contacts.addresses.concat(ctrl.yahooContacts.addresses);
+                        ctrl.importFinish(null, 'yahoo');
                     }, function () {
                         ctrl.importFinish();
                     });

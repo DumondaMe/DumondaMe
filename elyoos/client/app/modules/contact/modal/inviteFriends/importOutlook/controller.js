@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$window', 'ImportOutlookContacts', 'ImportOutlookCodeParser',
-    function ($window, ImportOutlookContacts, ImportOutlookCodeParser) {
+module.exports = ['$window', 'ImportOutlookContacts', 'ImportOutlookCodeParser', 'SourceImportModification',
+    function ($window, ImportOutlookContacts, ImportOutlookCodeParser, SourceImportModification) {
         var ctrl = this;
 
         ctrl.openOutlook = function () {
@@ -13,8 +13,10 @@ module.exports = ['$window', 'ImportOutlookContacts', 'ImportOutlookCodeParser',
             ctrl.importStarted();
             $window.elyChildWindowUrl = function (newUrl) {
                 if (angular.isString(newUrl)) {
-                    ctrl.contacts = ImportOutlookContacts.get({code: ImportOutlookCodeParser.parseOutlookUrl(newUrl)}, function () {
-                        ctrl.importFinish();
+                    ctrl.outlookContacts = ImportOutlookContacts.get({code: ImportOutlookCodeParser.parseOutlookUrl(newUrl)}, function () {
+                        SourceImportModification.addSourceDescription(ctrl.outlookContacts.addresses, 'Outlook.com');
+                        ctrl.contacts.addresses = ctrl.contacts.addresses.concat(ctrl.outlookContacts.addresses);
+                        ctrl.importFinish(null, 'outlook');
                     }, function () {
                         ctrl.importFinish();
                     });

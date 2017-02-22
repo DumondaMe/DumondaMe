@@ -4,15 +4,20 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
     function (ElyModal, ImportGmxContacts, ImportWebDeContacts) {
         var ctrl = this;
         ctrl.selectedAddresses = [];
+        ctrl.successfullyImportedServices = [];
         ctrl.emailAddressIsValid = false;
         ctrl.contacts = {addresses: []};
-
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
         };
 
-        ctrl.sourceImportFinish = function () {
+        ctrl.sourceImportFinish = function (err, importSource) {
             ctrl.importStarted = false;
+            if (err) {
+
+            } else {
+                ctrl.successfullyImportedServices.push(importSource);
+            }
         };
 
         ctrl.openBasicAuthGmx = function () {
@@ -27,8 +32,11 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
             ctrl.showBasicAuth = true;
         };
 
-        ctrl.closeBasicAuth = function () {
+        ctrl.closeBasicAuth = function (importSource) {
             ctrl.showBasicAuth = false;
+            if (angular.isString(importSource)) {
+                ctrl.successfullyImportedServices.push(importSource);
+            }
         };
 
         ctrl.emailExists = function (item, selectedList) {

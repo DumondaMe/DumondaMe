@@ -54,6 +54,12 @@
 @media screen and (max-width: 600px) {
   #invite-friends-dialog {
     max-height: 95%; } }
+@media screen and (min-width: 600px) {
+  #invite-friends-dialog {
+    min-width: 550px; } }
+@media screen and (min-width: 960px) {
+  #invite-friends-dialog {
+    min-width: 800px; } }
 #invite-friends-dialog .ely-dialog-title {
   padding: 16px 24px;
   margin-bottom: 0;

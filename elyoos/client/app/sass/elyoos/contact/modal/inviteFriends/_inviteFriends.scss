@@ -2,6 +2,12 @@
   @media screen and (max-width: $gt-xs) {
     max-height: 95%;
   }
+  @media screen and (min-width: $gt-xs) {
+    min-width: 550px;
+  }
+  @media screen and (min-width: $gt-sm) {
+    min-width: 800px;
+  }
   .ely-dialog-title {
     padding: 16px 24px;
     margin-bottom: 0;

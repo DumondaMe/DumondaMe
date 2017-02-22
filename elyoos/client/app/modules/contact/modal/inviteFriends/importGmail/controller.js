@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = ['$window', 'ImportGmailContacts', 'ImportGmailCodeParser',
-    function ($window, ImportGmailContacts, ImportGmailCodeParser) {
+module.exports = ['$window', 'ImportGmailContacts', 'ImportGmailCodeParser', 'SourceImportModification',
+    function ($window, ImportGmailContacts, ImportGmailCodeParser, SourceImportModification) {
         var ctrl = this;
 
         ctrl.openGmail = function () {
@@ -12,8 +12,10 @@ module.exports = ['$window', 'ImportGmailContacts', 'ImportGmailCodeParser',
             }
             ctrl.importStarted();
             $window.elyChildWindowUrl = function (newUrl) {
-                ctrl.contacts = ImportGmailContacts.get({code: ImportGmailCodeParser.parseGoogleUrl(newUrl)}, function () {
-                    ctrl.importFinish();
+                ctrl.gmailContacts = ImportGmailContacts.get({code: ImportGmailCodeParser.parseGoogleUrl(newUrl)}, function () {
+                    SourceImportModification.addSourceDescription(ctrl.gmailContacts.addresses, 'Gmail');
+                    ctrl.contacts.addresses = ctrl.contacts.addresses.concat(ctrl.gmailContacts.addresses);
+                    ctrl.importFinish(null, 'gmail');
                 }, function () {
                     ctrl.importFinish();
                 });
