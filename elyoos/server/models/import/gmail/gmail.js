@@ -6,9 +6,9 @@ let parser = require('./parser');
 let redirectUrl = 'http://localhost:8080/auth';
 
 if (process.env.NODE_ENV === 'production') {
-    redirectUrl = 'http://www.elyoos.org/auth';
+    redirectUrl = 'https://www.elyoos.org/auth';
 } else if (process.env.NODE_ENV === 'development') {
-    redirectUrl = 'http://preview.elyoos.org/auth';
+    redirectUrl = 'https://preview.elyoos.org/auth';
 }
 
 let getAccessToken = function (code) {

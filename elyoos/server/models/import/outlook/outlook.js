@@ -10,11 +10,11 @@ let redirectUrl = 'http://localhost:8080/auth';
 if (process.env.NODE_ENV === 'production') {
     clientId = '4604a845-acf0-4770-9a2c-6b0e19943b94';
     clientSecret = 'gQhRYcf7qdAxkxVmovJS0jA';
-    redirectUrl = 'http://www.elyoos.org/auth';
+    redirectUrl = 'https://www.elyoos.org/auth';
 } else if (process.env.NODE_ENV === 'development') {
     clientId = 'dd12544c-d6e4-4d3d-92b8-7b42941284e9';
     clientSecret = '2AU1gtcpfEa5ASOjByY1d47';
-    redirectUrl = 'http://preview.elyoos.org/auth';
+    redirectUrl = 'https://preview.elyoos.org/auth';
 }
 
 let getAccessToken = function (code) {
