@@ -16,7 +16,7 @@
                                    ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
                 <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
                     <md-button class="md-raised md-primary" id="open-custom-emails" ng-click="ctrl.showAddEmails = true">
-                        E-Mail erfassen
+                        E-Mail hinzufügen
                     </md-button>
                 </div>
             </div>
@@ -26,6 +26,11 @@
         </div>
         <md-dialog-content class="md-dialog-content ely-dialog-content" ng-show="ctrl.contacts.addresses.length > 0" && !ctrl.importStarted>
             <div id="contact-list-container">
+                <div class="contact-list-element select-all-element" ng-if="ctrl.contacts.addresses.length > 1">
+                    <md-checkbox ng-change="ctrl.toggleAllEmailSelections()" aria-label="Toggle Email" ng-model="ctrl.isSelectedAll">
+                        Alle E-Mail-Addressen auswählen
+                    </md-checkbox>
+                </div>
                 <div ng-repeat="contact in ctrl.contacts.addresses | orderBy:'email'" class="contact-list-element">
                     <div>
                         <md-checkbox ng-checked="ctrl.emailExists(contact, ctrl.selectedAddresses)" ng-click="ctrl.toggleEmail(contact, ctrl.selectedAddresses)"

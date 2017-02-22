@@ -83,6 +83,9 @@
       #invite-friends-dialog .ely-dialog-content #contact-list-container .contact-list-element .name {
         font-size: 12px;
         color: rgba(0, 0, 0, 0.54); }
+    #invite-friends-dialog .ely-dialog-content #contact-list-container .contact-list-element.select-all-element {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: 22px; }
 #invite-friends-dialog .load-screen-container {
   height: 200px; }
   #invite-friends-dialog .load-screen-container .ely-loading-screen {

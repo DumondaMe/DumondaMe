@@ -5,8 +5,9 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
         var ctrl = this;
         ctrl.selectedAddresses = [];
         ctrl.successfullyImportedServices = [];
-        ctrl.emailAddressIsValid = false;
+        ctrl.isSelectedAll = false;
         ctrl.contacts = {addresses: []};
+
         ctrl.sourceImportStarted = function () {
             ctrl.importStarted = true;
         };
@@ -16,6 +17,7 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
             if (err) {
 
             } else {
+                ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
             }
         };
@@ -35,6 +37,7 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
         ctrl.closeBasicAuth = function (importSource) {
             ctrl.showBasicAuth = false;
             if (angular.isString(importSource)) {
+                ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
                 ctrl.successfullyImportedServices.push(importSource);
             }
         };
@@ -53,8 +56,19 @@ module.exports = ['ElyModal', 'ImportGmxContacts', 'ImportWebDeContacts',
             }
         };
 
+        ctrl.toggleAllEmailSelections = function () {
+            ctrl.selectedAddresses = [];
+            if (ctrl.isSelectedAll) {
+                ctrl.contacts.addresses.forEach(function (address) {
+                    ctrl.selectedAddresses.push(address);
+                });
+            }
+        };
+
         ctrl.addEmails = function (emails) {
+            ctrl.selectedAddresses = ctrl.selectedAddresses.concat(emails);
             ctrl.contacts.addresses = ctrl.contacts.addresses.concat(emails);
+            ctrl.isSelectedAll = ctrl.contacts.addresses.length === ctrl.selectedAddresses.length;
             ctrl.showAddEmails = false;
         };
 

@@ -37,6 +37,10 @@
           color: $secondary-text;
         }
       }
+      .contact-list-element.select-all-element {
+        border-bottom: 1px solid $divider;
+        margin-bottom: 22px
+      }
     }
   }
   .load-screen-container {
