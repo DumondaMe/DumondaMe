@@ -5,10 +5,19 @@
     }
     #overview-valid-email-container {
       .valid-email {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 500;
         color: $secondary-text;
         margin-bottom: 6px;
+        .email-suggestion {
+          font-size: 14px;
+          .link {
+            text-decoration: underline;
+            font-style: italic;
+            cursor: pointer;
+            color: $primary-color;
+          }
+        }
       }
     }
   }
