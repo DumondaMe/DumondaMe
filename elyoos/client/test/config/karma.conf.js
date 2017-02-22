@@ -8,6 +8,7 @@ module.exports = function (config) {
             'app/lib/jquery/jquery.min.js',
             'app/lib/imageCrop/cropper.min.js',
             'app/lib/map/leaflet.js',
+            'app/lib/mailcheck/mailcheck.min.js',
             'app/lib/angular/angular.js',
             'app/lib/angular/angular-mocks.js',
             'app/modules/**/*.js',

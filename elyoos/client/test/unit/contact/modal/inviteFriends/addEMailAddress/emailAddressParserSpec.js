@@ -1,7 +1,8 @@
 'use strict';
 
-var Testee = require('../../../../../../app/modules/contact/modal/inviteFriends/addEMailAddress/services/emailAddressParser')[0];
-var testee = new Testee();
+var Testee = require('../../../../../../app/modules/contact/modal/inviteFriends/addEMailAddress/services/emailAddressParser')[1];
+var mailchecker = require('../../../../../../app/modules/util/mailcheck.js');
+var testee = new Testee(mailchecker());
 
 describe('Tests parsing email addresses', function () {
 
