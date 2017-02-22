@@ -15,9 +15,8 @@
                 <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
                                    ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
                 <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
-                    <md-button class="md-raised md-primary" id="open-custom-emails" ng-click="ctrl.showAddEmails = true">
-                        E-Mail hinzufügen
-                    </md-button>
+                    <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen"
+                                     ng-click="ctrl.showAddEmails = true"></ely-icon-button>
                 </div>
             </div>
         </div>
