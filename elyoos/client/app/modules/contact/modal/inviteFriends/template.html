@@ -44,8 +44,10 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <div id="select-info" ng-show="ctrl.selectedAddresses.length"><span id="select-number">{{ctrl.selectedAddresses.length}}</span>
-                <span hide show-gt-xs>E-Mail-Addressen </span> ausgewählt
+            <div id="select-info" ng-show="ctrl.selectedAddresses.length > 0">
+                <span id="select-number">{{ctrl.selectedAddresses.length}}</span>
+                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length === 1">E-Mail-Addresse </span>
+                <span hide show-gt-xs ng-if="ctrl.selectedAddresses.length > 1">E-Mail-Addressen </span> ausgewählt
             </div>
             <span flex></span>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
