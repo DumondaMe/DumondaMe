@@ -3,15 +3,29 @@
 let rp = require('request-promise');
 let parser = require('./parser');
 
+let clientId = 'fd3fdc4c-3601-42ec-a23b-2ba31eb4dc8b';
+let clientSecret = 'WNp2TaDo9jYpFb9LZKOdoku';
+let redirectUrl = 'http://localhost:8080/auth';
+
+if (process.env.NODE_ENV === 'production') {
+    clientId = '4604a845-acf0-4770-9a2c-6b0e19943b94';
+    clientSecret = 'gQhRYcf7qdAxkxVmovJS0jA';
+    redirectUrl = 'http://www.elyoos.org/auth';
+} else if (process.env.NODE_ENV === 'development') {
+    clientId = 'dd12544c-d6e4-4d3d-92b8-7b42941284e9';
+    clientSecret = '2AU1gtcpfEa5ASOjByY1d47';
+    redirectUrl = 'http://preview.elyoos.org/auth';
+}
+
 let getAccessToken = function (code) {
     let option = {
         method: 'POST',
         uri: `https://login.microsoftonline.com/common/oauth2/v2.0/token`,
         form: {
             code: code,
-            client_id: 'fd3fdc4c-3601-42ec-a23b-2ba31eb4dc8b',
-            client_secret: 'WNp2TaDo9jYpFb9LZKOdoku',
-            redirect_uri: 'http://localhost:8080/auth',
+            client_id: clientId,
+            client_secret: clientSecret,
+            redirect_uri: redirectUrl,
             grant_type: 'authorization_code'
         },
         headers: {
