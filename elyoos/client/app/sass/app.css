@@ -65,7 +65,7 @@
   margin-bottom: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 #invite-friends-dialog #contact-import-source-container {
-  padding: 12px 24px 24px 24px; }
+  padding: 12px 24px 0 24px; }
   #invite-friends-dialog #contact-import-source-container .title {
     font-size: 14px;
     font-weight: 700;
@@ -92,6 +92,14 @@
   height: 200px; }
   #invite-friends-dialog .load-screen-container .ely-loading-screen {
     height: 200px; }
+#invite-friends-dialog #select-info {
+  font-size: 12px; }
+  @media screen and (min-width: 600px) {
+    #invite-friends-dialog #select-info {
+      font-size: 14px; } }
+  #invite-friends-dialog #select-info #select-number {
+    font-weight: 500;
+    color: #3F51B5; }
 
 #invite-friends-dialog .ely-import-container {
   margin-bottom: 6px; }

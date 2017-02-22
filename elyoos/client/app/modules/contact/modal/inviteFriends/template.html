@@ -15,7 +15,7 @@
                 <ely-import-web-de open-basic-auth="ctrl.openBasicAuthWebDe" flex="50" flex-gt-sm="33"
                                    ng-hide="ctrl.successfullyImportedServices.includes('WEB.DE')"></ely-import-web-de>
                 <div flex="100" flex-gt-xs="50" flex-gt-sm="33">
-                    <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen"
+                    <ely-icon-button id="open-custom-emails" icon="navFAB:add" label="E-Mail hinzufügen" show-label-always="true"
                                      ng-click="ctrl.showAddEmails = true"></ely-icon-button>
                 </div>
             </div>
@@ -44,6 +44,10 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions>
+            <div id="select-info" ng-show="ctrl.selectedAddresses.length"><span id="select-number">{{ctrl.selectedAddresses.length}}</span>
+                <span hide show-gt-xs>E-Mail-Addressen </span> ausgewählt
+            </div>
+            <span flex></span>
             <md-button ng-click="ctrl.cancel()">Abbrechen</md-button>
             <md-button class="md-raised md-primary" ng-click="" ng-disabled="ctrl.selectedAddresses.length === 0">Einladen</md-button>
         </md-dialog-actions>
