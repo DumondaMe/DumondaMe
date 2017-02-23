@@ -43,6 +43,7 @@ module.exports = {
     setUserIsElyoosAdmin: user.setUserIsElyoosAdmin,
     createUser: user.createUser,
     blockUser: user.blockUser,
+    invitationSent: user.invitationSent,
     setRecommendedUserOnHomeScreen: user.setRecommendedUserOnHomeScreen,
     createPrivacy: user.createPrivacy,
     createPrivacyNoContact: user.createPrivacyNoContact,
